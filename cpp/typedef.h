@@ -20,34 +20,34 @@
 #define FD_TD( name ) \
   class wx##name; \
   typedef wx##name Wx_##name; \
-  extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
+  extern "C" WXPLDLL const char wxPl##name##Name[] = "Wx::" #name; 
 
 #define FD_TDS( name ) \
   struct wx##name; \
   typedef wx##name Wx_##name; \
-  extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
+  extern "C" WXPLDLL const char wxPl##name##Name[] = "Wx::" #name; 
 
 #define FD_TD_NAME( name, cls ) \
   class wx##cls; \
   typedef wx##cls Wx_##name; \
-  extern "C" const char wxPl##name##Name[] = "Wx::" #name;
+  extern "C" WXPLDLL const char wxPl##name##Name[] = "Wx::" #name;
 
 #else
-  
+
 #define FD_TD( name ) \
   class wx##name; \
   typedef wx##name Wx_##name; \
-  extern "C" const char wxPl##name##Name[];
+  extern "C" WXPLDLL const char wxPl##name##Name[];
 
 #define FD_TDS( name ) \
   struct wx##name; \
   typedef wx##name Wx_##name; \
-  extern "C" const char wxPl##name##Name[]; 
+  extern "C" WXPLDLL const char wxPl##name##Name[]; 
 
 #define FD_TD_NAME( name, cls ) \
   class wx##cls; \
   typedef wx##cls Wx_##name; \
-  extern "C" const char wxPl##name##Name[];
+  extern "C" WXPLDLL const char wxPl##name##Name[];
 
 #endif
 
@@ -244,6 +244,9 @@ FD_TD( TIFFHandler );
 #undef TD_TDS
 
 typedef int Wx_KeyCode;
+
+struct sv;
+typedef struct sv SV;
 typedef SV SV_null; // equal to SV except that maps C++ 0 <-> Perl undef
 
 #endif // _WXPERL_TYPEDEF_H

@@ -13,9 +13,7 @@
 #undef bool
 
 #include <wx/defs.h>
-
 #include <wx/window.h>
-
 #include <wx/module.h>
 
 #undef _
@@ -182,5 +180,11 @@ INCLUDE: XS/Timer.xs
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs
+
+#  //FIXME// tricky
+#if __WXMSW__
+#undef XS
+#define XS( name ) WXPLDLL void name( pTHXo_ CV* cv )
+#endif
 
 MODULE=Wx PACKAGE=Wx

@@ -52,7 +52,7 @@
 
 #define PL_na       na
 
-#define newSVuv( val ) newSViv( (IV)(UV)(val) )
+#define newSVuv( val ) ( newSViv( (IV)(UV)( val ) ) )
 #define SvPV_nolen( s ) SvPV( (s), PL_na )
 
 #endif
@@ -73,4 +73,15 @@
 
 #define CHAR_P
 
+#endif
+
+// Win32 dll stuff
+#if __WXMSW__
+#  if defined( WXPL_EXT )
+#    define WXPLDLL __declspec( dllimport )
+#  else
+#    define WXPLDLL __declspec( dllexport )
+#  endif
+#else
+#define WXPLDLL
 #endif

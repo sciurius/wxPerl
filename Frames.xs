@@ -25,6 +25,13 @@
 #undef Copy
 #undef New
 #undef Pause
+#if defined( __WXMSW__ )
+#undef read
+#undef write
+#undef eof
+#undef form
+#undef vform
+#endif
 
 #if __VISUALC__
 #pragma warning (disable: 4800 )

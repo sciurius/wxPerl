@@ -40,6 +40,9 @@
 
 #include <stdarg.h>
 
+#include "cpp/compat.h"
+#include "cpp/typedef.h"
+
 #undef _
 
 #include <EXTERN.h>
@@ -59,8 +62,8 @@
 #include <wx/msw/winundef.h>
 #endif // __WXMSW__
 
-#include "cpp/compat.h"
-#include "cpp/typedef.h"
+// #include "cpp/compat.h"
+// #include "cpp/typedef.h"
 #include "cpp/helpers.h"
 #include "cpp/v_cback.h"
 
