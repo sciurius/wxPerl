@@ -731,13 +731,17 @@ void
 Wx_Grid::ShowCellEditControl()
 
 int
-Wx_Grid::XToCol( int x )
+Wx_Grid::XToCol( x )
+    int x
 
 int
-Wx_Grid::XToEdgeOfCol( int x )
+Wx_Grid::XToEdgeOfCol( x )
+    int x
 
 int
-Wx_Grid::YToRow( int y )
+Wx_Grid::YToRow( y )
+    int y
 
 int
-Wx_Grid::YToEdgeOfRow( int y )
+Wx_Grid::YToEdgeOfRow( y )
+    int y

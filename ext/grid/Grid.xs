@@ -68,13 +68,15 @@ BOOT:
 INCLUDE: XS/Grid.xs
 INCLUDE: XS/GridCellAttr.xs
 INCLUDE: XS/GridEvent.xs
+INCLUDE: XS/GridCellRenderer.xs
+INCLUDE: XS/GridCellEditor.xs
 
 #include "cpp/gr_constants.cpp"
 
 #  //FIXME//tricky
 #if defined(__WXMSW__)
 #undef XS
-#define XS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
+#define XS( name ) WXXS( name )
 #endif
 
 MODULE=Wx__Grid

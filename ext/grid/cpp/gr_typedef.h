@@ -26,6 +26,20 @@ FD_TD(GridSizeEvent);
 FD_TD(GridRangeSelectEvent);
 FD_TD(GridEditorCreatedEvent);
 
+FD_TD(GridCellRenderer);
+FD_TD(GridCellStringRenderer);
+FD_TD(GridCellNumberRenderer);
+FD_TD(GridCellFloatRenderer);
+FD_TD(GridCellBoolRenderer);
+FD_TD(PlGridCellRenderer);
+
+FD_TD(GridCellEditor);
+FD_TD(GridCellTextEditor);
+FD_TD(GridCellNumberEditor);
+FD_TD(GridCellFloatEditor);
+FD_TD(GridCellBoolEditor);
+FD_TD(GridCellChoiceEditor);
+
 #undef FD_TD
 
 #endif

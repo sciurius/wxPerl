@@ -22,3 +22,17 @@ Wx_GridEditorCreatedEvent * O_WXOBJECT
 
 Wx_GridCellCoords *     O_NON_WXOBJECT
 Wx_GridCellAttr *       O_NON_WXOBJECT
+
+Wx_GridCellRenderer *           O_NON_WXOBJECT
+Wx_GridCellStringRenderer *     O_NON_WXOBJECT
+Wx_GridCellNumberRenderer *     O_NON_WXOBJECT
+Wx_GridCellFloatRenderer *      O_NON_WXOBJECT
+Wx_GridCellBoolRenderer *       O_NON_WXOBJECT
+Wx_PlGridCellRenderer *         O_NON_WXOBJECT
+
+Wx_GridCellEditor *             O_NON_WXOBJECT
+Wx_GridCellTextEditor *         O_NON_WXOBJECT
+Wx_GridCellNumberEditor *       O_NON_WXOBJECT
+Wx_GridCellFloatEditor *        O_NON_WXOBJECT
+Wx_GridCellBoolEditor *         O_NON_WXOBJECT
+Wx_GridCellChoiceEditor *       O_NON_WXOBJECT

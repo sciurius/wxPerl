@@ -36,6 +36,13 @@ package Wx::GridSizeEvent; @ISA = qw(Wx::NotifyEvent);
 package Wx::GridRangeSelectEvent; @ISA = qw(Wx::NotifyEvent);
 package Wx::GridEditorCreatedEvent; @ISA = qw(Wx::CommandEvent);
 
+package Wx::GridCellRenderer;
+package Wx::GridCellStringRenderer; @ISA = qw(Wx::GridCellRenderer);
+package Wx::GridCellNumberRenderer; @ISA = qw(Wx::GridCellRenderer);
+package Wx::GridCellFloatRenderer; @ISA = qw(Wx::GridCellRenderer);
+package Wx::GridCellBoolRenderer; @ISA = qw(Wx::GridCellRenderer);
+package Wx::PlGridCellRenderer; @ISA = qw(Wx::GridCellRenderer);
+
 package Wx::Grid;
 
 use strict;
