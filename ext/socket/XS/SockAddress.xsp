@@ -3,7 +3,7 @@
 ## Purpose:     XS++ for Wx::SockAddress and derived classes
 ## Author:      Mattia Barbon
 ## Created:     24/01/2004
-## RCS-ID:      $Id: SockAddress.xsp,v 1.1 2004/01/25 08:15:50 mbarbon Exp $
+## RCS-ID:      $Id: SockAddress.xsp,v 1.2 2004/02/07 15:22:04 mbarbon Exp $
 ## Copyright:   (c) 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -25,6 +25,8 @@
     int Type();
 };
 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
 %name{Wx::IPaddress} class wxIPaddress
 {
     %name{SetHostname} bool Hostname(const wxString& name);
@@ -38,6 +40,8 @@
     %name{GetHostname} wxString Hostname();
     %name{GetService} unsigned short Service();
 };
+
+#endif
 
 %name{Wx::IPV4address} class wxIPV4address
 {

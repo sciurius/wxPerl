@@ -4,8 +4,8 @@
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     27/02/2003
-## RCS-ID:      $Id: Socket.pm,v 1.7 2004/01/25 08:06:13 mbarbon Exp $
-## Copyright:   (c) 2003 Graciliano M. P.
+## RCS-ID:      $Id: Socket.pm,v 1.8 2004/02/07 15:22:05 mbarbon Exp $
+## Copyright:   (c) 2003-2004 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -26,10 +26,10 @@ no strict ;
 package Wx::SocketClient ; @ISA = qw(Wx::SocketBase) ;
 package Wx::SocketServer ; @ISA = qw(Wx::SocketBase) ;
 package Wx::SocketEvent ; @ISA = qw(Wx::Event) ;
-package Wx::IPAddress ; @IAS = qw(Wx::SockAddress);
-package Wx::IPV4Address ; @ISA = qw(Wx::IPAddress);
-package Wx::IPV6Address ; @ISA = qw(Wx::IPAddress);
-package Wx::UNIXaddress ; @IAS = qw(Wx::SockAddress);
+package Wx::IPaddress ; @ISA = qw(Wx::SockAddress);
+package Wx::IPV4address ; @ISA = qw(Wx::IPaddress);
+package Wx::IPV6address ; @ISA = qw(Wx::IPaddress);
+package Wx::UNIXaddress ; @ISA = qw(Wx::SockAddress);
 use strict ;
 
 #####################

@@ -3,8 +3,8 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.9 2004/01/31 14:27:57 mbarbon Exp $
-// Copyright:   (c) 2002-2003 Marcus Friedlaender and Mattia Barbon
+// RCS-ID:      $Id: st_constants.cpp,v 1.10 2004/02/07 15:22:51 mbarbon Exp $
+// Copyright:   (c) 2002-2004 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -144,7 +144,9 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CMD_CUT );
         r( wxSTC_CMD_COPY );
         r( wxSTC_CMD_PASTE );
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
         r( wxSTC_CMD_LINECOPY );
+#endif
         r( wxSTC_CMD_LINEDOWN );
         r( wxSTC_CMD_LINEDOWNEXTEND );
         r( wxSTC_CMD_LINEUP );
