@@ -205,6 +205,7 @@ XS/Palette.xs
 XS/Panel.xs
 XS/Pen.xs
 XS/PlWindow.xsp
+XS/PopupWindow.xsp
 XS/Process.xs
 XS/ProgressDialog.xs
 XS/RadioBox.xs
@@ -287,6 +288,7 @@ ext/calendar/t/02_inheritance.t
 ext/calendar/typemap
 ext/calendar/XS/CalendarCtrl.xsp
 ext/calendar/XS/CalendarDateAttr.xsp
+ext/calendar/XS/DatePickerCtrl.xsp
 
 ext/datetime/DateTime.pm
 ext/datetime/DateTime.xs
@@ -493,6 +495,7 @@ demo/splash.pl
 demo/wxCalendarCtrl.pm
 demo/wxCheckListBox.pm
 demo/wxClipboard.pm
+demo/wxDatePickerCtrl.pm
 demo/wxFileSystem.pm
 demo/wxGrid.pm
 demo/wxGridCER.pm

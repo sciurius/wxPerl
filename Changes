@@ -6,6 +6,8 @@ Revision history for Perl extension Wx.
         - Compatibility with wxWidgets 2.5.4.
 	- Added Wx::PlPreviewFrame, Wx::PlPreviewControlBar,
 	  Wx::PrintFactory.
+	- Added Wx::PopupWindow and Wx::PopupTransientWindow
+	- Added Wx::DatePickerCtrl (2.5)
 
 0.22  Tue Jan  4 23:07:56 CET 2005
 	- Alpha channel support for Wx::Image (2.5).
