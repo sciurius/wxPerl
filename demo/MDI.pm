@@ -17,7 +17,10 @@ package MDIDemo;
 sub window {
   my( $this, $parent ) = @_;
 
-  return MDIDemoWindow->new( $parent, -1, 'wxPerl MDI demo' );
+  my $mdi = MDIDemoWindow->new( $parent, -1, 'wxPerl MDI demo' );
+  $mdi->Show( 1 );
+
+  return undef;
 }
 
 sub description {

@@ -128,10 +128,10 @@ sub CreateReportControl {
   $list->InsertColumn( 2, "Amount" );
   $list->InsertColumn( 3, "Price" );
 
-  foreach my $i ( 1 .. 50 ) {
+  foreach my $i ( 0 .. 50 ) {
     my $t = ( rand() * 100 ) % 3;
     my $q = int( rand() * 100 );
-    my $idx = $list->InsertStringImageItem( $i, $names[$t], 0 );
+    my $idx = $list->InsertImageStringItem( $i, $names[$t], 0 );
     $list->SetItem( $idx, 1, $q );
     $list->SetItem( $idx, 2, $q * ( $t + 1 ) );
   }
@@ -149,7 +149,7 @@ sub CreateIconControl {
   $list->SetImageList( $this->{SMALLIMAGES}, wxIMAGE_LIST_SMALL );
   $list->SetImageList( $this->{NORMALIMAGES}, wxIMAGE_LIST_NORMAL );
 
-  foreach my $i ( 1 .. 7 ) {
+  foreach my $i ( 0 .. 7 ) {
     my $idx = $list->InsertStringImageItem( $i, "Item $i", $i % 5 );
   }
 

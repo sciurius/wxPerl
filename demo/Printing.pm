@@ -212,9 +212,9 @@ use Wx qw(:colour :pen);
 sub OnDraw {
   my $this = shift;
   my $dc = shift;
-  my $font = Wx::Font->new( 30, wxSCRIPT, wxSLANT, wxBOLD );
+#  my $font = Wx::Font->new( 20, wxSCRIPT, wxSLANT, wxBOLD );
 
-  $dc->SetFont( $font );
+#  $dc->SetFont( $font );
   $dc->DrawRotatedText( "Draw Here", 200, 200, 35 );
 
   $dc->DrawEllipse( 20, 20, 50, 50 );
@@ -223,8 +223,17 @@ sub OnDraw {
   $dc->DrawEllipse( $x_size - 50 - 20, $y_size - 50 - 20, 50, 50 );
 
   $dc->SetPen( Wx::Pen->new( wxRED, 5, 0 ) );
+  # wxGTK does not like DrawLines in this context
   foreach my $i ( @{$this->{LINES}} ) {
-    $dc->DrawLines( $i );
+    my $prev;
+
+    foreach my $j ( @$i ) {
+      if( $j != ${$i}[0] ) {
+        $dc->DrawLine( @$prev, @$j );
+#       $dc->DrawLines( $i );
+      }
+      $prev = $j;
+    }
   }
 }
 

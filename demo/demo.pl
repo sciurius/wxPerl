@@ -16,7 +16,7 @@ use strict;
 BEGIN {
   eval {
     require blib;
-    blib->import;
+    'blib'->import;
   }
 }
 
@@ -28,6 +28,10 @@ use FindBin;
 use lib $FindBin::RealBin;
 
 sub filename { "$FindBin::RealBin/" . $_[0] }
+
+# some IDs
+use vars qw($ID_QUIT $ID_TASKBAR_DUMMY);
+( $ID_QUIT, $ID_TASKBAR_DUMMY ) = ( 10000 .. 10020 );
 
 package Demo;
 
@@ -158,6 +162,7 @@ my @demos =
     [ 'Non-managed windows',
       [
        [ 'HtmlWindow', demo( 'wxHtmlWindow' ) ],
+       [ 'Grid', demo( 'wxGrid' ) ],
        [ 'SplashScreen', demo( 'wxSplashScreen' ) ],
       ],
     ],
@@ -176,6 +181,7 @@ my @demos =
        [ 'XRC', demo( 'XRC' ), 2.003001 ],
        [ 'Clipboard', demo( 'wxClipboard' ) ],
        [ 'Drag&Drop', demo( 'DragDrop', 'DNDDemo' ) ],
+       [ 'Process', demo( 'wxProcess' ) ],
       ],
     ],
 #    [ 'Old samples',
@@ -186,12 +192,12 @@ my @demos =
 #    ],
   );
 
-use Wx::Event qw(EVT_TREE_SEL_CHANGED EVT_CLOSE);
+use Wx::Event qw(EVT_TREE_SEL_CHANGED EVT_CLOSE EVT_IDLE EVT_MENU);
 
 sub new {
   my $class = shift;
   my $this = $class->SUPER::new( undef, -1, "wxPerl Demo", wxDefaultPosition,
-                                 [ 400, 300 ] );
+                                 [ 600, 500 ] );
 
   my $border_mask = ~( wxSTATIC_BORDER|wxSIMPLE_BORDER|wxDOUBLE_BORDER|
                        wxSUNKEN_BORDER|wxRAISED_BORDER);
@@ -231,6 +237,36 @@ sub new {
   $this->{NOTEBOOK} = $nb;
 
   $this->load_demo( $demos[0][1] );
+
+  # on MSW only, create task bar icon
+  if( $Wx::_platform == $Wx::_msw ) {
+    my $tmp = Wx::TaskBarIcon->new();
+    $tmp->SetIcon( Wx::GetWxPerlIcon( 1 ), "Click on me!" );
+    $this->{TASKBARICON} = $tmp;
+
+    use Wx::Event qw(EVT_TASKBAR_LEFT_DOWN EVT_TASKBAR_RIGHT_DOWN);
+
+    EVT_TASKBAR_LEFT_DOWN( $tmp, sub {
+                     my( $this, $event ) = @_;
+
+                     Wx::LogMessage( "Left click on task bar icon" );
+                   } );
+    EVT_TASKBAR_RIGHT_DOWN( $tmp, sub {
+                     my( $this, $event ) = @_;
+
+                     my $menu = Wx::Menu->new( "TaskBar Menu" );
+                     $menu->Append( $main::ID_TASKBAR_DUMMY, "Click on me!" );
+                     $menu->AppendSeparator();
+                     $menu->Append( $main::ID_QUIT, "Quit demo" );
+                     $this->PopupMenu( $menu );
+                   } );
+    EVT_MENU( $tmp, $main::ID_QUIT, sub {
+                $this->Close();
+              } );
+    EVT_MENU( $tmp, $main::ID_TASKBAR_DUMMY, sub {
+                Wx::LogMessage( "Selected taskbar icon menu" );
+              } );
+  }
 
   return $this;
 }
@@ -273,6 +309,22 @@ sub OnClose {
   my $this = shift;
 
   Wx::Log::SetActiveTarget( $this->{OLDLOG} );
+  $this->{TASKBARICON}->Destroy
+    if defined $this->{TASKBARICON};
+  $this->notebook->DeletePage( 2 )
+    if $this->notebook->GetPageCount() == 3;
+
+  # not the most elegant way to do it
+  # it would be better to pass the sizes back to the Wx::App
+  # and let it save them
+  my $config = Wx::ConfigBase::Get;
+  my( $x, $y, $w, $h ) = ( $this->GetPositionXY, $this->GetSizeWH );
+
+  $config->WriteInt( "X", $x );
+  $config->WriteInt( "Y", $y );
+  $config->WriteInt( "Width", $w );
+  $config->WriteInt( "Height", $h );
+
   $this->Destroy;
 }
 
@@ -309,7 +361,7 @@ sub load_demo {
 
   if( $nb->GetPageCount == 3 ) {
     $nb->SetSelection( 0 ) if $sel == 2;
-    $nb->RemovePage( 2 );
+    $nb->DeletePage( 2 );
   }
   if( ref( $window ) ) {
     $this->notebook->AddPage( $window, 'Demo' );
@@ -334,7 +386,18 @@ use base qw(Wx::App);
 sub OnInit {
   my $this = shift;
 
+  $this->SetAppName( "Demo" );
+  $this->SetVendorName( "wxPerl" );
+
   my $frame = DemoFrame->new;
+  my $config = Wx::ConfigBase::Get;
+
+  my $x = $config->ReadInt( "X", 50 );
+  my $y = $config->ReadInt( "Y", 50 );
+  my $w = $config->ReadInt( "Width", 500 );
+  my $h = $config->ReadInt( "height", 400 );
+
+  $frame->SetSize( $x, $y, $w, $h );
   $frame->Show( 1 );
 
   return 1;

@@ -88,7 +88,7 @@ sub new {
   my $this = $class->SUPER::new( @_, [0,0] );
 
   $this->SetBackgroundColour( wxBLACK );
-  my $subpanel = $this->{CHILD} = new Wx::Panel( $this, -1, [0,0], [500,500] );
+  my $subpanel = $this->{CHILD} = new Wx::Panel( $this, -1, [0,0], [600,500] );
   _create_windows( $this, $subpanel );
 
   return $this;
@@ -117,10 +117,10 @@ sub _create_windows {
                                [ 20, 60 ], [ 150, 30 ] );
   my $button2 = new Wx::Button( $panel, -1, gettext( "Change the language" ),
                                 [ 180, 60 ], [ 150, 30 ] );
-  my $text = gettext( "The message catalogs for this example were translated using poEdit ( http://www.volny.cz/vaclav.slavik/ )" );
-  my $text2 = gettext( "When dealing with internationalization/localization, which involves variable width text, the best choice is to use Sizers ( see documentation ); this example does not use them to keep it as simple as possible" );
+  my $text = gettext( "The message catalogs for this\nexample were translated\nusing poEdit ( http://www.volny.cz/vaclav.slavik/ )" );
+  my $text2 = gettext( "When dealing with internationalization/localization,\nwhich involves variable width text,\nthe best choice is to use Sizers ( see documentation );\nthis example does not use them to\nkeep it as simple as possible" );
   my $description = new Wx::StaticText( $panel, -1, $text . "\n\n" . $text2,
-                                        [ 20, 120 ], [ 300, 200 ] );
+                                        [ 20, 120 ], [ 400, 200 ] );
 
   EVT_BUTTON( $this, $button2, \&OnChangeLanguage );
 }

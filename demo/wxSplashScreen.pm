@@ -25,7 +25,7 @@ sub window {
   my $parent = shift;
 
   my $panel = Wx::Panel->new( $parent, -1 );
-  my $button = Wx::Button->new( $panel, -1, 'Splash!' );
+  my $button = Wx::Button->new( $panel, -1, 'Splash!', [ 10, 10 ] );
   my $bitmap = Wx::Bitmap->new( main::filename( 'data/logo.jpg' ),
                                                 wxBITMAP_TYPE_JPEG );
 

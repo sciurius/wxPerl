@@ -31,30 +31,59 @@ package DNDDemoWindow;
 
 use strict;
 use vars qw(@ISA); @ISA = qw(Wx::Panel);
-use Wx qw(wxNullBitmap wxTheApp wxICON_HAND);
-use Wx::Event qw(EVT_LEFT_DOWN);
+use Wx qw(wxNullBitmap wxTheApp wxICON_HAND wxRED);
 require DataObjects;
 
 sub new {
   my $class = shift;
   my $this = $class->SUPER::new( @_ );
 
-  my $droptext = Wx::ListBox->new( $this, -1 );
+  Wx::StaticText->new( $this, -1, 'Drop text in listbox', [ 10, 10 ] );
+  my $droptext = Wx::ListBox->new( $this, -1, [ 10 , 40 ] );
+
+  Wx::StaticText->new( $this, -1, 'Drop bitmap below', [ 200, 10 ] );
+  my $window = Wx::Window->new( $this, -1, [ 200, 40 ], [ 400, 50 ] );
+  $window->SetBackgroundColour( wxRED );
   my $dropbitmap = Wx::StaticBitmap->new( $this, -1, wxNullBitmap,
-                                          [ 200, 200 ], [ 200, 200 ] );
-  $droptext->SetDropTarget( DNDTextDropTarget->new() );
-  $dropbitmap->SetDropTarget( DNDBitmapDropTarget->new( $dropbitmap ) );
+                                          [ 200, 100 ], [ 200, 200 ] );
+
+  my $dragsource = DNDDropSource->new( $this, -1, [ 10, 200 ] );
+
+  $droptext->SetDropTarget( DNDTextDropTarget->new( $droptext ) );
+  $window->SetDropTarget( DNDBitmapDropTarget->new( $dropbitmap ) );
   $dropbitmap->SetBitmap( Wx::Bitmap->new( wxTheApp->GetStdIcon( wxICON_HAND ) ) );
+
+  return $this;
+}
+
+package DNDDropSource;
+
+use strict;
+use vars qw(@ISA); @ISA = qw(Wx::Window);
+use Wx::Event qw(EVT_LEFT_DOWN EVT_PAINT);
+
+sub new {
+  my $class = shift;
+  my $this = $class->SUPER::new( @_[0,1,2], [200,50] );
+
+  EVT_PAINT( $this, \&OnPaint );
   EVT_LEFT_DOWN( $this, \&OnDrag );
 
   return $this;
 }
 
+sub OnPaint {
+  my( $this, $event ) = @_;
+  my $dc = Wx::PaintDC->new( $this );
+
+  $dc->DrawText( "Drag text/bitmap from here", 2, 2 );
+}
+
 sub OnDrag {
   my( $this, $event ) = @_;
 
-#  my $data = Wx::TextDataObject->new( "Test!" );
   my $data = DataObjects::GetBothDataObject();
+#  my $data = DataObjects::GetBitmapDataObject();
   my $source = Wx::DropSource->new( $this );
   $source->SetData( $data );
   $source->DoDragDrop( 1 );
@@ -65,10 +94,22 @@ package DNDTextDropTarget;
 use strict;
 use vars qw(@ISA); @ISA = qw(Wx::TextDropTarget);
 
+sub new {
+  my $class = shift;
+  my $listbox = shift;
+  my $this = $class->SUPER::new( @_ );
+
+  $this->{LISTBOX} = $listbox;
+
+  return $this;
+}
+
 sub OnDropText {
   my( $this, $x, $y, $data ) = @_;
 
+  $data =~ s/[\r\n]+$//;
   Wx::LogMessage( "Dropped text: '$data'" );
+  $this->{LISTBOX}->InsertItems( [ $data ], 0 );
 
   return 1;
 }

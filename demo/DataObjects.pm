@@ -18,6 +18,7 @@ use Wx qw(:brush :pen :bitmap);
 sub GetImage {
   my $bitmap = Wx::Bitmap->new( 100, 100 );
   my $dc = Wx::MemoryDC->new;
+  $dc->SelectObject( $bitmap );
 
   $dc->SetBrush( wxWHITE_BRUSH );
   $dc->DrawRectangle( 0, 0, 100, 100 );
@@ -25,7 +26,6 @@ sub GetImage {
   $dc->SetPen( wxBLACK_PEN );
   $dc->SetBrush( new Wx::Brush( 'yellow', wxSOLID ) );
 
-  $dc->SelectObject( $bitmap );
   $dc->DrawEllipse( 1, 1, 98, 98 );
 
   #$dc->SetPen( wxWHITE_PEN );
