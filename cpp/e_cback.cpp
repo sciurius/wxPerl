@@ -39,6 +39,7 @@ void wxPliEventCallback::Handler( wxEvent& event )
     // similar to wxPli_object_2_sv
     bool clear = FALSE;
     SV* e = 0;
+    SV* rv = 0;
     wxClassInfo *ci = event.GetClassInfo();
     const wxChar* classname = ci->GetClassName();
 
@@ -61,6 +62,11 @@ void wxPliEventCallback::Handler( wxEvent& event )
 
         e = sv_newmortal();
         sv_setref_pv( e, CHAR_P CLASS, &event );
+        rv = SvRV( e );
+        // corner case: prevent destruction if referrer is
+        // destroyed
+        SvREFCNT_inc( rv );
+        sv_2mortal( rv );
         clear = TRUE;
     }
 
@@ -70,7 +76,7 @@ void wxPliEventCallback::Handler( wxEvent& event )
     PUTBACK;
 
     call_sv( This->m_method, G_DISCARD );
-    if( clear ) sv_setiv( SvRV( e ), 0 );
+    if( clear ) sv_setiv( rv, 0 );
 
     FREETMPS;
     LEAVE;
