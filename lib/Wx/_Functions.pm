@@ -14,6 +14,7 @@ package Wx;
 
 use strict;
 use UNIVERSAL qw(isa);
+use Carp;
 
 # easier to implement than to wrap
 sub GetMultipleChoices {
@@ -23,11 +24,11 @@ sub GetMultipleChoices {
   my( $dialog ) = Wx::MultiChoiceDialog->new
     ( $parent, $message, $caption, $choices );
 
- if( $dialog->ShowModal() == &Wx::wxID_OK ) {
-    my( @s ) = $dialog->GetSelection();
+  if( $dialog->ShowModal() == &Wx::wxID_OK ) {
+    my( @s ) = $dialog->GetSelections();
     $dialog->Destroy();
     return @s;
- }
+  }
 
   return;
 }
