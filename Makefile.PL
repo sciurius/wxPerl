@@ -36,7 +36,7 @@ wxWriteMakefile( NAME => 'Wx',
                  AUTHOR => 'Mattia Barbon <mbarbon@dsi.unive.it>',
                  VERSION_FROM => 'Wx.pm',
                  ( $wxConfig::o_static ?
-                   ( WXLIB => [ 'wxxrc', 'wxstc' ] ) :
+                   ( WXLIB => [ 'wxxrc', 'stc' ] ) :
                    () ),
                  OBJECT => join( ' ', obj_from_src( @top_level_xs ) ) . ' ',
                );
