@@ -10,7 +10,7 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-die "4 arguments reuqired" unless @ARGV == 4;
+die "4 arguments required" unless @ARGV == 4;
 
 #
 # @EXPORT_OK and %EXPORT_TAGS for Wx.pm (constants in Constant.xs)
