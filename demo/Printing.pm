@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/ 9/2001
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: Printing.pm,v 1.3 2003/05/07 17:25:04 mbarbon Exp $
+## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -67,6 +67,7 @@ sub new {
   $this->{CANVAS} = $canvas;
 
   EVT_BUTTON( $this, $preview, \&OnPreview );
+  EVT_BUTTON( $this, $print, \&OnPrint );
 
   return $this;
 }
@@ -85,6 +86,16 @@ sub OnPreview {
                                      "Printing Demo Preview" );
   $frame->Initialize();
   $frame->Show( 1 );
+}
+
+sub OnPrint {
+  my( $this, $event ) = @_;
+
+  my $printer = Wx::Printer->new;
+  my $printout = PrintingDemoPrintout->new( $this->canvas, "Print" );
+  $printer->Print( $this, $printout, 1 );
+
+  $printout->Destroy;
 }
 
 package PrintingDemoPrintout;
