@@ -181,7 +181,7 @@ sub cpp_2_perl {
 
 package Tests_Helper_App;
 
-use vars qw(@ISA); @ISA = qw(Wx::App);
+use base 'Wx::App';
 
 my $on_init;
 
