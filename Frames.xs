@@ -78,5 +78,7 @@ INCLUDE: XS/FileDialog.xs
 INCLUDE: XS/TextEntryDialog.xs
 INCLUDE: XS/MessageDialog.xs
 INCLUDE: XS/ProgressDialog.xs
+INCLUDE: XS/SingleChoiceDialog.xs
+INCLUDE: XS/MultiChoiceDialog.xs
 
 MODULE=Wx_Wnd

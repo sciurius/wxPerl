@@ -129,6 +129,7 @@ XS/ListBox.xs
 XS/Locale.xs
 XS/Log.xs
 XS/Menu.xs
+XS/MultiChoiceDialog.xs
 XS/Notebook.xs
 XS/Palette.xs
 XS/Panel.xs
@@ -136,8 +137,10 @@ XS/Pen.xs
 XS/ProgressDialog.xs
 XS/RadioBox.xs
 XS/RadioButton.xs
+XS/SashWindow.xs
 XS/ScrollBar.xs
 XS/ScrolledWindow.xs
+XS/SingleChoiceDialog.xs
 XS/Sizer.xs
 XS/Slider.xs
 XS/SpinButton.xs
@@ -170,6 +173,7 @@ cpp/frame.h
 cpp/helpers.h
 cpp/notebook.h
 cpp/panel.h
+cpp/sashwindow.h
 cpp/scrolledwindow.h
 cpp/sizer.h
 cpp/splitterwindow.h

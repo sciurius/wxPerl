@@ -56,7 +56,9 @@ package Wx::FileDialog;   @ISA = qw(Wx::Dialog);
 package Wx::TextEntryDialog; @ISA = qw(Wx::Dialog);
 package Wx::MessageDialog; @ISA = qw(Wx::Dialog);
 package Wx::ProgressDialog;@ISA = qw(Wx::Dialog);
-
+package Wx::SingleChoiceDialog; @ISA = qw(Wx::Dialog);
+package Wx::MultiChoiceDialog; @ISA = qw(Wx::Dialog);
+package Wx::SashWindow;   @ISA = qw(Wx::Window);
 package Wx::Validator;    @ISA = qw(Wx::EvtHandler);
 package Wx::TextValidator;@ISA = qw(Wx::Validator);
 package Wx::GenericValidator;@ISA = qw(Wx::Validator);

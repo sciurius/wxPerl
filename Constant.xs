@@ -127,6 +127,7 @@ if( strEQ( name, #n ) ) \
     r( wxCENTRE );                      // dialog sizer
     r( wxCENTER );                      // dialog sizer
     r( wxCLIP_CHILDREN );               // window
+    r( wxCHOICEDLG_STYLE );
 #if WXPERL_W_VERSION_GE( 2, 3 )
     r( wxCHANGE_DIR );
     r( wxCLIP_SIBLINGS );               // window
@@ -227,6 +228,8 @@ if( strEQ( name, #n ) ) \
     r( wxEVT_RIGHT_DCLICK );
     r( wxEVT_SET_FOCUS );
     r( wxEVT_KILL_FOCUS );
+
+    r( wxEVT_SASH_DRAGGED );
 
     r( wxEVT_NC_LEFT_DOWN );
     r( wxEVT_NC_LEFT_UP );
@@ -864,6 +867,19 @@ if( strEQ( name, #n ) ) \
     r( wxSRC_INVERT );                  // dc
 
     r( wxSOLID );                       // dc brush pen
+
+    r( wxSASH_STATUS_OK );              // sashwindow
+    r( wxSASH_STATUS_OUT_OF_RANGE );    // sashwindow
+    r( wxSASH_TOP );                    // sashwindow
+    r( wxSASH_RIGHT );                  // sashwindow
+    r( wxSASH_BOTTOM );                 // sashwindow
+    r( wxSASH_LEFT );                   // sashwindow
+    r( wxSASH_NONE );                   // sashwindow
+
+    r( wxSW_3D );                       // sashwindow
+    r( wxSW_3DSASH );                   // sashwindow
+    r( wxSW_3DBORDER );                 // sashwindow
+    r( wxSW_BORDER );                   // sashwindow
 
     r( wxSameAs );                      // layout constraints
     break;
