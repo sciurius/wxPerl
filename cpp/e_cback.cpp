@@ -45,6 +45,8 @@ void wxPliEventCallback::Handler( wxEvent& event )
     PUTBACK;
 
     call_sv( This->m_method, G_DISCARD );
+    //wxTrap();
+    sv_setiv( SvRV( e ), 0 );
 
     FREETMPS;
     LEAVE;

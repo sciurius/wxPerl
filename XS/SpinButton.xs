@@ -14,10 +14,10 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::SpinEvent
 
-# Wx_SpinEvent*
-# Wx_SpinEvent::new( commandType = wxEVT_NULL, id = 0 )
-#     wxEventType commandType
-#     int id
+Wx_SpinEvent*
+Wx_SpinEvent::new( commandType = wxEVT_NULL, id = 0 )
+    wxEventType commandType
+    int id
 
 int
 Wx_SpinEvent::GetPosition()

@@ -15,6 +15,11 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::SashEvent
 
+Wx_SashEvent*
+Wx_SashEvent::new( id = 0, edge = wxSASH_NONE )
+    int id
+    wxSashEdgePosition edge
+
 wxSashEdgePosition
 Wx_SashEvent::GetEdge()
 

@@ -85,6 +85,11 @@ tiid_spaceship( tid1, tid2, ... )
 
 MODULE=Wx PACKAGE=Wx::TreeEvent
 
+Wx_TreeEvent*
+Wx_TreeEvent::new( commandType = wxEVT_NULL, id = 0 )
+    wxEventType commandType
+    int id
+
 Wx_TreeItemId*
 Wx_TreeEvent::GetItem()
   CODE:

@@ -14,6 +14,13 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::NotebookEvent
 
+Wx_NotebookEvent*
+Wx_NotebookEvent::new( eventType = wxEVT_NULL, id = 0, sel = -1, oldSel = -1 )
+    wxEventType eventType
+    int id
+    int sel
+    int oldSel
+
 int
 Wx_NotebookEvent::GetOldSelection()
 

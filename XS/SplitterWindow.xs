@@ -15,6 +15,11 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::SplitterEvent
 
+Wx_SplitterEvent*
+Wx_SplitterEvent::new( commandType = wxEVT_NULL, window = 0 )
+    wxEventType commandType
+    Wx_SplitterWindow* window
+
 int
 Wx_SplitterEvent::GetSashPosition()
 

@@ -14,6 +14,11 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::ListEvent
 
+Wx_ListEvent*
+Wx_ListEvent::new( eventType = wxEVT_NULL, id = 0 )
+    wxEventType eventType
+    int id
+
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 long
