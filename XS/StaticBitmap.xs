@@ -61,6 +61,13 @@ Wx_StaticBitmap::SetBitmap( bitmap )
   CODE:
     THIS->SetBitmap( *bitmap );
 
+Wx_Icon*
+Wx_StaticBitmap::GetIcon()
+  CODE:
+    RETVAL = new wxIcon( THIS->GetIcon() );
+  OUTPUT:
+    RETVAL
+
 void
 Wx_StaticBitmap::SetIcon( icon )
     Wx_Icon* icon
