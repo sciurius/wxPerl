@@ -24,7 +24,7 @@ sub new {
   Wx::_match( @_, $Wx::_n_n, 2 )  && return Wx::Image::newWH( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 )  && return Wx::Image::newNameType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 )  && return Wx::Image::newNameMIME( @_ );
-  croak Wx::_ovl_error 'Wx::Image::new';
+  croak Wx::_ovl_error;
 }
 
 # sub FindHandler {

@@ -19,7 +19,7 @@ sub new {
   Wx::_match( @_, $Wx::_s_wwin_n_wico, 3, 1 ) && return Wx::StaticBitmap::newIcon( @_ );
   Wx::_match( @_, $Wx::_s_wwin_n_wbmp, 3, 1 ) &&
       return Wx::StaticBitmap::newBitmap( @_ );
-  croak Wx::_ovl_error 'Wx::StaticBitmap::new';
+  croak Wx::_ovl_error;
 }
 
 1;

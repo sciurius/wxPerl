@@ -20,7 +20,7 @@ sub new {
 
   Wx::_match( @_, $Wx::_n, 1 )          && return Wx::Cursor::newId( @_ );
   Wx::_match( @_, $Wx::_s_n_n_n, 2, 1 ) && return Wx::Cursor::newFile( @_ );
-  croak Wx::_ovl_error 'Wx::Cursor::new';
+  croak Wx::_ovl_error;
 }
 
 1;

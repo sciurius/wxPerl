@@ -21,16 +21,16 @@ sub Add {
   Wx::_match( @_, $Wx::_wwin_n_n_n, 1, 1 ) && ( $this->AddWindow( @_ ), return );
   Wx::_match( @_, $Wx::_wszr_n_n_n, 1, 1 ) && ( $this->AddSizer( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n_n_n, 2, 1 )  && ( $this->AddSpace( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Sizer::Add';
+  croak Wx::_ovl_error;
 }
 
 sub Insert {
   my( $this ) = shift;
 
   Wx::_match( @_, $Wx::_n_wwin_n_n_n, 2, 1 ) && ( $this->InsertWindow( @_ ), return );
-  Wx::_match( @_, $Wx::_n_wszr_n_n_i, 2, 1 ) && ( $this->InsertSizer( @_ ), return );
+  Wx::_match( @_, $Wx::_n_wszr_n_n_n, 2, 1 ) && ( $this->InsertSizer( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n_n_n_n, 3, 1 )  && ( $this->InsertSpace( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Sizer::Insert';
+  croak Wx::_ovl_error;
 }
 
 sub Prepend {
@@ -39,7 +39,7 @@ sub Prepend {
   Wx::_match( @_, $Wx::_wwin_n_n_n, 1, 1 ) && ( $this->PrependWindow( @_ ), return );
   Wx::_match( @_, $Wx::_wszr_n_n_n, 1, 1 ) && ( $this->PrependSizer( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n_n_n, 2, 1 )  && ( $this->PrependSpace( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Sizer::Prepend';
+  croak Wx::_ovl_error;
 }
 
 sub Remove {
@@ -48,7 +48,7 @@ sub Remove {
   Wx::_match( @_, $Wx::_wwin, 1 ) && return $this->RemoveWinodow( @_ );
   Wx::_match( @_, $Wx::_wszr, 1 ) && return $this->RemoveSizer( @_ );
   Wx::_match( @_, $Wx::_n, 1 )    && return $this->RemoveNth( @_ );
-  croak Wx::_ovl_error 'Wx::Sizer::Remove';
+  croak Wx::_ovl_error;
 }
 
 sub SetItemMinSize {
@@ -57,7 +57,7 @@ sub SetItemMinSize {
   Wx::_match( @_, $Wx::_wwin_n_n, 3 ) && ( $this->SetItemMinSizeWindow( @_ ), return );
   Wx::_match( @_, $Wx::_wszr_n_n, 3 ) && ( $this->SetItemMinSizeSizer( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n, 3 )    && ( $this->SetItemMinSizeNth( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Sizer::SetItemMinSize';
+  croak Wx::_ovl_error;
 }
 
 sub SetMinSize {
@@ -65,7 +65,7 @@ sub SetMinSize {
 
   Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->SetMinSizeXY( @_ ), return );
   Wx::_match( @_, $Wx::_wsiz, 1 ) && ( $this->SetMinSizeSize( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Sizer::SetMinSize';
+  croak Wx::_ovl_error;
 }
 
 1;

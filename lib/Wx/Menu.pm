@@ -21,7 +21,7 @@ sub Append {
   Wx::_match( @_, $Wx::_n_s_wmen, 3, 1 ) && ( $this->AppendSubMenu( @_ ), return );
   Wx::_match( @_, $Wx::_n_s, 2, 1 )      && ( $this->AppendString( @_ ), return );
   Wx::_match( @_, $Wx::_wmit, 1 )        && ( $this->Appenditem( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Menu::Append';
+  croak Wx::_ovl_error;
 }
 
 sub Delete {
@@ -29,7 +29,7 @@ sub Delete {
 
   Wx::_match( @_, $Wx::_wmit, 1 ) && ( $this->DeleteItem( @_ ), return );
   Wx::_match( @_, $Wx::_n, 1 )    && ( $this->DeleteId( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Menu::Delete';
+  croak Wx::_ovl_error;
 }
 
 sub Destroy {
@@ -38,7 +38,7 @@ sub Destroy {
   @_ == 0                     && ( $this->DestoryMenu(), return );
   Wx::_match( @_, $Wx::_wmit, 1 ) && ( $this->DestroyItem( @_ ), return );
   Wx::_match( @_, $Wx::_n, 1 )    && ( $this->DestroyId( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Menu::Destroy';
+  croak Wx::_ovl_error;
 }
 
 sub Remove {
@@ -46,7 +46,7 @@ sub Remove {
 
   Wx::_match( @_, $Wx::_wmit, 1 ) && return $this->RemoveItem( @_ );
   Wx::_match( @_, $Wx::_n, 1 )    && return $this->RemoveId( @_ );
-  croak Wx::_ovl_error 'Wx::Menu::Remove';
+  croak Wx::_ovl_error;
 }
 
 1;

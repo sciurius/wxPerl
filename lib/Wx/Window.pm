@@ -24,7 +24,7 @@ sub SetToolTip {
 
   Wx::_match( @_, $Wx::_wtip, 1 ) && ( $this->SetToolTipTip( @_ ), return );
   Wx::_match( @_, $Wx::_s, 1 )    && ( $this->SetToolTipString( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Window::SetToolTip';
+  croak Wx::_ovl_error;
 }
 
 sub ClientToScreen {
@@ -32,7 +32,7 @@ sub ClientToScreen {
 
   Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->ClientToScreenXY( @_ );
   Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->ClientToScreenPoint( @_ );
-  croak Wx::_ovl_error 'Wx::Window::ClientToScreen';
+  croak Wx::_ovl_error;
 }
 
 sub ConvertDialogToPixels {
@@ -40,7 +40,7 @@ sub ConvertDialogToPixels {
 
   Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->ConvertDialogPointToPixels( @_ );
   Wx::_match( @_, $Wx::_wsiz, 1 ) && return $this->ConvertDialogSizeToPixels( @_ );
-  croak Wx::_ovl_error 'Wx::Window::ConvertDialogToPixels';
+  croak Wx::_ovl_error;
 }
 
 sub ConvertPixelsToDialog {
@@ -48,7 +48,7 @@ sub ConvertPixelsToDialog {
 
   Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->ConvertPixelsPointToDialog( @_ );
   Wx::_match( @_, $Wx::_wsiz, 1 ) && return $this->ConvertPixelsSizeToDialog( @_ );
-  croak Wx::_ovl_error 'Wx::Window::ConvertPixelsToDialog';
+  croak Wx::_ovl_error;
 }
 
 sub IsExposed {
@@ -57,7 +57,7 @@ sub IsExposed {
   Wx::_match( @_, $Wx::_wpoi, 1 )    && return $this->IsExposedPoint( @_ );
   Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->IsExposedRect( @_ );
   Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->IsExposedXYWH( @_ );
-  croak Wx::_ovl_error 'Wx::Window::IsExposed';
+  croak Wx::_ovl_error;
 }
 
 sub Move {
@@ -65,7 +65,7 @@ sub Move {
 
   Wx::_match( @_, $Wx::_wpoi, 1 ) && ( $this->MovePoint( @_ ), return );
   Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->MoveXY( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Window::Move';
+  croak Wx::_ovl_error;
 }
 
 sub PopupMenu {
@@ -73,7 +73,7 @@ sub PopupMenu {
 
   Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->PopupMenuPoint( @_ );
   Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->PopupMenuXY( @_ );
-  croak Wx::_ovl_error 'Wx::Window::PopupMenu';
+  croak Wx::_ovl_error;
 }
 
 sub ScreenToClient {
@@ -81,7 +81,7 @@ sub ScreenToClient {
 
   Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->ScreenToClientPoint( @_ );
   Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->ScreenToClientXY( @_ );
-  croak Wx::_ovl_error 'Wx::Window::ScreenToClient';
+  croak Wx::_ovl_error;
 }
 
 sub SetClientSize {
@@ -89,7 +89,7 @@ sub SetClientSize {
 
   Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->SetClientSizePoint( @_ );
   Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->SetClientSizeWH( @_ );
-  croak Wx::_ovl_error 'Wx::Window::SetClientSize';
+  croak Wx::_ovl_error;
 }
 
 sub SetSize {
@@ -99,7 +99,7 @@ sub SetSize {
   Wx::_match( @_, $Wx::_n_n, 2 )          && ( $this->SetSizeWH( @_ ), return );
   Wx::_match( @_, $Wx::_wsiz, 1 )         && ( $this->SetSizeSize( @_ ), return );
   Wx::_match( @_, $Wx::_wrec, 1 )         && ( $this->SetSizeRect( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Window::SetSize';
+  croak Wx::_ovl_error;
 }
 
 1;

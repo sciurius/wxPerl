@@ -20,7 +20,7 @@ sub new {
 
   Wx::_match( @_, $Wx::_wwin_n_n, 3 ) && return Wx::Caret::newWH( @_ );
   Wx::_match( @_, $Wx::_wwin_wsiz, 2 ) && return Wx::Caret::newSize( @_ );
-  croak Wx::_ovl_error 'Wx::Caret::new';
+  croak Wx::_ovl_error;
 }
 
 sub Move {
@@ -28,7 +28,7 @@ sub Move {
 
   Wx::_match( @_, $Wx::_wpoi, 1 ) && ( $this->MovePoint( @_ ), return );
   Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->MoveXY( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Caret::Move';
+  croak Wx::_ovl_error;
 }
 
 sub SetSize {
@@ -36,7 +36,7 @@ sub SetSize {
 
   Wx::_match( @_, $Wx::_wsiz, 1 ) && ( $this->SetSizeSize( @_ ), return );
   Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->SetSizeWH( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Caret::SetSize';
+  croak Wx::_ovl_error;
 }
 
 1;

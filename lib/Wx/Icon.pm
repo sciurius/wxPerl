@@ -20,7 +20,7 @@ sub new {
 
   Wx::_match( @_, $Wx::_n_n_n, 2, 1 ) && return Wx::Icon::newEmpty( @_ );
   Wx::_match( @_, $Wx::_s_n_n_n, 2, 1 )  && return Wx::Icon::newFile( @_ );
-  croak Wx::_ovl_error 'Wx::Icon::new';
+  croak Wx::_ovl_error;
 }
 
 1;

@@ -25,7 +25,7 @@ sub new {
   Wx::_match( @_, $Wx::wcol_n_n, 3 ) && return Wx::Pen::newColour( @_ );
   Wx::_match( @_, $Wx::wbmp_n, 2 )   && return Wx::Pen::newBitmap( @_ );
   Wx::_match( @_, $Wx::s_n_n, 3 )    && return Wx::Pen::newString( @_ );
-  croak Wx::_ovl_error 'Wx::Pen::new';
+  croak Wx::_ovl_error;
 }
 
 sub SetColour {
@@ -34,7 +34,7 @@ sub SetColour {
   Wx::_match( @_, $Wx::_wcol, 1 )  && ( $this->SetColourColour( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n, 3 ) && ( $this->SetColourRGB( @_ ), return );
   Wx::_match( @_, $Wx::_s, 1 )     && ( $this->SetColourName( @_ ), return );
-  croak Wx::_ovl_error 'Wx::Pen::SetColour';
+  croak Wx::_ovl_error;
 }
 
 1;

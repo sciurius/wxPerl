@@ -20,7 +20,7 @@ sub DrawCheckMark {
 
   Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && ( $this->DrawCheckMarkXYWH( @_ ), return );
   Wx::_match( @_, $Wx::_wrec, 1 )    && ( $this->DrawCheckMarkRect( @_ ), return );
-  croak Wx::_ovl_error 'Wx::DC::DrawCheckMark';
+  croak Wx::_ovl_error;
 }
 
 sub SetClippingRegion {
@@ -28,7 +28,7 @@ sub SetClippingRegion {
 
   Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && ( $this->SetClippingRegionXYWH( @_ ), return );
   Wx::_match( @_, $Wx::_wreg, 1 )  && ( $this->SetClippingRegionRegion( @_ ), return );
-  croak Wx::_ovl_error 'Wx::DC::SetClippingRegion';
+  croak Wx::_ovl_error;
 }
 
 1;

@@ -20,7 +20,7 @@ sub StartDrawingOnTop {
 
   Wx::_match( @_, $Wx::_wwin, 1 ) && return $this->StartDrawingOnTopWindow( @_ );
   Wx::_match( @_, $Wx::_wrec, 1 ) && return $this->StartDrawingOnTopRect( @_ );
-  croak Wx::_ovl_error 'Wx::ScreenDC::StartDrawingOnTop';
+  croak Wx::_ovl_error;
 }
 
 1;

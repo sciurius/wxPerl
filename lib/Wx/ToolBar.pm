@@ -18,10 +18,10 @@ use Carp;
 sub AddTool {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_n_wbmp_wbmp_n_s_s_s, 2, 1 ) && return $this->AddToolLong( @_ );
+  Wx::_match( @_, $Wx::_n_wbmp_wbmp_b_s_s_s, 2, 1 ) && return $this->AddToolLong( @_ );
   Wx::_match( @_, $Wx::_n_wbmp_s_s, 2, 1 )          && return $this->AddToolShort( @_ );
 
-  croak Wx::_ovl_error 'Wx::ToolBar::AddTool';
+  croak Wx::_ovl_error;
 }
 
 sub SetMargins {
@@ -29,7 +29,7 @@ sub SetMargins {
 
   Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->SetMarginsXY( @_ ), return );
   Wx::_match( @_, $Wx::_wsiz, 1 ) && ( $this->SetMarginsSize( @_ ), return );
-  croak Wx::_ovl_error 'Wx::ToolBar::SetMargins';
+  croak Wx::_ovl_error;
 }
 
 1;

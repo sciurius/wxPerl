@@ -20,7 +20,7 @@ sub Append {
 
   Wx::_match( @_, $Wx::_s, 1 )   && ( $this->AppendString( @_ ), return );
   Wx::_match( @_, $Wx::_s_s, 2 ) && ( $this->AppendData( @_ ), return );
-  croak Wx::_ovl_error 'Wx::ComboBox::Append';
+  croak Wx::_ovl_error;
 }
 
 sub SetSelection {
@@ -28,7 +28,7 @@ sub SetSelection {
 
   Wx::_match( @_, $Wx::_n_n, 2 ) && ( $this->SetMark( @_ ), return );
   Wx::_match( @_, $Wx::_n, 1 )   && ( $this->SetSelectionN( @_ ), return );
-  croak Wx::_ovl_error 'Wx::ComboBox::SetSelection';
+  croak Wx::_ovl_error;
 }
 
 1;
