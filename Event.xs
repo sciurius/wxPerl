@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.39 2004/08/04 20:13:37 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.40 2004/09/12 12:36:24 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -641,5 +641,31 @@ wxUpdateUIEvent::GetText()
 void
 wxUpdateUIEvent::SetText( text )
     wxString text
+
+MODULE=Wx_Evt PACKAGE=Wx::NavigationKeyEvent
+
+wxNavigationKeyEvent*
+wxNavigationKeyEvent::new()
+
+bool
+wxNavigationKeyEvent::GetDirection()
+
+void
+wxNavigationKeyEvent::SetDirection(direction)
+    bool direction
+
+bool
+wxNavigationKeyEvent::IsWindowChange()
+
+void
+wxNavigationKeyEvent::SetWindowChange(change)
+    bool change
+
+wxWindow*
+wxNavigationKeyEvent::GetCurrentFocus()
+
+void
+wxNavigationKeyEvent::SetCurrentFocus(focus)
+    wxWindow* focus
 
 MODULE=Wx_Evt
