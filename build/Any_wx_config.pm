@@ -68,9 +68,12 @@ sub configure {
   else { warn 'unknown compiler: set EXTRA_CFLAGS to force C++ mode'
            unless length( $wxConfig::extra_cflags ) > 1 }
 
-  if( $wxConfig::debug_mode ) { $config{CCFLAGS} .= ' -g ' }
+  if( $wxConfig::debug_mode ) {
+    $config{CCFLAGS} .= ' -g ';
+    $config{OPTIMIZE} = ' ';
+  }
 
-  if( ld_is_GNU( $Config{ld} ) ) { $config{LD} = 'g++' }
+  if( ld_is_GNU( $Config{ld} ) ) { $config{LD} = 'g++ -shared' }
 
   $cccflags = wx_config( 'cflags' );
   $libs = wx_config( 'libs' );
