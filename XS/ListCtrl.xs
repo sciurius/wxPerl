@@ -220,7 +220,7 @@ Wx_ListItemAttr::new( ... )
     CODE:
       text = *(Wx_Colour *) wxPli_sv_2_object( aTHX_ ST(1), "Wx::Colour" );
       back = *(Wx_Colour *) wxPli_sv_2_object( aTHX_ ST(2), "Wx::Colour" );
-      font = (Wx_Font *) wxPli_sv_2_object( aTHX_ ST(3), "Wx::Font"g );
+      font = (Wx_Font *) wxPli_sv_2_object( aTHX_ ST(3), "Wx::Font" );
       RETVAL = new wxListItemAttr( text, back, *font );
     OUTPUT:
       RETVAL
