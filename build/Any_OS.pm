@@ -153,7 +153,7 @@ sub configure {
       CCFLAGS => $wxConfig::extra_cflags,
     );
 
-  $config{INC} .= "-I" . MM->curdir ;
+  $config{INC} .= "-I" . MM->curdir . " ";
   if( building_extension() ) {
     $config{DEFINE} .= " -DWXPL_EXT ";
     $config{INC} .= " -I" . top_dir() . " ";
