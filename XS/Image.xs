@@ -12,14 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Image
 
-#FIXME// unimplemented
-# some constructors
-# some loadfile
-# methods returning ImageHandlers
-# SetData
-# GetData
-# operator == !=
-
 Wx_Image*
 newNull()
   CODE:
@@ -338,11 +330,6 @@ Wx_Image::SetRGB( x, y, red, green, blue )
     unsigned char blue
 
 MODULE=Wx PACKAGE=Wx::ImageHandler
-
-#FIXME// unimplemented
-# GetImageCount
-# LoadFile
-# SaveFile
 
 void
 Wx_ImageHandler::Destroy()

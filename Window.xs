@@ -64,15 +64,6 @@
 
 MODULE=Wx_Win PACKAGE=Wx::Window
 
-#FIXME// unimplemented
-# bool LoadFromResource( wxWindow* parent, wxString name, wxResourceTable* )
-# void SetAcceleratortable( wxAcceleratorTable* )
-# void SetDroptarget( wxDroptarget )
-# // internal // void RemoveChild( wxWindow* child )
-# // obsolete // void SetPalette( wxPalette )
-# // internal // virtual void AddChild( wxWindow* window )
-# // internal // virtual void DestroyChildren()
-
 Wx_Window*
 Wx_Window::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0 , name = wxPanelNameStr)
     Wx_Window* parent

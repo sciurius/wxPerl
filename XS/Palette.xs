@@ -12,9 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Palette
 
-#FIXME// unimplemented
-# operator == !=
-
 Wx_Palette*
 Wx_Palette::new( r, g, b )
     SV* r

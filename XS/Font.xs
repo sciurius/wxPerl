@@ -12,9 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Font
 
-#FIXME// unimplemented
-# operator == !=
-
 Wx_Font*
 Wx_Font::new( pointsize, family, style, weight, underline = FALSE, faceName = wxEmptyString, encoding = wxFONTENCODING_DEFAULT )
     int pointsize

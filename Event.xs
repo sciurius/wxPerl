@@ -58,7 +58,8 @@ INCLUDE: XS/EvtHandler.xs
 
 MODULE=Wx_Evt PACKAGE=Wx::Event
 
-#FIXME// unimplemented
+# unimplemented ( and probably will never be: problems with object
+#                 cloning/destruction )
 # GetEventObject
 # GetObjectType
 # SetEventObject
@@ -231,16 +232,16 @@ Wx_DropFilesEvent::GetPosition()
 
 MODULE=Wx_Evt PACKAGE=Wx::EraseEvent
 
-#FIXME// unimplemented
-# GetPosition
+# unimplemented: problem with DC destruction
+# GetDC
 
 # Wx_EraseEvent*
 # Wx_EraseEvent::new( id = 0, dc = 0 )
 #     int id
 #     Wx_DC* dc
 
-Wx_DC*
-Wx_EraseEvent::GetDC()
+# Wx_DC*
+# Wx_EraseEvent::GetDC()
 
 MODULE=Wx_Evt PACKAGE=Wx::FocusEvent
 

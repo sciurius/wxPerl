@@ -12,10 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Locale
 
-#FIXME// unimplemented
-# AddLanguage
-# class wxLanguageInfo ( 2.3 )
-
 Wx_Locale*
 newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FALSE )
     const char* name

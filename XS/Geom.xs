@@ -87,9 +87,6 @@ Wx_Point::y( ... )
 
 MODULE=Wx PACKAGE=Wx::Rect
 
-#FIXME// unimplemented
-# operators == and !=
-
 Wx_Rect*
 newXYWH( x, y, width, height )
     int x
@@ -224,9 +221,6 @@ Wx_Rect::SetY( y )
    int y
 
 MODULE=Wx PACKAGE=Wx::Region
-
-#FIXME// unimplemented
-# operator =
 
 Wx_Region*
 newXYWH( x, y, width, height )

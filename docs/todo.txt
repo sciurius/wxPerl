@@ -1,18 +1,70 @@
 PRIORITY NORMAL:
 
-* wxApp::new
+* Wx::App::new
     find a better solution yhan just 'croak' if OnInit
     returns a false value
 
-* wxBitmap, wxIcon, wxImage, wxCursor
+* Wx::Bitmap, Wx::Icon, Wx::Image, Wx::Cursor
     add missing constructors ( where applicable )
+    FindHandler and handler related functions ( are them needed? )
+    LoadFile( stream )
+    Wx::Image::Get/SetData
+
+* Wx::ImageHandler
+    GetImageCount
+    LoadFile
+    SaveFile
 
 * Better Makefile.PL structure
 
+* Wx::ListCtrl
+    Overloaded InsertItem?
+
+* Wx::Window
+    LoadFromResource
+    SetAcceleratortable
+    SetDropTarget
+
+* Wx::NativeFontInfo ( 2.3 )
+
+* Wx::Locale ( 2.3 )
+    Wx::LanguageInfo
+    AddLanguage
+
+* Wx::StatusBar
+    DrawField ( virtual )
+    DrawFieldText ( virtual )
+    InitColours ( needed? )
+    GetFieldRect
+
+PRIORITY LOW:
+
+* Wx::App methods
+    CreateLogTarget
+
+* ::wxCreateFileTipProvider, ::wxShowTip, ::wxLogTrace
+    implement
+
+* Wx::Log
+    *Trace* functions
+
+* operator == and != ( are they useful/have side effects? )
+    Wx::Bitmap ( enable )
+    Wx::Brush
+    Wx::Colour
+    Wx::Cursor
+    Wx::Font
+    Wx::Rect
+    Wx::Region
+    Wx::Point
+    Wx::Size
+    Wx::Icon
+    Wx::Image
+    Wx::Palette
+    Wx::Pen
+
 DOCUMENTATTION:
 
-* Wx::Caret
+* Wx::MultipleChoiceDialog
 
-* Wx::Palette
-
-* wxDC::DrawSpline, wxDC::DrawLines, wxDC::DrawPolygon
+* Wx::ListItem

@@ -12,9 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Log
 
-#FIXME// unimplememnted
-# *Trace*
-
 void
 Wx_Log::Destroy()
   CODE:

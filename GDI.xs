@@ -26,8 +26,6 @@
 #include <wx/dcscreen.h>
 
 #include <stdarg.h>
-//FIXME// not needed (just for wxClientData)
-#include <wx/window.h>
 
 #undef _
 

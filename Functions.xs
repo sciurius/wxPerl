@@ -47,10 +47,6 @@
 
 MODULE=Wx_Func PACKAGE=Wx PREFIX=wx
 
-#FIXME// unimplemented
-# CreateFileTipProvider
-# ShowTip
-
 #
 # Dialog Functions
 #
@@ -124,7 +120,7 @@ wxGetSingleChoiceData( message, caption, chs, dt, parent = 0, x = -1, y = -1, ce
       delete[] choices;
       delete[] data;
       choices = 0; data = 0; n = 0;
-      croak( "supplied arrays of different size" );
+      croak( "supplied arrays of different sizes" );
     }
     rt = wxGetSingleChoiceData( message, caption, n, choices, (void**)data,
         parent, x, y, centre, width, height );
@@ -201,9 +197,6 @@ wxMessageBox( message, caption = "Message", style = wxOK|wxCENTRE, parent = 0, x
 #
 
 MODULE=Wx_Func PACKAGE=Wx
-
-#FIXME// unimplemented
-# wxLogTrace
 
 void
 wxLogError( string )

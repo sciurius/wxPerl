@@ -12,15 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::StatusBar
 
-#FIXME// unimplememnted
-# default constructor
-# drawField
-# drawFieldtext
-# InitColours
-# GetFieldRect
-
-# wxSysColourChanged
-
 Wx_StatusBar*
 Wx_StatusBar::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxEmptyString )
     Wx_Window* parent

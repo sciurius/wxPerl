@@ -12,9 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Cursor
 
-#FIXME// unimplemented
-# operator == !=
-
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 Wx_Cursor*

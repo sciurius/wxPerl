@@ -12,9 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Colour
 
-#FIXME// unimplemented:
-# operator == !=
-
 Wx_Colour*
 newRGB( red, green, blue )
     unsigned char red

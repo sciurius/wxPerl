@@ -22,7 +22,8 @@ push @Wx::EXPORT_OK, qw(_);
 sub new {
   shift;
 
-  #FIXME// this should be conditionally defined
+  # this should be conditionally defined, but it does no harm to leave
+  # like it is
   Wx::_match( @_, $Wx::_n_n, 2 )          && return Wx::Locale::newShort( @_ );
   Wx::_match( @_, $Wx::_s_s_s_b_b, 1, 1 ) && return Wx::Locale::newLong( @_ );
   croak Wx::_ovl_error;

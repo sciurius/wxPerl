@@ -12,10 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Icon
 
-#FIXME// unimplemented
-# some constructors
-# operator == !=
-
 #if ( !defined( __WXMOTIF__ ) && !defined( __WXMSW__ ) && !defined( __WXGTK__ ) ) || defined( __WXPERL_FORCE__ )
 
 Wx_Icon*

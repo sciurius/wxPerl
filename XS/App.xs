@@ -54,10 +54,8 @@ Wx_App::new()
 
 MODULE=Wx PACKAGE=Wx::App
 
-#FIXME// unimplemented
-# virtual Wx_Log* Wx_App::CreateLogTarget()
-# virtual void OnFatalException()
-# bool SendIdleEvents( * )
+# unimplemented
+# virtual void OnFatalException() # too low level
 
 void
 Wx_App::Dispatch()

@@ -12,9 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Pen
 
-#FIXME// unimplemented
-# operator == !=
-
 Wx_Pen*
 newColour( colour, width, style )
     Wx_Colour* colour
