@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/ 5/2003
-// RCS-ID:      $Id: editor.h,v 1.1 2003/06/05 17:16:47 mbarbon Exp $
+// RCS-ID:      $Id: editor.h,v 1.2 2003/08/02 21:19:12 mbarbon Exp $
 // Copyright:   (c) 2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -188,7 +188,7 @@ public:
 
     DEC_V_CBACK_VOID__INT_INT_WXGRID_pure( BeginEdit );
     DEC_V_CBACK_BOOL__INT_INT_WXGRID_pure( EndEdit );
-    DEC_V_CBACK_VOID__VOID_pure( Reset );
+    DEC_V_CBACK_VOID__VOID( Reset );
     DEC_V_CBACK_VOID__VOID( Destroy );
     DEC_V_CBACK_VOID__VOID( StartingClick );
     DEC_V_CBACK_BOOL__WXKEYEVENT( IsAcceptedKey );

@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.9 2003/05/05 20:38:42 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.10 2003/08/02 21:19:12 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -69,7 +69,7 @@ public:
     wxDocTemplate *GetDocumentTemplate() const;
     void SetDocumentTemplate( wxDocTemplate* );
 
-    bool GetPrintableName( wxString& ) const;
+    DEC_V_CBACK_BOOL__mWXSTRING_const( GetPrintableName );
 
     wxWindow *GetDocumentWindow() const;
 };
@@ -126,36 +126,8 @@ wxInputStream& wxPliDocument::LoadObject( wxInputStream& stream )
 }
 #endif
 
-bool wxPliDocument::OnSaveDocument( const wxString& filename )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "OnSaveDocument" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, "P", &filename);
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-      return wxDocument::OnSaveDocument( filename );
-}
-
-bool wxPliDocument::OnOpenDocument( const wxString& filename )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "OnOpenDocument" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, "P", &filename);
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-      return wxDocument::OnOpenDocument( filename );
-}
-
+DEF_V_CBACK_BOOL__WXSTRING( wxPliDocument, wxDocument, OnSaveDocument );
+DEF_V_CBACK_BOOL__WXSTRING( wxPliDocument, wxDocument, OnOpenDocument );
 DEF_V_CBACK_BOOL__VOID( wxPliDocument, wxDocument, OnNewDocument );
 DEF_V_CBACK_BOOL__VOID( wxPliDocument, wxDocument, OnCloseDocument );
 DEF_V_CBACK_BOOL__VOID( wxPliDocument, wxDocument, OnSaveModified );
@@ -178,21 +150,7 @@ bool wxPliDocument::OnCreate( const wxString& path, long flags  )
 
 DEF_V_CBACK_VOID__VOID( wxPliDocument, wxDocument, OnChangedViewList );
 DEF_V_CBACK_BOOL__VOID( wxPliDocument, wxDocument, DeleteContents );
-
-bool wxPliDocument::IsModified() const
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "IsModified" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-
-    return wxDocument::IsModified();
-}
+DEF_V_CBACK_BOOL__VOID_const( wxPliDocument, wxDocument, IsModified );
 
 void wxPliDocument::Modify( bool mod )
 {
@@ -295,20 +253,8 @@ void wxPliDocument::SetDocumentTemplate( wxDocTemplate *temp )
     wxDocument::SetDocumentTemplate( temp );
 }
 
-bool wxPliDocument::GetPrintableName( wxString &buf ) const
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "GetPrintableName" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, "P", &buf);
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-    return wxDocument::GetPrintableName( buf );
-}
+DEF_V_CBACK_BOOL__mWXSTRING_const( wxPliDocument, wxDocument,
+                                  GetPrintableName );
 
 wxWindow *wxPliDocument::GetDocumentWindow() const
 {
@@ -326,7 +272,6 @@ wxWindow *wxPliDocument::GetDocumentWindow() const
     }
     return wxDocument::GetDocumentWindow();
 }
-
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliDocument, wxDocument );
 
@@ -363,8 +308,8 @@ public:
     wxDocument *CreateDocument( const wxString& path, long flags = 0);
     wxView *CreateView( wxDocument*, long );
 
-    wxString GetViewName() const;
-    wxString GetDocumentName() const;
+    DEC_V_CBACK_WXSTRING__VOID_const( GetViewName );
+    DEC_V_CBACK_WXSTRING__VOID_const( GetDocumentName );
 
 private:
     static SV* CallConstructor( const wxString& className );
@@ -486,51 +431,12 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
     }
 }
 
-wxString wxPliDocTemplate::GetViewName() const
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "GetViewName" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
-        wxString retval;
-        WXSTRING_INPUT( retval, wxString, ret );
-        SvREFCNT_dec( ret );
-        return retval;
-    }
-    return wxDocTemplate::GetViewName();
-}
-
-wxString wxPliDocTemplate::GetDocumentName() const
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "GetDocumentName" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
-        wxString retval;
-        WXSTRING_INPUT( retval, wxString, ret );
-        SvREFCNT_dec( ret );
-        return retval;
-    }
-    return wxDocTemplate::GetDocumentName();
-}
-
-bool wxPliDocTemplate::FileMatchesTemplate( const wxString& path )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "FileMatchesTemplate" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, "P", &path );
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-    return wxDocTemplate::FileMatchesTemplate( path );
-}
+DEF_V_CBACK_WXSTRING__VOID_const( wxPliDocTemplate, wxDocTemplate,
+                                  GetViewName );
+DEF_V_CBACK_WXSTRING__VOID_const( wxPliDocTemplate, wxDocTemplate,
+                                  GetDocumentName );
+DEF_V_CBACK_BOOL__WXSTRING( wxPliDocTemplate, wxDocTemplate,
+                            FileMatchesTemplate );
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliDocTemplate, wxDocTemplate );
 

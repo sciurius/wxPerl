@@ -25,13 +25,13 @@ public:
     }
 private:
     // SGI CC warns here, but it is harmless
-    DEC_V_CBACK_SIZET__VOID__CONST( GetDataSize );
-    DEC_V_CBACK_BOOL__VOIDP__CONST( GetDataHere );
+    DEC_V_CBACK_SIZET__VOID_const( GetDataSize );
+    DEC_V_CBACK_BOOL__VOIDP_const( GetDataHere );
     DEC_V_CBACK_BOOL__SIZET_CVOIDP( SetData );
 };
 
-DEF_V_CBACK_SIZET__VOID__CONST( wxPlDataObjectSimple, wxDataObjectSimple, GetDataSize );
-DEF_V_CBACK_BOOL__VOIDP__CONST( wxPlDataObjectSimple, wxDataObjectSimple, GetDataHere );
+DEF_V_CBACK_SIZET__VOID_const( wxPlDataObjectSimple, wxDataObjectSimple, GetDataSize );
+DEF_V_CBACK_BOOL__VOIDP_const( wxPlDataObjectSimple, wxDataObjectSimple, GetDataHere );
 DEF_V_CBACK_BOOL__SIZET_CVOIDP( wxPlDataObjectSimple, wxDataObjectSimple, SetData );
 
 // Local variables: //

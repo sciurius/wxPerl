@@ -17,7 +17,7 @@ class wxPlSizer:public wxSizer
 public:
     wxPlSizer( const char* package );
 
-    virtual void RecalcSizes();
+    DEF_V_CBACK_VOID__VOID( RecalcSizes );
     virtual wxSize CalcMin();
 };
 
@@ -27,17 +27,7 @@ inline wxPlSizer::wxPlSizer( const char* package )
     m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
 }
 
-void wxPlSizer::RecalcSizes()
-{
-    dTHX;
-
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "RecalcSizes" ) )
-    {
-        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR|G_DISCARD );
-        return;
-    }
-}
+DEF_V_CBACK_VOID__VOID_pure( wxPlSizer, wxSizer, RecalcSizes )
 
 wxSize wxPlSizer::CalcMin()
 {

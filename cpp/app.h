@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.15 2003/05/05 20:38:41 mbarbon Exp $
+// RCS-ID:      $Id: app.h,v 1.16 2003/08/02 21:19:09 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -23,9 +23,9 @@ public:
     ~wxPliApp();
 
     bool OnInit();
-    int OnExit();
     int MainLoop();
 
+    DEC_V_CBACK_INT__VOID( OnExit );
     DEC_V_CBACK_BOOL__BOOL( Yield );
 };
 
@@ -80,22 +80,7 @@ inline int wxPliApp::MainLoop() {
     return retval;
 }
 
-int wxPliApp::OnExit()
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnExit" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
-        int val = SvOK( ret ) ? SvIV( ret ) : 0;
-        SvREFCNT_dec( ret );
-
-        return val;
-    }
-    else
-        return wxApp::OnExit();
-}
-
+DEF_V_CBACK_INT__VOID( wxPliApp, wxApp, OnExit );
 DEF_V_CBACK_BOOL__BOOL( wxPliApp, wxApp, Yield );
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliApp, wxApp );

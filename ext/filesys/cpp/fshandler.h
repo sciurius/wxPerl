@@ -47,20 +47,8 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlFileSystemHandler, wxFileSystemHandler );
 
 DEF_V_CBACK_WXSTRING__VOID_pure( wxPlFileSystemHandler, wxFileSystemHandler,
                                  FindNext );
-
-bool wxPlFileSystemHandler::CanOpen( const wxString& file )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "CanOpen" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, "P", &file );
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-    return false;
-}
+DEF_V_CBACK_BOOL__WXSTRING_pure( wxPlFileSystemHandler, wxFileSystemHandler,
+                                 CanOpen );
 
 wxString wxPlFileSystemHandler::FindFirst( const wxString& file, int flags )
 {
