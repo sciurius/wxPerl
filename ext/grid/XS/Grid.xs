@@ -163,6 +163,9 @@ void
 Wx_Grid::DisableDragRowSize()
 
 void
+Wx_Grid::DisableDragColSize()
+
+void
 Wx_Grid::EnableCellEditControl( enable = TRUE )
     bool enable
 
