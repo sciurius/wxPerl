@@ -99,7 +99,15 @@ _wxGauge::_wxGauge( const char* package, wxWindow* parent, wxWindowID id,
     Create( parent, id, range, pos, size, style, validator, name );
 }
 
+#if defined( __WXMSW__ )
+
+_IMPLEMENT_DYNAMIC_CLASS( _wxGauge, wxGauge95 );
+
+#else
+
 _IMPLEMENT_DYNAMIC_CLASS( _wxGauge, wxGauge );
+
+#endif
 
 _wxListBox::_wxListBox( const char* package, wxWindow* parent, wxWindowID id, 
                         const wxPoint& pos, const wxSize& size, int n,
@@ -191,7 +199,15 @@ _wxSlider::_wxSlider( const char* package, wxWindow* parent, wxWindowID id,
             validator, name );
 }
 
+#if defined( __WXMSW_ )
+
+_IMPLEMENT_DYNAMIC_CLASS( _wxSlider, wxSlider95 );
+
+#else
+
 _IMPLEMENT_DYNAMIC_CLASS( _wxSlider, wxSlider );
+
+#endif
 
 _wxStaticBitmap::_wxStaticBitmap( const char* package, wxWindow* parent, 
                                   wxWindowID id, 
