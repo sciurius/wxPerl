@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.21
+0.21  Sat Dec 11 18:01:25 CET 2004
 	- Fixed installation of 'wxPerl' command on Mac OS X.
 	- Fixed running in the embedded case (still requires the
 	  application to call ExitMainLoop at the right places).
