@@ -34,6 +34,7 @@
 #include <wx/sashwin.h>
 #include <wx/textctrl.h>
 #include <wx/listctrl.h>
+#include <wx/settings.h>
 #include <stdarg.h>
 
 #undef _
@@ -73,6 +74,11 @@ if( strEQ( name, #n ) ) \
     r( wxALIGN_CENTER_VERTICAL );       // sizer
     r( wxALIGN_CENTER_HORIZONTAL );     // sizer
     r( wxALL );                         // sizer
+
+    r( wxACCEL_ALT );
+    r( wxACCEL_CTRL );
+    r( wxACCEL_NORMAL );
+    r( wxACCEL_SHIFT );
 
     r( wxAND );                         // dc
     r( wxAND_INVERT );                  // dc
@@ -1037,6 +1043,91 @@ if( strEQ( name, #n ) ) \
     r( wxSW_BORDER );                   // sashwindow
 
     r( wxSameAs );                      // layout constraints
+
+    // fonts
+    r( wxSYS_OEM_FIXED_FONT );
+    r( wxSYS_ANSI_FIXED_FONT );
+    r( wxSYS_ANSI_VAR_FONT );
+    r( wxSYS_SYSTEM_FONT ); 
+    r( wxSYS_DEVICE_DEFAULT_FONT );
+    r( wxSYS_DEFAULT_GUI_FONT );
+
+    // colours
+    r( wxSYS_COLOUR_SCROLLBAR );
+    r( wxSYS_COLOUR_BACKGROUND );
+    r( wxSYS_COLOUR_ACTIVECAPTION );
+    r( wxSYS_COLOUR_INACTIVECAPTION );
+    r( wxSYS_COLOUR_MENU );
+    r( wxSYS_COLOUR_WINDOW );
+    r( wxSYS_COLOUR_WINDOWFRAME );
+    r( wxSYS_COLOUR_MENUTEXT );
+    r( wxSYS_COLOUR_WINDOWTEXT );
+    r( wxSYS_COLOUR_CAPTIONTEXT );
+    r( wxSYS_COLOUR_ACTIVEBORDER );
+    r( wxSYS_COLOUR_INACTIVEBORDER );
+    r( wxSYS_COLOUR_APPWORKSPACE );
+    r( wxSYS_COLOUR_HIGHLIGHT );
+    r( wxSYS_COLOUR_HIGHLIGHTTEXT );
+    r( wxSYS_COLOUR_BTNFACE );
+    r( wxSYS_COLOUR_BTNSHADOW );
+    r( wxSYS_COLOUR_GRAYTEXT );
+    r( wxSYS_COLOUR_BTNTEXT );
+    r( wxSYS_COLOUR_INACTIVECAPTIONTEXT );
+    r( wxSYS_COLOUR_BTNHIGHLIGHT );
+
+    r( wxSYS_COLOUR_3DDKSHADOW );
+    r( wxSYS_COLOUR_3DLIGHT );
+    r( wxSYS_COLOUR_INFOTEXT );
+    r( wxSYS_COLOUR_INFOBK );
+
+    r( wxSYS_COLOUR_LISTBOX );
+
+    r( wxSYS_COLOUR_DESKTOP );
+    r( wxSYS_COLOUR_3DFACE );
+    r( wxSYS_COLOUR_3DSHADOW );
+    r( wxSYS_COLOUR_3DHIGHLIGHT );
+    r( wxSYS_COLOUR_3DHILIGHT );
+    r( wxSYS_COLOUR_BTNHILIGHT );
+
+    // metrics
+    r( wxSYS_MOUSE_BUTTONS );
+    r( wxSYS_BORDER_X );
+    r( wxSYS_BORDER_Y );
+    r( wxSYS_CURSOR_X );
+    r( wxSYS_CURSOR_Y );
+    r( wxSYS_DCLICK_X );
+    r( wxSYS_DCLICK_Y );
+    r( wxSYS_DRAG_X );
+    r( wxSYS_DRAG_Y );
+    r( wxSYS_EDGE_X );
+    r( wxSYS_EDGE_Y );
+    r( wxSYS_HSCROLL_ARROW_X );
+    r( wxSYS_HSCROLL_ARROW_Y );
+    r( wxSYS_HTHUMB_X );
+    r( wxSYS_ICON_X );
+    r( wxSYS_ICON_Y );
+    r( wxSYS_ICONSPACING_X );
+    r( wxSYS_ICONSPACING_Y );
+    r( wxSYS_WINDOWMIN_X );
+    r( wxSYS_WINDOWMIN_Y );
+    r( wxSYS_SCREEN_X );
+    r( wxSYS_SCREEN_Y );
+    r( wxSYS_FRAMESIZE_X );
+    r( wxSYS_FRAMESIZE_Y );
+    r( wxSYS_SMALLICON_X );
+    r( wxSYS_SMALLICON_Y );
+    r( wxSYS_HSCROLL_Y );
+    r( wxSYS_VSCROLL_X );
+    r( wxSYS_VSCROLL_ARROW_X );
+    r( wxSYS_VSCROLL_ARROW_Y );
+    r( wxSYS_VTHUMB_Y );
+    r( wxSYS_CAPTION_Y );
+    r( wxSYS_MENU_Y );
+    r( wxSYS_NETWORK_PRESENT );
+    r( wxSYS_PENWINDOWS_PRESENT );
+    r( wxSYS_SHOW_SOUNDS );
+    r( wxSYS_SWAP_BUTTONS );
+
     break;
   case 'T':
     r( wxTAB_TRAVERSAL );               // panel
@@ -1134,6 +1225,10 @@ void SetConstants()
 
     tmp = get_sv( "Wx::_null_palette", 0 );
     sv_setref_pv( tmp, "Wx::Palette", new wxPalette( wxNullPalette ) );
+
+    tmp = get_sv( "Wx::_null_accelerator", 0 );
+    sv_setref_pv( tmp, "Wx::AcceleratorTable",
+        new wxAcceleratorTable( wxNullAcceleratorTable ) );
 
     //
     // Predefined colours
