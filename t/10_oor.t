@@ -15,7 +15,7 @@ use base 'Wx::ListBox';
 package MyFrame;
 
 use base 'Wx::Frame';
-use Test::More 'tests' => 24;
+use Test::More 'tests' => 26;
 
 sub new {
 my $this = shift->SUPER::new( undef, -1, 'a' );
@@ -34,10 +34,11 @@ my @data = ( [ 'Wx::Button', [ 'a' ] ],
              [ 'Wx::Notebook', [] ],
              [ 'Wx::RadioBox', [ 'a', [-1, -1], [-1, -1], [ 'a' ] ] ],
              [ 'Wx::RadioButton', [ 'a' ] ],
-             # [ 'Wx::ScrollBar', [] ],
+             [ 'Wx::ScrollBar', [] ],
              [ 'Wx::SpinButton', [] ],
              [ 'Wx::SpinCtrl', [ 'aaa' ] ],
-             [ 'Wx::Slider', [ 1, 4, 2 ] ],
+             [ 'Wx::SplitterWindow', [] ],
+             [ 'Wx::Slider', [ 3, 2, 4 ] ],
              [ 'Wx::StaticBitmap', [ Wx::Bitmap->new( 10, 10 ) ] ],
              [ 'Wx::StaticBox', [ 'a' ] ],
              [ 'Wx::StaticLine', [] ],
@@ -49,13 +50,18 @@ my @data = ( [ 'Wx::Button', [ 'a' ] ],
 foreach my $d ( @data ) {
     my( $class, $args ) = @$d;
 
-    my $lb = $class->new( $this, -1, @$args );
+  SKIP: {
+      skip "Generic wxStaticLine is weird", 1
+        if Wx::wxMOTIF() && $class eq 'Wx::StaticLine';
 
-    my $lb2 = ($this->GetChildren)[0];
+      my $lb = $class->new( $this, -1, @$args );
 
-    is( $lb2, $lb, "$class: objects reference the same hash" );
+      my $lb2 = ($this->GetChildren)[0];
 
-    $lb->Destroy;
+      is( $lb2, $lb, "$class: objects reference the same hash" );
+
+      $lb->Destroy;
+  }
 }
 
 my $lb = MyListBox->new( $this, -1 );
