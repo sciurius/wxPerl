@@ -9,6 +9,7 @@
 %typemap{float}{simple};
 %typemap{double}{simple};
 
+%typemap{size_t}{simple};
 %typemap{time_t}{simple};
 
 %typemap{wxWindowID}{simple};
@@ -25,5 +26,6 @@
 %typemap{const wxDateTime&}{reference};
 
 %typemap{wxWindow*}{simple};
+%typemap{wxSizer*}{simple};
 
 %typemap{const wxColour&}{reference};

@@ -10,10 +10,30 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+%{
 #include <wx/sizer.h>
 #include <wx/statbox.h>
 #include <wx/notebook.h>
 #include "cpp/sizer.h"
+%}
+
+%module{Wx};
+
+%name{Wx::Sizer} class wxSizer
+{
+    %name{ShowWindow} void Show( wxWindow* window, bool show = TRUE );
+    %name{ShowSizer} void Show( wxSizer* sizer, bool show = TRUE );
+};
+
+%{
+
+void
+wxSizer::Show( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wwin_b, ShowWindow, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wszr_b, ShowSizer, 1 )
+    END_OVERLOAD( Wx::Sizer::Show )
 
 MODULE=Wx PACKAGE=Wx::Sizer
 
@@ -415,13 +435,6 @@ Wx_SizerItem::IsSizer()
 bool
 Wx_SizerItem::IsSpacer()
 
-#if WXPERL_W_VERSION_GE( 2, 4, 0 )
-
-bool
-wxSizer::IsShown();
-
-#endif
-
 void
 Wx_SizerItem::SetInitSize( x, y )
     int x
@@ -438,14 +451,6 @@ Wx_SizerItem::SetFlag( flag )
 void
 Wx_SizerItem::SetBorder( border )
     int border
-
-#if WXPERL_W_VERSION_GE( 2, 4, 0 )
-
-void
-wxSizer::Show( doShow )
-    bool doShow
-
-#endif
 
 Wx_Window*
 Wx_SizerItem::GetWindow()
@@ -492,3 +497,5 @@ Wx_PlSizer::new()
     RETVAL = new wxPlSizer( CLASS );
   OUTPUT:
     RETVAL
+
+%}
