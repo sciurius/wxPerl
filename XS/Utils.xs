@@ -15,6 +15,7 @@
 #include <wx/caret.h>
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/snglinst.h>
+#include <wx/splash.h>
 #endif
 #include <wx/utils.h>
 #include <wx/debug.h>
@@ -31,6 +32,28 @@ Wx_CaretSuspend::new( window )
 
 void
 Wx_CaretSuspend::DESTROY()
+
+#endif
+
+MODULE=Wx PACKAGE=Wx::_SplashScreenCpp
+
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+
+Wx_SplashScreen*
+Wx_SplashScreen::new( bitmap, splashStyle, milliseconds, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSIMPLE_BORDER|wxFRAME_FLOAT_ON_PARENT )
+    Wx_Bitmap* bitmap
+    long splashStyle
+    int milliseconds
+    Wx_Window* parent
+    wxWindowID id
+    Wx_Point pos
+    Wx_Size size
+    long style
+  CODE:
+    RETVAL = new wxSplashScreen( *bitmap, splashStyle, milliseconds, parent,
+        id, pos, size, style );
+  OUTPUT:
+    RETVAL
 
 #endif
 

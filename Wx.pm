@@ -147,6 +147,8 @@ require Wx::_Exp;
 require Wx::_Functions;
 require Wx::_Inheritance;
 
+require Wx::SplashScreen;
+
 use strict;
 
 1;

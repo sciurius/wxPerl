@@ -219,6 +219,7 @@ FD_TD( SizerItem );
 FD_TD( Slider );
 FD_TD( SpinButton );
 FD_TD( SpinCtrl );
+FD_TD( SplashScreen );
 FD_TD( SplitterWindow );
 FD_TD( StaticBitmap );
 FD_TD( StaticBox );

@@ -43,6 +43,7 @@
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/tglbtn.h>
+#include <wx/splash.h>
 #endif
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
@@ -1036,6 +1037,13 @@ static double constant( const char *name, int arg )
     r( wxSPLIT_HORIZONTAL );            // splitterwindow
     r( wxSPLIT_VERTICAL );              // splitterwindow
 
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+    r( wxSPLASH_CENTRE_ON_PARENT );     // splashscreen
+    r( wxSPLASH_CENTRE_ON_SCREEN );     // splashscreen
+    r( wxSPLASH_NO_CENTRE );            // splashscreen
+    r( wxSPLASH_TIMEOUT );              // splashscreen
+    r( wxSPLASH_NO_TIMEOUT );           // splashscreen
+#endif
     r( wxSHAPED );                      // sizer
 
     r( wxSHORT_DASH );                  // pen

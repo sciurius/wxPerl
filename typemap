@@ -89,6 +89,7 @@ Wx_ScrolledWindow *     O_WXOBJECT
 Wx_SplitterWindow *     O_WXOBJECT
 Wx_SashWindow *         O_WXOBJECT
 Wx_ToggleButton *       O_WXOBJECT
+Wx_SplashScreen *       O_WXOBJECT
 
 Wx_ColourDialog *       O_WXOBJECT
 Wx_FileDialog *         O_WXOBJECT
