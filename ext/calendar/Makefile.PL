@@ -18,6 +18,7 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME         => 'Wx::Calendar',
                  VERSION_FROM => 'Calendar.pm',
+                 clean        => { FILES => 'cpp' },
                );
 
 # local variables:

@@ -189,6 +189,11 @@ sub merge_config {
         next;
       }
 
+      if( $i eq 'clean' || $i eq 'realclean' ) {
+        $cfg{$i}{FILES} .= ' ' . $cfg{$i}{FILES};
+        next;
+      }
+
       if( ref($cfg{$i}) || ref($cfg2{$i}) ) {
         die "non scalar key '$i' while merging configuration information";
         $cfg{$i} = $cfg2{$i};
