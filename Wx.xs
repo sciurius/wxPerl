@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.56 2004/02/28 22:58:57 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.57 2004/03/02 20:13:17 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -250,7 +250,7 @@ UnLoad()
 
 bool
 _load_plugin( string )
-    const char* string
+    wxString string
   CODE:
     wxPluginManager::LoadLibrary( string, wxDL_VERBATIM );
 

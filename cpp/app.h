@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        app.h
+// Name:        cpp/app.h
 // Purpose:     c++ wrapper for wxApp
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.18 2003/11/16 17:18:29 mbarbon Exp $
+// RCS-ID:      $Id: app.h,v 1.19 2004/03/02 20:13:19 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -39,15 +39,15 @@ inline wxPliApp::wxPliApp( const char* package )
 wxPliApp::~wxPliApp()
 {
 #ifdef __WXMOTIF__
-    if (wxTheApp->GetTopWindow())
+    if (GetTopWindow())
     {
-        delete wxTheApp->GetTopWindow();
-        wxTheApp->SetTopWindow(NULL);
+        delete GetTopWindow();
+        SetTopWindow(NULL);
     }
 
-    wxTheApp->DeletePendingObjects();
+    DeletePendingObjects();
 
-    wxTheApp->OnExit();
+    OnExit();
 #endif
     wxPli_delete_argv( argv, 1 );
 

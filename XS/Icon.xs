@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Icon.xs,v 1.20 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Icon.xs,v 1.21 2004/03/02 20:13:19 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -60,7 +60,8 @@ newFile( CLASS, name, type, desW = -1, desH = -1 )
     int desW
     int desH
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined(__WXMOTIF__)
+#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && \
+    ( defined( __WXMOTIF__ ) || defined( __WXX11__ ) )
     RETVAL = new wxIcon( name, wxBitmapType(type), desW, desH );
 #else
     RETVAL = new wxIcon( name, type, desW, desH );
@@ -108,14 +109,18 @@ Wx_Icon::LoadFile( name, type )
     wxString name
     long type
   CODE:
-#ifdef __WXMOTIF__
+#if defined( __WXMOTIF__ )
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
         RETVAL = THIS->LoadFile( name, wxBitmapType(type), -1, -1 );
 #else
         RETVAL = THIS->LoadFile( name, type, -1, -1 );
 #endif
 #else
+#if defined( __WXX11__ ) && WXPERL_W_VERSION_GE( 2, 5, 1 )
+    RETVAL = THIS->LoadFile( name, wxBitmapType(type) );
+#else
     RETVAL = THIS->LoadFile( name, type );
+#endif
 #endif
   OUTPUT:
     RETVAL

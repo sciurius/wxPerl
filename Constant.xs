@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.101 2004/02/28 22:58:57 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.102 2004/03/02 20:13:16 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -2118,7 +2118,7 @@ _get_packages()
 #if wxPERL_USE_MDI
     "use Wx::MDI;"
 #endif
-#if wxPERL_USE_PRINT
+#if wxPERL_USE_PRINTING_ARCHITECTURE
     "use Wx::Print;"
 #endif
 #if wxPERL_USE_SOCKET
