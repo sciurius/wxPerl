@@ -15,12 +15,12 @@
 #if WXPERL_W_VERSION_GE( 2, 3, 2 ) && defined(__WXMSW__)
 
 #include <wx/msw/helpbest.h>
+#undef THIS
 
 MODULE=Wx PACKAGE=Wx::BestHelpController
 
 Wx_BestHelpController*
 Wx_BestHelpController::new()
-    long style
   CODE:
     RETVAL = new wxBestHelpController();
   OUTPUT:

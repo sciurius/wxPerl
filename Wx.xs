@@ -12,17 +12,17 @@
 
 #undef bool
 
+#include <stddef.h>
+#include "cpp/compat.h"
+#if !WXPERL_W_VERSION_GE( 2, 3, 0 )
 #include <wx/defs.h>
 #include <wx/window.h>
-#include <wx/module.h>
-
-#if __WXMSW__
-#include <wx/msw/private.h>
 #endif
 
-#include <stdarg.h>
-
-#include "cpp/compat.h"
+// THIS IS AN HACK!
+#if defined(_MSC_VER) && WXPERL_W_VERSION_GE( 2, 3, 0 )
+#define STRICT
+#endif
 
 WXPL_EXTERN_C_START
 #include <EXTERN.h>
@@ -35,6 +35,14 @@ WXPL_EXTERN_C_END
 #undef Copy
 #undef Pause
 #undef New
+
+#include <wx/defs.h>
+#include <wx/window.h>
+#include <wx/module.h>
+
+#if __WXMSW__
+#include <wx/msw/private.h>
+#endif
 
 int  WXDLLEXPORT wxEntryStart( int argc, char** argv );
 int  WXDLLEXPORT wxEntryInitGui();

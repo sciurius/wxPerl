@@ -16,6 +16,8 @@ MODULE=Wx PACKAGE=Wx::NativeFontInfo
 
 #include <wx/fontutil.h>
 
+#undef THIS
+
 void
 Wx_NativeFontInfo::DESTROY()
 

@@ -14,6 +14,8 @@
 
 #include <wx/cshelp.h>
 
+#undef THIS
+
 MODULE=Wx PACKAGE=Wx::ContextHelp
 
 Wx_ContextHelp*

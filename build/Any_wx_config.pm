@@ -45,7 +45,9 @@ sub ld_is_GNU {
   my $pipe = MM->catfile( top_dir(), 'script', 'pipe.pl' );
 
   return 1 if $ld =~ m/gcc|g\+\+/i;
-  return 1 if qx($^X $pipe $ld -v) =~ m/gcc|g\+\+|\sgnu\s/i;
+  my $output = qx($^X $pipe $ld -v);
+  return 1 if $output =~ m/gcc|g\+\+|\sgnu\s/i;
+  return 1 if $output =~ m/.*see no perl executable.*perl is required to build dynamic libraries/is;
 
   return;
 }
@@ -74,7 +76,7 @@ sub configure {
 
   if( ld_is_GNU( $Config{ld} ) ) { $config{LD} = "$cxx -shared" }
 
-  $cccflags = wx_config( 'cflags' );
+  $cccflags = wx_config( 'cxxflags' );
   $libs = wx_config( 'libs' );
 
   foreach ( split ' ', $cccflags ) {
