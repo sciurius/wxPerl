@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.30 2004/02/29 14:43:24 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.31 2004/03/20 17:51:32 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -234,6 +234,9 @@ wxGetOsDescription()
 
 long
 wxNewId()
+
+wxEventType
+wxNewEventType()
 
 void
 wxRegisterId( id )
