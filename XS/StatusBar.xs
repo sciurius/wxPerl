@@ -4,30 +4,30 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: StatusBar.xs,v 1.10 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: StatusBar.xs,v 1.11 2003/05/28 20:48:00 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 #include <wx/statusbr.h>
-#include "cpp/statusbar.h"
 
 MODULE=Wx PACKAGE=Wx::StatusBar
 
-Wx_StatusBar*
-Wx_StatusBar::new( parent, id, style = 0, name = wxEmptyString )
-    Wx_Window* parent
+wxStatusBar*
+wxStatusBar::new( parent, id, style = 0, name = wxEmptyString )
+    wxWindow* parent
     wxWindowID id
     long style
     wxString name
   CODE:
-    RETVAL = new wxPliStatusBar( CLASS, parent, id, style, name );
+    RETVAL = new wxStatusBar( parent, id, style, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
 
-Wx_Rect*
-Wx_StatusBar::GetFieldRect( index )
+wxRect*
+wxStatusBar::GetFieldRect( index )
     int index
   PREINIT:
     wxRect rect;
@@ -42,36 +42,36 @@ Wx_StatusBar::GetFieldRect( index )
     RETVAL
 
 int
-Wx_StatusBar::GetFieldsCount()
+wxStatusBar::GetFieldsCount()
 
 wxString
-Wx_StatusBar::GetStatusText( ir = 0 )
+wxStatusBar::GetStatusText( ir = 0 )
     int ir
 
 void
-Wx_StatusBar::PushStatusText( string, n = 0 )
+wxStatusBar::PushStatusText( string, n = 0 )
     wxString string
     int n
 
 void
-Wx_StatusBar::PopStatusText( n = 0 )
+wxStatusBar::PopStatusText( n = 0 )
     int n
 
 void
-Wx_StatusBar::SetFieldsCount( number = 1 )
+wxStatusBar::SetFieldsCount( number = 1 )
     int number
 
 void
-Wx_StatusBar::SetMinHeight( height )
+wxStatusBar::SetMinHeight( height )
     int height
 
 void
-Wx_StatusBar::SetStatusText( text, i = 0 )
+wxStatusBar::SetStatusText( text, i = 0 )
     wxString text
     int i
 
 void
-Wx_StatusBar::SetStatusWidths( ... )
+wxStatusBar::SetStatusWidths( ... )
   PREINIT:
     int* widths;
     int i;
