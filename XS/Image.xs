@@ -36,11 +36,10 @@ Wx_Image*
 newIcon( icon )
     Wx_Icon* icon
   CODE:
-#if defined( __WXMSW__ )
+#ifdef __WXMSW__
     RETVAL = new wxImage( wxBitmap( *icon ) );
 #else
-    //FIXME// it compiles: does it work, too?
-    RETVAL = new wxImage( (wxBitmap&) *icon );
+    RETVAL = new wxImage( wxBitmap( (wxBitmap&)*icon ) );
 #endif
   OUTPUT:
     RETVAL
@@ -75,7 +74,7 @@ newData( width, height, dt )
   CODE:
     if( len != (STRLEN) width * height * 3 )
     {
-        croak( "too few data" );
+        croak( "too few data in image constructor" );
     }
     newdata = (unsigned char*)malloc( width * height * 3 );
     memcpy( newdata, data, width * height * 3 );
