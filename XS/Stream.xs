@@ -97,6 +97,24 @@ Wx_InputStream::TELL()
   OUTPUT:
     RETVAL
 
+SV*
+Wx_InputStream::READLINE()
+  PREINIT:
+    char c;
+    wxString val;
+  CODE:
+    if( THIS->Eof() ) { XSRETURN_UNDEF; }
+
+    while( THIS->Read( &c, 1 ).LastRead() != 0 ) {
+        // printf("!%s!\n", RETVAL.c_str() );
+        val.Append( c );
+        if( c == '\n' ) break;
+    }
+    RETVAL = newSViv( 0 );
+    WXSTRING_OUTPUT( val, RETVAL );
+  OUTPUT:
+    RETVAL
+
 MODULE=Wx PACKAGE=Wx::OutputStream
 
 size_t
