@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -52,7 +52,13 @@ newNativeInfo( CLASS, info )
     SV* CLASS
     wxString info
   CODE:
+#if defined(__WXMOTIF__) || defined(__WXX11__)
+    wxNativeFontInfo fontinfo;
+    fontinfo.FromString( info );
+    RETVAL = new wxFont( fontinfo );
+#else
     RETVAL = new wxFont( info );
+#endif
   OUTPUT: RETVAL
 
 #endif
@@ -66,7 +72,8 @@ newFont( CLASS, font )
   OUTPUT: RETVAL
 
 wxFont*
-newLong( pointsize, family, style, weight, underline = FALSE, faceName = wxEmptyString, encoding = wxFONTENCODING_DEFAULT )
+newLong( CLASS, pointsize, family, style, weight, underline = FALSE, faceName = wxEmptyString, encoding = wxFONTENCODING_DEFAULT )
+    SV* CLASS
     int pointsize
     int family
     int style
