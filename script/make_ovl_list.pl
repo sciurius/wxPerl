@@ -30,6 +30,7 @@ my %name2type =
    wlci => 'Wx::ListItem',
    wsiz => 'Wx::Size',
    wpoi => 'Wx::Point',
+   wgco => 'Wx::GridCellCoords',
    wdat => 'Wx::DataObject',
    wcur => 'Wx::Cursor',
    wehd => 'Wx::EvtHandler',

@@ -21,6 +21,22 @@ my %packages;
 my $tag;
 my $package;
 
+sub add_to_exports {
+  my( $values, $tags ) = @_;
+
+  foreach my $i ( split '\s+', $values ) {
+    next if $i =~ /^\s*$/;
+
+    foreach my $j ( split '\s+', $tags ) {
+      next if $_ =~ /^\s*$/;
+
+      push @{ $packages{$package}{tags}{$j} }, $i;
+    }
+
+    push @{ $packages{$package}{exp_ok} }, $i;
+  }
+}
+
 foreach my $i ( @ARGV ) {
   open IN, '< ' . $i or die "unable to open '$i'";
   $tag = '';
@@ -34,6 +50,7 @@ foreach my $i ( @ARGV ) {
       if( $t eq 'parser' ) { $parser = eval "$v"; die if $@ }
       if( $t eq 'package' ) { $package = $v }
       if( $t eq 'tag' ) { $tag = $v }
+      if( $t eq 'export' ) { add_to_exports( $v, $tag ); next }
       next;
     };
     next unless $parser;
@@ -41,14 +58,7 @@ foreach my $i ( @ARGV ) {
     my @values = $parser->( $_ );
     length( $values[0] ) || next;
 
-    foreach ( split '\s+', $values[1] . ' ' . $tag ) {
-      next if $_ =~ /^\s*$/;
-
-      push @{ $packages{$package}{tags}{$_} }, $values[0];
-    }
-
-    push @{ $packages{$package}{exp_ok} }, $values[0];
-#    print "$values[0] => $values[1]\n";
+    add_to_exports( $values[0], "$values[1] $tag" );
   }
 }
 
