@@ -38,11 +38,11 @@ sub test_frame {
 
   my $function = sub {
     my $frame = $class->new( @params );
-
-    $frame->Destroy;
   };
 
   my $app = Tests_Helper_App->new( $function );
+
+  return $app;
 }
 
 sub test_inheritance {
@@ -82,7 +82,7 @@ sub test_inheritance {
 
   COMPARE: while ( @ci ) {
       my( $c_class ) = shift @ci;
-      next if $c_class =~ m/Base$/;
+      next if $c_class =~ m/(?:Base|GTK)$/;
       next if $c_class =~ m/StatusBar/; #FIXME// ad hoc
       next if $c_class eq 'Wx::Object';
       my( $p_class );
