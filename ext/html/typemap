@@ -20,7 +20,7 @@ Wx_BestHelpController * O_WXOBJECT
 
 Wx_HtmlEasyPrinting *   O_NON_WXOBJECT
 
-Wx_ConfigBase *         O_WXOBJECT
+# Wx_ConfigBase *         O_WXOBJECT
 
 Wx_PrintData *          O_WXOBJECT
 Wx_PageSetupDialogData * O_WXOBJECT

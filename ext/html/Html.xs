@@ -70,7 +70,7 @@ INCLUDE: XS/HtmlEasyPrinting.xs
 #  //FIXME//tricky
 #if defined(__WXMSW__)
 #undef XS
-#define XS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
+#define XS( name ) WXXS( name )
 #endif
 
 MODULE=Wx__Html

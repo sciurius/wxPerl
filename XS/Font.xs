@@ -58,7 +58,7 @@ Wx_Font::GetFaceName()
 int
 Wx_Font::GetFamily()
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) && WXPERL_W_VERSION_LE( 2, 3, 2 ) || defined( __WXPERL_FORCE__ )
 
 int
 Wx_Font::GetFontId()

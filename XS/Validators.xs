@@ -15,9 +15,6 @@
 
 MODULE=Wx PACKAGE=Wx::Validator
 
-Wx_Validator*
-Wx_Validator::new()
-
 Wx_Window*
 Wx_Validator::GetWindow()
 

@@ -94,6 +94,18 @@
 #define WXPL_MSW_EXPORTS 0
 #endif
 
+#if defined(WIN32)
+#  if WXPERL_P_VERSION_GE( 5, 6, 0 )
+#    define WXXS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
+#  else
+#    ifdef PERL_OBJECT
+#      define WXXS( name ) __declspec( dllexport ) void name(CV* cv, CPerlObj* pPerl)
+#    else
+#      define WXXS( name ) __declspec( dllexport ) void name(CV* cv)
+#    endif
+#  endif
+#endif
+
 #if WXPL_MSW_EXPORTS
 #  if defined( WXPL_EXT )
 #    define WXPLDLL __declspec( dllimport )

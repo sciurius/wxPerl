@@ -68,7 +68,7 @@ INCLUDE: XS/ContextHelp.xs
 #  //FIXME//tricky
 #if defined(__WXMSW__)
 #undef XS
-#define XS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
+#define XS( name ) WXXS( name )
 #endif
 
 MODULE=Wx__Help

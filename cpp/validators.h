@@ -60,7 +60,7 @@ bool wxPlValidator::Validate( wxWindow* parent )
     if( wxPliVirtualCallback_FindCallback( &m_callback, "Validate" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( &m_callback, G_SCALAR, "S", 
+            ( &m_callback, G_SCALAR, "s", 
               wxPli_object_2_sv( sv_newmortal(), parent ) );
         bool val = SvTRUE( ret );
         SvREFCNT_dec( ret );

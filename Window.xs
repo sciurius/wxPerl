@@ -355,7 +355,7 @@ Wx_Window::GetSizeWH()
   PREINIT:
     int x;
     int y;
-  CODE:
+  PPCODE:
     THIS->GetSize( &x, &y );
     EXTEND( SP, 2 );
     PUSHs( sv_2mortal( newSViv( (IV) x ) ) );

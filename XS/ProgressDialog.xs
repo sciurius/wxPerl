@@ -20,7 +20,7 @@ Wx_ProgressDialog::new( title, message, maximum = 100, parent = 0, style = wxPD_
     wxString message
     int maximum
     Wx_Window* parent
-    int style
+    long style
   CODE:
     RETVAL = new wxProgressDialog( title, message, maximum, parent, style );
   OUTPUT:
