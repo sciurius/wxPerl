@@ -1,7 +1,0 @@
-KNOWN BUGS:
-
-wxMSW
-
-* Wx::ToolBar
-    - toolbar sample: choose 'toggle toolbar orientation'
-      the status bar moves to topleft corner of the client area (?)

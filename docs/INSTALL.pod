@@ -1,0 +1,276 @@
+If you read this file _as_is_, just ignore the funny characters you see.
+It is written in the POD format (see pod/perlpod.pod) which is specially
+designed to be readable as is.
+
+=head1 NAME
+
+Install - Build and install wxPerl
+
+=head1 wxPerl installation
+
+    ************************************************************************
+    You need to install wxWidgets before you can compile wxPerl.
+    For UNIX systems look at the section "INSTALL wxWidgets"; for Win32
+    systems, detailed build instructions for wxWidgets + wxPerl are included
+    in the section "COMPILING UNDER WIN32"; for Mac OS X, refer to
+    "INSTALL wxWidgets", and then to "USING wxPerl on MAC OS X"
+    ************************************************************************
+
+=head1 Quick installation
+
+This applies to UN*X systems, and only if wxWidgets is already
+compiled and installed.
+
+    # unpack the wxPerl archive
+    tar xzvf Wx-0.xx.tar.gz
+    cd Wx-0.xx
+    perl Makefile.PL   # (1)
+    make               # (2)
+    make test          # (3)
+    make install       # (4)
+
+1) see below for a way to specify a different installation directory
+
+2) under Windows you may need to use nmake, or another *make
+
+3) you may also want to do
+
+     perl run minimal
+     perl run controls
+     ...
+
+against the samples in the 'samples' subdirectory, and
+
+   perl demo/demo.pl
+
+before installing
+
+4) you may need Administrator/root privileges to install
+
+=head1 Additional flags to Makefile.PL
+
+In addition to ExtUtils::MakeMaker flags wxPerl Makefile.PL accepts
+
+  --debug
+
+Currently only under Win32 or GCC
+adds debugging information to the library
+
+  --extra-libs={extra libraries}
+
+Adds extra libraries to the link command line
+
+  --extra-cflags={extra compiler flags}
+
+Adds extra compiler flags to compiler line
+
+  --help
+
+Show the full list of options
+
+=head1 Installing wxWidgets (on UNIX systems and Mac OS X)
+
+For UNIX systems only. If you are using prepackaged wxWidgets binaries you
+need to install the -dev and -contrib-dev packages in order to compile
+wxPerl, otherwise you just need the main package and the -contrib package.
+If you are compiling wxWidgets yourself, the quick way is:
+
+  ./configure
+  make
+  make install
+  cd contrib/src/stc
+  make
+  make install
+  # only for wxWidgets 2.5.2 or below
+  cd ../xrc
+  make
+  make install
+
+If something goes wrong, please refer to the wxWidgets
+installation instructions.
+
+=head1 Installing under Win32
+
+This wxPerl version was tested with MinGW 3.0 and MS Visual C++ 5.
+Older MinGW versions (from 1.1 onwards) and newer versions will likely work.
+For the remainder of this section I'll assume that your Perl is installed
+in C:\Perl
+
+=head2 MS Visual C++ 5 (wxWidgets 2.4.x), MS Visual C++ 6 SP4 (wxWidgets 2.4.x)
+
+  Build wxWidgets as a dll
+
+  set WXDIR=z:\path\to\wx
+  set WXWIN=z:\path\to\wx
+  cd %WXDIR%\src\msw
+  nmake -f makefile.vc FINAL=1 dll
+  cd %WXDIR%\contrib\src\stc
+  nmake -f makefile.vc FINAL=1 WXUSINGDLL=1
+  cd %WXDIR%\contrib\src\xrc
+  nmake -f makefile.vc FINAL=1 WXUSINGDLL=1
+
+  # build wxPerl
+  perl Makefile.PL
+  nmake
+  nmake test
+  nmake install
+
+To build the debugging version apply this patch to wxWidgets:
+
+    Index: src/makevc.env
+    ===================================================================
+    RCS file: /pack/cvsroots/wxwidgets/wxWidgets/src/makevc.env,v
+    retrieving revision 1.48.2.5
+    diff -u -2 -r1.48.2.5 makevc.env
+    --- src/makevc.env	2003/02/26 05:26:20	1.48.2.5
+    +++ src/makevc.env	2004/08/05 21:14:07
+    @@ -213,6 +213,6 @@
+     !else if "$(FINAL)" == "hybrid"
+     OPT = /Ox /Gy
+    -DEBUG_FLAGS= /D__WXDEBUG__ /D__NO_VC_CRTDBG__
+    -LINK_DEBUG_FLAGS=/RELEASE
+    +DEBUG_FLAGS= /Zi /D__WXDEBUG__ /D__NO_VC_CRTDBG__
+    +LINK_DEBUG_FLAGS=-debug:full -debugtype:cv
+     _CRTFLAG=/MD
+     
+    ==CUT BEFORE THIS LINE AND STRIP 4 LEADING SPACES
+
+then follow the instructions above, passing FINAL=hybrid to wxWidgets
+makefiles, and --debug to Makefile.PL.
+
+=head2 MinGW 1.1 or later (wxWidgets 2.4.x)
+
+Get MinGW from http://www.mingw.org/ ; choose the all-in-one
+package (downloading the individual packages will work but requires
+you knowing how to install them). MSYS is not required.
+
+If you want to compile wxPerl against ActivePerl using MinGW,
+you need to first download and install ExtUtils::FakeConfig from
+http://wxperl.sourceforge.net/ap_mingw/ ; then just replace the
+"perl Makefile.PL" with "perl -MConfig_m Makefile.PL". If you built
+Perl from sources, you don't need this additional step.
+
+Build wxWidgets as a dll (you will need the utilities from
+http://biolpc22.york.ac.uk/pub/ports/mingw32/extra.zip )
+
+  set WXDIR=z:\path\to\wx
+  set WXWIN=z:\path\to\wx
+  cd z:\path\to\wx\src\msw
+  make -f makefile.g95 FINAL=1 WXMAKINGDLL=1
+  cd %WXDIR%\contrib\src\stc
+  make -f makefile.g95 FINAL=1 WXUSINGDLL=1
+  cd %WXDIR%\contrib\src\xrc
+  make -f makefile.g95 FINAL=1 WXUSINGDLL=1
+
+  # now build wxPerl
+  # get dmake from http://www.cpan.org/authors/id/GSAR/dmake-4.1pl1-win32.zip
+  perl Makefile.PL
+  dmake
+  dmake test
+  dmake install
+
+To build a debugging wxPerl, follow the instructions above passing
+FINAL=0 to wxWidgets makefile and --debug to Makefile.PL.
+
+=head2 MS Visual C++ 5 (wxWidgets 2.5.x), MS Visual C++ 6 SP4 (wxWidgets 2.5.x)
+
+Build wxWidgets as a dll
+
+  cd z:\path\to\wx\build\msw
+  nmake -f makefile.vc SHARED=1 BUILD=release
+  cd ..\..\contrib\build\stc
+  nmake -f makefile.vc SHARED=1 BUILD=release
+  # only for wxWidgets 2.5.2 or below
+  cd ..\xrc
+  nmake -f makefile.vc SHARED=1 BUILD=release
+
+  # build wxPerl
+  set WXDIR=z:\path\to\wx
+  set WXWIN=z:\path\to\wx
+
+  perl Makefile.PL
+  nmake
+  nmake test
+  nmake install
+
+To build a debugging wxPerl, follow the instructions above passing
+BUILD=debug DEBUG_RUNTIME_LIBS=0 to wxWidgets makefile and --debug
+to Makefile.PL.
+
+=head2 MinGW 1.1 or later (wxWidgets 2.5.x)
+
+Get MinGW from http://www.mingw.org/ ; choose the all-in-one
+package (downloading the individual packages will work but requires
+you knowing how to install them). MSYS is not required.
+
+If you want to compile wxPerl against ActivePerl using MinGW,
+you ned to first download and install ExtUtils::FakeConfig from
+http://wxperl.sourceforge.net/ap_mingw/ ; then just replace the
+"perl Makefile.PL" with "perl -MConfig_m Makefile.PL". If you built
+Perl from sources, you don't need this additional step.
+
+Build wxWidgets as a dll
+
+  cd z:\path\to\wx\build\msw
+  make -f makefile.gcc SHARED=1 BUILD=release
+  cd ..\..\contrib\src\stc
+  make -f makefile.gcc SHARED=1 BUILD=release
+  # only for wxWidgets 2.5.2 or below
+  cd ..\xrc
+  make -f makefile.gcc SHARED=1 BUILD=release
+
+  # now build wxPerl
+  # get dmake from http://www.cpan.org/authors/id/GSAR/dmake-4.1pl1-win32.zip
+  set WXDIR=z:\path\to\wx
+  set WXWIN=z:\path\to\wx
+
+  perl Makefile.PL
+  dmake
+  dmake test
+  dmake install
+
+To build a debugging wxPerl, follow the instructions above passing
+BUILD=debug to wxWidgets makefile and --debug to Makefile.PL.
+
+=head1 Specifying the installation path
+
+If you don't want to install wxPerl as a system module, you must
+specify a different installation path. With recent ExtUtils::MakeMaker
+you can do this by using
+
+  perl Makefile.PL PREFIX=path
+
+On older ExtUtils::MakeMaker version the correct incantation
+might be different.
+
+=head1 Using wxPerl on Mac OS X
+
+The 'perl' executable shipped with your OS can't be used to run executables
+that interact with the GUI, hence you need to use the special 'wxPerl'
+executable created by wxPerl.
+
+=head1 FAQ
+
+=head2 Problems compiling XRC and/or STC
+
+Usually they start like this:
+
+  STC.c:33:24: wx/stc/stc.h: No such file or directory
+
+and go ahead with many compilation errors.
+This usually means you did not install wxWidgets' 'contrib' libraries;
+either install them or disable STC/XRC passing --disable-stc --disable-xrc
+to Makefile.PL.
+
+=head2 C++ compiler
+
+wxPerl needs a C++ compiler to build. By default it will use
+the C++ compiler that was used to compile wxWidgets; this can cause
+problems if Perl was compiled with a C compiler of a different brand.
+For example if you compile Perl with GCC and wxWidgets with ICC or
+Perl with Sun C compiler and wxWidgets with G++ you will most likely
+not be able to compile wxPerl. Exceptions are: under Windows you can
+use ActivePerl (compiled with MS Visual Studio) and wxWidgets compiled
+with MinGW by using ExtUtils::FakeConfig, under Solaris a similar
+tool exists for Sun C Compiler -> GCC/G++ compilation.
+ 

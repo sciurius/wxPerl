@@ -29,8 +29,7 @@ build/Wx/build/MakeMaker.pm
 build/Wx/build/Options.pm
 build/Wx/build/Utils.pm
 
-docs/bugs.txt
-docs/install.txt
+docs/INSTALL.pod
 docs/todo.txt
 
 script/XSpp.pod

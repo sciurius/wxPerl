@@ -1,11 +1,11 @@
 wxPerl is a wrapper built around the wxWidgets
 (formerly known as wxWindows) GUI toolkit
 
-Copyright (c) 2000-2004 Mattia Barbon.
+Copyright (c) 2000-2005 Mattia Barbon.
 This package is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
-You need wxWidgets in order to build wxPerl (see http://www.wxwindows.org/).
+You need wxWidgets in order to build wxPerl (see http://www.wxwidgets.org/).
 You can use GTK, Win32, Mac OS X and Motif as windowing toolkits for wxPerl.
 
 Please read the DEPRECATIONS section at the bottom!
@@ -19,7 +19,7 @@ make
 make test
 make install
 
-for more detailed instructions see the docs/install.txt file;
+for more detailed instructions see the docs/install.pod file;
 in case of problems please consult the FAQ section therein.
 
 TESTED PLATFORMS:
@@ -28,13 +28,13 @@ Perl            | OS            | wxWidgets      | Compiler
 ----------------+---------------+----------------+-------------------
 ActivePerl 6xx  | Windows 2000  |                | MSVC 5
            8xx  |               | wxMSW 2.4.2    | MSVC 6
-5.6.1           |               | wxMSW 2.5.1    | MinGW GCC
+5.6.1           |               | wxMSW 2.5.3    | MinGW GCC
 5.8.0           |               |                |
 ----------------+---------------+----------------+-------------------
 5.8.0           | RedHat 8.0    | wxGTK 2.4.2    | GCC 3.2
-5.6.1           | Debian 3.0    | wxMotif 2.5.1  | GCC 2.95.2
+5.6.1           | Debian 3.0    | wxMotif 2.5.3  | GCC 2.95.2
 ----------------+---------------+----------------+-------------------  
-5.8.0           | Mac OS X 10.2 | wxMac 2.5.1    | GCC 3.1
+5.8.0           | Mac OS X 10.3 | wxMac 2.5.3    | GCC 3.3
 ----------------+---------------+----------------+-------------------
 
 wxPerl has also been reported to work on FreeBSD and IRIX.
@@ -79,4 +79,3 @@ The following features have been deprecated and may disappear in the future
 
     toolkit: wxMSW, wxGTK, wxMOTIF, wxX11, wxMAC, wxUNIVERSAL
     misc:    wxUNICODE, wxVERSION
-    
