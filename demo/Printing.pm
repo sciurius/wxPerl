@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/09/2001
-## RCS-ID:      $Id: Printing.pm,v 1.5 2005/03/14 20:59:26 mbarbon Exp $
+## RCS-ID:      $Id: Printing.pm,v 1.6 2005/03/15 21:35:23 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -102,6 +102,12 @@ sub OnPrint {
 package PrintingDemoPreviewFrame;
 
 use base 'Wx::PlPreviewFrame';
+
+sub Initialize {
+    Wx::LogMessage( 'PrintingDemoPreviewFrame::Initialize' );
+
+    $_[0]->SUPER::Initialize;
+}
 
 sub CreateControlBar {
     Wx::LogMessage( 'PrintingDemoPreviewFrame::CreateControlBar' );

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/06/2001
-## RCS-ID:      $Id: Preview.xs,v 1.9 2005/03/14 20:59:27 mbarbon Exp $
+## RCS-ID:      $Id: Preview.xs,v 1.10 2005/03/15 21:35:35 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -111,6 +111,7 @@ class wxPlPreviewFrame : public wxPreviewFrame
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPreviewFrame );
     WXPLI_DECLARE_V_CBACK();
 public: 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     wxPlPreviewFrame( const char* package, wxPrintPreviewBase *preview,
                       wxWindow *parent,
                       const wxString& title = wxT("Print Preview"),
@@ -123,12 +124,34 @@ public:
     {
         m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
+#else
+    wxPlPreviewFrame( const char* package, wxPrintPreviewBase *preview,
+                      wxFrame *parent,
+                      const wxString& title = wxT("Print Preview"),
+                      const wxPoint& pos = wxDefaultPosition,
+                      const wxSize& size = wxDefaultSize,
+                      long style = wxDEFAULT_FRAME_STYLE,
+                      const wxString& name = wxT("frame") )
+        : wxPreviewFrame( preview, parent, title, pos, size, style, name ),
+          m_callback( "Wx::PlPreviewFrame" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
+    }
+#endif
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     wxPreviewCanvas*     GetPreviewCanvas()     { return m_previewCanvas; }
+#else
+    wxWindow*            GetPreviewCanvas()     { return m_previewCanvas; }
+#endif
     wxPreviewControlBar* GetPreviewControlBar() { return m_controlBar; }
     wxPrintPreviewBase*  GetPrintPreview()      { return m_printPreview; }
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     void SetPreviewCanvas( wxPreviewCanvas* p )       { m_previewCanvas = p; }
+#else
+    void SetPreviewCanvas( wxWindow* p )              { m_previewCanvas = p; }
+#endif
     void SetPreviewControlBar( wxPreviewControlBar* p ) { m_controlBar = p; }
     void SetPrintPreview( wxPrintPreviewBase* p )       { m_printPreview = p; }
 
@@ -166,7 +189,9 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
     void OnFirst();
     void OnLast();
     void OnGoto();
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     void OnPrint();
+#endif
 };
 
 %{
@@ -210,8 +235,19 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
 #endif
 
     void Initialize();
+    void CreateCanvas();
+    void CreateControlBar();
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
     wxPreviewControlBar* GetControlBar() const;
+#endif
 };
+
+%{
+#define Initialize wxPreviewFrame::Initialize
+#define CreateCanvas wxPreviewFrame::CreateCanvas
+#define CreateControlBar wxPreviewFrame::CreateControlBar
+%}
 
 %name{Wx::PlPreviewFrame} class wxPlPreviewFrame
 {
@@ -235,14 +271,32 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
              %};
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     wxPreviewCanvas*     GetPreviewCanvas();
+#else
+    wxWindow*            GetPreviewCanvas();
+#endif
     wxPreviewControlBar* GetPreviewControlBar();
     wxPrintPreviewBase*  GetPrintPreview();
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     void SetPreviewCanvas( wxPreviewCanvas* p );
+#else
+    void SetPreviewCanvas( wxWindow* p );
+#endif
     void SetPreviewControlBar( wxPreviewControlBar* p );
     void SetPrintPreview( wxPrintPreviewBase* p );
+
+    void Initialize();
+    void CreateCanvas();
+    void CreateControlBar();
 };
+
+%{
+#undef Initialize
+#undef CreateCanvas
+#undef CreateControlBar
+%}
 
 %{
 MODULE=Wx PACKAGE=Wx::PreviewCanvas

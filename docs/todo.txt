@@ -78,13 +78,6 @@ PRIORITY LOW:
 * Wx::PageSetupDialogData
     overloaded constructors
 
-* Wx::PreviewFrame
-    CreateControlBar
-    CreateCanvas
-
-* Wx::PreviewControlBar
-    CreateButtons
-
 * operator == and != (are they useful/have side effects?)
     Wx::AcceleratorTable
     Wx::Bitmap (enable)
