@@ -31,8 +31,8 @@ public:
 };
 
 inline wxPlPrintout::wxPlPrintout( const char* package, const wxString& title )
-    :m_callback( "Wx::PlPrintout" ),
-    wxPrintout( title )
+    :wxPrintout( title ),
+     m_callback( "Wx::PlPrintout" )
 {
     m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
 }
