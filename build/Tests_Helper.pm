@@ -43,7 +43,8 @@ sub app_timeout($) {
                                     } );
 
               $timer->Start( 500, 1 );
-              #$frame->Show( 1 );
+              Wx::WakeUpIdle;
+              $frame->Show( 1 );
             } );
 }
 
