@@ -177,7 +177,7 @@ IMPLEMENT_DYNAMIC_CLASS( wxHashModule, wxModule );
 void* _sv_2_object( SV* scalar, const char* classname ) 
 {
     // is it correct to use undef as 'NULL'?
-    if( !SvTRUE( scalar ) ) 
+    if( !SvOK( scalar ) ) 
     {
         return 0;
     }
