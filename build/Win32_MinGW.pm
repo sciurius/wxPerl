@@ -13,6 +13,7 @@
 package Win32_MinGW;
 
 use strict;
+use Config;
 use base 'Win32';
 use wxMMUtils;
 
