@@ -572,8 +572,8 @@ void
 Wx_Window::PopupMenu( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wpoi, PopupMenuPoint )
-        MATCH_REDISP( wxPliOvl_n_n, PopupMenuXY )
+        MATCH_REDISP( wxPliOvl_wmen_wpoi, PopupMenuPoint )
+        MATCH_REDISP( wxPliOvl_wmen_n_n, PopupMenuXY )
     END_OVERLOAD( Wx::Window::PopupMenu )
 
 bool
