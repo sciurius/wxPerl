@@ -428,6 +428,10 @@ package Wx::TimerEvent;      @ISA = qw(Wx::Event);
 package Wx::TreeEvent;       @ISA = qw(Wx::NotifyEvent);
 package Wx::UpdateUIEvent;   @ISA = qw(Wx::CommandEvent);
 
+package Wx::SplitterEvent;
+
+if( $Wx::_wx_version >= 2.003003 ) { @ISA = qw(Wx::NotifyEvent) }
+
 1;
 
 __END__
