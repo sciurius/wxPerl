@@ -15,11 +15,15 @@ package Tests_Helper;
 use strict;
 require Exporter;
 
+use Test::More ();
+*ok = \&Test::More::ok;
+*is = \&Test::More::is;
+
 use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK);
 
 @ISA = qw(Exporter);
 
-@EXPORT_OK = qw(print_result test_inheritance test_inheritance_all
+@EXPORT_OK = qw(test_inheritance test_inheritance_all
                 test_inheritance_start test_inheritance_end 
                 test_app test_frame);
 
@@ -76,8 +80,6 @@ sub test_inheritance {
     }
   }
 
-  my @results;
-
  CLASSES: foreach my $i ( keys %perl_inheritance ) {
     my $pi = $perl_inheritance{$i};
     my $ci = $cpp_inheritance{$i};
@@ -97,16 +99,15 @@ sub test_inheritance {
         next COMPARE if $c_class eq $p_class;
       }
 
-      push @results, 0;
-      print STDERR "\nC++: @{$ci} Perl: @{$pi}\n";
+      ok( 0, $pi->[0] . ' inheritance chain' );
+      diag( "C++ : @{$ci}" );
+      diag( "Perl: @{$pi}" );
 
       next CLASSES;
     }
 
-    push @results, 1;
+    ok( 1,  $pi->[0] . ' inheritance chain' );
   }
-
-  return @results;
 }
 
 {
@@ -128,9 +129,7 @@ sub test_inheritance {
       push @classes, $1;
     }
 
-    my @results = test_inheritance( @classes );
-
-    print_results( @results );
+    test_inheritance( @classes );
   }
 }
 
@@ -142,15 +141,7 @@ sub test_inheritance_all {
     push @classes, $1;
   }
 
-  my @results = test_inheritance( @classes );
-
-  print_results( @results );
-}
-
-sub print_results {
-  print "1.." . ( @_ + 1 ) . "\n";
-  print "ok\n"; # dummy, to avoid 'all tests skipped'
-  foreach my $i ( @_ ) { print( $i ? "ok\n" : "not ok\n" ) }
+  test_inheritance( @classes );
 }
 
 # utility

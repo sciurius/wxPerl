@@ -1,13 +1,11 @@
 #!/usr/bin/perl
 
-BEGIN { print "1..1\n"; }
-
 use strict;
-use Wx;
 
-print "ok\n";
+use lib "build";
+use Test::More tests => 1;
 
-exit 0;
+BEGIN { use_ok 'Wx' }
 
 # Local variables: #
 # mode: cperl #

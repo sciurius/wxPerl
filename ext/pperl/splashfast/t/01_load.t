@@ -1,12 +1,12 @@
 #!/usr/bin/perl -w
 
-use Test;
-BEGIN { plan tests => 1 }
+use lib '../../../build';
+use Test::More 'tests' => 1;
 
 use Wx::Perl::SplashFast;
 use Wx;
 
-ok( 1 );
+ok( 1, "module compiles" );
 
 # local variables:
 # mode: cperl

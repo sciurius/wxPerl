@@ -2,12 +2,12 @@
 
 use strict;
 use Wx;
-use lib "../../build";
+
+use lib "build";
+use Test::More 'no_plan';
 use Tests_Helper qw(:inheritance);
 
-BEGIN { test_inheritance_start() }
-use Wx::Help;
-test_inheritance_end();
+test_inheritance_all();
 
 exit 0;
 

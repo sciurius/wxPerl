@@ -1,12 +1,12 @@
 #!/usr/bin/perl -w
 
-use Test;
-BEGIN { plan tests => 1 }
+use lib '../../../build';
+use Test::More 'tests' => 1;
 
 use Wx::Perl::SplashFast '../../../demo/data/logo.jpg', 400;
 use Wx 'wxTheApp';
 
-ok( 1 );
+ok( 1, "use Splashfast with arguments" );
 
 Wx::WakeUpIdle();
 wxTheApp->MainLoop();

@@ -3,18 +3,17 @@
 # tests the ability of sending events directly
 # to windows
 
-BEGIN { print "1..6\n"; }
-
 use strict;
 use Wx;
 use lib "build";
+use Test::More 'tests' => 6;
 use Tests_Helper qw(test_frame);
 use Wx::Event qw(EVT_BUTTON);
 
 package DataFrame;
 
 use strict;
-use vars qw(@ISA); @ISA = qw(Wx::Frame);
+use base 'Wx::Frame';
 
 sub new {
   my $class = shift;
@@ -25,33 +24,23 @@ sub new {
 
   my $trdata = $tree->GetItemData( $root );
   my $data = $trdata->GetData();
-
-  print( ( ( $data eq 'Frobnicate' ) ? '' : 'not ' ) . "ok 1\n" );
-
+  main::is( $data, 'Frobnicate', "Wx::TreeItemData::GetData" );
   $data = $trdata->GetData();
-
-  print( ( ( $data eq 'Frobnicate' ) ? '' : 'not ' ) . "ok 2\n" );
-
+  main::is( $data, 'Frobnicate', "Wx::TreeItemData::GetData (again)" );
   $data = $tree->GetPlData( $root );
-
-  print( ( ( $data eq 'Frobnicate' ) ? '' : 'not ' ) . "ok 3\n" );
+  main::is( $data, 'Frobnicate', "Wx::TreeCtrl::GetPlData" );
 
   $trdata = $tree->GetItemData( $root );
   $trdata->SetData( 'Baz' );
   $trdata = $tree->GetItemData( $root );
   $data = $trdata->GetData();
-
-  print( ( ( $data eq 'Baz' ) ? '' : 'not ' ) . "ok 4\n" );
-
+  main::is( $data, 'Baz', "Wx::TreeItemData::SetData" );
   $tree->SetItemData( $root, Wx::TreeItemData->new( 'Boo' ) );
   $data = $tree->GetPlData( $root );
-
-  print( ( ( $data eq 'Boo' ) ? '' : 'not ' ) . "ok 5\n" );
-
+  main::is( $data, 'Boo', "Wx::TreeCtrl::SetItemData" );
   $tree->SetPlData( $root, 'XyZ' );
   $data = $tree->GetPlData( $root );
-
-  print( ( ( $data eq 'XyZ' ) ? '' : 'not ' ) . "ok 6\n" );
+  main::is( $data, 'XyZ', "Wx::TreeCtrl::SetPlData" );
 
   $this->Destroy;
 
