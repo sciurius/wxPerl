@@ -64,7 +64,7 @@ sub dynamic_lib {
   my $strip = $this->wx_config->_debug ? '' : ' -s ';
 
   $text =~ s{(?:^\s+(?:dlltool|\$\(LD\)).*\n)+}
-    {\tg++ -shared $strip -o \$@ \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS)\n}m;
+    {\tg++ -shared $strip -o \$@ \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(BASEEXT).def\n}m;
   # \$(LDDLFLAGS) : in MinGW passes -mdll, and we use -shared...
 
   return $text;
