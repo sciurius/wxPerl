@@ -26,7 +26,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter DynaLoader);
-$VERSION = '0.09';
+$VERSION = '0.10';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE wxUNIVERSAL);
@@ -111,12 +111,12 @@ bootstrap Wx $VERSION;
   _boot_GDI( 'Wx', $VERSION );
 }
 
-# set up wxUNIVERSAL, wxGTK, wxMSW, etc
-eval( $_universal ? "sub wxUNIVERSAL() { 1 }" : "sub wxUNIVERSAL() { 0 }" );
-
 require Wx::_Constants;
 
 Load();
+
+# set up wxUNIVERSAL, wxGTK, wxMSW, etc
+eval( $_universal ? "sub wxUNIVERSAL() { 1 }" : "sub wxUNIVERSAL() { 0 }" );
 
 require Wx::App;
 require Wx::Bitmap;

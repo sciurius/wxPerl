@@ -256,7 +256,7 @@ no strict;
 
 package Wx::ToolBar;
 
-@ISA = wxUNIVERSAL ? qw(Wx::ToolBarSimple) : qw(Wx::ToolBarBase);
+@ISA = Wx::wxUNIVERSAL ? qw(Wx::ToolBarSimple) : qw(Wx::ToolBarBase);
 
 1;
 
