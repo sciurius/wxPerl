@@ -85,7 +85,7 @@ This wxPerl version was tested with MinGW 1.1 and MS Visual C++ 5.
 For the remainder of this section I'll assume that your Perl is installed
 in C:\Perl
 
-- MS Visual C++ 5 ( and probably 4.x )
+- MS Visual C++ 5 (and probably 4.x)
 - MS Visual C++ 6 SP4
 
   Build wxWindows as a dll
@@ -110,7 +110,7 @@ in C:\Perl
   # z:\path\to\wx\lib to the directoy where Wx.dll is installed.
 
   If you are using ActivePerl with MSVC != 6.x you may
-  experience linking problems ( Can't seek to position XXXXXX ... ),
+  experience linking problems (Can't seek to position XXXXXX ...),
   then you need to rebuild the perl56.dll import library.
 
   Use the make_implib.pl script (included in the ExtUtils::FakeConfig
@@ -131,8 +131,8 @@ in C:\Perl
   "perl Makefile.PL" with "perl -MConfig_m Makefile.PL". If you built
   Perl from sources, you don't need this additional step.
 
-  Build wxWindows as a dll ( you wil need the utilities from
-      ftp://oracle.fastpicsystems.com/pub/wxwin/ports/mingw32/extra.zip )
+  Build wxWindows as a dll (you will need the utilities from
+      http://biolpc22.york.ac.uk/pub/ports/mingw32/extra.zip)
 
   set WXDIR=z:/path/to/wx
   set WXWIN=z:/path/to/wx
@@ -171,7 +171,7 @@ In my Debian 2.2 system (Perl 5.005_03 and 5.004_05 shipped with
 
 perl Makefile.PL PREFIX=path INSTALLSITELIB=path INSTALLMAN3DIR=manpath
 
-With the Perl 5.004_04 I built from sources ( in my Debian system ) I use
+With the Perl 5.004_04 I built from sources (in my Debian system) I use
 
 perl Makefile.PL PREFIX=path
 
@@ -184,7 +184,7 @@ for details.
 
 * PREPARING Perl on MAC OS X
 
-  The 'perl' executable shipped with your OS can't be used to run execytables
+  The 'perl' executable shipped with your OS can't be used to run executables
 that interact with the GUI, hence you need to prepare a special 'wxPerl'
 executable. Let's assume that your 'perl' is in '/usr/local/bin/perl'.
   First, you ned to install wxWindows, then do the following from the
