@@ -207,7 +207,7 @@ MODULE=Wx_Evt PACKAGE=Wx::FocusEvent
 
 MODULE=Wx_Evt PACKAGE=Wx::IconizeEvent
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 bool
 Wx_IconizeEvent::Iconized()
@@ -248,7 +248,7 @@ MODULE=Wx_Evt PACKAGE=Wx::HelpEvent
 
 # Wx_HelpEvent::new()
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_Point*
 Wx_HelpEvent::GetPosition()
@@ -420,7 +420,7 @@ Wx_MouseEvent::GetX()
 long
 Wx_MouseEvent::GetY()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 int
 Wx_MouseEvent::GetWheelRotation()

@@ -77,7 +77,7 @@ bool
 Wx_Frame::IsMaximized()
 
 #if defined( __WXMSW__ ) || \
- ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) \
+ ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) \
  || defined( __WXPERL_FORCE__ )
 
 bool
@@ -127,7 +127,7 @@ Wx_Frame::SetStatusWidths( ... )
     delete [] w;
 
 #if defined( __WXMSW__ ) || \
- ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) \
+ ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) \
  || defined( __WXPERL_FORCE__ )
 
 bool

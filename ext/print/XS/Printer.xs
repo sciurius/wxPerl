@@ -60,7 +60,7 @@ Wx_Printer::ReportError( parent, printout, message )
     Wx_Printout* printout
     wxString message
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     THIS->ReportError( parent, printout, message );
 #else
 #  if wxUSE_UNICODE

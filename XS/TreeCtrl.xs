@@ -200,7 +200,7 @@ Wx_TreeCtrl::Expand( item )
   CODE:
     THIS->Expand( *item );
 
-#if defined( __WXMSW__ ) || WXPERL_W_VERSION_GE( 2, 3 ) || \
+#if defined( __WXMSW__ ) || WXPERL_W_VERSION_GE( 2, 3, 1 ) || \
   defined( __WXPERL_FORCE__ )
 
 void

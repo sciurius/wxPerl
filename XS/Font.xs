@@ -12,7 +12,7 @@
 
 MODULE=Wx PACKAGE=Wx::NativeFontInfo
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 #include <wx/fontutil.h>
 
@@ -63,7 +63,7 @@ Wx_Font::GetFontId()
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_NativeFontInfo*
 Wx_Font::GetNativeFontInfo()
@@ -99,7 +99,7 @@ void
 Wx_Font::SetFamily( family )
     int family
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 void
 Wx_Font::SetNativeFontInfo( info )

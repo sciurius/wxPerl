@@ -41,7 +41,7 @@
 
 #include "cpp/compat.h"
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/tglbtn.h>
 #endif
 
@@ -145,7 +145,7 @@ static double constant( const char *name, int arg )
     r( wxBU_BOTTOM );                   // button
     r( wxBU_AUTODRAW );                 // button
     r( wxBU_RIGHT );                    // button
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxBU_EXACTFIT );                 // button
 #endif
 
@@ -171,7 +171,7 @@ static double constant( const char *name, int arg )
     r( wxCENTER );                      // dialog sizer
     r( wxCLIP_CHILDREN );               // window
     r( wxCHOICEDLG_STYLE );
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxCHANGE_DIR );
     r( wxCLIP_SIBLINGS );               // window
 #endif
@@ -180,7 +180,7 @@ static double constant( const char *name, int arg )
     r( wxCOPY );                        // dc
 
     r( wxCURSOR_ARROW );                // cursor
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxCURSOR_ARROWWAIT );            // cursor
 #endif
     r( wxCURSOR_BULLSEYE );             // cursor
@@ -220,7 +220,7 @@ static double constant( const char *name, int arg )
     r( wxDEFAULT_FRAME_STYLE );         // frame
     r( wxDIALOG_MODAL );                // dialog
     r( wxDOUBLE_BORDER );               // window
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxDIALOG_NO_PARENT );            // dialog
     r( wxDIALOG_EX_CONTEXTHELP );       // dialog
 #endif
@@ -250,8 +250,10 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_SCROLLBAR_UPDATED );
     r( wxEVT_COMMAND_VLBOX_SELECTED );
     r( wxEVT_COMMAND_COMBOBOX_SELECTED );
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxEVT_COMMAND_TEXT_MAXLEN );
     r( wxEVT_COMMAND_TEXT_URL );
 #endif
@@ -265,7 +267,7 @@ static double constant( const char *name, int arg )
 
     r( wxEVT_TIMER );
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxEVT_MOUSEWHEEL )
 #endif
     r( wxEVT_LEFT_DOWN );
@@ -376,7 +378,7 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_KILL_FOCUS );
     r( wxEVT_COMMAND_ENTER );
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxEVT_HELP );
     r( wxEVT_DETAILED_HELP );
 #endif
@@ -393,7 +395,7 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_SYSTEM );         // font
     r( wxFRAME_FLOAT_ON_PARENT );       // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxFRAME_NO_TASKBAR );            // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
     r( wxFRAME_EX_CONTEXTHELP );        // frame
@@ -488,7 +490,7 @@ static double constant( const char *name, int arg )
     r( wxID_NO );                       // id
     r( wxID_STATIC );                   // id
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxID_CONTEXT_HELP );             // id
     r( wxID_YESTOALL );                 // id
     r( wxID_NOTOALL );                  // id
@@ -618,7 +620,7 @@ static double constant( const char *name, int arg )
     r( wxLeft );                        // layout constraints
     r( wxLeftOf );                      // layout constraints
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxLOCALE_LOAD_DEFAULT );         // locale
     r( wxLOCALE_CONV_ENCODING );        // locale
 

@@ -13,7 +13,7 @@
 #include <wx/busyinfo.h>
 #include <wx/settings.h>
 #include <wx/caret.h>
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/snglinst.h>
 #endif
 #include <wx/utils.h>
@@ -21,7 +21,7 @@
 
 MODULE=Wx PACKAGE=Wx::CaretSuspend
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_CaretSuspend*
 Wx_CaretSuspend::new( window )
@@ -86,7 +86,7 @@ Wx_StopWatch::Time()
 
 MODULE=Wx PACKAGE=Wx::SingleInstanceChecker
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_SingleInstanceChecker*
 Wx_SingleInstanceChecker::new()
@@ -142,7 +142,7 @@ wxSafeYield( window = 0 )
 bool
 wxYieldIfNeeded()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 void
 wxTrap()

@@ -181,7 +181,7 @@ size_t wxPliOutputStream::OnSysWrite( const void* buffer, size_t size )
     ENTER;
     SAVETMPS;
 
-#if WXPERL_P_VERSION_GE( 5, 5 )
+#if WXPERL_P_VERSION_GE( 5, 5, 0 ) || WXPERL_P_VERSION_GE( 5, 4, 5 )
     SV* target = sv_2mortal( newSVpvn( CHAR_P ( const char*)buffer, size ) );
 #else
     SV* target = sv_2mortal( newSVpv( CHAR_P ( const char*)buffer, size ) );

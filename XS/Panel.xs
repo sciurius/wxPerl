@@ -34,7 +34,7 @@ Wx_Panel::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, s
     OUTPUT:
       RETVAL
 
-#if WXPERL_W_VERSION_LE( 2, 2 )
+#if !WXPERL_W_VERSION_GE( 2, 3, 0 )
 
 Wx_Button*
 Wx_Panel::GetDefaultItem()

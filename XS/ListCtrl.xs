@@ -14,7 +14,7 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::ListEvent
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 long
 Wx_ListEvent::GetCacheFrom()
@@ -186,7 +186,7 @@ Wx_ListItem::GetFont()
 
 MODULE=Wx PACKAGE=Wx::ListItemAttr
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_ListItemAttr*
 Wx_ListItemAttr::new( ... )
@@ -533,7 +533,7 @@ Wx_ListCtrl::InsertImageStringItem( index, label, image )
   OUTPUT: 
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 bool
 Wx_ListCtrl::IsVirtual()
@@ -573,7 +573,7 @@ Wx_ListCtrl::SetImageList( imagelist, which )
     Wx_ImageList* imagelist
     int which
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
 Wx_ListCtrl::SetItemCount( count )
@@ -651,7 +651,7 @@ Wx_ListCtrl::SortItems( function )
 
 MODULE=Wx PACKAGE=Wx::ListView
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 Wx_ListView*
 Wx_ListView::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = "listCtrl" )

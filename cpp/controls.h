@@ -58,14 +58,14 @@ public:
                          const wxSize&, long, const wxValidator&,
                          const wxString& );
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     wxString OnGetItemText( long item, long column ) const;
     int OnGetItemImage( long item ) const;
     wxListItemAttr* OnGetItemAttr( long item ) const;
 #endif
 };
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 WXPLI_DECLARE_CLASS_7( ListView, TRUE,
                        wxWindow*, wxWindowID, const wxPoint&,
@@ -130,7 +130,7 @@ WXPLI_DECLARE_CLASS_8( TextCtrl, TRUE,
                        const wxPoint&, const wxSize&, long,
                        const wxValidator&, const wxString& );
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 WXPLI_DECLARE_CLASS_8( ToggleButton, TRUE,
                        wxWindow*, wxWindowID, const wxString&,

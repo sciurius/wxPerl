@@ -58,7 +58,7 @@ FD_TD( CloseEvent );
 FD_TD( CommandEvent );
 FD_TD( EraseEvent );
 FD_TD( FocusEvent );
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( HelpEvent );
 FD_TD( IconizeEvent );
 #endif
@@ -79,7 +79,7 @@ FD_TD( SizeEvent );
 FD_TD( SpinEvent );
 FD_TD( SplitterEvent );
 FD_TD( SysColourChangedEvent );
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( TextUrlEvent );
 #endif
 FD_TD( TimerEvent );
@@ -112,7 +112,7 @@ FD_TD( BusyCursor );
 FD_TD( BusyInfo );
 FD_TD( Button );
 FD_TD( Caret );
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( CaretSuspend );
 #endif
 FD_TD( CheckBox );
@@ -136,7 +136,7 @@ FD_TD( Cursor );
 FD_TD( DC );
 FD_TD( Dialog );
 FD_TD( DirDialog );
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( DrawObject );
 #endif
 FD_TD( DropTarget );

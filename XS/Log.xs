@@ -25,7 +25,7 @@ AddTraceMask( mask )
   CODE:
     wxLog::AddTraceMask( mask );
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 void
 ClearTraceMasks()

@@ -123,7 +123,7 @@ Wx_Image::ConvertToBitmap()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_Image*
 Wx_Image::ConvertToMono( r, g, b )
@@ -189,7 +189,7 @@ SV*
 Wx_Image::GetData()
   CODE:
     STRLEN len = THIS->GetWidth() * THIS->GetHeight() * 3;
-#if WXPERL_P_VERSION_GE( 5, 5 )
+#if WXPERL_P_VERSION_GE( 5, 5, 0 ) || WXPERL_P_VERSION_GE( 5, 4, 5 )
     RETVAL = newSVpvn( (char*)THIS->GetData(), len );
 #else
     RETVAL = newSVpv( (char*)THIS->GetData(), len );
@@ -224,7 +224,7 @@ Wx_Image::GetMaskGreen()
 unsigned char
 Wx_Image::GetMaskRed()
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 wxString
 Wx_Image::GetOption( name )
@@ -257,7 +257,7 @@ Wx_Image::GetWidth()
 bool
 Wx_Image::HasMask()
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 bool
 Wx_Image::HasOption( name )
@@ -425,7 +425,7 @@ Wx_Image::SetMaskColour( red, green, blue )
     unsigned char green
     unsigned char blue
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 void
 Wx_Image::SetOption( name, value )
@@ -543,7 +543,7 @@ Wx_TIFFHandler::new()
 
 MODULE=Wx PACKAGE=Wx::XPMHandler
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_XPMHandler*
 Wx_XPMHandler::new()

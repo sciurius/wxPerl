@@ -62,7 +62,7 @@ INCLUDE: XS/Palette.xs
 
 MODULE=Wx PACKAGE=Wx
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_Rect*
 GetClientDisplayRect()

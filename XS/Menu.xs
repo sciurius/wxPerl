@@ -355,7 +355,7 @@ Wx_MenuItem::GetFont()
 #endif
 
 #if defined( __WXMSW__ ) || \
- ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) || \
+ ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) || \
  defined( __WXPERL_FORCE__ )
 
 Wx_Bitmap*
@@ -466,8 +466,8 @@ Wx_MenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
 #endif
 
 #if \
- ( defined( __WXMSW__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) || \
- ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) || \
+ ( defined( __WXMSW__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) || \
+ ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) || \
  defined( __WXPERL_FORCE__ )
 
 void

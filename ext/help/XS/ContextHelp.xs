@@ -10,7 +10,7 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 #include <wx/cshelp.h>
 

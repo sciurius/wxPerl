@@ -30,7 +30,7 @@ Wx_HelpControllerBase::DisplayBlock( block )
 bool
 Wx_HelpControllerBase::DisplayContents()
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 bool
 Wx_HelpControllerBase::DisplayContextPopup( id )

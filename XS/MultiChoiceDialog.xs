@@ -14,7 +14,7 @@
 
 MODULE=Wx PACKAGE=Wx::MultiChoiceDialog
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_MultiChoiceDialog*
 Wx_MultiChoiceDialog::new( parent, message, caption, chs, style = wxCHOICEDLG_STYLE, pos = wxDefaultPosition )

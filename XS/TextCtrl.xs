@@ -10,7 +10,7 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 MODULE=Wx PACKAGE=Wx::TextUrlEvent
 
@@ -160,7 +160,7 @@ Wx_TextCtrl::SetInsertionPoint( pos )
 void
 Wx_TextCtrl::SetInsertionPointEnd()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
 Wx_TextCtrl::SetMaxLength( len )

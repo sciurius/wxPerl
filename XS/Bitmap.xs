@@ -100,7 +100,7 @@ newIcon( icon )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_Bitmap*
 newImage( image )
@@ -115,7 +115,7 @@ newImage( image )
 void
 Wx_Bitmap::DESTROY()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_Image*
 Wx_Bitmap::ConvertToImage()

@@ -12,7 +12,7 @@
 
 #include <wx/intl.h>
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 MODULE=Wx PACKAGE=Wx::LanguageInfo
 
@@ -76,7 +76,7 @@ newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FAL
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_Locale*
 newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
@@ -100,7 +100,7 @@ void
 Wx_Locale::AddCatalogLookupPathPrefix( prefix )
     wxString prefix
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 void
 AddLanguage( info )
@@ -121,7 +121,7 @@ Wx_Locale::GetString( string, domain = 0 )
     const wxChar* string
     const wxChar* domain
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 int
 GetSystemLanguage()
