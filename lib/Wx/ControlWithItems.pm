@@ -18,8 +18,8 @@ use Carp;
 sub Append {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_s, 1 )   && ( $this->AppendString( @_ ), return );
   Wx::_match( @_, $Wx::_s_s, 2 ) && ( $this->AppendData( @_ ), return );
+  Wx::_match( @_, $Wx::_s, 1 )   && ( $this->AppendString( @_ ), return );
   croak Wx::_ovl_error 'Wx::ControlWithItems::Append';
 }
 
