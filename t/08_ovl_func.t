@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib 'build';
-use Test::More 'tests' => 113;
+use Test::More 'tests' => 142;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -429,6 +429,21 @@ ok( $setclreg, "Wx::DC::SetClippingRegionRegion" );
 }
 
 ##############################################################################
+# Wx::Timer
+##############################################################################
+{
+my( $newdefault, $neweh ) = ( 0, 0 );
+hijack( Wx::Timer::newDefault => sub { $newdefault = 1 },
+        Wx::Timer::newEH      => sub { $neweh = 1 } );
+
+Wx::Timer->new->Destroy;
+ok( $newdefault, "Wx::Timer::newDefault" );
+
+Wx::Timer->new( $frame, 1 );
+ok( $neweh, "Wx::Timer::newEH" );
+}
+
+##############################################################################
 # Wx::TreeCtrl
 ##############################################################################
 {
@@ -622,6 +637,136 @@ ok( $insite, "Wx::Menu::InsertItem" );
 
 $me->Insert( 0, 17, 'Foo' );
 ok( $insstr, "Wx::Menu::InsertString" );
+}
+
+##############################################################################
+# Wx::RadioBox
+##############################################################################
+{
+my( $wenable, $renable, $wgetlabel, $rgetlabel, $wsetlabel,
+    $rsetlabel, $wshow, $rshow ) = ( 0, 0, 0, 0, 0, 0, 0, 0 );
+hijack( Wx::Window::Enable         => sub { $wenable = 1 },
+        Wx::RadioBox::EnableItem   => sub { $renable = 1 },
+        Wx::Window::GetLabel       => sub { $wgetlabel = 1 },
+        Wx::RadioBox::GetItemLabel => sub { $rgetlabel = 1 },
+        Wx::Window::SetLabel       => sub { $wsetlabel = 1 },
+        Wx::RadioBox::SetItemLabel => sub { $rsetlabel = 1 },
+        Wx::Window::Show           => sub { $wshow = 1 },
+        Wx::RadioBox::ShowItem     => sub { $rshow = 1 } );
+
+my $rb = Wx::RadioBox->new( $frame, -1, 'Foo', [-1,-1], [-1,-1],
+                            [ qw(a b c) ] );
+
+$rb->Enable( 1 );
+ok( $wenable, "Wx::Window::Enable" );
+
+$rb->Enable( 1, 1 );
+ok( $renable, "Wx::RadioBox::EnableItem" );
+
+$rb->GetLabel;
+ok( $wgetlabel, "Wx::Window::GetLabel" );
+
+$rb->GetLabel( 1 );
+ok( $rgetlabel, "Wx::RadioBox::GetItemLabel" );
+
+$rb->SetLabel( 'Foo' );
+ok( $wsetlabel, "Wx::Window::SetLabel" );
+
+$rb->SetLabel( 1, 'My' );
+ok( $rsetlabel, "Wx::RadioBox::SetLabel" );
+
+$rb->Show( 1 );
+ok( $wshow, "Wx::Window::Show" );
+
+$rb->Show( 1, 1 );
+ok( $rshow, "Wx::RadioBox::ShowItem" );
+}
+
+##############################################################################
+# Wx::Region
+##############################################################################
+{
+my( $newempty, $newxywh, $newpp, $newrect, $cxywh, $cxy, $cpoint,
+    $crect, $ixywh, $irect, $iregion, $srect, $sregion,
+    $uxywh, $urect, $uregion, $xxywh, $xrect, $xregion )
+  = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+hijack( Wx::Region::newEmpty     => sub { $newempty = 1 },
+        Wx::Region::newXYWH      => sub { $newxywh = 1 },
+        Wx::Region::newPP        => sub { $newpp = 1 },
+        Wx::Region::newRect      => sub { $newrect = 1 },
+#        Wx::Region::newPolygon   => sub { $newpolygon = 1 },
+        Wx::Region::ContainsXYWH  => sub { $cxywh = 1 },
+        Wx::Region::ContainsXY    => sub { $cxy = 1 },
+        Wx::Region::ContainsPoint => sub { $cpoint = 1 },
+        Wx::Region::ContainsRect  => sub { $crect = 1 },
+        Wx::Region::IntersectXYWH   => sub { $ixywh = 1 },
+        Wx::Region::IntersectRect   => sub { $irect = 1 },
+        Wx::Region::IntersectRegion => sub { $iregion = 1 },
+        Wx::Region::SubtractRect    => sub { $srect = 1 },
+        Wx::Region::SubtractRegion  => sub { $sregion = 1 },
+        Wx::Region::UnionXYWH   => sub { $uxywh = 1 },
+        Wx::Region::UnionRect   => sub { $urect = 1 },
+        Wx::Region::UnionRegion => sub { $uregion = 1 },
+        Wx::Region::XorXYWH   => sub { $xxywh = 1 },
+        Wx::Region::XorRect   => sub { $xrect = 1 },
+        Wx::Region::XorRegion => sub { $xregion = 1 } );
+
+Wx::Region->new;
+ok( $newempty, "Wx::Region::newEmpty" );
+
+Wx::Region->new( 1, 2, 3, 4 );
+ok( $newxywh, "Wx::Region::newXYWH" );
+
+Wx::Region->new( [0, 0], [50, 50] );
+ok( $newpp, "Wx::Region::newPP" );
+
+my $r = Wx::Region->new( Wx::Rect->new( 0, 0, 50, 50 ) );
+ok( $newrect, "Wx::Region::newRect" );
+
+$r->Contains( 0, 0, 1, 2 );
+ok( $cxywh, "Wx::Region::ContainsXYWH" );
+
+$r->Contains( 1, 2 );
+ok( $cxy, "Wx::Region::ContainsXY" );
+
+$r->Contains( [ 1, 2 ] );
+ok( $cpoint, "Wx::Region::ContainsPoint" );
+
+$r->Contains( Wx::Rect->new( 0, 1, 2, 3 ) );
+ok( $crect, "Wx::Region::ContainsRect" );
+
+$r->Intersect( 0, 1, 2, 3 );
+ok( $ixywh, "Wx::Region::IntersectXYWH" );
+
+$r->Intersect( Wx::Rect->new( 0, 1, 2, 3 ) );
+ok( $irect, "Wx::Region::IntersectRect" );
+
+$r->Intersect( $r );
+ok( $iregion, "Wx::Region::IntersectRegion" );
+
+$r->Subtract( Wx::Rect->new( 0, 1, 2, 3 ) );
+ok( $srect, "Wx::Region::SubtractRect" );
+
+$r->Subtract( $r );
+ok( $sregion, "Wx::Region::SubtractRegion" );
+
+$r->Union( 0, 0, 50, 50 );
+ok( $uxywh, "Wx::Region::UnionXYWH" );
+
+$r->Union( Wx::Rect->new( Wx::Point->new( 0, 0 ), Wx::Size->new( 50, 50 ) ) );
+ok( $urect, "Wx::Region::UnionRect" );
+
+$r->Union( $r );
+ok( $uregion, "Wx::Region::UnionRegion" );
+
+$r->Xor( 0, 0, 1, 1 );
+ok( $xxywh, "Wx::Region::XorXYWH" );
+
+$r->Xor( Wx::Rect->new( 0, 0, 1, 2 ) );
+ok( $xrect, "Wx::Region::XorRect" );
+
+$r->Xor( $r );
+ok( $xregion, "Wx::Region::XorRegion" );
 }
 
 ##############################################################################
