@@ -60,10 +60,7 @@ sub configure {
   my $this = shift;
   local *config; *config = $this->SUPER::configure();
 
-  $config{INC} .= " -I" . top_dir() . " ";
-  if( building_extension() ) {
-    $config{DEFINE} .= " -DWXPL_EXT ";
-  } else {
+  unless( building_extension() ) {
     my $res = $this->res_file();
     $config{depend} = { $res => 'Wx.rc ' };
     $config{LDFROM} .= "\$(OBJECT) $res ";

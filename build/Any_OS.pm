@@ -20,8 +20,8 @@ sub depend {
                    ( $exp => join( ' ', files_with_constants() ),
                      $ovlc => join( ' ', @ovl ),
                      $ovlh => $ovlc,
-                     '$(INST_STATIC)' => " $exp $ovlc $ovlh ",
-                     '$(INST_DYNAMIC)' => " $exp $ovlc $ovlh ",
+                     '$(INST_STATIC)' => " $exp overload ",
+                     '$(INST_DYNAMIC)' => " $exp overload ",
                    )
                  )
                );
@@ -114,11 +114,15 @@ sub postamble {
 $exp :
 \t\$(PERL) script/make_exp_list.pl $exp @c_files
 
-$ovlc :
+overload :
 \t\$(PERL) script/make_ovl_list.pl foo_unused $ovlc $ovlh @o_files
+\t\$(TOUCH) overload
 
-$ovlh :
-\t\$(PERL) script/make_ovl_list.pl foo_unused $ovlc $ovlh @o_files
+# $ovlc :
+# \t\$(PERL) script/make_ovl_list.pl foo_unused $ovlc $ovlh @o_files
+
+# $ovlh :
+# \t\$(PERL) script/make_ovl_list.pl foo_unused $ovlc $ovlh @o_files
 
 EOT
   }
@@ -148,6 +152,14 @@ sub configure {
     ( LIBS => $wxConfig::extra_libs,
       CCFLAGS => $wxConfig::extra_cflags,
     );
+
+  $config{INC} .= "-I" . MM->curdir ;
+  if( building_extension() ) {
+    $config{DEFINE} .= " -DWXPL_EXT ";
+    $config{INC} .= " -I" . top_dir() . " ";
+  } else {
+    $config{clean} = { FILES => "$ovlc $ovlh .exists overload" };
+  }
 
   if( $wxConfig::o_static ) {
     $config{DEFINE} .= " -DWXPL_STATIC ";

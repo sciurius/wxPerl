@@ -25,7 +25,7 @@ sub my_wx_config {
   my $makefile = MM->catfile( top_dir(), 'build', 'nmake.mak' );
 
   if( $Config{make} eq 'nmake' ) {
-    my $final = $wxConfig::debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
+    my $final = $wxConfig::debug_mode ? 'FINAL=hybrid DEBUGINFO=1' : 'FINAL=1';
     my $unicode = $wxConfig::unicode_mode ? 'UNICODE=1' : 'UNICODE=0';
     my $t = qx(nmake /nologo /s /f $makefile @_ $final $unicode);
     chomp $t;
@@ -58,7 +58,7 @@ sub configure {
   my $wximppath = MM->catdir( top_dir(), qw(blib arch auto Wx) );
   my $wximplib = MM->catfile( $wximppath, 'Wx.lib' );
   $config{CCFLAGS} .= " -TP ";
-  $config{clean} = { FILES => '*.pdb *.res *_def.old ' };
+  $config{clean}{FILES} .= '*.pdb *.res *_def.old ';
 
   if( building_extension() && $wxConfig::use_dllexport ) {
     $config{LDFROM} .= "\$(OBJECT) $wximplib ";

@@ -15,6 +15,7 @@ package Any_wx_config;
 use strict;
 use Config;
 use wxMMUtils;
+use wxMMHacks;
 use base 'Any_OS';
 
 #
@@ -31,44 +32,10 @@ sub my_wx_config {
   return $t;
 }
 
-#
-# takes parameters from the wx-config script
-#
-sub cc_is_GNU {
-  my $cc = shift;
-  my $pipe = MM->catfile( top_dir(), 'script', 'pipe.pl' );
-
-  return 1 if $cc =~ m/gcc|g\+\+/i;
-  return 1 if qx($^X $pipe $cc -v) =~ m/gcc|g\+\+|\sgnu\s/i;
-  return;
-}
-
-sub ld_is_GNU {
-  my $ld = shift;
-  my $pipe = MM->catfile( top_dir(), 'script', 'pipe.pl' );
-
-  return 1 if $ld =~ m/gcc|g\+\+/i;
-  my $output = qx($^X $pipe $ld -v);
-  return 1 if $output =~ m/gcc|g\+\+|\sgnu\s/i;
-  return 1 if $output =~ m/.*see no perl executable.*perl is required to build dynamic libraries/is;
-
-  return;
-}
-
 # you may, at some point, being tempted to say that Makemaker is,
 # sometimes, annoying...
 require ExtUtils::Liblist;
-my $save;
-if( defined &ExtUtils::Liblist::Kid::ext ) {
-  $save = \&ExtUtils::Liblist::Kid::ext;
-  undef *ExtUtils::Liblist::Kid::ext;
-  *ExtUtils::Liblist::Kid::ext = \&my_ext;
-} else {
-  $save = \&ExtUtils::Liblist::ext;
-  undef *ExtUtils::Liblist::ext;
-  *ExtUtils::Liblist::ext = \&my_ext;
-}
-
+my $save = wxMMHacks::hijack( 'MM', 'ext', \&my_ext );
 sub my_ext {
   &$save( @_ ) unless $wxConfig::o_static;
 
@@ -90,15 +57,9 @@ sub configure {
   my $this = shift;
   my( $cccflags, $libs );
   local *config; *config = $this->SUPER::configure();
-
-  $config{CCFLAGS} .= " -I. ";
-  $config{LDFROM} .= " \$(OBJECT) ";
-  if( building_extension() ) {
-    $config{INC} .= " -I" . top_dir() . " ";
-    $config{DEFINE} .= " -DWXPL_EXT ";
-  }
-
   my $cxx = wx_config( 'cxx' );
+
+  $config{LDFROM} .= " \$(OBJECT) ";
   $config{CC} = $cxx;
 
   if( $wxConfig::debug_mode ) {

@@ -48,12 +48,15 @@ sub wx_version() {
 sub unix_top_dir() {
   my $utop = '.';
   my $top = MM->curdir;
+  my $count = 0;
 
-  until( -f MM->catfile( $top, 'Wx.pm' ) ) {
+  until( $count == 10 || -f MM->catfile( $top, 'Wx.pm' ) ) {
     $top = MM->catdir( MM->updir, $top );
     $utop = "../$utop";
+    ++$count;
   }
 
+  die "unable to find unix_top_dir" if $count == 10;
   return $utop;
 }
 
@@ -62,11 +65,14 @@ sub unix_top_dir() {
 #
 sub top_dir() {
   my $top = MM->curdir;
+  my $count = 0;
 
-  until( -f MM->catfile( $top, 'Wx.pm' ) ) {
+  until( $count == 10 || -f MM->catfile( $top, 'Wx.pm' ) ) {
     $top = MM->catdir( MM->updir, $top );
+    ++$count;
   }
 
+  die "unable to find unix_top_dir" if $count == 10;
   return MM->canonpath( $top );
 }
 
@@ -102,7 +108,7 @@ sub merge_config {
       }
 
       if( ref($cfg{$i}) || ref($cfg2{$i}) ) {
-        warn "non scalar key '$i'";
+        die "non scalar key '$i'";
         $cfg{$i} = $cfg2{$i};
       } else {
         $cfg{$i} .= ' ' . $cfg2{$i};
@@ -196,37 +202,6 @@ sub scan_xs($$) {
   close IN;
 
   ( \@cinclude, \@xsinclude );
-}
-
-#
-# Cut'n'paste from 5.005_03 MakeMaker.pm
-#
-sub WriteEmptyMakefile {
-  if (-f 'Makefile.old') {
-    chmod 0666, 'Makefile.old';
-    unlink 'Makefile.old' or warn "unlink Makefile.old: $!";
-  }
-  rename 'Makefile', 'Makefile.old' or warn "rename Makefile Makefile.old: $!"
-    if -f 'Makefile';
-  open MF, '> Makefile' or die "open Makefile for write: $!";
-  print MF <<'EOP';
-all:
-
-clean:
-
-install:
-
-makemakerdflt:
-
-test:
-
-EOP
-  close MF or die "close Makefile for write: $!";
-}
-
-if( $] < 5.005 )
-{
-  *ExtUtils::MakeMaker::WriteEmptyMakefile = \&WriteEmptyMakefile
 }
 
 1;

@@ -56,7 +56,7 @@ sub configure {
   $config{CC} = 'g++';
   $config{LD} = 'g++';
   $config{CCFLAGS} .= ' -fvtable-thunks ';
-  $config{clean} = { FILES => 'dll.base dll.exp ' };
+  $config{clean}{FILES} .= 'dll.base dll.exp ';
   if( building_extension() && $wxConfig::use_dllexport ) {
     $config{LDFROM} .= "\$(OBJECT) $wximplib ";
   }
