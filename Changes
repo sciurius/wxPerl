@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.14  Fri Apr 25 13:55:22 CEST 2003
+0.14  Fri Apr 25 19:05:35 CEST 2003
 	- Added Wx::CalendarCtrl.
 	- Added Wx::DateTime (not the full interface).
 	- Restored compatibility with perl 5.005.
