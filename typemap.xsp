@@ -13,6 +13,7 @@
 %typemap{time_t}{simple};
 
 %typemap{wxWindowID}{simple};
+%typemap{wxCoord}{simple};
 
 %typemap{const wxChar*}{simple};
 
@@ -29,3 +30,7 @@
 %typemap{wxSizer*}{simple};
 
 %typemap{const wxColour&}{reference};
+
+%typemap{wxIconBundle*}{simple};
+
+%typemap{const wxIcon&}{reference};

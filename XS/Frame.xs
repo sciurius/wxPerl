@@ -113,6 +113,15 @@ Wx_Frame::SetIcon( icon )
   CODE:
     THIS->SetIcon( *icon );
 
+#if WXPERL_W_VERSION_GE( 2, 4, 0 )
+
+void
+wxFrame::SetIcons( icons )
+    wxIconBundle* icons
+  C_ARGS: *icons
+
+#endif
+
 void
 Wx_Frame::SetMenuBar( menubar )
     Wx_MenuBar* menubar

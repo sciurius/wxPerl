@@ -32,6 +32,7 @@ docs/bugs.txt
 docs/install.txt
 docs/todo.txt
 
+script/XSpp.pod
 script/XSP.pm
 script/XSP.yp
 script/copy_files.pl
@@ -176,6 +177,7 @@ XS/Frame.xs
 XS/Gauge.xs
 XS/Geom.xs
 XS/Icon.xs
+XS/IconBundle.xsp
 XS/Image.xs
 XS/ImageList.xs
 XS/ListBox.xs

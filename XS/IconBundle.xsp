@@ -1,0 +1,65 @@
+#############################################################################
+## Name:        XS/IconBundle.xsp
+## Purpose:     XS++ for Wx::Bitmap and Wx::Mask
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     25/ 3/2003
+## RCS-ID:      
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 4, 0 )
+
+#include <wx/icon.h>
+#include <wx/iconbndl.h>
+#include "cpp/overload.h"
+
+%name{Wx::IconBundle} class wxIconBundle
+{
+    %name{newEmpty} wxIconBundle();
+    %name{newFile} wxIconBundle( const wxString& file,
+                                 long type = wxBITMAP_TYPE_ANY );
+    %name{newIcon} wxIconBundle( const wxIcon& icon );
+
+    %name{AddIconFile} void AddIcon( const wxString& filr,
+                                     long type = wxBITMAP_TYPE_ANY );
+    %name{AddIconIcon} void AddIcon( const wxIcon& icon );
+
+    %name{GetIconSize} const wxIcon& GetIcon( const wxSize& size );
+    %name{GetIconCoord} const wxIcon& GetIcon( wxCoord size = -1 );
+};
+
+%{
+
+void
+wxIconBundle::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newEmpty )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n, newFile, 1 )
+        MATCH_REDISP( wxPliOvl_wico, newIcon )
+    END_OVERLOAD( Wx::IconBundle::new )
+
+void
+wxIconBundle::AddIcon( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n, AddIconFile, 1 )
+        MATCH_REDISP( wxPliOvl_wico, AddIconIcon )
+    END_OVERLOAD( Wx::IconBundle::AddIcon )
+
+void
+wxIconBundle::GetIcon( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wsiz, GetIconSize )
+        MATCH_REDISP( wxPliOvl_n, GetIconCoord )
+    END_OVERLOAD( Wx::IconBundle::GetIcon )
+
+%}
+
+#endif

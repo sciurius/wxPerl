@@ -314,6 +314,7 @@ Wx_Region *             O_WXOBJECT
 wxRagion *              O_WXOBJECT
 Wx_Icon *               O_WXOBJECT
 wxIcon *                O_WXOBJECT
+wxIconBundle *          O_NON_WXOBJECT
 Wx_Bitmap *             O_WXOBJECT
 wxBitmap *              O_WXOBJECT
 Wx_Cursor *             O_WXOBJECT
