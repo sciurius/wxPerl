@@ -132,7 +132,8 @@ package Wx::PaintDC;
 
 use vars qw(@ISA);
 
-if( $Wx::_platform == $Wx::_gtk && $Wx::_wx_version >= 2.003 ) {
+if( ( $Wx::_platform == $Wx::_gtk || $Wx::_platform == $Wx::_msw )
+    && $Wx::_wx_version >= 2.003 ) {
   @ISA = qw(Wx::ClientDC);
 }
 else {
