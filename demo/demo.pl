@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/ 5/2001
-## RCS-ID:      $Id: demo.pl,v 1.13 2003/05/04 17:35:18 mbarbon Exp $
+## RCS-ID:      $Id: demo.pl,v 1.14 2003/05/18 15:04:11 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -74,7 +74,7 @@ sub run {
   my $this = shift;
 
   chdir $this->{DIRECTORY};
-  Wx::ExecuteCommand( "perl -Mblib ${$this}{NAME}.pl", 0 );
+  Wx::ExecuteCommand( "perl ${$this}{NAME}.pl", 0 );
 }
 
 sub load {}
@@ -209,6 +209,7 @@ my @demos =
       [
        [ 'HtmlWindow', demo( 'wxHtmlWindow' ) ],
        [ 'Grid', demo( 'wxGrid' ) ],
+       [ 'ScrolledWindow', demo( 'wxScrolledWindow' ) ],
        [ 'SplashScreen', external( 'splash', '.' ) ],
       ],
     ],

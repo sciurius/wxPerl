@@ -482,3 +482,4 @@ demo/wxGridSizer.pm
 demo/wxFlexGridSizer.pm
 demo/wxNotebookSizer.pm
 demo/wxWizard.pm
+demo/wxScrolledWindow.pm
