@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        DND.xs
+// Name:        ext/dnd/DND.xs
 // Purpose:     XS for Drag'n'Drop and Clipboard
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     12/ 8/2001
-// RCS-ID:      $Id: DND.xs,v 1.14 2003/05/07 17:22:32 mbarbon Exp $
+// Created:     12/08/2001
+// RCS-ID:      $Id: DND.xs,v 1.15 2004/03/02 21:12:34 mbarbon Exp $
 // Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -13,8 +13,6 @@
 #define PERL_NO_GET_CONTEXT
 
 #include "cpp/wxapi.h"
-#include "cpp/typedef.h"
-#include "cpp/dn_typedef.h"
 
 #undef THIS
 

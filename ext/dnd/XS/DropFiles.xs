@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DropFiles.xs
+## Name:        ext/dnd/XS/DropFiles.xs
 ## Purpose:     XS for Wx::DropFilesEvent
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     15/ 8/2001
-## RCS-ID:      
+## Created:     15/08/2001
+## RCS-ID:      $Id: DropFiles.xs,v 1.3 2004/03/02 21:12:35 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,10 +12,10 @@
 
 #include <wx/event.h>
 
-MODULE=Wx_Evt PACKAGE=Wx::DropFilesEvent
+MODULE=wxEvt PACKAGE=Wx::DropFilesEvent
 
 void
-Wx_DropFilesEvent::GetFiles()
+wxDropFilesEvent::GetFiles()
   PPCODE:
     wxString* files = THIS->GetFiles();
     int i, max = THIS->GetNumberOfFiles();
@@ -32,10 +32,10 @@ Wx_DropFilesEvent::GetFiles()
     }
 
 int
-Wx_DropFilesEvent::GetNumberOfFiles()
+wxDropFilesEvent::GetNumberOfFiles()
 
-Wx_Point*
-Wx_DropFilesEvent::GetPosition()
+wxPoint*
+wxDropFilesEvent::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:

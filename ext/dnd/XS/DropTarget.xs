@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DropTarget.xs
+## Name:        ext/dnd/XS/DropTarget.xs
 ## Purpose:     XS for Wx::*DropTarget
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     16/ 8/2001
-## RCS-ID:      
+## Created:     16/08/2001
+## RCS-ID:      $Id: DropTarget.xs,v 1.6 2004/03/02 21:12:35 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,8 +16,8 @@
 MODULE=Wx PACKAGE=Wx::DropTarget
 
 SV*
-Wx_DropTarget::new( data = 0 )
-    Wx_DataObject* data
+wxDropTarget::new( data = 0 )
+    wxDataObject* data
   CODE:
     wxPliDropTarget* retval = new wxPliDropTarget( CLASS, data );
     RETVAL = retval->m_callback.GetSelf();
@@ -28,17 +28,17 @@ Wx_DropTarget::new( data = 0 )
 ## XXX threads
 void
 DESTROY( THIS )
-    Wx_DropTarget* THIS
+    wxDropTarget* THIS
   CODE:
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
   
 void
-Wx_DropTarget::GetData()
+wxDropTarget::GetData()
 
 void
-Wx_DropTarget::SetDataObject( data )
-    Wx_DataObject* data
+wxDropTarget::SetDataObject( data )
+    wxDataObject* data
   CODE:
     wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
     THIS->SetDataObject( data );
@@ -46,7 +46,7 @@ Wx_DropTarget::SetDataObject( data )
 # callbacks
 
 # wxDragResult
-# Wx_DropTarget::OnData( x, y, def )
+# wxDropTarget::OnData( x, y, def )
 #     wxCoord x
 #     wxCoord y
 #     wxDragResult def
@@ -56,7 +56,7 @@ Wx_DropTarget::SetDataObject( data )
 #     RETVAL
 
 wxDragResult
-Wx_DropTarget::OnEnter( x, y, def )
+wxDropTarget::OnEnter( x, y, def )
     wxCoord x
     wxCoord y
     wxDragResult def
@@ -66,7 +66,7 @@ Wx_DropTarget::OnEnter( x, y, def )
     RETVAL
 
 wxDragResult
-Wx_DropTarget::OnDragOver( x, y, def )
+wxDropTarget::OnDragOver( x, y, def )
     wxCoord x
     wxCoord y
     wxDragResult def
@@ -76,7 +76,7 @@ Wx_DropTarget::OnDragOver( x, y, def )
     RETVAL
 
 bool
-Wx_DropTarget::OnDrop( x, y )
+wxDropTarget::OnDrop( x, y )
     wxCoord x
     wxCoord y
   CODE:
@@ -85,14 +85,14 @@ Wx_DropTarget::OnDrop( x, y )
     RETVAL
 
 void
-Wx_DropTarget::OnLeave()
+wxDropTarget::OnLeave()
   CODE:
     THIS->wxDropTarget::OnLeave();
 
 MODULE=Wx PACKAGE=Wx::TextDropTarget
 
 SV*
-Wx_TextDropTarget::new()
+wxTextDropTarget::new()
   CODE:
     wxPliTextDropTarget* retval = new wxPliTextDropTarget( CLASS );
     RETVAL = retval->m_callback.GetSelf();
@@ -103,7 +103,7 @@ Wx_TextDropTarget::new()
 MODULE=Wx PACKAGE=Wx::FileDropTarget
 
 SV*
-Wx_FileDropTarget::new()
+wxFileDropTarget::new()
   CODE:
     wxPliFileDropTarget* retval = new wxPliFileDropTarget( CLASS );
     RETVAL = retval->m_callback.GetSelf();

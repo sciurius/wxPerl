@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: typemap,v 1.7 2003/12/20 15:51:17 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.8 2004/03/02 21:12:34 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,24 +16,23 @@ NativeFormat            T_ENUM
 wxDragResult            T_ENUM
 wxDataFormatId          T_ENUM
 
-Wx_DataObject *         O_NON_WXOBJECT
-Wx_FileDataObject *     O_NON_WXOBJECT
-Wx_TextDataObject *     O_NON_WXOBJECT
-Wx_BitmapDataObject *   O_NON_WXOBJECT
-Wx_URLDataObject *      O_NON_WXOBJECT
-Wx_CustomDataObject *   O_NON_WXOBJECT
-Wx_DataObjectSimple *   O_NON_WXOBJECT
-Wx_DataObjectComposite * O_NON_WXOBJECT
+wxDataObject *          O_NON_WXOBJECT
+wxFileDataObject *      O_NON_WXOBJECT
+wxTextDataObject *      O_NON_WXOBJECT
+wxBitmapDataObject *    O_NON_WXOBJECT
+wxURLDataObject *       O_NON_WXOBJECT
+wxCustomDataObject *    O_NON_WXOBJECT
+wxDataObjectSimple *    O_NON_WXOBJECT
+wxDataObjectComposite * O_NON_WXOBJECT
 wxPlDataObjectSimple *  O_NON_WXOBJECT
 
-Wx_DataFormat *         O_NON_WXOBJECT
 wxDataFormat *          O_NON_WXOBJECT
 
-Wx_DropFilesEvent *     O_NON_WXOBJECT
+wxDropFilesEvent *      O_NON_WXOBJECT
 
-Wx_Clipboard *          O_WXOBJECT
+wxClipboard *           O_WXOBJECT
 
-Wx_DropSource *         O_NON_WXOBJECT
-Wx_DropTarget *         O_NON_WXOBJECT
-Wx_FileDropTarget *     O_NON_WXOBJECT
-Wx_TextDropTarget *     O_NON_WXOBJECT
+wxDropSource *          O_NON_WXOBJECT
+wxDropTarget *          O_NON_WXOBJECT
+wxFileDropTarget *      O_NON_WXOBJECT
+wxTextDropTarget *      O_NON_WXOBJECT

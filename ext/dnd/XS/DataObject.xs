@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.15 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id: DataObject.xs,v 1.16 2004/03/02 21:12:34 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -27,7 +27,7 @@ newNative( dummy, format = wxDF_INVALID )
 
 #else
 
-Wx_DataFormat*
+wxDataFormat*
 newNative( dummy, format = wxDF_INVALID )
     SV* dummy
     NativeFormat format
@@ -38,7 +38,7 @@ newNative( dummy, format = wxDF_INVALID )
 
 #endif
 
-Wx_DataFormat*
+wxDataFormat*
 newUser( dummy, id )
     SV* dummy
     wxChar* id
@@ -49,33 +49,33 @@ newUser( dummy, id )
 
 ## XXX threads
 void
-Wx_DataFormat::DESTROY()
+wxDataFormat::DESTROY()
 
 wxString
-Wx_DataFormat::GetId()
+wxDataFormat::GetId()
 
 void
-Wx_DataFormat::SetId( id )
+wxDataFormat::SetId( id )
     wxString id
 
 #if defined( __WXMSW__ )
 
 NativeFormat
-Wx_DataFormat::GetType()
+wxDataFormat::GetType()
 
 void
-Wx_DataFormat::SetType( type )
+wxDataFormat::SetType( type )
     NativeFormat type
 
 #else
 
 wxDataFormatId
-Wx_DataFormat::GetType()
+wxDataFormat::GetType()
 
 #if 0
 
 void
-Wx_DataFormat::SetType( type )
+wxDataFormat::SetType( type )
     wxDataFormatId type
 
 #endif
@@ -87,18 +87,18 @@ MODULE=Wx PACKAGE=Wx::DataObject
 ## XXX threads
 void
 DESTROY( THIS )
-    Wx_DataObject* THIS
+    wxDataObject* THIS
   CODE:
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 
 void
-Wx_DataObject::Destroy()
+wxDataObject::Destroy()
   CODE:
     delete THIS;
 
 void
-Wx_DataObject::GetAllFormats( dir = wxDataObjectBase::Get )
+wxDataObject::GetAllFormats( dir = wxDataObjectBase::Get )
     Direction dir
   PPCODE:
     size_t formats = THIS->GetFormatCount( dir );
@@ -117,8 +117,8 @@ Wx_DataObject::GetAllFormats( dir = wxDataObjectBase::Get )
     delete [] formats_d;
 
 bool
-Wx_DataObject::GetDataHere( format, buf )
-    Wx_DataFormat* format
+wxDataObject::GetDataHere( format, buf )
+    wxDataFormat* format
     SV* buf
   CODE:
     size_t size = THIS->GetDataSize( *format );
@@ -130,19 +130,19 @@ Wx_DataObject::GetDataHere( format, buf )
     RETVAL
 
 size_t
-Wx_DataObject::GetDataSize( format )
-    Wx_DataFormat* format
+wxDataObject::GetDataSize( format )
+    wxDataFormat* format
   CODE:
     RETVAL = THIS->GetDataSize( *format );
   OUTPUT:
     RETVAL
 
 size_t
-Wx_DataObject::GetFormatCount( dir = wxDataObjectBase::Get )
+wxDataObject::GetFormatCount( dir = wxDataObjectBase::Get )
     Direction dir
 
-Wx_DataFormat*
-Wx_DataObject::GetPreferredFormat( dir = wxDataObjectBase::Get )
+wxDataFormat*
+wxDataObject::GetPreferredFormat( dir = wxDataObjectBase::Get )
     Direction dir
   CODE:
     RETVAL = new wxDataFormat( THIS->GetPreferredFormat( dir ) );
@@ -150,8 +150,8 @@ Wx_DataObject::GetPreferredFormat( dir = wxDataObjectBase::Get )
     RETVAL
 
 bool
-Wx_DataObject::IsSupported( format, dir = wxDataObjectBase::Get )
-    Wx_DataFormat* format
+wxDataObject::IsSupported( format, dir = wxDataObjectBase::Get )
+    wxDataFormat* format
     Direction dir
   CODE:
     RETVAL = THIS->IsSupported( *format, dir );
@@ -159,8 +159,8 @@ Wx_DataObject::IsSupported( format, dir = wxDataObjectBase::Get )
     RETVAL
 
 bool
-Wx_DataObject::SetData( format, buf )
-    Wx_DataFormat* format
+wxDataObject::SetData( format, buf )
+    wxDataFormat* format
     SV* buf
   PREINIT:
     char* data;
@@ -173,32 +173,32 @@ Wx_DataObject::SetData( format, buf )
 
 MODULE=Wx PACKAGE=Wx::DataObjectSimple
 
-Wx_DataObjectSimple*
-Wx_DataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
-    Wx_DataFormat* format
+wxDataObjectSimple*
+wxDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
+    wxDataFormat* format
   CODE:
     RETVAL = new wxDataObjectSimple( *format );
   OUTPUT:
     RETVAL
 
-Wx_DataFormat*
-Wx_DataObjectSimple::GetFormat()
+wxDataFormat*
+wxDataObjectSimple::GetFormat()
   CODE:
     RETVAL = new wxDataFormat( THIS->GetFormat() );
   OUTPUT:
     RETVAL
 
 void
-Wx_DataObjectSimple::SetFormat( format )
-    Wx_DataFormat* format
+wxDataObjectSimple::SetFormat( format )
+    wxDataFormat* format
   CODE:
     THIS->SetFormat( *format );
 
 MODULE=Wx PACKAGE=Wx::PlDataObjectSimple
 
 SV*
-Wx_PlDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
-    Wx_DataFormat* format
+wxPlDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
+    wxDataFormat* format
   CODE:
     wxPlDataObjectSimple* THIS = new wxPlDataObjectSimple( CLASS, *format );
     RETVAL = newRV_noinc( SvRV( THIS->m_callback.GetSelf() ) );
@@ -212,12 +212,12 @@ wxPlDataObjectSimple::DESTROY()
 
 MODULE=Wx PACKAGE=Wx::DataObjectComposite
 
-Wx_DataObjectComposite*
-Wx_DataObjectComposite::new()
+wxDataObjectComposite*
+wxDataObjectComposite::new()
 
 void
-Wx_DataObjectComposite::Add( dataObject, preferred = FALSE )
-    Wx_DataObjectSimple* dataObject
+wxDataObjectComposite::Add( dataObject, preferred = FALSE )
+    wxDataObjectSimple* dataObject
     bool preferred
   CODE:
     // at this point the data object is owned!
@@ -226,42 +226,42 @@ Wx_DataObjectComposite::Add( dataObject, preferred = FALSE )
 
 MODULE=Wx PACKAGE=Wx::TextDataObject
 
-Wx_TextDataObject*
-Wx_TextDataObject::new( text = wxEmptyString )
+wxTextDataObject*
+wxTextDataObject::new( text = wxEmptyString )
     wxString text
 
 size_t
-Wx_TextDataObject::GetTextLength()
+wxTextDataObject::GetTextLength()
 
 wxString
-Wx_TextDataObject::GetText()
+wxTextDataObject::GetText()
 
 void
-Wx_TextDataObject::SetText( text )
+wxTextDataObject::SetText( text )
     wxString text
 
 MODULE=Wx PACKAGE=Wx::BitmapDataObject
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 ) || !defined(__WXMOTIF__)
 
-Wx_BitmapDataObject*
-Wx_BitmapDataObject::new( bitmap = (wxBitmap*)&wxNullBitmap )
-    Wx_Bitmap* bitmap
+wxBitmapDataObject*
+wxBitmapDataObject::new( bitmap = (wxBitmap*)&wxNullBitmap )
+    wxBitmap* bitmap
   CODE:
     RETVAL = new wxBitmapDataObject( *bitmap );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
-Wx_BitmapDataObject::GetBitmap()
+wxBitmap*
+wxBitmapDataObject::GetBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmap() );
   OUTPUT:
     RETVAL
 
 void
-Wx_BitmapDataObject::SetBitmap( bitmap )
-    Wx_Bitmap* bitmap
+wxBitmapDataObject::SetBitmap( bitmap )
+    wxBitmap* bitmap
   CODE:
     THIS->SetBitmap( *bitmap );
 
@@ -271,15 +271,15 @@ MODULE=Wx PACKAGE=Wx::FileDataObject
 
 #if !defined(__WXMOTIF__)
 
-Wx_FileDataObject*
-Wx_FileDataObject::new()
+wxFileDataObject*
+wxFileDataObject::new()
 
 void
-Wx_FileDataObject::AddFile( file )
+wxFileDataObject::AddFile( file )
     wxString file
 
 void
-Wx_FileDataObject::GetFilenames()
+wxFileDataObject::GetFilenames()
   PREINIT:
     int i, max;
   PPCODE:
@@ -298,14 +298,14 @@ Wx_FileDataObject::GetFilenames()
 
 MODULE=Wx PACKAGE=Wx::URLDataObject
 
-Wx_URLDataObject*
-Wx_URLDataObject::new()
+wxURLDataObject*
+wxURLDataObject::new()
 
 wxString
-Wx_URLDataObject::GetURL()
+wxURLDataObject::GetURL()
 
 void
-Wx_URLDataObject::SetURL( url )
+wxURLDataObject::SetURL( url )
     wxString url
 
 #endif

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DropSource.xs
+## Name:        ext/dnd/XS/DropSource.xs
 ## Purpose:     XS for Wx::DropSource
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     16/ 8/2001
-## RCS-ID:      $Id: DropSource.xs,v 1.5 2003/05/05 20:38:42 mbarbon Exp $
+## Created:     16/08/2001
+## RCS-ID:      $Id: DropSource.xs,v 1.6 2004/03/02 21:12:35 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -17,13 +17,13 @@ MODULE=Wx PACKAGE=Wx::DropSource
 
 #if defined( __WXMSW__ )
 
-Wx_DropSource*
+wxDropSource*
 newCursorEmpty( CLASS, win = 0, cursorCopy = (wxCursor*)&wxNullCursor, cursorMove = (wxCursor*)&wxNullCursor, cursorStop = (wxCursor*)&wxNullCursor )
     SV* CLASS 
-    Wx_Window* win
-    Wx_Cursor* cursorCopy
-    Wx_Cursor* cursorMove
-    Wx_Cursor* cursorStop
+    wxWindow* win
+    wxCursor* cursorCopy
+    wxCursor* cursorMove
+    wxCursor* cursorStop
   CODE:
     RETVAL = new wxPliDropSource( wxPli_get_class( aTHX_ CLASS ), win,
                                   *cursorCopy, *cursorMove,
@@ -31,14 +31,14 @@ newCursorEmpty( CLASS, win = 0, cursorCopy = (wxCursor*)&wxNullCursor, cursorMov
   OUTPUT:
     RETVAL
 
-Wx_DropSource*
+wxDropSource*
 newCursorData( CLASS, data, win = 0, cursorCopy = (wxCursor*)&wxNullCursor, cursorMove = (wxCursor*)&wxNullCursor, cursorStop = (wxCursor*)&wxNullCursor )
     SV* CLASS
-    Wx_DataObject* data
-    Wx_Window* win
-    Wx_Cursor* cursorCopy
-    Wx_Cursor* cursorMove
-    Wx_Cursor* cursorStop
+    wxDataObject* data
+    wxWindow* win
+    wxCursor* cursorCopy
+    wxCursor* cursorMove
+    wxCursor* cursorStop
   CODE:
     RETVAL = new wxPliDropSource( wxPli_get_class( aTHX_ CLASS ), *data, win,
                                   *cursorCopy, *cursorMove,
@@ -48,27 +48,27 @@ newCursorData( CLASS, data, win = 0, cursorCopy = (wxCursor*)&wxNullCursor, curs
 
 #else
 
-Wx_DropSource*
+wxDropSource*
 newIconEmpty( CLASS, win = 0, iconCopy = (wxIcon*)&wxNullIcon, iconMove = (wxIcon*)&wxNullIcon, iconStop = (wxIcon*)&wxNullIcon )
     SV* CLASS
-    Wx_Window* win
-    Wx_Icon* iconCopy
-    Wx_Icon* iconMove
-    Wx_Icon* iconStop
+    wxWindow* win
+    wxIcon* iconCopy
+    wxIcon* iconMove
+    wxIcon* iconStop
   CODE:
     RETVAL = new wxPliDropSource( wxPli_get_class( aTHX_ CLASS ), win,
                                   *iconCopy, *iconMove, *iconStop );
   OUTPUT:
     RETVAL
 
-Wx_DropSource*
+wxDropSource*
 newIconData( CLASS, data, win = 0, iconCopy = (wxIcon*)&wxNullIcon, iconMove = (wxIcon*)&wxNullIcon, iconStop = (wxIcon*)&wxNullIcon )
     SV* CLASS
-    Wx_DataObject* data
-    Wx_Window* win
-    Wx_Icon* iconCopy
-    Wx_Icon* iconMove
-    Wx_Icon* iconStop
+    wxDataObject* data
+    wxWindow* win
+    wxIcon* iconCopy
+    wxIcon* iconMove
+    wxIcon* iconStop
   CODE:
     RETVAL = new wxPliDropSource( wxPli_get_class( aTHX_ CLASS ), *data, win,
                                   *iconCopy, *iconMove, *iconStop );
@@ -78,17 +78,17 @@ newIconData( CLASS, data, win = 0, iconCopy = (wxIcon*)&wxNullIcon, iconMove = (
 #endif
 
 wxDragResult
-Wx_DropSource::DoDragDrop( flags = wxDrag_CopyOnly )
+wxDropSource::DoDragDrop( flags = wxDrag_CopyOnly )
     int flags
 
 void
-Wx_DropSource::SetData( data )
-    Wx_DataObject* data
+wxDropSource::SetData( data )
+    wxDataObject* data
   CODE:
     THIS->SetData( *data );
 
-Wx_DataObject*
-Wx_DropSource::GetDataObject()
+wxDataObject*
+wxDropSource::GetDataObject()
   CODE:
     RETVAL = THIS->GetDataObject();
   OUTPUT:
@@ -97,8 +97,8 @@ Wx_DropSource::GetDataObject()
     wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 void
-Wx_DropSource::SetCursor( res, cursor )
+wxDropSource::SetCursor( res, cursor )
     wxDragResult res
-    Wx_Cursor* cursor
+    wxCursor* cursor
   CODE:
     THIS->SetCursor( res, *cursor );
