@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/ 5/2001
-## RCS-ID:      $Id: demo.pl,v 1.14 2003/05/18 15:04:11 mbarbon Exp $
+## RCS-ID:      $Id: demo.pl,v 1.15 2003/05/27 20:13:37 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -210,12 +210,12 @@ my @demos =
        [ 'HtmlWindow', demo( 'wxHtmlWindow' ) ],
        [ 'Grid', demo( 'wxGrid' ) ],
        [ 'ScrolledWindow', demo( 'wxScrolledWindow' ) ],
-       [ 'SplashScreen', external( 'splash', '.' ) ],
       ],
     ],
     [ 'Managed windows',
       [
        [ 'Wizard', demo( 'wxWizard' ) ],
+       [ 'SplashScreen', external( 'splash', '.' ) ],
       ],
     ],
     [ 'Controls',
@@ -223,6 +223,7 @@ my @demos =
        [ 'CalendarCtrl', demo( 'wxCalendarCtrl' ) ],
        [ 'CheckListBox', demo( 'wxCheckListBox' ) ],
        [ 'ListCtrl', demo( 'wxListCtrl' ) ],
+       [ 'ScrollBar', demo( 'wxScrollBar' ) ],
       ],
     ],
     [ 'Sizers',
