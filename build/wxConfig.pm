@@ -25,8 +25,8 @@ use Getopt::Long;
 Getopt::Long::Configure( 'pass_through' );
 
 my %subdirs = map { ( $_, 1 ) }
-#  ( qw(dnd filesys grid help html mdi print xrc stc docview) );
-  ( qw() );
+  ( qw(dnd filesys grid help html mdi print xrc stc docview) );
+#  ( qw() );
 
 my $result =
 GetOptions( 'debug' => \$debug_mode,
