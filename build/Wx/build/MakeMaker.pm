@@ -255,7 +255,7 @@ sub _process_mm_arguments {
 sub wxWriteMakefile {
   my %params = @_;
 
-  $params{XSOPT}     = ' -C++ -noprototypes' .
+  $params{XSOPT}     = ' -noprototypes' .
     ( is_wxPerl_tree() ? ' -nolinenumbers ' : ' ' );
   $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;
   require Wx::build::MakeMaker::Any_OS;

@@ -101,7 +101,7 @@ Wx::build::Options->write_config_file( 'Opt' );
 sub wxWriteMakefile {
   my %params = @_;
 
-  $params{XSOPT}     = ' -C++ -nolinenumbers -noprototypes ';
+  $params{XSOPT}     = ' -nolinenumbers -noprototypes ';
   $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;
   $params{OBJECT}    = join ' ', obj_from_src( @top_level_xs ), '';
 
