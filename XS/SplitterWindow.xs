@@ -66,17 +66,17 @@ Wx_SplitterWindow::SetSplitMode( mode )
     int mode
 
 bool
-Wx_SplitterWindow::SplitHorizontally( window1, window2, sashPosition )
+Wx_SplitterWindow::SplitHorizontally( window1, window2, sashPosition = 0 )
     Wx_Window* window1
     Wx_Window* window2
     int sashPosition
 
 bool
-Wx_SplitterWindow::SplitVertically( window1, window2, sashPosition )
+Wx_SplitterWindow::SplitVertically( window1, window2, sashPosition = 0 )
     Wx_Window* window1
     Wx_Window* window2
     int sashPosition
 
 bool
-Wx_SplitterWindow::Unsplit( toRemove )
+Wx_SplitterWindow::Unsplit( toRemove = 0 )
     Wx_Window* toRemove
