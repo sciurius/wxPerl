@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/10/2002
-## RCS-ID:      $Id: CalendarCtrl.xsp,v 1.7 2005/03/19 18:06:55 mbarbon Exp $
+## RCS-ID:      $Id: CalendarCtrl.xsp,v 1.8 2005/03/27 16:26:20 mbarbon Exp $
 ## Copyright:   (c) 2002-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -55,6 +55,10 @@ double calendar_constant( const char* name, int arg )
         r( wxEVT_CALENDAR_YEAR_CHANGED );
         r( wxEVT_CALENDAR_DOUBLECLICKED );
         r( wxEVT_CALENDAR_WEEKDAY_CLICKED );
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+        r( wxEVT_DATE_CHANGED );
+#endif
         break;
     }
 #undef r
@@ -67,14 +71,31 @@ wxPlConstants calendar_module( &calendar_constant );
 %}
 %file{-};
 
+%typemap{wxDateEvent*}{simple};
 %typemap{wxCalendarEvent*}{simple};
 %typemap{wxCalendarCtrl*}{simple};
 %typemap{wxCalendarDateAttr*}{simple};
 %typemap{wxDateTime__WeekDay}{simple};
 
-%name{Wx::CalendarEvent} class wxCalendarEvent
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+%name{Wx::DateEvent} class wxDateEvent
 {
     const wxDateTime& GetDate();
+    void SetDate(const wxDateTime& date);
+};
+
+#endif
+
+%name{Wx::CalendarEvent} class wxCalendarEvent
+{
+#if WXPERL_W_VERSION_LE( 2, 5, 3 ) && WXPERL_W_VERSION_GE( 2, 5, 2 )
+    void SetDate(const wxDateTime& date);
+    void SetWeekDay(wxDateTime__WeekDay weekDay);
+#endif
+#if WXPERL_W_VERSION_LE( 2, 5, 3 )
+    const wxDateTime& GetDate();
+#endif
     wxDateTime__WeekDay GetWeekDay();
 };
 

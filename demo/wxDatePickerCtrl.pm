@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/03/2005
-## RCS-ID:      $Id: wxDatePickerCtrl.pm,v 1.1 2005/03/19 18:06:39 mbarbon Exp $
+## RCS-ID:      $Id: wxDatePickerCtrl.pm,v 1.2 2005/03/27 16:26:20 mbarbon Exp $
 ## Copyright:   (c) 5 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -41,7 +41,7 @@ use base 'Wx::Panel';
 use Wx::Calendar;
 
 use Wx qw(:sizer :datepicker);
-use Wx::Event qw(EVT_BUTTON);
+use Wx::Event qw(EVT_DATE_CHANGED);
 
 sub new {
   my $class = shift;
@@ -55,17 +55,15 @@ sub new {
   my $calendar = Wx::DatePickerCtrl->new( $this, -1, $date );
 
   my $textctrl = Wx::TextCtrl->new( $this, -1, $date->FormatDate );
-  my $button = Wx::Button->new( $this, -1, "Transfer" );
 
   $sizer->Add( $calendar, 0, wxALL, 10 );
-  $sizer->Add( $button, 0, wxGROW|wxALL, 10 );
   $sizer->Add( $textctrl, 0, wxGROW|wxALL, 10 );
 
-  EVT_BUTTON( $this, $button,
-              sub {
-                  $textctrl->SetValue
-                    ( $calendar->GetValue->FormatDate );
-                            } );
+  EVT_DATE_CHANGED( $this, $calendar,
+                    sub {
+                        $textctrl->SetValue
+                          ( $calendar->GetValue->FormatDate );
+                    } );
 
   $this->SetSizer( $sizer );
 

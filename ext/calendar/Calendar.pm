@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/10/2002
-## RCS-ID:      $Id: Calendar.pm,v 1.6 2005/03/19 18:06:55 mbarbon Exp $
+## RCS-ID:      $Id: Calendar.pm,v 1.7 2005/03/27 16:26:20 mbarbon Exp $
 ## Copyright:   (c) 2002, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -46,6 +46,7 @@ sub EVT_CALENDAR_DAY($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_DAY_C
 sub EVT_CALENDAR_MONTH($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_MONTH_CHANGED, $_[2] ) }
 sub EVT_CALENDAR_YEAR($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_YEAR_CHANGED, $_[2] ) }
 sub EVT_CALENDAR_WEEKDAY_CLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_WEEKDAY_CLICKED, $_[2] ) }
+sub EVT_DATE_CHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_DATE_CHANGED, $_[2] ) }
 
 1;
 
