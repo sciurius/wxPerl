@@ -3,7 +3,37 @@ package Wx::build::Config::Any_wx_config;
 use strict;
 use base 'Wx::build::Config::Any_OS';
 
-sub wx_config {
+{
+  my $ver = `wx-config --version`;
+  $ver =~ m/^(\d)\.(\d)/;
+  $ver = $1 + $2 / 1000;
+
+  if( $ver >= 2.005 ) {
+    *wx_config = __PACKAGE__->can( 'wx_config_25' );
+    *get_core_lib = __PACKAGE__->can( 'get_core_lib_25' );
+  } else {
+    *wx_config = __PACKAGE__->can( 'wx_config_24' );
+    *get_core_lib = __PACKAGE__->can( 'get_core_lib_24' );
+  }
+}
+
+# used by Any_OS::wx_config_25
+sub _data {
+  my $this = shift;
+  return $this->{data} if $this->{data};
+
+  my %data;
+
+  foreach my $item ( qw(cxx ld cxxflags ldflags version libs) ) {
+    $data{$item} = $this->_call_wx_config( $item );
+  }
+
+  $data{libs} =~ s/\-lwx\S+//g;
+
+  $this->{data} = \%data;
+}
+
+sub _call_wx_config {
   my $this = shift;
   my $options = join ' ', map { "--$_" } @_;
 
@@ -14,6 +44,32 @@ sub wx_config {
   chomp $t;
 
   return $t;
+}
+
+sub wx_config_24 {
+  my $this = shift;
+  return $this->_call_wx_config( @_ );
+}
+
+sub get_core_lib_25 {
+  my( $this, @libs ) = @_;
+  my $arg = 'libs=' . join ',', grep { !m/base/ } @libs;
+  my $ret = $this->_call_wx_config( $arg );
+  return ' ' . join ' ',
+               grep { m/\-lwx/ }
+               split ' ', $ret;
+}
+
+sub get_core_lib_24 {
+  my( $this, @libs ) = @_;
+
+  return ' ' . join ' ',
+    map {
+        m/^(?:xrc|stc)$/     ? $this->get_contrib_lib( $_ ) :
+        m/^gl$/              ? $this->_call_wx_config( 'gl-libs' ) :
+                               die "No such lib: '$_'";
+    }
+    grep { !m/^(?:adv|base|html|net|xml|core)$/ } @libs;
 }
 
 sub get_wx_platform {
@@ -33,16 +89,12 @@ sub _is_wx_debug {
 sub get_contrib_lib {
   my( $this, $lib ) = @_;
 
-  if( $this->get_wx_version >= 2.003003 ) {
-    my $plat = $this->get_wx_platform;
-    ( my $ver = $this->wx_config( 'version' ) ) =~ s/\.\d+$//;
-    my $debug = $this->_is_wx_debug ? 'd' : '';
-    $lib =~ s/^\s*wx(.*?)\s*/$1/;
+  my $plat = $this->get_wx_platform;
+  ( my $ver = $this->wx_config( 'version' ) ) =~ s/\.\d+$//;
+  my $debug = $this->_is_wx_debug ? 'd' : '';
+  $lib =~ s/^\s*wx(.*?)\s*/$1/;
 
-    return " -lwx_${plat}${debug}_${lib}-${ver} ";
-  } else {
-    return " -l$lib ";
-  }
+  return " -lwx_${plat}${debug}_${lib}-${ver} ";
 }
 
 sub get_flags {

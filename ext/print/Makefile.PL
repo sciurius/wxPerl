@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Makefile.PL
+## Name:        ext/print/Makefile.PL
 ## Purpose:     Makefile.PL for Print Framework
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      4/ 5/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## Created:     04/05/2001
+## RCS-ID:      $Id: Makefile.PL,v 1.6 2003/08/23 13:00:38 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,6 +16,7 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME         => 'Wx::Print',
                  VERSION_FROM => 'lib/Wx/Print.pm',
+                 WX_CORE_LIB  => 'core base',
                );
 
 # local variables:

@@ -19,6 +19,7 @@ use vars qw($VERSION);
 
 $VERSION = '0.01';
 
+Wx::load_dll( 'adv' );
 Wx::wx_boot( 'Wx::Calendar', $VERSION );
 
 #

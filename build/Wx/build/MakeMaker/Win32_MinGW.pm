@@ -13,14 +13,6 @@ sub _strip_command {
 EOT
 }
 
-sub _dll_name {
-  my $this = shift;
-  my $implib = $this->wx_config->wx_config( 'implib' );
-  $implib =~ s/lib(\w+)\.a$/$1.dll/;
-
-  return $implib;
-}
-
 #
 # current command line breaks in dmake ( used braces in qq{} )
 #

@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Makefile.PL
+## Name:        ext/filesys/Makefile.PL
 ## Purpose:     Makefile.PL for wxFileSystem and related classes
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/ 4/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: Makefile.PL,v 1.6 2003/08/23 13:00:37 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,6 +16,7 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME         => 'Wx::FS',
                  VERSION_FROM => 'lib/Wx/FS.pm',
+                 WX_CORE_LIB  => 'net core base',
                );
 
 # local variables:

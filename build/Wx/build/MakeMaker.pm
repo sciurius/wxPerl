@@ -5,8 +5,9 @@ use Wx::build::Config;
 use Wx::build::Options;
 use ExtUtils::MakeMaker;
 use base 'Exporter';
-use vars qw(@EXPORT);
+use vars qw(@EXPORT $VERSION);
 
+$VERSION = '0.16';
 @EXPORT = 'wxWriteMakefile';
 
 # sanitize File::Find on filesystems where nlink of directories is < 2
@@ -35,6 +36,13 @@ ExtUtils::MakeMaker::WriteMakefile (see). It accepts all WriteMakefile's
 parameters, plus:
 
 =over 4
+
+=item * WX_CORE_LIB
+
+  WX_CORE_LIB => 'xrc core base'
+
+link libraries from wxWindows' core or contrib directory.
+If not spedified, defaults to 'adv html core net base' for compatibility.
 
 =item * WX_LIB
 
@@ -214,9 +222,16 @@ sub _process_mm_arguments {
 
   $args{CCFLAGS} .= ' ' . ( $options{extra_cflags} || '' );
   $args{LIBS} .= ' ' . ( $options{extra_libs} || '' );
+  $args{WX_CORE_LIB} ||= 'adv html core net base';
 
   foreach ( keys %args ) {
     my $v = $args{$_};
+
+    m/^WX_CORE_LIB$/ and do {
+      my @libs = split ' ', $v;
+      $args{LIBS} .= join ' ', $cfg->get_core_lib( @libs );
+      delete $args{$_};
+    };
 
     m/^WX_LIB$/ and do {
       $args{LIBS} .= join ' ',

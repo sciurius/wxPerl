@@ -19,6 +19,7 @@ use vars qw($VERSION);
 
 $VERSION = '0.01';
 
+Wx::load_dll( 'stc' );
 Wx::wx_boot( 'Wx::STC', $VERSION );
 
 #

@@ -11,14 +11,6 @@ return <<'EOT';
 EOT
 }
 
-sub _dll_name {
-  my $this = shift;
-  my $implib = $this->wx_config->wx_config( 'implib' );
-  $implib =~ s/\.lib$/.dll/;
-
-  return $implib;
-}
-
 1;
 
 # local variables:

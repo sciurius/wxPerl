@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Makefile.PL
+## Name:        ext/calendar/Makefile.PL
 ## Purpose:     Makefile.PL for wxCalendarCtrl
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      5/10/2002
-## RCS-ID:      
-## Copyright:   (c) 2002 Mattia Barbon
+## Created:     05/10/2002
+## RCS-ID:      $Id: Makefile.PL,v 1.3 2003/08/23 13:00:37 mbarbon Exp $
+## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,6 +19,7 @@ use Wx::build::MakeMaker;
 wxWriteMakefile( NAME         => 'Wx::Calendar',
                  VERSION_FROM => 'Calendar.pm',
                  clean        => { FILES => 'cpp' },
+                 WX_CORE_LIB  => 'adv core base',
                );
 
 # local variables:

@@ -19,6 +19,7 @@ use vars qw($VERSION);
 
 $VERSION = '0.01';
 
+Wx::load_dll( 'html' );
 Wx::wx_boot( 'Wx::Html', $VERSION );
 
 #

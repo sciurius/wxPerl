@@ -71,6 +71,12 @@ sub _static  { $_[0]->{STATIC} }
 
   my $lib_string = $cfg->get_contrib_lib( 'stc' );
 
+B<DEPRECATED as of wxPerl 0.16>.
+
+=head2 get_core_lib
+
+  my $lib_string = $cfg->get_core_lib( 'stc', 'core', 'base' );
+
 =head2 get_wx_version
 
   my $version = $cfg->get_wx_version();
