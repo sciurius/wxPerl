@@ -26,6 +26,7 @@ WXPLDLL const char* _get_class( SV* ref );
 WXPLDLL int _av_2_stringarray( SV* avref, wxString** array );
 WXPLDLL int _av_2_uchararray( SV* avref, unsigned char** array );
 WXPLDLL int _av_2_svarray( SV* avref, SV*** array );
+WXPLDLL int _av_2_intarray( SV* avref, int** array );
 
 int _get_args_argc_argv( char*** argv );
 WXPLDLL void _get_args_objectarray( SV** sp, int items, void** array, const char* package );

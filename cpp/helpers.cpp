@@ -338,6 +338,34 @@ int _av_2_uchararray( SV* avref, unsigned char** array )
     return n;
 }
 
+int _av_2_intarray( SV* avref, int** array )
+{
+    int* arr;
+    int n, i;
+    AV* av;
+    SV* t;
+
+    if( !SvROK( avref ) || 
+        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
+    {
+        croak( "the value is not an array reference" );
+        return 0;
+    }
+    
+    n = av_len( av ) + 1;
+    arr = new int[ n ];
+
+    for( i = 0; i < n; ++i )
+    {
+        t = *av_fetch( av, i, 0 );
+        arr[i] = (int)SvIV( t );
+    }
+
+    *array = arr;
+
+    return n;
+}
+
 int _av_2_stringarray( SV* avref, wxString** array )
 {
     wxString* arr;
