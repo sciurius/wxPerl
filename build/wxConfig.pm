@@ -22,6 +22,10 @@ use vars qw($debug_mode $unicode_mode $extra_libs $extra_cflags
             $subdirs $o_static);
 use vars qw($Arch);
 use Getopt::Long;
+Getopt::Long::Configure( 'pass_through' );
+
+my %subdirs = map { ( $_, 1 ) }
+  ( qw(dnd filesys grid help html mdi print xrc stc) );
 
 my $result =
 GetOptions( 'debug' => \$debug_mode,
@@ -33,7 +37,29 @@ GetOptions( 'debug' => \$debug_mode,
             'help' => \$o_help,
             'mksymlinks' => \$o_mksymlinks,
             'static' => \$o_static,
+            '<>' => \&process_options,
           );
+
+my @my_argv;
+
+sub process_options {
+  my $i = shift;
+
+  # skip non-options
+  unless( $i =~ m/^-/ ) {
+    push @my_argv, $i;
+    return;
+  }
+
+  if( $i =~ m/^--(enable|disable)-(\w+)$/ &&
+      exists $subdirs{$2} ) {
+    $subdirs{$2} = $1 eq 'enable';
+  } else {
+    die "invalid option $i";
+  }
+}
+
+@main::ARGV = @my_argv;
 
 $extra_cflags ||= ''; $extra_libs ||= '';
 
@@ -48,6 +74,8 @@ Usage: perl Makefile.PL [options]
                        supports that, of course )
   --static             link all extensions in a single big shared
                        object
+  --enable/disable-foo where foo is one of: dnd filesys grid help
+                                            html mdi print xrc stc
   --[no]mingw-shared   use 'g++ --shared' with MinGW ( MSW only )
   --[no]use-dllexport  use 'dllexport' ( MSW only )
   --help               you are reading it
@@ -171,11 +199,6 @@ sub wxWriteMakefile {
       delete $params{WXLIB};
     }
 
-    if( $i eq 'WXSUBDIRS' ) {
-      $subdirs = $params{WXSUBDIRS};
-      delete $params{WXSUBDIRS};
-    }
-
     if( $i eq 'REQUIRE_WX' ) {
       $do_not_use ||= wx_version() < $params{REQUIRE_WX};
       delete $params{REQUIRE_WX};
@@ -184,6 +207,9 @@ sub wxWriteMakefile {
     delete $params{$i}
       if( ( $i eq 'ABSTRACT_FROM'|| $i eq 'AUTHOR' ) && $] < 5.005 );
   }
+
+  # get subdirs with a '1' value
+  $subdirs = [ grep { $subdirs{$_} == 1 } ( keys %subdirs ) ];
 
   require Any_OS; # perl 5.004_04 needs this...
   $params{XSOPT} = ' -C++ -nolinenumbers -noprototypes '

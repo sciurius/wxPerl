@@ -35,15 +35,8 @@ wxWriteMakefile( NAME => 'Wx',
                  ABSTRACT_FROM => 'Wx.pm',
                  AUTHOR => 'Mattia Barbon <mbarbon@dsi.unive.it>',
                  VERSION_FROM => 'Wx.pm',
-                 # at some point it will be possibile
-                 # to exclude some subdirs from the build
-                 WXSUBDIRS => [ 'dnd', 'filesys', 'grid', 'help',
-                                'html', 'mdi', 'print',
-                                'xrc',
-                                'stc'
-                               ],
                  ( $wxConfig::o_static ?
-                   ( WXLIB => [ 'wxxrc' ] ) :
+                   ( WXLIB => [ 'wxxrc', 'wxstc' ] ) :
                    () ),
                  OBJECT => join( ' ', obj_from_src( @top_level_xs ) ) . ' ',
                );
