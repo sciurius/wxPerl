@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.72 2005/01/23 13:43:01 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.73 2005/03/19 17:51:30 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -489,6 +489,14 @@ wxPliClassInfo name::sm_class##name((wxChar *) wxT(#name), \
     {                                                              \
         m_callback.SetSelf( wxPli_make_object( this, package ), incref );\
     }
+
+#define WXPLI_CONSTRUCTOR_2( name, packagename, incref, argt1, argt2 )     \
+     name( const char* package, argt1 _arg1, argt2 _arg2 )                 \
+         :m_callback( packagename )                                        \
+     {                                                                     \
+         m_callback.SetSelf( wxPli_make_object( this, package ), incref ); \
+         Create( _arg1, _arg2 );                                           \
+     }
 
 #define WXPLI_CONSTRUCTOR_5( name, packagename, incref, argt1, argt2, argt3, argt4, argt5 ) \
      name( const char* package, argt1 _arg1, argt2 _arg2, argt3 _arg3,     \

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.28 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.29 2005/03/19 17:51:30 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -845,6 +845,22 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 
 #define DEF_V_CBACK_VOID__WXGRID_pure( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_VOID__WXOBJECTsP_( wxGrid*, CLASS, return, METHOD, wxPli_NOCONST )
+
+// void METH(wxWindow*)
+#define DEC_V_CBACK_VOID__WXWINDOW_( METHOD, CONST ) \
+    void METHOD( wxWindow* ) CONST
+
+#define DEF_V_CBACK_VOID__WXWINDOW_( CLASS, CALLBASE, METHOD, CONST ) \
+    DEF_V_CBACK_VOID__WXOBJECTsP_( wxWindow*, CLASS, CALLBASE, METHOD, CONST )
+
+#define DEC_V_CBACK_VOID__WXWINDOW( METHOD ) \
+    DEC_V_CBACK_VOID__WXWINDOW_( METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_VOID__WXWINDOW( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_VOID__WXOBJECTsP_( wxWindow*, CLASS, BASE::METHOD(p1), METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_VOID__WXWINDOW_pure( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_VOID__WXOBJECTsP_( wxWindow*, CLASS, return, METHOD, wxPli_NOCONST )
 
 // void METH(wxObject*)
 #define DEF_V_CBACK_VOID__WXOBJECTsP_( T1, CLASS, CALLBASE, METHOD, CONST )  \

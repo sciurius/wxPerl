@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.116 2005/03/17 21:19:00 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.117 2005/03/19 17:51:15 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -233,6 +233,9 @@ static wxPlINH inherit[] =
 {
     I( EvtHandler,      Object )
     I( Window,          EvtHandler )
+    I( PopupWindow,     Window )
+    I( PopupTransientWindow, PopupWindow )
+    I( PlPopupTransientWindow, PopupTransientWindow )
     I( Menu,            EvtHandler )
     I( PlWindow,        Window )
     I( PlControl,       Control )
