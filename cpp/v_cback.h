@@ -320,6 +320,15 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
     return wxEmptyString;                                                     \
   }
 
+#define DEC_V_CBACK_BOOL__WXSTRING( METHOD ) \
+  bool METHOD( const wxString& )
+
+#define DEC_V_CBACK_WXSTRING__WXSTRING_INT( METHOD ) \
+  wxString METHOD( const wxString&, int )
+
+#define DEC_V_CBACK_WXFSFILEP__WXFILESYSTEM_WXSTRING( METHOD ) \
+  wxFSFile* METHOD( wxFileSystem&, const wxString& )
+
 #endif // _WXPERL_V_CBACK_H
 
 // Local variables: //
