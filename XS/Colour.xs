@@ -39,7 +39,7 @@ Wx_Colour::Blue()
 unsigned char
 Wx_Colour::Green()
 
-long
+WXCOLORREF
 Wx_Colour::GetPixel()
 
 bool
