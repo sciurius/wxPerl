@@ -13,6 +13,7 @@
 #include <wx/html/helpctrl.h>
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 ) && defined(__WXMSW__)
+#if wxPERL_USE_BESTHELP
 
 #include <wx/msw/helpbest.h>
 #undef THIS
@@ -26,6 +27,7 @@ Wx_BestHelpController::new()
   OUTPUT:
     RETVAL
 
+#endif
 #endif
 
 MODULE=Wx PACKAGE=Wx::HtmlHelpController
