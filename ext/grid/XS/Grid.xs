@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.22 2005/01/05 14:50:23 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.23 2005/04/03 09:10:48 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -462,13 +462,26 @@ wxGrid::GetRowSize( row )
 void
 wxGrid::GetSelectedCells()
   PPCODE:
-    wxGridCellCoordsArray selection = THIS->GetSelectedCells();
-    EXTEND( SP, (IV) selection.GetCount() );
+    PUTBACK;
+    wxPli_nonobjarray_push<wxGridCellCoordsArray, wxGridCellCoords>
+        ( aTHX_ THIS->GetSelectedCells(), "Wx::GridCellCoords" );
+    SPAGAIN;
 
-    for( size_t i = 0; i < selection.GetCount(); ++i )
-      PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
-             new wxGridCellCoords( selection[i] ),
-             "Wx::GridCellCoords" ) );
+void
+wxGrid::GetSelectionBlockTopLeft()
+  PPCODE:
+    PUTBACK;
+    wxPli_nonobjarray_push<wxGridCellCoordsArray, wxGridCellCoords>
+        ( aTHX_ THIS->GetSelectionBlockTopLeft(), "Wx::GridCellCoords" );
+    SPAGAIN;
+
+void
+wxGrid::GetSelectionBlockBottomRight()
+  PPCODE:
+    PUTBACK;
+    wxPli_nonobjarray_push<wxGridCellCoordsArray, wxGridCellCoords>
+        ( aTHX_ THIS->GetSelectionBlockBottomRight(), "Wx::GridCellCoords" );
+    SPAGAIN;
 
 void
 wxGrid::GetSelectedCols()

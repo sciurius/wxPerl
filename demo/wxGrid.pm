@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/12/2001
-## RCS-ID:      $Id: wxGrid.pm,v 1.4 2003/06/05 17:28:11 mbarbon Exp $
-## Copyright:   (c) 2001, 2003 Mattia Barbon
+## RCS-ID:      $Id: wxGrid.pm,v 1.5 2005/04/03 09:10:50 mbarbon Exp $
+## Copyright:   (c) 2001, 2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -103,12 +103,55 @@ sub new {
                                            $_[1]->GetLeftCol, $_[1]->GetTopRow,
                                            $_[1]->GetRightCol,
                                            $_[1]->GetBottomRow );
+                           $_[0]->ShowSelections;
                            $_[1]->Skip;
                          } );
   EVT_GRID_CELL_CHANGE( $this, c_log_skip( "Cell content changed" ) );
   EVT_GRID_SELECT_CELL( $this, c_log_skip( "Cell select" ) );
 
   return $this;
+}
+
+sub ShowSelections {
+    my $this = shift;
+
+    my @cells = $this->GetSelectedCells;
+    if( @cells ) {
+        Wx::LogMessage( "Cells %s selected", join ', ',
+                                                  map { "(" . $_->GetCol .
+                                                        ", " . $_->GetRow . ")"
+                                                       } @cells );
+    } else {
+        Wx::LogMessage( "No cells selected" );
+    }
+
+    my @tl = $this->GetSelectionBlockTopLeft;
+    my @br = $this->GetSelectionBlockBottomRight;
+    if( @tl && @br ) {
+        Wx::LogMessage( "Blocks %s selected",
+                        join ', ',
+                        map { "(" . $tl[$_]->GetCol .
+                              ", " . $tl[$_]->GetRow . "-" .
+                              $br[$_]->GetCol . ", " .
+                              $br[$_]->GetRow . ")"
+                            } 0 .. $#tl );
+    } else {
+        Wx::LogMessage( "No blocks selected" );
+    }
+
+    my @rows = $this->GetSelectedRows;
+    if( @rows ) {
+        Wx::LogMessage( "Rows %s selected", join ', ', @rows );
+    } else {
+        Wx::LogMessage( "No rows selected" );
+    }
+
+    my @cols = $this->GetSelectedCols;
+    if( @cols ) {
+        Wx::LogMessage( "Columns %s selected", join ', ', @cols );
+    } else {
+        Wx::LogMessage( "No columns selected" );
+    }
 }
 
 # pretty printer for Wx::GridEvent
@@ -133,6 +176,7 @@ sub c_log_skip {
 
   return sub {
     Wx::LogMessage( "%s %s", $text, G2S( $_[1] ) );
+    $_[0]->ShowSelections;
     $_[1]->Skip;
   };
 }
