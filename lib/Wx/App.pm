@@ -18,14 +18,14 @@ use vars qw(@ISA $theapp);
 @ISA = qw(Wx::_App);
 
 sub new {
-  Wx::_croak "Only one 'Wx::App' instance allowed" if $theapp;
+  Wx::_croak( "Only one 'Wx::App' instance allowed" ) if $theapp;
 
   my($this) = $_[0]->SUPER::new();
 
   $theapp = $this;
 
   Wx::_App::Start($this,$this->can('OnInit')) || 
-      Wx::_croak 'OnInit must return a return value';
+      Wx::_croak( 'OnInit must return a return value' );
 
   $this;
 }
