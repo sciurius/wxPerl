@@ -18,10 +18,10 @@ use Carp;
 sub new {
   shift;
 
-  Wx::_match( @_, $Wx::_wbmp, 1 )      && return Wx::Mask::newBitmap( @_ );
-  Wx::_match( @_, $Wx::_wbmp_n, 2 )    && return Wx::Mask::newBitmapIndex( @_ );
   Wx::_match( @_, $Wx::_wbmp_wcol, 2 ) && return Wx::Mask::newBitmapColour( @_ );
-  croak Wx::_ovl_error 'Wx::Mask::new';
+  Wx::_match( @_, $Wx::_wbmp_n, 2 )    && return Wx::Mask::newBitmapIndex( @_ );
+  Wx::_match( @_, $Wx::_wbmp, 1 )      && return Wx::Mask::newBitmap( @_ );
+  croak Wx::_ovl_error;
 }
 
 package Wx::Bitmap;
@@ -35,7 +35,7 @@ sub new {
   Wx::_match( @_, $Wx::_n_n_n, 2, 1 ) && return Wx::Bitmap::newEmpty( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 )      && return Wx::Bitmap::newFile( @_ );
   Wx::_match( @_, $Wx::_wico, 1 )     && return Wx::Bitmap::newIcon( @_ );
-  croak Wx::_ovl_error( 'Wx::Bitmap::new' );
+  croak Wx::_ovl_error;
 }
 
 # sub FindHandler {
