@@ -35,12 +35,12 @@ INCLUDE: XS/Brush.xs
 INCLUDE: XS/Image.xs
 INCLUDE: XS/Palette.xs
 
-MODULE=Wx PACKAGE=Wx
+MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 wxRect*
-GetClientDisplayRect()
+wxGetClientDisplayRect()
   CODE:
     RETVAL = new wxRect( wxGetClientDisplayRect() );
   OUTPUT:
