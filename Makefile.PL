@@ -205,6 +205,7 @@ sub configure_win32_mingw {
                     clean => { FILES => 'dll.exp dll.exp dll.base ', },
                     LDFROM => '$(OBJECT) Wx_res.o',
                     LIBS => $extra_libs,
+                    CCFLAGS => ' -fvtable-thunks ',
                   );
 
   #FIXME// debug mode support?
