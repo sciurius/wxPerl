@@ -10,7 +10,11 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
+#include <wx/version.h>
+
 wxplicon ICON "wxpl.ico"
 
 #include <wx/msw/wx.rc>
+#if !wxCHECK_VERSION( 2, 3, 3 )
 #include <wx/html/msw/wxhtml.rc>
+#endif
