@@ -405,6 +405,19 @@ AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings )
     return av;
 }
 
+AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count )
+{
+    AV* av = newAV();
+
+    av_extend( av, count );
+    for( int i = 0; i < count; ++i )
+    {
+        av_store( av, i, newSViv( array[i] ) );
+    }
+
+    return av;
+}
+
 int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array )
 {
     SV** arr;

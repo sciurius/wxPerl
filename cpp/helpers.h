@@ -100,6 +100,20 @@ inline AV* wxPli_avref_2_av( SV* sv )
 const int WXPL_BUF_SIZE = 120;
 WXPLDLL const char* wxPli_cpp_class_2_perl( const wxChar* className,
                                             char buffer[WXPL_BUF_SIZE] );
+// argtypes is a string; each character describes the C++ argument
+// type and how it should be used (i.e. a valid string is "ii", assuming
+// you pass two integers as additional parameters
+// b - a boolean value
+// i - an 'int' value
+// l - a 'long' value
+// p - a char*
+// P - a wxString*
+// S - an SV*; a _COPY_ of the SV is passed
+// s - an SV*; _the SV_ is passed (any modifications made by the function
+//             will affect the SV, unlike in the previous case)
+// O - a wxObject*; this will use wxPli_object_2_sv and push the result
+// o - a void* followed by a char*; will use wxPli_non_object_2_sv
+//     and push the result
 WXPLDLL void wxPli_push_args( pTHX_ SV*** stack, const char* argtypes,
                               va_list &list );
 
@@ -127,6 +141,7 @@ WXPLDLL int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array );
 WXPLDLL int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
 
 WXPLDLL AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
+AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count );
 
 void wxPli_delete_argv( void* argv, bool unicode );
 int wxPli_get_args_argc_argv( void* argv, bool unicode );
@@ -169,6 +184,7 @@ class wxPliVirtualCallback;
 
 WXPLDLL bool FUNCPTR( wxPliVirtualCallback_FindCallback )
     ( pTHX_ const wxPliVirtualCallback* cb, const char* name );
+// see wxPli_push_args for a description of argtypes
 WXPLDLL SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
     ( pTHX_ const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
       const char* argtypes = 0, ... );
