@@ -5,13 +5,16 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      
-// Copyright:   (c) 2000 Mattia Barbon
+// Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
 #include <wx/object.h>
 #include <wx/list.h>
+#include <wx/geometry.h>
+
+#include <stdarg.h>
 
 I32 my_looks_like_number( pTHX_ SV* sv );
 
@@ -109,6 +112,7 @@ WXPLDLL const char* wxPli_cpp_class_2_perl( const wxChar* className,
 // i - an 'int' value
 // l - a 'long' value
 // p - a char*
+// w - a wxChar*
 // P - a wxString*
 // S - an SV*; a _COPY_ of the SV is passed
 // s - an SV*; _the SV_ is passed (any modifications made by the function
@@ -408,10 +412,25 @@ wxPliClassInfo name::sm_class##name((wxChar *) wxT(#name), \
   (wxChar *) wxT(#basename), (wxChar *) NULL, (int) sizeof(name), \
   (wxPliGetCallbackObjectFn) wxPliGetSelfFor##name);
 
+#define WXPLI_DEFAULT_CONSTRUCTOR_NC( name, packagename, incref ) \
+    name( const char* package )                                   \
+        : m_callback( packagename )                               \
+    {                                                             \
+        m_callback.SetSelf( wxPli_make_object( this, package ), incref );\
+    }
+
 #define WXPLI_DEFAULT_CONSTRUCTOR( name, packagename, incref ) \
     name( const char* package )                                \
         :m_callback( packagename )                             \
     {                                                          \
+        m_callback.SetSelf( wxPli_make_object( this, package ), incref );\
+    }
+
+#define WXPLI_CONSTRUCTOR_1_NC( name, base, packagename, incref, argt1 ) \
+    name( const char* package, argt1 _arg1 )                       \
+        : base( _arg1 ),                                           \
+          m_callback( packagename )                                \
+    {                                                              \
         m_callback.SetSelf( wxPli_make_object( this, package ), incref );\
     }
 

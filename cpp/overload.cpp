@@ -54,6 +54,8 @@ bool wxPli_match_arguments( pTHX_ const unsigned char prototype[],
                                          allow_more, 0 );
 }
 
+static inline bool IsGV( SV* sv ) { return SvTYPE( sv ) == SVt_PVGV; }
+
 bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
                                    size_t nproto, int required,
                                    bool allow_more, size_t offset )
@@ -89,9 +91,10 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
             else { PUSHMARK(MARK); return FALSE; }
         }
         // want an object/package name, accept undef, too
-        if( !SvOK( t ) || ( wxPliOvl_tnames[size_t(p)] != 0 &&
+        if( !IsGV( t ) && (
+            !SvOK( t ) || ( wxPliOvl_tnames[size_t(p)] != 0 &&
             sv_isobject( t ) &&
-            sv_derived_from( t, wxPliOvl_tnames[size_t(p)] ) ) )
+            sv_derived_from( t, wxPliOvl_tnames[size_t(p)] ) ) ) )
             continue;
         // want an array reference
         if( p == wxPliOvlarr && wxPli_avref_2_av( t ) ) continue;
@@ -100,7 +103,7 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
             && wxPli_avref_2_av( t ) ) continue;
         // want an input/output stream, accept any reference
         if( ( p == wxPliOvlwist || p == wxPliOvlwost ) &&
-            SvROK( t ) ) continue;
+            ( SvROK( t ) || IsGV( t ) ) ) continue;
 
         // type clash: return FALSE
         PUSHMARK(MARK);

@@ -12,6 +12,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include <wx/setup.h>
+#include "cpp/setup.h"
 
 #if 0
 #define wxPERL_USE_PRINTING_ARCHITECTURE 1

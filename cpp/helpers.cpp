@@ -111,6 +111,7 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
     IV ival;
     long lval;
     char* stval;
+    wxChar* wstval;
     SV* svval;
     wxObject* oval;
     void* pval;
@@ -142,6 +143,14 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
             wxsval = va_arg( args, wxString* );
             SV* sv = sv_newmortal();
             wxPli_wxString_2_sv( aTHX_ *wxsval, sv );
+            XPUSHs( sv );
+            break;
+        }
+        case 'w':
+        {
+            wstval = va_arg( args, wxChar* );
+            SV* sv = sv_newmortal();
+            wxPli_wxChar_2_sv( aTHX_ wstval, sv );
             XPUSHs( sv );
             break;
         }
