@@ -1947,8 +1947,12 @@ void SetConstants()
     sv_setiv( tmp, 1 );
 #elif defined(__WXGTK__)
     sv_setiv( tmp, 2 );
-#else
+#elif defined(__WXMOTIF__)
     sv_setiv( tmp, 3 );
+#elif defined(__WXMAC__)
+    sv_setiv( tmp, 4 );
+#else
+    #error must add case
 #endif
 
     tmp = get_sv( "Wx::_universal", 0 );

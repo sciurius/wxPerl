@@ -32,9 +32,9 @@ use strict;
 require Exporter;
 
 use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
-  $_platform $_universal $_msw $_gtk $_motif $_wx_version $_static $_unicode);
+  $_platform $_universal $_msw $_gtk $_motif $_mac $_wx_version $_static $_unicode);
 
-$_msw = 1; $_gtk = 2; $_motif = 3;
+$_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4;
 
 @ISA = qw(Exporter);
 $VERSION = '0.13';
@@ -210,6 +210,7 @@ eval( "sub wxPL_STATIC() { $_static }" );
 eval( "sub wxMOTIF() { $_platform == $_motif }" );
 eval( "sub wxMSW() { $_platform == $_msw }" );
 eval( "sub wxGTK() { $_platform == $_gtk }" );
+eval( "sub wxMAC() { $_platform == $_mac }" );
 eval( "sub wxVERSION() { $_wx_version }" );
 eval( "sub wxUNICODE() { $_unicode }" );
 
