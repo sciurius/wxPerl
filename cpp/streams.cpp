@@ -1,14 +1,20 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        streams.cpp
+// Name:        cpp/streams.cpp
 // Purpose:     implementation for streams.h
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     30/ 3/2001
-// RCS-ID:      
+// Created:     30/03/2001
+// RCS-ID:      $Id: streams.cpp,v 1.11 2004/10/05 20:13:36 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+typedef wxFileOffset wxPliFileOffset;
+#else
+typedef off_t wxPliFileOffset;
+#endif
 
 const char sub_read[] = "sub { sysread $_[0], $_[1], $_[2] }";
 const char sub_seek[] = "sub { sysseek $_[0], $_[1], $_[2] }";
@@ -49,8 +55,8 @@ wxPliStreamInitializer dummy;
 
 // helpers
 
-off_t stream_seek( wxStreamBase* stream, SV* fh, off_t seek, wxSeekMode mode );
-off_t stream_tell( const wxStreamBase* stream, SV* fh );
+wxPliFileOffset stream_seek( wxStreamBase* stream, SV* fh, wxPliFileOffset seek, wxSeekMode mode );
+wxPliFileOffset stream_tell( const wxStreamBase* stream, SV* fh );
 
 // input stream
 
@@ -137,12 +143,12 @@ size_t wxPliInputStream::OnSysRead( void* buffer, size_t size )
     return read_count;
 }
 
-off_t wxPliInputStream::OnSysSeek( off_t seek, wxSeekMode mode )
+wxPliFileOffset wxPliInputStream::OnSysSeek( wxPliFileOffset seek, wxSeekMode mode )
 {
     return stream_seek( this, m_fh, seek, mode );
 }
 
-off_t wxPliInputStream::OnSysTell() const
+wxPliFileOffset wxPliInputStream::OnSysTell() const
 {
     return stream_tell( this, m_fh );
 }
@@ -226,19 +232,19 @@ size_t wxPliOutputStream::OnSysWrite( const void* buffer, size_t size )
     return write_count;
 }
 
-off_t wxPliOutputStream::OnSysSeek( off_t seek, wxSeekMode mode )
+wxPliFileOffset wxPliOutputStream::OnSysSeek( wxPliFileOffset seek, wxSeekMode mode )
 {
     return stream_seek( this, m_fh, seek, mode );
 }
 
-off_t wxPliOutputStream::OnSysTell() const
+wxPliFileOffset wxPliOutputStream::OnSysTell() const
 {
     return stream_tell( this, m_fh );
 }
 
 // helpers
 
-off_t stream_seek( wxStreamBase* stream, SV* fh, off_t seek, wxSeekMode mode )
+wxPliFileOffset stream_seek( wxStreamBase* stream, SV* fh, wxPliFileOffset seek, wxSeekMode mode )
 {
     IV pl_act;
 
@@ -281,7 +287,7 @@ off_t stream_seek( wxStreamBase* stream, SV* fh, off_t seek, wxSeekMode mode )
     return ret;
 }
 
-off_t stream_tell( const wxStreamBase* stream, SV* fh )
+wxPliFileOffset stream_tell( const wxStreamBase* stream, SV* fh )
 {
     dTHX;
     dSP;
