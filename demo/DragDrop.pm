@@ -19,6 +19,7 @@ use strict;
 sub window {
   my( $this, $parent ) = @_;
 
+  Wx::Image::AddHandler( Wx::PNGHandler->new );
   return DNDDemoWindow->new( $parent );
 }
 
