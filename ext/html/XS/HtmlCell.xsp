@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2003
-## RCS-ID:      $Id: HtmlCell.xsp,v 1.1 2003/12/26 11:13:27 mbarbon Exp $
+## RCS-ID:      $Id: HtmlCell.xsp,v 1.2 2004/01/18 08:15:36 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -18,23 +18,102 @@
 
 %name{Wx::HtmlCell} class wxHtmlCell
 {
+    wxHtmlCell();
+    void Destroy() %code{%  delete THIS; %};
+
+    void SetParent(wxHtmlContainerCell *p);
+    wxHtmlContainerCell *GetParent() const;
+
+    int GetPosX() const;
+    int GetPosY() const;
+    int GetWidth() const;
+    int GetHeight() const;
+    int GetDescent() const;
+
+    bool IsFormattingCell() const;
+
+    const wxString& GetId() const;
+    void SetId(const wxString& id);
+
+    wxHtmlLinkInfo* GetLink(int x = 0, int y = 0) const;
+    wxCursor GetCursor() const;
+    wxHtmlCell *GetNext() const;
+    wxHtmlCell* GetFirstChild() const;
+    void SetPos(int x, int y);
+    void SetLink(const wxHtmlLinkInfo& link);
+    void SetNext(wxHtmlCell *cell);
+
+    void Layout(int w);
+##    void Draw(wxDC& dc, int x, int y, int view_y1, int view_y2,
+##              wxHtmlRenderingInfo& info);
+##    void DrawInvisible(wxDC& dc, int x, int y, wxHtmlRenderingInfo& info);
+
+##    const wxHtmlCell* Find(int condition, const void* param) const;
+##    void OnMouseClick(wxWindow *parent, int x, int y,
+##                      const wxMouseEvent& event);
+##    bool AdjustPagebreak(int *pagebreak, int *known_pagebreaks = NULL,
+##                         int number_of_pages = 0) const;
+    void SetCanLiveOnPagebreak(bool can);
+
+    bool IsLinebreakAllowed() const;
+    bool IsTerminalCell() const;
+
+    wxHtmlCell *FindCellByPos(wxCoord x, wxCoord y,
+                              unsigned flags = wxHTML_FIND_EXACT) const;
+    wxPoint GetAbsPos() const;
+
+    wxHtmlCell *GetFirstTerminal() const;
+    wxHtmlCell *GetLastTerminal() const;
+
+    unsigned GetDepth() const;
+    bool IsBefore(wxHtmlCell *cell) const;
+
+    wxString ConvertToText(wxHtmlSelection *sel) const;
 };
 
 %name{Wx::HtmlWordCell} class wxHtmlWordCell
 {
+##    wxHtmlWordCell(const wxString& word, wxDC& dc);
+
+    void SetPreviousWord(wxHtmlWordCell *cell);
 };
 
 %name{Wx::HtmlContainerCell} class wxHtmlContainerCell
 {
+    wxHtmlContainerCell(wxHtmlContainerCell *parent);
+
     void InsertCell(wxHtmlCell *cell);
+
+    void SetAlignHor(int al);
+    int GetAlignHor() const;
+    void SetAlignVer(int al);
+    int GetAlignVer() const;
+
+    void SetIndent(int i, int what, int units = wxHTML_UNITS_PIXELS);
+    int GetIndent(int ind) const;
+    int GetIndentUnits(int ind) const;
+
+    void SetAlign(const wxHtmlTag& tag);
+    void SetWidthFloat(int w, int units);
+    %name{SetWidthFloatTag} void SetWidthFloat(const wxHtmlTag& tag,
+                                               double pixel_scale = 1.0);
+    void SetMinHeight(int h, int align = wxHTML_ALIGN_TOP);
+
+    void SetBackgroundColour(const wxColour& clr);
+    wxColour GetBackgroundColour();
+    void SetBorder(const wxColour& clr1, const wxColour& clr2);
+
+    void RemoveExtraSpacing(bool top, bool bottom);
 };
 
 %name{Wx::HtmlColourCell} class wxHtmlColourCell
 {
+    wxHtmlColourCell(const wxColour& clr, int flags = wxHTML_CLR_FOREGROUND);
 };
 
 %name{Wx::HtmlFontCell} class wxHtmlFontCell
 {
+    wxHtmlFontCell(wxFont *font);
 };
 
 %name{Wx::HtmlWidgetCell} class wxHtmlWidgetCell

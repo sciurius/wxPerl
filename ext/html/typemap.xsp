@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2003
-## RCS-ID:      $Id: typemap.xsp,v 1.1 2003/12/26 11:13:27 mbarbon Exp $
+## RCS-ID:      $Id: typemap.xsp,v 1.2 2004/01/18 08:15:36 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -27,8 +27,11 @@
 %typemap{wxEncodingConverter*}{simple};
 %typemap{const wxHtmlTag&}{reference};
 %typemap{wxHtmlCell*}{simple};
+%typemap{const wxHtmlCell*}{simple};
 %typemap{wxHtmlWordCell*}{simple};
 %typemap{wxHtmlContainerCell*}{simple};
 %typemap{wxHtmlColourCell*}{simple};
 %typemap{wxHtmlFontCell*}{simple};
 %typemap{wxHtmlWidgetCell*}{simple};
+%typemap{wxHtmlLinkInfo*}{simple};
+%typemap{wxHtmlSelection*}{simple};
