@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.73 2005/03/19 17:51:30 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.74 2005/04/03 09:10:06 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -180,6 +180,23 @@ void FUNCPTR( wxPli_intarray_push )( pTHX_ const wxArrayInt& ints );
 AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
 AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count );
 AV* FUNCPTR( wxPli_objlist_2_av )( pTHX_ const wxList& objs );
+
+template<class A, class E>
+void wxPli_nonobjarray_push( pTHX_ const A& objs, const char* klass )
+{
+    dSP;
+
+    size_t mx = objs.GetCount();
+    EXTEND( SP, IV(mx) );
+    for( size_t i = 0; i < mx; ++i )
+    {
+        PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+               new E( objs[i] ), klass ) );
+    }
+
+    PUTBACK;
+}
+
 
 void wxPli_delete_argv( void*** argv, bool unicode );
 int wxPli_get_args_argc_argv( void*** argv, bool unicode );
