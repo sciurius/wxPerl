@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      4/12/2001
-// RCS-ID:      $Id: gr_constants.cpp,v 1.5 2003/05/05 20:38:42 mbarbon Exp $
+// RCS-ID:      $Id: gr_constants.cpp,v 1.6 2003/11/08 18:29:27 mbarbon Exp $
 // Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -43,8 +43,17 @@ double grid_constant( const char* name, int arg )
         r( wxEVT_GRID_EDITOR_HIDDEN );
         r( wxEVT_GRID_EDITOR_CREATED );
         break;
-    // !export: wxGridSelectCells wxGridSelectRows wxGridSelectColumns
     case 'G':
+        r( wxGRIDTABLE_REQUEST_VIEW_GET_VALUES );
+        r( wxGRIDTABLE_REQUEST_VIEW_SEND_VALUES );
+        r( wxGRIDTABLE_NOTIFY_ROWS_INSERTED );
+        r( wxGRIDTABLE_NOTIFY_ROWS_APPENDED );
+        r( wxGRIDTABLE_NOTIFY_ROWS_DELETED );
+        r( wxGRIDTABLE_NOTIFY_COLS_INSERTED );
+        r( wxGRIDTABLE_NOTIFY_COLS_APPENDED );
+        r( wxGRIDTABLE_NOTIFY_COLS_DELETED );
+
+        // !export: wxGridSelectCells wxGridSelectRows wxGridSelectColumns
         if( strEQ( name, "wxGridSelectCells" ) )
             return wxGrid::wxGridSelectCells;
         if( strEQ( name, "wxGridSelectRows" ) )

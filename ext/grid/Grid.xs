@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        Grid.xs
+// Name:        ext/frid/Grid.xs
 // Purpose:     XS for Wx::Grid
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      4/12/2001
-// RCS-ID:      $Id: Grid.xs,v 1.11 2003/09/07 19:07:39 mbarbon Exp $
+// Created:     04/12/2001
+// RCS-ID:      $Id: Grid.xs,v 1.12 2003/11/08 18:29:27 mbarbon Exp $
 // Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -34,6 +34,8 @@ INCLUDE: XS/GridCellRenderer.xs
 INCLUDE: XS/GridCellEditor.xs
 
 INCLUDE: perl ../../script/xsubppp.pl --typemap ../../typemap.xsp XS/GridTable.xsp |
+
+INCLUDE: perl ../../script/xsubppp.pl --typemap ../../typemap.xsp XS/GridTableMessage.xsp |
 
 #include "cpp/gr_constants.cpp"
 

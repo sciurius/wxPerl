@@ -315,6 +315,7 @@ ext/grid/XS/GridCellEditor.xs
 ext/grid/XS/GridCellRenderer.xs
 ext/grid/XS/GridEvent.xs
 ext/grid/XS/GridTable.xsp
+ext/grid/XS/GridTableMessage.xsp
 ext/grid/cpp/editor.h
 ext/grid/cpp/gr_constants.cpp
 ext/grid/cpp/gr_typedef.h
