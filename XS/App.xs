@@ -41,6 +41,7 @@ Start( app, sub )
     Wx_App* app 
     SV* sub
   CODE:
+    // for Wx::Perl::SplashFast
 #if 0
     if( wxTopLevelWindows.Number() > 0 )
       croak( "Only one Wx::App instance allowed" );

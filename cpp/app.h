@@ -59,6 +59,8 @@ wxPliApp::~wxPliApp()
 
 inline bool wxPliApp::OnInit() 
 {
+    wxApp::OnInit();
+
     return FALSE;
 }
 
