@@ -82,11 +82,13 @@ int wxPli_get_args_argc_argv( void* argv, bool unicode );
 WXPLDLL void wxPli_get_args_objectarray( SV** sp, int items, void** array,
                                          const char* package );
 
+WXPLDLL wxPoint FUNCPTR( wxPli_sv_2_wxpoint_test )( SV* scalar, bool* ispoint );
 WXPLDLL wxPoint FUNCPTR( wxPli_sv_2_wxpoint )( SV* scalar );
 WXPLDLL wxSize FUNCPTR( wxPli_sv_2_wxsize )( SV* scalar );
 WXPLDLL Wx_KeyCode wxPli_sv_2_keycode( SV* scalar );
 
-WXPLDLL int wxPli_av_2_pointarray( SV* array, wxList *points, wxPoint** tmp );
+WXPLDLL int wxPli_av_2_pointlist( SV* array, wxList *points, wxPoint** tmp );
+WXPLDLL int wxPli_av_2_pointarray( SV* array, wxPoint** points );
 
 // stream wrappers
 class wxPliInputStream;
@@ -119,6 +121,7 @@ struct wxPliHelpers
     SV* ( * m_wxPli_object_2_sv )( SV*, wxObject* );
     SV* ( * m_wxPli_non_object_2_sv )( SV* , void*, const char* );
     SV* ( * m_wxPli_make_object )( void*, const char* );
+    wxPoint ( * m_wxPli_sv_2_wxpoint_test )( SV*, bool* );
     wxPoint ( * m_wxPli_sv_2_wxpoint )( SV* );
     wxSize ( * m_wxPli_sv_2_wxsize )( SV* scalar );
     int ( * m_wxPli_av_2_intarray )( SV* avref, int** array );
@@ -141,7 +144,8 @@ struct wxPliHelpers
 
 #define DEFINE_PLI_HELPERS( name ) \
 wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
- &wxPli_non_object_2_sv, &wxPli_make_object, &wxPli_sv_2_wxpoint, \
+ &wxPli_non_object_2_sv, &wxPli_make_object, &wxPli_sv_2_wxpoint_test, \
+ &wxPli_sv_2_wxpoint, \
  &wxPli_sv_2_wxsize, &wxPli_av_2_intarray, wxPli_stream_2_sv, \
  &wxPli_add_constant_function, &wxPli_remove_constant_function, \
  &wxPliVirtualCallback_FindCallback, &wxPliVirtualCallback_CallCallback, \
@@ -155,6 +159,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   wxPli_object_2_sv = name->m_wxPli_object_2_sv; \
   wxPli_non_object_2_sv = name->m_wxPli_non_object_2_sv; \
   wxPli_make_object = name->m_wxPli_make_object; \
+  wxPli_sv_2_wxpoint_test = name->m_wxPli_sv_2_wxpoint_test; \
   wxPli_sv_2_wxpoint = name->m_wxPli_sv_2_wxpoint; \
   wxPli_sv_2_wxsize = name->m_wxPli_sv_2_wxsize; \
   wxPli_av_2_intarray = name->m_wxPli_av_2_intarray; \
@@ -219,7 +224,7 @@ inline wxPliTreeItemData::~wxPliTreeItemData()
 inline void wxPliTreeItemData::SetData( SV* data )
 {
     if( m_data )
-        SvREFCNT_dec( data );
+        SvREFCNT_dec( m_data );
     m_data = data ? newSVsv( data ) : 0;
 }
 
