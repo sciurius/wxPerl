@@ -47,7 +47,7 @@ sub AUTOLOAD {
   my( $val ) = constant($constname, 0 );
 
   if ($! != 0) {
-# re-add this when we need support for autosplitted subroutines
+# re-add this if need support for autosplitted subroutines
 #    $AutoLoader::AUTOLOAD = $AUTOLOAD;
 #    goto &AutoLoader::AUTOLOAD;
     croak "Error while autoloading '$AUTOLOAD'";
@@ -104,6 +104,7 @@ $_wtip = [ qw(Wx::ToolTip) ];
 $_wwin = [ qw(Wx::Window) ];
 $_wwin_n_n = [ qw(Wx::Window INTEGER INTEGER) ];
 $_wwin_n_n_n = [ qw(Wx::Window INTEGER INTEGER INTEGER) ];
+$_wwin_wsiz = [ qw(Wx::Window Wx::Size) ];
 $s_n_n = [ qw(? INTEGER INTEGER) ];
 $wbmp_n = [ qw(Wx::Bitmap INTEGER) ];
 $wcol_n_n = [ qw(Wx::Colour INTEGER INTEGER) ];
@@ -125,9 +126,10 @@ sub _match(\@$;$$) {
     last if $i >= $argc;
     next if $_ eq '?';
     $a = ${$args}[$i];
-#    print( $i + 0, ': ', $_, ' ', $a, "\n" );
     next if $_ eq 'INTEGER' && ( ( $a + 0 ) || $a =~ /^\s*-?0+\.?0*\s*$/ );
     next if !defined( $a ) || isa( $a, $_ );
+    next if $_ eq 'Wx::Point' || $_ eq 'Wx::Size' &&
+      ref( $a ) eq 'ARRAY';
     return;
   } continue {
     ++$i;
@@ -141,6 +143,8 @@ sub _ovl_error {
 }
 
 bootstrap Wx $VERSION;
+
+_SetInstance( $DynaLoader::dl_librefs[ $#DynaLoader::dl_librefs ] );
 
 {
   _boot_Constant( 'Wx', $VERSION );
@@ -159,6 +163,7 @@ Load();
 require Wx::App;
 require Wx::Bitmap;
 require Wx::Brush;
+require Wx::Caret;
 require Wx::Colour;
 require Wx::ComboBox;
 require Wx::ControlWithItems;

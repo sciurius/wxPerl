@@ -18,6 +18,7 @@
 #include <wx/window.h>
 #include <wx/menu.h>
 #include <wx/icon.h>
+#include <wx/caret.h>
 
 #include <wx/button.h>
 
@@ -122,17 +123,8 @@ void wxEntryCleanup()
     delete wxLog::SetActiveTarget(new wxLogStderr); // So dialog boxes aren't used
     // for further messages
 
-    if (wxTheApp->GetTopWindow())
-    {
-        delete wxTheApp->GetTopWindow();
-        wxTheApp->SetTopWindow(NULL);
-    }
-
-    wxTheApp->DeletePendingObjects();
-
-    wxTheApp->OnExit();
-
-    wxApp::CleanUp();
+    // some code moved to _wxApp destructor
+    // since at this point the app is already destroyed
 }
 
 #endif
@@ -148,12 +140,30 @@ BOOT:
   newXSproto( "Wx::_boot_Frames", boot_Wx_Wnd, file, "$$" );
   newXSproto( "Wx::_boot_GDI", boot_Wx_GDI, file, "$$" );
 
+#if __WXMSW__
+
+void
+_SetInstance( instance )
+    int instance
+  CODE:
+    wxSetInstance( (HINSTANCE)instance );
+
+#else
+
+void
+_SetInstance( instance )
+    int instance
+  CODE:
+    int x = 0;
+
+#endif
+
 void 
 Load()
   CODE:
     if( wxTopLevelWindows.Number() > 0 )
       return;
-  
+
     char** argv;
     int argc;
 
@@ -172,6 +182,7 @@ UnLoad()
     wxEntryCleanup();
 
 INCLUDE: XS/App.xs
+INCLUDE: XS/Caret.xs
 INCLUDE: XS/Geom.xs
 INCLUDE: XS/Menu.xs
 INCLUDE: XS/Log.xs

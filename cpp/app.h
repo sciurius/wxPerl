@@ -30,6 +30,19 @@ _wxApp::_wxApp( const char* package )
 
 _wxApp::~_wxApp()
 {
+#ifdef __WXMOTIF__
+    if (wxTheApp->GetTopWindow())
+    {
+        delete wxTheApp->GetTopWindow();
+        wxTheApp->SetTopWindow(NULL);
+    }
+
+    wxTheApp->DeletePendingObjects();
+
+    wxTheApp->OnExit();
+
+    wxApp::CleanUp();
+#endif
     delete[] argv;
 
     argc = 0;
