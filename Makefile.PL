@@ -52,7 +52,7 @@ sub BEGIN {
         } elsif( $Config{cc} =~ m/^gcc/i ) {
           *main::configure = \&configure_win32_mingw;
           *MY::postamble = \&MY::postamble_win32_mingw;
-          *MY::dynamic_lib = \&MY::dynamic_lib_win32_mingw;
+#          *MY::dynamic_lib = \&MY::dynamic_lib_win32_mingw;
           last SWITCH;
         }
 
@@ -313,7 +313,7 @@ sub dynamic_lib_win32_mingw {
   return $text unless $text =~ m/dlltool/i;
 
   $text =~ s{(?:^\s+(?:dlltool|\$\(LD\)).*\n)+}
-    {\tg++ -mdll -o \$@ \$(LDDLFLAGS) \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(EXPORT_LIST)\n}m;
+    {\tg++ -shared -o \$@ \$(LDDLFLAGS) \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(EXPORT_LIST)\n}m;
 
   $text;
 }
