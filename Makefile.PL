@@ -205,6 +205,8 @@ sub configure_win32_mingw {
   if( $debug_mode ) {
     $config{CCFLAGS} .= ' -g ';
     # $config{dynamic_lib}{OTHERLDFLAGS} .= ' ';
+  } else {
+    $config{dynamic_lib}{OTHERLDFLAGS} .= ' -s ';
   }
 
   my( $final ) = $debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
@@ -253,6 +255,8 @@ sub depend {
 
   my( %depend ) = ( xs_depend( $this ),
                     $exp => join( ' ', 'Constant.xs' , $evt, $cst ),
+                    '$(INST_STATIC)' => $exp,
+                    '$(INST_DYNAMIC)' => $exp,
                     );
   my( %this_depend ) = @_;
 
@@ -381,7 +385,7 @@ sub xs_depend {
 
   $depend{ File::Spec->catfile( 'blib', 'arch', 'auto', 'Wx',
                                 'Wx.' . $Config{dlext} ) }
-    .= join(' ', obj_from_src( @main::top_level_xs ), $exp );
+    .= join(' ', obj_from_src( @main::top_level_xs ) );
 
   %depend;
 }
