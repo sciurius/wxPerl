@@ -69,7 +69,7 @@ WXPLDLL bool FUNCPTR( wxPli_object_is_deleteable )( SV* object );
 WXPLDLL void FUNCPTR( wxPli_object_set_deleteable )( SV* object,
                                                      bool deleteable );
 
-WXPLDLL const char* wxPli_get_class( SV* ref );
+WXPLDLL const char* FUNCPTR( wxPli_get_class )( SV* ref );
 
 WXPLDLL int wxPli_av_2_stringarray( SV* avref, wxString** array );
 WXPLDLL int wxPli_av_2_uchararray( SV* avref, unsigned char** array );
@@ -134,6 +134,7 @@ struct wxPliHelpers
           const char* argtypes = 0, ... );
     bool ( * m_wxPli_object_is_deleteable )( SV* object );
     void ( * m_wxPli_object_set_deleteable )( SV* object, bool deleteable );
+    const char* ( * m_wxPli_get_class )( SV* ref );
 };
 
 #define DEFINE_PLI_HELPERS( name ) \
@@ -142,7 +143,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPli_sv_2_wxsize, &wxPli_av_2_intarray, wxPli_stream_2_sv, \
  &wxPli_add_constant_function, &wxPli_remove_constant_function, \
  &wxPliVirtualCallback_FindCallback, &wxPliVirtualCallback_CallCallback, \
- &wxPli_object_is_deleteable, &wxPli_object_set_deleteable };
+ &wxPli_object_is_deleteable, &wxPli_object_set_deleteable, &wxPli_get_class };
 
 #define INIT_PLI_HELPERS( name ) \
   SV* wxpli_tmp = get_sv( "Wx::_exports", 1 ); \
@@ -160,7 +161,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   wxPliVirtualCallback_FindCallback = name->m_wxPliVirtualCallback_FindCallback; \
   wxPliVirtualCallback_CallCallback = name->m_wxPliVirtualCallback_CallCallback; \
   wxPli_object_is_deleteable = name->m_wxPli_object_is_deleteable; \
-  wxPli_object_set_deleteable = name->m_wxPli_object_set_deleteable;
+  wxPli_object_set_deleteable = name->m_wxPli_object_set_deleteable; \
+  wxPli_get_class = name->m_wxPli_get_class;
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 
