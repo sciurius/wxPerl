@@ -14,6 +14,7 @@ package HtmlDynamicDemo;
 
 use strict;
 
+use Wx qw(:sizer);
 use Wx::Html;
 use Wx::FS;
 
@@ -23,10 +24,15 @@ sub window {
 
   Wx::FileSystem::AddHandler( new MyFSHandler() );
 
-  my $htmlwin = Wx::HtmlWindow->new( $parent, -1 );
+  my $sizer = Wx::BoxSizer->new( wxVERTICAL );
+  my $panel = Wx::Panel->new( $parent, -1 );
+  my $htmlwin = Wx::HtmlWindow->new( $panel, -1 );
+
+  $sizer->Add( $htmlwin, 1, wxGROW );
+  $panel->SetSizer( $sizer );
   $htmlwin->LoadPage( "my://foo.bar/baz" );
 
-  return $htmlwin;
+  return $panel;
 }
 
 sub description {
