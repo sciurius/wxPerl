@@ -1,8 +1,30 @@
 #!/usr/bin/perl
 
-
 use strict;
-use File::Spec;
+
+# Perl < 5.005 does not include File::Spec (nor anything similar I'm
+# aware of) so there is a quick-and-dirty (Unix only) implementation
+sub BEGIN {
+  if( $] < 5.005 ) {
+    package File::Spec;
+
+    sub catfile {
+      shift;
+
+      join '/', @_;
+    }
+
+    sub catdir {
+      shift;
+
+      ( join '/', @_ ) . '/';
+    }
+
+    package main;
+  } else {
+    require File::Spec;
+  }
+}
 
 if( @ARGV == 0 ) {
   print <<EOH;
