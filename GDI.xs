@@ -51,6 +51,8 @@ WXPL_EXTERN_C_END
 #include "cpp/helpers.h"
 
 #undef THIS
+WXPLI_BOOT_ONCE(Wx_GDI);
+#define boot_Wx_GDI wxPli_boot_Wx_GDI
 
 MODULE=Wx_GDI
 

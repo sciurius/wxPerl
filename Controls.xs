@@ -77,6 +77,9 @@ WXPL_EXTERN_C_END
 #include "cpp/controls.h"
 #include "cpp/controls.cpp"
 
+WXPLI_BOOT_ONCE(Wx_Ctrl);
+#define boot_Wx_Ctrl wxPli_boot_Wx_Ctrl
+
 MODULE=Wx_Ctrl PACKAGE=Wx::Control
 
 void

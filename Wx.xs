@@ -151,6 +151,9 @@ DEFINE_PLI_HELPERS( st_wxPliHelpers );
 #include <wx/confbase.h>
 typedef wxConfigBase::EntryType EntryType;
 
+WXPLI_BOOT_ONCE_EXP(Wx);
+#define boot_Wx wxPli_boot_Wx
+
 MODULE=Wx PACKAGE=Wx
 
 BOOT:
@@ -176,8 +179,13 @@ BOOT:
 void 
 Load()
   CODE:
+    // set up version as soon as possible
+    SV* tmp = get_sv( "Wx::_wx_version", 0 );
+    sv_setnv( tmp, wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 + 
+        wxRELEASE_NUMBER / 1000000.0 );
+
     if( wxTopLevelWindows.Number() > 0 )
-      return;
+        return;
 
     char** argv = 0;
     int argc = 0;
@@ -226,10 +234,10 @@ INCLUDE: XS/Process.xs
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs
 
-#  //FIXME// tricky
-#if defined(__WXMSW__)
-#undef XS
-#define XS( name ) WXXS( name )
-#endif
+##  //FIXME// tricky
+##if defined(__WXMSW__)
+##undef XS
+##define XS( name ) WXXS( name )
+##endif
 
 MODULE=Wx PACKAGE=Wx

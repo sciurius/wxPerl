@@ -56,6 +56,9 @@ WXPL_EXTERN_C_END
 
 #include "cpp/window.h"
 
+WXPLI_BOOT_ONCE(Wx_Win);
+#define boot_Wx_Win wxPli_boot_Wx_Win
+
 MODULE=Wx_Win PACKAGE=Wx PREFIX=wx
 
 Wx_Point*

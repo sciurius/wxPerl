@@ -158,6 +158,24 @@ WXPLDLL SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
     ( pTHX_ const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
       const char* argtypes = 0, ... );
 
+#define WXPLI_BOOT_ONCE_( name, xs ) \
+extern "C" XS(wxPli_boot_##name); \
+extern "C" \
+xs(boot_##name) \
+{ \
+    static bool booted = false; \
+    if( booted ) return; \
+    booted = true; \
+    wxPli_boot_##name( aTHX_ cv ); \
+}
+
+#define WXPLI_BOOT_ONCE( name ) WXPLI_BOOT_ONCE_( name, XS )
+#if defined(WIN32) || defined(__CYGWIN__)
+#  define WXPLI_BOOT_ONCE_EXP( name ) WXPLI_BOOT_ONCE_( name, WXXS )
+#else
+#  define WXPLI_BOOT_ONCE_EXP WXPLI_BOOT_ONCE
+#endif
+
 struct wxPliHelpers
 {
     void* ( * m_wxPli_sv_2_object )( pTHX_ SV*, const char* );

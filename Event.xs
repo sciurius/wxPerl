@@ -54,6 +54,9 @@ WXPL_EXTERN_C_END
 
 #include "cpp/evthandler.h"
 
+WXPLI_BOOT_ONCE(Wx_Evt);
+#define boot_Wx_Evt wxPli_boot_Wx_Evt
+
 MODULE=Wx_Evt
 
 INCLUDE: XS/EvtHandler.xs

@@ -987,6 +987,7 @@ static double constant( const char *name, int arg )
     r( wxNO_FULL_REPAINT_ON_RESIZE );   // window
     r( wxNORMAL );                      // font
     r( wxNOT_FOUND );             
+    r( wxNO_DEFAULT );
 
     r( wxNAND );                        // dc
     r( wxNOR );                         // dc
@@ -1032,6 +1033,14 @@ static double constant( const char *name, int arg )
     r( wxRightOf );                     // layout constraints
     break;
   case 'S':
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+    r( wxSPLASH_CENTRE_ON_PARENT );     // splashscreen
+    r( wxSPLASH_CENTRE_ON_SCREEN );     // splashscreen
+    r( wxSPLASH_NO_CENTRE );            // splashscreen
+    r( wxSPLASH_TIMEOUT );              // splashscreen
+    r( wxSPLASH_NO_TIMEOUT );           // splashscreen
+#endif
+
     r( wxSAVE );                        // filedialog
     //    r( wxSB_SIZEGRIP );
     r( wxSB_HORIZONTAL );               // scrollbar
@@ -1093,13 +1102,6 @@ static double constant( const char *name, int arg )
     r( wxSPLIT_HORIZONTAL );            // splitterwindow
     r( wxSPLIT_VERTICAL );              // splitterwindow
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-    r( wxSPLASH_CENTRE_ON_PARENT );     // splashscreen
-    r( wxSPLASH_CENTRE_ON_SCREEN );     // splashscreen
-    r( wxSPLASH_NO_CENTRE );            // splashscreen
-    r( wxSPLASH_TIMEOUT );              // splashscreen
-    r( wxSPLASH_NO_TIMEOUT );           // splashscreen
-#endif
     r( wxSHAPED );                      // sizer
 
     r( wxSHORT_DASH );                  // pen
@@ -1274,6 +1276,7 @@ static double constant( const char *name, int arg )
   case 'Y':
     r( wxYES );
     r( wxYES_NO );
+    r( wxYES_DEFAULT );
     break;
   default:
     break;
@@ -1513,10 +1516,6 @@ void SetConstants()
     wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_FILENAME, tmp );
 #endif
 
-    tmp = get_sv( "Wx::_wx_version", 0 );
-    sv_setnv( tmp, wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 + 
-        wxRELEASE_NUMBER / 1000000.0 );
-
     tmp = get_sv( "Wx::_platform", 0 );
 #if defined(__WXMSW__)
     sv_setiv( tmp, 1 );
@@ -1541,12 +1540,12 @@ void SetConstants()
 #endif
 }
 
+WXPLI_BOOT_ONCE(Wx_Const);
+#define boot_Wx_Const wxPli_boot_Wx_Const
+
 MODULE=Wx_Const PACKAGE=Wx
 
 double
 constant(name,arg)
     const char* name
     int arg
-
-
-

@@ -53,6 +53,9 @@ WXPL_EXTERN_C_END
 
 #undef THIS
 
+WXPLI_BOOT_ONCE(Wx_Wnd);
+#define boot_Wx_Wnd wxPli_boot_Wx_Wnd
+
 MODULE=Wx_Wnd
 
 INCLUDE: XS/Panel.xs
