@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.60 2003/08/22 22:21:57 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.61 2003/10/19 20:20:06 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -86,13 +86,18 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 }
 
 #define WXCHAR_INPUT( var, type, arg ) \
-  var = (type)SvPV_nolen(arg)
+  const wxString var##_tmp = ( SvUTF8( arg ) ) ? \
+            ( wxString( wxConvUTF8.cMB2WC( SvPVutf8_nolen( arg ) ), wxConvLocal ) ) \
+          : ( wxString( SvPV_nolen( arg ) ) ); \
+  var = (type)var##_tmp.c_str();
 
 #define WXCHAR_OUTPUT( var, arg ) \
   wxPli_wxChar_2_sv( aTHX_ var, arg )
 
 #define WXSTRING_INPUT( var, type, arg ) \
-  var = (type)SvPV_nolen(arg)
+  var =  ( SvUTF8( arg ) ) ? \
+           wxString( wxConvUTF8.cMB2WC( SvPVutf8_nolen( arg ) ), wxConvLocal ) \
+         : wxString( SvPV_nolen( arg ) );
 
 #define WXSTRING_OUTPUT( var, arg ) \
   wxPli_wxString_2_sv( aTHX_ var, arg )
