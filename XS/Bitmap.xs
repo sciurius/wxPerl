@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      
-## Copyright:   (c) 2000 Mattia Barbon
+## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -358,12 +358,16 @@ Wx_Bitmap::SetDepth( depth )
 void
 Wx_Bitmap::SetHeight( height )
     int height
-    
+
+#if !defined(__WXMAC__)
+
 void
 Wx_Bitmap::SetMask( mask )
     Wx_Mask* mask
   CODE:
     THIS->SetMask( new wxMask( *mask ) );
+
+#endif
 
 #if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 

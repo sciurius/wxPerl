@@ -5,12 +5,12 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      
-// Copyright:   (c) 2000 Mattia Barbon
+// Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-inline wxPliEventCallback::wxPliEventCallback( SV* method, SV* self ) 
+wxPliEventCallback::wxPliEventCallback( SV* method, SV* self ) 
 {
     dTHX;
     m_method = method;
