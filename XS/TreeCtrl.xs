@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.19 2003/06/04 20:38:43 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.20 2003/07/23 19:30:31 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -99,6 +99,9 @@ Wx_TreeEvent::GetItem()
     RETVAL = new wxTreeItemId( THIS->GetItem() );
   OUTPUT:
     RETVAL
+
+int
+Wx_TreeEvent::GetKeyCode()
 
 Wx_TreeItemId*
 Wx_TreeEvent::GetOldItem()
