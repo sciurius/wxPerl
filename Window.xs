@@ -710,6 +710,14 @@ void
 Wx_Window::SetAutoLayout( autoLayout )
     bool autoLayout
 
+#ifdef __WXGTK__
+
+void
+wxWindow::SetThemeEnabled( themeEnabled )
+     bool themeEnabled
+
+#endif
+
 void
 Wx_Window::SetBackgroundColour( colour )
     Wx_Colour* colour
