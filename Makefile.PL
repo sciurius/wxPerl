@@ -4,8 +4,8 @@
 ## Purpose:     Makefile.PL
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      1/10/2000
-## RCS-ID:      
+## Created:     01/10/2000
+## RCS-ID:      $Id: Makefile.PL,v 1.34 2003/08/23 13:02:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -33,6 +33,7 @@ wxWriteMakefile( NAME          => 'Wx',
                                     'Data::Dumper'           => 0,
                                    },
                  PMLIBDIRS     => [ 'lib', 'build' ],
+                 WX_CORE_LIB   => 'adv core base',
 #                 ( $wxConfig::o_static ?
 #                   ( WXLIB => [ 'wxxrc', 'stc' ] ) :
 #                   () ),
