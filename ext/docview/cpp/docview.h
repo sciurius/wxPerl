@@ -348,14 +348,21 @@ public:
                       const wxString& dir, const wxString& ext,
                       const wxString& docTypeName,
                       const wxString& viewTypeName, wxClassInfo* docClassInfo,
-                     wxClassInfo* viewClassInfo, long flags)
-       : wxDocTemplate(manager, descr, filter, dir, ext, docTypeName,
-                     viewTypeName, docClassInfo, viewClassInfo, flags),
-         m_callback( "Wx::DocTemplate" )
+                      wxClassInfo* viewClassInfo, long flags,
+                      const wxString& docClassName = wxEmptyString,
+                      const wxString& viewClassName = wxEmptyString )
+       : wxDocTemplate( manager, descr, filter, dir, ext, docTypeName,
+                        viewTypeName, docClassInfo, viewClassInfo, flags ),
+         m_callback( "Wx::DocTemplate" ),
+         m_docClassName( docClassName ),
+         m_viewClassName( viewClassName )
     {
-       m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+        m_hasDocClassInfo = docClassInfo != 0;
+        m_hasViewClassInfo = viewClassInfo != 0;
+        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
     }
-    ~wxPliDocTemplate();
+
+    ~wxPliDocTemplate() {}
 
     wxDocument *CreateDocument( const wxString& path, long flags = 0);
     wxView *CreateView( wxDocument*, long );
@@ -363,17 +370,44 @@ public:
     wxString GetViewName() const;
     wxString GetDocumentName() const;
 
+private:
+    static SV* CallConstructor( const wxString& className );
+private:
+    wxString m_docClassName,
+             m_viewClassName;
+    bool m_hasDocClassInfo, m_hasViewClassInfo;
+
     DEC_V_CBACK_BOOL__WXSTRING( FileMatchesTemplate );
 };
 
-wxPliDocTemplate::~wxPliDocTemplate() {}
+SV* wxPliDocTemplate::CallConstructor( const wxString& className )
+{
+    dTHX;
+    dSP;
+
+    PUSHMARK(SP);
+    XPUSHs( newSVpv( CHAR_P className.c_str(), className.size() ) );
+    PUTBACK;
+
+    int count = call_method( "new", G_SCALAR );
+
+    if( count != 1 )
+        croak( "Constructor must return exactly 1 value" );
+
+    SPAGAIN;
+    SV* obj = POPs;
+    SvREFCNT_inc( obj );
+    PUTBACK;
+
+    return obj;
+}
 
 wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
                                               long flags )
 {
 
     dTHX;
-    wxDocument* doc;
+    wxDocument* doc = 0;
 
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
                                            "CreateDocument" ) )
@@ -385,8 +419,10 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
     }
     else
     {
-      delete doc;
-      return (wxDocument *) NULL;
+        if( m_hasDocClassInfo )
+            return wxDocTemplate::CreateDocument( path, flags );
+        SV* obj = CallConstructor( m_docClassName );
+        doc = (wxDocument*)wxPli_sv_2_object( aTHX_ obj, "Wx::Document" );
     }
 
     doc->SetFilename(path);
@@ -398,9 +434,9 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
         return doc;
     else
     {
-         if (GetDocumentManager()->GetDocuments().Member(doc))
-                  doc->DeleteAllViews();
-        return (wxDocument *) NULL;
+        if (GetDocumentManager()->GetDocuments().Member(doc))
+            doc->DeleteAllViews();
+        return 0;
     }
 }
 
@@ -409,7 +445,7 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
 wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
 {
     dTHX;
-    wxView* view;
+    wxView* view = 0;
 
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "CreateView" ) )
     {
@@ -420,8 +456,10 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
     }
     else
     {
-      delete view;
-      return (wxView *) NULL;
+        if( m_hasViewClassInfo )
+            return wxDocTemplate::CreateView( doc, flags );
+        SV* obj = CallConstructor( m_viewClassName );
+        view = (wxView*)wxPli_sv_2_object( aTHX_ obj, "Wx::View" );
     }
 
     view->SetDocument(doc);
@@ -432,7 +470,7 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
     else
     {
         delete view;
-        return (wxView *) NULL;
+        return 0;
     }
 }
 
