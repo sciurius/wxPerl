@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.81 2003/05/11 20:04:23 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.82 2003/05/12 17:02:43 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -41,6 +41,7 @@
 #include <wx/clipbrd.h>
 #include <wx/confbase.h>
 #include <wx/image.h>
+#include <wx/sizer.h>
 #if defined(__WXMSW__)
 #include <wx/taskbar.h>
 #endif

@@ -4,13 +4,14 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      2/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.29 2003/05/12 17:00:40 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.30 2003/05/12 17:05:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 #include <wx/image.h>
+#include <wx/bitmap.h>
 #include "cpp/streams.h"
 #include "cpp/overload.h"
 
