@@ -309,6 +309,10 @@ static wxPlINH inherit[] =
     I( LogTextCtrl,     Log )
     I( LogWindow,       Log )
     I( LogGui,          Log )
+    I( PlLog,           Log )
+    I( LogChain,        Log )
+    I( LogPassThrough,  LogChain )
+    I( PlLogPassThrough, LogPassThrough )
 
     I( BoxSizer,        Sizer )
     I( StaticBoxSizer,  BoxSizer )

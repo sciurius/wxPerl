@@ -11,6 +11,7 @@
 #############################################################################
 
 #include <wx/log.h>
+#include "cpp/log.h"
 
 MODULE=Wx PACKAGE=Wx::Log
 
@@ -101,6 +102,15 @@ wxTraceMask
 GetTraceMask()
   CODE:
     RETVAL = wxLog::GetTraceMask();
+  OUTPUT:
+    RETVAL
+
+MODULE=Wx PACKAGE=Wx::PlLog
+
+wxPlLog*
+wxPlLog::new()
+  CODE:
+    RETVAL = new wxPlLog( CLASS );
   OUTPUT:
     RETVAL
 
@@ -226,6 +236,40 @@ const wxChar*
 wxSysErrorMsg( errCode = 0 )
     unsigned long errCode
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
+MODULE=Wx PACKAGE=Wx::LogChain
 
+wxLogChain*
+wxLogChain::new( logger )
+    wxLog* logger
 
+wxLog*
+wxLogChain::GetOldLog()
+
+bool
+wxLogChain::IsPassingMessages()
+
+void
+wxLogChain::PassMessages( passMessages )
+    bool passMessages
+
+void
+wxLogChain::SetLog( logger )
+    wxLog* logger
+
+MODULE=Wx PACKAGE=Wx::LogPassThrough
+
+wxLogPassThrough*
+wxLogPassThrough::new()
+
+MODULE=Wx PACKAGE=Wx::PlLogPassThrough
+
+wxPlLogPassThrough*
+wxPlLogPassThrough::new()
+  CODE:
+    RETVAL = new wxPlLogPassThrough( CLASS );
+  OUTPUT:
+    RETVAL
+
+#endif

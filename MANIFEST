@@ -228,6 +228,7 @@ cpp/event.h
 cpp/evthandler.h
 cpp/frame.h
 cpp/helpers.h
+cpp/log.h
 cpp/panel.h
 cpp/overload.cpp
 cpp/overload.h
