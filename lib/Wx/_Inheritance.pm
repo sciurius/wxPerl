@@ -69,10 +69,12 @@ package Wx::Cursor;       @ISA = qw(Wx::GDIObject);
 package Wx::Bitmap;       @ISA = qw(Wx::GDIObject);
 package Wx::Brush;        @ISA = qw(Wx::GDIObject);
 package Wx::Pen;          @ISA = qw(Wx::GDIObject);
+package Wx::Palette;      @ISA = qw(Wx::GDIObject);
 
 package Wx::DC;
 package Wx::WindowDC;     @ISA = qw(Wx::DC);
 package Wx::PaintDC;      @ISA = qw(Wx::WindowDC);
+package Wx::ClientDC;     @ISA = qw(Wx::WindowDC);
 
 package Wx::Image;
 package Wx::ImageHandler;
