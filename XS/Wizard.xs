@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/08/2002
-## RCS-ID:      $Id: Wizard.xs,v 1.14 2004/04/10 20:33:04 mbarbon Exp $
+## RCS-ID:      $Id: Wizard.xs,v 1.15 2004/11/23 22:08:50 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -87,14 +87,37 @@ wxWizard::GetPageAreaSizer()
 
 MODULE=Wx PACKAGE=Wx::WizardPage
 
+void
+wxWizardPage::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newEmpty )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( Wx::WizardPage::new )
+
 wxWizardPage*
-wxWizardPage::new( parent, bitmap = (wxBitmap*)&wxNullBitmap )
+newEmpty( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxPliWizardPage( CLASS );
+  OUTPUT:
+    RETVAL
+
+wxWizardPage*
+newFull( CLASS, parent, bitmap = (wxBitmap*)&wxNullBitmap )
+    PlClassName CLASS
     wxWizard* parent
     wxBitmap* bitmap
   CODE:
     RETVAL = new wxPliWizardPage( CLASS, parent, *bitmap );
   OUTPUT:
     RETVAL
+
+bool
+wxWizardPage::Create( parent, bitmap = (wxBitmap*)&wxNullBitmap )
+    wxWizard* parent
+    wxBitmap* bitmap
+  C_ARGS: parent, *bitmap
 
 wxBitmap*
 wxWizardPage::GetBitmap()

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: wizard.h,v 1.3 2004/08/04 20:13:55 mbarbon Exp $
+// RCS-ID:      $Id: wizard.h,v 1.4 2004/11/23 22:09:05 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -49,6 +49,13 @@ class wxPliWizardPage : public wxWizardPage
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliWizardPage );
     WXPLI_DECLARE_V_CBACK();
 public:
+    wxPliWizardPage( const char* package )
+        : wxWizardPage(),
+          m_callback( "Wx::WizardPage" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
+    }
+
     wxPliWizardPage( const char* package, wxWizard* parent,
                      const wxBitmap& bitmap )
         :wxWizardPage( parent, bitmap ),
