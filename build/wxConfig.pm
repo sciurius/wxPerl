@@ -13,7 +13,7 @@
 package wxConfig;
 
 use strict;
-use vars qw(@ISA @EXPORT_OK %EXPORT_TAGS);
+use vars qw(@ISA @EXPORT_OK %EXPORT_TAGS $Verbose);
 
 # parse command line variables
 use vars qw($debug_mode $extra_libs $extra_cflags);
@@ -28,7 +28,7 @@ require Exporter;
 use Config;
 
 @EXPORT_OK = qw(wx_config configure constants depend postamble
-                xs_depend obj_from_src);
+                xs_depend obj_from_src $Verbose);
 %EXPORT_TAGS = ( MY => [ qw(constants depend) ] );
 @ISA = qw(Exporter);
 

@@ -15,10 +15,11 @@ use strict;
 use ExtUtils::MakeMaker;
 use Config;
 
-# $ExtUtils::MakeMaker::Verbose = 100;
-
 use lib 'build';
 use wxConfig qw(configure obj_from_src);
+
+# $ExtUtils::MakeMaker::Verbose = 100;
+# $wxConfig::Verbose = 100;
 
 use vars qw(@top_level_xs);
 
@@ -33,7 +34,9 @@ WriteMakefile( NAME => 'Wx',
                VERSION_FROM => 'Wx.pm',
                CONFIGURE => \&configure,
                XSOPT => ' -C++ -noprototypes ',
-#               DIR => [ MM->catdir( qw(ext html) ), ],
+               DIR => [ MM->catdir( qw(ext html) ),
+                        MM->catdir( qw(ext help) ),
+                      ],
                OBJECT => join( ' ', obj_from_src( @top_level_xs ) ) . ' ',
              );
 

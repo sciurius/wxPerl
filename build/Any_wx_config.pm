@@ -69,8 +69,10 @@ sub configure {
 
   $config{LIBS} .= ' ' . $libs;
 
-  foreach (keys %config) {
-    print( $_ ," =>", $config{$_}, "\n" );
+  if( $Verbose >= 1 ) {
+    foreach (keys %config) {
+      print( $_ ," =>", $config{$_}, "\n" );
+    }
   }
 
   \%config;

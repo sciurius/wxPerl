@@ -75,9 +75,11 @@ sub configure {
     $config{LIBS} .= $_ . ' ';
   }
 
-  foreach (keys %config) {
-    m/^[A-Z]+$/ || next;
-    print( $_ ," => ", $config{$_}, "\n" );
+  if( $Verbose >= 1 ) {
+    foreach (keys %config) {
+      m/^[A-Z]+$/ || next;
+      print( $_ ," => ", $config{$_}, "\n" );
+    }
   }
 
   \%config;
