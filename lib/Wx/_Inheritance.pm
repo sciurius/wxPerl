@@ -51,6 +51,8 @@ package Wx::MiniFrame;    @ISA = qw(Wx::Frame);
 package Wx::SplitterWindow; @ISA = qw(Wx::Window);
 package Wx::ScrolledWindow; @ISA = qw(Wx::Panel);
 package Wx::ListCtrl;     @ISA = qw(Wx::Control);
+package Wx::SashWindow;   @ISA = qw(Wx::Window);
+
 package Wx::ColourDialog; @ISA = qw(Wx::Dialog);
 package Wx::GenericColourDialog; @ISA = qw(Wx::ColourDialog);
 package Wx::FontDialog;   @ISA = qw(Wx::Dialog);
@@ -61,7 +63,7 @@ package Wx::MessageDialog; @ISA = qw(Wx::Dialog);
 package Wx::ProgressDialog;@ISA = qw(Wx::Dialog);
 package Wx::SingleChoiceDialog; @ISA = qw(Wx::Dialog);
 package Wx::MultiChoiceDialog; @ISA = qw(Wx::Dialog);
-package Wx::SashWindow;   @ISA = qw(Wx::Window);
+
 package Wx::Validator;    @ISA = qw(Wx::EvtHandler);
 package Wx::TextValidator;@ISA = qw(Wx::Validator);
 package Wx::GenericValidator;@ISA = qw(Wx::Validator);
@@ -92,6 +94,8 @@ package Wx::TIFFHandler;  @ISA = qw(Wx::ImageHandler);
 
 package Wx::Log;
 package Wx::LogTextCtrl;  @ISA = qw(Wx::Log);
+package Wx::LogWindow;    @ISA = qw(Wx::Log);
+package Wx::LogGui;       @ISA = qw(Wx::Log);
 
 package Wx::Sizer;
 package Wx::BoxSizer;     @ISA = qw(Wx::Sizer);
@@ -137,6 +141,16 @@ if( $Wx::_platform == $Wx::_gtk ) {
 }
 else {
   @ISA = qw(Wx::WindowDC);
+}
+
+package Wx::TreeCtrl;
+
+use vars qw(@ISA);
+
+if( $Wx::_platform == $Wx::_msw ) {
+  @ISA = qw(Wx::Control);
+} else {
+  @ISA = qw(Wx::ScrolledWindow);
 }
 
 package Wx::ComboBox;

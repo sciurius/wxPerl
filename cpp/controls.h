@@ -222,6 +222,19 @@ public:
                  const wxString& name = wxTextCtrlNameStr );
 };
 
+class _wxTreeCtrl:public wxTreeCtrl
+{
+    _DECLARE_DYNAMIC_CLASS( _wxTreeCtrl );
+    _DECLARE_V_CBACK();
+public:
+    _wxTreeCtrl( const char* package, wxWindow* parent, wxWindowID id,
+                 const wxPoint& pos, const wxSize& size, long style,
+                 const wxValidator& validator, const wxString& name );
+
+    int OnCompareItems( const wxTreeItemId& item1,
+                        const wxTreeItemId& item2 );
+};
+
 #endif // _WXPERL_CONTROLS_H
 
 // Local variables: //

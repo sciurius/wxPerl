@@ -316,6 +316,43 @@ inline _wxTextCtrl::_wxTextCtrl( const char* package, wxWindow* parent,
 
 _IMPLEMENT_DYNAMIC_CLASS( _wxTextCtrl, wxTextCtrl );
 
+inline _wxTreeCtrl::_wxTreeCtrl( const char* package, wxWindow* parent,
+                                 wxWindowID id, const wxPoint& pos,
+                                 const wxSize& size, long style,
+                                 const wxValidator& validator,
+                                 const wxString& name )
+    :m_callback( "Wx::TreeCtrl" )
+{
+    m_callback.SetSelf( _make_object( this, package ), FALSE );
+    Create( parent, id, pos, size, style, validator, name );
+}
+
+int _wxTreeCtrl::OnCompareItems( const wxTreeItemId& item1,
+                                 const wxTreeItemId& item2 )
+{
+    if( m_callback.FindCallback( "OnCompareItems" ) )
+    {
+        SV* t1 = _non_object_2_sv( newSViv( 0 ),
+                                   (void*)&item1, wxPlTreeItemIdName );
+        SV* t2 = _non_object_2_sv( newSViv( 0 ),
+                                   (void*)&item2, wxPlTreeItemIdName );
+        SV* ret = m_callback.CallCallback( G_SCALAR, "SS", t1, t2 );
+
+        sv_setiv( SvRV( t1 ), 0 );
+        sv_setiv( SvRV( t2 ), 0 );
+        int val = SvIV( ret );
+        SvREFCNT_dec( ret );
+        SvREFCNT_dec( t1 );
+        SvREFCNT_dec( t2 );
+
+        return val;
+    }
+    else
+        return wxTreeCtrl::OnCompareItems( item1, item2 );
+}
+
+_IMPLEMENT_DYNAMIC_CLASS( _wxTreeCtrl, wxTreeCtrl );
+
 // Local variables: //
 // mode: c++ //
 // End: //

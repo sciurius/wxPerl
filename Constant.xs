@@ -35,6 +35,7 @@
 #include <wx/textctrl.h>
 #include <wx/listctrl.h>
 #include <wx/settings.h>
+#include <wx/treectrl.h>
 #include <stdarg.h>
 
 #undef _
@@ -219,6 +220,25 @@ if( strEQ( name, #n ) ) \
     r( wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED );
     r( wxEVT_COMMAND_SPLITTER_UNSPLIT );
     r( wxEVT_COMMAND_SPLITTER_DOUBLECLICKED );
+
+    r( wxEVT_COMMAND_TREE_BEGIN_DRAG );
+    r( wxEVT_COMMAND_TREE_BEGIN_RDRAG );
+    r( wxEVT_COMMAND_TREE_BEGIN_LABEL_EDIT );
+    r( wxEVT_COMMAND_TREE_END_LABEL_EDIT );
+    r( wxEVT_COMMAND_TREE_DELETE_ITEM );
+    r( wxEVT_COMMAND_TREE_GET_INFO );
+    r( wxEVT_COMMAND_TREE_SET_INFO );
+    r( wxEVT_COMMAND_TREE_ITEM_EXPANDED );
+    r( wxEVT_COMMAND_TREE_ITEM_EXPANDING );
+    r( wxEVT_COMMAND_TREE_ITEM_COLLAPSED );
+    r( wxEVT_COMMAND_TREE_ITEM_COLLAPSING );
+    r( wxEVT_COMMAND_TREE_SEL_CHANGED );
+    r( wxEVT_COMMAND_TREE_SEL_CHANGING );
+    r( wxEVT_COMMAND_TREE_KEY_DOWN );
+    r( wxEVT_COMMAND_TREE_ITEM_ACTIVATED );
+    r( wxEVT_COMMAND_TREE_ITEM_RIGHT_CLICK );
+    r( wxEVT_COMMAND_TREE_ITEM_MIDDLE_CLICK );
+    r( wxEVT_COMMAND_TREE_END_DRAG );
 
     r( wxEVT_TIMER );
 
@@ -1146,6 +1166,30 @@ if( strEQ( name, #n ) ) \
     r( wxTOP );                         // sizer layout constraints
     r( wxTRANSPARENT_WINDOW );          // window
     r( wxTRANSPARENT );                 // dc brush pen
+
+    r( wxTR_HAS_BUTTONS );              // treectrl
+    r( wxTR_EDIT_LABELS );              // treectrl
+    r( wxTR_MULTIPLE );                 // treectrl
+
+    r( wxTreeItemIcon_Normal );         // treectrl
+    r( wxTreeItemIcon_Selected );       // treectrl
+    r( wxTreeItemIcon_Expanded );       // treectrl
+    r( wxTreeItemIcon_SelectedExpanded ); // treectrl
+
+    r( wxTREE_HITTEST_ABOVE );          // treectrl
+    r( wxTREE_HITTEST_BELOW );          // treectrl
+    r( wxTREE_HITTEST_NOWHERE );        // treectrl
+    r( wxTREE_HITTEST_ONITEMBUTTON );   // treectrl
+    r( wxTREE_HITTEST_ONITEMICON );     // treectrl
+    r( wxTREE_HITTEST_ONITEMINDENT );   // treectrl
+    r( wxTREE_HITTEST_ONITEMLABEL );    // treectrl
+    r( wxTREE_HITTEST_ONITEMRIGHT );    // treectrl
+    r( wxTREE_HITTEST_ONITEMSTATEICON ); // treectrl
+    r( wxTREE_HITTEST_TOLEFT );         // treectrl
+    r( wxTREE_HITTEST_TORIGHT );        // treectrl
+    r( wxTREE_HITTEST_ONITEMUPPERPART ); // treectrl
+    r( wxTREE_HITTEST_ONITEMLOWERPART ); // treectrl
+    r( wxTREE_HITTEST_ONITEM );         // treectrl
 
     r( wxTop );                         // layout constraints
     break;

@@ -255,6 +255,29 @@ sub EVT_TIMER($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_TIMER, $_[2] )
 sub EVT_SYS_COLOUR_CHANGED($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SYS_COLOUR_CHANGED, $_[1] ); }
 
 #
+# TreeEvent
+#
+
+sub EVT_TREE_BEGIN_DRAG($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_BEGIN_DRAG, $_[2] ); }
+sub EVT_TREE_BEGIN_RDRAG($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_BEGIN_RDRAG, $_[2] ); }
+sub EVT_TREE_END_DRAG($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_END_DRAG, $_[2] ); }
+sub EVT_TREE_BEGIN_LABEL_EDIT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_BEGIN_LABEL_EDIT, $_[2] ); }
+sub EVT_TREE_END_LABEL_EDIT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_END_LABEL_EDIT, $_[2] ); }
+sub EVT_TREE_GET_INFO($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_GET_INFO, $_[2] ); }
+sub EVT_TREE_SET_INFO($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_SET_INFO, $_[2] ); }
+sub EVT_TREE_ITEM_EXPANDED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_ITEM_EXPANDED, $_[2] ); }
+sub EVT_TREE_ITEM_EXPANDING($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_ITEM_EXPANDING, $_[2] ); }
+sub EVT_TREE_ITEM_COLLAPSED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_ITEM_COLLAPSED, $_[2] ); }
+sub EVT_TREE_ITEM_COLLAPSING($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_ITEM_COLLAPSING, $_[2] ); }
+sub EVT_TREE_SEL_CHANGED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_SEL_CHANGED, $_[2] ); }
+sub EVT_TREE_SEL_CHANGING($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_SEL_CHANGING, $_[2] ); }
+sub EVT_TREE_KEY_DOWN($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_KEY_DOWN, $_[2] ); }
+sub EVT_TREE_DELETE_ITEM($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_DELETE_ITEM, $_[2] ); }
+sub EVT_TREE_ITEM_ACTIVATED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_ITEM_ACTIVATED, $_[2] ); }
+sub EVT_TREE_ITEM_RIGHT_CLICK($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_ITEM_RIGHT_CLICK, $_[2] ); }
+sub EVT_TREE_ITEM_MIDDLE_CLICK($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TREE_ITEM_MIDDLE_CLICK, $_[2] ); }
+
+#
 # UpdateUIEvent
 #
 
@@ -293,6 +316,7 @@ package Wx::SpinEvent;       @ISA = qw(Wx::NotifyEvent);
 package Wx::SplitterEvent;   @ISA = qw(Wx::CommandEvent);
 package Wx::SysColourChangedEvent; @ISA = qw(Wx::Event);
 package Wx::TimerEvent;      @ISA = qw(Wx::Event);
+package Wx::TreeEvent;       @ISA = qw(Wx::NotifyEvent);
 package Wx::UpdateUIEvent;   @ISA = qw(Wx::CommandEvent);
 
 1;
