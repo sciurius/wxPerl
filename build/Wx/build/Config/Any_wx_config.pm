@@ -3,6 +3,8 @@ package Wx::build::Config::Any_wx_config;
 use strict;
 use base 'Wx::build::Config::Any_OS';
 
+my $libs_sep;
+
 {
   my $ver = `wx-config --version`;
   $ver =~ m/^(\d)\.(\d)/;
@@ -11,6 +13,8 @@ use base 'Wx::build::Config::Any_OS';
   if( $ver >= 2.005 ) {
     *wx_config = __PACKAGE__->can( 'wx_config_25' );
     *get_core_lib = __PACKAGE__->can( 'get_core_lib_25' );
+    $libs_sep = `wx-config --libs base > /dev/null 2>&1 || echo 'X'` eq "X\n" ?
+      '=' : ' ';
   } else {
     *wx_config = __PACKAGE__->can( 'wx_config_24' );
     *get_core_lib = __PACKAGE__->can( 'get_core_lib_24' );
@@ -54,7 +58,7 @@ sub wx_config_24 {
 
 sub get_core_lib_25 {
   my( $this, @libs ) = @_;
-  my $arg = 'libs=' . join ',', grep { !m/base/ } @libs;
+  my $arg = 'libs' . $libs_sep . join ',', grep { !m/base/ } @libs;
   my $ret = $this->_call_wx_config( $arg );
   return ' ' . join ' ',
                grep { m/\-lwx/ }
