@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: MessageDialog.xs,v 1.5 2003/11/23 07:45:53 mbarbon Exp $
+## RCS-ID:      $Id: MessageDialog.xs,v 1.6 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,7 +20,7 @@ wxMessageDialog::new( parent, message, caption = wxMessageBoxCaptionStr, style =
     wxString message
     wxString caption
     long style
-    Wx_Point pos
+    wxPoint pos
 
 int
 wxMessageDialog::ShowModal()

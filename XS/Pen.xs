@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Pen.xs
+## Name:        XS/Pen.xs
 ## Purpose:     XS for Wx::Pen
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/11/2000
-## RCS-ID:      
+## RCS-ID:      $Id: Pen.xs,v 1.12 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,7 +16,7 @@
 MODULE=Wx PACKAGE=Wx::Pen
 
 void
-Wx_Pen::new( ... )
+wxPen::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wcol_n_n, newColour )
@@ -24,10 +24,10 @@ Wx_Pen::new( ... )
         MATCH_REDISP( wxPliOvl_s_n_n, newString )
     END_OVERLOAD( Wx::Pen::new )
 
-Wx_Pen*
+wxPen*
 newColour( CLASS, colour, width, style )
     SV* CLASS
-    Wx_Colour* colour
+    wxColour* colour
     int width
     int style
   CODE:
@@ -35,7 +35,7 @@ newColour( CLASS, colour, width, style )
   OUTPUT:
     RETVAL
 
-Wx_Pen*
+wxPen*
 newString( CLASS, name, width, style )
     SV* CLASS
     wxString name
@@ -48,10 +48,10 @@ newString( CLASS, name, width, style )
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
-Wx_Pen*
+wxPen*
 newBitmap( CLASS, stipple, width )
     SV* CLASS
-    Wx_Bitmap* stipple
+    wxBitmap* stipple
     int width
   CODE:
     RETVAL = new wxPen( *stipple, width );
@@ -60,20 +60,20 @@ newBitmap( CLASS, stipple, width )
 
 ## XXX threads
 void
-Wx_Pen::DESTROY()
+wxPen::DESTROY()
 
 int
-Wx_Pen::GetCap()
+wxPen::GetCap()
 
-Wx_Colour*
-Wx_Pen::GetColour()
+wxColour*
+wxPen::GetColour()
   CODE:
     RETVAL = new wxColour( THIS->GetColour() );
   OUTPUT:
     RETVAL
 
 void
-Wx_Pen::GetDashes()
+wxPen::GetDashes()
   PREINIT:
     int i, n;
     wxDash* array;
@@ -86,12 +86,12 @@ Wx_Pen::GetDashes()
     }
 
 int
-Wx_Pen::GetJoin()
+wxPen::GetJoin()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
-Wx_Bitmap*
-Wx_Pen::GetStipple()
+wxBitmap*
+wxPen::GetStipple()
   CODE:
     RETVAL = new wxBitmap( *THIS->GetStipple() );
   OUTPUT:
@@ -100,20 +100,20 @@ Wx_Pen::GetStipple()
 #endif
 
 int
-Wx_Pen::GetStyle()
+wxPen::GetStyle()
 
 int
-Wx_Pen::GetWidth()
+wxPen::GetWidth()
 
 bool
-Wx_Pen::Ok()
+wxPen::Ok()
 
 void
-Wx_Pen::SetCap( capStyle )
+wxPen::SetCap( capStyle )
     int capStyle
 
 void
-Wx_Pen::SetColour( ... )
+wxPen::SetColour( ... )
   PPCODE:
      BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wcol, SetColourColour )
@@ -122,19 +122,19 @@ Wx_Pen::SetColour( ... )
     END_OVERLOAD( Wx::Pen::SetColour )
 
 void
-Wx_Pen::SetColourColour( colour )
-    Wx_Colour* colour
+wxPen::SetColourColour( colour )
+    wxColour* colour
   CODE:
     THIS->SetColour( *colour );
 
 void
-Wx_Pen::SetColourName( name )
+wxPen::SetColourName( name )
     wxString name
   CODE:
     THIS->SetColour( name );
 
 void
-Wx_Pen::SetColourRGB( r, g, b )
+wxPen::SetColourRGB( r, g, b )
     int r
     int g
     int b
@@ -142,7 +142,7 @@ Wx_Pen::SetColourRGB( r, g, b )
     THIS->SetColour( r, g, b );
 
 void
-Wx_Pen::SetDashes( ds )
+wxPen::SetDashes( ds )
     SV* ds
   PREINIT:
     int n = 0;
@@ -176,23 +176,23 @@ Wx_Pen::SetDashes( ds )
     delete[] olddashes;
 
 void
-Wx_Pen::SetJoin( join_style )
+wxPen::SetJoin( join_style )
     int join_style
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_Pen::SetStipple( stipple )
-    Wx_Bitmap* stipple
+wxPen::SetStipple( stipple )
+    wxBitmap* stipple
   CODE:
     THIS->SetStipple( *stipple );
 
 #endif
 
 void
-Wx_Pen::SetStyle( style )
+wxPen::SetStyle( style )
     int style
 
 void
-Wx_Pen::SetWidth( width )
+wxPen::SetWidth( width )
     int width

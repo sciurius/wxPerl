@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Icon.xs,v 1.22 2004/03/20 17:51:04 mbarbon Exp $
+## RCS-ID:      $Id: Icon.xs,v 1.23 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -18,7 +18,7 @@ MODULE=Wx PACKAGE=Wx
 #include "wxpl.xpm"
 #endif
 
-Wx_Icon*
+wxIcon*
 GetWxPerlIcon( small = FALSE )
     bool small
   CODE:
@@ -37,14 +37,14 @@ GetWxPerlIcon( small = FALSE )
 MODULE=Wx PACKAGE=Wx::Icon
 
 void
-Wx_Icon::new( ... )
+wxIcon::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_VOIDM_REDISP( newNull )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, newFile, 2 )
     END_OVERLOAD( Wx::Icon::new )
 
-Wx_Icon*
+wxIcon*
 newNull( CLASS )
     SV* CLASS
   CODE:
@@ -52,7 +52,7 @@ newNull( CLASS )
   OUTPUT:
     RETVAL
 
-Wx_Icon*
+wxIcon*
 newFile( CLASS, name, type, desW = -1, desH = -1 )
     SV* CLASS
     wxString name
@@ -71,7 +71,7 @@ newFile( CLASS, name, type, desW = -1, desH = -1 )
 
 #if defined( __WXGTK__ ) || defined( __WXPERL_FORCE__ )
 
-##Wx_Icon*
+##wxIcon*
 ##newFromBits( bits, width, height, depth = 1 )
 ##    SV* bits
 ##    int width
@@ -86,7 +86,7 @@ newFile( CLASS, name, type, desW = -1, desH = -1 )
 
 #endif
 
-Wx_Icon*
+wxIcon*
 newFromXPM( CLASS, data )
     SV* CLASS
     SV* data
@@ -102,10 +102,10 @@ newFromXPM( CLASS, data )
 
 ## XXX threads
 void
-Wx_Icon::DESTROY()
+wxIcon::DESTROY()
 
 bool
-Wx_Icon::LoadFile( name, type )
+wxIcon::LoadFile( name, type )
     wxString name
     long type
   CODE:
@@ -127,7 +127,7 @@ Wx_Icon::LoadFile( name, type )
     RETVAL
 
 bool
-Wx_Icon::Ok()
+wxIcon::Ok()
 
 void
 wxIcon::CopyFromBitmap( bitmap )
@@ -137,24 +137,24 @@ wxIcon::CopyFromBitmap( bitmap )
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
-Wx_Icon::GetDepth()
+wxIcon::GetDepth()
 
 int
-Wx_Icon::GetHeight()
+wxIcon::GetHeight()
 
 int
-Wx_Icon::GetWidth()
+wxIcon::GetWidth()
 
 void
-Wx_Icon::SetDepth( depth )
+wxIcon::SetDepth( depth )
     int depth
 
 void
-Wx_Icon::SetHeight( height )
+wxIcon::SetHeight( height )
     int height
 
 void
-Wx_Icon::SetWidth( width )
+wxIcon::SetWidth( width )
     int width
 
 #endif

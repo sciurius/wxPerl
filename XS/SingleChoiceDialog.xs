@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        SingleChoiceDialog.xs
+## Name:        XS/SingleChoiceDialog.xs
 ## Purpose:     XS for Wx::SingleChoiceDialog
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      3/ 2/2001
-## RCS-ID:      
+## Created:     03/02/2001
+## RCS-ID:      $Id: SingleChoiceDialog.xs,v 1.8 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,15 +15,15 @@
 
 MODULE=Wx PACKAGE=Wx::SingleChoiceDialog
 
-Wx_SingleChoiceDialog*
-Wx_SingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, style = wxCHOICEDLG_STYLE, pos = wxDefaultPosition )
-    Wx_Window* parent
+wxSingleChoiceDialog*
+wxSingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, style = wxCHOICEDLG_STYLE, pos = wxDefaultPosition )
+    wxWindow* parent
     wxString message
     wxString caption
     SV* chs
     SV* dt
     long style
-    Wx_Point pos
+    wxPoint pos
   PREINIT:
     wxString* choices;
     SV** data;
@@ -54,10 +54,10 @@ Wx_SingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, st
     RETVAL
 
 int
-Wx_SingleChoiceDialog::GetSelection()
+wxSingleChoiceDialog::GetSelection()
 
 SV*
-Wx_SingleChoiceDialog::GetSelectionClientData()
+wxSingleChoiceDialog::GetSelectionClientData()
   PREINIT:
     char* t;
   CODE:
@@ -71,10 +71,10 @@ Wx_SingleChoiceDialog::GetSelectionClientData()
     RETVAL
 
 wxString
-Wx_SingleChoiceDialog::GetStringSelection()
+wxSingleChoiceDialog::GetStringSelection()
 
 void
-Wx_SingleChoiceDialog::SetSelection( selection )
+wxSingleChoiceDialog::SetSelection( selection )
     int selection
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
@@ -88,7 +88,7 @@ wxGetSingleChoice( message, caption, chs, parent = 0, x = -1, y = -1, centre = T
     wxString message
     wxString caption
     SV* chs
-    Wx_Window* parent
+    wxWindow* parent
     int x
     int y
     bool centre
@@ -110,7 +110,7 @@ wxGetSingleChoiceIndex( message, caption, chs, parent = 0, x = -1, y = -1, centr
     wxString message
     wxString caption
     SV* chs
-    Wx_Window* parent
+    wxWindow* parent
     int x
     int y
     bool centre
@@ -133,7 +133,7 @@ wxGetSingleChoiceData( message, caption, chs, dt, parent = 0, x = -1, y = -1, ce
     wxString caption
     SV* chs
     SV* dt
-    Wx_Window* parent
+    wxWindow* parent
     int x
     int y
     bool centre

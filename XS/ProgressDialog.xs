@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        ProgressDialog.xs
+## Name:        XS/ProgressDialog.xs
 ## Purpose:     XS for Wx::ProgressDialog
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/12/2000
-## RCS-ID:      
+## RCS-ID:      $Id: ProgressDialog.xs,v 1.6 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,12 +14,12 @@
 
 MODULE=Wx PACKAGE=Wx::ProgressDialog
 
-Wx_ProgressDialog*
-Wx_ProgressDialog::new( title, message, maximum = 100, parent = 0, style = wxPD_AUTO_HIDE|wxPD_APP_MODAL )
+wxProgressDialog*
+wxProgressDialog::new( title, message, maximum = 100, parent = 0, style = wxPD_AUTO_HIDE|wxPD_APP_MODAL )
     wxString title
     wxString message
     int maximum
-    Wx_Window* parent
+    wxWindow* parent
     long style
   CODE:
     RETVAL = new wxProgressDialog( title, message, maximum, parent, style );
@@ -27,9 +27,9 @@ Wx_ProgressDialog::new( title, message, maximum = 100, parent = 0, style = wxPD_
     RETVAL
 
 bool
-Wx_ProgressDialog::Update( value = -1, newmsg = wxEmptyString )
+wxProgressDialog::Update( value = -1, newmsg = wxEmptyString )
     int value
     wxString newmsg
 
 void
-Wx_ProgressDialog::Resume()
+wxProgressDialog::Resume()

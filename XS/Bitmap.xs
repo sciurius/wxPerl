@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Bitmap.xs,v 1.23 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Bitmap.xs,v 1.24 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,7 +15,7 @@
 MODULE=Wx PACKAGE=Wx::Mask
 
 void
-Wx_Mask::new( ... )
+wxMask::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wbmp_wcol, newBitmapColour )
@@ -23,29 +23,29 @@ Wx_Mask::new( ... )
         MATCH_REDISP( wxPliOvl_wbmp, newBitmap )
     END_OVERLOAD( Wx::Mask::new )
 
-Wx_Mask*
+wxMask*
 newBitmap( CLASS, bitmap )
     SV* CLASS
-    Wx_Bitmap* bitmap
+    wxBitmap* bitmap
   CODE:
     RETVAL = new wxMask( *bitmap );
   OUTPUT:
     RETVAL
 
-Wx_Mask*
+wxMask*
 newBitmapColour( CLASS, bitmap, colour )
     SV* CLASS
-    Wx_Bitmap* bitmap
-    Wx_Colour* colour
+    wxBitmap* bitmap
+    wxColour* colour
   CODE:
     RETVAL = new wxMask( *bitmap, *colour );
   OUTPUT:
     RETVAL
 
-Wx_Mask*
+wxMask*
 newBitmapIndex( CLASS, bitmap, index )
     SV* CLASS
-    Wx_Bitmap* bitmap
+    wxBitmap* bitmap
     int index
   CODE:
     RETVAL = new wxMask( *bitmap, index );
@@ -53,7 +53,7 @@ newBitmapIndex( CLASS, bitmap, index )
     RETVAL
 
 void
-Wx_Mask::Destroy()
+wxMask::Destroy()
   CODE:
     delete THIS;
 
@@ -74,8 +74,8 @@ bmp_spaceship( bmp1, bmp2, ... )
         sv_derived_from( bmp1, "Wx::Bitmap" ) &&
         sv_derived_from( bmp2, "Wx::Bitmap" ) )
     {
-        Wx_Bitmap* bitmap1 = (Wx_Bitmap*)_sv_2_object( bmp1, "Wx::Bitmap" );
-        Wx_Bitmap* bitmap2 = (Wx_Bitmap*)_sv_2_object( bmp2, "Wx::Bitmap" );
+        wxBitmap* bitmap1 = (wxBitmap*)_sv_2_object( bmp1, "Wx::Bitmap" );
+        wxBitmap* bitmap2 = (wxBitmap*)_sv_2_object( bmp2, "Wx::Bitmap" );
 
         RETVAL = *bitmap1 == *bitmap2 ? 0 : 1;
     } else
@@ -86,7 +86,7 @@ bmp_spaceship( bmp1, bmp2, ... )
 #endif
 
 void
-Wx_Bitmap::new( ... )
+wxBitmap::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n, newEmpty, 2 )
@@ -95,7 +95,7 @@ Wx_Bitmap::new( ... )
         MATCH_REDISP( wxPliOvl_wimg, newImage )
     END_OVERLOAD( Wx::Bitmap::new )
 
-Wx_Bitmap*
+wxBitmap*
 newEmpty( CLASS, width, height, depth = -1 )
     SV* CLASS
     int width
@@ -106,7 +106,7 @@ newEmpty( CLASS, width, height, depth = -1 )
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
+wxBitmap*
 newFile( CLASS, name, type )
     SV* CLASS
     wxString name
@@ -120,16 +120,16 @@ newFile( CLASS, name, type )
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
+wxBitmap*
 newIcon( CLASS, icon )
     SV* CLASS
-    Wx_Icon* icon
+    wxIcon* icon
   CODE:
     RETVAL = new wxBitmap( *icon );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
+wxBitmap*
 newFromBits( CLASS, bits, width, height, depth = 1 )
     SV* CLASS
     SV* bits
@@ -143,7 +143,7 @@ newFromBits( CLASS, bits, width, height, depth = 1 )
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
+wxBitmap*
 newFromXPM( CLASS, data )
     SV* CLASS
     SV* data
@@ -159,7 +159,7 @@ newFromXPM( CLASS, data )
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
-Wx_Bitmap*
+wxBitmap*
 newImage( CLASS, image )
     SV* CLASS
     wxImage* image
@@ -182,12 +182,12 @@ newImage( CLASS, image )
 
 ## XXX threads
 void
-Wx_Bitmap::DESTROY()
+wxBitmap::DESTROY()
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 wxImage*
-Wx_Bitmap::ConvertToImage()
+wxBitmap::ConvertToImage()
   CODE:
     RETVAL = new wxImage( THIS->ConvertToImage() );
   OUTPUT:
@@ -198,8 +198,8 @@ Wx_Bitmap::ConvertToImage()
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
-Wx_Bitmap::CopyFromIcon( icon )
-    Wx_Icon* icon
+wxBitmap::CopyFromIcon( icon )
+    wxIcon* icon
   CODE:
     THIS->CopyFromIcon( *icon );
 
@@ -211,7 +211,7 @@ Wx_Bitmap::CopyFromIcon( icon )
 
 void
 AddHandler( handler )
-    Wx_BitmapHandler* handler
+    wxBitmapHandler* handler
   CODE:
     wxBitmap::AddHandler( handler );
 
@@ -224,7 +224,7 @@ AddHandler( handler )
 
 #if defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
 
-Wx_BitmapHandler*
+wxBitmapHandler*
 FindHandlerName( name )
     wxString name
   CODE:
@@ -232,7 +232,7 @@ FindHandlerName( name )
   OUTPUT:
     RETVAL
 
-Wx_BitmapHandler*
+wxBitmapHandler*
 FindHandlerExtType( extension, type )
     wxString extension
     long type
@@ -245,7 +245,7 @@ FindHandlerExtType( extension, type )
   OUTPUT:
     RETVAL
 
-Wx_BitmapHandler*
+wxBitmapHandler*
 FindHandlerType( type )
     long type
   CODE:
@@ -260,7 +260,7 @@ FindHandlerType( type )
 #endif
 
 int
-Wx_Bitmap::GetDepth()
+wxBitmap::GetDepth()
 
 #if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) \
     || defined( __WXPERL_FORCE__ )
@@ -279,24 +279,24 @@ GetHandlers()
 #endif
 
 int
-Wx_Bitmap::GetHeight()
+wxBitmap::GetHeight()
 
-Wx_Palette*
-Wx_Bitmap::GetPalette()
+wxPalette*
+wxBitmap::GetPalette()
   CODE:
     RETVAL = new wxPalette( *THIS->GetPalette() );
   OUTPUT:
     RETVAL
 
-Wx_Mask*
-Wx_Bitmap::GetMask()
+wxMask*
+wxBitmap::GetMask()
 
 int
-Wx_Bitmap::GetWidth()
+wxBitmap::GetWidth()
 
-Wx_Bitmap*
-Wx_Bitmap::GetSubBitmap( rect )
-    Wx_Rect* rect
+wxBitmap*
+wxBitmap::GetSubBitmap( rect )
+    wxRect* rect
   CODE:
     RETVAL = new wxBitmap( THIS->GetSubBitmap( *rect ) );
   OUTPUT:
@@ -311,7 +311,7 @@ InitStandardHandlers()
 
 void
 InsertHandler( handler )
-    Wx_BitmapHandler* handler
+    wxBitmapHandler* handler
   CODE:
     wxBitmap::InsertHandler( handler );
 
@@ -320,21 +320,21 @@ InsertHandler( handler )
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 bool
-Wx_Bitmap::LoadFile( name, type )
+wxBitmap::LoadFile( name, type )
     wxString name
     wxBitmapType type
 
 #else
 
 bool
-Wx_Bitmap::LoadFile( name, type )
+wxBitmap::LoadFile( name, type )
     wxString name
     long type
 
 #endif
 
 bool
-Wx_Bitmap::Ok()
+wxBitmap::Ok()
 
 #if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
@@ -350,34 +350,34 @@ RemoveHandler( name )
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 bool
-Wx_Bitmap::SaveFile( name, type, palette = 0 )
+wxBitmap::SaveFile( name, type, palette = 0 )
     wxString name
     wxBitmapType type
-    Wx_Palette* palette
+    wxPalette* palette
 
 #else
 
 bool
-Wx_Bitmap::SaveFile( name, type, palette = 0 )
+wxBitmap::SaveFile( name, type, palette = 0 )
     wxString name
     long type
-    Wx_Palette* palette
+    wxPalette* palette
 
 #endif
 
 void
-Wx_Bitmap::SetDepth( depth )
+wxBitmap::SetDepth( depth )
     int depth
 
 void
-Wx_Bitmap::SetHeight( height )
+wxBitmap::SetHeight( height )
     int height
 
 #if !defined(__WXMAC__)
 
 void
-Wx_Bitmap::SetMask( mask )
-    Wx_Mask* mask
+wxBitmap::SetMask( mask )
+    wxMask* mask
   CODE:
     THIS->SetMask( new wxMask( *mask ) );
 
@@ -386,13 +386,13 @@ Wx_Bitmap::SetMask( mask )
 #if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_Bitmap::SetPalette( palette )
-    Wx_Palette* palette
+wxBitmap::SetPalette( palette )
+    wxPalette* palette
   CODE:
     THIS->SetPalette( *palette );
 
 #endif
 
 void
-Wx_Bitmap::SetWidth( width )
+wxBitmap::SetWidth( width )
     int width

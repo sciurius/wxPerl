@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        FontDialog.xs
+## Name:        XS/FontDialog.xs
 ## Purpose:     XS for Wx::FontDialog and Wx::FontData
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     14/ 2/2001
-## RCS-ID:      $Id: FontDialog.xs,v 1.7 2003/05/05 20:38:41 mbarbon Exp $
+## Created:     14/02/2001
+## RCS-ID:      $Id: FontDialog.xs,v 1.8 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,89 +16,89 @@
 
 MODULE=Wx PACKAGE=Wx::FontData
 
-Wx_FontData*
-Wx_FontData::new()
+wxFontData*
+wxFontData::new()
 
 ## XXX threads
 void
-Wx_FontData::DESTROY()
+wxFontData::DESTROY()
 
 void
-Wx_FontData::EnableEffects( enable )
+wxFontData::EnableEffects( enable )
     bool enable
 
 bool
-Wx_FontData::GetAllowSymbols()
+wxFontData::GetAllowSymbols()
 
-Wx_Colour*
-Wx_FontData::GetColour()
+wxColour*
+wxFontData::GetColour()
   CODE:
     RETVAL = new wxColour( THIS->GetColour() );
   OUTPUT:
     RETVAL
 
-Wx_Font*
-Wx_FontData::GetChosenFont()
+wxFont*
+wxFontData::GetChosenFont()
   CODE:
     RETVAL = new wxFont( THIS->GetChosenFont() );
   OUTPUT:
     RETVAL
 
 bool
-Wx_FontData::GetEnableEffects()
+wxFontData::GetEnableEffects()
 
-Wx_Font*
-Wx_FontData::GetInitialFont()
+wxFont*
+wxFontData::GetInitialFont()
   CODE:
     RETVAL = new wxFont( THIS->GetInitialFont() );
   OUTPUT:
     RETVAL
 
 bool
-Wx_FontData::GetShowHelp()
+wxFontData::GetShowHelp()
 
 void
-Wx_FontData::SetAllowSymbols( allow )
+wxFontData::SetAllowSymbols( allow )
     bool allow
 
 void
-Wx_FontData::SetChosenFont( font )
-    Wx_Font* font
+wxFontData::SetChosenFont( font )
+    wxFont* font
   CODE:
     THIS->SetChosenFont( *font );
 
 void
-Wx_FontData::SetColour( colour )
-    Wx_Colour colour
+wxFontData::SetColour( colour )
+    wxColour colour
 
 void
-Wx_FontData::SetInitialFont( font )
-    Wx_Font* font
+wxFontData::SetInitialFont( font )
+    wxFont* font
   CODE:
     THIS->SetInitialFont( *font );
 
 void
-Wx_FontData::SetRange( min, max )
+wxFontData::SetRange( min, max )
     int min
     int max
 
 void
-Wx_FontData::SetShowHelp( show )
+wxFontData::SetShowHelp( show )
     bool show
 
 MODULE=Wx PACKAGE=Wx::FontDialog
 
-Wx_FontDialog*
-Wx_FontDialog::new( parent, data = 0 )
-    Wx_Window* parent
-    Wx_FontData* data
+wxFontDialog*
+wxFontDialog::new( parent, data = 0 )
+    wxWindow* parent
+    wxFontData* data
   CODE:
     RETVAL = new wxFontDialog( parent, *data );
   OUTPUT:
     RETVAL
 
-Wx_FontData*
-Wx_FontDialog::GetFontData()
+wxFontData*
+wxFontDialog::GetFontData()
   CODE:
     RETVAL = new wxFontData( THIS->GetFontData() );
   OUTPUT:
@@ -106,10 +106,10 @@ Wx_FontDialog::GetFontData()
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
-Wx_Font*
+wxFont*
 wxGetFontFromUser( parent = 0, fontInit = (wxFont*)&wxNullFont )
-    Wx_Window* parent
-    Wx_Font* fontInit
+    wxWindow* parent
+    wxFont* fontInit
   CODE:
     RETVAL = new wxFont( wxGetFontFromUser( parent, *fontInit ) );
   OUTPUT:

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        App.xs
+## Name:        XS/ToolTip.xs
 ## Purpose:     XS for Wx::ToolTip
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
+## RCS-ID:      $Id: ToolTip.xs,v 1.6 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -28,18 +28,18 @@ SetDelay( msecs )
   CODE:
     wxToolTip::SetDelay( msecs );
 
-Wx_ToolTip*
-Wx_ToolTip::new( string )
+wxToolTip*
+wxToolTip::new( string )
     wxString string
 
 void
-Wx_ToolTip::SetTip( tip )
+wxToolTip::SetTip( tip )
     wxString tip
 
 wxString
-Wx_ToolTip::GetTip()
+wxToolTip::GetTip()
 
-Wx_Window*
-Wx_ToolTip::GetWindow()
+wxWindow*
+wxToolTip::GetWindow()
 
 #endif

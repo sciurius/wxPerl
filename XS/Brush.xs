@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Brush.xs
+## Name:        XS/Brush.xs
 ## Purpose:     XS for Wx::Brush
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      8/11/2000
-## RCS-ID:      
+## Created:     08/11/2000
+## RCS-ID:      $Id: Brush.xs,v 1.9 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -18,7 +18,7 @@
 MODULE=Wx PACKAGE=Wx::Brush
 
 void
-Wx_Brush::new( ... )
+wxBrush::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wbmp, newBitmap )
@@ -26,17 +26,17 @@ Wx_Brush::new( ... )
         MATCH_REDISP( wxPliOvl_s_n, newName )
     END_OVERLOAD( Wx::Brush::new )
 
-Wx_Brush*
+wxBrush*
 newColour( CLASS, colour, style )
     SV* CLASS
-    Wx_Colour* colour
+    wxColour* colour
     int style
   CODE:
     RETVAL = new wxBrush( *colour, style );
   OUTPUT:
     RETVAL
 
-Wx_Brush*
+wxBrush*
 newName( CLASS, name, style )
     SV* CLASS
     wxString name
@@ -46,10 +46,10 @@ newName( CLASS, name, style )
   OUTPUT:
     RETVAL
 
-Wx_Brush*
+wxBrush*
 newBitmap( CLASS, stipple )
     SV* CLASS
-    Wx_Bitmap* stipple
+    wxBitmap* stipple
   CODE:
     RETVAL = new wxBrush( *stipple );
   OUTPUT:
@@ -57,30 +57,30 @@ newBitmap( CLASS, stipple )
 
 ## XXX threads
 void
-Wx_Brush::DESTROY()
+wxBrush::DESTROY()
 
-Wx_Colour*
-Wx_Brush::GetColour()
+wxColour*
+wxBrush::GetColour()
   CODE:
     RETVAL = new wxColour( THIS->GetColour() );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
-Wx_Brush::GetStipple()
+wxBitmap*
+wxBrush::GetStipple()
   CODE:
     RETVAL = new wxBitmap( *THIS->GetStipple() );
   OUTPUT:
     RETVAL
 
 int
-Wx_Brush::GetStyle()
+wxBrush::GetStyle()
 
 bool
-Wx_Brush::Ok()
+wxBrush::Ok()
 
 void
-Wx_Brush::SetColour( ... )
+wxBrush::SetColour( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n_n, SetColourRGB )
@@ -89,19 +89,19 @@ Wx_Brush::SetColour( ... )
     END_OVERLOAD( Wx::Brush::SetColour )
 
 void
-Wx_Brush::SetColourColour( colour )
-    Wx_Colour* colour
+wxBrush::SetColourColour( colour )
+    wxColour* colour
   CODE:
     THIS->SetColour( *colour );
 
 void
-Wx_Brush::SetColourName( name )
+wxBrush::SetColourName( name )
     wxString name
   CODE:
     THIS->SetColour( name );
 
 void
-Wx_Brush::SetColourRGB( r, g, b )
+wxBrush::SetColourRGB( r, g, b )
     int r
     int g
     int b
@@ -109,11 +109,11 @@ Wx_Brush::SetColourRGB( r, g, b )
     THIS->SetColour( r, g, b );
 
 void
-Wx_Brush::SetStipple( stipple )
-    Wx_Bitmap* stipple
+wxBrush::SetStipple( stipple )
+    wxBitmap* stipple
   CODE:
     THIS->SetStipple( *stipple );
 
 void
-Wx_Brush::SetStyle( style )
+wxBrush::SetStyle( style )
     int style

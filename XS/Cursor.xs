@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Cursor.xs,v 1.11 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Cursor.xs,v 1.12 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,7 +15,7 @@
 MODULE=Wx PACKAGE=Wx::Cursor
 
 void
-Wx_Cursor::new( ... )
+wxCursor::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n, newId )
@@ -25,7 +25,7 @@ Wx_Cursor::new( ... )
         
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
-Wx_Cursor*
+wxCursor*
 newFile( CLASS, name, type, hsx = -1, hsy = -1 )
     SV* CLASS
     wxString name
@@ -39,7 +39,7 @@ newFile( CLASS, name, type, hsx = -1, hsy = -1 )
 
 #endif
 
-Wx_Cursor*
+wxCursor*
 newId( CLASS, id )
     SV* CLASS
     wxStockCursor id
@@ -50,7 +50,7 @@ newId( CLASS, id )
 
 #if !defined(__WXMAC__)
 
-Wx_Cursor*
+wxCursor*
 newImage( CLASS, img )
     SV* CLASS
     wxImage* img
@@ -63,7 +63,7 @@ newImage( CLASS, img )
 
 #if !defined( __WXGTK__ )
 
-Wx_Cursor*
+wxCursor*
 newData( CLASS, bits, width, height, hotSpotX = -1, hotSpotY = -1, maskBits = 0 )
     SV* CLASS
     SV* bits
@@ -84,7 +84,7 @@ newData( CLASS, bits, width, height, hotSpotX = -1, hotSpotY = -1, maskBits = 0 
 
 ## XXX threads
 void
-Wx_Cursor::DESTROY()
+wxCursor::DESTROY()
 
 bool
-Wx_Cursor::Ok()
+wxCursor::Ok()

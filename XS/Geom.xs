@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Geom.xs
+## Name:        XS/Geom.xs
 ## Purpose:     XS for Wx::Point, Wx::Size, Wx::Rect, Wx::Region
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Geom.xs,v 1.15 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Geom.xs,v 1.16 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,16 +12,16 @@
 
 MODULE=Wx PACKAGE=Wx::Size
 
-Wx_Size*
-Wx_Size::new( width = 0, height = 0 )
+wxSize*
+wxSize::new( width = 0, height = 0 )
     int width
     int height
 
 void
-Wx_Size::DESTROY()
+wxSize::DESTROY()
 
 int
-Wx_Size::width( ... )
+wxSize::width( ... )
   CODE:
     if( items > 1 )
       THIS->x = SvIV( ST(1) );
@@ -30,7 +30,7 @@ Wx_Size::width( ... )
     RETVAL
 
 int
-Wx_Size::height( ... )
+wxSize::height( ... )
   CODE:
     if( items > 1 )
       THIS->y = SvIV( ST(1) );
@@ -39,36 +39,36 @@ Wx_Size::height( ... )
     RETVAL
 
 int
-Wx_Size::GetHeight()
+wxSize::GetHeight()
 
 int
-Wx_Size::GetWidth()
+wxSize::GetWidth()
 
 void
-Wx_Size::Set( width, height )
+wxSize::Set( width, height )
     int width
     int height
 
 void
-Wx_Size::SetHeight( height )
+wxSize::SetHeight( height )
     int height
 
 void
-Wx_Size::SetWidth( width )
+wxSize::SetWidth( width )
     int width
 
 MODULE=Wx PACKAGE=Wx::Point
 
-Wx_Point*
-Wx_Point::new( x = 0, y = 0 )
+wxPoint*
+wxPoint::new( x = 0, y = 0 )
     int x
     int y
 
 void
-Wx_Point::DESTROY()
+wxPoint::DESTROY()
 
 int
-Wx_Point::x( ... )
+wxPoint::x( ... )
   CODE:
     if( items > 1 )
       THIS->x = SvIV( ST(1) );
@@ -77,7 +77,7 @@ Wx_Point::x( ... )
     RETVAL
 
 int
-Wx_Point::y( ... )
+wxPoint::y( ... )
   CODE:
     if( items > 1 )
       THIS->y = SvIV( ST(1) );
@@ -88,7 +88,7 @@ Wx_Point::y( ... )
 MODULE=Wx PACKAGE=Wx::Rect
 
 void
-Wx_Rect::new( ... )
+wxRect::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n_n_n, newXYWH )
@@ -96,7 +96,7 @@ Wx_Rect::new( ... )
         MATCH_REDISP( wxPliOvl_wpoi_wpoi, newPP )
     END_OVERLOAD( Wx::Rect::new )
 
-Wx_Rect*
+wxRect*
 newXYWH( CLASS, x, y, width, height )
     SV* CLASS
     int x
@@ -108,31 +108,31 @@ newXYWH( CLASS, x, y, width, height )
   OUTPUT:
     RETVAL
 
-Wx_Rect*
+wxRect*
 newPP( CLASS, tl, br )
     SV* CLASS
-    Wx_Point tl
-    Wx_Point br
+    wxPoint tl
+    wxPoint br
   CODE:
     RETVAL = new wxRect( tl, br );
   OUTPUT:
     RETVAL
 
-Wx_Rect*
+wxRect*
 newPS( CLASS, pos, size )
     SV* CLASS
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
   CODE:
     RETVAL = new wxRect( pos, size );
   OUTPUT:
     RETVAL
 
 void
-Wx_Rect::DESTROY()
+wxRect::DESTROY()
 
 int
-Wx_Rect::x( ... )
+wxRect::x( ... )
   CODE:
     if( items > 1 )
       THIS->x = SvIV( ST(1) );
@@ -141,7 +141,7 @@ Wx_Rect::x( ... )
     RETVAL
 
 int
-Wx_Rect::y( ... )
+wxRect::y( ... )
   CODE:
     if( items > 1 )
       THIS->y = SvIV( ST(1) );
@@ -150,7 +150,7 @@ Wx_Rect::y( ... )
     RETVAL
 
 int
-Wx_Rect::width( ... )
+wxRect::width( ... )
   CODE:
     if( items > 1 )
       THIS->width = SvIV( ST(1) );
@@ -159,7 +159,7 @@ Wx_Rect::width( ... )
     RETVAL
 
 int
-Wx_Rect::height( ... )
+wxRect::height( ... )
   CODE:
     if( items > 1 )
       THIS->height = SvIV( ST(1) );
@@ -168,45 +168,45 @@ Wx_Rect::height( ... )
     RETVAL
 
 int
-Wx_Rect::GetBottom()
+wxRect::GetBottom()
 
 int
-Wx_Rect::GetHeight()
+wxRect::GetHeight()
 
 int
-Wx_Rect::GetLeft()
+wxRect::GetLeft()
 
-Wx_Point*
-Wx_Rect::GetPosition()
+wxPoint*
+wxRect::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
 
 int
-Wx_Rect::GetRight()
+wxRect::GetRight()
 
-Wx_Size*
-Wx_Rect::GetSize()
+wxSize*
+wxRect::GetSize()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
     RETVAL
 
 int
-Wx_Rect::GetTop()
+wxRect::GetTop()
 
 int
-Wx_Rect::GetWidth()
+wxRect::GetWidth()
 
 int
-Wx_Rect::GetX()
+wxRect::GetX()
 
 int
-Wx_Rect::GetY()
+wxRect::GetY()
 
 void
-Wx_Rect::Inflate( x, y )
+wxRect::Inflate( x, y )
     wxCoord x 
     wxCoord y = NO_INIT
   CODE:
@@ -217,19 +217,19 @@ Wx_Rect::Inflate( x, y )
     THIS->Inflate( x, y );
 
 void
-Wx_Rect::SetHeight( height )
+wxRect::SetHeight( height )
     int height
 
 void
-Wx_Rect::SetWidth( width )
+wxRect::SetWidth( width )
     int width
 
 void
-Wx_Rect::SetX( x )
+wxRect::SetX( x )
     int x
 
 void
-Wx_Rect::SetY( y )
+wxRect::SetY( y )
    int y
 
 void
@@ -242,7 +242,7 @@ wxRect::SetSize( size )
 
 MODULE=Wx PACKAGE=Wx::Region
 
-Wx_Region*
+wxRegion*
 newEmpty( CLASS )
     SV* CLASS
   CODE:
@@ -250,7 +250,7 @@ newEmpty( CLASS )
   OUTPUT:
     RETVAL
 
-Wx_Region*
+wxRegion*
 newXYWH( CLASS, x, y, width, height )
     SV* CLASS
     wxCoord x
@@ -262,20 +262,20 @@ newXYWH( CLASS, x, y, width, height )
   OUTPUT:
     RETVAL
 
-Wx_Region*
+wxRegion*
 newPP( CLASS, topLeft, bottomRight )
     SV* CLASS
-    Wx_Point topLeft
-    Wx_Point bottomRight
+    wxPoint topLeft
+    wxPoint bottomRight
   CODE:
     RETVAL = new wxRegion( topLeft, bottomRight );
   OUTPUT:
     RETVAL
 
-Wx_Region*
+wxRegion*
 newRect( CLASS, rect )
     SV* CLASS
-    Wx_Rect* rect
+    wxRect* rect
   CODE:
     RETVAL = new wxRegion( *rect );
   OUTPUT:
@@ -283,7 +283,7 @@ newRect( CLASS, rect )
 
 #if !defined( __WXMAC__ ) && !defined( __WXMOTIF__ )
 
-Wx_Region*
+wxRegion*
 newPolygon( CLASS, list, fillStyle = wxODDEVEN_RULE )
     SV* CLASS
     SV* list
@@ -299,13 +299,13 @@ newPolygon( CLASS, list, fillStyle = wxODDEVEN_RULE )
 #endif
  
 void
-Wx_Region::DESTROY()
+wxRegion::DESTROY()
 
 void
-Wx_Region::Clear()
+wxRegion::Clear()
 
 wxRegionContain
-Wx_Region::ContainsXY( x, y )
+wxRegion::ContainsXY( x, y )
     wxCoord x
     wxCoord y
   CODE:
@@ -314,15 +314,15 @@ Wx_Region::ContainsXY( x, y )
     RETVAL
 
 wxRegionContain
-Wx_Region::ContainsPoint( point )
-    Wx_Point point
+wxRegion::ContainsPoint( point )
+    wxPoint point
   CODE:
     RETVAL = THIS->Contains( point );
   OUTPUT:
     RETVAL
 
 wxRegionContain
-Wx_Region::ContainsXYWH( x, y, w, h )
+wxRegion::ContainsXYWH( x, y, w, h )
     wxCoord x
     wxCoord y
     wxCoord w
@@ -333,22 +333,22 @@ Wx_Region::ContainsXYWH( x, y, w, h )
     RETVAL
 
 wxRegionContain
-Wx_Region::ContainsRect( rect )
-    Wx_Rect* rect
+wxRegion::ContainsRect( rect )
+    wxRect* rect
   CODE:
     RETVAL = THIS->Contains( *rect );
   OUTPUT:
     RETVAL
 
-Wx_Rect*
-Wx_Region::GetBox()
+wxRect*
+wxRegion::GetBox()
   CODE:
     RETVAL = new wxRect( THIS->GetBox() );
   OUTPUT:
     RETVAL
 
 void
-Wx_Region::GetBoxXYWH()
+wxRegion::GetBoxXYWH()
   PREINIT:
     int x;
     int y;
@@ -363,7 +363,7 @@ Wx_Region::GetBoxXYWH()
     PUSHs( sv_2mortal( newSViv( (IV) h ) ) );
 
 bool
-Wx_Region::IntersectXYWH( x, y, w, h )
+wxRegion::IntersectXYWH( x, y, w, h )
     wxCoord x
     wxCoord y
     wxCoord w
@@ -374,27 +374,27 @@ Wx_Region::IntersectXYWH( x, y, w, h )
     RETVAL
 
 bool
-Wx_Region::IntersectRect( rect )
-    Wx_Rect* rect
+wxRegion::IntersectRect( rect )
+    wxRect* rect
   CODE:
     RETVAL = THIS->Intersect( *rect );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Region::IntersectRegion( region )
-    Wx_Region* region
+wxRegion::IntersectRegion( region )
+    wxRegion* region
   CODE:
     RETVAL = THIS->Intersect( *region );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Region::IsEmpty()
+wxRegion::IsEmpty()
 
 bool
-Wx_Region::SubtractRect( rect )
-    Wx_Rect* rect
+wxRegion::SubtractRect( rect )
+    wxRect* rect
   CODE:
     RETVAL = THIS->Subtract( *rect );
   OUTPUT:
@@ -403,22 +403,22 @@ Wx_Region::SubtractRect( rect )
 #if !defined(__WXMOTIF__) && !defined(__WXMAC__)
 
 bool
-Wx_Region::Offset( x, y )
+wxRegion::Offset( x, y )
     wxCoord x
     wxCoord y
 
 #endif
 
 bool
-Wx_Region::SubtractRegion( region )
-    Wx_Region* region
+wxRegion::SubtractRegion( region )
+    wxRegion* region
   CODE:
     RETVAL = THIS->Subtract( *region );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Region::UnionXYWH( x, y, w, h )
+wxRegion::UnionXYWH( x, y, w, h )
     wxCoord x
     wxCoord y
     wxCoord w
@@ -429,23 +429,23 @@ Wx_Region::UnionXYWH( x, y, w, h )
     RETVAL
 
 bool
-Wx_Region::UnionRect( rect )
-    Wx_Rect* rect
+wxRegion::UnionRect( rect )
+    wxRect* rect
   CODE:
     RETVAL = THIS->Union( *rect );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Region::UnionRegion( region )
-    Wx_Region* region
+wxRegion::UnionRegion( region )
+    wxRegion* region
   CODE:
     RETVAL = THIS->Union( *region );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Region::XorXYWH( x, y, w, h )
+wxRegion::XorXYWH( x, y, w, h )
     wxCoord x
     wxCoord y
     wxCoord w
@@ -456,16 +456,16 @@ Wx_Region::XorXYWH( x, y, w, h )
     RETVAL
 
 bool
-Wx_Region::XorRect( rect )
-    Wx_Rect* rect
+wxRegion::XorRect( rect )
+    wxRect* rect
   CODE:
     RETVAL = THIS->Xor( *rect );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Region::XorRegion( region )
-    Wx_Region* region
+wxRegion::XorRegion( region )
+    wxRegion* region
   CODE:
     RETVAL = THIS->Xor( *region );
   OUTPUT:

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.25 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.26 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -71,7 +71,7 @@ wxSizer::Show( ... )
     END_OVERLOAD( Wx::Sizer::Show )
 
 void
-Wx_Sizer::Destroy()
+wxSizer::Destroy()
   CODE:
     delete THIS;
 
@@ -85,8 +85,8 @@ wxSizer::Add( ... )
     END_OVERLOAD( Wx::Sizer::Add )
 
 void
-Wx_Sizer::AddWindow( window, option = 0, flag = 0, border = 0, data = 0 )
-    Wx_Window* window
+wxSizer::AddWindow( window, option = 0, flag = 0, border = 0, data = 0 )
+    wxWindow* window
     int option
     int flag
     int border
@@ -95,8 +95,8 @@ Wx_Sizer::AddWindow( window, option = 0, flag = 0, border = 0, data = 0 )
     THIS->Add( window, option, flag, border, data );
 
 void
-Wx_Sizer::AddSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
-    Wx_Sizer* sizer
+wxSizer::AddSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
+    wxSizer* sizer
     int option
     int flag
     int border
@@ -105,7 +105,7 @@ Wx_Sizer::AddSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
     THIS->Add( sizer, option, flag, border, data );
 
 void
-Wx_Sizer::AddSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
+wxSizer::AddSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
     int width
     int height
     int option
@@ -116,29 +116,29 @@ Wx_Sizer::AddSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
     THIS->Add( width, height, option, flag, border, data );
 
 void
-Wx_Sizer::Clear( deleteWindows = TRUE )
+wxSizer::Clear( deleteWindows = TRUE )
     bool deleteWindows
 
 void
-Wx_Sizer::DeleteWindows()
+wxSizer::DeleteWindows()
 
-Wx_Size*
-Wx_Sizer::CalcMin()
+wxSize*
+wxSizer::CalcMin()
   CODE:
     RETVAL = new wxSize( THIS->CalcMin() );
   OUTPUT:
     RETVAL
 
 void
-Wx_Sizer::Fit( window )
-    Wx_Window* window
+wxSizer::Fit( window )
+    wxWindow* window
 
 void
-Wx_Sizer::FitInside( window )
-    Wx_Window* window
+wxSizer::FitInside( window )
+    wxWindow* window
 
 void
-Wx_Sizer::GetChildren()
+wxSizer::GetChildren()
   PPCODE:
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     wxSizerItemList::Node* node;
@@ -154,22 +154,22 @@ Wx_Sizer::GetChildren()
     for( node = list.GetFirst(); node; node = node->GetNext() )
       PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ) );
 
-Wx_Size*
-Wx_Sizer::GetSize()
+wxSize*
+wxSizer::GetSize()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
     RETVAL
 
-Wx_Point*
-Wx_Sizer::GetPosition()
+wxPoint*
+wxSizer::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
 
-Wx_Size*
-Wx_Sizer::GetMinSize()
+wxSize*
+wxSizer::GetMinSize()
   CODE:
     RETVAL = new wxSize( THIS->GetMinSize() );
   OUTPUT:
@@ -185,9 +185,9 @@ wxSizer::Insert( ... )
     END_OVERLOAD( "Wx::Sizer::Insert" )
 
 void
-Wx_Sizer::InsertWindow( pos, window, option = 0, flag = 0, border = 0, data = 0 )
+wxSizer::InsertWindow( pos, window, option = 0, flag = 0, border = 0, data = 0 )
     int pos
-    Wx_Window* window
+    wxWindow* window
     int option
     int flag
     int border
@@ -196,9 +196,9 @@ Wx_Sizer::InsertWindow( pos, window, option = 0, flag = 0, border = 0, data = 0 
     THIS->Insert( pos, window, option, flag, border, data );
 
 void
-Wx_Sizer::InsertSizer( pos, sizer, option = 0, flag = 0, border = 0, data = 0 )
+wxSizer::InsertSizer( pos, sizer, option = 0, flag = 0, border = 0, data = 0 )
     int pos
-    Wx_Sizer* sizer
+    wxSizer* sizer
     int option
     int flag
     int border
@@ -207,7 +207,7 @@ Wx_Sizer::InsertSizer( pos, sizer, option = 0, flag = 0, border = 0, data = 0 )
     THIS->Insert( pos, sizer, option, flag, border, data );
 
 void
-Wx_Sizer::InsertSpace( pos, width, height, option = 0, flag = 0, border = 0, data = 0 )
+wxSizer::InsertSpace( pos, width, height, option = 0, flag = 0, border = 0, data = 0 )
     int pos
     int width
     int height
@@ -219,7 +219,7 @@ Wx_Sizer::InsertSpace( pos, width, height, option = 0, flag = 0, border = 0, dat
     THIS->Insert( pos, width, height, option, flag, border, data );
 
 void
-Wx_Sizer::Layout()
+wxSizer::Layout()
 
 void
 wxSizer::Prepend( ... )
@@ -231,8 +231,8 @@ wxSizer::Prepend( ... )
     END_OVERLOAD( "Wx::Sizer::Prepend" )
 
 void
-Wx_Sizer::PrependWindow( window, option = 0, flag = 0, border = 0, data = 0 )
-    Wx_Window* window
+wxSizer::PrependWindow( window, option = 0, flag = 0, border = 0, data = 0 )
+    wxWindow* window
     int option
     int flag
     int border
@@ -241,8 +241,8 @@ Wx_Sizer::PrependWindow( window, option = 0, flag = 0, border = 0, data = 0 )
     THIS->Prepend( window, option, flag, border, data );
 
 void
-Wx_Sizer::PrependSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
-    Wx_Sizer* sizer
+wxSizer::PrependSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
+    wxSizer* sizer
     int option
     int flag
     int border
@@ -251,7 +251,7 @@ Wx_Sizer::PrependSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
     THIS->Prepend( sizer, option, flag, border, data );
 
 void
-Wx_Sizer::PrependSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
+wxSizer::PrependSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
     int width
     int height
     int option
@@ -262,7 +262,7 @@ Wx_Sizer::PrependSpace( width, height, option = 0, flag = 0, border = 0, data = 
     THIS->Prepend( width, height, option, flag, border, data );
 
 void
-Wx_Sizer::RecalcSizes()
+wxSizer::RecalcSizes()
 
 void
 wxSizer::Remove( ... )
@@ -274,23 +274,23 @@ wxSizer::Remove( ... )
     END_OVERLOAD( Wx::Sizer::Remove )
 
 bool
-Wx_Sizer::RemoveWindow( window )
-    Wx_Window* window
+wxSizer::RemoveWindow( window )
+    wxWindow* window
   CODE:
     RETVAL = THIS->Remove( window );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Sizer::RemoveSizer( sizer )
-    Wx_Sizer* sizer
+wxSizer::RemoveSizer( sizer )
+    wxSizer* sizer
   CODE:
     RETVAL = THIS->Remove( sizer );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Sizer::RemoveNth( nth )
+wxSizer::RemoveNth( nth )
     int nth
   CODE:
     RETVAL = THIS->Remove( nth );
@@ -298,7 +298,7 @@ Wx_Sizer::RemoveNth( nth )
     RETVAL
 
 void
-Wx_Sizer::SetDimension( x, y, width, height )
+wxSizer::SetDimension( x, y, width, height )
     int x
     int y
     int width
@@ -314,23 +314,23 @@ wxSizer::SetItemMinSize( ... )
     END_OVERLOAD( Wx::Sizer::SetItemMinSize )
 
 void
-Wx_Sizer::SetItemMinSizeWindow( window, width, height )
-    Wx_Window* window
+wxSizer::SetItemMinSizeWindow( window, width, height )
+    wxWindow* window
     int width
     int height
   CODE:
     THIS->SetItemMinSize( window, width, height );
 
 void
-Wx_Sizer::SetItemMinSizeSizer( sizer, width, height )
-    Wx_Sizer* sizer
+wxSizer::SetItemMinSizeSizer( sizer, width, height )
+    wxSizer* sizer
     int width
     int height
   CODE:
     THIS->SetItemMinSize( sizer, width, height );
 
 void
-Wx_Sizer::SetItemMinSizeNth( pos, width, height )
+wxSizer::SetItemMinSizeNth( pos, width, height )
     int pos
     int width
     int height
@@ -346,34 +346,34 @@ wxSizer::SetMinSize( ... )
     END_OVERLOAD( Wx::Sizer::SetMinSize )
 
 void
-Wx_Sizer::SetMinSizeSize( size )
-    Wx_Size size
+wxSizer::SetMinSizeSize( size )
+    wxSize size
   CODE:
     THIS->SetMinSize( size );
 
 void
-Wx_Sizer::SetMinSizeXY( x, y )
+wxSizer::SetMinSizeXY( x, y )
     int x
     int y
   CODE:
     THIS->SetMinSize( x, y );
 
 void
-Wx_Sizer::SetSizeHints( window )
-    Wx_Window* window
+wxSizer::SetSizeHints( window )
+    wxWindow* window
 
 void
-Wx_Sizer::SetVirtualSizeHints( window )
-    Wx_Window* window
+wxSizer::SetVirtualSizeHints( window )
+    wxWindow* window
 
 MODULE=Wx PACKAGE=Wx::BoxSizer
 
-Wx_BoxSizer*
-Wx_BoxSizer::new( orientation )
+wxBoxSizer*
+wxBoxSizer::new( orientation )
     int orientation
 
 int
-Wx_BoxSizer::GetOrientation()
+wxBoxSizer::GetOrientation()
 
 MODULE=Wx PACKAGE=Wx::StaticBoxSizer
 
@@ -387,90 +387,90 @@ wxStaticBoxSizer::GetStaticBox()
 
 MODULE=Wx PACKAGE=Wx::NotebookSizer
 
-Wx_NotebookSizer*
-Wx_NotebookSizer::new( notebook )
+wxNotebookSizer*
+wxNotebookSizer::new( notebook )
     wxNotebook* notebook
 
 wxNotebook*
-Wx_NotebookSizer::GetNotebook()
+wxNotebookSizer::GetNotebook()
 
 MODULE=Wx PACKAGE=Wx::GridSizer
 
-Wx_GridSizer*
-Wx_GridSizer::new( rows, cols, vgap = 0, hgap = 0 )
+wxGridSizer*
+wxGridSizer::new( rows, cols, vgap = 0, hgap = 0 )
     int rows
     int cols
     int vgap
     int hgap
 
 int
-Wx_GridSizer::GetCols()
+wxGridSizer::GetCols()
 
 int
-Wx_GridSizer::GetHGap()
+wxGridSizer::GetHGap()
 
 int
-Wx_GridSizer::GetRows()
+wxGridSizer::GetRows()
 
 int
-Wx_GridSizer::GetVGap()
+wxGridSizer::GetVGap()
 
 void
-Wx_GridSizer::SetCols( cols )
+wxGridSizer::SetCols( cols )
     int cols
 
 void
-Wx_GridSizer::SetHGap( gap )
+wxGridSizer::SetHGap( gap )
     int gap
 
 void
-Wx_GridSizer::SetRows( rows )
+wxGridSizer::SetRows( rows )
     int rows
 
 void
-Wx_GridSizer::SetVGap( gap )
+wxGridSizer::SetVGap( gap )
    int gap
 
 MODULE=Wx PACKAGE=Wx::FlexGridSizer
 
-Wx_FlexGridSizer*
-Wx_FlexGridSizer::new( rows, cols, vgap = 0, hgap = 0 )
+wxFlexGridSizer*
+wxFlexGridSizer::new( rows, cols, vgap = 0, hgap = 0 )
     int rows
     int cols
     int vgap
     int hgap
 
 void
-Wx_FlexGridSizer::RemoveGrowableCol( index )
+wxFlexGridSizer::RemoveGrowableCol( index )
     size_t index
 
 void
-Wx_FlexGridSizer::RemoveGrowableRow( index )
+wxFlexGridSizer::RemoveGrowableRow( index )
     int index
 
 MODULE=Wx PACKAGE=Wx::SizerItem
 
-Wx_Size*
-Wx_SizerItem::GetSize()
+wxSize*
+wxSizerItem::GetSize()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
     RETVAL
 
-Wx_Size*
-Wx_SizerItem::CalcMin()
+wxSize*
+wxSizerItem::CalcMin()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
     RETVAL
 
 void
-Wx_SizerItem::SetDimension( pos, size )
-    Wx_Point pos
-    Wx_Size size
+wxSizerItem::SetDimension( pos, size )
+    wxPoint pos
+    wxSize size
 
-Wx_Size*
-Wx_SizerItem::GetMinSize()
+wxSize*
+wxSizerItem::GetMinSize()
   CODE:
     RETVAL = new wxSize( THIS->GetMinSize() );
   OUTPUT:
@@ -486,78 +486,78 @@ wxSizerItem::SetRatio( ... )
     END_OVERLOAD( Wx::SizerItem::SetRatio )
 
 void
-Wx_SizerItem::SetRatioWH( width, height )
+wxSizerItem::SetRatioWH( width, height )
     int width
     int height
   CODE:
     THIS->SetRatio( width, height );
 
 void
-Wx_SizerItem::SetRatioSize( size )
-    Wx_Size size
+wxSizerItem::SetRatioSize( size )
+    wxSize size
   CODE:
     THIS->SetRatio( size );
 
 void
-Wx_SizerItem::SetRatioFloat( ratio )
+wxSizerItem::SetRatioFloat( ratio )
     float ratio
   CODE:
     THIS->SetRatio( ratio );
 
 float
-Wx_SizerItem::GetRatio()
+wxSizerItem::GetRatio()
 
 bool
-Wx_SizerItem::IsWindow()
+wxSizerItem::IsWindow()
 
 bool
-Wx_SizerItem::IsSizer()
+wxSizerItem::IsSizer()
 
 bool
-Wx_SizerItem::IsSpacer()
+wxSizerItem::IsSpacer()
 
 void
-Wx_SizerItem::SetInitSize( x, y )
+wxSizerItem::SetInitSize( x, y )
     int x
     int y
 
 void
-Wx_SizerItem::SetFlag( flag )
+wxSizerItem::SetFlag( flag )
     int flag
 
 void
-Wx_SizerItem::SetBorder( border )
+wxSizerItem::SetBorder( border )
     int border
 
-Wx_Window*
-Wx_SizerItem::GetWindow()
+wxWindow*
+wxSizerItem::GetWindow()
 
 void
-Wx_SizerItem::SetWindow( window )
-    Wx_Window* window
+wxSizerItem::SetWindow( window )
+    wxWindow* window
 
-Wx_Sizer*
-Wx_SizerItem::GetSizer()
+wxSizer*
+wxSizerItem::GetSizer()
 
 void
-Wx_SizerItem::SetSizer( sizer )
-    Wx_Sizer* sizer
+wxSizerItem::SetSizer( sizer )
+    wxSizer* sizer
 
 int
-Wx_SizerItem::GetFlag()
+wxSizerItem::GetFlag()
 
 int
-Wx_SizerItem::GetBorder()
+wxSizerItem::GetBorder()
 
-Wx_Point*
-Wx_SizerItem::GetPosition()
+wxPoint*
+wxSizerItem::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
 
 Wx_UserDataO*
-Wx_SizerItem::GetUserData()
+wxSizerItem::GetUserData()
   CODE:
     RETVAL = (Wx_UserDataO*) THIS->GetUserData();
   OUTPUT:
@@ -565,8 +565,8 @@ Wx_SizerItem::GetUserData()
 
 MODULE=Wx PACKAGE=Wx::PlSizer
 
-Wx_PlSizer*
-Wx_PlSizer::new()
+wxPlSizer*
+wxPlSizer::new()
   CODE:
     RETVAL = new wxPlSizer( CLASS );
   OUTPUT:

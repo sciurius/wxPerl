@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Palette.xs
+## Name:        XS/Palette.xs
 ## Purpose:     XS for Wx::Palette
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      9/ 1/2000
-## RCS-ID:      
+## Created:     09/01/2000
+## RCS-ID:      $Id: Palette.xs,v 1.10 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,8 +14,8 @@
 
 MODULE=Wx PACKAGE=Wx::Palette
 
-Wx_Palette*
-Wx_Palette::new( r, g, b )
+wxPalette*
+wxPalette::new( r, g, b )
     SV* r
     SV* g
     SV* b
@@ -44,16 +44,16 @@ Wx_Palette::new( r, g, b )
 
 ## XXX threads
 void
-Wx_Palette::DESTROY()
+wxPalette::DESTROY()
 
 int
-Wx_Palette::GetPixel( red, green, blue )
+wxPalette::GetPixel( red, green, blue )
     unsigned char red
     unsigned char green
     unsigned char blue
 
 void
-Wx_Palette::GetRGB( pixel )
+wxPalette::GetRGB( pixel )
     int pixel
   PREINIT:
     unsigned char red, green, blue;
@@ -74,5 +74,5 @@ Wx_Palette::GetRGB( pixel )
     }
 
 bool
-Wx_Palette::Ok()
+wxPalette::Ok()
 

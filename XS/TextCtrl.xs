@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.15 2004/02/29 14:43:24 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.16 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,11 +29,11 @@ wxTextUrlEvent::GetURLEnd()
 
 MODULE=Wx PACKAGE=Wx::TextAttr
 
-Wx_TextAttr*
-Wx_TextAttr::new( colText = wxNullColour, colBack = wxNullColour, font = (Wx_Font*)&wxNullFont )
-    Wx_Colour colText
-    Wx_Colour colBack
-    Wx_Font* font
+wxTextAttr*
+wxTextAttr::new( colText = wxNullColour, colBack = wxNullColour, font = (wxFont*)&wxNullFont )
+    wxColour colText
+    wxColour colBack
+    wxFont* font
   CODE:
     if( items == 1 )
         RETVAL = new wxTextAttr();
@@ -43,37 +43,37 @@ Wx_TextAttr::new( colText = wxNullColour, colBack = wxNullColour, font = (Wx_Fon
     RETVAL
 
 void
-Wx_TextAttr::DESTROY()
+wxTextAttr::DESTROY()
 
-Wx_Colour*
-Wx_TextAttr::GetBackgroundColour()
+wxColour*
+wxTextAttr::GetBackgroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetBackgroundColour() );
   OUTPUT:
     RETVAL
 
-Wx_Font*
-Wx_TextAttr::GetFont()
+wxFont*
+wxTextAttr::GetFont()
   CODE:
     RETVAL = new wxFont( THIS->GetFont() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_TextAttr::GetTextColour()
+wxColour*
+wxTextAttr::GetTextColour()
   CODE:
     RETVAL = new wxColour( THIS->GetTextColour() );
   OUTPUT:
     RETVAL
 
 bool
-Wx_TextAttr::HasBackgroundColour()
+wxTextAttr::HasBackgroundColour()
 
 bool
-Wx_TextAttr::HasFont()
+wxTextAttr::HasFont()
 
 bool
-Wx_TextAttr::HasTextColour()
+wxTextAttr::HasTextColour()
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
@@ -92,7 +92,7 @@ wxTextCtrl::HitTest( pt )
 #endif
 
 bool
-Wx_TextAttr::IsDefault()
+wxTextAttr::IsDefault()
 
 MODULE=Wx PACKAGE=Wx::TextCtrl
 

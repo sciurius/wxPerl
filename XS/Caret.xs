@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Caret.xs
+## Name:        XS/Caret.xs
 ## Purpose:     XS for Wx::Caret
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/12/2000
-## RCS-ID:      
+## RCS-ID:      $Id: Caret.xs,v 1.6 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,27 +15,27 @@
 MODULE=Wx PACKAGE=Wx::Caret
 
 void
-Wx_Caret::new( ... )
+wxCaret::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wwin_n_n, newWH )
         MATCH_REDISP( wxPliOvl_wwin_wsiz, newSize )
     END_OVERLOAD( Wx::Caret::new )
 
-Wx_Caret*
+wxCaret*
 newSize( CLASS, window, size )
     SV* CLASS
-    Wx_Window* window
-    Wx_Size size
+    wxWindow* window
+    wxSize size
   CODE:
     RETVAL = new wxCaret( window, size );
   OUTPUT:
     RETVAL
 
-Wx_Caret*
+wxCaret*
 newWH( CLASS, window, width, height )
     SV* CLASS
-    Wx_Window* window
+    wxWindow* window
     int width
     int height
   CODE:
@@ -44,7 +44,7 @@ newWH( CLASS, window, width, height )
     RETVAL
 
 void
-Wx_Caret::Destroy()
+wxCaret::Destroy()
   CODE:
     delete THIS;
 
@@ -56,7 +56,7 @@ GetBlinkTime()
     RETVAL
 
 void
-Wx_Caret::GetSizeWH()
+wxCaret::GetSizeWH()
   PREINIT:
     int w;
     int h;
@@ -66,15 +66,15 @@ Wx_Caret::GetSizeWH()
     PUSHs( sv_2mortal( newSViv( w ) ) );
     PUSHs( sv_2mortal( newSViv( h ) ) );
 
-Wx_Size*
-Wx_Caret::GetSize()
+wxSize*
+wxCaret::GetSize()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
     RETVAL
 
 void
-Wx_Caret::GetPositionXY()
+wxCaret::GetPositionXY()
   PREINIT:
     int x;
     int y;
@@ -84,27 +84,27 @@ Wx_Caret::GetPositionXY()
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
-Wx_Point*
-Wx_Caret::GetPosition()
+wxPoint*
+wxCaret::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
 
-Wx_Window*
-Wx_Caret::GetWindow()
+wxWindow*
+wxCaret::GetWindow()
 
 void
-Wx_Caret::Hide()
+wxCaret::Hide()
 
 bool
-Wx_Caret::IsOk()
+wxCaret::IsOk()
 
 bool
-Wx_Caret::IsVisible()
+wxCaret::IsVisible()
 
 void
-Wx_Caret::Move( ... )
+wxCaret::Move( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wpoi, MovePoint )
@@ -112,13 +112,13 @@ Wx_Caret::Move( ... )
     END_OVERLOAD( Wx::Caret::Move )
 
 void
-Wx_Caret::MovePoint( point )
-    Wx_Point point
+wxCaret::MovePoint( point )
+    wxPoint point
   CODE:
     THIS->Move( point );
 
 void
-Wx_Caret::MoveXY( x, y )
+wxCaret::MoveXY( x, y )
     int x
     int y
   CODE:
@@ -131,7 +131,7 @@ SetBlinkTime( milliseconds )
     wxCaret::SetBlinkTime( milliseconds );
 
 void
-Wx_Caret::SetSize( ... )
+wxCaret::SetSize( ... )
   PPCODE:
     BEGIN_OVERLOAD()
       MATCH_REDISP( wxPliOvl_wsiz, SetSizeSize )
@@ -139,18 +139,18 @@ Wx_Caret::SetSize( ... )
     END_OVERLOAD( Wx::Caret::SetSize )
 
 void
-Wx_Caret::SetSizeSize( size )
-    Wx_Size size
+wxCaret::SetSizeSize( size )
+    wxSize size
   CODE:
     THIS->SetSize( size );
 
 void
-Wx_Caret::SetSizeWH( w, h )
+wxCaret::SetSizeWH( w, h )
     int w
     int h
   CODE:
     THIS->SetSize( w, h );
 
 void
-Wx_Caret::Show( show = TRUE )
+wxCaret::Show( show = TRUE )
     bool show

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        MultiChoiceDialog.xs
+## Name:        XS/MultiChoiceDialog.xs
 ## Purpose:     XS for Wx::MultiChoiceDialog
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      3/ 2/2001
-## RCS-ID:      $Id: MultiChoiceDialog.xs,v 1.8 2003/05/05 20:38:41 mbarbon Exp $
+## Created:     03/02/2001
+## RCS-ID:      $Id: MultiChoiceDialog.xs,v 1.9 2004/07/10 21:49:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,14 +14,14 @@
 
 MODULE=Wx PACKAGE=Wx::MultiChoiceDialog
 
-Wx_MultiChoiceDialog*
-Wx_MultiChoiceDialog::new( parent, message, caption, chs, style = wxCHOICEDLG_STYLE, pos = wxDefaultPosition )
-    Wx_Window* parent
+wxMultiChoiceDialog*
+wxMultiChoiceDialog::new( parent, message, caption, chs, style = wxCHOICEDLG_STYLE, pos = wxDefaultPosition )
+    wxWindow* parent
     wxString message
     wxString caption
     SV* chs
     long style
-    Wx_Point pos
+    wxPoint pos
   PREINIT:
     wxString* choices;
     int n;
@@ -34,7 +34,7 @@ Wx_MultiChoiceDialog::new( parent, message, caption, chs, style = wxCHOICEDLG_ST
     RETVAL
 
 void
-Wx_MultiChoiceDialog::GetSelections()
+wxMultiChoiceDialog::GetSelections()
   PREINIT:
     wxArrayInt ret;
     int i, max;
@@ -48,7 +48,7 @@ Wx_MultiChoiceDialog::GetSelections()
     }
 
 void
-Wx_MultiChoiceDialog::SetSelections( ... )
+wxMultiChoiceDialog::SetSelections( ... )
   PREINIT:
     wxArrayInt array;
     int i;
