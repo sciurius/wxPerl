@@ -432,6 +432,11 @@ static double constant( const char *name, int arg )
 #endif
 
     r( wxEXPAND );                      // sizer
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    r( wxEXEC_SYNC );
+    r( wxEXEC_ASYNC );
+    r( wxEXEC_NOHIDE );
+#endif
     break;
   case 'F':
     r( wxFDIAGONAL_HATCH );             // brush pen
