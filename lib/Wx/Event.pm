@@ -271,10 +271,10 @@ sub EVT_SPINCTRL($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPI
 # SplitterEvent
 #
 
-sub EVT_SPLITTER_SASH_POS_CHANGING { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGING, $_[2] ) }
-sub EVT_SPLITTER_SASH_POS_CHANGED { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, $_[2] ) }
-sub EVT_SPLITTER_UNSPLIT { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_UNSPLIT, $_[2] ) }
-sub EVT_SPLITTER_DOUBLECLICKED { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_DOUBLECLICK, $_[2] ) }
+sub EVT_SPLITTER_SASH_POS_CHANGING($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGING, $_[2] ) }
+sub EVT_SPLITTER_SASH_POS_CHANGED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, $_[2] ) }
+sub EVT_SPLITTER_UNSPLIT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_UNSPLIT, $_[2] ) }
+sub EVT_SPLITTER_DOUBLECLICKED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_DOUBLECLICK, $_[2] ) }
 
 #
 # TimerEvent
@@ -327,7 +327,6 @@ no strict;
 package Wx::ActivateEvent;   @ISA = qw(Wx::Event);
 package Wx::CommandEvent;    @ISA = qw(Wx::Event);
 package Wx::CloseEvent;      @ISA = qw(Wx::Event);
-package Wx::DropFilesEvent;  @ISA = qw(Wx::Event);
 package Wx::EraseEvent;      @ISA = qw(Wx::Event);
 package Wx::FocusEvent;      @ISA = qw(Wx::Event);
 package Wx::KeyEvent;        @ISA = qw(Wx::Event);
