@@ -4,13 +4,13 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: XSP.yp,v 1.7 2003/12/13 17:15:06 mbarbon Exp $
+## RCS-ID:      $Id: XSP.yp,v 1.8 2003/12/20 15:41:19 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-%token OPCURLY CLCURLY OPPAR CLPAR PERC SEMICOLON TILDE DCOLON
+%token OPCURLY CLCURLY OPPAR CLPAR SEMICOLON TILDE DCOLON
 %token STAR AMP COMMA EQUAL OPSPECIAL CLSPECIAL
 %token INTEGER RAW_CODE ID
 
@@ -54,7 +54,12 @@ class:  perc_name 'class' ID OPCURLY methods CLCURLY SEMICOLON
                                      methods => $_[5] ) }
       | 'class' ID OPCURLY methods CLCURLY SEMICOLON
             { add_data_class( $_[0], class   => $_[2],
-                                     methods => $_[4] ) };
+                                     methods => $_[4] ) }
+      | perc_name 'class' ID OPCURLY CLCURLY SEMICOLON
+            { add_data_class( $_[0], class   => $_[3],
+                                     perl    => $_[1] ) }
+      | 'class' ID OPCURLY CLCURLY SEMICOLON
+            { add_data_class( $_[0], class   => $_[2] ) };
 
 methods:        method          { [ $_[1] ] }
               | methods method  { push @{$_[1]}, $_[2]; $_[1] }
@@ -279,9 +284,12 @@ sub yylex {
 }
 
 sub yyerror {
-  my $buf = $_[0]->YYData->{LEX}{BUFFER};
-
-  print STDERR "Error: (", $_[0]->YYCurtok, ') (',
+  my $data = $_[0]->YYData->{LEX};
+  my $buf = $data->{BUFFER};
+  my $fh = $data->{FH};
+   
+  print STDERR "Error: line " . $fh->input_line_number . " (",
+    $_[0]->YYCurtok, ') (',
     $_[0]->YYCurval, ') "', ( $buf ? $$buf : '--empty buffer--' ),
       q{"} . "\n";
   print STDERR "Expecting: (", ( join ", ", map { "'$_'" } $_[0]->YYExpect ),
