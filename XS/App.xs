@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: App.xs,v 1.26 2005/01/04 17:15:07 mbarbon Exp $
+## RCS-ID:      $Id: App.xs,v 1.27 2005/01/23 13:43:01 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,11 +29,6 @@ wxWakeUpIdle()
 
 MODULE=Wx PACKAGE=Wx::_App
 
-## void
-## End()
-##   CODE:
-##     wxEntryCleanup();
-
 int
 Start( app, sub )
     wxApp* app 
@@ -42,13 +37,14 @@ Start( app, sub )
     // for Wx::Perl::SplashFast
     if( !SvROK( sub ) || SvTYPE( SvRV( sub ) ) != SVt_PVCV )
       croak( "sub must be a CODE reference" );
-
-    app->argc = wxPli_get_args_argc_argv( &app->argv, 1 );
+#if WXPERL_W_VERSION_LE( 2, 5, 1 )
+    app->argc = wxPli_get_args_argc_argv( (void***) &app->argv, 1 );
+#endif
 #ifdef __WXMOTIF__
     app->SetClassName( app->argv[0] );
     app->SetAppName( app->argv[0] );
 #endif
-#if !WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if WXPERL_W_VERSION_LE( 2, 5, 0 )
     if( !wxPerlAppCreated )
         wxEntryInitGui();
 #endif

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.23 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: app.h,v 1.24 2005/01/23 13:43:01 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -65,10 +65,12 @@ wxPliApp::~wxPliApp()
 
     OnExit();
 #endif
-    wxPli_delete_argv( argv, 1 );
+#if WXPERL_W_VERSION_LE( 2, 5, 1 )
+    wxPli_delete_argv( (void***) &argv, 1 );
 
     argc = 0;
     argv = 0;
+#endif
 }
 
 inline bool wxPliApp::OnInit() 

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.67 2005/01/22 13:16:15 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.68 2005/01/23 13:43:01 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -229,12 +229,24 @@ Load()
     if( wxPerlAppCreated || wxTopLevelWindows.GetCount() > 0 )
         return;
 
-    char** argv = 0;
     int argc = 0;
+#if wxUSE_UNICODE && WXPERL_W_VERSION_GE( 2, 5, 3 )
+    wxChar** argv = 0;
 
-    argc = wxPli_get_args_argc_argv( &argv, 0 );
+    argc = wxPli_get_args_argc_argv( (void***) &argv, 1 );
     wxEntryStart( argc, argv );
-    wxPli_delete_argv( argv, 0 );
+#if WXPERL_W_VERSION_LE( 2, 5, 2 )
+    wxPli_delete_argv( (void***) &argv, 1 );
+#endif
+#else
+    char** argv = 0;
+
+    argc = wxPli_get_args_argc_argv( (void***) &argv, 0 );
+    wxEntryStart( argc, argv );
+#if WXPERL_W_VERSION_LE( 2, 5, 2 )
+    wxPli_delete_argv( (void***) &argv, 0 );
+#endif
+#endif
 
 void
 SetConstants()
@@ -253,6 +265,7 @@ SetOvlConstants()
 void
 UnLoad()
   CODE:
+    wxPerlAppCreated = wxTheApp != NULL && wxTheApp->Initialized();
     Wx_booted = Wx_Const_booted = Wx_Ctrl_booted =
         Wx_Evt_booted = Wx_Wnd_booted = Wx_GDI_booted = Wx_Win_booted = false;
     if( wxPerlInitialized && !wxPerlAppCreated )

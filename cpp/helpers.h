@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.71 2005/01/05 14:47:57 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.72 2005/01/23 13:43:01 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -181,8 +181,8 @@ AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
 AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count );
 AV* FUNCPTR( wxPli_objlist_2_av )( pTHX_ const wxList& objs );
 
-void wxPli_delete_argv( void* argv, bool unicode );
-int wxPli_get_args_argc_argv( void* argv, bool unicode );
+void wxPli_delete_argv( void*** argv, bool unicode );
+int wxPli_get_args_argc_argv( void*** argv, bool unicode );
 void wxPli_get_args_objectarray( pTHX_ SV** sp, int items,
                                          void** array, const char* package );
 
