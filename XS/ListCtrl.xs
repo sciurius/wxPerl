@@ -351,6 +351,7 @@ Wx_ListCtrl::GetColumn( col )
   PREINIT:
     wxListItem item;
   CODE:
+    item.SetMask( wxLIST_MASK_TEXT|wxLIST_MASK_IMAGE|wxLIST_MASK_FORMAT );
     if( THIS->GetColumn( col, item ) )
     {
       RETVAL = new wxListItem( item );
