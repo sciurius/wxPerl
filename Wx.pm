@@ -98,7 +98,7 @@ sub END {
 sub _match(\@$;$$) { &_xsmatch( [@{shift()}],@_ ) }
 #*_match = \&_xsmatch;
 
-=for comment
+=begin comment
 
 sub _match(\@$;$$) {
   my( $args, $sig, $required, $dots ) = @_;
@@ -134,6 +134,8 @@ sub _match(\@$;$$) {
 
   return 1;
 }
+
+=end comment
 
 =cut
 
