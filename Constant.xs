@@ -485,6 +485,7 @@ if( strEQ( name, #n ) ) \
     r( wxOPEN );
     r( wxOVERWRITE_PROMPT );
     
+    r( wxODDEVEN_RULE );                // dc
     r( wxOR );                          // dc
     r( wxOR_INVERT );                   // dc
     r( wxOR_REVERSE );                  // dc
@@ -493,6 +494,14 @@ if( strEQ( name, #n ) ) \
     break;
   case 'P':
     r( wxPROCESS_ENTER );
+
+    r( wxPD_APP_MODAL );                // progressdialog
+    r( wxPD_AUTO_HIDE );                // progressdialog
+    r( wxPD_CAN_ABORT );                // progressdialog
+    r( wxPD_ELAPSED_TIME );             // progressdialog
+    r( wxPD_ESTIMATED_TIME );           // progressdialog
+    r( wxPD_REMAINING_TIME );           // progressdialog
+    //    r( wxPD_SMOOTH );                   // progressdialog
 
     r( wxPercentOf );                   // layout constraints
     r( wxPartRegion );                  // layout constraints
@@ -600,6 +609,7 @@ if( strEQ( name, #n ) ) \
     break;
   case 'W':
     r( wxWANTS_CHARS );
+    r( wxWINDING_RULE );                // dc
     r( wxWidth );                       // layout constraints
     break;
   case 'X':
