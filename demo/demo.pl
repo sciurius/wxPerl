@@ -39,8 +39,8 @@ sub is_absolute {
 sub filename { is_absolute( $_[0] ) ? $_[0] : "$FindBin::RealBin/" . $_[0] }
 
 # some IDs
-use vars qw($ID_QUIT $ID_TASKBAR_DUMMY);
-( $ID_QUIT, $ID_TASKBAR_DUMMY ) = ( 10000 .. 10020 );
+use vars qw($ID_QUIT $ID_TASKBAR_DUMMY $ID_ABOUT);
+( $ID_QUIT, $ID_TASKBAR_DUMMY, $ID_ABOUT ) = ( 10000 .. 10020 );
 
 package Demo;
 
@@ -54,6 +54,8 @@ sub new {
 
   return $this;
 }
+
+sub menu { }
 
 package Demo::External;
 
@@ -178,6 +180,17 @@ sub run {
   return $this->package->window( $frame->notebook );
 }
 
+sub menu {
+  my $this = shift;
+  no strict;
+
+  if( defined &{$this->package . '::menu'} ) {
+    return $this->package->menu;
+  }
+
+  return;
+}
+
 package DemoFrame;
 
 use base qw(Wx::Frame);
@@ -206,6 +219,9 @@ my @demos =
     ],
     [ 'Sizers',
       [
+       [ 'BoxSizer', demo( 'wxBoxSizer' ) ],
+       [ 'GridSizer', demo( 'wxGridSizer' ) ],
+       [ 'FrexGridSizer', demo( 'wxFlexGridSizer' ) ],
        [ 'NotebookSizer', demo( 'wxNotebookSizer' ) ],
       ],
     ],
@@ -251,6 +267,20 @@ sub new {
 
   $this->SetIcon( Wx::GetWxPerlIcon() );
 
+  # create menu
+  my $bar = Wx::MenuBar->new;
+
+  my $file = Wx::Menu->new;
+  $file->Append( $main::ID_QUIT, "E&xit" );
+
+  my $help = Wx::Menu->new;
+  $help->Append( $main::ID_ABOUT, "&About..." );
+
+  $bar->Append( $file, "&File" );
+  $bar->Append( $help, "&Help" );
+
+  $this->SetMenuBar( $bar );
+
   # create splitters
   my $split1 = Wx::SplitterWindow->new( $this, -1 );
   my $split2 = Wx::SplitterWindow->new( $split1, -1 );
@@ -274,6 +304,9 @@ sub new {
 
   EVT_TREE_SEL_CHANGED( $this, $tree, \&OnSelChanged );
   EVT_CLOSE( $this, \&OnClose );
+
+  EVT_MENU( $this, $main::ID_QUIT, sub { $this->Close; } );
+  EVT_MENU( $this, $main::ID_ABOUT, \&OnAbout );
 
   $split1->SplitVertically( $tree, $split2, 150 );
   $split2->SplitHorizontally( $nb, $text, 300 );
@@ -352,6 +385,15 @@ sub populate_demo_list_helper {
   }
 }
 
+sub OnAbout {
+  use Wx qw(wxOK wxCENTRE wxVERSION_STRING);
+  my $this = shift;
+
+  Wx::MessageBox( "wxPerl demo, (c) 2001-2002 Mattia Barbon\n" .
+                  "wxPerl $Wx::VERSION, " . wxVERSION_STRING,
+                  "About wxPerl demo", wxOK|wxCENTRE, $this );
+}
+
 sub OnClose {
   my $this = shift;
 
@@ -373,6 +415,26 @@ sub OnClose {
   $config->WriteInt( "Height", $h );
 
   $this->Destroy;
+}
+
+sub add_menu {
+  my $this = shift;
+  my $bar = $this->GetMenuBar;
+  my @menus;
+
+  while( @_ ) {
+    my( $menu, $title ) = ( pop @_, pop @_ );
+    $bar->Insert( 1, $menu, $title );
+  }
+}
+
+sub remove_menu {
+  my $this = shift;
+  my $bar = $this->GetMenuBar;
+
+  while( $bar->GetMenuCount > 2 ) {
+    $bar->Remove( 1 )->Destroy;
+  }
 }
 
 sub load_demo {
@@ -409,10 +471,12 @@ sub load_demo {
   if( $nb->GetPageCount == 3 ) {
     $nb->SetSelection( 0 ) if $sel == 2;
     $nb->DeletePage( 2 );
+    $this->remove_menu;
   }
   if( ref( $window ) ) {
     $this->notebook->AddPage( $window, 'Demo' );
     $nb->SetSelection( $sel ) if $sel == 2;
+    $this->add_menu( $obj->menu );
   }
 }
 

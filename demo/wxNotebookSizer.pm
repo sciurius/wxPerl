@@ -16,9 +16,11 @@ sub window {
   shift;
   my $parent = shift;
 
-  my $window = NBSDemoWin->new( $parent );
+  my $dialog = NBSDemoWin->new( $parent );
+  $dialog->ShowModal;
+  $dialog->Destroy;
 
-  return $window;
+  return undef;
 }
 
 sub description {
@@ -52,16 +54,20 @@ use Wx::Html;
 sub new {
   my $class = shift;
   # we want it resizeable
-  my $this = $class->SUPER::new( $_[0], -1, 'Wx::NotebookSizer',
+  my $this = $class->SUPER::new( undef, -1, 'Wx::NotebookSizer',
                                  wxDefaultPosition, wxDefaultSize, 
                                  wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 
+  my $top_sizer = Wx::BoxSizer->new( wxHORIZONTAL );
+
   my $notebook = Wx::Notebook->new( $this, -1 );
-  my $top_sizer = Wx::NotebookSizer->new( $notebook );
+  my $nbsizer = Wx::NotebookSizer->new( $notebook );
+
   # each Wx::Notebook page needs to have a sizer if you want
   # to use Wx::NotebookSizer
   my $page1_sz = Wx::BoxSizer->new( wxHORIZONTAL );
-  my $page1 = Wx::HtmlWindow->new( $notebook, -1 );
+  my $page1 = Wx::HtmlWindow->new( $notebook, -1, wxDefaultPosition,
+                                   [200, 100] );
   $page1->SetPage( <<EOT );
 <html>
 <head><title>A page</title></head>
@@ -83,11 +89,14 @@ EOT
   my $page2 = Wx::Button->new( $notebook, -1, "I'm a big button..." );
   $page2_sz->Add( $page2, 1, wxGROW );
   $notebook->AddPage( $page2, 'Button' );
+  #$notebook->SetSizer( $nbsizer );
 
+  $top_sizer->Add( $nbsizer, 1, wxGROW );
+
+  $this->SetAutoLayout( 1 );
+  $this->SetSizer( $top_sizer );
   $top_sizer->Fit( $this );
   $top_sizer->SetSizeHints( $this );
-  $this->SetSizer( $top_sizer );
-  $this->SetAutoLayout( 1 );
 
   return $this;
 }
