@@ -14,7 +14,7 @@ package Win32_MSVC;
 
 use strict;
 use Config;
-use base 'Win32';
+use base 'W32';
 use wxMMUtils;
 
 #

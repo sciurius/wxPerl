@@ -16,7 +16,7 @@ build/Win32_MinGW.pm
 build/wxConfig.pm
 build/wxMMUtils.pm
 build/Tests_Helper.pm
-build/Win32.pm
+build/W32.pm
 
 docs/bugs.txt
 docs/changes.txt

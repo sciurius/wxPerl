@@ -1,4 +1,4 @@
-package Win32;
+package W32;
 
 use strict;
 use Config;
