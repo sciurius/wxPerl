@@ -83,6 +83,7 @@ extern "C" {
     XS( boot_Wx_Wnd );
     XS( boot_Wx_GDI );
 #if defined( WXPL_STATIC )
+    XS( boot_Wx__STC );
     XS( boot_Wx__XRC );
     XS( boot_Wx__Print );
     XS( boot_Wx__MDI );
