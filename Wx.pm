@@ -200,15 +200,18 @@ __END__
 
 =head1 NAME
 
-Wx - interface to wxWindows GUI toolkit
+Wx - interface to the wxWindows GUI toolkit
 
 =head1 SYNOPSIS
 
-	use Wx;
+    use Wx;
 
 =head1 DESCRIPTION
 
-The Wx module is a wrapper for the wxWindows GUI toolkit
+The Wx module is a wrapper for the wxWindows GUI toolkit.
+
+This module comes with extensive documentation in HTML format; you
+can download it at http://wxperl.sourceforge.net/
 
 =head1 AUTHOR
 
