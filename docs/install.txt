@@ -184,7 +184,7 @@ for details.
   The 'perl' executable shipped with your OS can't be used to run executables
 that interact with the GUI, hence you need to prepare a special 'wxPerl'
 executable. Let's assume that your 'perl' is in '/usr/local/bin/perl'.
-  First, you ned to install wxWindows, then do the following from the
+  First, you need to install wxWindows, then do the following from the
 command prompt:
 
 $ cp /usr/local/bin/perl wxPerl
@@ -193,3 +193,16 @@ $ `wx-config --rezflags` wxPerl
 Now test your shiny new wxPerl executable:
 
 $ wxPerl -Mblib samples/minimal/minimal.pl
+
+* FAQ
+
+1) Problems compiling XRC and/or STC
+
+Usually they start like this:
+
+STC.c:33:24: wx/stc/stc.h: No such file or directory
+
+and go ahead with many compilation errors.
+  This usually means you did not install wxWindows' 'contrib' libraries;
+either install them or disable STC/XRC passing --disable-stc --disable-xrc
+to Makefile.PL.

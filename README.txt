@@ -18,7 +18,8 @@ make
 make test
 make install
 
-for more detailed instructions see the docs/install.txt file
+for more detailed instructions see the docs/install.txt file;
+in case of problems please consult the FAQ section therein.
 
 TESTED PLATFORMS:
 
