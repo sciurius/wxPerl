@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        sizer.h
+// Name:        cpp/sizer.h
 // Purpose:     c++ wrapper for wxSizers
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: sizer.h,v 1.10 2003/08/05 17:20:35 mbarbon Exp $
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@ class wxPlSizer:public wxSizer
 public:
     wxPlSizer( const char* package );
 
-    DEF_V_CBACK_VOID__VOID( RecalcSizes );
+    DEC_V_CBACK_VOID__VOID( RecalcSizes );
     virtual wxSize CalcMin();
 };
 
