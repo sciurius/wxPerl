@@ -36,12 +36,12 @@ my $icook = Wx::GetWxPerlIcon();
 my( $newbmp, $newcol, $newname ) = ( 0, 0, 0 );
 my( $scrgb, $sccol, $scname ) = ( 0, 0, 0 );
 
-hijack( Wx::Brush::newBitmap       => sub { $newbmp = 1 },
-        Wx::Brush::newColour       => sub { $newcol = 1 },
-        Wx::Brush::newName         => sub { $newname = 1 },
-        Wx::Brush::SetColourRGB    => sub { $scrgb = 1 },
-        Wx::Brush::SetColourColour => sub { $sccol = 1 },
-        Wx::Brush::SetColourName   => sub { $scname = 1 } );
+hijack( 'Wx::Brush::newBitmap'       => sub { $newbmp = 1 },
+        'Wx::Brush::newColour'       => sub { $newcol = 1 },
+        'Wx::Brush::newName'         => sub { $newname = 1 },
+        'Wx::Brush::SetColourRGB'    => sub { $scrgb = 1 },
+        'Wx::Brush::SetColourColour' => sub { $sccol = 1 },
+        'Wx::Brush::SetColourName'   => sub { $scname = 1 } );
 
 Wx::Brush->new( Wx::Bitmap->new( 1, 1, 1 ) );
 ok( $newbmp, 'Wx::Brush::newBitmap' );
@@ -69,13 +69,13 @@ ok( $scname, 'Wx::Brush::SetColourName' );
 my( $newbmp, $newbmpn, $newbmpcol ) = ( 0, 0, 0 );
 my( $newempty, $newfile, $newicon, $newimage ) = ( 0, 0, 0, 0 );
 
-hijack( Wx::Mask::newBitmapColour => sub { $newbmpcol = 1 },
-        Wx::Mask::newBitmapIndex  => sub { $newbmpn = 1 },
-        Wx::Mask::newBitmap       => sub { $newbmp = 1 },
-        Wx::Bitmap::newEmpty      => sub { $newempty = 1 },
-        Wx::Bitmap::newFile       => sub { $newfile = 1 },
-        Wx::Bitmap::newIcon       => sub { $newicon = 1 },
-        Wx::Bitmap::newImage      => sub { $newimage = 1 } );
+hijack( 'Wx::Mask::newBitmapColour' => sub { $newbmpcol = 1 },
+        'Wx::Mask::newBitmapIndex'  => sub { $newbmpn = 1 },
+        'Wx::Mask::newBitmap'       => sub { $newbmp = 1 },
+        'Wx::Bitmap::newEmpty'      => sub { $newempty = 1 },
+        'Wx::Bitmap::newFile'       => sub { $newfile = 1 },
+        'Wx::Bitmap::newIcon'       => sub { $newicon = 1 },
+        'Wx::Bitmap::newImage'      => sub { $newimage = 1 } );
 
 my $bitmap = Wx::Bitmap->new( 1, 1, 1 );
 ok( $newempty, "Wx::Bitmap::newEmpty" );
@@ -108,8 +108,8 @@ ok( $newbmp,   "Wx::Mask::newBitmap" );
 ##############################################################################
 {
 my( $newrgb, $newname ) = ( 0, 0 );
-hijack( Wx::Colour::newRGB => sub { $newrgb = 1 },
-        Wx::Colour::newName => sub { $newname = 1 } );
+hijack( 'Wx::Colour::newRGB'  => sub { $newrgb = 1 },
+        'Wx::Colour::newName' => sub { $newname = 1 } );
 
 Wx::Colour->new( 1, 2, 3 );
 ok( $newrgb, "Wx::Colour::newRGB" );
@@ -124,12 +124,12 @@ ok( $newname, "Wx::Colour::newName" );
 {
 my( $newwh, $newsize, $movepoint, $movexy, $setsizesize, $setsizewh ) =
   ( 0, 0, 0, 0, 0, 0 );
-hijack( Wx::Caret::newWH     => sub { $newwh = 1 },
-        Wx::Caret::newSize   => sub { $newsize = 1 },
-        Wx::Caret::MovePoint => sub { $movepoint = 1 },
-        Wx::Caret::MoveXY    => sub { $movexy = 1 },
-        Wx::Caret::SetSizeSize => sub { $setsizesize = 1 },
-        Wx::Caret::SetSizeWH => sub { $setsizewh = 1 } );
+hijack( 'Wx::Caret::newWH'     => sub { $newwh = 1 },
+        'Wx::Caret::newSize'   => sub { $newsize = 1 },
+        'Wx::Caret::MovePoint' => sub { $movepoint = 1 },
+        'Wx::Caret::MoveXY'    => sub { $movexy = 1 },
+        'Wx::Caret::SetSizeSize' => sub { $setsizesize = 1 },
+        'Wx::Caret::SetSizeWH' => sub { $setsizewh = 1 } );
 
 my $caret = Wx::Caret->new( Wx::Window->new( $frame, -1 ), 1, 1 );
 ok( $newwh,       "Wx::Caret::newWH" );
@@ -158,14 +158,14 @@ my( $cwiappendstr, $cwiappenddata,
     $cbappendstr, $cbappenddata,
     $cbsetselectionN, $cbsetselectionNN ) = ( 0, 0, 0, 0, 0, 0 );
 my $good_combo = 'Wx::ComboBox'->isa( 'Wx::Choice' );
-hijack( Wx::ControlWithItems::AppendString => sub { $cwiappendstr = 1 },
-        Wx::ControlWithItems::AppendData   => sub { $cwiappenddata = 1 },
+hijack( 'Wx::ControlWithItems::AppendString' => sub { $cwiappendstr = 1 },
+        'Wx::ControlWithItems::AppendData'   => sub { $cwiappenddata = 1 },
         ( $good_combo ? () :
-          ( Wx::ComboBox::AppendString         => sub { $cbappendstr = 1 },
-            Wx::ComboBox::AppendData           => sub { $cbappenddata = 1 } )
+          ( 'Wx::ComboBox::AppendString'         => sub { $cbappendstr = 1 },
+            'Wx::ComboBox::AppendData'           => sub { $cbappenddata = 1 } )
         ),
-        Wx::ComboBox::SetMark              => sub { $cbsetselectionNN = 1 },
-        Wx::ComboBox::SetSelectionN        => sub { $cbsetselectionN = 1 } );
+        'Wx::ComboBox::SetMark'              => sub { $cbsetselectionNN = 1 },
+        'Wx::ComboBox::SetSelectionN'        => sub { $cbsetselectionN = 1 } );
 
 my $cwi = Wx::ListBox->new( $frame, -1 );
 my $cb = Wx::ComboBox->new( $frame, -1, 'bar' );
@@ -196,10 +196,10 @@ ok( $cbsetselectionNN,"Wx::ComboBox::SetMark" );
 ##############################################################################
 {
 my( $newid, $newimage, $newfile ) = ( 0, 0, 0 );
-hijack( Wx::Cursor::newId    => sub { $newid = 1 },
-        Wx::Cursor::newImage => sub { $newimage = 1 },
+hijack( 'Wx::Cursor::newId'    => sub { $newid = 1 },
+        'Wx::Cursor::newImage' => sub { $newimage = 1 },
         ( Wx::wxMSW()
-          ? ( Wx::Cursor::newFile  => sub { $newfile = 1 } )
+          ? ( 'Wx::Cursor::newFile'  => sub { $newfile = 1 } )
           : () ) );
 
 Wx::Cursor->new( 1 );
@@ -221,8 +221,8 @@ SKIP: {
 ##############################################################################
 {
 my( $newnull, $newfile ) = ( 0, 0 );
-hijack( Wx::Icon::newNull => sub { $newnull = 1 },
-        Wx::Icon::newFile => sub { $newfile = 1 } );
+hijack( 'Wx::Icon::newNull' => sub { $newnull = 1 },
+        'Wx::Icon::newFile' => sub { $newfile = 1 } );
 
 Wx::Icon->new();
 ok( $newnull, "Wx::Icon::newNull" );
@@ -237,10 +237,10 @@ ok( $newfile, "Wx::Icon::newFile" );
 {
 my( $addtoollong, $addtoolshort, $setmarginsxy, $setmarginssize ) =
   ( 0, 0, 0, 0 );
-hijack( Wx::ToolBarBase::AddToolLong    => sub { $addtoollong = 1 },
-        Wx::ToolBarBase::AddToolShort   => sub { $addtoolshort = 1 },
-        Wx::ToolBarBase::SetMarginsXY   => sub { $setmarginsxy = 1 },
-        Wx::ToolBarBase::SetMarginsSize => sub { $setmarginssize = 1 } );
+hijack( 'Wx::ToolBarBase::AddToolLong'    => sub { $addtoollong = 1 },
+        'Wx::ToolBarBase::AddToolShort'   => sub { $addtoolshort = 1 },
+        'Wx::ToolBarBase::SetMarginsXY'   => sub { $setmarginsxy = 1 },
+        'Wx::ToolBarBase::SetMarginsSize' => sub { $setmarginssize = 1 } );
 
 my $tbar = Wx::ToolBar->new( $frame, -1 );
 $tbar->SetMargins( 0, 1 );
@@ -261,8 +261,8 @@ ok( $addtoolshort, "Wx::ToolBar::AddToolShort" );
 ##############################################################################
 {
 my( $newicon, $newbitmap ) = ( 0, 0 );
-hijack( Wx::StaticBitmap::newIcon   => sub { $newicon = 1 },
-        Wx::StaticBitmap::newBitmap => sub { $newbitmap =1 } );
+hijack( 'Wx::StaticBitmap::newIcon'   => sub { $newicon = 1 },
+        'Wx::StaticBitmap::newBitmap' => sub { $newbitmap =1 } );
 
 Wx::StaticBitmap->new( $frame, -1, Wx::wxNullIcon() );
 ok( $newicon,   "Wx::StaticBitmap::newIcon" );
@@ -276,9 +276,9 @@ ok( $newbitmap, "Wx::StaticBitmap::newBitmap" );
 ##############################################################################
 {
 my( $newxywh, $newps, $newpp ) = ( 0, 0, 0 );
-hijack( Wx::Rect::newXYWH => sub { $newxywh = 1 },
-        Wx::Rect::newPS   => sub { $newps = 1 },
-        Wx::Rect::newPP   => sub { $newpp = 1 } );
+hijack( 'Wx::Rect::newXYWH' => sub { $newxywh = 1 },
+        'Wx::Rect::newPS'   => sub { $newps = 1 },
+        'Wx::Rect::newPP'   => sub { $newpp = 1 } );
 
 Wx::Rect->new( 0, 1, 2, 3 );
 ok( $newxywh, "Wx::Rect::newXYWH" );
@@ -295,8 +295,8 @@ ok( $newpp, "Wx::Rect::newPP" );
 ##############################################################################
 {
 my( $sdotwin, $sdotrec ) = ( 0, 0 );
-hijack( Wx::ScreenDC::StartDrawingOnTopWindow => sub { $sdotwin = 1 },
-        Wx::ScreenDC::StartDrawingOnTopRect   => sub { $sdotrec = 1 } );
+hijack( 'Wx::ScreenDC::StartDrawingOnTopWindow' => sub { $sdotwin = 1 },
+        'Wx::ScreenDC::StartDrawingOnTopRect'   => sub { $sdotrec = 1 } );
 
 my $dc = Wx::ScreenDC->new;
 
@@ -316,29 +316,29 @@ my( $ssxywh, $sswh, $sssize, $ssrect, $stttip, $sttstr, $ctsxy, $ctspoint,
     $cdppoint, $cdpsize, $cpdpoint, $cpdsize, $iepoint, $ierect, $iexywh,
     $movepoint, $movexy, $stcpoi, $stcxy, $scspoi, $scswh )
   = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-hijack( Wx::Window::SetSizeXYWHF => sub { $ssxywh = 1 },
-        Wx::Window::SetSizeWH    => sub { $sswh = 1 },
-        Wx::Window::SetSizeSize  => sub { $sssize = 1 },
-        Wx::Window::SetSizeRect  => sub { $ssrect = 1 },
-        Wx::Window::SetToolTipTip    => sub { $stttip = 1 },
-        Wx::Window::SetToolTipString => sub { $sttstr = 1 },
-        Wx::Window::ClientToScreenXY    => sub { $ctsxy = 1 },
-        Wx::Window::ClientToScreenPoint => sub { $ctspoint = 1 },
-        Wx::Window::ConvertDialogPointToPixels => sub { $cdppoint = 1 },
-        Wx::Window::ConvertDialogSizeToPixels  => sub { $cdpsize =1 },
-        Wx::Window::ConvertPixelsPointToDialog => sub { $cpdpoint = 1 },
-        Wx::Window::ConvertPixelsSizeToDialog  => sub { $cpdsize =1 },
-        Wx::Window::IsExposedPoint => sub { $iepoint = 1 },
-        Wx::Window::IsExposedRect  => sub { $ierect = 1 },
-        Wx::Window::IsExposedXYWH  => sub { $iexywh = 1 },
-        Wx::Window::MovePoint      => sub { $movepoint = 1 },
-        Wx::Window::MoveXY         => sub { $movexy = 1 },
+hijack( 'Wx::Window::SetSizeXYWHF' => sub { $ssxywh = 1 },
+        'Wx::Window::SetSizeWH'    => sub { $sswh = 1 },
+        'Wx::Window::SetSizeSize'  => sub { $sssize = 1 },
+        'Wx::Window::SetSizeRect'  => sub { $ssrect = 1 },
+        'Wx::Window::SetToolTipTip'    => sub { $stttip = 1 },
+        'Wx::Window::SetToolTipString' => sub { $sttstr = 1 },
+        'Wx::Window::ClientToScreenXY'    => sub { $ctsxy = 1 },
+        'Wx::Window::ClientToScreenPoint' => sub { $ctspoint = 1 },
+        'Wx::Window::ConvertDialogPointToPixels' => sub { $cdppoint = 1 },
+        'Wx::Window::ConvertDialogSizeToPixels'  => sub { $cdpsize =1 },
+        'Wx::Window::ConvertPixelsPointToDialog' => sub { $cpdpoint = 1 },
+        'Wx::Window::ConvertPixelsSizeToDialog'  => sub { $cpdsize =1 },
+        'Wx::Window::IsExposedPoint' => sub { $iepoint = 1 },
+        'Wx::Window::IsExposedRect'  => sub { $ierect = 1 },
+        'Wx::Window::IsExposedXYWH'  => sub { $iexywh = 1 },
+        'Wx::Window::MovePoint'      => sub { $movepoint = 1 },
+        'Wx::Window::MoveXY'         => sub { $movexy = 1 },
 #        Wx::Window::PopupMenuPoint => sub { $poppoint = 1 },
 #        Wx::Window::PopupMenuXY    => sub { $popxy = 1 },
-        Wx::Window::ScreenToClientPoint => sub { $stcpoi = 1 },
-        Wx::Window::ScreenToClientXY    => sub { $stcxy = 1 },
-        Wx::Window::SetClientSizeSize   => sub { $scspoi = 1 },
-        Wx::Window::SetClientSizeWH     => sub { $scswh = 1 } );
+        'Wx::Window::ScreenToClientPoint' => sub { $stcpoi = 1 },
+        'Wx::Window::ScreenToClientXY'    => sub { $stcxy = 1 },
+        'Wx::Window::SetClientSizeSize'   => sub { $scspoi = 1 },
+        'Wx::Window::SetClientSizeWH'     => sub { $scswh = 1 } );
 
 $frame->SetSize( 20, 20, 30, 30 );
 ok( $ssxywh, "Wx::Window::SetSizeXYWHF" );
@@ -409,10 +409,10 @@ ok( $scswh, "Wx::Window::SetClientSizeWH" );
 ##############################################################################
 {
 my( $drawcxywh, $drawcrec, $setclxywh, $setclreg ) = ( 0, 0, 0, 0 );
-hijack( Wx::DC::DrawCheckMarkXYWH => sub { $drawcxywh = 1 },
-        Wx::DC::DrawCheckMarkRect => sub { $drawcrec = 1 },
-        Wx::DC::SetClippingRegionXYWH  => sub { $setclxywh = 1 },
-        Wx::DC::SetClippingRegionRegion => sub { $setclreg = 1 } );
+hijack( 'Wx::DC::DrawCheckMarkXYWH' => sub { $drawcxywh = 1 },
+        'Wx::DC::DrawCheckMarkRect' => sub { $drawcrec = 1 },
+        'Wx::DC::SetClippingRegionXYWH'  => sub { $setclxywh = 1 },
+        'Wx::DC::SetClippingRegionRegion' => sub { $setclreg = 1 } );
 
 my $dc = Wx::ClientDC->new( $frame );
 $dc->DrawCheckMark( 1, 2, 5, 6 );
@@ -433,8 +433,8 @@ ok( $setclreg, "Wx::DC::SetClippingRegionRegion" );
 ##############################################################################
 {
 my( $newdefault, $neweh ) = ( 0, 0 );
-hijack( Wx::Timer::newDefault => sub { $newdefault = 1 },
-        Wx::Timer::newEH      => sub { $neweh = 1 } );
+hijack( 'Wx::Timer::newDefault' => sub { $newdefault = 1 },
+        'Wx::Timer::newEH'      => sub { $neweh = 1 } );
 
 Wx::Timer->new->Destroy;
 ok( $newdefault, "Wx::Timer::newDefault" );
@@ -448,10 +448,10 @@ ok( $neweh, "Wx::Timer::newEH" );
 ##############################################################################
 {
 my( $tgetp, $wgetp, $iitid, $iiint ) = ( 0, 0, 0, 0 );
-hijack( Wx::TreeCtrl::GetParent => sub { $tgetp = 1 },
-        Wx::Window::GetParent   => sub { $wgetp = 1 },
-        Wx::TreeCtrl::InsertItemPrev => sub { $iitid = 1 },
-        Wx::TreeCtrl::InsertItemBef  => sub { $iiint = 1 } );
+hijack( 'Wx::TreeCtrl::GetParent' => sub { $tgetp = 1 },
+        'Wx::Window::GetParent'   => sub { $wgetp = 1 },
+        'Wx::TreeCtrl::InsertItemPrev' => sub { $iitid = 1 },
+        'Wx::TreeCtrl::InsertItemBef'  => sub { $iiint = 1 } );
 
 my $tc = Wx::TreeCtrl->new( $frame, -1 );
 my $rt = $tc->AddRoot( 'root' );
@@ -477,14 +477,14 @@ ok( $iiint, "Wx::TreeCtrl::InsertItemBef" );
 {
 my( $newcol, $newbitmap, $newstring,
     $setcolcol, $setcolrgb, $setcolname ) = ( 0, 0, 0, 0, 0, 0 );
-hijack( Wx::Pen::newColour    => sub { $newcol = 1 },
+hijack( 'Wx::Pen::newColour'    => sub { $newcol = 1 },
         ( Wx::wxMSW() ?
-          ( Wx::Pen::newBitmap    => sub { $newbitmap = 1 } ) :
+          ( 'Wx::Pen::newBitmap'    => sub { $newbitmap = 1 } ) :
           () ),
-        Wx::Pen::newString    => sub { $newstring = 1 },
-        Wx::Pen::SetColourColour => sub { $setcolcol = 1 },
-        Wx::Pen::SetColourRGB    => sub { $setcolrgb = 1 },
-        Wx::Pen::SetColourName   => sub { $setcolname = 1 } );
+        'Wx::Pen::newString'    => sub { $newstring = 1 },
+        'Wx::Pen::SetColourColour' => sub { $setcolcol = 1 },
+        'Wx::Pen::SetColourRGB'    => sub { $setcolrgb = 1 },
+        'Wx::Pen::SetColourName'   => sub { $setcolname = 1 } );
 
 Wx::Pen->new( Wx::Colour->new( 'red' ), 0, 0 );
 ok( $newcol, "Wx::Pen::newColour" );
@@ -514,10 +514,10 @@ ok( $setcolname, "Wx::Pen::SetColourName" );
 ##############################################################################
 {
 my( $ici, $istr, $setii, $setstr ) = ( 0, 0, 0, 0 );
-hijack( Wx::ListCtrl::InsertColumnInfo   => sub { $ici = 1 },
-        Wx::ListCtrl::InsertColumnString => sub { $istr = 1 },
-        Wx::ListCtrl::SetItemInfo        => sub { $setii = 1 },
-        Wx::ListCtrl::SetItemString      => sub { $setstr = 1 } );
+hijack( 'Wx::ListCtrl::InsertColumnInfo'   => sub { $ici = 1 },
+        'Wx::ListCtrl::InsertColumnString' => sub { $istr = 1 },
+        'Wx::ListCtrl::SetItemInfo'        => sub { $setii = 1 },
+        'Wx::ListCtrl::SetItemString'      => sub { $setstr = 1 } );
 
 my $lc = Wx::ListCtrl->new( $frame, -1, [-1,-1], [-1,-1], Wx::wxLC_REPORT() );
 
@@ -543,11 +543,11 @@ ok( $setii, "Wx::ListCtrl::SetItemInfo" );
 {
 my( $addbitmap, $addwithcolour, $addicon, $replico, $replbmp )
   = ( 0, 0, 0, 0, 0 );
-hijack( Wx::ImageList::AddBitmap         => sub { $addbitmap = 1 },
-        Wx::ImageList::AddWithColourMask => sub { $addwithcolour = 1 },
-        Wx::ImageList::AddIcon           => sub { $addicon = 1 },
-        Wx::ImageList::ReplaceIcon       => sub { $replico = 1 },
-        Wx::ImageList::ReplaceBitmap     => sub { $replbmp = 1 } );
+hijack( 'Wx::ImageList::AddBitmap'         => sub { $addbitmap = 1 },
+        'Wx::ImageList::AddWithColourMask' => sub { $addwithcolour = 1 },
+        'Wx::ImageList::AddIcon'           => sub { $addicon = 1 },
+        'Wx::ImageList::ReplaceIcon'       => sub { $replico = 1 },
+        'Wx::ImageList::ReplaceBitmap'     => sub { $replbmp = 1 } );
 
 my $img = Wx::Image->new( 16, 16 );
 my( $bmp, $ico ) = ( Wx::Bitmap->new( $img ), $icook );
@@ -576,19 +576,19 @@ ok( $replico, "Wx::ImageList::ReplaceIcon" );
 my( $appmen, $appstr, $appite, $delite, $delid, $desite, $desid,
     $remite, $remid, $prepite, $prepstr, $insite, $insstr )
   = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-hijack( Wx::Menu::AppendSubMenu => sub { $appmen = 1 },
-        Wx::Menu::AppendString  => sub { $appstr = 1 },
-        Wx::Menu::AppendItem    => sub { $appite = 1 },
-        Wx::Menu::DeleteItem    => sub { $delite = 1 },
-        Wx::Menu::DeleteId      => sub { $delid = 1 },
-        Wx::Menu::DestroyItem   => sub { $desite = 1 },
-        Wx::Menu::DestroyId     => sub { $desid = 1 },
-        Wx::Menu::RemoveItem    => sub { $remite = 1 },
-        Wx::Menu::RemoveId      => sub { $remid = 1 },
-        Wx::Menu::PrependString => sub { $prepstr = 1 },
-        Wx::Menu::PrependItem   => sub { $prepite = 1 },
-        Wx::Menu::InsertString  => sub { $insstr = 1 },
-        Wx::Menu::InsertItem    => sub { $insite = 1 } );
+hijack( 'Wx::Menu::AppendSubMenu' => sub { $appmen = 1 },
+        'Wx::Menu::AppendString'  => sub { $appstr = 1 },
+        'Wx::Menu::AppendItem'    => sub { $appite = 1 },
+        'Wx::Menu::DeleteItem'    => sub { $delite = 1 },
+        'Wx::Menu::DeleteId'      => sub { $delid = 1 },
+        'Wx::Menu::DestroyItem'   => sub { $desite = 1 },
+        'Wx::Menu::DestroyId'     => sub { $desid = 1 },
+        'Wx::Menu::RemoveItem'    => sub { $remite = 1 },
+        'Wx::Menu::RemoveId'      => sub { $remid = 1 },
+        'Wx::Menu::PrependString' => sub { $prepstr = 1 },
+        'Wx::Menu::PrependItem'   => sub { $prepite = 1 },
+        'Wx::Menu::InsertString'  => sub { $insstr = 1 },
+        'Wx::Menu::InsertItem'    => sub { $insite = 1 } );
 
 my $me = Wx::Menu->new;
 my $me2 = Wx::Menu->new;
@@ -647,14 +647,14 @@ ok( $insstr, "Wx::Menu::InsertString" );
 {
 my( $wenable, $renable, $wgetlabel, $rgetlabel, $wsetlabel,
     $rsetlabel, $wshow, $rshow ) = ( 0, 0, 0, 0, 0, 0, 0, 0 );
-hijack( Wx::Window::Enable         => sub { $wenable = 1 },
-        Wx::RadioBox::EnableItem   => sub { $renable = 1 },
-        Wx::Window::GetLabel       => sub { $wgetlabel = 1 },
-        Wx::RadioBox::GetItemLabel => sub { $rgetlabel = 1 },
-        Wx::Window::SetLabel       => sub { $wsetlabel = 1 },
-        Wx::RadioBox::SetItemLabel => sub { $rsetlabel = 1 },
-        Wx::Window::Show           => sub { $wshow = 1 },
-        Wx::RadioBox::ShowItem     => sub { $rshow = 1 } );
+hijack( 'Wx::Window::Enable'         => sub { $wenable = 1 },
+        'Wx::RadioBox::EnableItem'   => sub { $renable = 1 },
+        'Wx::Window::GetLabel'       => sub { $wgetlabel = 1 },
+        'Wx::RadioBox::GetItemLabel' => sub { $rgetlabel = 1 },
+        'Wx::Window::SetLabel'       => sub { $wsetlabel = 1 },
+        'Wx::RadioBox::SetItemLabel' => sub { $rsetlabel = 1 },
+        'Wx::Window::Show'           => sub { $wshow = 1 },
+        'Wx::RadioBox::ShowItem'     => sub { $rshow = 1 } );
 
 my $rb = Wx::RadioBox->new( $frame, -1, 'Foo', [-1,-1], [-1,-1],
                             [ qw(a b c) ] );
@@ -692,26 +692,26 @@ my( $newempty, $newxywh, $newpp, $newrect, $cxywh, $cxy, $cpoint,
     $crect, $ixywh, $irect, $iregion, $srect, $sregion,
     $uxywh, $urect, $uregion, $xxywh, $xrect, $xregion )
   = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-hijack( Wx::Region::newEmpty     => sub { $newempty = 1 },
-        Wx::Region::newXYWH      => sub { $newxywh = 1 },
-        Wx::Region::newPP        => sub { $newpp = 1 },
-        Wx::Region::newRect      => sub { $newrect = 1 },
-#        Wx::Region::newPolygon   => sub { $newpolygon = 1 },
-        Wx::Region::ContainsXYWH  => sub { $cxywh = 1 },
-        Wx::Region::ContainsXY    => sub { $cxy = 1 },
-        Wx::Region::ContainsPoint => sub { $cpoint = 1 },
-        Wx::Region::ContainsRect  => sub { $crect = 1 },
-        Wx::Region::IntersectXYWH   => sub { $ixywh = 1 },
-        Wx::Region::IntersectRect   => sub { $irect = 1 },
-        Wx::Region::IntersectRegion => sub { $iregion = 1 },
-        Wx::Region::SubtractRect    => sub { $srect = 1 },
-        Wx::Region::SubtractRegion  => sub { $sregion = 1 },
-        Wx::Region::UnionXYWH   => sub { $uxywh = 1 },
-        Wx::Region::UnionRect   => sub { $urect = 1 },
-        Wx::Region::UnionRegion => sub { $uregion = 1 },
-        Wx::Region::XorXYWH   => sub { $xxywh = 1 },
-        Wx::Region::XorRect   => sub { $xrect = 1 },
-        Wx::Region::XorRegion => sub { $xregion = 1 } );
+hijack( 'Wx::Region::newEmpty'     => sub { $newempty = 1 },
+        'Wx::Region::newXYWH'      => sub { $newxywh = 1 },
+        'Wx::Region::newPP'        => sub { $newpp = 1 },
+        'Wx::Region::newRect'      => sub { $newrect = 1 },
+#        Wx::Region::newPolygon'   => sub { $newpolygon = 1 },
+        'Wx::Region::ContainsXYWH'  => sub { $cxywh = 1 },
+        'Wx::Region::ContainsXY'    => sub { $cxy = 1 },
+        'Wx::Region::ContainsPoint' => sub { $cpoint = 1 },
+        'Wx::Region::ContainsRect'  => sub { $crect = 1 },
+        'Wx::Region::IntersectXYWH'   => sub { $ixywh = 1 },
+        'Wx::Region::IntersectRect'   => sub { $irect = 1 },
+        'Wx::Region::IntersectRegion' => sub { $iregion = 1 },
+        'Wx::Region::SubtractRect'    => sub { $srect = 1 },
+        'Wx::Region::SubtractRegion'  => sub { $sregion = 1 },
+        'Wx::Region::UnionXYWH'   => sub { $uxywh = 1 },
+        'Wx::Region::UnionRect'   => sub { $urect = 1 },
+        'Wx::Region::UnionRegion' => sub { $uregion = 1 },
+        'Wx::Region::XorXYWH'   => sub { $xxywh = 1 },
+        'Wx::Region::XorRect'   => sub { $xrect = 1 },
+        'Wx::Region::XorRegion' => sub { $xregion = 1 } );
 
 Wx::Region->new;
 ok( $newempty, "Wx::Region::newEmpty" );
@@ -779,19 +779,19 @@ my( $newnull, $newicon, $newbitmap, $newstreamt, $newstreamm,
     $newwh, $newdata, $newnametype, $newnamemime,
     $lsm, $lst, $lft, $lfm, $ssm, $sst, $sft, $sfm, $sfo )
   = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-hijack( Wx::Image::newNull        => sub { $newnull = 1 },
-        Wx::Image::newIcon        => sub { $newicon = 1 },
-        Wx::Image::newBitmap      => sub { $newbitmap = 1 },
-        Wx::Image::newStreamType  => sub { $newstreamt = 1 },
-        Wx::Image::newStreamMIME  => sub { $newstreamm = 1 },
-        Wx::Image::newWH          => sub { $newwh = 1 },
-        Wx::Image::newData        => sub { $newdata = 1 },
-        Wx::Image::newNameType    => sub { $newnametype = 1 },
-        Wx::Image::newNameMIME    => sub { $newnamemime = 1 },
-        Wx::Image::LoadStreamType => sub { $lst = 1 },
-        Wx::Image::LoadStreamMIME => sub { $lsm = 1 },
-        Wx::Image::LoadFileType   => sub { $lft = 1 },
-        Wx::Image::LoadFileMIME   => sub { $lfm = 1 },
+hijack( 'Wx::Image::newNull'        => sub { $newnull = 1 },
+        'Wx::Image::newIcon'        => sub { $newicon = 1 },
+        'Wx::Image::newBitmap'      => sub { $newbitmap = 1 },
+        'Wx::Image::newStreamType'  => sub { $newstreamt = 1 },
+        'Wx::Image::newStreamMIME'  => sub { $newstreamm = 1 },
+        'Wx::Image::newWH'          => sub { $newwh = 1 },
+        'Wx::Image::newData'        => sub { $newdata = 1 },
+        'Wx::Image::newNameType'    => sub { $newnametype = 1 },
+        'Wx::Image::newNameMIME'    => sub { $newnamemime = 1 },
+        'Wx::Image::LoadStreamType' => sub { $lst = 1 },
+        'Wx::Image::LoadStreamMIME' => sub { $lsm = 1 },
+        'Wx::Image::LoadFileType'   => sub { $lft = 1 },
+        'Wx::Image::LoadFileMIME'   => sub { $lfm = 1 },
 #        Wx::Image::SaveFileSType  => sub { $sst = 1 },
 #        Wx::Image::SaveFileSMIME  => sub { $ssm = 1 },
 #        Wx::Image::SaveFileType   => sub { $sft = 1 },
