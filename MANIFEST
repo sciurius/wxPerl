@@ -350,6 +350,7 @@ demo/data/locale/en/wxperl_demo.po
 demo/data/locale/fr/wxperl_demo.po
 demo/data/locale/it/wxperl_demo.po
 demo/data/resource.xrc
+demo/data/logo.jpg
 demo/demo.pl
 demo/wxClipboard.pm
 demo/wxFileSystem.pm
