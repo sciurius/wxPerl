@@ -13,6 +13,8 @@
 #include <wx/object.h>
 #include <wx/list.h>
 
+I32 my_looks_like_number( pTHX_ SV* sv );
+
 // helpers for UTF8 <-> wxString/wxChar
 // because xsubpp does not allow preprocessor commands in typemaps
 

@@ -34,9 +34,6 @@ private:
 };
 #endif
 
-//FIXME// move to header
-extern I32 my_looks_like_number( pTHX_ SV* sv );
-
 bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
                                    size_t nproto, int required,
                                    bool allow_more, size_t offset );

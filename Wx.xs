@@ -149,9 +149,6 @@ void wxEntryCleanup()
 
 #endif
 
-//FIXME// move to header
-extern I32 my_looks_like_number( pTHX_ SV* sv );
-  
 DEFINE_PLI_HELPERS( st_wxPliHelpers );
 
 #include <wx/confbase.h>
