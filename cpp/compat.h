@@ -109,3 +109,13 @@
 #    define FUNCPTR( name ) name
 #  endif
 #endif
+
+// puts extern "C" around perl headers
+#if defined(__CYGWIN__)
+#define WXPL_EXTERN_C_START extern "C" {
+#define WXPL_EXTERN_C_END   }
+#else
+#define WXPL_EXTERN_C_START
+#define WXPL_EXTERN_C_END
+#endif
+

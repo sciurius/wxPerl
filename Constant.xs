@@ -52,9 +52,12 @@
 #include <wx/list.h>
 #include <stdarg.h>
 
+WXPL_EXTERN_C_START
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>
+WXPL_EXTERN_C_END
+
 #undef bool
 #undef Move
 #undef Copy
@@ -66,15 +69,41 @@
 //
 // implementation for wxPlConstantsModule OnInit/OnExit
 //
-#include "cpp/compat.h"
 #include "cpp/constants.h"
 #include <wx/listimpl.cpp>
 
+// this breaks due ( presumably ) to static initialization
+// undefined order on Cygwin, so roll our own
+// list...
 WX_DECLARE_LIST( PL_CONST_FUNC, wxPlConstantFunctions );
 WX_DEFINE_LIST( wxPlConstantFunctions );
 
 // this use of static is deprecated in favour of anonymous namespace
+#if 0
+struct MyList {
+    MyList* m_next;
+    double (**m_data)( const char*, int );
+};
 
+static MyList** s_functions()
+    { static MyList* var = 0; return &var; }
+
+void wxPli_add_constant_function( double (**f)( const char*, int ) )
+{
+    MyList* elem = new MyList;
+    MyList** head = s_functions();
+
+    elem->m_next = *head;
+    elem->m_data = f;
+    *head = elem;
+}
+
+void wxPli_remove_constant_function( double (**f)( const char*, int ) )
+{
+    wxASSERT(0);
+}
+#endif
+//#if 0
 static wxPlConstantFunctions& s_functions()
     { static wxPlConstantFunctions var; return var; }
 
@@ -87,6 +116,7 @@ void wxPli_remove_constant_function( double (**f)( const char*, int ) )
 {
     s_functions().DeleteObject( f );
 }
+//#endif
 
 // !package: Wx
 // !tag:
@@ -1167,10 +1197,16 @@ static double constant( const char *name, int arg )
 #undef r
   // now search for modules...
   {
+//#if 0
     wxPlConstantFunctions::Node* node;
+//#endif
+#if 0
+    MyList* node;
+#endif
     PL_CONST_FUNC* func;
     double ret;
 
+//#if 0
     for( node = s_functions().GetFirst(); node; node = node->GetNext() )
     {
       func = node->GetData();
@@ -1179,7 +1215,17 @@ static double constant( const char *name, int arg )
         return ret;
     }
   }
-
+//#endif
+#if 0
+    for( node = *s_functions(); node; node = node->m_next )
+    {
+      func = node->m_data;
+      ret = (*func)( name, arg );
+      if( !errno )
+        return ret;
+    }
+  }
+#endif
   WX_PL_CONSTANT_CLEANUP();
 /*
  not_there:
