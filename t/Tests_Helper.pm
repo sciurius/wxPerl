@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Tests_Helper.PL
+## Name:        t/Tests_Helper.pm
 ## Purpose:     some test helper functions
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/ 6/2001
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## Created:     02/06/2001
+## RCS-ID:      $Id: Tests_Helper.pm,v 1.4 2004/03/14 13:48:53 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -106,7 +106,7 @@ sub test_inheritance {
   COMPARE: while ( @ci ) {
       my( $c_class ) = shift @ci;
       next if $c_class =~ m/Wx::Generic(?:ListCtrl|ImageList)/;
-      next if $c_class =~ m/(?:Base|GTK)$/;
+      next if $c_class =~ m/(?:Base|GTK|X11)$/;
       next if $c_class =~ m/StatusBar/; #FIXME// ad hoc
       next if $c_class eq 'Wx::Object';
       my( $p_class );
