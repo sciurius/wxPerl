@@ -12,11 +12,13 @@
 
 #undef bool
 
-#define STRICT
-
 #include <wx/defs.h>
 #include <wx/window.h>
 #include <wx/module.h>
+
+#if __WXMSW__
+#include <wx/msw/private.h>
+#endif
 
 #include <stdarg.h>
 
@@ -34,16 +36,12 @@ WXPL_EXTERN_C_END
 #undef Pause
 #undef New
 
-#if __WXMSW__
-#include <wx/msw/private.h>
-#endif
-
 int  WXDLLEXPORT wxEntryStart( int argc, char** argv );
 int  WXDLLEXPORT wxEntryInitGui();
 void WXDLLEXPORT wxEntryCleanup();
 
 #if __VISUALC__
-#pragma warning (disable: 4800 )
+#pragma warning (disable: 4800)
 #endif
 
 #ifdef __WXMSW__
@@ -179,8 +177,8 @@ UnLoad()
     wxEntryCleanup();
 
 I32
-looks_like_number( scalar )
-    SV* scalar
+looks_like_number( sval )
+    SV* sval
 
 INCLUDE: XS/App.xs
 INCLUDE: XS/Caret.xs

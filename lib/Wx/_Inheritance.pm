@@ -17,10 +17,9 @@ package Wx::Window;                     @ISA = qw(Wx::EvtHandler);
 package Wx::Menu;                       @ISA = qw(Wx::EvtHandler);
 package Wx::MenuBar;                    @ISA = qw(Wx::Window);
 package Wx::MenuItem;
+package Wx::TopLevelWindow;             @ISA = qw(Wx::Window);
 package Wx::_App;                       @ISA = qw(Wx::EvtHandler);
-package Wx::Frame;                      @ISA = qw(Wx::Window);
 package Wx::Panel;                      @ISA = qw(Wx::Window);
-package Wx::Dialog;                     @ISA = qw(Wx::Panel);
 package Wx::Control;                    @ISA = qw(Wx::Window);
 package Wx::Button;                     @ISA = qw(Wx::Control);
 package Wx::BitmapButton;               @ISA = qw(Wx::Button);
@@ -119,6 +118,18 @@ package Wx::OutputStream;               @ISA = qw(Wx::Stream);
 # wxGTK, wxMSW and wxMotif
 
 use strict;
+
+package Wx::Frame;
+
+use vars qw(@ISA);
+
+@ISA = $Wx::_wx_version >= 2.003002 ? qw(Wx::TopLevelWindow) : qw(Wx::Window);
+
+package Wx::Dialog;
+
+use vars qw(@ISA);
+
+@ISA = $Wx::_wx_version >= 2.003002 ? qw(Wx::TopLevelWindow) : qw(Wx::Panel);
 
 package Wx::MemoryDC;
 

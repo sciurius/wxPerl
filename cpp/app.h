@@ -77,7 +77,7 @@ int wxPliApp::OnExit()
     if( wxPliVirtualCallback_FindCallback( &m_callback, "OnExit" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR );
-        int val = SvIV( ret );
+        int val = SvOK( ret ) ? SvIV( ret ) : 0;
         SvREFCNT_dec( ret );
 
         return val;

@@ -85,7 +85,7 @@ sub ScreenToClient {
 }
 
 sub SetClientSize {
-  my( $this ) = @_;
+  my( $this ) = shift;
 
   Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->SetClientSizePoint( @_ );
   Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->SetClientSizeWH( @_ );
