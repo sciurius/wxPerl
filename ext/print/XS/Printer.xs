@@ -25,6 +25,13 @@ Wx_Printer::DESTROY()
 bool
 Wx_Printer::GetAbort()
 
+Wx_PrintDialogData*
+Wx_Printer::GetPrintDialogData()
+  CODE:
+    RETVAL = &THIS->GetPrintDialogData();
+  OUTPUT:
+    RETVAL
+
 void
 Wx_Printer::CreateAbortWindow( parent, printout )
     Wx_Window* parent

@@ -18,12 +18,16 @@
   typedef wx##name Wx_##name; \
   extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
 
+#define FD_TD_NAME( name, cls ) \
+  class wx##cls; \
+  typedef wx##cls Wx_##name; \
+  extern "C" const char wxPl##name##Name[] = "Wx::" #name;
+
 FD_TD( PrintData );
 FD_TD( PageSetupDialogData );
 FD_TD( PrintDialogData );
 FD_TD( Printout );
 FD_TD( PrinterDC );
-FD_TD( PrintDialog );
 FD_TD( PreviewControlBar );
 FD_TD( PreviewCanvas );
 FD_TD( PreviewFrame );
@@ -33,13 +37,15 @@ FD_TD_NAME( Printer, WindowsPrinter );
 FD_TD_NAME( PrintPreview, WindowsPrintPreview );
 #else
 FD_TD_NAME( Printer, PostScriptPrinter );
-FD_TD_NAME( Printpreview, PostScriptPrintpreview );
+FD_TD_NAME( PrintPreview, PostScriptPrintPreview );
 #endif
 
 #if defined( __WXMOTIF__ ) || defined( __WXGTK__ )
 FD_TD_NAME( PageSetupDialog, GenericPageSetupDialog );
+FD_TD_NAME( PrintDialog, GenericPrintDialog );
 #else
 FD_TD( PageSetupDialog );
+FD_TD( PrintDialog );
 #endif
 
 #undef FD_TD

@@ -14,6 +14,8 @@
 #include <wx/dcprint.h>
 #include "cpp/printout.h"
 
+#if defined( __WXMSW__ )
+
 MODULE=Wx PACKAGE=Wx::PrinterDC
 
 Wx_PrinterDC*
@@ -23,6 +25,8 @@ Wx_PrinterDC::new( data )
     RETVAL = new wxPrinterDC( *data );
   OUTPUT:
     RETVAL
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::Printout
 
