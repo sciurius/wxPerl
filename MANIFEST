@@ -232,6 +232,15 @@ cpp/helpers.cpp
 cpp/streams.cpp
 cpp/v_cback.cpp
 
+ext/filesys/FS.xs
+ext/filesys/Makefile.PL
+ext/filesys/XS/FSFile.xs
+ext/filesys/XS/FileSystem.xs
+ext/filesys/XS/FileSystemHandler.xs
+ext/filesys/cpp/fs_typedef.h
+ext/filesys/lib/Wx/FS.pm
+ext/filesys/typemap
+
 ext/help/Help.xs
 ext/help/Makefile.PL
 ext/help/XS/ContextHelp.xs
@@ -243,6 +252,7 @@ ext/help/typemap
 
 ext/html/Html.xs
 ext/html/Makefile.PL
+ext/html/XS/HtmlEasyPrinting.xs
 ext/html/XS/HtmlHelpController.xs
 ext/html/XS/HtmlWindow.xs
 ext/html/cpp/ht_constants.cpp
@@ -250,3 +260,13 @@ ext/html/cpp/ht_typedef.h
 ext/html/cpp/htmlwindow.h
 ext/html/lib/Wx/Html.pm
 ext/html/typemap
+
+ext/print/Makefile.PL
+ext/print/Print.xs
+ext/print/XS/PageSetupDialog.xs
+ext/print/XS/PageSetupDialogData.xs
+ext/print/XS/PrintData.xs
+ext/print/cpp/pr_constants.cpp
+ext/print/cpp/pr_typedef.h
+ext/print/lib/Wx/Print.pm
+ext/print/typemap
