@@ -1,7 +1,9 @@
 Revision history for Perl extension Wx.
 
 0.16
-	- Added Wx::PlGridCellEditor and Wx::PlGridCellRenderer.
+	- Added Wx::PlGridCellEditor and Wx::PlGridCellRenderer
+	  for custom Wx::Grid cell editing/displaying.
+	- Added Wx::PlGridTable for custom Wx::Grid storage.
 	- Fixed Wx::SocketServer::Accept.
 	- Added Wx::PlXmlResourceHandler, for inserting custom
 	  controls in XRC resources.

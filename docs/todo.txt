@@ -25,10 +25,6 @@ PRIORITY NORMAL:
 * Threads
     cloning of objects with a DESTROY
 
-* wxGrid
-    GetTable
-    SetTable
-
 * configuration system
 
 * finish cpp/chkconfig.h
@@ -57,6 +53,10 @@ PRIORITY NORMAL:
     GetStyledText
     GetCurLine
     SendMsg
+
+* Wx::PlGridTable
+    Attribute-releated functions
+    Custom data functions
 
 PRIORITY LOW:
 
