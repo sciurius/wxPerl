@@ -23,6 +23,8 @@ use base 'Any_OS';
 sub my_wx_config {
   my $class = shift;
   my $options = join ' ', map { "--$_" } @_;
+  # not completely correct, but close
+  if( $wxConfig::o_static ) { $options = "--static $options" }
 
   my $t = qx(wx-config $options);
   chomp $t;
@@ -51,6 +53,29 @@ sub ld_is_GNU {
   return 1 if $output =~ m/.*see no perl executable.*perl is required to build dynamic libraries/is;
 
   return;
+}
+
+# you may, at some point, being tempted to say that Makemaker is,
+# sometimes, annoying...
+require ExtUtils::Liblist;
+my $save = \&ExtUtils::Liblist::Kid::ext;
+undef *ExtUtils::Liblist::Kid::ext;
+*ExtUtils::Liblist::Kid::ext = \&my_ext;
+
+sub my_ext {
+  &$save( @_ ) unless $wxConfig::o_static;
+
+  my $this = shift;
+  my $libs = shift;
+  my $full; if( $libs =~ m{(?:\s+|^)(/\S+)} )
+    { $full = $1; $libs =~ s{(?:\s+|^)/\S+}{}g }
+  my @libs = &{$save}( $this, $libs, @_ );
+  if( defined $full ) {
+    $libs[0] = "$libs[0] $full $libs[0]" if $libs[0];
+    $libs[2] = "$libs[2] $full $libs[2]" if $libs[2];
+  }
+
+  return @libs;
 }
 
 use vars qw(%config);
