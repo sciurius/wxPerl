@@ -5,11 +5,18 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      5/ 6/2002
-## RCS-ID:      
-## Copyright:   (c) 2002 Mattia Barbon
+## RCS-ID:      $Id: splash.pl,v 1.2 2003/05/18 15:05:46 mbarbon Exp $
+## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
+
+BEGIN {
+  eval {
+    require blib;
+    'blib'->import;
+  }
+}
 
 use Wx;
 
