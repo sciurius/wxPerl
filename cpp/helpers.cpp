@@ -213,7 +213,7 @@ void* wxPli_sv_2_object( SV* scalar, const char* classname )
         return 0;
     }
 
-    if( sv_derived_from( scalar, CHAR_P classname ) ) 
+    if( /* 1 || */ sv_derived_from( scalar, CHAR_P classname ) ) 
     {
         SV* ref = SvRV( scalar );
 
@@ -224,7 +224,15 @@ void* wxPli_sv_2_object( SV* scalar, const char* classname )
 
             if( value ) 
             {
-                return (void*)SvIV( HeVAL( value ) );
+                SV* sv = HeVAL( value );
+                /*
+                if( SvGMAGICAL( sv ) )
+                {
+                    wxTrap();
+                    mg_get( sv );
+                }
+                */
+                return (void*)SvIV( sv );
             }
             else 
             {
