@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.23 2004/08/04 20:13:55 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.24 2004/08/29 09:20:44 mbarbon Exp $
+## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -51,8 +51,7 @@ wxTreeItemData::GetId()
 void
 wxTreeItemData::SetId( id )
     wxTreeItemId* id
-  CODE:
-    THIS->SetId( *id );
+  C_ARGS: *id
 
 MODULE=Wx PACKAGE=Wx::TreeItemId
 
@@ -201,20 +200,17 @@ wxTreeCtrl::Collapse( item )
 void
 wxTreeCtrl::CollapseAndReset( item )
     wxTreeItemId* item
-  CODE:
-    THIS->CollapseAndReset( *item );
+  C_ARGS: *item
 
 void
 wxTreeCtrl::Delete( item )
     wxTreeItemId* item
-  CODE:
-    THIS->Delete( *item );
+  C_ARGS: *item
 
 void
 wxTreeCtrl::DeleteChildren( item )
     wxTreeItemId* item;
-  CODE:
-    THIS->DeleteChildren( *item );
+  C_ARGS: *item
 
 void
 wxTreeCtrl::DeleteAllItems()
@@ -236,14 +232,12 @@ wxTreeCtrl::EndEditLabel( cancelEdit )
 void
 wxTreeCtrl::EnsureVisible( item )
     wxTreeItemId* item
-  CODE:
-    THIS->EnsureVisible( *item );
+  C_ARGS: *item
 
 void
 wxTreeCtrl::Expand( item )
     wxTreeItemId* item
-  CODE:
-    THIS->Expand( *item );
+  C_ARGS: *item
 
 void
 wxTreeCtrl::GetBoundingRect( item, textOnly = false )
@@ -268,10 +262,7 @@ size_t
 wxTreeCtrl::GetChildrenCount( item, recursively = true )
     wxTreeItemId* item
     bool recursively
-  CODE:
-    RETVAL = THIS->GetChildrenCount( *item, recursively );
-  OUTPUT:
-    RETVAL
+  C_ARGS: *item, recursively
 
 int
 wxTreeCtrl::GetCount()
@@ -345,18 +336,12 @@ int
 wxTreeCtrl::GetItemImage( item, which = wxTreeItemIcon_Normal )
     wxTreeItemId* item
     wxTreeItemIcon which
-  CODE:
-    RETVAL = THIS->GetItemImage( *item, which );
-  OUTPUT:
-    RETVAL
+  C_ARGS: *item, which
 
 wxString
 wxTreeCtrl::GetItemText( item )
     wxTreeItemId* item
-  CODE:
-    RETVAL = THIS->GetItemText( *item );
-  OUTPUT:
-    RETVAL
+  C_ARGS: *item
 
 wxTreeItemId*
 wxTreeCtrl::GetLastChild( item )
@@ -535,42 +520,27 @@ wxTreeCtrl::InsertItemBef( parent, before, text, image = -1, selImage = -1, data
 bool
 wxTreeCtrl::IsBold( item )
     wxTreeItemId* item
-  CODE:
-    RETVAL = THIS->IsBold( *item );
-  OUTPUT:
-    RETVAL
+  C_ARGS: *item
 
 bool
 wxTreeCtrl::IsExpanded( item )
     wxTreeItemId* item
-  CODE:
-    RETVAL = THIS->IsExpanded( *item );
-  OUTPUT:
-    RETVAL
+  C_ARGS: *item
 
 bool
 wxTreeCtrl::IsSelected( item )
     wxTreeItemId* item
-  CODE:
-    RETVAL = THIS->IsSelected( *item );
-  OUTPUT:
-    RETVAL
+  C_ARGS: *item
 
 bool
 wxTreeCtrl::IsVisible( item )
     wxTreeItemId* item
-  CODE:
-    RETVAL = THIS->IsVisible( *item );
-  OUTPUT:
-    RETVAL
+  C_ARGS: *item
 
 bool
 wxTreeCtrl::ItemHasChildren( item )
     wxTreeItemId* item
-  CODE:
-    RETVAL = THIS->ItemHasChildren( *item );
-  OUTPUT:
-    RETVAL
+  C_ARGS: *item
 
 int
 wxTreeCtrl::OnCompareItems( item1, item2 )
@@ -578,8 +548,7 @@ wxTreeCtrl::OnCompareItems( item1, item2 )
     wxTreeItemId* item2
   CODE:
     RETVAL = THIS->wxTreeCtrl::OnCompareItems( *item1, *item2 );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 wxTreeItemId*
 wxTreeCtrl::PrependItem( parent, text, image = -1, selImage = -1, data = 0 )
@@ -597,14 +566,24 @@ wxTreeCtrl::PrependItem( parent, text, image = -1, selImage = -1, data = 0 )
 void
 wxTreeCtrl::ScrollTo( item )
     wxTreeItemId* item
-  CODE:
-    THIS->ScrollTo( *item );
+  C_ARGS: *item
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+
+void
+wxTreeCtrl::SelectItem( item, select = true )
+    wxTreeItemId* item
+    bool select
+  C_ARGS: *item, select
+
+#else
 
 void
 wxTreeCtrl::SelectItem( item )
     wxTreeItemId* item
-  CODE:
-    THIS->SelectItem( *item );
+  C_ARGS: *item
+
+#endif
 
 void
 wxTreeCtrl::SetIndent( indent )
@@ -618,15 +597,13 @@ void
 wxTreeCtrl::SetItemBackgroundColour( item, col )
     wxTreeItemId* item
     wxColour col
-  CODE:
-    THIS->SetItemBackgroundColour( *item, col );
+  C_ARGS: *item, col
 
 void
 wxTreeCtrl::SetItemBold( item, bold = true )
     wxTreeItemId* item
     bool bold
-  CODE:
-    THIS->SetItemBold( *item, bold );
+  C_ARGS: *item, bold
 
 void
 wxTreeCtrl::SetItemData( item, data )
@@ -650,37 +627,32 @@ void
 wxTreeCtrl::SetItemFont( item, font )
     wxTreeItemId* item
     wxFont* font
-  CODE:
-    THIS->SetItemFont( *item, *font );
+  C_ARGS: *item, *font
 
 void
 wxTreeCtrl::SetItemHasChildren( item, hasChildren = true )
     wxTreeItemId* item
     bool hasChildren
-  CODE:
-    THIS->SetItemHasChildren( *item, hasChildren );
+  C_ARGS: *item, hasChildren
 
 void
 wxTreeCtrl::SetItemImage( item, image, which = wxTreeItemIcon_Normal )
     wxTreeItemId* item
     int image
     wxTreeItemIcon which
-  CODE:
-    THIS->SetItemImage( *item, image, which );
+  C_ARGS: *item, image, which
 
 void
 wxTreeCtrl::SetItemText( item, text )
     wxTreeItemId* item
     wxString text
-  CODE:
-    THIS->SetItemText( *item, text );
+  C_ARGS: *item, text
 
 void
 wxTreeCtrl::SetItemTextColour( item, col )
     wxTreeItemId* item
     wxColour col
-  CODE:
-    THIS->SetItemTextColour( *item, col );
+  C_ARGS: *item, col
 
 void
 wxTreeCtrl::SetStateImageList( imagelist )
@@ -689,14 +661,12 @@ wxTreeCtrl::SetStateImageList( imagelist )
 void
 wxTreeCtrl::SortChildren( item )
     wxTreeItemId* item
-  CODE:
-    THIS->SortChildren( *item );
+  C_ARGS: *item
 
 void
 wxTreeCtrl::Toggle( item )
     wxTreeItemId* item
-  CODE:
-    THIS->Toggle( *item );
+  C_ARGS: *item
 
 void
 wxTreeCtrl::Unselect()
