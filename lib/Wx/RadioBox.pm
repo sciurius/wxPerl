@@ -26,23 +26,23 @@ sub GetLabel {
   my( $this ) = shift;
 
   @_ == 0                  && return $this->SUPER::GetLabel();
-  Wx::_match( @_, $Wx::_n, 1 ) && return $this->GetItemLabel();
+  Wx::_match( @_, $Wx::_n, 1 ) && return $this->GetItemLabel( @_ );
   Wx::_croak Wx::_ovl_error;
 }
 
 sub SetLabel {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_n_s, 2 ) && $this->SetItemLabel( @_ );
-  Wx::_match( @_, $Wx::_s, 1 )   && $this->SUPER::SetLabel( @_ );
+  Wx::_match( @_, $Wx::_s, 1 )   && ( $this->SUPER::SetLabel( @_ ), return );
+  Wx::_match( @_, $Wx::_n_s, 2 ) && ( $this->SetItemLabel( @_ ), return );
   Wx::_croak Wx::_ovl_error;
 }
 
 sub Show {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_n_n, 2 ) && $this->ShowItem( @_ );
-  Wx::_match( @_, $Wx::_n, 1 )   && $this->Show( @_ );
+  Wx::_match( @_, $Wx::_n, 1 )   && ( $this->SUPER::Show( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n, 2 ) && ( $this->ShowItem( @_ ), return );
   Wx::_croak Wx::_ovl_error;
 }
 
