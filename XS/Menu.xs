@@ -19,6 +19,19 @@ Wx_Menu::new( title = wxEmptyString, style = 0)
     wxString title
     long style
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Menu::AppendString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
+    int id
+    wxString item
+    wxString help
+    wxItemKind kind
+  CODE:
+    THIS->Append( id, item, help, kind );
+
+#else
+
 void
 Wx_Menu::AppendString( id, item, help = wxEmptyString, checkable = FALSE )
     int id
@@ -27,6 +40,8 @@ Wx_Menu::AppendString( id, item, help = wxEmptyString, checkable = FALSE )
     bool checkable
   CODE:
     THIS->Append( id, item, help, checkable );
+
+#endif
 
 void
 Wx_Menu::AppendSubMenu( id, item, subMenu, helpString = wxEmptyString )
@@ -165,9 +180,39 @@ wxString
 Wx_Menu::GetTitle()
 
 bool
-Wx_Menu::Insert( pos, item )
+Wx_Menu::InsertItem( pos, item )
     int pos
     Wx_MenuItem* item
+  CODE:
+    RETVAL = THIS->Insert( pos, item );
+  OUTPUT:
+    RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Menu::InsertString( pos, id, item, helpString = wxEmptyString, kind = wxITEM_NORMAL )
+    int pos
+    int id
+    wxString item
+    wxString helpString
+    wxItemKind kind
+  CODE:
+    THIS->Insert( pos, id, item, helpString, kind );
+
+#else
+
+void
+Wx_Menu::InsertString( pos, id, item, helpString = wxEmptyString, checkable = FALSE )
+    int pos
+    int id
+    wxString item
+    wxString helpString
+    bool checkable
+  CODE:
+    THIS->Insert( pos, id, item, helpString, checkable );
+
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
@@ -187,6 +232,10 @@ Wx_Menu::InsertRadioItem( pos, id, item, helpString )
 
 #endif
 
+void
+Wx_Menu::InsertSeparator( pos )
+    size_t pos
+
 bool
 Wx_Menu::IsChecked( id )
     int id
@@ -194,6 +243,55 @@ Wx_Menu::IsChecked( id )
 bool
 Wx_Menu::IsEnabled( id )
     int id
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Menu::PrependString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
+    int id
+    wxString item
+    wxString help
+    wxItemKind kind
+  CODE:
+    THIS->Prepend( id, item, help, kind );
+
+#else
+
+void
+Wx_Menu::PrependString( id, item, help = wxEmptyString, checkable = FALSE )
+    int id
+    wxString item
+    wxString help
+    bool checkable
+  CODE:
+    THIS->Prepend( id, item, help, checkable );
+
+#endif
+
+void
+Wx_Menu::PrependItem( menuItem )
+    Wx_MenuItem* menuItem
+  CODE:
+    THIS->Prepend( menuItem );
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Menu::PrependCheckItem( id, item, helpString = wxEmptyString )
+    int id
+    wxString item
+    wxString helpString
+
+void
+Wx_Menu::PrependRadioItem( id, item, helpString = wxEmptyString )
+    int id
+    wxString item
+    wxString helpString
+
+#endif
+
+void
+Wx_Menu::PrependSeparator()
 
 Wx_MenuItem*
 Wx_Menu::RemoveId( id )

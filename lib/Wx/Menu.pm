@@ -48,6 +48,23 @@ sub Remove {
   Wx::_croak Wx::_ovl_error;
 }
 
+sub Prepend {
+  my( $this ) = shift;
+
+  Wx::_match( @_, $Wx::_n_s, 2, 1 )      && ( $this->PrependString( @_ ), return );
+  Wx::_match( @_, $Wx::_wmit, 1 )        && ( $this->PrependItem( @_ ), return );
+  Wx::_croak Wx::_ovl_error;
+}
+
+sub Insert {
+  my( $this ) = shift;
+
+  Wx::_match( @_, $Wx::_n_n_s, 3, 1 )      && ( $this->InsertString( @_ ), return );
+  Wx::_match( @_, $Wx::_n_wmit, 2 )        && ( $this->InsertItem( @_ ), return );
+  Wx::_croak Wx::_ovl_error;
+}
+
+
 1;
 
 # Local variables: #
