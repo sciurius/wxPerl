@@ -43,7 +43,7 @@ Start( app, sub )
   CODE:
     // for Wx::Perl::SplashFast
 #if 0
-    if( wxTopLevelWindows.Number() > 0 )
+    if( wxTopLevelWindows.GetCount() > 0 )
       croak( "Only one Wx::App instance allowed" );
 #endif
     if( !SvROK( sub ) || SvTYPE( SvRV( sub ) ) != SVt_PVCV )

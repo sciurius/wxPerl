@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      1/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.52 2003/08/17 19:34:29 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.53 2003/08/22 22:21:53 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -199,7 +199,7 @@ Load()
     tmp = get_sv( "Wx::wxVERSION", 1 );
     sv_setnv( tmp, ver );
 
-    if( wxTopLevelWindows.Number() > 0 )
+    if( wxTopLevelWindows.GetCount() > 0 )
         return;
 
     char** argv = 0;

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.59 2003/08/16 21:26:28 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.60 2003/08/22 22:21:57 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -240,6 +240,14 @@ xs(boot_##name) \
 #  define WXPLI_BOOT_ONCE_EXP WXPLI_BOOT_ONCE
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#define WXPLI_INIT_CLASSINFO()
+#else
+#define WXPLI_INIT_CLASSINFO() \
+  wxClassInfo::CleanUpClasses(); \
+  wxClassInfo::InitializeClasses()
+#endif
+
 struct wxPliHelpers
 {
     void* ( * m_wxPli_sv_2_object )( pTHX_ SV*, const char* );
@@ -332,8 +340,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_match_arguments_skipfirst = name->m_wxPli_match_arguments_skipfirst; \
   wxPli_objlist_2_av = name->m_wxPli_objlist_2_av; \
   \
-  wxClassInfo::CleanUpClasses(); \
-  wxClassInfo::InitializeClasses();
+  WXPLI_INIT_CLASSINFO();
 
 #else
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.21 2003/06/02 08:44:50 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.22 2003/08/22 22:21:57 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -41,6 +41,21 @@
 #else
     void AddGrowableCol( size_t index );
     void AddGrowableRow( size_t index );
+#endif
+};
+
+%name{Wx::SizerItem} class wxSizerItem
+{
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    %name{GetOption} int GetProportion();
+    %name{SetOption} void SetProportion( int option );
+    int GetProportion();
+    void SetProportion( int proportion );
+#else
+    %name{GetProportion} int GetOption();
+    %name{SetProportion} void SetOption( int proportion );
+    int GetOption();
+    void SetOption( int option );
 #endif
 };
 
@@ -126,7 +141,7 @@ void
 Wx_Sizer::GetChildren()
   PPCODE:
     const wxList& list = THIS->GetChildren();
-    wxNode* node;
+    wxList::Node* node;
     
     EXTEND( SP, (IV) list.GetCount() );
 
@@ -501,10 +516,6 @@ Wx_SizerItem::SetInitSize( x, y )
     int y
 
 void
-Wx_SizerItem::SetOption( option )
-    int option
-
-void
 Wx_SizerItem::SetFlag( flag )
     int flag
 
@@ -525,9 +536,6 @@ Wx_SizerItem::GetSizer()
 void
 Wx_SizerItem::SetSizer( sizer )
     Wx_Sizer* sizer
-
-int
-Wx_SizerItem::GetOption()
 
 int
 Wx_SizerItem::GetFlag()

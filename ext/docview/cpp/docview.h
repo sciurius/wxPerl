@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.12 2003/08/16 21:26:29 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.13 2003/08/22 22:21:57 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -496,7 +496,7 @@ public:
     void AddFileToHistory( const wxString& );
     void RemoveFileFromHistory( int );
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
-    size_t GetNoHistoryFiles() const;
+    size_t GetHistoryFilesCount() const;
 #else
     int GetNoHistoryFiles() const;
 #endif
@@ -827,14 +827,18 @@ void wxPliDocManager::RemoveFileFromHistory( int i )
 }
 
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
-size_t wxPliDocManager::GetNoHistoryFiles() const
+size_t wxPliDocManager::GetHistoryFilesCount() const
 #else
 int wxPliDocManager::GetNoHistoryFiles() const
 #endif
 {
     dTHX;
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+                                               "GetHistoryFilesCount" ) )
+#else
                                                "GetNoHistoryFiles" ) )
+#endif
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                                      G_SCALAR|G_NOARGS);
@@ -846,7 +850,11 @@ int wxPliDocManager::GetNoHistoryFiles() const
         SvREFCNT_dec( ret );
         return retval;
     }
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    return wxDocManager::GetHistoryFilesCount();
+#else
     return wxDocManager::GetNoHistoryFiles();
+#endif
 }
 
 wxString wxPliDocManager::GetHistoryFile( int i ) const

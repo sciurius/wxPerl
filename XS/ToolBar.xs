@@ -4,14 +4,16 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ToolBar.xs,v 1.17 2003/06/04 20:38:43 mbarbon Exp $
+## RCS-ID:      $Id: ToolBar.xs,v 1.18 2003/08/22 22:21:57 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 #include <wx/toolbar.h>
+#if 0
 #include <wx/tbarsmpl.h>
+#endif
 
 MODULE=Wx PACKAGE=Wx::ToolBarToolBase
 
@@ -457,7 +459,8 @@ wxToolBar::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, st
 
 MODULE=Wx PACKAGE=Wx::ToolBarSimple
 
-#if wxUSE_TOOLBAR_SIMPLE
+## deprecated: and who uses it, anyway?
+#if 0 && wxUSE_TOOLBAR_SIMPLE
 
 wxToolBar*
 wxToolBarSimple::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )

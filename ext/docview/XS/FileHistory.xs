@@ -60,12 +60,12 @@ Wx_FileHistory::GetHistoryFile( i )
     int i
 
 int
-Wx_FileHistory::GetCount()
+wxFileHistory::GetCount()
 
-#if WXPERL_W_VERSION_LE( 2, 5, 0 )
+#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 int
-Wx_FileHistory::GetNoHistoryFiles()
+wxFileHistory::GetNoHistoryFiles()
 
 #endif
 
