@@ -1,0 +1,20 @@
+#############################################################################
+## Name:        typemap
+## Purpose:     typemap
+## Author:      Mattia Barbon
+## Modified by:
+## Created:      4/12/2001
+## RCS-ID:      
+## Copyright:   (c) 2001 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+wxGridSelectionModes    T_IV
+wxGridAttrKind          T_IV
+
+Wx_Grid *               O_WXOBJECT
+
+Wx_GridCellCoords *     O_NON_WXOBJECT
+Wx_GridCellAttr *       O_NON_WXOBJECT
