@@ -352,6 +352,16 @@ ext/print/typemap
 ext/print/t/1_load.t
 ext/print/t/2_inheritance.t
 
+ext/stc/Makefile.PL
+ext/stc/STC.xs
+ext/stc/XS/StyledTextCtrl.xs
+ext/stc/cpp/st_constants.cpp
+ext/stc/cpp/st_typedef.h
+ext/stc/lib/Wx/STC.pm
+ext/stc/t/1_load.t
+ext/stc/t/2_inheritance.t
+ext/stc/typemap
+
 ext/xrc/Makefile.PL
 ext/xrc/XRC.xs
 ext/xrc/XS/XmlResource.xs
@@ -389,4 +399,5 @@ demo/wxListCtrl.pm
 demo/wxLocale.pm
 demo/wxProcess.pm
 demo/wxSplashScreen.pm
+demo/wxSTC.pm
 demo/wxThread.pm

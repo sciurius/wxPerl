@@ -39,7 +39,8 @@ wxWriteMakefile( NAME => 'Wx',
                  # to exclude some subdirs from the build
                  WXSUBDIRS => [ 'dnd', 'filesys', 'grid', 'help',
                                 'html', 'mdi', 'print',
-                                'xrc'
+                                'xrc',
+                                'stc'
                                ],
                  ( $wxConfig::o_static ?
                    ( WXLIB => [ 'wxxrc' ] ) :

@@ -172,6 +172,12 @@ my @demos =
        [ 'ListCtrl', demo( 'wxListCtrl' ) ],
       ],
     ],
+    [ 'Contrib',
+      [
+       [ 'XRC', demo( 'XRC' ), 2.003001 ],
+       [ 'STC', demo( 'wxSTC' ) ],
+      ],
+    ],
     [ 'Miscellaneous',
       [
        [ 'FileSystem', demo( 'wxFileSystem' ) ],
@@ -180,11 +186,12 @@ my @demos =
        [ 'MDI', demo( 'MDI', 'MDIDemo' ) ],
        [ 'Printing', demo( 'Printing' ) ],
        [ 'Unicode', demo( 'Unicode', 'UnicodeDemo' ), 3.0 ],
-       [ 'XRC', demo( 'XRC' ), 2.003001 ],
        [ 'Clipboard', demo( 'wxClipboard' ) ],
        [ 'Drag&Drop', demo( 'DragDrop', 'DNDDemo' ) ],
        [ 'Process', demo( 'wxProcess' ) ],
-       [ 'Threads', demo( 'wxThread' ) ],
+       ( $] >= 5.007003 ?
+         [ 'Threads', demo( 'wxThread' ) ] :
+         () ),
       ],
     ],
 #    [ 'Old samples',
