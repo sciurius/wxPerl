@@ -5,9 +5,8 @@
 \.o$
 \.c$
 \.pdb$
-^[Mm]akefile$
-^Wx\.([Rr][Es][Ss]|bs|def)$
-^init.bat$
-^pm_to_blib$
+(?:^|/)[Mm]akefile$
+\.([Rr][Es][Ss]|bs|def)$
+(?:^|/)pm_to_blib$
 ^Wx-\d+\.\d+\.(zip|tar\.gz|tgz)$
 [Cc][Vv][Ss]/
