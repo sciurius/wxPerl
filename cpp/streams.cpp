@@ -121,14 +121,15 @@ size_t wxPliInputStream::OnSysRead( void* buffer, size_t size )
         m_lasterror = wxSTREAM_READ_ERROR;
     else 
     {
-        read_count = SvUV( sv_read_count );
+        read_count = SvOK( target ) ? SvUV( sv_read_count ) : 0;
         if( !read_count )
             m_lasterror = wxSTREAM_EOF;
     }
 
     PUTBACK;
 
-    memcpy( buffer, SvPV_nolen( target ), read_count );
+    if( read_count )
+        memcpy( buffer, SvPV_nolen( target ), read_count );
 
     FREETMPS;
     LEAVE;
