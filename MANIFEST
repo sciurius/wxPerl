@@ -389,6 +389,7 @@ demo/data/logo.jpg
 demo/data/cat.pl
 demo/data/dummy.pl
 demo/demo.pl
+demo/splash.pl
 demo/wxCheckListBox.pm
 demo/wxClipboard.pm
 demo/wxFileSystem.pm
@@ -398,6 +399,5 @@ demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm
 demo/wxLocale.pm
 demo/wxProcess.pm
-demo/wxSplashScreen.pm
 demo/wxSTC.pm
 demo/wxThread.pm

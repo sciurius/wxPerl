@@ -27,7 +27,16 @@ use Wx::Help;
 use FindBin;
 use lib $FindBin::RealBin;
 
-sub filename { "$FindBin::RealBin/" . $_[0] }
+sub is_absolute {
+  if( $] < 5.005 ) {
+    return $_[0] =~ m{^/};
+  } else {
+    require File::Spec;
+    return File::Spec->file_name_is_absolute( $_[0] );
+  }
+}
+
+sub filename { is_absolute( $_[0] ) ? $_[0] : "$FindBin::RealBin/" . $_[0] }
 
 # some IDs
 use vars qw($ID_QUIT $ID_TASKBAR_DUMMY);
@@ -46,13 +55,15 @@ sub new {
   return $this;
 }
 
-package Demo::Sample;
+package Demo::External;
 
 use vars qw(@ISA); @ISA = qw(Demo);
 
 sub init {
   my $this = shift;
   $this->{NAME} = $_[0];
+  $this->{DIRECTORY} = $_[1] ? main::filename( $_[1] ) :
+    main::filename( "../samples/${$this}{NAME}/" );
 }
 
 sub name { $_[0]->{NAME} }
@@ -60,15 +71,35 @@ sub name { $_[0]->{NAME} }
 sub run {
   my $this = shift;
 
-  chdir main::filename( "../samples/${$this}{NAME}/" );
-#  open IN, "perl -Mblib ${$this}{NAME}.pl |";
-
-#  Wx::Shell( 'perl -Mblib ' . $this->filename );
+  chdir $this->{DIRECTORY};
+  Wx::ExecuteCommand( "perl -Mblib ${$this}{NAME}.pl", 0 );
 }
 
 sub load {}
 
 sub description {
+  my $this = shift;
+  my $file = $this->filename;
+  local( *IN, $_ );
+  my $description = '';
+
+  eval {
+    open IN, "< $file" or die;
+    while( <IN> ) {
+      if( m/^=for description$/ ) {
+        while( <IN> ) {
+          return if m/^=back$/;
+          $description .= $_;
+        }
+      }
+    }
+    close IN or die;
+  };
+  return $this->no_description() unless length $description;
+  return $description
+}
+
+sub no_description {
   my $this = shift;
   my $name = $this->name;
   my $Name = ucfirst( $name );
@@ -93,7 +124,7 @@ EOT
 sub filename {
   my $this = shift;
 
-  return '../samples/' . $this->name . '/' . $this->name . '.pl';
+  return $this->{DIRECTORY} . '/' . $this->{NAME} . '.pl';
 }
 
 package Demo::Demo;
@@ -154,6 +185,7 @@ use Wx qw(:textctrl :sizer :window);
 use Wx qw(wxDefaultPosition wxDefaultSize);
 
 sub sample { return Demo::Sample->new( $_[0] ) }
+sub external { return Demo::External->new( $_[0], $_[1] ) }
 sub the_demo { return Demo::Demo->new }
 sub demo { return Demo::Standard->new( $_[0], $_[1] ) }
 
@@ -163,7 +195,7 @@ my @demos =
       [
        [ 'HtmlWindow', demo( 'wxHtmlWindow' ) ],
        [ 'Grid', demo( 'wxGrid' ) ],
-       [ 'SplashScreen', demo( 'wxSplashScreen' ) ],
+       [ 'SplashScreen', external( 'splash', '.' ) ],
       ],
     ],
     [ 'Controls',
