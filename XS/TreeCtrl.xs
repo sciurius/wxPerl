@@ -544,6 +544,8 @@ Wx_TreeCtrl::SetItemData( item, data )
     Wx_TreeItemId* item
     Wx_TreeItemData* data
   CODE:
+    wxTreeItemData* tid = THIS->GetItemData( *item );
+    if( tid ) delete tid;
     THIS->SetItemData( *item, data );
 
 void
@@ -551,6 +553,8 @@ Wx_TreeCtrl::SetPlData( item, data )
     Wx_TreeItemId* item
     SV_null* data
   CODE:
+    wxTreeItemData* tid = THIS->GetItemData( *item );
+    if( tid ) delete tid;
     THIS->SetItemData( *item, data ? new wxPliTreeItemData( data ) : 0 );
 
 void
