@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.62 2004/04/10 20:35:39 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.63 2004/07/10 14:01:48 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -28,7 +28,7 @@
 extern "C" 
 BOOL WINAPI DllMain( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 {
-    if( fdwReason == DLL_PROCESS_ATTACH )
+    if( fdwReason == DLL_PROCESS_ATTACH && !wxGetInstance() )
         wxSetInstance( (HINSTANCE)hModule );
     return TRUE;
 }
