@@ -12,6 +12,10 @@
 
 // for some strange reason this is not called under MinGW
 // so the HMODULE is retrieved from DynaLoader
+
+#include "cpp/streams.h"
+#include "cpp/streams.cpp"
+
 #ifdef __WXMSW__
 /*
 BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
@@ -590,6 +594,38 @@ int _get_pointarray( SV* arr, wxList *points, wxPoint** tmp )
     }
 
     return itm;
+}
+
+void wxPli_sv_2_istream( SV* scalar, wxPliInputStream& stream )
+{
+    stream = wxPliInputStream( scalar );
+}
+
+void wxPli_sv_2_ostream( SV* scalar, wxPliOutputStream& stream )
+{
+    stream = wxPliOutputStream( scalar );
+}
+
+void wxPli_stream_2_sv( SV* scalar, wxStreamBase* stream, const char* package )
+{
+    static SV* tie = eval_pv
+        ( "sub { local *o; my $c = shift; tie *o, $c, @_; return \\*o }", 1 );
+    static SV* dummy = SvREFCNT_inc( tie );
+
+    dSP;
+
+    PUSHMARK( SP );
+//    XPUSHs( scalar );
+    XPUSHs( newSVpv( CHAR_P package, 0 ) );
+    XPUSHs( newSViv( (IV)stream ) );
+    PUTBACK;
+
+    call_sv( tie, G_SCALAR );
+
+    SPAGAIN;
+    SV* ret = POPs;
+    sv_setsv( scalar, ret );
+    PUTBACK;
 }
 
 // Local variables: //

@@ -26,6 +26,7 @@ wxSashEdgePosition      T_IV
 wxSashDragStatus        T_IV
 wxListColumnFormat      T_IV
 wxChar *                T_PV
+off_t                   T_IV
 
 wxLogTraceMask          T_UV 
 wxLogLevel              T_UV 
@@ -298,3 +299,29 @@ OUTPUT
 T_SV_NULL
     $arg = ( $var == 0 ) ? &PL_sv_undef : $var;
     SvREFCNT_inc( $arg ); // xsubpp mortalizes it...
+
+#
+# streams
+#
+TYPEMAP
+wxPliInputStream        S_PL_ISTREAM
+wxPliOutputStream       S_PL_OSTREAM
+wxInputStream *         S_WX_ISTREAM
+wxOutputStream *        S_WX_OSTREAM
+Wx_InputStream *        O_NON_WXOBJECT
+Wx_OutputStream *       O_NON_WXOBJECT
+
+INPUT
+S_PL_ISTREAM
+    wxPli_sv_2_istream( $arg, $var );
+
+S_PL_OSTREAM
+    wxPli_sv_2_ostream( $arg, $var );
+
+
+OUTPUT
+S_WX_ISTREAM
+    wxPli_stream_2_sv( $arg, $var, "Wx::InputStream" );
+
+S_WX_OSTREAM
+    wxPli_stream_2_sv( $arg, $var, "Wx::OutputStream" );

@@ -38,6 +38,16 @@ WXPLDLL Wx_KeyCode _sv_2_keycode( SV* scalar );
 
 WXPLDLL int _get_pointarray( SV* array, wxList *points, wxPoint** tmp );
 
+// stream wrappers
+class wxPliInputStream;
+class wxPliOutputStream;
+class wxStreamBase;
+
+WXPLDLL void wxPli_sv_2_istream( SV* scalar, wxPliInputStream& stream );
+WXPLDLL void wxPli_sv_2_ostream( SV* scalar, wxPliOutputStream& stream );
+WXPLDLL void wxPli_stream_2_sv( SV* scalar, wxStreamBase* stream,
+                                const char* package );
+
 // defined in Constants.xs
 WXPLDLL void FUNCPTR( wxPli_add_constant_function )
     ( double (**)( const char*, int ) );

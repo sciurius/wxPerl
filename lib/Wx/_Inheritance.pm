@@ -105,6 +105,12 @@ package Wx::FlexGridSizer;@ISA = qw(Wx::GridSizer);
 package Wx::NotebookSizer;@ISA = qw(Wx::Sizer);
 package Wx::PlSizer;      @ISA = qw(Wx::Sizer);
 
+require Tie::Handle;
+
+package Wx::Stream;       @ISA = qw(Tie::Handle);
+package Wx::InputStream;  @ISA = qw(Wx::Stream);
+package Wx::OutputStream; @ISA = qw(Wx::Stream);
+
 # this is because the inheritance tree is a bit different between
 # wxGTK, wxMSW and wxMotif
 

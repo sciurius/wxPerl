@@ -16,8 +16,6 @@
 #include <wx/window.h>
 #include <wx/module.h>
 
-#undef _
-
 #if __WXMSW__
 #include <wx/msw/private.h>
 #endif
@@ -181,6 +179,7 @@ INCLUDE: XS/ToolTip.xs
 INCLUDE: XS/Locale.xs
 INCLUDE: XS/Utils.xs
 INCLUDE: XS/Timer.xs
+INCLUDE: XS/Stream.xs
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs

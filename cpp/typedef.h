@@ -238,6 +238,10 @@ FD_TD( GIFHandler );
 FD_TD( JPEGHandler );
 FD_TD( TIFFHandler );
 
+FD_TD( StreamBase );
+FD_TD( InputStream );
+FD_TD( OutputStream );
+
 //typedef wxQueryLayoutInfoEvent Wx_QueryLayoutInfoEvent;
 
 #undef FD_TD
