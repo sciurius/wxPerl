@@ -1752,7 +1752,7 @@ sub yylex {
         return ( 'INTEGER', $1 );
       } elsif( $$buf =~ s/^("[^"]*")// ) {
         return ( 'QUOTED_STRING', $1 );
-      } elsif( $$buf =~ s/^(#.*(?:\r\n|\r|\n))// ) {
+      } elsif( $$buf =~ s/^(#.*)(?:\r\n|\r|\n)// ) {
         return ( 'RAW_CODE', $1 );
       } else {
         warn $$buf;

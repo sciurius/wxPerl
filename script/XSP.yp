@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: XSP.yp,v 1.5 2003/07/24 19:51:47 mbarbon Exp $
+## RCS-ID:      $Id: XSP.yp,v 1.6 2003/08/02 21:00:40 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -265,7 +265,7 @@ sub yylex {
         return ( 'INTEGER', $1 );
       } elsif( $$buf =~ s/^("[^"]*")// ) {
         return ( 'QUOTED_STRING', $1 );
-      } elsif( $$buf =~ s/^(#.*(?:\r\n|\r|\n))// ) {
+      } elsif( $$buf =~ s/^(#.*)(?:\r\n|\r|\n)// ) {
         return ( 'RAW_CODE', $1 );
       } else {
         warn $$buf;
