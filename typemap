@@ -147,7 +147,7 @@ wxSplitterWindow *      O_WXOBJECT
 Wx_SashWindow *         O_WXOBJECT
 wxSashWindow *          O_WXOBJECT
 Wx_ToggleButton *       O_WXOBJECT
-wxToggleButon *         O_WXOBJECT
+wxToggleButton *        O_WXOBJECT
 Wx_SplashScreen *       O_WXOBJECT
 wxSplashScreen *        O_WXOBJECT
 
