@@ -45,6 +45,8 @@ SV_null *               T_SV_NULL
 
 Wx_ClassInfo *          O_NON_WXOBJECT
 
+Wx_Object *             O_WXOBJECT
+
 Wx_App *                O_WXOBJECT
 Wx_Window *             O_WXOBJECT
 Wx_Frame *              O_WXOBJECT
