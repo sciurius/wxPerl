@@ -200,6 +200,7 @@ XS/StaticLine.xs
 XS/StaticText.xs
 XS/StatusBar.xs
 XS/Stream.xs
+XS/TaskBarIcon.xs
 XS/TextCtrl.xs
 XS/Timer.xs
 XS/TreeCtrl.xs
@@ -273,6 +274,17 @@ ext/filesys/lib/Wx/FS.pm
 ext/filesys/typemap
 ext/filesys/t/1_load.t
 ext/filesys/t/2_inheritance.t
+
+ext/grid/Grid.xs
+ext/grid/XS/GridCellAttr.xs
+ext/grid/Makefile.PL
+ext/grid/XS/Grid.xs
+ext/grid/cpp/gr_constants.cpp
+ext/grid/cpp/gr_typedef.h
+ext/grid/lib/Wx/Grid.pm
+ext/grid/typemap
+ext/grid/t/1_load.t
+ext/grid/t/2_inheritance.t
 
 ext/help/Help.xs
 ext/help/Makefile.PL
