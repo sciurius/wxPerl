@@ -75,6 +75,14 @@ void
 Wx_Sizer::Fit( window )
     Wx_Window* window
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Sizer::FitInside( window )
+    Wx_Window* window
+
+#endif
+
 void
 Wx_Sizer::GetChildren()
   PPCODE:
@@ -249,6 +257,14 @@ Wx_Sizer::SetMinSizeXY( x, y )
 void
 Wx_Sizer::SetSizeHints( window )
     Wx_Window* window
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Sizer::SetVirtualSizeHints( window )
+    Wx_Window* window
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::BoxSizer
 
@@ -443,6 +459,8 @@ Wx_Point*
 Wx_SizerItem::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
+  OUTPUT:
+    RETVAL
 
 Wx_UserDataO*
 Wx_SizerItem::GetUserData()

@@ -38,6 +38,14 @@ Wx_Choice::new( parent, id, pos, size, choices, style = 0, validator = (wxValida
 void
 Wx_Choice::Clear()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Choice::Delete( n )
+    int n
+
+#endif
+
 #if !defined(__WXUNIVERSAL__)
 
 int

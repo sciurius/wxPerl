@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
+//#define PERL_NO_GET_CONTEXT
 
 #include <wx/defs.h>
 
@@ -54,6 +55,33 @@ WXPL_EXTERN_C_END
 #include "cpp/v_cback.h"
 
 #include "cpp/window.h"
+
+MODULE=Wx_Win PACKAGE=Wx PREFIX=wx
+
+Wx_Point*
+wxGetMousePosition()
+  PREINIT:
+    int x, y;
+  CODE:
+    ::wxGetMousePosition( &x, &y );
+    RETVAL = new wxPoint( x, y );
+  OUTPUT:
+    RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+Wx_Window*
+wxGetTopLevelParent( window )
+    Wx_Window* window
+
+Wx_Window*
+wxFindWindowAtPointer( pt )
+    Wx_Point pt
+
+#endif
+
+Wx_Window*
+wxGetActiveWindow()
 
 MODULE=Wx_Win PACKAGE=Wx::Window
 
@@ -721,7 +749,7 @@ Wx_Window::SetSizeXYWHF( x, y, width, height, flags = wxSIZE_AUTO )
     THIS->SetSize( x, y, width, height, flags );
 
 void
-Wx_Window::SetSizeHints( minW = -1, minH = -1, maxW = -1, maxH = -1, incW = -1, incH = -1 )
+Wx_Window::SetSizeHints( minW, minH, maxW = -1, maxH = -1, incW = -1, incH = -1 )
     int minW
     int minH
     int maxW
@@ -732,7 +760,19 @@ Wx_Window::SetSizeHints( minW = -1, minH = -1, maxW = -1, maxH = -1, incW = -1, 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 void
+Wx_Window::SetVirtualSizeHints( minW, minH, maxW = -1, maxH = -1 )
+    int minW
+    int minH
+    int maxW
+    int maxH
+
+void
 Wx_Window::SetSizer( sizer, deleteOld = TRUE )
+    Wx_Sizer* sizer
+    bool deleteOld
+
+void
+Wx_Window::SetSizerAndFit( sizer, deleteOld = TRUE )
     Wx_Sizer* sizer
     bool deleteOld
 
