@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.22 2003/05/26 20:32:51 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.23 2003/05/27 20:00:14 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -28,7 +28,6 @@
 #include <wx/notebook.h>
 #include <wx/gauge.h>
 #include <wx/checklst.h>
-#include <wx/bmpbuttn.h>
 #include <wx/statbmp.h>
 #include <wx/slider.h>
 #include <wx/spinbutt.h>

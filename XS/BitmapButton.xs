@@ -12,70 +12,68 @@
 
 MODULE=Wx PACKAGE=Wx::BitmapButton
 
-Wx_BitmapButton*
-Wx_BitmapButton::new( parent, id, bitmap, pos = wxDefaultPosition, size = wxDefaultSize, style = wxBU_AUTODRAW, validator = (wxValidator*)&wxDefaultValidator, name = wxButtonNameStr )
-    Wx_Window* parent
+#include <wx/bmpbuttn.h>
+
+wxBitmapButton*
+wxBitmapButton::new( parent, id, bitmap, pos = wxDefaultPosition, size = wxDefaultSize, style = wxBU_AUTODRAW, validator = (wxValidator*)&wxDefaultValidator, name = wxButtonNameStr )
+    wxWindow* parent
     wxWindowID id
-    Wx_Bitmap* bitmap
-    Wx_Point pos
-    Wx_Size size
+    wxBitmap* bitmap
+    wxPoint pos
+    wxSize size
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   CODE:
-    RETVAL = new wxPliBitmapButton( CLASS, parent, id, *bitmap, pos, size,
+    RETVAL = new wxBitmapButton( parent, id, *bitmap, pos, size,
         style, *validator, name );
-  OUTPUT:
-    RETVAL
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
 
-Wx_Bitmap*
-Wx_BitmapButton::GetBitmapDisabled()
+wxBitmap*
+wxBitmapButton::GetBitmapDisabled()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmapDisabled() );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
-Wx_BitmapButton::GetBitmapFocus()
+wxBitmap*
+wxBitmapButton::GetBitmapFocus()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmapFocus() );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
-Wx_BitmapButton::GetBitmapLabel()
+wxBitmap*
+wxBitmapButton::GetBitmapLabel()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmapLabel() );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
-Wx_BitmapButton::GetBitmapSelected()
+wxBitmap*
+wxBitmapButton::GetBitmapSelected()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmapSelected() );
   OUTPUT:
     RETVAL
 
 void
-Wx_BitmapButton::SetBitmapDisabled( bitmap )
-    Wx_Bitmap* bitmap
-  CODE:
-    THIS->SetBitmapDisabled( *bitmap );
+wxBitmapButton::SetBitmapDisabled( bitmap )
+    wxBitmap* bitmap
+  C_ARGS: *bitmap
 
 void
-Wx_BitmapButton::SetBitmapLabel( bitmap )
-    Wx_Bitmap* bitmap
-  CODE:
-    THIS->SetBitmapLabel( *bitmap );
+wxBitmapButton::SetBitmapLabel( bitmap )
+    wxBitmap* bitmap
+  C_ARGS: *bitmap
 
 void
-Wx_BitmapButton::SetBitmapSelected( bitmap )
-    Wx_Bitmap* bitmap
-  CODE:
-    THIS->SetBitmapSelected( *bitmap );
+wxBitmapButton::SetBitmapSelected( bitmap )
+    wxBitmap* bitmap
+  C_ARGS: *bitmap
 
 void
-Wx_BitmapButton::SetBitmapFocus( bitmap )
-    Wx_Bitmap* bitmap
-  CODE:
-    THIS->SetBitmapFocus( *bitmap );
+wxBitmapButton::SetBitmapFocus( bitmap )
+    wxBitmap* bitmap
+  C_ARGS: *bitmap

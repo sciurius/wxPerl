@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.cpp,v 1.26 2003/05/26 20:33:05 mbarbon Exp $
+// RCS-ID:      $Id: controls.cpp,v 1.27 2003/05/27 20:00:38 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -12,7 +12,6 @@
 
 #include "cpp/constants.h"
 
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliBitmapButton, wxBitmapButton );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckBox, wxCheckBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckListBox, wxCheckListBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliChoice, wxChoice );

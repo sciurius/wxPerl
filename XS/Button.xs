@@ -4,13 +4,15 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      $Id: Button.xs,v 1.4 2003/05/26 20:33:05 mbarbon Exp $
+## RCS-ID:      $Id: Button.xs,v 1.5 2003/05/27 20:00:37 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 MODULE=Wx PACKAGE=Wx::Button
+
+#include <wx/button.h>
 
 wxButton*
 wxButton::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxButtonNameStr )
