@@ -17,19 +17,25 @@
 MODULE=Wx PACKAGE=Wx::Dialog
 
 Wx_Dialog*
-Wx_Dialog::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_DIALOG_STYLE, name = wxDialogNameStr )
-    Wx_Window* parent
-    wxWindowID id
-    wxString title
-    Wx_Point pos
-    Wx_Size size
-    long style
-    wxString name
-  CODE:
-    RETVAL = new wxPliDialog( CLASS, parent, id, title, pos,
-        size, style, name );
-  OUTPUT:
-    RETVAL
+Wx_Dialog::new( parent, id = -1, title = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_DIALOG_STYLE, name = wxDialogNameStr )
+  CASE: items == 1
+    CODE:
+      RETVAL = new wxPliDialog( CLASS );
+    OUTPUT:
+      RETVAL
+  CASE:
+      Wx_Window* parent
+      wxWindowID id
+      wxString title
+      Wx_Point pos
+      Wx_Size size
+      long style
+      wxString name
+    CODE:
+      RETVAL = new wxPliDialog( CLASS, parent, id, title, pos,
+          size, style, name );
+    OUTPUT:
+      RETVAL
 
 void
 Wx_Dialog::EndModal( retCode )
