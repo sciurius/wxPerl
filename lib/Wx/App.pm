@@ -17,14 +17,22 @@ use vars qw(@ISA $theapp);
 
 @ISA = qw(Wx::_App);
 
+# this allows multiple ->new calls and it is an horrible kludge to allow
+# Wx::Perl::SplashFast to work "better"; see also App.xs:Start
 sub new {
-  Wx::_croak( "Only one 'Wx::App' instance allowed" ) if $theapp;
+  my $this;
 
-  my($this) = $_[0]->SUPER::new();
+  if( ref $theapp ) {
+    my $class = ref( $_[0] ) || $_[0];
+    bless $theapp, $class;
+    $this = $theapp;
+  } else {
+    #Wx::_croak( "Only one 'Wx::App' instance allowed" ) if $theapp;
+    $this = $_[0]->SUPER::new();
+    $theapp = $this;
+  }
 
-  $theapp = $this;
-
-  Wx::_App::Start($this,$this->can('OnInit')) || 
+  Wx::_App::Start($this,$this->can('OnInit')) ||
       Wx::_croak( 'OnInit must return a return value' );
 
   $this;

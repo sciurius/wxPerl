@@ -41,8 +41,10 @@ Start( app, sub )
     Wx_App* app 
     SV* sub
   CODE:
+#if 0
     if( wxTopLevelWindows.Number() > 0 )
       croak( "Only one Wx::App instance allowed" );
+#endif
     if( !SvROK( sub ) || SvTYPE( SvRV( sub ) ) != SVt_PVCV )
       croak( "sub must be a CODE reference" );
 
