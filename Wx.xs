@@ -147,6 +147,11 @@ _SetInstance( instance )
 
 #endif
 
+#include <wx/filesys.h>
+#include <wx/fs_mem.h>
+#include <wx/fs_inet.h>
+#include <wx/fs_zip.h>
+
 void 
 Load()
   CODE:
@@ -163,7 +168,10 @@ Load()
     // wxInitializeStockObjects needs to be called
     // (for colours, cursors, pens, etc...)
     SetConstants();
-  
+    //FIXME// until wxFileSystem is wrapped
+    wxFileSystem::AddHandler( new wxInternetFSHandler );
+    wxFileSystem::AddHandler( new wxZipFSHandler );
+    wxFileSystem::AddHandler( new wxMemoryFSHandler );
 
 void
 UnLoad()
