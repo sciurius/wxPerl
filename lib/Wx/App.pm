@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/11/2000
-## RCS-ID:      $Id: App.pm,v 1.12 2003/08/17 19:34:40 mbarbon Exp $
+## RCS-ID:      $Id: App.pm,v 1.13 2003/10/19 20:18:11 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -35,7 +35,8 @@ sub new {
 
   my $ret = Wx::_App::Start($this,$this->can('OnInit'));
   Wx::_croak( 'OnInit must return a true return value' )
-    unless $ret || Wx::wxMAC(); # why does OnInit always return 0 on Mac?
+    # why does OnInit always return 0 on Mac?
+    unless $Wx::_platform == 4 || $ret;
 
   $this;
 }
