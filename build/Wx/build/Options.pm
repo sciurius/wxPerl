@@ -62,6 +62,7 @@ sub get_options {
 }
 
 my $parsed = 0;
+my @argv;
 
 sub _parse_options {
   return if $parsed;
@@ -77,6 +78,8 @@ sub _parse_options {
                            'extra-cflags=s' => \$extra_cflags,
                            '<>'             => \&_process_options,
                          );
+
+  @ARGV = @argv; @argv = ();
 
   if( !$result || $help ) {
     print <<HELP;
@@ -99,7 +102,10 @@ HELP
 sub _process_options {
   my $i = shift;
 
-  return unless $i =~ m/^-/;
+  unless( $i =~ m/^-/ ) {
+    push @argv, $i;
+    return;
+  }
 
   if( $i =~ m/^--(enable|disable)-(\w+)$/ ) {
     $subdirs{$2} = ( $1 eq 'enable' ? 1 : 0 );
