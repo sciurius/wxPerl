@@ -83,17 +83,17 @@ void
 Wx_Notebook::SetImageList( imagelist )
     Wx_ImageList* imagelist
 
+#if !defined( __WXMOTIF__ ) && !defined( __WXGTK__ ) || defined( __WXPERL_FORCE__ )
+
 void
 Wx_Notebook::SetPadding( padding )
     Wx_Size padding
-#  CODE:
-#    THIS->SetPadding( *padding );
 
 void
 Wx_Notebook::SetPageSize( padding )
     Wx_Size padding
-#  CODE:
-#    THIS->SetPageSize( *padding );
+
+#endif
 
 bool
 Wx_Notebook::SetPageImage( page, image )
