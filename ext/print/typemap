@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      $Id: typemap,v 1.6 2004/03/01 21:24:10 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.7 2004/03/01 21:39:23 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -28,5 +28,5 @@ wxPreviewFrame *        O_WXOBJECT
 
 wxDuplexMode            T_ENUM
 wxPaperSize             T_ENUM
-wxPaperQuality          T_ENUM
+wxPrintQuality          T_ENUM
 wxPrinterError          T_ENUM
