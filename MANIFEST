@@ -23,6 +23,7 @@ docs/install.txt
 docs/todo.txt
 
 script/make_exp_list.pl
+script/make_ovl_list.pl
 script/pipe.pl
 
 t/1_load.t
@@ -242,9 +243,14 @@ ext/dnd/Makefile.PL
 ext/dnd/XS/Clipboard.xs
 ext/dnd/XS/DataObject.xs
 ext/dnd/XS/DropFiles.xs
+ext/dnd/XS/DropSource.xs
+ext/dnd/XS/DropTarget.xs
 ext/dnd/cpp/dataobject.h
 ext/dnd/cpp/dn_constants.cpp
 ext/dnd/cpp/dn_typedef.h
+ext/dnd/cpp/dropsource.h
+ext/dnd/cpp/droptarget.h
+ext/dnd/lib/Wx/DropSource.pm
 ext/dnd/lib/Wx/DND.pm
 ext/dnd/t/1_load.t
 ext/dnd/t/2_inheritance.t
