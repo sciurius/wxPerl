@@ -6,7 +6,7 @@
 use strict;
 use lib 'build';
 use Wx;
-use Test::More 'tests' => 1;
+use Test::More 'tests' => 2;
 use Tests_Helper qw(test_frame);
 
 test_frame( 'MyFrame' );
@@ -32,6 +32,14 @@ sub new {
   $button->GetEventHandler->ProcessEvent( $event );
 
   main::ok( $var, "event succesfully received" );
+
+  $var = 0;
+
+  EVT_BUTTON( $this, $button, undef );
+
+  $button->GetEventHandler->ProcessEvent( $event );
+
+  main::ok( !$var, "event handler disconnected" );
 
   $this->Destroy;
 }
