@@ -3,9 +3,9 @@
 ## Purpose:     XS for wxDocument ( Document / View Framework )
 ## Author:      Simon Flack
 ## Modified by:
-## Created:      11/ 9/2002
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## Created:     11/ 9/2002
+## RCS-ID:      $Id: DocManager.xs,v 1.4 2003/05/05 20:38:42 mbarbon Exp $
+## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -57,8 +57,6 @@ Wx_DocManager::GetDocuments()
     SV* doc_aref = newRV( (SV*)arrDocs  );
     PUSHs(doc_aref);
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 Wx_DocManager::GetTemplates()
   PPCODE:
@@ -75,8 +73,6 @@ Wx_DocManager::GetTemplates()
        PUSHs( pltmpl );
     } 
 
-#endif
-
 wxString
 Wx_DocManager::GetLastDirectory()
 
@@ -90,15 +86,11 @@ Wx_DocManager::OnFileClose( event )
   CODE:
     THIS->OnFileClose( *event );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_DocManager::OnFileCloseAll( event )
     Wx_CommandEvent* event
   CODE:
     THIS->OnFileCloseAll( *event );
-
-#endif
 
 void
 Wx_DocManager::OnFileNew( event )
@@ -374,11 +366,7 @@ Wx_DocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
                       wxPli_sv_2_object( aTHX_ *pltemplate, "Wx::DocTemplate" );
       pltemplates[i] = thistemplate;
     }
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     RETVAL = THIS->SelectDocumentType(pltemplates, noTemplates, sort);
-#else
-    RETVAL = THIS->SelectDocumentType(pltemplates, noTemplates);
-#endif
     delete[] pltemplates;
   OUTPUT:
     RETVAL
@@ -405,11 +393,7 @@ Wx_DocManager::SelectViewType( templates, noTemplates, sort = FALSE)
                       wxPli_sv_2_object( aTHX_ *pltemplate, "Wx::DocTemplate" );
       pltemplates[i] = thistemplate;
     }
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     RETVAL = THIS->SelectViewType(pltemplates, noTemplates, sort);
-#else
-    RETVAL = THIS->SelectViewType(pltemplates, noTemplates);
-#endif
     delete[] pltemplates;
   OUTPUT:
     RETVAL
@@ -430,15 +414,9 @@ void
 Wx_DocManager::RemoveDocument( doc )
     Wx_Document* doc
 
-
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 bool
 Wx_DocManager::CloseDocuments( force = TRUE )
     bool force
-
-#endif
-
 
 void
 Wx_DocManager::ActivateView( view, activate = TRUE, deleting = FALSE )

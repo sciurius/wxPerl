@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2001 Mattia Barbon
+## RCS-ID:      $Id: Panel.xs,v 1.9 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -33,24 +33,6 @@ Wx_Panel::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, s
       RETVAL = new wxPliPanel( CLASS, parent, id, pos, size, style, name );
     OUTPUT:
       RETVAL
-
-#if !WXPERL_W_VERSION_GE( 2, 3, 0 )
-
-Wx_Button*
-Wx_Panel::GetDefaultItem()
-  CODE:
-    RETVAL = (Wx_Button*)THIS->GetDefaultItem();
-  OUTPUT:
-    RETVAL
-
-void
-Wx_Panel::InitDialog()
-
-void
-Wx_Panel::SetDefaultItem( btn )
-    Wx_Button* btn
-
-#endif
 
 bool
 Wx_Panel::TransferDataFromWindow()

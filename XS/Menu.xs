@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Menu.xs,v 1.17 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,8 +19,6 @@ Wx_Menu::new( title = wxEmptyString, style = 0)
     wxString title
     long style
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Menu::AppendString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
     int id
@@ -29,19 +27,6 @@ Wx_Menu::AppendString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
     wxItemKind kind
   CODE:
     THIS->Append( id, item, help, kind );
-
-#else
-
-void
-Wx_Menu::AppendString( id, item, help = wxEmptyString, checkable = FALSE )
-    int id
-    wxString item
-    wxString help
-    bool checkable
-  CODE:
-    THIS->Append( id, item, help, checkable );
-
-#endif
 
 void
 Wx_Menu::AppendSubMenu( id, item, subMenu, helpString = wxEmptyString )
@@ -58,8 +43,6 @@ Wx_Menu::AppendItem( menuItem )
   CODE:
     THIS->Append( menuItem );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Menu::AppendCheckItem( id, item, helpString = wxEmptyString )
     int id
@@ -71,8 +54,6 @@ Wx_Menu::AppendRadioItem( id, item, helpString = wxEmptyString )
     int id
     wxString item
     wxString helpString
-
-#endif
 
 void
 Wx_Menu::AppendSeparator()
@@ -188,8 +169,6 @@ Wx_Menu::InsertItem( pos, item )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Menu::InsertString( pos, id, item, helpString = wxEmptyString, kind = wxITEM_NORMAL )
     int pos
@@ -199,22 +178,6 @@ Wx_Menu::InsertString( pos, id, item, helpString = wxEmptyString, kind = wxITEM_
     wxItemKind kind
   CODE:
     THIS->Insert( pos, id, item, helpString, kind );
-
-#else
-
-void
-Wx_Menu::InsertString( pos, id, item, helpString = wxEmptyString, checkable = FALSE )
-    int pos
-    int id
-    wxString item
-    wxString helpString
-    bool checkable
-  CODE:
-    THIS->Insert( pos, id, item, helpString, checkable );
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 void
 Wx_Menu::InsertCheckItem( pos, id, item, helpString )
@@ -230,8 +193,6 @@ Wx_Menu::InsertRadioItem( pos, id, item, helpString )
      wxString item
      wxString helpString
 
-#endif
-
 void
 Wx_Menu::InsertSeparator( pos )
     size_t pos
@@ -244,8 +205,6 @@ bool
 Wx_Menu::IsEnabled( id )
     int id
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Menu::PrependString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
     int id
@@ -255,26 +214,11 @@ Wx_Menu::PrependString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
   CODE:
     THIS->Prepend( id, item, help, kind );
 
-#else
-
-void
-Wx_Menu::PrependString( id, item, help = wxEmptyString, checkable = FALSE )
-    int id
-    wxString item
-    wxString help
-    bool checkable
-  CODE:
-    THIS->Prepend( id, item, help, checkable );
-
-#endif
-
 void
 Wx_Menu::PrependItem( menuItem )
     Wx_MenuItem* menuItem
   CODE:
     THIS->Prepend( menuItem );
-
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 void
 Wx_Menu::PrependCheckItem( id, item, helpString = wxEmptyString )
@@ -287,8 +231,6 @@ Wx_Menu::PrependRadioItem( id, item, helpString = wxEmptyString )
     int id
     wxString item
     wxString helpString
-
-#endif
 
 void
 Wx_Menu::PrependSeparator()
@@ -448,8 +390,6 @@ Wx_MenuBar::SetLabelTop( pos, label )
 
 MODULE=Wx PACKAGE=Wx::MenuItem
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 Wx_MenuItem*
 Wx_MenuItem::new( parentMenu = 0, id = -1, text = wxEmptyString, helpString = wxEmptyString, itemType = wxITEM_NORMAL, subMenu = 0 )
      Wx_Menu* parentMenu
@@ -458,19 +398,6 @@ Wx_MenuItem::new( parentMenu = 0, id = -1, text = wxEmptyString, helpString = wx
      wxString helpString
      wxItemKind itemType
      Wx_Menu* subMenu
-
-#else
-
-Wx_MenuItem*
-Wx_MenuItem::new( parentMenu = 0, id = -1, text = wxEmptyString, helpString = wxEmptyString, checkable = FALSE, subMenu = 0 )
-     Wx_Menu* parentMenu
-     int id
-     wxString text
-     wxString helpString
-     bool checkable
-     Wx_Menu* subMenu
-
-#endif
 
 void
 Wx_MenuItem::Check( check )
@@ -502,7 +429,7 @@ Wx_MenuItem::GetFont()
 #endif
 
 #if defined( __WXMSW__ ) || \
- ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) || \
+ defined( __WXGTK__ ) || \
  defined( __WXPERL_FORCE__ )
 
 Wx_Bitmap*
@@ -520,12 +447,8 @@ Wx_MenuItem::GetHelp()
 int
 Wx_MenuItem::GetId()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 wxItemKind
 Wx_MenuItem::GetKind()
-
-#endif
 
 wxString
 Wx_MenuItem::GetLabel()
@@ -619,10 +542,7 @@ Wx_MenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
 
 #endif
 
-#if \
- ( defined( __WXMSW__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) || \
- ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) || \
- defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) || defined( __WXGTK__ )
 
 void
 Wx_MenuItem::SetBitmap( bitmap )

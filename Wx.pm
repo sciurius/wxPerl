@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.57 2003/05/04 17:32:15 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.58 2003/05/05 20:38:34 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -179,31 +179,6 @@ package Wx::TreeItemId;
 use overload '<=>'      => \&tiid_spaceship,
              'bool'     => sub { $_[0]->IsOk },
              'fallback' => 1;
-
-#
-# Wx::SplashScreen stub, for wxWindows 2.2
-#
-package Wx::SplashScreen;
-
-use strict;
-use vars qw(@ISA);
-
-#if( $Wx::_wx_version < 2.003001 ) {
-#  require Wx::SplashScreen;
-#  @ISA = qw(Wx::_SplashScreenPerl);
-#
-#  *Wx::wxSPLASH_CENTRE_ON_PARENT = sub { 0x01 };
-#  *Wx::wxSPLASH_CENTRE_ON_SCREEN = sub { 0x02 };
-#  *Wx::wxSPLASH_NO_CENTRE = sub { 0x00 };
-#  *Wx::wxSPLASH_TIMEOUT = sub { 0x04 };
-#  *Wx::wxSPLASH_NO_TIMEOUT = sub { 0x00 };
-#} else {
-  @ISA = qw(Wx::_SplashScreenCpp);
-#}
-
-package Wx::_SplashScreenCpp;
-
-use vars qw(@ISA); @ISA = qw(Wx::Frame);
 
 1;
 

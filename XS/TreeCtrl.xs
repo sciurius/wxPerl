@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      4/ 2/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.18 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -114,19 +114,8 @@ Wx_TreeEvent::GetPoint()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 bool
 Wx_TreeEvent::IsEditCancelled()
-
-#endif
-
-#if WXWIN_COMPATIBILITY_2_2
-
-int
-Wx_TreeEvent::GetCode()
-
-#endif
 
 wxString
 Wx_TreeEvent::GetLabel()
@@ -190,15 +179,11 @@ Wx_TreeCtrl::Delete( item )
   CODE:
     THIS->Delete( *item );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 4 )
-
 void
 wxTreeCtrl::DeleteChildren( item )
     wxTreeItemId* item;
   CODE:
     THIS->DeleteChildren( *item );
-
-#endif
 
 void
 Wx_TreeCtrl::DeleteAllItems()
@@ -229,9 +214,6 @@ Wx_TreeCtrl::Expand( item )
   CODE:
     THIS->Expand( *item );
 
-#if defined( __WXMSW__ ) || WXPERL_W_VERSION_GE( 2, 3, 1 ) || \
-  defined( __WXPERL_FORCE__ )
-
 void
 Wx_TreeCtrl::GetBoundingRect( item, textOnly = FALSE )
     Wx_TreeItemId* item
@@ -250,8 +232,6 @@ Wx_TreeCtrl::GetBoundingRect( item, textOnly = FALSE )
     {
         XSRETURN_UNDEF;
     }
-
-#endif
 
 size_t
 Wx_TreeCtrl::GetChildrenCount( item, recursively = TRUE )
@@ -386,11 +366,7 @@ Wx_TreeCtrl::GetItemParent( item )
     Wx_TreeItemId* item
   CODE:
     RETVAL = new wxTreeItemId( 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
        THIS->GetItemParent( *item )
-#else
-       THIS->GetParent( *item )
-#endif
      );
   OUTPUT:
     RETVAL

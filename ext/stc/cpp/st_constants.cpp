@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/ 5/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.6 2003/04/24 22:26:46 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.7 2003/05/05 20:38:42 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -29,7 +29,6 @@ double stc_constant( const char* name, int arg )
     switch( fl )
     {
     case 'A':
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_AVE_DEFAULT );
         r( wxSTC_AVE_COMMENT );
         r( wxSTC_AVE_NUMBER );
@@ -46,10 +45,8 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_ADA_CHARACTER );
         r( wxSTC_ADA_IDENTIFIER );
         r( wxSTC_ADA_STRINGEOL );
-#endif
         break;
     case 'B':
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_B_DEFAULT );
         r( wxSTC_B_COMMENT );
         r( wxSTC_B_NUMBER );
@@ -78,7 +75,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_BAAN_IDENTIFIER );
         r( wxSTC_BAAN_STRINGEOL );
         r( wxSTC_BAAN_WORD2 );
-#endif
         break;
     case 'C':
         r( wxSTC_CHARSET_ANSI );
@@ -100,7 +96,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CHARSET_ARABIC );
         r( wxSTC_CHARSET_VIETNAMESE );
         r( wxSTC_CHARSET_THAI );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_CASE_MIXED );
         r( wxSTC_CASE_UPPER );
         r( wxSTC_CASE_LOWER );
@@ -114,7 +109,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CARET_STRICT );
         r( wxSTC_CARET_JUMPS );
         r( wxSTC_CARET_EVEN );
-#endif
         r( wxSTC_C_DEFAULT );
         r( wxSTC_C_COMMENT );
         r( wxSTC_C_COMMENTLINE );
@@ -129,14 +123,11 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_C_IDENTIFIER );
         r( wxSTC_C_STRINGEOL );
         r( wxSTC_C_VERBATIM );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_C_REGEX );
         r( wxSTC_C_COMMENTLINEDOC );
         r( wxSTC_C_WORD2 );
         r( wxSTC_C_COMMENTDOCKEYWORD );
         r( wxSTC_C_COMMENTDOCKEYWORDERROR );
-#endif
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_CONF_DEFAULT );
         r( wxSTC_CONF_COMMENT );
         r( wxSTC_CONF_NUMBER );
@@ -147,7 +138,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CONF_OPERATOR );
         r( wxSTC_CONF_IP );
         r( wxSTC_CONF_DIRECTIVE );
-#endif
         r( wxSTC_CMD_REDO );
         r( wxSTC_CMD_SELECTALL );
         r( wxSTC_CMD_UNDO );
@@ -198,14 +188,11 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CMD_UPPERCASE );
         r( wxSTC_CMD_LINESCROLLDOWN );
         r( wxSTC_CMD_LINESCROLLUP );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_CMD_DELETEBACKNOTLINE );
         r( wxSTC_CMD_HOMEDISPLAY );
         r( wxSTC_CMD_HOMEDISPLAYEXTEND );
         r( wxSTC_CMD_LINEENDDISPLAY );
         r( wxSTC_CMD_LINEENDDISPLAYEXTEND );
-#endif
-#if WXPERL_W_VERSION_GE( 2, 4, 0 )
         r( wxSTC_CMD_CLEAR );
         r( wxSTC_CMD_WORDPARTLEFT );
         r( wxSTC_CMD_WORDPARTLEFTEXTEND );
@@ -213,10 +200,8 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CMD_WORDPARTRIGHTEXTEND );
         r( wxSTC_CMD_DELLINELEFT );
         r( wxSTC_CMD_DELLINERIGHT );
-#endif
         break;
     case 'D':
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_DIFF_DEFAULT );
         r( wxSTC_DIFF_COMMENT );
         r( wxSTC_DIFF_COMMAND );
@@ -224,7 +209,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_DIFF_POSITION );
         r( wxSTC_DIFF_DELETED );
         r( wxSTC_DIFF_ADDED );
-#endif
         break;
     case 'E':
         r( wxSTC_EOL_CR );
@@ -240,7 +224,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_ERR_CMD );
         r( wxSTC_ERR_BORLAND );
         r( wxSTC_ERR_PERL );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_ERR_NET );
         r( wxSTC_ERR_LUA );
         r( wxSTC_ERR_CTAG );
@@ -248,8 +231,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_ERR_DIFF_ADDITION );
         r( wxSTC_ERR_DIFF_DELETION );
         r( wxSTC_ERR_DIFF_MESSAGE );
-#endif
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_EIFFEL_DEFAULT );
         r( wxSTC_EIFFEL_COMMENTLINE );
         r( wxSTC_EIFFEL_NUMBER );
@@ -259,7 +240,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_EIFFEL_OPERATOR );
         r( wxSTC_EIFFEL_IDENTIFIER );
         r( wxSTC_EIFFEL_STRINGEOL );
-#endif
         break;
     case 'F':
         r( wxSTC_FIND_WHOLEWORD );
@@ -292,7 +272,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_H_CDATA );
         r( wxSTC_H_QUESTION );
         r( wxSTC_H_VALUE );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_H_XCCOMMENT );
         r( wxSTC_H_SGML_DEFAULT );
         r( wxSTC_H_SGML_COMMAND );
@@ -305,7 +284,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_H_SGML_COMMENT );
         r( wxSTC_H_SGML_1ST_PARAM_COMMENT );
         r( wxSTC_H_SGML_BLOCK_DEFAULT );
-#endif
         r( wxSTC_HJ_START );
         r( wxSTC_HJ_DEFAULT );
         r( wxSTC_HJ_COMMENT );
@@ -318,9 +296,7 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_HJ_SINGLESTRING );
         r( wxSTC_HJ_SYMBOLS );
         r( wxSTC_HJ_STRINGEOL );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_HJ_REGEX );
-#endif
         r( wxSTC_HJA_START );
         r( wxSTC_HJA_DEFAULT );
         r( wxSTC_HJA_COMMENT );
@@ -333,9 +309,7 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_HJA_SINGLESTRING );
         r( wxSTC_HJA_SYMBOLS );
         r( wxSTC_HJA_STRINGEOL );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_HJA_REGEX );
-#endif
         r( wxSTC_HB_START );
         r( wxSTC_HB_DEFAULT );
         r( wxSTC_HB_COMMENTLINE );
@@ -386,10 +360,8 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_HPHP_VARIABLE );
         r( wxSTC_HPHP_COMMENT );
         r( wxSTC_HPHP_COMMENTLINE );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_HPHP_HSTRING_VARIABLE );
         r( wxSTC_HPHP_OPERATOR );
-#endif
         break;
     case 'I':
         r( wxSTC_INDIC_MAX );
@@ -440,7 +412,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_LEX_LATEX );
         r( wxSTC_LEX_LUA );
         r( wxSTC_LEX_DIFF );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_LEX_CONF );
         r( wxSTC_LEX_PASCAL );
         r( wxSTC_LEX_AVE );
@@ -459,7 +430,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_LEX_MATLAB );
         r( wxSTC_LEX_SCRIPTOL );
         r( wxSTC_LEX_AUTOMATIC );
-#endif
         r( wxSTC_LASTSTEPINUNDOREDO );
         r( wxSTC_L_DEFAULT );
         r( wxSTC_L_COMMAND );
@@ -479,14 +449,11 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_LUA_OPERATOR );
         r( wxSTC_LUA_IDENTIFIER );
         r( wxSTC_LUA_STRINGEOL );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_LUA_WORD2 );
         r( wxSTC_LUA_WORD3 );
         r( wxSTC_LUA_WORD4 );
         r( wxSTC_LUA_WORD5 );
         r( wxSTC_LUA_WORD6 );
-#endif
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_LISP_DEFAULT );
         r( wxSTC_LISP_COMMENT );
         r( wxSTC_LISP_NUMBER );
@@ -495,7 +462,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_LISP_STRINGEOL );
         r( wxSTC_LISP_IDENTIFIER );
         r( wxSTC_LISP_OPERATOR );
-#endif
         break;
     case 'M':
         r( wxSTC_MARKER_MAX );
@@ -508,7 +474,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_MARK_ARROWDOWN );
         r( wxSTC_MARK_MINUS );
         r( wxSTC_MARK_PLUS );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_MARK_VLINE );
         r( wxSTC_MARK_LCORNER );
         r( wxSTC_MARK_TCORNER );
@@ -531,7 +496,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_MARKNUM_FOLDERMIDTAIL );
         r( wxSTC_MARKNUM_FOLDERTAIL );
         r( wxSTC_MARKNUM_FOLDERSUB );
-#endif
         r( wxSTC_MARKNUM_FOLDER );
         r( wxSTC_MARKNUM_FOLDEROPEN );
         r( wxSTC_MASK_FOLDERS );
@@ -545,7 +509,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_MOD_BEFOREINSERT );
         r( wxSTC_MOD_BEFOREDELETE );
         r( wxSTC_MODEVENTMASKALL );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_MAKE_DEFAULT );
         r( wxSTC_MAKE_COMMENT );
         r( wxSTC_MAKE_PREPROCESSOR );
@@ -553,8 +516,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_MAKE_OPERATOR );
         r( wxSTC_MAKE_TARGET );
         r( wxSTC_MAKE_IDEOL );
-#endif
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_MATLAB_DEFAULT );
         r( wxSTC_MATLAB_COMMENT );
         r( wxSTC_MATLAB_COMMAND );
@@ -563,10 +524,8 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_MATLAB_STRING );
         r( wxSTC_MATLAB_OPERATOR );
         r( wxSTC_MATLAB_IDENTIFIER );
-#endif
         break;
     case 'N':
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_NNCRONTAB_DEFAULT );
         r( wxSTC_NNCRONTAB_COMMENT );
         r( wxSTC_NNCRONTAB_TASK );
@@ -578,16 +537,13 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_NNCRONTAB_STRING );
         r( wxSTC_NNCRONTAB_ENVIRONMENT );
         r( wxSTC_NNCRONTAB_IDENTIFIER );
-#endif
         break;
     case 'P':
         r( wxSTC_PRINT_NORMAL );
         r( wxSTC_PRINT_INVERTLIGHT );
         r( wxSTC_PRINT_BLACKONWHITE );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_PRINT_COLOURONWHITE );
         r( wxSTC_PRINT_COLOURONWHITEDEFAULTBG );
-#endif
         r( wxSTC_PERFORMED_USER );
         r( wxSTC_PERFORMED_UNDO );
         r( wxSTC_PERFORMED_REDO );
@@ -606,9 +562,7 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_P_COMMENTBLOCK );
         r( wxSTC_P_STRINGEOL );
         r( wxSTC_PL_DEFAULT );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_PL_ERROR );
-#endif
         r( wxSTC_PL_COMMENTLINE );
         r( wxSTC_PL_POD );
         r( wxSTC_PL_NUMBER );
@@ -628,7 +582,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_PL_LONGQUOTE );
         r( wxSTC_PL_BACKTICKS );
         r( wxSTC_PL_DATASECTION );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_PL_HERE_DELIM );
         r( wxSTC_PL_HERE_Q );
         r( wxSTC_PL_HERE_QQ );
@@ -643,23 +596,19 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_PROPS_SECTION );
         r( wxSTC_PROPS_ASSIGNMENT );
         r( wxSTC_PROPS_DEFVAL );
-#endif
         break;
-	case 'S':
+    case 'S':
         r( wxSTC_STYLE_DEFAULT );
         r( wxSTC_STYLE_LINENUMBER );
         r( wxSTC_STYLE_BRACELIGHT );
         r( wxSTC_STYLE_BRACEBAD );
         r( wxSTC_STYLE_CONTROLCHAR );
         r( wxSTC_STYLE_INDENTGUIDE );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_STYLE_LASTPREDEFINED );
-#endif
         r( wxSTC_STYLE_MAX );
         r( wxSTC_SCMOD_SHIFT );
         r( wxSTC_SCMOD_CTRL );
         r( wxSTC_SCMOD_ALT );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_SCRIPTOL_DEFAULT );
         r( wxSTC_SCRIPTOL_COMMENT );
         r( wxSTC_SCRIPTOL_COMMENTLINE );
@@ -680,24 +629,17 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_SCRIPTOL_COMMENTDOCKEYWORD );
         r( wxSTC_SCRIPTOL_COMMENTDOCKEYWORDERROR );
         r( wxSTC_SCRIPTOL_COMMENTBASIC );
-#endif
         break;
     case 'T':
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_TIME_FOREVER );
-#endif
         break;
     case 'V':
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_VISIBLE_SLOP );
         r( wxSTC_VISIBLE_STRICT );
-#endif
         break;
     case 'W':
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxSTC_WRAP_NONE );
         r( wxSTC_WRAP_WORD );
-#endif
         break;
     }
 #undef r

@@ -3,8 +3,8 @@
 // Purpose:     constants for Wx::DocView
 // Author:      Simon Flack
 // Created:     11/ 9/2002
-// RCS-ID:
-// Copyright:   (c) 2002 Mattia Barbon
+// RCS-ID:      $Id: dv_constants.cpp,v 1.3 2003/05/05 20:38:42 mbarbon Exp $
+// Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -31,11 +31,7 @@ double docview_constant( const char* name, int arg )
       case 'I':
          r( wxID_OPEN );
          r( wxID_CLOSE );
-
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
          r( wxID_CLOSE_ALL );
-#endif
-
          r( wxID_NEW );
          r( wxID_SAVE );
          r( wxID_SAVEAS );

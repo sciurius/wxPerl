@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/ 7/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: XmlResource.xs,v 1.6 2003/05/05 20:38:42 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,19 +18,9 @@
 
 MODULE=Wx PACKAGE=Wx::XmlResource
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 Wx_XmlResource*
 Wx_XmlResource::new( flags = wxXRC_USE_LOCALE )
     int flags
-
-#else
-
-Wx_XmlResource*
-Wx_XmlResource::new( use_locale = TRUE )
-    bool use_locale
-
-#endif
 
 ## XXX threads
 void
@@ -125,11 +115,7 @@ int
 GetXRCID( str_id )
     wxChar* str_id
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = wxXmlResource::GetXRCID( str_id );
-#else
-    RETVAL = wxXmlResource::GetXMLID( str_id );
-#endif
   OUTPUT:
     RETVAL
 

@@ -3,9 +3,9 @@
 ## Purpose:     XS for wxView ( Document / View Framework )
 ## Author:      Simon Flack
 ## Modified by:
-## Created:      11/ 9/2002
+## Created:     11/ 9/2002
 ## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -33,25 +33,12 @@ Wx_View::GetDocument()
 Wx_DocManager *
 Wx_View::GetDocumentManager()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 Wx_Window * 
 Wx_View::GetFrame()
 
 void
 Wx_View::SetFrame( frame )
     Wx_Window* frame
-
-#else
-
-Wx_Frame * 
-Wx_View::GetFrame()
-
-void
-Wx_View::SetFrame( frame )
-    Wx_Frame* frame
-
-#endif
 
 wxString
 Wx_View::GetViewName()

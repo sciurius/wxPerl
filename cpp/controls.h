@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: controls.h,v 1.12 2003/05/05 20:38:41 mbarbon Exp $
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -58,21 +58,15 @@ public:
                          const wxSize&, long, const wxValidator&,
                          const wxString& );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     wxString OnGetItemText( long item, long column ) const;
     int OnGetItemImage( long item ) const;
     wxListItemAttr* OnGetItemAttr( long item ) const;
-#endif
 };
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 WXPLI_DECLARE_CLASS_7( ListView, TRUE,
                        wxWindow*, wxWindowID, const wxPoint&,
                        const wxSize&, long, 
                        const wxValidator&, const wxString& );
-
-#endif
 
 WXPLI_DECLARE_CLASS_6( Notebook, TRUE,
                        wxWindow*, wxWindowID, const wxPoint&,
@@ -146,7 +140,7 @@ WXPLI_DECLARE_CLASS_8( TextCtrl, TRUE,
                        const wxPoint&, const wxSize&, long,
                        const wxValidator&, const wxString& );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 ) && wxPERL_USE_TOGGLEBTN
+#if wxPERL_USE_TOGGLEBTN
 
 WXPLI_DECLARE_CLASS_8( ToggleButton, TRUE,
                        wxWindow*, wxWindowID, const wxString&,

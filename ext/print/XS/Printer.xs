@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/ 5/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: Printer.xs,v 1.7 2003/05/05 20:38:42 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -61,15 +61,7 @@ Wx_Printer::ReportError( parent, printout, message )
     Wx_Printout* printout
     wxString message
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     THIS->ReportError( parent, printout, message );
-#else
-#  if wxUSE_UNICODE
-    THIS->ReportError( parent, printout, (char*)message.mb_str().data() );
-#  else
-    THIS->ReportError( parent, printout, (char*)(const char*)message );
-#  endif
-#endif
 
 bool
 Wx_Printer::Setup( parent )

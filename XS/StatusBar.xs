@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: StatusBar.xs,v 1.10 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,8 +14,6 @@
 #include "cpp/statusbar.h"
 
 MODULE=Wx PACKAGE=Wx::StatusBar
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 Wx_StatusBar*
 Wx_StatusBar::new( parent, id, style = 0, name = wxEmptyString )
@@ -27,23 +25,6 @@ Wx_StatusBar::new( parent, id, style = 0, name = wxEmptyString )
     RETVAL = new wxPliStatusBar( CLASS, parent, id, style, name );
   OUTPUT:
     RETVAL
-
-#else
-
-Wx_StatusBar*
-Wx_StatusBar::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxEmptyString )
-    Wx_Window* parent
-    wxWindowID id
-    Wx_Point pos
-    Wx_Size size
-    long style
-    wxString name
-  CODE:
-    RETVAL = new wxStatusBar( parent, id, pos, size, style, name );
-  OUTPUT:
-    RETVAL
-
-#endif
 
 Wx_Rect*
 Wx_StatusBar::GetFieldRect( index )
@@ -67,8 +48,6 @@ wxString
 Wx_StatusBar::GetStatusText( ir = 0 )
     int ir
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_StatusBar::PushStatusText( string, n = 0 )
     wxString string
@@ -77,8 +56,6 @@ Wx_StatusBar::PushStatusText( string, n = 0 )
 void
 Wx_StatusBar::PopStatusText( n = 0 )
     int n
-
-#endif
 
 void
 Wx_StatusBar::SetFieldsCount( number = 1 )

@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: Event.xs,v 1.34 2003/05/05 20:38:34 mbarbon Exp $
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -19,12 +19,7 @@
 #include <wx/dc.h>
 #include <stdarg.h>
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-    #include <wx/clntdata.h>
-#else
-    // only for wxUserData
-    #include <wx/window.h>
-#endif
+#include <wx/clntdata.h>
 
 // re-include for client data
 #include "cpp/helpers.h"
@@ -51,14 +46,6 @@ MODULE=Wx_Evt PACKAGE=Wx::Event
 # GetEventObject
 # GetObjectType
 # SetEventObject
-
-#if WXPERL_W_VERSION_LE( 2, 3, 1 )
-
-Wx_Event*
-Wx_Event::new( id = 0 )
-    int id
-
-#endif
 
 ## XXX threads
 void
@@ -251,12 +238,8 @@ Wx_FocusEvent::new( eventType = 0, id = 0 )
 
 MODULE=Wx_Evt PACKAGE=Wx::IconizeEvent
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 bool
 Wx_IconizeEvent::Iconized()
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::KeyEvent
 
@@ -290,8 +273,6 @@ Wx_KeyEvent::ShiftDown()
 
 MODULE=Wx_Evt PACKAGE=Wx::HelpEvent
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 Wx_HelpEvent*
 Wx_HelpEvent::new()
 
@@ -319,8 +300,6 @@ Wx_HelpEvent::SetLink( link )
 void
 Wx_HelpEvent::SetTarget( target )
     wxString target
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::IdleEvent
 
@@ -399,12 +378,8 @@ Wx_MenuEvent::new( eventType = 0, id = 0 )
 int
 Wx_MenuEvent::GetMenuId()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 bool
 Wx_MenuEvent::IsPopup()
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::MouseEvent
 
@@ -472,8 +447,6 @@ Wx_MouseEvent::GetX()
 long
 Wx_MouseEvent::GetY()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 int
 Wx_MouseEvent::GetWheelRotation()
 
@@ -482,8 +455,6 @@ Wx_MouseEvent::GetWheelDelta()
 
 int
 Wx_MouseEvent::GetLinesPerAction()
-
-#endif
 
 bool
 Wx_MouseEvent::IsButton()

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: ToolBar.xs,v 1.16 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -41,12 +41,8 @@ Wx_ToolBarToolBase::IsSeparator()
 int
 Wx_ToolBarToolBase::GetStyle()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 wxItemKind
 Wx_ToolBarToolBase::GetKind()
-
-#endif
 
 bool
 Wx_ToolBarToolBase::IsEnabled()
@@ -56,8 +52,6 @@ Wx_ToolBarToolBase::IsToggled()
 
 bool
 Wx_ToolBarToolBase::CanBeToggled()
-
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 Wx_Bitmap*
 Wx_ToolBarToolBase::GetNormalBitmap()
@@ -73,27 +67,17 @@ Wx_ToolBarToolBase::GetDisabledBitmap()
   OUTPUT:
     RETVAL
 
-#endif
-
 Wx_Bitmap*
 Wx_ToolBarToolBase::GetBitmap1()
   CODE:
-#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
-    RETVAL = new wxBitmap( THIS->GetBitmap1() );
-#else
     RETVAL = new wxBitmap( THIS->GetNormalBitmap() );
-#endif
   OUTPUT:
     RETVAL
 
 Wx_Bitmap*
 Wx_ToolBarToolBase::GetBitmap2()
   CODE:
-#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
-    RETVAL = new wxBitmap( THIS->GetBitmap2() );
-#else
     RETVAL = new wxBitmap( THIS->GetDisabledBitmap() );
-#endif
   OUTPUT:
     RETVAL
 
@@ -104,12 +88,8 @@ Wx_ToolBarToolBase::GetBitmap()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 wxString
 Wx_ToolBarToolBase::GetLabel()
-
-#endif
 
 wxString
 Wx_ToolBarToolBase::GetShortHelp()
@@ -144,8 +124,6 @@ bool
 Wx_ToolBarToolBase::SetLongHelp( help )
     wxString help
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_ToolBarToolBase::SetNormalBitmap( bmp )
     Wx_Bitmap* bmp
@@ -162,27 +140,17 @@ void
 Wx_ToolBarToolBase::SetLabel( label )
     wxString label
 
-#endif
-
 void
 Wx_ToolBarToolBase::SetBitmap1( bmp )
     Wx_Bitmap* bmp
   CODE:
-#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
-    THIS->SetBitmap1( *bmp );
-#else
     THIS->SetNormalBitmap( *bmp );
-#endif
 
 void
 Wx_ToolBarToolBase::SetBitmap2( bmp )
     Wx_Bitmap* bmp
   CODE:
-#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
-    THIS->SetBitmap2( *bmp );
-#else
     THIS->SetDisabledBitmap( *bmp );
-#endif
 
 void
 Wx_ToolBarToolBase::SetClientData( data = 0 )
@@ -243,8 +211,6 @@ wxToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap,
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 4, 0 )
-
 wxToolBarToolBase*
 wxToolBarBase::AddToolNewLong( toolId, label, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, kind = wxITEM_NORMAL, shortHelp = wxEmptyString, longHelp = wxEmptyString, clientData = 0 )
     int toolId
@@ -272,8 +238,6 @@ wxToolBarBase::AddToolNewShort( toolId, label, bitmap, shortHelp = wxEmptyString
   CODE:
     RETVAL = THIS->AddTool( toolId, label, *bitmap, shortHelp, kind );
   OUTPUT: RETVAL
-
-#endif
 
 bool
 Wx_ToolBarBase::DeleteTool( toolId )

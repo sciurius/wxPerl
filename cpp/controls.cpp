@@ -19,9 +19,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckListBox, wxCheckListBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliChoice, wxChoice );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliComboBox, wxComboBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListBox, wxListBox );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListView, wxListView );
-#endif
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliNotebook, wxNotebook );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioBox, wxRadioBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioButton, wxRadioButton );
@@ -34,7 +32,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticLine, wxStaticLine );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticText, wxStaticText );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTextCtrl, wxTextCtrl );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 ) && wxPERL_USE_TOGGLEBTN
+#if wxPERL_USE_TOGGLEBTN
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliToggleButton, wxToggleButton );
 
@@ -46,12 +44,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge95 );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge );
 #endif
 
-#if defined( __WXMSW__ ) && WXPERL_W_VERSION_LE( 2, 3, 2 )
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSlider, wxSlider95 );
-#else
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSlider, wxSlider );
-#endif
-
 
 //
 // Wx::ListCtrl implementation
@@ -76,13 +69,11 @@ double listctrl_constant( const char* name, int arg )
       r( wxEVT_COMMAND_LIST_BEGIN_DRAG );
       r( wxEVT_COMMAND_LIST_BEGIN_RDRAG );
       r( wxEVT_COMMAND_LIST_BEGIN_LABEL_EDIT );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
       r( wxEVT_COMMAND_LIST_CACHE_HINT );
       r( wxEVT_COMMAND_LIST_COL_RIGHT_CLICK );
       r( wxEVT_COMMAND_LIST_COL_BEGIN_DRAG );
       r( wxEVT_COMMAND_LIST_COL_DRAGGING );
       r( wxEVT_COMMAND_LIST_COL_END_DRAG );
-#endif
       r( wxEVT_COMMAND_LIST_END_LABEL_EDIT );
       r( wxEVT_COMMAND_LIST_DELETE_ITEM );
       r( wxEVT_COMMAND_LIST_DELETE_ALL_ITEMS );
@@ -96,9 +87,7 @@ double listctrl_constant( const char* name, int arg )
       r( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK );
       r( wxEVT_COMMAND_LIST_ITEM_MIDDLE_CLICK );
       r( wxEVT_COMMAND_LIST_ITEM_ACTIVATED );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
       r( wxEVT_COMMAND_LIST_ITEM_FOCUSED );
-#endif
       break;
   case 'I':
       r( wxIMAGE_LIST_NORMAL );         // listctrl
@@ -154,10 +143,8 @@ double listctrl_constant( const char* name, int arg )
       r( wxLIST_STATE_CUT );            // listctrl
 
       r( wxLIST_SET_ITEM );             // listctrl
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
       r( wxLC_VRULES );                 // listctrl
       r( wxLC_HRULES );                 // listctrl
-#endif
       r( wxLC_ICON );                   // listctrl
       r( wxLC_SMALL_ICON );             // listctrl
       r( wxLC_LIST );                   // listctrl
@@ -172,9 +159,7 @@ double listctrl_constant( const char* name, int arg )
       r( wxLC_SINGLE_SEL );             // listctrl
       r( wxLC_SORT_ASCENDING );         // listctrl
       r( wxLC_SORT_DESCENDING );        // listctrl
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
       r( wxLC_VIRTUAL );                // listctrl
-#endif
       break;
   }
 #undef r
@@ -183,8 +168,6 @@ double listctrl_constant( const char* name, int arg )
 }
 
 wxPlConstants listctrl_module( &listctrl_constant );
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 wxString wxPliListCtrl::OnGetItemText( long item, long column ) const
 {
@@ -237,8 +220,6 @@ wxListItemAttr* wxPliListCtrl::OnGetItemAttr( long item ) const
     return wxListCtrl::OnGetItemAttr( item );
 }
 
-#endif
-
 //
 // Wx::TreeCtrl implementation
 //
@@ -282,9 +263,7 @@ double treectrl_constant( const char* name, int arg )
     r( wxTR_HAS_BUTTONS );              // treectrl
     r( wxTR_EDIT_LABELS );              // treectrl
     r( wxTR_MULTIPLE );                 // treectrl
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxTR_HIDE_ROOT );                // treectrl
-#endif
 
     r( wxTreeItemIcon_Normal );         // treectrl
     r( wxTreeItemIcon_Selected );       // treectrl

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.14 2003/05/04 17:37:09 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.15 2003/05/05 20:38:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -82,16 +82,12 @@ Wx_Sizer::AddSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
   CODE:
     THIS->Add( width, height, option, flag, border, data );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 Wx_Sizer::Clear( deleteWindows = TRUE )
     bool deleteWindows
 
 void
 Wx_Sizer::DeleteWindows()
-
-#endif
 
 Wx_Size*
 Wx_Sizer::CalcMin()
@@ -104,13 +100,9 @@ void
 Wx_Sizer::Fit( window )
     Wx_Window* window
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Sizer::FitInside( window )
     Wx_Window* window
-
-#endif
 
 void
 Wx_Sizer::GetChildren()
@@ -287,13 +279,9 @@ void
 Wx_Sizer::SetSizeHints( window )
     Wx_Window* window
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Sizer::SetVirtualSizeHints( window )
     Wx_Window* window
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::BoxSizer
 

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      9/ 2/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: Utils.xs,v 1.25 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -22,15 +22,7 @@
 #include <wx/tipdlg.h>
 #include "cpp/tipprovider.h"
 
-#if !WXPERL_W_VERSION_GE( 2, 3, 1 )
-#if !defined(__WXMSW__) || defined(__WXMICROWIN__)
-  #include  <signal.h>      // for SIGTRAP used by wxTrap()
-#endif  //Win/Unix
-#endif
-
 MODULE=Wx PACKAGE=Wx::CaretSuspend
-
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 Wx_CaretSuspend*
 Wx_CaretSuspend::new( window )
@@ -39,11 +31,7 @@ Wx_CaretSuspend::new( window )
 void
 Wx_CaretSuspend::DESTROY()
 
-#endif
-
-MODULE=Wx PACKAGE=Wx::_SplashScreenCpp
-
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+MODULE=Wx PACKAGE=Wx::SplashScreen
 
 #ifndef wxFRAME_FLOAT_ON_PARENT
 #define wxFRAME_FLOAT_ON_PARENT 0
@@ -68,8 +56,6 @@ Wx_SplashScreen::new( bitmap, splashStyle, milliseconds, parent, id, pos = wxDef
         id, pos, size, style );
   OUTPUT:
     RETVAL
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::WindowDisabler
 
@@ -126,7 +112,6 @@ Wx_StopWatch::Time()
 
 MODULE=Wx PACKAGE=Wx::SingleInstanceChecker
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #if wxUSE_SNGLINST_CHECKER
 
 Wx_SingleInstanceChecker*
@@ -144,7 +129,6 @@ Wx_SingleInstanceChecker::Create( name, path = wxEmptyString )
 bool
 Wx_SingleInstanceChecker::IsAnotherRunning()
 
-#endif
 #endif
 
 MODULE=Wx PACKAGE=Wx::SystemSettings
@@ -234,48 +218,16 @@ wxSleep( sec )
 bool
 wxYield()
 
-#if WXPERL_W_VERSION_GE( 2, 4, 0 )
-
 bool
 wxSafeYield( window = 0, onlyIfNeeded = FALSE )
     wxWindow* window
     bool onlyIfNeeded
-
-#else
-
-bool
-wxSafeYield( window = 0 )
-    wxWindow* window
-
-#endif
 
 bool
 wxYieldIfNeeded()
 
 void
 wxTrap()
-  CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-    wxTrap();
-#else
-#if defined(__WXMSW__) && !defined(__WXMICROWIN__)
-    DebugBreak();
-#elif defined(__WXMAC__)
-#if 0
-#if __powerc
-    Debugger();
-#else
-    SysBreak();
-#endif
-#endif
-#elif defined(__UNIX__)
-#if 0
-    raise(SIGTRAP);
-#endif
-#else
-    // TODO
-#endif // Win/Unix
-#endif
 
 wxString
 wxGetOsDescription()

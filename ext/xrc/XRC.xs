@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     27/ 7/2001
-// RCS-ID:      
-// Copyright:   (c) 2001-2002 Mattia Barbon
+// RCS-ID:      $Id: XRC.xs,v 1.11 2003/05/05 20:38:42 mbarbon Exp $
+// Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -31,11 +31,7 @@ MODULE=Wx__XRC PACKAGE=Wx PREFIX=wx
 void
 wxXmlInitXmlModule()
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     // nothing here
-#else
-    wxXmlInitXmlModule();
-#endif
 
 void
 wxXmlInitResourceModule()

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.78 2003/05/04 17:32:15 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.79 2003/05/05 20:38:34 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -50,15 +50,9 @@
 
 #include "cpp/wxapi.h"
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/tglbtn.h>
 #include <wx/splash.h>
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 #include <wx/fdrepdlg.h>
-#endif
-
 #include <wx/list.h>
 
 //////////////////////////////////////////////////////////////////////////////
@@ -115,9 +109,7 @@ static wxPlEVT evts[] =
     SEVT( EVT_WIZARD_PAGE_CHANGED, 3 )
     SEVT( EVT_WIZARD_PAGE_CHANGING, 3 )
     SEVT( EVT_WIZARD_CANCEL, 3 )
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     SEVT( EVT_WIZARD_HELP, 3 )
-#endif
     { 0, 0, 0 }
 };
 
@@ -241,6 +233,7 @@ static wxPlINH inherit[] =
     I( GenericTreeCtrl, ScrolledWindow )
     I( MiniFrame,       Frame )
     I( SplitterWindow,  Window )
+    I( SplashScreen,    Frame )
     I( ListCtrl,        Control )
     I( ListView,        ListCtrl )
     I( SashWindow,      Window )
@@ -315,8 +308,7 @@ static wxPlINH inherit[] =
     ///////////////////////////////////////////
     // Conditional part
     ///////////////////////////////////////////
-#define HAS_TLW    ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXMOTIF__) )\
-                     || WXPERL_W_VERSION_GE( 2, 5, 0 )
+#define HAS_TLW    !defined(__WXMOTIF__) || WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 #if HAS_TLW
     I( Frame,           TopLevelWindow )
@@ -338,8 +330,7 @@ static wxPlINH inherit[] =
     I( MemoryDC,        WindowDC )
 #endif
 
-#if ( defined(__WXMSW__) || defined(__WXGTK__) ) && \
-    WXPERL_W_VERSION_GE( 2, 3, 0 )
+#if defined(__WXMSW__) || defined(__WXGTK__)
     I( PaintDC,         ClientDC )
 #else
     I( PaintDC,         WindowDC )
@@ -353,10 +344,8 @@ static wxPlINH inherit[] =
 
 #if defined(__WXMSW__)
     I( TreeCtrl,        Control )
-#elif WXPERL_W_VERSION_GE( 2, 3, 0 )
-    I( TreeCtrl,        GenericTreeCtrl )
 #else
-    I( TreeCtrl,        ScrolledWindow )
+    I( TreeCtrl,        GenericTreeCtrl )
 #endif
 
 #if defined(__WXGTK__)
@@ -365,11 +354,7 @@ static wxPlINH inherit[] =
     I( ComboBox,        Choice )
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 3, 0 )
     I( ScrolledWindow,  GenericScrolledWindow )
-#else
-    I( ScrolledWindow,  Panel )
-#endif
 
 #if defined(__WXGTK__)
     I( StatusBar,       StatusBarGeneric )
@@ -444,11 +429,7 @@ static wxPlINH inherit[] =
     I( UpdateUIEvent,   CommandEvent )
     I( WizardEvent,     NotifyEvent )
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     I( SplitterEvent,   NotifyEvent )
-#else
-    I( SplitterEvent,   CommandEvent )
-#endif
 
     { 0, 0 }
 };
@@ -507,9 +488,7 @@ static double constant( const char *name, int arg )
     r( wxAND_INVERT );                  // dc
     r( wxAND_REVERSE );                 // dc
 
-#if WXPERL_W_VERSION_GE( 2, 3, 4 )
     r( wxADJUST_MINSIZE );              // layout sizer
-#endif
     r( wxAbove );                       // layout constraints
     r( wxAbsolute );                    // layout constraints
     r( wxAsIs );                        // layout constraints
@@ -543,9 +522,7 @@ static double constant( const char *name, int arg )
     // !export: Type_Boolean
     if( strEQ( name, "Type_Boolean" ) )
         return wxConfigBase::Type_Boolean;
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxBU_EXACTFIT );                 // button
-#endif
 
     r( wxBDIAGONAL_HATCH );             // brush pen
 
@@ -569,10 +546,8 @@ static double constant( const char *name, int arg )
     r( wxCENTRE );                      // dialog sizer
     r( wxCLIP_CHILDREN );               // window
     r( wxCHOICEDLG_STYLE );
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxCHANGE_DIR );                  // filedlg
     r( wxCLIP_SIBLINGS );               // window
-#endif
 
     r( wxCLEAR );                       // dc
     r( wxCOPY );                        // dc
@@ -582,12 +557,8 @@ static double constant( const char *name, int arg )
     r( wxCONFIG_USE_RELATIVE_PATH );    // config
 
     r( wxCURSOR_ARROW );                // cursor
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxCURSOR_ARROWWAIT );            // cursor
-#endif
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxCURSOR_RIGHT_ARROW );          // cursor
-#endif
     r( wxCURSOR_BULLSEYE );             // cursor
     r( wxCURSOR_CHAR );                 // cursor
     r( wxCURSOR_CROSS );                // cursor
@@ -630,14 +601,10 @@ static double constant( const char *name, int arg )
     r( wxDEFAULT_FRAME_STYLE );         // frame
     r( wxDIALOG_MODAL );                // dialog
     r( wxDOUBLE_BORDER );               // window
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxDIALOG_NO_PARENT );            // dialog
     r( wxDIALOG_EX_CONTEXTHELP );       // dialog
-#endif
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxDD_NEW_DIR_BUTTON );
-#endif
 
     r( wxDOT );                         // pen
     r( wxDOT_DASH );                    // pen
@@ -665,13 +632,11 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_SCROLLBAR_UPDATED );
     r( wxEVT_COMMAND_VLBOX_SELECTED );
     r( wxEVT_COMMAND_COMBOBOX_SELECTED );
-#if WXPERL_W_VERSION_GE( 2, 3, 1 ) && wxPERL_USE_TOGGLEBTN
+#if wxPERL_USE_TOGGLEBTN
     r( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED );
 #endif
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxEVT_COMMAND_TEXT_MAXLEN );
     r( wxEVT_COMMAND_TEXT_URL );
-#endif
     r( wxEVT_COMMAND_TOOL_RCLICKED );
     r( wxEVT_COMMAND_TOOL_ENTER );
     r( wxEVT_COMMAND_SPINCTRL_UPDATED );
@@ -691,17 +656,13 @@ static double constant( const char *name, int arg )
     r( wxEVT_TASKBAR_LEFT_DCLICK );
     r( wxEVT_TASKBAR_RIGHT_DCLICK );
 #endif
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxEVT_COMMAND_FIND );
     r( wxEVT_COMMAND_FIND_NEXT );
     r( wxEVT_COMMAND_FIND_REPLACE );
     r( wxEVT_COMMAND_FIND_REPLACE_ALL );
     r( wxEVT_COMMAND_FIND_CLOSE );
-#endif
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxEVT_MOUSEWHEEL )
-#endif
     r( wxEVT_LEFT_DOWN );
     r( wxEVT_LEFT_UP );
     r( wxEVT_MIDDLE_DOWN );
@@ -779,10 +740,8 @@ static double constant( const char *name, int arg )
     // r( wxEVT_MENU_CHAR );
     // r( wxEVT_MENU_INIT );
     r( wxEVT_MENU_HIGHLIGHT );
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxEVT_MENU_OPEN );
     r( wxEVT_MENU_CLOSE );
-#endif
     // r( wxEVT_POPUP_MENU_INIT );
     r( wxEVT_CONTEXT_MENU );
     r( wxEVT_SYS_COLOUR_CHANGED );
@@ -814,10 +773,8 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_KILL_FOCUS );
     r( wxEVT_COMMAND_ENTER );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxEVT_HELP );
     r( wxEVT_DETAILED_HELP );
-#endif
 
 //    r( wxEVT_WIZARD_PAGE_CHANGED );
 //    r( wxEVT_WIZARD_PAGE_CHANGING );
@@ -825,11 +782,9 @@ static double constant( const char *name, int arg )
 //    r( wxEVT_WIZARD_HELP );
 
     r( wxEXPAND );                      // sizer
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxEXEC_SYNC );
     r( wxEXEC_ASYNC );
     r( wxEXEC_NOHIDE );
-#endif
     break;
   case 'F':
     r( wxFDIAGONAL_HATCH );             // brush pen
@@ -841,15 +796,12 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_SYSTEM );         // font
     r( wxFRAME_FLOAT_ON_PARENT );       // frame
     r( wxFRAME_NO_WINDOW_MENU );
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxFRAME_NO_TASKBAR );            // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
     r( wxFRAME_EX_CONTEXTHELP );        // frame
-#endif
 
     r( wxFILE );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxFR_DOWN );                     // findreplace
     r( wxFR_WHOLEWORD );                // findreplace
     r( wxFR_MATCHCASE );                // findreplace
@@ -857,7 +809,6 @@ static double constant( const char *name, int arg )
     r( wxFR_NOUPDOWN );                 // findreplace
     r( wxFR_NOMATCHCASE );              // findreplace
     r( wxFR_NOWHOLEWORD );              // findreplace
-#endif
     r( wxFONTENCODING_ISO8859_1 );      // font
     r( wxFONTENCODING_ISO8859_2 );      // font
     r( wxFONTENCODING_ISO8859_3 );      // font
@@ -890,10 +841,8 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_CP1255 );         // font
     r( wxFONTENCODING_CP1256 );         // font
     r( wxFONTENCODING_CP1257 );         // font
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxFONTENCODING_UTF7 );           // font
     r( wxFONTENCODING_UTF8 );           // font
-#endif
     r( wxFONTENCODING_UNICODE );        // font
 
     // !export: Type_Float
@@ -971,14 +920,12 @@ static double constant( const char *name, int arg )
     r( wxID_NO );                       // id
     r( wxID_STATIC );                   // id
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxID_CONTEXT_HELP );             // id
     r( wxID_YESTOALL );                 // id
     r( wxID_NOTOALL );                  // id
     r( wxID_ABORT );                    // id
     r( wxID_RETRY );                    // id
     r( wxID_IGNORE );                   // id
-#endif
 
     r( wxIMAGELIST_DRAW_NORMAL );       // imagelist
     r( wxIMAGELIST_DRAW_TRANSPARENT );  // imagelist
@@ -991,12 +938,10 @@ static double constant( const char *name, int arg )
 
     r( wxInRegion );                    // region
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxITEM_SEPARATOR );              // menu
     r( wxITEM_NORMAL );                 // menu
     r( wxITEM_CHECK );                  // menu
     r( wxITEM_RADIO );                  // menu
-#endif
 
     // !export: Type_Integer
     if( strEQ( name, "Type_Integer" ) )
@@ -1093,13 +1038,11 @@ static double constant( const char *name, int arg )
         r( WXK_SCROLL  );               // keycode
     }
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxKILL_OK );                     // process
     r( wxKILL_BAD_SIGNAL );             // process
     r( wxKILL_ACCESS_DENIED );          // process
     r( wxKILL_NO_PROCESS );             // process
     r( wxKILL_ERROR );                  // process
-#endif
     break;
   case 'L':
     r( wxLB_SINGLE );                   // listbox
@@ -1121,7 +1064,6 @@ static double constant( const char *name, int arg )
     r( wxLeft );                        // layout constraints
     r( wxLeftOf );                      // layout constraints
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxLOCALE_LOAD_DEFAULT );         // locale
     r( wxLOCALE_CONV_ENCODING );        // locale
 
@@ -1368,7 +1310,6 @@ static double constant( const char *name, int arg )
         // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
 #undef rr
     }
-#endif
     break;
   case 'M':
     r( wxMAXIMIZE );                    // frame
@@ -1445,7 +1386,6 @@ static double constant( const char *name, int arg )
     r( wxRightOf );                     // layout constraints
     break;
   case 'S':
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 #define wxSPLASH_CENTER_ON_PARENT wxSPLASH_CENTRE_ON_PARENT
 #define wxSPLASH_CENTER_ON_SCREEN wxSPLASH_CENTRE_ON_SCREEN
@@ -1459,7 +1399,6 @@ static double constant( const char *name, int arg )
     r( wxSPLASH_NO_CENTER );            // splashscreen
     r( wxSPLASH_TIMEOUT );              // splashscreen
     r( wxSPLASH_NO_TIMEOUT );           // splashscreen
-#endif
 
     r( wxSAVE );                        // filedialog
     //    r( wxSB_SIZEGRIP );
@@ -1634,10 +1573,8 @@ static double constant( const char *name, int arg )
     r( wxSYS_SWAP_BUTTONS );
 
     // capabilities
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
     r( wxSYS_CAN_ICONIZE_FRAME );
-#endif
     // !export: Type_String
     if( strEQ( name, "Type_String" ) )
         return wxConfigBase::Type_String;
@@ -1649,27 +1586,21 @@ static double constant( const char *name, int arg )
     r( wxTB_HORIZONTAL );               // toolbar
     r( wxTB_VERTICAL );                 // toolbar
     r( wxTB_3DBUTTONS );                // toolbar
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxTB_TEXT );                     // toolbar
     r( wxTB_NOICONS );                  // toolbar
-#endif
     r( wxTE_PROCESS_ENTER );            // textctrl
     r( wxTE_PROCESS_TAB );              // textctrl
     r( wxTE_MULTILINE );                // textctrl
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxTE_NOHIDESEL );                // textctrl
-#endif
     r( wxTE_PASSWORD );                 // textctrl
     r( wxTE_READONLY );                 // textctrl
     r( wxTE_RICH );                     // textctrl
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxTE_RICH2 );                    // textctrl
     r( wxTE_LEFT );                     // textctrl
     r( wxTE_RIGHT );                    // textctrl
     r( wxTE_CENTRE );                   // textctrl
     r( wxTE_CENTER );                   // textctrl
     r( wxTE_AUTO_URL );                 // textctrl
-#endif
     r( wxTHICK_FRAME );                 // frame dialog
     r( wxTINY_CAPTION_HORIZ );
     r( wxTINY_CAPTION_VERT );
@@ -1696,15 +1627,11 @@ static double constant( const char *name, int arg )
     r( wxWANTS_CHARS );
     r( wxWINDING_RULE );                // dc
     r( wxWidth );                       // layout constraints
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxWIZARD_EX_HELPBUTTON );
-#endif
 
     r( wxWS_EX_VALIDATE_RECURSIVELY );
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxWS_EX_BLOCK_EVENTS );
     r( wxWS_EX_TRANSIENT );
-#endif
     break;
   case 'X':
     r( wxXOR );                         // dc
@@ -1813,7 +1740,6 @@ void SetConstantsOnce()
     tmp = get_sv( "Wx::wxVERSION_STRING", 0 );
     wxPli_wxChar_2_sv( aTHX_ wxVERSION_STRING, tmp );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     tmp = get_sv( "Wx::wxIMAGE_OPTION_BMP_FORMAT", 0 );
     wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_BMP_FORMAT, tmp );
 
@@ -1825,7 +1751,6 @@ void SetConstantsOnce()
 
     tmp = get_sv( "Wx::wxIMAGE_OPTION_FILENAME", 0 );
     wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_FILENAME, tmp );
-#endif
 
     int platform;
     int universal;

@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
 0.15
+	- Removed support for wxWindows 2.2.x and 2.3.x.
+	- Removed support for Perl 5.004.
 
 0.14  Fri Apr 25 23:04:42 CEST 2003
 	- Added Wx::CalendarCtrl.

@@ -16,7 +16,7 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME            => 'Wx::DND',
                  VERSION_FROM    => 'lib/Wx/DND.pm',
-                 NO_WX_PLATFORMS => [ 'mac', 'motif' ],
+                 NO_WX_PLATFORMS => [ 'mac' ],
                );
 
 # local variables:

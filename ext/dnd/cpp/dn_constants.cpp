@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     12/ 8/2001
-// RCS-ID:      
-// Copyright:   (c) 2001-2002 Mattia Barbon
+// RCS-ID:      $Id: dn_constants.cpp,v 1.7 2003/05/05 20:38:42 mbarbon Exp $
+// Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -34,16 +34,14 @@ double dnd_constant( const char* name, int arg )
         r( Both );
         break;
     case 'D':
+#if wxPERL_USE_DRAG_AND_DROP
         r( wxDragError );
         r( wxDragNone );
         r( wxDragMove );
         r( wxDragCopy );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
         r( wxDragLink );
-#endif
         r( wxDragCancel );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
         r( wxDrag_CopyOnly );
         r( wxDrag_AllowMove );
         r( wxDrag_DefaultMove );

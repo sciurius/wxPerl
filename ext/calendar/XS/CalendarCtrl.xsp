@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      5/10/2002
-## RCS-ID:      $Id: CalendarCtrl.xsp,v 1.3 2003/04/22 19:24:40 mbarbon Exp $
+## RCS-ID:      $Id: CalendarCtrl.xsp,v 1.4 2003/05/05 20:38:41 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -18,34 +18,10 @@
 %file{cpp/calendar.h};
 %{
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 WXPLI_DECLARE_CLASS_7( CalendarCtrl, TRUE,
                        wxWindow*, wxWindowID, const wxDateTime&,
                        const wxPoint&, const wxSize&, long, 
                        const wxString& );
-
-#else
-
-class wxPliCalendarCtrl:public wxCalendarCtrl
-{
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliCalendarCtrl );
-    WXPLI_DECLARE_SELFREF();
-public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliCalendarCtrl, "Wx::CalendarCtrl", TRUE );
-    wxPliCalendarCtrl( const char* package,
-                       wxWindow* parent, wxWindowID id, const wxDateTime& date,
-                       const wxPoint& pos, const wxSize& size, long style,
-                       const wxString& name )
-         // bug in 2.2, only this works
-        :wxCalendarCtrl( parent, id, date, pos, size, style, name ),
-         m_callback( "Wx::CalendarCtrl" )
-    {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
-    }
-};
-
-#endif
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCalendarCtrl, wxCalendarCtrl );
 
@@ -132,8 +108,6 @@ wxPlConstants calendar_module( &calendar_constant );
     void EnableHolidayDisplay( bool display = TRUE );
     void SetHoliday( size_t day );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
     bool SetLowerDateLimit( const wxDateTime& date = wxDefaultDateTimePtr );
     const wxDateTime& GetLowerDateLimit();
     bool SetUpperDateLimit( const wxDateTime& date = wxDefaultDateTimePtr );
@@ -141,8 +115,6 @@ wxPlConstants calendar_module( &calendar_constant );
 
     bool SetDateRange ( const wxDateTime& lowerdate = wxDefaultDateTimePtr,
                         const wxDateTime& upperdate = wxDefaultDateTimePtr );
-
-#endif
 
     void SetHeaderColours( const wxColour& colFg, const wxColour& colBg );
     void SetHighlightColours( const wxColour& colFg, const wxColour& colBg );

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      2/12/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Image.xs,v 1.28 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -38,39 +38,6 @@ newNull( CLASS )
     RETVAL = new wxImage();
   OUTPUT:
     RETVAL
-
-#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
-
-Wx_Image*
-newBitmap( CLASS, bitmap )
-    SV* CLASS
-    Wx_Bitmap* bitmap
-  CODE:
-    RETVAL = new wxImage( *bitmap );
-  OUTPUT:
-    RETVAL
-
-Wx_Image*
-newIcon( CLASS, icon )
-    SV* CLASS
-    Wx_Icon* icon
-  CODE:
-#ifdef __WXMSW__
-    RETVAL = new wxImage( wxBitmap( *icon ) );
-#else
-    RETVAL = new wxImage( wxBitmap( (wxBitmap&)*icon ) );
-#endif
-  OUTPUT:
-    RETVAL
-
-Wx_Bitmap*
-Wx_Image::ConvertToBitmap()
-  CODE:
-    RETVAL = new wxBitmap( THIS->ConvertToBitmap() );
-  OUTPUT:
-    RETVAL
-
-#endif
 
 Wx_Image*
 newWH( CLASS, width, height )
@@ -111,11 +78,7 @@ newNameType( CLASS, name, type, index = -1 )
     long type
     int index
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = new wxImage( name, type, index );
-#else
-    RETVAL = new wxImage( name, type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -126,11 +89,7 @@ newNameMIME( CLASS, name, mimetype, index = -1 )
     wxString mimetype
     int index
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = new wxImage( name, mimetype, index );
-#else
-    RETVAL = new wxImage( name, mimetype );
-#endif
   OUTPUT:
     RETVAL
 
@@ -141,11 +100,7 @@ newStreamType( CLASS, stream, type, index = -1 )
     long type
     int index
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = new wxImage( stream, type, index );
-#else
-    RETVAL = new wxImage( stream, type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -156,11 +111,7 @@ newStreamMIME( CLASS, stream, mime, index = -1 )
     wxString mime
     int index
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = new wxImage( stream, mime, index );
-#else
-    RETVAL = new wxImage( stream, mime );
-#endif
   OUTPUT:
     RETVAL
 
@@ -174,8 +125,6 @@ AddHandler( handler )
   CODE:
     wxImage::AddHandler( handler );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 Wx_Image*
 Wx_Image::ConvertToMono( r, g, b )
     unsigned char r
@@ -185,8 +134,6 @@ Wx_Image::ConvertToMono( r, g, b )
     RETVAL = new wxImage( THIS->ConvertToMono( r, g, b ) );
   OUTPUT:
     RETVAL
-
-#endif
 
 Wx_Image*
 Wx_Image::Copy()
@@ -271,8 +218,6 @@ Wx_Image::GetMaskGreen()
 unsigned char
 Wx_Image::GetMaskRed()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 wxString
 Wx_Image::GetOption( name )
     wxString name
@@ -288,8 +233,6 @@ Wx_Image::GetPalette()
   OUTPUT:
     RETVAL
 
-#endif
-
 Wx_Image*
 Wx_Image::GetSubImage( rect )
     Wx_Rect* rect
@@ -304,16 +247,12 @@ Wx_Image::GetWidth()
 bool
 Wx_Image::HasMask()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 bool
 Wx_Image::HasOption( name )
     wxString name
 
 bool
 Wx_Image::HasPalette()
-
-#endif
 
 void
 InsertHandler( handler )
@@ -337,11 +276,7 @@ Wx_Image::LoadFileType( name, type, index = -1 )
     long type
     int index
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = THIS->LoadFile( name, type, index );
-#else
-    RETVAL = THIS->LoadFile( name, type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -351,11 +286,7 @@ Wx_Image::LoadFileMIME( name, type, index = -1 )
     wxString type
     int index
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = THIS->LoadFile( name, type, index );
-#else
-    RETVAL = THIS->LoadFile( name, type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -365,11 +296,7 @@ Wx_Image::LoadStreamType( stream, type, index = -1 )
     long type
     int index
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = THIS->LoadFile( stream, type, index );
-#else
-    RETVAL = THIS->LoadFile( stream, type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -379,11 +306,7 @@ Wx_Image::LoadStreamMIME( stream, type, index = -1 )
     wxString type
     int index
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     RETVAL = THIS->LoadFile( stream, type, index );
-#else
-    RETVAL = THIS->LoadFile( stream, type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -401,8 +324,6 @@ wxImage::SaveFile( ... )
         MATCH_REDISP( wxPliOvl_s, SaveFileOnly )
     END_OVERLOAD( Wx::Image::SaveFile )
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 bool
 Wx_Image::SaveFileOnly( name )
     wxString name
@@ -410,8 +331,6 @@ Wx_Image::SaveFileOnly( name )
     RETVAL = THIS->SaveFile( name );
   OUTPUT:
     RETVAL
-
-#endif
 
 bool
 Wx_Image::SaveFileType( name, type )
@@ -525,8 +444,6 @@ Wx_Image::SetMaskColour( red, green, blue )
     unsigned char green
     unsigned char blue
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 void
 Wx_Image::SetOption( name, value )
     wxString name
@@ -544,8 +461,6 @@ Wx_Image::SetPalette( palette )
     Wx_Palette* palette
   CODE:
     THIS->SetPalette( *palette );
-
-#endif
 
 void
 Wx_Image::SetRGB( x, y, red, green, blue )
@@ -643,12 +558,8 @@ Wx_TIFFHandler::new()
 
 MODULE=Wx PACKAGE=Wx::XPMHandler
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 Wx_XPMHandler*
 Wx_XPMHandler::new()
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::IFFHandler
 

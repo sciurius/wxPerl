@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: ComboBox.xs,v 1.16 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -81,12 +81,6 @@ Wx_ComboBox::GetString( n )
 
 int
 Wx_ComboBox::GetCount()
-  CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-    RETVAL = THIS->GetCount();
-#else
-    RETVAL = THIS->Number();
-#endif
 
 wxString
 Wx_ComboBox::GetStringSelection()

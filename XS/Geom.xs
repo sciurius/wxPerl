@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Geom.xs,v 1.15 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -232,8 +232,6 @@ void
 Wx_Rect::SetY( y )
    int y
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 wxRect::SetPosition( pos )
     wxPoint pos
@@ -241,8 +239,6 @@ wxRect::SetPosition( pos )
 void
 wxRect::SetSize( size )
     wxSize size
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::Region
 
@@ -285,8 +281,7 @@ newRect( CLASS, rect )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined( __WXMAC__ ) \
-    && !defined( __WXMOTIF__ )
+#if !defined( __WXMAC__ ) && !defined( __WXMOTIF__ )
 
 Wx_Region*
 newPolygon( CLASS, list, fillStyle = wxODDEVEN_RULE )
@@ -405,8 +400,7 @@ Wx_Region::SubtractRect( rect )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 ) && !defined(__WXMOTIF__) \
-    && !defined(__WXMAC__)
+#if !defined(__WXMOTIF__) && !defined(__WXMAC__)
 
 bool
 Wx_Region::Offset( x, y )

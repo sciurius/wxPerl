@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.14 2003/04/22 19:25:50 mbarbon Exp $
+// RCS-ID:      $Id: app.h,v 1.15 2003/05/05 20:38:41 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -25,9 +25,8 @@ public:
     bool OnInit();
     int OnExit();
     int MainLoop();
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
     DEC_V_CBACK_BOOL__BOOL( Yield );
-#endif
 };
 
 inline wxPliApp::wxPliApp( const char* package )
@@ -72,10 +71,8 @@ inline int wxPliApp::MainLoop() {
 
     if( Initialized() ) 
     {
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
         if( m_exitOnFrameDelete == Later )
             m_exitOnFrameDelete = Yes;
-#endif
         retval = wxApp::MainLoop();
         OnExit();
     }
@@ -99,9 +96,7 @@ int wxPliApp::OnExit()
         return wxApp::OnExit();
 }
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 DEF_V_CBACK_BOOL__BOOL( wxPliApp, wxApp, Yield );
-#endif
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliApp, wxApp );
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
+## RCS-ID:      $Id: DC.xs,v 1.19 2003/05/05 20:38:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -156,13 +156,9 @@ Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
     THIS->DrawLines( &points, xoffset, yoffset );
     delete [] pts;
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 void
 Wx_DC::DrawObject( object )
     Wx_DrawObject* object
-
-#endif
 
 void
 Wx_DC::DrawPoint( x, y )
@@ -404,14 +400,10 @@ Wx_DC::Ok()
 void
 Wx_DC::ResetBoundingBox()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_DC::SetAxisOrientation( xLeftRight, yBottomUp )
     bool xLeftRight
     bool yBottomUp
-
-#endif
 
 wxPoint*
 wxDC::GetDeviceOrigin()

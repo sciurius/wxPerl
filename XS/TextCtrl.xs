@@ -4,13 +4,11 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: TextCtrl.xs,v 1.10 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 MODULE=Wx PACKAGE=Wx::TextUrlEvent
 
@@ -78,8 +76,6 @@ Wx_TextAttr::HasTextColour()
 bool
 Wx_TextAttr::IsDefault()
 
-#endif
-
 MODULE=Wx PACKAGE=Wx::TextCtrl
 
 Wx_TextCtrl*
@@ -129,16 +125,12 @@ Wx_TextCtrl::Cut()
 void
 Wx_TextCtrl::DiscardEdits()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 Wx_TextAttr*
 Wx_TextCtrl::GetDefaultStyle()
   CODE:
     RETVAL = new wxTextAttr( THIS->GetDefaultStyle() );
   OUTPUT:
     RETVAL
-
-#endif
 
 long
 Wx_TextCtrl::GetInsertionPoint()
@@ -157,16 +149,10 @@ Wx_TextCtrl::GetLineText( lineno )
 int
 Wx_TextCtrl::GetNumberOfLines()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 wxString
 Wx_TextCtrl::GetRange( from, to )
     long from
     long to
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
 Wx_TextCtrl::GetSelection()
@@ -182,23 +168,17 @@ Wx_TextCtrl::GetSelection()
 wxString
 Wx_TextCtrl::GetStringSelection()
 
-#endif
-
 wxString
 Wx_TextCtrl::GetValue()
 
 bool
 Wx_TextCtrl::IsModified()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 bool
 wxTextCtrl::IsSingleLine()
 
 bool
 wxTextCtrl::IsMultiLine()
-
-#endif
 
 bool
 Wx_TextCtrl::LoadFile( filename )
@@ -237,15 +217,11 @@ bool
 Wx_TextCtrl::SaveFile( filename )
     wxString filename
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 Wx_TextCtrl::SetDefaultStyle( style )
     Wx_TextAttr* style
   CODE:
     THIS->SetDefaultStyle( *style );
-
-#endif
 
 void
 Wx_TextCtrl::SetEditable( editable )
@@ -258,20 +234,14 @@ Wx_TextCtrl::SetInsertionPoint( pos )
 void
 Wx_TextCtrl::SetInsertionPointEnd()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 Wx_TextCtrl::SetMaxLength( len )
     unsigned long len
-
-#endif
 
 void
 Wx_TextCtrl::SetSelection( from, to )
     long from
     long to
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
 Wx_TextCtrl::SetStyle( start, end, style )
@@ -280,8 +250,6 @@ Wx_TextCtrl::SetStyle( start, end, style )
     Wx_TextAttr* style
   CODE:
     THIS->SetStyle( start, end, *style );
-
-#endif
 
 void
 Wx_TextCtrl::SetValue( value )

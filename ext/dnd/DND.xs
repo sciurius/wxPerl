@@ -40,7 +40,7 @@ void SetDNDConstants()
     tmp = get_sv( "Wx::_df_bitmap", 0 );
     sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_BITMAP ) );
 
-#ifndef __WXGTK__
+#if !defined(__WXGTK__) && !defined(__WXMOTIF__)
     tmp = get_sv( "Wx::_df_metafile", 0 );
     sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_METAFILE ) );
 #endif
@@ -53,12 +53,17 @@ MODULE=Wx__DND
 
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
-  
+
 INCLUDE: XS/DataObject.xs
-INCLUDE: XS/DropFiles.xs
 INCLUDE: XS/Clipboard.xs
+
+#if wxPERL_USE_DRAG_AND_DROP
+
+INCLUDE: XS/DropFiles.xs
 INCLUDE: XS/DropSource.xs
 INCLUDE: XS/DropTarget.xs
+
+#endif
 
 MODULE=Wx__DND PACKAGE=Wx
 

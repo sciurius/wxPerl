@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Choice.xs,v 1.9 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -39,13 +39,9 @@ Wx_Choice::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choic
 void
 Wx_Choice::Clear()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Choice::Delete( n )
     int n
-
-#endif
 
 #if !defined(__WXUNIVERSAL__)
 

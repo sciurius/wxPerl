@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Log.xs,v 1.15 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -26,14 +26,10 @@ AddTraceMask( mask )
   CODE:
     wxLog::AddTraceMask( mask );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 void
 ClearTraceMasks()
   CODE:
     wxLog::ClearTraceMasks();
-
-#endif
 
 void
 RemoveTraceMask( mask )
@@ -236,8 +232,6 @@ const wxChar*
 wxSysErrorMsg( errCode = 0 )
     unsigned long errCode
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 MODULE=Wx PACKAGE=Wx::LogChain
 
 wxLogChain*
@@ -271,5 +265,3 @@ wxPlLogPassThrough::new()
     RETVAL = new wxPlLogPassThrough( CLASS );
   OUTPUT:
     RETVAL
-
-#endif

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/12/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: GridEvent.xs,v 1.4 2003/05/05 20:38:42 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -155,8 +155,6 @@ Wx_GridRangeSelectEvent::ShiftDown()
 
 MODULE=Wx PACKAGE=Wx::GridEditorCreatedEvent
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 Wx_GridEditorCreatedEvent*
 Wx_GridEditorCreatedEvent::new( id, type, obj, row, col, ctrl )
     int id
@@ -186,5 +184,3 @@ Wx_GridEditorCreatedEvent::SetCol( col )
 void
 Wx_GridEditorCreatedEvent::SetControl( control )
     Wx_Control* control
-
-#endif

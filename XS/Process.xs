@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/ 2/2002
-## RCS-ID:      
-## Copyright:   (c) 2002 Mattia Barbon
+## RCS-ID:      $Id: Process.xs,v 1.9 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -59,8 +59,6 @@ Wx_Process::GetInputStream()
 wxOutputStream*
 Wx_Process::GetOutputStream()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 bool
 wxProcess::IsErrorAvailable()
 
@@ -69,10 +67,6 @@ wxProcess::IsInputAvailable()
 
 bool
 wxProcess::IsInputOpened()
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 wxKillError
 Kill( pid, signal = wxSIGNONE )
@@ -91,8 +85,6 @@ Exists( pid )
   OUTPUT:
     RETVAL
 
-#endif
-
 void
 Wx_Process::OnTerminate( pid, status )
     int pid
@@ -103,8 +95,6 @@ Wx_Process::OnTerminate( pid, status )
 void
 Wx_Process::Redirect()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 wxProcess*
 Open( cmd, flags = wxEXEC_ASYNC )
     wxString cmd
@@ -114,11 +104,7 @@ Open( cmd, flags = wxEXEC_ASYNC )
   OUTPUT:
     RETVAL
 
-#endif
-
 MODULE=Wx PACKAGE=Wx PREFIX=wx
-
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 long
 wxExecuteCommand( command, sync = wxEXEC_ASYNC, callback = 0 )
@@ -173,42 +159,6 @@ wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
     RETVAL = wxExecute( argv, sync, callback );
     for( i = 0; i < n; ++i )
         delete argv[i];
-    delete[] argv;
-    delete[] t;
-  OUTPUT:
-    RETVAL
-
-#endif
-
-#else
-
-long
-wxExecuteCommand( command, sync = FALSE, callback = 0 )
-    wxString command
-    bool sync
-    Wx_Process* callback
-  CODE:
-    RETVAL = wxExecute( command, sync, callback );
-  OUTPUT:
-    RETVAL
-
-long
-wxExecuteArgs( args, sync = FALSE, callback = 0 )
-    SV* args
-    bool sync
-    Wx_Process* callback
-  PREINIT:
-    char** argv;
-    char** t;
-    int n, i;
-  CODE:
-    n = wxPli_av_2_charparray( aTHX_ args, &t );
-    argv = new char*[n+1];
-    memcpy( argv, t, n*sizeof(char*) );
-    argv[n] = 0;
-    RETVAL = wxExecute( argv, sync, callback );
-    for( i = 0; i < n; ++i )
-        free( argv[i] );
     delete[] argv;
     delete[] t;
   OUTPUT:

@@ -4,8 +4,8 @@
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     30/06/2002
-## RCS-ID:      
-## Copyright:   (c) 2002 Graciliano M. P.
+## RCS-ID:      $Id: SplashFast.pm,v 1.8 2003/05/05 20:38:42 mbarbon Exp $
+## Copyright:   (c) 2002-2003 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,7 +15,7 @@ use strict;
 package Wx::Perl::SplashFast ;
 use vars qw($VERSION) ;
 
-$VERSION = '0.01'; # for wxPerl 0.11+
+$VERSION = '0.02'; # for wxPerl 0.15+
 
 sub import {
   Wx::Perl::SplashFast::new(@_) if @_ > 1;
@@ -84,30 +84,10 @@ sub _wx_boot($$) {
 }
 
 _wx_boot( 'Wx', $VERSION );
-
 _boot_Constant( 'Wx', $VERSION );
 _boot_GDI( 'Wx', $VERSION );
 
 Load();
-
-####################
-# WX::SPLASHSCREEN #
-####################
-
-package Wx::Frame; # package needs to exist, since we put it in @ISA
-package Wx::SplashScreen;
-
-use vars qw(@ISA); @ISA = qw(Wx::_SplashScreenCpp);
-
-# check wxWindows version, since the C++ implementation of
-# Wx::SplashScreen is only available for wxWindows 2.3.x
-if( $Wx::_wx_version < 2.003 && $Wx::_wx_version > 0 ) {
-  require Carp;
-  Carp::croak( "You are using wxPerl with wxWindows $Wx::_wx_version. You need wxPerl (0.11+) compiled against wxWindows 2.3!" );
-}
-
-package Wx::_SplashScreenCpp;
-use vars qw(@ISA) ; @ISA = qw(Wx::Frame) ;
 
 #######
 # END #

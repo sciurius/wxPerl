@@ -4,13 +4,13 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     20/ 7/2001
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: ToggleButton.xs,v 1.5 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 ) && wxPERL_USE_TOGGLEBTN
+#if wxPERL_USE_TOGGLEBTN
 
 #include <wx/tglbtn.h>
 

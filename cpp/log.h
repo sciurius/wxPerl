@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     22/ 9/2002
-// RCS-ID:      
-// Copyright:   (c) 2002 Mattia Barbon
+// RCS-ID:      $Id: log.h,v 1.2 2003/05/05 20:38:41 mbarbon Exp $
+// Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -26,8 +26,6 @@ public:
 DEF_V_CBACK_VOID__CWXCHARP_TIMET( wxPlLog, wxLog, DoLogString );
 DEF_V_CBACK_VOID__WXLOGLEVEL_CWXCHARP_TIMET( wxPlLog, wxLog, DoLog );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 class wxPlLogPassThrough : public wxLogPassThrough
 {
 //    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlLogPassThrough );
@@ -44,11 +42,6 @@ DEF_V_CBACK_VOID__CWXCHARP_TIMET( wxPlLogPassThrough, wxLogPassThrough,
                                   DoLogString );
 DEF_V_CBACK_VOID__WXLOGLEVEL_CWXCHARP_TIMET( wxPlLogPassThrough,
                                              wxLogPassThrough, DoLog );
-
-#endif
-
-//WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlLog, wxLog );
-//WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlLogPassThrough, wxLogPassThrough );
 
 // local variables:
 // mode: c++

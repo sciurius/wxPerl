@@ -4,8 +4,8 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      
-// Copyright:   (c) 2002 Simon Flack
+// RCS-ID:      $Id: docview.h,v 1.9 2003/05/05 20:38:42 mbarbon Exp $
+// Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -62,9 +62,7 @@ public:
     bool RemoveView( wxView* );
 
     void UpdateAllViews( wxView* sender=NULL, wxObject* = NULL);
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     DEC_V_CBACK_VOID__VOID( NotifyClosing );
-#endif
     DEC_V_CBACK_BOOL__VOID( DeleteAllViews );
 
     wxDocManager *GetDocumentManager() const;
@@ -248,10 +246,7 @@ void wxPliDocument::UpdateAllViews( wxView *sender, wxObject *hint)
     wxDocument::UpdateAllViews( sender, hint );
 }
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 DEF_V_CBACK_VOID__VOID( wxPliDocument, wxDocument, NotifyClosing );
-#endif
-
 DEF_V_CBACK_BOOL__VOID( wxPliDocument, wxDocument, DeleteAllViews );
 
 wxDocManager *wxPliDocument::GetDocumentManager() const
@@ -572,17 +567,10 @@ public:
     wxDocTemplate* SelectDocumentPath( wxDocTemplate** templates,
                                        int noTemplates, wxString& path,
                                        long flags, bool save=FALSE);
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     wxDocTemplate* SelectDocumentType( wxDocTemplate** templates,
                                        int noTemplates, bool sort=FALSE);
     wxDocTemplate* SelectViewType( wxDocTemplate** templates, int noTemplates,
                                    bool sort=FALSE );
-#else
-    wxDocTemplate* SelectDocumentType( wxDocTemplate** templates,
-                                       int noTemplates );
-    wxDocTemplate* SelectViewType( wxDocTemplate** templates,
-                                   int noTemplates );
-#endif
     wxDocTemplate* FindTemplateForPath( const wxString& );
 
     void ActivateView( wxView*, bool activate = TRUE, bool deleting = FALSE);
@@ -766,14 +754,9 @@ wxDocTemplate* wxPliDocManager::SelectDocumentPath( wxDocTemplate** templates,
 }
 
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 wxDocTemplate* wxPliDocManager::SelectDocumentType( wxDocTemplate** templates,
                                                     int noTemplate,
                                                     bool sort)
-#else
-wxDocTemplate* wxPliDocManager::SelectDocumentType( wxDocTemplate** templates,
-                                                    int noTemplate )
-#endif
 {
     dTHX;
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
@@ -781,32 +764,19 @@ wxDocTemplate* wxPliDocManager::SelectDocumentType( wxDocTemplate** templates,
     {
       SV *ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                                    G_SCALAR, "Oib", templates,
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
                                                    noTemplate, sort );
-#else
-                                                   noTemplate );
-#endif
       wxDocTemplate* retval =
         (wxDocTemplate*)wxPli_sv_2_object( aTHX_ ret, "Wx::DocTemplate" );
       SvREFCNT_dec( ret );
       return retval;
     }
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     return wxDocManager::SelectDocumentType(templates, noTemplate, sort);
-#else
-    return wxDocManager::SelectDocumentType(templates, noTemplate);
-#endif
 }
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 wxDocTemplate* wxPliDocManager::SelectViewType( wxDocTemplate** templates,
                                                 int noTemplate,
                                                 bool sort )
-#else
-wxDocTemplate* wxPliDocManager::SelectViewType( wxDocTemplate** templates,
-                                                int noTemplate )
-#endif
 {
     dTHX;
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
@@ -814,22 +784,14 @@ wxDocTemplate* wxPliDocManager::SelectViewType( wxDocTemplate** templates,
     {
       SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                                    G_SCALAR, "Oib", templates,
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
                                                    noTemplate, sort );
-#else
-                                                   noTemplate );
-#endif
       wxDocTemplate* retval =
         (wxDocTemplate*)wxPli_sv_2_object( aTHX_ ret, "Wx::DocTemplate" );
       SvREFCNT_dec( ret );
       return retval;
     }
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     return wxDocManager::SelectViewType(templates, noTemplate, sort);
-#else
-    return wxDocManager::SelectViewType(templates, noTemplate);
-#endif
 }
 
 
@@ -1080,10 +1042,7 @@ public:
     void OnPrint( wxDC*, wxObject* );
     void OnUpdate( wxView* sender, wxObject* hint=(wxObject*) NULL );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     DEC_V_CBACK_VOID__VOID( OnClosingDocument );
-#endif
-
     DEC_V_CBACK_VOID__VOID( OnChangeFilename );
     bool OnCreate( wxDocument*, long );
     bool Close( bool deleteWindow = TRUE );
@@ -1145,10 +1104,7 @@ void wxPliView::OnUpdate( wxView* sender, wxObject* hint )
   wxView::OnUpdate( sender, hint );
 }
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 DEF_V_CBACK_VOID__VOID( wxPliView, wxView, OnClosingDocument );
-#endif
-
 DEF_V_CBACK_VOID__VOID( wxPliView, wxView, OnChangeFilename );
 
 bool wxPliView::OnCreate( wxDocument* doc, long flags )

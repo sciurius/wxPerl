@@ -59,7 +59,6 @@ lib/Wx/Menu.pm
 lib/Wx/RadioBox.pm
 lib/Wx/Region.pm
 lib/Wx/Sizer.pm
-lib/Wx/SplashScreen.pm
 lib/Wx/Timer.pm
 lib/Wx/_Constants.pm
 lib/Wx/_Functions.pm

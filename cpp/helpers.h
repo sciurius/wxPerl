@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.52 2003/05/02 20:26:45 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.53 2003/05/05 20:38:41 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -538,24 +538,6 @@ public:                                                                 \
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPli##name, wx##name );
 
 typedef SV SV_null; // equal to SV except that maps C++ 0 <-> Perl undef
-
-// this should really, really, really be in compat.h,
-// but requires perl.h to be included
-#if WXPERL_P_VERSION_GE( 5, 4, 0 ) && !WXPERL_P_VERSION_GE( 5, 4, 5 )
-
-inline SV* newSVpvn( const char* sxx, size_t len )
-{
-    if( len > 0 )
-        return newSVpv( CHAR_P sxx, len );
-    else
-    {
-        SV* sv = newSViv( 0 );
-        sv_setpvn( sv, sxx, len );
-        return sv;
-    }
-}
-
-#endif
 
 #endif // __CPP_HELPERS_H
 

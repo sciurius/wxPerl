@@ -5,8 +5,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      5/11/2001
-// RCS-ID:      
-// Copyright:   (c) 2001-2002 Mattia Barbon
+// RCS-ID:      $Id: chkconfig.h,v 1.10 2003/05/05 20:38:41 mbarbon Exp $
+// Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -113,10 +113,6 @@
 #   define wxPERL_USE_WAVE wxUSE_WAVE
 #endif
 
-// 2.4 specific checks
-
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 #ifdef wxPERL_USE_BESTHELP
 #   if wxPERL_USE_BESTHELP && !( wxUSE_MS_HTML_HELP && wxUSE_WXHTML_HELP )
 #       error "Recompile wxWindows with wxUSE_MS_HTML_HELP and wxUSE_WXHTML_HELP"
@@ -148,5 +144,3 @@
 #else
 #   define wxPERL_USE_TOGGLEBTN wxUSE_TOGGLEBTN
 #endif
-
-#endif    

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
+## RCS-ID:      $Id: Frame.xs,v 1.14 2003/05/05 20:38:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -64,12 +64,8 @@ Wx_Frame::GetMenuBar()
 Wx_StatusBar*
 Wx_Frame::GetStatusBar()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 int
 Wx_Frame::GetStatusBarPane()
-
-#endif
 
 Wx_ToolBar*
 Wx_Frame::GetToolBar()
@@ -85,7 +81,7 @@ bool
 Wx_Frame::IsMaximized()
 
 #if defined( __WXMSW__ ) || \
- ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) \
+ ( defined( __WXGTK__ ) ) \
  || defined( __WXPERL_FORCE__ )
 
 bool
@@ -113,14 +109,10 @@ Wx_Frame::SetIcon( icon )
   CODE:
     THIS->SetIcon( *icon );
 
-#if WXPERL_W_VERSION_GE( 2, 4, 0 )
-
 void
 wxFrame::SetIcons( icons )
     wxIconBundle* icons
   C_ARGS: *icons
-
-#endif
 
 void
 Wx_Frame::SetMenuBar( menubar )
@@ -139,13 +131,9 @@ Wx_Frame::SetStatusText( text, number = 0 )
     wxString text
     int number
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Frame::SetStatusBarPane( n )
     int n
-
-#endif
 
 void
 Wx_Frame::SetStatusWidths( ... )
@@ -162,7 +150,7 @@ Wx_Frame::SetStatusWidths( ... )
     delete [] w;
 
 #if defined( __WXMSW__ ) || \
- ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) \
+ ( defined( __WXGTK__ ) ) \
  || defined( __WXPERL_FORCE__ )
 
 bool

@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/ 2/2001
-## RCS-ID:      $Id: dialogs.pl,v 1.3 2003/05/04 17:35:18 mbarbon Exp $
+## RCS-ID:      $Id: dialogs.pl,v 1.4 2003/05/05 20:38:42 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -57,12 +57,12 @@ sub new {
   $dialogs->Append( $ID_TEXTDIALOG, "Wx::&TextEntryDialog\tF6" );
   $dialogs->Append( $ID_FONTDIALOG, "Wx::F&ontDialog\tF7" );
 
-  $dialogs->Enable( $ID_MCHOICE, Wx::wxVERSION() >= 2.003 );
+  $dialogs->Enable( $ID_MCHOICE );
 
   my $functions = Wx::Menu->new;
   $functions->Append( $ID_MCHOICE_FN, "Wx::Get&MultipleChoice" );
 
-  $functions->Enable( $ID_MCHOICE_FN, Wx::wxVERSION() >= 2.003 );
+  $functions->Enable( $ID_MCHOICE_FN );
 
   my $menu = Wx::MenuBar->new;
   $menu->Append( $file, "&File" );
@@ -227,10 +227,8 @@ sub OnFontDialog {
 
     if( $font ) {
       Wx::LogMessage( "Font: %s", $font->GetFaceName );
-      if( $Wx::wxVERSION() >= 2.003 ) {
-        Wx::LogMessage( "Wx::NativeFontInfo: %s",
-                        $data->GetChosenFont->GetNativeFontInfo->ToString );
-      }
+      Wx::LogMessage( "Wx::NativeFontInfo: %s",
+                      $data->GetChosenFont->GetNativeFontInfo->ToString );
     }
 
     my $colour = $data->GetColour;

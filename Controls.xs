@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: Controls.xs,v 1.20 2003/05/05 20:38:34 mbarbon Exp $
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -46,9 +46,7 @@
 // re-include for client data
 #include "cpp/helpers.h"
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/tglbtn.h>
-#endif
 
 #undef THIS
 

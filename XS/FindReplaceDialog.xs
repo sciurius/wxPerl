@@ -4,13 +4,11 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      7/ 9/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: FindReplaceDialog.xs,v 1.4 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 #include <wx/fdrepdlg.h>
 
@@ -79,5 +77,3 @@ Wx_FindReplaceDialog::GetData()
 void
 Wx_FindReplaceDialog::SetData( data )
     Wx_FindReplaceData* data
-
-#endif

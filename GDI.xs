@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
+// RCS-ID:      $Id: GDI.xs,v 1.18 2003/05/05 20:38:34 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -37,8 +37,6 @@ INCLUDE: XS/Palette.xs
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 wxRect*
 wxGetClientDisplayRect()
   CODE:
@@ -66,8 +64,6 @@ wxGetDisplaySizeMM()
     RETVAL = new wxSize( wxGetDisplaySizeMM() );
   OUTPUT:
     RETVAL
-
-#endif
 
 wxSize*
 wxGetDisplaySize()

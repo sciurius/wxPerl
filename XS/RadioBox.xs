@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: RadioBox.xs,v 1.13 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -51,23 +51,15 @@ int
 Wx_RadioBox::FindString( string )
     wxString string
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 wxString
 Wx_RadioBox::GetString( n )
     int n
-
-#endif
 
 wxString
 Wx_RadioBox::GetItemLabel( n )
     int n
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
     RETVAL = THIS->GetString( n );
-#else
-    RETVAL = THIS->GetLabel( n );
-#endif
   OUTPUT:
     RETVAL
 
@@ -77,30 +69,17 @@ Wx_RadioBox::GetSelection()
 wxString
 Wx_RadioBox::GetStringSelection()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 ) \
-    || ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXGTK__) ) \
-    || defined( __WXPERL_FORCE__ )
-
 void
 Wx_RadioBox::SetString( n, label )
     int n
     wxString label
-
-#endif
 
 void
 Wx_RadioBox::SetItemLabel( n, label )
     int n
     wxString label
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 ) \
-    || ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXGTK__) ) \
-    || defined(__WXUNIVERSAL__) \
-    || defined( __WXPERL_FORCE__ )
     THIS->SetString( n, label );
-#else
-    THIS->SetLabel( n, label );
-#endif
 
 void
 Wx_RadioBox::SetSelection( n )

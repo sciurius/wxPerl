@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      4/ 2/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: ListCtrl.xs,v 1.25 2003/05/05 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,42 +19,17 @@ Wx_ListEvent::new( eventType = wxEVT_NULL, id = 0 )
     wxEventType eventType
     int id
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 long
 Wx_ListEvent::GetCacheFrom()
 
 long
 Wx_ListEvent::GetCacheTo()
 
-#endif
-
-#if WXWIN_COMPATIBILITY_2_2
-
-int
-Wx_ListEvent::GetCode()
-
-#endif
-
 long
 Wx_ListEvent::GetIndex()
 
-#if WXPERL_W_VERSION_LE( 2, 3, 1 )
-
-long
-Wx_ListEvent::GetOldIndex()
-
-#endif
-
 int
 Wx_ListEvent::GetColumn()
-
-#if WXPERL_W_VERSION_LE( 2, 3, 1 )
-
-bool
-Wx_ListEvent::Cancelled()
-
-#endif
 
 Wx_Point*
 Wx_ListEvent::GetPoint()
@@ -203,8 +178,6 @@ Wx_ListItem::GetFont()
 
 MODULE=Wx PACKAGE=Wx::ListItemAttr
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 Wx_ListItemAttr*
 Wx_ListItemAttr::new( ... )
   CASE: items == 1
@@ -274,8 +247,6 @@ Wx_ListItemAttr::GetFont()
     RETVAL = new wxFont( THIS->GetFont() );
   OUTPUT:
     RETVAL
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::ListCtrl
 
@@ -470,8 +441,6 @@ wxString
 Wx_ListCtrl::GetItemText( item )
     long item
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 Wx_Colour*
 Wx_ListCtrl::GetItemTextColour( item )
     long item
@@ -501,8 +470,6 @@ Wx_ListCtrl::SetItemBackgroundColour( item, colour )
     Wx_Colour* colour
   CODE:
     THIS->SetItemBackgroundColour( item, *colour );
-
-#endif
 
 long
 Wx_ListCtrl::GetNextItem( item, geometry = wxLIST_NEXT_ALL, state = wxLIST_STATE_DONTCARE )
@@ -599,8 +566,6 @@ Wx_ListCtrl::InsertImageStringItem( index, label, image )
   OUTPUT: 
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 bool
 Wx_ListCtrl::IsVirtual()
 
@@ -612,8 +577,6 @@ void
 Wx_ListCtrl::RefreshItems( itemFrom, itemTo )
     long itemFrom
     long itemTo
-
-#endif
 
 bool
 Wx_ListCtrl::ScrollList( dx, dy )
@@ -639,13 +602,9 @@ Wx_ListCtrl::SetImageList( imagelist, which )
     Wx_ImageList* imagelist
     int which
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 Wx_ListCtrl::SetItemCount( count )
     long count
-
-#endif
 
 void
 wxListCtrl::SetItem( ... )
@@ -725,8 +684,6 @@ Wx_ListCtrl::SortItems( function )
 
 MODULE=Wx PACKAGE=Wx::ListView
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 Wx_ListView*
 Wx_ListView::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
     Wx_Window* parent
@@ -774,4 +731,3 @@ bool
 Wx_ListView::IsSelected( index )
     long index
 
-#endif

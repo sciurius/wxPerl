@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: typedef.h,v 1.42 2003/05/05 20:38:41 mbarbon Exp $
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -31,14 +31,10 @@ FD_TD( ActivateEvent );
 FD_TD( CloseEvent );
 FD_TD( CommandEvent );
 FD_TD( EraseEvent );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 FD_TD( FindDialogEvent );
-#endif
 FD_TD( FocusEvent );
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( HelpEvent );
 FD_TD( IconizeEvent );
-#endif
 FD_TD( IdleEvent );
 FD_TD( InitDialogEvent );
 FD_TD( JoystickEvent );
@@ -56,9 +52,7 @@ FD_TD( SizeEvent );
 FD_TD( SpinEvent );
 FD_TD( SplitterEvent );
 FD_TD( SysColourChangedEvent );
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( TextUrlEvent );
-#endif
 FD_TD( TimerEvent );
 FD_TD( TreeEvent );
 FD_TD( UpdateUIEvent );
@@ -89,9 +83,7 @@ FD_TD( BusyCursor );
 FD_TD( BusyInfo );
 FD_TD( Button );
 FD_TD( Caret );
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( CaretSuspend );
-#endif
 FD_TD( CheckBox );
 FD_TD( CheckListBox );
 FD_TD( Choice );
@@ -114,26 +106,18 @@ FD_TD( ControlWithItems );
 FD_TD( Cursor );
 FD_TD( DC );
 FD_TD( Dialog );
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-#  if defined( __WXMSW__ ) || defined( __WXMAC__ )
+#if defined( __WXMSW__ ) || defined( __WXMAC__ )
 FD_TD( DirDialog );
-#  else
-FD_TD_NAME( DirDialog, GenericDirDialog );
-#  endif
 #else
-FD_TD( DirDialog );
+FD_TD_NAME( DirDialog, GenericDirDialog );
 #endif
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( DrawObject );
-#endif
 FD_TD( DropTarget );
 FD_TD( EvtHandler );
 FD_TD( FileConfig );
 FD_TD( FileDialog );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 FD_TD( FindReplaceData );
 FD_TD( FindReplaceDialog );
-#endif
 FD_TD( FlexGridSizer );
 FD_TD( Font );
 FD_TD( FontData );

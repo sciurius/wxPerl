@@ -71,7 +71,6 @@ make install
 cd contrib/src/stc
 make
 make install
-# if you are using wxWindows 2.3.2 or newer
 cd ../xrc
 make
 make install
@@ -96,7 +95,6 @@ in C:\Perl
   nmake -f makefile.vc FINAL=1 dll
   cd %WXDIR%\contrib\src\stc
   nmake -f makefile.vc FINAL=1 WXUSINGDLL=1
-  # if you are using wxWIndows 2.3.2 or newer
   cd %WXDIR%\contrib\src\xrc
   nmake -f makefile.vc FINAL=1 WXUSINGDLL=1
 
@@ -140,7 +138,6 @@ in C:\Perl
   make -f makefile.g95 FINAL=1 WXMAKINGDLL=1
   cd %WXDIR%\contrib\src\stc
   make -f makefile.g95 FINAL=1 WXUSINGDLL=1
-  # if you are using wxWIndows 2.3.2 or newer
   cd %WXDIR%\contrib\src\xrc
   make -f makefile.g95 FINAL=1 WXUSINGDLL=1
 
