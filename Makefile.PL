@@ -29,8 +29,8 @@ $File::Find::dont_use_nlink = 1 if ( stat('.') )[3] <= 1;
 use vars qw(@top_level_xs);
 
 # @top_level_xs = glob( "*.xs" );
-@top_level_xs = qw(Constant.xs Controls.xs Event.xs
-                   Frames.xs GDI.xs Window.xs Wx.xs);
+@top_level_xs = qw(Wx.xs Constant.xs Controls.xs Event.xs
+                   Frames.xs GDI.xs Window.xs);
 
 wxWriteMakefile( NAME => 'Wx',
                  ABSTRACT_FROM => 'Wx.pm',
@@ -46,10 +46,6 @@ wxWriteMakefile( NAME => 'Wx',
                         ],
                  OBJECT => join( ' ', obj_from_src( @top_level_xs ) ) . ' ',
                );
-
-#package MY;
-
-#use wxConfig qw(:MY);
 
 # Local variables: #
 # mode: cperl #
