@@ -179,6 +179,10 @@ BOOT:
 void 
 Load()
   CODE:
+    static bool initialized = false;
+    if( initialized ) { XSRETURN_EMPTY; }
+    initialized = true;
+
     // set up version as soon as possible
     SV* tmp = get_sv( "Wx::_wx_version", 0 );
     sv_setnv( tmp, wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 + 
