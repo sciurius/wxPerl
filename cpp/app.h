@@ -10,6 +10,10 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
+#ifdef Yield
+#undef Yield
+#endif
+
 class wxPliApp:public wxApp
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliApp );
@@ -21,6 +25,9 @@ public:
     bool OnInit();
     int OnExit();
     int MainLoop();
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+    DEC_V_CBACK_BOOL__BOOL( Yield );
+#endif
 };
 
 inline wxPliApp::wxPliApp( const char* package )
@@ -85,6 +92,10 @@ int wxPliApp::OnExit()
     else
         return wxApp::OnExit();
 }
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+DEF_V_CBACK_BOOL__BOOL( wxPliApp, wxApp, Yield );
+#endif
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliApp, wxApp );
 

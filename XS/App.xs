@@ -139,3 +139,12 @@ Wx_App::SetVendorName( name )
 void
 Wx_App::SetUseBestVisual( flag )
     bool flag
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+void
+Wx_App::Yield()
+  CODE:
+    THIS->wxApp::Yield();
+
+#endif
