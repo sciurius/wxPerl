@@ -383,8 +383,8 @@ Wx_TreeCtrl::GetSelections()
     wxArrayTreeItemIds selections;
   PPCODE:
     size_t num = THIS->GetSelections( selections );
-    EXTEND( SP, num );
-    for( int i = 0; i < num; ++i )
+    EXTEND( SP, (IV)num );
+    for( size_t i = 0; i < num; ++i )
     {
         PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
                                       new wxTreeItemId( selections[i] ),

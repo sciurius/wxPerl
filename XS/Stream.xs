@@ -57,7 +57,7 @@ Wx_InputStream::READ( buf, len, offset = 0 )
         offset = maxlen + offset;
     }
 
-    char* buffer = SvGROW( buf, offset + len + 1 );
+    char* buffer = SvGROW( buf, (UV)offset + len + 1 );
     if( offset + len > maxlen )
         SvCUR_set( buf, offset + len );
     if( offset > maxlen )

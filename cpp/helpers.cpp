@@ -117,7 +117,7 @@ void wxPli_push_args( SV*** psp, const char* argtypes, va_list& args )
         switch( *argtypes ) 
         {
         case 'b':
-            bval = va_arg( args, bool );
+            bval = va_arg( args, int );
             XPUSHs( bval ? &PL_sv_yes : &PL_sv_no );
             break;
         case 'i':
