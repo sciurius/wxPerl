@@ -765,8 +765,13 @@ ok( $uxywh, "Wx::Region::UnionXYWH" );
 $r->Union( Wx::Rect->new( Wx::Point->new( 0, 0 ), Wx::Size->new( 50, 50 ) ) );
 ok( $urect, "Wx::Region::UnionRect" );
 
-$r->Union( $r );
-ok( $uregion, "Wx::Region::UnionRegion" );
+SKIP: {
+  skip "Does not work with wxGTK 2.2", 1
+    if Wx::wxGTK && Wx::wxVERSION < 2.003;
+
+  $r->Union( $r );
+  ok( $uregion, "Wx::Region::UnionRegion" );
+}
 
 $r->Xor( 0, 0, 1, 1 );
 ok( $xxywh, "Wx::Region::XorXYWH" );
@@ -774,8 +779,13 @@ ok( $xxywh, "Wx::Region::XorXYWH" );
 $r->Xor( Wx::Rect->new( 0, 0, 1, 2 ) );
 ok( $xrect, "Wx::Region::XorRect" );
 
-$r->Xor( $r );
-ok( $xregion, "Wx::Region::XorRegion" );
+SKIP: {
+  skip "Does not work with wxGTK 2.2", 1
+    if Wx::wxGTK && Wx::wxVERSION < 2.003;
+
+  $r->Xor( $r );
+  ok( $xregion, "Wx::Region::XorRegion" );
+}
 }
 
 ##############################################################################
