@@ -69,6 +69,9 @@ wxString
 Wx_ComboBox::GetString( n )
     int n
 
+int
+Wx_ComboBox::GetCount()
+
 wxString
 Wx_ComboBox::GetStringSelection()
 
