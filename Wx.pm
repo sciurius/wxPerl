@@ -83,8 +83,8 @@ sub _match(\@$;$$) {
     next if $_ == $num && looks_like_number( $t );
     next if !defined( $t ) ||
       ( defined( $tnames[$_] ) && isa( $t, $tnames[$_] ) );
-    next if $_ == $wpoi || $_ == $wsiz && ref( $t ) eq 'ARRAY';
-    next if $_ == $wist || $_ == $wost && ref( $t );
+    next if ( $_ == $wpoi || $_ == $wsiz ) && ref( $t ) eq 'ARRAY';
+    next if ( $_ == $wist || $_ == $wost ) && ref( $t );
 
     # type clash: return false
     return;
