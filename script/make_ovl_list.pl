@@ -82,6 +82,7 @@ my %name2type =
    wcur => 'Wx::Cursor',
    wehd => 'Wx::EvtHandler',
    wtid => 'Wx::TreeItemId',
+   wfon => 'Wx::Font',
    wist => 1,
    wost => 1,
    num  => 1,
