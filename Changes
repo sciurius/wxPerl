@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.13
+
 0.12  Mon Dec 02 17:50:43 2002
 	- new DEPRECATIONS section in README.txt, please read it
 	- it is now possibile to get the native handle of a Wx::Window
