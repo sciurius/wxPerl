@@ -61,6 +61,7 @@ FD_TD( EraseEvent );
 FD_TD( FocusEvent );
 #if WXPERL_W_VERSION_GE( 2, 3 )
 FD_TD( HelpEvent );
+FD_TD( IconizeEvent );
 #endif
 FD_TD( IdleEvent );
 FD_TD( InitDialogEvent );
@@ -200,6 +201,7 @@ FD_TD( ScreenDC );
 FD_TD( ScrollBar );
 FD_TD( ScrolledWindow );
 FD_TD( SingleChoiceDialog );
+FD_TD( SingleInstanceChecker );
 FD_TD( Size );
 FD_TD( Sizer );
 FD_TD( SizerItem );
@@ -218,6 +220,7 @@ FD_TD( StopWatch );
 FD_TD( TextCtrl );
 FD_TD( TextEntryDialog );
 FD_TD( Timer );
+FD_TD( ToggleButton );
 FD_TD( ToolBar );
 FD_TD( ToolBarBase );
 FD_TD( ToolBarToolBase );
