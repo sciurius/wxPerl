@@ -32,7 +32,8 @@ foreach my $t ( @tests ) {
 
 Wx::Event::EVT_IDLE( $this,
                      sub { $this->Destroy } );
-$this->Destroy if Wx::wxMSW || Wx::wxGTK || Wx::wxMOTIF;
+$this->Destroy if ( Wx::wxMSW || Wx::wxGTK || Wx::wxMOTIF )
+               && Wx::wxVERSION() < 2.005;
 };
 
 package main;
