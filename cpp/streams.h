@@ -30,6 +30,7 @@ public:
 
     const wxPliInputStream& operator =( const wxPliInputStream& stream );
 protected:
+    size_t GetSize() const { return ~(size_t)0; }
     size_t OnSysRead( void* buffer, size_t bufsize );
 
     off_t OnSysSeek(off_t seek, wxSeekMode mode);
