@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.18 2004/08/04 20:13:57 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.19 2004/10/05 20:14:24 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -54,6 +54,7 @@ wxGrid::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 
     wxString name
   CODE:
     RETVAL = new wxGrid( parent, id, pos, size, style, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
 
