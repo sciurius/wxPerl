@@ -298,8 +298,11 @@ public:
             m_func = fn;
             //FIXME//
             m_baseInfo1 = wxClassInfo::FindClass( baseName1 );
+            //FIXME// this is an ugly hack!
+#ifdef __WXMAC__
             if( m_baseInfo1 == 0 )
                 croak( "ClassInfo initialization failed '%s'", baseName1 );
+#endif
         }
 public:
     wxPliGetCallbackObjectFn m_func;
