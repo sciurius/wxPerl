@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/ 9/2001
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: wxClipboard.pm,v 1.5 2003/05/04 17:35:18 mbarbon Exp $
+## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -69,7 +69,7 @@ sub new {
   EVT_BUTTON( $this, $copy_im, \&OnCopyImage );
   # unfortunately pasting a composite data object segfaults
   # on wx 2.2/wxGTK
-  unless( $Wx::_platform == $Wx::_gtk && $Wx::_wx_version < 2.003 ) {
+  unless( Wx::wxGTK() && Wx::wxVERSION() < 2.003 ) {
     my $copy_both = Wx::Button->new( $this, -1, 'Copy Both', [ 20, 80 ] );
     EVT_BUTTON( $this, $copy_both, \&OnCopyBoth )
   }

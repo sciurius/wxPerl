@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000 Mattia Barbon
+## RCS-ID:      $Id: controls.pl,v 1.10 2003/05/04 17:35:09 mbarbon Exp $
+## Copyright:   (c) 2000, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,7 +14,7 @@
 use Wx;
 
 # hack for wxMotif compatibility
-if( $Wx::_platform == $Wx::_motif ) { 
+if( Wx::wxMOTIF() ) { 
   eval 'sub Wx::Window::SetToolTip {}';
   eval 'sub Wx::ToolTip::new {}';
 };
@@ -75,7 +75,7 @@ use vars qw($ID_CHOICE $ID_CHOICE_SORTED $ID_BUTTON_TEST1 $ID_BUTTON_TEST2);
   $ID_CHOICE_SORTED, $ID_BUTTON_TEST1, $ID_BUTTON_TEST2 ) = ( 100 .. 120 );
 
 sub BITMAP {
-  if( $Wx::_platform == $Wx::_msw ) {
+  if( Wx::wxMSW() ) {
     Wx::Bitmap->new( "icons/$_[0].bmp", wxBITMAP_TYPE_BMP );
   } else {
     Wx::Bitmap->new( "icons/$_[0].xpm", wxBITMAP_TYPE_XPM );
@@ -398,7 +398,7 @@ sub new {
 
     my( $b1 ) = Wx::BitmapButton->new( $panel, -1, $bmp, [100, 20] );
 
-    if( $Wx::_platform != $Wx::_motif ) {
+    if( !Wx::wxMOTIF() ) {
 #      require IO::File;
 
 #      my $file = IO::File->new( "test2.bmp", "r" );binmode $file;

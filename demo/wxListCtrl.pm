@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/ 9/2001
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: wxListCtrl.pm,v 1.4 2003/05/04 17:35:18 mbarbon Exp $
+## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -65,7 +65,7 @@ sub new {
   # virtual list controls only supported under wxWindows 2.3.2
   #
   my $virtual;
-  if( $Wx::_wx_version >= 2.003002 ) {
+  if( Wx::wxVERSION() >= 2.003002 ) {
     $virtual = Wx::Button->new( $this, -1, 'Virtual' );
   }
 

@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      6/ 2/2001
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: listctrl.pl,v 1.5 2003/05/04 17:35:18 mbarbon Exp $
+## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -31,7 +31,7 @@ my( $id_about, $id_quit, $id_listctrl, $id_iconview , $id_listview,
 Wx::InitAllImageHandlers();
 
 sub ICON($) {
-  if( $Wx::_platform == $Wx::_msw ) {
+  if( Wx::wxMSW() ) {
     Wx::Icon->new( "bitmaps/$_[0].ico", wxBITMAP_TYPE_ICO );
   } else {
     Wx::Icon->new( "bitmaps/$_[0].xpm", wxBITMAP_TYPE_XPM );

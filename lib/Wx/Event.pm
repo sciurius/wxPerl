@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Event.pm,v 1.35 2003/05/04 17:35:18 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -240,7 +240,7 @@ sub EVT_MOUSE_EVENTS($$) {
   EVT_MOTION( $x, $y );
   EVT_ENTER_WINDOW( $x, $y );
   EVT_LEAVE_WINDOW( $x, $y );
-  EVT_MOUSEWHEEL( $x, $y ) if $Wx::_wx_version >= 2.003001;
+  EVT_MOUSEWHEEL( $x, $y ) if Wx::wxVERSION() >= 2.003001;
 }
 
 #

@@ -70,3 +70,16 @@ The following features have been deprecated and may disappear in the future
     my $window = MyWindow->new( ... ); # MyWindow ISA Wx::Window
     $button->{a} = 'b';
     $window->{c} = 'd';
+
+2 - Use of $Wx::_foo
+
+    wxPerl used to provide some constants named $Wx::_something
+    (for example, $Wx::_msw, $Wx::_platform, $Wx::_wx_version).
+
+    These constants are now deprecated, and will be removed in
+    some future version; this information is available via
+    functions in the Wx package (i.e. Wx::wxMSW())
+
+    toolkit: wxMSW, wxGTK, wxMOTIF, wxX11, wxMAC, wxUNIVERSAL
+    misc:    wxUNICODE, wxVERSION
+    

@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000 Mattia Barbon
+## RCS-ID:      $Id: toolbar.pl,v 1.4 2003/05/04 17:35:18 mbarbon Exp $
+## Copyright:   (c) 2000, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -54,7 +54,7 @@ my( $IDM_TOOLBAR_TOGGLE_ANOTHER_TOOLBAR, $IDM_TOOLBAR_TOGGLETOOLBARSIZE,
 use Wx qw(wxBITMAP_TYPE_BMP wxBITMAP_TYPE_XPM);
 
 sub BITMAP {
-  if( $Wx::_platform == $Wx::_msw ) {
+  if( Wx::wxMSW() ) {
     Wx::Bitmap->new( "bitmaps/$_[0].bmp", wxBITMAP_TYPE_BMP );
   } else {
     Wx::Bitmap->new( "bitmaps/$_[0].xpm", wxBITMAP_TYPE_XPM );
@@ -305,7 +305,7 @@ sub RecreateToolbar {
     $toolbar->SetToolBitmapSize( wxSIZE( $w, $h ) );
   }
 
-  my( $width ) = ( $Wx::_platform = $Wx::_msw ) ? 24 : 16;
+  my( $width ) = ( Wx::wxMSW() ) ? 24 : 16;
 #  my( $curX ) = 5;
 
   $toolbar->AddTool( wxID_NEW, $bitmaps[0], wxNullBitmap, 0, undef, 'New File' );

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/ 3/2002
-## RCS-ID:      
-## Copyright:   (c) 2002 Mattia Barbon
+## RCS-ID:      $Id: wxThread.pm,v 1.2 2003/05/04 17:35:18 mbarbon Exp $
+## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -77,19 +77,19 @@ sub DESTROY {
   my( $this, $event ) = @_;
 
   threads::shared::lock_enabled( $joined );
-  print "Join begin\n";
+  #print "Join begin\n";
   $keep_going = 0;
   if( !$joined ) {
-    print "Join start\n";
+    #print "Join start\n";
     $joined = 1;
     foreach my $i ( @{$this->{THREADS}} ) {
       $i->join();
     }
-    print "Join end\n";
+    #print "Join end\n";
   }
 
   $this->SUPER::DESTROY();
-  print "Join leave\n";
+  #print "Join leave\n";
 }
 
 # this should really do something useful, really
