@@ -24,7 +24,7 @@ sub my_wx_config {
   my $class = shift;
   my $makefile = MM->catfile( top_dir(), 'build', 'gmake.mak' );
 
-  my $final = $wxConfig::debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
+  my $final = $wxConfig::debug_mode ? 'FINAL=0' : 'FINAL=1';
   my $unicode = $wxConfig::unicode_mode ? 'UNICODE=1' : 'UNICODE=0';
   my $t = qx(make -s -f $makefile @_ $final $unicode);
   chomp $t;

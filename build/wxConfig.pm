@@ -17,17 +17,35 @@ use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS $Verbose);
 use ExtUtils::MakeMaker;
 
 # parse command line variables
-use vars qw($debug_mode $unicode_mode $extra_libs $extra_cflags $use_shared $use_dllexport);
+use vars qw($debug_mode $unicode_mode $extra_libs $extra_cflags
+            $use_shared $use_dllexport $o_help);
 use vars qw($Arch);
+use Getopt::Long;
 
-LOOP: foreach ( @ARGV ) {
-  m/^DEBUG=(\d+)$/ && do { $debug_mode = $1 ; undef $_; next LOOP; };
-  m/^UNICODE=(\d+)$/ && do { $unicode_mode = $1; undef $_; next LOOP; };
-  m/^EXTRA_LIBS=(.*)$/ && do { $extra_libs = $1; undef $_; next LOOP; };
-  m/^EXTRA_CFLAGS=(.*)$/ && do { $extra_cflags = $1; undef $_; next LOOP; };
-  m/^USE_SHARED=(.*)$/ && do { $use_shared = $1; undef $_; next LOOP; };
-  m/^USE_DLLEXPORT=(.*)$/ && do { $use_dllexport = $1; undef $_; next LOOP; };
+my $result =
+GetOptions( 'debug' => \$debug_mode,
+            'unicode' => \$unicode_mode,
+            'extra-libs=s' => \$extra_libs,
+            'extra-cflags=s' => \$extra_cflags,
+            'mingw-shared!' => \$use_shared,
+            'use-dllexport!' => \$use_dllexport,
+            'help' => \$o_help,
+          );
+
+if( $o_help || !$result ) {
+  print <<EOT;
+Usage: perl Makefile.PL [options]
+  --debug              enable debug symbols
+  --unicode            enable Unicode support ( MSW only )
+  --extra-libs=s       specify extra linking flags
+  --extra-cflags=s     specify extra compilation flags
+  --[no]mingw-shared   use 'g++ --shared' with MinGW ( MSW only )
+  --[no]use-dllexport  use 'dllexport' ( MSW only )
+  --help               you are reading it
+EOT
+  exit 0;
 }
+
 $use_dllexport = 0 unless $use_shared;
 #FIXME// hack
 $extra_cflags .= ' -DWXPL_USE_DLLEXPORT=1 ' if $use_dllexport;
