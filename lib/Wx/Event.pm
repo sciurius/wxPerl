@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.38 2003/11/23 07:51:44 mbarbon Exp $
+## RCS-ID:      $Id: Event.pm,v 1.39 2003/12/13 17:13:31 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -248,6 +248,7 @@ sub EVT_MOUSE_EVENTS($$) {
 #
 
 sub EVT_MOVE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MOVE, $_[1] ); }
+sub EVT_MOVING($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MOVING, $_[1] ); }
 
 #
 # NotebookEvent
@@ -280,6 +281,7 @@ sub EVT_SASH_DRAGGED_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_SASH
 #
 
 sub EVT_SIZE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SIZE, $_[1] ); }
+sub EVT_SIZING($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SIZING, $_[1] ); }
 
 #
 # ScrollEvent

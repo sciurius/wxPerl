@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.29 2003/08/16 21:26:26 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.30 2003/12/13 17:13:31 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -115,6 +115,9 @@ wxControlWithItems::SetClientData( n, data )
     THIS->SetClientObject( n, data );
 
 INCLUDE: XS/BitmapButton.xs
+
+INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/BookCtrl.xsp |
+
 INCLUDE: XS/Button.xs
 INCLUDE: XS/CheckBox.xs
 INCLUDE: XS/CheckListBox.xs

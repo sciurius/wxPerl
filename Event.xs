@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.35 2003/06/05 17:19:25 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.36 2003/12/13 17:13:31 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -520,6 +520,16 @@ Wx_MoveEvent::GetPosition()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+wxRect*
+wxMoveEvent::GetRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetRect() );
+  OUTPUT: RETVAL
+
+#endif
+
 MODULE=Wx_Evt PACKAGE=Wx::NotifyEvent
 
 Wx_NotifyEvent*
@@ -555,6 +565,16 @@ Wx_SizeEvent::GetSize()
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+wxRect*
+wxSizeEvent::GetRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetRect() );
+  OUTPUT: RETVAL
+
+#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::ScrollEvent
 

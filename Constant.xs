@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.95 2003/11/23 07:43:27 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.96 2003/12/13 17:13:31 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -52,6 +52,7 @@
 #include <wx/filefn.h>
 
 #include "cpp/wxapi.h"
+#include "cpp/setup.h"
 
 #include <wx/tglbtn.h>
 #include <wx/splash.h>
@@ -218,7 +219,11 @@ static wxPlINH inherit[] =
     I( ControlWithItems,Control )
     I( Choice,          ControlWithItems )
     I( ListBox,         ControlWithItems )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    I( Notebook,        BookCtrl )
+#else
     I( Notebook,        Control )
+#endif
     I( ToolBarBase,     Control )
     I( ToolBarSimple,   Control )
     I( StaticBitmap,    Control )
@@ -305,6 +310,7 @@ static wxPlINH inherit[] =
     I( StaticBoxSizer,  BoxSizer )
     I( GridSizer,       Sizer )
     I( FlexGridSizer,   GridSizer )
+    I( GridBagSizer,    FlexGridSizer )
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
     I( NotebookSizer,   BookCtrlSizer )
 #else
@@ -312,6 +318,7 @@ static wxPlINH inherit[] =
 #endif
     I( BookCtrlSizer,   Sizer )
     I( PlSizer,         Sizer )
+    I( GBSizerItem,     SizerItem )
 
     I( TaskBarIcon,     EvtHandler )
     I( Process,         EvtHandler )
@@ -424,7 +431,12 @@ static wxPlINH inherit[] =
     I( MenuEvent,       Event )
     I( MouseEvent,      Event )
     I( MoveEvent,       Event )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    I( BookCtrlEvent,   NotifyEvent )
+    I( NotebookEvent,   BookCtrlEvent )
+#else
     I( NotebookEvent,   NotifyEvent )
+#endif
     I( NotifyEvent,     CommandEvent )
     I( PaintEvent,      Event )
     I( ProcessEvent,    Event )
@@ -777,6 +789,10 @@ static double constant( const char *name, int arg )
     r( wxEVT_INIT_DIALOG );
     r( wxEVT_IDLE );
     r( wxEVT_UPDATE_UI );
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    r( wxEVT_MOVING );
+    r( wxEVT_SIZING );
+#endif
 
     r( wxEVT_END_PROCESS );
 
@@ -879,6 +895,9 @@ static double constant( const char *name, int arg )
     r( wxFULLSCREEN_NOCAPTION );        // frame dialog
     r( wxFULLSCREEN_ALL );              // frame dialog
 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    r( wxFULL_REPAINT_ON_RESIZE );      // window
+#endif
     break;
   case 'G':
     r( wxGA_HORIZONTAL );               // gauge

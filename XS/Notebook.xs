@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Notebook.xs,v 1.10 2003/06/04 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: Notebook.xs,v 1.11 2003/12/13 17:13:29 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -21,6 +21,8 @@ wxNotebookEvent::new( eventType = wxEVT_NULL, id = 0, sel = -1, oldSel = -1 )
     int sel
     int oldSel
 
+#if WXPERL_W_VERSION_LE( 2, 5, 0 )
+
 int
 wxNotebookEvent::GetOldSelection()
 
@@ -34,6 +36,8 @@ wxNotebookEvent::SetOldSelection( sel )
 void
 wxNotebookEvent::SetSelection( oldSel )
     int oldSel
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::Notebook
 
@@ -77,6 +81,8 @@ wxNotebook::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, s
     long style
     wxString name
 
+#if WXPERL_W_VERSION_LE( 2, 5, 0 )
+
 bool
 wxNotebook::AddPage( page, text, select = FALSE, imageId = -1 )
     wxWindow* page
@@ -118,9 +124,6 @@ wxNotebook::GetPageText( page )
     int page
 
 int
-wxNotebook::GetRowCount()
-
-int
 wxNotebook::GetSelection()
 
 bool
@@ -139,19 +142,6 @@ void
 wxNotebook::SetImageList( imagelist )
     wxImageList* imagelist
 
-#if !defined( __WXMOTIF__ ) && !defined( __WXGTK__ ) || \
-  defined( __WXPERL_FORCE__ )
-
-void
-wxNotebook::SetPadding( padding )
-    wxSize padding
-
-void
-wxNotebook::SetPageSize( padding )
-    wxSize padding
-
-#endif
-
 bool
 wxNotebook::SetPageImage( page, image )
     int page
@@ -165,3 +155,21 @@ wxNotebook::SetPageText( page, text )
 int
 wxNotebook::SetSelection( page )
     int page
+
+#endif
+
+int
+wxNotebook::GetRowCount()
+
+#if !defined( __WXMOTIF__ ) && !defined( __WXGTK__ ) || \
+  defined( __WXPERL_FORCE__ )
+
+void
+wxNotebook::SetPadding( padding )
+    wxSize padding
+
+void
+wxNotebook::SetPageSize( padding )
+    wxSize padding
+
+#endif

@@ -1,0 +1,158 @@
+#############################################################################
+## Name:        XS/GridBagSizer.xs
+## Purpose:     XS for Wx::GridBagSizer
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     310/11/2003
+## RCS-ID:      $Id: GridBagSizer.xsp,v 1.1 2003/12/13 17:13:29 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+#define wxPlDefaultSpan (wxGBSpan*)&wxDefaultSpan
+
+#include <wx/gbsizer.h>
+%}
+
+%typemap{wxGridBagSizer *}{simple};
+%typemap{wxGBPosition *}{simple};
+%typemap{wxGBSpan *}{simple};
+%typemap{wxGBSizerItem *}{simple};
+%typemap{const wxGBSizerItem&}{reference};
+%typemap{wxGBPosition}{reference};
+%typemap{const wxGBPosition&}{reference};
+%typemap{wxGBSpan}{reference};
+%typemap{const wxGBSpan&}{reference};
+
+%name{Wx::GBPosition} class wxGBPosition
+{
+    wxGBPosition(int row = 0, int col = 0);
+
+    int GetRow() const;
+    int GetCol() const;
+    void SetRow(int row);
+    void SetCol(int col);
+    
+##    bool operator==(const wxGBPosition& p) const;
+##    bool operator!=(const wxGBPosition& p) const;
+};
+
+%name{Wx::GBSpan} class wxGBSpan
+{
+    wxGBSpan(int rowspan = 1, int colspan = 1);
+
+    int GetRowspan() const;
+    int GetColspan() const;
+    void SetRowspan(int rowspan);
+    void SetColspan(int colspan);
+    
+##    bool operator==(const wxGBSpan& o) const;
+##    bool operator!=(const wxGBSpan& o) const;
+};
+
+%name{Wx::GBSizerItem} class wxGBSizerItem
+{
+    wxGBPosition GetPos() const;
+##    void GetPos(int& row, int& col) const;
+
+    wxGBSpan GetSpan() const;
+##    void GetSpan(int& rowspan, int& colspan) const;
+
+    bool SetPos( const wxGBPosition& pos );
+    bool SetSpan( const wxGBSpan& span );
+    %name{IntersectsItem}
+    bool Intersects(const wxGBSizerItem& other);
+    %name{IntersectsPosition}
+    bool Intersects(const wxGBPosition& pos, const wxGBSpan& span);
+##    void GetEndPos(int& row, int& col);
+    wxGridBagSizer* GetGBSizer() const;
+    void SetGBSizer(wxGridBagSizer* sizer);
+};
+
+%name{Wx::GridBagSizer} class wxGridBagSizer
+{
+    wxGridBagSizer(int vgap = 0, int hgap = 0 );
+
+    %name{AddWindow}
+    bool Add( wxWindow *window,
+              const wxGBPosition& pos,
+              const wxGBSpan& span = wxPlDefaultSpan,
+              int flag = 0,
+              int border = 0,
+              wxObject* userData = NULL );
+    %name{AddSizer}
+    bool Add( wxSizer *sizer,
+              const wxGBPosition& pos,
+              const wxGBSpan& span = wxPlDefaultSpan,
+              int flag = 0,
+              int border = 0,
+              wxObject* userData = NULL );
+    %name{AddSpace}
+    bool Add( int width,
+              int height,
+              const wxGBPosition& pos,
+              const wxGBSpan& span = wxPlDefaultSpan,
+              int flag = 0,
+              int border = 0,
+              wxObject* userData = NULL );
+    %name{AddItem}
+    bool Add( wxGBSizerItem *item );
+
+    wxSize GetEmptyCellSize() const;
+    void SetEmptyCellSize(const wxSize& sz);
+    wxSize GetCellSize(int row, int col) const;
+    
+    %name{GetItemPositionWindow} 
+    wxGBPosition GetItemPosition(wxWindow *window);
+    %name{GetItemPositionSizer}
+    wxGBPosition GetItemPosition(wxSizer *sizer);
+    %name{GetItemPositionIndex}
+    wxGBPosition GetItemPosition(size_t index);
+
+    %name{SetItemPositionWindow}
+    bool SetItemPosition(wxWindow *window, const wxGBPosition& pos);
+    %name{SetItemPositionSizer}
+    bool SetItemPosition(wxSizer *sizer, const wxGBPosition& pos);
+    %name{SetItemPositionIndex}
+    bool SetItemPosition(size_t index, const wxGBPosition& pos);
+
+    %name{GetItemSpanWindow}
+    wxGBSpan GetItemSpan(wxWindow *window);
+    %name{GetItemSpanSizer}
+    wxGBSpan GetItemSpan(wxSizer *sizer);
+    %name{GetItemSpanIndex}
+    wxGBSpan GetItemSpan(size_t index);
+
+    %name{SetItemSpanWindow}
+    bool SetItemSpan(wxWindow *window, const wxGBSpan& span);
+    %name{SetItemSpanSizer}
+    bool SetItemSpan(wxSizer *sizer, const wxGBSpan& span);
+    %name{SetItemSpanIndex}
+    bool SetItemSpan(size_t index, const wxGBSpan& span);
+
+    %name{FindItemWindow}
+    wxGBSizerItem* FindItem(wxWindow* window);
+    %name{FindItemSizer}
+    wxGBSizerItem* FindItem(wxSizer* sizer);
+
+    wxGBSizerItem* FindItemAtPosition(const wxGBPosition& pos);
+    wxGBSizerItem* FindItemAtPoint(const wxPoint& pt);
+##    wxGBSizerItem* FindItemWithData(const wxObject* userData);
+
+    %name{CheckForIntersectionItem}
+    bool CheckForIntersection(wxGBSizerItem* item,
+                              wxGBSizerItem* excludeItem = NULL);
+    %name{CheckForIntersectionPos}
+    bool CheckForIntersection(const wxGBPosition& pos, const wxGBSpan& span,
+                              wxGBSizerItem* excludeItem = NULL);
+};
+
+%{
+#endif
+%}

@@ -1035,6 +1035,8 @@ INCLUDE: XS/Constraint.xs
 
 INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/Sizer.xs |
 
+INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/GridBagSizer.xsp |
+
 INCLUDE: XS/SashWindow.xs
 
 MODULE=Wx_Win PACKAGE=Wx::Window

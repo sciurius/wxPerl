@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.58 2003/07/25 20:57:14 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.59 2003/12/13 17:13:31 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -108,6 +108,7 @@ wxRadioButton *         O_WXEVTHANDLER
 wxRadioBox *            O_WXEVTHANDLER
 wxScrollBar *           O_WXEVTHANDLER
 wxNotebook *            O_WXEVTHANDLER
+wxBookCtrl *            O_WXEVTHANDLER
 wxCheckListBox *        O_WXEVTHANDLER
 wxGauge *               O_WXEVTHANDLER
 wxBitmapButton *        O_WXEVTHANDLER
@@ -127,6 +128,8 @@ wxSashWindow *          O_WXEVTHANDLER
 wxToggleButton *        O_WXEVTHANDLER
 Wx_SplashScreen *       O_WXOBJECT
 wxSplashScreen *        O_WXOBJECT
+wxListbook *            O_WXEVTHANDLER
+wxTreebook *            O_WXEVTHANDLER
 
 wxWizard *              O_WXOBJECT
 wxWizardPage *          O_WXOBJECT
@@ -181,6 +184,10 @@ Wx_FlexGridSizer *      O_WXOBJECT
 wxFlexGridSizer *       O_WXOBJECT
 Wx_SizerItem*           O_WXOBJECT
 wxSizerItem *           O_WXOBJECT
+wxGridBagSizer *        O_WXOBJECT
+wxGBPosition *          O_NON_WXOBJECT
+wxGBSpan *              O_NON_WXOBJECT
+wxGBSizerItem *         O_WXOBJECT
 
 Wx_DC *                 O_WXOBJECT
 wxDC *                  O_WXOBJECT
@@ -350,6 +357,7 @@ Wx_Event *              O_WXOBJECT
 wxEvent *               O_WXOBJECT
 Wx_ActivateEvent *      O_WXOBJECT
 wxActivateEvent *       O_WXOBJECT
+wxBookCtrlEvent *       O_WXOBJECT
 Wx_CloseEvent *         O_WXOBJECT
 wxCloseEvent *          O_WXOBJECT
 Wx_CommandEvent *       O_WXOBJECT
@@ -372,6 +380,7 @@ Wx_InitDialogEvent *    O_WXOBJECT
 wxInitDialogEvent *     O_WXOBJECT
 Wx_JoystickEvent *      O_WXOBJECT
 wxJoystickEvent *       O_WXOBJECT
+wxListbookEvent *       O_WXOBJECT
 Wx_ListEvent *          O_WXOBJECT
 wxListEvent *           O_WXOBJECT
 Wx_MenuEvent *          O_WXOBJECT
@@ -407,6 +416,7 @@ wxTextUrlEvent *        O_WXOBJECT
 Wx_ProcessEvent *       O_WXOBJECT
 wxProcessEvent *        O_WXOBJECT
 wxWizardEvent *         O_WXOBJECT
+wxTreebookEvent *       O_WXOBJECT
 
 Wx_PlEvent*             O_WXOBJECT
 Wx_PlCommandEvent*      O_WXOBJECT
