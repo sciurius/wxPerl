@@ -39,7 +39,7 @@ use Wx qw(wxSOCKET_INPUT_FLAG wxSOCKET_OUTPUT_FLAG wxSOCKET_CONNECTION_FLAG
 
 my $EVTID ;
 
-sub EVT_SOCKET($$$)             { $_[0]->Connect($_[1] , -1, &Wx::wxEVT_SOCKET , $_[2] ); }
+sub EVT_SOCKET($$$)            { $_[0]->Connect($_[1] , -1, &Wx::wxEVT_SOCKET , $_[2] ); }
 sub EVT_SOCKET_ALL($$$)        { &MAKE_EVT('all',@_) ;}
 sub EVT_SOCKET_INPUT($$$)      { &MAKE_EVT(wxSOCKET_INPUT,@_) ;}
 sub EVT_SOCKET_OUTPUT($$$)     { &MAKE_EVT(wxSOCKET_OUTPUT,@_) ;}
@@ -48,12 +48,12 @@ sub EVT_SOCKET_LOST($$$)       { &MAKE_EVT(wxSOCKET_LOST,@_) ;}
 
 sub MAKE_EVT {
   my $type = shift ;
-  &ENABLE_SKEVT($_[1] , $_[0] , $_[2]) ;
-  my $sock = $_[1] ;
-  $sock->{EVT}{SUB}{$type} = $_[2] ;
+  my( $handler, $sock, $callback ) = @_;
+  &ENABLE_SKEVT($sock , $handler , $callback) ;
+  $sock->{EVT}{SUB}{$type} = $callback ;
   if (!$sock->{EVT}{CONNECT}) {
-    $_[0]->Connect( $_[0] , $_[1]->{EVT}{ID} , &Wx::wxEVT_SOCKET ,
-                    sub{ &CHECK_EVT_TYPE($sock,@_) } );
+    $handler->Connect( $handler , $sock->{EVT}{ID} , &Wx::wxEVT_SOCKET ,
+                       sub{ &CHECK_EVT_TYPE($sock,@_) } );
     $sock->{EVT}{CONNECT} = 1 ;
   }
 }
@@ -111,8 +111,9 @@ Wx::Socket - wxSocket* classes
 
   sub onInput {
     my ( $sock , $this , $evt ) = @_ ;
+    my $length = 123;
     my $buffer ;
-    $sock->Read($buffer , 1024 , length($buffer) ) ;
+    $sock->Read($buffer , 1024 , $length ) ;
   }
 
   ##########
@@ -134,10 +135,9 @@ Wx::Socket - wxSocket* classes
 
     $client->Write("This is a data test!\n") ;
 
-    ... or ...
+... or ...
 
-    ## Specially if has \0 inside $data.
-    $client->Write( $data , length($data) ) ; 
+    $client->Write( $data , length($data) ) ;
 
     $client->Close ;
   }
@@ -146,29 +146,27 @@ Wx::Socket - wxSocket* classes
 
 All the methods work as in wxWindows (see the documentation).
 
-The read functions (Read,ReadMsg,Peek) have 3 arguments,
+The functions for reading data (Read, ReadMsg, Peek) take 3 arguments,
 like the Perl read() function:
 
-  ## To append data:
-  $sock->Read($buffer , 1024 , length($buffer) ) ;
-
-  ... or ...
-
-  ## To write in the begin on the $buffer:
+  ## To read the data into the variable
   $sock->Read($buffer , 1024) ;
 
-The write functions (Write,WriteMsg,Unread) can be used with 2 or 1 arguments:
+... or ...
 
-  ## Got for simple strings:
+  ## To append data at the given offset:
+  $sock->Read($buffer , 1024 , $offset ) ;
+
+The write functions (Write, WriteMsg, Unread) can be used with
+1 or 2 arguments:
+
   $client->Write("This is a data test!\n") ;
 
-  ## For data (specially binary):
-  my $data = "aaa\0bbb\0ccc" ;
-  $client->Write($data , length($data)) ;
+  $client->Write($data , $length) ;
 
 =head1 EVENTS
 
-  The events are:
+The events are:
 
     EVT_SOCKET
     EVT_SOCKET_ALL
@@ -177,35 +175,38 @@ The write functions (Write,WriteMsg,Unread) can be used with 2 or 1 arguments:
     EVT_SOCKET_CONNECTION
     EVT_SOCKET_LOST
 
-The EVT_SOCKET is the original, used in the normal wxWindows.
-I have added the others.
+The EVT_SOCKET works as in wxWindows, the others are wxPerl extensions.
 
-Note that the original events of wxSocketClient & wxSocketServer
-are different than other objects.
+Note that EVT_SOCKET events of wxSocketClient and wxSocketServer
+work differently than other event types.
+
 First you need to set the event handler:
 
-    $sock->SetEventHandler($parent, $sock->{EVT}{ID}) ;
+    $sock->SetEventHandler($handler, $id) ;
 
 Then you set what types of event you want to receive:
 
     ## this select all.
     $sock->SetNotify(wxSOCKET_INPUT_FLAG|wxSOCKET_OUTPUT_FLAG|
-                     wxSOCKET_CONNECTION_FLAG|wxSOCKET_LOST_FLAG) ; 
+                     wxSOCKET_CONNECTION_FLAG|wxSOCKET_LOST_FLAG) ;
 
-Enable the event notify:
+Enable the event notification:
 
     $sock->Notify(1) ;
 
 And only after this use:
 
-    EVT_SOCKET($parent , sub{...} )
+    ## note that $handler must be the same that was used in
+    ## SetEventHandler
+    EVT_SOCKET($handler, $id , sub{...} )
 
-To make the events easier, all the proccess is automatic, and you just use:
+To make the events easier to use, all the proccess is automatic,
+and you just use:
 
-    EVT_SOCKET_INPUT($parent , $socket , sub{...} )
-    EVT_SOCKET_OUTPUT($parent , $socket , sub{...} )
-    EVT_SOCKET_CONNECTION($parent , $socket , sub{...} )
-    EVT_SOCKET_LOST($parent , $socket , sub{...} )
+    EVT_SOCKET_INPUT($handler , $socket , sub{...} )
+    EVT_SOCKET_OUTPUT($handler , $socket , sub{...} )
+    EVT_SOCKET_CONNECTION($handler , $socket , sub{...} )
+    EVT_SOCKET_LOST($handler , $socket , sub{...} )
 
     ## This is for the events not used yet by the above:
     EVT_SOCKET_ALL($parent , $socket , sub{...} )
@@ -215,9 +216,7 @@ To make the events easier, all the proccess is automatic, and you just use:
 
 =head1 SEE ALSO
 
-L<Wx>.
-
-See the wxDocumentation too, at L<http://www.wxwindows.org/>
+L<Wx>, The wxWxwindows documentation at L<http://www.wxwindows.org/>
 
 =head1 AUTHOR
 
@@ -229,4 +228,3 @@ This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
 =cut
-

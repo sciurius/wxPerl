@@ -12,12 +12,15 @@
 
 MODULE=Wx PACKAGE=Wx::SocketBase
 
+#if 0
+
 wxSocketBase*
 wxSocketBase::new()
   CODE:
     RETVAL = new wxPlSocketBase( CLASS ) ;
   OUTPUT: RETVAL
 
+#endif
 
 bool
 wxSocketBase::Ok()
@@ -63,7 +66,8 @@ wxSocketBase::Read( buf , size , leng = 0 )
     long size
     long leng
   CODE:
-    // Upgrade the SV to scalar if needed. If the scalar is undef can't use SvGROW.
+    // Upgrade the SV to scalar if needed. If the scalar is undef
+    // can't use SvGROW.
     SvUPGRADE(buf , SVt_PV) ;
     // Tell that the scalar is string only (not integer, double, utf8...):
     SvPOK_only(buf) ;
@@ -72,7 +76,7 @@ wxSocketBase::Read( buf , size , leng = 0 )
     char* buffer = SvGROW( buf , leng + size + 2 ) ;
 
     // To read at the offset the user specified (works even if offset = 0):
-    if ( leng > 0 ) { buffer += leng ;}
+    if ( leng > 0 ) buffer += leng ;
 
     THIS->Read( buffer , size ) ;
     int nread = THIS->LastCount() ;
@@ -186,10 +190,9 @@ wxSocketBase::Unread(buf , size = 0)
     SV* buf
     long size
   CODE:
-    // Upgrade the SV to scalar if needed. If the scalar is undef can't use SvGROW.
+    // Upgrade the SV to scalar if needed. If the scalar is undef 
+    // can't use SvGROW.
     SvUPGRADE(buf , SVt_PV) ;
-    // Tell that the scalar is string only (not integer, double, utf8...):
-    SvPOK_only(buf) ;
     
     if ( size == 0 ) { size = SvCUR(buf) ;}
     THIS->Unread( SvPV_nolen(buf) , size ) ;
@@ -206,10 +209,9 @@ wxSocketBase::Write(buf , size = 0)
     SV* buf
     long size
   CODE:
-    // Upgrade the SV to scalar if needed. If the scalar is undef can't use SvGROW.
+    // Upgrade the SV to scalar if needed. If the scalar is
+    // undef can't use SvGROW.
     SvUPGRADE(buf , SVt_PV) ;
-    // Tell that the scalar is string only (not integer, double, utf8...):
-    SvPOK_only(buf) ;
 
     if ( size == 0 ) { size = SvCUR(buf) ;}
     THIS->Write( SvPV_nolen(buf) , size ) ;
@@ -221,10 +223,9 @@ wxSocketBase::WriteMsg(buf , size = 0)
     SV* buf
     long size
   CODE:
-    // Upgrade the SV to scalar if needed. If the scalar is undef can't use SvGROW.
+    // Upgrade the SV to scalar if needed. If the scalar
+    // is undef can't use SvGROW.
     SvUPGRADE(buf , SVt_PV) ;
-    // Tell that the scalar is string only (not integer, double, utf8...):
-    SvPOK_only(buf) ;
     
     if ( size == 0 ) { size = SvCUR(buf) ;}
     THIS->WriteMsg( SvPV_nolen(buf) , size ) ;
@@ -234,7 +235,7 @@ wxSocketBase::WriteMsg(buf , size = 0)
 
 void
 wxSocketBase::SetEventHandler( evthnd , id = -1)
-    Wx_EvtHandler* evthnd
+    wxEvtHandler* evthnd
     int id
   CODE:
     THIS->SetEventHandler( *evthnd , id );

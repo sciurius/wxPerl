@@ -15,7 +15,7 @@ wxSocketEvent*
 wxSocketEvent::new(id = 0)
     int id
   CODE:
-    RETVAL = new wxPliSocketEvent( CLASS , id ) ;
+    RETVAL = new wxSocketEvent( id ) ;
   OUTPUT: RETVAL
 
 wxSocketBase*
