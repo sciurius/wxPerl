@@ -32,9 +32,18 @@ Wx_EvtHandler::Connect( id, lastid, type, method )
     wxEventType type
     SV* method
   CODE:
-    THIS->Connect(id, lastid, type,
-                    (wxObjectEventFunction)&wxPliEventCallback::Handler,
-                    new wxPliEventCallback( method, ST(0) ) );
+    if( SvOK( method ) )
+    {
+        THIS->Connect( id, lastid, type,
+                       (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                       new wxPliEventCallback( method, ST(0) ) );
+    }
+    else
+    {
+        THIS->Disconnect( id, lastid, type,
+                          (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                          0 );
+    }
 
 void
 Wx_EvtHandler::Destroy()
