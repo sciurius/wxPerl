@@ -6,7 +6,6 @@ PRIORITY NORMAL:
   finish it!
 
 * store events in a C++ file and autogenerate them
-* rewrite lib/Wx/_Constants.pm in C++
 * try to have constants inlined where appropriate
 
 * wxCalendarCtrl
@@ -29,8 +28,6 @@ PRIORITY NORMAL:
 * wxGrid
     GetTable
     SetTable
-
-* Wx::PlGridCellEditor/Renderer
 
 * configuration system
 

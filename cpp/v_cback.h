@@ -93,6 +93,20 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         BASE::METHOD();                                                \
   }
 
+#define DEC_V_CBACK_VOID__VOID_pure( METHOD ) \
+  void METHOD()
+
+#define DEF_V_CBACK_VOID__VOID_pure( CLASS, BASE, METHOD ) \
+  void CLASS::METHOD()                                                        \
+  {                                                                           \
+    dTHX;                                                                     \
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
+    {                                                                         \
+        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,                 \
+                                           G_SCALAR|G_DISCARD );              \
+    }                                                                         \
+  }
+
 #define DEC_V_CBACK_BOOL__INT( METHOD ) \
   bool METHOD( int )
 

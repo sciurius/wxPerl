@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        GridCellEditor.xs
+## Name:        ext/grid/XS/GridCellEditor.xs
 ## Purpose:     XS for Wx::GridCellEditor*
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: GridCellEditor.xs,v 1.5 2003/06/05 17:17:21 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -127,3 +127,15 @@ Wx_GridCellChoiceEditor::new( choices, allowOthers = FALSE )
     delete[] chs;
   OUTPUT:
     RETVAL
+
+MODULE=Wx PACKAGE=Wx::PlGridCellEditor
+
+#include "cpp/editor.h"
+
+SV*
+wxPlGridCellEditor::new()
+  CODE:
+    wxPlGridCellEditor* r = new wxPlGridCellEditor( CLASS );
+    RETVAL = r->m_callback.GetSelf();
+    SvREFCNT_inc( RETVAL );
+  OUTPUT: RETVAL

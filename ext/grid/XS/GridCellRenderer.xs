@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      $Id: GridCellRenderer.xs,v 1.4 2003/05/28 20:53:01 mbarbon Exp $
+## RCS-ID:      $Id: GridCellRenderer.xs,v 1.5 2003/06/05 17:17:21 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -95,4 +95,15 @@ wxPlGridCellRenderer::new()
     SvREFCNT_inc( RETVAL );
   OUTPUT: RETVAL
 
-
+void
+wxPlGridCellRenderer::Draw( grid, attr, dc, rect, row, col, isSelected )
+    wxGrid* grid
+    wxGridCellAttr* attr
+    wxDC* dc
+    wxRect* rect
+    int row
+    int col
+    bool isSelected
+  CODE:
+    THIS->wxGridCellRenderer::Draw( *grid, *attr, *dc, *rect,
+                                    row, col, isSelected );
