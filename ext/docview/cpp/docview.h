@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.18 2004/12/21 21:12:50 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.19 2005/03/08 18:59:07 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -368,7 +368,8 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
                                            "CreateDocument" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, NULL );
+                                                     G_SCALAR, "Pl", &path,
+                                                     flags );
         doc = (wxDocument*) wxPli_sv_2_object( aTHX_ ret, "Wx::Document" );
         SvREFCNT_dec( ret );
     }
@@ -406,7 +407,8 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "CreateView" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, NULL );
+                                                     G_SCALAR, "Ol", doc,
+                                                     flags );
         view = (wxView*) wxPli_sv_2_object( aTHX_ ret, "Wx::View" );
         SvREFCNT_dec( ret );
     }
