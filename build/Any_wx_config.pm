@@ -58,9 +58,16 @@ sub ld_is_GNU {
 # you may, at some point, being tempted to say that Makemaker is,
 # sometimes, annoying...
 require ExtUtils::Liblist;
-my $save = \&ExtUtils::Liblist::Kid::ext;
-undef *ExtUtils::Liblist::Kid::ext;
-*ExtUtils::Liblist::Kid::ext = \&my_ext;
+my $save;
+if( defined *ExtUtils::Liblist::Kid::ext ) {
+  $save = \&ExtUtils::Liblist::Kid::ext;
+  undef *ExtUtils::Liblist::Kid::ext;
+  *ExtUtils::Liblist::Kid::ext = \&my_ext;
+} else {
+  $save = \&ExtUtils::Liblist::ext;
+  undef *ExtUtils::Liblist::ext;
+  *ExtUtils::Liblist::ext = \&my_ext;
+}
 
 sub my_ext {
   &$save( @_ ) unless $wxConfig::o_static;
