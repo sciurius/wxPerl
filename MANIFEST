@@ -3,6 +3,7 @@ typemap
 typemap.xsp
 MANIFEST
 MANIFEST.SKIP
+META.yml
 README.txt
 Changes
 run
@@ -230,7 +231,6 @@ cpp/controls.h
 cpp/dialog.h
 cpp/e_cback.h
 cpp/event.h
-cpp/evthandler.h
 cpp/frame.h
 cpp/helpers.h
 cpp/log.h
@@ -315,6 +315,7 @@ ext/grid/XS/Grid.xs
 ext/grid/XS/GridEvent.xs
 ext/grid/cpp/gr_constants.cpp
 ext/grid/cpp/gr_typedef.h
+ext/grid/cpp/editor.h
 ext/grid/cpp/renderer.h
 ext/grid/lib/Wx/Grid.pm
 ext/grid/typemap
@@ -413,6 +414,7 @@ ext/pperl/splashfast/t/04_app.t
 ext/xrc/Makefile.PL
 ext/xrc/XRC.xs
 ext/xrc/XS/XmlResource.xs
+ext/xrc/XS/XmlSubclassFactory.xsp
 ext/xrc/cpp/xr_constants.cpp
 ext/xrc/cpp/xr_typedef.h
 ext/xrc/lib/Wx/XRC.pm
@@ -466,6 +468,8 @@ demo/wxCheckListBox.pm
 demo/wxClipboard.pm
 demo/wxFileSystem.pm
 demo/wxGrid.pm
+demo/wxGridCER.pm
+demo/wxGridER.pm
 demo/wxHtmlDynamic.pm
 demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm
