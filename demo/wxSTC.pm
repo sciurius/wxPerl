@@ -22,6 +22,21 @@ sub window {
 
 sub description {
   return <<EOT;
+<html>
+<head>
+  <title>Wx::StyledTextCtrl</title>
+</head>
+<body>
+<h3>Wx::StyledTextCtrl</h3>
+
+<p>
+  Wx::StyledTextCtrl is based upon the scintilla text editor. It provides
+  a text editor with syntax highlighting, and the ability to syntax jighlight
+  various programming languages.
+</p>
+
+</body>
+</html>
 EOT
 }
 
@@ -37,8 +52,8 @@ sub new {
   my $class = shift;
   my $this = $class->SUPER::new( $_[0], -1 );
 
-  my $s1 = Wx::StyledTextCtrl->new( $this, -1, [0, 0], [600, 150] );
-  my $s2 = Wx::StyledTextCtrl->new( $this, -1, [0, 170], [600, 150] );
+  my $s1 = Wx::StyledTextCtrl->new( $this, -1, [0, 0], [300, 150] );
+  my $s2 = Wx::StyledTextCtrl->new( $this, -1, [0, 170], [300, 150] );
 
   my $font = Wx::Font->new( 12, wxDEFAULT, wxNORMAL, wxNORMAL,0, "Arial");
 

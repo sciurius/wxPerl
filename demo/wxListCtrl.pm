@@ -25,10 +25,19 @@ sub description {
   return <<EOT;
 <html>
 <head>
-  <title>wxListCtrl</title>
+  <title>Wx::ListCtrl</title>
 </head>
 <body>
-<h3>wxListCtrl</h3>
+<h3>Wx::ListCtrl</h3>
+
+<p>
+  Wx::ListCtrl has a variety of uses.
+</p>
+
+<ul>
+  <li>Report mode: display data in a grid-like way</li>
+  <li>Icon mode: show icons with or without a abel</li>
+</ul>
 
 </body>
 </html>

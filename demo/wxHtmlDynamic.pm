@@ -30,6 +30,22 @@ sub window {
 }
 
 sub description {
+  return <<EOT;
+<html>
+<head>
+  <title>Dynamic HTML generation</title>
+</head>
+<body>
+<h3>Dynamic HTML generation</h3>
+
+<p>
+  This (silly) example shows how to subclass Wx::FileSystemHandler
+  in order to provide dynamic HTML generation.
+</p>
+
+</body>
+</html>
+EOT
 }
 
 package MyFSHandler;

@@ -70,7 +70,7 @@ sub description {
   <title>wxFileSystem</title>
 </head>
 <body>
-<h3>wxFileSystem, wxFSFile, wxFileSystemHandler</h3>
+<h3>Wx::FileSystem, Wx::FSFile, Wx::FileSystemHandler</h3>
 
 <p>
   these classes let you access various kinds of filesystem-like

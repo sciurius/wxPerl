@@ -25,10 +25,10 @@ sub description {
   return <<EOT;
 <html>
 <head>
-  <title>wxHtmlWindow</title>
+  <title>Wx::HtmlWindow</title>
 </head>
 <body>
-<h3>wxHtmlWindow</h3>
+<h3>Wx::HtmlWindow</h3>
 
 <p>
   wxHTML is an HTML rendering engine written entirely

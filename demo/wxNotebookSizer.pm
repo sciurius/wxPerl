@@ -55,7 +55,7 @@ sub new {
   my $class = shift;
   # we want it resizeable
   my $this = $class->SUPER::new( undef, -1, 'Wx::NotebookSizer',
-                                 wxDefaultPosition, wxDefaultSize, 
+                                 wxDefaultPosition, wxDefaultSize,
                                  wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 
   my $top_sizer = Wx::BoxSizer->new( wxHORIZONTAL );
@@ -86,8 +86,9 @@ EOT
 
   # another page
   my $page2_sz = Wx::BoxSizer->new( wxHORIZONTAL );
-  my $page2 = Wx::Button->new( $notebook, -1, "I'm a big button..." );
-  $page2_sz->Add( $page2, 1, wxGROW );
+  my $page2 = Wx::Button->new( $notebook, -1, "I'm a big button...",
+                               wxDefaultPosition, [100, 100] );
+  $page2_sz->Add( $page2, 0, wxALL, 5 );
   $notebook->AddPage( $page2, 'Button' );
   #$notebook->SetSizer( $nbsizer );
 

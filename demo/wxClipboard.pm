@@ -25,6 +25,19 @@ sub window {
 
 sub description {
     return <<EOT;
+<html>
+<head>
+  <title>Wx::Clipboard</title>
+</head>
+<body>
+<h3>Wx::Clipboard</h3>
+
+<p>
+  This class is used to interact with the system clipboard.
+</p>
+
+</body>
+</html>
 EOT
 }
 

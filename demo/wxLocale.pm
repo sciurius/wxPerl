@@ -58,10 +58,10 @@ sub description {
   return <<EOT;
 <html>
 <head>
-  <title>wxLocale</title>
+  <title>Wx::Locale</title>
 </head>
 <body>
-<h3>wxLocale</h3>
+<h3>Wx::Locale</h3>
 
 <p>
   The first step in internationalization is message translation.

@@ -25,6 +25,21 @@ sub window {
 
 sub description {
   return <<EOT;
+<html>
+<head>
+  <title>Multiple Document Interface</title>
+</head>
+<body>
+<h3>Multiple Document Interface</h3>
+
+<p>
+  MDI (Multiple Document Interface) is an interface style used by mani
+  popular Windows programs. Under other platforms it is emulated using
+  a Wx::Notebook.
+</p>
+
+</body>
+</html>
 EOT
 }
 

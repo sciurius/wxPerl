@@ -53,7 +53,7 @@ package BSDemoWindow;
 use strict;
 use base qw(Wx::Dialog);
 use Wx qw(:sizer wxDefaultPosition wxDefaultSize
-          wxDEFAULT_DIALOG_STYLE wxRESIZE_BORDER);
+          wxDEFAULT_DIALOG_STYLE wxRESIZE_BORDER wxID_OK);
 
 sub new {
   my $class = shift;
@@ -66,7 +66,7 @@ sub new {
 
   my $fr = Wx::BoxSizer->new( wxHORIZONTAL );
   # this button is fixed size, with some border
-  $fr->Add( Wx::Button->new( $this, -1, 'Button 1' ), 0, wxALL, 10 );
+  $fr->Add( Wx::Button->new( $this, wxID_OK, 'Close window' ), 0, wxALL, 10 );
   # this button has no border
   $fr->Add( Wx::Button->new( $this, -1, 'Button 2' ), 0, 0 );
   # this one has borders just on the top and bottom

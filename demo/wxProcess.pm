@@ -23,6 +23,21 @@ sub window {
 
 sub description {
   return <<EOT;
+<html>
+<head>
+  <title>Wx::Process</title>
+</head>
+<body>
+<h3>Wx::Process</h3>
+
+<p>
+  This class (along with the Wx::Execute* functions), provide a way to
+  execute syncronously ao asyncronously external programs
+  with output redirection.
+</p>
+
+</body>
+</html>
 EOT
 }
 

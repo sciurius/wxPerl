@@ -49,7 +49,7 @@ package GSDemoWindow;
 use strict;
 use base qw(Wx::Dialog);
 use Wx qw(:sizer wxDefaultPosition wxDefaultSize
-          wxDEFAULT_DIALOG_STYLE wxRESIZE_BORDER);
+          wxDEFAULT_DIALOG_STYLE wxRESIZE_BORDER wxID_OK);
 
 sub new {
   my $class = shift;
@@ -63,7 +63,7 @@ sub new {
   for my $i ( 1 .. 25 ) {
     my $grow = ( $i % 2 ) * wxGROW;
 
-    $tsz->Add( Wx::Button->new( $this, -1, "Button $i" ),
+    $tsz->Add( Wx::Button->new( $this, wxID_OK, "Button $i" ),
                0, $grow|wxALL, 2 );
   }
 

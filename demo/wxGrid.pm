@@ -25,6 +25,24 @@ sub window {
 
 sub description {
   return <<EOT;
+<html>
+<head>
+  <title>Wx::Grid example</title>
+</head>
+<body>
+<h3>Wx::Grid</h3>
+
+<p>
+  Wx::Grid can be used to display and edit tabular data.
+</p>
+
+<p>
+  You can use editors and renderers to alter the way data is displayed by the
+  grid or the way the user inputs data into cells.
+</p>
+
+</body>
+</html>
 EOT
 }
 
