@@ -26,7 +26,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter DynaLoader);
-$VERSION = '0.08';
+$VERSION = '0.09';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE);
@@ -53,7 +53,7 @@ sub AUTOLOAD {
     croak "Error while autoloading '$AUTOLOAD'";
   }
 
-  eval "sub $AUTOLOAD { $val }";
+  eval "sub $AUTOLOAD() { $val }";
   goto &$AUTOLOAD;
 }
 
@@ -101,8 +101,6 @@ sub _ovl_error {
 }
 
 bootstrap Wx $VERSION;
-
-# _SetInstance( $DynaLoader::dl_librefs[ $#DynaLoader::dl_librefs ] );
 
 {
   _boot_Constant( 'Wx', $VERSION );
