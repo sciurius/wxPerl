@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.106 2004/07/10 21:45:01 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.107 2004/08/28 19:24:41 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -840,6 +840,7 @@ static double constant( const char *name, int arg )
     r( wxFLOOD_BORDER );                // dc
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    r( wxFIXED_MINSIZE );               // sizer
     r( wxFLEX_GROWMODE_NONE );          // sizer
     r( wxFLEX_GROWMODE_SPECIFIED );     // sizer
     r( wxFLEX_GROWMODE_ALL );           // sizer
