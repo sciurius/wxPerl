@@ -23,18 +23,18 @@ TESTED PLATFORMS:
 
 Perl 5.6.0 ( ActivePerl build 616, 620 )
   i386,   Windows 95,           wxMSW 2.2.1,   VC++ 5.0
-  i386,   Windows 2000,         wxMSW 2.2.1,   VC++ 5.0
+  i386,   Windows 2000,         wxMSW 2.2.6,   VC++ 5.0
     ( need to rebuild the perl56.lib import library,
      the one shipped with AP is for VC++ 6, see docs/install.txt for details )
-  i386,   Windows 2000,         wxMSW 2.2.3,   MinGW GCC 2.95.2-1
+  i386,   Windows 2000,         wxMSW 2.2.6,   MinGW GCC 2.95.2-1
     ( needs some additional hacking to work, see docs/install.txt for details )
-
+  
 Perl 5.6.0 ( built from sources with dmake & MinGW )
-  i386,   Windows 2000,         wxMSW 2.2.3,   MinGW GCC 2.95.2-1
+  i386,   Windows 2000,         wxMSW 2.2.6,   MinGW GCC 2.95.2-1
   
 Perl 5.005_03
   i386,   RedHat Linux 6.1,     wxGTK 2.2.3,   GCC 2.91.x
-  i386,   Debian GNU/Linux 2.2, wxGTK 2.2.3,   GCC 2.95.2
+  i386,   Debian GNU/Linux 2.2, wxGTK 2.2.6,   GCC 2.95.2
   i386,   Debian GNU/Linux 2.2, wxMotif 2.2.1, GCC 2.95.2
     ( at present wxMotif support is alpha stage )
 
@@ -42,4 +42,4 @@ Perl 5.004_05
   i386,   Debian GNU/Linux 2.2, wxGTK 2.2.3,   GCC 2.95.2
 
 Perl 5.004_04
-  i386,   Debian GNU/Linux 2.2, wxGTK 2.2.3,   GCC 2.95.2
+  i386,   Debian GNU/Linux 2.2, wxGTK 2.2.6,   GCC 2.95.2
