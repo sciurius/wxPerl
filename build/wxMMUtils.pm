@@ -120,7 +120,7 @@ sub xs_depend {
 #
 sub obj_from_src {
   my( @xs ) = @_;
-  my( $obj_ext ) = $Config{_o} || $Config{obj_ext};
+  my( $obj_ext ) = $Config{obj_ext} || $Config{_o};
 
   foreach( @xs ) {
     $_ =~ s[\.(?:xs|c|cc|cpp)$][$obj_ext]e;

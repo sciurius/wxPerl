@@ -70,7 +70,6 @@ sub configure {
     );
 
   if( $wxConfig::debug_mode ) {
-#    $config{CCFLAGS} .= ' -Zi ';
     $config{dynamic_lib}{OTHERLDFLAGS} .= ' -debug ';
     $config{OPTIMIZE} = ' ';
   }
@@ -125,6 +124,16 @@ ppmdist: pure_all ppd
 \tgzip --force --best ..\\\$(DISTVNAME).tar
 
 EOT
+
+  $text;
+}
+
+sub const_config {
+  my $this = shift;
+  package MY;
+  my $text = $this->SUPER::const_config( @_ );
+
+  $text =~ s{[/-]nodefaultlib}{}gi;
 
   $text;
 }

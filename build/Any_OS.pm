@@ -18,8 +18,17 @@ sub constants {
       my $dir = $this->{$k};
       if( index( $dir, $this->updir ) == 0 ) {
         $this->{$k} = $this->canonpath( $this->catdir
-          ( top_dir(), substr $this->{$k}, length( $this->updir ) ) );
-#        substr( $this->{$k}, 0, length( $this->updir ) ) = top_dir();
+          ( top_dir(), substr $dir, length( $this->updir ) ) );
+      }
+    }
+
+    if( $] >= 5.007003 ) {
+      foreach my $k ( keys %{$this->{PM}} ) {
+        my $dir = $this->{PM}{$k};
+        if( index( $dir, $this->updir ) == 0 ) {
+          $this->{PM}{$k} = $this->canonpath( $this->catdir
+            ( top_dir(), substr $dir, length( $this->updir ) ) );
+        }
       }
     }
   }
@@ -72,7 +81,7 @@ sub files_with_constants {
           push @files, $name;
           return;
         };
-      }
+      };
     };
   };
 
@@ -88,8 +97,8 @@ sub files_with_overload {
     my $name = $File::Find::name;
 
     m/\.(?:pm)$/i && do {
-      local *IN;
       my $line;
+      local *IN;
 
       open IN, "< $_" || warn "unable to open '$_'";
       while( defined( $line = <IN> ) ) {
@@ -97,7 +106,7 @@ sub files_with_overload {
           push @files, $name;
           return;
         };
-      }
+      };
     };
   };
 
@@ -149,16 +158,6 @@ sub get_config {
   }
 
   return $cfg;
-}
-
-# bleadperl does nasty things here
-sub pasthru {
-  package MY;
-  my $text = shift->SUPER::pasthru( @_ );
-  $text =~ s/INC="[^"]+"//;
-  $text =~ s/DEFINE="[^"]+"//;
-
-  return $text;
 }
 
 1;
