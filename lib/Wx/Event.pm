@@ -26,12 +26,16 @@ sub _id($) {
     unless defined $_[0]; ref( $_[0] ) ? $_[0]->GetId() : $_[0];
 }
 
+#
 # ActivateEvent
+#
 
 sub EVT_ACTIVATE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ACTIVATE, $_[1] ); }
 sub EVT_ACTIVATE_APP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ACTIVATE_APP, $_[1] ); }
 
+#
 # CommandEvent
+#
 
 sub EVT_COMMAND($$$) { $_[0]->Connect( _id( $_[1] ), -1, $_[1], $_[2] ); }
 sub EVT_COMMAND_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], $_[3], $_[4] ); }
@@ -126,6 +130,27 @@ sub EVT_JOY_BUTTON_DOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_BUTTON_DOWN
 sub EVT_JOY_BUTTON_UP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_BUTTON_UP, $_[1] ); }
 sub EVT_JOY_MOVE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_MOVE, $_[1] ); }
 sub EVT_JOY_ZMOVE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_ZMOVE, $_[1] ); }
+
+#
+# ListEvent
+#
+
+sub EVT_LIST_BEGIN_DRAG($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_BEGIN_DRAG, $_[2] ); }
+sub EVT_LIST_BEGIN_RDRAG($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_BEGIN_RDRAG, $_[2] ); }
+sub EVT_LIST_BEGIN_LABEL_EDIT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_BEGIN_LABEL_EDIT, $_[2] ); }
+sub EVT_LIST_END_LABEL_EDIT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_BEGIN_END_LABEL_EDIT, $_[2] ); }
+sub EVT_LIST_DELETE_ITEM($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_DELETE_ITEM, $_[2] ); }
+sub EVT_LIST_DELETE_ALL_ITEMS($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_DELETE_ALL_ITEMS, $_[2] ); }
+sub EVT_LIST_GET_INFO($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_GET_INFO, $_[2] ); }
+sub EVT_LIST_SET_INFO($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_SET_INFO, $_[2] ); }
+sub EVT_LIST_SELECTED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_SELECTED, $_[2] ); }
+sub EVT_LIST_DESELECTED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_DESELECTED, $_[2] ); }
+sub EVT_LIST_KEY_DOWN($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_KEY_DOWN, $_[2] ); }
+sub EVT_LIST_INSERT_ITEM($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_INSERT_ITEM, $_[2] ); }
+sub EVT_LIST_COL_CLICK($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_COL_CLICK, $_[2] ); }
+sub EVT_LIST_RIGHT_CLICK($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_RIGHT_CLICK, $_[2] ); }
+sub EVT_LIST_MIDDLE_CLICK($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_MIDDLE_CLICK, $_[2] ); }
+sub EVT_LIST_ACTIVATED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_ACTIVATED, $_[2] ); }
 
 #
 # MenuEvent
@@ -246,6 +271,7 @@ package Wx::HelpEvent;       @ISA = qw(Wx::CommandEvent);
 package Wx::IdleEvent;       @ISA = qw(Wx::Event);
 package Wx::InitDialogEvent; @ISA = qw(Wx::Event);
 package Wx::JoystickEvent;   @ISA = qw(Wx::Event);
+package Wx::ListEvent;       @ISA = qw(Wx::NotifyEvent);
 package Wx::MenuEvent;       @ISA = qw(Wx::Event);
 package Wx::MouseEvent;      @ISA = qw(Wx::Event);
 package Wx::MoveEvent;       @ISA = qw(Wx::Event);

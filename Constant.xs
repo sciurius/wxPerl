@@ -32,6 +32,8 @@
 #include <wx/layout.h>
 #include <wx/splitter.h>
 #include <wx/sashwin.h>
+#include <wx/textctrl.h>
+#include <wx/listctrl.h>
 #include <stdarg.h>
 
 #undef _
@@ -322,6 +324,23 @@ if( strEQ( name, #n ) ) \
     r( wxEVT_COMMAND_KILL_FOCUS );
     r( wxEVT_COMMAND_ENTER );
 
+    r( wxEVT_COMMAND_LIST_BEGIN_DRAG );
+    r( wxEVT_COMMAND_LIST_BEGIN_RDRAG );
+    r( wxEVT_COMMAND_LIST_BEGIN_LABEL_EDIT );
+    r( wxEVT_COMMAND_LIST_END_LABEL_EDIT );
+    r( wxEVT_COMMAND_LIST_DELETE_ITEM );
+    r( wxEVT_COMMAND_LIST_DELETE_ALL_ITEMS );
+    r( wxEVT_COMMAND_LIST_SET_INFO );
+    r( wxEVT_COMMAND_LIST_GET_INFO );
+    r( wxEVT_COMMAND_LIST_ITEM_SELECTED );
+    r( wxEVT_COMMAND_LIST_ITEM_DESELECTED );
+    r( wxEVT_COMMAND_LIST_KEY_DOWN );
+    r( wxEVT_COMMAND_LIST_INSERT_ITEM );
+    r( wxEVT_COMMAND_LIST_COL_CLICK );
+    r( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK );
+    r( wxEVT_COMMAND_LIST_ITEM_MIDDLE_CLICK );
+    r( wxEVT_COMMAND_LIST_ITEM_ACTIVATED );
+
 #if WXPERL_W_VERSION_GE( 2, 3 )
     r( wxEVT_HELP );
     r( wxEVT_DETAILED_HELP );
@@ -447,6 +466,10 @@ if( strEQ( name, #n ) ) \
     r( wxIMAGELIST_DRAW_SELECTED );     // imagelist
     r( wxIMAGELIST_DRAW_FOCUSED );      // imagelist
 
+    r( wxIMAGE_LIST_NORMAL );           // listctrl
+    r( wxIMAGE_LIST_SMALL );            // listctrl
+    r( wxIMAGE_LIST_STATE );            // listctrl
+
     r( wxINVERT );                      // dc
 
     r( wxITALIC );                      // font
@@ -477,12 +500,64 @@ if( strEQ( name, #n ) ) \
     r( wxLEFT );                        // sizer layout constraints
     r( wxLIGHT );                       // font
 
+    r( wxLIST_AUTOSIZE );               // listctrl
+    r( wxLIST_AUTOSIZE_USEHEADER );     // listctrl
+
+    r( wxLIST_ALIGN_DEFAULT );          // listctrl
+    r( wxLIST_ALIGN_LEFT );             // listctrl
+    r( wxLIST_ALIGN_TOP );              // listctrl
+    r( wxLIST_ALIGN_SNAP_TO_GRID );     // listctrl
+
+    r( wxLIST_FORMAT_LEFT );            // listctrl
+    r( wxLIST_FORMAT_RIGHT );           // listctrl
+    r( wxLIST_FORMAT_CENTRE );          // listctrl
+
+    r( wxLIST_HITTEST_ABOVE );          // listctrl
+    r( wxLIST_HITTEST_BELOW );          // listctrl
+    r( wxLIST_HITTEST_NOWHERE );        // listctrl
+    r( wxLIST_HITTEST_ONITEMICON );     // listctrl
+    r( wxLIST_HITTEST_ONITEMLABEL );    // listctrl
+    r( wxLIST_HITTEST_ONITEMRIGHT );    // listctrl
+    r( wxLIST_HITTEST_ONITEMSTATEICON );// listctrl
+    r( wxLIST_HITTEST_TOLEFT );         // listcrel
+    r( wxLIST_HITTEST_TORIGHT );        // listctrl
+    r( wxLIST_HITTEST_ONITEM );         // listctrl
+
+    r( wxLIST_MASK_STATE );             // listctrl
+    r( wxLIST_MASK_TEXT );              // listctrl
+    r( wxLIST_MASK_IMAGE );             // listctrl
+    r( wxLIST_MASK_DATA );              // listctrl
+    r( wxLIST_MASK_WIDTH );             // listctrl
+    r( wxLIST_MASK_FORMAT );            // listctrl
+
+    r( wxLIST_NEXT_ABOVE );             // listctrl
+    r( wxLIST_NEXT_ALL );               // listctrl
+    r( wxLIST_NEXT_BELOW );             // listctrl
+    r( wxLIST_NEXT_LEFT );              // listctrl
+    r( wxLIST_NEXT_RIGHT );             // listctrl
+
+    r( wxLIST_STATE_DONTCARE );         // listctrl
+    r( wxLIST_STATE_DROPHILITED );      // listctrl
+    r( wxLIST_STATE_FOCUSED );          // listctrl
+    r( wxLIST_STATE_SELECTED );         // listctrl
+    r( wxLIST_STATE_CUT );              // listctrl
 #if WXPERL_W_VERSION_GE( 2, 3 )
     r( wxLC_VRULES );                   // listctrl
     r( wxLC_HRULES );                   // listctrl
 #endif
     r( wxLC_ICON );                     // listctrl
     r( wxLC_SMALL_ICON );               // listctrl
+    r( wxLC_LIST );                     // listctrl
+    r( wxLC_REPORT );                   // listctrl
+    r( wxLC_ALIGN_TOP );                // listctrl
+    r( wxLC_ALIGN_LEFT );               // listctrl
+    r( wxLC_AUTOARRANGE );              // listctrl
+    r( wxLC_USER_TEXT );                // listctrl
+    r( wxLC_EDIT_LABELS );              // listctrl
+    r( wxLC_NO_HEADER );                // listctrl
+    r( wxLC_SINGLE_SEL );               // listctrl
+    r( wxLC_SORT_ASCENDING );           // listctrl
+    r( wxLC_SORT_DESCENDING );          // listctrl
 
     r( wxLI_HORIZONTAL );               // staticline
     r( wxLI_VERTICAL );                 // staticline
@@ -493,8 +568,8 @@ if( strEQ( name, #n ) ) \
     r( wxLeftOf );                      // layout constraints
 
 #if WXPERL_W_VERSION_GE( 2, 3 )
-    r( wxLOCALE_LOAD_DEFAULT );
-    r( wxLOCALE_CONV_ENCODING );
+    r( wxLOCALE_LOAD_DEFAULT );         // locale
+    r( wxLOCALE_CONV_ENCODING );        // locale
 
     if( strnEQ( name, "wxLANGUAGE_", 11 ) )
     {
@@ -504,237 +579,237 @@ if( strEQ( name, #n ) ) \
 
         const char* nm = name + 11;
 
-        rr( DEFAULT ); 
-        rr( UNKNOWN ); 
-        rr( ABKHAZIAN );
-        rr( AFAR );
-        rr( AFRIKAANS );
-        rr( ALBANIAN );
-        rr( AMHARIC );
-        rr( ARABIC );
-        rr( ARABIC_ALGERIA );
-        rr( ARABIC_BAHRAIN );
-        rr( ARABIC_EGYPT );
-        rr( ARABIC_IRAQ );
-        rr( ARABIC_JORDAN );
-        rr( ARABIC_KUWAIT );
-        rr( ARABIC_LEBANON );
-        rr( ARABIC_LIBYA );
-        rr( ARABIC_MOROCCO );
-        rr( ARABIC_OMAN );
-        rr( ARABIC_QATAR );
-        rr( ARABIC_SAUDI_ARABIA );
-        rr( ARABIC_SUDAN );
-        rr( ARABIC_SYRIA );
-        rr( ARABIC_TUNISIA );
-        rr( ARABIC_UAE );
-        rr( ARABIC_YEMEN );
-        rr( ARMENIAN );
-        rr( ASSAMESE );
-        rr( AYMARA );
-        rr( AZERI );
-        rr( AZERI_CYRILLIC );
-        rr( AZERI_LATIN );
-        rr( BASHKIR );
-        rr( BASQUE );
-        rr( BELARUSIAN );
-        rr( BENGALI );
-        rr( BHUTANI );
-        rr( BIHARI );
-        rr( BISLAMA );
-        rr( BRETON );
-        rr( BULGARIAN );
-        rr( BURMESE );
-        rr( CAMBODIAN );
-        rr( CATALAN );
-        rr( CHINESE );
-        rr( CHINESE_SIMPLIFIED );
-        rr( CHINESE_TRADITIONAL );
-        rr( CHINESE_HONGKONG );
-        rr( CHINESE_MACAU );
-        rr( CHINESE_SINGAPORE );
-        rr( CHINESE_TAIWAN );
-        rr( CORSICAN );
-        rr( CROATIAN );
-        rr( CZECH );
-        rr( DANISH );
-        rr( DUTCH );
-        rr( DUTCH_BELGIAN );
-        rr( ENGLISH );
-        rr( ENGLISH_UK );
-        rr( ENGLISH_US );
-        rr( ENGLISH_AUSTRALIA );
-        rr( ENGLISH_BELIZE );
-        rr( ENGLISH_BOTSWANA );
-        rr( ENGLISH_CANADA );
-        rr( ENGLISH_CARIBBEAN );
-        rr( ENGLISH_DENMARK );
-        rr( ENGLISH_EIRE );
-        rr( ENGLISH_JAMAICA );
-        rr( ENGLISH_NEW_ZEALAND );
-        rr( ENGLISH_PHILIPPINES );
-        rr( ENGLISH_SOUTH_AFRICA );
-        rr( ENGLISH_TRINIDAD );
-        rr( ENGLISH_ZIMBABWE );
-        rr( ESPERANTO );
-        rr( ESTONIAN );
-        rr( FAEROESE );
-        rr( FARSI );
-        rr( FIJI );
-        rr( FINNISH );
-        rr( FRENCH );
-        rr( FRENCH_BELGIAN );
-        rr( FRENCH_CANADIAN );
-        rr( FRENCH_LUXEMBOURG );
-        rr( FRENCH_MONACO );
-        rr( FRENCH_SWISS );
-        rr( FRISIAN );
-        rr( GALICIAN );
-        rr( GEORGIAN );
-        rr( GERMAN );
-        rr( GERMAN_AUSTRIAN );
-        rr( GERMAN_BELGIUM );
-        rr( GERMAN_LIECHTENSTEIN );
-        rr( GERMAN_LUXEMBOURG );
-        rr( GERMAN_SWISS );
-        rr( GREEK );
-        rr( GREENLANDIC );
-        rr( GUARANI );
-        rr( GUJARATI );
-        rr( HAUSA );
-        rr( HEBREW );
-        rr( HINDI );
-        rr( HUNGARIAN );
-        rr( ICELANDIC );
-        rr( INDONESIAN );
-        rr( INTERLINGUA );
-        rr( INTERLINGUE );
-        rr( INUKTITUT );
-        rr( INUPIAK );
-        rr( IRISH );
-        rr( ITALIAN );
-        rr( ITALIAN_SWISS );
-        rr( JAPANESE );
-        rr( JAVANESE );
-        rr( KANNADA );
-        rr( KASHMIRI );
-        rr( KASHMIRI_INDIA );
-        rr( KAZAKH );
-        rr( KERNEWEK );
-        rr( KINYARWANDA );
-        rr( KIRGHIZ );
-        rr( KIRUNDI );
-        rr( KONKANI );
-        rr( KOREAN );
-        rr( KURDISH );
-        rr( LAOTHIAN );
-        rr( LATIN );
-        rr( LATVIAN );
-        rr( LINGALA );
-        rr( LITHUANIAN );
-        rr( MACEDONIAN );
-        rr( MALAGASY );
-        rr( MALAY );
-        rr( MALAYALAM );
-        rr( MALAY_BRUNEI_DARUSSALAM );
-        rr( MALAY_MALAYSIA );
-        rr( MALTESE );
-        rr( MANIPURI );
-        rr( MAORI );
-        rr( MARATHI );
-        rr( MOLDAVIAN );
-        rr( MONGOLIAN );
-        rr( NAURU );
-        rr( NEPALI );
-        rr( NEPALI_INDIA );
-        rr( NORWEGIAN_BOKMAL );
-        rr( NORWEGIAN_NYNORSK );
-        rr( OCCITAN );
-        rr( ORIYA );
-        rr( OROMO );
-        rr( PASHTO );
-        rr( POLISH );
-        rr( PORTUGUESE );
-        rr( PORTUGUESE_BRAZILIAN );
-        rr( PUNJABI );
-        rr( QUECHUA );
-        rr( RHAETO_ROMANCE );
-        rr( ROMANIAN );
-        rr( RUSSIAN );
-        rr( RUSSIAN_UKRAINE );
-        rr( SAMOAN );
-        rr( SANGHO );
-        rr( SANSKRIT );
-        rr( SCOTS_GAELIC );
-        rr( SERBIAN );
-        rr( SERBIAN_CYRILLIC );
-        rr( SERBIAN_LATIN );
-        rr( SERBO_CROATIAN );
-        rr( SESOTHO );
-        rr( SETSWANA );
-        rr( SHONA );
-        rr( SINDHI );
-        rr( SINHALESE );
-        rr( SISWATI );
-        rr( SLOVAK );
-        rr( SLOVENIAN );
-        rr( SOMALI );
-        rr( SPANISH );
-        rr( SPANISH_ARGENTINA );
-        rr( SPANISH_BOLIVIA );
-        rr( SPANISH_CHILE );
-        rr( SPANISH_COLOMBIA );
-        rr( SPANISH_COSTA_RICA );
-        rr( SPANISH_DOMINICAN_REPUBLIC );
-        rr( SPANISH_ECUADOR );
-        rr( SPANISH_EL_SALVADOR );
-        rr( SPANISH_GUATEMALA );
-        rr( SPANISH_HONDURAS );
-        rr( SPANISH_MEXICAN );
-        rr( SPANISH_MODERN );
-        rr( SPANISH_NICARAGUA );
-        rr( SPANISH_PANAMA );
-        rr( SPANISH_PARAGUAY );
-        rr( SPANISH_PERU );
-        rr( SPANISH_PUERTO_RICO );
-        rr( SPANISH_URUGUAY );
-        rr( SPANISH_US );
-        rr( SPANISH_VENEZUELA );
-        rr( SUNDANESE );
-        rr( SWAHILI );
-        rr( SWEDISH );
-        rr( SWEDISH_FINLAND );
-        rr( TAGALOG );
-        rr( TAJIK );
-        rr( TAMIL );
-        rr( TATAR );
-        rr( TELUGU );
-        rr( THAI );
-        rr( TIBETAN );
-        rr( TIGRINYA );
-        rr( TONGA );
-        rr( TSONGA );
-        rr( TURKISH );
-        rr( TURKMEN );
-        rr( TWI );
-        rr( UIGHUR );
-        rr( UKRAINIAN );
-        rr( URDU );
-        rr( URDU_INDIA );
-        rr( URDU_PAKISTAN );
-        rr( UZBEK );
-        rr( UZBEK_CYRILLIC );
-        rr( UZBEK_LATIN );
-        rr( VIETNAMESE );
-        rr( VOLAPUK );
-        rr( WELSH );
-        rr( WOLOF );
-        rr( XHOSA );
-        rr( YIDDISH );
-        rr( YORUBA );
-        rr( ZHUANG );
-        rr( ZULU );
-        rr( USER_DEFINED );
+        rr( DEFAULT );                  // locale
+        rr( UNKNOWN );                  // locale
+        rr( ABKHAZIAN );                // locale
+        rr( AFAR );                     // locale
+        rr( AFRIKAANS );                // locale
+        rr( ALBANIAN );                 // locale
+        rr( AMHARIC );                  // locale
+        rr( ARABIC );                   // locale
+        rr( ARABIC_ALGERIA );           // locale
+        rr( ARABIC_BAHRAIN );           // locale
+        rr( ARABIC_EGYPT );             // locale
+        rr( ARABIC_IRAQ );              // locale
+        rr( ARABIC_JORDAN );            // locale
+        rr( ARABIC_KUWAIT );            // locale
+        rr( ARABIC_LEBANON );           // locale
+        rr( ARABIC_LIBYA );             // locale
+        rr( ARABIC_MOROCCO );           // locale
+        rr( ARABIC_OMAN );              // locale
+        rr( ARABIC_QATAR );             // locale
+        rr( ARABIC_SAUDI_ARABIA );      // locale
+        rr( ARABIC_SUDAN );             // locale
+        rr( ARABIC_SYRIA );             // locale
+        rr( ARABIC_TUNISIA );           // locale
+        rr( ARABIC_UAE );               // locale
+        rr( ARABIC_YEMEN );             // locale
+        rr( ARMENIAN );                 // locale
+        rr( ASSAMESE );                 // locale
+        rr( AYMARA );                   // locale
+        rr( AZERI );                    // locale
+        rr( AZERI_CYRILLIC );           // locale
+        rr( AZERI_LATIN );              // locale
+        rr( BASHKIR );                  // locale
+        rr( BASQUE );                   // locale
+        rr( BELARUSIAN );               // locale
+        rr( BENGALI );                  // locale
+        rr( BHUTANI );                  // locale
+        rr( BIHARI );                   // locale
+        rr( BISLAMA );                  // locale
+        rr( BRETON );                   // locale
+        rr( BULGARIAN );                // locale
+        rr( BURMESE );                  // locale
+        rr( CAMBODIAN );                // locale
+        rr( CATALAN );                  // locale
+        rr( CHINESE );                  // locale
+        rr( CHINESE_SIMPLIFIED );       // locale
+        rr( CHINESE_TRADITIONAL );      // locale
+        rr( CHINESE_HONGKONG );         // locale
+        rr( CHINESE_MACAU );            // locale
+        rr( CHINESE_SINGAPORE );        // locale
+        rr( CHINESE_TAIWAN );           // locale
+        rr( CORSICAN );                 // locale
+        rr( CROATIAN );                 // locale
+        rr( CZECH );                    // locale
+        rr( DANISH );                   // locale
+        rr( DUTCH );                    // locale
+        rr( DUTCH_BELGIAN );            // locale
+        rr( ENGLISH );                  // locale
+        rr( ENGLISH_UK );               // locale
+        rr( ENGLISH_US );               // locale
+        rr( ENGLISH_AUSTRALIA );        // locale
+        rr( ENGLISH_BELIZE );           // locale
+        rr( ENGLISH_BOTSWANA );         // locale
+        rr( ENGLISH_CANADA );           // locale
+        rr( ENGLISH_CARIBBEAN );        // locale
+        rr( ENGLISH_DENMARK );          // locale
+        rr( ENGLISH_EIRE );             // locale
+        rr( ENGLISH_JAMAICA );          // locale
+        rr( ENGLISH_NEW_ZEALAND );      // locale
+        rr( ENGLISH_PHILIPPINES );      // locale
+        rr( ENGLISH_SOUTH_AFRICA );     // locale
+        rr( ENGLISH_TRINIDAD );         // locale
+        rr( ENGLISH_ZIMBABWE );         // locale
+        rr( ESPERANTO );                // locale
+        rr( ESTONIAN );                 // locale
+        rr( FAEROESE );                 // locale
+        rr( FARSI );                    // locale
+        rr( FIJI );                     // locale
+        rr( FINNISH );                  // locale
+        rr( FRENCH );                   // locale
+        rr( FRENCH_BELGIAN );           // locale
+        rr( FRENCH_CANADIAN );          // locale
+        rr( FRENCH_LUXEMBOURG );        // locale
+        rr( FRENCH_MONACO );            // locale
+        rr( FRENCH_SWISS );             // locale
+        rr( FRISIAN );                  // locale
+        rr( GALICIAN );                 // locale
+        rr( GEORGIAN );                 // locale
+        rr( GERMAN );                   // locale
+        rr( GERMAN_AUSTRIAN );          // locale
+        rr( GERMAN_BELGIUM );           // locale
+        rr( GERMAN_LIECHTENSTEIN );     // locale
+        rr( GERMAN_LUXEMBOURG );        // locale
+        rr( GERMAN_SWISS );             // locale
+        rr( GREEK );                    // locale
+        rr( GREENLANDIC );              // locale
+        rr( GUARANI );                  // locale
+        rr( GUJARATI );                 // locale
+        rr( HAUSA );                    // locale
+        rr( HEBREW );                   // locale
+        rr( HINDI );                    // locale
+        rr( HUNGARIAN );                // locale
+        rr( ICELANDIC );                // locale
+        rr( INDONESIAN );               // locale
+        rr( INTERLINGUA );              // locale
+        rr( INTERLINGUE );              // locale
+        rr( INUKTITUT );                // locale
+        rr( INUPIAK );                  // locale
+        rr( IRISH );                    // locale
+        rr( ITALIAN );                  // locale
+        rr( ITALIAN_SWISS );            // locale
+        rr( JAPANESE );                 // locale
+        rr( JAVANESE );                 // locale
+        rr( KANNADA );                  // locale
+        rr( KASHMIRI );                 // locale
+        rr( KASHMIRI_INDIA );           // locale
+        rr( KAZAKH );                   // locale
+        rr( KERNEWEK );                 // locale
+        rr( KINYARWANDA );              // locale
+        rr( KIRGHIZ );                  // locale
+        rr( KIRUNDI );                  // locale
+        rr( KONKANI );                  // locale
+        rr( KOREAN );                   // locale
+        rr( KURDISH );                  // locale
+        rr( LAOTHIAN );                 // locale
+        rr( LATIN );                    // locale
+        rr( LATVIAN );                  // locale
+        rr( LINGALA );                  // locale
+        rr( LITHUANIAN );               // locale
+        rr( MACEDONIAN );               // locale
+        rr( MALAGASY );                 // locale
+        rr( MALAY );                    // locale
+        rr( MALAYALAM );                // locale
+        rr( MALAY_BRUNEI_DARUSSALAM );  // locale
+        rr( MALAY_MALAYSIA );           // locale
+        rr( MALTESE );                  // locale
+        rr( MANIPURI );                 // locale
+        rr( MAORI );                    // locale
+        rr( MARATHI );                  // locale
+        rr( MOLDAVIAN );                // locale
+        rr( MONGOLIAN );                // locale
+        rr( NAURU );                    // locale
+        rr( NEPALI );                   // locale
+        rr( NEPALI_INDIA );             // locale
+        rr( NORWEGIAN_BOKMAL );         // locale
+        rr( NORWEGIAN_NYNORSK );        // locale
+        rr( OCCITAN );                  // locale
+        rr( ORIYA );                    // locale
+        rr( OROMO );                    // locale
+        rr( PASHTO );                   // locale
+        rr( POLISH );                   // locale
+        rr( PORTUGUESE );               // locale
+        rr( PORTUGUESE_BRAZILIAN );     // locale
+        rr( PUNJABI );                  // locale
+        rr( QUECHUA );                  // locale
+        rr( RHAETO_ROMANCE );           // locale
+        rr( ROMANIAN );                 // locale
+        rr( RUSSIAN );                  // locale
+        rr( RUSSIAN_UKRAINE );          // locale
+        rr( SAMOAN );                   // locale
+        rr( SANGHO );                   // locale
+        rr( SANSKRIT );                 // locale
+        rr( SCOTS_GAELIC );             // locale
+        rr( SERBIAN );                  // locale
+        rr( SERBIAN_CYRILLIC );         // locale
+        rr( SERBIAN_LATIN );            // locale
+        rr( SERBO_CROATIAN );           // locale
+        rr( SESOTHO );                  // locale
+        rr( SETSWANA );                 // locale
+        rr( SHONA );                    // locale
+        rr( SINDHI );                   // locale
+        rr( SINHALESE );                // locale
+        rr( SISWATI );                  // locale
+        rr( SLOVAK );                   // locale
+        rr( SLOVENIAN );                // locale
+        rr( SOMALI );                   // locale
+        rr( SPANISH );                  // locale
+        rr( SPANISH_ARGENTINA );        // locale
+        rr( SPANISH_BOLIVIA );          // locale
+        rr( SPANISH_CHILE );            // locale
+        rr( SPANISH_COLOMBIA );         // locale
+        rr( SPANISH_COSTA_RICA );       // locale
+        rr( SPANISH_DOMINICAN_REPUBLIC ); // locale
+        rr( SPANISH_ECUADOR );          // locale
+        rr( SPANISH_EL_SALVADOR );      // locale
+        rr( SPANISH_GUATEMALA );        // locale
+        rr( SPANISH_HONDURAS );         // locale
+        rr( SPANISH_MEXICAN );          // locale
+        rr( SPANISH_MODERN );           // locale
+        rr( SPANISH_NICARAGUA );        // locale
+        rr( SPANISH_PANAMA );           // locale
+        rr( SPANISH_PARAGUAY );         // locale
+        rr( SPANISH_PERU );             // locale
+        rr( SPANISH_PUERTO_RICO );      // locale
+        rr( SPANISH_URUGUAY );          // locale
+        rr( SPANISH_US );               // locale
+        rr( SPANISH_VENEZUELA );        // locale
+        rr( SUNDANESE );                // locale
+        rr( SWAHILI );                  // locale
+        rr( SWEDISH );                  // locale
+        rr( SWEDISH_FINLAND );          // locale
+        rr( TAGALOG );                  // locale
+        rr( TAJIK );                    // locale
+        rr( TAMIL );                    // locale
+        rr( TATAR );                    // locale
+        rr( TELUGU );                   // locale
+        rr( THAI );                     // locale
+        rr( TIBETAN );                  // locale
+        rr( TIGRINYA );                 // locale
+        rr( TONGA );                    // locale
+        rr( TSONGA );                   // locale
+        rr( TURKISH );                  // locale
+        rr( TURKMEN );                  // locale
+        rr( TWI );                      // locale
+        rr( UIGHUR );                   // locale
+        rr( UKRAINIAN );                // locale
+        rr( URDU );                     // locale
+        rr( URDU_INDIA );               // locale
+        rr( URDU_PAKISTAN );            // locale
+        rr( UZBEK );                    // locale
+        rr( UZBEK_CYRILLIC );           // locale
+        rr( UZBEK_LATIN );              // locale
+        rr( VIETNAMESE );               // locale
+        rr( VOLAPUK );                  // locale
+        rr( WELSH );                    // locale
+        rr( WOLOF );                    // locale
+        rr( XHOSA );                    // locale
+        rr( YIDDISH );                  // locale
+        rr( YORUBA );                   // locale
+        rr( ZHUANG );                   // locale
+        rr( ZULU );                     // locale
+        rr( USER_DEFINED );             // locale
 
 #undef rr
     }

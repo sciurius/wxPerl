@@ -91,6 +91,16 @@ public:
                 const wxValidator& validator, const wxString& name );
 };
 
+class _wxListCtrl:public wxListCtrl
+{
+    _DECLARE_DYNAMIC_CLASS( _wxListCtrl );
+    _DECLARE_SELFREF();
+public:
+    _wxListCtrl( const char* package, wxWindow* parent, wxWindowID id,
+                 const wxPoint& pos, const wxSize& size, long style,
+                 const wxValidator& validator, const wxString& name );
+};
+
 class _wxRadioBox:public wxRadioBox
 {
     _DECLARE_DYNAMIC_CLASS( _wxRadioBox );

@@ -20,6 +20,8 @@
 #include <wx/sashwin.h>
 #include <wx/dc.h>
 #include <wx/splitter.h>
+#include <wx/textctrl.h>
+#include <wx/listctrl.h>
 #include <stdarg.h>
 
 #undef _
@@ -376,6 +378,52 @@ Wx_JoystickEvent::IsMove()
 
 bool
 Wx_JoystickEvent::IsZMove()
+
+MODULE=Wx_Evt PACKAGE=Wx::ListEvent
+
+int
+Wx_ListEvent::GetCode()
+
+long
+Wx_ListEvent::GetIndex()
+
+long
+Wx_ListEvent::GetOldIndex()
+
+int
+Wx_ListEvent::GetColumn()
+
+bool
+Wx_ListEvent::Cancelled()
+
+Wx_Point*
+Wx_ListEvent::GetPoint()
+  CODE:
+    RETVAL = new wxPoint( THIS->GetPoint() );
+  OUTPUT:
+    RETVAL
+
+wxString
+Wx_ListEvent::GetLabel()
+
+wxString
+Wx_ListEvent::GetText()
+
+int
+Wx_ListEvent::GetImage()
+
+long
+Wx_ListEvent::GetData()
+
+long
+Wx_ListEvent::GetMask()
+
+Wx_ListItem*
+Wx_ListEvent::GetItem()
+  CODE:
+    RETVAL = new wxListItem( THIS->GetItem() );
+  OUTPUT:
+    RETVAL
 
 MODULE=Wx_Evt PACKAGE=Wx::MenuEvent
 

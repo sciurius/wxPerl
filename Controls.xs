@@ -35,6 +35,7 @@
 #include <wx/spinctrl.h>
 #include <wx/statline.h>
 #include <wx/imaglist.h>
+#include <wx/listctrl.h>
 
 #include <stdarg.h>
 
@@ -153,6 +154,7 @@ INCLUDE: XS/Choice.xs
 INCLUDE: XS/ComboBox.xs
 INCLUDE: XS/Gauge.xs
 INCLUDE: XS/ListBox.xs
+INCLUDE: XS/ListCtrl.xs
 INCLUDE: XS/Notebook.xs
 INCLUDE: XS/RadioBox.xs
 INCLUDE: XS/RadioButton.xs
@@ -165,5 +167,6 @@ INCLUDE: XS/StaticBox.xs
 INCLUDE: XS/StaticLine.xs
 INCLUDE: XS/StaticText.xs
 INCLUDE: XS/TextCtrl.xs
+INCLUDE: XS/TreeCtrl.xs
 
 MODULE=Wx_Ctrl PACKAGE=Wx::Control

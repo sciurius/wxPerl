@@ -42,7 +42,7 @@ sub wxSIZE  { Wx::Size->new( $_[0], $_[1] )  }
 sub AUTOLOAD {
   my( $constname );
 
-  ($constname = $AUTOLOAD) =~ s/.*:://;
+  ($constname = $AUTOLOAD) =~ s{.*::}{};
 
   my( $val ) = constant($constname, 0 );
 
@@ -62,27 +62,30 @@ sub END {
 }
 
 my( $wbmp, $wico, $wmen, $wmit, $wrec, $wreg, $wszr,
-    $wtip, $wwin, $wcol, $wsiz, $wpoi, $num, $str, $bool ) = ( 1 .. 25 );
+    $wtip, $wwin, $wcol, $wsiz, $wpoi, $wlci, $num, $str, $bool ) = ( 1 .. 26 );
 
 my( @tnames ) =
   ( undef, 'Wx::Bitmap', 'Wx::Icon', 'Wx::Menu', 'Wx::MenuItem',
     'Wx::Rect', 'Wx::Region', 'Wx::Sizer', 'Wx::ToolTip',
-    'Wx::Window', 'Wx::Colour' );
+    'Wx::Window', 'Wx::Colour', 'Wx::ListItem' );
 
 $Wx::_b = [ $bool ];
 $Wx::_n = [ $num ];
 $Wx::_n_b = [ $num, $bool ];
 $Wx::_n_n = [ $num, $num ];
 $Wx::_n_n_n = [ $num, $num, $num ];
+$Wx::_n_n_s_n = [ $num, $num, $str, $num ];
 $Wx::_n_n_n_n = [ $num, $num, $num, $num ];
 $Wx::_n_n_n_n_n = [ $num, $num, $num, $num, $num ];
 $Wx::_n_n_n_n_n_n = [ $num, $num, $num, $num, $num, $num ];
 $Wx::_n_s = [ $num, $str ];
+$Wx::_n_s_n_n = [ $num, $str, $num, $num ];
 $Wx::_n_s_wmen = [ $num, $str, $wmen ];
 $Wx::_n_wbmp_s_s = [ $num, $wbmp, $str, $str ];
 $Wx::_n_wbmp_wbmp = [ $num, $wbmp, $wbmp ];
 $Wx::_n_wbmp_wbmp_b_s_s_s = [ $num, $wbmp, $wbmp, $bool, $str, $str, $str ];
 $Wx::_n_wico = [ $num, $wico ];
+$Wx::_n_wlci = [ $num, $wlci ];
 $Wx::_n_wszr_n_n_n = [ $num, $wszr, $num, $num, $num ];
 $Wx::_n_wwin_n_n_n = [ $num, $wwin, $num, $num, $num ];
 $Wx::_s = [ $str ];
@@ -101,6 +104,7 @@ $Wx::_wbmp_wcol = [ $wbmp, $wcol ];
 $Wx::_wcol = [ $wcol ];
 $Wx::_wcol_n = [ $wcol, $num ];
 $Wx::_wico = [ $wico ];
+$Wx::_wlci = [ $wlci ];
 $Wx::_wmit = [ $wmit ];
 $Wx::_wpoi = [ $wpoi ];
 $Wx::_wpoi_wpoi = [ $wpoi, $wpoi ];
@@ -182,6 +186,7 @@ require Wx::Event;
 require Wx::Icon;
 require Wx::Image;
 require Wx::ImageList;
+require Wx::ListCtrl;
 require Wx::Locale;
 require Wx::Menu;
 require Wx::Pen;
