@@ -1,10 +1,10 @@
-#############################################################################
+############################################################################
 ## Name:        ext/grid/XS/Grid.xs
 ## Purpose:     XS for Wx::Grid
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.12 2003/11/15 18:16:45 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.13 2003/12/13 17:16:56 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -321,6 +321,16 @@ Wx_Grid::GetDefaultColLabelSize()
 
 int
 Wx_Grid::GetDefaultColSize()
+
+int
+wxGrid::GetColMinimalAcceptableWidth()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+
+int
+wxGrid::GetRowMinimalAcceptableWidth()
+
+#endif
 
 Wx_GridCellEditor*
 Wx_Grid::GetDefaultEditor()
@@ -780,6 +790,16 @@ void
 Wx_Grid::SetColLabelValue( col, value )
     int col
     wxString value
+
+void
+wxGrid::SetColMinimalAcceptableWidth( int width )
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+
+void
+wxGrid::SetRowMinimalAcceptableWidth( int width )
+
+#endif
 
 void
 Wx_Grid::SetColMinimalWidth( col, width )

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: Gauge.xs,v 1.6 2003/06/04 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: Gauge.xs,v 1.7 2003/12/13 17:16:56 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -104,3 +104,10 @@ wxGauge::SetShadowWidth( width )
 void
 wxGauge::SetValue( pos )
     int pos
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+bool
+wxGauge::IsVertical()
+
+#endif

@@ -76,6 +76,10 @@ sub files_to_install {
   my %files = $this->SUPER::files_to_install();
   my $dlls = $this->wx_config->wx_config( 'dlls' );
   my $setup_h = File::Spec->catfile( $wx_setup_dir, 'wx', 'setup.h' );
+  my $build_cfg = File::Spec->catfile( $wx_setup_dir, 'build.cfg' );
+
+  $files{$build_cfg} = Wx::build::Utils::arch_file( "Wx/build/build.cfg" )
+    if -f $build_cfg;
 
   $files{$setup_h} = Wx::build::Utils::arch_file( "Wx/build/wx/setup.h" );
   foreach my $dll ( map { $_->{dll} } values %$dlls ) {

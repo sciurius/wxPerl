@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/ 5/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.9 2003/10/19 20:17:19 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.10 2003/12/13 17:16:56 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -1291,3 +1291,8 @@ wxStyledTextCtrl::GetSelection()
     XPUSHs( newSViv( start ) );
     XPUSHs( newSViv( end ) );
 
+bool
+wxStyledTextCtrl::SaveFile(wxString filename)
+
+bool
+wxStyledTextCtrl::LoadFile(wxString filename)

@@ -21,7 +21,7 @@ sub _data {
   die "PANIC: you are not using nmake!" unless $Config{make} eq 'nmake';
 
   my $final = $this->_debug ? 'BUILD=debug   DEBUG_RUNTIME_LIBS=0'
-                            : 'BUILD=release XDEBUG_RUNTIME_LIBS=0';
+                            : 'BUILD=release DEBUG_RUNTIME_LIBS=0';
   my $unicode = $this->_unicode ? 'UNICODE=1' : 'UNICODE=0';
 
   my $dir = Cwd::cwd;
@@ -95,8 +95,8 @@ sub get_core_lib_25 {
   my $dlls = $this->wx_config( 'dlls' );
 
   return join ' ',
-    map { exists( $dlls->{$_} ) ? $dlls->{$_}{lib} :
-                                  die "No such lib '$_'" }
+    map { defined( $dlls->{$_}{lib} ) ? $dlls->{$_}{lib} :
+                                        die "No such lib '$_'" }
     @libs;
 }
 
