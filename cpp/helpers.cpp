@@ -532,7 +532,19 @@ int wxPli_av_2_stringarray( pTHX_ SV* avref, wxString** array )
     return n;
 }
 
-char* my_strdup( char* s, size_t len )
+#if wxUSE_UNICODE
+wxChar* my_strdup( const wxChar* s, size_t len )
+{
+    wxChar* t = (wxChar*)malloc( (len + 1) * sizeof(wxChar) );
+
+    t[len] = 0;
+    memcpy( t, s, len * sizeof(wxChar) );
+
+    return t;
+}
+#endif
+
+char* my_strdup( const char* s, size_t len )
 {
     char* t = (char*)malloc( len + 1 );
 
@@ -571,8 +583,37 @@ int wxPli_av_2_charparray( pTHX_ SV* avref, char*** array )
     return n;
 }
 
+int wxPli_av_2_wxcharparray( pTHX_ SV* avref, wxChar*** array )
+{
+    wxChar** arr;
+    int n, i;
+    AV* av;
+
+    if( !SvROK( avref ) || 
+        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
+    {
+        croak( "the value is not an array reference" );
+        return 0;
+    }
+    
+    n = av_len( av ) + 1;
+    arr = new wxChar*[ n ];
+
+    for( i = 0; i < n; ++i )
+    {
+        SV* tmp = *av_fetch( av, i, 0 );
+        wxString str;
+        WXSTRING_INPUT( str, wxString, tmp );
+        arr[i] = my_strdup( str.c_str(), str.length() );
+    }
+
+    *array = arr;
+
+    return n;
+}
+
 #if wxUSE_UNICODE
-wxChar* wxPli_copy_string( pTHX_ SV* scalar, wxChar** )
+wxChar* wxPli_copy_string( SV* scalar, wxChar** )
 {
     dTHX;
     STRLEN length;

@@ -23,7 +23,7 @@ SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out );
 
 inline SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out )
 {
-    sv_setpv( out, wxConvUTF8.cWC2MB( var ? var : wxEmptyString ) );
+    sv_setpv( out, wxConvUTF8.cWC2MB( str ? str : wxEmptyString ) );
     SvUTF8_on( out );
 
     return out;
@@ -106,6 +106,7 @@ WXPLDLL wxWindowID FUNCPTR( wxPli_get_wxwindowid )( pTHX_ SV* var );
 WXPLDLL int FUNCPTR( wxPli_av_2_stringarray )( pTHX_ SV* avref,
                                                wxString** array );
 WXPLDLL int wxPli_av_2_charparray( pTHX_ SV* avref, char*** array );
+WXPLDLL int wxPli_av_2_wxcharparray( pTHX_ SV* avref, wxChar*** array );
 WXPLDLL int wxPli_av_2_uchararray( pTHX_ SV* avref, unsigned char** array );
 WXPLDLL int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array );
 WXPLDLL int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
