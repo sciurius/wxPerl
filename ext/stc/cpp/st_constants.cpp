@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.15 2004/06/20 08:20:30 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.16 2004/08/03 21:32:11 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -285,6 +285,35 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_FOLDLEVELWHITEFLAG );
         r( wxSTC_FOLDLEVELHEADERFLAG );
         r( wxSTC_FOLDLEVELNUMBERMASK );
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+        r( wxSTC_FORTH_DEFAULT );
+        r( wxSTC_FORTH_COMMENT );
+        r( wxSTC_FORTH_COMMENT_ML );
+        r( wxSTC_FORTH_IDENTIFIER );
+        r( wxSTC_FORTH_CONTROL );
+        r( wxSTC_FORTH_KEYWORD );
+        r( wxSTC_FORTH_DEFWORD );
+        r( wxSTC_FORTH_PREWORD1 );
+        r( wxSTC_FORTH_PREWORD2 );
+        r( wxSTC_FORTH_NUMBER );
+        r( wxSTC_FORTH_STRING );
+        r( wxSTC_FORTH_LOCALE );
+#endif
+        r( wxSTC_F_DEFAULT );
+        r( wxSTC_F_COMMENT );
+        r( wxSTC_F_NUMBER );
+        r( wxSTC_F_STRING1 );
+        r( wxSTC_F_STRING2 );
+        r( wxSTC_F_STRINGEOL );
+        r( wxSTC_F_OPERATOR );
+        r( wxSTC_F_IDENTIFIER );
+        r( wxSTC_F_WORD );
+        r( wxSTC_F_WORD2 );
+        r( wxSTC_F_WORD3 );
+        r( wxSTC_F_PREPROCESSOR );
+        r( wxSTC_F_OPERATOR2 );
+        r( wxSTC_F_LABEL );
+        r( wxSTC_F_CONTINUATION );
         break;
     case 'H':
         r( wxSTC_H_DEFAULT );
@@ -430,43 +459,52 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_KEY_DIVIDE );
         break;
     case 'L':
-        r( wxSTC_LEX_ASM );
-        r( wxSTC_LEX_CSS );
-        r( wxSTC_LEX_PERL );
-        r( wxSTC_LEX_XML );
-        r( wxSTC_LEX_HTML );
-        r( wxSTC_LEX_CONTAINER );
-        r( wxSTC_LEX_NULL );
-        r( wxSTC_LEX_PYTHON );
-        r( wxSTC_LEX_CPP );
-        r( wxSTC_LEX_SQL );
-        r( wxSTC_LEX_VB );
-        r( wxSTC_LEX_PROPERTIES );
-        r( wxSTC_LEX_ERRORLIST );
-        r( wxSTC_LEX_MAKEFILE );
-        r( wxSTC_LEX_BATCH );
-        r( wxSTC_LEX_XCODE );
-        r( wxSTC_LEX_LATEX );
-        r( wxSTC_LEX_LUA );
-        r( wxSTC_LEX_DIFF );
-        r( wxSTC_LEX_CONF );
-        r( wxSTC_LEX_PASCAL );
-        r( wxSTC_LEX_AVE );
         r( wxSTC_LEX_ADA );
-        r( wxSTC_LEX_LISP );
-        r( wxSTC_LEX_RUBY );
+        r( wxSTC_LEX_ASM );
+        r( wxSTC_LEX_ASP );
+        r( wxSTC_LEX_AUTOMATIC );
+        r( wxSTC_LEX_AVE );
+        r( wxSTC_LEX_BAAN );
+        r( wxSTC_LEX_BATCH );
+        r( wxSTC_LEX_BULLANT );
+        r( wxSTC_LEX_CONF );
+        r( wxSTC_LEX_CONTAINER );
+        r( wxSTC_LEX_CPP );
+        r( wxSTC_LEX_CSS );
+        r( wxSTC_LEX_DIFF );
         r( wxSTC_LEX_EIFFEL );
         r( wxSTC_LEX_EIFFELKW );
-        r( wxSTC_LEX_TCL );
-        r( wxSTC_LEX_NNCRONTAB );
-        r( wxSTC_LEX_BULLANT );
-        r( wxSTC_LEX_VBSCRIPT );
-        r( wxSTC_LEX_ASP );
-        r( wxSTC_LEX_PHP );
-        r( wxSTC_LEX_BAAN );
+        r( wxSTC_LEX_ERRORLIST );
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+        r( wxSTC_LEX_FORTH );
+#endif
+        r( wxSTC_LEX_FORTRAN );
+        r( wxSTC_LEX_HTML );
+        r( wxSTC_LEX_LATEX );
+        r( wxSTC_LEX_LISP );
+        r( wxSTC_LEX_LUA );
+        r( wxSTC_LEX_MAKEFILE );
         r( wxSTC_LEX_MATLAB );
+        r( wxSTC_LEX_NNCRONTAB );
+        r( wxSTC_LEX_NULL );
+        r( wxSTC_LEX_NSIS );
+        r( wxSTC_LEX_PASCAL );
+        r( wxSTC_LEX_PERL );
+        r( wxSTC_LEX_PHP );
+        r( wxSTC_LEX_PROPERTIES );
+        r( wxSTC_LEX_PS );
+        r( wxSTC_LEX_PYTHON );
+        r( wxSTC_LEX_RUBY );
         r( wxSTC_LEX_SCRIPTOL );
-        r( wxSTC_LEX_AUTOMATIC );
+        r( wxSTC_LEX_SQL );
+        r( wxSTC_LEX_TCL );
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+        r( wxSTC_LEX_TEX );
+#endif
+        r( wxSTC_LEX_VB );
+        r( wxSTC_LEX_VBSCRIPT );
+        r( wxSTC_LEX_XCODE );
+        r( wxSTC_LEX_XML );
         r( wxSTC_LASTSTEPINUNDOREDO );
         r( wxSTC_L_DEFAULT );
         r( wxSTC_L_COMMAND );
@@ -574,6 +612,21 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_NNCRONTAB_STRING );
         r( wxSTC_NNCRONTAB_ENVIRONMENT );
         r( wxSTC_NNCRONTAB_IDENTIFIER );
+
+        r( wxSTC_NSIS_DEFAULT );
+        r( wxSTC_NSIS_COMMENT );
+        r( wxSTC_NSIS_STRINGDQ );
+        r( wxSTC_NSIS_STRINGLQ );
+        r( wxSTC_NSIS_STRINGRQ );
+        r( wxSTC_NSIS_FUNCTION );
+        r( wxSTC_NSIS_VARIABLE );
+        r( wxSTC_NSIS_LABEL );
+        r( wxSTC_NSIS_USERDEFINED );
+        r( wxSTC_NSIS_SECTIONDEF );
+        r( wxSTC_NSIS_SUBSECTIONDEF );
+        r( wxSTC_NSIS_IFDEFINEDEF );
+        r( wxSTC_NSIS_MACRODEF );
+        r( wxSTC_NSIS_STRINGVAR );
         break;
     case 'P':
         r( wxSTC_PRINT_NORMAL );
@@ -633,6 +686,23 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_PROPS_SECTION );
         r( wxSTC_PROPS_ASSIGNMENT );
         r( wxSTC_PROPS_DEFVAL );
+
+        r( wxSTC_PS_DEFAULT );
+        r( wxSTC_PS_COMMENT );
+        r( wxSTC_PS_DSC_COMMENT );
+        r( wxSTC_PS_DSC_VALUE );
+        r( wxSTC_PS_NUMBER );
+        r( wxSTC_PS_NAME );
+        r( wxSTC_PS_KEYWORD );
+        r( wxSTC_PS_LITERAL );
+        r( wxSTC_PS_IMMEVAL );
+        r( wxSTC_PS_PAREN_ARRAY );
+        r( wxSTC_PS_PAREN_DICT );
+        r( wxSTC_PS_PAREN_PROC );
+        r( wxSTC_PS_TEXT );
+        r( wxSTC_PS_HEXSTRING );
+        r( wxSTC_PS_BASE85STRING );
+        r( wxSTC_PS_BADSTRINGCHAR );
         break;
     case 'S':
         r( wxSTC_STYLE_DEFAULT );
@@ -687,6 +757,14 @@ double stc_constant( const char* name, int arg )
         break;
     case 'T':
         r( wxSTC_TIME_FOREVER );
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+        r( wxSTC_TEX_DEFAULT );
+        r( wxSTC_TEX_SPECIAL );
+        r( wxSTC_TEX_GROUP );
+        r( wxSTC_TEX_SYMBOL );
+        r( wxSTC_TEX_COMMAND );
+        r( wxSTC_TEX_TEXT );
+#endif
         break;
     case 'V':
         r( wxSTC_VISIBLE_SLOP );
