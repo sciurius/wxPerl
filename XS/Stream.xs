@@ -110,7 +110,7 @@ Wx_InputStream::READLINE()
     if( THIS->Eof() ) { XSRETURN_UNDEF; }
 
     while( THIS->Read( &c, 1 ).LastRead() != 0 ) {
-        // printf("!%s!\n", RETVAL.c_str() );
+##        printf("!%s!\n", val.c_str() );
         val.Append( c );
         if( c == '\n' ) break;
     }

@@ -18,7 +18,7 @@ public:
     wxPliTimer( const char* package );
     wxPliTimer( const char* package, wxEvtHandler* owner, int id );
 
-    virtual void Notify();
+    DEC_V_CBACK_VOID__VOID( Notify );
 };
 
 inline wxPliTimer::wxPliTimer( const char* package )
@@ -35,16 +35,7 @@ inline wxPliTimer::wxPliTimer( const char* package, wxEvtHandler* owner,
     m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
 }
 
-void wxPliTimer::Notify()
-{
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "Notify" ) )
-    {
-        wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR|G_DISCARD );
-        return;
-    }
-    else
-        wxTimer::Notify();
-}
+DEF_V_CBACK_VOID__VOID( wxPliTimer, wxTimer, Notify );
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTimer, wxTimer );
 

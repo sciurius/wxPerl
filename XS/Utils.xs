@@ -163,18 +163,6 @@ GetSystemMetric( index )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
-bool
-GetCapability( index )
-    int index
-  CODE:
-    RETVAL = wxSystemSettings::GetCapability( index );
-  OUTPUT:
-    RETVAL
-
-#endif
-
 MODULE=Wx PACKAGE=Wx::TipProvider
 
 Wx_TipProvider*

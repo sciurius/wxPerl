@@ -14,14 +14,6 @@
 
 MODULE=Wx PACKAGE=Wx::ConfigBase
 
-#Wx_ConfigBase*
-#Wx_ConfigBase::new( appName = wxEmptyString, vendorName = wxEmptyString, localFilename = wxEmptyString, globalFilename = wxEmptyString, style = 0 )
-#    wxString appName
-#    wxString vendorName
-#    wxString localFilename
-#    wxString gloablFilename
-#    long style
-
 void
 Wx_ConfigBase::Destroy()
   CODE:
@@ -226,10 +218,6 @@ void
 Wx_ConfigBase::SetRecordDefaults( doIt = TRUE )
     bool doIt
 
-#void
-#Wx_ConfigBase::SetUmask( mode )
-#    int mode
-
 void
 Wx_ConfigBase::Write( key, value )
     wxString key
@@ -257,18 +245,6 @@ Wx_ConfigBase::WriteBool( key, value )
     bool value
   CODE:
     THIS->Write( key, value );
-
-#MODULE=Wx PACKAGE=Wx::Config
-
-##include <wx/config.h>
-
-#Wx_ConfigBase*
-#Wx_Config::new( appName = wxEmptyString, vendorName = wxEmptyString, localFilename = wxEmptyString, globalFilename = wxEmptyString, style = 0 )
-#    wxString appName
-#    wxString vendorName
-#    wxString localFilename
-#    wxString globalFilename
-#    long style
 
 MODULE=Wx PACKAGE=Wx::RegConfig
 
