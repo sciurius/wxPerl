@@ -12,11 +12,28 @@
 
 #include <wx/image.h>
 #include "cpp/streams.h"
+#include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::Image
 
+void
+wxImage::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newNull )
+        MATCH_REDISP( wxPliOvl_wico, newIcon )
+        MATCH_REDISP( wxPliOvl_wbmp, newBitmap )
+        MATCH_REDISP( wxPliOvl_wist_n, newStreamType )
+        MATCH_REDISP( wxPliOvl_wist_s, newStreamMIME )
+        MATCH_REDISP_COUNT( wxPliOvl_n_n, newWH, 2 )
+        MATCH_REDISP( wxPliOvl_n_n_s, newData )
+        MATCH_REDISP( wxPliOvl_s_n, newNameType )
+        MATCH_REDISP( wxPliOvl_s_s, newNameMIME )
+    END_OVERLOAD( Wx::Image::new )
+
 Wx_Image*
-newNull()
+newNull( CLASS )
+    SV* CLASS
   CODE:
     RETVAL = new wxImage();
   OUTPUT:
@@ -25,7 +42,8 @@ newNull()
 #if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
 
 Wx_Image*
-newBitmap( bitmap )
+newBitmap( CLASS, bitmap )
+    SV* CLASS
     Wx_Bitmap* bitmap
   CODE:
     RETVAL = new wxImage( *bitmap );
@@ -33,7 +51,8 @@ newBitmap( bitmap )
     RETVAL
 
 Wx_Image*
-newIcon( icon )
+newIcon( CLASS, icon )
+    SV* CLASS
     Wx_Icon* icon
   CODE:
 #ifdef __WXMSW__
@@ -54,7 +73,8 @@ Wx_Image::ConvertToBitmap()
 #endif
 
 Wx_Image*
-newWH( width, height )
+newWH( CLASS, width, height )
+    SV* CLASS
     int width
     int height
   CODE:
@@ -63,7 +83,8 @@ newWH( width, height )
     RETVAL
 
 Wx_Image*
-newData( width, height, dt )
+newData( CLASS, width, height, dt )
+    SV* CLASS
     int width
     int height
     SV* dt
@@ -84,7 +105,8 @@ newData( width, height, dt )
     RETVAL
 
 Wx_Image*
-newNameType( name, type, index = -1 )
+newNameType( CLASS, name, type, index = -1 )
+    SV* CLASS
     wxString name
     long type
     int index
@@ -98,7 +120,8 @@ newNameType( name, type, index = -1 )
     RETVAL
 
 Wx_Image*
-newNameMIME( name, mimetype, index = -1 )
+newNameMIME( CLASS, name, mimetype, index = -1 )
+    SV* CLASS
     wxString name
     wxString mimetype
     int index
@@ -112,7 +135,8 @@ newNameMIME( name, mimetype, index = -1 )
     RETVAL
 
 Wx_Image*
-newStreamType( stream, type, index = -1 )
+newStreamType( CLASS, stream, type, index = -1 )
+    SV* CLASS
     wxPliInputStream stream
     long type
     int index
@@ -126,7 +150,8 @@ newStreamType( stream, type, index = -1 )
     RETVAL
 
 Wx_Image*
-newStreamMIME( stream, mime, index = -1 )
+newStreamMIME( CLASS, stream, mime, index = -1 )
+    SV* CLASS
     wxPliInputStream stream
     wxString mime
     int index

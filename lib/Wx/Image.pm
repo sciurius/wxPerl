@@ -14,6 +14,8 @@ package Wx::Image;
 
 use strict;
 
+=for comment
+
 sub new {
   shift;
 
@@ -29,6 +31,8 @@ sub new {
 
   Wx::_croak Wx::_ovl_error;
 }
+
+=cut
 
 # sub FindHandler {
 #   if( $_[0] =~ /^\s*\d+\s*$/ ) { return Wx::Image::FindHandlerType( @_ ) }

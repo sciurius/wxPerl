@@ -533,6 +533,14 @@ Wx_ListCtrl::HitTest( point )
     PUSHs( sv_2mortal( newSViv( item ) ) );
     PUSHs( sv_2mortal( newSViv( flags ) ) );
 
+void
+wxListCtrl::InsertColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_wlci, InsertColumnInfo )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_s_n_n, InsertColumnString, 2 )
+    END_OVERLOAD( Wx::ListCtrl::InsertColumn )
+
 long
 Wx_ListCtrl::InsertColumnInfo( col, info )
     int col
@@ -636,6 +644,14 @@ Wx_ListCtrl::SetItemCount( count )
     long count
 
 #endif
+
+void
+wxListCtrl::SetItem( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wlci, SetItemInfo )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_s_n, SetItemString, 3 )
+    END_OVERLOAD( Wx::ListCtrl::SetItem )
 
 bool
 Wx_ListCtrl::SetItemInfo( info )

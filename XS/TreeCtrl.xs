@@ -11,6 +11,7 @@
 #############################################################################
 
 #include <wx/treectrl.h>
+#include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::TreeItemData
 
@@ -358,6 +359,14 @@ Wx_TreeCtrl::GetNextVisible( item )
   OUTPUT:
     RETVAL
 
+void
+wxTreeCtrl::GetParent( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( Wx::Window::GetParent )
+        MATCH_REDISP( wxPliOvl_wtid, GetItemParent )
+    END_OVERLOAD( Wx::TreeCtrl::GetParent )
+
 Wx_TreeItemId*
 Wx_TreeCtrl::GetItemParent( item )
     Wx_TreeItemId* item
@@ -425,6 +434,14 @@ Wx_TreeCtrl::HitTest( point )
                                   new wxTreeItemId( ret ),
                                   wxPlTreeItemIdName ) );
     PUSHs( sv_2mortal( newSViv( flags ) ) );
+
+void
+wxTreeCtrl::InsertItem( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wtid_wtid_s_n_n, InsertItemPrev, 3 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wtid_n_s_n_n, InsertItemBef, 3 )
+    END_OVERLOAD( Wx::TreeCtrl::InsertItem )
 
 Wx_TreeItemId*
 Wx_TreeCtrl::InsertItemPrev( parent, previous, text, image = -1, selImage = -1, data = 0 )

@@ -49,7 +49,6 @@ lib/Wx/App.pm
 lib/Wx/Event.pm
 lib/Wx/Image.pm
 lib/Wx/ImageList.pm
-lib/Wx/ListCtrl.pm
 lib/Wx/Locale.pm
 lib/Wx/Menu.pm
 lib/Wx/RadioBox.pm
@@ -57,7 +56,6 @@ lib/Wx/Region.pm
 lib/Wx/Sizer.pm
 lib/Wx/SplashScreen.pm
 lib/Wx/Timer.pm
-lib/Wx/TreeCtrl.pm
 lib/Wx/_Constants.pm
 lib/Wx/_Functions.pm
 

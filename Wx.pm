@@ -68,6 +68,32 @@ sub AUTOLOAD {
   goto &$AUTOLOAD;
 }
 
+# handle :allclasses specially
+sub import {
+  my $package = shift;
+  my $count = 0;
+  foreach ( @_ ) {
+    m/^:/ or last;
+    m/^:allclasses$/ and do {
+      eval <<'EOT';
+use Wx::DND;
+use Wx::DocView;
+use Wx::FS;
+use Wx::Grid;
+use Wx::Help;
+use Wx::Html;
+use Wx::MDI;
+use Wx::Print;
+EOT
+      splice @_, $count, 1;
+    };
+
+    ++$count;
+  }
+
+  $package->export_to_level( 1, $package, @_ );
+}
+
 sub END {
   UnLoad();
 }
@@ -161,6 +187,7 @@ wx_boot( 'Wx', $VERSION );
 *Wx::Window::Center = \&Wx::Window::Centre;
 *Wx::Window::CenterOnParent = \&Wx::Window::CentreOnParent;
 *Wx::Window::CenterOnScreen = \&Wx::Window::CentreOnScreen;
+*Wx::ListCtrl::InsertStringImageItem = \&InsertImageStringItem;
 no strict 'refs';
 *{"Wx::Size::y"} = \&Wx::Size::height; # work around syntax highlighting
 use strict 'refs';
@@ -185,14 +212,12 @@ require Wx::App;
 require Wx::Event;
 require Wx::Image;
 require Wx::ImageList;
-require Wx::ListCtrl;
 require Wx::Locale;
 require Wx::Menu;
 require Wx::RadioBox;
 require Wx::Region;
 require Wx::Sizer;
 require Wx::Timer;
-require Wx::TreeCtrl;
 require Wx::_Exp;
 require Wx::_Functions;
 # for Wx::Stream & co.
@@ -200,6 +225,7 @@ if( $] >= 5.005 ) { require Tie::Handle; }
 require Wx::SplashScreen;
 
 package Wx::GDIObject;
+package Wx::TreeItemId; use overload '<=>' => \&tiid_spaceship;
 
 1;
 
