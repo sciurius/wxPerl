@@ -43,14 +43,13 @@
 #pragma warning (disable: 4800 )
 #endif
 
-#include "cpp/helpers.h"
-
 #ifdef __WXMSW__
 #include <wx/msw/winundef.h>
 #endif // __WXMSW__
 
 #include "cpp/compat.h"
 #include "cpp/typedef.h"
+#include "cpp/helpers.h"
 
 #include "cpp/v_cback.h"
 
