@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.35 2005/03/19 22:32:50 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.36 2005/03/30 20:08:50 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -24,7 +24,7 @@
 
 %name{Wx::Sizer} class wxSizer
 {
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
     %name{AddWindow} wxSizerItem* Add( wxWindow* window, int option = 0,
                                        int flag = 0, int border = 0,
                                        Wx_UserDataO* data = NULL );
@@ -136,13 +136,10 @@
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     %name{ShowWindow} bool Show( wxWindow* window, bool show = true );
     %name{ShowSizer} bool Show( wxSizer* sizer, bool show = true );
+    %name{ShowIndex} bool Show( size_t index, bool show = true );
 #else
     %name{ShowWindow} void Show( wxWindow* window, bool show = true );
     %name{ShowSizer} void Show( wxSizer* sizer, bool show = true );
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-    %name{ShowIndex} bool Show( size_t index, bool show = true );
 #endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
