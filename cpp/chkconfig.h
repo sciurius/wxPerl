@@ -95,7 +95,7 @@
 
 #if wxUSE_MS_HTML_HELP && wxUSE_WXHTML_HELP
 #   ifndef wxPERL_USE_BESTHELP
-#       define wxPERL_USE_BESTHELP
+#       define wxPERL_USE_BESTHELP 1
 #   endif
 #elif wxPERL_USE_BESTHELP
 #   error "Recompile wxWindows with wxUSE__MS_HTML_HELP and wxUSE_WXHTML_HELP"
