@@ -867,9 +867,25 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_ISO8859_14 );     // font
     r( wxFONTENCODING_ISO8859_15 );     // font
     r( wxFONTENCODING_KOI8 );           // font
+    r( wxFONTENCODING_ALTERNATIVE );    // font
+    r( wxFONTENCODING_BULGARIAN );      // font
+    r( wxFONTENCODING_CP437 );          // font
+    r( wxFONTENCODING_CP850 );          // font
+    r( wxFONTENCODING_CP852 );          // font
+    r( wxFONTENCODING_CP855 );          // font
+    r( wxFONTENCODING_CP866 );          // font
+    r( wxFONTENCODING_CP874 );          // font
     r( wxFONTENCODING_CP1250 );         // font
     r( wxFONTENCODING_CP1251 );         // font
     r( wxFONTENCODING_CP1252 );         // font
+    r( wxFONTENCODING_CP1253 );         // font
+    r( wxFONTENCODING_CP1254 );         // font
+    r( wxFONTENCODING_CP1255 );         // font
+    r( wxFONTENCODING_CP1256 );         // font
+    r( wxFONTENCODING_CP1257 );         // font
+    r( wxFONTENCODING_UTF7 );           // font
+    r( wxFONTENCODING_UTF8 );           // font
+    r( wxFONTENCODING_UNICODE );        // font
 
     // !export: Type_Float
     if( strEQ( name, "Type_Float" ) )
