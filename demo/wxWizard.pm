@@ -30,6 +30,8 @@ sub description {
 <body>
 <h3>Wx::Wizard</h3>
 
+Wx::Wizard is used to break a complex task into small sequential steps.
+It is quite common under Windows, and it is mostly useful to novice users.
 </body>
 </html>
 EOT
