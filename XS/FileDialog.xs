@@ -35,14 +35,18 @@ Wx_FileDialog::GetFilenames()
   PREINIT:
     wxArrayString filenames;
     int i, max;
-    char* t;
   PPCODE:
     THIS->GetFilenames( filenames );
     max = filenames.GetCount();
     EXTEND( SP, max );
     for( i = 0; i < max; ++i ) {
-      t = (char*)(const char*) filenames[i];
-      PUSHs( sv_2mortal( newSVpv( t, 0 ) ) );
+#if wxUSE_UNICODE
+      SV* tmp = sv_2mortal( newSVpv( filenames[i].mb_str(wxConvUTF8), 0 ) );
+      SvUTF8_on( tmp );
+      PUSHs( tmp );
+#else
+      PUSHs( sv_2mortal( newSVpv( CHAR_P filenames[i].c_str(), 0 ) ) );
+#endif
     }
 
 int
@@ -59,14 +63,18 @@ Wx_FileDialog::GetPaths()
   PREINIT:
     wxArrayString filenames;
     int i, max;
-    char* t;
   PPCODE:
     THIS->GetPaths( filenames );
     max = filenames.GetCount();
     EXTEND( SP, max );
     for( i = 0; i < max; ++i ) {
-      t = (char*)(const char*) filenames[i];
-      PUSHs( sv_2mortal( newSVpv( t, 0  ) ) );
+#if wxUSE_UNICODE
+      SV* tmp = sv_2mortal( newSVpv( filenames[i].mb_str(wxConvUTF8), 0 ) );
+      SvUTF8_on( tmp );
+      PUSHs( tmp );
+#else
+      PUSHs( sv_2mortal( newSVpv( CHAR_P filenames[i].c_str(), 0 ) ) );
+#endif
     }
 
 long

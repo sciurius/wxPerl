@@ -75,9 +75,9 @@ Wx_Log::GetVerbose()
 
 void
 Wx_Log::SetTimestamp( format )
-    const char* format
+    const wxChar* format
 
-const char*
+const wxChar*
 Wx_Log::GetTimestamp()
 
 void
@@ -128,18 +128,18 @@ MODULE=Wx PACKAGE=Wx
 #if 0
 
 #define XSINTERFACE__ccharp( _ret, _cv, _f ) \
-  ( ( void (*)( const char * ) ) _f)
+  ( ( void (*)( const wxChar * ) ) _f)
 
 #define XSINTERFACE__ccharp_SET( _cv, _f ) \
   ( CvXSUBANY( _cv ).any_ptr = (void*) _f ) 
 
 #undef dXSFUNCTION
 #define dXSFUNCTION( a ) \
-  void (*XSFUNCTION)( const char* )
+  void (*XSFUNCTION)( const wxChar* )
 
 void
 interface__ccharp( string )
-    const char* string
+    const wxChar* string
   INTERFACE_MACRO:
     XSINTERFACE__ccharp
     XSINTERFACE__ccharp_SET
@@ -152,62 +152,62 @@ interface__ccharp( string )
 
 void
 wxLogError( string )
-    const char* string
+    const wxChar* string
 
 void
 wxLogFatalError( string )
-    const char* string
+    const wxChar* string
 
 void
 wxLogWarning( string )
-    const char* string
+    const wxChar* string
 
 void
 wxLogMessage( string )
-    const char* string
+    const wxChar* string
 
 void
 wxLogVerbose( string )
-    const char* string
+    const wxChar* string
 
 void
 wxLogDebug( string )
-    const char* string
+    const wxChar* string
 
 #endif
 
 void
 wxLogStatusFrame( frame, string )
     Wx_Frame* frame
-    const char* string
+    const wxChar* string
   CODE:
     wxLogStatus( frame, string );
 
 void
 wxLogStatus( string )
-    const char* string
+    const wxChar* string
 
 void
 wxLogTrace( string )
-    const char* string
+    const wxChar* string
 
 void
 wxLogTraceMask( mask, string )
-    const char* mask
-    const char* string
+    const wxChar* mask
+    const wxChar* string
   CODE:
     ::wxLogTrace( mask, string );
 
 void
 wxLogSysError( string )
-    const char* string
+    const wxChar* string
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 unsigned long
 wxSysErrorCode()
 
-const char*
+const wxChar*
 wxSysErrorMsg( errCode = 0 )
     unsigned long errCode
 

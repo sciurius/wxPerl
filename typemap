@@ -17,7 +17,6 @@ wxWindowID              T_IV
 wxStockCursor           T_IV
 wxEventType             T_IV
 const char *            T_PV
-wxString                T_PV
 wxCoord                 T_IV
 float                   T_NV
 wxFontEncoding          T_IV
@@ -25,7 +24,6 @@ wxRegionContain         T_IV
 wxSashEdgePosition      T_IV
 wxSashDragStatus        T_IV
 wxListColumnFormat      T_IV
-wxChar *                T_PV
 off_t                   T_IV
 
 wxLogTraceMask          T_UV 
@@ -326,3 +324,23 @@ S_WX_ISTREAM
 
 S_WX_OSTREAM
     wxPli_stream_2_sv( $arg, $var, "Wx::OutputStream" );
+
+# Unicode support
+TYPEMAP
+wxChar *                T_WXCHAR
+const wxChar*           T_WXCHAR
+wxString                T_WXSTRING
+
+INPUT
+T_WXCHAR
+    WXCHAR_INPUT( $var, $type, $arg );
+
+T_WXSTRING
+    WXSTRING_INPUT( $var, $type, $arg );
+
+OUTPUT
+T_WXCHAR
+    WXCHAR_OUTPUT( $var, $arg );
+
+T_WXSTRING
+    WXSTRING_OUTPUT( $var, $arg );

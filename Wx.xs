@@ -153,12 +153,12 @@ Load()
     if( wxTopLevelWindows.Number() > 0 )
       return;
 
-    char** argv;
-    int argc;
+    char** argv = 0;
+    int argc = 0;
 
-    argc = wxPli_get_args_argc_argv( &argv );
+    argc = wxPli_get_args_argc_argv( &argv, 0 );
     wxEntryStart( argc, argv );
-    delete[] argv;
+    wxPli_delete_argv( argv, 0 );
     // this is after wxEntryStart, since
     // wxInitializeStockObjects needs to be called
     // (for colours, cursors, pens, etc...)

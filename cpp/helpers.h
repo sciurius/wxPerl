@@ -13,7 +13,51 @@
 #include <wx/object.h>
 #include <wx/list.h>
 
-WXPLDLL const char* wxPli_cpp_class_2_perl( const char* className );
+// helpers for UTF8 <-> wxString/wxChar
+// because xsubpp does not allow #pragmas in typemaps
+#if wxUSE_UNICODE
+
+#define WXCHAR_INPUT( var, type, arg ) \
+  const wxMB2WXbuf var##_tmp = ( SvUTF8( arg ) ) ? \
+            ( wxConvUTF8.cMB2WX( SvPVutf8_nolen( arg ) ) ) \
+          : ( wxString( SvPV_nolen( arg ) ).wc_str() ); \
+  var = (type)var##_tmp.data();
+
+#define WXCHAR_OUTPUT( var, arg ) \
+  sv_setpv((SV*)arg, (const char*)wxConvUTF8.cWC2MB( var ) ); \
+  SvUTF8_on((SV*)arg);        
+
+#define WXSTRING_INPUT( var, type, arg ) \
+  if( SvUTF8( arg ) ) \
+  { \
+    var = wxString(SvPVutf8_nolen(arg),wxConvUTF8); \
+  } \
+  else \
+  { \
+    var = SvPV_nolen(arg); \
+  }
+
+#define WXSTRING_OUTPUT( var, arg ) \
+  sv_setpv((SV*)arg, (const char*)var.mb_str(wxConvUTF8)); \
+  SvUTF8_on((SV*)arg);        
+
+#else
+
+#define WXCHAR_INPUT( var, type, arg ) \
+  var = (type)SvPV_nolen(arg)
+
+#define WXCHAR_OUTPUT( var, arg ) \
+  sv_setpv((SV*)arg, var);
+
+#define WXSTRING_INPUT( var, type, arg ) \
+  var = (type)SvPV_nolen(arg)
+
+#define WXSTRING_OUTPUT( var, arg ) \
+  sv_setpv((SV*)arg, var);
+
+#endif
+
+WXPLDLL const char* wxPli_cpp_class_2_perl( const wxChar* className );
 WXPLDLL void wxPli_push_args( SV*** stack, const char* argtypes,
                               va_list &list );
 
@@ -33,7 +77,8 @@ WXPLDLL int wxPli_av_2_uchararray( SV* avref, unsigned char** array );
 WXPLDLL int wxPli_av_2_svarray( SV* avref, SV*** array );
 WXPLDLL int FUNCPTR( wxPli_av_2_intarray )( SV* avref, int** array );
 
-int wxPli_get_args_argc_argv( char*** argv );
+void wxPli_delete_argv( void* argv, bool unicode );
+int wxPli_get_args_argc_argv( void* argv, bool unicode );
 WXPLDLL void wxPli_get_args_objectarray( SV** sp, int items, void** array,
                                          const char* package );
 
@@ -231,6 +276,10 @@ public:
         :wxClassInfo( cName, baseName1, baseName2, sz, 0)
         {
             m_func = fn;
+            //FIXME//
+            m_baseInfo1 = wxClassInfo::FindClass( baseName1 );
+            if( m_baseInfo1 == 0 )
+                croak( "ClassInfo initialization failed '%s'", baseName1 );
         }
 public:
     wxPliGetCallbackObjectFn m_func;

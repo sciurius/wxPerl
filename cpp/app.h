@@ -44,7 +44,7 @@ wxPliApp::~wxPliApp()
 
     wxApp::CleanUp();
 #endif
-    delete[] argv;
+    wxPli_delete_argv( argv, 1 );
 
     argc = 0;
     argv = 0;

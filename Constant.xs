@@ -76,6 +76,7 @@ void wxPli_remove_constant_function( double (**f)( const char*, int ) )
 }
 
 // !package: Wx
+// !tag:
 
 static double constant( const char *name, int arg ) 
 {
@@ -1310,7 +1311,12 @@ void SetConstants()
     // Miscellaneous
     //
     tmp = get_sv( "Wx::_version_string", 0 );
+#if wxUSE_UNICODE
+    sv_setpv( tmp, wxString(wxVERSION_STRING).mb_str(wxConvUTF8) );
+    SvUTF8_on(tmp);
+#else
     sv_setpv( tmp, wxVERSION_STRING );
+#endif
 
     tmp = get_sv( "Wx::_wx_version", 0 );
     sv_setnv( tmp, wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 );

@@ -73,21 +73,24 @@ int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn ) {
     return retval;
 }
 
-const char* wxPli_cpp_class_2_perl( const char* className ) 
+const char* wxPli_cpp_class_2_perl( const wxChar* className ) 
 {
     static char buffer[128] = "Wx::";
 
-    if( className[0] == 'w' && className[1] == 'x' )
+    if( className[0] == wxT('w') && className[1] == wxT('x') )
         className += 2;
-    if( className[0] == 'P' && className[1] == 'l' )
+    if( className[0] == wxT('P') && className[1] == wxT('l') )
     {
-        if( className[2] == 'i' )
+        if( className[2] == wxT('i') )
             className += 3;
         else
             className += 2;
     }
-
+#if wxUSE_UNICODE
+    wxConvUTF8.WC2MB( buffer+4, className, 120 );
+#else
     strcpy( buffer+4, className );
+#endif
 
     return buffer;
 }
@@ -245,9 +248,13 @@ SV* wxPli_object_2_sv( SV* var, wxObject* object )
     }
 
     wxClassInfo *ci = object->GetClassInfo();
-    const char* classname = ci->GetClassName();
+    const wxChar* classname = ci->GetClassName();
 
+#if wxUSE_UNICODE
+    if( wcsncmp( classname, wxT("wxPl"), 4 ) == 0 ) 
+#else
     if( strnEQ( classname, "wxPl", 4 ) ) 
+#endif
     {
         wxPliClassInfo* cci = (wxPliClassInfo*)ci;
         wxPliSelfRef* sr = cci->m_func( object );
@@ -399,37 +406,99 @@ int wxPli_av_2_stringarray( SV* avref, wxString** array )
     return n;
 }
 
-int wxPli_get_args_argc_argv( char*** argvp ) 
+#if wxUSE_UNICODE
+wxChar* wxPli_copy_string( SV* scalar, wxChar** )
 {
+    unsigned int length;
+    const wxMB2WXbuf tmp = ( SvUTF8( scalar ) ) ?
+        ( wxConvUTF8.cMB2WX( SvPVutf8( scalar, length ) ) )
+        : ( wxString( SvPV( scalar, length ) ).wc_str() ); 
+    
+    wxChar* buffer = new wxChar[length + 1];
+    memcpy( buffer, tmp.data(), length * sizeof(wxChar) );
+    buffer[length] = wxT('\0');
+    return buffer;
+}
+#endif
+
+char* wxPli_copy_string( SV* scalar, char** )
+{
+    unsigned int length;
+    const char* tmp = SvPV( scalar, length );
+
+    char* buffer = new char[length + 1];
+    memcpy( buffer, tmp, length * sizeof(char) );
+    buffer[length] = 0;
+    return buffer;
+}
+
+void wxPli_delete_argv( void* argv, bool unicode )
+{
+#if wxUSE_UNICODE
+    if( unicode )
+    {
+        wxChar** arg = (wxChar**)argv;
+        wxChar** i;
+        for( i = arg; *i; ++i ) { /*delete[] ( *arg );*/ }
+        delete[] arg;
+    }
+    else
+    {
+#endif
+        char** arg = (char**)argv;
+        char** i;
+        for( i = arg; *i; ++i ) { /*delete[] ( *arg );*/ }
+        delete[] arg;
+#if wxUSE_UNICODE
+    }
+#endif
+}
+
+int wxPli_get_args_argc_argv( void* argvp, bool unicode ) 
+{
+#if wxUSE_UNICODE
+    wxChar** argv_w;
+#endif
+    char ** argv_a;
     AV* args = get_av( "main::ARGV" , 0 );
     SV* progname = get_sv( "main::0", 0 );
-    I32 argc;
-    char** argv;
+    int arg_num = args ? av_len( args ) + 1 : 0;
+    I32 argc = arg_num + 1;
+    I32 i;
 
-    if( args != 0 ) 
+    if( !progname ) progname = &PL_sv_undef;
+
+#if wxUSE_UNICODE
+    if( unicode )
     {
-        I32 i;
-        int arg_num = av_len( args ) + 1;
-
-        argv = new char* [arg_num + 1 + 1];
-        argv[0] = SvPV_nolen( progname );
+        argv_w = new wxChar*[ arg_num + 2 ];
+        argv_w[argc] = 0;
+        argv_w[0] = wxPli_copy_string( progname, argv_w );
 
         for( i=0; i < arg_num; ++i )
         {
-            argv[i + 1] = SvPV_nolen( *av_fetch( args, i, 0 ) );
+            argv_w[i + 1] = wxPli_copy_string( *av_fetch( args, i, 0 ), argv_w );
         }
-        argv[arg_num + 1] = 0;
-        argc = arg_num + 1;
-    } 
-    else 
-    {
-        argc = 1;
-        argv = new char* [2];
-        argv[0] = SvPV_nolen( progname );
-        argv[1] = 0;
-    }
 
-    *argvp = argv;
+        *(wxChar***)argvp = argv_w;
+    }
+    else
+    {
+#endif
+        argv_a = new char*[ arg_num + 2 ];
+        argv_a[argc] = 0;
+        argv_a[0] = wxPli_copy_string( progname, argv_a );
+
+        for( i=0; i < arg_num; ++i )
+        {
+            argv_a[i + 1] = wxPli_copy_string( *av_fetch( args, i, 0 ), argv_a );
+        }
+
+        *(char***)argvp = argv_a;
+#if wxUSE_UNICODE
+    }
+#endif
+
     return argc;
 }
 

@@ -14,17 +14,17 @@ MODULE=Wx PACKAGE=Wx::ClassInfo
 
 Wx_ClassInfo*
 FindClass( name )
-    char* name
+    wxChar* name
   CODE:
     RETVAL = wxClassInfo::FindClass( name );
   OUTPUT:
     RETVAL
 
-const char*
+const wxChar*
 Wx_ClassInfo::GetBaseClassName1()
 
-const char*
+const wxChar*
 Wx_ClassInfo::GetBaseClassName2()
 
-const char*
+const wxChar*
 Wx_ClassInfo::GetClassName()

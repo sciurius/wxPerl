@@ -30,7 +30,7 @@ Start( app, sub )
     if( !SvROK( sub ) || SvTYPE( SvRV( sub ) ) != SVt_PVCV )
       croak( "sub must be a CODE reference" );
 
-    app->argc = wxPli_get_args_argc_argv( &app->argv );
+    app->argc = wxPli_get_args_argc_argv( &app->argv, 1 );
 #ifdef __WXMOTIF__
     app->SetClassName( app->argv[0] );
     app->SetAppName( app->argv[0] );

@@ -121,7 +121,7 @@ Wx_CommandEvent::GetInt()
 int
 Wx_CommandEvent::GetSelection()
 
-const char*
+wxString
 Wx_CommandEvent::GetString()
 
 bool
@@ -194,7 +194,13 @@ Wx_DropFilesEvent::GetFiles()
     EXTEND( SP, max );
     for( i = 0; i < max; ++i )
     {
+#if wxUSE_UNICODE
+      SV* tmp = sv_2mortal( newSVpv( CHAR_P files[i].mb_str(wxConvUTF8), 0 ) );
+      SvUTF8_on( tmp );
+      PUSHs( tmp );
+#else
       PUSHs( sv_2mortal( newSVpv( CHAR_P files[i].c_str(), 0 ) ) );
+#endif
     }
 
 int

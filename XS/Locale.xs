@@ -16,13 +16,18 @@ MODULE=Wx PACKAGE=Wx::Locale
 
 Wx_Locale*
 newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FALSE )
-    const char* name
-    const char* shorts
-    const char* locale
+    const wxChar* name
+    const wxChar* shorts
+    const wxChar* locale
     bool loaddefault
     bool convertencoding
   CODE:
-    RETVAL = new wxLocale( name, shorts, ( locale && strlen( locale ) ) ? locale : 0,
+    RETVAL = new wxLocale( name, shorts,
+#if wxUSE_UNICODE
+        ( locale && wcslen( locale ) ) ? locale : 0,
+#else
+        ( locale && strlen( locale ) ) ? locale : 0,
+#endif
         loaddefault, convertencoding );
   OUTPUT:
     RETVAL
@@ -45,22 +50,22 @@ Wx_Locale::DESTROY()
 
 bool
 Wx_Locale::AddCatalog( domain )
-    const char* domain
+    wxString domain
 
 void
 Wx_Locale::AddCatalogLookupPathPrefix( prefix )
     wxString prefix
 
-const char*
+const wxChar*
 Wx_Locale::GetLocale()
 
 wxString
 Wx_Locale::GetName()
 
-const char*
+const wxChar*
 Wx_Locale::GetString( string, domain = 0 )
-    const char* string
-    const char* domain
+    const wxChar* string
+    const wxChar* domain
 
 #if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
@@ -84,13 +89,13 @@ Wx_Locale::GetCanonicalName()
 
 bool
 Wx_Locale::IsLoaded( domain )
-    const char* domain
+    const wxChar* domain
 
 bool
 Wx_Locale::IsOk()
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
-const char*
+const wxChar*
 wxGetTranslation( string )
-    const char* string
+    const wxChar* string
