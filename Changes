@@ -8,8 +8,10 @@ Revision history for Perl extension Wx.
 	  for Perl 5.7.3 ( works with some caveats )
 	- wxPlEvent and wxPlCommandEvent
 	- Wx::PlFileSystemHandler, for custom file system handlers
-	- allow compialtion of a single big Wx.so/dll; this allows building
-          against a static wxWindows library
+	- allow compilation of a single big Wx.so/dll; this allows building
+	  against a static wxWindows library
+	- updated build instructions, using suggestions from
+	  Graciliano M. P. and Marcus
 
 0.10  Sun Mar 03 19:33:55 2002
 	- Fix a silly typo that broke wxTaskBar
