@@ -34,7 +34,7 @@ sub Delete {
 sub Destroy {
   my( $this ) = shift;
 
-  @_ == 0                     && ( $this->DestoryMenu(), return );
+  @_ == 0                     && ( $this->DestroyMenu(), return );
   Wx::_match( @_, $Wx::_wmit, 1 ) && ( $this->DestroyItem( @_ ), return );
   Wx::_match( @_, $Wx::_n, 1 )    && ( $this->DestroyId( @_ ), return );
   Wx::_croak Wx::_ovl_error;
