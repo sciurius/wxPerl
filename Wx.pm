@@ -208,7 +208,6 @@ eval( "sub wxUNICODE() { $_unicode }" );
 
 require Wx::App;
 require Wx::Event;
-require Wx::ImageList;
 require Wx::Locale;
 require Wx::Menu;
 require Wx::RadioBox;

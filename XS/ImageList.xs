@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: ImageList.xs,v 1.6 2003/03/27 20:11:34 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -24,6 +24,15 @@ Wx_ImageList::new( width, height, mask = TRUE, initialCount =1 )
 ## XXX threads
 void
 Wx_ImageList::DESTROY()
+
+void
+wxImageList::Add( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wbmp_wcol, AddWithColourMask )
+        MATCH_REDISP( wxPliOvl_wico, AddIcon )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_wbmp, AddBitmap, 1 )
+    END_OVERLOAD( Wx::ImageList::Add )
 
 int
 Wx_ImageList::AddBitmap( bitmap, mask = (wxBitmap*)&wxNullBitmap )
@@ -87,6 +96,14 @@ Wx_ImageList::Remove( index )
 
 bool
 Wx_ImageList::RemoveAll()
+
+void
+wxImageList::Replace( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_wico, ReplaceIcon )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wbmp_wbmp, ReplaceBitmap, 2 )
+    END_OVERLOAD( Wx::ImageList::Replace )
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
