@@ -237,7 +237,20 @@ void
 wxLogStatus( string )
     const char* string
   CODE:
-    wxLogStatus( string );
+    ::wxLogStatus( string );
+
+void
+wxLogTrace( string )
+    const char* string
+  CODE:
+    ::wxLogTrace( string );
+
+void
+wxLogTraceMask( mask, string )
+    const char* mask
+    const char* string
+  CODE:
+    ::wxLogTrace( mask, string );
 
 MODULE=Wx_Func PACKAGE=Wx PREFIX=wx
 

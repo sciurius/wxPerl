@@ -33,6 +33,15 @@ sub GetMultipleChoices {
   return;
 }
 
+sub LogTrace {
+  my( $t ) = sprintf( shift, @_ ); $t =~ s/\%/\%\%/g; wxLogTrace( $t );
+}
+
+sub LogTraceMask {
+  my( $m ) = shift;
+  my( $t ) = sprintf( shift, @_ ); $t =~ s/\%/\%\%/g; wxLogTraceMask( $m, $t );
+}
+
 sub LogStatus {
   my( $t );
 
