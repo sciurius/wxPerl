@@ -46,6 +46,7 @@
 #endif
 #include <wx/process.h>
 #include <wx/wizard.h>
+#include <wx/filefn.h>
 
 #include "cpp/compat.h"
 #include "cpp/chkconfig.h"
@@ -243,6 +244,7 @@ static wxPlINH inherit[] =
     I( ToolBarSimple,   Control )
     I( StaticBitmap,    Control )
     I( Gauge,           Control )
+    I( Gauge95,         Gauge )
     I( Slider,          Control )
     I( SpinCtrl,        Control )
     I( SpinButton,      Control )
@@ -644,6 +646,7 @@ static double constant( const char *name, int arg )
     r( wxDOT );                         // pen
     r( wxDOT_DASH );                    // pen
 
+    r( wxDIR );
     break;
   case 'E':
     r( wxEQUIV );                       // dc
@@ -848,6 +851,8 @@ static double constant( const char *name, int arg )
     r( wxFRAME_TOOL_WINDOW );           // frame
     r( wxFRAME_EX_CONTEXTHELP );        // frame
 #endif
+
+    r( wxFILE );
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxFR_DOWN );                     // findreplace
