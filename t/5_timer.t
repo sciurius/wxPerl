@@ -7,7 +7,9 @@ use Wx;
 use lib 'build';
 use Tests_Helper qw(test_app);
 
-my $app = test_app( sub { new Wx::Frame( undef, -1, 'boo' );return 1; } );
+my $frame;
+my $app = test_app( sub {
+                      $frame = new Wx::Frame( undef, -1, 'boo' );return 1; } );
 
 # test with Notify
 
@@ -42,7 +44,7 @@ sub new {
 
 sub OnTimer {
   print "ok 2\n";
-  $app->ExitMainLoop;
+  $frame->Destroy;
 }
 
 package main;
