@@ -51,6 +51,49 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCalendarCtrl, wxCalendarCtrl );
 
 #define wxDefaultDateTimePtr (wxDateTime*)&wxDefaultDateTime
 #define wxDateTime__WeekDay wxDateTime::WeekDay
+
+double calendar_constant( const char* name, int arg )
+{
+    // !package: Wx
+    // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+    // !tag: calendar
+#define r( n ) \
+    if( strEQ( name, #n ) ) \
+        return n;
+
+    WX_PL_CONSTANT_INIT();
+
+    switch( fl )
+    {
+    case 'C':
+        r( wxCAL_SUNDAY_FIRST );
+        r( wxCAL_MONDAY_FIRST );
+        r( wxCAL_SHOW_HOLIDAYS );
+        r( wxCAL_NO_YEAR_CHANGE );
+        r( wxCAL_NO_MONTH_CHANGE );
+        r( wxCAL_SHOW_SURROUNDING_WEEKS );
+        r( wxCAL_SEQUENTIAL_MONTH_SELECTION );
+
+        r( wxCAL_HITTEST_NOWHERE );
+        r( wxCAL_HITTEST_HEADER );
+        r( wxCAL_HITTEST_DAY );
+        break;
+    case 'E':
+        r( wxEVT_CALENDAR_SEL_CHANGED );
+        r( wxEVT_CALENDAR_DAY_CHANGED );
+        r( wxEVT_CALENDAR_MONTH_CHANGED );
+        r( wxEVT_CALENDAR_YEAR_CHANGED );
+        r( wxEVT_CALENDAR_DOUBLECLICKED );
+        r( wxEVT_CALENDAR_WEEKDAY_CLICKED );
+        break;
+    }
+#undef r
+
+    WX_PL_CONSTANT_CLEANUP();
+}
+
+wxPlConstants calendar_module( &calendar_constant );
+
 %}
 %file{-};
 
@@ -82,6 +125,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCalendarCtrl, wxCalendarCtrl );
     void EnableYearChange( bool enable = TRUE );
     void EnableMonthChange( bool enable = TRUE );
     void EnableHolidayDisplay( bool display = TRUE );
+    void SetHoliday( size_t day );
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 

@@ -29,6 +29,21 @@ no strict;
 
 package Wx::CalendarCtrl;  @ISA = 'Wx::Control';
 package Wx::CalendarEvent; @ISA = 'Wx::CommandEvent';
+
+package Wx::Event;
+
+use strict;
+
+# !parser: sub { $_[0] =~ m/sub (EVT_\w+)/ }
+# !package: Wx::Event
+
+sub EVT_CALENDAR($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_DOUBLECLICKED, $_[2] ) }
+sub EVT_CALENDAR_SEL_CHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_SEL_CHANGED, $_[2] ) }
+sub EVT_CALENDAR_DAY($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_DAY_CHANGED, $_[2] ) }
+sub EVT_CALENDAR_MONTH($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_MONTH_CHANGED, $_[2] ) }
+sub EVT_CALENDAR_YEAR($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_YEAR_CHANGED, $_[2] ) }
+sub EVT_CALENDAR_WEEKDAY_CLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_CALENDAR_WEEKDAY_CLICKED, $_[2] ) }
+
 1;
 
 # local variables:

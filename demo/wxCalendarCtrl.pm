@@ -40,18 +40,37 @@ package CalendarCtrlDemoWin;
 use base 'Wx::Panel';
 use Wx::Calendar;
 
-use Wx qw(wxDefaultPosition wxDefaultSize);
-#use Wx::Event qw(EVT_WIZARD_PAGE_CHANGED EVT_BUTTON);
+use Wx qw(:sizer wxDefaultPosition wxDefaultSize);
+use Wx::Event qw(EVT_CALENDAR_SEL_CHANGED);
 
 sub new {
   my $class = shift;
   my $this = $class->SUPER::new( $_[0], -1 );
   #                                    8 Jan 1979
+
+  my $sizer = Wx::BoxSizer->new( wxVERTICAL );
+
   my $date = Wx::DateTime->newFromDMY( 8, 0, 1979 );
 
-  my $calendar = Wx::CalendarCtrl->new( $this, -1, $date, [ 50, 50 ] );
+  my $calendar = Wx::CalendarCtrl->new( $this, -1, $date );
+
+  my $textctrl = Wx::TextCtrl->new( $this, -1, $date->FormatDate );
+
+  $sizer->Add( $calendar, 0, wxALL, 10 );
+  $sizer->Add( $textctrl, 0, wxGROW|wxALL, 10 );
+
   $calendar->EnableYearChange;
   $calendar->EnableMonthChange;
+
+  EVT_CALENDAR_SEL_CHANGED( $this, $calendar,
+                            sub {
+                              my( $self, $event ) = @_;
+
+                              $textctrl->SetValue
+                                ( $event->GetDate->FormatDate );
+                            } );
+
+  $this->SetSizer( $sizer );
 
   return $this;
 }

@@ -13,6 +13,7 @@
 #define PERL_NO_GET_CONTEXT
 
 #include "cpp/wxapi.h"
+#include "cpp/constants.h"
 
 #undef THIS
 
