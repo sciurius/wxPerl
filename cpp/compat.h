@@ -94,7 +94,7 @@
 #define WXPL_MSW_EXPORTS 0
 #endif
 
-#if defined(WIN32)
+#if defined(WIN32) || defined(__CYGWIN__)
 #  if WXPERL_P_VERSION_GE( 5, 6, 0 )
 #    define WXXS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
 #  else
