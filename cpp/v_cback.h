@@ -296,7 +296,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
     {                                                                         \
         SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR ); \
         wxString val;                                                         \
-        WXSTRING_INPUT( val, dummy, ret );                                    \
+        WXSTRING_INPUT( val, wxString, ret );                                 \
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \
     }                                                                         \
