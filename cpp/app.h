@@ -13,16 +13,17 @@
 class _wxApp:public wxApp
 {
     _DECLARE_DYNAMIC_CLASS( _wxApp );
-    _DECLARE_SELFREF();
+    _DECLARE_V_CBACK();
 public:
     _wxApp( const char* package );
     ~_wxApp();
 
     bool OnInit();
+    int OnExit();
     int MainLoop();
 };
 
-_wxApp::_wxApp( const char* package )
+inline _wxApp::_wxApp( const char* package )
     :m_callback( "Wx::App" ) 
 {
     m_callback.SetSelf( _make_object( this, package ), FALSE );
@@ -49,12 +50,12 @@ _wxApp::~_wxApp()
     argv = 0;
 }
 
-bool _wxApp::OnInit() 
+inline bool _wxApp::OnInit() 
 {
     return FALSE;
 }
 
-int _wxApp::MainLoop() {
+inline int _wxApp::MainLoop() {
     int retval = 0;
   
     DeletePendingObjects();
@@ -69,6 +70,20 @@ int _wxApp::MainLoop() {
     }
 
     return retval;
+}
+
+int _wxApp::OnExit()
+{
+    if( m_callback.FindCallback( "OnExit" ) )
+    {
+        SV* ret = m_callback.CallCallback( G_SCALAR );
+        int val = SvIV( ret );
+        SvREFCNT_dec( ret );
+
+        return val;
+    }
+    else
+        return wxApp::OnExit();
 }
 
 _IMPLEMENT_DYNAMIC_CLASS( _wxApp, wxApp );

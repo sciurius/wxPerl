@@ -56,7 +56,6 @@ MODULE=Wx PACKAGE=Wx::App
 
 #FIXME// unimplemented
 # virtual Wx_Log* Wx_App::CreateLogTarget()
-# virtual void OnExit()
 # virtual void OnFatalException()
 # bool SendIdleEvents( * )
 
