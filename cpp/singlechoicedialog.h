@@ -30,7 +30,8 @@ inline wxPliSingleChoiceDialog::wxPliSingleChoiceDialog
       int n, const wxString* choices, SV** clientdata, long style,
       const wxPoint& pos )
     :wxSingleChoiceDialog( parent, message, caption, n, choices,
-                           (char**)clientdata, style, pos )
+                           (char**)clientdata, style, pos ),
+    m_data(0)
 {
     if( clientdata )
     {
