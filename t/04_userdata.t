@@ -14,6 +14,7 @@ package DataFrame;
 
 use strict;
 use base 'Wx::Frame';
+use vars '$TODO';
 
 sub new {
   my $class = shift;
@@ -26,9 +27,13 @@ sub new {
   my $data = $trdata->GetData();
   main::is( $data, 'Frobnicate', "Wx::TreeItemData::GetData" );
   $data = $trdata->GetData();
-  main::is( $data, 'Frobnicate', "Wx::TreeItemData::GetData (again)" );
-  $data = $tree->GetPlData( $root );
-  main::is( $data, 'Frobnicate', "Wx::TreeCtrl::GetPlData" );
+ TODO: {
+    local $DataFrame::TODO = "Bug with Perl 5.004" if $] < 5.005;
+
+    main::is( $data, 'Frobnicate', "Wx::TreeItemData::GetData (again)" );
+    $data = $tree->GetPlData( $root );
+    main::is( $data, 'Frobnicate', "Wx::TreeCtrl::GetPlData" );
+  }
 
   $trdata = $tree->GetItemData( $root );
   $trdata->SetData( 'Baz' );
