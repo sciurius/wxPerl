@@ -17,8 +17,12 @@
 
 #include <wx/event.h>
 #include <wx/dc.h>
-//FIXME// only for wxUserData
-#include <wx/window.h>
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    #include <wx/clntdata.h>
+#else
+    // only for wxUserData
+    #include <wx/window.h>
+#endif
 #include <stdarg.h>
 
 #include "cpp/compat.h"
