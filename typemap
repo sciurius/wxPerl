@@ -392,6 +392,7 @@ Wx_PaintEvent *         O_WXOBJECT
 Wx_QueryLayoutInfo *    O_WXOBJECT
 Wx_SashEvent *          O_WXOBJECT
 Wx_SizeEvent *          O_WXOBJECT
+wxScrollEvent *         O_WXOBJECT
 Wx_ScrollWinEvent *     O_WXOBJECT
 Wx_SpinEvent *          O_WXOBJECT
 Wx_SplitterEvent *      O_WXOBJECT

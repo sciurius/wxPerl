@@ -586,6 +586,14 @@ Wx_SizeEvent::GetSize()
   OUTPUT:
     RETVAL
 
+MODULE=Wx_Evt PACKAGE=Wx::ScrollEvent
+
+int
+wxScrollEvent::GetOrientation()
+
+int
+wxScrollEvent::GetPosition()
+
 MODULE=Wx_Evt PACKAGE=Wx::ScrollWinEvent
 
 Wx_ScrollWinEvent*
