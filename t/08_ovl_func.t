@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 142;
+use Test::More 'tests' => 144;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -251,10 +251,15 @@ ok( $newfile, "Wx::Icon::newFile" );
 # Wx::ToolBar
 ##############################################################################
 {
-my( $addtoollong, $addtoolshort, $setmarginsxy, $setmarginssize ) =
-  ( 0, 0, 0, 0 );
+my( $addtoollong, $addtoolshort, $setmarginsxy, $setmarginssize,
+    $addnews, $addnewl ) =
+  ( 0, 0, 0, 0, 0, 0 );
 hijack( 'Wx::ToolBarBase::AddToolLong'    => sub { $addtoollong = 1 },
         'Wx::ToolBarBase::AddToolShort'   => sub { $addtoolshort = 1 },
+        ( Wx::wxVERSION >= 2.004 ?
+          ( 'Wx::ToolBarBase::AddToolNewShort'=> sub { $addnews = 1 },
+            'Wx::ToolBarBase::AddToolNewLong' => sub { $addnewl = 1 } ) :
+          () ),
         'Wx::ToolBarBase::SetMarginsXY'   => sub { $setmarginsxy = 1 },
         'Wx::ToolBarBase::SetMarginsSize' => sub { $setmarginssize = 1 } );
 
@@ -270,6 +275,17 @@ ok( $addtoollong, "Wx::ToolBar::AddToolLong" );
 
 $tbar->AddTool( -1, $bmpok, 'a', 'b' );
 ok( $addtoolshort, "Wx::ToolBar::AddToolShort" );
+
+SKIP: {
+  skip "Only for wxWindows 2.4", 2 unless Wx::wxVERSION >= 2.004;
+
+  $tbar->AddTool( -1, "boo", $bmpok, Wx::wxNullBitmap(), 0,
+                  'str', 'foo', 'data' );
+  ok( $addnewl, "Wx::ToolBar::AddToolNewLong" );
+
+  $tbar->AddTool( -1, "bar", $bmpok, 'a', 0 );
+  ok( $addnews, "Wx::ToolBar::AddToolNewShort" );
+}
 }
 
 ##############################################################################

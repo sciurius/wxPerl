@@ -209,12 +209,16 @@ Wx_ToolBarBase::AddTool( ... )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wbmp_wbmp_b_s_s_s,
                                       AddToolLong, 3 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wbmp_s_s, AddToolShort, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_s_wbmp_wbmp_n_s_s_s,
+                                      AddToolNewLong, 3 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_s_wbmp_s_n,
+                                      AddToolNewShort, 3 )
     END_OVERLOAD( Wx::ToolBarBase::AddTool )
 
-Wx_ToolBarToolBase*
-Wx_ToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+wxToolBarToolBase*
+wxToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     int toolId
-    Wx_Bitmap* bitmap1
+    wxBitmap* bitmap1
     wxString shortHelp
     wxString longHelp
   CODE:
@@ -222,13 +226,13 @@ Wx_ToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHe
   OUTPUT:
     RETVAL
 
-Wx_ToolBarToolBase*
-Wx_ToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+wxToolBarToolBase*
+wxToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     int toolId
-    Wx_Bitmap* bitmap1
-    Wx_Bitmap* bitmap2
+    wxBitmap* bitmap1
+    wxBitmap* bitmap2
     bool isToggle
-    Wx_UserDataO* clientData
+    wxPliUserDataO* clientData
     wxString shortHelp
     wxString longHelp
   CODE:
@@ -238,6 +242,38 @@ Wx_ToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap
       RETVAL->SetClientData( clientData );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 4, 0 )
+
+wxToolBarToolBase*
+wxToolBarBase::AddToolNewLong( toolId, label, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, kind = wxITEM_NORMAL, shortHelp = wxEmptyString, longHelp = wxEmptyString, clientData = 0 )
+    int toolId
+    wxString label
+    wxBitmap* bitmap1
+    wxBitmap* bitmap2
+    wxItemKind kind
+    wxString shortHelp
+    wxString longHelp
+    wxPliUserDataO* clientData
+  CODE:
+    RETVAL = THIS->AddTool( toolId, label, *bitmap1, *bitmap2, kind,
+                            shortHelp, longHelp );
+    if( clientData )
+        RETVAL->SetClientData( clientData );
+  OUTPUT: RETVAL
+
+wxToolBarToolBase*
+wxToolBarBase::AddToolNewShort( toolId, label, bitmap, shortHelp = wxEmptyString, kind = wxITEM_NORMAL )
+    int toolId
+    wxString label
+    wxBitmap* bitmap
+    wxString shortHelp
+    wxItemKind kind
+  CODE:
+    RETVAL = THIS->AddTool( toolId, label, *bitmap, shortHelp, kind );
+  OUTPUT: RETVAL
+
+#endif
 
 bool
 Wx_ToolBarBase::DeleteTool( toolId )
