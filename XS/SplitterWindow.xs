@@ -1,110 +1,67 @@
 #############################################################################
-## Name:        SplitterWindow.xs
+## Name:        XS/SplitterWindow.xs
 ## Purpose:     XS for Wx::SplitterWindow
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      2/12/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: SplitterWindow.xs,v 1.8 2003/05/27 20:10:29 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+%{
 #include <wx/splitter.h>
-#include "cpp/splitterwindow.h"
+%}
 
-MODULE=Wx_Evt PACKAGE=Wx::SplitterEvent
+%module{Wx};
 
-Wx_SplitterEvent*
-Wx_SplitterEvent::new( commandType = wxEVT_NULL, window = 0 )
-    wxEventType commandType
-    Wx_SplitterWindow* window
+%name{Wx::SplitterEvent} class wxSplitterEvent
+{
+    wxSplitterEvent( wxEventType type = wxEVT_NULL,
+                     wxSplitterWindow* window = NULL );
 
-int
-Wx_SplitterEvent::GetSashPosition()
+    int GetSashPosition();
+    int GetX();
+    int GetY();
+    wxWindow* GetWindowBeingRemoved();
+    void SetSashPosition( int pos );
+};
 
-int
-Wx_SplitterEvent::GetX()
+%{
+#define wxSplitterWindowNameStr wxT("splitter")
+%}
 
-int
-Wx_SplitterEvent::GetY()
+%name{Wx::SplitterWindow} class wxSplitterWindow
+{
+    wxSplitterWindow( wxWindow* parent, wxWindowID id = -1,
+                      const wxPoint& pos = wxDefaultPosition,
+                      const wxSize& size = wxDefaultSize,
+                      long style = wxSP_3D,
+                      wxString name = wxSplitterWindowNameStr )
+        %code{%    RETVAL = new wxSplitterWindow( parent, id, pos, size,
+                       style, name );
+                   wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
-Wx_Window*
-Wx_SplitterEvent::GetWindowBeingRemoved()
+    int GetMinimumPaneSize();
+    int GetSashPosition();
+    int GetSplitMode();
+    wxWindow* GetWindow1();
+    wxWindow* GetWindow2();
 
-void
-Wx_SplitterEvent::SetSashPosition( pos )
-    int pos
+    void Initialize( wxWindow* window );
 
+    bool IsSplit();
 
-MODULE=Wx PACKAGE=Wx::SplitterWindow
+    bool ReplaceWindow( wxWindow* winOld, wxWindow* winNew );
 
-Wx_SplitterWindow*
-Wx_SplitterWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_3D, name = wxT("splitterWindow") )
-    Wx_Window* parent
-    wxWindowID id
-    Wx_Point pos
-    Wx_Size size
-    long style
-    wxString name
-  CODE:
-    RETVAL = new wxPliSplitterWindow( CLASS, parent, id,
-        pos, size, style, name );
-  OUTPUT:
-    RETVAL
+    void SetSashPosition( int position, bool redraw = true );
+    void SetMinimumPaneSize( int paneSize );
+    void SetSplitMode( int mode );
 
-int
-Wx_SplitterWindow::GetMinimumPaneSize()
-
-int
-Wx_SplitterWindow::GetSashPosition()
-
-int
-Wx_SplitterWindow::GetSplitMode()
-
-Wx_Window*
-Wx_SplitterWindow::GetWindow1()
-
-Wx_Window*
-Wx_SplitterWindow::GetWindow2()
-
-void
-Wx_SplitterWindow::Initialize( window )
-    Wx_Window* window
-
-bool
-Wx_SplitterWindow::IsSplit()
-
-bool
-Wx_SplitterWindow::ReplaceWindow( winOld, winNew )
-    Wx_Window* winOld
-    Wx_Window* winNew
-
-void
-Wx_SplitterWindow::SetSashPosition( position, redraw = TRUE )
-    int position
-    bool redraw
-
-void
-Wx_SplitterWindow::SetMinimumPaneSize( paneSize )
-    int paneSize
-
-void
-Wx_SplitterWindow::SetSplitMode( mode )
-    int mode
-
-bool
-Wx_SplitterWindow::SplitHorizontally( window1, window2, sashPosition = 0 )
-    Wx_Window* window1
-    Wx_Window* window2
-    int sashPosition
-
-bool
-Wx_SplitterWindow::SplitVertically( window1, window2, sashPosition = 0 )
-    Wx_Window* window1
-    Wx_Window* window2
-    int sashPosition
-
-bool
-Wx_SplitterWindow::Unsplit( toRemove = 0 )
-    Wx_Window* toRemove
+    bool SplitHorizontally( wxWindow* window1, wxWindow* window2,
+                            int sashPosition = 0 );
+    bool SplitVertically( wxWindow* window1, wxWindow* window2,
+                          int sashPosition = 0 );
+    bool Unsplit( wxWindow* toRemove = NULL );
+};
