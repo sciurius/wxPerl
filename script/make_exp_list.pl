@@ -93,11 +93,12 @@ package ${package};
 
 push \@EXPORT_OK, qw(@{$packages{$package}{exp_ok}});
 
-\$EXPORT_TAGS{'everything'} = [ \@EXPORT_OK ];
+\$EXPORT_TAGS{'everything'} = \\\@EXPORT_OK;
 
 EOT
 
   foreach my $tag ( sort keys %{ $packages{$package}{tags} } ) {
+    next unless length $tag;
     print OUT <<EOT;
 \$EXPORT_TAGS{'$tag'} = [ qw(@{ $packages{$package}{tags}{$tag} }) ];
 EOT
