@@ -105,6 +105,10 @@ WXPLI_DECLARE_CLASS_8( TextCtrl, TRUE,
                        wxWindow*, wxWindowID, const wxString&,
                        const wxPoint&, const wxSize&, long,
                        const wxValidator&, const wxString& );
+WXPLI_DECLARE_CLASS_8( ToggleButton, TRUE,
+                       wxWindow*, wxWindowID, const wxString&,
+                       const wxPoint&, const wxSize&, long,
+                       const wxValidator&, const wxString& );
 
 class wxPliTreeCtrl:public wxTreeCtrl
 {
