@@ -259,6 +259,34 @@ SV* _make_object( wxObject* object, const char* classname )
     return sv_bless( ret, stash );
 }
 
+int _av_2_svarray( SV* avref, SV*** array )
+{
+    SV** arr;
+    int n, i;
+    AV* av;
+    SV* t;
+
+    if( !SvROK( avref ) || 
+        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
+    {
+        croak( "the value is not an array reference" );
+        return 0;
+    }
+    
+    n = av_len( av ) + 1;
+    arr = new SV*[ n ];
+
+    for( i = 0; i < n; ++i )
+    {
+        t = *av_fetch( av, i, 0 );
+        arr[i] = t;
+    }
+
+    *array = arr;
+
+    return n;
+}
+
 int _av_2_uchararray( SV* avref, unsigned char** array )
 {
     unsigned char* arr;

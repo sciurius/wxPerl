@@ -1,6 +1,6 @@
 #############################################################################
 ## Name:        Functions.pm
-## Purpose:     non-object functions
+## Purpose:     non-memeber functions
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
@@ -14,6 +14,23 @@ package Wx;
 
 use strict;
 use UNIVERSAL qw(isa);
+
+# easier to implement than to wrap
+sub GetMultipleChoices {
+  my( $message, $caption, $choices, $parent, $x, $y, $centre,
+      $width, $height ) = @_;
+
+  my( $dialog ) = Wx::MultiChoiceDialog->new
+    ( $parent, $message, $caption, $choices );
+
+ if( $dialog->ShowModal() == &Wx::wxID_OK ) {
+    my( @s ) = $dialog->GetSelection();
+    $dialog->Destroy();
+    return @s;
+ }
+
+  return;
+}
 
 sub LogStatus {
   my( $t );

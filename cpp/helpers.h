@@ -21,6 +21,8 @@ const char* _get_class( SV* ref );
 
 int _av_2_stringarray( SV* avref, wxString** array );
 int _av_2_uchararray( SV* avref, unsigned char** array );
+int _av_2_svarray( SV* avref, SV*** array );
+
 int _get_args_argc_argv( char*** argv );
 void _get_args_objectarray( SV** sp, int items, void** array, const char* package );
 
