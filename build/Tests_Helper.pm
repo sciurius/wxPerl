@@ -20,10 +20,12 @@ use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK);
 @ISA = qw(Exporter);
 
 @EXPORT_OK = qw(print_result test_inheritance test_inheritance_all
+                test_inheritance_start test_inheritance_end 
                 test_app test_frame);
 
 %EXPORT_TAGS =
-  ( inheritance => [ qw(test_inheritance test_inheritance_all) ],
+  ( inheritance => [ qw(test_inheritance test_inheritance_all
+                        test_inheritance_start test_inheritance_end) ],
   );
 
 sub test_app {
@@ -106,6 +108,31 @@ sub test_inheritance {
   return @results;
 }
 
+{
+  my %classes_skip;
+
+  sub test_inheritance_start {
+    foreach my $i ( keys %Wx:: ) {
+      next unless $i =~ m/^([^_].*)::$/;
+      $classes_skip{$1} = 1;
+    }
+  }
+
+  sub test_inheritance_end {
+    my @classes;
+
+    foreach my $i ( keys %Wx:: ) {
+      next unless $i =~ m/^([^_].*)::$/;
+      next if exists $classes_skip{$1};
+      push @classes, $1;
+    }
+
+    my @results = test_inheritance( @classes );
+
+    print_results( @results );
+  }
+}
+
 sub test_inheritance_all {
   my @classes;
 
@@ -120,7 +147,8 @@ sub test_inheritance_all {
 }
 
 sub print_results {
-  print "1.." . ( @_ + 0 ) . "\n";
+  print "1.." . ( @_ + 1 ) . "\n";
+  print "ok\n"; # dummy, to avoid 'all tests skipped'
   foreach my $i ( @_ ) { print( $i ? "ok\n" : "not ok\n" ) }
 }
 

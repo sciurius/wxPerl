@@ -3,7 +3,7 @@
 use Test;
 BEGIN { plan tests => 5 }
 
-use Wx::Perl::SplashFast '../../../demo/data/logo.jpg', 100;
+use Wx::Perl::SplashFast '../../../demo/data/logo.jpg', 400;
 
 package myApp;
 

@@ -2,12 +2,12 @@
 
 use strict;
 use Wx;
-use Wx::MDI;
-
 use lib "../../build";
 use Tests_Helper qw(:inheritance);
 
-test_inheritance_all();
+BEGIN { test_inheritance_start() }
+use Wx::MDI;
+test_inheritance_end();
 
 exit 0;
 

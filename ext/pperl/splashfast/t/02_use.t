@@ -3,7 +3,7 @@
 use Test;
 BEGIN { plan tests => 1 }
 
-use Wx::Perl::SplashFast '../../../demo/data/logo.jpg', 100;
+use Wx::Perl::SplashFast '../../../demo/data/logo.jpg', 400;
 use Wx 'wxTheApp';
 
 ok( 1 );

@@ -6,7 +6,7 @@ BEGIN { plan tests => 2 }
 use Wx::Perl::SplashFast;
 
 BEGIN {
-  my $splash = Wx::Perl::SplashFast->new( '../../../demo/data/logo.jpg', 100 );
+  my $splash = Wx::Perl::SplashFast->new( '../../../demo/data/logo.jpg', 400 );
   ok( defined $splash && ref $splash );
 }
 
