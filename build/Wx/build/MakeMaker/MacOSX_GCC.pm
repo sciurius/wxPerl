@@ -35,7 +35,7 @@ $(INST_BIN)/wxPerl :
 	`wx-config --rezflags` $(INST_BIN)/wxPerl
 
 install_wxperl :
-	ditto -rsrcFork $(INST_BIN)/wxPerl $(INSTALLBIN)
+	ditto -rsrcFork $(INST_BIN)/wxPerl $(DESTINSTALLBIN)
 
 EOT
 
