@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.115 2005/02/26 10:42:18 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.116 2005/03/17 21:19:00 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -125,10 +125,37 @@ static wxPlEVT evts[] =
     SEVT( EVT_WIZARD_PAGE_CHANGING, 3 )
     SEVT( EVT_WIZARD_CANCEL, 3 )
     SEVT( EVT_WIZARD_HELP, 3 )
+    SEVT( EVT_CHILD_FOCUS, 2 )
     { 0, 0, 0 }
 };
 
 #include "cpp/e_cback.h"
+
+// THIS, function
+XS(Connect2);
+XS(Connect2)
+{
+    dXSARGS;
+    assert( items == 2 );
+    SV* THISs = ST(0);
+    wxEvtHandler *THISo =
+        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
+    SV* func = ST(1);
+    I32 evtID = CvXSUBANY(cv).any_i32;
+
+    if( SvOK( func ) )
+    {
+        THISo->Connect( -1, -1, evtID,
+                        wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
+                        new wxPliEventCallback( func, THISs ) );
+    }
+    else
+    {
+        THISo->Disconnect( -1, -1, evtID,
+                           wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
+                           0 );
+    }
+}
 
 // THIS, ID, function
 XS(Connect3);
@@ -168,6 +195,10 @@ void CreateEventMacro( const char* name, unsigned char args, int id )
 
     switch( args )
     {
+    case 2:
+        cv = (CV*)newXS( buffer, Connect2, "Constants.xs" );
+        sv_setpv((SV*)cv, "$$");
+        break;
     case 3:
         cv = (CV*)newXS( buffer, Connect3, "Constants.xs" );
         sv_setpv((SV*)cv, "$$$");
@@ -766,6 +797,7 @@ static double constant( const char *name, int arg )
 
     r( wxEVT_CHAR );
     r( wxEVT_CHAR_HOOK );
+    r( wxEVT_CHILD_FOCUS );
     r( wxEVT_NAVIGATION_KEY );
     r( wxEVT_KEY_DOWN );
     r( wxEVT_KEY_UP );
