@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.54 2003/05/26 20:33:05 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.55 2003/06/04 20:48:20 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -24,6 +24,7 @@ class WXDLLEXPORT wxEvtHandler;
 class WXDLLEXPORT wxClientDataContainer;
 typedef wxInputStream Wx_InputStream;
 typedef wxOutputStream Wx_OutputStream;
+typedef const char* PlClassName; // for typemap
 
 #include <stdarg.h>
 
@@ -213,9 +214,10 @@ SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
 bool wxPli_match_arguments( pTHX_ const unsigned char prototype[],
                             size_t nproto, int required = -1,
                             bool allow_more = FALSE );
-bool wxPli_match_arguments_skipfirst(  pTHX_ const unsigned char prototype[],
-                                       size_t nproto, int required = -1,
-                                       bool allow_more = FALSE );
+bool FUNCPTR( wxPli_match_arguments_skipfirst )( pTHX_ const unsigned char p[],
+                                                 size_t nproto,
+                                                 int required = -1,
+                                                 bool allow_more = FALSE );
 
 #define WXPLI_BOOT_ONCE_( name, xs ) \
 extern "C" XS(wxPli_boot_##name); \
@@ -273,6 +275,10 @@ struct wxPliHelpers
     void* ( * m_wxPli_detach_object )( pTHX_ SV* object );
     SV* ( * m_wxPli_create_evthandler )( pTHX_ wxEvtHandler* object,
                                          const char* cln );
+    bool (* m_wxPli_match_arguments_skipfirst )( pTHX_ const unsigned char p[],
+                                                 size_t nproto,
+                                                 int required = -1,
+                                                 bool allow_more = FALSE );
 };
 
 #define DEFINE_PLI_HELPERS( name ) \
@@ -286,7 +292,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_object_is_deleteable, &wxPli_object_set_deleteable, &wxPli_get_class, \
  &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor, \
  &wxPli_cpp_class_2_perl, &wxPli_push_arguments, &wxPli_attach_object, \
- &wxPli_detach_object, &wxPli_create_evthandler } \
+ &wxPli_detach_object, &wxPli_create_evthandler, \
+ &wxPli_match_arguments_skipfirst }
 
 #if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
 
@@ -318,6 +325,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_attach_object = name->m_wxPli_attach_object; \
   wxPli_detach_object = name->m_wxPli_detach_object; \
   wxPli_create_evthandler = name->m_wxPli_create_evthandler; \
+  wxPli_match_arguments_skipfirst = name->m_wxPli_match_arguments_skipfirst; \
 
 #else
 
