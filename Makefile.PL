@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:      1/10/2000
 ## RCS-ID:      
-## Copyright:   (c) 2000 Mattia Barbon
+## Copyright:   (c) 2000-2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -148,7 +148,7 @@ sub configure_win32_msvc {
                     depend =>
                     { 'Wx.res' => 'Wx.rc ',
                     },
-                    clean => { FILES => '*.pdb *.res Wx_def.old', },
+                    clean => { FILES => '*.pdb *.res Wx_def.old ' },
                     LDFROM => '$(OBJECT) Wx.res',
                     LIBS => $extra_libs . ' ',
                     dynamic_lib => { INST_DYNAMIC_DEP => 'Wx.res', },
@@ -239,12 +239,12 @@ use strict;
 use Config;
 
 #
-# portable paths for lib/Wx/_Exp.pm and lib/Wx/Event.pm
+# portable paths for blib/lib/Wx/_Exp.pm and lib/Wx/Event.pm
 #
 
 my( $exp, $evt, $cst );
 sub BEGIN {
-  $exp = File::Spec->catfile( 'lib', 'Wx', '_Exp.pm' );
+  $exp = File::Spec->catfile( 'blib', 'lib', 'Wx', '_Exp.pm' );
   $evt = File::Spec->catfile( 'lib', 'Wx', 'Event.pm' );
   $cst = File::Spec->catfile( 'lib', 'Wx', '_Constants.pm' );
 }
@@ -253,7 +253,6 @@ sub depend {
   my( $this ) = shift;
 
   my( %depend ) = ( xs_depend( $this ),
-                    'pm_to_blib' => $exp,
                     $exp => join( ' ', 'Constant.xs' , $evt, $cst ),
                     );
   my( %this_depend ) = @_;
@@ -383,7 +382,7 @@ sub xs_depend {
 
   $depend{ File::Spec->catfile( 'blib', 'arch', 'auto', 'Wx',
                                 'Wx.' . $Config{dlext} ) }
-    .= join(' ', obj_from_src( @main::top_level_xs ) );
+    .= join(' ', obj_from_src( @main::top_level_xs ), $exp );
 
   %depend;
 }
