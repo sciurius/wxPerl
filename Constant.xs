@@ -410,8 +410,8 @@ static double constant( const char *name, int arg )
 
     r( wxEVT_END_PROCESS );
 
-    r( wxEVT_DIALUP_CONNECTED );
-    r( wxEVT_DIALUP_DISCONNECTED );
+    //r( wxEVT_DIALUP_CONNECTED );
+    //r( wxEVT_DIALUP_DISCONNECTED );
 
     r( wxEVT_COMMAND_LEFT_CLICK );
     r( wxEVT_COMMAND_LEFT_DCLICK );
