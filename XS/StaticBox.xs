@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/statbox.h>
+
 MODULE=Wx PACKAGE=Wx::StaticBox
 
 Wx_StaticBox*

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/imaglist.h>
+
 MODULE=Wx PACKAGE=Wx::ImageList
 
 Wx_ImageList*

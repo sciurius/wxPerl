@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/cursor.h>
+
 MODULE=Wx PACKAGE=Wx::Cursor
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )

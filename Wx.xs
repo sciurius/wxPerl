@@ -14,21 +14,11 @@
 
 #include <wx/defs.h>
 
-#include <wx/app.h>
 #include <wx/window.h>
-#include <wx/menu.h>
-#include <wx/icon.h>
-#include <wx/caret.h>
-#include <wx/timer.h>
 
-#include <wx/button.h>
-
-#include <wx/log.h>
-#include <wx/tooltip.h>
-#include <wx/intl.h>
 #include <wx/module.h>
-#include <wx/busyinfo.h>
-#include <wx/settings.h>
+
+#undef _
 
 #if __WXMSW__
 #include <wx/msw/private.h>
@@ -36,14 +26,14 @@
 
 #include <stdarg.h>
 
-#undef _
-
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>
 #undef bool
 #undef Move
 #undef Copy
+#undef Pause
+#undef New
 
 int  WXDLLEXPORT wxEntryStart( int argc, char** argv );
 int  WXDLLEXPORT wxEntryInitGui();
@@ -67,15 +57,11 @@ void WXDLLEXPORT wxEntryCleanup();
 #include "cpp/helpers.cpp"
 #include "cpp/v_cback.cpp"
 
-#include "cpp/app.h"
-#include "cpp/button.h"
-
 #undef THIS
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-    XS( boot_Wx_Func );
     XS( boot_Wx_Const );
     XS( boot_Wx_Ctrl );
     XS( boot_Wx_Evt );
@@ -136,7 +122,6 @@ void wxEntryCleanup()
 MODULE=Wx PACKAGE=Wx
 
 BOOT:
-  newXSproto( "Wx::_boot_Functions", boot_Wx_Func, file, "$$" );
   newXSproto( "Wx::_boot_Constant", boot_Wx_Const, file, "$$" );
   newXSproto( "Wx::_boot_Controls", boot_Wx_Ctrl, file, "$$" );
   newXSproto( "Wx::_boot_Events", boot_Wx_Evt, file, "$$" );
@@ -193,8 +178,6 @@ INCLUDE: XS/Log.xs
 INCLUDE: XS/ToolTip.xs
 INCLUDE: XS/Locale.xs
 INCLUDE: XS/Utils.xs
-
-#include "cpp/timer.h"
 INCLUDE: XS/Timer.xs
 
 # this is here for debugging purpouses

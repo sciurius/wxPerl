@@ -10,6 +10,9 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/app.h>
+#include "cpp/app.h"
+
 MODULE=Wx PACKAGE=Wx::_App
 
 void

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/brush.h>
+
 MODULE=Wx PACKAGE=Wx::Brush
 
 Wx_Brush*

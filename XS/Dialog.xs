@@ -10,6 +10,10 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/dialog.h>
+#include <wx/button.h>
+#include "cpp/dialog.h"
+
 MODULE=Wx PACKAGE=Wx::Dialog
 
 Wx_Dialog*

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/colordlg.h>
+
 MODULE=Wx PACKAGE=Wx::ColourDialog
 
 Wx_ColourDialog*
@@ -69,3 +71,14 @@ Wx_ColourData::SetCustomColour( i, colour )
     Wx_Colour* colour
   CODE:
     THIS->SetCustomColour( i, *colour );
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+Wx_Colour*
+wxGetColourFromUser( parent, colInit = (wxColour*)&wxNullColour )
+    Wx_Window* parent
+    Wx_Colour* colInit
+  CODE:
+    RETVAL = new wxColour( wxGetColourFromUser( parent, *colInit ) );
+  OUTPUT:
+    RETVAL

@@ -10,9 +10,12 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/busyinfo.h>
+#include <wx/settings.h>
+
 MODULE=Wx PACKAGE=Wx::CaretSuspend
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 Wx_CaretSuspend*
 Wx_CaretSuspend::new( window )

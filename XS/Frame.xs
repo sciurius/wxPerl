@@ -10,6 +10,12 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/frame.h>
+#include <wx/minifram.h>
+#include <wx/menu.h>
+
+#include "cpp/frame.h"
+
 MODULE=Wx PACKAGE=Wx::Frame
 
 Wx_Frame*

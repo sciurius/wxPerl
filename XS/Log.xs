@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/log.h>
+
 MODULE=Wx PACKAGE=Wx::Log
 
 void
@@ -116,6 +118,72 @@ Wx_LogWindow::new( parent, title, show = TRUE, passtoold = TRUE )
     wxString title
     bool show
     bool passtoold
+
+MODULE=Wx PACKAGE=Wx
+
+void
+wxLogError( string )
+    const char* string
+
+void
+wxLogFatalError( string )
+    const char* string
+
+void
+wxLogWarning( string )
+    const char* string
+
+void
+wxLogMessage( string )
+    const char* string
+
+void
+wxLogVerbose( string )
+    const char* string
+
+void
+wxLogSysError( string )
+    const char* string
+
+void
+wxLogDebug( string )
+    const char* string
+
+void
+wxLogStatusFrame( frame, string )
+    Wx_Frame* frame
+    const char* string
+  CODE:
+    wxLogStatus( frame, string );
+
+void
+wxLogStatus( string )
+    const char* string
+  CODE:
+    ::wxLogStatus( string );
+
+void
+wxLogTrace( string )
+    const char* string
+  CODE:
+    ::wxLogTrace( string );
+
+void
+wxLogTraceMask( mask, string )
+    const char* mask
+    const char* string
+  CODE:
+    ::wxLogTrace( mask, string );
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+unsigned long
+wxSysErrorCode()
+
+const char*
+wxSysErrorMsg( errCode = 0 )
+    unsigned long errCode
+
 
 
 

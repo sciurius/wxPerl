@@ -13,18 +13,6 @@
 #undef bool
 
 #include <wx/defs.h>
-
-#include <wx/imaglist.h>
-#include <wx/image.h>
-#include <wx/icon.h>
-#include <wx/bitmap.h>
-#include <wx/cursor.h>
-#include <wx/dc.h>
-#include <wx/palette.h>
-#include <wx/dcmemory.h>
-#include <wx/dcclient.h>
-#include <wx/dcscreen.h>
-
 #include <stdarg.h>
 
 #undef _
@@ -35,6 +23,8 @@
 #undef bool
 #undef Move
 #undef Copy
+#undef New
+#undef Pause
 
 #if __VISUALC__
 #pragma warning (disable: 4800 )

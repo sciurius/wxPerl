@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/pen.h>
+
 MODULE=Wx PACKAGE=Wx::Pen
 
 Wx_Pen*

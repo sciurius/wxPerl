@@ -89,7 +89,7 @@ void
 Wx_Slider::SetPageSize( pageSize )
     int pageSize
 
-#if 0
+#if defined( __WXPERL_FORCE__ )
 
 void
 Wx_Slider::StartSelection( startPos, endPos )
@@ -106,7 +106,7 @@ Wx_Slider::SetThumbLength( len )
 
 #endif
 
-#if 0
+#if defined( __WXPERL_FORCE__ )
 
 void
 Wx_Slider::SetThick( pos )

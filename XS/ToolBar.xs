@@ -10,6 +10,9 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/toolbar.h>
+#include <wx/tbarsmpl.h>
+
 MODULE=Wx PACKAGE=Wx::ToolBarToolBase
 
 void

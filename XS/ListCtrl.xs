@@ -10,6 +10,54 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/listctrl.h>
+
+MODULE=Wx_Evt PACKAGE=Wx::ListEvent
+
+int
+Wx_ListEvent::GetCode()
+
+long
+Wx_ListEvent::GetIndex()
+
+long
+Wx_ListEvent::GetOldIndex()
+
+int
+Wx_ListEvent::GetColumn()
+
+bool
+Wx_ListEvent::Cancelled()
+
+Wx_Point*
+Wx_ListEvent::GetPoint()
+  CODE:
+    RETVAL = new wxPoint( THIS->GetPoint() );
+  OUTPUT:
+    RETVAL
+
+wxString
+Wx_ListEvent::GetLabel()
+
+wxString
+Wx_ListEvent::GetText()
+
+int
+Wx_ListEvent::GetImage()
+
+long
+Wx_ListEvent::GetData()
+
+long
+Wx_ListEvent::GetMask()
+
+Wx_ListItem*
+Wx_ListEvent::GetItem()
+  CODE:
+    RETVAL = new wxListItem( THIS->GetItem() );
+  OUTPUT:
+    RETVAL
+
 MODULE=Wx PACKAGE=Wx::ListItem
 
 Wx_ListItem*

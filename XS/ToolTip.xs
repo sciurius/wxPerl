@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/tooltip.h>
+
 MODULE=Wx PACKAGE=Wx::ToolTip
 
 #if !defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )

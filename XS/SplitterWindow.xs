@@ -10,6 +10,28 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/splitter.h>
+#include "cpp/splitterwindow.h"
+
+MODULE=Wx_Evt PACKAGE=Wx::SplitterEvent
+
+int
+Wx_SplitterEvent::GetSashPosition()
+
+int
+Wx_SplitterEvent::GetX()
+
+int
+Wx_SplitterEvent::GetY()
+
+Wx_Window*
+Wx_SplitterEvent::GetWindowBeingRemoved()
+
+void
+Wx_SplitterEvent::SetSashPosition( pos )
+    int pos
+
+
 MODULE=Wx PACKAGE=Wx::SplitterWindow
 
 Wx_SplitterWindow*

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/msgdlg.h>
+
 MODULE=Wx PACKAGE=Wx::MessageDialog
 
 Wx_MessageDialog*
@@ -22,3 +24,16 @@ Wx_MessageDialog::new( parent, message, caption = wxMessageBoxCaptionStr, style 
 
 int
 Wx_MessageDialog::ShowModal()
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+int
+wxMessageBox( message, caption = "Message", style = wxOK|wxCENTRE, parent = 0, x = -1, y = -1 )
+    wxString message
+    wxString caption
+    int style
+    Wx_Window* parent
+    int x
+    int y
+
+

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/bitmap.h>
+
 MODULE=Wx PACKAGE=Wx::Mask
 
 Wx_Mask*

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/palette.h>
+
 MODULE=Wx PACKAGE=Wx::Palette
 
 Wx_Palette*

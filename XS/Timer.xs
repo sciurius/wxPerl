@@ -11,6 +11,12 @@
 #############################################################################
 
 #include <wx/timer.h>
+#include "cpp/timer.h"
+
+MODULE=Wx PACKAGE=Wx::TimerEvent
+
+int
+Wx_TimerEvent::GetInterval()
 
 MODULE=Wx PACKAGE=Wx::Timer
 

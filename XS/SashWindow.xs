@@ -10,6 +10,24 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/sashwin.h>
+#include "cpp/sashwindow.h"
+
+MODULE=Wx_Evt PACKAGE=Wx::SashEvent
+
+wxSashEdgePosition
+Wx_SashEvent::GetEdge()
+
+Wx_Rect*
+Wx_SashEvent::GetDragRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetDragRect() );
+  OUTPUT:
+    RETVAL
+
+wxSashDragStatus
+Wx_SashEvent::GetDragStatus()
+
 MODULE=Wx PACKAGE=Wx::SashWindow
 
 Wx_SashWindow*

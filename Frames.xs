@@ -13,26 +13,6 @@
 #undef bool
 
 #include <wx/defs.h>
-
-#include <wx/window.h>
-#include <wx/frame.h>
-#include <wx/panel.h>
-#include <wx/dialog.h>
-#include <wx/button.h>
-#include <wx/toolbar.h>
-#include <wx/tbarsmpl.h>
-#include <wx/statusbr.h>
-#include <wx/minifram.h>
-#include <wx/menu.h>
-
-#include <wx/colordlg.h>
-#include <wx/filedlg.h>
-#include <wx/dirdlg.h>
-#include <wx/choicdlg.h>
-#include <wx/textdlg.h>
-#include <wx/msgdlg.h>
-#include <wx/progdlg.h>
-
 #include <stdarg.h>
 
 #undef _
@@ -43,6 +23,8 @@
 #undef bool
 #undef Move
 #undef Copy
+#undef New
+#undef Pause
 
 #if __VISUALC__
 #pragma warning (disable: 4800 )
@@ -57,12 +39,6 @@
 #include "cpp/helpers.h"
 
 #include "cpp/v_cback.h"
-
-#include "cpp/panel.h"
-#include "cpp/dialog.h"
-#include "cpp/frame.h"
-
-#include "cpp/singlechoicedialog.h"
 
 #undef THIS
 

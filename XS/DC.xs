@@ -10,6 +10,11 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/dc.h>
+#include <wx/dcmemory.h>
+#include <wx/dcclient.h>
+#include <wx/dcscreen.h>
+
 MODULE=Wx PACKAGE=Wx::DC
 
 void
@@ -139,7 +144,7 @@ Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
     THIS->DrawLines( &points, xoffset, yoffset );
     delete [] pts;
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_DC::DrawObject( object )

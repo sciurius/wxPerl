@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/accel.h>
+
 MODULE=Wx PACKAGE=Wx::AcceleratorEntry
 
 Wx_AcceleratorEntry*

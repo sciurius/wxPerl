@@ -10,6 +10,11 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/sizer.h>
+#include <wx/statbox.h>
+#include <wx/notebook.h>
+#include "cpp/sizer.h"
+
 MODULE=Wx PACKAGE=Wx::Sizer
 
 void

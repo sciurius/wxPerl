@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/caret.h>
+
 MODULE=Wx PACKAGE=Wx::Caret
 
 Wx_Caret*

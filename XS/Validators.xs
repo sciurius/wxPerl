@@ -10,6 +10,10 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/validate.h>
+#include "cpp/validators.h"
+#include "cpp/validators.cpp"
+
 MODULE=Wx PACKAGE=Wx::Validator
 
 Wx_Validator*

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/image.h>
+
 MODULE=Wx PACKAGE=Wx::Image
 
 Wx_Image*
@@ -31,7 +33,12 @@ Wx_Image*
 newIcon( icon )
     Wx_Icon* icon
   CODE:
-    RETVAL = new wxImage( *icon );
+#if defined( __WXMSW__ )
+    RETVAL = new wxImage( wxBitmap( *icon ) );
+#else
+    //FIXME// it compiles: does it work, too?
+    RETVAL = new wxImage( (wxBitmap&) *icon );
+#endif
   OUTPUT:
     RETVAL
 
@@ -406,3 +413,10 @@ MODULE=Wx PACKAGE=Wx::TIFFHandler
 
 Wx_TIFFHandler*
 Wx_TIFFHandler::new()
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+void
+wxInitAllImageHandlers()
+
+

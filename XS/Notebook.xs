@@ -10,6 +10,24 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/notebook.h>
+
+MODULE=Wx_Evt PACKAGE=Wx::NotebookEvent
+
+int
+Wx_NotebookEvent::GetOldSelection()
+
+int
+Wx_NotebookEvent::GetSelection()
+
+void
+Wx_NotebookEvent::SetOldSelection( sel )
+    int sel
+
+void
+Wx_NotebookEvent::SetSelection( oldSel )
+    int oldSel
+
 MODULE=Wx PACKAGE=Wx::Notebook
 
 Wx_Notebook*
@@ -83,7 +101,8 @@ void
 Wx_Notebook::SetImageList( imagelist )
     Wx_ImageList* imagelist
 
-#if !defined( __WXMOTIF__ ) && !defined( __WXGTK__ ) || defined( __WXPERL_FORCE__ )
+#if !defined( __WXMOTIF__ ) && !defined( __WXGTK__ ) || \
+  defined( __WXPERL_FORCE__ )
 
 void
 Wx_Notebook::SetPadding( padding )

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/statusbr.h>
+
 MODULE=Wx PACKAGE=Wx::StatusBar
 
 Wx_StatusBar*

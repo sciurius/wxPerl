@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/dirdlg.h>
+
 MODULE=Wx PACKAGE=Wx::DirDialog
 
 Wx_DirDialog*

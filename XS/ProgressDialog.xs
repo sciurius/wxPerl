@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/progdlg.h>
+
 MODULE=Wx PACKAGE=Wx::ProgressDialog
 
 Wx_ProgressDialog*

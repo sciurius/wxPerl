@@ -10,6 +10,10 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/scrolwin.h>
+#include <wx/dc.h>
+#include "cpp/scrolledwindow.h"
+
 MODULE=Wx PACKAGE=Wx::ScrolledWindow
 
 Wx_ScrolledWindow*

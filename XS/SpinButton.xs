@@ -10,6 +10,22 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/spinctrl.h>
+
+MODULE=Wx_Evt PACKAGE=Wx::SpinEvent
+
+# Wx_SpinEvent*
+# Wx_SpinEvent::new( commandType = wxEVT_NULL, id = 0 )
+#     wxEventType commandType
+#     int id
+
+int
+Wx_SpinEvent::GetPosition()
+
+void
+Wx_SpinEvent::SetPosition( pos )
+    int pos
+
 MODULE=Wx PACKAGE=Wx::SpinButton
 
 Wx_SpinButton*

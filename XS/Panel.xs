@@ -10,6 +10,9 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/panel.h>
+#include "cpp/panel.h"
+
 MODULE=Wx PACKAGE=Wx::Panel
 
 Wx_Panel*

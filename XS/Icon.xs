@@ -10,7 +10,9 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-MODULE=Wx_Func PACKAGE=Wx
+#include <wx/icon.h>
+
+MODULE=Wx PACKAGE=Wx
 
 #if !defined( __WXMSW__ )
 #include "wxpl.xpm"

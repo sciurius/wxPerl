@@ -10,6 +10,12 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#undef _
+
+#include <wx/intl.h>
+
+#undef _
+
 MODULE=Wx PACKAGE=Wx::Locale
 
 Wx_Locale*
@@ -25,7 +31,7 @@ newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FAL
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 Wx_Locale*
 newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
@@ -60,7 +66,7 @@ Wx_Locale::GetString( string, domain = 0 )
     const char* string
     const char* domain
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 int
 Wx_Locale::GetSystemLanguage()
@@ -82,3 +88,9 @@ Wx_Locale::IsLoaded( domain )
 
 bool
 Wx_Locale::IsOk()
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+const char*
+wxGetTranslation( string )
+    const char* string

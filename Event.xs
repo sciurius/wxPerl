@@ -15,14 +15,9 @@
 #include <wx/defs.h>
 
 #include <wx/event.h>
-#include <wx/notebook.h>
-#include <wx/spinctrl.h>
-#include <wx/sashwin.h>
 #include <wx/dc.h>
-#include <wx/splitter.h>
-#include <wx/textctrl.h>
-#include <wx/listctrl.h>
-#include <wx/timer.h>
+//FIXME// only for wxUserData
+#include <wx/window.h>
 #include <stdarg.h>
 
 #undef _
@@ -364,52 +359,6 @@ Wx_JoystickEvent::IsMove()
 bool
 Wx_JoystickEvent::IsZMove()
 
-MODULE=Wx_Evt PACKAGE=Wx::ListEvent
-
-int
-Wx_ListEvent::GetCode()
-
-long
-Wx_ListEvent::GetIndex()
-
-long
-Wx_ListEvent::GetOldIndex()
-
-int
-Wx_ListEvent::GetColumn()
-
-bool
-Wx_ListEvent::Cancelled()
-
-Wx_Point*
-Wx_ListEvent::GetPoint()
-  CODE:
-    RETVAL = new wxPoint( THIS->GetPoint() );
-  OUTPUT:
-    RETVAL
-
-wxString
-Wx_ListEvent::GetLabel()
-
-wxString
-Wx_ListEvent::GetText()
-
-int
-Wx_ListEvent::GetImage()
-
-long
-Wx_ListEvent::GetData()
-
-long
-Wx_ListEvent::GetMask()
-
-Wx_ListItem*
-Wx_ListEvent::GetItem()
-  CODE:
-    RETVAL = new wxListItem( THIS->GetItem() );
-  OUTPUT:
-    RETVAL
-
 MODULE=Wx_Evt PACKAGE=Wx::MenuEvent
 
 # Wx_MenuEvent*
@@ -551,22 +500,6 @@ Wx_MoveEvent::GetPosition()
   OUTPUT:
     RETVAL
 
-MODULE=Wx_Evt PACKAGE=Wx::NotebookEvent
-
-int
-Wx_NotebookEvent::GetOldSelection()
-
-int
-Wx_NotebookEvent::GetSelection()
-
-void
-Wx_NotebookEvent::SetOldSelection( sel )
-    int sel
-
-void
-Wx_NotebookEvent::SetSelection( oldSel )
-    int oldSel
-
 MODULE=Wx_Evt PACKAGE=Wx::NotifyEvent
 
 bool
@@ -583,21 +516,6 @@ MODULE=Wx_Evt PACKAGE=Wx::PaintEvent
 # Wx_PaintEvent*
 # Wx_PaintEvent::new( id = 0 )
 #     int id
-
-MODULE=Wx_Evt PACKAGE=Wx::SashEvent
-
-wxSashEdgePosition
-Wx_SashEvent::GetEdge()
-
-Wx_Rect*
-Wx_SashEvent::GetDragRect()
-  CODE:
-    RETVAL = new wxRect( THIS->GetDragRect() );
-  OUTPUT:
-    RETVAL
-
-wxSashDragStatus
-Wx_SashEvent::GetDragStatus()
 
 MODULE=Wx_Evt PACKAGE=Wx::SizeEvent
 
@@ -617,39 +535,6 @@ Wx_SizeEvent::GetSize()
   OUTPUT:
     RETVAL
 
-MODULE=Wx_Evt PACKAGE=Wx::SpinEvent
-
-# Wx_SpinEvent*
-# Wx_SpinEvent::new( commandType = wxEVT_NULL, id = 0 )
-#     wxEventType commandType
-#     int id
-
-int
-Wx_SpinEvent::GetPosition()
-
-void
-Wx_SpinEvent::SetPosition( pos )
-    int pos
-
-MODULE=Wx_Evt PACKAGE=Wx::SplitterEvent
-
-int
-Wx_SplitterEvent::GetSashPosition()
-
-int
-Wx_SplitterEvent::GetX()
-
-int
-Wx_SplitterEvent::GetY()
-
-Wx_Window*
-Wx_SplitterEvent::GetWindowBeingRemoved()
-
-void
-Wx_SplitterEvent::SetSashPosition( pos )
-    int pos
-
-
 MODULE=Wx_Evt PACKAGE=Wx::ScrollWinEvent
 
 # Wx_ScrollWinEvent*
@@ -668,11 +553,6 @@ MODULE=Wx_Evt PACKAGE=Wx::SysColourChangedEvent
 
 # Wx_SysColourChangedEvent*
 # Wx_SysColourChangedEvent::new()
-
-MODULE=Wx_Evt PACKAGE=Wx::TimerEvent
-
-int
-Wx_TimerEvent::GetInterval()
 
 MODULE=Wx_Evt PACKAGE=Wx::UpdateUIEvent
 

@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/filedlg.h>
+
 MODULE=Wx PACKAGE=Wx::FileDialog
 
 Wx_FileDialog*
@@ -103,3 +105,18 @@ Wx_FileDialog::SetWildcard( wildcard )
 
 int
 Wx_FileDialog::ShowModal()
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+wxString
+wxFileSelector( message, default_path = wxEmptyString, default_filename = wxEmptyString, default_extension = wxEmptyString, wildcard = "*.*", flags = 0, parent = 0, x = -1, y = -1 )
+    wxString message
+    wxString default_path
+    wxString default_filename
+    wxString default_extension
+    wxString wildcard
+    int flags
+    Wx_Window* parent
+    int x
+    int y
+

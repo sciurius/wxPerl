@@ -15,17 +15,8 @@
 #include <wx/defs.h>
 
 #include <wx/window.h>
-#include <wx/accel.h>
-#include <wx/layout.h>
-#include <wx/sizer.h>
 #include <wx/tooltip.h>
-#include <wx/splitter.h>
-#include <wx/scrolwin.h>
-#include <wx/statbox.h>
-#include <wx/notebook.h>
-#include <wx/validate.h>
-#include <wx/sashwin.h>
-#include <wx/dc.h>
+#include <wx/layout.h>
 #include <stdarg.h>
 
 #undef _
@@ -36,6 +27,8 @@
 #undef bool
 #undef Move
 #undef Copy
+#undef Pause
+#undef New
 
 #undef THIS
 
@@ -54,13 +47,6 @@
 #include "cpp/v_cback.h"
 
 #include "cpp/window.h"
-#include "cpp/validators.h"
-#include "cpp/sizer.h"
-#include "cpp/scrolledwindow.h"
-#include "cpp/splitterwindow.h"
-#include "cpp/sashwindow.h"
-
-#include "cpp/validators.cpp"
 
 MODULE=Wx_Win PACKAGE=Wx::Window
 
@@ -152,7 +138,7 @@ Wx_Window::ConvertPixelsSizeToDialog( size )
 bool
 Wx_Window::Destroy()
 
-#if __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Window::DragAcceptFiles( accept )
@@ -277,7 +263,7 @@ Wx_Window::GetHandle()
 
 #endif // __WXMSW__
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 wxString
 Wx_Window::GetHelpText()
@@ -586,7 +572,7 @@ Wx_Window::SetForegroundColour( colour )
   CODE:
     THIS->SetForegroundColour( *colour );
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Window::SetHelpText( text )

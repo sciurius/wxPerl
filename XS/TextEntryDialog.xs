@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/textdlg.h>
+
 MODULE=Wx PACKAGE=Wx::TextEntryDialog
 
 Wx_TextEntryDialog*
@@ -30,3 +32,41 @@ Wx_TextEntryDialog::SetValue( string )
 
 int
 Wx_TextEntryDialog::ShowModal()
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+long
+wxGetNumberFromUser( message, prompt, caption, value, min = 0, max = 100, parent = 0, pos = wxDefaultPosition )
+    wxString message
+    wxString prompt
+    wxString caption
+    long value
+    long min
+    long max
+    Wx_Window* parent
+    Wx_Point pos
+  CODE:
+    RETVAL = wxGetNumberFromUser( message, prompt, caption, value, min, max, parent, pos );
+  OUTPUT:
+    RETVAL
+
+wxString
+wxGetPasswordFromUser( message, caption = wxGetTextFromUserPromptStr, default_value = wxEmptyString, parent = 0 )
+  wxString message
+  wxString caption
+  wxString default_value
+  Wx_Window* parent
+
+wxString
+wxGetTextFromUser( message, caption = wxGetTextFromUserPromptStr, default_value = wxEmptyString, parent = 0, x = -1, y = -1, centre = TRUE )
+  wxString message
+  wxString caption
+  wxString default_value
+  Wx_Window* parent
+  int x
+  int y
+  bool centre
+
+
+
+
