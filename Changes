@@ -1,5 +1,9 @@
 Revision history for Perl extension Wx.
 
+0.20  Sun Jun 20 10:27:32 CEST 2004
+	- wxWidgets 2.5.2 compilation fixes.
+	- Fixed wxHtmlWindow behaviour on non-Win32 platforms.
+
 0.19  Sat Apr 24 12:32:36 CEST 2004
 	- Started wxHtmlParser/wxHtmlTag/custom tag handlers
 	  wrapping.
