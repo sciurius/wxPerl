@@ -80,7 +80,7 @@
 #define WXINTL_NO_GETTEXT_MACRO 1
 
 // Win32 dll stuff
-#if __WXMSW__
+#if __WXMSW__ && WXPL_USE_DLLEXPORT
 #define WXPL_MSW_EXPORTS 1
 #else
 #define WXPL_MSW_EXPORTS 0

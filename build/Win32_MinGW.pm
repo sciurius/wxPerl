@@ -45,7 +45,7 @@ sub configure {
       INC => ' -I' . top_dir() . ' ',
       ( building_extension() ?
         ( DEFINE => ' -DWXPL_EXT ',
-          LDFROM => ' $(OBJECT) ' . $wximplib . ' ',
+          LDFROM => ' $(OBJECT) ' . ( $use_shared ? $wximplib : '' ) . ' ',
         ) :
         ( depend => { 'Wx_res.o' => 'Wx.rc ', },
           LDFROM => '$(OBJECT) Wx_res.o',
@@ -148,7 +148,7 @@ sub dynamic_lib {
   my( $this ) = shift;
   my( $text ) = $this->SUPER::dynamic_lib( @_ );
 
-  return $text unless $text =~ m/dlltool/i;
+  return $text unless $wxConfig::use_shared && $text =~ m/dlltool/i;
 
   my $wximplib = MM->catfile( wxConfig::top_dir(),
                               qw(blib arch auto Wx Wx.a) );

@@ -50,7 +50,7 @@ class wxStreamBase;
 
 WXPLDLL void wxPli_sv_2_istream( SV* scalar, wxPliInputStream& stream );
 WXPLDLL void wxPli_sv_2_ostream( SV* scalar, wxPliOutputStream& stream );
-WXPLDLL void wxPli_stream_2_sv( SV* scalar, wxStreamBase* stream,
+WXPLDLL void FUNCPTR( wxPli_stream_2_sv )( SV* scalar, wxStreamBase* stream,
                                 const char* package );
 
 // defined in Constants.xs
@@ -77,6 +77,7 @@ struct wxPliHelpers
     wxPoint ( * m_wxPli_sv_2_wxpoint )( SV* );
     wxSize ( * m_wxPli_sv_2_wxsize )( SV* scalar );
     int ( * m_wxPli_av_2_intarray )( SV* avref, int** array );
+    void ( * m_wxPli_stream_2_sv )( SV* scalar, wxStreamBase* stream, const char* package );
 
     void ( * m_wxPli_add_constant_function )
         ( double (**)( const char*, int ) );
@@ -92,7 +93,7 @@ struct wxPliHelpers
 #define DEFINE_PLI_HELPERS( name ) \
 wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPli_non_object_2_sv, &wxPli_make_object, &wxPli_sv_2_wxpoint, \
- &wxPli_sv_2_wxsize, &wxPli_av_2_intarray, \
+ &wxPli_sv_2_wxsize, &wxPli_av_2_intarray, wxPli_stream_2_sv, \
  &wxPli_add_constant_function, &wxPli_remove_constant_function, \
  &wxPliVirtualCallback_FindCallback, &wxPliVirtualCallback_CallCallback };
 
@@ -106,6 +107,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   wxPli_sv_2_wxpoint = name->m_wxPli_sv_2_wxpoint; \
   wxPli_sv_2_wxsize = name->m_wxPli_sv_2_wxsize; \
   wxPli_av_2_intarray = name->m_wxPli_av_2_intarray; \
+  wxPli_stream_2_sv = name->m_wxPli_stream_2_sv; \
   wxPli_add_constant_function = name->m_wxPli_add_constant_function; \
   wxPli_remove_constant_function = name->m_wxPli_remove_constant_function; \
   wxPliVirtualCallback_FindCallback = name->m_wxPliVirtualCallback_FindCallback; \

@@ -16,13 +16,18 @@ use strict;
 use vars qw(@ISA @EXPORT_OK %EXPORT_TAGS $Verbose);
 
 # parse command line variables
-use vars qw($debug_mode $extra_libs $extra_cflags);
+use vars qw($debug_mode $extra_libs $extra_cflags $use_shared $use_dllexport);
 
 LOOP: foreach ( @ARGV ) {
   m/^DEBUG=(\d+)$/ && do { $debug_mode = $1 ; undef $_; next LOOP; };
   m/^EXTRA_LIBS=(.*)$/ && do { $extra_libs = $1; undef $_; next LOOP; };
   m/^EXTRA_CFLAGS=(.*)$/ && do { $extra_cflags = $1; undef $_; next LOOP; };
+  m/^USE_SHARED=(.*)$/ && do { $use_shared = $1; undef $_; next LOOP; };
+  m/^USE_DLLEXPORT=(.*)$/ && do { $use_dllexport = $1; undef $_; next LOOP; };
 }
+$use_dllexport = 0 unless $use_shared;
+#FIXME// hack
+$extra_cflags .= ' -DWXPL_USE_DLLEXPORT=1 ' if $use_dllexport;
 
 require Exporter;
 use Config;
