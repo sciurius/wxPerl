@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Sizer.xs,v 1.14 2003/05/04 17:37:09 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -41,6 +41,15 @@ void
 Wx_Sizer::Destroy()
   CODE:
     delete THIS;
+
+void
+wxSizer::Add( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wwin_n_n_n_s, AddWindow, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wszr_n_n_n_s, AddSizer, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_n_n_s, AddSpace, 2 )
+    END_OVERLOAD( Wx::Sizer::Add )
 
 void
 Wx_Sizer::AddWindow( window, option = 0, flag = 0, border = 0, data = 0 )
@@ -403,6 +412,15 @@ Wx_SizerItem::GetMinSize()
     RETVAL = new wxSize( THIS->GetMinSize() );
   OUTPUT:
     RETVAL
+
+void
+wxSizerItem::SetRatio( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT( wxPliOvl_n, SetRatioFloat, 1 )
+        MATCH_REDISP_COUNT( wxPliOvl_n_n, SetRatioWH, 2 )
+        MATCH_REDISP_COUNT( wxPliOvl_wsiz, SetRatioSize, 1 )
+    END_OVERLOAD( Wx::SizerItem::SetRatio )
 
 void
 Wx_SizerItem::SetRatioWH( width, height )
