@@ -1,0 +1,67 @@
+#############################################################################
+## Name:        ext/xrc/XS/XmlSubclassHandler.xsp
+## Purpose:     XS++ for Wx::XmlSubclassHandler
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     03/06/2003
+## RCS-ID:      $Id: XmlSubclassFactory.xsp,v 1.1 2003/06/05 17:20:59 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxPliXmlSubclassFactory*}{simple};
+
+%file{cpp/factory.h};
+%{
+
+#define DEC_V_CBACK_WXOBJECT__WXSTRING_pure( METHOD ) \
+  wxObject* METHOD( const wxString& )
+
+#define DEF_V_CBACK_WXOBJECT__WXSTRING_pure( CLASS, BASE, METHOD ) \
+  wxObject* CLASS::METHOD( const wxString& param1 )                           \
+  {                                                                           \
+    dTHX;                                                                     \
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,       \
+                                                     G_SCALAR, "P", &param1 );\
+        wxObject* val = (wxObject*)wxPli_sv_2_object( aTHX_ ret, NULL );      \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    }                                                                         \
+    return NULL;                                                              \
+  }
+
+#include "cpp/v_cback.h"
+
+class wxPliXmlSubclassFactory : public wxXmlSubclassFactory
+{
+    wxPliVirtualCallback m_callback;
+public:
+    wxPliXmlSubclassFactory( const char* package )
+        : m_callback( "Wx::XmlSubclassFactory" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
+    }
+
+    DEC_V_CBACK_WXOBJECT__WXSTRING_pure( Create );
+};
+
+DEF_V_CBACK_WXOBJECT__WXSTRING_pure( wxPliXmlSubclassFactory, wxXmlSubclassFactory, Create );
+
+%}
+%file{-};
+
+%{
+#include "cpp/factory.h"
+%}
+
+%name{Wx::XmlSubclassFactory} class wxPliXmlSubclassFactory
+{
+    wxXmlSubclassFactory()
+        %code{% RETVAL = new wxPliXmlSubclassFactory( CLASS ); %};
+    ~wxXmlSubclassFactory();
+};
