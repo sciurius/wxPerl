@@ -77,6 +77,30 @@ FD_TD( UpdateUIEvent );
 
 class _wxPlValidator; typedef _wxPlValidator Wx_PlValidator;
 class _wxPlSizer;     typedef _wxPlSizer     Wx_PlSizer;
+class _wxUserDataO;   typedef _wxUserDataO   Wx_UserDataO;
+class _wxUserDataCD;  typedef _wxUserDataCD  Wx_UserDataCD;
+class _wxTreeItemData;typedef _wxTreeItemData Wx_TreeItemData;
+
+#if _WXP_DEFINE_CLASSNAME
+extern "C" const char wxPlTreeItemDataName[] = "Wx::TreeItemData"; 
+#else
+extern "C" const char wxPlTreeItemDataName[]; 
+#endif
+
+#if defined( __WXMOTIF__ )
+  //FIXME// need to check for wxGenericFontDialog, but at this time
+         // wx/fontdlg.h has not been included
+class wxGenericFontDialog;
+typedef wxGenericFontDialog Wx_FontDialog;
+#if _WXP_DEFINE_CLASSNAME
+extern "C" const char wxPlFontDialogName[] = "Wx::FontDialogName"; 
+#else
+extern "C" const char wxPlFontDialogName[]; 
+#endif
+
+#else
+FD_TD( FontDialog );
+#endif
 
 FD_TD( AcceleratorEntry );
 FD_TD( AcceleratorTable );
@@ -117,7 +141,6 @@ FD_TD( FileDialog );
 FD_TD( FlexGridSizer );
 FD_TD( Font );
 FD_TD( FontData );
-FD_TD( FontDialog );
 FD_TD( Frame );
 FD_TD( Gauge );
 FD_TD( GridSizer );
@@ -187,7 +210,6 @@ FD_TD( ToolBarBase );
 FD_TD( ToolBarToolBase );
 FD_TD( ToolTip );
 FD_TD( TreeCtrl );
-FD_TD( TreeItemData );
 FD_TD( TreeItemId );
 FD_TD( Validator );
 FD_TD( Window );
@@ -205,5 +227,9 @@ FD_TD( TIFFHandler );
 //typedef wxQueryLayoutInfoEvent Wx_QueryLayoutInfoEvent;
 
 #undef FD_TD
+#undef TD_TDS
+
+typedef int Wx_KeyCode;
+typedef SV SV_null; // equal to SV except that maps C++ 0 <-> Perl undef
 
 #endif // _WXPERL_TYPEDEF_H
