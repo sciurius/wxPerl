@@ -172,9 +172,6 @@ eval( "sub wxMOTIF() { $_platform == $_motif }" );
 eval( "sub wxMSW() { $_platform == $_msw }" );
 
 require Wx::App;
-require Wx::Bitmap;
-require Wx::Caret;
-require Wx::Colour;
 require Wx::ComboBox;
 require Wx::ControlWithItems;
 require Wx::Cursor;
