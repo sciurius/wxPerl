@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        button.h
-// Purpose:     c++ wrapper for wxButton
+// Name:        sizer.h
+// Purpose:     c++ wrapper for wxSizers
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
