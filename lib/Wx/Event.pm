@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.37 2003/07/17 22:46:39 mbarbon Exp $
+## RCS-ID:      $Id: Event.pm,v 1.38 2003/11/23 07:51:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -332,7 +332,7 @@ sub EVT_SPINCTRL($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPINCTRL_U
 sub EVT_SPLITTER_SASH_POS_CHANGING($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGING, $_[2] ) }
 sub EVT_SPLITTER_SASH_POS_CHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, $_[2] ) }
 sub EVT_SPLITTER_UNSPLIT($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_UNSPLIT, $_[2] ) }
-sub EVT_SPLITTER_DOUBLECLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_DOUBLECLICK, $_[2] ) }
+sub EVT_SPLITTER_DOUBLECLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_DOUBLECLICKED, $_[2] ) }
 
 #
 # TimerEvent
