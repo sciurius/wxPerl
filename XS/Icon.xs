@@ -10,6 +10,21 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+MODULE=Wx_Func PACKAGE=Wx
+
+Wx_Icon*
+GetWxPerlIcon()
+  CODE:
+#if defined( __WXMSW__ )
+    RETVAL = new wxIcon( wxICON( wxicon ) );
+    if( !RETVAL->Ok() )
+        croak( "Unable to load icon" );
+#else
+    RETVAL = new wxIcon();
+#endif
+  OUTPUT:
+    RETVAL
+
 MODULE=Wx PACKAGE=Wx::Icon
 
 #if ( !defined( __WXMOTIF__ ) && !defined( __WXMSW__ ) && !defined( __WXGTK__ ) ) || defined( __WXPERL_FORCE__ )
