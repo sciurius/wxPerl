@@ -91,6 +91,59 @@ wxEvent* wxPlCommandEvent::Clone() const
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlCommandEvent, wxCommandEvent );
 
+class wxPlThreadEvent:public wxEvent
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlThreadEvent );
+public:
+    wxPlThreadEvent() : m_data( 0 ) {}
+    wxPlThreadEvent( const char* package, int id, wxEventType eventType,
+                     SV* data )
+#if WXPERL_W_VERSION_GE( 2, 3, 0 )
+        : wxEvent( id, eventType ),
+#else
+        : wxEvent( id ),
+#endif
+          m_data( data )
+    {
+#if !WXPERL_W_VERSION_GE( 2, 3, 0 )
+        m_eventType = eventType;
+#endif
+        SvREFCNT_inc( m_data );
+    }
+
+    wxPlThreadEvent( const wxPlThreadEvent& e )
+        : wxEvent( e ),
+          m_data( e.GetData() )
+        { SvREFCNT_inc( m_data ); }
+
+    ~wxPlThreadEvent() { SvREFCNT_dec( m_data ); }
+
+    void SetData( SV* data )
+    {
+        SvREFCNT_dec( m_data );
+        m_data = data;
+        SvREFCNT_inc( m_data );
+    }
+
+    SV* GetData() const { return m_data; }
+
+    virtual wxEvent* Clone() const;
+private:
+    SV* m_data;
+};
+
+wxEvent* wxPlThreadEvent::Clone() const
+{
+    return new wxPlThreadEvent( *this );
+}
+
+wxPliSelfRef* wxPliGetSelfForwxPlThreadEvent( wxObject* object ) { return 0; }
+// XXX HACK!
+wxPliClassInfo wxPlThreadEvent::sm_classwxPlThreadEvent(
+    (wxChar*)wxT( "wxPlPlThreadEvent"), (wxChar*)wxT("wxEvent"),
+    (wxChar*)NULL, (int)sizeof(wxPlThreadEvent),
+    (wxPliGetCallbackObjectFn) wxPliGetSelfForwxPlThreadEvent );
+
 // local variables: //
 // mode: c++ //
 // end: //

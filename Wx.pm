@@ -114,6 +114,7 @@ bootstrap Wx $VERSION;
 require Wx::_Constants;
 
 Load();
+SetConstants();
 
 # set up wxUNIVERSAL, wxGTK, wxMSW, etc
 eval( $_universal ? "sub wxUNIVERSAL() { 1 }" : "sub wxUNIVERSAL() { 0 }" );

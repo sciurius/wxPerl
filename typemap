@@ -249,6 +249,10 @@ Wx_UpdateUIEvent *      O_WXOBJECT
 Wx_TextUrlEvent *       O_WXOBJECT
 Wx_ProcessEvent *       O_WXOBJECT
 
+Wx_PlEvent*             O_WXOBJECT
+Wx_PlCommandEvent*      O_WXOBJECT
+Wx_PlThreadEvent*       O_WXOBJECT
+
 Wx_ConfigBase *         O_NON_WXOBJECT
 Wx_Config *             O_NON_WXOBJECT
 

@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
+//#define PERL_NO_GET_CONTEXT
 
 #include <wx/defs.h>
 
@@ -73,6 +74,7 @@ Wx_Event::new( id = 0 )
 
 #endif
 
+## XXX threads
 void
 Wx_Event::DESTROY()
 
@@ -180,6 +182,29 @@ Wx_PlCommandEvent::new( id, type )
     RETVAL = new wxPlCommandEvent( CLASS, id, type );
   OUTPUT:
     RETVAL
+
+MODULE=Wx_Evt PACKAGE=Wx::PlThreadEvent
+
+Wx_Event*
+Wx_PlThreadEvent::new( id, type, data )
+    int id
+    wxEventType type
+    SV* data
+  CODE:
+    RETVAL = new wxPlThreadEvent( CLASS, id, type, data );
+  OUTPUT:
+    RETVAL
+
+SV*
+Wx_PlThreadEvent::GetData()
+  PPCODE:
+    SV* t = THIS->GetData();
+    SvREFCNT_inc( t );
+    XPUSHs( t );
+
+void
+Wx_PlThreadEvent::SetData( data )
+    SV* data
 
 MODULE=Wx_Evt PACKAGE=Wx::ActivateEvent
 

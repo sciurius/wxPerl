@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
+//#define PERL_NO_GET_CONTEXT
 
 #include <stddef.h>
 #include "cpp/compat.h"
@@ -164,6 +165,10 @@ Load()
     argc = wxPli_get_args_argc_argv( &argv, 0 );
     wxEntryStart( argc, argv );
     wxPli_delete_argv( argv, 0 );
+
+void
+SetConstants()
+  CODE:
     // this is after wxEntryStart, since
     // wxInitializeStockObjects needs to be called
     // (for colours, cursors, pens, etc...)
@@ -177,6 +182,12 @@ UnLoad()
 I32
 looks_like_number( sval )
     SV* sval
+
+void
+CLONE( CLASS )
+    char* CLASS
+  CODE:
+    SetConstants();
 
 INCLUDE: XS/App.xs
 INCLUDE: XS/Caret.xs

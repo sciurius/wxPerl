@@ -281,7 +281,7 @@ SV* wxPli_object_2_sv( SV* var, wxObject* object )
         wxPliClassInfo* cci = (wxPliClassInfo*)ci;
         wxPliSelfRef* sr = cci->m_func( object );
 
-        if( sr->m_self ) {
+        if( sr && sr->m_self ) {
             SvSetSV_nosteal( var, sr->m_self );
             return var;
         }

@@ -49,7 +49,7 @@ void wxPliEventCallback::Handler( wxEvent& event )
         wxPliClassInfo* cci = (wxPliClassInfo*)ci;
         wxPliSelfRef* sr = cci->m_func( &event );
 
-        e = sr->m_self;
+        if( sr ) e = sr->m_self;
     }
 
     if( !e )

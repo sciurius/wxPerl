@@ -400,6 +400,7 @@ no strict;
 #
 
 package Wx::PlEvent;         @ISA = qw(Wx::Event);
+package Wx::PlThreadEvent;   @ISA = qw(Wx::Event);
 package Wx::PlCommandEvent;  @ISA = qw(Wx::CommandEvent);
 package Wx::ActivateEvent;   @ISA = qw(Wx::Event);
 package Wx::CommandEvent;    @ISA = qw(Wx::Event);

@@ -90,6 +90,10 @@ FD_TD( TreeEvent );
 FD_TD( UpdateUIEvent );
 FD_TD( ProcessEvent );
 
+FD_TD( PlEvent );
+FD_TD( PlCommandEvent );
+FD_TD( PlThreadEvent );
+
 // other classes
 
 class wxPlValidator;  typedef wxPlValidator  Wx_PlValidator;

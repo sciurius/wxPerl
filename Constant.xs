@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
+//#define PERL_NO_GET_CONTEXT
 #define WXINTL_NO_GETTEXT_MACRO 1
 
 #include <wx/defs.h>
@@ -1298,6 +1299,24 @@ static double constant( const char *name, int arg )
   return 0;
 */
 }
+
+// XXX hacky
+void my_sv_setref_pv( SV* mysv, const char* pack, void* ptr )
+{
+    if( SvROK( mysv ) )
+    {
+        HV* stash = gv_stashpv( pack, 1 );
+        sv_setiv( SvRV( mysv ), (IV)ptr );
+        sv_bless( mysv, stash );
+    }
+    else
+    {
+        sv_setref_pv( mysv, pack, ptr );
+    }
+}
+
+#undef sv_setref_pv
+#define sv_setref_pv my_sv_setref_pv
 
 void SetConstants()
 {
