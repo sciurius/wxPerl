@@ -7,7 +7,10 @@ systems, detailed build instructions for wxWindows + wxPerl are included
 in the section "COMPILING UNDER WIN32"
 ****************************************************************************
 
-* QUICK INSTALLATION ( for UNIX systems )
+* QUICK INSTALLATION
+
+This applies to UN*X systems, and only if wxWindows is already compiled and
+installed.
 
 unpack the wxPerl archive
 cd to wxPerl directory
@@ -116,7 +119,10 @@ in C:\Perl
 
   This will create a file Perl56.lib; copy this file to C:\Perl\lib\CORE\ .
 
-- MinGW 1.1
+- MinGW 1.1 or later
+
+  Get MinGW from http://www.mingw.org/; direct link is
+  http://prdownloads.sourceforge.net/mingw/MinGW-1.1.tar.gz
 
   If you want to compile wxPerl against ActivePerl using MinGW,
   you ned to first download and install ExtUtils::FakeConfig from
@@ -138,6 +144,7 @@ in C:\Perl
   make -f makefile.g95 FINAL=1 WXUSINGDLL=1
 
   # now build wxPerl
+  # get dmake from http://www.cpan.org/authors/id/GSAR/dmake-4.1pl1-win32.zip
   perl Makefile.PL
   dmake
   dmake test
