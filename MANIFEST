@@ -40,6 +40,7 @@ lib/Wx/Region.pm
 lib/Wx/ScreenDC.pm
 lib/Wx/Sizer.pm
 lib/Wx/StaticBitmap.pm
+lib/Wx/Timer.pm
 lib/Wx/ToolBar.pm
 lib/Wx/Window.pm
 lib/Wx/_Constants.pm
@@ -63,6 +64,7 @@ samples/controls/icons/text.xpm
 samples/controls/test2.bmp
 
 samples/dialog/dialog.pl
+samples/dialogs/dialogs.pl
 samples/minimal/minimal.pl
 samples/hello/hello.pl
 samples/layout/layout.pl
@@ -125,6 +127,7 @@ GDI.xs
 Window.xs
 Wx.xs
 
+XS/Accelerators.xs
 XS/App.xs
 XS/Bitmap.xs
 XS/BitmapButton.xs
@@ -143,6 +146,7 @@ XS/DC.xs
 XS/Dialog.xs
 XS/EvtHandler.xs
 XS/Font.xs
+XS/FontDialog.xs
 XS/Frame.xs
 XS/Gauge.xs
 XS/Geom.xs
@@ -177,6 +181,7 @@ XS/StaticLine.xs
 XS/StaticText.xs
 XS/StatusBar.xs
 XS/TextCtrl.xs
+XS/Timer.xs
 XS/TreeCtrl.xs
 XS/ToolBar.xs
 XS/ToolTip.xs
@@ -202,8 +207,10 @@ cpp/notebook.h
 cpp/panel.h
 cpp/sashwindow.h
 cpp/scrolledwindow.h
+cpp/singlechoicedialog.h
 cpp/sizer.h
 cpp/splitterwindow.h
+cpp/timer.h
 cpp/typedef.h
 cpp/validators.h
 cpp/v_cback.h

@@ -227,7 +227,7 @@ inline _wxSlider::_wxSlider( const char* package, wxWindow* parent,
             validator, name );
 }
 
-#if defined( __WXMSW_ )
+#if defined( __WXMSW__ )
 
 _IMPLEMENT_DYNAMIC_CLASS( _wxSlider, wxSlider95 );
 

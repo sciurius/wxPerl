@@ -34,38 +34,23 @@ sub OnInit {
     my( $frame ) = MyFrame->new( undef, "Controls wxPerl app",
                                  50, 50, 540, 430 );
 
-    my( $file_menu ) = Wx::Menu->new( '', wxMENU_TEAROFF );
-
-    $file_menu->Append( 2, "&Clear log\tCtrl-L" );
-    $file_menu->AppendSeparator();
-    $file_menu->Append( 3, "&About\tF1" );
-    $file_menu->AppendSeparator();
-    $file_menu->Append( 4, "E&xit\tAlt-X", 'Quit controls sample' );
-
-    my( $menu_bar ) = Wx::MenuBar->new();
-    $menu_bar->Append( $file_menu, '&File' );
-
-    my( $tooltip_menu ) = Wx::Menu->new();
-    $tooltip_menu->Append( 5, "Set &delay\tCtrl-D" );
-    $tooltip_menu->AppendSeparator();
-    $tooltip_menu->Append( 6, "&Toggle tooltips\tCtrl-T",
-                         'enable/disable tooltips', 1 );
-    $tooltip_menu->Check( 6, 1 );
-    $menu_bar->Append( $tooltip_menu, '&Tooltips' );
-
-    my( $panel_menu ) = Wx::Menu->new();
-    $panel_menu->Append( 7, "&Disable all\tCtrl-E",
-                         'enable/disable all panel controls', 1 );
-    $menu_bar->Append( $panel_menu, '&Panel' );
-
-    $frame->SetMenuBar( $menu_bar );
-
     $frame->SetSizeHints( 500, 425 );
 
     $frame->Show( 1 );
     $this->SetTopWindow( $frame );
 
     1;
+}
+
+package MyTimer;
+
+use strict;
+use vars qw(@ISA);
+
+@ISA = qw(Wx::Timer);
+
+sub Notify {
+  Wx::LogMessage( "Hello from MyTimer::Notify!" );
 }
 
 package MyPanel;
@@ -125,6 +110,24 @@ sub new {
     $this->{OLDLOG} =
       Wx::Log::SetActiveTarget( Wx::LogTextCtrl->new( $this->{TEXT} ) );
 
+    Wx::LogTrace( "Wx::LogTrace" );
+    Wx::LogTraceMask( 'test', "You can't see this!" );
+    Wx::Log::AddTraceMask( 'test' );
+    Wx::LogTraceMask( "Wx::LogTraceMask" );
+
+    #
+    # Wx::Timer
+    #
+    use Wx::Event qw(EVT_TIMER);
+
+    $this->{TIMER} = Wx::Timer->new( $this, 1 );
+    $this->{TIMER2} = MyTimer->new;
+
+    $this->{TIMER}->Start( 1500 );
+    $this->{TIMER2}->Start( 2500, 1 );
+
+    EVT_TIMER( $this, 1, \&OnTimer );
+
     $this->{NOTEBOOK} = Wx::Notebook->new( $this , -1 );
 
     #
@@ -140,6 +143,7 @@ sub new {
 
     my( $choices ) = [ 'This', 'is one of my',
                        'really', 'wonderful', 'examples', ];
+
     #
     # Wx::ListBox
     #
@@ -375,8 +379,8 @@ sub new {
     my( $st1 ) = Wx::StaticBitmap->new( $panel, -1, $icon, [10, 10] );
     my( $st2 ) = Wx::StaticBitmap->new( $panel, -1, wxNullIcon, [50, 10] );
 
-    Wx::LogMessage( "Not Equal ==" ) unless $st1->GetBitmap == $st1->GetBitmap;
-    Wx::LogMessage( "Not Equal !=" ) if $st1->GetBitmap != $st1->GetBitmap;
+    # Wx::LogMessage( "Not Equal ==" ) unless $st1->GetBitmap == $st1->GetBitmap;
+    # Wx::LogMessage( "Not Equal !=" ) if $st1->GetBitmap != $st1->GetBitmap;
 
     $st2->SetIcon( wxTheApp->GetStdIcon( wxICON_QUESTION ) );
 
@@ -476,6 +480,21 @@ sub new {
     EVT_NOTEBOOK_PAGE_CHANGED( $this, $this->{NOTEBOOK}, \&OnPageChanged );
 
     $this;
+}
+
+{
+  my $count;
+
+  sub OnTimer {
+    my( $this, $event ) = @_;
+
+    Wx::LogMessage( "Ticking..." );
+
+    if( ++$count == 5 ) {
+      Wx::LogMessage( "Stopped!" );
+      $this->{TIMER}->Stop;
+    }
+  }
 }
 
 sub OnSize {
@@ -1058,7 +1077,7 @@ package MyFrame;
 use strict;
 use vars qw(@ISA);
 
-use Wx qw(wxTheApp wxICON_INFORMATION);
+use Wx qw(wxTheApp wxICON_INFORMATION wxMENU_TEAROFF);
 
 @ISA = qw(Wx::Frame);
 
@@ -1070,20 +1089,65 @@ sub new {
     $this->CreateStatusBar( 2 );
     $this->{PANEL} = MyPanel->new( $this, 10, 10, 300, 100 );
 
-    use Wx::Event qw(EVT_SIZE EVT_MOVE EVT_IDLE EVT_CLOSE);
+    my( $file_menu ) = Wx::Menu->new( '', wxMENU_TEAROFF );
+
+    $file_menu->Append( 2, "&Clear log\tCtrl-L" );
+    $file_menu->AppendSeparator();
+    $file_menu->Append( 3, "&About" );
+    $file_menu->AppendSeparator();
+    $file_menu->Append( 4, "E&xit", 'Quit controls sample' );
+
+    my( $menu_bar ) = Wx::MenuBar->new();
+    $menu_bar->Append( $file_menu, '&File' );
+
+    my( $tooltip_menu ) = Wx::Menu->new();
+    $tooltip_menu->Append( 5, "Set &delay\tCtrl-D" );
+    $tooltip_menu->AppendSeparator();
+    $tooltip_menu->Append( 6, "&Toggle tooltips\tCtrl-T",
+                         'enable/disable tooltips', 1 );
+    $tooltip_menu->Check( 6, 1 );
+    $menu_bar->Append( $tooltip_menu, '&Tooltips' );
+
+    my( $panel_menu ) = Wx::Menu->new();
+    $panel_menu->Append( 7, "&Disable all\tCtrl-E",
+                         'enable/disable all panel controls', 1 );
+    $menu_bar->Append( $panel_menu, '&Panel' );
+
+    $this->SetMenuBar( $menu_bar );
+
+    use Wx::Event qw(EVT_SIZE EVT_MOVE EVT_IDLE EVT_CLOSE EVT_MENU);
+
+    EVT_MENU( $this, 4, \&OnQuit );
+    EVT_MENU( $this, 3, \&OnAbout );
 
     EVT_SIZE( $this, \&OnSize );
     EVT_MOVE( $this, \&OnMove );
     EVT_IDLE( $this, \&OnIdle );
     EVT_CLOSE( $this, \&OnClose );
 
+    use Wx qw(wxACCEL_NORMAL wxACCEL_ALT WXK_F1);
+
+    $this->SetAcceleratorTable
+      ( Wx::AcceleratorTable->new
+        ( [ wxACCEL_NORMAL, WXK_F1, 3 ],
+          Wx::AcceleratorEntry->new( wxACCEL_ALT, ord( 'X' ), 4 ) )
+      );
+
     $this;
 }
 
 sub OnQuit {
+  my $this = shift;
+
+  $this->Close( 1 );
 }
 
 sub OnAbout {
+  my $this = shift;
+
+  use Wx qw(wxOK wxCENTRE);
+
+  Wx::MessageBox( "Controls wxPerl sample", "About", wxOK|wxCENTRE, $this );
 }
 
 sub OnClose {

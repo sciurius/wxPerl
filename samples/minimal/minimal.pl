@@ -89,7 +89,7 @@ sub new {
 }
 
 # this is an addition to demonstrate virtual callbacks...
-# it ignores all parameters and creates a status bar with three panes
+# it ignores all parameters and creates a status bar with three fields
 sub OnCreateStatusBar {
   my( $this ) = shift;
   my( $status ) = Wx::StatusBar->new( $this, -1 );
