@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: toolbar.pl,v 1.4 2003/05/04 17:35:18 mbarbon Exp $
+## RCS-ID:      $Id: toolbar.pl,v 1.5 2003/09/07 19:09:23 mbarbon Exp $
 ## Copyright:   (c) 2000, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -113,6 +113,7 @@ sub new {
   $this->RecreateToolbar();
 
   EVT_SIZE( $this, \&OnSize );
+  EVT_MENU( $this, -1, \&OnToolLeftClick );
   EVT_MENU( $this, wxID_EXIT, \&OnQuit );
   EVT_MENU( $this, wxID_HELP, \&OnAbout );
   EVT_MENU( $this, $IDM_TOOLBAR_TOGGLE_ANOTHER_TOOLBAR, \&OnToggleAnotherToolbar );
@@ -126,7 +127,6 @@ sub new {
   EVT_MENU( $this, $IDM_TOOLBAR_TOGGLEHELP, \&OnToggleHelp );
   EVT_MENU( $this, $IDM_TOOLBAR_TOGGLEFULLSCREEN, \&OnToggleFullScreen );
 
-  EVT_MENU( $this, -1, \&OnToolLeftClick );
   EVT_COMBOBOX( $this, $ID_COMBO, \&OnCombo );
   EVT_TOOL_ENTER( $this, $ID_TOOLBAR, \&OnToolEnter );
 
