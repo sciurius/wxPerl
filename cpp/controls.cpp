@@ -55,6 +55,7 @@ double listctrl_constant( const char* name, int arg )
 {
   // !package: Wx
   // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+  // !tag:
 #define r( n ) \
     if( strEQ( name, #n ) ) \
         return n;
@@ -167,6 +168,7 @@ double treectrl_constant( const char* name, int arg )
 {
   // !package: Wx
   // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+  // !tag:
 #define r( n ) \
     if( strEQ( name, #n ) ) \
         return n;

@@ -23,9 +23,12 @@ my $package;
 
 foreach my $i ( @ARGV ) {
   open IN, '< ' . $i or die "unable to open '$i'";
+  $tag = '';
+  $package = '';
+  $parser = undef;
 
   while( <IN> ) {
-    m/^\W+?\!(\w+): (.*)$/ && do {
+    m/^\W+?\!(\w+):\s*(.*)$/ && do {
       my( $t, $v ) = ( $1, $2 );
 
       if( $t eq 'parser' ) { $parser = eval "$v"; die if $@ }
