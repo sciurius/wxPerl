@@ -86,9 +86,12 @@ sub configure {
 
 sub wx_contrib_lib {
   my( $this, $lib ) = @_;
-  $lib =~ s/^\s*(.*?)\s*/$1/;
+  my $plat = get_platform;
+  ( my $ver = wx_config( 'version' ) ) =~ s/\.\d+$//;
+  my $debug = is_debug ? 'd' : '';
+  $lib =~ s/^\s*wx(.*?)\s*/$1/;
 
-  return " -l$lib ";
+  return " -lwx_${plat}${debug}_${lib}-${ver} ";
 }
 
 1;

@@ -6,7 +6,8 @@ use base 'Exporter';
 
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = qw(obj_from_src top_dir building_extension
-             xs_depend merge_config wx_version wx_config is_platform);
+             xs_depend merge_config wx_version wx_config is_platform
+             get_platform is_debug is_inside_wxperl_tree);
 @EXPORT_OK = qw(unix_top_dir);
 
 #
@@ -21,7 +22,18 @@ sub wx_config {
 #
 sub is_platform($) {
   my $uc = uc shift;
-  return scalar( wx_config('cxxflags' ) =~ m/__WX${uc}__/ );
+  return scalar( wx_config( 'cxxflags' ) =~ m/__WX${uc}__/ );
+}
+
+sub get_platform() {
+  my $cf = wx_config( 'cxxflags' );
+  $cf =~ m/__WX(x11|msw|motif|gtk|mac)__/i && return lc $1;
+
+  die "Unable to determine toolkit!";
+}
+
+sub is_debug() {
+  return scalar( wx_config( 'cxxflags' ) =~ m/__WXDEBUG__/ );
 }
 
 #
@@ -90,6 +102,19 @@ sub top_dir() {
 
 sub building_extension() {
   return !-f 'Wx.pm';
+}
+
+sub is_inside_wxperl_tree() {
+  my $top = MM->curdir;
+  my $count = 0;
+
+  until( $count == 10 ) {
+    return 1 if -f MM->catfile( $top, 'Wx.pm' );
+    $top = MM->catdir( MM->updir, $top );
+    ++$count;
+  }
+
+  return 0;
 }
 
 #
@@ -196,6 +221,8 @@ sub scan_xs($$) {
 
     m/^\#\s*include\s+"([^"]*)"\s*$/ and $file = $1 and $arr = \@cinclude;
     m/^\s*INCLUDE:\s+(.*)$/ and $file = $1 and $arr = \@xsinclude;
+    m/^\s*INCLUDE:\s+.*\s(\S+\.xsp)\s*\|/ and $file = $1 and
+      $arr = \@xsinclude;
 
     if( defined $file ) {
       $file = MM->catfile( split '/', $file );
