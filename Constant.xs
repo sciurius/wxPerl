@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.96 2003/12/13 17:13:31 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.97 2003/12/20 15:44:10 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -220,6 +220,7 @@ static wxPlINH inherit[] =
     I( Choice,          ControlWithItems )
     I( ListBox,         ControlWithItems )
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    I( BookCtrl,        Control )
     I( Notebook,        BookCtrl )
 #else
     I( Notebook,        Control )
