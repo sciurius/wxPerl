@@ -24,8 +24,8 @@ TESTED PLATFORMS:
 Perl            | OS            | wxWindows      | Compiler
 ----------------+---------------+----------------+-------------------
 ActivePerl 616  | Windows 95    | wxMSW 2.2.7    | MSVC 5
-       620,628  | Windows 2000  |                | MSVC 6
-5.6.1           |               |                | MinGW GCC 2.95.2-1
+       620,628  | Windows 2000  | wxMSW 2.3.1    | MSVC 6
+5.6.1           |               |                | MinGW GCC
 ----------------+---------------+----------------+-------------------
 5.005_03        | Debian 2.2    | wxGTK 2.2.7    | GCC 2.95.2
 5.004_05        |               |                |

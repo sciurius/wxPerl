@@ -52,7 +52,7 @@ ADDITIONAL FLAGS
 In addition to ExtUtils::MakeMaker flags wxPerl Makefile.PL accepts
 
 * DEBUG={0|1} 
-  Currently only under Win32 VC++ ( and MinGW, but is not tested )
+  Currently only under Win32 or GCC
   adds debugging information to the library
 
 * EXTRA_LIBS={extra libraries}

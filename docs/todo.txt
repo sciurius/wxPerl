@@ -16,7 +16,6 @@ PRIORITY NORMAL:
     Move constants out of Constants.xs when they need a separate #include
     Move #include <wx/foo.h> to the XS requiring them
     Add tests for wxUSE_XXX, and maybe a wxPERL_USE_XXX
-    Experiment with INTERFACE/INTERFACE_MACRO
 
 * Wx::HtmlWindow
     AddFilter

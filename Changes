@@ -1,5 +1,21 @@
 Revision history for Perl extension Wx.
 
+0.08  xxx xxx xx xx:xx:xx 2001
+	- wxToggleButton ( 2.3 )
+	- wxSingleInstanceChecker ( 2.3 )
+	- wxListView, virtual wxListCtrl ( 2.3 )
+	- build system reorganization, hope this one is the
+	  last one...
+	- XRC ( Xml ResourCes ) wrapper ( 2.3 )
+	- wxClipboard & wxDataObject
+	- Drag-and-Drop support
+	- MDI architecture
+	- wxBestHelpController ( 2.3 )
+	- startup tips ( wxShowTip, etc )
+	- wxFindReplaceDialog ( 2.3 )
+	- wxPerl demo ( like the wxPython one )
+	- wxSplashScreen
+
 0.07  Thu Jul 19 13:46:58 2001
 	- wxFileSystem & related classes wrappers
 	- wxHtmlEasyPrinting, wxPageSetupDialog
