@@ -16,7 +16,7 @@ sub configure_core {
   $config{depend}      = { $res => 'Wx.rc ' };
   $config{LDFROM}     .= "\$(OBJECT) $res ";
   $config{dynamic_lib}{INST_DYNAMIC_DEP} .= " $res";
-  $config{clean}{FILES} .= " $res";
+  $config{clean}{FILES} .= " $res Wx_def.old";
 
   die "Unable to find setup.h directory"
     unless $config{INC} =~ m{[/-]I(\S+lib[\\/][\w\\/]+)(?:\s|$)};
