@@ -226,6 +226,7 @@ cpp/constants.h
 cpp/controls.h
 cpp/dialog.h
 cpp/e_cback.h
+cpp/event.h
 cpp/evthandler.h
 cpp/frame.h
 cpp/helpers.h
@@ -249,6 +250,8 @@ cpp/e_cback.cpp
 cpp/helpers.cpp
 cpp/streams.cpp
 cpp/v_cback.cpp
+
+ext/Makefile.PL
 
 ext/dnd/DND.xs
 ext/dnd/Makefile.PL
@@ -351,6 +354,7 @@ ext/print/t/2_inheritance.t
 ext/xrc/Makefile.PL
 ext/xrc/XRC.xs
 ext/xrc/XS/XmlResource.xs
+ext/xrc/cpp/xr_constants.cpp
 ext/xrc/cpp/xr_typedef.h
 ext/xrc/lib/Wx/XRC.pm
 ext/xrc/typemap
