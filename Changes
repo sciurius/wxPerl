@@ -5,6 +5,8 @@ Revision history for Perl extension Wx.
 	- it is now possibile to get the native handle of a Wx::Window
 	- implemented wxWizard and related classes
 	- Document/View framework (thanks to Simon Flack)
+	- Mostly completed wxStyledTextCtrl interface
+          (thanks to Graciliano M. P. and Simon Flack)
 	- implemented wxFontEnumerator and wxFontMapper
 	- implemented wxLogChain and wxLogPassThrough (2.3)
 	- Wx::PlLog, Wx::PlLogPassThrough, for custom logging
