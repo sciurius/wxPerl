@@ -536,7 +536,7 @@ sub new {
 		DEFAULT => -2
 	},
 	{#State 4
-		DEFAULT => -56
+		DEFAULT => -59
 	},
 	{#State 5
 		ACTIONS => {
@@ -644,7 +644,7 @@ sub new {
 		}
 	},
 	{#State 21
-		DEFAULT => -58
+		DEFAULT => -61
 	},
 	{#State 22
 		DEFAULT => -8
@@ -711,14 +711,14 @@ sub new {
 		ACTIONS => {
 			'DCOLON' => 49
 		},
-		DEFAULT => -41
+		DEFAULT => -43
 	},
 	{#State 36
 		ACTIONS => {
 			'AMP' => 51,
 			'STAR' => 50
 		},
-		DEFAULT => -40
+		DEFAULT => -42
 	},
 	{#State 37
 		ACTIONS => {
@@ -726,13 +726,13 @@ sub new {
 		}
 	},
 	{#State 38
-		DEFAULT => -57
+		DEFAULT => -60
 	},
 	{#State 39
-		DEFAULT => -59
+		DEFAULT => -62
 	},
 	{#State 40
-		DEFAULT => -55
+		DEFAULT => -58
 	},
 	{#State 41
 		ACTIONS => {
@@ -769,7 +769,7 @@ sub new {
 		}
 	},
 	{#State 45
-		DEFAULT => -43
+		DEFAULT => -45
 	},
 	{#State 46
 		ACTIONS => {
@@ -794,16 +794,16 @@ sub new {
 		}
 	},
 	{#State 50
-		DEFAULT => -38
+		DEFAULT => -40
 	},
 	{#State 51
-		DEFAULT => -39
+		DEFAULT => -41
 	},
 	{#State 52
-		DEFAULT => -32
+		DEFAULT => -34
 	},
 	{#State 53
-		DEFAULT => -33
+		DEFAULT => -35
 	},
 	{#State 54
 		ACTIONS => {
@@ -854,7 +854,7 @@ sub new {
 			'DCOLON' => 49,
 			'OPPAR' => 75
 		},
-		DEFAULT => -41
+		DEFAULT => -43
 	},
 	{#State 63
 		ACTIONS => {
@@ -888,7 +888,7 @@ sub new {
 		}
 	},
 	{#State 65
-		DEFAULT => -34
+		DEFAULT => -36
 	},
 	{#State 66
 		ACTIONS => {
@@ -905,10 +905,10 @@ sub new {
 		}
 	},
 	{#State 68
-		DEFAULT => -36
+		DEFAULT => -38
 	},
 	{#State 69
-		DEFAULT => -37
+		DEFAULT => -39
 	},
 	{#State 70
 		ACTIONS => {
@@ -916,7 +916,7 @@ sub new {
 		}
 	},
 	{#State 71
-		DEFAULT => -42
+		DEFAULT => -44
 	},
 	{#State 72
 		ACTIONS => {
@@ -978,10 +978,10 @@ sub new {
 		}
 	},
 	{#State 81
-		DEFAULT => -44
+		DEFAULT => -46
 	},
 	{#State 82
-		DEFAULT => -45
+		DEFAULT => -47
 	},
 	{#State 83
 		ACTIONS => {
@@ -1012,7 +1012,7 @@ sub new {
 		}
 	},
 	{#State 87
-		DEFAULT => -46
+		DEFAULT => -48
 	},
 	{#State 88
 		ACTIONS => {
@@ -1029,7 +1029,7 @@ sub new {
 		ACTIONS => {
 			'p_code' => 101
 		},
-		DEFAULT => -31,
+		DEFAULT => -33,
 		GOTOS => {
 			'metadata' => 102,
 			'perc_code' => 100
@@ -1066,7 +1066,7 @@ sub new {
 		ACTIONS => {
 			'p_code' => 101
 		},
-		DEFAULT => -31,
+		DEFAULT => -33,
 		GOTOS => {
 			'metadata' => 106,
 			'perc_code' => 100
@@ -1076,7 +1076,7 @@ sub new {
 		ACTIONS => {
 			'p_code' => 101
 		},
-		DEFAULT => -31,
+		DEFAULT => -33,
 		GOTOS => {
 			'metadata' => 107,
 			'perc_code' => 100
@@ -1097,10 +1097,10 @@ sub new {
 		ACTIONS => {
 			'EQUAL' => 109
 		},
-		DEFAULT => -48
+		DEFAULT => -50
 	},
 	{#State 100
-		DEFAULT => -30
+		DEFAULT => -32
 	},
 	{#State 101
 		ACTIONS => {
@@ -1120,13 +1120,13 @@ sub new {
 		DEFAULT => -11
 	},
 	{#State 104
-		DEFAULT => -29
+		DEFAULT => -31
 	},
 	{#State 105
 		ACTIONS => {
 			'p_code' => 101
 		},
-		DEFAULT => -31,
+		DEFAULT => -33,
 		GOTOS => {
 			'metadata' => 112,
 			'perc_code' => 100
@@ -1134,78 +1134,119 @@ sub new {
 	},
 	{#State 106
 		ACTIONS => {
-			'SEMICOLON' => 113
+			"const" => 114
+		},
+		DEFAULT => -26,
+		GOTOS => {
+			'const' => 113
 		}
 	},
 	{#State 107
 		ACTIONS => {
-			'SEMICOLON' => 114
+			'SEMICOLON' => 115
 		}
 	},
 	{#State 108
-		DEFAULT => -47
+		DEFAULT => -49
 	},
 	{#State 109
 		ACTIONS => {
-			'QUOTED_STRING' => 115,
-			'ID' => 119,
-			'DASH' => 116,
-			'INTEGER' => 117
+			'QUOTED_STRING' => 116,
+			'ID' => 120,
+			'DASH' => 117,
+			'INTEGER' => 118
 		},
 		GOTOS => {
-			'value' => 118
+			'value' => 119
 		}
 	},
 	{#State 110
-		DEFAULT => -35
+		DEFAULT => -37
 	},
 	{#State 111
-		DEFAULT => -28
+		DEFAULT => -30
 	},
 	{#State 112
 		ACTIONS => {
-			'SEMICOLON' => 120
+			"const" => 114
+		},
+		DEFAULT => -26,
+		GOTOS => {
+			'const' => 121
 		}
 	},
 	{#State 113
-		DEFAULT => -26
+		ACTIONS => {
+			'SEMICOLON' => 122
+		}
 	},
 	{#State 114
-		DEFAULT => -27
-	},
-	{#State 115
-		DEFAULT => -52
-	},
-	{#State 116
-		ACTIONS => {
-			'INTEGER' => 121
-		}
-	},
-	{#State 117
-		DEFAULT => -50
-	},
-	{#State 118
-		DEFAULT => -49
-	},
-	{#State 119
-		ACTIONS => {
-			'DCOLON' => 122
-		},
-		DEFAULT => -53
-	},
-	{#State 120
 		DEFAULT => -25
 	},
-	{#State 121
-		DEFAULT => -51
+	{#State 115
+		DEFAULT => -29
 	},
-	{#State 122
+	{#State 116
+		DEFAULT => -54
+	},
+	{#State 117
 		ACTIONS => {
-			'ID' => 123
+			'INTEGER' => 123
 		}
 	},
+	{#State 118
+		DEFAULT => -52
+	},
+	{#State 119
+		DEFAULT => -51
+	},
+	{#State 120
+		ACTIONS => {
+			'DCOLON' => 124,
+			'OPPAR' => 125
+		},
+		DEFAULT => -55
+	},
+	{#State 121
+		ACTIONS => {
+			'SEMICOLON' => 126
+		}
+	},
+	{#State 122
+		DEFAULT => -28
+	},
 	{#State 123
-		DEFAULT => -54
+		DEFAULT => -53
+	},
+	{#State 124
+		ACTIONS => {
+			'ID' => 127
+		}
+	},
+	{#State 125
+		ACTIONS => {
+			'QUOTED_STRING' => 116,
+			'ID' => 120,
+			'DASH' => 117,
+			'INTEGER' => 118
+		},
+		GOTOS => {
+			'value' => 128
+		}
+	},
+	{#State 126
+		DEFAULT => -27
+	},
+	{#State 127
+		DEFAULT => -56
+	},
+	{#State 128
+		ACTIONS => {
+			'CLPAR' => 129
+		}
+	},
+	{#State 129
+		DEFAULT => -57
 	}
 ],
                                   yyrules  =>
@@ -1381,211 +1422,223 @@ sub
 		 'method', 1, undef
 	],
 	[#Rule 25
-		 'function', 7,
+		 'const', 1, undef
+	],
+	[#Rule 26
+		 'const', 0, undef
+	],
+	[#Rule 27
+		 'function', 8,
 sub
-#line 91 "script/XSP.yp"
+#line 94 "script/XSP.yp"
 { add_data_function( $_[0],
                                          name      => $_[2],
                                          ret_type  => $_[1],
                                          arguments => $_[4],
                                          @{ $_[6] } ) }
 	],
-	[#Rule 26
-		 'function', 6,
+	[#Rule 28
+		 'function', 7,
 sub
-#line 97 "script/XSP.yp"
+#line 100 "script/XSP.yp"
 { add_data_function( $_[0],
                                          name     => $_[2],
                                          ret_type => $_[1],
                                          @{ $_[5] } ) }
 	],
-	[#Rule 27
+	[#Rule 29
 		 'ctor', 6,
 sub
-#line 103 "script/XSP.yp"
+#line 106 "script/XSP.yp"
 { add_data_ctor( $_[0], name      => $_[1],
                                             arguments => $_[3],
                                             @{ $_[5] } ) }
 	],
-	[#Rule 28
+	[#Rule 30
 		 'ctor', 5,
 sub
-#line 107 "script/XSP.yp"
+#line 110 "script/XSP.yp"
 { add_data_ctor( $_[0], name => $_[1],
                                             @{ $_[4] } ) }
 	],
-	[#Rule 29
+	[#Rule 31
 		 'dtor', 5,
 sub
-#line 111 "script/XSP.yp"
+#line 114 "script/XSP.yp"
 { add_data_dtor( $_[0], $_[2] ) }
 	],
-	[#Rule 30
+	[#Rule 32
 		 'metadata', 1,
 sub
-#line 113 "script/XSP.yp"
+#line 116 "script/XSP.yp"
 { $_[1] }
 	],
-	[#Rule 31
+	[#Rule 33
 		 'metadata', 0,
 sub
-#line 114 "script/XSP.yp"
+#line 117 "script/XSP.yp"
 { [] }
 	],
-	[#Rule 32
+	[#Rule 34
 		 'perc_name', 4,
 sub
-#line 116 "script/XSP.yp"
-{ $_[3] }
-	],
-	[#Rule 33
-		 'perc_module', 4,
-sub
-#line 117 "script/XSP.yp"
-{ $_[3] }
-	],
-	[#Rule 34
-		 'perc_file', 4,
-sub
-#line 118 "script/XSP.yp"
+#line 119 "script/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 35
-		 'perc_code', 2,
+		 'perc_module', 4,
 sub
-#line 119 "script/XSP.yp"
-{ [ code => $_[2] ] }
+#line 120 "script/XSP.yp"
+{ $_[3] }
 	],
 	[#Rule 36
-		 'type', 3,
+		 'perc_file', 4,
 sub
 #line 121 "script/XSP.yp"
-{ make_cptr( $_[0], $_[2] ) }
+{ $_[3] }
 	],
 	[#Rule 37
-		 'type', 3,
+		 'perc_code', 2,
 sub
 #line 122 "script/XSP.yp"
-{ make_cref( $_[0], $_[2] ) }
+{ [ code => $_[2] ] }
 	],
 	[#Rule 38
-		 'type', 2,
-sub
-#line 123 "script/XSP.yp"
-{ make_ptr( $_[0], $_[1] ) }
-	],
-	[#Rule 39
-		 'type', 2,
+		 'type', 3,
 sub
 #line 124 "script/XSP.yp"
-{ make_ref( $_[0], $_[1] ) }
+{ make_cptr( $_[0], $_[2] ) }
 	],
-	[#Rule 40
-		 'type', 1,
+	[#Rule 39
+		 'type', 3,
 sub
 #line 125 "script/XSP.yp"
-{ make_type( $_[0], $_[1] ) }
+{ make_cref( $_[0], $_[2] ) }
+	],
+	[#Rule 40
+		 'type', 2,
+sub
+#line 126 "script/XSP.yp"
+{ make_ptr( $_[0], $_[1] ) }
 	],
 	[#Rule 41
-		 'class_name', 1, undef
+		 'type', 2,
+sub
+#line 127 "script/XSP.yp"
+{ make_ref( $_[0], $_[1] ) }
 	],
 	[#Rule 42
-		 'class_name', 3,
+		 'type', 1,
 sub
 #line 128 "script/XSP.yp"
-{ $_[1] . '::' . $_[3] }
+{ make_type( $_[0], $_[1] ) }
 	],
 	[#Rule 43
-		 'file_name', 1,
-sub
-#line 130 "script/XSP.yp"
-{ '-' }
+		 'class_name', 1, undef
 	],
 	[#Rule 44
-		 'file_name', 3,
+		 'class_name', 3,
 sub
 #line 131 "script/XSP.yp"
-{ $_[1] . '.' . $_[3] }
+{ $_[1] . '::' . $_[3] }
 	],
 	[#Rule 45
-		 'file_name', 3,
+		 'file_name', 1,
 sub
-#line 132 "script/XSP.yp"
-{ $_[1] . '/' . $_[3] }
+#line 133 "script/XSP.yp"
+{ '-' }
 	],
 	[#Rule 46
-		 'arg_list', 1,
+		 'file_name', 3,
 sub
 #line 134 "script/XSP.yp"
-{ [ $_[1] ] }
+{ $_[1] . '.' . $_[3] }
 	],
 	[#Rule 47
-		 'arg_list', 3,
+		 'file_name', 3,
 sub
 #line 135 "script/XSP.yp"
-{ push @{$_[1]}, $_[3]; $_[1] }
+{ $_[1] . '/' . $_[3] }
 	],
 	[#Rule 48
-		 'argument', 2,
+		 'arg_list', 1,
 sub
 #line 137 "script/XSP.yp"
-{ make_argument( @_ ) }
+{ [ $_[1] ] }
 	],
 	[#Rule 49
-		 'argument', 4,
+		 'arg_list', 3,
 sub
-#line 139 "script/XSP.yp"
-{ make_argument( @_[0, 1, 2, 4] ) }
+#line 138 "script/XSP.yp"
+{ push @{$_[1]}, $_[3]; $_[1] }
 	],
 	[#Rule 50
-		 'value', 1, undef
+		 'argument', 2,
+sub
+#line 140 "script/XSP.yp"
+{ make_argument( @_ ) }
 	],
 	[#Rule 51
-		 'value', 2,
+		 'argument', 4,
 sub
 #line 142 "script/XSP.yp"
-{ '-' . $_[2] }
+{ make_argument( @_[0, 1, 2, 4] ) }
 	],
 	[#Rule 52
 		 'value', 1, undef
 	],
 	[#Rule 53
-		 'value', 1, undef
-	],
-	[#Rule 54
-		 'value', 3,
+		 'value', 2,
 sub
 #line 145 "script/XSP.yp"
-{ $_[1] . '::' . $_[3] }
+{ '-' . $_[2] }
+	],
+	[#Rule 54
+		 'value', 1, undef
 	],
 	[#Rule 55
-		 'special_block', 3,
-sub
-#line 149 "script/XSP.yp"
-{ $_[2] }
+		 'value', 1, undef
 	],
 	[#Rule 56
-		 'special_block_start', 1,
+		 'value', 3,
 sub
-#line 151 "script/XSP.yp"
-{ push_lex_mode( $_[0], 'special' ) }
+#line 148 "script/XSP.yp"
+{ $_[1] . '::' . $_[3] }
 	],
 	[#Rule 57
-		 'special_block_end', 1,
+		 'value', 4,
 sub
-#line 153 "script/XSP.yp"
-{ pop_lex_mode( $_[0], 'special' ) }
+#line 149 "script/XSP.yp"
+{ "$_[1]($_[3])" }
 	],
 	[#Rule 58
-		 'lines', 1,
+		 'special_block', 3,
 sub
-#line 155 "script/XSP.yp"
-{ [ $_[1] ] }
+#line 154 "script/XSP.yp"
+{ $_[2] }
 	],
 	[#Rule 59
-		 'lines', 2,
+		 'special_block_start', 1,
 sub
 #line 156 "script/XSP.yp"
+{ push_lex_mode( $_[0], 'special' ) }
+	],
+	[#Rule 60
+		 'special_block_end', 1,
+sub
+#line 158 "script/XSP.yp"
+{ pop_lex_mode( $_[0], 'special' ) }
+	],
+	[#Rule 61
+		 'lines', 1,
+sub
+#line 160 "script/XSP.yp"
+{ [ $_[1] ] }
+	],
+	[#Rule 62
+		 'lines', 2,
+sub
+#line 161 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	]
 ],
@@ -1593,7 +1646,7 @@ sub
     bless($self,$class);
 }
 
-#line 158 "script/XSP.yp"
+#line 163 "script/XSP.yp"
 
 
 my %tokens = ( '::' => 'DCOLON',
@@ -1714,6 +1767,8 @@ sub yyerror {
   print "Error: (", $_[0]->YYCurtok, ') (',
     $_[0]->YYCurval, ') "', ( $buf ? $$buf : '--empty buffer--' ),
       q{"} . "\n";
+  print "Expecting: (", ( join ", ", map { "'$_'" } $_[0]->YYExpect ),
+        ")\n";
 }
 
 sub make_cptr { XSP::Parser::Type->new( base => $_[1],
