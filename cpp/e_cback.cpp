@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: e_cback.cpp,v 1.12 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: e_cback.cpp,v 1.13 2005/03/08 20:31:49 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -28,6 +28,11 @@ wxPliEventCallback::~wxPliEventCallback()
 
 class wxPliGuard {
 public:
+    wxPliGuard()
+    {
+        m_sv = NULL;
+    }
+
     ~wxPliGuard()
     {
         if( m_sv )
@@ -70,7 +75,8 @@ void wxPliEventCallback::Handler( wxEvent& event )
         wxPliClassInfo* cci = (wxPliClassInfo*)ci;
         wxPliSelfRef* sr = cci->m_func( &event );
 
-        if( sr ) e = sr->m_self;
+        if( sr )
+            e = sr->m_self;
     }
 
     if( !e )

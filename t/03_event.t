@@ -6,10 +6,14 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 2;
+use Test::More 'tests' => 3;
 use Tests_Helper qw(test_frame);
 
 test_frame( 'MyFrame' );
+
+package MyEvent;
+
+use base 'Wx::PlCommandEvent';
 
 package MyFrame;
 
@@ -32,6 +36,15 @@ sub new {
   $button->GetEventHandler->ProcessEvent( $event );
 
   main::ok( $var, "event succesfully received" );
+
+  $var = 0;
+
+  $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
+                         $button->GetId() );
+
+  $button->GetEventHandler->ProcessEvent( $event );
+
+  main::ok( $var, "event succesfully received (no crash)" );
 
   $var = 0;
 
