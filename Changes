@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.13
+0.13  Tue Mar 11 19:27:04 CET 2003
 	- New build system, allows building wxPerl extension written using
 	  XS outside of the wxPerl tree.
 	- Added Wx::Wave
