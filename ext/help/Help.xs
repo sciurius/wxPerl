@@ -26,6 +26,10 @@
 #undef read
 #undef eof
 #undef write
+#ifdef __WXMSW__
+#undef form
+#undef vform
+#endif
 
 #undef THIS
 
