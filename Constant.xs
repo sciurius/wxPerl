@@ -392,7 +392,7 @@ if( strEQ( name, #n ) ) \
     r( wxGROW );                        // sizer
     break;
   case 'H':
-    r( wxHIDE_READONLY );               
+    r( wxHIDE_READONLY );               // filedialog
     r( wxHORIZONTAL );                  // toolbar sizer
     r( wxHORIZONTAL_HATCH );            // dc
 
@@ -902,7 +902,7 @@ if( strEQ( name, #n ) ) \
     r( wxMINIMIZE );                    // frame
     r( wxMINIMIZE_BOX );                // frame
     r( wxMODERN );                      // font
-    r( wxMULTIPLE );                    
+    r( wxMULTIPLE );                    // filedialog
     
     r( wxMAJOR_VERSION );
     r( wxMINOR_VERSION );
@@ -930,8 +930,8 @@ if( strEQ( name, #n ) ) \
     break;
   case 'O':
     r( wxOK );
-    r( wxOPEN );
-    r( wxOVERWRITE_PROMPT );
+    r( wxOPEN );                        // filedialog
+    r( wxOVERWRITE_PROMPT );            // filedialog
     
     r( wxODDEVEN_RULE );                // dc
     r( wxOR );                          // dc
@@ -968,7 +968,7 @@ if( strEQ( name, #n ) ) \
     r( wxRightOf );                     // layout constraints
     break;
   case 'S':
-    r( wxSAVE );
+    r( wxSAVE );                        // filedialog
     //    r( wxSB_SIZEGRIP );
     r( wxSB_HORIZONTAL );               // scrollbar
     r( wxSB_VERTICAL );                 // scrollbar

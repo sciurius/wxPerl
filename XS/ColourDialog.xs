@@ -32,6 +32,9 @@ MODULE=Wx PACKAGE=Wx::ColourData
 Wx_ColourData*
 Wx_ColourData::new()
 
+void
+Wx_ColourData::DESTROY()
+
 bool
 Wx_ColourData::GetChooseFull()
 

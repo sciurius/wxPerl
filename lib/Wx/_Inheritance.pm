@@ -52,6 +52,7 @@ package Wx::SplitterWindow; @ISA = qw(Wx::Window);
 package Wx::ScrolledWindow; @ISA = qw(Wx::Panel);
 package Wx::ListCtrl;     @ISA = qw(Wx::Control);
 package Wx::ColourDialog; @ISA = qw(Wx::Dialog);
+package Wx::GenericColourDialog; @ISA = qw(Wx::ColourDialog);
 package Wx::DirDialog;    @ISA = qw(Wx::Dialog);
 package Wx::FileDialog;   @ISA = qw(Wx::Dialog);
 package Wx::TextEntryDialog; @ISA = qw(Wx::Dialog);
