@@ -85,11 +85,17 @@ Wx_Icon::LoadFile( name, type )
 bool
 Wx_Icon::Ok()
 
+#if defined( __WXMSW__ ) || \
+    ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) || \
+    defined( __WXPERL_FORCE__ )
+
 void
 Wx_Icon::CopyFromBitmap( bitmap )
     Wx_Bitmap* bitmap
   CODE:
     THIS->CopyFromBitmap( *bitmap );
+
+#endif
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 

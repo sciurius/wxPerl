@@ -526,7 +526,7 @@ Wx_Window::ScreenToClientXY( x, y )
     PUSHs( sv_2mortal( newSViv( (IV) x ) ) );
     PUSHs( sv_2mortal( newSViv( (IV) y ) ) );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 bool
 Wx_Window::ScrollLines( lines )

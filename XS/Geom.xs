@@ -250,7 +250,7 @@ newRect( rect )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 Wx_Region*
 newPolygon( list, fillStyle = wxODDEVEN_RULE )

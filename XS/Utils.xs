@@ -118,6 +118,7 @@ Wx_StopWatch::Time()
 MODULE=Wx PACKAGE=Wx::SingleInstanceChecker
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
+#if wxUSE_SNGLINST_CHECKER
 
 Wx_SingleInstanceChecker*
 Wx_SingleInstanceChecker::new()
@@ -133,6 +134,7 @@ Wx_SingleInstanceChecker::Create( name, path = wxEmptyString )
 bool
 Wx_SingleInstanceChecker::IsAnotherRunning()
 
+#endif
 #endif
 
 MODULE=Wx PACKAGE=Wx::SystemSettings

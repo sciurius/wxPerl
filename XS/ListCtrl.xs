@@ -35,8 +35,12 @@ Wx_ListEvent::GetCode()
 long
 Wx_ListEvent::GetIndex()
 
+#if WXPERL_W_VERSION_LE( 2, 3, 1 )
+
 long
 Wx_ListEvent::GetOldIndex()
+
+#endif
 
 int
 Wx_ListEvent::GetColumn()

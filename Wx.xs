@@ -20,7 +20,7 @@
 #endif
 
 // THIS IS AN HACK!
-#if defined(_MSC_VER) && WXPERL_W_VERSION_GE( 2, 3, 0 )
+#if defined(_MSC_VER) && WXPERL_W_VERSION_GE( 2, 3, 2 )
 #define STRICT
 #endif
 
