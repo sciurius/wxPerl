@@ -73,9 +73,6 @@ PRIORITY NORMAL:
     GetCurLine
     SendMsg
 
-* Wx::Frame
-    SetIcons
-
 PRIORITY LOW:
 
 * Wx::HtmlHelpData ?
@@ -124,11 +121,7 @@ PRIORITY LOW:
 
 DOCUMENTATTION:
 
-* Add notes for:
-  - implemented/not implemented classes
-  - non-implemented functions
-
-* Documente Wx::PlValidator, Wx::PlLog, Wx::PlLogPassThrough
+* Document Wx::PlValidator, Wx::PlLog, Wx::PlLogPassThrough
 
 * Document wxStatusBar::GetFieldRect
 
