@@ -20,6 +20,7 @@
 #include <wx/dialog.h>
 #include <wx/button.h>
 #include <wx/toolbar.h>
+#include <wx/tbarsmpl.h>
 #include <wx/statusbr.h>
 #include <wx/minifram.h>
 #include <wx/menu.h>
@@ -30,6 +31,7 @@
 #include <wx/choicdlg.h>
 #include <wx/textdlg.h>
 #include <wx/msgdlg.h>
+#include <wx/progdlg.h>
 
 #include <stdarg.h>
 
@@ -75,5 +77,6 @@ INCLUDE: XS/DirDialog.xs
 INCLUDE: XS/FileDialog.xs
 INCLUDE: XS/TextEntryDialog.xs
 INCLUDE: XS/MessageDialog.xs
+INCLUDE: XS/ProgressDialog.xs
 
 MODULE=Wx_Wnd
