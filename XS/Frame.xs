@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.16 2003/05/11 20:04:49 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.17 2003/05/17 13:14:56 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -133,7 +133,8 @@ void
 Wx_Frame::SetMenuBar( menubar )
     Wx_MenuBar* menubar
 
-#if WXPERL_W_VERSION_GE( 2, 4, 1 )
+#if (WXPERL_W_VERSION_GE( 2, 4, 1 ) && !defined(__WXMOTIF__)) \
+    || WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 void
 wxFrame::SetShape( region )

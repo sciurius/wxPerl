@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/ 8/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.12 2003/05/05 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: DataObject.xs,v 1.13 2003/05/17 13:15:02 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -228,6 +228,8 @@ Wx_TextDataObject::SetText( text )
 
 MODULE=Wx PACKAGE=Wx::BitmapDataObject
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 ) || !defined(__WXMOTIF__)
+
 Wx_BitmapDataObject*
 Wx_BitmapDataObject::new( bitmap = (wxBitmap*)&wxNullBitmap )
     Wx_Bitmap* bitmap
@@ -248,6 +250,8 @@ Wx_BitmapDataObject::SetBitmap( bitmap )
     Wx_Bitmap* bitmap
   CODE:
     THIS->SetBitmap( *bitmap );
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::FileDataObject
 

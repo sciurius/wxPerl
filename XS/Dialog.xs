@@ -58,7 +58,8 @@ Wx_Dialog::IsModal()
 # Wx_Dialog::SetModal( flag )
 #    bool flag
 
-#if WXPERL_W_VERSION_GE( 2, 4, 1 )
+#if (WXPERL_W_VERSION_GE( 2, 4, 1 ) && !defined(__WXMOTIF__)) \
+    || WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 void
 wxDialog::SetShape( region )
