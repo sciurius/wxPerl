@@ -12,6 +12,8 @@
 
 package Wx::DropSource;
 
+use Carp;
+
 sub new {
   my $this = shift;
 

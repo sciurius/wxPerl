@@ -25,6 +25,8 @@ $VERSION = '0.01';
 
 bootstrap Wx::DND;
 
+use Wx::DropSource;
+
 #
 # properly setup inheritance tree
 #
@@ -40,8 +42,9 @@ package Wx::FileDataObject;     @ISA = qw(Wx::DataObjectSimple);
 package Wx::TextDataObject;     @ISA = qw(Wx::DataObjectSimple);
 package Wx::BitmapDataObject;   @ISA = qw(Wx::DataObjectSimple);
 package Wx::Droptarget;
-package Wx::TextDropTarget;     @ISa = qw(Wx::DropTarget);
-package Wx::FileDropTarget;     @ISa = qw(Wx::DropTarget);
+package Wx::PlDropTarget;       @ISA = qw(Wx::DropTarget);
+package Wx::TextDropTarget;     @ISA = qw(Wx::DropTarget);
+package Wx::FileDropTarget;     @ISA = qw(Wx::DropTarget);
 
 use strict;
 
