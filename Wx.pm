@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.64 2003/08/27 22:09:55 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.65 2003/09/07 19:11:25 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -98,12 +98,14 @@ my( $wx_path, $wx_pre, $wx_post );
 
 sub load_dll {
   return if $^O ne 'MSWin32' || Wx::wxVERSION() < 2.005;
+  my $suff = ( Wx::wxUNICODE() ? 'u' : '' ) .
+             ( Wx::wxDEBUG()   ? 'd' : '' );
 
   unless( $wx_path ) {
     foreach ( @INC ) {
       if( -f "$_/auto/Wx/Wx.dll" ) {
         $wx_path = "$_/auto/Wx";
-        my $lib = ( glob "$wx_path/wx*html*.dll" )[0];
+        my $lib = ( glob "$wx_path/wx*${suff}_html*.dll" )[0];
         $lib =~ s{.*[/\\]([^/\\]+)$}{$1};
         $lib =~ m/^wx(?:msw)([^_]+)_html_([^\.]+)\.dll/i
           or die "PANIC: name scheme for '$lib'";
@@ -304,6 +306,36 @@ The Wx module is a wrapper for the wxWindows GUI toolkit.
 
 This module comes with extensive documentation in HTML format; you
 can download it from http://wxperl.sourceforge.net/
+
+=head1 Windows XP look
+
+For standalone (packed using PAR, Perl2Exe, Perl2App, ...)
+applications to get Windows XP look, a file named C<App.exe.manifest>
+(assuming the program is named C<App.exe>) and containing the text below
+must be placed in the same directory as the executable file.
+
+  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+      <assemblyIdentity
+          processorArchitecture="x86"
+          version="5.1.0.0"
+          type="win32"
+          name="Controls"
+      />
+      <description>Super wxPerl Application</description>
+      <dependency>
+          <dependentAssembly>
+              <assemblyIdentity
+                  type="win32"
+                  name="Microsoft.Windows.Common-Controls"        
+                  version="6.0.0.0"
+                  publicKeyToken="6595b64144ccf1df"
+                  language="*"
+                  processorArchitecture="x86"
+          />
+      </dependentAssembly>
+      </dependency>
+  </assembly>
 
 =head1 AUTHOR
 
