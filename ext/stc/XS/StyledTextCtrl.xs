@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/ 5/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.8 2003/05/05 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.9 2003/10/19 20:17:19 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -864,8 +864,12 @@ void
 Wx_StyledTextCtrl::SetCursor( cursorType )
     int cursorType
 
+#if 0
+
 int
 Wx_StyledTextCtrl::GetCursor()
+
+#endif
 
 void
 Wx_StyledTextCtrl::SetControlCharSymbol( symbol )

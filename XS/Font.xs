@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Font.xs,v 1.18 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Font.xs,v 1.19 2003/10/19 20:17:19 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -95,8 +95,20 @@ Wx_Font::GetFaceName()
 int
 Wx_Font::GetFamily()
 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+wxNativeFontInfo*
+wxFont::GetNativeFontInfo()
+  CODE:
+    RETVAL = new wxNativeFontInfo( *(THIS->GetNativeFontInfo()) );
+  OUTPUT: RETVAL
+
+#else
+
 Wx_NativeFontInfo*
 Wx_Font::GetNativeFontInfo()
+
+#endif
 
 wxString
 Wx_Font::GetNativeFontInfoDesc()
