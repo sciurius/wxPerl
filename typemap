@@ -203,6 +203,9 @@ Wx_JPEGHandler *        O_WXOBJECT
 Wx_PNGHandler *         O_WXOBJECT
 Wx_XPMHandler *         O_WXOBJECT
 Wx_IFFHandler *         O_WXOBJECT
+Wx_ICOHandler *         O_WXOBJECT
+Wx_CURHandler *         O_WXOBJECT
+Wx_ANIHandler *         O_WXOBJECT
 
 Wx_ImageList *          O_WXOBJECT
 
@@ -299,9 +302,7 @@ INPUT
 O_USERDATACD
     if( SvOK( $arg ) )
     {
-        SV* _data = sv_newmortal();
-        SvSetSV_nosteal( _data, $arg );
-        $var = new wxPliUserDataCD( _data );
+        $var = new wxPliUserDataCD( $arg );
     }
     else
         $var = 0;
@@ -309,9 +310,7 @@ O_USERDATACD
 O_USERDATAO
     if( SvOK( $arg ) )
     {
-        SV* _data = sv_newmortal();
-        SvSetSV_nosteal( _data, $arg );
-        $var = new wxPliUserDataO( _data );
+        $var = new wxPliUserDataO( $arg );
     }
     else
         $var = 0;

@@ -280,6 +280,9 @@ FD_TD( JPEGHandler );
 FD_TD( TIFFHandler );
 FD_TD( XPMHandler );
 FD_TD( IFFHandler );
+FD_TD( ICOHandler );
+FD_TD( CURHandler );
+FD_TD( ANIHandler );
 
 FD_TD( StreamBase );
 FD_TD( InputStream );

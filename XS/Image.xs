@@ -614,6 +614,25 @@ Wx_IFFHandler::new()
 
 #endif
 
+#if wxPERL_USE_ICO_CUR
+
+MODULE=Wx PACKAGE=Wx::ICOHandler
+
+Wx_ICOHandler*
+Wx_ICOHandler::new()
+
+MODULE=Wx PACKAGE=Wx::CURHandler
+
+Wx_CURHandler*
+Wx_CURHandler::new()
+
+MODULE=Wx PACKAGE=Wx::ANIHandler
+
+Wx_ANIHandler*
+Wx_ANIHandler::new()
+
+#endif
+
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 void
