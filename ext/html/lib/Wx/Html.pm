@@ -23,7 +23,7 @@ $VERSION = '0.01';
 
 @ISA = qw(DynaLoader);
 
-bootstrap Wx::Html;
+Wx::wx_boot( 'Wx::Html', $VERSION );
 
 #
 # properly setup inheritance tree

@@ -23,7 +23,7 @@ $VERSION = '0.01';
 
 @ISA = qw(DynaLoader);
 
-bootstrap Wx::MDI;
+Wx::wx_boot( 'Wx::MDI', $VERSION );
 
 # init wxModules
 

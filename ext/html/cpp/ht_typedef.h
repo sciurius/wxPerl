@@ -25,8 +25,15 @@ FD_TD( HtmlHelpController );
 FD_TD( BestHelpController );
 FD_TD( HtmlEasyPrinting );
 // do not need to depend upon Wx::Print
+#if defined( WXPL_STATIC )
+class wxPrintData;
+class wxPageSetupDialogData;
+typedef wxPrintData Wx_PrintData;
+typedef wxPageSetupDialogData Wx_PageSetupDialogData;
+#else
 FD_TD( PrintData );
 FD_TD( PageSetupDialogData );
+#endif
 
 #undef FD_TD
 

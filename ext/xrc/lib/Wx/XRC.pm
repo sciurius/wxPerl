@@ -23,7 +23,7 @@ $VERSION = '0.01';
 
 @ISA = qw(DynaLoader);
 
-bootstrap Wx::XRC;
+Wx::wx_boot( 'Wx::XRC', $VERSION );
 
 # init wxModules
 Wx::XmlInitXmlModule();

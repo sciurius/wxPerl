@@ -39,6 +39,6 @@ double xrc_constant( const char* name, int arg )
     WX_PL_CONSTANT_CLEANUP();
 }
 
-wxPlConstants listctrl_module( &xrc_constant );
+wxPlConstants xrc_module( &xrc_constant );
 
 #endif
