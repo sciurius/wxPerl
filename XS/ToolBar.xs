@@ -19,6 +19,11 @@ Wx_ToolBarToolBase::Destroy()
 
 MODULE=Wx PACKAGE=Wx::ToolBarBase
 
+void
+Wx_ToolBarBase::Destroy()
+  CODE:
+    delete THIS;
+
 bool
 Wx_ToolBarBase::AddControl( control )
     Wx_Control* control
@@ -235,6 +240,8 @@ Wx_ToolBar::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, styl
 
 MODULE=Wx PACKAGE=Wx::ToolBarSimple
 
+#if wxUSE_TOOLBAR_SIMPLE
+
 Wx_ToolBar*
 Wx_ToolBarSimple::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
     Wx_Window* parent
@@ -248,3 +255,5 @@ Wx_ToolBarSimple::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize
         name );
   OUTPUT:
     RETVAL
+
+#endif
