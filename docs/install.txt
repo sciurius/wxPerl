@@ -124,7 +124,8 @@ in C:\Perl
   "perl Makefile.PL" with "perl -MConfig_m Makefile.PL". If you built
   Perl from sources, you don't need this additional step.
 
-  Build wxWindows as a dll
+  Build wxWindows as a dll ( you wil need the utilities from
+      ftp://oracle.fastpicsystems.com/pub/wxwin/ports/mingw32/extra.zip )
 
   set WXDIR=z:/path/to/wx
   set WXWIN=z:/path/to/wx
