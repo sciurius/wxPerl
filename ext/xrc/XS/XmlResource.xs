@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        XmlResource.xs
+## Name:        ext/xrc/XS/XmlResource.xs
 ## Purpose:     XS for Wx::XmlResource
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     27/ 7/2001
-## RCS-ID:      $Id: XmlResource.xs,v 1.7 2003/05/17 20:17:17 mbarbon Exp $
+## Created:     27/07/2001
+## RCS-ID:      $Id: XmlResource.xs,v 1.8 2003/06/04 20:49:48 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,6 +15,8 @@
 #include <wx/dialog.h>
 #include <wx/panel.h>
 #include <wx/toolbar.h>
+#include <wx/frame.h>
+#include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::XmlResource
 
@@ -91,11 +93,30 @@ Wx_XmlResource::LoadOnPanel( panel, parent, name )
   OUTPUT:
     RETVAL
 
-bool
-Wx_XmlResource::LoadFrame( frame, parent, name )
-    Wx_Frame* frame
-    Wx_Window* parent
+void
+wxXmlResource::LoadFrame( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wfrm_wwin_s, LoadOnFrame )
+        MATCH_REDISP( wxPliOvl_wwin_s, LoadFrame2 )
+    END_OVERLOAD( "Wx::XmlResource::LoadFrame" )
+
+wxFrame*
+wxXmlResource::LoadFrame2( parent, name )
+    wxWindow* parent
     wxString name
+  CODE:
+    RETVAL = THIS->LoadFrame( parent, name );
+  OUTPUT: RETVAL
+
+bool
+wxXmlResource::LoadOnFrame( frame, parent, name )
+    wxFrame* frame
+    wxWindow* parent
+    wxString name
+  CODE:
+    RETVAL = THIS->LoadFrame( frame, parent, name );
+  OUTPUT: RETVAL
 
 Wx_Bitmap*
 Wx_XmlResource::LoadBitmap( name )
@@ -159,3 +180,9 @@ Wx_XmlResource::CompareVersion( major, minor, release, revision )
 
 ## void
 ## wxXmlResource::UpdateResources()
+
+void
+AddSubclassFactory( wxXmlSubclassFactory *factory )
+  CODE:
+    wxPli_detach_object( aTHX_ ST(0) ); // avoid destructor
+    wxXmlResource::AddSubclassFactory( factory );
