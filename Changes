@@ -1,6 +1,11 @@
 Revision history for Perl extension Wx.
 
-0.08  xxx xxx xx xx:xx:xx 2001
+0.09  xxx xxx xx xx:xx:xx 2002
+	- wxTaskBarIcon ( MS Windows only )
+	- wxGrid, wxGridCellAttr
+	- wxGridCellRenderer, wxGridCellEditor
+
+0.08  Sat Dec 01 10:23:44 2001
 	- wxToggleButton ( 2.3 )
 	- wxSingleInstanceChecker ( 2.3 )
 	- wxListView, virtual wxListCtrl ( 2.3 )
@@ -34,3 +39,27 @@ Revision history for Perl extension Wx.
 	- wxHtmlWindow, wxHtmlHelpController wrappers
 	- wx*HelpController* wrappers
 	- added ppmdist target for Win32
+
+0.05  xxx Mar 04 15:01:03 2001
+	- Wx::AcceleratorTable/Entry
+	- most common dialogs
+	- Wx::PlSizer ( user defined sizer )
+	- Wx::ListCtrl
+	- Wx::TreeCtrl
+	- Wx::Log classes
+	- Wx::Timer
+	- Wx::SystemSettings
+	- some other minor classes ( search for PACKAGE= in the sources )
+
+0.04  xxx Jan 20 15:02:04 2001
+	- Better overloaded method support
+	- Perl 5.004_04 compatibility
+	- MinGW compilation ( with ActivePerl and Perl built from sources )
+	- wxMotif support ( alpha )
+
+0.03  xxx Dec 04 15:00:01 2000
+	- First public release
+
+0.02
+
+0.01

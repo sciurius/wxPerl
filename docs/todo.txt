@@ -3,13 +3,9 @@ MISC:
 * tut & man in one file
 
 * wxGrid
-    GetCellEditor
-    GetCellRenderer
     GetDefaultEditor
     GetDefaultRenderer
     GetTable
-    SetCellEditor
-    SetCellRenderer
     SetDefaultEditor
     SetDefaultRenderer
     SetTable
@@ -19,11 +15,7 @@ MISC:
     GetDefaultEditorForType
     GetDefaultRendererForType
 
-* wxGridCellAttr
-    SetRenderer
-    SetEditor
-    GetRenderer
-    GetEditor
+* Wx::PlGridCellEditor/Renderer
 
 PRIORITY NORMAL:
 
@@ -37,7 +29,7 @@ PRIORITY NORMAL:
 * Wx::DataObject
     Wx::PlDataObject
 
-* move THIS from HV to the MAGIC?
+* move THIS from HV to MAGIC?
   
 * Wx::Bitmap, Wx::Icon, Wx::Cursor
     add missing constructors ( where applicable )
@@ -123,6 +115,11 @@ DOCUMENTATTION:
 
 * Wx::GridCellAttr memory management
     GetAlignment
+
+* Wx::Config
+    GetFirst/NextEntry/Group
+    Read
+    Write
 
 -- not documented in wxWindows --
 
