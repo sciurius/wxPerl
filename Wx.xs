@@ -237,9 +237,10 @@ _xsmatch( avref, proto, required = -1, allow_more = FALSE )
     if( !av ) croak( "first parameter must be an ARRAY reference" );
     n = wxPli_av_2_uchararray( aTHX_ proto, &prototype );
     len = av_len( av ) + 1;
+    EXTEND(SP, len);
     PUSHMARK(SP);
     for( i = 0; i < len; ++i )
-        XPUSHs( *av_fetch( av, i, 0 ) );
+        PUSHs( *av_fetch( av, i, 0 ) );
     PUTBACK;
     RETVAL = wxPli_match_arguments( aTHX_ prototype, n, required, allow_more );
     SPAGAIN;
