@@ -45,10 +45,10 @@ Wx_KeyCode              T_KEYCODE
 wxKeyCode               T_KEYCODE
 
 Wx_UserDataCD *         O_USERDATACD
-wxUserDataCD *          O_USERDATACD
+wxPliUserDataCD *       O_USERDATACD
 
 Wx_UserDataO *          O_USERDATAO
-wxUserDataO *           O_USERDATAO
+wxPliUserDataO *        O_USERDATAO
 
 SV_null *               T_SV_NULL
 
@@ -300,7 +300,7 @@ wxListItem *            O_NON_WXOBJECT
 Wx_ListItemAttr *       O_NON_WXOBJECT
 wxListItemAttr *        O_NON_WXOBJECT
 Wx_TreeItemData *       O_NON_WXOBJECT
-wxTreeItemData *        O_NON_WXOBJECT
+wxPliTreeItemData *     O_NON_WXOBJECT
 Wx_TreeItemId *         O_NON_WXOBJECT
 wxTreeItemId *          O_NON_WXOBJECT
 
