@@ -128,6 +128,7 @@ argument:       type ID                 { make_argument( @_ ) }
                     { make_argument( @_[0, 1, 2, 4] ) };
 
 value:          INTEGER
+              | DASH INTEGER    { '-' . $_[2] }
               | QUOTED_STRING
               | ID
               | ID DCOLON ID    { $_[1] . '::' . $_[3] };
@@ -237,13 +238,13 @@ sub yylex {
                       | ::
                        )//x ) {
         return ( $tokens{$1}, $1 );
-      } elsif( $$buf =~ m/^(\w+)\W/ ) {
+      } elsif( $$buf =~ m/^([a-zA-Z_]\w+)\W/ ) {
         $$buf =~ s/^(\w+)//;
 
         return ( $1, $1 ) if exists $keywords{$1};
 
         return ( 'ID', $1 );
-      } elsif( $$buf =~ m/^(\d+)\D/ ) {
+      } elsif( $$buf =~ s/^(\d+)\D// ) {
         return ( 'INTEGER', $1 );
       } elsif( $$buf =~ s/^("[^"]*")// ) {
         return ( 'QUOTED_STRING', $1 );

@@ -536,7 +536,7 @@ sub new {
 		DEFAULT => -2
 	},
 	{#State 4
-		DEFAULT => -55
+		DEFAULT => -56
 	},
 	{#State 5
 		ACTIONS => {
@@ -644,7 +644,7 @@ sub new {
 		}
 	},
 	{#State 21
-		DEFAULT => -57
+		DEFAULT => -58
 	},
 	{#State 22
 		DEFAULT => -8
@@ -726,13 +726,13 @@ sub new {
 		}
 	},
 	{#State 38
-		DEFAULT => -56
+		DEFAULT => -57
 	},
 	{#State 39
-		DEFAULT => -58
+		DEFAULT => -59
 	},
 	{#State 40
-		DEFAULT => -54
+		DEFAULT => -55
 	},
 	{#State 41
 		ACTIONS => {
@@ -1148,11 +1148,12 @@ sub new {
 	{#State 109
 		ACTIONS => {
 			'QUOTED_STRING' => 115,
-			'ID' => 118,
-			'INTEGER' => 116
+			'ID' => 119,
+			'DASH' => 116,
+			'INTEGER' => 117
 		},
 		GOTOS => {
-			'value' => 117
+			'value' => 118
 		}
 	},
 	{#State 110
@@ -1163,7 +1164,7 @@ sub new {
 	},
 	{#State 112
 		ACTIONS => {
-			'SEMICOLON' => 119
+			'SEMICOLON' => 120
 		}
 	},
 	{#State 113
@@ -1173,30 +1174,38 @@ sub new {
 		DEFAULT => -27
 	},
 	{#State 115
-		DEFAULT => -51
-	},
-	{#State 116
-		DEFAULT => -50
-	},
-	{#State 117
-		DEFAULT => -49
-	},
-	{#State 118
-		ACTIONS => {
-			'DCOLON' => 120
-		},
 		DEFAULT => -52
 	},
-	{#State 119
-		DEFAULT => -25
-	},
-	{#State 120
+	{#State 116
 		ACTIONS => {
-			'ID' => 121
+			'INTEGER' => 121
 		}
 	},
-	{#State 121
+	{#State 117
+		DEFAULT => -50
+	},
+	{#State 118
+		DEFAULT => -49
+	},
+	{#State 119
+		ACTIONS => {
+			'DCOLON' => 122
+		},
 		DEFAULT => -53
+	},
+	{#State 120
+		DEFAULT => -25
+	},
+	{#State 121
+		DEFAULT => -51
+	},
+	{#State 122
+		ACTIONS => {
+			'ID' => 123
+		}
+	},
+	{#State 123
+		DEFAULT => -54
 	}
 ],
                                   yyrules  =>
@@ -1532,45 +1541,51 @@ sub
 		 'value', 1, undef
 	],
 	[#Rule 51
-		 'value', 1, undef
+		 'value', 2,
+sub
+#line 131 "script/XSP.yp"
+{ '-' . $_[2] }
 	],
 	[#Rule 52
 		 'value', 1, undef
 	],
 	[#Rule 53
-		 'value', 3,
-sub
-#line 133 "script/XSP.yp"
-{ $_[1] . '::' . $_[3] }
+		 'value', 1, undef
 	],
 	[#Rule 54
-		 'special_block', 3,
+		 'value', 3,
 sub
-#line 137 "script/XSP.yp"
-{ $_[2] }
+#line 134 "script/XSP.yp"
+{ $_[1] . '::' . $_[3] }
 	],
 	[#Rule 55
-		 'special_block_start', 1,
+		 'special_block', 3,
 sub
-#line 139 "script/XSP.yp"
-{ push_lex_mode( $_[0], 'special' ) }
+#line 138 "script/XSP.yp"
+{ $_[2] }
 	],
 	[#Rule 56
-		 'special_block_end', 1,
+		 'special_block_start', 1,
 sub
-#line 141 "script/XSP.yp"
-{ pop_lex_mode( $_[0], 'special' ) }
+#line 140 "script/XSP.yp"
+{ push_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 57
-		 'lines', 1,
+		 'special_block_end', 1,
 sub
-#line 143 "script/XSP.yp"
-{ [ $_[1] ] }
+#line 142 "script/XSP.yp"
+{ pop_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 58
-		 'lines', 2,
+		 'lines', 1,
 sub
 #line 144 "script/XSP.yp"
+{ [ $_[1] ] }
+	],
+	[#Rule 59
+		 'lines', 2,
+sub
+#line 145 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	]
 ],
@@ -1578,7 +1593,7 @@ sub
     bless($self,$class);
 }
 
-#line 146 "script/XSP.yp"
+#line 147 "script/XSP.yp"
 
 
 my %tokens = ( '::' => 'DCOLON',
@@ -1673,13 +1688,13 @@ sub yylex {
                       | ::
                        )//x ) {
         return ( $tokens{$1}, $1 );
-      } elsif( $$buf =~ m/^(\w+)\W/ ) {
+      } elsif( $$buf =~ m/^([a-zA-Z_]\w+)\W/ ) {
         $$buf =~ s/^(\w+)//;
 
         return ( $1, $1 ) if exists $keywords{$1};
 
         return ( 'ID', $1 );
-      } elsif( $$buf =~ m/^(\d+)\D/ ) {
+      } elsif( $$buf =~ s/^(\d+)\D// ) {
         return ( 'INTEGER', $1 );
       } elsif( $$buf =~ s/^("[^"]*")// ) {
         return ( 'QUOTED_STRING', $1 );

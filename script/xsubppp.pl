@@ -686,7 +686,9 @@ foreach my $f ( keys %out ) {
   my( $vol, $dir, $file ) = File::Spec::Unix->splitpath( $f );
   my $d = File::Spec::Unix->catpath( $vol, $dir, '' );
 
-  File::Path::mkpath( $d ) or die "mkpath '$d': $!";
+  unless( -d $d ) {
+    File::Path::mkpath( $d ) or die "mkpath '$d': $!";
+  }
 
   $fh->open( "> $f" ) or die "open '$f': $!";
   binmode $fh;
