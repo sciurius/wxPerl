@@ -58,6 +58,7 @@ BOOT:
 
 INCLUDE: XS/HtmlWindow.xs
 INCLUDE: XS/HtmlHelpController.xs
+INCLUDE: XS/HtmlEasyPrinting.xs
 
 #include "cpp/ht_constants.cpp"
 

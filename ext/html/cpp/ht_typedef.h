@@ -22,8 +22,12 @@ FD_TD( HtmlWindow );
 FD_TD( HtmlLinkInfo );
 FD_TD( HtmlCell );
 FD_TD( HtmlHelpController );
+FD_TD( HtmlEasyPrinting );
 // do not need to depend upon Wx::Config
 FD_TD( ConfigBase );
+// do not need to depend upon Wx::Print
+FD_TD( PrintData );
+FD_TD( PageSetupDialogData );
 
 #undef FD_TD
 

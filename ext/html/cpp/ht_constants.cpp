@@ -36,6 +36,11 @@ double html_constant( const char* name, int arg )
         r( wxHF_PRINT );
         r( wxHF_DEFAULTSTYLE );
         break;
+    case 'P':
+        r( wxPAGE_ODD );
+        r( wxPAGE_EVEN );
+        r( wxPAGE_ALL );
+        break;
     }
 #undef r
 
