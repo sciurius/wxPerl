@@ -88,6 +88,7 @@ FD_TD( TextUrlEvent );
 FD_TD( TimerEvent );
 FD_TD( TreeEvent );
 FD_TD( UpdateUIEvent );
+FD_TD( ProcessEvent );
 
 // other classes
 
@@ -140,7 +141,15 @@ FD_TD( ControlWithItems );
 FD_TD( Cursor );
 FD_TD( DC );
 FD_TD( Dialog );
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+#  if defined( __WXMSW__ ) || defined( __WXMAC__ )
 FD_TD( DirDialog );
+#  else
+FD_TD_NAME( DirDialog, GenericDirDialog );
+#  endif
+#else
+FD_TD( DirDialog );
+#endif
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( DrawObject );
 #endif
@@ -206,6 +215,7 @@ FD_TD( Palette );
 FD_TD( Panel );
 FD_TD( Pen );
 FD_TD( Point );
+FD_TD( Process );
 FD_TD( ProgressDialog );
 FD_TD( RadioBox );
 FD_TD( RadioButton );
