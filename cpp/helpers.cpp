@@ -98,7 +98,7 @@ const char* wxPli_cpp_class_2_perl( const wxChar* className )
 void wxPli_push_args( SV*** psp, const char* argtypes, va_list& args ) 
 {
     SV** sp = *psp;
-#if WXPERL_P_VERSION_GE( 5, 5 )
+#if WXPERL_P_VERSION_GE( 5, 5, 0 )
     dTHR;
 #endif
 
@@ -141,6 +141,7 @@ void wxPli_push_args( SV*** psp, const char* argtypes, va_list& args )
             SV* sv = sv_newmortal();
             WXSTRING_OUTPUT( (*wxsval), sv );
             XPUSHs( sv );
+            break;
         }
         case 'S':
             svval = va_arg( args, SV* );
