@@ -124,6 +124,7 @@ Wx_LogGui *             O_NON_WXOBJECT
 Wx_LogWindow *          O_NON_WXOBJECT
 
 Wx_Locale *             O_NON_WXOBJECT
+Wx_LanguageInfo *       O_NON_WXOBJECT
 
 Wx_StopWatch *          O_NON_WXOBJECT
 

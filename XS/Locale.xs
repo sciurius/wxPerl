@@ -12,6 +12,34 @@
 
 #include <wx/intl.h>
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+MODULE=Wx PACKAGE=Wx::LanguageInfo
+
+Wx_LanguageInfo*
+Wx_LanguageInfo::new( language, canonicalName, winLang, winSublang, description )
+    int language
+    wxString canonicalName
+    int winLang
+    int winSublang
+    wxString description
+  CODE:
+    RETVAL = new wxLanguageInfo;
+    RETVAL->Language = language;
+    RETVAL->CanonicalName = canonicalName;
+#if defined( __WXMSW__ )
+    RETVAL->WinLang = winLang;
+    RETVAL->WinSublang = winSublang;
+#endif
+    RETVAL->Description = description;
+  OUTPUT:
+    RETVAL
+
+void
+Wx_LanguageInfo::DESTROY()
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::Locale
 
 Wx_Locale*
@@ -71,6 +99,12 @@ Wx_Locale::AddCatalog( domain )
 void
 Wx_Locale::AddCatalogLookupPathPrefix( prefix )
     wxString prefix
+
+void
+AddLanguage( info )
+    Wx_LanguageInfo* info
+  CODE:
+    wxLocale::AddLanguage( *info );
 
 const wxChar*
 Wx_Locale::GetLocale()

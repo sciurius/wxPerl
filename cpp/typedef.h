@@ -157,6 +157,7 @@ FD_TD( Image );
 FD_TD( ImageHandler );
 FD_TD( ImageList );
 FD_TD( IndividualLayoutConstraint );
+FD_TDS( LanguageInfo )
 FD_TD( LayoutConstraints );
 FD_TD( ListBox );
 FD_TD( ListCtrl );
@@ -173,7 +174,7 @@ FD_TD( Menu );
 FD_TD( MenuBar );
 FD_TD( MenuItem );
 
-#if defined( __WXGTK__ ) || defined( __WXMOTIF__ )
+#if defined( __WXGTK__ )
 FD_TD_NAME( MessageDialog, GenericMessageDialog );
 #else
 FD_TD( MessageDialog );
@@ -245,6 +246,7 @@ FD_TD( OutputStream );
 
 #undef FD_TD
 #undef TD_TDS
+#undef FD_TD_NAME
 
 typedef int Wx_KeyCode;
 
