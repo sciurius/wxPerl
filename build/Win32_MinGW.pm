@@ -20,7 +20,8 @@ use wxMMUtils;
 #
 # wx-config-like
 #
-sub wx_config {
+sub my_wx_config {
+  my $class = shift;
   my $makefile = MM->catfile( top_dir(), 'build', 'gmake.mak' );
 
   my $final = $wxConfig::debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
@@ -35,7 +36,7 @@ sub wx_lib {
   $lib =~ s/^\s*(.*?)\s*/$1/;
 
   return ' ' . MM->catfile( wx_config( 'wxdir' ), 'lib',
-                            $lib . $Config{lib_ext} ) . ' ';
+                            'lib' . $lib . $Config{lib_ext} ) . ' ';
 }
 
 #

@@ -6,7 +6,14 @@ use base 'Exporter';
 
 use vars qw(@EXPORT);
 @EXPORT = qw(obj_from_src top_dir building_extension
-             xs_depend merge_config wx_version);
+             xs_depend merge_config wx_version wx_config);
+
+#
+# convenience function
+#
+sub wx_config {
+  $wxConfig::Arch->my_wx_config( @_ );
+}
 
 #
 # wxWindows version as M.mmm_sss
@@ -14,7 +21,7 @@ use vars qw(@EXPORT);
 sub wx_version {
   no strict 'refs';
 
-  my $ver = &{"${wxConfig::Arch}::wx_config"}( 'version' );
+  my $ver = wx_config( 'version' );
 
   $ver =~ m/(\d+)\.(\d+)\.(\d+)/ &&
     return $1 + $2 / 1000 + $3 / 1000000;

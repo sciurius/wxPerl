@@ -20,7 +20,8 @@ use wxMMUtils;
 #
 # wx-config-like
 #
-sub wx_config {
+sub my_wx_config {
+  my $class = shift;
   my $makefile = MM->catfile( top_dir(), 'build', 'nmake.mak' );
 
   if( $Config{make} eq 'nmake' ) {

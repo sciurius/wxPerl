@@ -20,7 +20,8 @@ use base 'Any_OS';
 #
 # wx-config-like
 #
-sub wx_config {
+sub my_wx_config {
+  my $class = shift;
   my $options = join ' ', map { "--$_" } @_;
 
   my $t = qx(wx-config $options);

@@ -73,6 +73,11 @@ BEGIN {
       die "Your compiler is not currently supported on Win32 platform"
     };
 
+    m/darwin/ && do {
+      $package_to_use = 'MacOSX_GCC';
+      last SWITCH;
+    };
+
     # default
     $package_to_use = 'Any_wx_config';
     last SWITCH;
