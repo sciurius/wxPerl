@@ -3,8 +3,8 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/ 5/2002
-// RCS-ID:
-// Copyright:   (c) 2002 Marcus Friedlaender and Mattia Barbon
+// RCS-ID:      $Id: st_constants.cpp,v 1.6 2003/04/24 22:26:46 mbarbon Exp $
+// Copyright:   (c) 2002-2003 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -34,20 +34,16 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_AVE_COMMENT );
         r( wxSTC_AVE_NUMBER );
         r( wxSTC_AVE_WORD );
-        r( wxSTC_AVE_KEYWORD );
-        r( wxSTC_AVE_STATEMENT );
         r( wxSTC_AVE_STRING );
         r( wxSTC_AVE_ENUM );
         r( wxSTC_AVE_STRINGEOL );
         r( wxSTC_AVE_IDENTIFIER );
         r( wxSTC_AVE_OPERATOR );
         r( wxSTC_ADA_DEFAULT );
-        r( wxSTC_ADA_COMMENT );
         r( wxSTC_ADA_NUMBER );
         r( wxSTC_ADA_WORD );
         r( wxSTC_ADA_STRING );
         r( wxSTC_ADA_CHARACTER );
-        r( wxSTC_ADA_OPERATOR );
         r( wxSTC_ADA_IDENTIFIER );
         r( wxSTC_ADA_STRINGEOL );
 #endif
