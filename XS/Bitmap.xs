@@ -147,6 +147,10 @@ Wx_Bitmap::GetHeight()
 
 Wx_Palette*
 Wx_Bitmap::GetPalette()
+  CODE:
+    RETVAL = new wxPalette( *THIS->GetPalette() );
+  OUTPUT:
+    RETVAL
 
 Wx_Mask*
 Wx_Bitmap::GetMask()

@@ -20,6 +20,7 @@
 #include <wx/bitmap.h>
 #include <wx/cursor.h>
 #include <wx/dc.h>
+#include <wx/palette.h>
 #include <wx/dcmemory.h>
 #include <wx/dcclient.h>
 #include <wx/dcscreen.h>
@@ -64,5 +65,6 @@ INCLUDE: XS/DC.xs
 INCLUDE: XS/Pen.xs
 INCLUDE: XS/Brush.xs
 INCLUDE: XS/Image.xs
+INCLUDE: XS/Palette.xs
 
 MODULE=Wx_GDI
