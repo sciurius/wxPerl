@@ -204,6 +204,11 @@ my @demos =
        [ 'ListCtrl', demo( 'wxListCtrl' ) ],
       ],
     ],
+    [ 'Sizers',
+      [
+       [ 'NotebookSizer', demo( 'wxNotebookSizer' ) ],
+      ],
+    ],
     [ 'Contrib',
       [
        [ 'XRC', demo( 'XRC' ), 2.003001 ],
