@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.15 2004/08/28 19:43:46 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.16 2004/11/23 22:10:30 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -23,6 +23,10 @@ wxStyledTextCtrl::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize
     wxSize size
     long style
     wxString name
+  CODE:
+    RETVAL = new wxStyledTextCtrl( parent, id, pos, size, style, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
 
 void
 wxStyledTextCtrl::AddText( text )
