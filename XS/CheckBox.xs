@@ -34,3 +34,10 @@ Wx_CheckBox::GetValue()
 void
 Wx_CheckBox::SetValue( state )
     bool state
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+bool
+Wx_CheckBox::IsChecked()
+
+#endif

@@ -92,6 +92,14 @@ Wx_FontDialog*
 Wx_FontDialog::new( parent, data = 0 )
     Wx_Window* parent
     Wx_FontData* data
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = new wxFontDialog( parent, *data );
+#else
+    RETVAL = new wxFontDialog( parent, data );
+#endif
+  OUTPUT:
+    RETVAL
 
 Wx_FontData*
 Wx_FontDialog::GetFontData()
