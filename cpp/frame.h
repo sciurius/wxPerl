@@ -10,33 +10,25 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxFrame:public wxFrame
+class wxPliFrame:public wxFrame
 {
-    _DECLARE_DYNAMIC_CLASS( _wxFrame );
-    _DECLARE_V_CBACK();
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliFrame );
+    WXPLI_DECLARE_V_CBACK();
 public:
-    _wxFrame( const char* package, wxWindow* parent, wxWindowID id, 
-              const wxString& title, const wxPoint&, const wxSize&, long, 
-              const wxString& );
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliFrame, "Wx::Frame", TRUE );
+    WXPLI_CONSTRUCTOR_7( wxPliFrame, "Wx::Frame", TRUE,
+                         wxWindow*, wxWindowID, const wxString&,
+                         const wxPoint&, const wxSize&, long, 
+                         const wxString& );
 
     virtual wxStatusBar* OnCreateStatusBar( int, long, wxWindowID,
                                             const wxString& );
     virtual wxToolBar* OnCreateToolBar( long, wxWindowID, const wxString& );
 };
 
-inline _wxFrame::_wxFrame( const char* package, wxWindow* parent, 
-                           wxWindowID id, const wxString& title,
-                           const wxPoint& pos, const wxSize& size,
-                           long style, const wxString& name )
-    :m_callback( "Wx::Frame" )
-{ 
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, title, pos, size, style, name );
-}
-
-inline wxStatusBar* _wxFrame::OnCreateStatusBar( int number, long style,
-                                                 wxWindowID id,
-                                                 const wxString& name ) 
+inline wxStatusBar* wxPliFrame::OnCreateStatusBar( int number, long style,
+                                                   wxWindowID id,
+                                                   const wxString& name ) 
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback,
                                            "OnCreateStatusBar" ) ) 
@@ -44,8 +36,8 @@ inline wxStatusBar* _wxFrame::OnCreateStatusBar( int number, long style,
         SV* ret = wxPliVirtualCallback_CallCallback
             ( &m_callback, G_SCALAR, "illp",
               number, style, id, name.c_str() );
-        wxStatusBar* retval = (wxStatusBar*)_sv_2_object( ret,
-                                                          "Wx::StatusBar" );
+        wxStatusBar* retval =
+            (wxStatusBar*)wxPli_sv_2_object( ret, "Wx::StatusBar" );
         SvREFCNT_dec( ret );
 
         return retval;
@@ -53,16 +45,16 @@ inline wxStatusBar* _wxFrame::OnCreateStatusBar( int number, long style,
         return wxFrame::OnCreateStatusBar( number, style, id, name );
 }
 
-inline wxToolBar* _wxFrame::OnCreateToolBar( long style, wxWindowID id,
-                                             const wxString& name )
+inline wxToolBar* wxPliFrame::OnCreateToolBar( long style, wxWindowID id,
+                                               const wxString& name )
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "OnCreateToolBar" ) ) 
     {
         SV* ret = wxPliVirtualCallback_CallCallback
             ( &m_callback, G_SCALAR, "llp",
               style, id, name.c_str() );
-        wxToolBar* retval = (wxToolBar*)_sv_2_object( ret,
-                                                      "Wx::ToolBarSimple" );
+        wxToolBar* retval =
+            (wxToolBar*)wxPli_sv_2_object( ret, "Wx::ToolBarSimple" );
         SvREFCNT_dec( ret );
 
         return retval;
@@ -70,30 +62,14 @@ inline wxToolBar* _wxFrame::OnCreateToolBar( long style, wxWindowID id,
         return wxFrame::OnCreateToolBar( style, id, name );
 }
     
-_IMPLEMENT_DYNAMIC_CLASS( _wxFrame, wxFrame );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliFrame, wxFrame );
 
-class _wxMiniFrame:public wxMiniFrame
-{
-    _DECLARE_DYNAMIC_CLASS( _wxMiniFrame );
-    _DECLARE_SELFREF();
-public:
-    _wxMiniFrame( const char* package, wxWindow* parent, wxWindowID id,
-                 const wxString& title, const wxPoint& pos,
-                 const wxSize& size, long style, const wxString& name );
-};
+WXPLI_DECLARE_CLASS_7( MiniFrame, TRUE,
+                       wxWindow*, wxWindowID, const wxString&,
+                       const wxPoint&, const wxSize&, long,
+                       const wxString& );
 
-inline _wxMiniFrame::_wxMiniFrame( const char* package, wxWindow* parent,
-                            wxWindowID id,
-                            const wxString& title, const wxPoint& pos,
-                            const wxSize& size, long style,
-                            const wxString& name )
-    :m_callback( "Wx::MiniFrame" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, title, pos, size, style, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxMiniFrame, wxMiniFrame );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliMiniFrame, wxMiniFrame );
 
 // Local variables: //
 // mode: c++ //

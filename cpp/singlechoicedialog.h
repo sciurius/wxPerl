@@ -12,27 +12,23 @@
 
 // increments reference count of client data upon construction,
 // and decrements it upon destruction
-class _wxSingleChoiceDialog:public wxSingleChoiceDialog
+class wxPliSingleChoiceDialog:public wxSingleChoiceDialog
 {
 public:
-    _wxSingleChoiceDialog( wxWindow* parent, const wxString& message,
-                           const wxString& caption, int n,
-                           const wxString* choices, SV** clientdata,
-                           long style, const wxPoint& pos );
-    ~_wxSingleChoiceDialog();
+    wxPliSingleChoiceDialog( wxWindow* parent, const wxString& message,
+                             const wxString& caption, int n,
+                             const wxString* choices, SV** clientdata,
+                             long style, const wxPoint& pos );
+    ~wxPliSingleChoiceDialog();
 private:
     SV** m_data;
     int m_num;
 };
 
-inline _wxSingleChoiceDialog::_wxSingleChoiceDialog( wxWindow* parent, 
-                                                     const wxString& message,
-                                                     const wxString& caption,
-                                                     int n,
-                                                     const wxString* choices,
-                                                     SV** clientdata,
-                                                     long style,
-                                                     const wxPoint& pos )
+inline wxPliSingleChoiceDialog::wxPliSingleChoiceDialog
+    ( wxWindow* parent, const wxString& message, const wxString& caption,
+      int n, const wxString* choices, SV** clientdata, long style,
+      const wxPoint& pos )
     :wxSingleChoiceDialog( parent, message, caption, n, choices,
                            (char**)clientdata, style, pos )
 {
@@ -51,7 +47,7 @@ inline _wxSingleChoiceDialog::_wxSingleChoiceDialog( wxWindow* parent,
     }
 }
 
-inline _wxSingleChoiceDialog::~_wxSingleChoiceDialog()
+inline wxPliSingleChoiceDialog::~wxPliSingleChoiceDialog()
 {
     if( m_data )
     {

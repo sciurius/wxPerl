@@ -220,10 +220,10 @@ Wx_UpdateUIEvent *      O_WXOBJECT
 
 OUTPUT
 O_WXOBJECT
-    _object_2_sv( $arg, $var );
+    wxPli_object_2_sv( $arg, $var );
 
 O_NON_WXOBJECT
-    _non_object_2_sv( $arg, $var, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    wxPli_non_object_2_sv( $arg, $var, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 T_KEYCODE
     sv_setiv( $arg, $var );
@@ -233,22 +233,22 @@ T_UV
 
 INPUT
 O_WXOBJECT
-    $var = ($type) _sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    $var = ($type) wxPli_sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 O_NON_WXOBJECT
-    $var = ($type) _sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    $var = ($type) wxPli_sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 O_POINT
-    $var = _sv_2_wxpoint( $arg );
+    $var = wxPli_sv_2_wxpoint( $arg );
 
 O_SIZE
-    $var = _sv_2_wxsize( $arg );
+    $var = wxPli_sv_2_wxsize( $arg );
 
 O_COLOUR
-    $var = *($type *) _sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)(?:Ptr)?$/wxPl$1Name/g;\${ntt}} );
+    $var = *($type *) wxPli_sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)(?:Ptr)?$/wxPl$1Name/g;\${ntt}} );
 
 T_KEYCODE
-    $var = _sv_2_keycode( $arg );
+    $var = wxPli_sv_2_keycode( $arg );
 
 T_UV
     $var = ($type)SvUV( $arg );
@@ -262,8 +262,8 @@ O_USERDATACD
     if( SvOK( $arg ) )
     {
         SV* _data = sv_newmortal();
-        sv_setsv( _data, $arg );
-        $var = new _wxUserDataCD( _data );
+        SvSetSV_nosteal( _data, $arg );
+        $var = new wxPliUserDataCD( _data );
     }
     else
         $var = 0;
@@ -272,8 +272,8 @@ O_USERDATAO
     if( SvOK( $arg ) )
     {
         SV* _data = sv_newmortal();
-        sv_setsv( _data, $arg );
-        $var = new _wxUserDataO( _data );
+        SvSetSV_nosteal( _data, $arg );
+        $var = new wxPliUserDataO( _data );
     }
     else
         $var = 0;

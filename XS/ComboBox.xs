@@ -27,8 +27,8 @@ Wx_ComboBox::new( parent, id, value, pos, size , choices, style = 0, validator =
     wxString* chs;
     int n;
   CODE:
-    n = _av_2_stringarray( choices, &chs );
-    RETVAL = new _wxComboBox( CLASS, parent, id, value, pos, size, n, chs, 
+    n = wxPli_av_2_stringarray( choices, &chs );
+    RETVAL = new wxPliComboBox( CLASS, parent, id, value, pos, size, n, chs, 
         style, *validator, name );
 
     delete[] chs;

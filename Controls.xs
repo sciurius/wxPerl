@@ -65,9 +65,7 @@
 #include "cpp/helpers.h"
 #include "cpp/v_cback.h"
 
-#include "cpp/button.h"
 #include "cpp/controls.h"
-#include "cpp/notebook.h"
 #include "cpp/controls.cpp"
 
 MODULE=Wx_Ctrl PACKAGE=Wx::Control

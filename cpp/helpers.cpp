@@ -10,12 +10,13 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-// for some strange reason this is not called under MinGW
-// so the HMODULE is retrieved from DynaLoader
-
 #include "cpp/streams.h"
 #include "cpp/streams.cpp"
 
+// for some strange reason this is not called under MinGW
+// so the HMODULE is retrieved from DynaLoader
+// ( BTW this is bad since NOTHING guarantees that the handle from
+//   DynaLoader is the HMODULE of the library: it happens to work... )
 #ifdef __WXMSW__
 /*
 BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
@@ -27,12 +28,12 @@ BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 */
 #endif
 
-_wxUserDataCD::~_wxUserDataCD()
+wxPliUserDataCD::~wxPliUserDataCD()
 {
     SvREFCNT_dec( m_data );
 }
 
-_wxUserDataO::~_wxUserDataO()
+wxPliUserDataO::~wxPliUserDataO()
 {
     SvREFCNT_dec( m_data );
 }
@@ -72,21 +73,29 @@ int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn ) {
     return retval;
 }
 
-const char* _cpp_class_2_perl( const char* className ) 
+const char* wxPli_cpp_class_2_perl( const char* className ) 
 {
     static char buffer[128] = "Wx::";
 
-    if( className[0] == '_' )
-        ++className;
     if( className[0] == 'w' && className[1] == 'x' )
-        strcpy( buffer+4, className+2 );
+        className += 2;
+    if( className[0] == 'P' && className[1] == 'l' )
+    {
+        if( className[2] == 'i' )
+            className += 3;
+        else
+            className += 2;
+    }
+
+    strcpy( buffer+4, className );
 
     return buffer;
 }
 
-void _push_args( SV*** psp, const char* argtypes, va_list& args ) 
+void wxPli_push_args( SV*** psp, const char* argtypes, va_list& args ) 
 {
     SV** sp = *psp;
+    dTHR;
 
     if( argtypes == 0 )
         return;
@@ -126,12 +135,12 @@ void _push_args( SV*** psp, const char* argtypes, va_list& args )
             break;
         case 'O':
             oval = va_arg( args, wxObject* );
-            XPUSHs( _object_2_sv( sv_newmortal(), oval ) );
+            XPUSHs( wxPli_object_2_sv( sv_newmortal(), oval ) );
             break;
         case 'o':
             pval = va_arg( args, void* );
             package = va_arg( args, const char* );
-            XPUSHs( _non_object_2_sv( sv_newmortal(), pval, package ) );
+            XPUSHs( wxPli_non_object_2_sv( sv_newmortal(), pval, package ) );
             break;
         default:
             printf( "Internal error: unrecognized type '%c'\n", *argtypes );
@@ -179,7 +188,7 @@ public:
 IMPLEMENT_DYNAMIC_CLASS( wxHashModule, wxModule );
 
 // gets 'this' pointer from a blessed scalar/hash reference
-void* _sv_2_object( SV* scalar, const char* classname ) 
+void* wxPli_sv_2_object( SV* scalar, const char* classname ) 
 {
     // is it correct to use undef as 'NULL'?
     if( !SvOK( scalar ) ) 
@@ -216,7 +225,7 @@ void* _sv_2_object( SV* scalar, const char* classname )
     }
 }
 
-SV* _non_object_2_sv( SV* var, void* data, const char* package ) {
+SV* wxPli_non_object_2_sv( SV* var, void* data, const char* package ) {
     if( data == 0 ) {
         sv_setsv( var, &PL_sv_undef );
     }
@@ -227,7 +236,7 @@ SV* _non_object_2_sv( SV* var, void* data, const char* package ) {
     return var;
 }
 
-SV* _object_2_sv( SV* var, wxObject* object ) 
+SV* wxPli_object_2_sv( SV* var, wxObject* object ) 
 {
     if( object == 0 )
     {
@@ -238,25 +247,25 @@ SV* _object_2_sv( SV* var, wxObject* object )
     wxClassInfo *ci = object->GetClassInfo();
     const char* classname = ci->GetClassName();
 
-    if( classname[0] == '_' ) 
+    if( strnEQ( classname, "wxPl", 4 ) ) 
     {
-        _wxClassInfo* cci = (_wxClassInfo*)ci;
-        _wxSelfRef* sr = cci->m_func( object );
+        wxPliClassInfo* cci = (wxPliClassInfo*)ci;
+        wxPliSelfRef* sr = cci->m_func( object );
 
         if( sr->m_self ) {
-            sv_setsv( var, sr->m_self );
+            SvSetSV_nosteal( var, sr->m_self );
             return var;
         }
     }
 
-    const char* CLASS = _cpp_class_2_perl( classname );
+    const char* CLASS = wxPli_cpp_class_2_perl( classname );
 
     sv_setref_pv( var, CHAR_P CLASS, object );
 
     return var;
 }
 
-SV* _make_object( wxObject* object, const char* classname ) 
+SV* wxPli_make_object( wxObject* object, const char* classname ) 
 {
     SV* ret;
     SV* value;
@@ -265,6 +274,8 @@ SV* _make_object( wxObject* object, const char* classname )
 
     hv = newHV();
     ret = newRV_noinc( (SV*) hv );
+    // OK: if you want to keep it, just use SetSelf( sv, TRUE );
+    sv_2mortal( ret ); 
 
     stash = gv_stashpv( CHAR_P classname, 0 );
     value = newSViv( (IV) object );
@@ -276,7 +287,7 @@ SV* _make_object( wxObject* object, const char* classname )
     return sv_bless( ret, stash );
 }
 
-int _av_2_svarray( SV* avref, SV*** array )
+int wxPli_av_2_svarray( SV* avref, SV*** array )
 {
     SV** arr;
     int n, i;
@@ -304,7 +315,7 @@ int _av_2_svarray( SV* avref, SV*** array )
     return n;
 }
 
-int _av_2_uchararray( SV* avref, unsigned char** array )
+int wxPli_av_2_uchararray( SV* avref, unsigned char** array )
 {
     unsigned char* arr;
     int n, i;
@@ -332,7 +343,7 @@ int _av_2_uchararray( SV* avref, unsigned char** array )
     return n;
 }
 
-int _av_2_intarray( SV* avref, int** array )
+int wxPli_av_2_intarray( SV* avref, int** array )
 {
     int* arr;
     int n, i;
@@ -360,7 +371,7 @@ int _av_2_intarray( SV* avref, int** array )
     return n;
 }
 
-int _av_2_stringarray( SV* avref, wxString** array )
+int wxPli_av_2_stringarray( SV* avref, wxString** array )
 {
     wxString* arr;
     int n, i;
@@ -388,7 +399,7 @@ int _av_2_stringarray( SV* avref, wxString** array )
     return n;
 }
 
-int _get_args_argc_argv( char*** argvp ) 
+int wxPli_get_args_argc_argv( char*** argvp ) 
 {
     AV* args = get_av( "main::ARGV" , 0 );
     SV* progname = get_sv( "main::0", 0 );
@@ -422,7 +433,7 @@ int _get_args_argc_argv( char*** argvp )
     return argc;
 }
 
-const char* _get_class( SV* ref )
+const char* wxPli_get_class( SV* ref )
 {
     const char* ret;
 
@@ -452,7 +463,7 @@ void _get_args_objectarray( SV** sp, int items, void** array, const char* packag
 
 #endif
 
-wxPoint _sv_2_wxpoint( SV* scalar )
+wxPoint wxPli_sv_2_wxpoint( SV* scalar )
 {
     if( SvROK( scalar ) ) 
     {
@@ -484,7 +495,7 @@ wxPoint _sv_2_wxpoint( SV* scalar )
     return wxPoint();
 }
 
-wxSize _sv_2_wxsize( SV* scalar )
+wxSize wxPli_sv_2_wxsize( SV* scalar )
 {
     if( SvROK( scalar ) ) 
     {
@@ -516,7 +527,7 @@ wxSize _sv_2_wxsize( SV* scalar )
     return wxSize();
 }
 
-Wx_KeyCode _sv_2_keycode( SV* sv )
+Wx_KeyCode wxPli_sv_2_keycode( SV* sv )
 {
     if( SvIOK( sv ) || SvNOK( sv ) )
     {
@@ -534,7 +545,7 @@ Wx_KeyCode _sv_2_keycode( SV* sv )
     return 0; // yust to silence a possible warning
 }
 
-int _get_pointarray( SV* arr, wxList *points, wxPoint** tmp )
+int wxPli_av_2_pointarray( SV* arr, wxList *points, wxPoint** tmp )
 {
     *tmp = 0;
 
@@ -624,11 +635,10 @@ void wxPli_stream_2_sv( SV* scalar, wxStreamBase* stream, const char* package )
 
     SPAGAIN;
     SV* ret = POPs;
-    sv_setsv( scalar, ret );
+    SvSetSV_nosteal( scalar, ret );
     PUTBACK;
 }
 
 // Local variables: //
 // mode: c++ //
 // End: //
-

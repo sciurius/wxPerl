@@ -18,7 +18,7 @@ Wx_TreeItemData*
 Wx_TreeItemData::new( data = 0 )
     SV_null* data
   CODE:
-    RETVAL = new _wxTreeItemData( data );
+    RETVAL = new wxPliTreeItemData( data );
   OUTPUT:
     RETVAL
 
@@ -74,8 +74,8 @@ tiid_spaceship( tid1, tid2, ... )
         sv_derived_from( tid1, CHAR_P wxPlTreeItemIdName ) &&
         sv_derived_from( tid2, CHAR_P wxPlTreeItemIdName ) )
     {
-        Wx_TreeItemId* id1 = (Wx_TreeItemId*)_sv_2_object( tid1, wxPlTreeItemIdName );
-        Wx_TreeItemId* id2 = (Wx_TreeItemId*)_sv_2_object( tid2, wxPlTreeItemIdName );
+        Wx_TreeItemId* id1 = (Wx_TreeItemId*)wxPli_sv_2_object( tid1, wxPlTreeItemIdName );
+        Wx_TreeItemId* id2 = (Wx_TreeItemId*)wxPli_sv_2_object( tid2, wxPlTreeItemIdName );
 
         RETVAL = *id1 == *id2 ? 0 : 1;
     } else
@@ -124,8 +124,8 @@ Wx_TreeCtrl::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, sty
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxTreeCtrl( CLASS, parent, id, pos, size, style, *validator,
-        name );
+    RETVAL = new wxPliTreeCtrl( CLASS, parent, id, pos, size,
+        style, *validator, name );
   OUTPUT:
     RETVAL
 
@@ -213,7 +213,7 @@ Wx_TreeCtrl::GetBoundingRect( item, textOnly = FALSE )
     bool ret = THIS->GetBoundingRect( *item, rect, textOnly );
     if( ret ) {
         SV* ret = sv_newmortal();
-        _non_object_2_sv( ret, new wxRect( rect ), wxPlRectName );
+        wxPli_non_object_2_sv( ret, new wxRect( rect ), wxPlRectName );
         XPUSHs( ret );
     }
     else
@@ -239,7 +239,7 @@ Wx_TreeItemData*
 Wx_TreeCtrl::GetItemData( item )
     Wx_TreeItemId* item
   CODE:
-    RETVAL = (_wxTreeItemData*) THIS->GetItemData( *item );
+    RETVAL = (wxPliTreeItemData*) THIS->GetItemData( *item );
   OUTPUT:
     RETVAL
 
@@ -247,7 +247,7 @@ SV_null*
 Wx_TreeCtrl::GetPlData( item )
     Wx_TreeItemId* item
   CODE:
-    _wxTreeItemData* data = (_wxTreeItemData*) THIS->GetItemData( *item );
+    wxPliTreeItemData* data = (wxPliTreeItemData*) THIS->GetItemData( *item );
     RETVAL = data ? data->m_data : 0;
   OUTPUT:
     RETVAL
@@ -268,9 +268,9 @@ Wx_TreeCtrl::GetFirstChild( item )
     wxTreeItemId ret = THIS->GetFirstChild( *item, cookie );
     if( !ret.IsOk() ) cookie = -1;
     EXTEND( SP, 2 );
-    PUSHs( _non_object_2_sv( sv_newmortal(),
-                             new wxTreeItemId( ret ),
-                             wxPlTreeItemIdName ) );
+    PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+                                  new wxTreeItemId( ret ),
+                                  wxPlTreeItemIdName ) );
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
 
 Wx_TreeItemId*
@@ -318,9 +318,9 @@ Wx_TreeCtrl::GetNextChild( item, cookie )
   PPCODE:
     wxTreeItemId ret = THIS->GetNextChild( *item, cookie );
     EXTEND( SP, 2 );
-    PUSHs( _non_object_2_sv( sv_newmortal(),
-                             new wxTreeItemId( ret ),
-                             wxPlTreeItemIdName ) );
+    PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+                                  new wxTreeItemId( ret ),
+                                  wxPlTreeItemIdName ) );
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
 
 Wx_TreeItemId*
@@ -386,9 +386,9 @@ Wx_TreeCtrl::GetSelections()
     EXTEND( SP, num );
     for( int i = 0; i < num; ++i )
     {
-        PUSHs( _non_object_2_sv( sv_newmortal(),
-                                 new wxTreeItemId( selections[i] ),
-                                 wxPlTreeItemIdName ) );
+        PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+                                      new wxTreeItemId( selections[i] ),
+                                      wxPlTreeItemIdName ) );
     }
 
 Wx_ImageList*
@@ -402,9 +402,9 @@ Wx_TreeCtrl::HitTest( point )
   PPCODE:
     wxTreeItemId ret = THIS->HitTest( point, flags );
     EXTEND( SP, 2 );
-    PUSHs( _non_object_2_sv( sv_newmortal(),
-                             new wxTreeItemId( ret ),
-                             wxPlTreeItemIdName ) );
+    PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+                                  new wxTreeItemId( ret ),
+                                  wxPlTreeItemIdName ) );
     PUSHs( sv_2mortal( newSViv( flags ) ) );
 
 Wx_TreeItemId*
@@ -543,7 +543,7 @@ Wx_TreeCtrl::SetPlData( item, data )
     Wx_TreeItemId* item
     SV_null* data
   CODE:
-    THIS->SetItemData( *item, data ? new _wxTreeItemData( data ) : 0 );
+    THIS->SetItemData( *item, data ? new wxPliTreeItemData( data ) : 0 );
 
 void
 Wx_TreeCtrl::SetItemFont( item, font )

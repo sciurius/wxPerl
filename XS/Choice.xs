@@ -26,9 +26,9 @@ Wx_Choice::new( parent, id, pos, size, choices, style = 0, validator = (wxValida
     int n;
     wxString *chs;
   CODE:
-    n = _av_2_stringarray( choices, &chs );
+    n = wxPli_av_2_stringarray( choices, &chs );
 
-    RETVAL = new _wxChoice( CLASS, parent, id, pos, size, n, chs, style, 
+    RETVAL = new wxPliChoice( CLASS, parent, id, pos, size, n, chs, style, 
         *validator, name );
 
     delete[] chs;

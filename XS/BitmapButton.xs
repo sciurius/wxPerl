@@ -23,7 +23,7 @@ Wx_BitmapButton::new( parent, id, bitmap, pos = wxDefaultPosition, size = wxDefa
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxBitmapButton( CLASS, parent, id, *bitmap, pos, size,
+    RETVAL = new wxPliBitmapButton( CLASS, parent, id, *bitmap, pos, size,
         style, *validator, name );
   OUTPUT:
     RETVAL

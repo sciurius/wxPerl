@@ -10,27 +10,11 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxWindow:public wxWindow
-{
-    _DECLARE_DYNAMIC_CLASS( _wxWindow );
-    _DECLARE_SELFREF();
-public:
-    _wxWindow( const char* package, wxWindow* parent, wxWindowID id,
-               const wxPoint& pos, const wxSize& size, long style,
-               const wxString& name );
-};
+WXPLI_DECLARE_CLASS_6( Window, TRUE,
+                       wxWindow*, wxWindowID, const wxPoint&,
+                       const wxSize&, long, const wxString& );
 
-inline _wxWindow::_wxWindow( const char* package, wxWindow* parent,
-                             wxWindowID id,
-                             const wxPoint& pos, const wxSize& size,
-                             long style,
-                             const wxString& name )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxWindow, wxWindow );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliWindow, wxWindow );
 
 // Local variables: //
 // mode: c++ //

@@ -10,24 +10,24 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxPlSizer:public wxSizer
+class wxPlSizer:public wxSizer
 {
-    _DECLARE_DYNAMIC_CLASS( _wxPlSizer );
-    _DECLARE_V_CBACK();
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlSizer );
+    WXPLI_DECLARE_V_CBACK();
 public:
-    _wxPlSizer( const char* package );
+    wxPlSizer( const char* package );
 
     virtual void RecalcSizes();
     virtual wxSize CalcMin();
 };
 
-inline _wxPlSizer::_wxPlSizer( const char* package )
+inline wxPlSizer::wxPlSizer( const char* package )
     :m_callback( "Wx::PlSizer" )
 {
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
 }
 
-void _wxPlSizer::RecalcSizes()
+void wxPlSizer::RecalcSizes()
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "RecalcSizes" ) )
     {
@@ -36,14 +36,14 @@ void _wxPlSizer::RecalcSizes()
     }
 }
 
-wxSize _wxPlSizer::CalcMin()
+wxSize wxPlSizer::CalcMin()
 {
     static wxSize ret( 0, 0 );
 
     if( wxPliVirtualCallback_FindCallback( &m_callback, "CalcMin" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR );
-        wxSize* val = (wxSize*)_sv_2_object( ret, "Wx::Size" );
+        wxSize* val = (wxSize*)wxPli_sv_2_object( ret, "Wx::Size" );
         SvREFCNT_dec( ret );
         return *val;
     }
@@ -51,7 +51,7 @@ wxSize _wxPlSizer::CalcMin()
     return ret;
 }
 
-_IMPLEMENT_DYNAMIC_CLASS( _wxPlSizer, wxSizer );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlSizer, wxSizer );
 
 // Local variables: //
 // mode: c++ //

@@ -205,7 +205,6 @@ XS/TextEntryDialog.xs
 XS/MessageDialog.xs
 
 cpp/app.h
-cpp/button.h
 cpp/compat.h
 cpp/constants.h
 cpp/controls.h
@@ -214,7 +213,6 @@ cpp/e_cback.h
 cpp/evthandler.h
 cpp/frame.h
 cpp/helpers.h
-cpp/notebook.h
 cpp/panel.h
 cpp/sashwindow.h
 cpp/scrolledwindow.h
@@ -232,7 +230,6 @@ cpp/controls.cpp
 cpp/e_cback.cpp
 cpp/helpers.cpp
 cpp/streams.cpp
-cpp/validators.cpp
 cpp/v_cback.cpp
 
 ext/help/Help.xs

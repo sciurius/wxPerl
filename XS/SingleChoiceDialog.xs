@@ -29,15 +29,15 @@ Wx_SingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, st
     SV** data;
     int n, n2;
   CODE:
-    n = _av_2_stringarray( chs, &choices );
+    n = wxPli_av_2_stringarray( chs, &choices );
     if( !SvOK( dt ) )
     {
-      RETVAL = new _wxSingleChoiceDialog( parent, message, caption, n,
+      RETVAL = new wxPliSingleChoiceDialog( parent, message, caption, n,
             choices, 0, style, pos );
     }
     else
     {
-      n2 = _av_2_svarray( dt, &data );
+      n2 = wxPli_av_2_svarray( dt, &data );
       if( n != n2 )
       {
         delete[] choices;
@@ -45,7 +45,7 @@ Wx_SingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, st
         choices = 0; data = 0; n = 0;
         croak( "supplied arrays of different size" );
       }
-      RETVAL = new _wxSingleChoiceDialog( parent, message, caption, n,
+      RETVAL = new wxPliSingleChoiceDialog( parent, message, caption, n,
             choices, data, style, pos );
       delete[] data;
     }
@@ -98,7 +98,7 @@ wxGetSingleChoice( message, caption, chs, parent = 0, x = -1, y = -1, centre = T
     wxString* choices;
     int n;
   CODE:
-    n = _av_2_stringarray( chs, &choices );
+    n = wxPli_av_2_stringarray( chs, &choices );
     RETVAL = wxGetSingleChoice( message, caption, n, choices, parent, x, y,
         centre, width, height );
     delete[] choices;
@@ -120,7 +120,7 @@ wxGetSingleChoiceIndex( message, caption, chs, parent = 0, x = -1, y = -1, centr
     wxString* choices;
     int n;
   CODE:
-    n = _av_2_stringarray( chs, &choices );
+    n = wxPli_av_2_stringarray( chs, &choices );
     RETVAL = wxGetSingleChoiceIndex( message, caption, n, choices,
         parent, x, y, centre, width, height );
     delete[] choices;
@@ -145,8 +145,8 @@ wxGetSingleChoiceData( message, caption, chs, dt, parent = 0, x = -1, y = -1, ce
     int n, n2;
     void* rt;
   CODE:
-    n = _av_2_stringarray( chs, &choices );
-    n2 = _av_2_svarray( dt, &data );
+    n = wxPli_av_2_stringarray( chs, &choices );
+    n2 = wxPli_av_2_svarray( dt, &data );
     if( n != n2 )
     {
       delete[] choices;

@@ -57,7 +57,7 @@ Wx_Window::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style
     long style
     wxString name
   CODE:
-    RETVAL = new _wxWindow( CLASS, parent, id, pos, size, style, name );
+    RETVAL = new wxPliWindow( CLASS, parent, id, pos, size, style, name );
   OUTPUT:
     RETVAL
 
@@ -208,7 +208,7 @@ Wx_Window::GetChildren()
     EXTEND( SP, (IV) list.GetCount() );
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
-      PUSHs( _object_2_sv( sv_newmortal(), node->GetData() ) );
+      PUSHs( wxPli_object_2_sv( sv_newmortal(), node->GetData() ) );
 
 Wx_Size*
 Wx_Window::GetClientSize()

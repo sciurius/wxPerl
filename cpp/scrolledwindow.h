@@ -10,36 +10,25 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxScrolledWindow:public wxScrolledWindow
+class wxPliScrolledWindow:public wxScrolledWindow
 {
-    _DECLARE_DYNAMIC_CLASS( _wxScrolledWindow );
-    _DECLARE_V_CBACK();
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliScrolledWindow );
+    WXPLI_DECLARE_V_CBACK();
 public:
-    _wxScrolledWindow( const char* package, wxWindow* parent, wxWindowID id,
-                       const wxPoint& pos, const wxSize& size, long style,
-                       const wxString& name );
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliScrolledWindow, "Wx::ScrolledWindow",
+                               TRUE );
+    WXPLI_CONSTRUCTOR_6( wxPliScrolledWindow, "Wx::ScrolledWindow",
+                         TRUE, wxWindow*, wxWindowID, const wxPoint&,
+                         const wxSize&, long, const wxString& );
 
     void OnDraw( wxDC& dc );
 };
 
-inline _wxScrolledWindow::_wxScrolledWindow( const char* package,
-                                             wxWindow* parent, 
-                                             wxWindowID id,
-                                             const wxPoint& pos,
-                                             const wxSize& size, 
-                                             long style,
-                                             const wxString& name )
-    :m_callback( "Wx::ScrolledWindow" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, name );
-}
-
-void _wxScrolledWindow::OnDraw( wxDC& dc )
+void wxPliScrolledWindow::OnDraw( wxDC& dc )
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "OnDraw" ) )
     {
-        SV* val = _object_2_sv( newSViv( 0 ), &dc );
+        SV* val = wxPli_object_2_sv( newSViv( 0 ), &dc );
         wxPliVirtualCallback_CallCallback( &m_callback,
                                            G_SCALAR|G_DISCARD, "S", val );
         sv_setiv( SvRV( val ), 0 );
@@ -48,7 +37,7 @@ void _wxScrolledWindow::OnDraw( wxDC& dc )
         wxScrolledWindow::OnDraw( dc );
 }
 
-_IMPLEMENT_DYNAMIC_CLASS( _wxScrolledWindow, wxScrolledWindow );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliScrolledWindow, wxScrolledWindow );
 
 // Local variables: //
 // mode: c++ //

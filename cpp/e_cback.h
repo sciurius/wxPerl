@@ -13,11 +13,11 @@
 #ifndef _WXPERL_E_CBACK_H
 #define _WXPERL_E_CBACK_H
 
-class WXPLDLL _wxEventCallback:public wxObject
+class WXPLDLL wxPliEventCallback:public wxObject
 {
 public:
-    _wxEventCallback( SV* method, SV* self );
-    ~_wxEventCallback();
+    wxPliEventCallback( SV* method, SV* self );
+    ~wxPliEventCallback();
 
     void Handler( wxEvent& event );
 private:

@@ -85,11 +85,11 @@ FD_TD( UpdateUIEvent );
 
 // other classes
 
-class _wxPlValidator; typedef _wxPlValidator Wx_PlValidator;
-class _wxPlSizer;     typedef _wxPlSizer     Wx_PlSizer;
-class _wxUserDataO;   typedef _wxUserDataO   Wx_UserDataO;
-class _wxUserDataCD;  typedef _wxUserDataCD  Wx_UserDataCD;
-class _wxTreeItemData;typedef _wxTreeItemData Wx_TreeItemData;
+class wxPlValidator;  typedef wxPlValidator  Wx_PlValidator;
+class wxPlSizer;      typedef wxPlSizer      Wx_PlSizer;
+class wxPliUserDataO; typedef wxPliUserDataO   Wx_UserDataO;
+class wxPliUserDataCD;typedef wxPliUserDataCD  Wx_UserDataCD;
+class wxPliTreeItemData;typedef wxPliTreeItemData Wx_TreeItemData;
 
 #if _WXP_DEFINE_CLASSNAME
 extern "C" const char wxPlTreeItemDataName[] = "Wx::TreeItemData"; 

@@ -25,9 +25,9 @@ Wx_Palette::new( r, g, b )
     unsigned char* blue;
     int rn, gn, bn;
   CODE:
-    rn = _av_2_uchararray( r, &red );
-    gn = _av_2_uchararray( g, &green );
-    bn = _av_2_uchararray( b, &blue );
+    rn = wxPli_av_2_uchararray( r, &red );
+    gn = wxPli_av_2_uchararray( g, &green );
+    bn = wxPli_av_2_uchararray( b, &blue );
 
     if( rn != gn || gn != bn )
     {

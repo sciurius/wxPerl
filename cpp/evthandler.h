@@ -10,21 +10,21 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxEvtHandler:public wxEvtHandler
+class wxPliEvtHandler:public wxEvtHandler
 {
-    _DECLARE_DYNAMIC_CLASS( _wxEvtHandler );
-    _DECLARE_SELFREF();
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliEvtHandler );
+    WXPLI_DECLARE_SELFREF();
 public:
-    _wxEvtHandler( const char* package );
+    wxPliEvtHandler( const char* package );
 };
 
-inline _wxEvtHandler::_wxEvtHandler( const char* package )
+inline wxPliEvtHandler::wxPliEvtHandler( const char* package )
     :m_callback( "Wx::EvtHandler" )
 {
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
 }
 
-_IMPLEMENT_DYNAMIC_CLASS( _wxEvtHandler, wxEvtHandler );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliEvtHandler, wxEvtHandler );
 
 // Local variables: //
 // mode: c++ //

@@ -23,7 +23,7 @@ Wx_Button::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxButton( CLASS, parent, id, label, pos, size, 
+    RETVAL = new wxPliButton( CLASS, parent, id, label, pos, size, 
         style, *validator, name );
   OUTPUT:
     RETVAL

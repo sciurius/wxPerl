@@ -37,7 +37,7 @@ Wx_SpinButton::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, s
     long style
     wxString name
   CODE:
-    RETVAL = new _wxSpinButton( CLASS, parent, id, pos, size, style,
+    RETVAL = new wxPliSpinButton( CLASS, parent, id, pos, size, style,
         name );
   OUTPUT:
     RETVAL

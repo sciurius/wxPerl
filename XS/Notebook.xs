@@ -39,7 +39,7 @@ Wx_Notebook::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, sty
     long style
     wxString name
   CODE:
-    RETVAL = new _wxNotebook( CLASS, parent, id, pos, size, style, name );
+    RETVAL = new wxPliNotebook( CLASS, parent, id, pos, size, style, name );
   OUTPUT:
     RETVAL
 

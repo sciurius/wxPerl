@@ -23,7 +23,7 @@ Wx_CheckBox::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSi
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxCheckBox( CLASS, parent, id, label, pos, size, 
+    RETVAL = new wxPliCheckBox( CLASS, parent, id, label, pos, size, 
         style, *validator, name );
   OUTPUT:
     RETVAL

@@ -61,7 +61,7 @@ Wx_AcceleratorTable::new( ... )
                 if( sv_derived_from( rv, CHAR_P wxPlAcceleratorEntryName ) )
                 {
                     entries[i] = *(wxAcceleratorEntry*)
-                        _sv_2_object( rv, wxPlAcceleratorEntryName );
+                        wxPli_sv_2_object( rv, wxPlAcceleratorEntryName );
                 }
                 else if( SvTYPE( SvRV( rv ) ) == SVt_PVAV )
                 {
@@ -76,7 +76,7 @@ Wx_AcceleratorTable::new( ... )
                     }
 
                     entries[i].Set( SvIV( *av_fetch( av, 0, 0 ) ),
-                                    _sv_2_keycode( *av_fetch( av, 1, 0 ) ),
+                                    wxPli_sv_2_keycode( *av_fetch( av, 1, 0 ) ),
                                     SvIV( *av_fetch( av, 2, 0 ) ) );
                 }
                 else

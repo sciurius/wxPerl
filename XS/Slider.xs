@@ -25,7 +25,7 @@ Wx_Slider::new( parent, id, value, minValue, maxValue, pos = wxDefaultPosition, 
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxSlider( CLASS, parent, id, value, minValue, maxValue,
+    RETVAL = new wxPliSlider( CLASS, parent, id, value, minValue, maxValue,
         pos, size, style, *validator, name );
   OUTPUT:
     RETVAL

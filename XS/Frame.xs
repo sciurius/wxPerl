@@ -29,7 +29,7 @@ Wx_Frame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize,
     long style
     wxString name
   CODE:
-    RETVAL = new _wxFrame( CLASS , parent, id, title, pos, size, style, name );
+    RETVAL = new wxPliFrame( CLASS , parent, id, title, pos, size, style, name );
   OUTPUT:
     RETVAL
 
@@ -149,7 +149,7 @@ Wx_MiniFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultS
     long style
     wxString name
   CODE:
-    RETVAL = new _wxMiniFrame( CLASS, parent, id, title, pos, size, 
+    RETVAL = new wxPliMiniFrame( CLASS, parent, id, title, pos, size, 
         style, name );
   OUTPUT:
     RETVAL

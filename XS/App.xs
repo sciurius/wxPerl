@@ -30,7 +30,7 @@ Start( app, sub )
     if( !SvROK( sub ) || SvTYPE( SvRV( sub ) ) != SVt_PVCV )
       croak( "sub must be a CODE reference" );
 
-    app->argc = _get_args_argc_argv( &app->argv );
+    app->argc = wxPli_get_args_argc_argv( &app->argv );
 #ifdef __WXMOTIF__
     app->SetClassName( app->argv[0] );
     app->SetAppName( app->argv[0] );
@@ -48,7 +48,7 @@ Start( app, sub )
 Wx_App*
 Wx_App::new()
   CODE:
-    RETVAL = new _wxApp( CLASS );
+    RETVAL = new wxPliApp( CLASS );
   OUTPUT:
     RETVAL
 

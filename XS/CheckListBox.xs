@@ -27,14 +27,14 @@ Wx_CheckListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize,
     int n;
   CODE:
     if( choices ) 
-        n = _av_2_stringarray( choices, &chs );
+        n = wxPli_av_2_stringarray( choices, &chs );
     else
     {
         n = 0;
         chs = 0;
     }
         
-    RETVAL = new _wxCheckListBox( CLASS, parent, id, pos, size, n, chs, 
+    RETVAL = new wxPliCheckListBox( CLASS, parent, id, pos, size, n, chs, 
         style, *validator, name );
 
     delete[] chs;

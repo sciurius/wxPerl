@@ -27,14 +27,14 @@ Wx_ListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choi
     int n;
   CODE:
     if( choices ) 
-        n = _av_2_stringarray( choices, &chs );
+        n = wxPli_av_2_stringarray( choices, &chs );
     else
     {
         n = 0;
         chs = 0;
     }
         
-    RETVAL = new _wxListBox( CLASS, parent, id, pos, size, n, chs, 
+    RETVAL = new wxPliListBox( CLASS, parent, id, pos, size, n, chs, 
         style, *validator, name );
 
     delete[] chs;
@@ -66,7 +66,7 @@ Wx_ListBox::InsertItems( items, pos )
     wxString* its;
     int n;
   CODE:
-    n = _av_2_stringarray( items, &its );
+    n = wxPli_av_2_stringarray( items, &its );
     THIS->InsertItems( n, its, pos );
 
     delete[] its;

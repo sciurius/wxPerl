@@ -14,27 +14,17 @@
 
 class wxPliHtmlWindow:public wxHtmlWindow
 {
-    _DECLARE_DYNAMIC_CLASS( wxPliHtmlWindow );
-    _DECLARE_V_CBACK();
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliHtmlWindow );
+    WXPLI_DECLARE_V_CBACK();
 public:
-    wxPliHtmlWindow( const char* package, wxWindow* parent, wxWindowID id,
-                     const wxPoint& pos, const wxSize& size, long style,
-                     const wxString& name );
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliHtmlWindow, "Wx::HtmlWindow", TRUE );
+    WXPLI_CONSTRUCTOR_6( wxPliHtmlWindow, "Wx::HtmlWIndow", TRUE,
+                         wxWindow*, wxWindowID, const wxPoint&,
+                         const wxSize&, long, const wxString& );
 
     void OnLinkClicked( const wxHtmlLinkInfo& info );
     void OnSetTitle( const wxString& title );
 };
-
-inline wxPliHtmlWindow::wxPliHtmlWindow( const char* package,
-                                         wxWindow* parent, wxWindowID id,
-                                         const wxPoint& pos,
-                                         const wxSize& size, long style,
-                                         const wxString& name )
-    :m_callback( "Wx::HtmlWindow" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, name );
-}
 
 void wxPliHtmlWindow::OnLinkClicked( const wxHtmlLinkInfo& info )
 {
@@ -57,7 +47,7 @@ void wxPliHtmlWindow::OnSetTitle( const wxString& title )
         wxHtmlWindow::OnSetTitle( title );
 }
 
-_IMPLEMENT_DYNAMIC_CLASS( wxPliHtmlWindow, wxHtmlWindow );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliHtmlWindow, wxHtmlWindow );
 
 // Local variables: //
 // mode: c++ //

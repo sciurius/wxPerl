@@ -29,12 +29,12 @@ Wx_RadioBox::new( parent, id, label, point = wxDefaultPosition, size = wxDefault
     wxString* chs;
   CODE:
     if( choices )
-        n = _av_2_stringarray( choices, &chs );
+        n = wxPli_av_2_stringarray( choices, &chs );
     else {
         n = 0;
         chs = 0;
     }
-    RETVAL = new _wxRadioBox( CLASS, parent, id, label, point, size,
+    RETVAL = new wxPliRadioBox( CLASS, parent, id, label, point, size,
         n, chs, majorDimension, style, *validator, name );
     delete[] chs;
   OUTPUT:

@@ -21,7 +21,7 @@ Wx_StaticLine::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, s
     long style
     wxString name
   CODE:
-    RETVAL = new _wxStaticLine( CLASS, parent, id, pos, size, style, name );
+    RETVAL = new wxPliStaticLine( CLASS, parent, id, pos, size, style, name );
   OUTPUT:
     RETVAL
 

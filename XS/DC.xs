@@ -140,7 +140,7 @@ Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
     wxList points;
     wxPoint* pts;
   CODE:
-    _get_pointarray( list, &points, &pts );
+    wxPli_av_2_pointarray( list, &points, &pts );
     THIS->DrawLines( &points, xoffset, yoffset );
     delete [] pts;
 
@@ -167,7 +167,7 @@ Wx_DC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
     wxList points;
     wxPoint* pts;
   CODE:
-    _get_pointarray( list, &points, &pts );
+    wxPli_av_2_pointarray( list, &points, &pts );
     THIS->DrawPolygon( &points, xoffset, yoffset, fill_style );
     delete [] pts;
 
@@ -202,7 +202,7 @@ Wx_DC::DrawSpline( list )
     wxPoint* pts;
     int n;
   CODE:
-    n = _get_pointarray( list, &points, &pts );
+    n = wxPli_av_2_pointarray( list, &points, &pts );
     THIS->DrawSpline( &points );
     delete [] pts;
 

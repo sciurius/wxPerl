@@ -25,7 +25,7 @@ Wx_SpinCtrl::new( parent, id, value = wxEmptyString, pos = wxDefaultPosition, si
     int initial
     wxString name
   CODE:
-    RETVAL = new _wxSpinCtrl( CLASS, parent, id, value, pos, size,
+    RETVAL = new wxPliSpinCtrl( CLASS, parent, id, value, pos, size,
         style, min, max, initial, name );
   OUTPUT:
     RETVAL

@@ -10,27 +10,11 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxSashWindow:public wxSashWindow
-{
-    _DECLARE_DYNAMIC_CLASS( _wxSashWindow );
-    _DECLARE_SELFREF();
-public:
-    _wxSashWindow( const char* package, wxWindow* parent, wxWindowID id,
-                   const wxPoint& pos, const wxSize& size,
-                   long style, const wxString& name );
-};
+WXPLI_DECLARE_CLASS_6( SashWindow, TRUE,
+                       wxWindow*, wxWindowID, const wxPoint&,
+                       const wxSize&, long, const wxString& );
 
-inline _wxSashWindow::_wxSashWindow( const char* package, wxWindow* parent,
-                                     wxWindowID id, const wxPoint& pos,
-                                     const wxSize& size, long style,
-                                     const wxString& name )
-    :m_callback( "Wx::SashWindow" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxSashWindow, wxSashWindow );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSashWindow, wxSashWindow );
 
 // Local variables: //
 // mode: c++ //

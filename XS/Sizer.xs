@@ -73,7 +73,7 @@ Wx_Sizer::GetChildren()
     EXTEND( SP, (IV) list.GetCount() );
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
-      PUSHs( _object_2_sv( sv_newmortal(), node->GetData() ) );
+      PUSHs( wxPli_object_2_sv( sv_newmortal(), node->GetData() ) );
 
 Wx_Size*
 Wx_Sizer::GetSize()
@@ -445,6 +445,6 @@ MODULE=Wx PACKAGE=Wx::PlSizer
 Wx_PlSizer*
 Wx_PlSizer::new()
   CODE:
-    RETVAL = new _wxPlSizer( CLASS );
+    RETVAL = new wxPlSizer( CLASS );
   OUTPUT:
     RETVAL

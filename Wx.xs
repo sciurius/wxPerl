@@ -156,7 +156,7 @@ Load()
     char** argv;
     int argc;
 
-    argc = _get_args_argc_argv( &argv );
+    argc = wxPli_get_args_argc_argv( &argv );
     wxEntryStart( argc, argv );
     delete[] argv;
     // this is after wxEntryStart, since

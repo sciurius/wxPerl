@@ -186,7 +186,7 @@ Wx_ListCtrl::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxListCtrl( CLASS, parent, id, pos, size, style,
+    RETVAL = new wxPliListCtrl( CLASS, parent, id, pos, size, style,
         *validator, name );
   OUTPUT:
     RETVAL

@@ -24,7 +24,7 @@ Wx_StaticBox::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultS
     long style
     wxString name
   CODE:
-    RETVAL = new _wxStaticBox( CLASS, parent, id, label, pos, 
+    RETVAL = new wxPliStaticBox( CLASS, parent, id, label, pos, 
         size, style, name );
   OUTPUT:
     RETVAL

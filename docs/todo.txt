@@ -9,15 +9,7 @@ PRIORITY NORMAL:
 * Wx::Bitmap, Wx::Icon, Wx::Image, Wx::Cursor
     add missing constructors ( where applicable )
     FindHandler and handler related functions ( are they needed? )
-    LoadFile( stream )
     Wx::Image::Get/SetData
-
-* Wx::ImageHandler
-    GetImageCount
-    LoadFile
-    SaveFile
-
-* Better Makefile.PL structure
 
 * Wx::ListCtrl
     Overloaded InsertItem?
@@ -30,19 +22,23 @@ PRIORITY NORMAL:
     Wx::LanguageInfo
     AddLanguage
 
-* Wx::StatusBar
-    DrawField ( virtual )
-    DrawFieldText ( virtual )
-    InitColours ( needed? )
-    GetFieldRect
-
 * Decrease compilation time/code bloat:
     Use precompiled headers where appropriate
     Move constants out of Constants.xs when they need a separate #include
-    Move events out of Event.xs when they need a separate #include
     Move #include <wx/foo.h> to the XS requiring them
     Add tests for wxUSE_XXX, and maybe a wxPERL_USE_XXX
     Experiment with INTERFACE/INTERFACE_MACRO
+
+* Wx::HtmlWindow
+    AddFilter
+    GetInternalRepresentation
+
+* Wx::HtmlHelp
+    CreateHelpFrame
+
+* Wx::HelpController
+    OnQuit
+    Get/SetFrameParameters
 
 PRIORITY LOW:
 
@@ -52,6 +48,9 @@ PRIORITY LOW:
 * ::wxCreateFileTipProvider, ::wxShowTip
     implement
 
+* Wx::Help
+    enable all Wx::*Help* available in the current setup
+  
 * operator == and != ( are they useful/have side effects? )
     Wx::AcceleratorTable
     Wx::Bitmap ( enable )
@@ -69,6 +68,11 @@ PRIORITY LOW:
     Wx::Pen
 
 DOCUMENTATTION:
+
+* Wx::HtmlHelp
+    CreateHelpFrame
+
+* Wx::ContextHelp & c
 
 -- not documented in wxWindows --
 

@@ -12,7 +12,6 @@
 
 #include <wx/validate.h>
 #include "cpp/validators.h"
-#include "cpp/validators.cpp"
 
 MODULE=Wx PACKAGE=Wx::Validator
 
@@ -45,7 +44,7 @@ MODULE=Wx PACKAGE=Wx::PlValidator
 Wx_PlValidator*
 Wx_PlValidator::new()
   CODE:
-    RETVAL = new _wxPlValidator( CLASS );
+    RETVAL = new wxPlValidator( CLASS );
   OUTPUT:
     RETVAL
 

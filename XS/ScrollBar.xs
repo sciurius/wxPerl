@@ -22,7 +22,7 @@ Wx_ScrollBar::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, st
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxScrollBar( CLASS, parent, id, pos, size, style, 
+    RETVAL = new wxPliScrollBar( CLASS, parent, id, pos, size, style, 
         *validator, name );
   OUTPUT:
     RETVAL

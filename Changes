@@ -1,0 +1,10 @@
+Revision history for Perl extension Wx.
+
+0.06  Sat Mar 10 17:54:56 2001
+	- changelog started
+	- new, modular build system
+        - Wx object module now exports functions ( using __declspec
+          on Win32, an auxiliary structure containig pointer to functions
+          on other platforms ) to related extension modules
+	- infrastructure for other modules exporting
+	  constants from Wx

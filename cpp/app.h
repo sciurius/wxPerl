@@ -10,26 +10,26 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxApp:public wxApp
+class wxPliApp:public wxApp
 {
-    _DECLARE_DYNAMIC_CLASS( _wxApp );
-    _DECLARE_V_CBACK();
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliApp );
+    WXPLI_DECLARE_V_CBACK();
 public:
-    _wxApp( const char* package );
-    ~_wxApp();
+    wxPliApp( const char* package );
+    ~wxPliApp();
 
     bool OnInit();
     int OnExit();
     int MainLoop();
 };
 
-inline _wxApp::_wxApp( const char* package )
+inline wxPliApp::wxPliApp( const char* package )
     :m_callback( "Wx::App" ) 
 {
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
 }
 
-_wxApp::~_wxApp()
+wxPliApp::~wxPliApp()
 {
 #ifdef __WXMOTIF__
     if (wxTheApp->GetTopWindow())
@@ -50,12 +50,12 @@ _wxApp::~_wxApp()
     argv = 0;
 }
 
-inline bool _wxApp::OnInit() 
+inline bool wxPliApp::OnInit() 
 {
     return FALSE;
 }
 
-inline int _wxApp::MainLoop() {
+inline int wxPliApp::MainLoop() {
     int retval = 0;
   
     DeletePendingObjects();
@@ -72,7 +72,7 @@ inline int _wxApp::MainLoop() {
     return retval;
 }
 
-int _wxApp::OnExit()
+int wxPliApp::OnExit()
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "OnExit" ) )
     {
@@ -86,7 +86,7 @@ int _wxApp::OnExit()
         return wxApp::OnExit();
 }
 
-_IMPLEMENT_DYNAMIC_CLASS( _wxApp, wxApp );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliApp, wxApp );
 
 // Local variables: //
 // mode: c++ //

@@ -23,7 +23,7 @@ Wx_RadioButton::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaul
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxRadioButton( CLASS, parent, id, label, pos, size, 
+    RETVAL = new wxPliRadioButton( CLASS, parent, id, label, pos, size, 
         style, *validator, name );
   OUTPUT:
     RETVAL

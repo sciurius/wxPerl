@@ -10,31 +10,32 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxTimer:public wxTimer
+class wxPliTimer:public wxTimer
 {
-    _DECLARE_DYNAMIC_CLASS( _wxTimer );
-    _DECLARE_V_CBACK();
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliTimer );
+    WXPLI_DECLARE_V_CBACK();
 public:
-    _wxTimer( const char* package );
-    _wxTimer( const char* package, wxEvtHandler* owner, int id );
+    wxPliTimer( const char* package );
+    wxPliTimer( const char* package, wxEvtHandler* owner, int id );
 
     virtual void Notify();
 };
 
-inline _wxTimer::_wxTimer( const char* package )
+inline wxPliTimer::wxPliTimer( const char* package )
     :m_callback( "Wx::Timer" )
 {
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
 }
 
-inline _wxTimer::_wxTimer( const char* package, wxEvtHandler* owner, int id )
+inline wxPliTimer::wxPliTimer( const char* package, wxEvtHandler* owner,
+                               int id )
     :wxTimer( owner, id ),
      m_callback( "Wx::Timer" )
 {
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
 }
 
-void _wxTimer::Notify()
+void wxPliTimer::Notify()
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "Notify" ) )
     {
@@ -45,7 +46,7 @@ void _wxTimer::Notify()
         wxTimer::Notify();
 }
 
-_IMPLEMENT_DYNAMIC_CLASS( _wxTimer, wxTimer );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTimer, wxTimer );
 
 // Local variables: //
 // mode: c++ //

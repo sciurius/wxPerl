@@ -12,137 +12,44 @@
 
 #include "cpp/constants.h"
 
-inline _wxBitmapButton::_wxBitmapButton( const char* package,
-                                         wxWindow* parent, 
-                                         wxWindowID id,
-                                         const wxBitmap& bitmap,
-                                         const wxPoint& pos,
-                                         const wxSize& size, long style,
-                                         const wxValidator& validator, 
-                                         const wxString name )
-    :m_callback( "Wx::BitmapButton" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, bitmap, pos, size, style, validator, name );
-}
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliBitmapButton, wxBitmapButton );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliButton, wxButton );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckBox, wxCheckBox );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckListBox, wxCheckListBox );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliChoice, wxChoice );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliComboBox, wxComboBox );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListBox, wxListBox );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliNotebook, wxNotebook );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioBox, wxRadioBox );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioButton, wxRadioButton );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliScrollBar, wxScrollBar );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSpinButton, wxSpinButton );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSpinCtrl, wxSpinCtrl );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticBitmap, wxStaticBitmap );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticBox, wxStaticBox );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticLine, wxStaticLine );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticText, wxStaticText );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTextCtrl, wxTextCtrl );
 
-_IMPLEMENT_DYNAMIC_CLASS( _wxBitmapButton, wxBitmapButton );
-
-inline _wxButton::_wxButton( const char* package, wxWindow* parent,
-                             wxWindowID id, 
-                             const wxString& label,
-                             const wxPoint& pos, const wxSize& size,
-                             long style, const wxValidator& validator,
-                             const wxString& name )
-    :m_callback( "Wx::Button" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, label, pos, size, style, validator, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxButton, wxButton );
-
-inline _wxCheckBox::_wxCheckBox( const char* package, wxWindow* parent, 
-                                 wxWindowID id, const wxString& label, 
-                                 const wxPoint& pos, const wxSize& size,
-                                 long style, const wxValidator& validator,
-                                 const wxString& name )
-    :m_callback( "Wx::CheckBox" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, label, pos, size, style, validator, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxCheckBox, wxCheckBox );
-
-inline _wxCheckListBox::_wxCheckListBox( const char* package, wxWindow* 
-                                         parent, wxWindowID id,
-                                         const wxPoint& pos,
-                                         const wxSize& size, int n,
-                                         const wxString choices[], long style, 
-                                         const wxValidator& validator, 
-                                         const wxString& name )
-    :m_callback( "Wx::CheckListBox" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, n, choices, style, validator, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxCheckListBox, wxCheckListBox );
-
-inline _wxChoice::_wxChoice( const char* package, wxWindow* parent,
-                             wxWindowID id, const wxPoint& pos,
-                             const wxSize& size, int n,
-                             const wxString choices[], long style, 
-                             const wxValidator& validator,
-                             const wxString& name )
-    :m_callback( "Wx::Choice" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, n, choices, style, validator, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxChoice, wxChoice );
-
-inline _wxComboBox::_wxComboBox( const char* package, wxWindow* parent,
-                                 wxWindowID id, const wxString& value,
-                                 const wxPoint& pos, const wxSize& size,
-                                 int n, const wxString choices[],
-                                 long style, const wxValidator& validator, 
-                                 const wxString& name )
-    :m_callback( "Wx::ComboBox" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, value, pos, size, n, choices, style, validator, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxComboBox, wxComboBox );
-
-inline _wxGauge::_wxGauge( const char* package, wxWindow* parent,
-                           wxWindowID id, int range, const wxPoint& pos,
-                           const wxSize& size,
-                           long style, const wxValidator& validator,
-                           const wxString &name )
-    :m_callback( "Wx::Gauge" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, range, pos, size, style, validator, name );
-}
 
 #if defined( __WXMSW__ )
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxGauge, wxGauge95 );
-
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge95 );
 #else
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxGauge, wxGauge );
-
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge );
 #endif
 
-inline _wxListBox::_wxListBox( const char* package, wxWindow* parent,
-                               wxWindowID id, 
-                               const wxPoint& pos, const wxSize& size, int n,
-                               const wxString choices[], long style, 
-                               const wxValidator& validator,
-                               const wxString& name )
-    :m_callback( "Wx::ListBox" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, n, choices, style, validator, name );
-}
+#if defined( __WXMSW__ )
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSlider, wxSlider95 );
+#else
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSlider, wxSlider );
+#endif
 
-_IMPLEMENT_DYNAMIC_CLASS( _wxListBox, wxListBox );
 
-inline _wxListCtrl::_wxListCtrl( const char* package, wxWindow* parent,
-                                 wxWindowID id, const wxPoint& pos,
-                                 const wxSize& size, long style,
-                                 const wxValidator& validator,
-                                 const wxString& name )
-    :m_callback( "Wx::ListCtrl" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, validator, name );
-}
+//
+// Wx::ListCtrl implementation
+//
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListCtrl, wxListCtrl );
 
 double listctrl_constant( const char* name, int arg )
 {
@@ -250,190 +157,11 @@ double listctrl_constant( const char* name, int arg )
 
 wxPlConstants listctrl_module( &listctrl_constant );
 
-_IMPLEMENT_DYNAMIC_CLASS( _wxListCtrl, wxListCtrl );
+//
+// Wx::TreeCtrl implementation
+//
 
-inline _wxRadioButton::_wxRadioButton( const char* package, wxWindow* parent, 
-                                       wxWindowID id, const wxString label,
-                                       const wxPoint& pos,
-                                       const wxSize& size, long style,
-                                       const wxValidator& validator, 
-                                       const wxString& name )
-    :m_callback( "Wx::RadioButton" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, label, pos, size, style, validator, name );    
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxRadioButton, wxRadioButton );
-
-inline _wxRadioBox::_wxRadioBox( const char* package, wxWindow* parent, 
-                                 wxWindowID id,
-                                 const wxString& label, const wxPoint& point,
-                                 const wxSize& size, int n, 
-                                 const wxString choices[],
-                                 int majorDimension, long style, 
-                                 const wxValidator& validator, 
-                                 const wxString& name )
-    :m_callback( "Wx::RadioBox" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, label, point, size, n, choices, majorDimension,
-            style, validator, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxRadioBox, wxRadioBox );
-
-inline _wxScrollBar::_wxScrollBar( const char* package, wxWindow* parent,
-                                   wxWindowID id, const wxPoint& pos,
-                                   const wxSize& size, long style,
-                                   const wxValidator& validator,
-                                   const wxString& name )
-    :m_callback( "Wx::ScrollBar" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, validator, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxScrollBar, wxScrollBar );
-
-inline _wxSpinButton::_wxSpinButton( const char* package, wxWindow* parent, 
-                                     wxWindowID id,
-                                     const wxPoint& pos, const wxSize& size,
-                                     long style, const wxString& name )
-    :m_callback( "Wx::SpinButton" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxSpinButton, wxSpinButton );
-
-inline _wxSpinCtrl::_wxSpinCtrl( const char* package, wxWindow* parent,
-                                 wxWindowID id,
-                                 const wxString& value, const wxPoint& pos,
-                                 const wxSize& size, long style, int min,
-                                 int max,
-                                 int initial, const wxString& name )
-    :m_callback( "Wx::SpinCtrl" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, value, pos, size, style, min, max, initial, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxSpinCtrl, wxSpinCtrl );
-
-inline _wxSlider::_wxSlider( const char* package, wxWindow* parent,
-                             wxWindowID id,
-                             int value, int minValue, int maxValue,
-                             const wxPoint& pos, const wxSize& size,
-                             long style, const wxValidator& validator,
-                             const wxString& name )
-    :m_callback( "Wx::Slider" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, value, minValue, maxValue, pos, size, style,
-            validator, name );
-}
-
-#if defined( __WXMSW__ )
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxSlider, wxSlider95 );
-
-#else
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxSlider, wxSlider );
-
-#endif
-
-inline _wxStaticBitmap::_wxStaticBitmap( const char* package,
-                                         wxWindow* parent, 
-                                         wxWindowID id, 
-                                         const wxBitmap& bitmap,
-                                         const wxPoint& pos,
-                                         const wxSize& size,
-                                         long style, const wxString& name )
-    :m_callback( "Wx::StaticBitmap" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, bitmap, pos, size, style, name );
-}
-
-inline _wxStaticBitmap::_wxStaticBitmap( const char* package,
-                                         wxWindow* parent, wxWindowID id, 
-                                         const wxIcon& icon,
-                                         const wxPoint& pos,
-                                         const wxSize& size,
-                                         long style, const wxString& name )
-    :m_callback( "Wx::StaticBitmap" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, icon, pos, size, style, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxStaticBitmap, wxStaticBitmap );
-
-inline _wxStaticBox::_wxStaticBox( const char* package, wxWindow* parent, 
-                                   wxWindowID id,
-                                   const wxString& label, const wxPoint& pos,
-                                   const wxSize& size, long style, 
-                                   const wxString& name )
-    :m_callback( "Wx::StaticBox" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, label, pos, size, style, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxStaticBox, wxStaticBox );
-
-inline _wxStaticLine::_wxStaticLine( const char* package, wxWindow* parent, 
-                                     wxWindowID id,
-                                     const wxPoint& pos,
-                                     const wxSize& size, long style, 
-                                     const wxString& name )
-    :m_callback( "Wx::StaticLine" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxStaticLine, wxStaticLine );
-
-inline _wxStaticText::_wxStaticText( const char* package, wxWindow* 
-                                     parent, wxWindowID id,
-                                     const wxString& label,
-                                     const wxPoint& pos, const wxSize& size, 
-                                     long style, const wxString& name )
-    :m_callback( "Wx::StaticText" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, label, pos, size, style, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxStaticText, wxStaticText );
-
-inline _wxTextCtrl::_wxTextCtrl( const char* package, wxWindow* parent, 
-                                 wxWindowID id,const wxString& value,
-                                 const wxPoint& pos, const wxSize& size,
-                                 long style, const wxValidator& validator, 
-                                 const wxString& name )
-    :m_callback( "Wx::TextCtrl" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, value, pos, size, style, validator, name );
-}
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxTextCtrl, wxTextCtrl );
-
-inline _wxTreeCtrl::_wxTreeCtrl( const char* package, wxWindow* parent,
-                                 wxWindowID id, const wxPoint& pos,
-                                 const wxSize& size, long style,
-                                 const wxValidator& validator,
-                                 const wxString& name )
-    :m_callback( "Wx::TreeCtrl" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, validator, name );
-}
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTreeCtrl, wxTreeCtrl );
 
 double treectrl_constant( const char* name, int arg )
 {
@@ -502,15 +230,15 @@ double treectrl_constant( const char* name, int arg )
 
 wxPlConstants tree_module( &treectrl_constant );
 
-int _wxTreeCtrl::OnCompareItems( const wxTreeItemId& item1,
-                                 const wxTreeItemId& item2 )
+int wxPliTreeCtrl::OnCompareItems( const wxTreeItemId& item1,
+                                   const wxTreeItemId& item2 )
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "OnCompareItems" ) )
     {
-        SV* t1 = _non_object_2_sv( newSViv( 0 ),
-                                   (void*)&item1, wxPlTreeItemIdName );
-        SV* t2 = _non_object_2_sv( newSViv( 0 ),
-                                   (void*)&item2, wxPlTreeItemIdName );
+        SV* t1 = wxPli_non_object_2_sv( newSViv( 0 ),
+                                        (void*)&item1, wxPlTreeItemIdName );
+        SV* t2 = wxPli_non_object_2_sv( newSViv( 0 ),
+                                        (void*)&item2, wxPlTreeItemIdName );
         SV* ret = wxPliVirtualCallback_CallCallback
             ( &m_callback, G_SCALAR, "SS", t1, t2 );
 
@@ -526,8 +254,6 @@ int _wxTreeCtrl::OnCompareItems( const wxTreeItemId& item1,
     else
         return wxTreeCtrl::OnCompareItems( item1, item2 );
 }
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxTreeCtrl, wxTreeCtrl );
 
 // Local variables: //
 // mode: c++ //

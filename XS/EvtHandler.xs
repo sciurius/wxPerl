@@ -15,7 +15,7 @@ MODULE=Wx PACKAGE=Wx::EvtHandler
 Wx_EvtHandler*
 Wx_EvtHandler::new()
   CODE:
-    RETVAL = new _wxEvtHandler( CLASS );
+    RETVAL = new wxPliEvtHandler( CLASS );
   OUTPUT:
     RETVAL
 
@@ -27,14 +27,14 @@ Wx_EvtHandler::AddPendingEvent( event )
 
 void
 Wx_EvtHandler::Connect( id, lastid, type, method )
-    int id
+    wxWindowID id
     int lastid
     wxEventType type
     SV* method
   CODE:
     THIS->Connect(id, lastid, type,
-                    (wxObjectEventFunction)&_wxEventCallback::Handler,
-                    new _wxEventCallback( method, ST(0) ) );
+                    (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                    new wxPliEventCallback( method, ST(0) ) );
 
 void
 Wx_EvtHandler::Destroy()
@@ -43,12 +43,12 @@ Wx_EvtHandler::Destroy()
 
 bool
 Wx_EvtHandler::Disconnect( id, lastid, type )
-    int id
+    wxWindowID id
     int lastid
     wxEventType type
   CODE:
     RETVAL = THIS->Disconnect( id, lastid, type,
-        (wxObjectEventFunction)&_wxEventCallback::Handler );
+        (wxObjectEventFunction)&wxPliEventCallback::Handler );
   OUTPUT:
     RETVAL
 

@@ -43,7 +43,8 @@ Wx_SplitterWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefau
     long style
     wxString name
   CODE:
-    RETVAL = new _wxSplitterWindow( CLASS, parent, id, pos, size, style, name );
+    RETVAL = new wxPliSplitterWindow( CLASS, parent, id,
+        pos, size, style, name );
   OUTPUT:
     RETVAL
 

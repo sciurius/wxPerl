@@ -23,9 +23,9 @@ newBitmap( cls, parent, id, bitmap, pos = wxDefaultPosition, size = wxDefaultSiz
     long style
     wxString name
   PREINIT:
-    const char* CLASS = _get_class( cls );
+    const char* CLASS = wxPli_get_class( cls );
   CODE:
-    RETVAL = new _wxStaticBitmap( CLASS, parent, id, *bitmap, pos, size,
+    RETVAL = new wxPliStaticBitmap( CLASS, parent, id, *bitmap, pos, size,
          style, name );
   OUTPUT:
     RETVAL
@@ -41,9 +41,9 @@ newIcon( cls, parent, id, icon, pos = wxDefaultPosition, size = wxDefaultSize, s
     long style
     wxString name
   PREINIT:
-    const char* CLASS = _get_class( cls );
+    const char* CLASS = wxPli_get_class( cls );
   CODE:
-    RETVAL = new _wxStaticBitmap( CLASS, parent, id, *icon, pos, size,
+    RETVAL = new wxPliStaticBitmap( CLASS, parent, id, *icon, pos, size,
          style, name );
   OUTPUT:
     RETVAL

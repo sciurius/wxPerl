@@ -114,7 +114,7 @@ Wx_HtmlWindow::SetFonts( normal_face, fixed_face, sizes )
     SV* sizes
   PREINIT:
     int* array;
-    int n = _av_2_intarray( sizes, &array );
+    int n = wxPli_av_2_intarray( sizes, &array );
   CODE:
     if( n != 7 )
     {

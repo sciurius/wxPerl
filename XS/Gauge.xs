@@ -23,7 +23,7 @@ Wx_Gauge::new( parent, id, range, pos = wxDefaultPosition, size = wxDefaultSize,
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxGauge( CLASS, parent, id, range, pos, size,
+    RETVAL = new wxPliGauge( CLASS, parent, id, range, pos, size,
         style, *validator, name );
   OUTPUT:
     RETVAL

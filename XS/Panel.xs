@@ -24,7 +24,7 @@ Wx_Panel::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style 
     long style
     wxString name
   CODE:
-    RETVAL = new _wxPanel( CLASS, parent, id, pos, size, style, name );
+    RETVAL = new wxPliPanel( CLASS, parent, id, pos, size, style, name );
   OUTPUT:
     RETVAL
 

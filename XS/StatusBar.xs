@@ -27,6 +27,21 @@ Wx_StatusBar::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, st
   OUTPUT:
     RETVAL
 
+Wx_Rect*
+Wx_StatusBar::GetFieldRect( index )
+    int index
+  PREINIT:
+    wxRect rect;
+    bool found;
+  CODE:
+    found = THIS->GetFieldRect( index, rect );
+    if( !found )
+        RETVAL = 0;
+    else
+        RETVAL = new wxRect( rect );
+  OUTPUT:
+    RETVAL
+
 int
 Wx_StatusBar::GetFieldsCount()
 

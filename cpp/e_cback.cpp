@@ -10,7 +10,7 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-inline _wxEventCallback::_wxEventCallback( SV* method, SV* self ) 
+inline wxPliEventCallback::wxPliEventCallback( SV* method, SV* self ) 
 {
     m_method = method;
     SvREFCNT_inc( m_method );
@@ -18,15 +18,15 @@ inline _wxEventCallback::_wxEventCallback( SV* method, SV* self )
     SvREFCNT_inc( m_self );
 }
 
-_wxEventCallback::~_wxEventCallback() 
+wxPliEventCallback::~wxPliEventCallback() 
 {
     SvREFCNT_dec( m_method );
     SvREFCNT_dec( m_self );
 }
 
-void _wxEventCallback::Handler( wxEvent& event ) 
+void wxPliEventCallback::Handler( wxEvent& event ) 
 {
-    _wxEventCallback* This = (_wxEventCallback*) event.m_callbackUserData;
+    wxPliEventCallback* This = (wxPliEventCallback*) event.m_callbackUserData;
     //  wxEvtHandler* That = (wxEvtHandler*)this;
 
     dSP;
@@ -37,7 +37,7 @@ void _wxEventCallback::Handler( wxEvent& event )
     wxString cName = event.GetClassInfo()->GetClassName();
     SV* e = sv_newmortal();
 
-    sv_setref_pv( e, CHAR_P _cpp_class_2_perl( cName.c_str() ), &event );
+    sv_setref_pv( e, CHAR_P wxPli_cpp_class_2_perl( cName.c_str() ), &event );
 
     PUSHMARK( SP );
     XPUSHs( This->m_self );

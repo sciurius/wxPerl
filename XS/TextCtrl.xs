@@ -23,8 +23,8 @@ Wx_TextCtrl::new( parent, id, value, pos = wxDefaultPosition, size = wxDefaultSi
     Wx_Validator* validator
     wxString name
   CODE:
-    RETVAL = new _wxTextCtrl( CLASS, parent, id, value, pos, size,
-                              style, *validator, name );
+    RETVAL = new wxPliTextCtrl( CLASS, parent, id, value, pos, size,
+                                style, *validator, name );
   OUTPUT:
     RETVAL
 

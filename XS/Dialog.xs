@@ -26,7 +26,8 @@ Wx_Dialog::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize
     long style
     wxString name
   CODE:
-    RETVAL = new _wxDialog( CLASS, parent, id, title, pos, size, style, name );
+    RETVAL = new wxPliDialog( CLASS, parent, id, title, pos,
+        size, style, name );
   OUTPUT:
     RETVAL
 

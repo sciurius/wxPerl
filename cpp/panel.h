@@ -10,35 +10,26 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-class _wxPanel:public wxPanel
+class wxPliPanel:public wxPanel
 {
-    _DECLARE_DYNAMIC_CLASS( _wxPanel );
-    _DECLARE_V_CBACK();
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliPanel );
+    WXPLI_DECLARE_V_CBACK();
 public:
-    _wxPanel( const char* package, wxWindow* parent, wxWindowID id, 
-              const wxPoint& pos, const wxSize& size,
-              long style, const wxString& name );
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliPanel, "Wx::Panel", TRUE );
+    WXPLI_CONSTRUCTOR_6( wxPliPanel, "Wx::Panel", TRUE,
+                         wxWindow*, wxWindowID, const wxPoint&,
+                         const wxSize&, long, const wxString& );
 
     DEC_V_CBACK_BOOL__VOID( TransferDataFromWindow );
     DEC_V_CBACK_BOOL__VOID( TransferDataToWindow );
     DEC_V_CBACK_BOOL__VOID( Validate );
 };
 
-inline _wxPanel::_wxPanel( const char* package, wxWindow* parent,
-                           wxWindowID id, const wxPoint& pos,
-                           const wxSize& size, long style,
-                           const wxString& name )
-    :m_callback( "Wx::Panel" )
-{
-    m_callback.SetSelf( _make_object( this, package ), FALSE );
-    Create( parent, id, pos, size, style, name );
-}
+DEF_V_CBACK_BOOL__VOID( wxPliPanel, wxPanel, TransferDataFromWindow );
+DEF_V_CBACK_BOOL__VOID( wxPliPanel, wxPanel, TransferDataToWindow );
+DEF_V_CBACK_BOOL__VOID( wxPliPanel, wxPanel, Validate );
 
-DEF_V_CBACK_BOOL__VOID( _wxPanel, wxPanel, TransferDataFromWindow );
-DEF_V_CBACK_BOOL__VOID( _wxPanel, wxPanel, TransferDataToWindow );
-DEF_V_CBACK_BOOL__VOID( _wxPanel, wxPanel, Validate );
-
-_IMPLEMENT_DYNAMIC_CLASS( _wxPanel, wxPanel );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliPanel, wxPanel );
 
 // Local variables: //
 // mode: c++ //

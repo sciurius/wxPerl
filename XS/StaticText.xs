@@ -22,6 +22,7 @@ Wx_StaticText::new( parent, id, label, pos = wxDefaultPosition, size = wxDefault
     long style
     wxString name
   CODE:
-    RETVAL = new _wxStaticText( CLASS, parent, id, label, pos, size, style, name );
+    RETVAL = new wxPliStaticText( CLASS, parent, id, label,
+        pos, size, style, name );
   OUTPUT:
     RETVAL

@@ -161,7 +161,7 @@ GetHandlers()
     EXTEND( SP, list.GetCount() );
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
-      PUSHs( _object_2_sv( sv_newmortal(), node->GetData() ) );
+      PUSHs( wxPli_object_2_sv( sv_newmortal(), node->GetData() ) );
 
 #endif
 
