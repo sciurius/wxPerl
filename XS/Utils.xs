@@ -12,6 +12,7 @@
 
 #include <wx/busyinfo.h>
 #include <wx/settings.h>
+#include <wx/caret.h>
 
 MODULE=Wx PACKAGE=Wx::CaretSuspend
 
