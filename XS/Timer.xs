@@ -42,8 +42,13 @@ newEH( Class, owner, id = -1 )
   OUTPUT:
     RETVAL
 
+#void
+#Wx_Timer::DESTROY()
+
 void
-Wx_Timer::DESTROY()
+Wx_Timer::Destroy()
+  CODE:
+    delete THIS;
 
 int
 Wx_Timer::GetInterval()
