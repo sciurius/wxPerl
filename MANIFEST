@@ -277,6 +277,7 @@ ext/filesys/XS/FSFile.xs
 ext/filesys/XS/FileSystem.xs
 ext/filesys/XS/FileSystemHandler.xs
 ext/filesys/cpp/fs_typedef.h
+ext/filesys/cpp/fshandler.h
 ext/filesys/lib/Wx/FS.pm
 ext/filesys/typemap
 ext/filesys/t/1_load.t
@@ -378,11 +379,14 @@ demo/data/logo.jpg
 demo/data/cat.pl
 demo/data/dummy.pl
 demo/demo.pl
+demo/wxCheckListBox.pm
 demo/wxClipboard.pm
 demo/wxFileSystem.pm
 demo/wxGrid.pm
+demo/wxHtmlDynamic.pm
 demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm
 demo/wxLocale.pm
 demo/wxProcess.pm
 demo/wxSplashScreen.pm
+demo/wxThread.pm
