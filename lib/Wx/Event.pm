@@ -236,10 +236,17 @@ sub EVT_SPINCTRL($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPI
 #
 # SplitterEvent
 #
+
 sub EVT_SPLITTER_SASH_POS_CHANGING { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGING, $_[2] ) }
 sub EVT_SPLITTER_SASH_POS_CHANGED { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, $_[2] ) }
 sub EVT_SPLITTER_UNSPLIT { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_UNSPLIT, $_[2] ) }
 sub EVT_SPLITTER_DOUBLECLICKED { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SPLITTER_DOUBLECLICK, $_[2] ) }
+
+#
+# TimerEvent
+#
+
+sub EVT_TIMER($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_TIMER, $_[2] ); }
 
 #
 # SysColourChangedEvent
@@ -285,6 +292,7 @@ package Wx::ScrollWinEvent;  @ISA = qw(Wx::Event);
 package Wx::SpinEvent;       @ISA = qw(Wx::NotifyEvent);
 package Wx::SplitterEvent;   @ISA = qw(Wx::CommandEvent);
 package Wx::SysColourChangedEvent; @ISA = qw(Wx::Event);
+package Wx::TimerEvent;      @ISA = qw(Wx::Event);
 package Wx::UpdateUIEvent;   @ISA = qw(Wx::CommandEvent);
 
 1;

@@ -22,6 +22,7 @@
 #include <wx/splitter.h>
 #include <wx/textctrl.h>
 #include <wx/listctrl.h>
+#include <wx/timer.h>
 #include <stdarg.h>
 
 #undef _
@@ -680,6 +681,11 @@ MODULE=Wx_Evt PACKAGE=Wx::SysColourChangedEvent
 
 # Wx_SysColourChangedEvent*
 # Wx_SysColourChangedEvent::new()
+
+MODULE=Wx_Evt PACKAGE=Wx::TimerEvent
+
+int
+Wx_TimerEvent::GetInterval()
 
 MODULE=Wx_Evt PACKAGE=Wx::UpdateUIEvent
 

@@ -194,6 +194,9 @@ INCLUDE: XS/ToolTip.xs
 INCLUDE: XS/Locale.xs
 INCLUDE: XS/Utils.xs
 
+#include "cpp/timer.h"
+INCLUDE: XS/Timer.xs
+
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs
 

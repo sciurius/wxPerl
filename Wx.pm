@@ -197,6 +197,7 @@ require Wx::Region;
 require Wx::ScreenDC;
 require Wx::Sizer;
 require Wx::StaticBitmap;
+require Wx::Timer;
 require Wx::ToolBar;
 require Wx::Window;
 require Wx::_Exp;
