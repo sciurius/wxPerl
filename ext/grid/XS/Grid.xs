@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.15 2004/02/29 14:30:40 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.16 2004/04/10 20:35:39 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -452,6 +452,20 @@ wxGrid::GetRowLabelValue( row )
 int
 wxGrid::GetRowSize( row )
     int row
+
+void
+wxGrid::GetSelectedCols()
+  PPCODE:
+    PUTBACK;
+    wxPli_intarray_push( aTHX_ THIS->GetSelectedCols() );
+    SPAGAIN;
+
+void
+wxGrid::GetSelectedRows()
+  PPCODE:
+    PUTBACK;
+    wxPli_intarray_push( aTHX_ THIS->GetSelectedRows() );
+    SPAGAIN;
 
 wxColour*
 wxGrid::GetSelectionBackground()

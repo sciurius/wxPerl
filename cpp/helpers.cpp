@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.61 2004/02/28 22:59:06 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.62 2004/04/10 20:35:39 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -582,6 +582,20 @@ void wxPli_stringarray_push( pTHX_ const wxArrayString& strings )
         PUSHs( sv_2mortal( newSVpvn( CHAR_P strings[i].c_str(),
                                      strings[i].size() ) ) );
 #endif
+    }
+
+    PUTBACK;
+}
+
+void wxPli_intarray_push( pTHX_ const wxArrayInt& ints )
+{
+    dSP;
+
+    size_t mx = ints.GetCount();
+    EXTEND( SP, int(mx) );
+    for( size_t i = 0; i < mx; ++i )
+    {
+        PUSHs( sv_2mortal( newSViv( ints[i] ) ) );
     }
 
     PUTBACK;

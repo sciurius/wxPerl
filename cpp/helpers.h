@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.65 2004/02/28 22:59:06 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.66 2004/04/10 20:35:39 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -21,6 +21,7 @@
 class WXDLLEXPORT wxInputStream;
 class WXDLLEXPORT wxOutputStream;
 class WXDLLEXPORT wxEvtHandler;
+class WXDLLEXPORT wxArrayInt;
 class WXDLLEXPORT wxClientDataContainer;
 typedef wxInputStream Wx_InputStream;
 typedef wxOutputStream Wx_OutputStream;
@@ -175,6 +176,7 @@ int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
 // the caller _MUST_ call PUTBACK; before the function
 // and SPAGAIN; after the function
 void wxPli_stringarray_push( pTHX_ const wxArrayString& strings );
+void FUNCPTR( wxPli_intarray_push )( pTHX_ const wxArrayInt& ints );
 AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
 AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count );
 AV* FUNCPTR( wxPli_objlist_2_av )( pTHX_ const wxList& objs );
@@ -296,6 +298,7 @@ struct wxPliHelpers
                                                  int required = -1,
                                                  bool allow_more = FALSE );
     AV* (* m_wxPli_objlist_2_av )( pTHX_ const wxList& objs );
+    void (* m_wxPli_intarray_push )( pTHX_ const wxArrayInt& );
 };
 
 #define DEFINE_PLI_HELPERS( name ) \
@@ -310,7 +313,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor, \
  &wxPli_cpp_class_2_perl, &wxPli_push_arguments, &wxPli_attach_object, \
  &wxPli_detach_object, &wxPli_create_evthandler, \
- &wxPli_match_arguments_skipfirst, &wxPli_objlist_2_av }
+ &wxPli_match_arguments_skipfirst, &wxPli_objlist_2_av, &wxPli_intarray_push }
 
 #if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
 
@@ -344,6 +347,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_create_evthandler = name->m_wxPli_create_evthandler; \
   wxPli_match_arguments_skipfirst = name->m_wxPli_match_arguments_skipfirst; \
   wxPli_objlist_2_av = name->m_wxPli_objlist_2_av; \
+  wxPli_intarray_push = name->m_wxPli_intarray_push; \
   \
   WXPLI_INIT_CLASSINFO();
 

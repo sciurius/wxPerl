@@ -327,6 +327,7 @@ ext/grid/lib/Wx/Grid.pm
 ext/grid/t/01_load.t
 ext/grid/t/02_inheritance.t
 ext/grid/t/03_attr.t
+ext/grid/t/04_api.t
 ext/grid/typemap
 
 ext/help/Help.xs
