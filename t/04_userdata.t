@@ -49,13 +49,10 @@ sub new {
   my $data = $trdata->GetData();
   is( $data, 'Frobnicate', "Wx::TreeItemData::GetData" );
   $data = $trdata->GetData();
- TODO: {
-    local $DataFrame::TODO = "Bug with Perl 5.004" if $] < 5.005;
 
-    is( $data, 'Frobnicate', "Wx::TreeItemData::GetData (again)" );
-    $data = $tree->GetPlData( $root );
-    is( $data, 'Frobnicate', "Wx::TreeCtrl::GetPlData" );
-  }
+  is( $data, 'Frobnicate', "Wx::TreeItemData::GetData (again)" );
+  $data = $tree->GetPlData( $root );
+  is( $data, 'Frobnicate', "Wx::TreeCtrl::GetPlData" );
 
   $trdata = $tree->GetItemData( $root );
   $trdata->SetData( 'Baz' );
