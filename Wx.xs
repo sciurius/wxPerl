@@ -172,6 +172,10 @@ UnLoad()
   CODE:
     wxEntryCleanup();
 
+I32
+looks_like_number( scalar )
+    SV* scalar
+
 INCLUDE: XS/App.xs
 INCLUDE: XS/Caret.xs
 INCLUDE: XS/Geom.xs

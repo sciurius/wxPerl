@@ -101,7 +101,6 @@ $Wx::_s_wwin_n_wbmp = [ $str, $wwin, $num, $wbmp ];
 $Wx::_s_wwin_n_wico = [ $str, $wwin, $num, $wico ];
 $Wx::_wbmp = [ $wbmp ];
 $Wx::_wbmp_n = [ $wbmp, $num ];
-$Wx::_wbmp_n = [ $wbmp, $num ];
 $Wx::_wbmp_wbmp = [ $wbmp, $wbmp ];
 $Wx::_wbmp_wcol = [ $wbmp, $wcol ];
 $Wx::_wcol = [ $wcol ];
@@ -136,18 +135,19 @@ sub _match(\@$;$$) {
     return if !$dots && $argc != $required;
   }
 
-  my( $i, $a ) = ( 0 );
+  my( $i, $t ) = ( 0 );
 
   foreach ( @$sig ) {
     last if $i >= $argc;
     next if $_ == $str;
     next if $_ == $bool;
 
-    $a = ${$args}[$i];
-    next if $_ == $num && ( ( $a + 0 ) || $a =~ /^\s*-?0+\.?0*\s*$/ );
-    next if !defined( $a ) || isa( $a, $tnames[$_] );
-    next if $_ == $wpoi || $_ == $wsiz && ref( $a ) eq 'ARRAY';
-    next if $_ == $wist || $_ == $wost && ref( $a );
+    $t = ${$args}[$i];
+    next if $_ == $num && looks_like_number( $t );
+    next if !defined( $t ) ||
+      ( defined( $tnames[$_] ) && isa( $t, $tnames[$_] ) );
+    next if $_ == $wpoi || $_ == $wsiz && ref( $t ) eq 'ARRAY';
+    next if $_ == $wist || $_ == $wost && ref( $t );
 
     # type clash: return false
     return;
