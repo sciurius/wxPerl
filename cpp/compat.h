@@ -10,7 +10,9 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
+#if !defined( PERL_REVISION ) && !defined( PATCHLEVEL )
 #include <patchlevel.h>
+#endif
 
 // < 5.6 does not define PERL_
 #ifdef PERL_REVISION
