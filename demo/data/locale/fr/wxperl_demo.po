@@ -2,46 +2,62 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wxPerl demo\n"
 "POT-Creation-Date: 2001-05-21 18:32ora legale Europa occidentale\n"
-"PO-Revision-Date: 2001-09-12 14:44ora legale Europa occidentale\n"
-"Last-Translator: Mattia barbon <mbarbon@dsi.unive.it>\n"
+"PO-Revision-Date: 2002-02-26 18:19+0100\n"
+"Last-Translator: Mattia Barbon <mbarbon@dsi.unive.it>\n"
 "Language-Team: wxPerl team <wxperl-users@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso8859-1\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: demo/wxLocale.pm:11
+#: demo/wxLocale.pm:22
 msgid "English"
 msgstr "Anglais"
 
-#: demo/wxLocale.pm:12
+#: demo/wxLocale.pm:23
 msgid "French"
 msgstr "Français"
 
-#: demo/wxLocale.pm:13
+#: demo/wxLocale.pm:24
 msgid "Italian"
 msgstr "Italien"
 
-#: demo/wxLocale.pm:27
+#: demo/wxLocale.pm:38
 msgid "Choose a language"
 msgstr "Choisissez une langue"
 
-#: demo/wxLocale.pm:88
+#: demo/wxLocale.pm:114
 msgid "Some text"
 msgstr "Du texte"
 
-#: demo/wxLocale.pm:90
+#: demo/wxLocale.pm:116
 msgid "A button"
 msgstr "Un bouton"
 
-#: demo/wxLocale.pm:92
+#: demo/wxLocale.pm:118
 msgid "Change the language"
 msgstr "Changez la langue"
 
-#: demo/wxLocale.pm:94
-msgid "The message catalogs for this example were translated using poEdit ( http://www.volny.cz/vaclav.slavik/ )"
-msgstr "Les catalogues de messages pour cet example ont été traduites avec poEdit ( http://www.volny.cz/vaclav.slavik/ )"
+#: demo/wxLocale.pm:120
+msgid ""
+"The message catalogs for this\n"
+"example were translated\n"
+"using poEdit ( http://www.volny.cz/vaclav.slavik/ )"
+msgstr ""
+"Les catalogues de messages pour cet\n"
+"example ont été traduites\n"
+"avec poEdit ( http://www.volny.cz/vaclav.slavik/ )"
 
-#: demo/wxLocale.pm:95
-msgid "When dealing with internationalization/localization, which involves variable width text, the best choice is to use Sizers ( see documentation ); this example does not use them to keep it as simple as possible"
-msgstr "Quand vous travaillez avec internationalisation/localisation, qui impliquent textes avec longueurs différents, c'est mieux utilizer 'Sizers' ( voire la documentation ); ils ne sont pas utilisés dans cet example pour le mantenir le plus simple possible"
+#: demo/wxLocale.pm:121
+msgid ""
+"When dealing with internationalization/localization,\n"
+"which involves variable width text,\n"
+"the best choice is to use Sizers ( see documentation );\n"
+"this example does not use them to\n"
+"keep it as simple as possible"
+msgstr ""
+"Quand vous travaillez avec internationalisation/localisation,\n"
+"qui impliquent textes avec longueurs différents,\n"
+"c'est mieux utilizer 'Sizers' ( voire la documentation );\n"
+"ils ne sont pas utilisés dans cet example\n"
+"pour le mantenir le plus simple possible"
 

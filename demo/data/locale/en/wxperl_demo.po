@@ -2,46 +2,54 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wxPerl demo\n"
 "POT-Creation-Date: 2001-05-21 18:32ora legale Europa occidentale\n"
-"PO-Revision-Date: 2001-05-22 11:15ora legale Europa occidentale\n"
-"Last-Translator: Mattia barbon <mbarbon@dsi.unive.it>\n"
+"PO-Revision-Date: 2002-02-26 17:21+0100\n"
+"Last-Translator: Mattia Barbon <mbarbon@dsi.unive.it>\n"
 "Language-Team: wxPerl team <wxperl-users@lists.wxwindows.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso8859-1\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: demo/wxLocale.pm:11
+#: demo/wxLocale.pm:22
 msgid "English"
 msgstr ""
 
-#: demo/wxLocale.pm:12
+#: demo/wxLocale.pm:23
 msgid "French"
 msgstr ""
 
-#: demo/wxLocale.pm:13
+#: demo/wxLocale.pm:24
 msgid "Italian"
 msgstr ""
 
-#: demo/wxLocale.pm:27
+#: demo/wxLocale.pm:38
 msgid "Choose a language"
 msgstr ""
 
-#: demo/wxLocale.pm:88
+#: demo/wxLocale.pm:114
 msgid "Some text"
 msgstr ""
 
-#: demo/wxLocale.pm:90
+#: demo/wxLocale.pm:116
 msgid "A button"
 msgstr ""
 
-#: demo/wxLocale.pm:92
+#: demo/wxLocale.pm:118
 msgid "Change the language"
 msgstr ""
 
-#: demo/wxLocale.pm:94
-msgid "The message catalogs for this example were translated using poEdit ( http://www.volny.cz/vaclav.slavik/ )"
+#: demo/wxLocale.pm:120
+msgid ""
+"The message catalogs for this\n"
+"example were translated\n"
+"using poEdit ( http://www.volny.cz/vaclav.slavik/ )"
 msgstr ""
 
-#: demo/wxLocale.pm:95
-msgid "When dealing with internationalization/localization, which involves variable width text, the best choice is to use Sizers ( see documentation ); this example does not use them to keep it as simple as possible"
+#: demo/wxLocale.pm:121
+msgid ""
+"When dealing with internationalization/localization,\n"
+"which involves variable width text,\n"
+"the best choice is to use Sizers ( see documentation );\n"
+"this example does not use them to\n"
+"keep it as simple as possible"
 msgstr ""
 
