@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/05/2003
-// RCS-ID:      $Id: editor.h,v 1.5 2004/12/21 21:12:52 mbarbon Exp $
+// RCS-ID:      $Id: editor.h,v 1.6 2005/01/22 13:11:08 mbarbon Exp $
 // Copyright:   (c) 2003-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -56,10 +56,13 @@
     dTHX;                                                                     \
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
     {                                                                         \
+        SV* evt = wxPli_object_2_sv( aTHX_ newSViv( 0 ), &param1 );           \
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,       \
                                                      G_SCALAR,                \
-                                                     "O", &param1 );          \
+                                                     "S", evt );              \
         bool val = SvTRUE( ret );                                             \
+        sv_setiv( SvRV( evt ), 0 );                                           \
+        SvREFCNT_dec( evt );                                                  \
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \
     } else                                                                    \
@@ -75,9 +78,12 @@
     dTHX;                                                                     \
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
     {                                                                         \
+        SV* evt = wxPli_object_2_sv( aTHX_ newSViv( 0 ), &param1 );           \
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,                 \
                                            G_SCALAR|G_DISCARD,                \
-                                           "O", &param1 );                    \
+                                           "S", evt );                        \
+        sv_setiv( SvRV( evt ), 0 );                                           \
+        SvREFCNT_dec( evt );                                                  \
     } else                                                                    \
         BASE::METHOD( param1 );                                               \
   }
