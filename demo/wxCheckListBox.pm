@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxCheckListBox.pm
+## Name:        demo/wxCheckListBox.pm
 ## Purpose:     wxPerl demo helper
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     13/ 3/2002
-## RCS-ID:      
+## Created:     13/03/2002
+## RCS-ID:      $Id: wxCheckListBox.pm,v 1.3 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

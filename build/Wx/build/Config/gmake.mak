@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        gmake.mak
+## Name:        build/Wx/build/Config/gmake.mak
 ## Purpose:     extracts some flag information from makeg95.env
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     10/12/2000
-## RCS-ID:      
+## RCS-ID:      $Id: gmake.mak,v 1.4 2004/10/19 20:28:05 mbarbon Exp $
 ## Copyright:   (c) 2000 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

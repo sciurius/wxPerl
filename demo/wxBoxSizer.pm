@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxBoxSizer.pm
+## Name:        demo/wxBoxSizer.pm
 ## Purpose:     wxPerl demo helper for Wx::BoxSizer and Wx::StaticBoxSizer
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      3/ 7/2002
-## RCS-ID:      
+## Created:     03/07/2002
+## RCS-ID:      $Id: wxBoxSizer.pm,v 1.3 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

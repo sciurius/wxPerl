@@ -1,11 +1,11 @@
 #!/usr/bin/perl -w
 #############################################################################
-## Name:        make_ovl_list.pl
+## Name:        script/make_ovl_list.pl
 ## Purpose:     builds overload constants
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     17/ 8/2001
-## RCS-ID:      $Id: make_ovl_list.pl,v 1.12 2003/06/04 20:51:13 mbarbon Exp $
+## Created:     17/08/2001
+## RCS-ID:      $Id: make_ovl_list.pl,v 1.13 2004/10/19 20:28:15 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -1,11 +1,11 @@
 #!/usr/bin/perl -w
 #############################################################################
-## Name:        demo.pl
+## Name:        demo/demo.pl
 ## Purpose:     wxPerl demo ( tries to be as cool as the wxPython one )
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      1/ 5/2001
-## RCS-ID:      $Id: demo.pl,v 1.18 2003/08/05 17:23:47 mbarbon Exp $
+## Created:     01/05/2001
+## RCS-ID:      $Id: demo.pl,v 1.19 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -207,7 +207,15 @@ my @demos =
   ( [ 'wxPerl demo', the_demo ],
     [ 'Non-managed windows',
       [
-       [ 'HtmlWindow', demo( 'wxHtmlWindow' ) ],
+       [ 'HtmlWindow',
+         [
+          [ 'Simple HtmlWindow', demo( 'wxHtmlWindow' ) ],
+          [ 'Dynamic HTML', demo( 'wxHtmlDynamic' ) ],
+          ( Wx::wxVERSION >= 2.005 ?
+            [ 'Custom Tags', demo( 'wxHtmlTag' ) ] :
+            () ),
+         ],
+       ],
        [ 'Grid',
          [
           [ 'Simple Grid', demo( 'wxGrid' ) ],
@@ -251,7 +259,6 @@ my @demos =
     [ 'Miscellaneous',
       [
        [ 'FileSystem', demo( 'wxFileSystem' ) ],
-       [ 'Dynamic HTML', demo( 'wxHtmlDynamic' ) ],
        [ 'Locale', demo( 'wxLocale' ) ],
        [ 'MDI', demo( 'MDI', 'MDIDemo' ) ],
        [ 'Printing', demo( 'Printing' ) ],

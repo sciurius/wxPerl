@@ -1,9 +1,9 @@
 #############################################################################
-## Name:        wxSTC.pm
+## Name:        demo/wxSTC.pm
 ## Purpose:     wxPerl demo helper
 ## Author:      Marcus Friedlaender and Mattia Barbon
-## Created:     23/ 5/2002
-## RCS-ID:
+## Created:     23/05/2002
+## RCS-ID:      $Id: wxSTC.pm,v 1.4 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002 Marcus Friedlaender and Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

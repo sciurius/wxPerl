@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxThread.pm
+## Name:        demo/wxThread.pm
 ## Purpose:     wxPerl demo helper for threads
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     30/ 3/2002
-## RCS-ID:      $Id: wxThread.pm,v 1.2 2003/05/04 17:35:18 mbarbon Exp $
+## Created:     30/03/2002
+## RCS-ID:      $Id: wxThread.pm,v 1.3 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

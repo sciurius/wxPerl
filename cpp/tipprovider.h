@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        tipprovider.h
+// Name:        cpp/tipprovider.h
 // Purpose:     C++ wrapper for wxTipProvider
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      7/ 9/2001
-// RCS-ID:      
+// Created:     07/09/2001
+// RCS-ID:      $Id: tipprovider.h,v 1.4 2004/10/19 20:28:05 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

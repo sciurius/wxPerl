@@ -3,8 +3,8 @@
 // Purpose:     Magic to be included to get access to wxPerl API
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     21/ 9/2002
-// RCS-ID:      $Id: wxapi.h,v 1.8 2003/11/09 17:18:26 mbarbon Exp $
+// Created:     21/09/2002
+// RCS-ID:      $Id: wxapi.h,v 1.9 2004/10/19 20:28:05 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

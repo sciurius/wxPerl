@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        minimal.pl
+## Name:        samples/minimal/minimal.pl
 ## Purpose:     Minimal wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
+## RCS-ID:      $Id: minimal.pl,v 1.5 2004/10/19 20:28:14 mbarbon Exp $
 ## Copyright:   (c) 2000 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -66,9 +66,14 @@ sub new {
   $mhelp->Append( $ID_ABOUT, "&About...\tCtrl-A", "Show about dialog" );
   $mfile->Append( $ID_EXIT, "E&xit\tAlt-X", "Quit this program" );
 
+  use Wx::Event qw(EVT_UPDATE_UI EVT_RIGHT_UP);
+  my $i = 0;
+  EVT_UPDATE_UI( $mfile, $ID_EXIT, sub { warn; $_[1]->Enable( (++$i)&1 ) } );
+  EVT_RIGHT_UP( $this, sub { $this->PopupMenu( $mfile, 100, 100 ) } );
+
   my( $mbar ) = Wx::MenuBar->new();
 
-  $mbar->Append( $mfile, "&File" );
+#  $mbar->Append( $mfile, "&File" );
   $mbar->Append( $mhelp, "&Help" );
 
   $this->SetMenuBar( $mbar );

@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        treectrl.pl
+## Name:        samples/treectrl/treectrl.pl
 ## Purpose:     TreeCtrl wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      17/ 2/2001
-## RCS-ID:      
+## Created:     17/02/2001
+## RCS-ID:      $Id: treectrl.pl,v 1.4 2004/10/19 20:28:15 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

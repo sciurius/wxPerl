@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxHtmlDynamic.pm
+## Name:        demo/wxHtmlDynamic.pm
 ## Purpose:     Dynamically generated HTML ( via Wx::FsHandler )
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     18/ 4/2002
-## RCS-ID:      
+## Created:     18/04/2002
+## RCS-ID:      $Id: wxHtmlDynamic.pm,v 1.4 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

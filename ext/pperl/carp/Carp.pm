@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Carp.pm
+## Name:        ext/pperl/carp/Carp.pm
 ## Purpose:     Wx::Perl::Carp module (a replacement for Carp in Wx
 ##              applications)
 ## Author:      D.H. aka PodMaster
 ## Modified by:
 ## Created:     12/24/2002
-## RCS-ID:      
+## RCS-ID:      $Id: Carp.pm,v 1.2 2004/10/19 20:28:10 mbarbon Exp $
 ## Copyright:   (c) 2002 D.H.
 ## Licence:     This program is free software; you can redistribute itand/or
 ##              modify it under the same terms as Perl itself

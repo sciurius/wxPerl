@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DropSource.pm
+## Name:        ext/dnd/lib/Wx/DropSource.pm
 ## Purpose:     Wx::DropSource
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     17/ 8/2001
-## RCS-ID:      $Id: DropSource.pm,v 1.7 2003/05/04 17:35:18 mbarbon Exp $
+## Created:     17/08/2001
+## RCS-ID:      $Id: DropSource.pm,v 1.8 2004/10/19 20:28:09 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

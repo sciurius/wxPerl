@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxCalendarCtrl.pm
+## Name:        demo/wxCalendarCtrl.pm
 ## Purpose:     wxPerl demo helper
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/10/2002
-## RCS-ID:      $Id: wxCalendarCtrl.pm,v 1.3 2003/04/22 19:24:39 mbarbon Exp $
+## RCS-ID:      $Id: wxCalendarCtrl.pm,v 1.4 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

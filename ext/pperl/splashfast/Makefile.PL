@@ -1,10 +1,10 @@
 ############################################################################
-## Name:        Makefile.PL
+## Name:        ext/pperl/splashfast/Makefile.PL
 ## Purpose:     Makefile.PL
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      4/ 7/2000
-## RCS-ID:      
+## Created:     04/07/2002
+## RCS-ID:      $Id: Makefile.PL,v 1.6 2004/10/19 20:28:10 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

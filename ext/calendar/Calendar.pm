@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Calendar.pm
+## Name:        ext/calendar/Calendar.pm
 ## Purpose:     Wx::CalendarCtrl
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      5/10/2002
-## RCS-ID:      
+## Created:     05/10/2002
+## RCS-ID:      $Id: Calendar.pm,v 1.4 2004/10/19 20:28:07 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

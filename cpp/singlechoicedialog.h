@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        singlechoicedialog.h
+// Name:        cpp/singlechoicedialog.h
 // Purpose:     c++ wrapper for wxSingleChoiceDialog
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     11/ 2/2001
-// RCS-ID:      
+// Created:     11/02/2001
+// RCS-ID:      $Id: singlechoicedialog.h,v 1.6 2004/10/19 20:28:05 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        EvtHandler.xs
+## Name:        XS/EvtHandler.xs
 ## Purpose:     XS for Wx::EvtHandler
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     26/11/2000
-## RCS-ID:      $Id: EvtHandler.xs,v 1.5 2003/06/04 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: EvtHandler.xs,v 1.6 2004/10/19 20:28:05 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

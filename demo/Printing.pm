@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Printing.pm
+## Name:        demo/Printing.pm
 ## Purpose:     Printing demo
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 9/2001
-## RCS-ID:      $Id: Printing.pm,v 1.3 2003/05/07 17:25:04 mbarbon Exp $
+## Created:     12/09/2001
+## RCS-ID:      $Id: Printing.pm,v 1.4 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

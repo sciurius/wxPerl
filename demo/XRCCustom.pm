@@ -1,9 +1,9 @@
 #############################################################################
-## Name:        XRC.pm
-## Purpose:     wxWindows' XML Resources demo
+## Name:        demo/XRCCustom.pm
+## Purpose:     wxWidgets' XML Resources demo
 ## Author:      Mattia Barbon
 ## Created:     25/08/2003
-## RCS-ID:      $Id: XRCCustom.pm,v 1.1 2003/07/25 20:36:10 mbarbon Exp $
+## RCS-ID:      $Id: XRCCustom.pm,v 1.2 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -38,7 +38,7 @@ sub description {
 Wx::PlXmlResourceHandler allows using custom controls inside XRC.
 For example, Wx::Perl::TreeChecker and Wx::ActiveX are not understood
 out-of-the-box by wxXRC. Using Wx::PlXmlResourceHandler they can be used
-as any other wxWindows control.
+as any other wxWidgets control.
 </p>
 
 </body>

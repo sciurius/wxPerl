@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxWizard.pm
+## Name:        demo/wxWizard.pm
 ## Purpose:     wxPerl demo helper
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     28/ 8/2002
-## RCS-ID:      
+## Created:     28/08/2002
+## RCS-ID:      $Id: wxWizard.pm,v 1.4 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

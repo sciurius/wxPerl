@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        App.pm
+## Name:        lib/Wx/App.pm
 ## Purpose:     Wx::App class
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/11/2000
-## RCS-ID:      $Id: App.pm,v 1.13 2003/10/19 20:18:11 mbarbon Exp $
+## RCS-ID:      $Id: App.pm,v 1.14 2004/10/19 20:28:11 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -3,8 +3,8 @@
 ## Purpose:     XS++ for Wx::CalenderDateAttr
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     20/ 4/2003
-## RCS-ID:      $Id: CalendarDateAttr.xsp,v 1.1 2003/04/22 19:24:41 mbarbon Exp $
+## Created:     20/04/2003
+## RCS-ID:      $Id: CalendarDateAttr.xsp,v 1.2 2004/10/19 20:28:07 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

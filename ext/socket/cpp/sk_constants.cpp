@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        sk_constants.cpp
+// Name:        ext/socket/cpp/sk_constants.cpp
 // Purpose:     constants for Wx::Socket
 // Author:      Graciliano M. P.
 // Created:     27/02/2003
-// RCS-ID:
+// RCS-ID:      $Id: sk_constants.cpp,v 1.2 2004/10/19 20:28:11 mbarbon Exp $
 // Copyright:   (c) 2003 Graciliano M. P.
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

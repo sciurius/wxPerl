@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dn_constants.cpp
+// Name:        ext/dnd/cpp/dn_constants.cpp
 // Purpose:     constants for Wx::DND
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     12/ 8/2001
-// RCS-ID:      $Id: dn_constants.cpp,v 1.7 2003/05/05 20:38:42 mbarbon Exp $
+// Created:     12/08/2001
+// RCS-ID:      $Id: dn_constants.cpp,v 1.8 2004/10/19 20:28:08 mbarbon Exp $
 // Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

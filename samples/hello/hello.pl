@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        hello.pl
+## Name:        samples/hello/hello.pl
 ## Purpose:     Hello wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/11/2000
-## RCS-ID:      
+## Created:     02/11/2000
+## RCS-ID:      $Id: hello.pl,v 1.3 2004/10/19 20:28:14 mbarbon Exp $
 ## Copyright:   (c) 2000 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Locale.pm
+## Name:        lib/Wx/Locale.pm
 ## Purpose:     Wx::Locale
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/ 2/2001
-## RCS-ID:      
+## Created:     02/02/2001
+## RCS-ID:      $Id: Locale.pm,v 1.9 2004/10/19 20:28:12 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

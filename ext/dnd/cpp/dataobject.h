@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dataobject.h
+// Name:        ext/dnd/cpp/dataobject.h
 // Purpose:     c++ wrapper for wxPl*DataObject and wxPlDataObjectSimple
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     13/ 8/2001
-// RCS-ID:      
+// Created:     13/08/2001
+// RCS-ID:      $Id: dataobject.h,v 1.6 2004/10/19 20:28:08 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

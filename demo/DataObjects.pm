@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DataObjects.pm
+## Name:        demo/DataObjects.pm
 ## Purpose:     wxPerl demo helper
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 9/2001
-## RCS-ID:      
+## Created:     12/09/2001
+## RCS-ID:      $Id: DataObjects.pm,v 1.5 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

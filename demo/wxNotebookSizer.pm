@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxNotebookSizer.pm
+## Name:        demo/wxNotebookSizer.pm
 ## Purpose:     wxPerl demo helper for Wx::NotebookSizer
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      9/ 6/2002
-## RCS-ID:      
+## Created:     09/06/2002
+## RCS-ID:      $Id: wxNotebookSizer.pm,v 1.4 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

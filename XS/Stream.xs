@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Stream.xs
-## Purpose:     XS for Wx::*Stream wrappers ( using tie )
+## Name:        XS/Stream.xs
+## Purpose:     XS for Wx::*Stream wrappers (using tie)
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     30/ 3/2001
-## RCS-ID:      $Id: Stream.xs,v 1.11 2003/05/05 20:38:41 mbarbon Exp $
+## Created:     30/03/2001
+## RCS-ID:      $Id: Stream.xs,v 1.12 2004/10/19 20:28:05 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

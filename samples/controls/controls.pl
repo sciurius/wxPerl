@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        controls.pl
+## Name:        samples/controls/controls.pl
 ## Purpose:     Controls wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: controls.pl,v 1.11 2003/12/26 11:14:14 mbarbon Exp $
+## RCS-ID:      $Id: controls.pl,v 1.12 2004/10/19 20:28:13 mbarbon Exp $
 ## Copyright:   (c) 2000, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        he_typedef.h
+// Name:        ext/help/cpp/he_typedef.h
 // Purpose:     forward declare and typdef wxClass to Wx_Class
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     18/ 3/2001
-// RCS-ID:      
+// Created:     18/03/2001
+// RCS-ID:      $Id: he_typedef.h,v 1.3 2004/10/19 20:28:09 mbarbon Exp $
 // Copyright:   (c) 2001 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

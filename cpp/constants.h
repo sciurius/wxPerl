@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        constants.h
+// Name:        cpp/constants.h
 // Purpose:     module to allow modularity in constant() function
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     17/ 3/2001
-// RCS-ID:      
+// Created:     17/03/2001
+// RCS-ID:      $Id: constants.h,v 1.9 2004/10/19 20:28:05 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

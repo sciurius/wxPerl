@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        caret.pl
+## Name:        samples/caret/caret.pl
 ## Purpose:     Caret wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 1/2001
-## RCS-ID:      
+## Created:     12/01/2001
+## RCS-ID:      $Id: caret.pl,v 1.4 2004/10/19 20:28:12 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        RadioBox.pm
+## Name:        lib/Wx/RadioBox.pm
 ## Purpose:     Wx::RadioBox class
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/10/2000
-## RCS-ID:      
+## RCS-ID:      $Id: RadioBox.pm,v 1.9 2004/10/19 20:28:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

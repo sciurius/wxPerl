@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        dialog.pl
+## Name:        samples/dialog/dialog.pl
 ## Purpose:     Dialog wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/11/2000
-## RCS-ID:      
+## RCS-ID:      $Id: dialog.pl,v 1.4 2004/10/19 20:28:13 mbarbon Exp $
 ## Copyright:   (c) 2000 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

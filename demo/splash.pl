@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        splash.pl
+## Name:        demo/splash.pl
 ## Purpose:     Show how to use splash screens
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      5/ 6/2002
-## RCS-ID:      $Id: splash.pl,v 1.2 2003/05/18 15:05:46 mbarbon Exp $
+## Created:     05/06/2002
+## RCS-ID:      $Id: splash.pl,v 1.3 2004/10/19 20:28:06 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

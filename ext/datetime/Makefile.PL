@@ -3,8 +3,8 @@
 ## Purpose:     Makefile.PL for wxDateTime
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     22/ 9/2002
-## RCS-ID:      $Id: Makefile.PL,v 1.2 2003/08/23 13:00:37 mbarbon Exp $
+## Created:     22/09/2002
+## RCS-ID:      $Id: Makefile.PL,v 1.3 2004/10/19 20:28:08 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
