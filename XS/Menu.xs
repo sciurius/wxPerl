@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.18 2003/05/17 13:20:13 mbarbon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.19 2003/06/04 20:38:42 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -286,7 +286,7 @@ Wx_Menu::SetTitle( title )
 
 void
 Wx_Menu::UpdateUI( source = 0 )
-    Wx_EvtHandler* source
+    wxEvtHandler* source
 
 MODULE=Wx PACKAGE=Wx::MenuBar
 

@@ -3,8 +3,8 @@
 ## Purpose:     XS for Wx::ListCtrl, Wx::ListItem
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      4/ 2/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.26 2003/05/29 20:04:23 mbarbon Exp $
+## Created:     04/02/2001
+## RCS-ID:      $Id: ListCtrl.xs,v 1.27 2003/06/04 20:38:42 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -250,8 +250,25 @@ Wx_ListItemAttr::GetFont()
 
 MODULE=Wx PACKAGE=Wx::ListCtrl
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::ListCtrl::new" )
+
+wxListCtrl*
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxPliListCtrl( CLASS );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
 Wx_ListCtrl*
-Wx_ListCtrl::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_ICON, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
+newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_ICON, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
+    PlClassName CLASS
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos
@@ -264,6 +281,17 @@ Wx_ListCtrl::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize
         *validator, name );
   OUTPUT:
     RETVAL
+
+bool
+wxListCtrl::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_ICON, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
+    wxWindow* parent
+    wxWindowID id
+    wxPoint pos
+    wxSize size
+    long style
+    wxValidator* validator
+    wxString name
+  C_ARGS: parent, id, pos, size, style, *validator, name
 
 bool
 Wx_ListCtrl::Arrange( flag = wxLIST_ALIGN_DEFAULT )
@@ -684,8 +712,25 @@ Wx_ListCtrl::SortItems( function )
 
 MODULE=Wx PACKAGE=Wx::ListView
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::ListView::new" )
+
 wxListView*
-wxListView::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxListView();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxListView*
+newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -699,6 +744,17 @@ wxListView::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize,
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
+
+bool
+wxListView::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
+    wxWindow* parent
+    wxWindowID id
+    wxPoint pos
+    wxSize size
+    long style
+    wxValidator* validator
+    wxString name
+  C_ARGS: parent, id, pos, size, style, *validator, name
 
 void
 wxListView::Select( n, on )

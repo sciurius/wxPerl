@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        TextCtrl.xs
+## Name:        XS/TextCtrl.xs
 ## Purpose:     XS for Wx::TextCtrl
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.10 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.11 2003/06/04 20:38:43 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,18 +12,18 @@
 
 MODULE=Wx PACKAGE=Wx::TextUrlEvent
 
-Wx_MouseEvent*
-Wx_TextUrlEvent::GetMouseEvent()
+wxMouseEvent*
+wxTextUrlEvent::GetMouseEvent()
   CODE:
     RETVAL = new wxMouseEvent( THIS->GetMouseEvent() );
   OUTPUT:
     RETVAL
 
 long
-Wx_TextUrlEvent::GetURLStart()
+wxTextUrlEvent::GetURLStart()
 
 long
-Wx_TextUrlEvent::GetURLEnd()
+wxTextUrlEvent::GetURLEnd()
 
 MODULE=Wx PACKAGE=Wx::TextAttr
 
@@ -78,21 +78,51 @@ Wx_TextAttr::IsDefault()
 
 MODULE=Wx PACKAGE=Wx::TextCtrl
 
-Wx_TextCtrl*
-Wx_TextCtrl::new( parent, id, value, pos = wxDefaultPosition, size = wxDefaultSize, style = 0 , validator = (wxValidator*)&wxDefaultValidator, name = wxTextCtrlNameStr )
-    Wx_Window* parent
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::TextCtrl::new" )
+
+wxTextCtrl*
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxTextCtrl();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxTextCtrl*
+newFull( CLASS, parent, id, value, pos = wxDefaultPosition, size = wxDefaultSize, style = 0 , validator = (wxValidator*)&wxDefaultValidator, name = wxTextCtrlNameStr )
+    PlClassName CLASS
+    wxWindow* parent
     wxWindowID id
     wxString value
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   CODE:
-    RETVAL = new wxPliTextCtrl( CLASS, parent, id, value, pos, size,
-                                style, *validator, name );
+    RETVAL = new wxTextCtrl( parent, id, value, pos, size,
+                             style, *validator, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
+
+bool
+wxTextCtrl::Create( parent, id, value, pos = wxDefaultPosition, size = wxDefaultSize, style = 0 , validator = (wxValidator*)&wxDefaultValidator, name = wxTextCtrlNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxString value
+    wxPoint pos
+    wxSize size
+    long style
+    wxValidator* validator
+    wxString name
+  C_ARGS: parent, id, value, pos, size, style, *validator, name
 
 void
 Wx_TextCtrl::AppendText( text )

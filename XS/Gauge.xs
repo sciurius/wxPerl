@@ -3,8 +3,8 @@
 ## Purpose:     XS for Wx::Gauge
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      8/11/2000
-## RCS-ID:      $Id: Gauge.xs,v 1.5 2003/05/29 20:04:23 mbarbon Exp $
+## Created:     08/11/2000
+## RCS-ID:      $Id: Gauge.xs,v 1.6 2003/06/04 20:38:42 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,8 +14,26 @@
 
 MODULE=Wx PACKAGE=Wx::Gauge
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::Gauge::new" )
+
 wxGauge*
-wxGauge::new( parent, id, range, pos = wxDefaultPosition, size = wxDefaultSize, style = wxGA_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxGaugeNameStr )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxGauge();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+
+wxGauge*
+newFull( CLASS, parent, id, range, pos = wxDefaultPosition, size = wxDefaultSize, style = wxGA_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxGaugeNameStr )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     int range
@@ -30,6 +48,18 @@ wxGauge::new( parent, id, range, pos = wxDefaultPosition, size = wxDefaultSize, 
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
+
+bool
+wxGauge::Create( parent, id, range, pos = wxDefaultPosition, size = wxDefaultSize, style = wxGA_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxGaugeNameStr )
+    wxWindow* parent
+    wxWindowID id
+    int range
+    wxPoint pos
+    wxSize size
+    long style
+    wxValidator* validator
+    wxString name
+  C_ARGS: parent, id, range, pos, size, style, *validator, name
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 

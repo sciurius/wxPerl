@@ -1,28 +1,41 @@
 #############################################################################
-## Name:        StaticText.xs
+## Name:        XS/StaticText.xs
 ## Purpose:     XS for Wx::StaticText
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2001 Mattia Barbon
+## RCS-ID:      $Id: StaticText.xs,v 1.4 2003/06/04 20:38:43 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/stattext.h>
+
 MODULE=Wx PACKAGE=Wx::StaticText
 
-Wx_StaticText*
-Wx_StaticText::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxStaticTextNameStr )
-    Wx_Window* parent
+wxStaticText*
+wxStaticText::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxStaticTextNameStr )
+    wxWindow* parent
     wxWindowID id
     wxString label
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
-    RETVAL = new wxPliStaticText( CLASS, parent, id, label,
+    RETVAL = new wxStaticText( parent, id, label,
         pos, size, style, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
+
+bool
+wxStaticText::Create( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxStaticTextNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxString label
+    wxPoint pos
+    wxSize size
+    long style
+    wxString name

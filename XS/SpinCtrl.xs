@@ -3,8 +3,8 @@
 ## Purpose:     XS for Wx::SpinCtrl
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      8/11/2000
-## RCS-ID:      $Id: SpinCtrl.xs,v 1.8 2003/06/02 08:44:50 mbarbon Exp $
+## Created:     08/11/2000
+## RCS-ID:      $Id: SpinCtrl.xs,v 1.9 2003/06/04 20:38:43 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,8 +14,25 @@
 
 MODULE=Wx PACKAGE=Wx::SpinCtrl
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::SpinCtrl::new" )
+
 wxSpinCtrl*
-wxSpinCtrl::new( parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_ARROW_KEYS, min = 0, max = 100, initial = 0, name = wxT("spinCtrl") )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxSpinCtrl();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxSpinCtrl*
+newFull( CLASS, parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_ARROW_KEYS, min = 0, max = 100, initial = 0, name = wxT("spinCtrl") )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxString value
@@ -32,6 +49,19 @@ wxSpinCtrl::new( parent, id, value = wxEmptyString, pos = wxDefaultPosition, siz
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
+
+bool
+wxSpinCtrl::Create( parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_ARROW_KEYS, min = 0, max = 100, initial = 0, name = wxT("spinCtrl") )
+    wxWindow* parent
+    wxWindowID id
+    wxString value
+    wxPoint pos
+    wxSize size
+    long style
+    int min
+    int max
+    int initial
+    wxString name
 
 int
 wxSpinCtrl::GetMin()

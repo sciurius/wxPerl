@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.h,v 1.18 2003/06/02 08:44:51 mbarbon Exp $
+// RCS-ID:      $Id: controls.h,v 1.19 2003/06/04 20:38:44 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -28,15 +28,6 @@ public:
     int OnGetItemImage( long item ) const;
     wxListItemAttr* OnGetItemAttr( long item ) const;
 };
-
-WXPLI_DECLARE_CLASS_7( StaticText, TRUE,
-                       wxWindow*, wxWindowID, const wxString&,
-                       const wxPoint&, const wxSize&, long,
-                       const wxString& );
-WXPLI_DECLARE_CLASS_8( TextCtrl, TRUE,
-                       wxWindow*, wxWindowID, const wxString&,
-                       const wxPoint&, const wxSize&, long,
-                       const wxValidator&, const wxString& );
 
 class wxPliTreeCtrl:public wxTreeCtrl
 {

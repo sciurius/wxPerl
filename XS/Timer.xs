@@ -33,7 +33,7 @@ newDefault( Class )
 Wx_Timer*
 newEH( Class, owner, id = -1 )
     SV* Class
-    Wx_EvtHandler* owner
+    wxEvtHandler* owner
     int id
   PREINIT:
     const char* CLASS = wxPli_get_class( aTHX_ Class );
@@ -58,7 +58,7 @@ Wx_Timer::IsRunning()
 
 void
 Wx_Timer::SetOwner( owner, id = -1 )
-    Wx_EvtHandler* owner
+    wxEvtHandler* owner
     int id
 
 bool

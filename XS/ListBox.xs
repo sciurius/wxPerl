@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        ListBox.xs
+## Name:        XS/ListBox.xs
 ## Purpose:     XS for Wx::ListBox
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      8/11/2000
-## RCS-ID:      $Id: ListBox.xs,v 1.7 2003/05/26 20:33:05 mbarbon Exp $
+## Created:     08/11/2000
+## RCS-ID:      $Id: ListBox.xs,v 1.8 2003/06/04 20:38:42 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,8 +14,26 @@ MODULE=Wx PACKAGE=Wx::ListBox
 
 #include <wx/listbox.h>
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::ListBox::new" )
+
 wxListBox*
-wxListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxListBox();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+
+wxListBox*
+newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -39,6 +57,35 @@ wxListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choic
     RETVAL = new wxListBox( parent, id, pos, size, n, chs, 
         style, *validator, name );
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+
+    delete[] chs;
+  OUTPUT:
+    RETVAL
+
+bool
+wxListBox::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxPoint pos
+    wxSize size
+    SV* choices
+    long style
+    wxValidator* validator
+    wxString name
+  PREINIT:
+    wxString* chs;
+    int n;
+  CODE:
+    if( choices ) 
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
+    else
+    {
+        n = 0;
+        chs = 0;
+    }
+        
+    RETVAL = THIS->Create( parent, id, pos, size, n, chs, 
+        style, *validator, name );
 
     delete[] chs;
   OUTPUT:

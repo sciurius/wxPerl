@@ -66,17 +66,6 @@ inline wxToolBar* wxPliFrame::OnCreateToolBar( long style, wxWindowID id,
     
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliFrame, wxFrame );
 
-#if wxPERL_USE_MINIFRAME
-
-WXPLI_DECLARE_CLASS_7( MiniFrame, TRUE,
-                       wxWindow*, wxWindowID, const wxString&,
-                       const wxPoint&, const wxSize&, long,
-                       const wxString& );
-
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliMiniFrame, wxMiniFrame );
-
-#endif
-
 // Local variables: //
 // mode: c++ //
 // End: //

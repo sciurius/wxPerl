@@ -4,29 +4,30 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     26/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: EvtHandler.xs,v 1.5 2003/06/04 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 MODULE=Wx PACKAGE=Wx::EvtHandler
 
-Wx_EvtHandler*
-Wx_EvtHandler::new()
+wxEvtHandler*
+wxEvtHandler::new()
   CODE:
-    RETVAL = new wxPliEvtHandler( CLASS );
+    RETVAL = new wxEvtHandler();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
 
 void
-Wx_EvtHandler::AddPendingEvent( event )
-    Wx_Event* event
+wxEvtHandler::AddPendingEvent( event )
+    wxEvent* event
   CODE:
     THIS->AddPendingEvent( *event );
 
 void
-Wx_EvtHandler::Connect( id, lastid, type, method )
+wxEvtHandler::Connect( id, lastid, type, method )
     wxWindowID id
     int lastid
     wxEventType type
@@ -46,12 +47,12 @@ Wx_EvtHandler::Connect( id, lastid, type, method )
     }
 
 void
-Wx_EvtHandler::Destroy()
+wxEvtHandler::Destroy()
   CODE:
     delete THIS;
 
 bool
-Wx_EvtHandler::Disconnect( id, lastid, type )
+wxEvtHandler::Disconnect( id, lastid, type )
     wxWindowID id
     int lastid
     wxEventType type
@@ -62,30 +63,30 @@ Wx_EvtHandler::Disconnect( id, lastid, type )
     RETVAL
 
 bool
-Wx_EvtHandler::GetEvtHandlerEnabled()
+wxEvtHandler::GetEvtHandlerEnabled()
 
-Wx_EvtHandler*
-Wx_EvtHandler::GetNextHandler()
+wxEvtHandler*
+wxEvtHandler::GetNextHandler()
 
-Wx_EvtHandler*
-Wx_EvtHandler::GetPreviousHandler()
+wxEvtHandler*
+wxEvtHandler::GetPreviousHandler()
 
 bool
-Wx_EvtHandler::ProcessEvent( event )
-    Wx_Event* event
+wxEvtHandler::ProcessEvent( event )
+    wxEvent* event
   CODE:
     RETVAL = THIS->ProcessEvent( *event );
   OUTPUT:
     RETVAL
 
 void
-Wx_EvtHandler::SetEvtHandlerEnabled( enabled )
+wxEvtHandler::SetEvtHandlerEnabled( enabled )
     bool enabled
 
 void
-Wx_EvtHandler::SetNextHandler( handler )
-    Wx_EvtHandler* handler
+wxEvtHandler::SetNextHandler( handler )
+    wxEvtHandler* handler
 
 void
-Wx_EvtHandler::SetPreviousHandler( handler )
-    Wx_EvtHandler* handler
+wxEvtHandler::SetPreviousHandler( handler )
+    wxEvtHandler* handler

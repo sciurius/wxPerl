@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Notebook.xs,v 1.9 2003/05/31 15:36:56 mbarbon Exp $
+## RCS-ID:      $Id: Notebook.xs,v 1.10 2003/06/04 20:38:42 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -37,8 +37,25 @@ wxNotebookEvent::SetSelection( oldSel )
 
 MODULE=Wx PACKAGE=Wx::Notebook
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::Notebook::new" )
+
 wxNotebook*
-wxNotebook::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("notebook") )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxNotebook();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxNotebook*
+newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("notebook") )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -50,6 +67,15 @@ wxNotebook::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, styl
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
+
+bool
+wxNotebook::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("notebook") )
+    wxWindow* parent
+    wxWindowID id
+    wxPoint pos
+    wxSize size
+    long style
+    wxString name
 
 bool
 wxNotebook::AddPage( page, text, select = FALSE, imageId = -1 )

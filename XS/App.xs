@@ -21,8 +21,8 @@ MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 void
 wxPostEvent( evthnd, event )
-    Wx_EvtHandler* evthnd
-    Wx_Event* event
+    wxEvtHandler* evthnd
+    wxEvent* event
   CODE:
     wxPostEvent( evthnd, *event );
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: RadioBox.xs,v 1.14 2003/05/29 20:04:23 mbarbon Exp $
+## RCS-ID:      $Id: RadioBox.xs,v 1.15 2003/06/04 20:38:42 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,8 +14,25 @@
 
 MODULE=Wx PACKAGE=Wx::RadioBox
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::RadioBox::new" )
+
 wxRadioBox*
-wxRadioBox::new( parent, id, label, point = wxDefaultPosition, size = wxDefaultSize, choices = 0, majorDimension = 0, style = wxRA_SPECIFY_COLS, validator = (wxValidator*)&wxDefaultValidator, name = wxRadioBoxNameStr )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxRadioBox();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxRadioBox*
+newFull( CLASS, parent, id, label, point = wxDefaultPosition, size = wxDefaultSize, choices = 0, majorDimension = 0, style = wxRA_SPECIFY_COLS, validator = (wxValidator*)&wxDefaultValidator, name = wxRadioBoxNameStr )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxString label
@@ -40,6 +57,36 @@ wxRadioBox::new( parent, id, label, point = wxDefaultPosition, size = wxDefaultS
     RETVAL = new wxRadioBox( parent, id, label, point, size,
         n, chs, majorDimension, style, *validator, name );
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+
+    delete[] chs;
+  OUTPUT:
+    RETVAL
+
+bool
+wxRadioBox::Create( parent, id, label, point = wxDefaultPosition, size = wxDefaultSize, choices = 0, majorDimension = 0, style = wxRA_SPECIFY_COLS, validator = (wxValidator*)&wxDefaultValidator, name = wxRadioBoxNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxString label
+    wxPoint point
+    wxSize size
+    SV* choices
+    int majorDimension
+    long style
+    wxValidator* validator
+    wxString name
+  PREINIT:
+    int n;
+    wxString* chs;
+  CODE:
+    if( choices )
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
+    else {
+        n = 0;
+        chs = 0;
+    }
+
+    RETVAL = THIS->Create( parent, id, label, point, size,
+        n, chs, majorDimension, style, *validator, name );
 
     delete[] chs;
   OUTPUT:

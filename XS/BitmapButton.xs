@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        BitmapButton.xs
+## Name:        XS/BitmapButton.xs
 ## Purpose:     XS for Wx::BitmapButton
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: BitmapButton.xs,v 1.5 2003/06/04 20:38:41 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,8 +14,25 @@ MODULE=Wx PACKAGE=Wx::BitmapButton
 
 #include <wx/bmpbuttn.h>
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::BitmapButton::new" )
+
 wxBitmapButton*
-wxBitmapButton::new( parent, id, bitmap, pos = wxDefaultPosition, size = wxDefaultSize, style = wxBU_AUTODRAW, validator = (wxValidator*)&wxDefaultValidator, name = wxButtonNameStr )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxBitmapButton();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxBitmapButton*
+newFull( CLASS, parent, id, bitmap, pos = wxDefaultPosition, size = wxDefaultSize, style = wxBU_AUTODRAW, validator = (wxValidator*)&wxDefaultValidator, name = wxButtonNameStr )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxBitmap* bitmap
@@ -29,6 +46,18 @@ wxBitmapButton::new( parent, id, bitmap, pos = wxDefaultPosition, size = wxDefau
         style, *validator, name );
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT: RETVAL
+
+bool
+wxBitmapButton::Create( parent, id, bitmap, pos = wxDefaultPosition, size = wxDefaultSize, style = wxBU_AUTODRAW, validator = (wxValidator*)&wxDefaultValidator, name = wxButtonNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxBitmap* bitmap
+    wxPoint pos
+    wxSize size
+    long style
+    wxValidator* validator
+    wxString name
+  C_ARGS: parent, id, *bitmap, pos, size, style, *validator, name
 
 wxBitmap*
 wxBitmapButton::GetBitmapDisabled()

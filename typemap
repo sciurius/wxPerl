@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.56 2003/06/02 08:44:35 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.57 2003/06/04 20:38:16 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,6 +32,7 @@ EntryType               T_IV
 wxKillError             T_IV
 wxSignal                T_IV
 wxItemKind              T_IV
+PlClassName             T_CLASSNAME
 
 wxFindReplaceDialogStyles T_IV
 wxFindReplaceFlags      T_IV
@@ -65,7 +66,6 @@ Wx_Window *             O_WXOBJECT
 wxWindow *              O_WXOBJECT
 Wx_Frame *              O_WXOBJECT
 wxFrame *               O_WXOBJECT
-Wx_EvtHandler *         O_WXOBJECT
 wxEvtHandler *          O_WXOBJECT
 Wx_MiniFrame *          O_WXOBJECT
 wxMiniFrame *           O_WXOBJECT
@@ -82,6 +82,7 @@ Wx_ToolBar *            O_WXOBJECT
 wxToolBar *             O_WXOBJECT
 Wx_ToolBarBase *        O_WXOBJECT
 wxToolBarBase *         O_WXOBJECT
+wxToolBarSimple *       O_WXOBJECT
 Wx_Panel *              O_WXOBJECT
 wxPanel *               O_WXOBJECT
 Wx_Dialog *             O_WXOBJECT
@@ -89,8 +90,7 @@ wxDialog *              O_WXOBJECT
 Wx_Control *            O_WXOBJECT
 wxControl *             O_WXOBJECT
 wxButton *              O_WXEVTHANDLER
-Wx_StaticText *         O_WXOBJECT
-wxStaticText *          O_WXOBJECT
+wxStaticText *          O_WXEVTHANDLER
 wxStaticLine *          O_WXEVTHANDLER
 Wx_TextCtrl *           O_WXOBJECT
 wxTextCtrl *            O_WXOBJECT
@@ -347,39 +347,65 @@ wxWave *                O_NON_WXOBJECT
 
 # events
 Wx_Event *              O_WXOBJECT
+wxEvent *               O_WXOBJECT
 Wx_ActivateEvent *      O_WXOBJECT
+wxActivateEvent *       O_WXOBJECT
 Wx_CloseEvent *         O_WXOBJECT
+wxCloseEvent *          O_WXOBJECT
 Wx_CommandEvent *       O_WXOBJECT
 wxCommandEvent *        O_WXOBJECT
 Wx_EraseEvent *         O_WXOBJECT
+wxEraseEvent *          O_WXOBJECT
 Wx_FindDialogEvent *    O_WXOBJECT
+wxFindDialogEvent *     O_WXOBJECT
 Wx_FocusEvent *         O_WXOBJECT
+wxFocusEvent *          O_WXOBJECT
 Wx_KeyEvent *           O_WXOBJECT
+wxKeyEvent *            O_WXOBJECT
 Wx_HelpEvent *          O_WXOBJECT
+wxHelpEvent *           O_WXOBJECT
 Wx_IconizeEvent *       O_WXOBJECT
+wxIconizeEvent *        O_WXOBJECT
 Wx_IdleEvent *          O_WXOBJECT
+wxIdleEvent *           O_WXOBJECT
 Wx_InitDialogEvent *    O_WXOBJECT
+wxInitDialogEvent *     O_WXOBJECT
 Wx_JoystickEvent *      O_WXOBJECT
+wxJoystickEvent *       O_WXOBJECT
 Wx_ListEvent *          O_WXOBJECT
+wxListEvent *           O_WXOBJECT
 Wx_MenuEvent *          O_WXOBJECT
+wxMenuEvent *           O_WXOBJECT
 Wx_MouseEvent *         O_WXOBJECT
+wxMouseEvent *          O_WXOBJECT
 Wx_MoveEvent *          O_WXOBJECT
+wxMoveEvent *           O_WXOBJECT
 wxNotebookEvent *       O_WXOBJECT
 Wx_NotifyEvent *        O_WXOBJECT
+wxNotifyEvent *         O_WXOBJECT
 Wx_PaintEvent *         O_WXOBJECT
+wxPaintEvent *          O_WXOBJECT
 Wx_QueryLayoutInfo *    O_WXOBJECT
+wxQueryLayoutInfo *     O_WXOBJECT
 wxSashEvent *           O_WXOBJECT
 Wx_SizeEvent *          O_WXOBJECT
+wxSizeEvent *           O_WXOBJECT
 wxScrollEvent *         O_WXOBJECT
 Wx_ScrollWinEvent *     O_WXOBJECT
+wxScrollWinEvent *      O_WXOBJECT
 wxSpinEvent *           O_WXOBJECT
 wxSplitterEvent *       O_WXOBJECT
 Wx_SysColourChangedEvent * O_WXOBJECT
+wxSysColourChangedEvent * O_WXOBJECT
 Wx_TimerEvent *         O_WXOBJECT
+wxTimerEvent *          O_WXOBJECT
 Wx_TreeEvent *          O_WXOBJECT
+wxTreeEvent *           O_WXOBJECT
 Wx_UpdateUIEvent *      O_WXOBJECT
-Wx_TextUrlEvent *       O_WXOBJECT
+wxUpdateUIEvent *       O_WXOBJECT
+wxTextUrlEvent *        O_WXOBJECT
 Wx_ProcessEvent *       O_WXOBJECT
+wxProcessEvent *        O_WXOBJECT
 wxWizardEvent *         O_WXOBJECT
 
 Wx_PlEvent*             O_WXOBJECT
@@ -431,6 +457,9 @@ T_KEYCODE
 
 T_UV
     $var = ($type)SvUV( $arg );
+
+T_CLASSNAME
+    $var = wxPli_get_class( aTHX_ $arg );
 
 #
 # Wx_UserData*

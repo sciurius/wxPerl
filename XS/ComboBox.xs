@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Notebook.xs
+## Name:        XS/ComboBox.xs
 ## Purpose:     XS for Wx::ComboBox
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: ComboBox.xs,v 1.17 2003/05/29 20:04:23 mbarbon Exp $
+## RCS-ID:      $Id: ComboBox.xs,v 1.18 2003/06/04 20:38:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,8 +15,26 @@
 
 MODULE=Wx PACKAGE=Wx::ComboBox
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::ComboBox::new" )
+
 wxComboBox*
-wxComboBox::new( parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxComboBoxNameStr )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxComboBox();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+
+wxComboBox*
+newFull( CLASS, parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxComboBoxNameStr )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxString value
@@ -39,6 +57,29 @@ wxComboBox::new( parent, id, value = wxEmptyString, pos = wxDefaultPosition, siz
     delete[] chs;
   OUTPUT:
     RETVAL
+
+bool
+wxComboBox::Create( parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxComboBoxNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxString value
+    wxPoint pos
+    wxSize size
+    SV* choices
+    long style
+    wxValidator* validator
+    wxString name
+  PREINIT:
+    wxString* chs = 0;
+    int n = 0;
+  CODE:
+    if( choices != 0 )
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
+    RETVAL = THIS->Create( parent, id, value, pos, size, n, chs, 
+        style, *validator, name );
+
+    delete[] chs;
+  OUTPUT: RETVAL
 
 void
 wxComboBox::Clear()

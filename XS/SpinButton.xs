@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      $Id: SpinButton.xs,v 1.7 2003/05/31 15:36:56 mbarbon Exp $
+## RCS-ID:      $Id: SpinButton.xs,v 1.8 2003/06/04 20:38:43 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,8 +29,25 @@ wxSpinEvent::SetPosition( pos )
 
 MODULE=Wx PACKAGE=Wx::SpinButton
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::SpinButton::new" )
+
 wxSpinButton*
-wxSpinButton::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_HORIZONTAL, name = wxT("spinButton") )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxSpinButton();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxSpinButton*
+newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_HORIZONTAL, name = wxT("spinButton") )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -42,6 +59,15 @@ wxSpinButton::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, st
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
+
+bool
+wxSpinButton::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_HORIZONTAL, name = wxT("spinButton") )
+    wxWindow* parent
+    wxWindowID id
+    wxPoint pos
+    wxSize size
+    long style
+    wxString name
 
 int
 wxSpinButton::GetMax()

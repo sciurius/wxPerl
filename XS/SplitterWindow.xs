@@ -3,8 +3,8 @@
 ## Purpose:     XS for Wx::SplitterWindow
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/12/2000
-## RCS-ID:      $Id: SplitterWindow.xs,v 1.8 2003/05/27 20:10:29 mbarbon Exp $
+## Created:     02/12/2000
+## RCS-ID:      $Id: SplitterWindow.xs,v 1.9 2003/06/04 20:38:43 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -34,6 +34,12 @@
 
 %name{Wx::SplitterWindow} class wxSplitterWindow
 {
+    %name{newDefault}
+    wxSplitterWindow()
+        %code{%    RETVAL = new wxSplitterWindow();
+                   wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull}
     wxSplitterWindow( wxWindow* parent, wxWindowID id = -1,
                       const wxPoint& pos = wxDefaultPosition,
                       const wxSize& size = wxDefaultSize,
@@ -42,6 +48,12 @@
         %code{%    RETVAL = new wxSplitterWindow( parent, id, pos, size,
                        style, name );
                    wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    bool Create( wxWindow* parent, wxWindowID id = -1,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxSP_3D,
+                 wxString name = wxSplitterWindowNameStr );
 
     int GetMinimumPaneSize();
     int GetSashPosition();
@@ -65,3 +77,15 @@
                           int sashPosition = 0 );
     bool Unsplit( wxWindow* toRemove = NULL );
 };
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::SplitterWindow::new" )
+
+%}

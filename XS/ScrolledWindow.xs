@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        ScrolledWindow.xs
+## Name:        XS/ScrolledWindow.xs
 ## Purpose:     XS for Wx::ScrolledWindow
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/12/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## Created:     02/12/2000
+## RCS-ID:      $Id: ScrolledWindow.xs,v 1.9 2003/06/04 20:38:43 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,8 +16,25 @@
 
 MODULE=Wx PACKAGE=Wx::ScrolledWindow
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::ScrolledWindow::new" )
+
+wxScrolledWindow*
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxPliScrolledWindow( CLASS );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
 Wx_ScrolledWindow*
-Wx_ScrolledWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxT("scrolledWindow") )
+newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxT("scrolledWindow") )
+    PlClassName CLASS
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos
@@ -29,6 +46,15 @@ Wx_ScrolledWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefau
         name );
   OUTPUT:
     RETVAL
+
+bool
+wxScrolledWindow::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxT("scrolledWindow") )
+    wxWindow* parent
+    wxWindowID id
+    wxPoint pos
+    wxSize size
+    long style
+    wxString name
 
 void
 Wx_ScrolledWindow::CalcScrolledPosition( x, y )

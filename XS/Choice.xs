@@ -3,8 +3,8 @@
 ## Purpose:     XS for Wx::Choice
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      8/11/2000
-## RCS-ID:      $Id: Choice.xs,v 1.10 2003/05/29 20:04:23 mbarbon Exp $
+## Created:     08/11/2000
+## RCS-ID:      $Id: Choice.xs,v 1.11 2003/06/04 20:38:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,8 +14,25 @@
 
 MODULE=Wx PACKAGE=Wx::Choice
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::Choice::new" )
+
 wxChoice*
-wxChoice::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxChoice();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxChoice*
+newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -38,6 +55,29 @@ wxChoice::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choice
     delete[] chs;
   OUTPUT:
     RETVAL
+
+bool
+wxChoice::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxPoint pos
+    wxSize size
+    SV* choices
+    long style
+    wxValidator* validator
+    wxString name
+  PREINIT:
+    int n = 0;
+    wxString *chs = 0;
+  CODE:
+    if( choices )
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
+
+    RETVAL = THIS->Create( parent, id, pos, size, n, chs, style, 
+        *validator, name );
+
+    delete[] chs;
+  OUTPUT: RETVAL
 
 void
 wxChoice::Clear()

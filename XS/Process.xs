@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/ 2/2002
-## RCS-ID:      $Id: Process.xs,v 1.9 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Process.xs,v 1.10 2003/06/04 20:38:42 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,7 +32,7 @@ MODULE=Wx PACKAGE=Wx::Process
 
 Wx_Process*
 Wx_Process::new( parent = 0, id = -1 )
-    Wx_EvtHandler* parent
+    wxEvtHandler* parent
     int id
   CODE:
     RETVAL = new wxPliProcess( CLASS, parent, id );
