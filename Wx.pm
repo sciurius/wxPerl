@@ -26,7 +26,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter DynaLoader);
-$VERSION = '0.10';
+$VERSION = '0.11';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE wxUNIVERSAL);
