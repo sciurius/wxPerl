@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.55 2003/05/26 20:33:05 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.56 2003/06/05 17:29:26 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -309,7 +309,7 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
     if( !SvROK( scalar ) )
         croak( "the invocant must be a reference" );
 
-    if( /* 1 || */ sv_derived_from( scalar, CHAR_P classname ) ) 
+    if( !classname || sv_derived_from( scalar, CHAR_P classname ) ) 
     {
         SV* ref = SvRV( scalar );
 
