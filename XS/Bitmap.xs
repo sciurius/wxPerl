@@ -112,7 +112,7 @@ newFile( CLASS, name, type )
     wxString name
     long type
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 5, 0 ) && defined(__WXMOTIF__)
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
     RETVAL = new wxBitmap( name, wxBitmapType(type) );
 #else
     RETVAL = new wxBitmap( name, type );
