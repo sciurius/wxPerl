@@ -23,6 +23,8 @@ Wx_ScrolledWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefau
   CODE:
     RETVAL = new _wxScrolledWindow( CLASS, parent, id, pos, size, style,
         name );
+  OUTPUT:
+    RETVAL
 
 void
 Wx_ScrolledWindow::CalcScrolledPosition( x, y )
