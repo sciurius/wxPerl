@@ -14,16 +14,16 @@ package Wx::Pen;
 
 use strict;
 
-my( $wcol_i_i ) = [ 'Wx::Colour', 'INTEGER', 'INTEGER' ];
-my( $s_i_i ) = [ '?', 'INTEGER', 'INTEGER' ];
-my( $wbmp_i ) = [ 'Wx::Bitmap', 'INTEGER' ];
+#my( $wcol_i_i ) = [ 'Wx::Colour', 'INTEGER', 'INTEGER' ];
+#my( $s_i_i ) = [ '?', 'INTEGER', 'INTEGER' ];
+#my( $wbmp_i ) = [ 'Wx::Bitmap', 'INTEGER' ];
 
 sub new {
   shift;
 
-  Wx::_match( @_, $Wx::wcol_n_n, 3 ) && return Wx::Pen::newColour( @_ );
-  Wx::_match( @_, $Wx::wbmp_n, 2 )   && return Wx::Pen::newBitmap( @_ );
-  Wx::_match( @_, $Wx::s_n_n, 3 )    && return Wx::Pen::newString( @_ );
+  Wx::_match( @_, $Wx::_wcol_n_n, 3 ) && return Wx::Pen::newColour( @_ );
+  Wx::_match( @_, $Wx::_wbmp_n, 2 )   && return Wx::Pen::newBitmap( @_ );
+  Wx::_match( @_, $Wx::_s_n_n, 3 )    && return Wx::Pen::newString( @_ );
   Wx::_croak Wx::_ovl_error;
 }
 
