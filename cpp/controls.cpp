@@ -117,6 +117,7 @@ double listctrl_constant( const char* name, int arg )
       r( wxLIST_FORMAT_LEFT );          // listctrl
       r( wxLIST_FORMAT_RIGHT );         // listctrl
       r( wxLIST_FORMAT_CENTRE );        // listctrl
+      r( wxLIST_FORMAT_CENTER );        // listctrl
 
       r( wxLIST_HITTEST_ABOVE );        // listctrl
       r( wxLIST_HITTEST_BELOW );        // listctrl

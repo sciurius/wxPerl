@@ -493,11 +493,14 @@ static double constant( const char *name, int arg )
   case 'A':
     r( wxALIGN_LEFT );                  // sizer grid statictext
     r( wxALIGN_CENTRE );                // sizer grid statictext
+    r( wxALIGN_CENTER );                // sizer grid statictext
     r( wxALIGN_RIGHT );                 // sizer grid statictext
     r( wxALIGN_TOP );                   // sizer grid
     r( wxALIGN_BOTTOM );                // sizer grid
     r( wxALIGN_CENTER_VERTICAL );       // sizer
     r( wxALIGN_CENTER_HORIZONTAL );     // sizer
+    r( wxALIGN_CENTRE_VERTICAL );       // sizer
+    r( wxALIGN_CENTRE_HORIZONTAL );     // sizer
     r( wxALL );                         // sizer
 
     r( wxACCEL_ALT );
@@ -564,8 +567,8 @@ static double constant( const char *name, int arg )
     r( wxCB_DROPDOWN );                 // combobox
     r( wxCB_READONLY );                 // combobox
     r( wxCB_SORT );                     // combobox
-    r( wxCENTRE );                      // dialog sizer
     r( wxCENTER );                      // dialog sizer
+    r( wxCENTRE );                      // dialog sizer
     r( wxCLIP_CHILDREN );               // window
     r( wxCHOICEDLG_STYLE );
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
@@ -614,8 +617,13 @@ static double constant( const char *name, int arg )
     r( wxCROSSDIAG_HATCH );             // brush pen
     r( wxCROSS_HATCH );                 // brush pen
 
+#define wxCenterX wxCentreX
+#define wxCenterY wxCentreY
+
     r( wxCentreX );                     // layout constraints
     r( wxCentreY );                     // layout constraints
+    r( wxCenterX );                     // layout constraints
+    r( wxCenterY );                     // layout constraints
     break;
   case 'D':
     r( wxDECORATIVE );                  // font
@@ -1438,9 +1446,17 @@ static double constant( const char *name, int arg )
     break;
   case 'S':
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
+
+#define wxSPLASH_CENTER_ON_PARENT wxSPLASH_CENTRE_ON_PARENT
+#define wxSPLASH_CENTER_ON_SCREEN wxSPLASH_CENTRE_ON_SCREEN
+#define wxSPLASH_NO_CENTER wxSPLASH_NO_CENTRE
+
     r( wxSPLASH_CENTRE_ON_PARENT );     // splashscreen
     r( wxSPLASH_CENTRE_ON_SCREEN );     // splashscreen
     r( wxSPLASH_NO_CENTRE );            // splashscreen
+    r( wxSPLASH_CENTER_ON_PARENT );     // splashscreen
+    r( wxSPLASH_CENTER_ON_SCREEN );     // splashscreen
+    r( wxSPLASH_NO_CENTER );            // splashscreen
     r( wxSPLASH_TIMEOUT );              // splashscreen
     r( wxSPLASH_NO_TIMEOUT );           // splashscreen
 #endif
@@ -1650,6 +1666,7 @@ static double constant( const char *name, int arg )
     r( wxTE_LEFT );                     // textctrl
     r( wxTE_RIGHT );                    // textctrl
     r( wxTE_CENTRE );                   // textctrl
+    r( wxTE_CENTER );                   // textctrl
     r( wxTE_AUTO_URL );                 // textctrl
 #endif
     r( wxTHICK_FRAME );                 // frame dialog
