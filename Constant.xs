@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
+// RCS-ID:      $Id: Constant.xs,v 1.77 2003/05/02 20:29:02 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -2035,6 +2035,12 @@ _get_packages()
 #endif
 #if wxPERL_USE_SOCKET
     "use Wx::Socket;"
+#endif
+#if wxPERL_USE_CALENDAR
+    "use Wx::Calendar;"
+#endif
+#if wxPERL_USE_DATETIME
+    "use Wx::DateTime;"
 #endif
     ;
 
