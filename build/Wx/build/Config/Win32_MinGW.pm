@@ -103,6 +103,8 @@ sub get_core_lib_24 {
 
   return ' ' . join ' ',
     map {
+        return () if m/^gl$/ && $^O eq 'MSWin32';
+
         m/^(?:xrc|stc)$/     ? $this->get_contrib_lib( $_ ) :
         exists($dlls->{$_} ) ? $dlls->{$_}{lib}           :
                                die "No such lib: '$_'";
@@ -155,6 +157,7 @@ sub get_flags {
 
   foreach ( split /\s+/, $libs ) {
     m(wx|unicows)i || next;
+    next if m{(?:wx(?:zlib|regex|expat|png|jpeg|tiff))$};
     $config{LIBS} .= "$_ ";
   }
 

@@ -155,7 +155,7 @@ sub get_flags {
 
   foreach ( split /\s+/, $libs ) {
     m(wx|unicows)i || next;
-    next if m{(?:(?:zlib|regex)\w+\.lib)$};
+    next if m{(?:(?:zlib|regex|expat|png|jpeg|tiff)\w+\.lib)$};
     $config{LIBS} .= "$_ ";
   }
 
