@@ -38,7 +38,7 @@ void wxPliHtmlWindow::OnLinkClicked( const wxHtmlLinkInfo& info )
     if( wxPliVirtualCallback_FindCallback( &m_callback, "OnLinkClicked" ) )
     {
         wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR|G_DISCARD,
-                                           "o", new wxHtmlLinkInfo( info ),
+                                           "o", &info,
                                            "Wx::HtmlLinkInfo" );
     } else
         wxHtmlWindow::OnLinkClicked( info );
