@@ -59,6 +59,7 @@ BOOT:
 INCLUDE: XS/PrintData.xs
 INCLUDE: XS/PageSetupDialog.xs
 INCLUDE: XS/PageSetupDialogData.xs
+INCLUDE: XS/Printer.xs
 
 #include "cpp/pr_constants.cpp"
 

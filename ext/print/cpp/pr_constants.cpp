@@ -110,6 +110,10 @@ double print_constant( const char* name, int arg )
         r( wxPRINT_QUALITY_MEDIUM );
         r( wxPRINT_QUALITY_LOW );
         r( wxPRINT_QUALITY_DRAFT );
+
+        r( wxPRINTER_NO_ERROR );
+        r( wxPRINTER_CANCELLED );
+        r( wxPRINTER_ERROR );
         break;
     default:
         break;

@@ -20,6 +20,16 @@
 
 FD_TD( PrintData );
 FD_TD( PageSetupDialogData );
+FD_TD( PrintDialogData );
+FD_TD( Printout );
+
+#if defined( __WXMSW__ )
+FD_TD_NAME( Printer, WindowsPrinter );
+FD_TD_NAME( PrintPreview, WindowsPrintPreview );
+#else
+FD_TD_NAME( Printer, PostScriptPrinter );
+FD_TD_NAME( Printpreview, PostScriptPrintpreview );
+#endif
 
 #if defined( __WXMOTIF__ ) || defined( __WXGTK__ )
 FD_TD_NAME( PageSetupDialog, GenericPageSetupDialog );
