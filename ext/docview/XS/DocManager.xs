@@ -4,8 +4,8 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: DocManager.xs,v 1.11 2004/11/23 22:09:43 mbarbon Exp $
-## Copyright:   (c) 2002-2003 Mattia Barbon
+## RCS-ID:      $Id: DocManager.xs,v 1.12 2004/12/21 21:12:49 mbarbon Exp $
+## Copyright:   (c) 2002-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/03/2001
-## RCS-ID:      $Id: HtmlHelpController.xs,v 1.6 2004/02/29 14:43:24 mbarbon Exp $
-## Copyright:   (c) 2001, 2003 Mattia Barbon
+## RCS-ID:      $Id: HtmlHelpController.xs,v 1.7 2004/12/21 21:12:53 mbarbon Exp $
+## Copyright:   (c) 2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

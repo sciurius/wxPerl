@@ -1,6 +1,5 @@
 PRIORITY HIGH:
 
-* 19/10/2004
 * rewrite docs in POD (?)
 * put a README in the DMG
 

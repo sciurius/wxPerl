@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: e_cback.cpp,v 1.11 2004/10/05 20:15:28 mbarbon Exp $
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: e_cback.cpp,v 1.12 2004/12/21 21:12:45 mbarbon Exp $
+// Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////

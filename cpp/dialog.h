@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: dialog.h,v 1.7 2004/08/04 20:13:55 mbarbon Exp $
-// Copyright:   (c) 2000-2001 Mattia Barbon
+// RCS-ID:      $Id: dialog.h,v 1.8 2004/12/21 21:12:45 mbarbon Exp $
+// Copyright:   (c) 2000-2001, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////

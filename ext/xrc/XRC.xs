@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     27/07/2001
-// RCS-ID:      $Id: XRC.xs,v 1.16 2004/02/29 14:30:40 mbarbon Exp $
-// Copyright:   (c) 2001-2003 Mattia Barbon
+// RCS-ID:      $Id: XRC.xs,v 1.17 2004/12/21 21:12:57 mbarbon Exp $
+// Copyright:   (c) 2001-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////

@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     10/03/2001
-// RCS-ID:      $Id: Html.xs,v 1.15 2004/06/20 08:20:30 mbarbon Exp $
-// Copyright:   (c) 2001-2003 Mattia Barbon
+// RCS-ID:      $Id: Html.xs,v 1.16 2004/12/21 21:12:53 mbarbon Exp $
+// Copyright:   (c) 2001-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////

@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     22/09/2002
-// RCS-ID:      $Id: log.h,v 1.3 2004/08/04 20:13:55 mbarbon Exp $
-// Copyright:   (c) 2002-2003 Mattia Barbon
+// RCS-ID:      $Id: log.h,v 1.4 2004/12/21 21:12:45 mbarbon Exp $
+// Copyright:   (c) 2002-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////

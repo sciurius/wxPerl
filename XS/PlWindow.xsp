@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        XS/PlWIndow.xsp
+## Name:        XS/PlWindow.xsp
 ## Purpose:     XS++ for Wx::PlWindow
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     23/05/2004
-## RCS-ID:      $Id: PlWindow.xsp,v 1.1 2004/11/25 20:38:59 mbarbon Exp $
+## RCS-ID:      $Id: PlWindow.xsp,v 1.2 2004/12/21 21:12:45 mbarbon Exp $
 ## Copyright:   (c) 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

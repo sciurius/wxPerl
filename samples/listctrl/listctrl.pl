@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        listctrl.pl
+## Name:        samples/listctrl/listctrl.pl
 ## Purpose:     ListCtrl wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      6/ 2/2001
-## RCS-ID:      $Id: listctrl.pl,v 1.5 2003/05/04 17:35:18 mbarbon Exp $
+## Created:     06/02/2001
+## RCS-ID:      $Id: listctrl.pl,v 1.6 2004/12/21 21:12:59 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

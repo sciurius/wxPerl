@@ -3,8 +3,8 @@
 ## Purpose:     XS++ for Wx::StyledTextEvent
 ## Author:      Mattia Barbon
 ## Created:     27/12/2003
-## RCS-ID:      $Id: StyledTextEvent.xsp,v 1.1 2004/01/18 08:19:20 mbarbon Exp $
-## Copyright:   (c) 2003 Mattia Barbon
+## RCS-ID:      $Id: StyledTextEvent.xsp,v 1.2 2004/12/21 21:12:57 mbarbon Exp $
+## Copyright:   (c) 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

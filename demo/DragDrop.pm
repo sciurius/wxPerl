@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/09/2001
-## RCS-ID:      $Id: DragDrop.pm,v 1.6 2004/02/28 22:59:06 mbarbon Exp $
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: DragDrop.pm,v 1.7 2004/12/21 21:12:46 mbarbon Exp $
+## Copyright:   (c) 2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

@@ -4,8 +4,8 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: Document.xs,v 1.5 2004/08/04 20:13:56 mbarbon Exp $
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: Document.xs,v 1.6 2004/12/21 21:12:49 mbarbon Exp $
+## Copyright:   (c) 2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
