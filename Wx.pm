@@ -211,11 +211,10 @@ eval( "sub wxMOTIF() { $_platform == $_motif }" );
 eval( "sub wxMSW() { $_platform == $_msw }" );
 eval( "sub wxGTK() { $_platform == $_gtk }" );
 eval( "sub wxVERSION() { $_wx_version }" );
-eval( "sub wxUNICODE() { $_unicode }" }
+eval( "sub wxUNICODE() { $_unicode }" );
 
 require Wx::App;
 require Wx::Event;
-require Wx::Image;
 require Wx::ImageList;
 require Wx::Locale;
 require Wx::Menu;
@@ -232,7 +231,7 @@ require Wx::SplashScreen;
 package Wx::GDIObject;
 package Wx::TreeItemId;
 
-use overload '<=>'      => \&tiid_spaceship;
+use overload '<=>'      => \&tiid_spaceship,
              'bool'     => sub { $_[0]->IsOk },
              'fallback' => 1;
 
