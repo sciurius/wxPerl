@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib 'build';
-use Test::More 'tests' => 91;
+use Test::More 'tests' => 113;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -27,7 +27,7 @@ test_app( sub {
 my $frame = Wx::Frame->new( undef, -1, 'a' );
 my $bmpok = Wx::Bitmap->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
 my $imgok = Wx::Image->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
-my $icook = Wx::Icon->new( 'wxpl.ico', Wx::wxBITMAP_TYPE_ICO() );
+my $icook = Wx::GetWxPerlIcon();
 
 ##############################################################################
 # Wx::Brush
@@ -490,6 +490,138 @@ ok( $setcolrgb, "Wx::Pen::SetColourRGB" );
 
 $pen->SetColour( 'red' );
 ok( $setcolname, "Wx::Pen::SetColourName" );
+}
+
+##############################################################################
+# Wx::ListCtrl
+##############################################################################
+{
+my( $ici, $istr, $setii, $setstr ) = ( 0, 0, 0, 0 );
+hijack( Wx::ListCtrl::InsertColumnInfo   => sub { $ici = 1 },
+        Wx::ListCtrl::InsertColumnString => sub { $istr = 1 },
+        Wx::ListCtrl::SetItemInfo        => sub { $setii = 1 },
+        Wx::ListCtrl::SetItemString      => sub { $setstr = 1 } );
+
+my $lc = Wx::ListCtrl->new( $frame, -1 );
+
+$lc->InsertColumn( 0, 'Column' );
+ok( $istr, "Wx::ListCtrl::InsertColumnString" );
+
+my $li = Wx::ListItem->new; $li->SetColumn( 1 ); $li->SetText( 'Foo' );
+$lc->InsertColumn( 1, $li );
+ok( $ici, "Wx::ListCtrl::InsertColumnInfo" );
+
+$lc->InsertStringItem( 0, 'Foo' );
+$lc->SetItem( 0, 0, 'Bar' );
+ok( $setstr, "Wx::ListCtrl::SetItemString" );
+
+$li->SetId( 0 );
+$lc->SetItem( $li );
+ok( $setii, "Wx::ListCtrl::SetItemInfo" );
+}
+
+##############################################################################
+# Wx::ImageList
+##############################################################################
+{
+my( $addbitmap, $addwithcolour, $addicon, $replico, $replbmp )
+  = ( 0, 0, 0, 0, 0 );
+hijack( Wx::ImageList::AddBitmap         => sub { $addbitmap = 1 },
+        Wx::ImageList::AddWithColourMask => sub { $addwithcolour = 1 },
+        Wx::ImageList::AddIcon           => sub { $addicon = 1 },
+        Wx::ImageList::ReplaceIcon       => sub { $replico = 1 },
+        Wx::ImageList::ReplaceBitmap     => sub { $replbmp = 1 } );
+
+my $img = Wx::Image->new( 16, 16 );
+my( $bmp, $ico ) = ( Wx::Bitmap->new( $img ), $icook );
+my $imgl = Wx::ImageList->new( 16, 16 );
+
+$imgl->Add( $bmp );
+ok( $addbitmap, "Wx::ImageList::AddBitmap" );
+
+$imgl->Add( $bmp, Wx::wxBLACK() );
+ok( $addwithcolour, "Wx::ImageList::AddWithColourMask" );
+
+$imgl->Add( $ico );
+ok( $addicon, "Wx::ImageList::AddIcon" );
+
+$imgl->Replace( 0, $bmp );
+ok( $replbmp, "Wx::ImageList::ReplaceBitmap" );
+
+$imgl->Replace( 1, $ico );
+ok( $replico, "Wx::ImageList::ReplaceIcon" );
+}
+
+##############################################################################
+# Wx::Menu
+##############################################################################
+{
+my( $appmen, $appstr, $appite, $delite, $delid, $desite, $desid,
+    $remite, $remid, $prepite, $prepstr, $insite, $insstr )
+  = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+hijack( Wx::Menu::AppendSubMenu => sub { $appmen = 1 },
+        Wx::Menu::AppendString  => sub { $appstr = 1 },
+        Wx::Menu::AppendItem    => sub { $appite = 1 },
+        Wx::Menu::DeleteItem    => sub { $delite = 1 },
+        Wx::Menu::DeleteId      => sub { $delid = 1 },
+        Wx::Menu::DestroyItem   => sub { $desite = 1 },
+        Wx::Menu::DestroyId     => sub { $desid = 1 },
+        Wx::Menu::RemoveItem    => sub { $remite = 1 },
+        Wx::Menu::RemoveId      => sub { $remid = 1 },
+        Wx::Menu::PrependString => sub { $prepstr = 1 },
+        Wx::Menu::PrependItem   => sub { $prepite = 1 },
+        Wx::Menu::InsertString  => sub { $insstr = 1 },
+        Wx::Menu::InsertItem    => sub { $insite = 1 } );
+
+my $me = Wx::Menu->new;
+my $me2 = Wx::Menu->new;
+
+my $i1 = Wx::MenuItem->new( $me, 1, 'Foo' );
+my $i2 = Wx::MenuItem->new( $me, 2, 'Bar' );
+my $i3 = Wx::MenuItem->new( $me, 3, 'Baz' );
+my $i4 = Wx::MenuItem->new( $me, 4, 'Baz' );
+
+$me->Append( 11, 'My' );
+ok( $appstr, "Wx::Menu::AppendString" );
+
+$me->Append( 12, 'Sub', $me2 );
+ok( $appmen, "Wx::Menu::AppendSubMenu" );
+
+$me->Append( $i1 );
+ok( $appite, "Wx::Menu::AppendItem" );
+
+$me->Delete( $i1 );
+ok( $delite, "Wx::Menu::DeleteItem" );
+
+$me->Delete( 12 );
+ok( $delid, "Wx::Menu::DeleteId" );
+
+$me->Append( $i2 ); $me->Append( $i3 );
+$me->Append( 12, 'Fubar' ); $me->Append( 13, 'Fubar' );
+
+$me->Destroy( $i2 );
+ok( $desite, "Wx::Menu::DestroyItem" );
+
+$me->Destroy( 12 );
+ok( $desid, "Wx::Menu::DestroyId" );
+
+$me->Remove( $i3 );
+ok( $remite, "Wx::Menu::RemoveItem" );
+
+$me->Remove( 13 );
+ok( $remid, "Wx::Menu::RemoveId" );
+
+$me->Prepend( $i3 );
+ok( $prepite, "Wx::Menu::PrependItem" );
+
+$me->Prepend( 15, 'Myself' );
+ok( $prepstr, "Wx::Menu::PrependString" );
+
+$me->Insert( 0, $i4 );
+ok( $insite, "Wx::Menu::InsertItem" );
+
+$me->Insert( 0, 17, 'Foo' );
+ok( $insstr, "Wx::Menu::InsertString" );
 }
 
 ##############################################################################
