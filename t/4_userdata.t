@@ -48,7 +48,9 @@ sub new {
   $data = $tree->GetPlData( $root );
 
   print( ( ( $data eq 'XyZ' ) ? '' : 'not ' ) . "ok 5\n" );
-  
+
+  $this->Destroy;
+
   return $this;
 }
 
