@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.19 2003/06/04 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.20 2003/11/08 18:25:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -59,9 +59,13 @@ wxFrame::Create( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSiz
     long style
     wxString name
 
+#if 0
+
 void
 Wx_Frame::Command( id )
     int id
+
+#endif
 
 wxStatusBar*
 wxFrame::CreateStatusBar( number = 1, style = 0, id = -1, name = wxEmptyString )
