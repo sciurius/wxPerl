@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      9/ 2/2001
-## RCS-ID:      $Id: Utils.xs,v 1.27 2003/10/19 20:20:44 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.28 2003/11/09 17:22:37 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -241,6 +241,9 @@ wxRegisterId( id )
 
 void
 wxBell()
+
+void
+wxExit()
 
 MODULE=Wx PACKAGE=Wx
 
