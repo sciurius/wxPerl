@@ -248,7 +248,7 @@ double listctrl_constant( const char* name, int arg )
   WX_PL_CONSTANT_CLEANUP();
 }
 
-wxPlConstantsModule listctrl_module( &listctrl_constant );
+wxPlConstants listctrl_module( &listctrl_constant );
 
 _IMPLEMENT_DYNAMIC_CLASS( _wxListCtrl, wxListCtrl );
 
@@ -500,18 +500,19 @@ double treectrl_constant( const char* name, int arg )
   WX_PL_CONSTANT_CLEANUP();
 }
 
-wxPlConstantsModule tree_module( &treectrl_constant );
+wxPlConstants tree_module( &treectrl_constant );
 
 int _wxTreeCtrl::OnCompareItems( const wxTreeItemId& item1,
                                  const wxTreeItemId& item2 )
 {
-    if( m_callback.FindCallback( "OnCompareItems" ) )
+    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnCompareItems" ) )
     {
         SV* t1 = _non_object_2_sv( newSViv( 0 ),
                                    (void*)&item1, wxPlTreeItemIdName );
         SV* t2 = _non_object_2_sv( newSViv( 0 ),
                                    (void*)&item2, wxPlTreeItemIdName );
-        SV* ret = m_callback.CallCallback( G_SCALAR, "SS", t1, t2 );
+        SV* ret = wxPliVirtualCallback_CallCallback
+            ( &m_callback, G_SCALAR, "SS", t1, t2 );
 
         sv_setiv( SvRV( t1 ), 0 );
         sv_setiv( SvRV( t2 ), 0 );

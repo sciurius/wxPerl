@@ -16,26 +16,84 @@
 WXPLDLL const char* _cpp_class_2_perl( const char* className );
 WXPLDLL void _push_args( SV*** stack, const char* argtypes, va_list &list );
 
-WXPLDLL void* _sv_2_object( SV* scalar, const char* classname );
-WXPLDLL SV* _object_2_sv( SV* var, wxObject* object );
-WXPLDLL SV* _non_object_2_sv( SV* var, void* data, const char* package );
+WXPLDLL void* FUNCPTR( _sv_2_object )( SV* scalar, const char* classname );
+WXPLDLL SV* FUNCPTR( _object_2_sv )( SV* var, wxObject* object );
+WXPLDLL SV* FUNCPTR( _non_object_2_sv )( SV* var, void* data,
+                                         const char* package );
 
-WXPLDLL SV* _make_object( wxObject* object, const char* classname );
+WXPLDLL SV* FUNCPTR( _make_object )( wxObject* object, const char* classname );
 WXPLDLL const char* _get_class( SV* ref );
 
 WXPLDLL int _av_2_stringarray( SV* avref, wxString** array );
 WXPLDLL int _av_2_uchararray( SV* avref, unsigned char** array );
 WXPLDLL int _av_2_svarray( SV* avref, SV*** array );
-WXPLDLL int _av_2_intarray( SV* avref, int** array );
+WXPLDLL int FUNCPTR( _av_2_intarray )( SV* avref, int** array );
 
 int _get_args_argc_argv( char*** argv );
 WXPLDLL void _get_args_objectarray( SV** sp, int items, void** array, const char* package );
 
-WXPLDLL wxPoint _sv_2_wxpoint( SV* scalar );
-WXPLDLL wxSize _sv_2_wxsize( SV* scalar );
+WXPLDLL wxPoint FUNCPTR( _sv_2_wxpoint )( SV* scalar );
+WXPLDLL wxSize FUNCPTR( _sv_2_wxsize )( SV* scalar );
 WXPLDLL Wx_KeyCode _sv_2_keycode( SV* scalar );
 
 WXPLDLL int _get_pointarray( SV* array, wxList *points, wxPoint** tmp );
+
+// defined in Constants.xs
+WXPLDLL void FUNCPTR( wxPli_add_constant_function )
+    ( double (**)( const char*, int ) );
+WXPLDLL void FUNCPTR( wxPli_remove_constant_function )
+    ( double (**)( const char*, int ) );
+
+// defined in v_cback.cpp
+class _wxVirtualCallback;
+
+WXPLDLL bool FUNCPTR( wxPliVirtualCallback_FindCallback )
+    ( _wxVirtualCallback* cb, const char* name );
+WXPLDLL SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
+    ( _wxVirtualCallback* cb, I32 flags = G_SCALAR,
+      const char* argtypes = 0, ... );
+
+struct wxPliHelpers
+{
+    void* ( * m_sv_2_object )( SV*, const char* );
+    SV* ( * m_object_2_sv )( SV*, wxObject* );
+    SV* ( * m_non_object_2_sv )( SV* , void*, const char* );
+    SV* ( * m_make_object )( wxObject*, const char* );
+    wxPoint ( * m_sv_2_wxpoint )( SV* );
+    wxSize ( * m_sv_2_wxsize )( SV* scalar );
+    int ( * m_av_2_intarray )( SV* avref, int** array );
+
+    void ( * m_wxPli_add_constant_function )
+        ( double (**)( const char*, int ) );
+    void ( * m_wxPli_remove_constant_function )
+        ( double (**)( const char*, int ) );
+
+    bool ( * m_wxPliVirtualCallback_FindCallback )( _wxVirtualCallback* cb, const char* name );
+    SV* ( * m_wxPliVirtualCallback_CallCallback )
+        ( _wxVirtualCallback* cb, I32 flags = G_SCALAR,
+          const char* argtypes = 0, ... );
+};
+
+#define DEFINE_PLI_HELPERS( name ) \
+wxPliHelpers name = { &_sv_2_object, &_object_2_sv, &_non_object_2_sv, \
+ &_make_object, &_sv_2_wxpoint, &_sv_2_wxsize, &_av_2_intarray, \
+ &wxPli_add_constant_function, &wxPli_remove_constant_function, \
+ &wxPliVirtualCallback_FindCallback, &wxPliVirtualCallback_CallCallback };
+
+#define INIT_PLI_HELPERS( name ) \
+  SV* wxpli_tmp = get_sv( "Wx::_exports", 1 ); \
+  wxPliHelpers* name = (wxPliHelpers*)(void*)SvIV( wxpli_tmp ); \
+  _sv_2_object = name->m_sv_2_object; \
+  _object_2_sv = name->m_object_2_sv; \
+  _non_object_2_sv = name->m_non_object_2_sv; \
+  _make_object = name->m_make_object; \
+  _sv_2_wxpoint = name->m_sv_2_wxpoint; \
+  _sv_2_wxsize = name->m_sv_2_wxsize; \
+  _av_2_intarray = name->m_av_2_intarray; \
+  wxPli_add_constant_function = name->m_wxPli_add_constant_function; \
+  wxPli_remove_constant_function = name->m_wxPli_remove_constant_function; \
+  wxPliVirtualCallback_FindCallback = name->m_wxPliVirtualCallback_FindCallback; \
+  wxPliVirtualCallback_CallCallback = name->m_wxPliVirtualCallback_CallCallback;
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 
@@ -133,6 +191,16 @@ inline void _wxSelfRef::SetSelf( SV* self, bool increment )
 
 inline SV* _wxSelfRef::GetSelf() {
     return m_self;
+}
+
+inline _wxSelfRef::_wxSelfRef( const char* unused )
+{
+}
+
+inline _wxSelfRef::~_wxSelfRef() 
+{
+    if( m_self )
+        SvREFCNT_dec( m_self );
 }
 
 typedef _wxSelfRef* (* _wxGetCallbackObjectFn)(wxObject* object);

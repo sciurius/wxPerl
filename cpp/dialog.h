@@ -19,9 +19,9 @@ public:
                const wxString& title, const wxPoint& pos, const wxSize& size,
                long style, const wxString& name );
 
-    virtual bool TransferDataFromWindow();
-    virtual bool TransferDataToWindow();
-    virtual bool Validate();
+  DEC_V_CBACK_BOOL__VOID( TransferDataFromWindow );
+  DEC_V_CBACK_BOOL__VOID( TransferDataToWindow );
+  DEC_V_CBACK_BOOL__VOID( Validate );
 };
 
 inline _wxDialog::_wxDialog( const char* package, wxWindow* parent,
@@ -34,47 +34,9 @@ inline _wxDialog::_wxDialog( const char* package, wxWindow* parent,
     Create( parent, id, title, pos, size, style, name );
 }
 
-bool _wxDialog::TransferDataFromWindow()
-{
-    if( m_callback.FindCallback( "TransferDataFromWindow" ) )
-    {
-        SV* ret = m_callback.CallCallback( G_SCALAR );
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-
-        return val;
-    }
-    else
-        return wxDialog::TransferDataFromWindow();
-}
-
-bool _wxDialog::TransferDataToWindow()
-{
-    if( m_callback.FindCallback( "TransferDataToWindow" ) )
-    {
-        SV* ret = m_callback.CallCallback( G_SCALAR );
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-
-        return val;
-    }
-    else
-        return wxDialog::TransferDataToWindow();
-}
-
-bool _wxDialog::Validate() 
-{
-    if( m_callback.FindCallback( "Validate" ) )
-    {
-        SV* ret = m_callback.CallCallback( G_SCALAR );
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        
-        return val;
-    }
-    else
-        return wxDialog::Validate();
-}
+DEF_V_CBACK_BOOL__VOID( _wxDialog, wxDialog, TransferDataFromWindow );
+DEF_V_CBACK_BOOL__VOID( _wxDialog, wxDialog, TransferDataToWindow );
+DEF_V_CBACK_BOOL__VOID( _wxDialog, wxDialog, Validate );
 
 _IMPLEMENT_DYNAMIC_CLASS( _wxDialog, wxDialog );
 

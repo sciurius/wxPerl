@@ -21,9 +21,9 @@ public:
     _wxPlValidator( const char* package );
 
     virtual wxObject* Clone() const;
-    virtual bool TransferFromWindow();
-    virtual bool TransferToWindow();
     virtual bool Validate( wxWindow* );
+    DEC_V_CBACK_BOOL__VOID( TransferToWindow );
+    DEC_V_CBACK_BOOL__VOID( TransferFromWindow );
 };
 
 #endif // _WXPERL_VALIDATORS_H

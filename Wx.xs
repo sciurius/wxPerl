@@ -117,6 +117,8 @@ void wxEntryCleanup()
 
 #endif
 
+DEFINE_PLI_HELPERS( st_wxPliHelpers );
+
 MODULE=Wx PACKAGE=Wx
 
 BOOT:
@@ -126,6 +128,8 @@ BOOT:
   newXSproto( "Wx::_boot_Window", boot_Wx_Win, file, "$$" );
   newXSproto( "Wx::_boot_Frames", boot_Wx_Wnd, file, "$$" );
   newXSproto( "Wx::_boot_GDI", boot_Wx_GDI, file, "$$" );
+  SV* tmp = get_sv( "Wx::_exports", 1 );
+  sv_setiv( tmp, (IV)(void*)&st_wxPliHelpers );
 
 #if __WXMSW__
 
@@ -184,7 +188,7 @@ INCLUDE: XS/ClassInfo.xs
 #  //FIXME// tricky
 #if __WXMSW__
 #undef XS
-#define XS( name ) WXPLDLL void name( pTHXo_ CV* cv )
+#define XS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
 #endif
 
 MODULE=Wx PACKAGE=Wx

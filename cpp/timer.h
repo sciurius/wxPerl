@@ -36,9 +36,9 @@ inline _wxTimer::_wxTimer( const char* package, wxEvtHandler* owner, int id )
 
 void _wxTimer::Notify()
 {
-    if( m_callback.FindCallback( "Notify" ) )
+    if( wxPliVirtualCallback_FindCallback( &m_callback, "Notify" ) )
     {
-        m_callback.CallCallback( G_SCALAR|G_DISCARD );
+        wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR|G_DISCARD );
         return;
     }
     else

@@ -23,16 +23,6 @@ BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 */
 #endif
 
-inline _wxSelfRef::_wxSelfRef( const char* unused )
-{
-}
-
-_wxSelfRef::~_wxSelfRef() 
-{
-    if( m_self )
-        SvREFCNT_dec( m_self );
-}
-
 _wxUserDataCD::~_wxUserDataCD()
 {
     SvREFCNT_dec( m_data );

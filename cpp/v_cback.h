@@ -16,13 +16,11 @@
 class WXPLDLL _wxVirtualCallback:public _wxSelfRef
 {
 public:
-    //  _wxVirtualCallback() {}; // dummy
     _wxVirtualCallback( const char* package );
-    //  _wxVirtualCallback( SV* self, const char* package );
-    //  ~_wxVirtualCallback();
 
     bool FindCallback( const char* name );
-    SV* CallCallback( I32 flags = G_SCALAR, const char* argtypes=0, ... );
+    SV* CallCallback( I32 flags, const char* argtypes,
+                      va_list& arglist );
 public:
     const char* m_package;
     HV* m_stash;
@@ -34,6 +32,24 @@ inline _wxVirtualCallback::_wxVirtualCallback( const char* package ) {
     m_self = 0;
     m_stash = 0;
 }
+
+// declare/define callbacks for commonly used signatures
+
+#define DEC_V_CBACK_BOOL__VOID( METHOD ) \
+  bool METHOD();
+
+#define DEF_V_CBACK_BOOL__VOID( CLASS, BASE, METHOD ) \
+  bool CLASS::METHOD()                                                        \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR ); \
+        bool val = SvTRUE( ret );                                             \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return BASE::METHOD();                                                \
+  }
 
 #endif // _WXPERL_V_CBACK_H
 

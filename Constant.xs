@@ -56,62 +56,24 @@
 //
 #include "cpp/compat.h"
 #include "cpp/constants.h"
-
-IMPLEMENT_DYNAMIC_CLASS( wxPlConstantsModule, wxModule );
+#include <wx/listimpl.cpp>
 
 WX_DECLARE_LIST( PL_CONST_FUNC, wxPlConstantFunctions );
-#include <wx/listimpl.cpp>
 WX_DEFINE_LIST( wxPlConstantFunctions );
-WX_DEFINE_LIST( wxPlConstantsModuleList );
 
 // this use of static is deprecated in favour of anonymous namespace
-static wxPlConstantFunctions functions;
 
-bool& wxPlConstantsModule::sm_initialized()
+static wxPlConstantFunctions& s_functions()
+    { static wxPlConstantFunctions var; return var; }
+
+void wxPli_add_constant_function( double (**f)( const char*, int ) )
 {
-    static bool var = FALSE;
-    return var;
+    s_functions().Append( f );
 }
 
-wxPlConstantsModuleList& wxPlConstantsModule::sm_list()
+void wxPli_remove_constant_function( double (**f)( const char*, int ) )
 {
-    static wxPlConstantsModuleList var;
-    return var;
-}
-
-wxPlConstantsModule::wxPlConstantsModule( PL_CONST_FUNC function )
-    :m_function( function )
-{
-    if( sm_initialized() )
-        AppendFunction();
-    
-    sm_list().Append( this );
-}
-
-void wxPlConstantsModule::AppendFunction() { functions.Append( &m_function ); }
-void wxPlConstantsModule::RemoveFunction() { functions.DeleteObject( &m_function ); }
-
-bool wxPlConstantsModule::OnInit()
-{
-    wxPlConstantsModuleList::Node* node;
-
-    for( node = sm_list().GetFirst(); node; node = node->GetNext() )
-        node->GetData()->AppendFunction();
-
-    sm_initialized() = TRUE;
-
-    return TRUE;
-}
-
-void wxPlConstantsModule::OnExit()
-{
-    wxPlConstantsModuleList::Node* node;
-
-    for( node = sm_list().GetFirst(); node; node = node->GetNext() )
-        node->GetData()->AppendFunction();
-
-    sm_initialized() = FALSE;
-    sm_list().Clear();
+    s_functions().DeleteObject( f );
 }
 
 // !package: Wx
@@ -1163,7 +1125,7 @@ static double constant( const char *name, int arg )
     PL_CONST_FUNC* func;
     double ret;
 
-    for( node = functions.GetFirst(); node; node = node->GetNext() )
+    for( node = s_functions().GetFirst(); node; node = node->GetNext() )
     {
       func = node->GetData();
       ret = (*func)( name, arg );

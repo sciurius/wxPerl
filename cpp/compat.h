@@ -77,11 +77,23 @@
 
 // Win32 dll stuff
 #if __WXMSW__
+#define WXPL_MSW_EXPORTS 1
+#else
+#define WXPL_MSW_EXPORTS 0
+#endif
+
+#if WXPL_MSW_EXPORTS
 #  if defined( WXPL_EXT )
 #    define WXPLDLL __declspec( dllimport )
 #  else
 #    define WXPLDLL __declspec( dllexport )
 #  endif
+#  define FUNCPTR( name ) name
 #else
-#define WXPLDLL
+#  define WXPLDLL
+#  if defined( WXPL_EXT )
+#    define FUNCPTR( name ) ( * name )
+#  else
+#    define FUNCPTR( name ) name
+#  endif
 #endif

@@ -38,10 +38,12 @@ inline wxStatusBar* _wxFrame::OnCreateStatusBar( int number, long style,
                                                  wxWindowID id,
                                                  const wxString& name ) 
 {
-    if( m_callback.FindCallback( "OnCreateStatusBar" ) ) 
+    if( wxPliVirtualCallback_FindCallback( &m_callback,
+                                           "OnCreateStatusBar" ) ) 
     {
-        SV* ret = m_callback.CallCallback( G_SCALAR, "illp",
-                                           number, style, id, name.c_str() );
+        SV* ret = wxPliVirtualCallback_CallCallback
+            ( &m_callback, G_SCALAR, "illp",
+              number, style, id, name.c_str() );
         wxStatusBar* retval = (wxStatusBar*)_sv_2_object( ret,
                                                           "Wx::StatusBar" );
         SvREFCNT_dec( ret );
@@ -54,10 +56,11 @@ inline wxStatusBar* _wxFrame::OnCreateStatusBar( int number, long style,
 inline wxToolBar* _wxFrame::OnCreateToolBar( long style, wxWindowID id,
                                              const wxString& name )
 {
-    if( m_callback.FindCallback( "OnCreateToolBar" ) ) 
+    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnCreateToolBar" ) ) 
     {
-        SV* ret = m_callback.CallCallback( G_SCALAR, "llp",
-                                           style, id, name.c_str() );
+        SV* ret = wxPliVirtualCallback_CallCallback
+            ( &m_callback, G_SCALAR, "llp",
+              style, id, name.c_str() );
         wxToolBar* retval = (wxToolBar*)_sv_2_object( ret,
                                                       "Wx::ToolBarSimple" );
         SvREFCNT_dec( ret );

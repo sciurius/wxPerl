@@ -29,9 +29,9 @@ inline _wxPlSizer::_wxPlSizer( const char* package )
 
 void _wxPlSizer::RecalcSizes()
 {
-    if( m_callback.FindCallback( "RecalcSizes" ) )
+    if( wxPliVirtualCallback_FindCallback( &m_callback, "RecalcSizes" ) )
     {
-        m_callback.CallCallback( G_SCALAR|G_DISCARD );
+        wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR|G_DISCARD );
         return;
     }
 }
@@ -40,9 +40,9 @@ wxSize _wxPlSizer::CalcMin()
 {
     static wxSize ret( 0, 0 );
 
-    if( m_callback.FindCallback( "CalcMin" ) )
+    if( wxPliVirtualCallback_FindCallback( &m_callback, "CalcMin" ) )
     {
-        SV* ret = m_callback.CallCallback( G_SCALAR );
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR );
         wxSize* val = (wxSize*)_sv_2_object( ret, "Wx::Size" );
         SvREFCNT_dec( ret );
         return *val;

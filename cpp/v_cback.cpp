@@ -46,15 +46,12 @@ bool _wxVirtualCallback::FindCallback( const char* name )
     return p_method != p_pmethod;
 }
 
-SV* _wxVirtualCallback::CallCallback( I32 flags, const char* argtypes, ... ) 
+SV* _wxVirtualCallback::CallCallback( I32 flags, const char* argtypes,
+                                      va_list& arglist ) 
 {
     if( !m_method )
         return 0;
   
-    va_list arglist;
-
-    va_start( arglist, argtypes );
-
     dSP;
 
     ENTER;
@@ -64,8 +61,6 @@ SV* _wxVirtualCallback::CallCallback( I32 flags, const char* argtypes, ... )
     XPUSHs( m_self );
     _push_args( &SP, argtypes, arglist );
     PUTBACK;
-
-    va_end( arglist );
 
     call_sv( m_method, flags );
 
@@ -85,6 +80,24 @@ SV* _wxVirtualCallback::CallCallback( I32 flags, const char* argtypes, ... )
     LEAVE;
 
     return retval;
+}
+
+bool wxPliVirtualCallback_FindCallback( _wxVirtualCallback* cb,
+                                        const char* name )
+{
+    return cb->FindCallback( name );
+}
+
+SV* wxPliVirtualCallback_CallCallback( _wxVirtualCallback* cb,
+                                       I32 flags,
+                                       const char* argtypes, ... )
+{
+    va_list arglist;
+    va_start( arglist, argtypes );
+
+    return cb->CallCallback( flags, argtypes, arglist );
+    
+    va_end( arglist );
 }
 
 // Local variables: //

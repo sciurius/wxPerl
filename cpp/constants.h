@@ -13,9 +13,6 @@
 #ifndef _WXPERL_CONSTANTS_H
 #define _WXPERL_CONSTANTS_H
 
-#include <wx/module.h>
-#include <wx/list.h>
-
 typedef double (*PL_CONST_FUNC)( const char*, int );
 
 #define WX_PL_CONSTANT_INIT() \
@@ -29,37 +26,36 @@ typedef double (*PL_CONST_FUNC)( const char*, int );
   errno = EINVAL;                \
   return 0;
 
-class wxPlConstantsModule;
-
-WX_DECLARE_LIST( wxPlConstantsModule, wxPlConstantsModuleList );
-
 // implementation for OnInit/OnExit in Constants.xs
-class WXPLDLL wxPlConstantsModule:public wxModule
+class wxPlConstants
 {
-    DECLARE_DYNAMIC_CLASS( wxPlConstantsModule );
 public:
-    wxPlConstantsModule();
-    wxPlConstantsModule( PL_CONST_FUNC function );
-//    ~wxPlConstantsModule();
-
-    bool OnInit();
-    void OnExit();
+    wxPlConstants( PL_CONST_FUNC function );
+    ~wxPlConstants();
 private:
-    void AppendFunction();
-    void RemoveFunction();
-private:
-    static bool& sm_initialized();
-    static wxPlConstantsModuleList& sm_list();
-
     PL_CONST_FUNC m_function;
 };
 
-inline wxPlConstantsModule::wxPlConstantsModule()
-    :m_function( 0 )
+// duplicated from helpers.h
+WXPLDLL extern void FUNCPTR( wxPli_add_constant_function )
+    ( double (**)( const char*, int ) );
+WXPLDLL extern void FUNCPTR( wxPli_remove_constant_function )
+    ( double (**)( const char*, int ) );
+
+inline wxPlConstants::wxPlConstants( PL_CONST_FUNC function )
+    :m_function( function )
 {
+#if defined( WXPL_EXT ) && !WXPL_MSW_EXPORTS
+    // GRR! init helpers...
+    SV* wxpli_tmp = get_sv( "Wx::_exports", 1 );
+    wxPliHelpers* name = (wxPliHelpers*)(void*)SvIV( wxpli_tmp );
+    wxPli_add_constant_function = name->m_wxPli_add_constant_function;
+#endif
+    wxPli_add_constant_function( &m_function );
 }
 
-//inline wxPlConstantsModule::~wxPlConstantsModule() { RemoveFunction(); }
+inline wxPlConstants::~wxPlConstants()
+    { wxPli_remove_constant_function( &m_function ); }
 
 #endif
     // _WXPERL_CONSTANTS_H

@@ -74,9 +74,9 @@ inline int _wxApp::MainLoop() {
 
 int _wxApp::OnExit()
 {
-    if( m_callback.FindCallback( "OnExit" ) )
+    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnExit" ) )
     {
-        SV* ret = m_callback.CallCallback( G_SCALAR );
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR );
         int val = SvIV( ret );
         SvREFCNT_dec( ret );
 

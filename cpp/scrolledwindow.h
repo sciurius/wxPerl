@@ -37,10 +37,11 @@ inline _wxScrolledWindow::_wxScrolledWindow( const char* package,
 
 void _wxScrolledWindow::OnDraw( wxDC& dc )
 {
-    if( m_callback.FindCallback( "OnDraw" ) )
+    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnDraw" ) )
     {
         SV* val = _object_2_sv( newSViv( 0 ), &dc );
-        m_callback.CallCallback( G_SCALAR|G_DISCARD, "S", val );
+        wxPliVirtualCallback_CallCallback( &m_callback,
+                                           G_SCALAR|G_DISCARD, "S", val );
         sv_setiv( SvRV( val ), 0 );
         SvREFCNT_dec( val );
     } else
