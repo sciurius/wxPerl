@@ -31,6 +31,10 @@ bootstrap Wx::Grid;
 no strict;
 
 package Wx::Grid; @ISA = qw(Wx::ScrolledWindow);
+package Wx::GridEvent; @ISA = qw(Wx::NotifyEvent);
+package Wx::GridSizeEvent; @ISA = qw(Wx::NotifyEvent);
+package Wx::GridRangeSelectEvent; @ISA = qw(Wx::NotifyEvent);
+package Wx::GridEditorCreatedEvent; @ISA = qw(Wx::CommandEvent);
 
 package Wx::Grid;
 

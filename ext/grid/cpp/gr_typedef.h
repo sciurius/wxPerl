@@ -21,6 +21,10 @@
 FD_TD(Grid);
 FD_TD(GridCellCoords);
 FD_TD(GridCellAttr);
+FD_TD(GridEvent);
+FD_TD(GridSizeEvent);
+FD_TD(GridRangeSelectEvent);
+FD_TD(GridEditorCreatedEvent);
 
 #undef FD_TD
 

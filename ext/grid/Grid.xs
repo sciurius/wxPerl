@@ -67,6 +67,7 @@ BOOT:
 
 INCLUDE: XS/Grid.xs
 INCLUDE: XS/GridCellAttr.xs
+INCLUDE: XS/GridEvent.xs
 
 #include "cpp/gr_constants.cpp"
 

@@ -25,6 +25,24 @@ double grid_constant( const char* name, int arg )
 
     switch( fl )
     {
+    case 'E':
+        r( wxEVT_GRID_CELL_LEFT_CLICK );
+        r( wxEVT_GRID_CELL_RIGHT_CLICK );
+        r( wxEVT_GRID_CELL_LEFT_DCLICK );
+        r( wxEVT_GRID_CELL_RIGHT_DCLICK );
+        r( wxEVT_GRID_LABEL_LEFT_CLICK );
+        r( wxEVT_GRID_LABEL_RIGHT_CLICK );
+        r( wxEVT_GRID_LABEL_LEFT_DCLICK );
+        r( wxEVT_GRID_LABEL_RIGHT_DCLICK );
+        r( wxEVT_GRID_ROW_SIZE );
+        r( wxEVT_GRID_COL_SIZE );
+        r( wxEVT_GRID_RANGE_SELECT );
+        r( wxEVT_GRID_CELL_CHANGE );
+        r( wxEVT_GRID_SELECT_CELL );
+        r( wxEVT_GRID_EDITOR_SHOWN );
+        r( wxEVT_GRID_EDITOR_HIDDEN );
+        r( wxEVT_GRID_EDITOR_CREATED );
+        break;
     // !export: wxGridSelectCells wxGridSelectRows wxGridSelectColumns
     case 'G':
         if( strEQ( name, "wxGridSelectCells" ) )
