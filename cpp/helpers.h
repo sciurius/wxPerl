@@ -13,33 +13,34 @@
 #include <wx/object.h>
 #include <wx/list.h>
 
-const char* _cpp_class_2_perl( const char* className );
-void _push_args( SV** stack, const char* argtypes, va_list &list );
+WXPLDLL const char* _cpp_class_2_perl( const char* className );
+WXPLDLL void _push_args( SV*** stack, const char* argtypes, va_list &list );
 
-void* _sv_2_object( SV* scalar, const char* classname );
-SV* _object_2_sv( SV* var, wxObject* object );
-SV* _non_object_2_sv( SV* var, void* data, const char* package );
-SV* _make_object( wxObject* object, const char* classname );
-const char* _get_class( SV* ref );
+WXPLDLL void* _sv_2_object( SV* scalar, const char* classname );
+WXPLDLL SV* _object_2_sv( SV* var, wxObject* object );
+WXPLDLL SV* _non_object_2_sv( SV* var, void* data, const char* package );
 
-int _av_2_stringarray( SV* avref, wxString** array );
-int _av_2_uchararray( SV* avref, unsigned char** array );
-int _av_2_svarray( SV* avref, SV*** array );
+WXPLDLL SV* _make_object( wxObject* object, const char* classname );
+WXPLDLL const char* _get_class( SV* ref );
+
+WXPLDLL int _av_2_stringarray( SV* avref, wxString** array );
+WXPLDLL int _av_2_uchararray( SV* avref, unsigned char** array );
+WXPLDLL int _av_2_svarray( SV* avref, SV*** array );
 
 int _get_args_argc_argv( char*** argv );
-void _get_args_objectarray( SV** sp, int items, void** array, const char* package );
+WXPLDLL void _get_args_objectarray( SV** sp, int items, void** array, const char* package );
 
-wxPoint _sv_2_wxpoint( SV* scalar );
-wxSize _sv_2_wxsize( SV* scalar );
-Wx_KeyCode _sv_2_keycode( SV* scalar );
+WXPLDLL wxPoint _sv_2_wxpoint( SV* scalar );
+WXPLDLL wxSize _sv_2_wxsize( SV* scalar );
+WXPLDLL Wx_KeyCode _sv_2_keycode( SV* scalar );
 
-int _get_pointarray( SV* array, wxList *points, wxPoint** tmp );
+WXPLDLL int _get_pointarray( SV* array, wxList *points, wxPoint** tmp );
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 
 #ifdef _WX_WINDOW_H_BASE_
 
-class _wxUserDataCD:public wxClientData
+class WXPLDLL _wxUserDataCD:public wxClientData
 {
 public:
     _wxUserDataCD( SV* data );
@@ -61,7 +62,7 @@ class _wxUserDataCD;
 
 #if defined( _WX_TREEBASE_H_ ) || defined( _WX_TREECTRL_H_BASE_ )
 
-class _wxTreeItemData:public wxTreeItemData
+class WXPLDLL _wxTreeItemData:public wxTreeItemData
 {
 public:
     _wxTreeItemData( SV* data );
@@ -96,7 +97,7 @@ class _wxTreeItemData;
 
 #endif
 
-class _wxUserDataO:public wxObject
+class WXPLDLL _wxUserDataO:public wxObject
 {
 public:
     _wxUserDataO( SV* data );
@@ -110,7 +111,7 @@ inline _wxUserDataO::_wxUserDataO( SV* data )
     m_data = data ? newSVsv( data ) : 0;
 }
 
-class _wxSelfRef
+class WXPLDLL _wxSelfRef
 {
 public:
     _wxSelfRef( const char* unused = 0 );
@@ -135,7 +136,7 @@ inline SV* _wxSelfRef::GetSelf() {
 
 typedef _wxSelfRef* (* _wxGetCallbackObjectFn)(wxObject* object);
 
-class _wxClassInfo:public wxClassInfo
+class WXPLDLL _wxClassInfo:public wxClassInfo
 {
 public:
     _wxClassInfo( wxChar *cName, wxChar *baseName1, wxChar *baseName2, 

@@ -13,7 +13,7 @@
 #ifndef _WXPERL_V_CBACK_H
 #define _WXPERL_V_CBACK_H
 
-class _wxVirtualCallback:public _wxSelfRef
+class WXPLDLL _wxVirtualCallback:public _wxSelfRef
 {
 public:
     //  _wxVirtualCallback() {}; // dummy
