@@ -196,7 +196,7 @@ package DemoFrame;
 use base qw(Wx::Frame);
 use Wx qw(:textctrl :sizer :window);
 use Wx qw(wxDefaultPosition wxDefaultSize 
-          wxDEFAULT_FRAME_STYLE wxNO_FULL_REPAINT_ON_RESIZE);
+          wxDEFAULT_FRAME_STYLE wxNO_FULL_REPAINT_ON_RESIZE wxCLIP_CHILDREN);
 
 sub sample { return Demo::Sample->new( $_[0] ) }
 sub external { return Demo::External->new( $_[0], $_[1] ) }
@@ -267,7 +267,8 @@ sub new {
   my $class = shift;
   my $this = $class->SUPER::new( undef, -1, "wxPerl Demo", wxDefaultPosition,
                                  [ 600, 500 ], wxDEFAULT_FRAME_STYLE
-                                 | wxNO_FULL_REPAINT_ON_RESIZE );
+                                 | wxNO_FULL_REPAINT_ON_RESIZE|wxCLIP_CHILDREN
+                                );
 
   my $border_mask = ~( wxSTATIC_BORDER|wxSIMPLE_BORDER|wxDOUBLE_BORDER|
                        wxSUNKEN_BORDER|wxRAISED_BORDER);
@@ -291,21 +292,25 @@ sub new {
   # create splitters
   my $split1 = Wx::SplitterWindow->new( $this, -1, wxDefaultPosition,
                                         wxDefaultSize,
-                                        wxNO_FULL_REPAINT_ON_RESIZE);
+                                        wxNO_FULL_REPAINT_ON_RESIZE
+                                       |wxCLIP_CHILDREN);
   my $split2 = Wx::SplitterWindow->new( $split1, -1, wxDefaultPosition,
                                         wxDefaultSize,
-                                        wxNO_FULL_REPAINT_ON_RESIZE );
+                                        wxNO_FULL_REPAINT_ON_RESIZE
+                                       |wxCLIP_CHILDREN );
   my $tree = Wx::TreeCtrl->new( $split1, -1 );
   my $text = Wx::TextCtrl->new( $split2, -1, "Welcome to wxPerl\n",
                                 wxDefaultPosition, wxDefaultSize,
                                 wxTE_READONLY|wxTE_MULTILINE
-                                |wxNO_FULL_REPAINT_ON_RESIZE );
+                               |wxNO_FULL_REPAINT_ON_RESIZE );
   $this->{OLDLOG} = Wx::Log::SetActiveTarget( Wx::LogTextCtrl->new( $text ) );
 
   # create main notebook
   my $nb = Wx::Notebook->new( $split2, -1, wxDefaultPosition, wxDefaultSize,
-                              wxNO_FULL_REPAINT_ON_RESIZE );
-  my $html = Wx::HtmlWindow->new( $nb, -1 );
+                              wxNO_FULL_REPAINT_ON_RESIZE|wxCLIP_CHILDREN );
+  my $html = Wx::HtmlWindow->new( $nb, -1, wxDefaultPosition, wxDefaultSize,
+                                  wxNO_FULL_REPAINT_ON_RESIZE
+                                 |wxCLIP_CHILDREN );
   my $code = Wx::TextCtrl->new( $nb, -1, '', wxDefaultPosition,
                                 wxDefaultSize, wxTE_READONLY|wxTE_MULTILINE
                                 |wxNO_FULL_REPAINT_ON_RESIZE );
