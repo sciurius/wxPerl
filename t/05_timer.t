@@ -1,18 +1,12 @@
 #!/usr/bin/perl -w
 
-BEGIN { print "1..2\n"; }
-
 use strict;
 use Wx;
 use lib 'build';
+use Test::More 'tests' => 2;
 use Tests_Helper qw(test_app);
 
 my $frame;
-my $app = test_app( sub {
-                      $frame = new MyFrame( undef, -1, 'boo' );
-                      $frame->Show( 1 );
-                      return 1;
-                    } );
 
 # test with Notify
 
@@ -21,13 +15,10 @@ package MyTimer;
 use vars qw(@ISA); @ISA = qw(Wx::Timer);
 
 sub Notify {
-  print "ok 1\n";
+  main::ok( 1, "Overriding Notify works" );
 }
 
 package main;
-
-my $timer1 = MyTimer->new;
-$timer1->Start( 100, 1 );
 
 # test with owner
 
@@ -45,10 +36,8 @@ sub new {
   return $this;
 }
 
-#wxTheApp->ExitMainLoop;
-
 sub OnTimer {
-  print "ok 2\n";
+  main::ok( 1, "EVT_TIMER works" );
   Wx::WakeUpIdle;
   $frame->Destroy;
 }
@@ -64,10 +53,19 @@ sub new {
   my $timer2 = Wx::Timer->new( MyHandler->new );
   $timer2->Start( 400, 1 );
 
+  my $timer1 = MyTimer->new;
+  $timer1->Start( 100, 1 );
+
   return $this;
 }
 
 package main;
+
+my $app = test_app( sub {
+                      $frame = MyFrame->new( undef, -1, 'boo' );
+                      $frame->Show( 1 );
+                      return 1;
+                    } );
 
 $app->MainLoop;
 
