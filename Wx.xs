@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.66 2005/01/09 22:35:50 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.67 2005/01/22 13:16:15 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -68,12 +68,6 @@ void WXDLLEXPORT wxEntryCleanup();
 IMPLEMENT_APP_NO_MAIN(wxPliApp);
 static bool wxPerlAppCreated = false;
 static bool wxPerlInitialized = false;
-
-#if WXPERL_W_VERSION_LE( 2, 5, 1 )
-typedef int wxSystemColour;
-typedef int wxSystemFont;
-typedef int wxSystemMetric;
-#endif
 
 #undef THIS
 
@@ -340,6 +334,7 @@ INCLUDE: XS/Process.xs
 INCLUDE: XS/FontMapper.xs
 INCLUDE: XS/FontEnumerator.xs
 INCLUDE: XS/Wave.xs
+INCLUDE: perl ./script/xsubppp.pl --typemap=typemap.xsp XS/ArtProvider.xsp |
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs

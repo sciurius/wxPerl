@@ -22,7 +22,7 @@ sub configure_core {
 
   $config{clean} =
     { FILES => "$ovlc $ovlh .exists overload Opt copy_files files.lst" .
-               " cpp/setup.h cpp/plwindow.h" };
+               " cpp/setup.h cpp/plwindow.h cpp/artprov.h" };
 
   return %config;
 }

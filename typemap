@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.70 2005/01/09 22:35:50 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.71 2005/01/22 13:16:15 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -355,6 +355,9 @@ wxPlThreadEvent *       O_WXOBJECT
 
 wxConfigBase *          O_NON_WXOBJECT
 wxConfig *              O_NON_WXOBJECT
+
+wxArtProvider *         O_WXOBJECT
+wxPlArtProvider *       O_WXOBJECT
 
 OUTPUT
 O_WXOBJECT

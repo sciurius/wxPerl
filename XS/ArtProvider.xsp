@@ -1,0 +1,129 @@
+#############################################################################
+## Name:        XS/ArtProvider.xsp
+## Purpose:     XS++ for wxArtProvider class
+## Author:      Matthew "Cheetah" Gabeler-Lee
+## Modified by:
+## Created:     10/01/2005
+## RCS-ID:      $Id: ArtProvider.xsp,v 1.1 2005/01/22 13:16:15 mbarbon Exp $
+## Copyright:   (c) 2005 Matthew Gabeler-Lee
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxPlArtProvider*}{simple};
+
+%file{cpp/artprov.h};
+
+%{
+
+#include "cpp/v_cback.h"
+
+#define DEC_V_CBACK_WXBITMAP__WXARTID_WXARTCLIENT_WXSIZE_pure( METHOD ) \
+  wxBitmap METHOD( const wxArtID& id, const wxArtClient& client, const wxSize& size )
+
+#define DEF_V_CBACK_WXBITMAP__WXARTID_WXARTCLIENT_WXSIZE_pure( CLASS, BASE, METHOD ) \
+  wxBitmap CLASS::METHOD( const wxArtID& id, const wxArtClient& client,      \
+                          const wxSize& size )                               \
+  {                                                                          \
+      dTHX;                                                                  \
+      if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )  \
+      {                                                                      \
+          wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback,                \
+                        G_SCALAR, "PPo", &id, &client, new wxSize( size ) ) );\
+          return *(wxBitmap*)wxPli_sv_2_object( aTHX_ ret, "Wx::Bitmap" );   \
+      } else                                                                 \
+          return wxNullBitmap;                                               \
+  }
+
+class wxPlArtProvider : public wxArtProvider
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlArtProvider );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPlArtProvider( const char* package )
+      : m_callback( "Wx::ArtProvider" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
+    }
+
+    DEC_V_CBACK_WXBITMAP__WXARTID_WXARTCLIENT_WXSIZE_pure( CreateBitmap );
+};
+
+DEF_V_CBACK_WXBITMAP__WXARTID_WXARTCLIENT_WXSIZE_pure( wxPlArtProvider,
+  wxArtProvider, CreateBitmap );
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlArtProvider, wxArtProvider );
+#else
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlArtProvider, wxObject );
+#endif
+
+%}
+
+%file{-};
+
+%{
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+
+#include <wx/artprov.h>
+#include "cpp/artprov.h"
+
+MODULE=Wx PACKAGE=Wx::ArtProvider
+
+wxBitmap*
+GetBitmap( id, client = wxART_OTHER, size = wxDefaultSize )
+    wxString id
+    wxString client
+    wxSize size
+  CODE:
+    RETVAL = new wxBitmap( wxArtProvider::GetBitmap( id, client, size ) );
+  OUTPUT: RETVAL
+
+wxIcon*
+GetIcon( id, client = wxART_OTHER, size = wxDefaultSize )
+    wxString id
+    wxString client
+    wxSize size
+  CODE:
+    RETVAL = new wxIcon( wxArtProvider::GetIcon( id, client, size ) );
+  OUTPUT: RETVAL
+
+bool
+PopProvider()
+  CODE:
+    RETVAL = wxArtProvider::PopProvider();
+  OUTPUT: RETVAL
+
+void
+PushProvider( provider )
+    wxArtProvider* provider
+  CODE:
+    wxArtProvider::PushProvider( provider);
+
+bool
+RemoveProvider( provider )
+    wxArtProvider* provider
+  CODE:
+    RETVAL = wxArtProvider::RemoveProvider( provider );
+  OUTPUT: RETVAL
+
+MODULE=Wx PACKAGE=Wx::PlArtProvider
+
+wxPlArtProvider*
+wxPlArtProvider::new()
+  CODE:
+    RETVAL = new wxPlArtProvider( CLASS );
+  OUTPUT: RETVAL
+
+%}
+
+%name{Wx::PlArtProvider} class wxPlArtProvider
+{
+  wxBitmap CreateBitmap( const wxArtID& id, const wxArtClient& client,
+    const wxSize& size );
+};
+
+#endif
