@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Grid.pm
-## Purpose:     Wx::Grid ( pulls in all Wx::Grid* stuff )
+## Name:        ext/grid/lib/Wx/Grid.pm
+## Purpose:     Wx::Grid (pulls in all Wx::Grid* stuff)
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      4/12/2001
-## RCS-ID:      
+## Created:     04/12/2001
+## RCS-ID:      $Id: Grid.pm,v 1.14 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

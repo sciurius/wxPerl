@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: typemap,v 1.10 2003/12/20 15:51:17 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.11 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,32 +14,30 @@ TYPEMAP
 wxGridSelectionModes    T_ENUM
 wxGridAttrKind          T_ENUM
 
-Wx_Grid *               O_WXOBJECT
 wxGrid *                O_WXOBJECT
-Wx_GridEvent *          O_WXOBJECT
-Wx_GridSizeEvent *      O_WXOBJECT
-Wx_GridRangeSelectEvent * O_WXOBJECT
-Wx_GridEditorCreatedEvent * O_WXOBJECT
+wxGridEvent *          O_WXOBJECT
+wxGridSizeEvent *      O_WXOBJECT
+wxGridRangeSelectEvent * O_WXOBJECT
+wxGridEditorCreatedEvent * O_WXOBJECT
 
-Wx_GridCellCoords *     O_NON_WXOBJECT
 wxGridCellCoords *      O_NON_WXOBJECT
-Wx_GridCellAttr *       O_NON_WXOBJECT
+wxGridCellAttr *        O_NON_WXOBJECT
 wxGridCellAttr *        O_NON_WXOBJECT
 wxGridCellAttr::wxAttrKind      T_ENUM
 
-Wx_GridCellRenderer *           O_NON_WXOBJECT
-Wx_GridCellStringRenderer *     O_NON_WXOBJECT
-Wx_GridCellNumberRenderer *     O_NON_WXOBJECT
-Wx_GridCellFloatRenderer *      O_NON_WXOBJECT
-Wx_GridCellBoolRenderer *       O_NON_WXOBJECT
+wxGridCellRenderer *           O_NON_WXOBJECT
+wxGridCellStringRenderer *     O_NON_WXOBJECT
+wxGridCellNumberRenderer *     O_NON_WXOBJECT
+wxGridCellFloatRenderer *      O_NON_WXOBJECT
+wxGridCellBoolRenderer *       O_NON_WXOBJECT
 wxPlGridCellRenderer *          O_NON_WXOBJECT
 
-Wx_GridCellEditor *             O_NON_WXOBJECT
-Wx_GridCellTextEditor *         O_NON_WXOBJECT
-Wx_GridCellNumberEditor *       O_NON_WXOBJECT
-Wx_GridCellFloatEditor *        O_NON_WXOBJECT
-Wx_GridCellBoolEditor *         O_NON_WXOBJECT
-Wx_GridCellChoiceEditor *       O_NON_WXOBJECT
+wxGridCellEditor *             O_NON_WXOBJECT
+wxGridCellTextEditor *         O_NON_WXOBJECT
+wxGridCellNumberEditor *       O_NON_WXOBJECT
+wxGridCellFloatEditor *        O_NON_WXOBJECT
+wxGridCellBoolEditor *         O_NON_WXOBJECT
+wxGridCellChoiceEditor *       O_NON_WXOBJECT
 wxPlGridCellEditor *            O_NON_WXOBJECT
 
 wxPlGridTable*                  O_WXOBJECT

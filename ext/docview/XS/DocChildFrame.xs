@@ -1,10 +1,10 @@
 #############################################################################
 ## Name:        ext/docview/XS/DocChildFrame.xs
-## Purpose:     XS for wxDocChildFrame ( Document / View framwork )
+## Purpose:     XS for wxDocChildFrame (Document/View framwork)
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: DocChildFrame.xs,v 1.2 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id: DocChildFrame.xs,v 1.3 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,15 +12,15 @@
 
 MODULE=Wx PACKAGE=Wx::DocChildFrame
 
-Wx_DocChildFrame *
-Wx_DocChildFrame::new(doc, view, frame, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr)
-    Wx_Document* doc
-    Wx_View* view
+wxDocChildFrame *
+wxDocChildFrame::new(doc, view, frame, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr)
+    wxDocument* doc
+    wxView* view
     wxFrame* frame
     wxWindowID id
     wxString title
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
@@ -28,22 +28,22 @@ Wx_DocChildFrame::new(doc, view, frame, id, title, pos = wxDefaultPosition, size
   OUTPUT:
     RETVAL
 
-Wx_Document *
-Wx_DocChildFrame::GetDocument()
+wxDocument *
+wxDocChildFrame::GetDocument()
 
-Wx_View *
-Wx_DocChildFrame::GetView()
-
-void
-Wx_DocChildFrame::SetDocument( doc )
-    Wx_Document* doc
+wxView *
+wxDocChildFrame::GetView()
 
 void
-Wx_DocChildFrame::SetView( view )
-    Wx_View* view
+wxDocChildFrame::SetDocument( doc )
+    wxDocument* doc
+
+void
+wxDocChildFrame::SetView( view )
+    wxView* view
 
 bool
-Wx_DocChildFrame::Destroy()
+wxDocChildFrame::Destroy()
 
 ## Some event stuff missing here
 

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        ext/frid/Grid.xs
+// Name:        ext/grid/Grid.xs
 // Purpose:     XS for Wx::Grid
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/12/2001
-// RCS-ID:      $Id: Grid.xs,v 1.12 2003/11/08 18:29:27 mbarbon Exp $
+// RCS-ID:      $Id: Grid.xs,v 1.13 2004/02/29 14:30:40 mbarbon Exp $
 // Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -13,8 +13,6 @@
 #define PERL_NO_GET_CONTEXT
 
 #include "cpp/wxapi.h"
-#include "cpp/typedef.h"
-#include "cpp/gr_typedef.h"
 
 #undef THIS
 

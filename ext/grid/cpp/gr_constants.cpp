@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        gr_constants.cpp
+// Name:        ext/grid/cpp/gr_constants.cpp
 // Purpose:     constants for Wx::Grid
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      4/12/2001
-// RCS-ID:      $Id: gr_constants.cpp,v 1.6 2003/11/08 18:29:27 mbarbon Exp $
+// Created:     04/12/2001
+// RCS-ID:      $Id: gr_constants.cpp,v 1.7 2004/02/29 14:30:40 mbarbon Exp $
 // Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        ext/grid/cpp/renderer.h
-// Purpose:     wxPlGridCellRenderer
+// Name:        ext/grid/cpp/editor.h
+// Purpose:     wxPlGridCellEditor
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     28/ 5/2003
-// RCS-ID:      $Id: editor.h,v 1.2 2003/08/02 21:19:12 mbarbon Exp $
+// Created:     28/05/2003
+// RCS-ID:      $Id: editor.h,v 1.3 2004/02/29 14:30:40 mbarbon Exp $
 // Copyright:   (c) 2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

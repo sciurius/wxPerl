@@ -1,80 +1,80 @@
 #############################################################################
 ## Name:        ext/docview/XS/View.xs
-## Purpose:     XS for wxView ( Document / View Framework )
+## Purpose:     XS for wxView (Document/View Framework)
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: View.xs,v 1.3 2004/02/28 22:59:07 mbarbon Exp $
-## Copyright:   (c) 2002-2003 Mattia Barbon
+## RCS-ID:      $Id: View.xs,v 1.4 2004/02/29 14:30:40 mbarbon Exp $
+## Copyright:   (c) 2002-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 MODULE=Wx PACKAGE=Wx::View
 
-Wx_View*
-Wx_View::new()
+wxView*
+wxView::new()
   CODE:
     RETVAL=new wxPliView( CLASS );
   OUTPUT:
     RETVAL
 
 void
-Wx_View::Activate( activate )
+wxView::Activate( activate )
     bool activate
 
 bool
-Wx_View::Close( deleteWindow = 1 )
+wxView::Close( deleteWindow = 1 )
     bool deleteWindow
 
-Wx_Document *
-Wx_View::GetDocument()
+wxDocument *
+wxView::GetDocument()
 
-Wx_DocManager *
-Wx_View::GetDocumentManager()
+wxDocManager *
+wxView::GetDocumentManager()
 
-Wx_Window * 
-Wx_View::GetFrame()
+wxWindow * 
+wxView::GetFrame()
 
 void
-Wx_View::SetFrame( frame )
-    Wx_Window* frame
+wxView::SetFrame( frame )
+    wxWindow* frame
 
 wxString
-Wx_View::GetViewName()
+wxView::GetViewName()
 
 void
-Wx_View::OnActivateView( activate = 0, activeView, deactiveView )
+wxView::OnActivateView( activate = 0, activeView, deactiveView )
     bool activate
-    Wx_View* activeView
-    Wx_View* deactiveView
+    wxView* activeView
+    wxView* deactiveView
 
 void
-Wx_View::OnChangeFilename()
+wxView::OnChangeFilename()
 
 bool
-Wx_View::OnClose( deleteWindow = 0 )
+wxView::OnClose( deleteWindow = 0 )
     bool deleteWindow
 
 bool
-Wx_View::OnCreate( doc, flags = 0 )
-    Wx_Document* doc
+wxView::OnCreate( doc, flags = 0 )
+    wxDocument* doc
     long flags
 
 
-Wx_Printout*
-Wx_View::OnCreatePrintout()
+wxPrintout*
+wxView::OnCreatePrintout()
 
 void
-Wx_View::OnUpdate( sender, hint = NULL )
-    Wx_View* sender
+wxView::OnUpdate( sender, hint = NULL )
+    wxView* sender
     wxObject* hint
 
 void
-Wx_View::SetDocument( doc )
-    Wx_Document* doc
+wxView::SetDocument( doc )
+    wxDocument* doc
 
 void
-Wx_View::SetViewName( name )
+wxView::SetViewName( name )
     wxString name
 

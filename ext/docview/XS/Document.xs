@@ -1,10 +1,10 @@
 #############################################################################
 ## Name:        ext/docview/XS/Document.xs
-## Purpose:     XS for wxDocument ( Document / View Framework )
+## Purpose:     XS for wxDocument (Document/View Framework)
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: Document.xs,v 1.3 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id: Document.xs,v 1.4 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,138 +13,138 @@
 
 MODULE=Wx PACKAGE=Wx::Document
 
-Wx_Document*
-Wx_Document::new()
+wxDocument*
+wxDocument::new()
   CODE:
     RETVAL=new wxPliDocument( CLASS );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Document::DeleteContents()
+wxDocument::DeleteContents()
 
 bool
-Wx_Document::Close()
+wxDocument::Close()
 
 bool
-Wx_Document::OnCloseDocument()
+wxDocument::OnCloseDocument()
 
 void
-Wx_Document::NotifyClosing()
+wxDocument::NotifyClosing()
 
 SV*
-Wx_Document::GetViews()
+wxDocument::GetViews()
   CODE:
     AV* arrViews = wxPli_objlist_2_av( aTHX_ THIS->GetViews() );
     RETVAL = newRV_noinc( (SV*)arrViews  );
   OUTPUT: RETVAL
 
 bool
-Wx_Document::DeleteAllViews()
+wxDocument::DeleteAllViews()
 
-Wx_View*
-Wx_Document::GetFirstView()
+wxView*
+wxDocument::GetFirstView()
 
-Wx_DocManager*
-Wx_Document::GetDocumentManager()
+wxDocManager*
+wxDocument::GetDocumentManager()
 
-Wx_DocTemplate*
-Wx_Document::GetDocumentTemplate()
+wxDocTemplate*
+wxDocument::GetDocumentTemplate()
 
 wxString
-Wx_Document::GetDocumentName()
+wxDocument::GetDocumentName()
 
 bool
-Wx_Document::OnNewDocument()
+wxDocument::OnNewDocument()
 
 bool
-Wx_Document::Save()
+wxDocument::Save()
 
 bool
-Wx_Document::SaveAs()
+wxDocument::SaveAs()
 
 bool
-Wx_Document::OnSaveDocument( file )
+wxDocument::OnSaveDocument( file )
 	wxString file
 
 bool
-Wx_Document::OnOpenDocument( file )
+wxDocument::OnOpenDocument( file )
 	wxString file
 
 bool
-Wx_Document::GetDocumentSaved()
+wxDocument::GetDocumentSaved()
 
 void
-Wx_Document::SetDocumentSaved( saved )
+wxDocument::SetDocumentSaved( saved )
     bool saved
 
 bool
-Wx_Document::Revert()
+wxDocument::Revert()
 
 bool
-Wx_Document::GetPrintableName( buf )
+wxDocument::GetPrintableName( buf )
 	wxString buf
 
-Wx_Window*
-Wx_Document::GetDocumentWindow()
+wxWindow*
+wxDocument::GetDocumentWindow()
 
-Wx_CommandProcessor*
-Wx_Document::OnCreateCommandProcessor()
-
-void
-Wx_Document::SetCommandProcessor( processor )
-    Wx_CommandProcessor* processor
-
-bool
-Wx_Document::OnSaveModified()
-
-bool
-Wx_Document::IsModified( )
+wxCommandProcessor*
+wxDocument::OnCreateCommandProcessor()
 
 void
-Wx_Document::Modify( modify )
+wxDocument::SetCommandProcessor( processor )
+    wxCommandProcessor* processor
+
+bool
+wxDocument::OnSaveModified()
+
+bool
+wxDocument::IsModified( )
+
+void
+wxDocument::Modify( modify )
 	bool modify
 
 bool
-Wx_Document::AddView( view )
-	Wx_View* view
+wxDocument::AddView( view )
+	wxView* view
 
 bool
-Wx_Document::RemoveView( view )
-	Wx_View* view
+wxDocument::RemoveView( view )
+	wxView* view
 
 bool
-Wx_Document::OnCreate( path, flags )
+wxDocument::OnCreate( path, flags )
 	wxString path
 	long flags
 
 void
-Wx_Document::OnChangedViewList()
+wxDocument::OnChangedViewList()
 
 void
-Wx_Document::UpdateAllViews(sender = NULL, hint = NULL)
-	Wx_View* sender
+wxDocument::UpdateAllViews(sender = NULL, hint = NULL)
+	wxView* sender
 	wxObject* hint
 
 void
-Wx_Document::SetFilename(filename, notifyViews = FALSE)
+wxDocument::SetFilename(filename, notifyViews = FALSE)
 	wxString filename
 	bool notifyViews
 
 wxString
-Wx_Document::GetFilename()
+wxDocument::GetFilename()
 
 void
-Wx_Document::SetTitle( title )
+wxDocument::SetTitle( title )
     wxString title
 
 wxString
-Wx_Document::GetTitle()
+wxDocument::GetTitle()
 
 void
-Wx_Document::SetDocumentName( name )
+wxDocument::SetDocumentName( name )
     wxString name
 
 void
-Wx_Document::SetDocumentTemplate( templ )
-    Wx_DocTemplate* templ
+wxDocument::SetDocumentTemplate( templ )
+    wxDocTemplate* templ

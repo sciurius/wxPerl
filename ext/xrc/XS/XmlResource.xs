@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/07/2001
-## RCS-ID:      $Id: XmlResource.xs,v 1.9 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id: XmlResource.xs,v 1.10 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,34 +20,34 @@
 
 MODULE=Wx PACKAGE=Wx::XmlResource
 
-Wx_XmlResource*
-Wx_XmlResource::new( flags = wxXRC_USE_LOCALE )
+wxXmlResource*
+wxXmlResource::new( flags = wxXRC_USE_LOCALE )
     int flags
 
 ## XXX threads
 void
-Wx_XmlResource::DESTROY()
+wxXmlResource::DESTROY()
 
 bool
-Wx_XmlResource::Load( filemask )
+wxXmlResource::Load( filemask )
     wxString filemask
 
 void
-Wx_XmlResource::InitAllHandlers()
+wxXmlResource::InitAllHandlers()
 
 void
-Wx_XmlResource::AddHandler( handler )
-    Wx_XmlResourceHandler* handler
+wxXmlResource::AddHandler( handler )
+    wxXmlResourceHandler* handler
 
 void
-Wx_XmlResource::ClearHandlers()
+wxXmlResource::ClearHandlers()
 
 wxMenu*
-Wx_XmlResource::LoadMenu( name )
+wxXmlResource::LoadMenu( name )
     wxString name
 
 wxMenuBar*
-Wx_XmlResource::LoadMenuBar( name )
+wxXmlResource::LoadMenuBar( name )
     wxString name
 
 wxMenuBar*
@@ -59,34 +59,34 @@ wxXmlResource::LoadMenuBarOnParent( parent, name )
   OUTPUT: RETVAL
 
 wxToolBar*
-Wx_XmlResource::LoadToolBar( parent, name )
-    Wx_Window* parent
+wxXmlResource::LoadToolBar( parent, name )
+    wxWindow* parent
     wxString name
 
-Wx_Dialog*
-Wx_XmlResource::LoadDialog( parent, name )
-    Wx_Window* parent
+wxDialog*
+wxXmlResource::LoadDialog( parent, name )
+    wxWindow* parent
     wxString name
 
 bool
-Wx_XmlResource::LoadOnDialog( dialog, parent, name )
-    Wx_Dialog* dialog
-    Wx_Window* parent
+wxXmlResource::LoadOnDialog( dialog, parent, name )
+    wxDialog* dialog
+    wxWindow* parent
     wxString name
   CODE:
     RETVAL = THIS->LoadDialog( dialog, parent, name );
   OUTPUT:
     RETVAL
 
-Wx_Panel*
-Wx_XmlResource::LoadPanel( parent, name )
-    Wx_Window* parent
+wxPanel*
+wxXmlResource::LoadPanel( parent, name )
+    wxWindow* parent
     wxString name
 
 bool
-Wx_XmlResource::LoadOnPanel( panel, parent, name )
-    Wx_Panel* panel
-    Wx_Window* parent
+wxXmlResource::LoadOnPanel( panel, parent, name )
+    wxPanel* panel
+    wxWindow* parent
     wxString name
   CODE:
     RETVAL = THIS->LoadPanel( panel, parent, name );
@@ -118,16 +118,16 @@ wxXmlResource::LoadOnFrame( frame, parent, name )
     RETVAL = THIS->LoadFrame( frame, parent, name );
   OUTPUT: RETVAL
 
-Wx_Bitmap*
-Wx_XmlResource::LoadBitmap( name )
+wxBitmap*
+wxXmlResource::LoadBitmap( name )
     wxString name
   CODE:
     RETVAL = new wxBitmap( THIS->LoadBitmap( name ) );
   OUTPUT:
     RETVAL
 
-Wx_Icon*
-Wx_XmlResource::LoadIcon( name )
+wxIcon*
+wxXmlResource::LoadIcon( name )
     wxString name
   CODE:
     RETVAL = new wxIcon( THIS->LoadIcon( name ) );
@@ -135,10 +135,10 @@ Wx_XmlResource::LoadIcon( name )
     RETVAL
 
 bool
-Wx_XmlResource::AttachUnknownControl( name, control, parent = 0 )
+wxXmlResource::AttachUnknownControl( name, control, parent = 0 )
     wxString name
-    Wx_Window* control
-    Wx_Window* parent
+    wxWindow* control
+    wxWindow* parent
 
 int
 wxXmlResource::GetFlags()
@@ -156,16 +156,16 @@ GetXRCID( str_id )
     RETVAL
 
 long
-Wx_XmlResource::GetVersion()
+wxXmlResource::GetVersion()
 
 int
-Wx_XmlResource::CompareVersion( major, minor, release, revision )
+wxXmlResource::CompareVersion( major, minor, release, revision )
     int major
     int minor
     int release
     int revision
 
-##Wx_XmlResource*
+##wxXmlResource*
 ##Get()
 ##  CODE:
 ##    RETVAL = wxXmlResource::Get();
@@ -173,8 +173,8 @@ Wx_XmlResource::CompareVersion( major, minor, release, revision )
 ##    RETVAL
 
 ##void
-##Wx_XmlResource::Set( res )
-##    Wx_XmlResource* res
+##wxXmlResource::Set( res )
+##    wxXmlResource* res
 ##  CODE:
 ##    wxXmlResource::Set( res );
 

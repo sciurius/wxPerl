@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DocView.pm
+## Name:        ext/docview/lib/Wx/DocView.pm
 ## Purpose:     Wx::DocView
 ## Author:      Simon Flack
 ## Modified by:
-## Created:     11/ 9/2002
-## RCS-ID:      
+## Created:     11/09/2002
+## RCS-ID:      $Id: DocView.pm,v 1.2 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2002 Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

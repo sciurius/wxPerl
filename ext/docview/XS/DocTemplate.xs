@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DoxTemplate.xs
-## Purpose:     XS for wxDocTemplate ( Document / View Framework )
+## Name:        ext/docview/XS/DocTemplate.xs
+## Purpose:     XS for wxDocTemplate (Document/View Framework)
 ## Author:      Simon Flack
 ## Modified by:
-## Created:      11/ 9/2002
-## RCS-ID:      
+## Created:     11/09/2002
+## RCS-ID:      $Id: DocTemplate.xs,v 1.4 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -65,67 +65,67 @@ wxDocTemplate::new(manager, descr, filter, dir, ext, docTypeName, viewTypeName, 
   OUTPUT:
     RETVAL
 
-Wx_Document *
-Wx_DocTemplate::CreateDocument( path, flags )
+wxDocument *
+wxDocTemplate::CreateDocument( path, flags )
     wxString path
     long flags
 
-Wx_View *
-Wx_DocTemplate::CreateView( doc, flags )
-    Wx_Document* doc
+wxView *
+wxDocTemplate::CreateView( doc, flags )
+    wxDocument* doc
     long flags
 
 wxString
-Wx_DocTemplate::GetDefaultExtension()
+wxDocTemplate::GetDefaultExtension()
 
 wxString
-Wx_DocTemplate::GetDescription()
+wxDocTemplate::GetDescription()
 
 wxString
-Wx_DocTemplate::GetDirectory()
+wxDocTemplate::GetDirectory()
 
-Wx_DocManager *
-Wx_DocTemplate::GetDocumentManager()
+wxDocManager *
+wxDocTemplate::GetDocumentManager()
 
 void
-Wx_DocTemplate::SetDocumentManager( manager )
-    Wx_DocManager* manager
+wxDocTemplate::SetDocumentManager( manager )
+    wxDocManager* manager
 
 wxString
-Wx_DocTemplate::GetFileFilter()
+wxDocTemplate::GetFileFilter()
 
 long
-Wx_DocTemplate::GetFlags()
+wxDocTemplate::GetFlags()
 
 wxString
-Wx_DocTemplate::GetViewName()
+wxDocTemplate::GetViewName()
 
 wxString
-Wx_DocTemplate::GetDocumentName()
+wxDocTemplate::GetDocumentName()
 
 void
-Wx_DocTemplate::SetFileFilter( filter )
+wxDocTemplate::SetFileFilter( filter )
     wxString filter
 
 void
-Wx_DocTemplate::SetDirectory( dir )
+wxDocTemplate::SetDirectory( dir )
     wxString dir
 
 void
-Wx_DocTemplate::SetDescription( descr )
+wxDocTemplate::SetDescription( descr )
     wxString descr
 
 void
-Wx_DocTemplate::SetDefaultExtension( ext )
+wxDocTemplate::SetDefaultExtension( ext )
     wxString ext
 
 void
-Wx_DocTemplate::SetFlags( flags )
+wxDocTemplate::SetFlags( flags )
     long flags
 
 bool
-Wx_DocTemplate::IsVisible()
+wxDocTemplate::IsVisible()
 
 bool
-Wx_DocTemplate::FileMatchesTemplate( path )
+wxDocTemplate::FileMatchesTemplate( path )
     wxString path

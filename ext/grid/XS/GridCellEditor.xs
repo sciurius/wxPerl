@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      $Id: GridCellEditor.xs,v 1.5 2003/06/05 17:17:21 mbarbon Exp $
+## RCS-ID:      $Id: GridCellEditor.xs,v 1.6 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,108 +14,108 @@ MODULE=Wx PACKAGE=Wx::GridCellEditor
 
 ## XXX threads
 void
-Wx_GridCellEditor::DESTROY()
+wxGridCellEditor::DESTROY()
   CODE:
     if( THIS )
         THIS->DecRef();
 
 bool
-Wx_GridCellEditor::IsCreated()
+wxGridCellEditor::IsCreated()
 
-Wx_Control*
-Wx_GridCellEditor::GetControl()
-
-void
-Wx_GridCellEditor::SetControl( control )
-    Wx_Control* control
+wxControl*
+wxGridCellEditor::GetControl()
 
 void
-Wx_GridCellEditor::SetSize( rect )
-    Wx_Rect* rect
+wxGridCellEditor::SetControl( control )
+    wxControl* control
+
+void
+wxGridCellEditor::SetSize( rect )
+    wxRect* rect
   CODE:
     THIS->SetSize( *rect );
 
 void
-Wx_GridCellEditor::Show( show, attr )
+wxGridCellEditor::Show( show, attr )
     bool show
-    Wx_GridCellAttr* attr
+    wxGridCellAttr* attr
 
 void
-Wx_GridCellEditor::PaintBackground( rectCell, attr )
-    Wx_Rect* rectCell
-    Wx_GridCellAttr* attr
+wxGridCellEditor::PaintBackground( rectCell, attr )
+    wxRect* rectCell
+    wxGridCellAttr* attr
   CODE:
     THIS->PaintBackground( *rectCell, attr );
 
 void
-Wx_GridCellEditor::BeginEdit( row, col, grid )
+wxGridCellEditor::BeginEdit( row, col, grid )
     int row
     int col
-    Wx_Grid* grid
+    wxGrid* grid
 
 bool
-Wx_GridCellEditor::EndEdit( row, col, grid )
+wxGridCellEditor::EndEdit( row, col, grid )
     int row
     int col
-    Wx_Grid* grid
+    wxGrid* grid
 
 void
-Wx_GridCellEditor::Reset()
+wxGridCellEditor::Reset()
 
 bool
-Wx_GridCellEditor::IsAcceptedKey( event )
-    Wx_KeyEvent* event
+wxGridCellEditor::IsAcceptedKey( event )
+    wxKeyEvent* event
   CODE:
     RETVAL = THIS->IsAcceptedKey( *event );
   OUTPUT:
     RETVAL
 
 void
-Wx_GridCellEditor::StartingKey( event )
-    Wx_KeyEvent* event
+wxGridCellEditor::StartingKey( event )
+    wxKeyEvent* event
   CODE:
     THIS->StartingKey( *event );
 
 void
-Wx_GridCellEditor::StartingClick()
+wxGridCellEditor::StartingClick()
 
 void
-Wx_GridCellEditor::HandleReturn( event )
-    Wx_KeyEvent* event
+wxGridCellEditor::HandleReturn( event )
+    wxKeyEvent* event
   CODE:
     THIS->HandleReturn( *event );
 
 void
-Wx_GridCellEditor::Destroy()
+wxGridCellEditor::Destroy()
 
 MODULE=Wx PACKAGE=Wx::GridCellTextEditor
 
-Wx_GridCellTextEditor*
-Wx_GridCellTextEditor::new()
+wxGridCellTextEditor*
+wxGridCellTextEditor::new()
 
 MODULE=Wx PACKAGE=Wx::GridCellNumberEditor
 
-Wx_GridCellNumberEditor*
-Wx_GridCellNumberEditor::new( min = -1, max = -1 )
+wxGridCellNumberEditor*
+wxGridCellNumberEditor::new( min = -1, max = -1 )
     int min
     int max
 
 MODULE=Wx PACKAGE=Wx::GridCellFloatEditor
 
-Wx_GridCellFloatEditor*
-Wx_GridCellFloatEditor::new( width = -1, precision = -1 )
+wxGridCellFloatEditor*
+wxGridCellFloatEditor::new( width = -1, precision = -1 )
     int width
     int precision
 
 MODULE=Wx PACKAGE=Wx::GridCellBoolEditor
 
-Wx_GridCellBoolEditor*
-Wx_GridCellBoolEditor::new()
+wxGridCellBoolEditor*
+wxGridCellBoolEditor::new()
 
 MODULE=Wx PACKAGE=Wx::GridCellChoiceEditor
 
-Wx_GridCellChoiceEditor*
-Wx_GridCellChoiceEditor::new( choices, allowOthers = FALSE )
+wxGridCellChoiceEditor*
+wxGridCellChoiceEditor::new( choices, allowOthers = FALSE )
     SV* choices
     bool allowOthers
   PREINIT:

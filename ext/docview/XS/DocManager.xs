@@ -4,7 +4,7 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: DocManager.xs,v 1.8 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id: DocManager.xs,v 1.9 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,8 +13,8 @@
 
 MODULE=Wx PACKAGE=Wx::DocManager
 
-Wx_DocManager*
-Wx_DocManager::new( flags = wxDEFAULT_DOCMAN_FLAGS, initialize = TRUE )
+wxDocManager*
+wxDocManager::new( flags = wxDEFAULT_DOCMAN_FLAGS, initialize = TRUE )
     long flags
     bool initialize
   CODE:
@@ -23,34 +23,34 @@ Wx_DocManager::new( flags = wxDEFAULT_DOCMAN_FLAGS, initialize = TRUE )
     RETVAL
 
 bool
-Wx_DocManager::Clear( force )
+wxDocManager::Clear( force )
     bool force
 
 bool
-Wx_DocManager::Initialize()
+wxDocManager::Initialize()
 
-Wx_FileHistory*
-Wx_DocManager::OnCreateFileHistory()
+wxFileHistory*
+wxDocManager::OnCreateFileHistory()
 
-Wx_FileHistory*
-Wx_DocManager::GetFileHistory()
+wxFileHistory*
+wxDocManager::GetFileHistory()
 
 void
-Wx_DocManager::SetMaxDocsOpen(n)
+wxDocManager::SetMaxDocsOpen(n)
     int n
 
 int
-Wx_DocManager::GetMaxDocsOpen()
+wxDocManager::GetMaxDocsOpen()
 
 SV*
-Wx_DocManager::GetDocuments()
+wxDocManager::GetDocuments()
   CODE:
     AV* arrDocs = wxPli_objlist_2_av( aTHX_ THIS->GetDocuments() );
     RETVAL = newRV_noinc( (SV*)arrDocs  );
   OUTPUT: RETVAL
 
 void
-Wx_DocManager::GetTemplates()
+wxDocManager::GetTemplates()
   PPCODE:
     wxNode* tmplnode;
     const wxList& tmpllist = THIS->GetTemplates();
@@ -66,207 +66,207 @@ Wx_DocManager::GetTemplates()
     } 
 
 wxString
-Wx_DocManager::GetLastDirectory()
+wxDocManager::GetLastDirectory()
 
 void
-Wx_DocManager::SetLastDirectory( dir )
+wxDocManager::SetLastDirectory( dir )
     wxString dir
 
 void
-Wx_DocManager::OnFileClose( event )
-    Wx_CommandEvent* event
+wxDocManager::OnFileClose( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnFileClose( *event );
 
 void
-Wx_DocManager::OnFileCloseAll( event )
-    Wx_CommandEvent* event
+wxDocManager::OnFileCloseAll( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnFileCloseAll( *event );
 
 void
-Wx_DocManager::OnFileNew( event )
-    Wx_CommandEvent* event
+wxDocManager::OnFileNew( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnFileNew( *event );
 
 void
-Wx_DocManager::OnFileOpen( event )
-    Wx_CommandEvent* event
+wxDocManager::OnFileOpen( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnFileOpen( *event );
 
 void
-Wx_DocManager::OnFileRevert( event )
-    Wx_CommandEvent* event
+wxDocManager::OnFileRevert( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnFileRevert( *event );
 
 void
-Wx_DocManager::OnFileSave( event )
-    Wx_CommandEvent* event
+wxDocManager::OnFileSave( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnFileSave( *event );
 
 void
-Wx_DocManager::OnFileSaveAs( event )
-    Wx_CommandEvent* event
+wxDocManager::OnFileSaveAs( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnFileSaveAs( *event );
 
 void
-Wx_DocManager::OnPrint( event )
-    Wx_CommandEvent* event
+wxDocManager::OnPrint( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnPrint( *event );
 
 void
-Wx_DocManager::OnPrintSetup( event )
-    Wx_CommandEvent* event
+wxDocManager::OnPrintSetup( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnPrintSetup( *event );
 
 void
-Wx_DocManager::OnPreview( event )
-    Wx_CommandEvent* event
+wxDocManager::OnPreview( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnPreview( *event );
 
 void
-Wx_DocManager::OnUndo( event )
-    Wx_CommandEvent* event
+wxDocManager::OnUndo( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnUndo( *event );
 
 void
-Wx_DocManager::OnRedo( event )
-    Wx_CommandEvent* event
+wxDocManager::OnRedo( event )
+    wxCommandEvent* event
   CODE:
     THIS->OnRedo( *event );
 
 void
-Wx_DocManager::OnUpdateFileOpen( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdateFileOpen( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateFileOpen( *event );
 
 void
-Wx_DocManager::OnUpdateFileClose( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdateFileClose( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateFileClose( *event );
 
 void
-Wx_DocManager::OnUpdateFileRevert( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdateFileRevert( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateFileRevert( *event );
 
 void
-Wx_DocManager::OnUpdateFileNew( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdateFileNew( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateFileNew( *event );
 
 void
-Wx_DocManager::OnUpdateFileSave( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdateFileSave( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateFileSave( *event );
 
 void
-Wx_DocManager::OnUpdateFileSaveAs( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdateFileSaveAs( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateFileSaveAs( *event );
 
 void
-Wx_DocManager::OnUpdateUndo( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdateUndo( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateUndo( *event );
 
 void
-Wx_DocManager::OnUpdateRedo( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdateRedo( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateRedo( *event );
 
 void
-Wx_DocManager::OnUpdatePrint( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdatePrint( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdatePrint( *event );
 
 void
-Wx_DocManager::OnUpdatePrintSetup( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdatePrintSetup( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdatePrintSetup( *event );
 
 void
-Wx_DocManager::OnUpdatePreview( event )
-    Wx_UpdateUIEvent* event
+wxDocManager::OnUpdatePreview( event )
+    wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdatePreview( *event );
 
-Wx_View *
-Wx_DocManager::GetCurrentView()
+wxView *
+wxDocManager::GetCurrentView()
 
-Wx_Document *
-Wx_DocManager::CreateDocument( path, flags = 0 )
+wxDocument *
+wxDocManager::CreateDocument( path, flags = 0 )
     wxString path
     long flags
 
 
-Wx_View *
-Wx_DocManager::CreateView( doc, flags = 0 )
-    Wx_Document* doc
+wxView *
+wxDocManager::CreateView( doc, flags = 0 )
+    wxDocument* doc
     long flags
 
 void
-Wx_DocManager::DeleteTemplate( temp, flags = 0 )
-    Wx_DocTemplate* temp
+wxDocManager::DeleteTemplate( temp, flags = 0 )
+    wxDocTemplate* temp
     long flags
 
 bool
-Wx_DocManager::FlushDoc( doc )
-    Wx_Document* doc
+wxDocManager::FlushDoc( doc )
+    wxDocument* doc
 
-Wx_Document *
-Wx_DocManager::GetCurrentDocument()
+wxDocument *
+wxDocManager::GetCurrentDocument()
 
 bool
-Wx_DocManager::MakeDefaultName( name )
+wxDocManager::MakeDefaultName( name )
     wxString name
 
 wxString
-Wx_DocManager::MakeFrameTitle( doc )
-    Wx_Document* doc
+wxDocManager::MakeFrameTitle( doc )
+    wxDocument* doc
 
-Wx_DocTemplate *
-Wx_DocManager::MatchTemplate( path )
+wxDocTemplate *
+wxDocManager::MatchTemplate( path )
     wxString path
 
 void
-Wx_DocManager::AddFileToHistory( file )
+wxDocManager::AddFileToHistory( file )
     wxString file
 
 void
-Wx_DocManager::RemoveFileFromHistory( i )
+wxDocManager::RemoveFileFromHistory( i )
     int i
 
 
 wxString
-Wx_DocManager::GetHistoryFile( i )
+wxDocManager::GetHistoryFile( i )
     int i
 
 void
-Wx_DocManager::FileHistoryUseMenu( menu )
+wxDocManager::FileHistoryUseMenu( menu )
     wxMenu* menu
 
 void
-Wx_DocManager::FileHistoryRemoveMenu( menu )
+wxDocManager::FileHistoryRemoveMenu( menu )
     wxMenu* menu
 
 
@@ -275,21 +275,21 @@ Wx_DocManager::FileHistoryRemoveMenu( menu )
 ## Need wxConfigBase& in typemap
 
 ##void
-##Wx_DocManager::FileHistoryLoad( config )
-##    Wx_ConfigBase config
+##wxDocManager::FileHistoryLoad( config )
+##    wxConfigBase config
 ##  CODE:
 ##    THIS->FileHistoryLoad( config )
 ##
 ##void
-##Wx_DocManager::FileHistorySave( config )
-##    Wx_ConfigBase config
+##wxDocManager::FileHistorySave( config )
+##    wxConfigBase config
 ##  CODE:
 ##    THIS->FileHistoryLoad( config )
 
 #endif
 
 void
-Wx_DocManager::FileHistoryAddFilesToMenu( ... )
+wxDocManager::FileHistoryAddFilesToMenu( ... )
   CASE: items == 1
     CODE:
       THIS->FileHistoryAddFilesToMenu();
@@ -310,16 +310,16 @@ wxDocManager::GetHistoryFilesCount()
 #else
 
 int
-Wx_DocManager::GetNoHistoryFiles()
+wxDocManager::GetNoHistoryFiles()
 
 #endif
 
-Wx_DocTemplate *
-Wx_DocManager::FindTemplateForPath( path )
+wxDocTemplate *
+wxDocManager::FindTemplateForPath( path )
     wxString path
 
-Wx_DocTemplate *
-Wx_DocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = FALSE)
+wxDocTemplate *
+wxDocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = FALSE)
     AV* templates
     int noTemplates
     wxString path
@@ -329,14 +329,14 @@ Wx_DocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = F
     int tmpl_n;
     int i;
     wxDocTemplate **pltemplates;
-    Wx_DocTemplate *thistemplate;
+    wxDocTemplate *thistemplate;
   CODE:
     tmpl_n = av_len(templates) + 1;
     pltemplates = new wxDocTemplate *[ tmpl_n ];
     for(i = 0; i < tmpl_n; i++)
     {
       SV** pltemplate = av_fetch( (AV*) templates, i, 0 );
-      Wx_DocTemplate* thistemplate = (Wx_DocTemplate *)
+      wxDocTemplate* thistemplate = (wxDocTemplate *)
                       wxPli_sv_2_object( aTHX_ *pltemplate, "Wx::DocTemplate" );
       pltemplates[i] = thistemplate;
     }
@@ -345,8 +345,8 @@ Wx_DocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = F
   OUTPUT:
     RETVAL
 
-Wx_DocTemplate *
-Wx_DocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
+wxDocTemplate *
+wxDocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
     AV* templates
     int noTemplates
     bool sort
@@ -354,14 +354,14 @@ Wx_DocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
     int tmpl_n;
     int i;
     wxDocTemplate **pltemplates;
-    Wx_DocTemplate *thistemplate;
+    wxDocTemplate *thistemplate;
   CODE:
     tmpl_n = av_len(templates) + 1;
     pltemplates = new wxDocTemplate *[ tmpl_n ];
     for(i = 0; i < tmpl_n; i++)
     {
       SV** pltemplate = av_fetch( (AV*) templates, i, 0 );
-      Wx_DocTemplate* thistemplate = (Wx_DocTemplate *)
+      wxDocTemplate* thistemplate = (wxDocTemplate *)
                       wxPli_sv_2_object( aTHX_ *pltemplate, "Wx::DocTemplate" );
       pltemplates[i] = thistemplate;
     }
@@ -372,8 +372,8 @@ Wx_DocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
 
 
 
-Wx_DocTemplate *
-Wx_DocManager::SelectViewType( templates, noTemplates, sort = FALSE)
+wxDocTemplate *
+wxDocManager::SelectViewType( templates, noTemplates, sort = FALSE)
     AV* templates
     int noTemplates
     bool sort
@@ -381,14 +381,14 @@ Wx_DocManager::SelectViewType( templates, noTemplates, sort = FALSE)
     int tmpl_n;
     int i;
     wxDocTemplate **pltemplates;
-    Wx_DocTemplate *thistemplate;
+    wxDocTemplate *thistemplate;
   CODE:
     tmpl_n = av_len(templates) + 1;
     pltemplates = new wxDocTemplate *[ tmpl_n ];
     for(i = 0; i < tmpl_n; i++)
     {
       SV** pltemplate = av_fetch( (AV*) templates, i, 0 );
-      Wx_DocTemplate* thistemplate = (Wx_DocTemplate *)
+      wxDocTemplate* thistemplate = (wxDocTemplate *)
                       wxPli_sv_2_object( aTHX_ *pltemplate, "Wx::DocTemplate" );
       pltemplates[i] = thistemplate;
     }
@@ -398,23 +398,23 @@ Wx_DocManager::SelectViewType( templates, noTemplates, sort = FALSE)
     RETVAL
 
 void
-Wx_DocManager::AssociateTemplate( temp )
-    Wx_DocTemplate* temp
+wxDocManager::AssociateTemplate( temp )
+    wxDocTemplate* temp
 
 void
-Wx_DocManager::DisassociateTemplate( temp )
-    Wx_DocTemplate* temp
+wxDocManager::DisassociateTemplate( temp )
+    wxDocTemplate* temp
 
 void
-Wx_DocManager::AddDocument( doc )
-    Wx_Document* doc
+wxDocManager::AddDocument( doc )
+    wxDocument* doc
 
 void
-Wx_DocManager::RemoveDocument( doc )
-    Wx_Document* doc
+wxDocManager::RemoveDocument( doc )
+    wxDocument* doc
 
 bool
-Wx_DocManager::CloseDocuments( force = TRUE )
+wxDocManager::CloseDocuments( force = TRUE )
     bool force
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
@@ -427,8 +427,8 @@ wxDocManager::ActivateView( view, activate = TRUE )
 #else
 
 void
-Wx_DocManager::ActivateView( view, activate = TRUE, deleting = FALSE )
-    Wx_View* view
+wxDocManager::ActivateView( view, activate = TRUE, deleting = FALSE )
+    wxView* view
     bool activate
     bool deleting
 

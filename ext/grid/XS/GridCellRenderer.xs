@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        GridCellRenderer.xs
+## Name:        ext/grid/XS/GridCellRenderer.xs
 ## Purpose:     XS for Wx::GridCellRenderer*
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      $Id: GridCellRenderer.xs,v 1.5 2003/06/05 17:17:21 mbarbon Exp $
+## RCS-ID:      $Id: GridCellRenderer.xs,v 1.6 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,22 +13,22 @@
 MODULE=Wx PACKAGE=Wx::GridCellRenderer
 
 void
-Wx_GridCellRenderer::Draw( grid, attr, dc, rect, row, col, isSelected )
-    Wx_Grid* grid
-    Wx_GridCellAttr* attr
-    Wx_DC* dc
-    Wx_Rect* rect
+wxGridCellRenderer::Draw( grid, attr, dc, rect, row, col, isSelected )
+    wxGrid* grid
+    wxGridCellAttr* attr
+    wxDC* dc
+    wxRect* rect
     int row
     int col
     bool isSelected
   CODE:
     THIS->Draw( *grid, *attr, *dc, *rect, row, col, isSelected );
 
-Wx_Size*
-Wx_GridCellRenderer::GetBestSize( grid, attr, dc, row, col )
-    Wx_Grid* grid
-    Wx_GridCellAttr* attr
-    Wx_DC* dc
+wxSize*
+wxGridCellRenderer::GetBestSize( grid, attr, dc, row, col )
+    wxGrid* grid
+    wxGridCellAttr* attr
+    wxDC* dc
     int row
     int col
   CODE:
@@ -38,50 +38,50 @@ Wx_GridCellRenderer::GetBestSize( grid, attr, dc, row, col )
 
 ## XXX threads
 void
-Wx_GridCellRenderer::DESTROY()
+wxGridCellRenderer::DESTROY()
   CODE:
     if( THIS )
         THIS->DecRef();
 
 void
-Wx_GridCellRenderer::SetParameters( parameters )
+wxGridCellRenderer::SetParameters( parameters )
     wxString parameters
 
 MODULE=Wx PACKAGE=Wx::GridCellStringRenderer
 
-Wx_GridCellStringRenderer*
-Wx_GridCellStringRenderer::new()
+wxGridCellStringRenderer*
+wxGridCellStringRenderer::new()
 
 MODULE=Wx PACKAGE=Wx::GridCellNumberRenderer
 
-Wx_GridCellNumberRenderer*
-Wx_GridCellNumberRenderer::new()
+wxGridCellNumberRenderer*
+wxGridCellNumberRenderer::new()
 
 MODULE=Wx PACKAGE=Wx::GridCellFloatRenderer
 
-Wx_GridCellFloatRenderer*
-Wx_GridCellFloatRenderer::new( width = -1, precision = -1 )
+wxGridCellFloatRenderer*
+wxGridCellFloatRenderer::new( width = -1, precision = -1 )
     int width
     int precision
 
 int
-Wx_GridCellFloatRenderer::GetWidth()
+wxGridCellFloatRenderer::GetWidth()
 
 int
-Wx_GridCellFloatRenderer::GetPrecision()
+wxGridCellFloatRenderer::GetPrecision()
 
 void
-Wx_GridCellFloatRenderer::SetWidth( width )
+wxGridCellFloatRenderer::SetWidth( width )
     int width
 
 void
-Wx_GridCellFloatRenderer::SetPrecision( precision )
+wxGridCellFloatRenderer::SetPrecision( precision )
     int precision
 
 MODULE=Wx PACKAGE=Wx::GridCellBoolRenderer
 
-Wx_GridCellBoolRenderer*
-Wx_GridCellBoolRenderer::new()
+wxGridCellBoolRenderer*
+wxGridCellBoolRenderer::new()
 
 MODULE=Wx PACKAGE=Wx::PlGridCellRenderer
 

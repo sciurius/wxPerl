@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DocMDIChildFrame.xs
-## Purpose:     XS for wxDocMDIChildFrame ( Document / View framework )
+## Name:        ext/docview/XS/DocMDIChildFrame.xs
+## Purpose:     XS for wxDocMDIChildFrame (Document/View framework)
 ## Author:      Simon Flack
 ## Modified by:
-## Created:      11/ 9/2002
-## RCS-ID:      
+## Created:     11/09/2002
+## RCS-ID:      $Id: DocMDIChildFrame.xs,v 1.2 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,15 +13,15 @@
 
 MODULE=Wx PACKAGE=Wx::DocMDIChildFrame
 
-Wx_DocMDIChildFrame *
-Wx_DocMDIChildFrame::new(doc, view, frame, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr)
-    Wx_Document* doc
-    Wx_View* view
-    Wx_MDIParentFrame* frame
+wxDocMDIChildFrame *
+wxDocMDIChildFrame::new(doc, view, frame, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr)
+    wxDocument* doc
+    wxView* view
+    wxMDIParentFrame* frame
     wxWindowID id
     wxString title
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
@@ -29,21 +29,21 @@ Wx_DocMDIChildFrame::new(doc, view, frame, id, title, pos = wxDefaultPosition, s
   OUTPUT:
     RETVAL
 
-Wx_Document *
-Wx_DocMDIChildFrame::GetDocument()
+wxDocument *
+wxDocMDIChildFrame::GetDocument()
 
-Wx_View *
-Wx_DocMDIChildFrame::GetView()
-
-void
-Wx_DocMDIChildFrame::SetDocument( doc )
-    Wx_Document* doc
+wxView *
+wxDocMDIChildFrame::GetView()
 
 void
-Wx_DocMDIChildFrame::SetView( view )
-    Wx_View* view
+wxDocMDIChildFrame::SetDocument( doc )
+    wxDocument* doc
+
+void
+wxDocMDIChildFrame::SetView( view )
+    wxView* view
 
 bool
-Wx_DocMDIChildFrame::Destroy()
+wxDocMDIChildFrame::Destroy()
 
 ## Some event stuff missing here

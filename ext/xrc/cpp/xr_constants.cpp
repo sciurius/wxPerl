@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        xr_constants.cpp
+// Name:        ext/xrc/cpp/xr_constants.cpp
 // Purpose:     constants for XRC
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      4/ 4/2002
-// RCS-ID:      $Id: xr_constants.cpp,v 1.5 2003/07/25 20:36:15 mbarbon Exp $
+// Created:     04/04/2002
+// RCS-ID:      $Id: xr_constants.cpp,v 1.6 2004/02/29 14:30:40 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

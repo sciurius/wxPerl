@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.14 2004/01/18 08:14:25 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.15 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,42 +14,42 @@
 
 MODULE=Wx PACKAGE=Wx::GridCellCoords
 
-Wx_GridCellCoords*
-Wx_GridCellCoords::new( r, c )
+wxGridCellCoords*
+wxGridCellCoords::new( r, c )
     int r
     int c
 
 ## XXX threads
 void
-Wx_GridCellCoords::DESTROY()
+wxGridCellCoords::DESTROY()
 
 int
-Wx_GridCellCoords::GetRow()
+wxGridCellCoords::GetRow()
 
 int
-Wx_GridCellCoords::GetCol()
+wxGridCellCoords::GetCol()
 
 void
-Wx_GridCellCoords::SetRow( r )
+wxGridCellCoords::SetRow( r )
     int r
 
 void
-Wx_GridCellCoords::SetCol( c )
+wxGridCellCoords::SetCol( c )
     int c
 
 void
-Wx_GridCellCoords::Set( r, c )
+wxGridCellCoords::Set( r, c )
     int r
     int c
 
 MODULE=Wx PACKAGE=Wx::Grid
 
-Wx_Grid*
-Wx_Grid::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
-    Wx_Window* parent
+wxGrid*
+wxGrid::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
@@ -58,62 +58,62 @@ Wx_Grid::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style =
     RETVAL
 
 bool
-Wx_Grid::AppendCols( numCols = 1, updateLabels = TRUE )
+wxGrid::AppendCols( numCols = 1, updateLabels = TRUE )
     int numCols
     bool updateLabels
 
 bool
-Wx_Grid::AppendRows( numRows = 1, updateLabels = TRUE )
+wxGrid::AppendRows( numRows = 1, updateLabels = TRUE )
     int numRows
     bool updateLabels
 
 void
-Wx_Grid::AutoSize()
+wxGrid::AutoSize()
 
 void
-Wx_Grid::AutoSizeColumn( col, setAsMin = TRUE )
+wxGrid::AutoSizeColumn( col, setAsMin = TRUE )
     int col
     bool setAsMin
 
 void
-Wx_Grid::AutoSizeColumns( setAsMin = TRUE )
+wxGrid::AutoSizeColumns( setAsMin = TRUE )
     bool setAsMin
 
 void
-Wx_Grid::AutoSizeRow( row, setAsMin = TRUE )
+wxGrid::AutoSizeRow( row, setAsMin = TRUE )
     int row
     bool setAsMin
 
 void
-Wx_Grid::AutoSizeRows( setAsMin = TRUE )
+wxGrid::AutoSizeRows( setAsMin = TRUE )
     bool setAsMin
 
 void
-Wx_Grid::BeginBatch()
+wxGrid::BeginBatch()
 
-Wx_Rect*
-Wx_Grid::BlockToDeviceRect( topLeft, bottomRight )
-    Wx_GridCellCoords* topLeft
-    Wx_GridCellCoords* bottomRight
+wxRect*
+wxGrid::BlockToDeviceRect( topLeft, bottomRight )
+    wxGridCellCoords* topLeft
+    wxGridCellCoords* bottomRight
   CODE:
     RETVAL = new wxRect( THIS->BlockToDeviceRect( *topLeft, *bottomRight ) );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Grid::CanDragColSize()
+wxGrid::CanDragColSize()
 
 bool
-Wx_Grid::CanDragRowSize()
+wxGrid::CanDragRowSize()
 
 bool
-Wx_Grid::CanDragGridSize()
+wxGrid::CanDragGridSize()
 
 bool
-Wx_Grid::CanEnableCellControl()
+wxGrid::CanEnableCellControl()
 
-Wx_Rect*
-Wx_Grid::CellToRectXY( row, col )
+wxRect*
+wxGrid::CellToRectXY( row, col )
     int row
     int col
   CODE:
@@ -121,85 +121,85 @@ Wx_Grid::CellToRectXY( row, col )
   OUTPUT:
     RETVAL
 
-Wx_Rect*
-Wx_Grid::CellToRectCo( coords )
-    Wx_GridCellCoords* coords
+wxRect*
+wxGrid::CellToRectCo( coords )
+    wxGridCellCoords* coords
   CODE:
     RETVAL = new wxRect( THIS->CellToRect( *coords ) );
   OUTPUT:
     RETVAL
 
 void
-Wx_Grid::ClearGrid()
+wxGrid::ClearGrid()
 
 void
-Wx_Grid::ClearSelection()
+wxGrid::ClearSelection()
 
 bool
-Wx_Grid::CreateGrid( numRows, numCols, selMode = wxGrid::wxGridSelectCells )
+wxGrid::CreateGrid( numRows, numCols, selMode = wxGrid::wxGridSelectCells )
     int numRows
     int numCols
     wxGridSelectionModes selMode
 
 bool
-Wx_Grid::DeleteCols( pos = 0, numCols = 1, updateLabels = TRUE )
+wxGrid::DeleteCols( pos = 0, numCols = 1, updateLabels = TRUE )
     int pos
     int numCols
     bool updateLabels
 
 bool
-Wx_Grid::DeleteRows( pos = 0, numRows = 1, updateLabels = TRUE )
+wxGrid::DeleteRows( pos = 0, numRows = 1, updateLabels = TRUE )
     int pos
     int numRows
     bool updateLabels
 
 void
-Wx_Grid::DisableCellEditControl()
+wxGrid::DisableCellEditControl()
 
 void
-Wx_Grid::DisableDragGridSize()
+wxGrid::DisableDragGridSize()
 
 void
-Wx_Grid::DisableDragRowSize()
+wxGrid::DisableDragRowSize()
 
 void
-Wx_Grid::DisableDragColSize()
+wxGrid::DisableDragColSize()
 
 void
-Wx_Grid::EnableCellEditControl( enable = TRUE )
+wxGrid::EnableCellEditControl( enable = TRUE )
     bool enable
 
 void
-Wx_Grid::EnableDragColSize( enable = TRUE )
+wxGrid::EnableDragColSize( enable = TRUE )
     bool enable
 
 void
-Wx_Grid::EnableDragGridSize( enable = TRUE )
+wxGrid::EnableDragGridSize( enable = TRUE )
     bool enable
 
 void
-Wx_Grid::EnableDragRowSize( enable = TRUE )
+wxGrid::EnableDragRowSize( enable = TRUE )
     bool enable
 
 void
-Wx_Grid::EnableEditing( enable = TRUE )
+wxGrid::EnableEditing( enable = TRUE )
     bool enable
 
 void
-Wx_Grid::EnableGridLines( enable = TRUE )
+wxGrid::EnableGridLines( enable = TRUE )
     bool enable
 
 void
-Wx_Grid::EndBatch()
+wxGrid::EndBatch()
 
 void
-Wx_Grid::ForceRefresh()
+wxGrid::ForceRefresh()
 
 int
-Wx_Grid::GetBatchCount()
+wxGrid::GetBatchCount()
 
 void
-Wx_Grid::GetCellAlignment( row, col )
+wxGrid::GetCellAlignment( row, col )
     int row
     int col
   PREINIT:
@@ -210,8 +210,8 @@ Wx_Grid::GetCellAlignment( row, col )
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
-Wx_Colour*
-Wx_Grid::GetCellBackgroundColour( row, col )
+wxColour*
+wxGrid::GetCellBackgroundColour( row, col )
     int row
     int col
   CODE:
@@ -219,18 +219,18 @@ Wx_Grid::GetCellBackgroundColour( row, col )
   OUTPUT:
     RETVAL
 
-Wx_GridCellEditor*
-Wx_Grid::GetCellEditor( row, col )
+wxGridCellEditor*
+wxGrid::GetCellEditor( row, col )
     int row
     int col
 
-Wx_GridCellRenderer*
-Wx_Grid::GetCellRenderer( row, col )
+wxGridCellRenderer*
+wxGrid::GetCellRenderer( row, col )
     int row
     int col
 
-Wx_Font*
-Wx_Grid::GetCellFont( row, col )
+wxFont*
+wxGrid::GetCellFont( row, col )
     int row
     int col
   CODE:
@@ -238,8 +238,8 @@ Wx_Grid::GetCellFont( row, col )
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_Grid::GetCellTextColour( row, col )
+wxColour*
+wxGrid::GetCellTextColour( row, col )
     int row
     int col
   CODE:
@@ -248,7 +248,7 @@ Wx_Grid::GetCellTextColour( row, col )
     RETVAL
 
 wxString
-Wx_Grid::GetCellValueXY( row, col )
+wxGrid::GetCellValueXY( row, col )
     int row
     int col
   CODE:
@@ -257,15 +257,15 @@ Wx_Grid::GetCellValueXY( row, col )
     RETVAL
 
 wxString
-Wx_Grid::GetCellValueCo( coord )
-    Wx_GridCellCoords* coord
+wxGrid::GetCellValueCo( coord )
+    wxGridCellCoords* coord
   CODE:
     RETVAL = THIS->GetCellValue( *coord );
   OUTPUT:
     RETVAL
 
 void
-Wx_Grid::GetColLabelAlignment()
+wxGrid::GetColLabelAlignment()
   PREINIT:
     int x, y;
   PPCODE:
@@ -275,18 +275,18 @@ Wx_Grid::GetColLabelAlignment()
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
 int
-Wx_Grid::GetColLabelSize()
+wxGrid::GetColLabelSize()
 
 wxString
-Wx_Grid::GetColLabelValue( col )
+wxGrid::GetColLabelValue( col )
     int col
 
 int
-Wx_Grid::GetColSize( col )
+wxGrid::GetColSize( col )
     int col
 
 void
-Wx_Grid::GetDefaultCellAlignment()
+wxGrid::GetDefaultCellAlignment()
   PREINIT:
     int x, y;
   PPCODE:
@@ -295,32 +295,32 @@ Wx_Grid::GetDefaultCellAlignment()
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
-Wx_Colour*
-Wx_Grid::GetDefaultCellBackgroundColour()
+wxColour*
+wxGrid::GetDefaultCellBackgroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetDefaultCellBackgroundColour() );
   OUTPUT:
     RETVAL
 
-Wx_Font*
-Wx_Grid::GetDefaultCellFont()
+wxFont*
+wxGrid::GetDefaultCellFont()
   CODE:
     RETVAL = new wxFont( THIS->GetDefaultCellFont() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_Grid::GetDefaultCellTextColour()
+wxColour*
+wxGrid::GetDefaultCellTextColour()
   CODE:
     RETVAL = new wxColour( THIS->GetDefaultCellTextColour() );
   OUTPUT:
     RETVAL
 
 int
-Wx_Grid::GetDefaultColLabelSize()
+wxGrid::GetDefaultColLabelSize()
 
 int
-Wx_Grid::GetDefaultColSize()
+wxGrid::GetDefaultColSize()
 
 int
 wxGrid::GetColMinimalAcceptableWidth()
@@ -332,23 +332,23 @@ wxGrid::GetRowMinimalAcceptableWidth()
 
 #endif
 
-Wx_GridCellEditor*
-Wx_Grid::GetDefaultEditor()
+wxGridCellEditor*
+wxGrid::GetDefaultEditor()
 
-Wx_GridCellEditor*
-Wx_Grid::GetDefaultEditorForType( typeName )
+wxGridCellEditor*
+wxGrid::GetDefaultEditorForType( typeName )
     wxString typeName
 
-Wx_GridCellEditor*
-Wx_Grid::GetDefaultEditorForCellCo( coords )
-    Wx_GridCellCoords* coords
+wxGridCellEditor*
+wxGrid::GetDefaultEditorForCellCo( coords )
+    wxGridCellCoords* coords
   CODE:
     RETVAL = THIS->GetDefaultEditorForCell( *coords );
   OUTPUT:
     RETVAL
 
-Wx_GridCellEditor*
-Wx_Grid::GetDefaultEditorForCellXY( x, y )
+wxGridCellEditor*
+wxGrid::GetDefaultEditorForCellXY( x, y )
     int x
     int y
   CODE:
@@ -356,23 +356,23 @@ Wx_Grid::GetDefaultEditorForCellXY( x, y )
   OUTPUT:
     RETVAL
 
-Wx_GridCellRenderer*
-Wx_Grid::GetDefaultRenderer()
+wxGridCellRenderer*
+wxGrid::GetDefaultRenderer()
 
-Wx_GridCellRenderer*
-Wx_Grid::GetDefaultRendererForType( typeName )
+wxGridCellRenderer*
+wxGrid::GetDefaultRendererForType( typeName )
     wxString typeName
 
-##Wx_GridCellRenderer*
-##Wx_Grid::GetDefaultRendererForCellCo( coords )
-##    Wx_GridCellCoords* coords
+##wxGridCellRenderer*
+##wxGrid::GetDefaultRendererForCellCo( coords )
+##    wxGridCellCoords* coords
 ##  CODE:
 ##    RETVAL = THIS->GetDefaultRendererForCell( *coords );
 ##  OUTPUT:
 ##    RETVAL
 
-Wx_GridCellRenderer*
-Wx_Grid::GetDefaultRendererForCell( x, y )
+wxGridCellRenderer*
+wxGrid::GetDefaultRendererForCell( x, y )
     int x
     int y
   CODE:
@@ -381,7 +381,7 @@ Wx_Grid::GetDefaultRendererForCell( x, y )
     RETVAL
 
 void
-Wx_Grid::GetRowLabelAlignment()
+wxGrid::GetRowLabelAlignment()
   PREINIT:
     int x, y;
   PPCODE:
@@ -391,19 +391,19 @@ Wx_Grid::GetRowLabelAlignment()
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
 int
-Wx_Grid::GetDefaultRowLabelSize()
+wxGrid::GetDefaultRowLabelSize()
 
 int
-Wx_Grid::GetDefaultRowSize()
+wxGrid::GetDefaultRowSize()
 
 int
-Wx_Grid::GetGridCursorCol()
+wxGrid::GetGridCursorCol()
 
 int
-Wx_Grid::GetGridCursorRow()
+wxGrid::GetGridCursorRow()
 
-Wx_Colour*
-Wx_Grid::GetGridLineColour()
+wxColour*
+wxGrid::GetGridLineColour()
   CODE:
     RETVAL = new wxColour( THIS->GetGridLineColour() );
   OUTPUT:
@@ -413,89 +413,89 @@ wxGridTableBase*
 wxGrid::GetTable()
 
 bool
-Wx_Grid::GridLinesEnabled()
+wxGrid::GridLinesEnabled()
 
-Wx_Colour*
-Wx_Grid::GetLabelBackgroundColour()
+wxColour*
+wxGrid::GetLabelBackgroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetLabelBackgroundColour() );
   OUTPUT:
     RETVAL
 
-Wx_Font*
-Wx_Grid::GetLabelFont()
+wxFont*
+wxGrid::GetLabelFont()
   CODE:
     RETVAL = new wxFont( THIS->GetLabelFont() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_Grid::GetLabelTextColour()
+wxColour*
+wxGrid::GetLabelTextColour()
   CODE:
     RETVAL = new wxColour( THIS->GetLabelTextColour() );
   OUTPUT:
     RETVAL
 
 int
-Wx_Grid::GetNumberCols()
+wxGrid::GetNumberCols()
 
 int
-Wx_Grid::GetNumberRows()
+wxGrid::GetNumberRows()
 
 int
-Wx_Grid::GetRowLabelSize()
+wxGrid::GetRowLabelSize()
 
 wxString
-Wx_Grid::GetRowLabelValue( row )
+wxGrid::GetRowLabelValue( row )
     int row
 
 int
-Wx_Grid::GetRowSize( row )
+wxGrid::GetRowSize( row )
     int row
 
-Wx_Colour*
-Wx_Grid::GetSelectionBackground()
+wxColour*
+wxGrid::GetSelectionBackground()
   CODE:
     RETVAL = new wxColour( THIS->GetSelectionBackground() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_Grid::GetSelectionForeground()
+wxColour*
+wxGrid::GetSelectionForeground()
   CODE:
     RETVAL = new wxColour( THIS->GetSelectionForeground() );
   OUTPUT:
     RETVAL
 
 int
-Wx_Grid::GetViewWidth()
+wxGrid::GetViewWidth()
 
 void
-Wx_Grid::HideCellEditControl()
+wxGrid::HideCellEditControl()
 
 bool
-Wx_Grid::InsertCols( pos = 0, numCols = 1, updateLabels = TRUE )
+wxGrid::InsertCols( pos = 0, numCols = 1, updateLabels = TRUE )
     int pos
     int numCols
     bool updateLabels
 
 bool
-Wx_Grid::InsertRows( pos = 0, numRows = 1, updateLabels = TRUE )
+wxGrid::InsertRows( pos = 0, numRows = 1, updateLabels = TRUE )
     int pos
     int numRows
     bool updateLabels
 
 bool
-Wx_Grid::IsCellEditControlEnabled()
+wxGrid::IsCellEditControlEnabled()
 
 bool
-Wx_Grid::IsCurrentCellReadOnly()
+wxGrid::IsCurrentCellReadOnly()
 
 bool
-Wx_Grid::IsEditable()
+wxGrid::IsEditable()
 
 bool
-Wx_Grid::IsInSelectionXY( row, col )
+wxGrid::IsInSelectionXY( row, col )
     int row
     int col
   CODE:
@@ -504,23 +504,23 @@ Wx_Grid::IsInSelectionXY( row, col )
     RETVAL
 
 bool
-Wx_Grid::IsInSelectionCo( coords )
-    Wx_GridCellCoords* coords
+wxGrid::IsInSelectionCo( coords )
+    wxGridCellCoords* coords
   CODE:
     RETVAL = THIS->IsInSelection( *coords );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Grid::IsReadOnly( row, col )
+wxGrid::IsReadOnly( row, col )
     int row
     int col
 
 bool
-Wx_Grid::IsSelection()
+wxGrid::IsSelection()
 
 bool
-Wx_Grid::IsVisibleXY( row, col, wholeCellVisible = TRUE )
+wxGrid::IsVisibleXY( row, col, wholeCellVisible = TRUE )
     int row
     int col
     bool wholeCellVisible
@@ -530,8 +530,8 @@ Wx_Grid::IsVisibleXY( row, col, wholeCellVisible = TRUE )
     RETVAL
 
 bool
-Wx_Grid::IsVisibleCo( coords, wholeCellVisible = TRUE )
-    Wx_GridCellCoords* coords
+wxGrid::IsVisibleCo( coords, wholeCellVisible = TRUE )
+    wxGridCellCoords* coords
     bool wholeCellVisible
   CODE:
     RETVAL = THIS->IsVisible( *coords, wholeCellVisible );
@@ -539,55 +539,55 @@ Wx_Grid::IsVisibleCo( coords, wholeCellVisible = TRUE )
     RETVAL
 
 void
-Wx_Grid::MakeCellVisibleXY( row, col )
+wxGrid::MakeCellVisibleXY( row, col )
     int row
     int col
   CODE:
     THIS->MakeCellVisible( row, col );
 
 void
-Wx_Grid::MakeCellVisibleCo( coords )
-    Wx_GridCellCoords* coords
+wxGrid::MakeCellVisibleCo( coords )
+    wxGridCellCoords* coords
   CODE:
     THIS->MakeCellVisible( *coords );
 
 bool
-Wx_Grid::MoveCursorDown( expandSelection )
+wxGrid::MoveCursorDown( expandSelection )
     bool expandSelection
 
 bool
-Wx_Grid::MoveCursorLeft( expandSelection )
+wxGrid::MoveCursorLeft( expandSelection )
     bool expandSelection
 
 bool
-Wx_Grid::MoveCursorRight( expandSelection )
+wxGrid::MoveCursorRight( expandSelection )
     bool expandSelection
 
 bool
-Wx_Grid::MoveCursorUp( expandSelection )
+wxGrid::MoveCursorUp( expandSelection )
     bool expandSelection
 
 bool
-Wx_Grid::MoveCursorDownBlock( expandSelection )
+wxGrid::MoveCursorDownBlock( expandSelection )
     bool expandSelection
 
 bool
-Wx_Grid::MoveCursorLeftBlock( expandSelection )
+wxGrid::MoveCursorLeftBlock( expandSelection )
     bool expandSelection
 
 bool
-Wx_Grid::MoveCursorRightBlock( expandSelection )
+wxGrid::MoveCursorRightBlock( expandSelection )
     bool expandSelection
 
 bool
-Wx_Grid::MoveCursorUpBlock( expandSelection )
+wxGrid::MoveCursorUpBlock( expandSelection )
     bool expandSelection
 
 bool
-Wx_Grid::MovePageDown()
+wxGrid::MovePageDown()
 
 bool
-Wx_Grid::MovePageUp()
+wxGrid::MovePageUp()
 
 bool
 wxGrid::ProcessTableMessage( msg )
@@ -595,19 +595,19 @@ wxGrid::ProcessTableMessage( msg )
   C_ARGS: *msg
 
 void
-Wx_Grid::RegisterDataType( typeName, renderer, editor )
+wxGrid::RegisterDataType( typeName, renderer, editor )
     wxString typeName
-    Wx_GridCellRenderer* renderer
-    Wx_GridCellEditor* editor
+    wxGridCellRenderer* renderer
+    wxGridCellEditor* editor
 
 void
-Wx_Grid::SaveEditControlValue()
+wxGrid::SaveEditControlValue()
 
 void
-Wx_Grid::SelectAll()
+wxGrid::SelectAll()
 
 void
-Wx_Grid::SelectBlockXYWH( topRow, leftCol, bottomRow, rightCol, addToSelected = FALSE )
+wxGrid::SelectBlockXYWH( topRow, leftCol, bottomRow, rightCol, addToSelected = FALSE )
     int topRow
     int leftCol
     int bottomRow
@@ -617,35 +617,35 @@ Wx_Grid::SelectBlockXYWH( topRow, leftCol, bottomRow, rightCol, addToSelected = 
     THIS->SelectBlock( topRow, leftCol, bottomRow, rightCol, addToSelected );
 
 void
-Wx_Grid::SelectBlockPP( topLeft, bottomRight, addToSelected = FALSE )
-    Wx_GridCellCoords* topLeft
-    Wx_GridCellCoords* bottomRight
+wxGrid::SelectBlockPP( topLeft, bottomRight, addToSelected = FALSE )
+    wxGridCellCoords* topLeft
+    wxGridCellCoords* bottomRight
     bool addToSelected
   CODE:
     THIS->SelectBlock( *topLeft, *bottomRight, addToSelected );
 
 void
-Wx_Grid::SelectCol( col, addToSelected = FALSE )
+wxGrid::SelectCol( col, addToSelected = FALSE )
     int col
     bool addToSelected
 
 void
-Wx_Grid::SelectRow( row, addToSelected = FALSE )
+wxGrid::SelectRow( row, addToSelected = FALSE )
     int row
     bool addToSelected
 
 void
-Wx_Grid::SetCellAlignment( row, col, horiz, vert )
+wxGrid::SetCellAlignment( row, col, horiz, vert )
     int row
     int col
     int horiz
     int vert
 
 void
-Wx_Grid::SetCellBackgroundColour( row, col, colour )
+wxGrid::SetCellBackgroundColour( row, col, colour )
     int row
     int col
-    Wx_Colour colour
+    wxColour colour
 
 void
 wxGrid::SetCellHighlightColour( colour )
@@ -661,39 +661,39 @@ wxGrid::SetCellHighlightROPenWidth( width )
     int width
 
 void
-Wx_Grid::SetCellEditor( row, col, editor )
+wxGrid::SetCellEditor( row, col, editor )
     int row
     int col
-    Wx_GridCellEditor* editor
+    wxGridCellEditor* editor
   CODE:
     editor->IncRef();
     THIS->SetCellEditor( row, col, editor );
 
 void
-Wx_Grid::SetCellRenderer( row, col, renderer )
+wxGrid::SetCellRenderer( row, col, renderer )
     int row
     int col
-    Wx_GridCellRenderer* renderer
+    wxGridCellRenderer* renderer
   CODE:
     renderer->IncRef();
     THIS->SetCellRenderer( row, col, renderer );
 
 void
-Wx_Grid::SetCellFont( row, col, font )
+wxGrid::SetCellFont( row, col, font )
     int row
     int col
-    Wx_Font* font
+    wxFont* font
   CODE:
     THIS->SetCellFont( row, col, *font );
 
 void
-Wx_Grid::SetCellTextColour( row, col, colour )
+wxGrid::SetCellTextColour( row, col, colour )
     int row
     int col
-    Wx_Colour colour
+    wxColour colour
 
 void
-Wx_Grid::SetCellValueXY( row, col, s )
+wxGrid::SetCellValueXY( row, col, s )
     int row
     int col
     wxString s
@@ -701,93 +701,93 @@ Wx_Grid::SetCellValueXY( row, col, s )
     THIS->SetCellValue( row, col, s );
 
 void
-Wx_Grid::SetCellValueCo( coords, s )
-    Wx_GridCellCoords* coords
+wxGrid::SetCellValueCo( coords, s )
+    wxGridCellCoords* coords
     wxString s
   CODE:
     THIS->SetCellValue( *coords, s );
 
 void
-Wx_Grid::SetDefaultCellAlignment( horiz, vert )
+wxGrid::SetDefaultCellAlignment( horiz, vert )
     int horiz
     int vert
 
 void
-Wx_Grid::SetDefaultCellBackgroundColour( colour )
-    Wx_Colour colour
+wxGrid::SetDefaultCellBackgroundColour( colour )
+    wxColour colour
 
 void
-Wx_Grid::SetDefaultCellFont( font )
-    Wx_Font* font
+wxGrid::SetDefaultCellFont( font )
+    wxFont* font
   CODE:
     THIS->SetDefaultCellFont( *font );
 
 void
-Wx_Grid::SetDefaultCellTextColour( colour )
-    Wx_Colour colour
+wxGrid::SetDefaultCellTextColour( colour )
+    wxColour colour
 
 void
-Wx_Grid::SetDefaultColSize( width, resizeExistingCols = FALSE )
+wxGrid::SetDefaultColSize( width, resizeExistingCols = FALSE )
     int width
     bool resizeExistingCols
 
 void
-Wx_Grid::SetDefaultEditor( editor )
-    Wx_GridCellEditor* editor
+wxGrid::SetDefaultEditor( editor )
+    wxGridCellEditor* editor
   CODE:
     editor->IncRef();
     THIS->SetDefaultEditor( editor );
 
 void
-Wx_Grid::SetDefaultRenderer( renderer )
-    Wx_GridCellRenderer* renderer
+wxGrid::SetDefaultRenderer( renderer )
+    wxGridCellRenderer* renderer
   CODE:
     renderer->IncRef();
     THIS->SetDefaultRenderer( renderer );
 
 void
-Wx_Grid::SetDefaultRowSize( height, resizeExistingCols = FALSE )
+wxGrid::SetDefaultRowSize( height, resizeExistingCols = FALSE )
     int height
     bool resizeExistingCols
 
 void
-Wx_Grid::SetColAttr( col, attr )
+wxGrid::SetColAttr( col, attr )
     int col
-    Wx_GridCellAttr* attr
+    wxGridCellAttr* attr
   CODE:
     attr->IncRef();
     THIS->SetColAttr( col, attr );
 
 void
-Wx_Grid::SetColFormatBool( col )
+wxGrid::SetColFormatBool( col )
     int col
 
 void
-Wx_Grid::SetColFormatNumber( col )
+wxGrid::SetColFormatNumber( col )
     int col
 
 void
-Wx_Grid::SetColFormatFloat( col, width = -1, precision = -1 )
+wxGrid::SetColFormatFloat( col, width = -1, precision = -1 )
     int col
     int width
     int precision
 
 void
-Wx_Grid::SetColFormatCustom( col, typeName )
+wxGrid::SetColFormatCustom( col, typeName )
     int col
     wxString typeName
 
 void
-Wx_Grid::SetColLabelAlignment( horiz, vert )
+wxGrid::SetColLabelAlignment( horiz, vert )
     int horiz
     int vert
 
 void
-Wx_Grid::SetColLabelSize( height )
+wxGrid::SetColLabelSize( height )
     int height
 
 void
-Wx_Grid::SetColLabelValue( col, value )
+wxGrid::SetColLabelValue( col, value )
     int col
     wxString value
 
@@ -802,91 +802,91 @@ wxGrid::SetRowMinimalAcceptableWidth( int width )
 #endif
 
 void
-Wx_Grid::SetColMinimalWidth( col, width )
+wxGrid::SetColMinimalWidth( col, width )
     int col
     int width
 
 void
-Wx_Grid::SetColSize( col, height )
+wxGrid::SetColSize( col, height )
     int col
     int height
 
 void
-Wx_Grid::SetGridCursor( row, col )
+wxGrid::SetGridCursor( row, col )
     int row
     int col
 
 void
-Wx_Grid::SetGridLineColour( colour )
-    Wx_Colour colour
+wxGrid::SetGridLineColour( colour )
+    wxColour colour
 
 void
-Wx_Grid::SetLabelBackgroundColour( colour )
-    Wx_Colour colour
+wxGrid::SetLabelBackgroundColour( colour )
+    wxColour colour
 
 void
-Wx_Grid::SetLabelFont( font )
-    Wx_Font* font
+wxGrid::SetLabelFont( font )
+    wxFont* font
   CODE:
     THIS->SetLabelFont( *font );
 
 void
-Wx_Grid::SetLabelTextColour( colour )
-    Wx_Colour colour
+wxGrid::SetLabelTextColour( colour )
+    wxColour colour
 
 void
-Wx_Grid::SetMargins( extraWidth, extraHeight )
+wxGrid::SetMargins( extraWidth, extraHeight )
     int extraWidth
     int extraHeight
 
 void
-Wx_Grid::SetReadOnly( row, col, isReadOnly = TRUE )
+wxGrid::SetReadOnly( row, col, isReadOnly = TRUE )
     int row
     int col
     bool isReadOnly
 
 void
-Wx_Grid::SetRowAttr( row, attr )
+wxGrid::SetRowAttr( row, attr )
     int row
-    Wx_GridCellAttr* attr
+    wxGridCellAttr* attr
   CODE:
     attr->IncRef();
     THIS->SetRowAttr( row, attr );
 
 void
-Wx_Grid::SetRowLabelAlignment( horiz, vert )
+wxGrid::SetRowLabelAlignment( horiz, vert )
     int horiz
     int vert
 
 void
-Wx_Grid::SetRowLabelSize( width )
+wxGrid::SetRowLabelSize( width )
     int width
 
 void
-Wx_Grid::SetRowLabelValue( row, value )
+wxGrid::SetRowLabelValue( row, value )
     int row
     wxString value
 
 void
-Wx_Grid::SetRowMinimalHeight( row, height )
+wxGrid::SetRowMinimalHeight( row, height )
     int row
     int height
 
 void
-Wx_Grid::SetRowSize( row, height )
+wxGrid::SetRowSize( row, height )
     int row
     int height
 
 void
-Wx_Grid::SetSelectionBackground( colour )
-    Wx_Colour colour
+wxGrid::SetSelectionBackground( colour )
+    wxColour colour
 
 void
-Wx_Grid::SetSelectionForeground( colour )
-    Wx_Colour colour
+wxGrid::SetSelectionForeground( colour )
+    wxColour colour
 
 void
-Wx_Grid::SetSelectionMode( selmode )
+wxGrid::SetSelectionMode( selmode )
     wxGridSelectionModes selmode
 
 void
@@ -894,22 +894,22 @@ wxGrid::SetTable( table )
     wxGridTableBase* table
 
 void
-Wx_Grid::ShowCellEditControl()
+wxGrid::ShowCellEditControl()
 
 int
-Wx_Grid::XToCol( x )
+wxGrid::XToCol( x )
     int x
 
 int
-Wx_Grid::XToEdgeOfCol( x )
+wxGrid::XToEdgeOfCol( x )
     int x
 
 int
-Wx_Grid::YToRow( y )
+wxGrid::YToRow( y )
     int y
 
 int
-Wx_Grid::YToEdgeOfRow( y )
+wxGrid::YToEdgeOfRow( y )
     int y
 
 wxWindow*

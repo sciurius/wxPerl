@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        GridCellAttr.xs
+## Name:        ext/grid/XS/GridCellAttr.xs
 ## Purpose:     XS for Wx::GridCellAttr
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      5/12/2001
-## RCS-ID:      
+## Created:     05/12/2001
+## RCS-ID:      $Id: GridCellAttr.xs,v 1.6 2004/02/29 14:30:40 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,80 +12,80 @@
 
 MODULE=Wx PACKAGE=Wx::GridCellAttr
 
-Wx_GridCellAttr*
-Wx_GridCellAttr::new()
+wxGridCellAttr*
+wxGridCellAttr::new()
 
 ## XXX threads
 void
-Wx_GridCellAttr::DESTROY()
+wxGridCellAttr::DESTROY()
   CODE:
     if( THIS )
         THIS->DecRef();
 
 void
-Wx_GridCellAttr::IncRef()
+wxGridCellAttr::IncRef()
 
 void
-Wx_GridCellAttr::DecRef()
+wxGridCellAttr::DecRef()
 
 void
-Wx_GridCellAttr::SetTextColour( colour )
-    Wx_Colour colour
+wxGridCellAttr::SetTextColour( colour )
+    wxColour colour
 
 void
-Wx_GridCellAttr::SetBackgroundColour( colour )
-    Wx_Colour colour
+wxGridCellAttr::SetBackgroundColour( colour )
+    wxColour colour
 
 void
-Wx_GridCellAttr::SetFont( font )
-    Wx_Font* font
+wxGridCellAttr::SetFont( font )
+    wxFont* font
   CODE:
     THIS->SetFont( *font );
 
 void
-Wx_GridCellAttr::SetAlignment( hAlign, vAlign )
+wxGridCellAttr::SetAlignment( hAlign, vAlign )
     int hAlign
     int vAlign
 
 void
-Wx_GridCellAttr::SetReadOnly( isReadOnly = TRUE )
+wxGridCellAttr::SetReadOnly( isReadOnly = TRUE )
     bool isReadOnly
 
 bool
-Wx_GridCellAttr::HasTextColour()
+wxGridCellAttr::HasTextColour()
 
 bool
-Wx_GridCellAttr::HasBackgroundColour()
+wxGridCellAttr::HasBackgroundColour()
 
 bool
-Wx_GridCellAttr::HasFont()
+wxGridCellAttr::HasFont()
 
 bool
-Wx_GridCellAttr::HasAlignment()
+wxGridCellAttr::HasAlignment()
 
 bool
-Wx_GridCellAttr::HasRenderer()
+wxGridCellAttr::HasRenderer()
 
 bool
-Wx_GridCellAttr::HasEditor()
+wxGridCellAttr::HasEditor()
 
-Wx_Colour*
-Wx_GridCellAttr::GetTextColour()
+wxColour*
+wxGridCellAttr::GetTextColour()
   CODE:
     RETVAL = new wxColour( THIS->GetTextColour() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_GridCellAttr::GetBackgroundColour()
+wxColour*
+wxGridCellAttr::GetBackgroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetBackgroundColour() );
   OUTPUT:
     RETVAL
 
-Wx_GridCellEditor*
-Wx_GridCellAttr::GetEditor( grid, row, col )
-    Wx_Grid* grid
+wxGridCellEditor*
+wxGridCellAttr::GetEditor( grid, row, col )
+    wxGrid* grid
     int row
     int col
   CODE:
@@ -93,9 +93,9 @@ Wx_GridCellAttr::GetEditor( grid, row, col )
   OUTPUT:
     RETVAL
 
-Wx_GridCellRenderer*
-Wx_GridCellAttr::GetRenderer( grid, row, col )
-    Wx_Grid* grid
+wxGridCellRenderer*
+wxGridCellAttr::GetRenderer( grid, row, col )
+    wxGrid* grid
     int row
     int col
   CODE:
@@ -103,15 +103,15 @@ Wx_GridCellAttr::GetRenderer( grid, row, col )
   OUTPUT:
     RETVAL
 
-Wx_Font*
-Wx_GridCellAttr::GetFont()
+wxFont*
+wxGridCellAttr::GetFont()
   CODE:
     RETVAL = new wxFont( THIS->GetFont() );
   OUTPUT:
     RETVAL
 
 void
-Wx_GridCellAttr::GetAlignment()
+wxGridCellAttr::GetAlignment()
   PREINIT:
     int x, y;
   PPCODE:
@@ -121,22 +121,22 @@ Wx_GridCellAttr::GetAlignment()
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
 bool
-Wx_GridCellAttr::IsReadOnly()
+wxGridCellAttr::IsReadOnly()
 
 void
-Wx_GridCellAttr::SetDefAttr( defAttr )
-    Wx_GridCellAttr* defAttr
+wxGridCellAttr::SetDefAttr( defAttr )
+    wxGridCellAttr* defAttr
 
 void
-Wx_GridCellAttr::SetEditor( editor )
-    Wx_GridCellEditor* editor
+wxGridCellAttr::SetEditor( editor )
+    wxGridCellEditor* editor
   CODE:
     editor->IncRef();
     THIS->SetEditor( editor );
 
 void
-Wx_GridCellAttr::SetRenderer( renderer )
-    Wx_GridCellRenderer* renderer
+wxGridCellAttr::SetRenderer( renderer )
+    wxGridCellRenderer* renderer
   CODE:
     renderer->IncRef();
     THIS->SetRenderer( renderer );

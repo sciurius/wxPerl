@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        typemap
+## Name:        ext/docview/typemap
 ## Purpose:     typemap
 ## Author:      Simon Flack
 ## Modified by:
-## Created:     11/ 9/2002
-## RCS-ID:      
+## Created:     11/09/2002
+## RCS-ID:      $Id: typemap,v 1.3 2004/02/29 14:30:35 mbarbon Exp $
 ## Copyright:   (c) 2002 Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,29 +12,16 @@
 
 TYPEMAP
 
-Wx_Document *           O_WXOBJECT
 wxDocument *            O_WXOBJECT
-Wx_View *               O_WXOBJECT
 wxView *                O_WXOBJECT
-Wx_DocTemplate *        O_WXOBJECT
 wxDocTemplate *         O_WXOBJECT
-Wx_DocManager *         O_WXOBJECT
 wxDocManager *          O_WXOBJECT
-Wx_DocChildFrame *      O_WXOBJECT
 wxDocChildFrame *       O_WXOBJECT
-Wx_DocParentFrame *     O_WXOBJECT
 wxDocParentFrame *      O_WXOBJECT
-Wx_DocMDIChildFrame *   O_WXOBJECT
 wxDocMDIChildFrame *    O_WXOBJECT
-Wx_DocMDIParentFrame *  O_WXOBJECT
 wxDocMDIParentFrame *   O_WXOBJECT
-Wx_MDIParentFrame *     O_WXOBJECT
 wxMDIParentFrame *      O_WXOBJECT
-Wx_DocPrintout *        O_WXOBJECT
 wxDocPrintout *         O_WXOBJECT
-Wx_Printout *           O_WXOBJECT
 wxPrintout *            O_WXOBJECT
-Wx_CommandProcessor *   O_NON_WXOBJECT
 wxCommandProcessor *    O_NON_WXOBJECT
-Wx_FileHistory *        O_WXOBJECT
 wxFileHistory *         O_WXOBJECT

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        ext/xrc/XRC.xs
-// Purpose:     XS for wxWindows XML Resources
+// Purpose:     XS for wxWidgets XML Resources
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     27/07/2001
-// RCS-ID:      $Id: XRC.xs,v 1.15 2003/09/07 19:07:39 mbarbon Exp $
+// RCS-ID:      $Id: XRC.xs,v 1.16 2004/02/29 14:30:40 mbarbon Exp $
 // Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -13,8 +13,6 @@
 #define PERL_NO_GET_CONTEXT
 
 #include "cpp/wxapi.h"
-#include "cpp/typedef.h"
-#include "cpp/xr_typedef.h"
 #include "cpp/xr_constants.cpp"
 
 #undef THIS

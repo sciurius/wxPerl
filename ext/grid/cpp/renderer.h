@@ -3,8 +3,8 @@
 // Purpose:     wxPlGridCellRenderer
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     28/ 5/2003
-// RCS-ID:      $Id: renderer.h,v 1.3 2003/08/16 21:26:29 mbarbon Exp $
+// Created:     28/05/2003
+// RCS-ID:      $Id: renderer.h,v 1.4 2004/02/29 14:30:40 mbarbon Exp $
 // Copyright:   (c) 2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
