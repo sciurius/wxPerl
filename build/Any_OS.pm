@@ -31,13 +31,15 @@ sub constants {
 sub depend {
   my $this = shift;
   my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
+  my $ovl = MM->catfile( qw(blib lib Wx _Ovl.pm) );
 
   my %depend = ( xs_depend( $this, [ MM->curdir(), top_dir() ] ),
                  ( $this->{PARENT} ?
                    () :
                    ( $exp => join( ' ', files_with_constants() ),
-                     '$(INST_STATIC)' => $exp,
-                     '$(INST_DYNAMIC)' => $exp,
+                     $ovl => join( ' ', files_with_overload() ),
+                     '$(INST_STATIC)' => " $exp $ovl ",
+                     '$(INST_DYNAMIC)' => " $exp $ovl ",
                    )
                  )
                );
@@ -52,7 +54,7 @@ sub depend {
 }
 
 #
-# portable paths for blib/lib/Wx/_Exp.pm and lib/Wx/Event.pm
+# files that require special processing
 #
 sub files_with_constants {
   my @files;
@@ -79,18 +81,49 @@ sub files_with_constants {
   return @files;
 }
 
+sub files_with_overload {
+  my @files;
+
+  my $wanted = sub {
+    my $name = $File::Find::name;
+
+    m/\.(?:pm)$/i && do {
+      local *IN;
+      my $line;
+
+      open IN, "< $_" || warn "unable to open '$_'";
+      while( defined( $line = <IN> ) ) {
+        $line =~ m/Wx::_match/ && do {
+          push @files, $name;
+          return;
+        };
+      }
+    };
+  };
+
+  find( $wanted, MM->curdir );
+
+  return @files;
+}
+
 sub postamble {
   my $this = shift;
   my $text;
 
   unless( $this->{PARENT} ) {
-    my @files = files_with_constants();
+    my @c_files = files_with_constants();
+    my @o_files = files_with_overload();
+
     my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
+    my $ovl = MM->catfile( qw(blib lib Wx _Ovl.pm) );
 
     $text = <<EOT;
 
 $exp :
-\t\$(PERL) script/make_exp_list.pl $exp @files
+\t\$(PERL) script/make_exp_list.pl $exp @c_files
+
+$ovl :
+\t\$(PERL) script/make_ovl_list.pl $ovl @o_files
 
 EOT
   }

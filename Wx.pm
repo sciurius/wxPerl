@@ -61,70 +61,7 @@ sub END {
   UnLoad();
 }
 
-my( $wimg, $wbmp, $wico, $wmen, $wmit, $wrec, $wreg, $wszr,
-    $wtip, $wwin, $wcol, $wlci, $wsiz, $wpoi, $wist, $wost,
-    $num, $str, $bool ) = ( 1 .. 100 );
-
-my( @tnames ) =
-  ( undef, 'Wx::Image', 'Wx::Bitmap', 'Wx::Icon', 'Wx::Menu', 'Wx::MenuItem',
-    'Wx::Rect', 'Wx::Region', 'Wx::Sizer', 'Wx::ToolTip',
-    'Wx::Window', 'Wx::Colour', 'Wx::ListItem', 'Wx::Size', 'Wx::Point' );
-
-$Wx::_b = [ $bool ];
-$Wx::_n = [ $num ];
-$Wx::_n_b = [ $num, $bool ];
-$Wx::_n_n = [ $num, $num ];
-$Wx::_n_n_n = [ $num, $num, $num ];
-$Wx::_n_n_s = [ $num, $num, $str ];
-$Wx::_n_n_s_n = [ $num, $num, $str, $num ];
-$Wx::_n_n_n_n = [ $num, $num, $num, $num ];
-$Wx::_n_n_n_n_n = [ $num, $num, $num, $num, $num ];
-$Wx::_n_n_n_n_n_n_s = [ $num, $num, $num, $num, $num, $num, $str ];
-$Wx::_n_n_n_n_n_s = [ $num, $num, $num, $num, $num, $str ];
-$Wx::_n_s = [ $num, $str ];
-$Wx::_n_s_n_n = [ $num, $str, $num, $num ];
-$Wx::_n_s_wmen = [ $num, $str, $wmen ];
-$Wx::_n_wbmp_s_s = [ $num, $wbmp, $str, $str ];
-$Wx::_n_wbmp_wbmp = [ $num, $wbmp, $wbmp ];
-$Wx::_n_wbmp_wbmp_b_s_s_s = [ $num, $wbmp, $wbmp, $bool, $str, $str, $str ];
-$Wx::_n_wico = [ $num, $wico ];
-$Wx::_n_wlci = [ $num, $wlci ];
-$Wx::_n_wszr_n_n_n_s = [ $num, $wszr, $num, $num, $num, $str ];
-$Wx::_n_wwin_n_n_n_s = [ $num, $wwin, $num, $num, $num, $str ];
-$Wx::_s = [ $str ];
-$Wx::_s_n = [ $str, $num ];
-$Wx::_s_n_n = [ $str, $num, $num ];
-$Wx::_s_n_n_n = [ $str, $num, $num, $num ];
-$Wx::_s_s = [ $str, $str ];
-$Wx::_s_s_s_b_b = [ $str, $str, $str, $bool, $bool ];
-$Wx::_s_wwin_n_wbmp = [ $str, $wwin, $num, $wbmp ];
-$Wx::_s_wwin_n_wico = [ $str, $wwin, $num, $wico ];
-$Wx::_wbmp = [ $wbmp ];
-$Wx::_wbmp_n = [ $wbmp, $num ];
-$Wx::_wbmp_wbmp = [ $wbmp, $wbmp ];
-$Wx::_wbmp_wcol = [ $wbmp, $wcol ];
-$Wx::_wcol = [ $wcol ];
-$Wx::_wcol_n = [ $wcol, $num ];
-$Wx::_wico = [ $wico ];
-$Wx::_wimg = [ $wimg ];
-$Wx::_wist_n = [ $wist, $num ];
-$Wx::_wist_s = [ $wist, $str ];
-$Wx::_wlci = [ $wlci ];
-$Wx::_wmit = [ $wmit ];
-$Wx::_wpoi = [ $wpoi ];
-$Wx::_wpoi_wpoi = [ $wpoi, $wpoi ];
-$Wx::_wpoi_wsiz = [ $wpoi, $wsiz ];
-$Wx::_wrec = [ $wrec ];
-$Wx::_wreg = [ $wreg ];
-$Wx::_wsiz = [ $wsiz ];
-$Wx::_wszr = [ $wszr ];
-$Wx::_wszr_n_n = [ $wszr, $num, $num ];
-$Wx::_wszr_n_n_n_s = [ $wszr, $num, $num, $num, $str ];
-$Wx::_wtip = [ $wtip ];
-$Wx::_wwin = [ $wwin ];
-$Wx::_wwin_n_n = [ $wwin, $num, $num ];
-$Wx::_wwin_n_n_n_s = [ $wwin, $num, $num, $num, $str ];
-$Wx::_wwin_wsiz = [ $wwin, $wsiz ];
+use Wx::_Ovl;
 
 sub _match(\@$;$$) {
   my( $args, $sig, $required, $dots ) = @_;
