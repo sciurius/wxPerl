@@ -21,21 +21,19 @@ void
 Wx_Size::DESTROY()
 
 int
-Wx_Size::width( value = NO_INIT )
-    int value = NO_INIT
+Wx_Size::width( ... )
   CODE:
     if( items > 1 )
-      THIS->x = value;
+      THIS->x = SvIV( ST(1) );
     RETVAL = THIS->x;
   OUTPUT:
     RETVAL
 
 int
-Wx_Size::height( value = NO_INIT )
-    int value = NO_INIT
+Wx_Size::height( ... )
   CODE:
     if( items > 1 )
-      THIS->y = value;
+      THIS->y = SvIV( ST(1) );
     RETVAL = THIS->y;
   OUTPUT:
     RETVAL
@@ -70,21 +68,19 @@ void
 Wx_Point::DESTROY()
 
 int
-Wx_Point::x( value = NO_INIT )
-    int value = NO_INIT
+Wx_Point::x( ... )
   CODE:
     if( items > 1 )
-      THIS->x = value;
+      THIS->x = SvIV( ST(1) );
     RETVAL = THIS->x;
   OUTPUT:
     RETVAL
 
 int
-Wx_Point::y( value = NO_INIT )
-    int value = NO_INIT
+Wx_Point::y( ... )
   CODE:
     if( items > 1 )
-      THIS->y = value;
+      THIS->y = SvIV( ST(1) );
     RETVAL = THIS->y;
   OUTPUT:
     RETVAL
@@ -127,41 +123,37 @@ void
 Wx_Rect::DESTROY()
 
 int
-Wx_Rect::x( value )
-    int value = NO_INIT
+Wx_Rect::x( ... )
   CODE:
     if( items > 1 )
-      THIS->x = value;
+      THIS->x = SvIV( ST(1) );
     RETVAL = THIS->x;
   OUTPUT:
     RETVAL
 
 int
-Wx_Rect::y( value )
-    int value = NO_INIT
+Wx_Rect::y( ... )
   CODE:
     if( items > 1 )
-      THIS->y = value;
+      THIS->y = SvIV( ST(1) );
     RETVAL = THIS->y;
   OUTPUT:
     RETVAL
 
 int
-Wx_Rect::width( value )
-    int value = NO_INIT
+Wx_Rect::width( ... )
   CODE:
     if( items > 1 )
-      THIS->width = value;
+      THIS->width = SvIV( ST(1) );
     RETVAL = THIS->width;
   OUTPUT:
     RETVAL
 
 int
-Wx_Rect::height( value )
-    int value = NO_INIT
+Wx_Rect::height( ... )
   CODE:
     if( items > 1 )
-      THIS->height = value;
+      THIS->height = SvIV( ST(1) );
     RETVAL = THIS->height;
   OUTPUT:
     RETVAL
@@ -211,6 +203,8 @@ Wx_Rect::Inflate( x, y )
   CODE:
     if( items == 2 )
       y = x;
+    else
+      y = SvIV( ST(2) );
     THIS->Inflate( x, y );
 
 void
