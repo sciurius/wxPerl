@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs,v 1.21 2004/02/28 22:59:06 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: Locale.xs,v 1.22 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -41,7 +41,7 @@ DESTROY( THIS )
 
 MODULE=Wx PACKAGE=Wx::Locale
 
-Wx_Locale*
+wxLocale*
 newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FALSE )
     const wxChar* name
     const wxChar* shorts = NO_INIT
@@ -75,7 +75,7 @@ newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FAL
   OUTPUT:
     RETVAL
 
-Wx_Locale*
+wxLocale*
 newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
     int language
     int flags
@@ -86,30 +86,30 @@ newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
 
 ## XXX threads
 void
-Wx_Locale::DESTROY()
+wxLocale::DESTROY()
 
 bool
-Wx_Locale::AddCatalog( domain )
+wxLocale::AddCatalog( domain )
     wxString domain
 
 void
-Wx_Locale::AddCatalogLookupPathPrefix( prefix )
+wxLocale::AddCatalogLookupPathPrefix( prefix )
     wxString prefix
 
 void
 AddLanguage( info )
-    Wx_LanguageInfo* info
+    wxLanguageInfo* info
   CODE:
     wxLocale::AddLanguage( *info );
 
 const wxChar*
-Wx_Locale::GetLocale()
+wxLocale::GetLocale()
 
 wxString
-Wx_Locale::GetName()
+wxLocale::GetName()
 
 const wxChar*
-Wx_Locale::GetString( string, domain = 0 )
+wxLocale::GetString( string, domain = 0 )
     const wxChar* string
     const wxChar* domain
 
@@ -121,7 +121,7 @@ GetSystemLanguage()
     RETVAL
 
 int
-Wx_Locale::GetLanguage()
+wxLocale::GetLanguage()
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
@@ -132,10 +132,10 @@ wxLocale::GetLanguageName( lang )
 #endif
 
 wxString
-Wx_Locale::GetSysName()
+wxLocale::GetSysName()
 
 wxString
-Wx_Locale::GetCanonicalName()
+wxLocale::GetCanonicalName()
 
 wxFontEncoding
 GetSystemEncoding()
@@ -152,11 +152,11 @@ GetSystemEncodingName()
     RETVAL
 
 bool
-Wx_Locale::IsLoaded( domain )
+wxLocale::IsLoaded( domain )
     const wxChar* domain
 
 bool
-Wx_Locale::IsOk()
+wxLocale::IsOk()
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Font.xs,v 1.20 2004/02/28 22:59:06 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: Font.xs,v 1.21 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,19 +16,19 @@ MODULE=Wx PACKAGE=Wx::NativeFontInfo
 
 #undef THIS
 
-Wx_NativeFontInfo*
-Wx_NativeFontInfo::new()
+wxNativeFontInfo*
+wxNativeFontInfo::new()
 
 ## XXX threads
 void
-Wx_NativeFontInfo::DESTROY()
+wxNativeFontInfo::DESTROY()
 
 bool
-Wx_NativeFontInfo::FromString( string )
+wxNativeFontInfo::FromString( string )
     wxString string
 
 wxString
-Wx_NativeFontInfo::ToString()
+wxNativeFontInfo::ToString()
 
 MODULE=Wx PACKAGE=Wx::Font
 
@@ -80,7 +80,7 @@ newLong( CLASS, pointsize, family, style, weight, underline = FALSE, faceName = 
 
 ## XXX threads
 void
-Wx_Font::DESTROY()
+wxFont::DESTROY()
 
 int
 font_spaceship( fnt1, fnt2, ... )
@@ -113,10 +113,10 @@ GetDefaultEncoding()
     RETVAL
 
 wxString
-Wx_Font::GetFaceName()
+wxFont::GetFaceName()
 
 int
-Wx_Font::GetFamily()
+wxFont::GetFamily()
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
@@ -128,31 +128,31 @@ wxFont::GetNativeFontInfo()
 
 #else
 
-Wx_NativeFontInfo*
-Wx_Font::GetNativeFontInfo()
+wxNativeFontInfo*
+wxFont::GetNativeFontInfo()
 
 #endif
 
 wxString
-Wx_Font::GetNativeFontInfoDesc()
+wxFont::GetNativeFontInfoDesc()
 
 int
-Wx_Font::GetPointSize()
+wxFont::GetPointSize()
 
 int
-Wx_Font::GetStyle()
+wxFont::GetStyle()
 
 bool
-Wx_Font::GetUnderlined()
+wxFont::GetUnderlined()
 
 int
-Wx_Font::GetWeight()
+wxFont::GetWeight()
 
 bool
-Wx_Font::IsFixedWidth()
+wxFont::IsFixedWidth()
 
 bool
-Wx_Font::Ok()
+wxFont::Ok()
 
 void
 SetDefaultEncoding( encoding )
@@ -161,37 +161,37 @@ SetDefaultEncoding( encoding )
     wxFont::SetDefaultEncoding( encoding );
 
 void
-Wx_Font::SetFaceName( faceName )
+wxFont::SetFaceName( faceName )
     wxString faceName
 
 void
-Wx_Font::SetFamily( family )
+wxFont::SetFamily( family )
     int family
 
 void
-Wx_Font::SetNativeFontInfo( info )
+wxFont::SetNativeFontInfo( info )
     wxString info
   CODE:
     THIS->wxFontBase::SetNativeFontInfo( info );
 
 ##void
-##Wx_Font::SetNativeFontInfo( info )
+##wxFont::SetNativeFontInfo( info )
 ##    wxString info
 ##  CODE:
 ##    THIS->SetNativeFontInfo( info );
 
 void
-Wx_Font::SetPointSize( pointsize )
+wxFont::SetPointSize( pointsize )
     int pointsize
 
 void
-Wx_Font::SetStyle( style )
+wxFont::SetStyle( style )
     int style
 
 void
-Wx_Font::SetUnderlined( underlined )
+wxFont::SetUnderlined( underlined )
     bool underlined
 
 void
-Wx_Font::SetWeight( weight )
+wxFont::SetWeight( weight )
     int weight

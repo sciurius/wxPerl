@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.37 2004/02/28 22:58:57 mbarbon Exp $
-// Copyright:   (c) 2000-2003 Mattia Barbon
+// RCS-ID:      $Id: Event.xs,v 1.38 2004/07/10 13:16:43 mbarbon Exp $
+// Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -48,10 +48,10 @@ MODULE=Wx_Evt PACKAGE=Wx::Event
 
 ## XXX threads
 void
-Wx_Event::DESTROY()
+wxEvent::DESTROY()
 
 # void
-# Wx_Event::Destroy()
+# wxEvent::Destroy()
 #   CODE:
 #     delete THIS;
 
@@ -68,87 +68,87 @@ wxEvent::GetEventObject()
         PUSHs( wxPli_evthandler_2_sv( aTHX_ NEWSV( 0, 0 ), win ) );
 
 wxEventType
-Wx_Event::GetEventType()
+wxEvent::GetEventType()
 
 int
-Wx_Event::GetId()
+wxEvent::GetId()
 
 bool
-Wx_Event::GetSkipped()
+wxEvent::GetSkipped()
 
 long
-Wx_Event::GetTimestamp()
+wxEvent::GetTimestamp()
 
 void
-Wx_Event::SetEventType( type )
+wxEvent::SetEventType( type )
     wxEventType type
 
 void
-Wx_Event::SetId( id )
+wxEvent::SetId( id )
     int id
 
 void
-Wx_Event::SetTimestamp( timeStamp )
+wxEvent::SetTimestamp( timeStamp )
     long timeStamp
 
 void
-Wx_Event::Skip( skip = TRUE )
+wxEvent::Skip( skip = TRUE )
     bool skip
 
 MODULE=Wx_Evt PACKAGE=Wx::CommandEvent
 
-Wx_CommandEvent*
-Wx_CommandEvent::new( type = 0, id = 0 )
+wxCommandEvent*
+wxCommandEvent::new( type = 0, id = 0 )
     wxEventType type
     int id
 
 Wx_UserDataCD*
-Wx_CommandEvent::GetClientData()
+wxCommandEvent::GetClientData()
   CODE:
     RETVAL = (wxPliUserDataCD*)THIS->GetClientObject();
   OUTPUT:
     RETVAL
 
 long
-Wx_CommandEvent::GetExtraLong()
+wxCommandEvent::GetExtraLong()
 
 int
-Wx_CommandEvent::GetInt()
+wxCommandEvent::GetInt()
 
 int
-Wx_CommandEvent::GetSelection()
+wxCommandEvent::GetSelection()
 
 wxString
-Wx_CommandEvent::GetString()
+wxCommandEvent::GetString()
 
 bool
-Wx_CommandEvent::IsChecked()
+wxCommandEvent::IsChecked()
 
 bool
-Wx_CommandEvent::IsSelection()
+wxCommandEvent::IsSelection()
 
 void
-Wx_CommandEvent::SetClientData( data )
+wxCommandEvent::SetClientData( data )
     Wx_UserDataCD* data
   CODE:
     THIS->SetClientObject( data );
 
 void
-Wx_CommandEvent::SetExtraLong( extraLong )
+wxCommandEvent::SetExtraLong( extraLong )
     long extraLong
 
 void
-Wx_CommandEvent::SetInt( intCommand )
+wxCommandEvent::SetInt( intCommand )
     int intCommand
 
 void
-Wx_CommandEvent::SetString( string )
+wxCommandEvent::SetString( string )
     wxString string
 
 MODULE=Wx_Evt PACKAGE=Wx::PlEvent
 
-Wx_Event*
-Wx_PlEvent::new( id, type )
+wxEvent*
+wxPlEvent::new( id, type )
     int id
     wxEventType type
   CODE:
@@ -158,8 +158,8 @@ Wx_PlEvent::new( id, type )
 
 MODULE=Wx_Evt PACKAGE=Wx::PlCommandEvent
 
-Wx_Event*
-Wx_PlCommandEvent::new( id, type )
+wxEvent*
+wxPlCommandEvent::new( id, type )
     int id
     wxEventType type
   CODE:
@@ -169,8 +169,8 @@ Wx_PlCommandEvent::new( id, type )
 
 MODULE=Wx_Evt PACKAGE=Wx::PlThreadEvent
 
-Wx_Event*
-Wx_PlThreadEvent::new( id, type, data )
+wxEvent*
+wxPlThreadEvent::new( id, type, data )
     int id
     wxEventType type
     SV* data
@@ -180,61 +180,61 @@ Wx_PlThreadEvent::new( id, type, data )
     RETVAL
 
 SV*
-Wx_PlThreadEvent::GetData()
+wxPlThreadEvent::GetData()
   PPCODE:
     SV* t = THIS->GetData();
     SvREFCNT_inc( t );
     XPUSHs( t );
 
 void
-Wx_PlThreadEvent::SetData( data )
+wxPlThreadEvent::SetData( data )
     SV* data
 
 MODULE=Wx_Evt PACKAGE=Wx::ActivateEvent
 
-Wx_ActivateEvent*
-Wx_ActivateEvent::new( type = 0, active = TRUE, id = 0 )
+wxActivateEvent*
+wxActivateEvent::new( type = 0, active = TRUE, id = 0 )
     wxEventType type
     bool active
     int id
 
 bool
-Wx_ActivateEvent::GetActive()
+wxActivateEvent::GetActive()
 
 MODULE=Wx_Evt PACKAGE=Wx::CloseEvent
 
-Wx_CloseEvent*
-Wx_CloseEvent::new( commandEventType = 0, id = 0 )
+wxCloseEvent*
+wxCloseEvent::new( commandEventType = 0, id = 0 )
     wxEventType commandEventType
     int id
 
 bool
-Wx_CloseEvent::CanVeto()
+wxCloseEvent::CanVeto()
 
 bool
-Wx_CloseEvent::GetLoggingOff()
+wxCloseEvent::GetLoggingOff()
 
 void
-Wx_CloseEvent::SetCanVeto( canVeto )
+wxCloseEvent::SetCanVeto( canVeto )
     bool canVeto
 
 void
-Wx_CloseEvent::SetLoggingOff( loggingOff )
+wxCloseEvent::SetLoggingOff( loggingOff )
     bool loggingOff
 
 void
-Wx_CloseEvent::Veto( veto = TRUE )
+wxCloseEvent::Veto( veto = TRUE )
     bool veto
 
 MODULE=Wx_Evt PACKAGE=Wx::EraseEvent
 
-Wx_EraseEvent*
-Wx_EraseEvent::new( id = 0, dc = 0 )
+wxEraseEvent*
+wxEraseEvent::new( id = 0, dc = 0 )
     int id
-    Wx_DC* dc
+    wxDC* dc
 
-Wx_DC*
-Wx_EraseEvent::GetDC()
+wxDC*
+wxEraseEvent::GetDC()
   OUTPUT:
     RETVAL
   CLEANUP:
@@ -242,199 +242,199 @@ Wx_EraseEvent::GetDC()
 
 MODULE=Wx_Evt PACKAGE=Wx::FocusEvent
 
-Wx_FocusEvent*
-Wx_FocusEvent::new( eventType = 0, id = 0 )
+wxFocusEvent*
+wxFocusEvent::new( eventType = 0, id = 0 )
     wxEventType eventType
     int id
 
 MODULE=Wx_Evt PACKAGE=Wx::IconizeEvent
 
 bool
-Wx_IconizeEvent::Iconized()
+wxIconizeEvent::Iconized()
 
 MODULE=Wx_Evt PACKAGE=Wx::KeyEvent
 
-Wx_KeyEvent*
-Wx_KeyEvent::new( keyEventType )
+wxKeyEvent*
+wxKeyEvent::new( keyEventType )
     wxEventType keyEventType
 
 bool
-Wx_KeyEvent::AltDown()
+wxKeyEvent::AltDown()
 
 bool
-Wx_KeyEvent::ControlDown()
+wxKeyEvent::ControlDown()
 
 int
-Wx_KeyEvent::GetKeyCode()
+wxKeyEvent::GetKeyCode()
 
 long
-Wx_KeyEvent::GetX()
+wxKeyEvent::GetX()
 
 long
-Wx_KeyEvent::GetY()
+wxKeyEvent::GetY()
 
 bool
-Wx_KeyEvent::MetaDown()
+wxKeyEvent::MetaDown()
 
 bool
-Wx_KeyEvent::HasModifiers()
+wxKeyEvent::HasModifiers()
 
 bool
-Wx_KeyEvent::ShiftDown()
+wxKeyEvent::ShiftDown()
 
 MODULE=Wx_Evt PACKAGE=Wx::HelpEvent
 
-Wx_HelpEvent*
-Wx_HelpEvent::new()
+wxHelpEvent*
+wxHelpEvent::new()
 
-Wx_Point*
-Wx_HelpEvent::GetPosition()
+wxPoint*
+wxHelpEvent::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
 
 wxString
-Wx_HelpEvent::GetLink()
+wxHelpEvent::GetLink()
 
 wxString
-Wx_HelpEvent::GetTarget()
+wxHelpEvent::GetTarget()
 
 void
-Wx_HelpEvent::SetPosition( point )
-    Wx_Point point
+wxHelpEvent::SetPosition( point )
+    wxPoint point
 
 void
-Wx_HelpEvent::SetLink( link )
+wxHelpEvent::SetLink( link )
     wxString link
 
 void
-Wx_HelpEvent::SetTarget( target )
+wxHelpEvent::SetTarget( target )
     wxString target
 
 MODULE=Wx_Evt PACKAGE=Wx::IdleEvent
 
-Wx_IdleEvent*
-Wx_IdleEvent::new()
+wxIdleEvent*
+wxIdleEvent::new()
 
 bool
-Wx_IdleEvent::MoreRequested()
+wxIdleEvent::MoreRequested()
 
 void
-Wx_IdleEvent::RequestMore( needMore = TRUE )
+wxIdleEvent::RequestMore( needMore = TRUE )
     bool needMore
 
 MODULE=Wx_Evt PACKAGE=Wx::InitDialogEvent
 
-Wx_InitDialogEvent*
-Wx_InitDialogEvent::new( id = 0 )
+wxInitDialogEvent*
+wxInitDialogEvent::new( id = 0 )
     int id
 
 MODULE=Wx_Evt PACKAGE=Wx::JoystickEvent
 
-Wx_JoystickEvent*
-Wx_JoystickEvent::new( eventType = 0, state = 0, joystick = wxJOYSTICK1, change = 0 )
+wxJoystickEvent*
+wxJoystickEvent::new( eventType = 0, state = 0, joystick = wxJOYSTICK1, change = 0 )
     wxEventType eventType
     int state
     int joystick
     int change
 
 bool
-Wx_JoystickEvent::ButtonDown( button = wxJOY_BUTTON_ANY )
+wxJoystickEvent::ButtonDown( button = wxJOY_BUTTON_ANY )
     int button
 
 bool
-Wx_JoystickEvent::ButtonIsDown( button = wxJOY_BUTTON_ANY )
+wxJoystickEvent::ButtonIsDown( button = wxJOY_BUTTON_ANY )
     int button
 
 bool
-Wx_JoystickEvent::ButtonUp( button = wxJOY_BUTTON_ANY )
+wxJoystickEvent::ButtonUp( button = wxJOY_BUTTON_ANY )
     int button
 
 int
-Wx_JoystickEvent::GetButtonChange()
+wxJoystickEvent::GetButtonChange()
 
 int
-Wx_JoystickEvent::GetButtonState()
+wxJoystickEvent::GetButtonState()
 
 int
-Wx_JoystickEvent::GetJoystick()
+wxJoystickEvent::GetJoystick()
 
-Wx_Point*
-Wx_JoystickEvent::GetPosition()
+wxPoint*
+wxJoystickEvent::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
 
 int
-Wx_JoystickEvent::GetZPosition()
+wxJoystickEvent::GetZPosition()
 
 bool
-Wx_JoystickEvent::IsButton()
+wxJoystickEvent::IsButton()
 
 bool
-Wx_JoystickEvent::IsMove()
+wxJoystickEvent::IsMove()
 
 bool
-Wx_JoystickEvent::IsZMove()
+wxJoystickEvent::IsZMove()
 
 MODULE=Wx_Evt PACKAGE=Wx::MenuEvent
 
-Wx_MenuEvent*
-Wx_MenuEvent::new( eventType = 0, id = 0 )
+wxMenuEvent*
+wxMenuEvent::new( eventType = 0, id = 0 )
     wxEventType eventType
     int id
 
 int
-Wx_MenuEvent::GetMenuId()
+wxMenuEvent::GetMenuId()
 
 bool
-Wx_MenuEvent::IsPopup()
+wxMenuEvent::IsPopup()
 
 MODULE=Wx_Evt PACKAGE=Wx::MouseEvent
 
-Wx_MouseEvent*
-Wx_MouseEvent::new( eventType = 0 )
+wxMouseEvent*
+wxMouseEvent::new( eventType = 0 )
     wxEventType eventType
 
 bool
-Wx_MouseEvent::AltDown()
+wxMouseEvent::AltDown()
 
 bool
-Wx_MouseEvent::Button( button = -1 )
+wxMouseEvent::Button( button = -1 )
     int button
 
 bool
-Wx_MouseEvent::ButtonDClick( button = -1 )
+wxMouseEvent::ButtonDClick( button = -1 )
     int button
 
 bool
-Wx_MouseEvent::ButtonDown( button = -1 )
+wxMouseEvent::ButtonDown( button = -1 )
     int button
 
 bool
-Wx_MouseEvent::ButtonUp( button = -1 )
+wxMouseEvent::ButtonUp( button = -1 )
     int button
 
 bool
-Wx_MouseEvent::ControlDown()
+wxMouseEvent::ControlDown()
 
 bool
-Wx_MouseEvent::Dragging()
+wxMouseEvent::Dragging()
 
 bool
-Wx_MouseEvent::Entering()
+wxMouseEvent::Entering()
 
-Wx_Point*
-Wx_MouseEvent::GetPosition()
+wxPoint*
+wxMouseEvent::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
 
 void
-Wx_MouseEvent::GetPositionXY()
+wxMouseEvent::GetPositionXY()
   PREINIT:
     long x;
     long y;
@@ -444,89 +444,89 @@ Wx_MouseEvent::GetPositionXY()
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
-Wx_Point*
-Wx_MouseEvent::GetLogicalPosition( dc )
-    Wx_DC* dc
+wxPoint*
+wxMouseEvent::GetLogicalPosition( dc )
+    wxDC* dc
   CODE:
     RETVAL = new wxPoint( THIS->GetLogicalPosition( *dc ) );
   OUTPUT:
     RETVAL
 
 long
-Wx_MouseEvent::GetX()
+wxMouseEvent::GetX()
 
 long
-Wx_MouseEvent::GetY()
+wxMouseEvent::GetY()
 
 int
-Wx_MouseEvent::GetWheelRotation()
+wxMouseEvent::GetWheelRotation()
 
 int
-Wx_MouseEvent::GetWheelDelta()
+wxMouseEvent::GetWheelDelta()
 
 int
-Wx_MouseEvent::GetLinesPerAction()
+wxMouseEvent::GetLinesPerAction()
 
 bool
-Wx_MouseEvent::IsButton()
+wxMouseEvent::IsButton()
 
 bool
-Wx_MouseEvent::Leaving()
+wxMouseEvent::Leaving()
 
 bool
-Wx_MouseEvent::LeftDClick()
+wxMouseEvent::LeftDClick()
 
 bool
-Wx_MouseEvent::LeftDown()
+wxMouseEvent::LeftDown()
 
 bool
-Wx_MouseEvent::LeftIsDown()
+wxMouseEvent::LeftIsDown()
 
 bool
-Wx_MouseEvent::LeftUp()
+wxMouseEvent::LeftUp()
 
 bool
-Wx_MouseEvent::MetaDown()
+wxMouseEvent::MetaDown()
 
 bool
-Wx_MouseEvent::MiddleDClick()
+wxMouseEvent::MiddleDClick()
 
 bool
-Wx_MouseEvent::MiddleDown()
+wxMouseEvent::MiddleDown()
 
 bool
-Wx_MouseEvent::MiddleIsDown()
+wxMouseEvent::MiddleIsDown()
 
 bool
-Wx_MouseEvent::MiddleUp()
+wxMouseEvent::MiddleUp()
 
 bool
-Wx_MouseEvent::Moving()
+wxMouseEvent::Moving()
 
 bool
-Wx_MouseEvent::RightDClick()
+wxMouseEvent::RightDClick()
 
 bool
-Wx_MouseEvent::RightDown()
+wxMouseEvent::RightDown()
 
 bool
-Wx_MouseEvent::RightIsDown()
+wxMouseEvent::RightIsDown()
 
 bool
-Wx_MouseEvent::RightUp()
+wxMouseEvent::RightUp()
 
 bool
-Wx_MouseEvent::ShiftDown()
+wxMouseEvent::ShiftDown()
 
 MODULE=Wx_Evt PACKAGE=Wx::MoveEvent
 
-Wx_MoveEvent*
-Wx_MoveEvent::new( point, id = 0 )
-    Wx_Point point
+wxMoveEvent*
+wxMoveEvent::new( point, id = 0 )
+    wxPoint point
     int id
 
-Wx_Point*
-Wx_MoveEvent::GetPosition()
+wxPoint*
+wxMoveEvent::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
@@ -544,35 +544,35 @@ wxMoveEvent::GetRect()
 
 MODULE=Wx_Evt PACKAGE=Wx::NotifyEvent
 
-Wx_NotifyEvent*
-Wx_NotifyEvent::new( eventType = wxEVT_NULL, id = 0 )
+wxNotifyEvent*
+wxNotifyEvent::new( eventType = wxEVT_NULL, id = 0 )
     wxEventType eventType
     int id
 
 bool
-Wx_NotifyEvent::IsAllowed()
+wxNotifyEvent::IsAllowed()
 
 void
-Wx_NotifyEvent::Veto()
+wxNotifyEvent::Veto()
 
 void
-Wx_NotifyEvent::Allow()
+wxNotifyEvent::Allow()
 
 MODULE=Wx_Evt PACKAGE=Wx::PaintEvent
 
-Wx_PaintEvent*
-Wx_PaintEvent::new( id = 0 )
+wxPaintEvent*
+wxPaintEvent::new( id = 0 )
     int id
 
 MODULE=Wx_Evt PACKAGE=Wx::SizeEvent
 
-Wx_SizeEvent*
-Wx_SizeEvent::new( size, id = 0 )
-    Wx_Size size
+wxSizeEvent*
+wxSizeEvent::new( size, id = 0 )
+    wxSize size
     int id
 
-Wx_Size*
-Wx_SizeEvent::GetSize()
+wxSize*
+wxSizeEvent::GetSize()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
@@ -598,48 +598,48 @@ wxScrollEvent::GetPosition()
 
 MODULE=Wx_Evt PACKAGE=Wx::ScrollWinEvent
 
-Wx_ScrollWinEvent*
-Wx_ScrollWinEvent::new( eventType = 0, pos = 0, orientation = 0 )
+wxScrollWinEvent*
+wxScrollWinEvent::new( eventType = 0, pos = 0, orientation = 0 )
     wxEventType eventType
     int pos
     int orientation
 
 int
-Wx_ScrollWinEvent::GetOrientation()
+wxScrollWinEvent::GetOrientation()
 
 int
-Wx_ScrollWinEvent::GetPosition()
+wxScrollWinEvent::GetPosition()
 
 MODULE=Wx_Evt PACKAGE=Wx::SysColourChangedEvent
 
-Wx_SysColourChangedEvent*
-Wx_SysColourChangedEvent::new()
+wxSysColourChangedEvent*
+wxSysColourChangedEvent::new()
 
 MODULE=Wx_Evt PACKAGE=Wx::UpdateUIEvent
 
-Wx_UpdateUIEvent*
-Wx_UpdateUIEvent::new( commandId = 0 )
+wxUpdateUIEvent*
+wxUpdateUIEvent::new( commandId = 0 )
     wxWindowID commandId
 
 void
-Wx_UpdateUIEvent::Check( check )
+wxUpdateUIEvent::Check( check )
     bool check
 
 void
-Wx_UpdateUIEvent::Enable( enable )
+wxUpdateUIEvent::Enable( enable )
     bool enable
 
 bool
-Wx_UpdateUIEvent::GetChecked()
+wxUpdateUIEvent::GetChecked()
 
 bool
-Wx_UpdateUIEvent::GetEnabled()
+wxUpdateUIEvent::GetEnabled()
 
 wxString
-Wx_UpdateUIEvent::GetText()
+wxUpdateUIEvent::GetText()
 
 void
-Wx_UpdateUIEvent::SetText( text )
+wxUpdateUIEvent::SetText( text )
     wxString text
 
 MODULE=Wx_Evt

@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        DirDialog.xs
+## Name:        XS/DirDialog.xs
 ## Purpose:     XS for Wx::DirDialog
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: DirDialog.xs,v 1.5 2003/05/05 20:38:41 mbarbon Exp $
-## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
+## RCS-ID:      $Id: DirDialog.xs,v 1.6 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,37 +14,37 @@
 
 MODULE=Wx PACKAGE=Wx::DirDialog
 
-Wx_DirDialog*
-Wx_DirDialog::new( parent, message = wxFileSelectorPromptStr, defaultPath = wxEmptyString, style = 0, pos = wxDefaultPosition )
-    Wx_Window* parent
+wxDirDialog*
+wxDirDialog::new( parent, message = wxFileSelectorPromptStr, defaultPath = wxEmptyString, style = 0, pos = wxDefaultPosition )
+    wxWindow* parent
     wxString message
     wxString defaultPath
     long style
-    Wx_Point pos
+    wxPoint pos
 
 wxString
-Wx_DirDialog::GetPath()
+wxDirDialog::GetPath()
 
 wxString
-Wx_DirDialog::GetMessage()
+wxDirDialog::GetMessage()
 
 long
-Wx_DirDialog::GetStyle()
+wxDirDialog::GetStyle()
 
 void
-Wx_DirDialog::SetMessage( message )
+wxDirDialog::SetMessage( message )
     wxString message
 
 void
-Wx_DirDialog::SetPath( path )
+wxDirDialog::SetPath( path )
     wxString path
 
 void
-Wx_DirDialog::SetStyle( style )
+wxDirDialog::SetStyle( style )
     long style
 
 int
-Wx_DirDialog::ShowModal()
+wxDirDialog::ShowModal()
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
@@ -53,5 +53,5 @@ wxDirSelector( message, default_path = wxEmptyString, style = 0, pos = wxDefault
     wxString message
     wxString default_path
     long style
-    Wx_Point pos
-    Wx_Window* parent
+    wxPoint pos
+    wxWindow* parent

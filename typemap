@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.65 2004/05/15 21:28:58 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.66 2004/07/10 13:16:42 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -63,6 +63,8 @@ wxObject *              O_WXOBJECT
 wxApp *                 O_WXOBJECT
 Wx_Window *             O_WXOBJECT
 wxWindow *              O_WXOBJECT
+wxPlWindow *            O_WXOBJECT
+wxPlControl *           O_WXOBJECT
 wxFrame *               O_WXOBJECT
 wxEvtHandler *          O_WXOBJECT
 wxMiniFrame *           O_WXOBJECT
@@ -82,9 +84,7 @@ wxButton *              O_WXEVTHANDLER
 wxStaticText *          O_WXEVTHANDLER
 wxStaticLine *          O_WXEVTHANDLER
 wxTextCtrl *            O_WXOBJECT
-Wx_PlValidator *        O_WXOBJECT
 wxPlValidator *         O_WXOBJECT
-Wx_Validator *          O_WXOBJECT
 wxValidator *           O_WXOBJECT
 wxCheckBox *            O_WXEVTHANDLER
 wxChoice *              O_WXEVTHANDLER
@@ -119,11 +119,8 @@ wxWizard *              O_WXOBJECT
 wxWizardPage *          O_WXOBJECT
 wxWizardPageSimple *    O_WXOBJECT
 
-Wx_ColourDialog *       O_WXOBJECT
 wxColourDialog *        O_WXOBJECT
-Wx_FileDialog *         O_WXOBJECT
 wxFileDialog *          O_WXOBJECT
-Wx_DirDialog *          O_NON_WXOBJECT
 wxDirDialog *           O_NON_WXOBJECT
 wxNumberEntryDialog *   O_WXOBJECT
 Wx_MultiChoiceDialog *  O_WXOBJECT
@@ -143,10 +140,8 @@ Wx_MessageDialog *      O_WXOBJECT
 wxMessageDialog *       O_WXOBJECT
 Wx_ProgressDialog *     O_WXOBJECT
 wxProgressDialog *      O_WXOBJECT
-Wx_FindReplaceDialog *  O_WXOBJECT
 wxFindReplaceDialog *   O_WXOBJECT
 
-Wx_FindReplaceData *    O_NON_WXOBJECT
 wxFindReplaceData *     O_NON_WXOBJECT
 Wx_ColourData *         O_WXOBJECT
 wxColourData *          O_WXOBJECT
@@ -173,43 +168,29 @@ wxGBPosition *          O_NON_WXOBJECT
 wxGBSpan *              O_NON_WXOBJECT
 wxGBSizerItem *         O_WXOBJECT
 
-Wx_DC *                 O_WXOBJECT
 wxDC *                  O_WXOBJECT
-Wx_MemoryDC *           O_WXOBJECT
 wxMemoryDC *            O_WXOBJECT
-Wx_WindowDC *           O_WXOBJECT
 wxWindowDC *            O_WXOBJECT
-Wx_ClientDC *           O_WXOBJECT
 wxClientDC *            O_WXOBJECT
-Wx_PaintDC *            O_WXOBJECT
 wxPaintDC *             O_WXOBJECT
-Wx_ScreenDC *           O_WXOBJECT
 wxScreenDC *            O_WXOBJECT
 
-Wx_TaskBarIcon *        O_WXOBJECT
 wxTaskBarIcon *         O_WXOBJECT
 
 Wx_TextAttr *           O_NON_WXOBJECT
 wxTextAttr *            O_NON_WXOBJECT
 
-Wx_Log *                O_NON_WXOBJECT
 wxLog *                 O_NON_WXOBJECT
-Wx_LogTextCtrl *        O_NON_WXOBJECT
 wxLogTextCtrl *         O_NON_WXOBJECT
-Wx_LogNull *            O_NON_WXOBJECT
 wxLogNull *             O_NON_WXOBJECT
-Wx_LogGui *             O_NON_WXOBJECT
 wxLogGui *              O_NON_WXOBJECT
-Wx_LogWindow *          O_NON_WXOBJECT
 wxLogWindow *           O_NON_WXOBJECT
 wxLogChain *            O_NON_WXOBJECT
 wxLogPassThrough *      O_NON_WXOBJECT
 wxPlLog *               O_NON_WXOBJECT
 wxPlLogPassThrough *    O_NON_WXOBJECT
 
-Wx_Locale *             O_NON_WXOBJECT
 wxLocale *              O_NON_WXOBJECT
-Wx_LanguageInfo *       O_NON_WXOBJECT
 wxLanguageInfo *        O_NON_WXOBJECT
 
 Wx_StopWatch *          O_NON_WXOBJECT
@@ -228,7 +209,6 @@ wxSize &                O_SIZE
 Wx_Colour &             O_NON_WXOBJECT_VAL
 wxColour &              O_NON_WXOBJECT_VAL
 
-Wx_Process *            O_WXOBJECT
 wxProcess *             O_WXOBJECT
 
 Wx_TipProvider *        O_NON_WXOBJECT
@@ -262,9 +242,7 @@ wxIndividualLayoutConstraint * O_WXOBJECT
 
 Wx_DropTarget *         O_NON_WXOBJECT
 wxDropTarget *          O_NON_WXOBJECT
-Wx_ListItem *           O_NON_WXOBJECT
 wxListItem *            O_NON_WXOBJECT
-Wx_ListItemAttr *       O_NON_WXOBJECT
 wxListItemAttr *        O_NON_WXOBJECT
 wxPliTreeItemData *     O_NON_WXOBJECT
 wxTreeItemData *        O_NON_WXOBJECT
@@ -272,7 +250,6 @@ wxTreeItemId *          O_NON_WXOBJECT
 
 wxFontMapper *          O_NON_WXOBJECT
 wxFontEnumerator *      O_NON_WXOBJECT
-Wx_NativeFontInfo *     O_NON_WXOBJECT
 wxNativeFontInfo *      O_NON_WXOBJECT
 Wx_Font *               O_WXOBJECT
 wxFont *                O_WXOBJECT
@@ -327,73 +304,47 @@ wxSingleInstanceChecker * O_NON_WXOBJECT
 wxWave *                O_NON_WXOBJECT
 
 # events
-Wx_Event *              O_WXOBJECT
 wxEvent *               O_WXOBJECT
-Wx_ActivateEvent *      O_WXOBJECT
 wxActivateEvent *       O_WXOBJECT
 wxBookCtrlEvent *       O_WXOBJECT
-Wx_CloseEvent *         O_WXOBJECT
 wxCloseEvent *          O_WXOBJECT
-Wx_CommandEvent *       O_WXOBJECT
 wxCommandEvent *        O_WXOBJECT
-Wx_EraseEvent *         O_WXOBJECT
 wxEraseEvent *          O_WXOBJECT
-Wx_FindDialogEvent *    O_WXOBJECT
 wxFindDialogEvent *     O_WXOBJECT
-Wx_FocusEvent *         O_WXOBJECT
 wxFocusEvent *          O_WXOBJECT
-Wx_KeyEvent *           O_WXOBJECT
 wxKeyEvent *            O_WXOBJECT
-Wx_HelpEvent *          O_WXOBJECT
 wxHelpEvent *           O_WXOBJECT
-Wx_IconizeEvent *       O_WXOBJECT
 wxIconizeEvent *        O_WXOBJECT
-Wx_IdleEvent *          O_WXOBJECT
 wxIdleEvent *           O_WXOBJECT
-Wx_InitDialogEvent *    O_WXOBJECT
 wxInitDialogEvent *     O_WXOBJECT
-Wx_JoystickEvent *      O_WXOBJECT
 wxJoystickEvent *       O_WXOBJECT
 wxListbookEvent *       O_WXOBJECT
-Wx_ListEvent *          O_WXOBJECT
 wxListEvent *           O_WXOBJECT
-Wx_MenuEvent *          O_WXOBJECT
 wxMenuEvent *           O_WXOBJECT
-Wx_MouseEvent *         O_WXOBJECT
 wxMouseEvent *          O_WXOBJECT
-Wx_MoveEvent *          O_WXOBJECT
 wxMoveEvent *           O_WXOBJECT
 wxNotebookEvent *       O_WXOBJECT
-Wx_NotifyEvent *        O_WXOBJECT
 wxNotifyEvent *         O_WXOBJECT
-Wx_PaintEvent *         O_WXOBJECT
 wxPaintEvent *          O_WXOBJECT
-Wx_QueryLayoutInfo *    O_WXOBJECT
 wxQueryLayoutInfo *     O_WXOBJECT
 wxSashEvent *           O_WXOBJECT
-Wx_SizeEvent *          O_WXOBJECT
 wxSizeEvent *           O_WXOBJECT
 wxScrollEvent *         O_WXOBJECT
-Wx_ScrollWinEvent *     O_WXOBJECT
 wxScrollWinEvent *      O_WXOBJECT
 wxSpinEvent *           O_WXOBJECT
 wxSplitterEvent *       O_WXOBJECT
-Wx_SysColourChangedEvent * O_WXOBJECT
 wxSysColourChangedEvent * O_WXOBJECT
-Wx_TimerEvent *         O_WXOBJECT
 wxTimerEvent *          O_WXOBJECT
 wxTreeEvent *           O_WXOBJECT
-Wx_UpdateUIEvent *      O_WXOBJECT
 wxUpdateUIEvent *       O_WXOBJECT
 wxTextUrlEvent *        O_WXOBJECT
-Wx_ProcessEvent *       O_WXOBJECT
 wxProcessEvent *        O_WXOBJECT
 wxWizardEvent *         O_WXOBJECT
 wxTreebookEvent *       O_WXOBJECT
 
-Wx_PlEvent*             O_WXOBJECT
-Wx_PlCommandEvent*      O_WXOBJECT
-Wx_PlThreadEvent*       O_WXOBJECT
+wxPlEvent *             O_WXOBJECT
+wxPlCommandEvent *      O_WXOBJECT
+wxPlThreadEvent *       O_WXOBJECT
 
 wxConfigBase *          O_NON_WXOBJECT
 wxConfig *              O_NON_WXOBJECT

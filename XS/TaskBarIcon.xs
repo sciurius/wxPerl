@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/12/2001
-## RCS-ID:      $Id: TaskBarIcon.xs,v 1.2 2004/02/28 22:59:06 mbarbon Exp $
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: TaskBarIcon.xs,v 1.3 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,20 +16,20 @@ MODULE=Wx PACKAGE=Wx::TaskBarIcon
 
 #include <wx/taskbar.h>
 
-Wx_TaskBarIcon*
-Wx_TaskBarIcon::new()
+wxTaskBarIcon*
+wxTaskBarIcon::new()
 
 void
-Wx_TaskBarIcon::Destroy()
+wxTaskBarIcon::Destroy()
   CODE:
     delete THIS;
 
 bool
-Wx_TaskBarIcon::IsIconInstalled()
+wxTaskBarIcon::IsIconInstalled()
 
 bool
-Wx_TaskBarIcon::SetIcon( icon, tooltip = wxEmptyString )
-    Wx_Icon* icon
+wxTaskBarIcon::SetIcon( icon, tooltip = wxEmptyString )
+    wxIcon* icon
     wxString tooltip
   CODE:
     RETVAL = THIS->SetIcon( *icon, tooltip );
@@ -37,10 +37,10 @@ Wx_TaskBarIcon::SetIcon( icon, tooltip = wxEmptyString )
     RETVAL
 
 bool
-Wx_TaskBarIcon::RemoveIcon()
+wxTaskBarIcon::RemoveIcon()
 
 bool
-Wx_TaskBarIcon::PopupMenu( menu )
+wxTaskBarIcon::PopupMenu( menu )
     wxMenu* menu
 
 #endif

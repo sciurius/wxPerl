@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.32 2004/06/01 19:24:36 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.33 2004/07/10 13:16:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,50 +15,50 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::ListEvent
 
-Wx_ListEvent*
-Wx_ListEvent::new( eventType = wxEVT_NULL, id = 0 )
+wxListEvent*
+wxListEvent::new( eventType = wxEVT_NULL, id = 0 )
     wxEventType eventType
     int id
 
 long
-Wx_ListEvent::GetCacheFrom()
+wxListEvent::GetCacheFrom()
 
 long
-Wx_ListEvent::GetCacheTo()
+wxListEvent::GetCacheTo()
 
 long
-Wx_ListEvent::GetIndex()
+wxListEvent::GetIndex()
 
 int
-Wx_ListEvent::GetColumn()
+wxListEvent::GetColumn()
 
 int
-Wx_ListEvent::GetKeyCode()
+wxListEvent::GetKeyCode()
 
-Wx_Point*
-Wx_ListEvent::GetPoint()
+wxPoint*
+wxListEvent::GetPoint()
   CODE:
     RETVAL = new wxPoint( THIS->GetPoint() );
   OUTPUT:
     RETVAL
 
 wxString
-Wx_ListEvent::GetLabel()
+wxListEvent::GetLabel()
 
 wxString
-Wx_ListEvent::GetText()
+wxListEvent::GetText()
 
 int
-Wx_ListEvent::GetImage()
+wxListEvent::GetImage()
 
 long
-Wx_ListEvent::GetData()
+wxListEvent::GetData()
 
 long
-Wx_ListEvent::GetMask()
+wxListEvent::GetMask()
 
-Wx_ListItem*
-Wx_ListEvent::GetItem()
+wxListItem*
+wxListEvent::GetItem()
   CODE:
     RETVAL = new wxListItem( THIS->GetItem() );
   OUTPUT:
@@ -66,115 +66,114 @@ Wx_ListEvent::GetItem()
 
 MODULE=Wx PACKAGE=Wx::ListItem
 
-Wx_ListItem*
-Wx_ListItem::new()
+wxListItem*
+wxListItem::new()
 
 void
-Wx_ListItem::DESTROY()
+wxListItem::DESTROY()
 
 void
-Wx_ListItem::Clear()
+wxListItem::Clear()
 
 void
-Wx_ListItem::ClearAttributes()
+wxListItem::ClearAttributes()
 
 void
-Wx_ListItem::SetMask( mask )
+wxListItem::SetMask( mask )
     long mask
 
 void
-Wx_ListItem::SetId( id )
+wxListItem::SetId( id )
     long id
 
 void
-Wx_ListItem::SetColumn( column )
+wxListItem::SetColumn( column )
     int column
 
 void
-Wx_ListItem::SetState( state )
+wxListItem::SetState( state )
    long state
 
 void
-Wx_ListItem::SetStateMask( stateMask )
+wxListItem::SetStateMask( stateMask )
     long stateMask
 
 void
-Wx_ListItem::SetText( text )
+wxListItem::SetText( text )
     wxString text
 
 void
-Wx_ListItem::SetImage( image )
+wxListItem::SetImage( image )
      int image
 
 void
-Wx_ListItem::SetData( data )
+wxListItem::SetData( data )
     long data
 
 void
-Wx_ListItem::SetWidth( width )
+wxListItem::SetWidth( width )
     int width
 
 void
-Wx_ListItem::SetAlign( align )
+wxListItem::SetAlign( align )
     wxListColumnFormat align
 
 void
-Wx_ListItem::SetTextColour( colour )
-    Wx_Colour colour
+wxListItem::SetTextColour( colour )
+    wxColour colour
 
 void
-Wx_ListItem::SetBackgroundColour( colour )
-    Wx_Colour colour
+wxListItem::SetBackgroundColour( colour )
+    wxColour colour
 
 void
-Wx_ListItem::SetFont( font )
-    Wx_Font* font
-  CODE:
-    THIS->SetFont( *font );
+wxListItem::SetFont( font )
+    wxFont* font
+  C_ARGS: *font
 
 long
-Wx_ListItem::GetMask()
+wxListItem::GetMask()
 
 long
-Wx_ListItem::GetId()
+wxListItem::GetId()
 
 int
-Wx_ListItem::GetColumn()
+wxListItem::GetColumn()
 
 long
-Wx_ListItem::GetState()
+wxListItem::GetState()
 
 wxString
-Wx_ListItem::GetText()
+wxListItem::GetText()
 
 int
-Wx_ListItem::GetImage()
+wxListItem::GetImage()
 
 long
-Wx_ListItem::GetData()
+wxListItem::GetData()
 
 int
-Wx_ListItem::GetWidth()
+wxListItem::GetWidth()
 
 wxListColumnFormat
-Wx_ListItem::GetAlign()
+wxListItem::GetAlign()
 
-Wx_Colour*
-Wx_ListItem::GetTextColour()
+wxColour*
+wxListItem::GetTextColour()
   CODE:
     RETVAL = new wxColour( THIS->GetTextColour() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_ListItem::GetBackgroundColour()
+wxColour*
+wxListItem::GetBackgroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetBackgroundColour() );
   OUTPUT:
     RETVAL
 
-Wx_Font*
-Wx_ListItem::GetFont()
+wxFont*
+wxListItem::GetFont()
   CODE:
     RETVAL = new wxFont( THIS->GetFont() );
   OUTPUT:
@@ -182,8 +181,8 @@ Wx_ListItem::GetFont()
 
 MODULE=Wx PACKAGE=Wx::ListItemAttr
 
-Wx_ListItemAttr*
-Wx_ListItemAttr::new( ... )
+wxListItemAttr*
+wxListItemAttr::new( ... )
   CASE: items == 1
     CODE:
       RETVAL = new wxListItemAttr();
@@ -191,13 +190,13 @@ Wx_ListItemAttr::new( ... )
       RETVAL
   CASE: items == 4
     INPUT:
-      Wx_Colour text = NO_INIT
-      Wx_Colour back = NO_INIT
-      Wx_Font* font = NO_INIT
+      wxColour text = NO_INIT
+      wxColour back = NO_INIT
+      wxFont* font = NO_INIT
     CODE:
-      text = *(Wx_Colour *) wxPli_sv_2_object( aTHX_ ST(1), "Wx::Colour" );
-      back = *(Wx_Colour *) wxPli_sv_2_object( aTHX_ ST(2), "Wx::Colour" );
-      font = (Wx_Font *) wxPli_sv_2_object( aTHX_ ST(3), "Wx::Font" );
+      text = *(wxColour *) wxPli_sv_2_object( aTHX_ ST(1), "Wx::Colour" );
+      back = *(wxColour *) wxPli_sv_2_object( aTHX_ ST(2), "Wx::Colour" );
+      font = (wxFont *) wxPli_sv_2_object( aTHX_ ST(3), "Wx::Font" );
       RETVAL = new wxListItemAttr( text, back, *font );
     OUTPUT:
       RETVAL
@@ -206,47 +205,47 @@ Wx_ListItemAttr::new( ... )
       croak( "Usage: Wx::ListItemAttr::new(THIS [, text, back, font ] )" );
 
 void
-Wx_ListItemAttr::DESTROY()
+wxListItemAttr::DESTROY()
 
 void
-Wx_ListItemAttr::SetTextColour( text )
-    Wx_Colour text
+wxListItemAttr::SetTextColour( text )
+    wxColour text
 
 void
-Wx_ListItemAttr::SetBackgroundColour( back )
-    Wx_Colour back
+wxListItemAttr::SetBackgroundColour( back )
+    wxColour back
 
 void
-Wx_ListItemAttr::SetFont( font )
-    Wx_Font* font
+wxListItemAttr::SetFont( font )
+    wxFont* font
   CODE:
     THIS->SetFont( *font );
 
 bool
-Wx_ListItemAttr::HasTextColour()
+wxListItemAttr::HasTextColour()
 
 bool
-Wx_ListItemAttr::HasBackgroundColour()
+wxListItemAttr::HasBackgroundColour()
 
 bool
-Wx_ListItemAttr::HasFont()
+wxListItemAttr::HasFont()
 
-Wx_Colour*
-Wx_ListItemAttr::GetTextColour()
+wxColour*
+wxListItemAttr::GetTextColour()
   CODE:
     RETVAL = new wxColour( THIS->GetTextColour() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_ListItemAttr::GetBackgroundColour()
+wxColour*
+wxListItemAttr::GetBackgroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetBackgroundColour() );
   OUTPUT:
     RETVAL
 
-Wx_Font*
-Wx_ListItemAttr::GetFont()
+wxFont*
+wxListItemAttr::GetFont()
   CODE:
     RETVAL = new wxFont( THIS->GetFont() );
   OUTPUT:

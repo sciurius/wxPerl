@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        FileDialog.xs
+## Name:        XS/FileDialog.xs
 ## Purpose:     XS for Wx::FileDialog
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: FileDialog.xs,v 1.6 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,24 +14,24 @@
 
 MODULE=Wx PACKAGE=Wx::FileDialog
 
-Wx_FileDialog*
-Wx_FileDialog::new( parent, message = wxFileSelectorPromptStr, defaultDir = wxEmptyString, defaultFile = wxEmptyString, wildcard = wxFileSelectorDefaultWildcardStr, style = 0, pos = wxDefaultPosition )
-    Wx_Window* parent
+wxFileDialog*
+wxFileDialog::new( parent, message = wxFileSelectorPromptStr, defaultDir = wxEmptyString, defaultFile = wxEmptyString, wildcard = wxFileSelectorDefaultWildcardStr, style = 0, pos = wxDefaultPosition )
+    wxWindow* parent
     wxString message
     wxString defaultDir
     wxString defaultFile
     wxString wildcard
     long style
-    Wx_Point pos
+    wxPoint pos
 
 wxString
-Wx_FileDialog::GetDirectory()
+wxFileDialog::GetDirectory()
 
 wxString
-Wx_FileDialog::GetFilename()
+wxFileDialog::GetFilename()
 
 void
-Wx_FileDialog::GetFilenames()
+wxFileDialog::GetFilenames()
   PREINIT:
     wxArrayString filenames;
     int i, max;
@@ -50,16 +50,16 @@ Wx_FileDialog::GetFilenames()
     }
 
 int
-Wx_FileDialog::GetFilterIndex()
+wxFileDialog::GetFilterIndex()
 
 wxString
-Wx_FileDialog::GetMessage()
+wxFileDialog::GetMessage()
 
 wxString
-Wx_FileDialog::GetPath()
+wxFileDialog::GetPath()
 
 void
-Wx_FileDialog::GetPaths()
+wxFileDialog::GetPaths()
   PREINIT:
     wxArrayString filenames;
     int i, max;
@@ -78,41 +78,41 @@ Wx_FileDialog::GetPaths()
     }
 
 long
-Wx_FileDialog::GetStyle()
+wxFileDialog::GetStyle()
 
 wxString
-Wx_FileDialog::GetWildcard()
+wxFileDialog::GetWildcard()
 
 void
-Wx_FileDialog::SetDirectory( directory )
+wxFileDialog::SetDirectory( directory )
     wxString directory
 
 void
-Wx_FileDialog::SetFilename( name )
+wxFileDialog::SetFilename( name )
     wxString name
 
 void
-Wx_FileDialog::SetFilterIndex( index )
+wxFileDialog::SetFilterIndex( index )
     int index
 
 void
-Wx_FileDialog::SetMessage( message )
+wxFileDialog::SetMessage( message )
     wxString message
 
 void
-Wx_FileDialog::SetPath( path )
+wxFileDialog::SetPath( path )
     wxString path
 
 void
-Wx_FileDialog::SetStyle( style )
+wxFileDialog::SetStyle( style )
     long style
 
 void
-Wx_FileDialog::SetWildcard( wildcard )
+wxFileDialog::SetWildcard( wildcard )
     wxString wildcard
 
 int
-Wx_FileDialog::ShowModal()
+wxFileDialog::ShowModal()
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
@@ -124,7 +124,6 @@ wxFileSelector( message, default_path = wxEmptyString, default_filename = wxEmpt
     wxString default_extension
     wxString wildcard
     int flags
-    Wx_Window* parent
+    wxWindow* parent
     int x
     int y
-

@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        FindReplaceDialog.xs
+## Name:        XS/FindReplaceDialog.xs
 ## Purpose:     XS for Wx::FindReplaceDialog
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      7/ 9/2001
-## RCS-ID:      $Id: FindReplaceDialog.xs,v 1.4 2003/05/05 20:38:41 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## Created:     07/09/2001
+## RCS-ID:      $Id: FindReplaceDialog.xs,v 1.5 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,66 +14,66 @@
 
 MODULE=Wx PACKAGE=Wx::FindReplaceData
 
-Wx_FindReplaceData*
-Wx_FindReplaceData::new( flags )
+wxFindReplaceData*
+wxFindReplaceData::new( flags )
     int flags
 
 void
-Wx_FindReplaceData::Destroy()
+wxFindReplaceData::Destroy()
   CODE:
     delete THIS;
 
 wxString
-Wx_FindReplaceData::GetFindString()
+wxFindReplaceData::GetFindString()
 
 wxString
-Wx_FindReplaceData::GetReplaceString()
+wxFindReplaceData::GetReplaceString()
 
 int
-Wx_FindReplaceData::GetFlags()
+wxFindReplaceData::GetFlags()
 
 void
-Wx_FindReplaceData::SetFlags( flags )
+wxFindReplaceData::SetFlags( flags )
     int flags
 
 void
-Wx_FindReplaceData::SetFindString( find )
+wxFindReplaceData::SetFindString( find )
     wxString find
 
 void
-Wx_FindReplaceData::SetReplaceString( replace )
+wxFindReplaceData::SetReplaceString( replace )
     wxString replace
 
 MODULE=Wx PACKAGE=Wx::FindDialogEvent
 
 int
-Wx_FindDialogEvent::GetFlags()
+wxFindDialogEvent::GetFlags()
 
 wxString
-Wx_FindDialogEvent::GetFindString()
+wxFindDialogEvent::GetFindString()
 
 wxString
-Wx_FindDialogEvent::GetReplaceString()
+wxFindDialogEvent::GetReplaceString()
 
-Wx_FindReplaceDialog*
-Wx_FindDialogEvent::GetDialog()
+wxFindReplaceDialog*
+wxFindDialogEvent::GetDialog()
 
 MODULE=Wx PACKAGE=Wx::FindReplaceDialog
 
-Wx_FindReplaceDialog*
-Wx_FindReplaceDialog::new( parent, data, title, style = 0 )
-    Wx_Window* parent
-    Wx_FindReplaceData * data
+wxFindReplaceDialog*
+wxFindReplaceDialog::new( parent, data, title, style = 0 )
+    wxWindow* parent
+    wxFindReplaceData * data
     wxString title
     long style
 
-Wx_FindReplaceData*
-Wx_FindReplaceDialog::GetData()
+wxFindReplaceData*
+wxFindReplaceDialog::GetData()
   CODE:
-    RETVAL = (Wx_FindReplaceData*)THIS->GetData();
+    RETVAL = (wxFindReplaceData*)THIS->GetData();
   OUTPUT:
     RETVAL
 
 void
-Wx_FindReplaceDialog::SetData( data )
-    Wx_FindReplaceData* data
+wxFindReplaceDialog::SetData( data )
+    wxFindReplaceData* data

@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        DC.xs
+## Name:        XS/DC.xs
 ## Purpose:     XS for Wx::DC and derived classes
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.19 2003/05/05 20:38:41 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: DC.xs,v 1.20 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,60 +19,60 @@ MODULE=Wx PACKAGE=Wx::DC
 
 void
 DESTROY( THIS )
-    Wx_DC* THIS
+    wxDC* THIS
   CODE:
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 
 void
-Wx_DC::BeginDrawing()
+wxDC::BeginDrawing()
 
 bool
-Wx_DC::Blit( xdest, ydest, width, height, source, xsrc, ysrc, logicalFunc = wxCOPY, useMask = FALSE )
+wxDC::Blit( xdest, ydest, width, height, source, xsrc, ysrc, logicalFunc = wxCOPY, useMask = FALSE )
     wxCoord xdest
     wxCoord ydest
     wxCoord width
     wxCoord height
-    Wx_DC* source
+    wxDC* source
     wxCoord xsrc
     wxCoord ysrc
     int logicalFunc
     bool useMask
 
 void
-Wx_DC::CalcBoundingBox( x, y )
+wxDC::CalcBoundingBox( x, y )
     wxCoord x
     wxCoord y
 
 void
-Wx_DC::Clear()
+wxDC::Clear()
 
 void
-Wx_DC::CrossHair( x, y )
+wxDC::CrossHair( x, y )
     wxCoord x
     wxCoord y
 
 void
-Wx_DC::DestroyClippingRegion()
+wxDC::DestroyClippingRegion()
 
 wxCoord
-Wx_DC::DeviceToLogicalX( x )
+wxDC::DeviceToLogicalX( x )
     wxCoord x
 
 wxCoord
-Wx_DC::DeviceToLogicalXRel( x )
+wxDC::DeviceToLogicalXRel( x )
     wxCoord x
 
 wxCoord
-Wx_DC::DeviceToLogicalY( y )
+wxDC::DeviceToLogicalY( y )
     wxCoord y
 
 wxCoord
-Wx_DC::DeviceToLogicalYRel( y )
+wxDC::DeviceToLogicalYRel( y )
     wxCoord y
 
 void
-Wx_DC::DrawArc( x1, y1, x2, y2, xc, yc )
+wxDC::DrawArc( x1, y1, x2, y2, xc, yc )
     wxCoord x1
     wxCoord y1
     wxCoord x2
@@ -81,8 +81,8 @@ Wx_DC::DrawArc( x1, y1, x2, y2, xc, yc )
     wxCoord yc
 
 void
-Wx_DC::DrawBitmap( bitmap, x, y, transparent )
-    Wx_Bitmap* bitmap
+wxDC::DrawBitmap( bitmap, x, y, transparent )
+    wxBitmap* bitmap
     wxCoord x
     wxCoord y
     bool transparent
@@ -90,7 +90,7 @@ Wx_DC::DrawBitmap( bitmap, x, y, transparent )
     THIS->DrawBitmap( *bitmap, x, y, transparent );
 
 void
-Wx_DC::DrawCheckMark( ... )
+wxDC::DrawCheckMark( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n_n_n, DrawCheckMarkXYWH )
@@ -98,7 +98,7 @@ Wx_DC::DrawCheckMark( ... )
     END_OVERLOAD( Wx::DC::DrawCheckMark )
 
 void
-Wx_DC::DrawCheckMarkXYWH( x, y, width, height )
+wxDC::DrawCheckMarkXYWH( x, y, width, height )
     wxCoord x
     wxCoord y
     wxCoord width
@@ -107,20 +107,20 @@ Wx_DC::DrawCheckMarkXYWH( x, y, width, height )
     THIS->DrawCheckMark( x, y, width, height );
 
 void
-Wx_DC::DrawCheckMarkRect( rect )
-    Wx_Rect* rect
+wxDC::DrawCheckMarkRect( rect )
+    wxRect* rect
   CODE:
     THIS->DrawCheckMark( *rect );
 
 void
-Wx_DC::DrawEllipse( x, y, width, height )
+wxDC::DrawEllipse( x, y, width, height )
     wxCoord x
     wxCoord y
     wxCoord width
     wxCoord height
 
 void
-Wx_DC::DrawEllipticArc( x, y, width, height, start, end )
+wxDC::DrawEllipticArc( x, y, width, height, start, end )
     wxCoord x
     wxCoord y
     wxCoord width
@@ -129,22 +129,22 @@ Wx_DC::DrawEllipticArc( x, y, width, height, start, end )
     double end
 
 void
-Wx_DC::DrawIcon( icon, x, y )
-    Wx_Icon* icon
+wxDC::DrawIcon( icon, x, y )
+    wxIcon* icon
     wxCoord x
     wxCoord y
   CODE:
     THIS->DrawIcon( *icon, x, y );
 
 void
-Wx_DC::DrawLine( x1, y1, x2, y2 )
+wxDC::DrawLine( x1, y1, x2, y2 )
     wxCoord x1
     wxCoord y1
     wxCoord x2
     wxCoord y2
 
 void
-Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
+wxDC::DrawLines( list, xoffset = 0, yoffset = 0 )
     SV* list
     wxCoord xoffset
     wxCoord yoffset
@@ -157,16 +157,16 @@ Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
     delete [] pts;
 
 void
-Wx_DC::DrawObject( object )
-    Wx_DrawObject* object
+wxDC::DrawObject( object )
+    wxDrawObject* object
 
 void
-Wx_DC::DrawPoint( x, y )
+wxDC::DrawPoint( x, y )
     wxCoord x
     wxCoord y
 
 void
-Wx_DC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
+wxDC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
     SV* list
     wxCoord xoffset
     wxCoord yoffset
@@ -181,21 +181,21 @@ Wx_DC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
 
 
 void
-Wx_DC::DrawRectangle( x, y, width, height )
+wxDC::DrawRectangle( x, y, width, height )
     wxCoord x
     wxCoord y
     wxCoord width
     wxCoord height
 
 void
-Wx_DC::DrawRotatedText( text, x, y, angle )
+wxDC::DrawRotatedText( text, x, y, angle )
     wxString text
     wxCoord x
     wxCoord y
     double angle
 
 void
-Wx_DC::DrawRoundedRectangle( x, y, width, height, radius = 20 )
+wxDC::DrawRoundedRectangle( x, y, width, height, radius = 20 )
     wxCoord x
     wxCoord y
     wxCoord width
@@ -203,7 +203,7 @@ Wx_DC::DrawRoundedRectangle( x, y, width, height, radius = 20 )
     wxCoord radius
 
 void
-Wx_DC::DrawSpline( list )
+wxDC::DrawSpline( list )
     SV* list
   PREINIT:
     wxList points;
@@ -214,54 +214,54 @@ Wx_DC::DrawSpline( list )
     delete [] pts;
 
 void
-Wx_DC::DrawText( text, x, y )
+wxDC::DrawText( text, x, y )
     wxString text
     wxCoord x
     wxCoord y
 
 void
-Wx_DC::EndDoc()
+wxDC::EndDoc()
 
 void
-Wx_DC::EndDrawing()
+wxDC::EndDrawing()
 
 void
-Wx_DC::EndPage()
+wxDC::EndPage()
 
 void
-Wx_DC::FloodFill( x, y, colour, style =  wxFLOOD_SURFACE )
+wxDC::FloodFill( x, y, colour, style =  wxFLOOD_SURFACE )
     wxCoord x
     wxCoord y
-    Wx_Colour* colour
+    wxColour* colour
     int style
   CODE:
     THIS->FloodFill( x, y, *colour, style );
 
-Wx_Brush*
-Wx_DC::GetBackground()
+wxBrush*
+wxDC::GetBackground()
   CODE:
     RETVAL = new wxBrush( THIS->GetBackground() );
   OUTPUT:
     RETVAL
 
 int
-Wx_DC::GetBackgroundMode()
+wxDC::GetBackgroundMode()
 
-Wx_Brush*
-Wx_DC::GetBrush()
+wxBrush*
+wxDC::GetBrush()
   CODE:
     RETVAL = new wxBrush( THIS->GetBrush() );
   OUTPUT:
     RETVAL
 
 wxCoord
-Wx_DC::GetCharHeight()
+wxDC::GetCharHeight()
 
 wxCoord
-Wx_DC::GetCharWidth()
+wxDC::GetCharWidth()
 
 void
-Wx_DC::GetClippingBox()
+wxDC::GetClippingBox()
   PREINIT:
     wxCoord x, y, width, height;
   PPCODE:
@@ -272,31 +272,31 @@ Wx_DC::GetClippingBox()
     PUSHs( sv_2mortal( newSViv( width ) ) );
     PUSHs( sv_2mortal( newSViv( height ) ) );
 
-Wx_Font*
-Wx_DC::GetFont()
+wxFont*
+wxDC::GetFont()
   CODE:
     RETVAL = new wxFont( THIS->GetFont() );
   OUTPUT:
     RETVAL
 
 int
-Wx_DC::GetLogicalFunction()
+wxDC::GetLogicalFunction()
 
 int
-Wx_DC::GetMapMode()
+wxDC::GetMapMode()
 
 bool
-Wx_DC::GetOptimization()
+wxDC::GetOptimization()
 
-Wx_Pen*
-Wx_DC::GetPen()
+wxPen*
+wxDC::GetPen()
   CODE:
     RETVAL = new wxPen( THIS->GetPen() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_DC::GetPixel( x, y )
+wxColour*
+wxDC::GetPixel( x, y )
     wxCoord x
     wxCoord y
   PREINIT:
@@ -307,15 +307,15 @@ Wx_DC::GetPixel( x, y )
   OUTPUT:
     RETVAL
 
-Wx_Size*
-Wx_DC::GetSize()
+wxSize*
+wxDC::GetSize()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
     RETVAL
 
 void
-Wx_DC::GetSizeWH()
+wxDC::GetSizeWH()
   PREINIT:
     wxCoord x, y;
   PPCODE:
@@ -324,17 +324,17 @@ Wx_DC::GetSizeWH()
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
-Wx_Colour*
-Wx_DC::GetTextBackground()
+wxColour*
+wxDC::GetTextBackground()
   CODE:
     RETVAL = new wxColour( THIS->GetTextBackground() );
   OUTPUT:
     RETVAL
 
 void
-Wx_DC::GetTextExtent( string, font = 0 )
+wxDC::GetTextExtent( string, font = 0 )
     wxString string
-    Wx_Font* font
+    wxFont* font
   PREINIT:
     wxCoord x;
     wxCoord y;
@@ -349,15 +349,15 @@ Wx_DC::GetTextExtent( string, font = 0 )
     PUSHs( sv_2mortal( newSViv( descent ) ) );
     PUSHs( sv_2mortal( newSViv( externalLeading ) ) );
 
-Wx_Colour*
-Wx_DC::GetTextForeground()
+wxColour*
+wxDC::GetTextForeground()
   CODE:
     RETVAL = new wxColour( THIS->GetTextForeground() );
   OUTPUT:
     RETVAL
 
 void
-Wx_DC::GetUserScale()
+wxDC::GetUserScale()
   PREINIT:
     double x, y;
   PPCODE:
@@ -367,41 +367,41 @@ Wx_DC::GetUserScale()
     PUSHs( sv_2mortal( newSVnv( y ) ) );
 
 wxCoord
-Wx_DC::LogicalToDeviceX( x )
+wxDC::LogicalToDeviceX( x )
     wxCoord x
 
 wxCoord
-Wx_DC::LogicalToDeviceXRel( x )
+wxDC::LogicalToDeviceXRel( x )
     wxCoord x
 
 wxCoord
-Wx_DC::LogicalToDeviceY( y )
+wxDC::LogicalToDeviceY( y )
     wxCoord y
 
 wxCoord
-Wx_DC::LogicalToDeviceYRel( y )
+wxDC::LogicalToDeviceYRel( y )
     wxCoord y
 
 wxCoord
-Wx_DC::MaxX()
+wxDC::MaxX()
 
 wxCoord
-Wx_DC::MaxY()
+wxDC::MaxY()
 
 wxCoord
-Wx_DC::MinX()
+wxDC::MinX()
 
 wxCoord
-Wx_DC::MinY()
+wxDC::MinY()
 
 bool
-Wx_DC::Ok()
+wxDC::Ok()
 
 void
-Wx_DC::ResetBoundingBox()
+wxDC::ResetBoundingBox()
 
 void
-Wx_DC::SetAxisOrientation( xLeftRight, yBottomUp )
+wxDC::SetAxisOrientation( xLeftRight, yBottomUp )
     bool xLeftRight
     bool yBottomUp
 
@@ -412,28 +412,28 @@ wxDC::GetDeviceOrigin()
   OUTPUT: RETVAL
 
 void
-Wx_DC::SetDeviceOrigin( x, y )
+wxDC::SetDeviceOrigin( x, y )
     wxCoord x
     wxCoord y
 
 void
-Wx_DC::SetBackground( brush )
-    Wx_Brush* brush
+wxDC::SetBackground( brush )
+    wxBrush* brush
   CODE:
     THIS->SetBackground( *brush );
 
 void
-Wx_DC::SetBackgroundMode( mode )
+wxDC::SetBackgroundMode( mode )
     int mode
 
 void
-Wx_DC::SetBrush( brush )
-    Wx_Brush* brush
+wxDC::SetBrush( brush )
+    wxBrush* brush
   CODE:
     THIS->SetBrush( *brush );
 
 void
-Wx_DC::SetClippingRegion( ... )
+wxDC::SetClippingRegion( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n_n_n, SetClippingRegionXYWH )
@@ -441,7 +441,7 @@ Wx_DC::SetClippingRegion( ... )
     END_OVERLOAD( Wx::DC::SetClippingRegion )
 
 void
-Wx_DC::SetClippingRegionXYWH( x, y, w, h )
+wxDC::SetClippingRegionXYWH( x, y, w, h )
     wxCoord x
     wxCoord y
     wxCoord w
@@ -450,75 +450,75 @@ Wx_DC::SetClippingRegionXYWH( x, y, w, h )
     THIS->SetClippingRegion( x, y, w, h );
 
 void
-Wx_DC::SetClippingRegionRegion( region )
-    Wx_Region* region
+wxDC::SetClippingRegionRegion( region )
+    wxRegion* region
   CODE:
     THIS->SetClippingRegion( *region );
 
 void
-Wx_DC::SetFont( font )
-    Wx_Font* font
+wxDC::SetFont( font )
+    wxFont* font
   CODE:
     THIS->SetFont( *font );
 
 void
-Wx_DC::SetLogicalFunction( function )
+wxDC::SetLogicalFunction( function )
     int function
 
 void
-Wx_DC::SetMapMode( mode )
+wxDC::SetMapMode( mode )
     int mode
 
 void
-Wx_DC::SetOptimization( optimize )
+wxDC::SetOptimization( optimize )
     bool optimize
 
 void
-Wx_DC::SetPalette( palette )
-    Wx_Palette* palette
+wxDC::SetPalette( palette )
+    wxPalette* palette
   CODE:
     THIS->SetPalette( *palette );
 
 void
-Wx_DC::SetPen( pen )
-    Wx_Pen* pen
+wxDC::SetPen( pen )
+    wxPen* pen
   CODE:
     THIS->SetPen( *pen );
 
 void
-Wx_DC::SetTextBackground( colour )
-    Wx_Colour* colour
+wxDC::SetTextBackground( colour )
+    wxColour* colour
   CODE:
     THIS->SetTextBackground( *colour );
 
 void
-Wx_DC::SetTextForeground( colour )
-    Wx_Colour* colour
+wxDC::SetTextForeground( colour )
+    wxColour* colour
   CODE:
     THIS->SetTextForeground( *colour );
 
 void
-Wx_DC::SetUserScale( xScale, yScale )
+wxDC::SetUserScale( xScale, yScale )
     double xScale
     double yScale
 
 bool
-Wx_DC::StartDoc( message )
+wxDC::StartDoc( message )
     wxString message
 
 void
-Wx_DC::StartPage()
+wxDC::StartPage()
 
 MODULE=Wx PACKAGE=Wx::ScreenDC
 
-Wx_ScreenDC*
-Wx_ScreenDC::new()
+wxScreenDC*
+wxScreenDC::new()
 
 bool
-Wx_ScreenDC::EndDrawingOnTop()
+wxScreenDC::EndDrawingOnTop()
 
 void
-Wx_ScreenDC::StartDrawingOnTop( ... )
+wxScreenDC::StartDrawingOnTop( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wwin, StartDrawingOnTopWindow )
@@ -526,16 +526,16 @@ Wx_ScreenDC::StartDrawingOnTop( ... )
     END_OVERLOAD( Wx::ScreenDC::StartDrawingOnTop )
 
 bool
-Wx_ScreenDC::StartDrawingOnTopWindow( window )
-    Wx_Window* window
+wxScreenDC::StartDrawingOnTopWindow( window )
+    wxWindow* window
   CODE:
     RETVAL = THIS->StartDrawingOnTop( window );
   OUTPUT:
     RETVAL
 
 bool
-Wx_ScreenDC::StartDrawingOnTopRect( rect )
-    Wx_Rect* rect
+wxScreenDC::StartDrawingOnTopRect( rect )
+    wxRect* rect
   CODE:
     RETVAL = THIS->StartDrawingOnTop( rect );
   OUTPUT:
@@ -543,29 +543,29 @@ Wx_ScreenDC::StartDrawingOnTopRect( rect )
 
 MODULE=Wx PACKAGE=Wx::WindowDC
 
-Wx_WindowDC*
-Wx_WindowDC::new( window )
-    Wx_Window* window
+wxWindowDC*
+wxWindowDC::new( window )
+    wxWindow* window
 
 MODULE=Wx PACKAGE=Wx::PaintDC
 
-Wx_PaintDC*
-Wx_PaintDC::new( window )
-    Wx_Window* window
+wxPaintDC*
+wxPaintDC::new( window )
+    wxWindow* window
 
 MODULE=Wx PACKAGE=Wx::MemoryDC
 
-Wx_MemoryDC*
-Wx_MemoryDC::new()
+wxMemoryDC*
+wxMemoryDC::new()
 
 void
-Wx_MemoryDC::SelectObject( bitmap )
-    Wx_Bitmap* bitmap
+wxMemoryDC::SelectObject( bitmap )
+    wxBitmap* bitmap
   CODE:
     THIS->SelectObject( *bitmap );
 
 MODULE=Wx PACKAGE=Wx::ClientDC
 
-Wx_ClientDC*
-Wx_ClientDC::new( window )
-    Wx_Window* window
+wxClientDC*
+wxClientDC::new( window )
+    wxWindow* window

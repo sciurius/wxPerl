@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Validator.xs
+## Name:        XS/Validators.xs
 ## Purpose:     XS for Wx::Validator
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Validators.xs,v 1.8 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,38 +15,38 @@
 
 MODULE=Wx PACKAGE=Wx::Validator
 
-Wx_Window*
-Wx_Validator::GetWindow()
+wxWindow*
+wxValidator::GetWindow()
 
 void
-Wx_Validator::SetBellOnError( doit = TRUE )
+wxValidator::SetBellOnError( doit = TRUE )
     bool doit
 
 void
-Wx_Validator::SetWindow( window )
-    Wx_Window* window
+wxValidator::SetWindow( window )
+    wxWindow* window
 
 # bool
-# Wx_Validator::TransferFromWindow()
+# wxValidator::TransferFromWindow()
 
 # bool
-# Wx_Validator::TransferToWindow()
+# wxValidator::TransferToWindow()
 
 # bool
-# Wx_Validator::Validate( parent )
-#    Wx_Window* parent
+# wxValidator::Validate( parent )
+#    wxWindow* parent
 
 MODULE=Wx PACKAGE=Wx::PlValidator
 
-Wx_PlValidator*
-Wx_PlValidator::new()
+wxPlValidator*
+wxPlValidator::new()
   CODE:
     RETVAL = new wxPlValidator( CLASS );
   OUTPUT:
     RETVAL
 
 void
-Wx_PlValidator::DESTROY()
+wxPlValidator::DESTROY()
   PREINIT:
     static char wxPlPlValidatorName[] = "Wx::PlValidator";
   CODE:

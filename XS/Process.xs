@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Process.xs
+## Name:        XS/Process.xs
 ## Purpose:     XS for Wx::Process and Wx::ProcessEvent and Wx::Execute
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     11/ 2/2002
-## RCS-ID:      $Id: Process.xs,v 1.10 2003/06/04 20:38:42 mbarbon Exp $
-## Copyright:   (c) 2002-2003 Mattia Barbon
+## Created:     11/02/2002
+## RCS-ID:      $Id: Process.xs,v 1.11 2004/07/10 13:16:46 mbarbon Exp $
+## Copyright:   (c) 2002-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,22 +16,22 @@
 
 MODULE=Wx PACKAGE=Wx::ProcessEvent
 
-Wx_ProcessEvent*
-Wx_ProcessEvent::new( id = 0, pid = 0, status = 0 )
+wxProcessEvent*
+wxProcessEvent::new( id = 0, pid = 0, status = 0 )
     int id
     int pid
     int status
 
 int
-Wx_ProcessEvent::GetPid()
+wxProcessEvent::GetPid()
 
 int
-Wx_ProcessEvent::GetExitCode()
+wxProcessEvent::GetExitCode()
 
 MODULE=Wx PACKAGE=Wx::Process
 
-Wx_Process*
-Wx_Process::new( parent = 0, id = -1 )
+wxProcess*
+wxProcess::new( parent = 0, id = -1 )
     wxEvtHandler* parent
     int id
   CODE:
@@ -40,24 +40,24 @@ Wx_Process::new( parent = 0, id = -1 )
     RETVAL
 
 void
-Wx_Process::Destroy()
+wxProcess::Destroy()
   CODE:
     delete THIS;
 
 void
-Wx_Process::CloseOutput()
+wxProcess::CloseOutput()
 
 void
-Wx_Process::Detach()
+wxProcess::Detach()
 
 wxInputStream*
-Wx_Process::GetErrorStream()
+wxProcess::GetErrorStream()
 
 wxInputStream*
-Wx_Process::GetInputStream()
+wxProcess::GetInputStream()
 
 wxOutputStream*
-Wx_Process::GetOutputStream()
+wxProcess::GetOutputStream()
 
 bool
 wxProcess::IsErrorAvailable()
@@ -86,14 +86,14 @@ Exists( pid )
     RETVAL
 
 void
-Wx_Process::OnTerminate( pid, status )
+wxProcess::OnTerminate( pid, status )
     int pid
     int status
   CODE:
     THIS->wxProcess::OnTerminate( pid, status );
 
 void
-Wx_Process::Redirect()
+wxProcess::Redirect()
 
 wxProcess*
 Open( cmd, flags = wxEXEC_ASYNC )
@@ -110,7 +110,7 @@ long
 wxExecuteCommand( command, sync = wxEXEC_ASYNC, callback = 0 )
     wxString command
     int sync
-    Wx_Process* callback
+    wxProcess* callback
   CODE:
     RETVAL = wxExecute( command, sync, callback );
   OUTPUT:
@@ -146,7 +146,7 @@ long
 wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
     SV* args
     int sync
-    Wx_Process* callback
+    wxProcess* callback
   PREINIT:
     char** argv;
     char** t;
