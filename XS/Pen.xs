@@ -13,8 +13,6 @@
 MODULE=Wx PACKAGE=Wx::Pen
 
 #FIXME// unimplemented
-# SetDashes
-# GetDashes
 # operator == !=
 
 Wx_Pen*
@@ -57,6 +55,19 @@ Wx_Pen::GetColour()
     RETVAL = new wxColour( THIS->GetColour() );
   OUTPUT:
     RETVAL
+
+void
+Wx_Pen::GetDashes()
+  PREINIT:
+    int i, n;
+    wxDash* array;
+  PPCODE:
+    n = THIS->GetDashes( &array );
+    EXTEND( SP, n );
+    for( i = 0; i < n; ++i )
+    {
+      PUSHs( sv_2mortal( newSViv( array[i] ) ) );
+    }
 
 int
 Wx_Pen::GetJoin()
@@ -104,6 +115,40 @@ Wx_Pen::SetColourRGB( r, g, b )
     int b
   CODE:
     THIS->SetColour( r, g, b );
+
+void
+Wx_Pen::SetDashes( ds )
+    SV* ds
+  PREINIT:
+    int n;
+    wxDash* dashes = 0;
+    wxDash* olddashes;
+  CODE:
+    THIS->GetDashes( &olddashes );
+    if( SvOK( ds ) )
+    {
+      AV* av;
+      SV* t;
+      int i;
+
+      if( !SvROK( ds ) || 
+          ( SvTYPE( (SV*) ( av = (AV*) SvRV( ds ) ) ) != SVt_PVAV ) )
+      {
+          croak( "the value is not an array reference" );
+          XSRETURN_UNDEF;
+      }
+    
+      n = av_len( av ) + 1;
+      dashes = new wxDash[ n ];
+
+      for( i = 0; i < n; ++i )
+      {
+        t = *av_fetch( av, i, 0 );
+        dashes[i] = SvIV( t );
+      }
+    }
+    THIS->SetDashes( n, dashes );
+    delete[] olddashes;
 
 void
 Wx_Pen::SetJoin( join_style )
