@@ -215,6 +215,16 @@ Wx_Grid::GetCellBackgroundColour( row, col )
   OUTPUT:
     RETVAL
 
+Wx_GridCellEditor*
+Wx_Grid::GetCellEditor( row, col )
+    int row
+    int col
+
+Wx_GridCellRenderer*
+Wx_Grid::GetCellRenderer( row, col )
+    int row
+    int col
+
 Wx_Font*
 Wx_Grid::GetCellFont( row, col )
     int row
@@ -562,6 +572,24 @@ Wx_Grid::SetCellBackgroundColour( row, col, colour )
     Wx_Colour colour
 
 void
+Wx_Grid::SetCellEditor( row, col, editor )
+    int row
+    int col
+    Wx_GridCellEditor* editor
+  CODE:
+    editor->IncRef();
+    THIS->SetCellEditor( row, col, editor );
+
+void
+Wx_Grid::SetCellRenderer( row, col, renderer )
+    int row
+    int col
+    Wx_GridCellRenderer* renderer
+  CODE:
+    renderer->IncRef();
+    THIS->SetCellRenderer( row, col, renderer );
+
+void
 Wx_Grid::SetCellFont( row, col, font )
     int row
     int col
@@ -574,6 +602,21 @@ Wx_Grid::SetCellTextColour( row, col, colour )
     int row
     int col
     Wx_Colour colour
+
+void
+Wx_Grid::SetCellValueXY( row, col, s )
+    int row
+    int col
+    wxString s
+  CODE:
+    THIS->SetCellValue( row, col, s );
+
+void
+Wx_Grid::SetCellValueCo( coords, s )
+    Wx_GridCellCoords* coords
+    wxString s
+  CODE:
+    THIS->SetCellValue( *coords, s );
 
 void
 Wx_Grid::SetDefaultCellAlignment( horiz, vert )
@@ -608,6 +651,9 @@ void
 Wx_Grid::SetColAttr( col, attr )
     int col
     Wx_GridCellAttr* attr
+  CODE:
+    attr->IncRef();
+    THIS->SetColAttr( col, attr );
 
 void
 Wx_Grid::SetColFormatBool( col )
@@ -690,6 +736,9 @@ void
 Wx_Grid::SetRowAttr( row, attr )
     int row
     Wx_GridCellAttr* attr
+  CODE:
+    attr->IncRef();
+    THIS->SetRowAttr( row, attr );
 
 void
 Wx_Grid::SetRowLabelAlignment( horiz, vert )

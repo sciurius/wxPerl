@@ -43,6 +43,13 @@ package Wx::GridCellFloatRenderer; @ISA = qw(Wx::GridCellRenderer);
 package Wx::GridCellBoolRenderer; @ISA = qw(Wx::GridCellRenderer);
 package Wx::PlGridCellRenderer; @ISA = qw(Wx::GridCellRenderer);
 
+package Wx::GridCellEditor;
+package Wx::GridCellBoolEditor; @ISA = qw(Wx::GridCellEditor);
+package Wx::GridCellTextEditor; @ISA = qw(Wx::GridCellEditor);
+package Wx::GridCellFloatEditor; @ISA = qw(Wx::GridCellEditor);
+package Wx::GridCellNumberEditor; @ISA = qw(Wx::GridCellEditor);
+package Wx::GridCellChoiceEditor; @ISA = qw(Wx::GridCellEditor);
+
 package Wx::Grid;
 
 use strict;
@@ -91,8 +98,8 @@ sub SelectBlock {
 sub SetCellValue {
   my $this = shift;
 
-  Wx::_match( @_, $Wx::_wgco_s, 2 ) && return $this->SetCellValueXY( @_ );
-  Wx::_match( @_, $Wx::_n_n_s, 3 )  && return $this->SetCellValueCo( @_ );
+  Wx::_match( @_, $Wx::_wgco_s, 2 ) && return $this->SetCellValueCo( @_ );
+  Wx::_match( @_, $Wx::_n_n_s, 3 )  && return $this->SetCellValueXY( @_ );
   croak Wx::_ovl_error;
 }
 

@@ -81,6 +81,26 @@ Wx_GridCellAttr::GetBackgroundColour()
   OUTPUT:
     RETVAL
 
+Wx_GridCellEditor*
+Wx_GridCellAttr::GetEditor( grid, row, col )
+    Wx_Grid* grid
+    int row
+    int col
+  CODE:
+    RETVAL = THIS->GetEditor( grid, row, col );
+  OUTPUT:
+    RETVAL
+
+Wx_GridCellRenderer*
+Wx_GridCellAttr::GetRenderer( grid, row, col )
+    Wx_Grid* grid
+    int row
+    int col
+  CODE:
+    RETVAL = THIS->GetRenderer( grid, row, col );
+  OUTPUT:
+    RETVAL
+
 Wx_Font*
 Wx_GridCellAttr::GetFont()
   CODE:
@@ -104,3 +124,17 @@ Wx_GridCellAttr::IsReadOnly()
 void
 Wx_GridCellAttr::SetDefAttr( defAttr )
     Wx_GridCellAttr* defAttr
+
+void
+Wx_GridCellAttr::SetEditor( editor )
+    Wx_GridCellEditor* editor
+  CODE:
+    editor->IncRef();
+    THIS->SetEditor( editor );
+
+void
+Wx_GridCellAttr::SetRenderer( renderer )
+    Wx_GridCellRenderer* renderer
+  CODE:
+    renderer->IncRef();
+    THIS->SetRenderer( renderer );
