@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/12/2003
-## RCS-ID:      $Id: Listbook.xsp,v 1.2 2004/12/30 13:49:19 mbarbon Exp $
+## RCS-ID:      $Id: Listbook.xsp,v 1.3 2005/03/14 20:54:11 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -43,7 +43,9 @@
                 long style = 0,
                 const wxString& name = wxEmptyString);
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     wxListView* GetListView();
+#endif
 };
 
 %{
