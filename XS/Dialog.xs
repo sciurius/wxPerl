@@ -43,9 +43,9 @@ Wx_Dialog::IsIconized()
 bool
 Wx_Dialog::IsModal()
 
-void
-Wx_Dialog::SetModal( flag )
-    bool flag
+# void
+# Wx_Dialog::SetModal( flag )
+#    bool flag
 
 void
 Wx_Dialog::SetReturnCode( retCode )

@@ -12,33 +12,47 @@
 
 package Wx::RadioBox;
 
+use strict;
+use Carp;
+
 #FIXME// motif?
 if( $Wx::_platform == $Wx::_gtk ) {
-  @ISA = qw(Wx::Control);
+  @Wx::RadioBox::ISA = qw(Wx::Control);
 }
 else {
-  @ISA = qw(Wx::ControlWithItems);
+  @Wx::RadioBox::ISA = qw(Wx::ControlWithItems);
+}
+
+sub Enable {
+  my( $this ) = shift;
+
+  Wx::_match( @_, $Wx::_n, 1 )   && ( $this->SUPER::Enable( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n, 2 ) && ( $this->EnableItem( @_ ), return );
+  croak Wx::_ovl_error 'Wx::RadioBox::Enable';
 }
 
 sub GetLabel {
   my( $this ) = shift;
 
-  if( @_ == 1 ) { return $this->GetItemLabel( @_ ) }
-  else { return $this->SUPER::GetLabel() }
+  @_ == 0                  && return $this->SUPER::GetLabel();
+  Wx::_match( @_, $Wx::_n, 1 ) && return $this->GetItemLabel();
+  croak Wx::_ovl_error 'Wx::RadioBox::GetLabel';
 }
 
 sub SetLabel {
   my( $this ) = shift;
 
-  if( @_ == 2 ) { return $this->SetItemLabel( @_ ) }
-  else { return $this->SUPER::SetLabel( @_ ) }
+  Wx::_match( @_, $Wx::_n_s, 2 ) && $this->SetItemLabel( @_ );
+  Wx::_match( @_, $Wx::_s, 1 )   && $this->SUPER::SetLabel( @_ );
+  croak Wx::_ovl_error 'Wx::RadioBox::SetLabel';
 }
 
 sub Show {
   my( $this ) = shift;
 
-  if( @_ == 2 ) { return $this->Show( @_ ) }
-  else { return $this->SUPER::Show( @_ ) }
+  Wx::_match( @_, $Wx::_n_n, 2 ) && $this->ShowItem( @_ );
+  Wx::_match( @_, $Wx::_n, 1 )   && $this->Show( @_ );
+  croak Wx::_ovl_error 'Wx::RadioBox::Show';
 }
 
 1;

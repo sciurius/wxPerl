@@ -12,28 +12,41 @@
 
 package Wx::Menu;
 
-use UNIVERSAL qw(isa);
+use strict;
+use Carp;
 
 sub Append {
   my( $this ) = shift;
 
-  if( @_ == 1 ) { return $this->AppendItem( @_ ) }
-  elsif( isa( $_[2], 'Wx::Menu' ) ) { return $this->AppendSubMenu( @_ ) }
-  else { return $this->AppendString( @_ ) }
+  Wx::_match( @_, $Wx::_n_s_wmen, 3, 1 ) && ( $this->AppendSubMenu( @_ ), return );
+  Wx::_match( @_, $Wx::_n_s, 2, 1 )      && ( $this->AppendString( @_ ), return );
+  Wx::_match( @_, $Wx::_wmit, 1 )        && ( $this->Appenditem( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Menu::Append';
 }
 
 sub Delete {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::MenuItem' ) ) { return $this->DeleteItem( @_ ) }
-  else { return $this->DeleteId( @_ ) }
+  Wx::_match( @_, $Wx::_wmit, 1 ) && ( $this->DeleteItem( @_ ), return );
+  Wx::_match( @_, $Wx::_n, 1 )    && ( $this->DeleteId( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Menu::Delete';
 }
 
 sub Destroy {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::MenuItem' ) ) { return $this->DestroyItem( @_ ) }
-  else { return $this->DestroyId( @_ ) }
+  @_ == 0                     && ( $this->DestoryMenu(), return );
+  Wx::_match( @_, $Wx::_wmit, 1 ) && ( $this->DestroyItem( @_ ), return );
+  Wx::_match( @_, $Wx::_n, 1 )    && ( $this->DestroyId( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Menu::Destroy';
+}
+
+sub Remove {
+  my( $this ) = shift;
+
+  Wx::_match( @_, $Wx::_wmit, 1 ) && return $this->RemoveItem( @_ );
+  Wx::_match( @_, $Wx::_n, 1 )    && return $this->RemoveId( @_ );
+  croak Wx::_ovl_error 'Wx::Menu::Remove';
 }
 
 1;

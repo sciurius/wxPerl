@@ -528,6 +528,12 @@ if( strEQ( name, #n ) ) \
     r( wxSL_TOP );                      // slider
     r( wxSL_SELRANGE );                 // slider
 
+    r( wxSIZE_AUTO_WIDTH );             // window
+    r( wxSIZE_AUTO_HEIGHT );            // window
+    r( wxSIZE_AUTO );                   // window
+    r( wxSIZE_USE_EXISTING );           // window
+    r( wxSIZE_ALLOW_MINUS_ONE );        // window
+
     r( wxSP_HORIZONTAL );               // spinbutton
     r( wxSP_VERTICAL );                 // spinbutton
     r( wxSP_ARROW_KEYS );               // spinbutton spinctrl
@@ -624,7 +630,7 @@ void SetConstants()
 
     tmp = get_sv( "Wx::_default_validator", 0 );
     sv_setref_pv( tmp, "Wx::Validator", (wxValidator*)&wxDefaultValidator );
-
+  
     //
     // Null GDI objects
     //
@@ -766,7 +772,7 @@ void SetConstants()
 
     tmp = get_sv( "Wx::_brush_red", 0 );
     sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxRED_BRUSH ) );
-
+  
     //
     // Miscellaneous
     //

@@ -15,6 +15,7 @@ package Wx;
 use strict;
 
 use Carp;
+use UNIVERSAL qw(isa);
 
 require Exporter;
 require DynaLoader;
@@ -25,7 +26,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter DynaLoader);
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE);
@@ -46,6 +47,7 @@ sub AUTOLOAD {
   my( $val ) = constant($constname, 0 );
 
   if ($! != 0) {
+# re-add this when we need support for autosplitted subroutines
 #    $AutoLoader::AUTOLOAD = $AUTOLOAD;
 #    goto &AutoLoader::AUTOLOAD;
     croak "Error while autoloading '$AUTOLOAD'";
@@ -57,6 +59,85 @@ sub AUTOLOAD {
 
 sub END {
   UnLoad();
+}
+
+no strict;
+
+$_n = [ qw(INTEGER) ];
+$_n_n = [ qw(INTEGER INTEGER) ];
+$_n_n_n = [ qw(INTEGER INTEGER INTEGER) ];
+$_n_n_n_n = [ qw(INTEGER INTEGER INTEGER INTEGER) ];
+$_n_n_n_n_n = [ qw(INTEGER INTEGER INTEGER INTEGER INTEGER) ];
+$_n_n_n_n_n_n = [ qw(INTEGER INTEGER INTEGER INTEGER INTEGER INTEGER) ];
+$_n_s = [ qw(INTEGER ?) ];
+$_n_s_wmen = [ qw(INTEGER ? Wx::Menu) ];
+$_n_wbmp_s_s = [ qw(INTEGER Wx::Bitmap ? ?) ];
+$_n_wbmp_wbmp = [ qw(INTEGER Wx::Bitmap Wx::Bitmap) ];
+$_n_wbmp_wbmp_n_s_s_s = [ qw(INTEGER Wx::Bitmap Wx::Bitmap INTEGER ? ? ?) ];
+$_n_wico = [ qw(INTEGER Wx::Icon) ];
+$_n_wszr_n_n_n = [ qw(INTEGER Wx::Sizer INTEGER INTEGER INTEGER) ];
+$_n_wwin_n_n_n = [ qw(INTEGER Wx::Window INTEGER INTEGER INTEGER) ];
+$_s = [ qw(?) ];
+$_s_n = [ qw(? INTEGER) ];
+$_s_n_n_n = [ qw(? INTEGER INTEGER INTEGER) ];
+$_s_s = [ qw(? ?) ];
+$_s_wwin_n_wbmp = [ qw(? Wx::Window INTEGER Wx::Bitmap) ];
+$_s_wwin_n_wico = [ qw(? Wx::Window INTEGER Wx::Icon) ];
+$_wbmp = [ qw(Wx::Bitmap) ];
+$_wbmp_n = [ qw(Wx::Bitmap INTEGER) ];
+$_wbmp_wbmp = [ qw(Wx::Bitmap Wx::Bitmap) ];
+$_wbmp_wcol = [ qw(Wx::Bitmap Wx::Colour) ];
+$_wcol = [ qw(Wx::Colour) ];
+$_wcol_n = [ qw(Wx::Colour INTEGER) ];
+$_wico = [ qw(Wx::Icon) ];
+$_wmit = [ qw(Wx::MenuItem) ];
+$_wpoi = [ qw(Wx::Point) ];
+$_wpoi_wpoi = [ qw(Wx::Point Wx::Point) ];
+$_wpoi_wsiz = [ qw(Wx::Point Wx::Size) ];
+$_wrec = [ qw(Wx::Rect) ];
+$_wreg = [ qw(Wx::Region) ];
+$_wsiz = [ qw(Wx::Size) ];
+$_wszr = [ qw(Wx::Sizer) ];
+$_wszr_n_n = [ qw(Wx::Sizer INTEGER INTEGER) ];
+$_wszr_n_n_n = [ qw(Wx::Sizer INTEGER INTEGER INTEGER) ];
+$_wtip = [ qw(Wx::ToolTip) ];
+$_wwin = [ qw(Wx::Window) ];
+$_wwin_n_n = [ qw(Wx::Window INTEGER INTEGER) ];
+$_wwin_n_n_n = [ qw(Wx::Window INTEGER INTEGER INTEGER) ];
+$s_n_n = [ qw(? INTEGER INTEGER) ];
+$wbmp_n = [ qw(Wx::Bitmap INTEGER) ];
+$wcol_n_n = [ qw(Wx::Colour INTEGER INTEGER) ];
+
+use strict;
+
+sub _match(\@$;$$) {
+  my( $args, $sig, $required, $dots ) = @_;
+  my( $argc ) = scalar( @$args );
+
+  if( defined( $required ) ) {
+    return if  $dots && $argc < $required;
+    return if !$dots && $argc != $required;
+  }
+
+  my( $i, $a );
+
+  foreach ( @$sig ) {
+    last if $i >= $argc;
+    next if $_ eq '?';
+    $a = ${$args}[$i];
+#    print( $i + 0, ': ', $_, ' ', $a, "\n" );
+    next if $_ eq 'INTEGER' && ( ( $a + 0 ) || $a =~ /^\s*-?0+\.?0*\s*$/ );
+    next if !defined( $a ) || isa( $a, $_ );
+    return;
+  } continue {
+    ++$i;
+  }
+
+  return 1;
+}
+
+sub _ovl_error {
+  ( 'unable to resolve overloaded method for ', $_[0] );
 }
 
 bootstrap Wx $VERSION;
@@ -79,6 +160,8 @@ require Wx::App;
 require Wx::Bitmap;
 require Wx::Brush;
 require Wx::Colour;
+require Wx::ComboBox;
+require Wx::ControlWithItems;
 require Wx::Cursor;
 require Wx::DC;
 require Wx::Event;

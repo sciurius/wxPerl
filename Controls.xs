@@ -47,6 +47,8 @@
 #undef Move
 #undef Copy
 
+#undef THIS
+
 #if __VISUALC__
 #pragma warning (disable: 4800 )
 #endif
@@ -75,8 +77,17 @@ Wx_Control::Command( event )
 MODULE=Wx_Ctrl PACKAGE=Wx::ControlWithItems
 
 void
-Wx_ControlWithItems::Append( item )
+Wx_ControlWithItems::AppendString( item )
     wxString item
+  CODE:
+    THIS->Append( item );
+
+void
+Wx_ControlWithItems::AppendData( item, data )
+    wxString item
+    SV* data
+  CODE:
+    THIS->Append( item, new _wxUserDataCD( data ) );
 
 void
 Wx_ControlWithItems::Clear()

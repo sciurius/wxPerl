@@ -18,7 +18,7 @@ MODULE=Wx PACKAGE=Wx::Image
 # methods returning ImageHandlers
 # SetData
 # GetData
-# overloaded operators
+# operator == !=
 
 Wx_Image*
 newNull()

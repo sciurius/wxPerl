@@ -30,6 +30,8 @@
 #undef Move
 #undef Copy
 
+#undef THIS
+
 #if __VISUALC__
 #pragma warning (disable: 4800 )
 #endif

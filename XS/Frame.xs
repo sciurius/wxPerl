@@ -111,14 +111,14 @@ Wx_Frame::SetStatusWidths( ... )
     THIS->SetStatusWidths( items - 1, w );
     delete [] w;
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 bool
 Wx_Frame::ShowFullScreen( show, style = wxFULLSCREEN_ALL )
     bool show
     long style
 
-#endif // __WXMSW__
+#endif
 
 MODULE=Wx PACKAGE=Wx::MiniFrame
 

@@ -9,4 +9,5 @@
 ^Wx\.([Rr][Es][Ss]|bs|def)$
 ^init.bat$
 ^pm_to_blib$
-^Wx-\d+\.\d+\.(zip|tgz)$
+^Wx-\d+\.\d+\.(zip|tar\.gz|tgz)$
+[Cc][Vv][Ss]/

@@ -12,6 +12,24 @@
 
 MODULE=Wx PACKAGE=Wx::Icon
 
+#FIXME// unimplemented
+# some constructors
+# operator == !=
+
+#if ( !defined( __WXMSW__ ) && !defined( __WXGTK__ ) ) || defined( __WXPERL_FORCE__ )
+
+Wx_Icon*
+newEmpty( width, height, depth = -1 )
+    int width
+    int height
+    int depth
+  CODE:
+    RETVAL = new wxIcon( width, height, depth );
+  OUTPUT:
+    RETVAL
+
+#endif
+
 Wx_Icon*
 newFile( name, type, desW = -1, desH = -1 )
     wxString name
@@ -36,7 +54,7 @@ Wx_Icon::LoadFile( name, type )
 bool
 Wx_Icon::Ok()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
 Wx_Icon::GetDepth()

@@ -29,12 +29,26 @@ newBitmapColour( bitmap, colour )
   OUTPUT:
     RETVAL
 
+Wx_Mask*
+newBitmapIndex( bitmap, index )
+    Wx_Bitmap* bitmap
+    int index
+  CODE:
+    RETVAL = new wxMask( *bitmap, index );
+  OUTPUT:
+    RETVAL
+
 void
 Wx_Mask::Destroy()
   CODE:
     delete THIS;
 
 MODULE=Wx PACKAGE=Wx::Bitmap
+
+#FIXME// unimplemented
+# constructor ( some )
+# FindHandler ?
+# operator == !=
 
 Wx_Bitmap*
 newEmpty( width, height, depth = -1 )
@@ -66,7 +80,7 @@ newIcon( icon )
 void
 Wx_Bitmap::DESTROY()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 AddHandler( handler )
@@ -74,14 +88,14 @@ AddHandler( handler )
   CODE:
     wxBitmap::AddHandler( handler );
 
-void
-CleanUpHandlers()
-  CODE:
-    wxBitmap::CleanUpHandlers();
+# void
+# CleanUpHandlers()
+#   CODE:
+#     wxBitmap::CleanUpHandlers();
 
 #endif
 
-#if 0
+#if defined( __WXPERL_FORCE__ )
 
 Wx_BitmapHandler*
 FindHandlerName( name )
@@ -113,7 +127,7 @@ FindHandlerType( type )
 int
 Wx_Bitmap::GetDepth()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 GetHandlers()
@@ -148,7 +162,7 @@ Wx_Bitmap::GetSubBitmap( rect )
   OUTPUT:
     RETVAL
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 InitStandardHandlers()
@@ -171,7 +185,7 @@ Wx_Bitmap::LoadFile( name, type )
 bool
 Wx_Bitmap::Ok()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 bool
 RemoveHandler( name )
@@ -182,7 +196,7 @@ RemoveHandler( name )
 #endif
 
 bool
-Wx_Bitmap::SaveFile( name, type, palette = NULL )
+Wx_Bitmap::SaveFile( name, type, palette = 0 )
     wxString name
     long type
     Wx_Palette* palette
@@ -201,7 +215,7 @@ Wx_Bitmap::SetMask( mask )
   CODE:
     THIS->SetMask( new wxMask( *mask ) );
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Bitmap::SetPalette( palette )

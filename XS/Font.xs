@@ -12,6 +12,9 @@
 
 MODULE=Wx PACKAGE=Wx::Font
 
+#FIXME// unimplemented
+# operator == !=
+
 Wx_Font*
 Wx_Font::new( pointsize, family, style, weight, underline = FALSE, faceName = wxEmptyString, encoding = wxFONTENCODING_DEFAULT )
     int pointsize
@@ -38,7 +41,7 @@ Wx_Font::GetFaceName()
 int
 Wx_Font::GetFamily()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
 Wx_Font::GetFontId()

@@ -12,28 +12,37 @@
 
 package Wx::Mask;
 
+use strict;
+use Carp;
+
 sub new {
   shift;
-  if( @_ == 1 ) { return Wx::Mask::newBitmap( @_ ) }
-  else { return Wx::Mask::newBitmapColour( @_ ) }
+
+  Wx::_match( @_, $Wx::_wbmp, 1 )      && return Wx::Mask::newBitmap( @_ );
+  Wx::_match( @_, $Wx::_wbmp_n, 2 )    && return Wx::Mask::newBitmapIndex( @_ );
+  Wx::_match( @_, $Wx::_wbmp_wcol, 2 ) && return Wx::Mask::newBitmapColour( @_ );
+  croak Wx::_ovl_error 'Wx::Mask::new';
 }
 
 package Wx::Bitmap;
 
 use strict;
+use Carp;
 
 sub new {
   shift;
-  if( @_ == 3 || $_[0] =~m/^\s*\d+\s*$/ ) { return Wx::Bitmap::newEmpty( @_ ) }
-  elsif( $_[0]->isa( 'Wx::Icon' ) ) { return Wx::Bitmap::newIcon( @_ ) }
-  else { return Wx::Bitmap::newFile( @_ ) }
+
+  Wx::_match( @_, $Wx::_n_n_n, 2, 1 ) && return Wx::Bitmap::newEmpty( @_ );
+  Wx::_match( @_, $Wx::_s_n, 2 )      && return Wx::Bitmap::newFile( @_ );
+  Wx::_match( @_, $Wx::_wico, 1 )     && return Wx::Bitmap::newIcon( @_ );
+  croak Wx::_ovl_error( 'Wx::Bitmap::new' );
 }
 
-sub FindHandler {
-  if( @_ == 2 ) { return Wx::Bitmap::FindHandlerName( @_ ) }
-  elsif( @_ == 1 && $_[0] =~ m/^\s*\d+\s*$/ ) { return Wx::Bitmap::FindHandlerType( @_ ) }
-  else { return Wx::Bitmap::FindHandlerExtType( @_ ) }
-}
+# sub FindHandler {
+#   if( @_ == 2 ) { return Wx::Bitmap::FindHandlerName( @_ ) }
+#   elsif( @_ == 1 && $_[0] =~ m/^\s*\d+\s*$/ ) { return Wx::Bitmap::FindHandlerType( @_ ) }
+#   else { return Wx::Bitmap::FindHandlerExtType( @_ ) }
+# }
 
 1;
 

@@ -12,11 +12,10 @@
 
 #if __WXMSW__
 
-BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
+BOOL APIENTRY DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 {
     if( fdwReason == DLL_PROCESS_ATTACH )
         wxSetInstance( (HINSTANCE)hModule );
-    // printf( "%x\n", hModule );
     return TRUE;
 }
 

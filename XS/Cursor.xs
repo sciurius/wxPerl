@@ -12,7 +12,10 @@
 
 MODULE=Wx PACKAGE=Wx::Cursor
 
-#ifdef __WXMSW__
+#FIXME// unimplemented
+# operator == !=
+
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 Wx_Cursor*
 newFile( name, type, hsx = -1, hsy = -1 )

@@ -13,6 +13,7 @@
 MODULE=Wx PACKAGE=Wx::Brush
 
 #FIXME// unimplemented
+# operator == !=
 
 Wx_Brush*
 newColour( colour, style )

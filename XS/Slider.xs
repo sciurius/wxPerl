@@ -30,7 +30,7 @@ Wx_Slider::new( parent, id, value, minValue, maxValue, pos = wxDefaultPosition, 
   OUTPUT:
     RETVAL
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Slider::ClearSel()
@@ -52,7 +52,7 @@ Wx_Slider::GetMin()
 int
 Wx_Slider::GetPageSize()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
 Wx_Slider::GetSelEnd()
@@ -98,7 +98,7 @@ Wx_Slider::StartSelection( startPos, endPos )
 
 #endif
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Slider::SetThumbLength( len )

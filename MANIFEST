@@ -4,8 +4,10 @@ typemap
 MANIFEST
 MANIFEST.SKIP
 README
-nmake.mak
+TODO
 run
+nmake.mak
+gmake.mak
 
 script/make_exp_list.pl
 
@@ -16,6 +18,8 @@ lib/Wx/App.pm
 lib/Wx/Bitmap.pm
 lib/Wx/Brush.pm
 lib/Wx/Colour.pm
+lib/Wx/ComboBox.pm
+lib/Wx/ControlWithItems.pm
 lib/Wx/Cursor.pm
 lib/Wx/DC.pm
 lib/Wx/Event.pm

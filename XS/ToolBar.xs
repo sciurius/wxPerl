@@ -26,19 +26,35 @@ Wx_ToolBarBase::AddControl( control )
 void
 Wx_ToolBar::AddSeparator()
 
-#FIXME// AddTool ( ovl )
+Wx_ToolBarToolBase*
+Wx_ToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+    int toolId
+    Wx_Bitmap* bitmap1
+    wxString shortHelp
+    wxString longHelp
+  CODE:
+    RETVAL = THIS->AddTool( toolId, *bitmap1, shortHelp, longHelp );
+  OUTPUT:
+    RETVAL
 
 Wx_ToolBarToolBase*
-Wx_ToolBarBase::AddTool( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+Wx_ToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = &PL_sv_undef, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     int toolId
     Wx_Bitmap* bitmap1
     Wx_Bitmap* bitmap2
     bool isToggle
+    SV* clientData
     wxString shortHelp
     wxString longHelp
   CODE:
     RETVAL = THIS->AddTool( toolId, *bitmap1, *bitmap2, isToggle,
         0, shortHelp, longHelp );
+    if( clientData != &PL_sv_undef )
+    {
+      SV* newdata = sv_newmortal();
+      sv_setsv( newdata, clientData );
+      RETVAL->SetClientData( new _wxUserDataO( newdata ) );
+    }
   OUTPUT:
     RETVAL
 
@@ -122,17 +138,24 @@ Wx_ToolBarBase::InsertSeparator( pos )
     size_t pos
 
 Wx_ToolBarToolBase*
-Wx_ToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+Wx_ToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = &PL_sv_undef, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     size_t pos
     int toolId
     Wx_Bitmap* bitmap1
     Wx_Bitmap* bitmap2
     bool isToggle
+    SV* clientData
     wxString shortHelp
     wxString longHelp
   CODE:
     RETVAL = THIS->InsertTool( pos, toolId, *bitmap1, *bitmap2, isToggle,
         0, shortHelp, longHelp );
+    if( clientData != &PL_sv_undef )
+    {
+      SV* newdata = sv_newmortal();
+      sv_setsv( newdata, clientData );
+      THIS->SetClientData( new _wxUserDataO( newdata ) );
+    }
   OUTPUT:
     RETVAL
 
@@ -169,6 +192,8 @@ Wx_ToolBar::SetToolClientData( id, data )
     int id
     SV* data
   CODE:
+    delete THIS->GetToolClientData( id );
+
     if( data == &PL_sv_undef )
     {
       THIS->SetToolClientData( id, 0 );

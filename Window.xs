@@ -34,6 +34,8 @@
 #undef Move
 #undef Copy
 
+#undef THIS
+
 #if __VISUALC__
 #pragma warning (disable: 4800 )
 #endif
@@ -345,7 +347,7 @@ Wx_Window::GetSize()
     RETVAL
 
 void
-Wx_Window::GetSizeXY()
+Wx_Window::GetSizeWH()
   PREINIT:
     int x;
     int y;
@@ -603,8 +605,6 @@ Wx_Window::SetScrollPos( orientation, position, refresh = TRUE )
     int position
     bool refresh
 
-#FIXME// SetSize ( ovl )
-
 void
 Wx_Window::SetFont( font )
     Wx_Font* font
@@ -612,26 +612,33 @@ Wx_Window::SetFont( font )
     THIS->SetFont( *font );
 
 void
-Wx_Window::SetSize( size )
+Wx_Window::SetSizeSize( size )
     Wx_Size size
   CODE:
     THIS->SetSize( size );
 
 void
-Wx_Window::SetPosition( point )
-    Wx_Point point
+Wx_Window::SetSizeRect( rect )
+    Wx_Rect* rect
   CODE:
-    THIS->SetSize( point.x, point.y, -1, -1 );
+    THIS->SetSize( *rect );
 
 void
-Wx_Window::SetDimensions( x, y, width, height, sizeFlags = wxSIZE_AUTO )
+Wx_Window::SetSizeWH( width, height )
+    int width
+    int height
+  CODE:
+    THIS->SetSize( width, height );
+
+void
+Wx_Window::SetSizeXYWHF( x, y, width, height, flags = wxSIZE_AUTO )
     int x
     int y
     int width
     int height
-    int sizeFlags
+    int flags
   CODE:
-    THIS->SetSize( x, y, width, height, sizeFlags );
+    THIS->SetSize( x, y, width, height, flags );
 
 void
 Wx_Window::SetSizeHints( minW = -1, minH = -1, maxW = -1, maxH = -1, incW = -1, incH = -1 )

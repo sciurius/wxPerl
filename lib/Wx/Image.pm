@@ -12,22 +12,19 @@
 
 package Wx::Image;
 
-use UNIVERSAL qw(isa);
+use strict;
+use Carp;
+#use UNIVERSAL qw(isa);
 
 sub new {
   shift;
 
-  if( @_ == 0 ) { return Wx::Image::newNull() }
-  elsif( isa( $_[0], 'Wx::Bitmap' ) ) { return Wx::Image::newBitmap( @_ ) }
-  elsif( $_[1] =~ m/^\s*\d+\s*$/ ) {
-    if( $_[0] =~ m/^\s*\d+\s*$/ ) {
-      return Wx::Image::newWH( @_ )
-    } else {
-      return Wx::Image::newNameType( @_ )
-    }
-  } else {
-    return Wx::Image::newNameMIME( @_ )
-  }
+  @_ == 0                     && return Wx::Image::newNull();
+  Wx::_match( @_, $Wx::_wbmp, 1 ) && return Wx::Image::newBitmap( @_ );
+  Wx::_match( @_, $Wx::_n_n, 2 )  && return Wx::Image::newWH( @_ );
+  Wx::_match( @_, $Wx::_s_n, 2 )  && return Wx::Image::newNameType( @_ );
+  Wx::_match( @_, $Wx::_s_s, 2 )  && return Wx::Image::newNameMIME( @_ );
+  croak Wx::_ovl_error 'Wx::Image::new';
 }
 
 # sub FindHandler {
@@ -39,19 +36,19 @@ sub new {
 sub LoadFile {
   my( $this ) = shift;
 
-  if( $_[1] =~ m/^\s*\d+\s*$/ ) { return $this->LoadFileType( @_ ) }
-  else { return $this->LoadFileMIME( @_ ) }
+  Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->LoadFileType( @_ );
+  Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->LoadFileMIME( @_ );
 }
 
 sub SaveFile {
   my( $this ) = shift;
 
-  if( $_[1] =~ m/^\s*\d+\s*$/ ) { return $this->SaveFileType( @_ ) }
-  else { return $this->SaveFileMIME( @_ ) }
+  Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->SaveFileType( @_ );
+  Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->SaveFileMIME( @_ );
 }
 
 1;
 
 # Local variables: #
-# mode; cperl #
+# mode: cperl #
 # End: #

@@ -28,7 +28,7 @@ Wx_Gauge::new( parent, id, range, pos = wxDefaultPosition, size = wxDefaultSize,
   OUTPUT:
     RETVAL
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
 Wx_Gauge::GetBezelFace()
@@ -38,7 +38,7 @@ Wx_Gauge::GetBezelFace()
 int
 Wx_Gauge::GetRange()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
 Wx_Gauge::GetShadowWidth()
@@ -48,7 +48,7 @@ Wx_Gauge::GetShadowWidth()
 int
 Wx_Gauge::GetValue()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Gauge::SetBezelFace( width )
@@ -60,7 +60,7 @@ void
 Wx_Gauge::SetRange( range )
     int range
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Gauge::SetShadowWidth( width )

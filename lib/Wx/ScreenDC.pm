@@ -12,13 +12,15 @@
 
 package Wx::ScreenDC;
 
-use UNIVERSAL qw(isa);
+use strict;
+use Carp;
 
 sub StartDrawingOnTop {
   my( $this ) = shift;
 
-  if( isa( $_[1], 'Wx::Window' ) ) { return $this->StartDrawingOnTopWindow( @_ ) }
-  else { return $this->StartDrawingOnTopRect( @_ ) }
+  Wx::_match( @_, $Wx::_wwin, 1 ) && return $this->StartDrawingOnTopWindow( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 ) && return $this->StartDrawingOnTopRect( @_ );
+  croak Wx::_ovl_error 'Wx::ScreenDC::StartDrawingOnTop';
 }
 
 1;

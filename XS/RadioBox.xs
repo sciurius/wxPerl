@@ -41,10 +41,6 @@ Wx_RadioBox::new( parent, id, label, point = wxDefaultPosition, size = wxDefault
     RETVAL
 
 void
-Wx_RadioBox::Enable( enable )
-    bool enable
-
-void
 Wx_RadioBox::EnableItem( n, enable )
     int n
     bool enable

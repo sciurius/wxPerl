@@ -16,9 +16,8 @@ MODULE=Wx PACKAGE=Wx::StatusBar
 # default constructor
 # drawField
 # drawFieldtext
-# GetFieldRect
 # InitColours
-# SetStatusWidths
+# GetFieldRect
 
 # wxSysColourChanged
 
@@ -55,9 +54,17 @@ Wx_StatusBar::SetStatusText( text, i = 0 )
     wxString text
     int i
 
+void
+Wx_StatusBar::SetStatusWidths( ... )
+  PREINIT:
+    int* widths;
+    int i;
+  CODE:
+    widths = new int[items-1];
+    for( i = 1; i < items; ++i )
+    {
+      widths[i-1] = SvIV( ST(i) );
+    }
+    THIS->SetStatusWidths( items-1, widths );
 
-
-
-
-
-
+    delete[] widths;

@@ -13,53 +13,59 @@
 package Wx::Sizer;
 
 use strict;
-use UNIVERSAL qw(isa);
+use Carp;
 
 sub Add {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Window' ) ) { $this->AddWindow( @_ ) }
-  elsif( isa( $_[0], 'Wx::Sizer' ) ) { $this->AddSizer( @_ ) }
-  else { $this->AddSpace( @_ ) }
+  Wx::_match( @_, $Wx::_wwin_n_n_n, 1, 1 ) && ( $this->AddWindow( @_ ), return );
+  Wx::_match( @_, $Wx::_wszr_n_n_n, 1, 1 ) && ( $this->AddSizer( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n_n_n_n, 2, 1 )  && ( $this->AddSpace( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Sizer::Add';
 }
 
 sub Insert {
   my( $this ) = shift;
 
-  if( isa( $_[1], 'Wx::Window' ) ) { $this->InsertWindow( @_ ) }
-  elsif( isa( $_[1], 'Wx::Sizer' ) ) { $this->InsertSizer( @_ ) }
-  else { $this->PrependSpace( @_ ) }
+  Wx::_match( @_, $Wx::_n_wwin_n_n_n, 2, 1 ) && ( $this->InsertWindow( @_ ), return );
+  Wx::_match( @_, $Wx::_n_wszr_n_n_i, 2, 1 ) && ( $this->InsertSizer( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n_n_n_n_n, 3, 1 )  && ( $this->InsertSpace( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Sizer::Insert';
 }
 
 sub Prepend {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Window' ) ) { $this->PrependWindow( @_ ) }
-  elsif( isa( $_[0], 'Wx::Sizer' ) ) { $this->PrependSizer( @_ ) }
-  else { $this->PrependSpace( @_ ) }
+  Wx::_match( @_, $Wx::_wwin_n_n_n, 1, 1 ) && ( $this->PrependWindow( @_ ), return );
+  Wx::_match( @_, $Wx::_wszr_n_n_n, 1, 1 ) && ( $this->PrependSizer( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n_n_n_n, 2, 1 )  && ( $this->PrependSpace( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Sizer::Prepend';
 }
 
 sub Remove {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Window' ) ) { return $this->RemoveWindow( @_ ) }
-  elsif( isa( $_[0], 'Wx::Sizer' ) ) { return $this->RemoveSizer( @_ ) }
-  else { return $this->RemoveNth( @_ ) }
+  Wx::_match( @_, $Wx::_wwin, 1 ) && return $this->RemoveWinodow( @_ );
+  Wx::_match( @_, $Wx::_wszr, 1 ) && return $this->RemoveSizer( @_ );
+  Wx::_match( @_, $Wx::_n, 1 )    && return $this->RemoveNth( @_ );
+  croak Wx::_ovl_error 'Wx::Sizer::Remove';
 }
 
 sub SetItemMinSize {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Window' ) ) { $this->SetItemMinSizeWindow( @_ ) }
-  elsif( isa( $_[0], 'Wx::Sizer' ) ) { $this->SetItemMinSizeSizer( @_ ) }
-  else { $this->SetItemMinSizeNth( @_ ) }
+  Wx::_match( @_, $Wx::_wwin_n_n, 3 ) && ( $this->SetItemMinSizeWindow( @_ ), return );
+  Wx::_match( @_, $Wx::_wszr_n_n, 3 ) && ( $this->SetItemMinSizeSizer( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n_n, 3 )    && ( $this->SetItemMinSizeNth( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Sizer::SetItemMinSize';
 }
 
 sub SetMinSize {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Size' ) ) { $this->SetMinSizeSize( @_ ) }
-  else { $this->SetItemMinSizeXY( @_ ) }
+  Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->SetMinSizeXY( @_ ), return );
+  Wx::_match( @_, $Wx::_wsiz, 1 ) && ( $this->SetMinSizeSize( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Sizer::SetMinSize';
 }
 
 1;

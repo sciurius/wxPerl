@@ -35,11 +35,20 @@ Wx_ComboBox::new( parent, id, value, pos, size , choices, style = 0, validator =
   OUTPUT:
     RETVAL
 
-#ifdef __WXGTK__
+#if defined( __WXGTK__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_ComboBox::Append( item )
+Wx_ControlWithItems::AppendString( item )
     wxString item
+  CODE:
+    THIS->Append( item );
+
+void
+Wx_ControlWithItems::AppendData( item, data )
+    wxString item
+    SV* data
+  CODE:
+    THIS->Append( item, new _wxUserDataCD( data ) );
 
 void
 Wx_ComboBox::Clear()
@@ -61,10 +70,6 @@ Wx_ComboBox::GetString( n )
 
 wxString
 Wx_ComboBox::GetStringSelection()
-
-void
-Wx_ComboBox::SetSelection( n )
-    int n
 
 void
 Wx_ComboBox::SetStringSelection( string )
@@ -139,6 +144,12 @@ Wx_ComboBox::SetInsertionPoint( pos )
 
 void
 Wx_ComboBox::SetInsertionPointEnd()
+
+void
+Wx_ComboBox::SetSelectionN( n )
+    int n
+  CODE:
+    THIS->SetSelection( n );
 
 void
 Wx_ComboBox::SetMark( from, to )

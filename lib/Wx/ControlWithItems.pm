@@ -1,42 +1,26 @@
 #############################################################################
-## Name:        App.pm
-## Purpose:     Wx::App class
+## Name:        ControlWithitems.pm
+## Purpose:     Wx::ControlWithItems class
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     25/11/2000
+## Created:      8/12/2000
 ## RCS-ID:      
 ## Copyright:   (c) 2000 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-package Wx::App;
+package Wx::ControlWithItems;
 
 use strict;
-use vars qw(@ISA $theapp);
-
 use Carp;
 
-@ISA = qw(Wx::_App);
+sub Append {
+  my( $this ) = shift;
 
-sub new {
-  croak "Only one 'Wx::App' instance allowed" if $theapp;
-
-  my($this) = $_[0]->SUPER::new();
-
-  $theapp = $this;
-
-  Wx::_App::Start($this,$this->can('OnInit')) || 
-      croak 'OnInit must return a return value';
-
-  $this;
-}
-
-# sub DESTROY {
-# }
-
-sub OnInit {
-  0;
+  Wx::_match( @_, $Wx::_s, 1 )   && ( $this->AppendString( @_ ), return );
+  Wx::_match( @_, $Wx::_s_s, 2 ) && ( $this->AppendData( @_ ), return );
+  croak Wx::_ovl_error 'Wx::ControlWithItems::Append';
 }
 
 1;

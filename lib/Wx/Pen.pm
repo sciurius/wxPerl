@@ -12,21 +12,29 @@
 
 package Wx::Pen;
 
-use UNIVERSAL qw(isa);
+use strict;
+use Carp;
+
+my( $wcol_i_i ) = [ 'Wx::Colour', 'INTEGER', 'INTEGER' ];
+my( $s_i_i ) = [ '?', 'INTEGER', 'INTEGER' ];
+my( $wbmp_i ) = [ 'Wx::Bitmap', 'INTEGER' ];
 
 sub new {
   shift;
-  if( @_ == 2 ) { return Wx::Pen::newBitmap( @_ ) }
-  elsif( isa( $_[0], 'Wx::Colour' ) ) { return Wx::Pen::newColour( @_ ) }
-  else { return Wx::Pen::newString( @_ ) }
+
+  Wx::_match( @_, $Wx::wcol_n_n, 3 ) && return Wx::Pen::newColour( @_ );
+  Wx::_match( @_, $Wx::wbmp_n, 2 )   && return Wx::Pen::newBitmap( @_ );
+  Wx::_match( @_, $Wx::s_n_n, 3 )    && return Wx::Pen::newString( @_ );
+  croak Wx::_ovl_error 'Wx::Pen::new';
 }
 
 sub SetColour {
   my( $this ) = shift;
 
-  if( @_ == 3 ) { return $this->SetColourRGB( @_ ) }
-  elsif( isa( $_[0], 'Wx::Colour' ) ) { $this->SetColourColour( @_ ) }
-  else { $this->SetColourName( @_ ) }
+  Wx::_match( @_, $Wx::_wcol, 1 )  && ( $this->SetColourColour( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n_n, 3 ) && ( $this->SetColourRGB( @_ ), return );
+  Wx::_match( @_, $Wx::_s, 1 )     && ( $this->SetColourName( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Pen::SetColour';
 }
 
 1;

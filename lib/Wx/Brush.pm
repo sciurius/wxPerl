@@ -13,21 +13,24 @@
 package Wx::Brush;
 
 use strict;
-use UNIVERSAL qw(isa);
+use Carp;
 
 sub new {
   shift;
-  if( isa( $_[0], 'Wx::Bitmap' ) ) { return Wx::Brush::newBitmap( @_ ) }
-  elsif( isa( $_[0], 'Wx::Colour' ) ) { return Wx::Brush::newColour( @_ ) }
-  else { return Wx::Brush::newName( @_ ) }
+
+  Wx::_match( @_, $Wx::_wbmp, 1 )   && return Wx::Brush::newBitmap( @_ );
+  Wx::_match( @_, $Wx::_wcol_n, 2 ) && return Wx::Brush::newColour( @_ );
+  Wx::_match( @_, $Wx::_s_n, 2 )    && return Wx::Brush::newName( @_ );
+  croak Wx::_ovl_error 'Wx::Brush::new';
 }
 
 sub SetColour {
   my( $this ) = shift;
 
-  if( @_ == 3 ) { return $this->SetColourRGB( @_ ) }
-  elsif( isa( $_[0], 'Wx::Colour' ) ) { $this->SetColourColour( @_ ) }
-  else { $this->SetColourName( @_ ) }
+  Wx::_match( @_, $Wx::_n_n_n, 3 ) && ( $this->SetColourRGB( @_ ), return );
+  Wx::_match( @_, $Wx::_wcol, 1 )  && ( $this->SetColourColour( @_ ), return );
+  Wx::_match( @_, $Wx::_s, 1 )     && ( $this->SetColourName( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Brush::SetColour';
 }
 
 1;

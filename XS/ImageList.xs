@@ -85,7 +85,7 @@ Wx_ImageList::Remove( index )
 bool
 Wx_ImageList::RemoveAll()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 bool
 Wx_ImageList::ReplaceBitmap( index, bitmap, mask = (wxBitmap*)&wxNullBitmap )

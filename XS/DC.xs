@@ -86,11 +86,19 @@ Wx_DC::DrawBitmap( bitmap, x, y, transparent )
     THIS->DrawBitmap( *bitmap, x, y, transparent );
 
 void
-Wx_DC::DrawCheckMark( x, y, width, height )
+Wx_DC::DrawCheckMarkXYWH( x, y, width, height )
     wxCoord x
     wxCoord y
     wxCoord width
     wxCoord height
+  CODE:
+    THIS->DrawCheckMark( x, y, width, height );
+
+void
+Wx_DC::DrawCheckMarkRect( rect )
+    Wx_Rect* rect
+  CODE:
+    THIS->DrawCheckMark( *rect );
 
 void
 Wx_DC::DrawEllipse( x, y, width, height )
@@ -254,7 +262,7 @@ Wx_DC::GetSize()
     RETVAL = new wxSize( THIS->GetSize() );
 
 void
-Wx_DC::GetSizeXY()
+Wx_DC::GetSizeWH()
   PREINIT:
     wxCoord x, y;
   PPCODE:

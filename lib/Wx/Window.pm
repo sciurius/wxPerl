@@ -13,8 +13,7 @@
 package Wx::Window;
 
 use strict;
-
-use UNIVERSAL qw(isa);
+use Carp;
 
 *Wx::Window::Center = \&Wx::Window::Centre;
 *Wx::Window::CenterOnParent = \&Wx::Window::CentreOnParent;
@@ -23,65 +22,84 @@ use UNIVERSAL qw(isa);
 sub SetToolTip {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::ToolTip' ) ) { return $this->SetToolTipTip( @_ ) }
-  else { return $this->SetToolTipString( @_ ) }
+  Wx::_match( @_, $Wx::_wtip, 1 ) && ( $this->SetToolTipTip( @_ ), return );
+  Wx::_match( @_, $Wx::_s, 1 )    && ( $this->SetToolTipString( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Window::SetToolTip';
 }
 
 sub ClientToScreen {
   my( $this ) = shift;
 
-  if( @_ == 2 ) { return $this->ClientToScreenXY( @_ ) }
-  else { return $this->ClientToScreenPoint( @_ ) }
+  Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->ClientToScreenXY( @_ );
+  Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->ClientToScreenPoint( @_ );
+  croak Wx::_ovl_error 'Wx::Window::ClientToScreen';
 }
 
 sub ConvertDialogToPixels {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Point' ) ) { return $this->ConvertDialogPointToPixels( @_ ) }
-  else { $this->ConverDialogSizeToPixels( @_ ) }
+  Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->ConvertDialogPointToPixels( @_ );
+  Wx::_match( @_, $Wx::_wsiz, 1 ) && return $this->ConvertDialogSizeToPixels( @_ );
+  croak Wx::_ovl_error 'Wx::Window::ConvertDialogToPixels';
 }
 
 sub ConvertPixelsToDialog {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Point' ) ) { return $this->ConvertPixelsPointToDialog( @_ ) }
-  else { return $this->ConvertPixelsSizeToDialog( @_ ) }
+  Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->ConvertPixelsPointToDialog( @_ );
+  Wx::_match( @_, $Wx::_wsiz, 1 ) && return $this->ConvertPixelsSizeToDialog( @_ );
+  croak Wx::_ovl_error 'Wx::Window::ConvertPixelsToDialog';
 }
 
 sub IsExposed {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Point' ) ) { return $this->IsExposedPoint( @_ ) }
-  elsif( isa( $_[0], 'Wx::Rect' ) ) { return $this->IsExposedRect( @_ ) }
-  else { return $this->IsExposedXYWH( @_ ) }
+  Wx::_match( @_, $Wx::_wpoi, 1 )    && return $this->IsExposedPoint( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->IsExposedRect( @_ );
+  Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->IsExposedXYWH( @_ );
+  croak Wx::_ovl_error 'Wx::Window::IsExposed';
 }
 
 sub Move {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Point' ) ) { return $this->MovePoint( @_ ) }
-  else { return $this->MoveXY( @_ ) }
+  Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->MovePoint( @_ );
+  Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->MoveXY( @_ );
+  croak Wx::_ovl_error 'Wx::Window::Move';
 }
 
 sub PopupMenu {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Point' ) ) { return $this->PopupMenuPoint( @_ ) }
-  else { return $this->PopupMenuXY( @_ ) }
+  Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->PopupMenuPoint( @_ );
+  Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->PopupMenuXY( @_ );
+  croak Wx::_ovl_error 'Wx::Window::PopupMenu';
 }
 
 sub ScreenToClient {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Point' ) ) { return $this->ScreenToClientPoint( @_ ) }
-  else { return $this->ScreenToClientXY( @_ ) }
+  Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->ScreenToClientPoint( @_ );
+  Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->ScreenToClientXY( @_ );
+  croak Wx::_ovl_error 'Wx::Window::ScreenToClient';
 }
 
 sub SetClientSize {
   my( $this ) = @_;
 
-  if( isa( $_[0], 'Wx::Size' ) ) { return $this->SetSizeSize( @_ ) }
-  else { return $this->SetSizeWH( @_ ) }
+  Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->SetClientSizePoint( @_ );
+  Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->SetClientSizeWH( @_ );
+  croak Wx::_ovl_error 'Wx::Window::SetClientSize';
+}
+
+sub SetSize {
+  my( $this ) = shift;
+
+  Wx::_match( @_, $Wx::_n_n_n_n_n, 4, 1 ) && ( $this->SetSizeXYWHF( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n, 2 )          && ( $this->SetSizeWH( @_ ), return );
+  Wx::_match( @_, $Wx::_wsiz, 1 )         && ( $this->SetSizeSize( @_ ), return );
+  Wx::_match( @_, $Wx::_wrec, 1 )         && ( $this->SetSizeRect( @_ ), return );
+  croak Wx::_ovl_error 'Wx::Window::SetSize';
 }
 
 1;

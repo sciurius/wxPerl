@@ -13,8 +13,7 @@
 MODULE=Wx PACKAGE=Wx::Colour
 
 #FIXME// unimplemented:
-# GetPixel()
-# overloaded operators
+# operator == !=
 
 Wx_Colour*
 newRGB( red, green, blue )
@@ -42,6 +41,9 @@ Wx_Colour::Blue()
 
 unsigned char
 Wx_Colour::Green()
+
+long
+Wx_Colour::GetPixel()
 
 bool
 Wx_Colour::Ok()

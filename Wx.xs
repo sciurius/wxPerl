@@ -98,7 +98,7 @@ Load()
   CODE:
     if( wxTopLevelWindows.Number() > 0 )
       return;
-
+  
     char** argv;
     int argc;
 
@@ -109,6 +109,7 @@ Load()
     // wxInitializeStockObjects needs to be called
     // (for colours, cursors, pens, etc...)
     SetConstants();
+  
 
 void
 UnLoad()

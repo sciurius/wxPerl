@@ -52,21 +52,22 @@ MODULE=Wx PACKAGE=Wx::App
 
 #FIXME// unimplemented
 # virtual Wx_Log* Wx_App::CreateLogTarget()
-# void Wx_App::Dispatch()
 # virtual void OnExit()
 # virtual void OnFatalException()
-# bool Pending()
-# bool SendIdleEvents()
+# bool SendIdleEvents( * )
+
+void
+Wx_App::Dispatch()
 
 wxString
 Wx_App::GetAppName()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 bool
 Wx_App::GetAuto3D()
 
-#endif // __WXMSW__
+#endif
 
 wxString
 Wx_App::GetClassName()
@@ -100,17 +101,20 @@ Wx_App::Initialized()
 int
 Wx_App::MainLoop()
 
+bool
+Wx_App::Pending()
+
 void
 Wx_App::SetAppName( name )
     wxString name
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_App::SetAuto3D( auto3d )
     bool auto3d
 
-#endif // __WXMSW__
+#endif
 
 void
 Wx_App::SetClassName( name )

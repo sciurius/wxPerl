@@ -13,53 +13,60 @@
 package Wx::Region;
 
 use strict;
-use UNIVERSAL qw(isa);
+use Carp;
 
 sub new {
   shift;
-  if( @_ == 4 ) { return Wx::Region::newXYWH( @_ ) }
-  elsif( @_ == 2 ) { return Wx::Region::newPP( @_ ) }
-  else { return Wx::Region::newRect( @_ ) }
+
+  Wx::_match( @_, $Wx::_n_n_n_n, 4 )   && return Wx::Region::newXYWH( @_ );
+  Wx::_match( @_, $Wx::_wpoi_wpoi, 2 ) && return Wx::Region::newPP( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 )      && return Wx::Region::newRect( @_ );
+  croak Wx::_ovl_error 'Wx::Region::new';
 }
 
 sub Contains {
   my( $this ) = shift;
 
-  if( @_ == 4 ) { return $this->ContainsXYWH( @_ ) }
-  elsif( @_ == 2 ) { return $this->Contains( @_ ) }
-  elsif( isa( $_[0], 'Wx::Point' ) ) { return $this->ContainsPoint( @_ ) }
-  else { return $this->ContainsRect( @_ ) }
+  Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->ContainsXYWH( @_ );
+  Wx::_match( @_, $Wx::_n_n, 2 )     && return $this->ContainsXY( @_ );
+  Wx::_match( @_, $Wx::_wpoi, 1 )    && return $this->ContainsPoint( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->ContainsRect( @_ );
+  croak Wx::_ovl_error 'Wx::Region::Contains';
 }
 
 sub Intersect {
   my( $this ) = shift;
 
-  if( @_ == 4 ) { return $this->IntersectXYWH( @_ ) }
-  elsif( isa( $_[0], 'Wx::Region' ) ) { return $this->IntersectRegion( @_ ) }
-  else { return $this->IntersectRect( @_ ) }
+  Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->IntersectXYWH( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->IntersectRect( @_ );
+  Wx::_match( @_, $Wx::_wreg, 1 )    && return $this->IntersectRegion( @_ );
+  croak Wx::_ovl_error 'Wx::Region::Intersect';
 }
 
 sub Subtract {
   my( $this ) = shift;
 
-  if( isa( $_[0], 'Wx::Region' ) ) { return $this->SubtractRegion( @_ ) }
-  else { return $this->SubtractRect( @_ ) }
+  Wx::_match( @_, $Wx::_wreg, 1 ) && return $this->SubtractRegion( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 ) && return $this->SubtractRect( @_ );
+  croak Wx::_ovl_error 'Wx::Region::Subtract';
 }
 
 sub Union {
   my( $this ) = shift;
 
-  if( @_ == 4 ) { return $this->UnionXYWH( @_ ) }
-  elsif( isa( $_[0], 'Wx::Region' ) ) { return $this->UnionRegion( @_ ) }
-  else { return $this->UnionRect( @_ ) }
+  Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->UnionXYWH( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->UnionRect( @_ );
+  Wx::_match( @_, $Wx::_wreg, 1 )    && return $this->UnionRegion( @_ );
+  croak Wx::_ovl_error 'Wx::Region::Union';
 }
 
 sub Xor {
   my( $this ) = shift;
 
-  if( @_ == 4 ) { return $this->XorXYWH( @_ ) }
-  elsif( isa( $_[0], 'Wx::Region' ) ) { return $this->XorRegion( @_ ) }
-  else { return $this->XorRect( @_ ) }
+  Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->XorXYWH( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->XorRect( @_ );
+  Wx::_match( @_, $Wx::_wreg, 1 )    && return $this->XorRegion( @_ );
+  croak Wx::_ovl_error 'Wx::Region::Xor';
 }
 
 1;

@@ -15,6 +15,7 @@ MODULE=Wx PACKAGE=Wx::Pen
 #FIXME// unimplemented
 # SetDashes
 # GetDashes
+# operator == !=
 
 Wx_Pen*
 newColour( colour, width, style )
@@ -36,7 +37,7 @@ newString( name, width, style )
   OUTPUT:
     RETVAL
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 Wx_Pen*
 newBitmap( stipple, width )
@@ -60,7 +61,7 @@ Wx_Pen::GetColour()
 int
 Wx_Pen::GetJoin()
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 Wx_Bitmap*
 Wx_Pen::GetStipple()
@@ -108,7 +109,7 @@ void
 Wx_Pen::SetJoin( join_style )
     int join_style
 
-#ifdef __WXMSW__
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Pen::SetStipple( stipple )
