@@ -251,7 +251,7 @@ if( $Wx::_platform == $Wx::_gtk ) {
 package Wx::PlValidator;
 
 # avoids a 'Attempt to free unreferenced scalar' warning
-sub DESTROY {print $_[0],"\n"}
+sub DESTROY {}
 
 no strict;
 
