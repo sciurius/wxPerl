@@ -12,7 +12,6 @@ For 0.12
 
 * write out a "setup.h" with settings for STC, and use it in Wx.xs
 
-* resolve kludge in Any_wx_config.pm
 * store inheritance tree in a C++ file
 * store events in a C++ file and autogenerate them
 * try to have constants inlined where appropriate
@@ -129,6 +128,10 @@ DOCUMENTATTION:
   - non-implemented functions
 
 * Documente Wx::PlValidator
+
+* Document wxStatusBar::GetFieldRect
+
+* Document wxListBox::GetCount/Number is deprecated
 
 -- not documented in wxWindows --
 
