@@ -1,3 +1,5 @@
+PRIORITY HIGH:
+
 PRIORITY NORMAL:
 
 * Wx::App::new
@@ -6,7 +8,7 @@ PRIORITY NORMAL:
 
 * Wx::Bitmap, Wx::Icon, Wx::Image, Wx::Cursor
     add missing constructors ( where applicable )
-    FindHandler and handler related functions ( are them needed? )
+    FindHandler and handler related functions ( are they needed? )
     LoadFile( stream )
     Wx::Image::Get/SetData
 
@@ -22,10 +24,7 @@ PRIORITY NORMAL:
 
 * Wx::Window
     LoadFromResource
-    SetAcceleratortable
     SetDropTarget
-
-* Wx::NativeFontInfo ( 2.3 )
 
 * Wx::Locale ( 2.3 )
     Wx::LanguageInfo
@@ -37,18 +36,24 @@ PRIORITY NORMAL:
     InitColours ( needed? )
     GetFieldRect
 
+* Decrease compilation time/code bloat:
+    Use precompiled headers where appropriate
+    Move constants out of Constants.xs when they need a separate #include
+    Move events out of Event.xs when they need a separate #include
+    Move #include <wx/foo.h> to the XS requiring them
+    Add tests for wxUSE_XXX, and maybe a wxPERL_USE_XXX
+    Experiment with INTERFACE/INTERFACE_MACRO
+
 PRIORITY LOW:
 
 * Wx::App methods
     CreateLogTarget
 
-* ::wxCreateFileTipProvider, ::wxShowTip, ::wxLogTrace
+* ::wxCreateFileTipProvider, ::wxShowTip
     implement
 
-* Wx::Log
-    *Trace* functions
-
 * operator == and != ( are they useful/have side effects? )
+    Wx::AcceleratorTable
     Wx::Bitmap ( enable )
     Wx::Brush
     Wx::Colour
@@ -65,6 +70,10 @@ PRIORITY LOW:
 
 DOCUMENTATTION:
 
+-- not documented in wxWindows --
+
 * Wx::MultipleChoiceDialog
 
 * Wx::ListItem
+
+* Wx::NativeFontInfo

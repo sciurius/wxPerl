@@ -81,6 +81,9 @@ in C:\Perl
 * MS Visual C++ 5 ( and probably 4.x )
 * MS Visual C++ 6 SP4
 
+  Build wxWindows using the makefiles: .dsp might use incompatible
+  flags
+
   If you've built Perl from sources, then the plain install ( see above )
   should work. If you're using ActivePerl with MSVC != 6.x you may
   experience linking problems ( Can't seek to position XXXXXX ... ),
