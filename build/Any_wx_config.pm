@@ -79,6 +79,7 @@ sub configure {
     $config{LD} = "$cxx -shared"
   } else {
     $config{LD} = wx_config( 'ld' );
+    $config{LD} =~ s/\-o\s*$/ /;
   }
 
   $cccflags = wx_config( 'cxxflags' );
