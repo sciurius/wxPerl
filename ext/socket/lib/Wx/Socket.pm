@@ -52,7 +52,7 @@ sub MAKE_EVT {
   &ENABLE_SKEVT($sock , $handler , $callback) ;
   $sock->{_WXEVT}{SUB}{$type} = $callback ;
   if (!$sock->{_WXEVT}{CONNECT}) {
-    $handler->Connect( $handler , $sock->{_WXEVT}{ID} , &Wx::wxEVT_SOCKET ,
+    $handler->Connect( $sock->{_WXEVT}{ID} , -1 , &Wx::wxEVT_SOCKET ,
                        sub{ &CHECK_EVT_TYPE($sock,@_) } );
     $sock->{_WXEVT}{CONNECT} = 1 ;
   }
