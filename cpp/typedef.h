@@ -22,12 +22,22 @@
   typedef wx##name Wx_##name; \
   extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
 
+#define FD_TDS( name ) \
+  struct wx##name; \
+  typedef wx##name Wx_##name; \
+  extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
+
 #else
   
 #define FD_TD( name ) \
   class wx##name; \
   typedef wx##name Wx_##name; \
   extern "C" const char wxPl##name##Name[];
+
+#define FD_TDS( name ) \
+  struct wx##name; \
+  typedef wx##name Wx_##name; \
+  extern "C" const char wxPl##name##Name[]; 
 
 #endif
 
@@ -59,6 +69,7 @@ FD_TD( SizeEvent );
 FD_TD( SpinEvent );
 FD_TD( SplitterEvent );
 FD_TD( SysColourChangedEvent );
+FD_TD( TimerEvent );
 FD_TD( TreeEvent );
 FD_TD( UpdateUIEvent );
 
@@ -105,6 +116,7 @@ FD_TD( EvtHandler );
 FD_TD( FileDialog );
 FD_TD( FlexGridSizer );
 FD_TD( Font );
+FD_TD( FontData );
 FD_TD( FontDialog );
 FD_TD( Frame );
 FD_TD( Gauge );
@@ -132,6 +144,7 @@ FD_TD( MenuItem );
 FD_TD( MessageDialog );
 FD_TD( MiniFrame );
 FD_TD( MultiChoiceDialog );
+FD_TDS( NativeFontInfo );
 FD_TD( Notebook );
 FD_TD( NotebookSizer );
 FD_TD( PageSetupDialog );
@@ -168,6 +181,7 @@ FD_TD( StatusBar );
 FD_TD( StopWatch );
 FD_TD( TextCtrl );
 FD_TD( TextEntryDialog );
+FD_TD( Timer );
 FD_TD( ToolBar );
 FD_TD( ToolBarBase );
 FD_TD( ToolBarToolBase );

@@ -25,10 +25,10 @@ wxRegionContain         T_IV
 wxSashEdgePosition      T_IV
 wxSashDragStatus        T_IV
 wxListColumnFormat      T_IV
-wxLogTraceMask          T_UV
-wxLogLevel              T_UV
-wxTraceMask             T_UV
 wxChar *                T_PV
+wxLogTraceMask          T_IV # should really be T_UV
+wxLogLevel              T_IV # but 5.004_04 does not support it
+wxTraceMask             T_IV
 
 Wx_ClassInfo *          O_NON_WXOBJECT
 
@@ -91,6 +91,7 @@ Wx_MessageDialog *      O_WXOBJECT
 Wx_ProgressDialog *     O_WXOBJECT
 
 Wx_ColourData *         O_WXOBJECT
+Wx_FontData *           O_WXOBJECT
 
 Wx_Sizer *              O_WXOBJECT
 Wx_PlSizer *            O_WXOBJECT
@@ -144,6 +145,7 @@ Wx_ListItem *           O_NON_WXOBJECT
 Wx_TreeItemData *       O_NON_WXOBJECT
 Wx_TreeItemId *         O_NON_WXOBJECT
 
+Wx_NativeFontInfo *     O_NON_WXOBJECT
 Wx_Font *               O_WXOBJECT
 Wx_Region *             O_WXOBJECT
 Wx_Icon *               O_WXOBJECT
@@ -173,6 +175,8 @@ Wx_ToolBarToolBase *    O_NON_WXOBJECT
 Wx_AcceleratorEntry *   O_NON_WXOBJECT
 Wx_AcceleratorTable *   O_WXOBJECT
 
+Wx_Timer *              O_WXOBJECT
+
 # events
 Wx_Event *              O_WXOBJECT
 Wx_ActivateEvent *      O_WXOBJECT
@@ -200,6 +204,7 @@ Wx_ScrollWinEvent *     O_WXOBJECT
 Wx_SpinEvent *          O_WXOBJECT
 Wx_SplitterEvent *      O_WXOBJECT
 Wx_SysColourChangedEvent * O_WXOBJECT
+Wx_TimerEvent *         O_WXOBJECT
 Wx_TreeEvent *          O_WXOBJECT
 Wx_UpdateUIEvent *      O_WXOBJECT
 
