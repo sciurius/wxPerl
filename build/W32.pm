@@ -24,8 +24,7 @@ sub postamble {
   my $this = shift;
   my $wxdir = wx_config( 'wxdir' );
   my $implib = wx_config( 'implib' );
-  $implib =~ s/\.\w+$/\.dll/;
-  $implib =~ s/^lib//;
+  $implib =~ s/lib([^\/\\]+?)\.\w+$/$1\.dll/;
 
   my $text = $this->SUPER::postamble( @_ ) || '';
   $text .= <<EOT;
