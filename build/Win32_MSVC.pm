@@ -24,8 +24,9 @@ sub wx_config {
   my $makefile = MM->catfile( top_dir(), 'build', 'nmake.mak' );
 
   if( $Config{make} eq 'nmake' ) {
-    my( $final ) = $wxConfig::debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
-    my $t = qx(nmake /nologo /s /f $makefile @_ $final);
+    my $final = $wxConfig::debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
+    my $unicode = $wxConfig::unicode_mode ? 'UNICODE=1' : 'UNICODE=0';
+    my $t = qx(nmake /nologo /s /f $makefile @_ $final $unicode);
     chomp $t;
     return $t;
   }
@@ -70,6 +71,7 @@ sub configure {
   if( $wxConfig::debug_mode ) {
 #    $config{CCFLAGS} .= ' -Zi ';
     $config{dynamic_lib}{OTHERLDFLAGS} .= ' -debug ';
+    $config{OPTIMIZE} = ' ';
   }
 
   $cccflags = wx_config( 'cccflags' );

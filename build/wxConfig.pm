@@ -17,11 +17,12 @@ use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS $Verbose);
 use ExtUtils::MakeMaker;
 
 # parse command line variables
-use vars qw($debug_mode $extra_libs $extra_cflags $use_shared $use_dllexport);
+use vars qw($debug_mode $unicode_mode $extra_libs $extra_cflags $use_shared $use_dllexport);
 use vars qw($Arch);
 
 LOOP: foreach ( @ARGV ) {
   m/^DEBUG=(\d+)$/ && do { $debug_mode = $1 ; undef $_; next LOOP; };
+  m/^UNICODE=(\d+)$/ && do { $unicode_mode = $1; undef $_; next LOOP; };
   m/^EXTRA_LIBS=(.*)$/ && do { $extra_libs = $1; undef $_; next LOOP; };
   m/^EXTRA_CFLAGS=(.*)$/ && do { $extra_cflags = $1; undef $_; next LOOP; };
   m/^USE_SHARED=(.*)$/ && do { $use_shared = $1; undef $_; next LOOP; };

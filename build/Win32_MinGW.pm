@@ -24,7 +24,8 @@ sub wx_config {
   my $makefile = MM->catfile( top_dir(), 'build', 'gmake.mak' );
 
   my $final = $wxConfig::debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
-  my $t = qx(make -s -f $makefile @_ $final);
+  my $unicode = $wxConfig::unicode_mode ? 'UNICODE=1' : 'UNICODE=0';
+  my $t = qx(make -s -f $makefile @_ $final $unicode);
   chomp $t;
   return $t;
 }
@@ -65,6 +66,7 @@ sub configure {
 
   if( $wxConfig::debug_mode ) {
     $config{CCFLAGS} .= ' -g ';
+    $config{OPTIMIZE} = ' ';
   } else {
     $config{dynamic_lib}{OTHERLDFLAGS} .= ' -s ';
   }

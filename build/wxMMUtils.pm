@@ -20,6 +20,8 @@ sub wx_version {
     return $1 + $2 / 1000 + $3 / 1000000;
   $ver =~ m/(\d)(\d+)_(\d+)/ &&
     return $1 + $2 / 1000 + $3 / 1000000;
+  $ver =~ m/(\d)(\d)(\d+)/ &&
+    return $1 + $2 / 1000 + $3 / 1000000;
 
   die "unable to get wxWindows'version";
 }
