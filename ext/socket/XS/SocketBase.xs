@@ -1,9 +1,9 @@
 #############################################################################
-## Name:        SocketBase.xs
+## Name:        ext/socket/XS/SocketBase.xs
 ## Purpose:     XS for Wx::SocketBase
 ## Author:      Graciliano M. P.
 ## Created:     27/02/2003
-## RCS-ID:
+## RCS-ID:      $Id: SocketBase.xs,v 1.3 2004/01/25 08:06:13 mbarbon Exp $
 ## Copyright:   (c) 2003 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -21,6 +21,9 @@ wxSocketBase::new()
   OUTPUT: RETVAL
 
 #endif
+
+void
+wxSocketBase::Destroy()
 
 bool
 wxSocketBase::Ok()
@@ -63,8 +66,8 @@ wxSocketBase::WaitForWrite( seconds = -1 , millisecond = 0 )
 long
 wxSocketBase::Read( buf , size , leng = 0 )
     SV* buf
-    long size
-    long leng
+    size_t size
+    size_t leng
   CODE:
     // Upgrade the SV to scalar if needed. If the scalar is undef
     // can't use SvGROW.
@@ -131,8 +134,8 @@ wxSocketBase::LastError()
 long
 wxSocketBase::Peek(buf , size , leng = 0 )
     SV* buf
-    long size
-    long leng
+    size_t size
+    size_t leng
   CODE:
     SvUPGRADE(buf , SVt_PV) ;
     SvPOK_only(buf) ;
@@ -152,8 +155,8 @@ wxSocketBase::Peek(buf , size , leng = 0 )
 long
 wxSocketBase::ReadMsg(buf , size , leng = 0 )
     SV* buf
-    long size
-    long leng
+    size_t size
+    size_t leng
   CODE:
     SvUPGRADE(buf , SVt_PV) ;
     SvPOK_only(buf) ;
@@ -209,10 +212,6 @@ wxSocketBase::Write(buf , size = 0)
     SV* buf
     long size
   CODE:
-    // Upgrade the SV to scalar if needed. If the scalar is
-    // undef can't use SvGROW.
-    SvUPGRADE(buf , SVt_PV) ;
-
     if ( size == 0 ) { size = SvCUR(buf) ;}
     THIS->Write( SvPV_nolen(buf) , size ) ;
     RETVAL = THIS->LastCount() ;
@@ -223,10 +222,6 @@ wxSocketBase::WriteMsg(buf , size = 0)
     SV* buf
     long size
   CODE:
-    // Upgrade the SV to scalar if needed. If the scalar
-    // is undef can't use SvGROW.
-    SvUPGRADE(buf , SVt_PV) ;
-    
     if ( size == 0 ) { size = SvCUR(buf) ;}
     THIS->WriteMsg( SvPV_nolen(buf) , size ) ;
     RETVAL = THIS->LastCount() ;

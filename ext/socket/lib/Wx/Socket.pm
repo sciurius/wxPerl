@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Socket.pm
+## Name:        ext/socket/lib/Wx/Socket.pm
 ## Purpose:     Wx::Socket
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     27/02/2003
-## RCS-ID:      
+## RCS-ID:      $Id: Socket.pm,v 1.7 2004/01/25 08:06:13 mbarbon Exp $
 ## Copyright:   (c) 2003 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -26,6 +26,10 @@ no strict ;
 package Wx::SocketClient ; @ISA = qw(Wx::SocketBase) ;
 package Wx::SocketServer ; @ISA = qw(Wx::SocketBase) ;
 package Wx::SocketEvent ; @ISA = qw(Wx::Event) ;
+package Wx::IPAddress ; @IAS = qw(Wx::SockAddress);
+package Wx::IPV4Address ; @ISA = qw(Wx::IPAddress);
+package Wx::IPV6Address ; @ISA = qw(Wx::IPAddress);
+package Wx::UNIXaddress ; @IAS = qw(Wx::SockAddress);
 use strict ;
 
 #####################

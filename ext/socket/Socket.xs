@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        Socket.xs
+// Name:        ext/socket/Socket.xs
 // Purpose:     XS for Wx::Socket
 // Author:      Graciliano M. P.
 // Modified by:
 // Created:     27/02/2003
-// RCS-ID:      
-// Copyright:   (c) 2003 Graciliano M. P.
+// RCS-ID:      $Id: Socket.xs,v 1.3 2004/01/25 08:06:13 mbarbon Exp $
+// Copyright:   (c) 2003-2004 Graciliano M. P.
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -24,13 +24,15 @@ MODULE=Wx__Socket
 
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
-  // wxClassInfo::CleanUpClasses();
-  // wxClassInfo::InitializeClasses();
 
 INCLUDE: XS/SocketBase.xs
 INCLUDE: XS/SocketClient.xs
 INCLUDE: XS/SocketServer.xs
 INCLUDE: XS/SocketEvent.xs
+
+INCLUDE: perl ../../script/xsubppp.pl --typemap=../../typemap.xsp XS/SockAddress.xsp |
+
+INCLUDE: perl ../../script/xsubppp.pl --typemap=../../typemap.xsp XS/DatagramSocket.xsp |
 
 #  //FIXME//tricky
 #if defined(__WXMSW__)
