@@ -536,7 +536,7 @@ sub new {
 		DEFAULT => -2
 	},
 	{#State 4
-		DEFAULT => -59
+		DEFAULT => -60
 	},
 	{#State 5
 		ACTIONS => {
@@ -644,7 +644,7 @@ sub new {
 		}
 	},
 	{#State 21
-		DEFAULT => -61
+		DEFAULT => -62
 	},
 	{#State 22
 		DEFAULT => -8
@@ -726,13 +726,13 @@ sub new {
 		}
 	},
 	{#State 38
-		DEFAULT => -60
+		DEFAULT => -61
 	},
 	{#State 39
-		DEFAULT => -62
+		DEFAULT => -63
 	},
 	{#State 40
-		DEFAULT => -58
+		DEFAULT => -59
 	},
 	{#State 41
 		ACTIONS => {
@@ -1154,6 +1154,7 @@ sub new {
 			'QUOTED_STRING' => 116,
 			'ID' => 120,
 			'DASH' => 117,
+			'FLOAT' => 121,
 			'INTEGER' => 118
 		},
 		GOTOS => {
@@ -1172,12 +1173,12 @@ sub new {
 		},
 		DEFAULT => -26,
 		GOTOS => {
-			'const' => 121
+			'const' => 122
 		}
 	},
 	{#State 113
 		ACTIONS => {
-			'SEMICOLON' => 122
+			'SEMICOLON' => 123
 		}
 	},
 	{#State 114
@@ -1187,11 +1188,11 @@ sub new {
 		DEFAULT => -29
 	},
 	{#State 116
-		DEFAULT => -54
+		DEFAULT => -55
 	},
 	{#State 117
 		ACTIONS => {
-			'INTEGER' => 123
+			'INTEGER' => 124
 		}
 	},
 	{#State 118
@@ -1202,51 +1203,55 @@ sub new {
 	},
 	{#State 120
 		ACTIONS => {
-			'DCOLON' => 124,
-			'OPPAR' => 125
+			'DCOLON' => 125,
+			'OPPAR' => 126
 		},
-		DEFAULT => -55
+		DEFAULT => -56
 	},
 	{#State 121
-		ACTIONS => {
-			'SEMICOLON' => 126
-		}
+		DEFAULT => -54
 	},
 	{#State 122
-		DEFAULT => -28
-	},
-	{#State 123
-		DEFAULT => -53
-	},
-	{#State 124
 		ACTIONS => {
-			'ID' => 127
+			'SEMICOLON' => 127
 		}
 	},
+	{#State 123
+		DEFAULT => -28
+	},
+	{#State 124
+		DEFAULT => -53
+	},
 	{#State 125
+		ACTIONS => {
+			'ID' => 128
+		}
+	},
+	{#State 126
 		ACTIONS => {
 			'QUOTED_STRING' => 116,
 			'ID' => 120,
 			'DASH' => 117,
+			'FLOAT' => 121,
 			'INTEGER' => 118
 		},
 		GOTOS => {
-			'value' => 128
+			'value' => 129
 		}
-	},
-	{#State 126
-		DEFAULT => -27
 	},
 	{#State 127
-		DEFAULT => -56
+		DEFAULT => -27
 	},
 	{#State 128
-		ACTIONS => {
-			'CLPAR' => 129
-		}
+		DEFAULT => -57
 	},
 	{#State 129
-		DEFAULT => -57
+		ACTIONS => {
+			'CLPAR' => 130
+		}
+	},
+	{#State 130
+		DEFAULT => -58
 	}
 ],
                                   yyrules  =>
@@ -1600,45 +1605,48 @@ sub
 		 'value', 1, undef
 	],
 	[#Rule 56
-		 'value', 3,
-sub
-#line 148 "script/XSP.yp"
-{ $_[1] . '::' . $_[3] }
+		 'value', 1, undef
 	],
 	[#Rule 57
-		 'value', 4,
+		 'value', 3,
 sub
 #line 149 "script/XSP.yp"
-{ "$_[1]($_[3])" }
+{ $_[1] . '::' . $_[3] }
 	],
 	[#Rule 58
-		 'special_block', 3,
+		 'value', 4,
 sub
-#line 154 "script/XSP.yp"
-{ $_[2] }
+#line 150 "script/XSP.yp"
+{ "$_[1]($_[3])" }
 	],
 	[#Rule 59
-		 'special_block_start', 1,
+		 'special_block', 3,
 sub
-#line 156 "script/XSP.yp"
-{ push_lex_mode( $_[0], 'special' ) }
+#line 155 "script/XSP.yp"
+{ $_[2] }
 	],
 	[#Rule 60
-		 'special_block_end', 1,
+		 'special_block_start', 1,
 sub
-#line 158 "script/XSP.yp"
-{ pop_lex_mode( $_[0], 'special' ) }
+#line 157 "script/XSP.yp"
+{ push_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 61
-		 'lines', 1,
+		 'special_block_end', 1,
 sub
-#line 160 "script/XSP.yp"
-{ [ $_[1] ] }
+#line 159 "script/XSP.yp"
+{ pop_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 62
-		 'lines', 2,
+		 'lines', 1,
 sub
 #line 161 "script/XSP.yp"
+{ [ $_[1] ] }
+	],
+	[#Rule 63
+		 'lines', 2,
+sub
+#line 162 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	]
 ],
@@ -1646,7 +1654,7 @@ sub
     bless($self,$class);
 }
 
-#line 163 "script/XSP.yp"
+#line 164 "script/XSP.yp"
 
 
 my %tokens = ( '::' => 'DCOLON',
@@ -1734,7 +1742,10 @@ sub yylex {
       $$buf =~ s/^[\s\n\r]+//;
       next unless length $$buf;
 
-      if( $$buf =~ s/^( \%}
+
+      if( $$buf =~ s/^([+-]?(?=\d|\.\d)\d*(?:\.\d*)?(?:[Ee](?:[+-]?\d+))?)// ) {
+        return ( 'FLOAT', $1 );
+      } elsif( $$buf =~ s/^( \%}
                       | \%{ | {\%
                       | \%name | \%typemap | \%module | \%typemap | \%code
                       | \%file
@@ -1764,10 +1775,10 @@ sub yylex {
 sub yyerror {
   my $buf = $_[0]->YYData->{LEX}{BUFFER};
 
-  print "Error: (", $_[0]->YYCurtok, ') (',
+  print STDERR "Error: (", $_[0]->YYCurtok, ') (',
     $_[0]->YYCurval, ') "', ( $buf ? $$buf : '--empty buffer--' ),
       q{"} . "\n";
-  print "Expecting: (", ( join ", ", map { "'$_'" } $_[0]->YYExpect ),
+  print STDERR "Expecting: (", ( join ", ", map { "'$_'" } $_[0]->YYExpect ),
         ")\n";
 }
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: XSP.yp,v 1.6 2003/08/02 21:00:40 mbarbon Exp $
+## RCS-ID:      $Id: XSP.yp,v 1.7 2003/12/13 17:15:06 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -143,6 +143,7 @@ argument:       type ID                 { make_argument( @_ ) }
 
 value:          INTEGER
               | DASH INTEGER    { '-' . $_[2] }
+              | FLOAT
               | QUOTED_STRING
               | ID
               | ID DCOLON ID    { $_[1] . '::' . $_[3] }
@@ -247,7 +248,10 @@ sub yylex {
       $$buf =~ s/^[\s\n\r]+//;
       next unless length $$buf;
 
-      if( $$buf =~ s/^( \%}
+
+      if( $$buf =~ s/^([+-]?(?=\d|\.\d)\d*(?:\.\d*)?(?:[Ee](?:[+-]?\d+))?)// ) {
+        return ( 'FLOAT', $1 );
+      } elsif( $$buf =~ s/^( \%}
                       | \%{ | {\%
                       | \%name | \%typemap | \%module | \%typemap | \%code
                       | \%file
@@ -277,10 +281,10 @@ sub yylex {
 sub yyerror {
   my $buf = $_[0]->YYData->{LEX}{BUFFER};
 
-  print "Error: (", $_[0]->YYCurtok, ') (',
+  print STDERR "Error: (", $_[0]->YYCurtok, ') (',
     $_[0]->YYCurval, ') "', ( $buf ? $$buf : '--empty buffer--' ),
       q{"} . "\n";
-  print "Expecting: (", ( join ", ", map { "'$_'" } $_[0]->YYExpect ),
+  print STDERR "Expecting: (", ( join ", ", map { "'$_'" } $_[0]->YYExpect ),
         ")\n";
 }
 
