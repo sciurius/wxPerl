@@ -165,12 +165,125 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
     if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
     {                                                                         \
         SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
-                               "s", newSVpvn( (const char*)param2, param1 ) );\
+                               "s", newSVpvn( CHAR_P (const char*)param2,    \
+                                              param1 ) );                     \
         bool val = SvTRUE( ret );                                             \
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \
     } else                                                                    \
         return BASE::METHOD( param1, param2 );                                \
+  }
+
+#define DEC_V_CBACK_BOOL__WXDRAGRESULT( METHOD ) \
+  bool METHOD( wxDragResult );
+
+#define DEF_V_CBACK_BOOL__WXDRAGRESULT( CLASS, BASE, METHOD ) \
+  bool CLASS::METHOD( wxDragResult param1 )                                   \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                               "i", param1 );                                 \
+        bool val = SvTRUE( ret );                                             \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return BASE::METHOD( param1 );                                        \
+  }
+
+#define DEC_V_CBACK_WXDRAGRESULT__WXCOORD_WXCOORD_WXDRAGRESULT( METHOD ) \
+  wxDragResult METHOD( wxCoord, wxCoord, wxDragResult )
+
+#define DEF_V_CBACK_WXDRAGRESULT__WXCOORD_WXCOORD_WXDRAGRESULT( CLASS, BASE, METHOD ) \
+  wxDragResult CLASS::METHOD( wxCoord param1, wxCoord param2,                 \
+                              wxDragResult param3 )                           \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                               "lli", param1, param2, param3 );               \
+        wxDragResult val = (wxDragResult)SvIV( ret );                         \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return BASE::METHOD( param1, param2, param3 );                        \
+  }
+
+#define DEF_V_CBACK_WXDRAGRESULT__WXCOORD_WXCOORD_WXDRAGRESULT_pure( CLASS, BASE, METHOD ) \
+  wxDragResult CLASS::METHOD( wxCoord param1, wxCoord param2,                 \
+                              wxDragResult param3 )                           \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                               "lli", param1, param2, param3 );               \
+        wxDragResult val = (wxDragResult)SvIV( ret );                         \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return wxDragNone;                                                    \
+  }
+
+#define DEC_V_CBACK_BOOL__WXCOORD_WXCOORD( METHOD ) \
+  bool METHOD( wxCoord, wxCoord )
+
+#define DEF_V_CBACK_BOOL__WXCOORD_WXCOORD( CLASS, BASE, METHOD ) \
+  bool CLASS::METHOD( wxCoord param1, wxCoord param2 )                        \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                               "ll", param1, param2 );                        \
+        bool val = SvTRUE( ret );                                             \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return BASE::METHOD( param1, param2 );                                \
+  }
+
+#define DEC_V_CBACK_BOOL__WXCOORD_WXCOORD_WXSTRING( METHOD ) \
+  bool METHOD( wxCoord, wxCoord, const wxString& )
+
+#define DEF_V_CBACK_BOOL__WXCOORD_WXCOORD_WXSTRING_pure( CLASS, BASE, METHOD ) \
+  bool CLASS::METHOD( wxCoord param1, wxCoord param2, const wxString& param3 )\
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                               "llP", param1, param2, &param3 );              \
+        bool val = SvTRUE( ret );                                             \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return FALSE;                                                         \
+  }
+
+#define DEC_V_CBACK_BOOL__WXCOORD_WXCOORD_WXARRAYSTRING( METHOD ) \
+  bool METHOD( wxCoord, wxCoord, const wxArrayString& )
+
+#define DEF_V_CBACK_BOOL__WXCOORD_WXCOORD_WXARRAYSTRING_pure( CLASS, BASE, METHOD )\
+  bool CLASS::METHOD( wxCoord param1, wxCoord param2, const wxArrayString& param3 ) \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        AV* av = newAV();                                                     \
+        size_t i, max = param3.GetCount();                                    \
+                                                                              \
+        for( i = 0; i < max; ++i )                                            \
+        {                                                                     \
+            SV* sv = newSViv( 0 );                                            \
+            const wxString& tmp = param3[ i ];                                \
+            WXSTRING_OUTPUT( tmp, sv );                                         \
+            av_store( av, i, sv );                                            \
+        }                                                                     \
+        SV* rv = newRV_noinc( (SV*) av );                                     \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                               "lls", param1, param2, rv );                   \
+        bool val = SvTRUE( ret );                                             \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return FALSE;                                                         \
   }
 
 #endif // _WXPERL_V_CBACK_H
