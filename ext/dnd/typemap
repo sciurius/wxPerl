@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/ 8/2001
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: typemap,v 1.5 2003/05/07 17:22:32 mbarbon Exp $
+## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -27,6 +27,7 @@ Wx_DataObjectComposite * O_NON_WXOBJECT
 wxPlDataObjectSimple *  O_NON_WXOBJECT
 
 Wx_DataFormat *         O_NON_WXOBJECT
+wxDataFormat *          O_NON_WXOBJECT
 
 Wx_DropFilesEvent *     O_NON_WXOBJECT
 

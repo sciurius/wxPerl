@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     12/ 8/2001
-// RCS-ID:      
-// Copyright:   (c) 2001-2002 Mattia Barbon
+// RCS-ID:      $Id: DND.xs,v 1.14 2003/05/07 17:22:32 mbarbon Exp $
+// Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -26,29 +26,6 @@ typedef wxDataFormat::NativeFormat  NativeFormat;
 
 #include <wx/dataobj.h>
 
-void SetDNDConstants()
-{
-    dTHX;
-    SV* tmp;
-
-//    tmp = get_sv( "Wx::_df_invalid", 0 );
-//    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_INVALID ) );
-
-    tmp = get_sv( "Wx::_df_text", 0 );
-    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_TEXT ) );
-
-    tmp = get_sv( "Wx::_df_bitmap", 0 );
-    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_BITMAP ) );
-
-#if !defined(__WXGTK__) && !defined(__WXMOTIF__)
-    tmp = get_sv( "Wx::_df_metafile", 0 );
-    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_METAFILE ) );
-#endif
-
-    tmp = get_sv( "Wx::_df_filename", 0 );
-    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_FILENAME ) );
-}
-
 MODULE=Wx__DND
 
 BOOT:
@@ -67,8 +44,33 @@ INCLUDE: XS/DropTarget.xs
 
 MODULE=Wx__DND PACKAGE=Wx
 
-void
-SetDNDConstants()
+wxDataFormat*
+wxDF_TEXT()
+  CODE:
+    RETVAL = new wxDataFormat( wxDF_TEXT );
+  OUTPUT: RETVAL
+
+wxDataFormat*
+wxDF_BITMAP()
+  CODE:
+    RETVAL = new wxDataFormat( wxDF_BITMAP );
+  OUTPUT: RETVAL
+
+#if defined(__WXMSW__)
+
+wxDataFormat*
+wxDF_METAFILE()
+  CODE:
+    RETVAL = new wxDataFormat( wxDF_METAFILE );
+  OUTPUT: RETVAL
+
+#endif
+
+wxDataFormat*
+wxDF_FILENAME()
+  CODE:
+    RETVAL = new wxDataFormat( wxDF_FILENAME );
+  OUTPUT: RETVAL
 
 #  //FIXME//tricky
 #if defined(__WXMSW__)

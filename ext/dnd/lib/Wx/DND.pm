@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/ 8/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: DND.pm,v 1.8 2003/05/07 17:22:52 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -53,17 +53,15 @@ package Wx;
 
 use vars qw($_df_invalid $_df_bitmap $_df_text $_df_metafile $_df_filename);
 
-# !parser: sub { $_[0] =~ m/^\s*sub\s+(wx\w+)[^\}]*\}\s*(?:\#(.*))?$/ }
+# !parser: sub { $_[0] =~ m/^\s*\#\s*sub\s+(wx\w+)/ }
 # !package: Wx
 # !tag: dnd clipboard
 
-sub wxDF_INVALID { $_df_invalid }
-sub wxDF_TEXT { $_df_text }
-sub wxDF_BITMAP { $_df_bitmap }
-sub wxDF_METAFILE { $_df_metafile }
-sub wxDF_FILENAME { $_df_filename }
-
-SetDNDConstants();
+# sub wxDF_INVALID
+# sub wxDF_TEXT
+# sub wxDF_BITMAP
+# sub wxDF_METAFILE
+# sub wxDF_FILENAME
 
 1;
 
