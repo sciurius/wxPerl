@@ -132,7 +132,7 @@ copy_files :
 \t\$(TOUCH) copy_files
 
 parser :
-	yapp -s -o script/XSP.pm script/XSP.yp
+	yapp -v -s -o script/XSP.pm script/XSP.yp
 
 EOT
 
