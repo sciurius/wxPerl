@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.105 2004/06/20 08:20:26 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.106 2004/07/10 21:45:01 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -122,21 +122,6 @@ static wxPlEVT evts[] =
     SEVT( EVT_WIZARD_HELP, 3 )
     { 0, 0, 0 }
 };
-
-#if 0
-	wxWindowID	id;
-	int	lastid = (int)SvIV(ST(2));
-	wxEventType	type = (wxEventType)SvIV(ST(3));
-	SV*	method = ST(4);
-	Wx_EvtHandler *	THIS;
-
-    id = wxPli_get_wxwindowid( aTHX_ ST(1) );;
-
-    THIS = (Wx_EvtHandler *) wxPli_sv_2_object( aTHX_ ST(0), "Wx::EvtHandler" );;
-    THIS->Connect(id, lastid, type,
-                    (wxObjectEventFunction)&wxPliEventCallback::Handler,
-                    new wxPliEventCallback( method, ST(0) ) );
-#endif
 
 #include "cpp/e_cback.h"
 
