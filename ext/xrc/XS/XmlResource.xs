@@ -32,6 +32,7 @@ Wx_XmlResource::new( use_locale = TRUE )
 
 #endif
 
+## XXX threads
 void
 Wx_XmlResource::DESTROY()
 

@@ -260,7 +260,7 @@ newPolygon( list, fillStyle = wxODDEVEN_RULE )
     wxPoint* points;
     size_t n;
   CODE:
-    n = wxPli_av_2_pointarray( list, &points );
+    n = wxPli_av_2_pointarray( aTHX_ list, &points );
     RETVAL = new wxRegion( n, points, fillStyle );
     delete [] points;
 

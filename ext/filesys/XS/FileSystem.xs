@@ -17,6 +17,7 @@ MODULE=Wx PACKAGE=Wx::FileSystem
 Wx_FileSystem*
 Wx_FileSystem::new()
 
+## XXX threads
 void
 Wx_FileSystem::DESTROY()
 

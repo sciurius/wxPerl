@@ -250,7 +250,7 @@ Wx_Window::GetChildren()
     EXTEND( SP, (IV) list.GetCount() );
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
-      PUSHs( wxPli_object_2_sv( sv_newmortal(), node->GetData() ) );
+      PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ) );
 
 Wx_Size*
 Wx_Window::GetClientSize()
@@ -282,7 +282,7 @@ Wx_Window::GetContainingSizer()
 Wx_DropTarget*
 Wx_Window::GetDropTarget()
   CLEANUP:
-    wxPli_object_set_deleteable( ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 #endif
 
@@ -653,7 +653,7 @@ void
 Wx_Window::SetDropTarget( target )
     Wx_DropTarget* target
   CODE:
-    wxPli_object_set_deleteable( ST(1), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
     THIS->SetDropTarget( target );
 
 #endif

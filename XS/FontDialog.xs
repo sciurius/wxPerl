@@ -19,6 +19,7 @@ MODULE=Wx PACKAGE=Wx::FontData
 Wx_FontData*
 Wx_FontData::new()
 
+## XXX threads
 void
 Wx_FontData::DESTROY()
 

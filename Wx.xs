@@ -11,7 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
-//#define PERL_NO_GET_CONTEXT
+#define PERL_NO_GET_CONTEXT
 
 #include <stddef.h>
 #include "cpp/compat.h"

@@ -25,9 +25,9 @@ Wx_Palette::new( r, g, b )
     unsigned char* blue;
     int rn, gn, bn;
   CODE:
-    rn = wxPli_av_2_uchararray( r, &red );
-    gn = wxPli_av_2_uchararray( g, &green );
-    bn = wxPli_av_2_uchararray( b, &blue );
+    rn = wxPli_av_2_uchararray( aTHX_ r, &red );
+    gn = wxPli_av_2_uchararray( aTHX_ g, &green );
+    bn = wxPli_av_2_uchararray( aTHX_ b, &blue );
 
     if( rn != gn || gn != bn )
     {
@@ -42,6 +42,7 @@ Wx_Palette::new( r, g, b )
   OUTPUT:
     RETVAL
 
+## XXX threads
 void
 Wx_Palette::DESTROY()
 

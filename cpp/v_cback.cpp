@@ -10,7 +10,7 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-bool wxPliVirtualCallback::FindCallback( const char* name ) const
+bool wxPliVirtualCallback::FindCallback( pTHX_ const char* name ) const
 {
     // it would be better to declare m_method & m_stash 'mutable'
     // but of course some C++ compiler don't support it...
@@ -51,7 +51,7 @@ bool wxPliVirtualCallback::FindCallback( const char* name ) const
     return p_method != p_pmethod;
 }
 
-SV* wxPliVirtualCallback::CallCallback( I32 flags, const char* argtypes,
+SV* wxPliVirtualCallback::CallCallback( pTHX_ I32 flags, const char* argtypes,
                                         va_list& arglist ) const
 {
     if( !m_method )
@@ -64,7 +64,7 @@ SV* wxPliVirtualCallback::CallCallback( I32 flags, const char* argtypes,
 
     PUSHMARK( SP );
     XPUSHs( m_self );
-    wxPli_push_args( &SP, argtypes, arglist );
+    wxPli_push_args( aTHX_ &SP, argtypes, arglist );
     PUTBACK;
 
     call_sv( m_method, flags );
@@ -87,20 +87,20 @@ SV* wxPliVirtualCallback::CallCallback( I32 flags, const char* argtypes,
     return retval;
 }
 
-bool wxPliVirtualCallback_FindCallback( const wxPliVirtualCallback* cb,
+bool wxPliVirtualCallback_FindCallback( pTHX_ const wxPliVirtualCallback* cb,
                                         const char* name )
 {
-    return cb->FindCallback( name );
+    return cb->FindCallback( aTHX_ name );
 }
 
-SV* wxPliVirtualCallback_CallCallback( const wxPliVirtualCallback* cb,
+SV* wxPliVirtualCallback_CallCallback( pTHX_ const wxPliVirtualCallback* cb,
                                        I32 flags,
                                        const char* argtypes, ... )
 {
     va_list arglist;
     va_start( arglist, argtypes );
 
-    return cb->CallCallback( flags, argtypes, arglist );
+    return cb->CallCallback( aTHX_ flags, argtypes, arglist );
     
     va_end( arglist );
 }

@@ -396,9 +396,9 @@ Wx_Image::Rotate( angle, centre, interpolating = TRUE )
     wxImage* result;
   PPCODE:
     result = new wxImage( THIS->Rotate( angle, centre, interpolating, &after ) );
-    XPUSHs( wxPli_object_2_sv( sv_newmortal(), result ) );
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), result ) );
     if( GIMME_V == G_ARRAY ) {
-      PUSHs( wxPli_non_object_2_sv( sv_newmortal(), 
+      PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(), 
              new wxPoint( after ), wxPlPointName ) );
     }
 

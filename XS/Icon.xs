@@ -76,7 +76,7 @@ newFromXPM( data )
     SV* data
   PREINIT:
     char** xpm_data;
-    size_t i, n = wxPli_av_2_charparray( data, &xpm_data );
+    size_t i, n = wxPli_av_2_charparray( aTHX_ data, &xpm_data );
   CODE:
     RETVAL = new wxIcon( xpm_data );
     for( i = 0; i < n; ++i )

@@ -27,7 +27,7 @@ Wx_ListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choi
     int n;
   CODE:
     if( choices ) 
-        n = wxPli_av_2_stringarray( choices, &chs );
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
     else
     {
         n = 0;
@@ -58,7 +58,7 @@ Wx_ListBox::GetSelections()
     EXTEND( SP, n );
     for( i = 0; i < n; ++i )
     {
-      PUSHs( sv_2mortal( newSViv( selections[n] ) ) );
+        PUSHs( sv_2mortal( newSViv( selections[n] ) ) );
     }
 
 void
@@ -69,7 +69,7 @@ Wx_ListBox::InsertItems( items, pos )
     wxString* its;
     int n;
   CODE:
-    n = wxPli_av_2_stringarray( items, &its );
+    n = wxPli_av_2_stringarray( aTHX_ items, &its );
     THIS->InsertItems( n, its, pos );
 
     delete[] its;

@@ -21,12 +21,13 @@ public:
         :wxDropTarget( data ),
          m_callback( "Wx::DropTarget" )
     {
+        dTHX;
         // this is necessary because the SV returned to
         // the perl program _is not_ this one!
         // so _this_ SV must not delete the object,
         // this is responsibility of the program's one!
         SV* sv = wxPli_make_object( this, package );
-        wxPli_object_set_deleteable( sv, FALSE );
+        wxPli_object_set_deleteable( aTHX_ sv, FALSE );
         m_callback.SetSelf( sv );
     }
 
@@ -51,8 +52,9 @@ public:
         :wxTextDropTarget(),
          m_callback( "Wx::TextDropTarget" )
     {
+        dTHX;
         SV* sv = wxPli_make_object( this, package );
-        wxPli_object_set_deleteable( sv, FALSE );
+        wxPli_object_set_deleteable( aTHX_ sv, FALSE );
         m_callback.SetSelf( sv );
     }
 
@@ -69,8 +71,9 @@ public:
         :wxFileDropTarget(),
          m_callback( "Wx::FileDropTarget" )
     {
+        dTHX;
         SV* sv = wxPli_make_object( this, package );
-        wxPli_object_set_deleteable( sv, FALSE );
+        wxPli_object_set_deleteable( aTHX_ sv, FALSE );
         m_callback.SetSelf( sv );
     }
 

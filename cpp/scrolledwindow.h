@@ -26,10 +26,11 @@ public:
 
 void wxPliScrolledWindow::OnDraw( wxDC& dc )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnDraw" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnDraw" ) )
     {
-        SV* val = wxPli_object_2_sv( newSViv( 0 ), &dc );
-        wxPliVirtualCallback_CallCallback( &m_callback,
+        SV* val = wxPli_object_2_sv( aTHX_ newSViv( 0 ), &dc );
+        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                            G_SCALAR|G_DISCARD, "S", val );
         sv_setiv( SvRV( val ), 0 );
         SvREFCNT_dec( val );

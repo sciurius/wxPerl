@@ -68,9 +68,6 @@ Wx_App::new()
   OUTPUT:
     RETVAL
 
-# void
-# Wx_App::DESTROY()
-
 MODULE=Wx PACKAGE=Wx::App
 
 # unimplemented

@@ -25,6 +25,7 @@ class wxPliStreamInitializer
 public:
     wxPliStreamInitializer()
     {
+        dTHX;
         sg_read = eval_pv( CHAR_P sub_read, 1 );
         sg_seek = eval_pv( CHAR_P sub_seek, 1 );
         sg_tell = eval_pv( CHAR_P sub_tell, 1 );
@@ -61,18 +62,21 @@ wxPliInputStream* wxPliInputStream_ctor( SV* sv )
 wxPliInputStream::wxPliInputStream( SV* fh )
     :m_fh( fh )
 {
+    dTHX;
     SvREFCNT_inc( m_fh );
 }
 
 wxPliInputStream::wxPliInputStream( const wxPliInputStream& stream )
     :m_fh( stream.m_fh )
 {
+    dTHX;
     SvREFCNT_inc( m_fh );
 }
 
 const wxPliInputStream& wxPliInputStream::operator =
     ( const wxPliInputStream& stream )
 {
+    dTHX;
     if( m_fh ) SvREFCNT_dec( m_fh );
     m_fh = stream.m_fh;
     SvREFCNT_inc( m_fh );
@@ -82,6 +86,7 @@ const wxPliInputStream& wxPliInputStream::operator =
 
 wxPliInputStream::~wxPliInputStream()
 {
+    dTHX;
     SvREFCNT_dec( m_fh );
 }
 
@@ -90,8 +95,7 @@ size_t wxPliInputStream::OnSysRead( void* buffer, size_t size )
     //FIXME// need a ( safe ) way to: create an SV, set ( NOT copy )
     //FIXME// buffer into it, then call sg_read
 
-//    printf( "OnSysRead: %x %d = ", buffer, size );
-
+    dTHX;
     dSP;
 
     ENTER;
@@ -129,9 +133,6 @@ size_t wxPliInputStream::OnSysRead( void* buffer, size_t size )
     FREETMPS;
     LEAVE;
 
-//    printf( "%d\n", read_count );fflush( stdout );
-//    OnSysSeek( 0, wxFromCurrent );
-
     return read_count;
 }
 
@@ -150,18 +151,21 @@ off_t wxPliInputStream::OnSysTell() const
 wxPliOutputStream::wxPliOutputStream( SV* fh )
     :m_fh( fh )
 {
+    dTHX;
     SvREFCNT_inc( m_fh );
 }
 
 wxPliOutputStream::wxPliOutputStream( const wxPliOutputStream& stream )
     :m_fh( stream.m_fh )
 {
+    dTHX;
     SvREFCNT_inc( m_fh );
 }
 
 const wxPliOutputStream& wxPliOutputStream::operator =
     ( const wxPliOutputStream& stream )
 {
+    dTHX;
     if( m_fh ) SvREFCNT_dec( m_fh );
     m_fh = stream.m_fh;
     SvREFCNT_inc( m_fh );
@@ -171,6 +175,7 @@ const wxPliOutputStream& wxPliOutputStream::operator =
 
 wxPliOutputStream::~wxPliOutputStream()
 {
+    dTHX;
     SvREFCNT_dec( m_fh );
 }
 
@@ -181,6 +186,7 @@ size_t wxPliOutputStream::OnSysWrite( const void* buffer, size_t size )
 
     // printf( "OnSysWrite: %x %d = ", buffer, size );
 
+    dTHX;
     dSP;
 
     ENTER;
@@ -250,8 +256,7 @@ off_t stream_seek( wxStreamBase* stream, SV* fh, off_t seek, wxSeekMode mode )
         return -1;
     }
 
-    // printf( "OnSysSeek: %d %d = ", seek, mode );
-
+    dTHX;
     dSP;
 
     ENTER;
@@ -272,12 +277,12 @@ off_t stream_seek( wxStreamBase* stream, SV* fh, off_t seek, wxSeekMode mode )
     FREETMPS;
     LEAVE;
 
-    // printf( "%d\n", ret );fflush( stdout );
     return ret;
 }
 
 off_t stream_tell( const wxStreamBase* stream, SV* fh )
 {
+    dTHX;
     dSP;
 
     ENTER;
@@ -295,8 +300,6 @@ off_t stream_tell( const wxStreamBase* stream, SV* fh )
 
     FREETMPS;
     LEAVE;
-
-//    printf( "OnSysTell: %d\n", ret );fflush( stdout );
 
     return ret;
 }

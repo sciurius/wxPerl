@@ -26,7 +26,7 @@ Wx_Choice::new( parent, id, pos, size, choices, style = 0, validator = (wxValida
     int n;
     wxString *chs;
   CODE:
-    n = wxPli_av_2_stringarray( choices, &chs );
+    n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
 
     RETVAL = new wxPliChoice( CLASS, parent, id, pos, size, n, chs, style, 
         *validator, name );

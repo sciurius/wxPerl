@@ -45,6 +45,7 @@ newBitmap( stipple, width )
 
 #endif
 
+## XXX threads
 void
 Wx_Pen::DESTROY()
 

@@ -12,6 +12,7 @@
 
 inline wxPliEventCallback::wxPliEventCallback( SV* method, SV* self ) 
 {
+    dTHX;
     m_method = method;
     SvREFCNT_inc( m_method );
     m_self = self;
@@ -20,6 +21,7 @@ inline wxPliEventCallback::wxPliEventCallback( SV* method, SV* self )
 
 wxPliEventCallback::~wxPliEventCallback() 
 {
+    dTHX;
     SvREFCNT_dec( m_method );
     SvREFCNT_dec( m_self );
 }
@@ -27,8 +29,8 @@ wxPliEventCallback::~wxPliEventCallback()
 void wxPliEventCallback::Handler( wxEvent& event ) 
 {
     wxPliEventCallback* This = (wxPliEventCallback*) event.m_callbackUserData;
-    //  wxEvtHandler* That = (wxEvtHandler*)this;
 
+    dTHX;
     dSP;
 
     ENTER;
@@ -54,7 +56,8 @@ void wxPliEventCallback::Handler( wxEvent& event )
 
     if( !e )
     {
-        const char* CLASS = wxPli_cpp_class_2_perl( classname );
+        char buffer[WXPL_BUF_SIZE];
+        const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
 
         e = sv_newmortal();
         sv_setref_pv( e, CHAR_P CLASS, &event );

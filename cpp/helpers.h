@@ -16,12 +16,12 @@
 // helpers for UTF8 <-> wxString/wxChar
 // because xsubpp does not allow preprocessor commands in typemaps
 
-SV* wxPli_wxChar_2_sv( const wxChar* str, SV* out );
-SV* wxPli_wxString_2_sv( const wxString& str, SV* out );
+SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out );
+SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out );
 
 #if wxUSE_UNICODE
 
-inline SV* wxPli_wxChar_2_sv( const wxChar* str, SV* out )
+inline SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out )
 {
     sv_setpv( out, wxConvUTF8.cWC2MB( var ? var : wxEmptyString ) );
     SvUTF8_on( out );
@@ -29,7 +29,7 @@ inline SV* wxPli_wxChar_2_sv( const wxChar* str, SV* out )
     return out;
 }
 
-inline SV* wxPli_wxString_2_sv( const wxString& str, SV* out )
+inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 {
     sv_setpv( out, str.mb_str( wxConvUTF8 ) );
     SvUTF8_on( out );
@@ -44,7 +44,7 @@ inline SV* wxPli_wxString_2_sv( const wxString& str, SV* out )
   var = (type)var##_tmp.c_str();
 
 #define WXCHAR_OUTPUT( var, arg ) \
-  wxPli_wxChar_2_sv( var, arg )
+  wxPli_wxChar_2_sv( aTHX_ var, arg )
 
 #define WXSTRING_INPUT( var, type, arg ) \
   var =  ( SvUTF8( arg ) ) ? \
@@ -52,17 +52,17 @@ inline SV* wxPli_wxString_2_sv( const wxString& str, SV* out )
          : wxString( SvPV_nolen( arg ) );
 
 #define WXSTRING_OUTPUT( var, arg ) \
-  wxPli_wxString_2_sv( var, arg )
+  wxPli_wxString_2_sv( aTHX_ var, arg )
 
 #else
 
-inline SV* wxPli_wxChar_2_sv( const wxChar* str, SV* out )
+inline SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out )
 {
     sv_setpv( out, str );
     return out;
 }
 
-inline SV* wxPli_wxString_2_sv( const wxString& str, SV* out )
+inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 {
     sv_setpvn( out, str.c_str(), str.size() );
     return out;
@@ -72,69 +72,74 @@ inline SV* wxPli_wxString_2_sv( const wxString& str, SV* out )
   var = (type)SvPV_nolen(arg)
 
 #define WXCHAR_OUTPUT( var, arg ) \
-  wxPli_wxChar_2_sv( var, arg )
+  wxPli_wxChar_2_sv( aTHX_ var, arg )
 
 #define WXSTRING_INPUT( var, type, arg ) \
   var = (type)SvPV_nolen(arg)
 
 #define WXSTRING_OUTPUT( var, arg ) \
-  wxPli_wxString_2_sv( var, arg )
+  wxPli_wxString_2_sv( aTHX_ var, arg )
 
 #endif
 
-WXPLDLL const char* wxPli_cpp_class_2_perl( const wxChar* className );
-WXPLDLL void wxPli_push_args( SV*** stack, const char* argtypes,
+const int WXPL_BUF_SIZE = 120;
+WXPLDLL const char* wxPli_cpp_class_2_perl( const wxChar* className,
+                                            char buffer[WXPL_BUF_SIZE] );
+WXPLDLL void wxPli_push_args( pTHX_ SV*** stack, const char* argtypes,
                               va_list &list );
 
-WXPLDLL void* FUNCPTR( wxPli_sv_2_object )( SV* scalar,
+WXPLDLL void* FUNCPTR( wxPli_sv_2_object )( pTHX_ SV* scalar,
                                             const char* classname );
-WXPLDLL SV* FUNCPTR( wxPli_object_2_sv )( SV* var, wxObject* object );
-WXPLDLL SV* FUNCPTR( wxPli_non_object_2_sv )( SV* var, void* data,
+WXPLDLL SV* FUNCPTR( wxPli_object_2_sv )( pTHX_ SV* var, wxObject* object );
+WXPLDLL SV* FUNCPTR( wxPli_non_object_2_sv )( pTHX_ SV* var, void* data,
                                               const char* package );
 
-WXPLDLL SV* FUNCPTR( wxPli_make_object )( void* object,
-                                          const char* classname );
+WXPLDLL SV* FUNCPTR( wxPli_make_object )( void* object, const char* cname );
 
-WXPLDLL bool FUNCPTR( wxPli_object_is_deleteable )( SV* object );
-WXPLDLL void FUNCPTR( wxPli_object_set_deleteable )( SV* object,
+WXPLDLL bool FUNCPTR( wxPli_object_is_deleteable )( pTHX_ SV* object );
+WXPLDLL void FUNCPTR( wxPli_object_set_deleteable )( pTHX_ SV* object,
                                                      bool deleteable );
 
-WXPLDLL const char* FUNCPTR( wxPli_get_class )( SV* ref );
+WXPLDLL const char* FUNCPTR( wxPli_get_class )( pTHX_ SV* ref );
 
-WXPLDLL wxWindowID FUNCPTR( wxPli_get_wxwindowid )( SV* var );
-WXPLDLL int FUNCPTR( wxPli_av_2_stringarray )( SV* avref, wxString** array );
-WXPLDLL int wxPli_av_2_charparray( SV* avref, char*** array );
-WXPLDLL int wxPli_av_2_uchararray( SV* avref, unsigned char** array );
-WXPLDLL int wxPli_av_2_svarray( SV* avref, SV*** array );
-WXPLDLL int FUNCPTR( wxPli_av_2_intarray )( SV* avref, int** array );
+WXPLDLL wxWindowID FUNCPTR( wxPli_get_wxwindowid )( pTHX_ SV* var );
+WXPLDLL int FUNCPTR( wxPli_av_2_stringarray )( pTHX_ SV* avref,
+                                               wxString** array );
+WXPLDLL int wxPli_av_2_charparray( pTHX_ SV* avref, char*** array );
+WXPLDLL int wxPli_av_2_uchararray( pTHX_ SV* avref, unsigned char** array );
+WXPLDLL int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array );
+WXPLDLL int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
 
-WXPLDLL AV* wxPli_stringarray_2_av( const wxArrayString& strings );
+WXPLDLL AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
 
 void wxPli_delete_argv( void* argv, bool unicode );
 int wxPli_get_args_argc_argv( void* argv, bool unicode );
-WXPLDLL void wxPli_get_args_objectarray( SV** sp, int items, void** array,
-                                         const char* package );
+WXPLDLL void wxPli_get_args_objectarray( pTHX_ SV** sp, int items,
+                                         void** array, const char* package );
 
-WXPLDLL wxPoint FUNCPTR( wxPli_sv_2_wxpoint_test )( SV* scalar, bool* ispoint );
-WXPLDLL wxPoint FUNCPTR( wxPli_sv_2_wxpoint )( SV* scalar );
-WXPLDLL wxSize FUNCPTR( wxPli_sv_2_wxsize )( SV* scalar );
+WXPLDLL wxPoint FUNCPTR( wxPli_sv_2_wxpoint_test )( pTHX_ SV* scalar,
+                                                    bool* ispoint );
+WXPLDLL wxPoint FUNCPTR( wxPli_sv_2_wxpoint )( pTHX_ SV* scalar );
+WXPLDLL wxSize FUNCPTR( wxPli_sv_2_wxsize )( pTHX_ SV* scalar );
 // avoid dependency
 #ifdef _WXPERL_TYPEDEF_H
-WXPLDLL Wx_KeyCode wxPli_sv_2_keycode( SV* scalar );
+WXPLDLL Wx_KeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 #endif
 
-WXPLDLL int wxPli_av_2_pointlist( SV* array, wxList *points, wxPoint** tmp );
-WXPLDLL int wxPli_av_2_pointarray( SV* array, wxPoint** points );
+WXPLDLL int wxPli_av_2_pointlist( pTHX_ SV* array, wxList *points,
+                                  wxPoint** tmp );
+WXPLDLL int wxPli_av_2_pointarray( pTHX_ SV* array, wxPoint** points );
 
 // stream wrappers
 class wxPliInputStream;
 class wxPliOutputStream;
 class wxStreamBase;
 
-WXPLDLL void wxPli_sv_2_istream( SV* scalar, wxPliInputStream& stream );
-WXPLDLL void wxPli_sv_2_ostream( SV* scalar, wxPliOutputStream& stream );
-WXPLDLL void FUNCPTR( wxPli_stream_2_sv )( SV* scalar, wxStreamBase* stream,
-                                const char* package );
+WXPLDLL void wxPli_sv_2_istream( pTHX_ SV* scalar, wxPliInputStream& stream );
+WXPLDLL void wxPli_sv_2_ostream( pTHX_ SV* scalar, wxPliOutputStream& stream );
+WXPLDLL void FUNCPTR( wxPli_stream_2_sv )( pTHX_ SV* scalar,
+                                           wxStreamBase* stream,
+                                           const char* package );
 WXPLDLL wxPliInputStream* FUNCPTR( wxPliInputStream_ctor )( SV* sv );
 
 // defined in Constants.xs
@@ -147,40 +152,40 @@ WXPLDLL void FUNCPTR( wxPli_remove_constant_function )
 class wxPliVirtualCallback;
 
 WXPLDLL bool FUNCPTR( wxPliVirtualCallback_FindCallback )
-    ( const wxPliVirtualCallback* cb, const char* name );
+    ( pTHX_ const wxPliVirtualCallback* cb, const char* name );
 WXPLDLL SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
-    ( const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
+    ( pTHX_ const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
       const char* argtypes = 0, ... );
 
 struct wxPliHelpers
 {
-    void* ( * m_wxPli_sv_2_object )( SV*, const char* );
-    SV* ( * m_wxPli_object_2_sv )( SV*, wxObject* );
-    SV* ( * m_wxPli_non_object_2_sv )( SV* , void*, const char* );
+    void* ( * m_wxPli_sv_2_object )( pTHX_ SV*, const char* );
+    SV* ( * m_wxPli_object_2_sv )( pTHX_ SV*, wxObject* );
+    SV* ( * m_wxPli_non_object_2_sv )( pTHX_ SV* , void*, const char* );
     SV* ( * m_wxPli_make_object )( void*, const char* );
-    wxPoint ( * m_wxPli_sv_2_wxpoint_test )( SV*, bool* );
-    wxPoint ( * m_wxPli_sv_2_wxpoint )( SV* );
-    wxSize ( * m_wxPli_sv_2_wxsize )( SV* scalar );
-    int ( * m_wxPli_av_2_intarray )( SV* avref, int** array );
-    void ( * m_wxPli_stream_2_sv )( SV* scalar, wxStreamBase* stream,
-                                    const char* package );
+    wxPoint ( * m_wxPli_sv_2_wxpoint_test )( pTHX_ SV*, bool* );
+    wxPoint ( * m_wxPli_sv_2_wxpoint )( pTHX_ SV* );
+    wxSize ( * m_wxPli_sv_2_wxsize )( pTHX_ SV* );
+    int ( * m_wxPli_av_2_intarray )( pTHX_ SV*, int** );
+    void ( * m_wxPli_stream_2_sv )( pTHX_ SV*, wxStreamBase*, const char* );
 
     void ( * m_wxPli_add_constant_function )
         ( double (**)( const char*, int ) );
     void ( * m_wxPli_remove_constant_function )
         ( double (**)( const char*, int ) );
 
-    bool ( * m_wxPliVirtualCallback_FindCallback )( const wxPliVirtualCallback* cb,
-                                                    const char* name );
+    bool ( * m_wxPliVirtualCallback_FindCallback )( pTHX_ 
+                                                   const wxPliVirtualCallback*,
+                                                    const char* );
     SV* ( * m_wxPliVirtualCallback_CallCallback )
-        ( const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
-          const char* argtypes = 0, ... );
-    bool ( * m_wxPli_object_is_deleteable )( SV* object );
-    void ( * m_wxPli_object_set_deleteable )( SV* object, bool deleteable );
-    const char* ( * m_wxPli_get_class )( SV* ref );
-    wxWindowID ( * m_wxPli_get_wxwindowid )( SV* var );
-    int ( * m_wxPli_av_2_stringarray )( SV* avref, wxString** array );
-    wxPliInputStream* ( * m_wxPliInputStream_ctor )( SV* sv );
+        ( pTHX_ const wxPliVirtualCallback*, I32 = G_SCALAR,
+          const char* = 0, ... );
+    bool ( * m_wxPli_object_is_deleteable )( pTHX_ SV* );
+    void ( * m_wxPli_object_set_deleteable )( pTHX_ SV*, bool );
+    const char* ( * m_wxPli_get_class )( pTHX_ SV* );
+    wxWindowID ( * m_wxPli_get_wxwindowid )( pTHX_ SV* );
+    int ( * m_wxPli_av_2_stringarray )( pTHX_ SV*, wxString** );
+    wxPliInputStream* ( * m_wxPliInputStream_ctor )( SV* );
 };
 
 #if !WXPL_MSW_EXPORTS && !defined( WXPL_STATIC )
@@ -234,7 +239,7 @@ class WXPLDLL wxPliUserDataCD:public wxClientData
 {
 public:
     wxPliUserDataCD( SV* data )
-        { m_data = data ? newSVsv( data ) : 0; }
+        { dTHX; m_data = data ? newSVsv( data ) : 0; }
     ~wxPliUserDataCD();
 public:
     SV* m_data;
@@ -249,12 +254,13 @@ class wxPliTreeItemData:public wxTreeItemData
 {
 public:
     wxPliTreeItemData( SV* data )
-        { m_data = data ? newSVsv( data ) : 0; }
+        { dTHX; m_data = data ? newSVsv( data ) : 0; }
     ~wxPliTreeItemData()
-        { if( m_data ) SvREFCNT_dec( m_data ); }
+        { dTHX; if( m_data ) SvREFCNT_dec( m_data ); }
 
     void SetData( SV* data )
     {
+        dTHX;
         if( m_data )
             SvREFCNT_dec( m_data );
         m_data = data ? newSVsv( data ) : 0;
@@ -269,7 +275,7 @@ class WXPLDLL wxPliUserDataO:public wxObject
 {
 public:
     wxPliUserDataO( SV* data )
-        { m_data = data ? newSVsv( data ) : 0; }
+        { dTHX; m_data = data ? newSVsv( data ) : 0; }
     ~wxPliUserDataO();
 public:
     SV* m_data;
@@ -280,10 +286,11 @@ class WXPLDLL wxPliSelfRef
 public:
     wxPliSelfRef( const char* unused = 0 ) {}
     virtual ~wxPliSelfRef()
-        { if( m_self ) SvREFCNT_dec( m_self ); }
+        { dTHX; if( m_self ) SvREFCNT_dec( m_self ); }
 
     void SetSelf( SV* self, bool increment = TRUE )
     {
+        dTHX;
         m_self = self;
         if( increment )       
             SvREFCNT_inc( m_self );
@@ -341,7 +348,7 @@ wxPliClassInfo name::sm_class##name((wxChar *) wxT(#name), \
     name( const char* package )                                \
         :m_callback( packagename )                             \
     {                                                          \
-        m_callback.SetSelf( wxPli_make_object( this, package ), incref ); \
+        m_callback.SetSelf( wxPli_make_object( this, package ), incref );\
     }
 
 #define WXPLI_CONSTRUCTOR_6( name, packagename, incref, argt1, argt2, argt3, argt4, argt5, argt6 ) \

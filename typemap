@@ -258,10 +258,10 @@ Wx_Config *             O_NON_WXOBJECT
 
 OUTPUT
 O_WXOBJECT
-    wxPli_object_2_sv( $arg, $var );
+    wxPli_object_2_sv( aTHX_ $arg, $var );
 
 O_NON_WXOBJECT
-    wxPli_non_object_2_sv( $arg, $var, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 T_KEYCODE
     sv_setiv( $arg, $var );
@@ -271,22 +271,22 @@ T_UV
 
 INPUT
 O_WXOBJECT
-    $var = ($type) wxPli_sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 O_NON_WXOBJECT
-    $var = ($type) wxPli_sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 O_POINT
-    $var = wxPli_sv_2_wxpoint( $arg );
+    $var = wxPli_sv_2_wxpoint( aTHX_ $arg );
 
 O_SIZE
-    $var = wxPli_sv_2_wxsize( $arg );
+    $var = wxPli_sv_2_wxsize( aTHX_ $arg );
 
 O_COLOUR
-    $var = *($type *) wxPli_sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)(?:Ptr)?$/wxPl$1Name/g;\${ntt}} );
+    $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)(?:Ptr)?$/wxPl$1Name/g;\${ntt}} );
 
 T_KEYCODE
-    $var = wxPli_sv_2_keycode( $arg );
+    $var = wxPli_sv_2_keycode( aTHX_ $arg );
 
 T_UV
     $var = ($type)SvUV( $arg );
@@ -351,18 +351,18 @@ Wx_OutputStream *       O_NON_WXOBJECT
 
 INPUT
 S_PL_ISTREAM
-    wxPli_sv_2_istream( $arg, $var );
+    wxPli_sv_2_istream( aTHX_ $arg, $var );
 
 S_PL_OSTREAM
-    wxPli_sv_2_ostream( $arg, $var );
+    wxPli_sv_2_ostream( aTHX_ $arg, $var );
 
 
 OUTPUT
 S_WX_ISTREAM
-    wxPli_stream_2_sv( $arg, $var, "Wx::InputStream" );
+    wxPli_stream_2_sv( aTHX_ $arg, $var, "Wx::InputStream" );
 
 S_WX_OSTREAM
-    wxPli_stream_2_sv( $arg, $var, "Wx::OutputStream" );
+    wxPli_stream_2_sv( aTHX_ $arg, $var, "Wx::OutputStream" );
 
 # Unicode support
 TYPEMAP
@@ -387,7 +387,7 @@ T_WXSTRING
 # typemap for window ID
 INPUT
 T_WINDOWID
-    $var = wxPli_get_wxwindowid( $arg );
+    $var = wxPli_get_wxwindowid( aTHX_ $arg );
 
 OUTPUT
 T_WINDOWID

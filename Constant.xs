@@ -11,7 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
-//#define PERL_NO_GET_CONTEXT
+#define PERL_NO_GET_CONTEXT
 #define WXINTL_NO_GETTEXT_MACRO 1
 
 #include <wx/defs.h>
@@ -1302,25 +1302,26 @@ static double constant( const char *name, int arg )
 }
 
 // XXX hacky
-void my_sv_setref_pv( SV* mysv, const char* pack, void* ptr )
+void my_sv_setref_pv( pTHX_ SV* mysv, const char* pack, void* ptr )
 {
     if( SvROK( mysv ) )
     {
-        HV* stash = gv_stashpv( pack, 1 );
+        HV* stash = gv_stashpv( CHAR_P pack, 1 );
         sv_setiv( SvRV( mysv ), (IV)ptr );
         sv_bless( mysv, stash );
     }
     else
     {
-        sv_setref_pv( mysv, pack, ptr );
+        sv_setref_pv( mysv, CHAR_P pack, ptr );
     }
 }
 
 #undef sv_setref_pv
-#define sv_setref_pv my_sv_setref_pv
+#define sv_setref_pv( s, p, pt ) my_sv_setref_pv( aTHX_ s, p, pt )
 
 void SetConstants()
 {
+    dTHX;
     SV* tmp;
 
     tmp = get_sv( "Wx::_default_position", 0 );
@@ -1494,20 +1495,20 @@ void SetConstants()
     // Miscellaneous
     //
     tmp = get_sv( "Wx::_version_string", 0 );
-    wxPli_wxChar_2_sv( wxVERSION_STRING, tmp );
+    wxPli_wxChar_2_sv( aTHX_ wxVERSION_STRING, tmp );
 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
     tmp = get_sv( "Wx::_img_bmp_format", 0 );
-    wxPli_wxChar_2_sv( wxIMAGE_OPTION_BMP_FORMAT, tmp );
+    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_BMP_FORMAT, tmp );
 
     tmp = get_sv( "Wx::_img_cur_hotspot_x", 0 );
-    wxPli_wxChar_2_sv( wxIMAGE_OPTION_CUR_HOTSPOT_Y, tmp );
+    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_CUR_HOTSPOT_Y, tmp );
 
     tmp = get_sv( "Wx::_img_cur_hotspot_y", 0 );
-    wxPli_wxChar_2_sv( wxIMAGE_OPTION_CUR_HOTSPOT_Y, tmp );
+    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_CUR_HOTSPOT_Y, tmp );
 
     tmp = get_sv( "Wx::_img_filename", 0 );
-    wxPli_wxChar_2_sv( wxIMAGE_OPTION_FILENAME, tmp );
+    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_FILENAME, tmp );
 #endif
 
     tmp = get_sv( "Wx::_wx_version", 0 );

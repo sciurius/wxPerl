@@ -48,7 +48,7 @@ Wx_Printout::GetDC()
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 void
 Wx_Printout::GetPageInfo()

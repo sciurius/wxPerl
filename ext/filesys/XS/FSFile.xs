@@ -14,6 +14,7 @@
 
 MODULE=Wx PACKAGE=Wx::FSFile
 
+## XXX threads
 void
 Wx_FSFile::DESTROY()
 

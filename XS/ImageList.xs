@@ -21,6 +21,7 @@ Wx_ImageList::new( width, height, mask = TRUE, initialCount =1 )
     bool mask
     int initialCount
 
+## XXX threads
 void
 Wx_ImageList::DESTROY()
 

@@ -11,7 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
-//#define PERL_NO_GET_CONTEXT
+#define PERL_NO_GET_CONTEXT
 
 #include <wx/defs.h>
 
@@ -254,7 +254,7 @@ Wx_EraseEvent::GetDC()
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 MODULE=Wx_Evt PACKAGE=Wx::FocusEvent
 

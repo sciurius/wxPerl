@@ -20,7 +20,8 @@ public:
         :wxTipProvider( currentTip ),
          m_callback( "Wx::TipProvider" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( sv_newmortal(), this,
+        dTHX;
+        m_callback.SetSelf( wxPli_non_object_2_sv( aTHX_ sv_newmortal(), this,
                                                    package ) );
     }
 

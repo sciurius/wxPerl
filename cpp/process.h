@@ -30,9 +30,11 @@ inline wxPliProcess::wxPliProcess( const char* package,
 
 void wxPliProcess::OnTerminate( int pid, int status )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnTerminate" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnTerminate" ) )
     {
-        wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR|G_DISCARD,
+        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                           G_SCALAR|G_DISCARD,
                                            "ii", pid, status );
     }
     else

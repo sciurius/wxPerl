@@ -121,12 +121,12 @@ Wx_Menu::FindItem( item )
         EXTEND( SP, 2 );
         SV* sm = sv_newmortal();
 
-        PUSHs( wxPli_object_2_sv( mi, ret ) );
-        PUSHs( wxPli_object_2_sv( sm, submenu ) );
+        PUSHs( wxPli_object_2_sv( aTHX_ mi, ret ) );
+        PUSHs( wxPli_object_2_sv( aTHX_ sm, submenu ) );
       }
       else {
         EXTEND( SP, 1 );
-        PUSHs( wxPli_object_2_sv( mi, ret ) );
+        PUSHs( wxPli_object_2_sv( aTHX_ mi, ret ) );
       }
     }
     else {
@@ -158,7 +158,7 @@ Wx_Menu::GetMenuItems()
     EXTEND( SP, (IV) data.GetCount() );
     for( node = data.GetFirst(); node; node = node->GetNext() )
     {
-      PUSHs( wxPli_object_2_sv( sv_newmortal(), node->GetData() ) );
+      PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ) );
     }
 
 wxString
@@ -270,12 +270,12 @@ Wx_Menu::FindItem( id )
       EXTEND( SP, 2 );
       SV* sm = sv_newmortal();
 
-      PUSHs( wxPli_object_2_sv( mi, ret ) );
-      PUSHs( wxPli_object_2_sv( sm, submenu ) );
+      PUSHs( wxPli_object_2_sv( aTHX_ mi, ret ) );
+      PUSHs( wxPli_object_2_sv( aTHX_ sm, submenu ) );
     }
     else {
       EXTEND( SP, 1 );
-      PUSHs( wxPli_object_2_sv( mi, ret ) );
+      PUSHs( wxPli_object_2_sv( aTHX_ mi, ret ) );
     }
 
 int

@@ -18,6 +18,7 @@ MODULE=Wx PACKAGE=Wx::NativeFontInfo
 
 #undef THIS
 
+## XXX threads
 void
 Wx_NativeFontInfo::DESTROY()
 
@@ -42,6 +43,7 @@ Wx_Font::new( pointsize, family, style, weight, underline = FALSE, faceName = wx
     wxString faceName
     wxFontEncoding encoding
 
+## XXX threads
 void
 Wx_Font::DESTROY()
 

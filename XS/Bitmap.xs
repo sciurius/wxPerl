@@ -118,7 +118,7 @@ newFromXPM( data )
     SV* data
   PREINIT:
     char** xpm_data;
-    size_t i, n = wxPli_av_2_charparray( data, &xpm_data );
+    size_t i, n = wxPli_av_2_charparray( aTHX_ data, &xpm_data );
   CODE:
     RETVAL = new wxBitmap( xpm_data );
     for( i = 0; i < n; ++i )
@@ -138,6 +138,7 @@ newImage( image )
 
 #endif
 
+## XXX threads
 void
 Wx_Bitmap::DESTROY()
 
@@ -222,7 +223,7 @@ GetHandlers()
     EXTEND( SP, list.GetCount() );
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
-      PUSHs( wxPli_object_2_sv( sv_newmortal(), node->GetData() ) );
+      PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ) );
 
 #endif
 

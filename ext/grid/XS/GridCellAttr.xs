@@ -15,6 +15,7 @@ MODULE=Wx PACKAGE=Wx::GridCellAttr
 Wx_GridCellAttr*
 Wx_GridCellAttr::new()
 
+## XXX threads
 void
 Wx_GridCellAttr::DESTROY()
   CODE:

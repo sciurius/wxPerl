@@ -25,7 +25,8 @@ newCursorEmpty( CLASS, win = 0, cursorCopy = (wxCursor*)&wxNullCursor, cursorMov
     Wx_Cursor* cursorMove
     Wx_Cursor* cursorStop
   CODE:
-    RETVAL = new wxPliDropSource( wxPli_get_class( CLASS ), win, *cursorCopy, *cursorMove,
+    RETVAL = new wxPliDropSource( wxPli_get_class( aTHX_ CLASS ), win,
+                                  *cursorCopy, *cursorMove,
         *cursorStop );
   OUTPUT:
     RETVAL
@@ -39,7 +40,8 @@ newCursorData( CLASS, data, win = 0, cursorCopy = (wxCursor*)&wxNullCursor, curs
     Wx_Cursor* cursorMove
     Wx_Cursor* cursorStop
   CODE:
-    RETVAL = new wxPliDropSource( wxPli_get_class( CLASS ), *data, win, *cursorCopy, *cursorMove,
+    RETVAL = new wxPliDropSource( wxPli_get_class( aTHX_ CLASS ), *data, win,
+                                  *cursorCopy, *cursorMove,
         *cursorStop );
   OUTPUT:
     RETVAL
@@ -54,8 +56,8 @@ newIconEmpty( CLASS, win = 0, iconCopy = (wxIcon*)&wxNullIcon, iconMove = (wxIco
     Wx_Icon* iconMove
     Wx_Icon* iconStop
   CODE:
-    RETVAL = new wxPliDropSource( wxPli_get_class( CLASS ), win, *iconCopy, *iconMove,
-        *iconStop );
+    RETVAL = new wxPliDropSource( wxPli_get_class( aTHX_ CLASS ), win,
+                                  *iconCopy, *iconMove, *iconStop );
   OUTPUT:
     RETVAL
 
@@ -68,8 +70,8 @@ newIconData( CLASS, data, win = 0, iconCopy = (wxIcon*)&wxNullIcon, iconMove = (
     Wx_Icon* iconMove
     Wx_Icon* iconStop
   CODE:
-    RETVAL = new wxPliDropSource( wxPli_get_class( CLASS ), *data, win, *iconCopy, *iconMove,
-        *iconStop );
+    RETVAL = new wxPliDropSource( wxPli_get_class( aTHX_ CLASS ), *data, win,
+                                  *iconCopy, *iconMove, *iconStop );
   OUTPUT:
     RETVAL
 
@@ -92,7 +94,7 @@ Wx_DropSource::GetDataObject()
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 void
 Wx_DropSource::SetCursor( res, cursor )

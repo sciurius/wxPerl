@@ -29,7 +29,7 @@ Wx_RadioBox::new( parent, id, label, point = wxDefaultPosition, size = wxDefault
     wxString* chs;
   CODE:
     if( choices )
-        n = wxPli_av_2_stringarray( choices, &chs );
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
     else {
         n = 0;
         chs = 0;

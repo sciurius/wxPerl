@@ -30,6 +30,7 @@ newName( name )
   OUTPUT:
     RETVAL
 
+## XXX threads
 void
 Wx_Colour::DESTROY()
 

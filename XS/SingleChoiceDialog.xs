@@ -29,7 +29,7 @@ Wx_SingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, st
     SV** data;
     int n, n2;
   CODE:
-    n = wxPli_av_2_stringarray( chs, &choices );
+    n = wxPli_av_2_stringarray( aTHX_ chs, &choices );
     if( !SvOK( dt ) )
     {
       RETVAL = new wxPliSingleChoiceDialog( parent, message, caption, n,
@@ -37,7 +37,7 @@ Wx_SingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, st
     }
     else
     {
-      n2 = wxPli_av_2_svarray( dt, &data );
+      n2 = wxPli_av_2_svarray( aTHX_ dt, &data );
       if( n != n2 )
       {
         delete[] choices;
@@ -98,7 +98,7 @@ wxGetSingleChoice( message, caption, chs, parent = 0, x = -1, y = -1, centre = T
     wxString* choices;
     int n;
   CODE:
-    n = wxPli_av_2_stringarray( chs, &choices );
+    n = wxPli_av_2_stringarray( aTHX_ chs, &choices );
     RETVAL = wxGetSingleChoice( message, caption, n, choices, parent, x, y,
         centre, width, height );
     delete[] choices;
@@ -120,7 +120,7 @@ wxGetSingleChoiceIndex( message, caption, chs, parent = 0, x = -1, y = -1, centr
     wxString* choices;
     int n;
   CODE:
-    n = wxPli_av_2_stringarray( chs, &choices );
+    n = wxPli_av_2_stringarray( aTHX_ chs, &choices );
     RETVAL = wxGetSingleChoiceIndex( message, caption, n, choices,
         parent, x, y, centre, width, height );
     delete[] choices;
@@ -145,8 +145,8 @@ wxGetSingleChoiceData( message, caption, chs, dt, parent = 0, x = -1, y = -1, ce
     int n, n2;
     void* rt;
   CODE:
-    n = wxPli_av_2_stringarray( chs, &choices );
-    n2 = wxPli_av_2_svarray( dt, &data );
+    n = wxPli_av_2_stringarray( aTHX_ chs, &choices );
+    n2 = wxPli_av_2_svarray( aTHX_ dt, &data );
     if( n != n2 )
     {
       delete[] choices;

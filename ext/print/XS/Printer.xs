@@ -19,6 +19,7 @@ Wx_Printer*
 Wx_Printer::new( data = 0 )
     Wx_PrintDialogData* data
 
+## XXX threads
 void
 Wx_Printer::DESTROY()
 

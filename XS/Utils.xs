@@ -107,6 +107,7 @@ MODULE=Wx PACKAGE=Wx::StopWatch
 Wx_StopWatch*
 Wx_StopWatch::new()
 
+## XXX threads
 void
 Wx_StopWatch::DESTROY()
 
@@ -131,6 +132,7 @@ MODULE=Wx PACKAGE=Wx::SingleInstanceChecker
 Wx_SingleInstanceChecker*
 Wx_SingleInstanceChecker::new()
 
+## XXX threads
 void
 Wx_SingleInstanceChecker::DESTROY()
 

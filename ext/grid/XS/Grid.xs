@@ -19,6 +19,7 @@ Wx_GridCellCoords::new( r, c )
     int r
     int c
 
+## XXX threads
 void
 Wx_GridCellCoords::DESTROY()
 

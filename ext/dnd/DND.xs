@@ -11,7 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
-//#define PERL_NO_GET_CONTEXT
+#define PERL_NO_GET_CONTEXT
 
 #include <wx/defs.h>
 #include <stdarg.h>
@@ -62,6 +62,7 @@ typedef wxDataFormat::NativeFormat  NativeFormat;
 
 void SetDNDConstants()
 {
+    dTHX;
     SV* tmp;
 
 //    tmp = get_sv( "Wx::_df_invalid", 0 );

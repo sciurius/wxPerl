@@ -12,6 +12,7 @@
 
 MODULE=Wx PACKAGE=Wx::GridCellEditor
 
+## XXX threads
 void
 Wx_GridCellEditor::DESTROY()
   CODE:
@@ -120,7 +121,7 @@ Wx_GridCellChoiceEditor::new( choices, allowOthers = FALSE )
     wxString* chs;
     int n;
   CODE:
-    n = wxPli_av_2_stringarray( choices, &chs );
+    n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
     RETVAL = new wxGridCellChoiceEditor( n, chs, allowOthers );
     delete[] chs;
   OUTPUT:

@@ -50,10 +50,11 @@ DEF_V_CBACK_WXSTRING__VOID_pure( wxPlFileSystemHandler, wxFileSystemHandler,
 
 bool wxPlFileSystemHandler::CanOpen( const wxString& file )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "CanOpen" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "CanOpen" ) )
     {
-        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,
-                                                     "P", &file );
+        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                                     G_SCALAR, "P", &file );
         bool val = SvTRUE( ret );
         SvREFCNT_dec( ret );
         return val;
@@ -63,9 +64,11 @@ bool wxPlFileSystemHandler::CanOpen( const wxString& file )
 
 wxString wxPlFileSystemHandler::FindFirst( const wxString& file, int flags )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "FindFirst" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "FindFirst" ) )
     {
-        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,
+        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                                     G_SCALAR,
                                                      "Pi", &file, flags );
         wxString val;
         WXSTRING_INPUT( val, wxString, ret );
@@ -80,12 +83,15 @@ wxString wxPlFileSystemHandler::FindFirst( const wxString& file, int flags )
 wxFSFile* wxPlFileSystemHandler::OpenFile( wxFileSystem& parent,
                                            const wxString& name )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "OpenFile" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OpenFile" ) )
     {
-        SV* fs = wxPli_object_2_sv( sv_newmortal(), &parent );
-        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,
+        SV* fs = wxPli_object_2_sv( aTHX_ sv_newmortal(), &parent );
+        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                                     G_SCALAR,
                                                      "sP", fs, &name );
-        wxFSFile* val = (wxFSFile*)wxPli_sv_2_object( ret, "Wx::FSFile" );
+        wxFSFile* val = (wxFSFile*)wxPli_sv_2_object( aTHX_ ret,
+                                                      "Wx::FSFile" );
         sv_setiv( SvRV( fs ), 0 );
         if( SvROK( ret ) )
             sv_setiv( SvRV( ret ), 0 );

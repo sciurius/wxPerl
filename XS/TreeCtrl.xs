@@ -74,8 +74,10 @@ tiid_spaceship( tid1, tid2, ... )
         sv_derived_from( tid1, CHAR_P wxPlTreeItemIdName ) &&
         sv_derived_from( tid2, CHAR_P wxPlTreeItemIdName ) )
     {
-        Wx_TreeItemId* id1 = (Wx_TreeItemId*)wxPli_sv_2_object( tid1, wxPlTreeItemIdName );
-        Wx_TreeItemId* id2 = (Wx_TreeItemId*)wxPli_sv_2_object( tid2, wxPlTreeItemIdName );
+        Wx_TreeItemId* id1 = (Wx_TreeItemId*)
+            wxPli_sv_2_object( aTHX_ tid1, wxPlTreeItemIdName );
+        Wx_TreeItemId* id2 = (Wx_TreeItemId*)
+            wxPli_sv_2_object( aTHX_ tid2, wxPlTreeItemIdName );
 
         RETVAL = *id1 == *id2 ? 0 : 1;
     } else
@@ -216,9 +218,10 @@ Wx_TreeCtrl::GetBoundingRect( item, textOnly = FALSE )
     wxRect rect;
   PPCODE:
     bool ret = THIS->GetBoundingRect( *item, rect, textOnly );
-    if( ret ) {
+    if( ret )
+    {
         SV* ret = sv_newmortal();
-        wxPli_non_object_2_sv( ret, new wxRect( rect ), wxPlRectName );
+        wxPli_non_object_2_sv( aTHX_ ret, new wxRect( rect ), wxPlRectName );
         XPUSHs( ret );
     }
     else
@@ -273,7 +276,7 @@ Wx_TreeCtrl::GetFirstChild( item )
     wxTreeItemId ret = THIS->GetFirstChild( *item, cookie );
     if( !ret.IsOk() ) cookie = -1;
     EXTEND( SP, 2 );
-    PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+    PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                   new wxTreeItemId( ret ),
                                   wxPlTreeItemIdName ) );
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
@@ -323,7 +326,7 @@ Wx_TreeCtrl::GetNextChild( item, cookie )
   PPCODE:
     wxTreeItemId ret = THIS->GetNextChild( *item, cookie );
     EXTEND( SP, 2 );
-    PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+    PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                   new wxTreeItemId( ret ),
                                   wxPlTreeItemIdName ) );
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
@@ -391,7 +394,7 @@ Wx_TreeCtrl::GetSelections()
     EXTEND( SP, (IV)num );
     for( size_t i = 0; i < num; ++i )
     {
-        PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+        PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                       new wxTreeItemId( selections[i] ),
                                       wxPlTreeItemIdName ) );
     }
@@ -407,7 +410,7 @@ Wx_TreeCtrl::HitTest( point )
   PPCODE:
     wxTreeItemId ret = THIS->HitTest( point, flags );
     EXTEND( SP, 2 );
-    PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+    PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                   new wxTreeItemId( ret ),
                                   wxPlTreeItemIdName ) );
     PUSHs( sv_2mortal( newSViv( flags ) ) );

@@ -92,7 +92,7 @@ Wx_Sizer::GetChildren()
     EXTEND( SP, (IV) list.GetCount() );
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
-      PUSHs( wxPli_object_2_sv( sv_newmortal(), node->GetData() ) );
+      PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ) );
 
 Wx_Size*
 Wx_Sizer::GetSize()

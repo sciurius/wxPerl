@@ -25,11 +25,12 @@ Wx_DropTarget::new( data = 0 )
   OUTPUT:
     RETVAL
 
+## XXX threads
 void
 DESTROY( THIS )
     Wx_DropTarget* THIS
   CODE:
-    if( wxPli_object_is_deleteable( ST(0) ) )
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
   
 void
@@ -39,7 +40,7 @@ void
 Wx_DropTarget::SetDataObject( data )
     Wx_DataObject* data
   CODE:
-    wxPli_object_set_deleteable( ST(1), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
     THIS->SetDataObject( data );
 
 # callbacks

@@ -33,6 +33,7 @@ inline wxPliSingleChoiceDialog::wxPliSingleChoiceDialog
                            (char**)clientdata, style, pos ),
     m_data(0)
 {
+    dTHX;
     if( clientdata )
     {
         int i;
@@ -50,6 +51,7 @@ inline wxPliSingleChoiceDialog::wxPliSingleChoiceDialog
 
 inline wxPliSingleChoiceDialog::~wxPliSingleChoiceDialog()
 {
+    dTHX;
     if( m_data )
     {
         int i;

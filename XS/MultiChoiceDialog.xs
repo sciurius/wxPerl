@@ -28,7 +28,7 @@ Wx_MultiChoiceDialog::new( parent, message, caption, chs, style = wxCHOICEDLG_ST
     wxString* choices;
     int n;
   CODE:
-    n = wxPli_av_2_stringarray( chs, &choices );
+    n = wxPli_av_2_stringarray( aTHX_ chs, &choices );
     RETVAL = new wxMultiChoiceDialog( parent, message, caption, n, choices,
         style, pos );
     delete[] choices;

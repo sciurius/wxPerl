@@ -38,14 +38,15 @@ public:
 
 wxEvent* wxPlEvent::Clone() const
 {
+    dTHX;
     wxPlEvent* self = (wxPlEvent*)this;
 
-    if( wxPliVirtualCallback_FindCallback( &self->m_callback, "Clone" ) )
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( &self->m_callback, G_SCALAR );
+            ( aTHX_ &self->m_callback, G_SCALAR );
         wxPlEvent* clone =
-            (wxPlEvent*)wxPli_sv_2_object( ret, "Wx::PlEvent" );
+            (wxPlEvent*)wxPli_sv_2_object( aTHX_ ret, "Wx::PlEvent" );
         SvREFCNT_dec( ret );
         
         return clone;
@@ -73,14 +74,15 @@ public:
 
 wxEvent* wxPlCommandEvent::Clone() const
 {
+    dTHX;
     wxPlCommandEvent* self = (wxPlCommandEvent*)this;
 
-    if( wxPliVirtualCallback_FindCallback( &self->m_callback, "Clone" ) )
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( &self->m_callback, G_SCALAR );
-        wxPlCommandEvent* clone =
-            (wxPlCommandEvent*)wxPli_sv_2_object( ret, "Wx::PlCommandEvent" );
+            ( aTHX_ &self->m_callback, G_SCALAR );
+        wxPlCommandEvent* clone = (wxPlCommandEvent*)
+            wxPli_sv_2_object( aTHX_ ret, "Wx::PlCommandEvent" );
         SvREFCNT_dec( ret );
         
         return clone;
@@ -105,6 +107,7 @@ public:
 #endif
           m_data( data )
     {
+        dTHX;
 #if !WXPERL_W_VERSION_GE( 2, 3, 0 )
         m_eventType = eventType;
 #endif
@@ -114,12 +117,13 @@ public:
     wxPlThreadEvent( const wxPlThreadEvent& e )
         : wxEvent( e ),
           m_data( e.GetData() )
-        { SvREFCNT_inc( m_data ); }
+        { dTHX; SvREFCNT_inc( m_data ); }
 
-    ~wxPlThreadEvent() { SvREFCNT_dec( m_data ); }
+    ~wxPlThreadEvent() { dTHX; SvREFCNT_dec( m_data ); }
 
     void SetData( SV* data )
     {
+        dTHX;
         SvREFCNT_dec( m_data );
         m_data = data;
         SvREFCNT_inc( m_data );

@@ -50,7 +50,8 @@ DEF_V_CBACK_BOOL__INT_pure( wxPlPrintout, wxPrintout, OnPrintPage );
 void wxPlPrintout::GetPageInfo( int* minPage, int* maxPage,
                                 int* pageFrom, int* pageTo )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "GetPageInfo" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "GetPageInfo" ) )
     {
         dSP;
 

@@ -32,9 +32,6 @@ sub new {
   $this;
 }
 
-# sub DESTROY {
-# }
-
 sub OnInit {
   0;
 }

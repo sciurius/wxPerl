@@ -38,14 +38,15 @@ inline wxPlValidator::wxPlValidator( const char* package )
 
 wxObject* wxPlValidator::Clone() const
 {
+    dTHX;
     wxPlValidator* self = (wxPlValidator*)this;
 
-    if( wxPliVirtualCallback_FindCallback( &self->m_callback, "Clone" ) )
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( &self->m_callback, G_SCALAR );
+            ( aTHX_ &self->m_callback, G_SCALAR );
         wxValidator* clone =
-            (wxValidator*)wxPli_sv_2_object( ret, "Wx::Validator" );
+            (wxValidator*)wxPli_sv_2_object( aTHX_ ret, "Wx::Validator" );
         SvREFCNT_dec( ret );
         
         delete self;
@@ -57,11 +58,12 @@ wxObject* wxPlValidator::Clone() const
 
 bool wxPlValidator::Validate( wxWindow* parent )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "Validate" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "Validate" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( &m_callback, G_SCALAR, "s", 
-              wxPli_object_2_sv( sv_newmortal(), parent ) );
+            ( aTHX_ &m_callback, G_SCALAR, "s", 
+              wxPli_object_2_sv( aTHX_ sv_newmortal(), parent ) );
         bool val = SvTRUE( ret );
         SvREFCNT_dec( ret );
 

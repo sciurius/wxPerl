@@ -27,7 +27,7 @@ Wx_CheckListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize,
     int n;
   CODE:
     if( choices ) 
-        n = wxPli_av_2_stringarray( choices, &chs );
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
     else
     {
         n = 0;

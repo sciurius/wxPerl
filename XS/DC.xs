@@ -21,7 +21,7 @@ void
 DESTROY( THIS )
     Wx_DC* THIS
   CODE:
-    if( wxPli_object_is_deleteable( ST(0) ) )
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 
 void
@@ -144,7 +144,7 @@ Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
     wxList points;
     wxPoint* pts;
   CODE:
-    wxPli_av_2_pointlist( list, &points, &pts );
+    wxPli_av_2_pointlist( aTHX_ list, &points, &pts );
     THIS->DrawLines( &points, xoffset, yoffset );
     delete [] pts;
 
@@ -171,7 +171,7 @@ Wx_DC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
     wxList points;
     wxPoint* pts;
   CODE:
-    wxPli_av_2_pointlist( list, &points, &pts );
+    wxPli_av_2_pointlist( aTHX_ list, &points, &pts );
     THIS->DrawPolygon( &points, xoffset, yoffset, fill_style );
     delete [] pts;
 
@@ -205,7 +205,7 @@ Wx_DC::DrawSpline( list )
     wxList points;
     wxPoint* pts;
   CODE:
-    wxPli_av_2_pointlist( list, &points, &pts );
+    wxPli_av_2_pointlist( aTHX_ list, &points, &pts );
     THIS->DrawSpline( &points );
     delete [] pts;
 

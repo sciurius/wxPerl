@@ -69,6 +69,7 @@ newData( bits, width, height, hotSpotX = -1, hotSpotY = -1, maskBits = 0 )
 
 #endif
 
+## XXX threads
 void
 Wx_Cursor::DESTROY()
 

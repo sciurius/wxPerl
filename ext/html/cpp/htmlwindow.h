@@ -35,10 +35,12 @@ public:
 
 void wxPliHtmlWindow::OnLinkClicked( const wxHtmlLinkInfo& info )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnLinkClicked" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+                                           "OnLinkClicked" ) )
     {
-        wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR|G_DISCARD,
-                                           "o", &info,
+        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                           G_SCALAR|G_DISCARD, "o", &info,
                                            "Wx::HtmlLinkInfo" );
     } else
         wxHtmlWindow::OnLinkClicked( info );
@@ -46,9 +48,11 @@ void wxPliHtmlWindow::OnLinkClicked( const wxHtmlLinkInfo& info )
 
 void wxPliHtmlWindow::OnSetTitle( const wxString& title )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnSetTitle" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnSetTitle" ) )
     {
-        wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR|G_DISCARD,
+        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                           G_SCALAR|G_DISCARD,
                                            "p", title.c_str() );
     } else
         wxHtmlWindow::OnSetTitle( title );

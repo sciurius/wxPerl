@@ -24,7 +24,7 @@ Wx_Timer*
 newDefault( Class )
     SV* Class
   PREINIT:
-    const char* CLASS = wxPli_get_class( Class );
+    const char* CLASS = wxPli_get_class( aTHX_ Class );
   CODE:
     RETVAL = new wxPliTimer( CLASS );
   OUTPUT:
@@ -36,14 +36,11 @@ newEH( Class, owner, id = -1 )
     Wx_EvtHandler* owner
     int id
   PREINIT:
-    const char* CLASS = wxPli_get_class( Class );
+    const char* CLASS = wxPli_get_class( aTHX_ Class );
   CODE:
     RETVAL = new wxPliTimer( CLASS, owner, id );
   OUTPUT:
     RETVAL
-
-#void
-#Wx_Timer::DESTROY()
 
 void
 Wx_Timer::Destroy()

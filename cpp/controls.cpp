@@ -187,10 +187,12 @@ wxPlConstants listctrl_module( &listctrl_constant );
 
 wxString wxPliListCtrl::OnGetItemText( long item, long column ) const
 {
-    if( wxPliVirtualCallback_FindCallback( (wxPliVirtualCallback*) &m_callback, "OnGetItemText" ) )           
+    dTHX;
+    wxPliVirtualCallback* cb = (wxPliVirtualCallback*)&m_callback;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ cb, "OnGetItemText" ) )
     {                                                                         
-        SV* ret = wxPliVirtualCallback_CallCallback( (wxPliVirtualCallback*) &m_callback,
-                                                     G_SCALAR, "ll", item, column );
+        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ cb, G_SCALAR,
+                                                     "ll", item, column );
         wxString val;
         WXSTRING_INPUT( val, char*, ret );
         SvREFCNT_dec( ret );
@@ -202,9 +204,11 @@ wxString wxPliListCtrl::OnGetItemText( long item, long column ) const
 
 int wxPliListCtrl::OnGetItemImage( long item ) const
 {
-    if( wxPliVirtualCallback_FindCallback( (wxPliVirtualCallback*) &m_callback, "OnGetItemImage" ) )           
+    dTHX;
+    wxPliVirtualCallback* cb = (wxPliVirtualCallback*)&m_callback;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ cb, "OnGetItemImage" ) )           
     {                                                                         
-        SV* ret = wxPliVirtualCallback_CallCallback( (wxPliVirtualCallback*) &m_callback,
+        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ cb,
                                                      G_SCALAR, "l", item );
         int val = SvIV( ret );
         SvREFCNT_dec( ret );
@@ -216,11 +220,14 @@ int wxPliListCtrl::OnGetItemImage( long item ) const
 
 wxListItemAttr* wxPliListCtrl::OnGetItemAttr( long item ) const
 {
-    if( wxPliVirtualCallback_FindCallback( (wxPliVirtualCallback*) &m_callback, "OnGetItemAttr" ) )
+    dTHX;
+    wxPliVirtualCallback* cb = (wxPliVirtualCallback*)&m_callback;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ cb, "OnGetItemAttr" ) )
     {                                                                         
-        SV* ret = wxPliVirtualCallback_CallCallback( (wxPliVirtualCallback*) &m_callback,
+        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ cb,
                                                      G_SCALAR, "l", item );
-        wxListItemAttr* val = (wxListItemAttr*)wxPli_sv_2_object( ret, "Wx::ListItemAttr" );
+        wxListItemAttr* val = (wxListItemAttr*)
+            wxPli_sv_2_object( aTHX_ ret, "Wx::ListItemAttr" );
         val = new wxListItemAttr( *val );
         SvREFCNT_dec( ret );
         return val;
@@ -311,14 +318,16 @@ wxPlConstants tree_module( &treectrl_constant );
 int wxPliTreeCtrl::OnCompareItems( const wxTreeItemId& item1,
                                    const wxTreeItemId& item2 )
 {
-    if( wxPliVirtualCallback_FindCallback( &m_callback, "OnCompareItems" ) )
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+                                           "OnCompareItems" ) )
     {
-        SV* t1 = wxPli_non_object_2_sv( newSViv( 0 ),
+        SV* t1 = wxPli_non_object_2_sv( aTHX_ newSViv( 0 ),
                                         (void*)&item1, wxPlTreeItemIdName );
-        SV* t2 = wxPli_non_object_2_sv( newSViv( 0 ),
+        SV* t2 = wxPli_non_object_2_sv( aTHX_ newSViv( 0 ),
                                         (void*)&item2, wxPlTreeItemIdName );
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( &m_callback, G_SCALAR, "SS", t1, t2 );
+            ( aTHX_ &m_callback, G_SCALAR, "SS", t1, t2 );
 
         sv_setiv( SvRV( t1 ), 0 );
         sv_setiv( SvRV( t2 ), 0 );

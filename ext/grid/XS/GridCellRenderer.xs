@@ -36,6 +36,7 @@ Wx_GridCellRenderer::GetBestSize( grid, attr, dc, row, col )
   OUTPUT:
     RETVAL
 
+## XXX threads
 void
 Wx_GridCellRenderer::DESTROY()
   CODE:

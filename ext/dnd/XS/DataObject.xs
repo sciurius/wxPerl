@@ -71,7 +71,7 @@ void
 DESTROY( THIS )
     Wx_DataObject* THIS
   CODE:
-    if( wxPli_object_is_deleteable( ST(0) ) )
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 
 void
@@ -93,7 +93,7 @@ Wx_DataObject::GetAllFormats( dir = wxDataObjectBase::Get )
     EXTEND( SP, (IV)wanted );
     for( i = 0; i < wanted; ++i )
     {
-        PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
+        PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                 new wxDataFormat( formats_d[i] ), "Wx::DataFormat" ) );
     }
     delete [] formats_d;
@@ -198,7 +198,7 @@ Wx_DataObjectComposite::Add( dataObject, preferred = FALSE )
     bool preferred
   CODE:
     // at this point the data object is owned!
-    wxPli_object_set_deleteable( ST(1), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
     THIS->Add( dataObject, preferred );
 
 MODULE=Wx PACKAGE=Wx::TextDataObject

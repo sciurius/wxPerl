@@ -89,6 +89,7 @@ newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
 
 #endif
 
+## XXX threads
 void
 Wx_Locale::DESTROY()
 

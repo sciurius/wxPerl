@@ -19,6 +19,7 @@ Wx_HtmlEasyPrinting::new( name = "Printing", parent_frame = 0 )
     wxString name
     Wx_Frame* parent_frame
 
+## XXX threads
 void
 Wx_HtmlEasyPrinting::DESTROY()
 
