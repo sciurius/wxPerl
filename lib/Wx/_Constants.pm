@@ -27,6 +27,9 @@ use vars qw(
   $_brush_medium_grey $_brush_light_grey $_brush_transparent
   $_brush_cyan $_brush_red);
 
+# !parser: sub { $_[0] =~ m/^\s*sub\s+(wx\w+)[^\}]*\}\s*(?:\#(.*))?$/ }
+# !package: Wx
+
 sub wxDefaultSize { $_default_size }              # misc
 sub wxDefaultPosition { $_default_position }      # misc
 sub wxDefaultValidator { $_default_validator }    # misc

@@ -53,6 +53,8 @@
 
 #include "cpp/compat.h"
 
+// !package: Wx
+
 static double constant( const char *name, int arg ) 
 {
   errno = 0;
@@ -61,6 +63,7 @@ static double constant( const char *name, int arg )
   if( tolower( name[0] ) == 'w' && tolower( name[1] ) == 'x' )
     fl = name[2];
 
+  // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
 #define r( n ) \
 if( strEQ( name, #n ) ) \
   return n;
@@ -679,6 +682,7 @@ if( strEQ( name, #n ) ) \
 
     if( strnEQ( name, "wxLANGUAGE_", 11 ) )
     {
+      // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> && return ( "wxLANGUAGE_" . $1, $2 ) }
 #define rr( n ) \
     if( strEQ( nm, #n ) ) \
         return wxLANGUAGE_##n;
@@ -917,6 +921,7 @@ if( strEQ( name, #n ) ) \
         rr( ZULU );                     // locale
         rr( USER_DEFINED );             // locale
         //prefix
+        // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
 #undef rr
     }
 #endif
