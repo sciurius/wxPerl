@@ -47,7 +47,7 @@ Wx_HtmlWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSi
     long style
     wxString name
   CODE:
-    RETVAL = new wxHtmlWindow( parent, id, pos, size, style, name );
+    RETVAL = new wxPliHtmlWindow( CLASS, parent, id, pos, size, style, name );
   OUTPUT:
     RETVAL
 
