@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.14 2004/06/01 19:30:40 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.15 2004/06/20 08:20:30 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -669,7 +669,9 @@ double stc_constant( const char* name, int arg )
         r( wxEVT_STC_MACRORECORD );
         r( wxEVT_STC_MARGINCLICK );
         r( wxEVT_STC_NEEDSHOWN );
+#if !WXPERL_W_VERSION_GE( 2, 5, 2 )
         r( wxEVT_STC_POSCHANGED );
+#endif
         r( wxEVT_STC_PAINTED );
         r( wxEVT_STC_USERLISTSELECTION );
         r( wxEVT_STC_URIDROPPED );

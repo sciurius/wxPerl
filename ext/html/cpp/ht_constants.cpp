@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/03/2001
-// RCS-ID:      $Id: ht_constants.cpp,v 1.10 2004/02/28 22:59:07 mbarbon Exp $
+// RCS-ID:      $Id: ht_constants.cpp,v 1.11 2004/06/20 08:20:30 mbarbon Exp $
 // Copyright:   (c) 2001, 2003-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -86,9 +86,11 @@ double html_constant( const char* name, int arg )
         r( wxHTML_FONT_SIZE_7 );
         break;
     case 'P':
+#if wxPERL_USE_PRINTING_ARCHITECTURE
         r( wxPAGE_ODD );
         r( wxPAGE_EVEN );
         r( wxPAGE_ALL );
+#endif
         break;
     }
 #undef r

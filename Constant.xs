@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.104 2004/06/01 19:28:38 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.105 2004/06/20 08:20:26 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -934,7 +934,7 @@ static double constant( const char *name, int arg )
     r( wxGROW );                        // sizer
     break;
   case 'H':
-#if !defined(__WXMAC__)
+#if !defined(__WXMAC__) && !defined(__WXGTK__) && !defined(__WXMOTIF__)
     r( wxHIDE_READONLY );               // filedialog
 #endif
     r( wxHORIZONTAL );                  // toolbar sizer
