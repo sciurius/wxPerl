@@ -32,8 +32,7 @@ package Wx::_SplashScreenPerl;
 use strict;
 use vars qw(@ISA); @ISA = qw(Wx::Frame);
 
-use Wx qw(wxSIMPLE_BORDER wxFRAME_FLOAT_ON_PARENT wxFRAME_TOOL_WINDOW
-          wxDefaultPosition wxDefaultSize);
+use Wx qw(wxSIMPLE_BORDER wxFRAME_TOOL_WINDOW wxDefaultPosition wxDefaultSize);
 use Wx::Event qw(EVT_CLOSE EVT_TIMER);
 
 use Wx qw(:splashscreen);

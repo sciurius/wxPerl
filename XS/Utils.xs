@@ -54,7 +54,7 @@ MODULE=Wx PACKAGE=Wx::_SplashScreenCpp
 #endif
 
 Wx_SplashScreen*
-Wx_SplashScreen::new( bitmap, splashStyle, milliseconds, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSIMPLE_BORDER|wxFRAME_TOOL_WINDOW|wxFRAME_FLOAT_ON_PARENT )
+Wx_SplashScreen::new( bitmap, splashStyle, milliseconds, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSIMPLE_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP )
     Wx_Bitmap* bitmap
     long splashStyle
     int milliseconds
