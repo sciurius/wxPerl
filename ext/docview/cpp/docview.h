@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.14 2003/10/02 17:06:28 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.15 2003/11/09 17:18:26 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -34,8 +34,8 @@ public:
     
     // see helpers.h - wxPliInputStream
 #if wxUSE_STD_IOSTREAM
-    wxSTD ostream& SaveObject( ostream& );
-    wxSTD istream& LoadObject( istream& );
+    wxSTD ostream& SaveObject( wxSTD ostream& );
+    wxSTD istream& LoadObject( wxSTD istream& );
 #else
     wxOutputStream& SaveObject( wxOutputStream& );
     wxInputStream& LoadObject( wxInputStream& );
@@ -81,7 +81,7 @@ DEF_V_CBACK_BOOL__VOID( wxPliDocument, wxDocument, SaveAs );
 DEF_V_CBACK_BOOL__VOID( wxPliDocument, wxDocument, Revert );
 
 #if wxUSE_STD_IOSTREAM
-wxSTD ostream wxPliDocument::SaveObject( wxSTD ostream& stream )
+wxSTD ostream& wxPliDocument::SaveObject( wxSTD ostream& stream )
 {
     dTHX;
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "SaveObject" ) )
@@ -92,7 +92,7 @@ wxSTD ostream wxPliDocument::SaveObject( wxSTD ostream& stream )
     return wxDocument::SaveObject( stream );
 }
 
-wxSTD istream wxPliDocument::LoadObject( istream& stream )
+wxSTD istream& wxPliDocument::LoadObject( wxSTD istream& stream )
 {
     dTHX;
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "LoadObject" ) )

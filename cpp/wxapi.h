@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/ 9/2002
-// RCS-ID:      $Id: wxapi.h,v 1.7 2003/08/02 21:08:55 mbarbon Exp $
+// RCS-ID:      $Id: wxapi.h,v 1.8 2003/11/09 17:18:26 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -57,12 +57,15 @@ WXPL_EXTERN_C_END
 #undef eof
 #undef form
 #undef vform
+#endif
 #undef do_open
 #undef do_close
-#endif
 
 #if __VISUALC__
 #pragma warning ( disable: 4800 )
+#pragma warning ( disable: 4100 ) // unreferenced formal parameter
+#pragma warning ( disable: 4101 ) // unreferenced local variable
+#pragma warning ( disable: 4706 ) // assignment within conditional expression
 #endif
 
 #ifdef __WXMSW__
