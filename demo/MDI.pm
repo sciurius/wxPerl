@@ -47,21 +47,28 @@ package MDIDemoWindow;
 
 use strict;
 use vars qw(@ISA); @ISA = qw(Wx::MDIParentFrame);
+use Wx qw( :misc :textctrl :window :frame );
 
 my( $ID_ACT_PREVIOUS, $ID_ACT_NEXT,
     $ID_ARRANGE, $ID_TILE, $ID_CASCADE, $ID_CREATE_CHILD, $ID_CLOSE ) = 
   ( 2000 .. 3000 );
 
-use Wx::Event qw(EVT_MENU EVT_CLOSE);
+use Wx::Event qw(EVT_MENU EVT_CLOSE EVT_SIZE);
 
 sub new {
   my $class = shift;
-  my $this = $class->SUPER::new( @_ );
+  my $this = $class->SUPER::new( @_,  wxDefaultPosition, wxDefaultSize, 
+                                 wxDEFAULT_FRAME_STYLE | wxHSCROLL | 
+                                 wxVSCROLL| wxNO_FULL_REPAINT_ON_RESIZE );
 
   my $file = Wx::Menu->new;
   $file->Append( $ID_CREATE_CHILD, "Create a new child" );
   $file->AppendSeparator;
   $file->Append( $ID_CLOSE, "Close frame" );
+
+  $this->{'help'} = new Wx::TextCtrl($this, -1, "A help Window",
+                                     wxDefaultPosition, wxDefaultSize,
+                                     wxTE_MULTILINE | wxSUNKEN_BORDER);
 
   #my $childs = Wx::Menu->new;
   #$childs->Append( $ID_ACT_PREVIOUS, "Activate previous" );
@@ -81,6 +88,7 @@ sub new {
 
   EVT_MENU( $this, $ID_CREATE_CHILD, \&OnCreateChild );
   EVT_MENU( $this, $ID_CLOSE, \&OnClose );
+  EVT_SIZE( $this, \&OnSize );
   # this is necessary otherwise the default handler
   # will Destroy the window and crash the demo
   # that tries to use it subsequently
@@ -101,6 +109,16 @@ sub OnClose {
   $this->Show( 0 );
   # this is taken care by the demo
   #$this->Destroy;
+}
+
+sub OnSize {
+  my( $this, $event ) = @_;
+
+  my( $x, $y ) = $this->GetClientSizeXY();
+  my $client_window = $this->GetClientWindow();
+  $client_window->SetSize( 200, 0, $x - 200, $y);
+  $this->{'help'}->SetSize( 0, 0, 200, $y);
+
 }
 
 1;

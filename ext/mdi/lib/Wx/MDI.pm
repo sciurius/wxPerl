@@ -31,6 +31,7 @@ no strict;
 
 package Wx::MDIParentFrame;     @ISA = qw(Wx::Frame);
 package Wx::MDIChildFrame;      @ISA = qw(Wx::Frame);
+package Wx::MDIClientWindow;    @ISA = qw(Wx::Window);
 
 use strict;
 
