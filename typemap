@@ -123,6 +123,7 @@ Wx_ColourData *         O_WXOBJECT
 Wx_FontData *           O_WXOBJECT
 
 Wx_Sizer *              O_WXOBJECT
+wxSizer *               O_WXOBJECT
 Wx_PlSizer *            O_WXOBJECT
 Wx_BoxSizer *           O_WXOBJECT
 Wx_StaticBoxSizer *     O_WXOBJECT
