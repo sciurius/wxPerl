@@ -21,10 +21,6 @@ wxWriteMakefile( NAME => 'Wx::FS',
                  VERSION_FROM => 'lib/Wx/FS.pm',
                );
 
-#package MY;
-
-#use wxConfig qw(:MY);
-
 # Local variables: #
 # mode: cperl #
 # End: #

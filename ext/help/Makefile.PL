@@ -21,10 +21,6 @@ wxWriteMakefile( NAME => 'Wx::Help',
                  VERSION_FROM => 'lib/Wx/Help.pm',
                );
 
-#package MY;
-
-#use wxConfig qw(:MY);
-
 # Local variables: #
 # mode: cperl #
 # End: #

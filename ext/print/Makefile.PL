@@ -21,10 +21,6 @@ wxWriteMakefile( NAME => 'Wx::Print',
                  VERSION_FROM => 'lib/Wx/Print.pm',
                );
 
-#package MY;
-
-#use wxConfig qw(:MY);
-
 # Local variables: #
 # mode: cperl #
 # End: #

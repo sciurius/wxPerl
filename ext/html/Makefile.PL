@@ -21,10 +21,6 @@ wxWriteMakefile( NAME => 'Wx::Html',
                  VERSION_FROM => 'lib/Wx/Html.pm',
                );
 
-#package MY;
-
-#use wxConfig qw(:MY);
-
 # Local variables: #
 # mode: cperl #
 # End: #
