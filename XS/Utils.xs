@@ -18,6 +18,8 @@
 #endif
 #include <wx/utils.h>
 #include <wx/debug.h>
+#include <wx/tipdlg.h>
+#include "cpp/tipprovider.h"
 
 MODULE=Wx PACKAGE=Wx::CaretSuspend
 
@@ -130,7 +132,37 @@ GetSystemMetric( index )
   OUTPUT:
     RETVAL
 
+MODULE=Wx PACKAGE=Wx::TipProvider
+
+Wx_TipProvider*
+Wx_TipProvider::new( currentTip )
+    size_t currentTip
+  CODE:
+    RETVAL = new wxPliTipProvider( CLASS, currentTip );
+  OUTPUT:
+    RETVAL
+
+size_t
+Wx_TipProvider::GetCurrentTip()
+
+void
+Wx_TipProvider::SetCurrentTip( number )
+    size_t number
+  CODE:
+    ((wxPliTipProvider*)THIS)->SetCurrentTip( number );
+
 MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+bool
+wxShowTip( parent, tipProvider, showAtStartup = TRUE )
+    Wx_Window* parent
+    Wx_TipProvider* tipProvider
+    bool showAtStartup
+
+Wx_TipProvider*
+wxCreateFileTipProvider( filename, currentTip )
+    wxString filename
+    size_t currentTip
 
 bool
 wxYield()
