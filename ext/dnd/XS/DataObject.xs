@@ -16,19 +16,19 @@
 MODULE=Wx PACKAGE=Wx::DataFormat
 
 Wx_DataFormat*
-Wx_DataFormat::newNative( format = wxDF_INVALID )
+newNative( dummy, format = wxDF_INVALID )
+    SV* dummy
     NativeFormat format
   CODE:
-    THIS = 0; // fool SGI CC warnings
     RETVAL = new wxDataFormat( format );
   OUTPUT:
     RETVAL
 
 Wx_DataFormat*
-Wx_DataFormat::newUser( id )
+newUser( dummy, id )
+    SV* dummy
     wxChar* id
   CODE:
-    THIS = 0; // fool SGI CC warnings
     RETVAL = new wxDataFormat( id );
   OUTPUT:
     RETVAL
