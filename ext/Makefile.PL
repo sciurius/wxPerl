@@ -13,7 +13,7 @@
 use ExtUtils::MakeMaker;
 
 WriteMakefile( NAME => 'Wx',
-               DIR => [ @$wxConfig::subdirs, 'perl' ] );
+               DIR => [ @$wxConfig::subdirs, 'pperl' ] ); # for pure perl
 
 # Local variables: #
 # mode: cperl #
