@@ -189,6 +189,7 @@ sub _make_override {
   *{"${name}"}      = sub { _call_method( $name, @_ ) };
 }
 
+_make_override( 'subdirs' );
 _make_override( 'postamble' );
 _make_override( 'depend' );
 _make_override( 'libscan' );

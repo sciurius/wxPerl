@@ -119,6 +119,16 @@ sub depend_ext {
   $this->SUPER::depend_ext( %this_depend );
 }
 
+sub subdirs_core {
+  my $this = shift;
+  my $text = $this->SUPER::subdirs_core( @_ );
+
+  return <<EOT . $text;
+subdirs :: overload
+
+EOT
+}
+
 sub postamble_core {
   my $this = shift;
   my %files = $this->files_to_install();
