@@ -12,22 +12,18 @@
 
 use strict;
 
-use ExtUtils::MakeMaker;
 use Config;
 use lib '../../build';
 
-use wxConfig qw(configure);
+use wxConfig;
 
-WriteMakefile( NAME => 'Wx::FS',
-               VERSION_FROM => 'lib/Wx/FS.pm',
-               XSOPT => ' -C++ -noprototypes ',
-               TYPEMAPS => [ '../../typemap' ],
-               CONFIGURE => \&configure,
-             );
+wxWriteMakefile( NAME => 'Wx::FS',
+                 VERSION_FROM => 'lib/Wx/FS.pm',
+               );
 
-package MY;
+#package MY;
 
-use wxConfig qw(:MY);
+#use wxConfig qw(:MY);
 
 # Local variables: #
 # mode: cperl #

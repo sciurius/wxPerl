@@ -10,12 +10,11 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-package wxConfig;
+package Win32_MinGW;
 
 use strict;
-
-push @EXPORT_OK, qw(postamble dynamic_lib  top_targets ppd);
-push @{ $EXPORT_TAGS{MY} }, qw(dynamic_lib  top_targets ppd);
+use base 'Win32';
+use wxMMUtils;
 
 #
 # wx-config-like
@@ -23,10 +22,18 @@ push @{ $EXPORT_TAGS{MY} }, qw(dynamic_lib  top_targets ppd);
 sub wx_config {
   my $makefile = MM->catfile( top_dir(), 'build', 'gmake.mak' );
 
-  my $final = $debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
+  my $final = $wxConfig::debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
   my $t = qx(make -s -f $makefile @_ $final);
   chomp $t;
   return $t;
+}
+
+sub wx_lib {
+  my( $this, $lib ) = @_;
+  $lib =~ s/^\s*(.*?)\s*/$1/;
+
+  return ' ' . MM->catfile( wx_config( 'wxdir' ), 'lib',
+                            $lib . $Config{lib_ext} ) . ' ';
 }
 
 #
@@ -39,13 +46,13 @@ sub configure {
   my( %config ) =
     ( CC => 'g++ ',
       LD => 'g++ ',
-      CCFLAGS => $extra_cflags . ' -fvtable-thunks ',
-      LIBS => $extra_libs . ' ',
+      CCFLAGS => " $wxConfig::extra_cflags -fvtable-thunks ",
+      LIBS => " $wxConfig::extra_libs ",
       clean => { FILES => 'dll.base dll.exp ' },
       INC => ' -I' . top_dir() . ' ',
       ( building_extension() ?
         ( DEFINE => ' -DWXPL_EXT ',
-          LDFROM => ' $(OBJECT) ' . ( $use_shared ? $wximplib : '' ) . ' ',
+          LDFROM => ' $(OBJECT) ' . ( $wxConfig::use_shared ? $wximplib : '' ) . ' ',
         ) :
         ( depend => { 'Wx_res.o' => 'Wx.rc ', },
           LDFROM => '$(OBJECT) Wx_res.o',
@@ -55,7 +62,7 @@ sub configure {
       ),
     );
 
-  if( $debug_mode ) {
+  if( $wxConfig::debug_mode ) {
     $config{CCFLAGS} .= ' -g ';
   } else {
     $config{dynamic_lib}{OTHERLDFLAGS} .= ' -s ';
@@ -77,26 +84,20 @@ sub configure {
     $config{LIBS} .= $_ . ' ';
   }
 
-  if( $Verbose >= 1 ) {
-    foreach (keys %config) {
-      m/^[A-Z]+$/ || next;
-      print( $_ ," => ", $config{$_}, "\n" );
-    }
-  }
-
   \%config;
 }
 
 #
 # for .rc file compilation and automatic export list generation
 #
-sub sysdep_postamble {
+sub postamble {
   my( $this ) = shift;
   my( $wxdir ) = wx_config( 'wxdir' );
   my( $implib ) = wx_config( 'implib' );
   $implib =~ s/lib(\w+)\.\w+$/$1\.dll/;
 
-  my $text = <<EOT;
+  my $text = $this->SUPER::postamble( @_ );
+  $text .= <<EOT;
 Wx_res.o: Wx.rc
 \twindres --include-dir ${wxdir}\\include Wx.rc Wx_res.o
 
@@ -111,28 +112,14 @@ EOT
   $text;
 }
 
-sub top_targets {
-  package MY;
-
-  my $this = shift;
-  my $text = $this->SUPER::top_targets( @_ );
-
-  $text =~ s{^(\w+\s*:+.*?)subdirs(.*?)linkext(.*?)$}
-            {$1linkext$2subdirs$3}m;
-
-  $text;
-}
-
 #
 # current command line breaks in dmake ( used braces in qq{} )
 #
 sub ppd {
-  package MY;
-
   my $this = shift;
+  package MY;
   my $text = $this->SUPER::ppd( @_ );
 
-  #$text =~ s/\\\"/\\x22/g;
   $text =~ tr/\{\}/##/;
 
   return $text;
@@ -142,9 +129,8 @@ sub ppd {
 # fixes link command line to use g++ instead of dlltool
 #
 sub dynamic_lib {
-  package MY;
-
   my( $this ) = shift;
+  package MY;
   my( $text ) = $this->SUPER::dynamic_lib( @_ );
 
   return $text unless $wxConfig::use_shared && $text =~ m/dlltool/i;
@@ -167,4 +153,3 @@ sub dynamic_lib {
 # Local variables: #
 # mode: cperl #
 # End: #
-

@@ -10,12 +10,12 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-package wxConfig;
+package Win32_MSVC;
 
 use strict;
-
-push @EXPORT_OK, qw(dynamic_lib top_targets);
-push @{ $EXPORT_TAGS{MY} }, qw(dynamic_lib top_targets);
+use Config;
+use base 'Win32';
+use wxMMUtils;
 
 #
 # wx-config-like
@@ -24,15 +24,25 @@ sub wx_config {
   my $makefile = MM->catfile( top_dir(), 'build', 'nmake.mak' );
 
   if( $Config{make} eq 'nmake' ) {
-    my( $final ) = $debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
+    my( $final ) = $wxConfig::debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
     my $t = qx(nmake /nologo /s /f $makefile @_ $final);
     chomp $t;
     return $t;
   }
 }
 
+sub wx_lib {
+  my( $this, $lib ) = @_;
+  my $suff = $wxConfig::debug_mode ? 'h' : '';
+
+  $lib =~ s/^\s*(.*?)\s*/$1/;
+
+  return ' ' . MM->catfile( wx_config( 'wxdir' ), 'lib',
+                            $lib . $suff . $Config{lib_ext} ) . ' ';
+}
+
 #
-# takes parametes form make*.env
+# takes parametes from make*.env
 #
 sub configure {
   my( $cccflags, $ldflags, $libs );
@@ -40,8 +50,8 @@ sub configure {
   my $wximppath = MM->catdir( top_dir(), qw(blib arch auto Wx) );
   my $wximplib = MM->catfile( $wximppath, 'Wx.lib' );
   my( %config ) =
-    ( CCFLAGS => $extra_cflags . ' -TP ',
-      LIBS => " $extra_libs " ,
+    ( CCFLAGS => " $wxConfig::extra_cflags -TP ",
+      LIBS => " $wxConfig::extra_libs ",
       clean => { FILES => '*.pdb *.res *_def.old ' },
       ( building_extension() ?
         ( INC => ' -I'. top_dir() . ' ',
@@ -57,7 +67,7 @@ sub configure {
       ),
     );
 
-  if( $debug_mode ) {
+  if( $wxConfig::debug_mode ) {
 #    $config{CCFLAGS} .= ' -Zi ';
     $config{dynamic_lib}{OTHERLDFLAGS} .= ' -debug ';
   }
@@ -77,20 +87,12 @@ sub configure {
     $config{LIBS} .= $_ . ' ';
   }
 
-  if( $Verbose >= 1 ) {
-    foreach (keys %config) {
-      m/^[A-Z]+$/ || next;
-      print( $_ ," => ", $config{$_}, "\n" );
-    }
-  }
-
   \%config;
 }
 
 sub dynamic_lib {
-  package MY;
-
   my $this = shift;
+  package MY;
   my $text = $this->SUPER::dynamic_lib( @_ );
 
   $text =~ s{[/-]def:[^\s]+}{}i;
@@ -98,28 +100,17 @@ sub dynamic_lib {
   $text;
 }
 
-sub top_targets {
-  package MY;
-
-  my $this = shift;
-  my $text = $this->SUPER::top_targets( @_ );
-
-  $text =~ s{^(\w+\s*:+.*?)subdirs(.*?)linkext(.*?)$}
-            {$1linkext$2subdirs$3}m;
-
-  $text;
-}
-
 #
 # for .rc file compilation and automatic export list generation
 #
-sub sysdep_postamble {
+sub postamble {
   my( $this ) = shift;
   my( $wxdir ) = wx_config( 'wxdir' );
   my( $implib ) = wx_config( 'implib' );
   $implib =~ s/\.\w+$/\.dll/;
 
-  my $text = <<EOT;
+  my $text = $this->SUPER::postamble( @_ );
+  $text .= <<EOT;
 
 Wx.res: Wx.rc
 \trc -I${wxdir}\\include Wx.rc

@@ -13,10 +13,12 @@
 package wxConfig;
 
 use strict;
-use vars qw(@ISA @EXPORT_OK %EXPORT_TAGS $Verbose);
+use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS $Verbose);
+use ExtUtils::MakeMaker;
 
 # parse command line variables
 use vars qw($debug_mode $extra_libs $extra_cflags $use_shared $use_dllexport);
+use vars qw($Arch);
 
 LOOP: foreach ( @ARGV ) {
   m/^DEBUG=(\d+)$/ && do { $debug_mode = $1 ; undef $_; next LOOP; };
@@ -29,29 +31,30 @@ $use_dllexport = 0 unless $use_shared;
 #FIXME// hack
 $extra_cflags .= ' -DWXPL_USE_DLLEXPORT=1 ' if $use_dllexport;
 
-require Exporter;
+use base 'Exporter';
 use Config;
 
-@EXPORT_OK = qw(wx_config configure constants depend postamble
-                xs_depend obj_from_src $Verbose);
-%EXPORT_TAGS = ( MY => [ qw(constants depend) ] );
-@ISA = qw(Exporter);
+@EXPORT = qw(wxWriteMakefile);
+
+use wxMMUtils;
 
 # BLEAGH!!!!
 sub import {
-  my @list = map { if( m/^:/ ) { @{$EXPORT_TAGS{substr $_,1} } }
-                   elsif( m/\w/ ) { $_ } } @_[1,];
-
-  foreach( @list ) {
-    no strict;
-    undef *{caller() . '::' . $_};
-  }
+  *MY::post_initialize = \&post_initialize;
 
   wxConfig->export_to_level( 1, @_ );
 }
 
 # determines what package we must require
 my $package_to_use;
+
+sub post_initialize {
+  my $class = ref $_[0];
+  no strict;
+  unshift @{"$class\:\:ISA"}, $package_to_use;
+  use strict;
+  '';
+}
 
 # configures subroutines depending
 # from os/window system
@@ -75,221 +78,33 @@ BEGIN {
   }
 }
 
-#
-# TRUE if we are configuring an 'extension' ( ext/* )
-#
-sub building_extension {
-  return !-f 'Wx.pm';
-}
+sub wxWriteMakefile {
+  my( %params ) = @_;
 
-#
-# relative path to the top dir ( the one containing Wx.pm )
-#
-sub top_dir {
-  my $top = MM->curdir;
-
-  until( -f MM->catfile( $top, 'Wx.pm' ) ) {
-    $top = MM->catdir( MM->updir, $top );
-  }
-
-  return MM->canonpath( $top );
-}
-
-###########################
-# subroutines to go in MY
-
-#FIXME// this is an horrendous hack...
-# since MakeMaker does only understand Makefile.PL une level below
-# the top directory, and we need towo level below, we add one additional
-# level to INST_* constants beginning with 'updir' ( usually '..' )
-sub constants {
-  package MY;
-
-  my $this = shift;
-
-  if( $this->{PARENT} ) {
-    foreach my $k ( sort keys %$this ) {
-      $k !~ m/^INST_/ && next;
-      my $dir = $this->{$k};
-      if( index( $dir, $this->updir ) == 0 ) {
-        $this->{$k} = $this->catdir
-          ( wxConfig::top_dir(), substr $this->{$k}, length( $this->updir ) );
-#        substr( $this->{$k}, 0, length( $this->updir ) ) = top_dir();
-      }
+  foreach my $i ( keys %params ) {
+    if( $i eq 'WXLIB' ) {
+      $params{LIBS} .= $Arch->wx_lib( $params{$i} );
+      delete $params{WXLIB};
     }
+
+    delete $params{$i}
+      if( ( $i eq 'ABSTRACT_FROM'|| $i eq 'AUTHOR' ) && $] < 5.005 );
   }
 
-  $this->SUPER::constants( @_ );
+  require Any_OS; # perl 5.004_04 needs this...
+  $params{XSOPT} = ' -C++ -noprototypes ' unless exists $params{XSOPT};
+  $params{CONFIGURE} = \&Any_OS::get_config
+    unless exists $params{CONFIGURE};
+  $params{TYPEMAPS} = [ MM->catfile( top_dir(), 'typemap' ) ]
+    unless exists $params{TYPEMAPS} || !building_extension();
+
+  WriteMakefile( %params );
 }
-
-#
-# portable paths for blib/lib/Wx/_Exp.pm and lib/Wx/Event.pm
-#
-use File::Find;
-
-sub files_with_constants {
-  my @files;
-
-  my $wanted = sub {
-    my $name = $File::Find::name;
-
-    m/\.(?:pm|xs|cpp|h)$/i && do {
-      local *IN;
-      my $line;
-
-      open IN, "< $_" || warn "unable to open '$_'";
-      while( defined( $line = <IN> ) ) {
-        $line =~ m/^\W+\!\w+:/ && do {
-          push @files, $name;
-          return;
-        };
-      }
-    };
-  };
-
-  find( $wanted, MM->curdir );
-
-  return @files;
-}
-
-sub postamble {
-  my $this = shift;
-  my $text = wxConfig::sysdep_postamble( @_ );
-
-  unless( $this->{PARENT} ) {
-    my @files = files_with_constants();
-    my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
-
-    $text .= <<EOT;
-
-$exp :
-\t\$(PERL) script/make_exp_list.pl $exp @files
-
-EOT
-  }
-
-  package MY;
-
-  $text;
-}
-
-sub depend {
-  my $this = shift;
-  my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
-
-  my %depend = ( xs_depend( $this, [ MM->curdir(), top_dir() ] ),
-                 ( $this->{PARENT} ?
-                   () :
-                   ( $exp => join( ' ', files_with_constants() ),
-                     '$(INST_STATIC)' => $exp,
-                     '$(INST_DYNAMIC)' => $exp,
-                   )
-                 )
-               );
-  my %this_depend = @_;
-
-  foreach ( keys %depend ) {
-    $this_depend{$_} .= ' ' . $depend{$_};
-  }
-
-  package MY;
-
-  $this->SUPER::depend( %this_depend );
-}
-
-#
-# Some utility functions, mainly for dependency generation
-#
-
-#
-# quick and dirty method for creating dependencies:
-# considers files included via #include "..." or INCLUDE: ...
-# (not #include <...>) and does not take into account preprocessor directives
-#
-sub scan_xs($$);
-
-sub scan_xs($$) {
-  my( $xs, $incpath ) = @_;
-
-  local( *IN, $_ );
-  my( @cinclude, @xsinclude );
-
-  open IN, $xs;
-
-  my $file;
-  my $arr;
-
-  while( $_ = <IN> ) {
-    undef $file;
-
-    m/^\#\s*include\s+"([^"]*)"\s*$/ and $file = $1 and $arr = \@cinclude;
-    m/^\s*INCLUDE:\s+(.*)$/ and $file = $1 and $arr = \@xsinclude;
-
-    if( defined $file ) {
-      foreach my $dir ( @$incpath ) {
-        my $f = MM->catfile( $dir, $file );
-        if( -f $f ) {
-          push @$arr, $f;
-          my( $cinclude, $xsinclude ) = scan_xs( $f, $incpath );
-          push @cinclude, @$cinclude;
-          push @xsinclude, @$xsinclude;
-          last;
-        }
-      }
-    }
-  }
-
-  close IN;
-
-  ( \@cinclude, \@xsinclude );
-}
-
-#
-# Makes dependencies for
-# *.xs, *.c (from *.xs), *.obj (from *.xs) and
-#
-sub xs_depend {
-  my( $this, $dirs ) = @_;
-
-  my( %depend );
-  my( $c, $o, $cinclude, $xsinclude );
-
-  foreach ( keys %{ $this->{XS} } ) {
-    ( $cinclude, $xsinclude ) = scan_xs( $_, $dirs );
-
-    $c = $this->{XS}{$_};
-    $o = obj_from_src( $c );
-
-    $depend{ $c } = $_ . ' ' . join( ' ', @$xsinclude );
-    $depend{ $o } = $c . ' ' . join( ' ', @$cinclude );
-  }
-
-  %depend;
-}
-
-#
-# computes the name for an object file, given
-# the source file name
-#
-sub obj_from_src {
-  my( @xs ) = @_;
-  my( $obj_ext ) = $Config{_o} || $Config{obj_ext};
-
-  foreach( @xs ) {
-    $_ =~ s[\.(?:xs|c|cc|cpp)$][$obj_ext]e;
-  }
-
-  if( wantarray ) { return @xs }
-  else { return $xs[0] };
-}
-
-use vars qw($included);
 
 require "$package_to_use.pm";
+$Arch = $package_to_use;
 
-package MY;
-
-1;
+;
 
 __DATA__
 
