@@ -78,6 +78,9 @@ PRIORITY NORMAL:
     GetCurLine
     SendMsg
 
+* Wx::Frame
+    SetIcons
+
 PRIORITY LOW:
 
 * Wx::HtmlHelpData ?
