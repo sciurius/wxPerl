@@ -1,0 +1,17 @@
+KNOWN BUGS:
+
+All platforms
+
+* Wx::TreeCtrl
+    - $tree->GetItemData( $item )->SetData( $foo )
+      does not work
+
+* The build system is a mess
+
+* The caret sample starts with incorrect size
+
+wxMSW
+
+* Wx::ToolBar
+    - toolbar sample: choose 'toggle toolbar orientation'
+      the status bar moves to topleft corner of the client area ( ? )
