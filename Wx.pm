@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.61 2003/05/29 19:58:52 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.62 2003/07/25 20:36:15 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -171,6 +171,7 @@ require Wx::Wx_Exp;
 require Tie::Handle;
 
 package Wx::GDIObject; # warning for non-existent package
+package Wx::Object;    # likewise
 
 #
 # overloading for Wx::TreeItemId

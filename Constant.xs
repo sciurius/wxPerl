@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.86 2003/06/04 20:27:53 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.87 2003/07/25 20:36:15 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -199,6 +199,7 @@ struct wxPlINH
 
 static wxPlINH inherit[] =
 {
+    I( EvtHandler,      Object )
     I( Window,          EvtHandler )
     I( Menu,            EvtHandler )
     I( MenuBar,         Window )

@@ -33,6 +33,8 @@ Wx::XmlInitResourceModule();
 
 no strict;
 
+package Wx::PlXmlResourceHandler; @ISA = qw(Wx::XmlResourceHandler);
+
 use strict;
 
 1;

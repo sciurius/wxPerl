@@ -413,13 +413,16 @@ ext/pperl/splashfast/t/04_app.t
 
 ext/xrc/Makefile.PL
 ext/xrc/XRC.xs
+ext/xrc/XS/XmlDocument.xsp
+ext/xrc/XS/XmlNode.xsp
 ext/xrc/XS/XmlResource.xs
+ext/xrc/XS/XmlResourceHandler.xsp
 ext/xrc/XS/XmlSubclassFactory.xsp
 ext/xrc/cpp/xr_constants.cpp
 ext/xrc/cpp/xr_typedef.h
 ext/xrc/lib/Wx/XRC.pm
-ext/xrc/typemap
 ext/xrc/t/01_load.t
+ext/xrc/typemap
 
 ext/docview/Makefile.PL
 ext/docview/DocView.xs
@@ -446,6 +449,7 @@ demo/MDI.pm
 demo/Printing.pm
 demo/Unicode.pm
 demo/XRC.pm
+demo/XRCCustom.pm
 demo/data/fs.zip
 demo/data/html/index.html
 demo/data/html/page.html

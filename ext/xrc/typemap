@@ -4,16 +4,22 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/ 7/2001
-## RCS-ID:      $Id: typemap,v 1.3 2003/06/04 20:49:48 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.4 2003/07/25 20:36:15 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
+wxXmlNodeType           T_ENUM
+
 Wx_XmlResource *        O_NON_WXOBJECT
 wxXmlResource *         O_NON_WXOBJECT
-Wx_XmlResourceHandler * O_NON_WXOBJECT
-wxXmlResourceHandler *  O_NON_WXOBJECT
+Wx_XmlResourceHandler * O_WXOBJECT
+wxXmlResourceHandler *  O_WXOBJECT
 wxXmlSubclassFactory *  O_NON_WXOBJECT
 wxPliXmlSubclassFactory * O_NON_WXOBJECT
+wxXmlNode*              O_NON_WXOBJECT
+wxXmlDocument*          O_WXOBJECT
+wxXmlProperty*          O_NON_WXOBJECT
+wxPlXmlResourceHandler* O_WXOBJECT

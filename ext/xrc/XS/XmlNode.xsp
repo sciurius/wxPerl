@@ -1,0 +1,91 @@
+#
+
+%module{Wx};
+
+%typemap{wxXmlProperty*}{simple};
+%typemap{wxXmlNode*}{simple};
+%typemap{wxXmlNodeType}{simple};
+
+%name{Wx::XmlProperty} class wxXmlProperty
+{
+    wxXmlProperty(const wxString& name = wxEmptyString,
+                  const wxString& value = wxEmptyString,
+                  wxXmlProperty* next = NULL);
+
+    wxString GetName() const;
+    wxString GetValue() const;
+    wxXmlProperty* GetNext() const;
+
+    void SetName(const wxString& name);
+    void SetValue(const wxString& value);
+    void SetNext(wxXmlProperty* next);
+};
+
+%{
+
+void
+wxXmlProperty::Destroy()
+  CODE:
+    delete THIS;
+
+%}
+
+%name{Wx::XmlNode} class wxXmlNode
+{
+    wxXmlNode(wxXmlNode* parent = NULL, wxXmlNodeType type = wxXmlNodeType(0),
+              const wxString& name = wxEmptyString,
+              const wxString& content = wxEmptyString,
+              wxXmlProperty* props = NULL, wxXmlNode* next = NULL);
+
+    void AddChild(wxXmlNode* child);
+    void InsertChild(wxXmlNode *child, wxXmlNode *before_node);
+    bool RemoveChild(wxXmlNode *child);
+    void AddProperty(const wxString& name, const wxString& value);
+    bool DeleteProperty(const wxString& name);
+
+    wxXmlNodeType GetType() const;
+    wxString GetName() const;
+    wxString GetContent() const;
+
+    wxXmlNode *GetParent() const;
+    wxXmlNode *GetNext() const;
+    wxXmlNode *GetChildren() const;
+
+    wxXmlProperty *GetProperties() const;
+##    bool GetPropVal(const wxString& propName, wxString *value) const;
+##    wxString GetPropVal(const wxString& propName,
+##                        const wxString& defaultVal) const;
+    bool HasProp(const wxString& propName) const;
+
+    void SetType(wxXmlNodeType type);
+    void SetName(const wxString& name);
+    void SetContent(const wxString& con);
+
+    void SetParent(wxXmlNode *parent);
+    void SetNext(wxXmlNode *next);
+    void SetChildren(wxXmlNode *child);
+
+    void SetProperties(wxXmlProperty *prop);
+##    void AddProperty(wxXmlProperty *prop);
+};
+
+%{
+
+void
+wxXmlNode::Destroy()
+  CODE:
+    delete THIS;
+
+SV*
+wxXmlNode::GetPropVal(name, value = &PL_sv_undef)
+    wxString name
+    SV* value
+  CODE:
+    wxString tmp;
+    bool ok = THIS->GetPropVal(name, &tmp);
+    if( ok )
+        RETVAL = wxPli_wxString_2_sv( aTHX_ tmp, NEWSV(0, 0) );
+    else
+        RETVAL = SvREFCNT_inc( value );
+  OUTPUT: RETVAL
+%}
