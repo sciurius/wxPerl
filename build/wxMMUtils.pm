@@ -146,8 +146,15 @@ sub merge_config {
 
         my @c;
         foreach my $i ( @b ) {
+          my $mi = $i;
+          my @ipaths = $mi =~ m/(-L[^ ]+)/g;
+          $mi =~ s/-L[^ ]+ +//g;
+
           foreach my $j ( @a ) {
-            push @c, " $i $j $i ";
+            my $mj = $j;
+            my @jpaths = $mj =~ m/(-L[^ ]+)/g;
+            $mj =~ s/-L[^ ]+ +//g;
+            push @c, " @ipaths @jpaths $mj $mi ";
           }
         }
 
