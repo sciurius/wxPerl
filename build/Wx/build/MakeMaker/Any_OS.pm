@@ -140,8 +140,8 @@ EOT
 # er, quite limited
 sub libscan_ext {
   my( $this, $inst ) = @_;
-  # warn $inst;
-  $inst =~ s/\$\(INST_LIBDIR\)\W+build/\$(INST_LIBDIR)/i && return $inst;
+
+  $inst =~ s/(\W+)build\W+Wx/$1Wx/i && return $inst;
 
   return $this->SUPER::libscan_core( $inst );
 }
