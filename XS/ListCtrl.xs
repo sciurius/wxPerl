@@ -486,6 +486,7 @@ bool
 Wx_ListCtrl::SortItems( function )
     SV* function
   CODE:
-    RETVAL = THIS->SortItems( &ListCtrlCompareFn, (long)function );
+    RETVAL = THIS->SortItems( (wxListCtrlCompare)&ListCtrlCompareFn,
+        (long)function );
   OUTPUT:
     RETVAL
