@@ -5,15 +5,15 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Makefile.PL,v 1.41 2004/12/08 17:52:16 mbarbon Exp $
-## Copyright:   (c) 2000-2004 Mattia Barbon
+## RCS-ID:      $Id: Makefile.PL,v 1.42 2005/01/23 16:57:00 mbarbon Exp $
+## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 package core;
 
-use 5.005_03;
+use 5.006001;
 use strict;
 
 use FindBin;
@@ -25,8 +25,7 @@ use Wx::build::MakeMaker::Core;
 if( $mmv == 6.21 ) {
     die <<EOT
 ExtUtils::MakeMaker 6.21 is known not to work with wxPerl;
-please downgrade to 6.17 or install the snapshot frm
-http://makemaker.org/
+please downgrade to 6.17 or install the latest version from CPAN.
 EOT
 }
 
@@ -35,7 +34,7 @@ EOT
 
 wxWriteMakefile( NAME          => 'Wx',
                  ABSTRACT_FROM => 'Wx.pm',
-                 AUTHOR        => 'Mattia Barbon <mbarbon@dsi.unive.it>',
+                 AUTHOR        => 'Mattia Barbon <mbarbon@cpan.org>',
                  VERSION_FROM  => 'Wx.pm',
                  PREREQ_PM     => { 'File::Spec::Functions'  => 0.82,
                                     'Test::More'             => 0.45,
@@ -47,9 +46,6 @@ wxWriteMakefile( NAME          => 'Wx',
                  WX_CORE_LIB   => ( $^O ne 'MSWin32' ? 'adv html core base' :
                                                        'adv core base' ),
                  NO_META       => 1,
-#                 ( $wxConfig::o_static ?
-#                   ( WXLIB => [ 'wxxrc', 'stc' ] ) :
-#                   () ),
                );
 
 END {
