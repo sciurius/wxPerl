@@ -91,7 +91,7 @@ push \@Wx::EXPORT_OK, qw(@Wx_exp);
 
 };
 
-foreach ( keys %Wx_tag ) {
+foreach ( sort keys %Wx_tag ) {
   print OUT
     qq/\$Wx::EXPORT_TAGS{$_} = [ qw(@{$Wx_tag{$_}}) ];
 /;
