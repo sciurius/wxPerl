@@ -4,6 +4,8 @@ BEGIN { print "1..2\n"; }
 
 use strict;
 use Wx;
+use lib "build";
+use Tests_Helper qw(test_app);
 
 my $data = [ map { m/^"(.*)"/ ? ( $1 ) : () } split /\n/, <<'EOT' ];
 /* XPM */
@@ -32,9 +34,11 @@ static char * wxpl16_xpm[] = {
 "                "};
 EOT
 
-my $xpm = Wx::Bitmap->newFromXPM( $data );
-print +( $xpm->Ok ? "ok" : "not ok" ), "\n";
-print +( $xpm->GetWidth == 16 ? "ok" : "not ok" ), "\n";
+test_app( sub {
+            my $xpm = Wx::Bitmap->newFromXPM( $data );
+            print +( $xpm->Ok ? "ok" : "not ok" ), "\n";
+            print +( $xpm->GetWidth == 16 ? "ok" : "not ok" ), "\n";
+} );
 
 # local variables:
 # mode: cperl
