@@ -1,0 +1,35 @@
+#############################################################################
+## Name:        ext/grid/XS/GridTableMessage.xsp
+## Purpose:     XS++ for Wx::PlGridTable
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     08/11/2003
+## RCS-ID:      $Id: GridTableMessage.xsp,v 1.1 2003/11/08 19:00:52 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxGridTableBase*}{simple};
+%typemap{wxGridTableMessage*}{simple};
+
+%{
+#include "wx/grid.h"
+%}
+
+%name{Wx::GridTableMessage} class wxGridTableMessage
+{
+    wxGridTableMessage( wxGridTableBase* table, int id, int int1, int int2 );
+    ~wxGridTableMessage();
+
+    void SetTableObject( wxGridTableBase* table );
+    wxGridTableBase* GetTableObject();
+    void SetId( int id );
+    int  GetId();
+    void SetCommandInt( int comInt1 );
+    int  GetCommandInt();
+    void SetCommandInt2( int comInt2 );
+    int  GetCommandInt2();
+};
