@@ -36,6 +36,7 @@ Perl 5.005_03
   i386,   RedHat Linux 6.1,     wxGTK 2.2.3,   GCC 2.91.x
   i386,   Debian GNU/Linux 2.2, wxGTK 2.2.3,   GCC 2.95.2
   i386,   Debian GNU/Linux 2.2, wxMotif 2.2.1, GCC 2.95.2
+    ( at present wxMotif support is alpha stage )
 
 Perl 5.004_05
   i386,   Debian GNU/Linux 2.2, wxGTK 2.2.3,   GCC 2.95.2

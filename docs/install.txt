@@ -78,7 +78,8 @@ This wxPerl version was tested with MinGW 2.95.2-1 and MS Visual C++ 5.
 For the remainder of this section I'll assume that your Perl is installed
 in C:\Perl
 
-* MS Visual C++ 5 ( and probably 4.x and 6.x, but I've not tested it )
+* MS Visual C++ 5 ( and probably 4.x )
+* MS Visual C++ 6 SP4
 
   If you've built Perl from sources, then the plain install ( see above )
   should work. If you're using ActivePerl with MSVC != 6.x you may
