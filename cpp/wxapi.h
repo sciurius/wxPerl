@@ -4,14 +4,14 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/ 9/2002
-// RCS-ID:      
-// Copyright:   (c) 2002 Mattia Barbon
+// RCS-ID:      $Id: wxapi.h,v 1.5 2003/05/02 20:27:53 mbarbon Exp $
+// Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
 #ifdef __CPP_WXAPI_H
-#error "cpp/wxapi.h must be included only once!"
+#error cpp/wxapi.h must be included only once!
 #endif
 
 #define __CPP_WXAPI_H
@@ -21,6 +21,11 @@
 #include <wx/defs.h>
 
 #include "cpp/compat.h"
+
+#if !WXPERL_W_VERSION_GE( 2, 4, 0 )
+#error wxWindows 2.2.x and 2.3.x are no longer supported by wxPerl
+#endif
+
 #include "cpp/chkconfig.h"
 
 WXPL_EXTERN_C_START
@@ -58,3 +63,6 @@ WXPL_EXTERN_C_END
 
 // some helper functions/classes/macros
 #include "cpp/helpers.h"
+
+// 0.01 -> 0010; 1.01 -> 1010, etc
+#define WXPL_API_VERSION 0150
