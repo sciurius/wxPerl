@@ -112,10 +112,10 @@ Wx_App::GetStdIcon( which )
         id = wxART_ERROR; 
         break;
     case wxICON_QUESTION:
-        id = wxART_INFORMATION;
+        id = wxART_QUESTION;
         break;
     case wxICON_INFORMATION:
-        id = wxART_QUESTION;
+        id = wxART_INFORMATION;
         break;
     };
 
