@@ -20,11 +20,13 @@ public:
                        const wxString& name );
 };
 
-_wxSplitterWindow::_wxSplitterWindow( const char* package, wxWindow* parent, 
-                                      wxWindowID id,
-                                      const wxPoint& pos, const wxSize& size, 
-                                      long style,
-                                      const wxString& name )
+inline _wxSplitterWindow::_wxSplitterWindow( const char* package,
+                                             wxWindow* parent, 
+                                             wxWindowID id,
+                                             const wxPoint& pos,
+                                             const wxSize& size, 
+                                             long style,
+                                             const wxString& name )
   :m_callback( "Wx::SplitterWindow" )
 {
   m_callback.SetSelf( _make_object( this, package ), FALSE );

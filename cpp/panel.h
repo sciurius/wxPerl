@@ -12,7 +12,7 @@
 
 class _wxPanel:public wxPanel
 {
-    _DECLARE_DYNAMIC_CLASS(_wxPanel);
+    _DECLARE_DYNAMIC_CLASS( _wxPanel );
     _DECLARE_V_CBACK();
 public:
     _wxPanel( const char* package, wxWindow* parent, wxWindowID id, 
@@ -24,9 +24,10 @@ public:
     virtual bool Validate();
 };
 
-_wxPanel::_wxPanel( const char* package, wxWindow* parent, wxWindowID id, 
-                    const wxPoint& pos, const wxSize& size,
-                    long style, const wxString& name )
+inline _wxPanel::_wxPanel( const char* package, wxWindow* parent,
+                           wxWindowID id, const wxPoint& pos,
+                           const wxSize& size, long style,
+                           const wxString& name )
     :m_callback( "Wx::Panel" )
 {
     m_callback.SetSelf( _make_object( this, package ), FALSE );

@@ -20,9 +20,11 @@ public:
                const wxString& name );
 };
 
-_wxWindow::_wxWindow( const char* package, wxWindow* parent, wxWindowID id,
-                      const wxPoint& pos, const wxSize& size, long style,
-                      const wxString& name )
+inline _wxWindow::_wxWindow( const char* package, wxWindow* parent,
+                             wxWindowID id,
+                             const wxPoint& pos, const wxSize& size,
+                             long style,
+                             const wxString& name )
 {
     m_callback.SetSelf( _make_object( this, package ), FALSE );
     Create( parent, id, pos, size, style, name );

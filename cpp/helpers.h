@@ -40,6 +40,12 @@ public:
     SV* m_data;
 };
 
+inline _wxUserDataCD::_wxUserDataCD( SV* data )
+{
+    m_data = data;
+    SvREFCNT_inc( m_data );
+}
+
 class _wxUserDataO:public wxObject
 {
 public:
@@ -48,6 +54,12 @@ public:
 public:
     SV* m_data;
 };
+
+inline _wxUserDataO::_wxUserDataO( SV* data )
+{
+    m_data = data;
+    SvREFCNT_inc( m_data );
+}
 
 class _wxSelfRef
 {
@@ -60,6 +72,13 @@ public:
 public:
     SV* m_self;
 };
+
+inline void _wxSelfRef::SetSelf( SV* self, bool increment ) 
+{
+    m_self = self;
+    if( increment )       
+        SvREFCNT_inc( m_self );
+}
 
 inline SV* _wxSelfRef::GetSelf() {
     return m_self;

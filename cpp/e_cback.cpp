@@ -10,7 +10,7 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-_wxEventCallback::_wxEventCallback( SV* method, SV* self ) 
+inline _wxEventCallback::_wxEventCallback( SV* method, SV* self ) 
 {
     m_method = method;
     SvREFCNT_inc( m_method );

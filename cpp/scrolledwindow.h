@@ -22,11 +22,13 @@ public:
     void OnDraw( wxDC& dc );
 };
 
-_wxScrolledWindow::_wxScrolledWindow( const char* package, wxWindow* parent, 
-                                      wxWindowID id,
-                                      const wxPoint& pos, const wxSize& size, 
-                                      long style,
-                                      const wxString& name )
+inline _wxScrolledWindow::_wxScrolledWindow( const char* package,
+                                             wxWindow* parent, 
+                                             wxWindowID id,
+                                             const wxPoint& pos,
+                                             const wxSize& size, 
+                                             long style,
+                                             const wxString& name )
     :m_callback( "Wx::ScrolledWindow" )
 {
     m_callback.SetSelf( _make_object( this, package ), FALSE );

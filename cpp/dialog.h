@@ -24,9 +24,10 @@ public:
     virtual bool Validate();
 };
 
-_wxDialog::_wxDialog( const char* package, wxWindow* parent, wxWindowID id, 
-                      const wxString& title, const wxPoint& pos, const wxSize& size,
-                      long style, const wxString& name )
+inline _wxDialog::_wxDialog( const char* package, wxWindow* parent,
+                             wxWindowID id, const wxString& title,
+                             const wxPoint& pos, const wxSize& size,
+                             long style, const wxString& name )
     :m_callback( "Wx::Dialog" )
 {
     m_callback.SetSelf( _make_object( this, package ), FALSE );

@@ -10,7 +10,7 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-_wxPlValidator::_wxPlValidator( const char* package )
+inline _wxPlValidator::_wxPlValidator( const char* package )
     :m_callback( "Wx::PlValidator" )
 { 
     m_callback.SetSelf( _make_object( this, package ), FALSE );

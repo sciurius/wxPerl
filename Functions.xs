@@ -49,7 +49,6 @@ MODULE=Wx_Func PACKAGE=Wx PREFIX=wx
 
 #FIXME// unimplemented
 # CreateFileTipProvider
-# getMultipleChoice
 # ShowTip
 
 #

@@ -12,7 +12,7 @@
 
 class _wxSashWindow:public wxSashWindow
 {
-    _DECLARE_DYNAMIC_CLASS(_wxSashWindow);
+    _DECLARE_DYNAMIC_CLASS( _wxSashWindow );
     _DECLARE_SELFREF();
 public:
     _wxSashWindow( const char* package, wxWindow* parent, wxWindowID id,
@@ -26,7 +26,7 @@ inline _wxSashWindow::_wxSashWindow( const char* package, wxWindow* parent,
                                      const wxString& name )
     :m_callback( "Wx::SashWindow" )
 {
-    m_callback.SetSelf( _make_object( this, package ) );
+    m_callback.SetSelf( _make_object( this, package ), FALSE );
     Create( parent, id, pos, size, style, name );
 }
 

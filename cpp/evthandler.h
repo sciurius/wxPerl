@@ -18,7 +18,7 @@ public:
     _wxEvtHandler( const char* package );
 };
 
-_wxEvtHandler::_wxEvtHandler( const char* package )
+inline _wxEvtHandler::_wxEvtHandler( const char* package )
     :m_callback( "Wx::EvtHandler" )
 {
     m_callback.SetSelf( _make_object( this, package ), FALSE );

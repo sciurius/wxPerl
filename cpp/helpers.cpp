@@ -23,7 +23,7 @@ BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 */
 #endif
 
-_wxSelfRef::_wxSelfRef( const char* unused )
+inline _wxSelfRef::_wxSelfRef( const char* unused )
 {
 }
 
@@ -33,28 +33,9 @@ _wxSelfRef::~_wxSelfRef()
         SvREFCNT_dec( m_self );
 }
 
-void _wxSelfRef::SetSelf( SV* self, bool increment ) 
-{
-    m_self = self;
-    if( increment )       
-        SvREFCNT_inc( m_self );
-}
-
-_wxUserDataCD::_wxUserDataCD( SV* data )
-{
-    m_data = data;
-    SvREFCNT_inc( m_data );
-}
-
 _wxUserDataCD::~_wxUserDataCD()
 {
     SvREFCNT_dec( m_data );
-}
-
-_wxUserDataO::_wxUserDataO( SV* data )
-{
-    m_data = data;
-    SvREFCNT_inc( m_data );
 }
 
 _wxUserDataO::~_wxUserDataO()
