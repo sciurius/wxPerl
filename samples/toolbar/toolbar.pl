@@ -1,11 +1,11 @@
 #!/usr/bin/perl
 #############################################################################
-## Name:        minimal.pl
-## Purpose:     Minimal wxPerl sample
+## Name:        samples/toolbar/toolbar.pl
+## Purpose:     Toolbar wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: toolbar.pl,v 1.6 2003/11/23 07:52:18 mbarbon Exp $
+## RCS-ID:      $Id: toolbar.pl,v 1.7 2004/03/20 17:54:21 mbarbon Exp $
 ## Copyright:   (c) 2000, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -22,6 +22,8 @@ use vars qw(@ISA);
 
 sub OnInit {
   my( $this ) = @_;
+  Wx::InitAllImageHandlers();
+
   my( $frame ) = MyFrame->new( undef, -1, "Wx::ToolBar sample",
                                [100, 100], [450, 300] );
 
