@@ -99,10 +99,7 @@ HELP
 sub _process_options {
   my $i = shift;
 
-  # skip non-options
-  unless( $i =~ m/^-/ ) {
-    die "invalid option $1";
-  }
+  return unless $i =~ m/^-/;
 
   if( $i =~ m/^--(enable|disable)-(\w+)$/ ) {
     $subdirs{$2} = ( $1 eq 'enable' ? 1 : 0 );

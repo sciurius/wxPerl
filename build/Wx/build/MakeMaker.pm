@@ -208,8 +208,8 @@ sub _process_mm_arguments {
   my $build = 1;
   my $platform = $cfg->get_wx_platform;
   my %options =
-    %{ Wx::build::Options->get_makemaker_options( is_wxPerl_tree()
-                                                  ? () : ( 'saved' ) ) };
+    Wx::build::Options->get_makemaker_options( is_wxPerl_tree()
+                                               ? () : ( 'saved' ) );
 
   $args{CCFLAGS} .= ' ' . ( $options{extra_cflags} || '' );
   $args{LIBS} .= ' ' . ( $options{extra_libs} || '' );
