@@ -183,9 +183,14 @@ Wx_PlDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
     Wx_DataFormat* format
   CODE:
     wxPlDataObjectSimple* THIS = new wxPlDataObjectSimple( CLASS, *format );
-    RETVAL = THIS->m_callback.GetSelf();
-  OUTPUT:
-    RETVAL
+    RETVAL = newRV_noinc( SvRV( THIS->m_callback.GetSelf() ) );
+  OUTPUT: RETVAL
+
+void
+wxPlDataObjectSimple::DESTROY()
+  CODE:
+    SvRV( THIS->m_callback.GetSelf() ) = NULL;
+    delete THIS;
 
 MODULE=Wx PACKAGE=Wx::DataObjectComposite
 

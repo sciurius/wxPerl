@@ -24,6 +24,7 @@ Wx_URLDataObject *      O_NON_WXOBJECT
 Wx_CustomDataObject *   O_NON_WXOBJECT
 Wx_DataObjectSimple *   O_NON_WXOBJECT
 Wx_DataObjectComposite * O_NON_WXOBJECT
+wxPlDataObjectSimple *  O_NON_WXOBJECT
 
 Wx_DataFormat *         O_NON_WXOBJECT
 
