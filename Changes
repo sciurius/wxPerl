@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.11  xxx xxx xx xx:xx:xx xxxx
+0.11  Thu Aug 01 15:59:59 2002
 	- wxTextAttr ( 2.3 )
 	- wxStyledTextControl, based on Scintilla
 	  (thanks to Marcus Friedlaender)
