@@ -12,6 +12,7 @@ build/Any_wx_config.pm
 build/Win32_MSVC.pm
 build/Win32_MinGW.pm
 build/wxConfig.pm
+build/Tests_Helper.pm
 
 docs/bugs.txt
 docs/changes.txt
@@ -240,6 +241,8 @@ ext/filesys/XS/FileSystemHandler.xs
 ext/filesys/cpp/fs_typedef.h
 ext/filesys/lib/Wx/FS.pm
 ext/filesys/typemap
+ext/filesys/t/1_load.t
+ext/filesys/t/2_inheritance.t
 
 ext/help/Help.xs
 ext/help/Makefile.PL
@@ -249,6 +252,8 @@ ext/help/XS/HelpProvider.xs
 ext/help/cpp/he_typedef.h
 ext/help/lib/Wx/Help.pm
 ext/help/typemap
+ext/help/t/1_load.t
+ext/help/t/2_inheritance.t
 
 ext/html/Html.xs
 ext/html/Makefile.PL
@@ -260,13 +265,25 @@ ext/html/cpp/ht_typedef.h
 ext/html/cpp/htmlwindow.h
 ext/html/lib/Wx/Html.pm
 ext/html/typemap
+ext/html/t/1_load.t
+ext/html/t/2_inheritance.t
 
 ext/print/Makefile.PL
 ext/print/Print.xs
 ext/print/XS/PageSetupDialog.xs
 ext/print/XS/PageSetupDialogData.xs
 ext/print/XS/PrintData.xs
+ext/print/XS/Preview.xs
+ext/print/XS/PrintDialog.xs
+ext/print/XS/PrintDialogData.xs
+ext/print/XS/PrintPreview.xs
+ext/print/XS/Printer.xs
+ext/print/XS/Printout.xs
 ext/print/cpp/pr_constants.cpp
 ext/print/cpp/pr_typedef.h
+ext/print/cpp/printout.h
 ext/print/lib/Wx/Print.pm
 ext/print/typemap
+ext/print/t/1_load.t
+ext/print/t/2_inheritance.t
+
