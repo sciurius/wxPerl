@@ -18,6 +18,9 @@ MODULE=Wx PACKAGE=Wx::NativeFontInfo
 
 #undef THIS
 
+Wx_NativeFontInfo*
+Wx_NativeFontInfo::new()
+
 ## XXX threads
 void
 Wx_NativeFontInfo::DESTROY()
