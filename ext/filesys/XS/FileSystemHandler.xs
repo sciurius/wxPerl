@@ -15,6 +15,8 @@
 #include <wx/fs_zip.h>
 #include <wx/fs_mem.h>
 
+#undef THIS
+
 MODULE=Wx PACKAGE=Wx::FileSystemHandler
 
 MODULE=Wx PACKAGE=Wx::InternetFSHandler

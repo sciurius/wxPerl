@@ -151,6 +151,16 @@ sub get_config {
   return $cfg;
 }
 
+# bleadperl does nasty things here
+sub pasthru {
+  package MY;
+  my $text = shift->SUPER::pasthru( @_ );
+  $text =~ s/INC="[^"]+"//;
+  $text =~ s/DEFINE="[^"]+"//;
+
+  return $text;
+}
+
 1;
 
 # Local variables: #
