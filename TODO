@@ -1,0 +1,11 @@
+* wxApp::new
+    find a better solution yhan just 'croak' if OnInit
+    returns a false value
+
+* wxBitmap, wxIcon, wxImage, wxCursor
+    add missing constructors ( where applicable )
+
+* wxDC::DrawSpline, wxDC::DrawLines, wxDC::DrawPolygon
+    implement
+
+* MinGW compilation with ActivePerl
