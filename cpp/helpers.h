@@ -160,7 +160,7 @@ public:\
   _wxVirtualCallback m_callback;
 
 #define _IMPLEMENT_DYNAMIC_CLASS(name, basename) \
-_wxSelfRef* WXDLLEXPORT _wxGetSelfFor##name(wxObject* object) \
+_wxSelfRef* _wxGetSelfFor##name(wxObject* object) \
   { return &((name *)object)->m_callback; }\
 _wxClassInfo name::sm_class##name((wxChar *) wxT(#name), \
   (wxChar *) wxT(#basename), (wxChar *) NULL, (int) sizeof(name), \
