@@ -202,6 +202,15 @@ Wx_ToolBarBase::AddControl( control )
 void
 Wx_ToolBar::AddSeparator()
 
+void
+Wx_ToolBarBase::AddTool( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wbmp_wbmp_b_s_s_s,
+                                      AddToolLong, 3 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wbmp_s_s, AddToolShort, 2 )
+    END_OVERLOAD( Wx::ToolBarBase::AddTool )
+
 Wx_ToolBarToolBase*
 Wx_ToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     int toolId
@@ -353,8 +362,12 @@ Wx_ToolBarBase::SetMarginsXY( x, y )
     THIS->SetMargins( x, y );
 
 void
-Wx_ToolBarBase::SetMargins( size )
-    Wx_Size size
+Wx_ToolBarBase::SetMargins( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, SetMarginsXY )
+        MATCH_REDISP( wxPliOvl_wsiz, SetMarginsSize )
+    END_OVERLOAD( Wx::ToolBarBase::SetMargins )
 
 void
 Wx_ToolBarBase::SetMaxRowsCols( mRows, mCols )

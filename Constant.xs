@@ -206,12 +206,233 @@ void SetEvents()
         CreateEventMacro( evts[i].name, evts[i].args, evts[i].evtID );
 }
 
-// !package: Wx
-// !tag:
+//////////////////////////////////////////////////////////////////////////////
+// the inheritance tree
+//////////////////////////////////////////////////////////////////////////////
+
+struct wxPlINH
+{
+    const char* klass;
+    const char* base;
+};
+
+#define I( class, base ) \
+    { "Wx::" #class, "Wx::" #base },
+
+static wxPlINH inherit[] =
+{
+    I( Window,          EvtHandler )
+    I( Menu,            EvtHandler )
+    I( MenuBar,         Window )
+    I( TopLevelWindow,  Window )
+    I( _App,            EvtHandler )
+    I( Panel,           Window )
+    I( Control,         Window )
+    I( Button,          Control )
+    I( BitmapButton,    Button )
+    I( TextCtrl,        Control )
+    I( StaticText,      Control )
+    I( CheckBox,        Control )
+    I( CheckListBox,    ListBox )
+    I( ControlWithItems,Control )
+    I( Choice,          ControlWithItems )
+    I( ListBox,         ControlWithItems )
+    I( Notebook,        Control )
+    I( ToolBarBase,     Control )
+    I( ToolBarSimple,   Control )
+    I( StaticBitmap,    Control )
+    I( Gauge,           Control )
+    I( Slider,          Control )
+    I( SpinCtrl,        Control )
+    I( SpinButton,      Control )
+    I( RadioBox,        Control )
+    I( RadioButton,     Control )
+    I( StaticLine,      Control )
+    I( StaticBox,       Control )
+    I( ScrollBar,       Control )
+    I( StatusBarGeneric,Window )
+    I( GenericScrolledWindow, Panel )
+    I( GenericTreeCtrl, ScrolledWindow )
+    I( MiniFrame,       Frame )
+    I( SplitterWindow,  Window )
+    I( ListCtrl,        Control )
+    I( ListView,        ListCtrl )
+    I( SashWindow,      Window )
+    I( ToggleButton,    Control )
+    I( Wizard,          Dialog )
+    I( WizardPage,      Panel )
+    I( WizardPageSimple, WizardPage )
+
+    I( ColourDialog,    Dialog )
+    I( GenericColourDialog, ColourDialog )
+    I( FindReplaceDialog, Dialog )
+    I( FontDialog,      Dialog )
+    I( DirDialog,       Dialog )
+    I( FileDialog,      Dialog )
+    I( TextEntryDialog, Dialog )
+    I( MessageDialog,   Dialog )
+    I( GenericMessageDialog, MessageDialog )
+    I( ProgressDialog,  Dialog )
+    I( SingleChoiceDialog, Dialog )
+    I( MultiChoiceDialog, Dialog )
+
+    I( Validator,       EvtHandler )
+    I( TextValidator,   Validator )
+    I( GenericValidator, Validator )
+    I( PlValidator,     Validator )
+
+    I( Font,            GDIObject )
+    I( Region,          GDIObject )
+    I( Bitmap,          GDIObject )
+    I( Brush,           GDIObject )
+    I( Pen,             GDIObject )
+    I( Palette,         GDIObject )
+
+    I( WindowDC,        DC )
+    I( ClientDC,        WindowDC )
+
+    I( BMPHandler,      ImageHandler )
+    I( PNGHandler,      ImageHandler )
+    I( JPEGHandler,     ImageHandler )
+    I( GIFHandler,      ImageHandler )
+    I( PCXHandler,      ImageHandler )
+    I( PNMHandler,      ImageHandler )
+    I( TIFFHandler,     ImageHandler )
+    I( XPMHandler,      ImageHandler )
+    I( IFFHandler,      ImageHandler )
+    I( ICOHandler,      BMPHandler )
+    I( CURHandler,      ICOHandler )
+    I( ANIHandler,      CURHandler )
+
+    I( LogTextCtrl,     Log )
+    I( LogWindow,       Log )
+    I( LogGui,          Log )
+
+    I( BoxSizer,        Sizer )
+    I( StaticBoxSizer,  BoxSizer )
+    I( GridSizer,       Sizer )
+    I( FlexGridSizer,   GridSizer )
+    I( NotebookSizer,   Sizer )
+    I( PlSizer,         Sizer )
+
+    I( TaskBarIcon,     EvtHandler )
+    I( Process,         EvtHandler )
+
+    { "Wx::Stream", "Tie::Handle" },
+    I( InputStream,     Stream )
+    I( OutputStream,    Stream )
+
+    ///////////////////////////////////////////
+    // Conditional part
+    ///////////////////////////////////////////
+#define HAS_TLW    ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXMOTIF__) )
+#define IS_GTK       defined(__WXGTK__)
+#define IS_MOTIF     defined(__WXMOTIF__)
+#define IS_MSW       defined(__WXMSW__)
+#define IS_UNIVERSAL defined(__WXUNIVERSAL__)
+
+#if HAS_TLW
+    I( Frame,           TopLevelWindow )
+#else
+    I( Frame,           Window )
+#endif
+
+#if HAS_TLW
+    I( Dialog,          TopLevelWindow )
+#else
+    I( Dialog,          Panel )
+#endif
+
+#if IS_MSW
+    I( MemoryDC,        DC )
+#else
+    I( MemoryDC,        WindowDC )
+#endif
+
+#if ( IS_MSW || IS_GTK ) && WXPERL_W_VERSION_GE( 2, 3, 0 )
+    I( PaintDC,         ClientDC )
+#else
+    I( PaintDC,         WindowDC )
+#endif
+
+#if IS_GTK
+    I( ScreenDC,        PaintDC )
+#else
+    I( ScreenDC,        WindowDC )
+#endif
+
+#if IS_MSW
+    I( TreeCtrl,        Control )
+#elif WXPERL_W_VERSION_GE( 2, 3, 0 )
+    I( TreeCtrl,        GenericTreeCtrl )
+#else
+    I( TreeCtrl,        ScrolledWindow )
+#endif
+
+#if IS_GTK
+    I( ComboBox,        Control )
+#else
+    I( ComboBox,        Choice )
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 3, 0 )
+    I( ScrolledWindow,  GenericScrolledWindow )
+#else
+    I( ScrolledWindow,  Panel )
+#endif
+
+#if IS_GTK
+    I( StatusBar,       StatusBarGeneric )
+#else
+    I( StatusBar,       Window )
+#endif
+
+#if IS_MOTIF
+    I( Cursor,          Bitmap )
+#elif !IS_GTK
+    I( Cursor,          GDIObject )
+#endif
+
+#if IS_GTK || IS_MOTIF
+    I( Icon,            Bitmap )
+#else
+    I( Icon,            GDIObject )
+#endif
+
+#if IS_GTK
+    I( Colour,          GDIObject )
+#endif
+
+#if IS_UNIVERSAL
+    I( ToolBar,         ToolBarSimple )
+#else
+    I( ToolBar,         ToolBarBase )
+#endif
+
+    { 0, 0 }
+};
+
+void SetInheritance()
+{
+    dTHX;
+
+    for( size_t i = 0; inherit[i].klass; ++i )
+    {
+        char buffer[1024];
+        strcpy( buffer, inherit[i].klass );
+        strcat( buffer, "::ISA" );
+
+        AV* isa = get_av( buffer, 1 );
+        av_store( isa, 0, newSVpv( inherit[i].base, 0 ) );
+    }
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // the constant() function
 //////////////////////////////////////////////////////////////////////////////
+
+// !package: Wx
+// !tag:
 
 static double constant( const char *name, int arg ) 
 {
@@ -1667,3 +1888,6 @@ constant(name,arg)
 
 void
 SetEvents()
+
+void
+SetInheritance()

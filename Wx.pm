@@ -165,12 +165,14 @@ Load();
 SetConstants();
 SetOvlConstants();
 SetEvents();
+SetInheritance();
 
 # set up wxUNIVERSAL, wxGTK, wxMSW, etc
 eval( "sub wxUNIVERSAL() { $_universal }" );
 eval( "sub wxPL_STATIC() { $_static }" );
 eval( "sub wxMOTIF() { $_platform == $_motif }" );
 eval( "sub wxMSW() { $_platform == $_msw }" );
+eval( "sub wxGTK() { $_platform == $_gtk }" );
 
 require Wx::App;
 require Wx::DC;
@@ -186,14 +188,15 @@ require Wx::Rect;
 require Wx::Region;
 require Wx::ScreenDC;
 require Wx::Sizer;
-require Wx::StaticBitmap;
 require Wx::Timer;
-require Wx::ToolBar;
 require Wx::TreeCtrl;
 require Wx::Window;
 require Wx::_Exp;
 require Wx::_Functions;
-require Wx::_Inheritance;
+
+# for Wx::Stream & co.
+if( $] >= 5.005 ) { require Tie::Handle; }
+package Wx::GDIObject;
 
 require Wx::SplashScreen;
 

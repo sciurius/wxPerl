@@ -10,7 +10,17 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include "cpp/overload.h"
+
 MODULE=Wx PACKAGE=Wx::StaticBitmap
+
+void
+Wx_StaticBitmap::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin_n_wico, newIcon )
+        MATCH_REDISP( wxPliOvl_wwin_n_wbmp, newBitmap )
+    END_OVERLOAD( Wx::StaticBitmap::new )
 
 Wx_StaticBitmap*
 newBitmap( cls, parent, id, bitmap, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxStaticBitmapNameStr )
