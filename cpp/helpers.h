@@ -120,6 +120,8 @@ WXPLDLL const char* FUNCPTR( wxPli_cpp_class_2_perl )( const wxChar* className,
 // O - a wxObject*; this will use wxPli_object_2_sv and push the result
 // o - a void* followed by a char*; will use wxPli_non_object_2_sv
 //     and push the result
+void FUNCPTR( wxPli_push_arguments )( pTHX_ SV*** stack,
+                                      const char* argtypes, ... );
 WXPLDLL void wxPli_push_args( pTHX_ SV*** stack, const char* argtypes,
                               va_list &list );
 
@@ -256,6 +258,8 @@ struct wxPliHelpers
     wxPliInputStream* ( * m_wxPliInputStream_ctor )( SV* );
     const char* ( * m_wxPli_cpp_class_2_perl )( const wxChar*,
                                                 char buffer[WXPL_BUF_SIZE] );
+    void ( * m_wxPli_push_arguments )( pTHX_ SV*** stack,
+                                       const char* argtypes, ... );
 };
 
 #define DEFINE_PLI_HELPERS( name ) \
@@ -267,7 +271,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPliVirtualCallback_FindCallback, &wxPliVirtualCallback_CallCallback, \
  &wxPli_object_is_deleteable, &wxPli_object_set_deleteable, &wxPli_get_class, \
  &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor, \
- &wxPli_cpp_class_2_perl };
+ &wxPli_cpp_class_2_perl, &wxPli_push_arguments };
 
 #if !defined( WXPL_STATIC ) || !defined( WXPL_EXT )
 
@@ -293,7 +297,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   wxPli_get_wxwindowid = name->m_wxPli_get_wxwindowid; \
   wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray; \
   wxPliInputStream_ctor = name->m_wxPliInputStream_ctor; \
-  wxPli_cpp_class_2_perl = name->m_wxPli_cpp_class_2_perl;
+  wxPli_cpp_class_2_perl = name->m_wxPli_cpp_class_2_perl; \
+  wxPli_push_arguments = name->m_wxPli_push_arguments;
 
 #else
 

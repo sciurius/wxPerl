@@ -97,6 +97,16 @@ const char* wxPli_cpp_class_2_perl( const wxChar* className,
     return buffer;
 }
 
+void wxPli_push_arguments( pTHX_ SV*** psp, const char* argtypes, ... )
+{
+    va_list arglist;
+    va_start( arglist, argtypes );
+
+    wxPli_push_args( aTHX_ psp, argtypes, arglist );
+    
+    va_end( arglist );
+}
+
 void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args ) 
 {
     SV** sp = *psp;
@@ -1008,7 +1018,7 @@ void wxPli_stream_2_sv( pTHX_ SV* scalar, wxStreamBase* stream,
     }
 
     static SV* tie = eval_pv
-        ( "sub { local *o; my $c = shift; tie *o, $c, @_; return *o }", 1 );
+        ( "require Symbol; sub { my $x = Symbol::gensym(); my $c = shift; tie *$x, $c, @_; return $x }", 1 );
     static SV* dummy = SvREFCNT_inc( tie );
 
     dSP;
@@ -1022,11 +1032,7 @@ void wxPli_stream_2_sv( pTHX_ SV* scalar, wxStreamBase* stream,
 
     SPAGAIN;
     SV* ret = POPs;
-    SV* tmp = newSViv( 0 );
-    SvSetSV_nosteal( tmp, ret );
-    SV* rv = newRV_noinc( tmp );
-    SvSetSV_nosteal( scalar, rv );
-    SvREFCNT_dec( rv );
+    SvSetSV_nosteal( scalar, ret );
     PUTBACK;
 }
 
