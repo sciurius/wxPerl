@@ -59,7 +59,7 @@ sub configure {
   $config{CCFLAGS} .= " -TP ";
   $config{clean} = { FILES => '*.pdb *.res *_def.old ' };
 
-  if( building_extension() ) {
+  if( building_extension() && $wxConfig::use_dllexport ) {
     $config{LDFROM} .= "\$(OBJECT) $wximplib ";
   }
   if( $wxConfig::debug_mode ) {
