@@ -10,6 +10,6 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-wxicon icon wxpl.ico
+wxplicon ICON "wxpl.ico"
 
 #include <wx/msw/wx.rc>
