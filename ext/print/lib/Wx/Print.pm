@@ -32,6 +32,11 @@ bootstrap Wx::Print;
 no strict;
 
 package Wx::PageSetupDialog;    @ISA = qw(Wx::Dialog);
+package Wx::PrinterDC;    @ISA = qw(Wx::DC);
+package Wx::PreviewControlBar; @ISA = qw(Wx::Window);
+package Wx::PreviewCanvas; @ISA = qw(Wx::Window);
+package Wx::PrintDialog;  @ISA = qw(Wx::Dialog);
+package Wx::PreviewFrame; @ISA = qw(Wx::Frame);
 
 use strict;
 
