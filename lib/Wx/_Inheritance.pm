@@ -47,9 +47,9 @@ package Wx::StaticLine;   @ISA = qw(Wx::Control);
 package Wx::StaticBox;    @ISA = qw(Wx::Control);
 package Wx::ScrollBar;    @ISA = qw(Wx::Control);
 package Wx::StatusBarGeneric; @ISA = qw(Wx::Window);
+package Wx::GenericScrolledWindow; @ISA = qw(Wx::Panel);
 package Wx::MiniFrame;    @ISA = qw(Wx::Frame);
 package Wx::SplitterWindow; @ISA = qw(Wx::Window);
-package Wx::ScrolledWindow; @ISA = qw(Wx::Panel);
 package Wx::ListCtrl;     @ISA = qw(Wx::Control);
 package Wx::SashWindow;   @ISA = qw(Wx::Window);
 
@@ -91,6 +91,7 @@ package Wx::GIFHandler;   @ISA = qw(Wx::ImageHandler);
 package Wx::PCXHandler;   @ISA = qw(Wx::ImageHandler);
 package Wx::PNMHandler;   @ISA = qw(Wx::ImageHandler);
 package Wx::TIFFHandler;  @ISA = qw(Wx::ImageHandler);
+package Wx::XPMHandler;   @ISA = qw(Wx::ImageHandler);
 
 package Wx::Log;
 package Wx::LogTextCtrl;  @ISA = qw(Wx::Log);
@@ -168,6 +169,16 @@ if( $Wx::_platform == $Wx::_gtk ) {
 }
 else {
   @ISA = qw(Wx::Choice);
+}
+
+package Wx::ScrolledWindow;
+
+use vars qw(@ISA);
+
+if( $Wx::_wx_version >= 2.003 ) {
+  @ISA = qw(Wx::GenericScrolledWindow);
+} else {
+  @ISA = qw(Wx::Panel );
 }
 
 package Wx::StatusBar;
