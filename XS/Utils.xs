@@ -142,5 +142,9 @@ wxSafeYield( window = 0 )
 bool
 wxYieldIfNeeded()
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
 void
 wxTrap()
+
+#endif
