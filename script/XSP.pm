@@ -501,25 +501,25 @@ sub new {
 [
 	{#State 0
 		ACTIONS => {
-			'p_module' => 12,
-			'p_name' => 2,
-			"class" => 15,
-			'RAW_CODE' => 9,
+			"class" => 5,
+			'p_file' => 13,
+			'p_module' => 11,
+			'RAW_CODE' => 7,
 			'p_typemap' => 1,
-			'p_file' => 17,
-			'OPSPECIAL' => 4
+			'p_name' => 14,
+			'OPSPECIAL' => 2
 		},
 		GOTOS => {
-			'perc_file' => 7,
-			'directive' => 6,
-			'top' => 8,
-			'special_block' => 10,
-			'typemap' => 11,
-			'raw' => 13,
-			'perc_name' => 14,
-			'class' => 3,
-			'perc_module' => 16,
-			'special_block_start' => 5
+			'perc_name' => 4,
+			'top' => 12,
+			'perc_file' => 10,
+			'typemap' => 6,
+			'class' => 16,
+			'directive' => 15,
+			'special_block' => 8,
+			'perc_module' => 9,
+			'raw' => 17,
+			'special_block_start' => 3
 		}
 	},
 	{#State 1
@@ -528,546 +528,585 @@ sub new {
 		}
 	},
 	{#State 2
-		ACTIONS => {
-			'OPCURLY' => 19
-		}
+		DEFAULT => -72
 	},
 	{#State 3
-		DEFAULT => -2
+		ACTIONS => {
+			'line' => 20
+		},
+		GOTOS => {
+			'lines' => 19
+		}
 	},
 	{#State 4
-		DEFAULT => -62
+		ACTIONS => {
+			"class" => 21
+		}
 	},
 	{#State 5
 		ACTIONS => {
-			'line' => 21
-		},
-		GOTOS => {
-			'lines' => 20
+			'ID' => 22
 		}
 	},
 	{#State 6
-		DEFAULT => -3
+		ACTIONS => {
+			'SEMICOLON' => 23
+		}
 	},
 	{#State 7
-		ACTIONS => {
-			'SEMICOLON' => 22
-		}
-	},
-	{#State 8
-		ACTIONS => {
-			'' => 23,
-			'RAW_CODE' => 9,
-			'p_typemap' => 1,
-			'p_name' => 2,
-			'p_module' => 12,
-			"class" => 15,
-			'p_file' => 17,
-			'OPSPECIAL' => 4
-		},
-		GOTOS => {
-			'directive' => 25,
-			'perc_file' => 7,
-			'special_block' => 10,
-			'typemap' => 11,
-			'raw' => 26,
-			'perc_name' => 14,
-			'class' => 24,
-			'perc_module' => 16,
-			'special_block_start' => 5
-		}
-	},
-	{#State 9
 		DEFAULT => -12
 	},
-	{#State 10
+	{#State 8
 		DEFAULT => -13
+	},
+	{#State 9
+		ACTIONS => {
+			'SEMICOLON' => 24
+		}
+	},
+	{#State 10
+		ACTIONS => {
+			'SEMICOLON' => 25
+		}
 	},
 	{#State 11
 		ACTIONS => {
-			'SEMICOLON' => 27
+			'OPCURLY' => 26
 		}
 	},
 	{#State 12
 		ACTIONS => {
-			'OPCURLY' => 28
+			'' => 27,
+			'p_module' => 11,
+			'p_typemap' => 1,
+			'OPSPECIAL' => 2,
+			"class" => 5,
+			'RAW_CODE' => 7,
+			'p_file' => 13,
+			'p_name' => 14
+		},
+		GOTOS => {
+			'perc_name' => 4,
+			'perc_file' => 10,
+			'typemap' => 6,
+			'class' => 29,
+			'directive' => 28,
+			'special_block' => 8,
+			'perc_module' => 9,
+			'raw' => 30,
+			'special_block_start' => 3
 		}
 	},
 	{#State 13
-		DEFAULT => -1
+		ACTIONS => {
+			'OPCURLY' => 31
+		}
 	},
 	{#State 14
-		ACTIONS => {
-			"class" => 29
-		}
-	},
-	{#State 15
-		ACTIONS => {
-			'ID' => 30
-		}
-	},
-	{#State 16
-		ACTIONS => {
-			'SEMICOLON' => 31
-		}
-	},
-	{#State 17
 		ACTIONS => {
 			'OPCURLY' => 32
 		}
 	},
+	{#State 15
+		DEFAULT => -3
+	},
+	{#State 16
+		DEFAULT => -2
+	},
+	{#State 17
+		DEFAULT => -1
+	},
 	{#State 18
 		ACTIONS => {
-			"const" => 33,
-			'ID' => 35
+			'ID' => 33,
+			"short" => 39,
+			"unsigned" => 40,
+			"const" => 35,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
 		},
 		GOTOS => {
-			'class_name' => 36,
-			'type' => 34
+			'type_name' => 37,
+			'class_name' => 34,
+			'basic_type' => 38,
+			'type' => 42
 		}
 	},
 	{#State 19
 		ACTIONS => {
-			'ID' => 35
+			'CLSPECIAL' => 44,
+			'line' => 45
 		},
 		GOTOS => {
-			'class_name' => 37
+			'special_block_end' => 46
 		}
 	},
 	{#State 20
-		ACTIONS => {
-			'line' => 39,
-			'CLSPECIAL' => 38
-		},
-		GOTOS => {
-			'special_block_end' => 40
-		}
+		DEFAULT => -74
 	},
 	{#State 21
-		DEFAULT => -64
+		ACTIONS => {
+			'ID' => 47
+		}
 	},
 	{#State 22
-		DEFAULT => -8
+		ACTIONS => {
+			'OPCURLY' => 48
+		}
 	},
 	{#State 23
-		DEFAULT => 0
-	},
-	{#State 24
-		DEFAULT => -5
-	},
-	{#State 25
-		DEFAULT => -6
-	},
-	{#State 26
-		DEFAULT => -4
-	},
-	{#State 27
 		DEFAULT => -9
 	},
-	{#State 28
+	{#State 24
+		DEFAULT => -7
+	},
+	{#State 25
+		DEFAULT => -8
+	},
+	{#State 26
 		ACTIONS => {
-			'ID' => 35
+			'ID' => 33
 		},
 		GOTOS => {
-			'class_name' => 41
+			'class_name' => 49
 		}
+	},
+	{#State 27
+		DEFAULT => 0
+	},
+	{#State 28
+		DEFAULT => -6
 	},
 	{#State 29
-		ACTIONS => {
-			'ID' => 42
-		}
+		DEFAULT => -5
 	},
 	{#State 30
-		ACTIONS => {
-			'OPCURLY' => 43
-		}
+		DEFAULT => -4
 	},
 	{#State 31
-		DEFAULT => -7
+		ACTIONS => {
+			'ID' => 50,
+			'DASH' => 52
+		},
+		GOTOS => {
+			'file_name' => 51
+		}
 	},
 	{#State 32
 		ACTIONS => {
-			'ID' => 46,
-			'DASH' => 45
+			'ID' => 33
 		},
 		GOTOS => {
-			'file_name' => 44
+			'class_name' => 53
 		}
 	},
 	{#State 33
 		ACTIONS => {
-			'ID' => 35
+			'DCOLON' => 54
 		},
-		GOTOS => {
-			'class_name' => 47
-		}
+		DEFAULT => -55
 	},
 	{#State 34
-		ACTIONS => {
-			'CLCURLY' => 48
-		}
+		DEFAULT => -45
 	},
 	{#State 35
 		ACTIONS => {
-			'DCOLON' => 49
+			'ID' => 33,
+			"short" => 39,
+			"unsigned" => 40,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
 		},
-		DEFAULT => -45
+		GOTOS => {
+			'type_name' => 55,
+			'class_name' => 34,
+			'basic_type' => 38
+		}
 	},
 	{#State 36
-		ACTIONS => {
-			'AMP' => 51,
-			'STAR' => 50
-		},
-		DEFAULT => -44
+		DEFAULT => -50
 	},
 	{#State 37
 		ACTIONS => {
-			'CLCURLY' => 52
-		}
+			'STAR' => 57,
+			'AMP' => 56
+		},
+		DEFAULT => -44
 	},
 	{#State 38
-		DEFAULT => -63
+		DEFAULT => -46
 	},
 	{#State 39
-		DEFAULT => -65
+		ACTIONS => {
+			"int" => 58
+		},
+		DEFAULT => -49
 	},
 	{#State 40
-		DEFAULT => -61
+		ACTIONS => {
+			"short" => 39,
+			"unsigned" => 60,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
+		},
+		DEFAULT => -52,
+		GOTOS => {
+			'basic_type' => 59
+		}
 	},
 	{#State 41
 		ACTIONS => {
-			'CLCURLY' => 53
-		}
+			"int" => 61
+		},
+		DEFAULT => -51
 	},
 	{#State 42
 		ACTIONS => {
-			'OPCURLY' => 54
+			'CLCURLY' => 62
 		}
 	},
 	{#State 43
-		ACTIONS => {
-			'p_name' => 2,
-			"const" => 33,
-			'ID' => 63,
-			'TILDE' => 55,
-			'RAW_CODE' => 60,
-			'CLCURLY' => 61
-		},
-		GOTOS => {
-			'function' => 62,
-			'dtor' => 58,
-			'perc_name' => 64,
-			'methods' => 65,
-			'method' => 57,
-			'ctor' => 56,
-			'class_name' => 36,
-			'type' => 59
-		}
+		DEFAULT => -48
 	},
 	{#State 44
-		ACTIONS => {
-			'CLCURLY' => 66
-		}
+		DEFAULT => -73
 	},
 	{#State 45
-		DEFAULT => -47
+		DEFAULT => -75
 	},
 	{#State 46
-		ACTIONS => {
-			'SLASH' => 68,
-			'DOT' => 67
-		}
+		DEFAULT => -71
 	},
 	{#State 47
 		ACTIONS => {
-			'AMP' => 70,
-			'STAR' => 69
+			'OPCURLY' => 63
 		}
 	},
 	{#State 48
 		ACTIONS => {
-			'OPCURLY' => 71
+			'ID' => 64,
+			'CLCURLY' => 71,
+			"short" => 39,
+			'RAW_CODE' => 67,
+			"const" => 35,
+			"unsigned" => 40,
+			'p_name' => 14,
+			'TILDE' => 72,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
+		},
+		GOTOS => {
+			'type_name' => 37,
+			'perc_name' => 66,
+			'class_name' => 34,
+			'ctor' => 70,
+			'basic_type' => 38,
+			'function' => 65,
+			'methods' => 68,
+			'dtor' => 74,
+			'type' => 73,
+			'method' => 69
 		}
 	},
 	{#State 49
 		ACTIONS => {
-			'ID' => 72
+			'CLCURLY' => 75
 		}
 	},
 	{#State 50
-		DEFAULT => -42
+		ACTIONS => {
+			'DOT' => 77,
+			'SLASH' => 76
+		}
 	},
 	{#State 51
-		DEFAULT => -43
+		ACTIONS => {
+			'CLCURLY' => 78
+		}
 	},
 	{#State 52
-		DEFAULT => -36
+		DEFAULT => -57
 	},
 	{#State 53
-		DEFAULT => -37
+		ACTIONS => {
+			'CLCURLY' => 79
+		}
 	},
 	{#State 54
 		ACTIONS => {
-			'p_name' => 2,
-			"const" => 33,
-			'ID' => 63,
-			'TILDE' => 55,
-			'RAW_CODE' => 60,
-			'CLCURLY' => 73
-		},
-		GOTOS => {
-			'function' => 62,
-			'dtor' => 58,
-			'perc_name' => 64,
-			'methods' => 74,
-			'method' => 57,
-			'ctor' => 56,
-			'class_name' => 36,
-			'type' => 59
+			'ID' => 80
 		}
 	},
 	{#State 55
 		ACTIONS => {
-			'ID' => 75
+			'STAR' => 82,
+			'AMP' => 81
 		}
 	},
 	{#State 56
-		DEFAULT => -24
+		DEFAULT => -43
 	},
 	{#State 57
-		DEFAULT => -18
+		DEFAULT => -42
 	},
 	{#State 58
-		DEFAULT => -26
+		DEFAULT => -54
 	},
 	{#State 59
-		ACTIONS => {
-			'ID' => 76
-		}
+		DEFAULT => -47
 	},
 	{#State 60
-		DEFAULT => -20
+		DEFAULT => -52
 	},
 	{#State 61
-		ACTIONS => {
-			'SEMICOLON' => 77
-		}
+		DEFAULT => -53
 	},
 	{#State 62
-		DEFAULT => -22
+		ACTIONS => {
+			'OPCURLY' => 83
+		}
 	},
 	{#State 63
 		ACTIONS => {
-			'DCOLON' => 49,
-			'OPPAR' => 78
+			'ID' => 64,
+			'CLCURLY' => 85,
+			"short" => 39,
+			'RAW_CODE' => 67,
+			"const" => 35,
+			"unsigned" => 40,
+			'p_name' => 14,
+			'TILDE' => 72,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
 		},
-		DEFAULT => -45
+		GOTOS => {
+			'type_name' => 37,
+			'perc_name' => 66,
+			'class_name' => 34,
+			'ctor' => 70,
+			'basic_type' => 38,
+			'function' => 65,
+			'methods' => 84,
+			'dtor' => 74,
+			'type' => 73,
+			'method' => 69
+		}
 	},
 	{#State 64
 		ACTIONS => {
-			"const" => 33,
-			'ID' => 63
+			'DCOLON' => 54,
+			'OPPAR' => 86
 		},
-		GOTOS => {
-			'function' => 80,
-			'ctor' => 79,
-			'class_name' => 36,
-			'type' => 59
-		}
+		DEFAULT => -55
 	},
 	{#State 65
-		ACTIONS => {
-			'p_name' => 2,
-			"const" => 33,
-			'ID' => 63,
-			'TILDE' => 55,
-			'RAW_CODE' => 82,
-			'CLCURLY' => 83
-		},
-		GOTOS => {
-			'function' => 62,
-			'dtor' => 58,
-			'perc_name' => 64,
-			'method' => 81,
-			'ctor' => 56,
-			'class_name' => 36,
-			'type' => 59
-		}
+		DEFAULT => -22
 	},
 	{#State 66
-		DEFAULT => -38
+		ACTIONS => {
+			'ID' => 64,
+			"short" => 39,
+			"unsigned" => 40,
+			"const" => 35,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
+		},
+		GOTOS => {
+			'type_name' => 37,
+			'class_name' => 34,
+			'ctor' => 88,
+			'basic_type' => 38,
+			'function' => 87,
+			'type' => 73
+		}
 	},
 	{#State 67
-		ACTIONS => {
-			'ID' => 84
-		}
+		DEFAULT => -20
 	},
 	{#State 68
 		ACTIONS => {
-			'ID' => 46,
-			'DASH' => 45
+			'ID' => 64,
+			'CLCURLY' => 91,
+			"short" => 39,
+			'RAW_CODE' => 89,
+			"const" => 35,
+			"unsigned" => 40,
+			'p_name' => 14,
+			'TILDE' => 72,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
 		},
 		GOTOS => {
-			'file_name' => 85
+			'type_name' => 37,
+			'perc_name' => 66,
+			'class_name' => 34,
+			'ctor' => 70,
+			'basic_type' => 38,
+			'function' => 65,
+			'dtor' => 74,
+			'type' => 73,
+			'method' => 90
 		}
 	},
 	{#State 69
-		DEFAULT => -40
+		DEFAULT => -18
 	},
 	{#State 70
-		DEFAULT => -41
+		DEFAULT => -24
 	},
 	{#State 71
 		ACTIONS => {
-			'ID' => 86
+			'SEMICOLON' => 92
 		}
 	},
 	{#State 72
-		DEFAULT => -46
+		ACTIONS => {
+			'ID' => 93
+		}
 	},
 	{#State 73
 		ACTIONS => {
-			'SEMICOLON' => 87
+			'ID' => 94
 		}
 	},
 	{#State 74
-		ACTIONS => {
-			'p_name' => 2,
-			"const" => 33,
-			'ID' => 63,
-			'TILDE' => 55,
-			'RAW_CODE' => 82,
-			'CLCURLY' => 88
-		},
-		GOTOS => {
-			'function' => 62,
-			'dtor' => 58,
-			'perc_name' => 64,
-			'method' => 81,
-			'ctor' => 56,
-			'class_name' => 36,
-			'type' => 59
-		}
+		DEFAULT => -26
 	},
 	{#State 75
-		ACTIONS => {
-			'OPPAR' => 89
-		}
+		DEFAULT => -37
 	},
 	{#State 76
 		ACTIONS => {
-			'OPPAR' => 90
+			'ID' => 50,
+			'DASH' => 52
+		},
+		GOTOS => {
+			'file_name' => 95
 		}
 	},
 	{#State 77
-		DEFAULT => -17
-	},
-	{#State 78
 		ACTIONS => {
-			"const" => 33,
-			'ID' => 35,
-			'CLPAR' => 94
-		},
-		GOTOS => {
-			'arg_list' => 92,
-			'class_name' => 36,
-			'type' => 93,
-			'argument' => 91
+			'ID' => 96
 		}
 	},
+	{#State 78
+		DEFAULT => -38
+	},
 	{#State 79
-		DEFAULT => -25
+		DEFAULT => -36
 	},
 	{#State 80
-		DEFAULT => -23
+		DEFAULT => -56
 	},
 	{#State 81
-		DEFAULT => -19
+		DEFAULT => -41
 	},
 	{#State 82
-		DEFAULT => -21
+		DEFAULT => -40
 	},
 	{#State 83
 		ACTIONS => {
-			'SEMICOLON' => 95
+			'ID' => 97
 		}
 	},
 	{#State 84
-		DEFAULT => -48
+		ACTIONS => {
+			'ID' => 64,
+			'CLCURLY' => 98,
+			"short" => 39,
+			'RAW_CODE' => 89,
+			"const" => 35,
+			"unsigned" => 40,
+			'p_name' => 14,
+			'TILDE' => 72,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
+		},
+		GOTOS => {
+			'type_name' => 37,
+			'perc_name' => 66,
+			'class_name' => 34,
+			'ctor' => 70,
+			'basic_type' => 38,
+			'function' => 65,
+			'dtor' => 74,
+			'type' => 73,
+			'method' => 90
+		}
 	},
 	{#State 85
-		DEFAULT => -49
+		ACTIONS => {
+			'SEMICOLON' => 99
+		}
 	},
 	{#State 86
 		ACTIONS => {
-			'CLCURLY' => 96
+			'ID' => 33,
+			"short" => 39,
+			'CLPAR' => 102,
+			"const" => 35,
+			"unsigned" => 40,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
+		},
+		GOTOS => {
+			'type_name' => 37,
+			'argument' => 101,
+			'class_name' => 34,
+			'basic_type' => 38,
+			'type' => 103,
+			'arg_list' => 100
 		}
 	},
 	{#State 87
-		DEFAULT => -16
+		DEFAULT => -23
 	},
 	{#State 88
-		ACTIONS => {
-			'SEMICOLON' => 97
-		}
+		DEFAULT => -25
 	},
 	{#State 89
-		ACTIONS => {
-			'CLPAR' => 98
-		}
+		DEFAULT => -21
 	},
 	{#State 90
-		ACTIONS => {
-			"const" => 33,
-			'ID' => 35,
-			'CLPAR' => 100
-		},
-		GOTOS => {
-			'arg_list' => 99,
-			'class_name' => 36,
-			'type' => 93,
-			'argument' => 91
-		}
+		DEFAULT => -19
 	},
 	{#State 91
-		DEFAULT => -50
+		ACTIONS => {
+			'SEMICOLON' => 104
+		}
 	},
 	{#State 92
-		ACTIONS => {
-			'COMMA' => 102,
-			'CLPAR' => 101
-		}
+		DEFAULT => -17
 	},
 	{#State 93
 		ACTIONS => {
-			'ID' => 103
+			'OPPAR' => 105
 		}
 	},
 	{#State 94
 		ACTIONS => {
-			'p_code' => 105
-		},
-		DEFAULT => -35,
-		GOTOS => {
-			'metadata' => 106,
-			'perc_code' => 104
+			'OPPAR' => 106
 		}
 	},
 	{#State 95
-		DEFAULT => -15
+		DEFAULT => -59
 	},
 	{#State 96
-		ACTIONS => {
-			'OPSPECIAL' => 4
-		},
-		DEFAULT => -10,
-		GOTOS => {
-			'special_block' => 107,
-			'special_block_start' => 5
-		}
+		DEFAULT => -58
 	},
 	{#State 97
-		DEFAULT => -14
+		ACTIONS => {
+			'CLCURLY' => 107
+		}
 	},
 	{#State 98
 		ACTIONS => {
@@ -1075,201 +1114,281 @@ sub new {
 		}
 	},
 	{#State 99
-		ACTIONS => {
-			'COMMA' => 102,
-			'CLPAR' => 109
-		}
+		DEFAULT => -16
 	},
 	{#State 100
 		ACTIONS => {
-			'p_code' => 105
-		},
-		DEFAULT => -35,
-		GOTOS => {
-			'metadata' => 110,
-			'perc_code' => 104
+			'CLPAR' => 110,
+			'COMMA' => 109
 		}
 	},
 	{#State 101
-		ACTIONS => {
-			'p_code' => 105
-		},
-		DEFAULT => -35,
-		GOTOS => {
-			'metadata' => 111,
-			'perc_code' => 104
-		}
+		DEFAULT => -60
 	},
 	{#State 102
 		ACTIONS => {
-			"const" => 33,
-			'ID' => 35
+			'p_code' => 112
 		},
+		DEFAULT => -35,
 		GOTOS => {
-			'class_name' => 36,
-			'type' => 93,
-			'argument' => 112
+			'perc_code' => 111,
+			'metadata' => 113
 		}
 	},
 	{#State 103
 		ACTIONS => {
-			'EQUAL' => 113
-		},
-		DEFAULT => -52
+			'ID' => 114
+		}
 	},
 	{#State 104
-		DEFAULT => -34
+		DEFAULT => -15
 	},
 	{#State 105
 		ACTIONS => {
-			'OPSPECIAL' => 4
-		},
-		GOTOS => {
-			'special_block' => 114,
-			'special_block_start' => 5
+			'CLPAR' => 115
 		}
 	},
 	{#State 106
 		ACTIONS => {
-			'SEMICOLON' => 115
+			'ID' => 33,
+			"short" => 39,
+			'CLPAR' => 117,
+			"const" => 35,
+			"unsigned" => 40,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
+		},
+		GOTOS => {
+			'type_name' => 37,
+			'argument' => 101,
+			'class_name' => 34,
+			'basic_type' => 38,
+			'type' => 103,
+			'arg_list' => 116
 		}
 	},
 	{#State 107
-		DEFAULT => -11
+		ACTIONS => {
+			'OPSPECIAL' => 2
+		},
+		DEFAULT => -10,
+		GOTOS => {
+			'special_block' => 118,
+			'special_block_start' => 3
+		}
 	},
 	{#State 108
-		DEFAULT => -33
+		DEFAULT => -14
 	},
 	{#State 109
 		ACTIONS => {
-			'p_code' => 105
+			'ID' => 33,
+			"short" => 39,
+			"unsigned" => 40,
+			"const" => 35,
+			"long" => 41,
+			"int" => 36,
+			"char" => 43
 		},
-		DEFAULT => -35,
 		GOTOS => {
-			'metadata' => 116,
-			'perc_code' => 104
+			'type_name' => 37,
+			'argument' => 119,
+			'class_name' => 34,
+			'basic_type' => 38,
+			'type' => 103
 		}
 	},
 	{#State 110
 		ACTIONS => {
-			"const" => 118
+			'p_code' => 112
 		},
-		DEFAULT => -28,
+		DEFAULT => -35,
 		GOTOS => {
-			'const' => 117
+			'perc_code' => 111,
+			'metadata' => 120
 		}
 	},
 	{#State 111
-		ACTIONS => {
-			'SEMICOLON' => 119
-		}
+		DEFAULT => -34
 	},
 	{#State 112
-		DEFAULT => -51
+		ACTIONS => {
+			'OPSPECIAL' => 2
+		},
+		GOTOS => {
+			'special_block' => 121,
+			'special_block_start' => 3
+		}
 	},
 	{#State 113
 		ACTIONS => {
-			'QUOTED_STRING' => 120,
-			'ID' => 124,
-			'DASH' => 121,
-			'FLOAT' => 125,
-			'INTEGER' => 122
-		},
-		GOTOS => {
-			'value' => 123
+			'SEMICOLON' => 122
 		}
 	},
 	{#State 114
-		DEFAULT => -39
+		ACTIONS => {
+			'EQUAL' => 123
+		},
+		DEFAULT => -62
 	},
 	{#State 115
-		DEFAULT => -32
+		ACTIONS => {
+			'SEMICOLON' => 124
+		}
 	},
 	{#State 116
 		ACTIONS => {
-			"const" => 118
-		},
-		DEFAULT => -28,
-		GOTOS => {
-			'const' => 126
+			'CLPAR' => 125,
+			'COMMA' => 109
 		}
 	},
 	{#State 117
 		ACTIONS => {
-			'SEMICOLON' => 127
+			'p_code' => 112
+		},
+		DEFAULT => -35,
+		GOTOS => {
+			'perc_code' => 111,
+			'metadata' => 126
 		}
 	},
 	{#State 118
-		DEFAULT => -27
+		DEFAULT => -11
 	},
 	{#State 119
-		DEFAULT => -31
+		DEFAULT => -61
 	},
 	{#State 120
-		DEFAULT => -57
-	},
-	{#State 121
 		ACTIONS => {
-			'INTEGER' => 128
+			'SEMICOLON' => 127
 		}
 	},
+	{#State 121
+		DEFAULT => -39
+	},
 	{#State 122
-		DEFAULT => -54
+		DEFAULT => -32
 	},
 	{#State 123
-		DEFAULT => -53
+		ACTIONS => {
+			'INTEGER' => 131,
+			'ID' => 128,
+			'QUOTED_STRING' => 133,
+			'DASH' => 130,
+			'FLOAT' => 129
+		},
+		GOTOS => {
+			'value' => 132
+		}
 	},
 	{#State 124
-		ACTIONS => {
-			'DCOLON' => 129,
-			'OPPAR' => 130
-		},
-		DEFAULT => -58
+		DEFAULT => -33
 	},
 	{#State 125
-		DEFAULT => -56
+		ACTIONS => {
+			'p_code' => 112
+		},
+		DEFAULT => -35,
+		GOTOS => {
+			'perc_code' => 111,
+			'metadata' => 134
+		}
 	},
 	{#State 126
 		ACTIONS => {
-			'SEMICOLON' => 131
+			"const" => 135
+		},
+		DEFAULT => -28,
+		GOTOS => {
+			'const' => 136
 		}
 	},
 	{#State 127
-		DEFAULT => -30
+		DEFAULT => -31
 	},
 	{#State 128
-		DEFAULT => -55
+		ACTIONS => {
+			'DCOLON' => 137,
+			'OPPAR' => 138
+		},
+		DEFAULT => -68
 	},
 	{#State 129
-		ACTIONS => {
-			'ID' => 132
-		}
+		DEFAULT => -66
 	},
 	{#State 130
 		ACTIONS => {
-			'QUOTED_STRING' => 120,
-			'ID' => 124,
-			'DASH' => 121,
-			'FLOAT' => 125,
-			'INTEGER' => 122
-		},
-		GOTOS => {
-			'value' => 133
+			'INTEGER' => 139
 		}
 	},
 	{#State 131
-		DEFAULT => -29
+		DEFAULT => -64
 	},
 	{#State 132
-		DEFAULT => -59
+		DEFAULT => -63
 	},
 	{#State 133
-		ACTIONS => {
-			'CLPAR' => 134
-		}
+		DEFAULT => -67
 	},
 	{#State 134
-		DEFAULT => -60
+		ACTIONS => {
+			"const" => 135
+		},
+		DEFAULT => -28,
+		GOTOS => {
+			'const' => 140
+		}
+	},
+	{#State 135
+		DEFAULT => -27
+	},
+	{#State 136
+		ACTIONS => {
+			'SEMICOLON' => 141
+		}
+	},
+	{#State 137
+		ACTIONS => {
+			'ID' => 142
+		}
+	},
+	{#State 138
+		ACTIONS => {
+			'INTEGER' => 131,
+			'ID' => 128,
+			'QUOTED_STRING' => 133,
+			'DASH' => 130,
+			'FLOAT' => 129
+		},
+		GOTOS => {
+			'value' => 143
+		}
+	},
+	{#State 139
+		DEFAULT => -65
+	},
+	{#State 140
+		ACTIONS => {
+			'SEMICOLON' => 144
+		}
+	},
+	{#State 141
+		DEFAULT => -30
+	},
+	{#State 142
+		DEFAULT => -69
+	},
+	{#State 143
+		ACTIONS => {
+			'CLPAR' => 145
+		}
+	},
+	{#State 144
+		DEFAULT => -29
+	},
+	{#State 145
+		DEFAULT => -70
 	}
 ],
                                   yyrules  =>
@@ -1570,114 +1689,144 @@ sub
 { make_type( $_[0], $_[1] ) }
 	],
 	[#Rule 45
-		 'class_name', 1, undef
+		 'type_name', 1, undef
 	],
 	[#Rule 46
-		 'class_name', 3,
-sub
-#line 136 "script/XSP.yp"
-{ $_[1] . '::' . $_[3] }
+		 'type_name', 1, undef
 	],
 	[#Rule 47
-		 'file_name', 1,
-sub
-#line 138 "script/XSP.yp"
-{ '-' }
+		 'type_name', 2, undef
 	],
 	[#Rule 48
-		 'file_name', 3,
-sub
-#line 139 "script/XSP.yp"
-{ $_[1] . '.' . $_[3] }
+		 'basic_type', 1, undef
 	],
 	[#Rule 49
-		 'file_name', 3,
-sub
-#line 140 "script/XSP.yp"
-{ $_[1] . '/' . $_[3] }
+		 'basic_type', 1, undef
 	],
 	[#Rule 50
-		 'arg_list', 1,
-sub
-#line 142 "script/XSP.yp"
-{ [ $_[1] ] }
+		 'basic_type', 1, undef
 	],
 	[#Rule 51
-		 'arg_list', 3,
-sub
-#line 143 "script/XSP.yp"
-{ push @{$_[1]}, $_[3]; $_[1] }
+		 'basic_type', 1, undef
 	],
 	[#Rule 52
-		 'argument', 2,
-sub
-#line 145 "script/XSP.yp"
-{ make_argument( @_ ) }
+		 'basic_type', 1, undef
 	],
 	[#Rule 53
-		 'argument', 4,
-sub
-#line 147 "script/XSP.yp"
-{ make_argument( @_[0, 1, 2, 4] ) }
+		 'basic_type', 2, undef
 	],
 	[#Rule 54
-		 'value', 1, undef
+		 'basic_type', 2, undef
 	],
 	[#Rule 55
-		 'value', 2,
-sub
-#line 150 "script/XSP.yp"
-{ '-' . $_[2] }
+		 'class_name', 1, undef
 	],
 	[#Rule 56
-		 'value', 1, undef
-	],
-	[#Rule 57
-		 'value', 1, undef
-	],
-	[#Rule 58
-		 'value', 1, undef
-	],
-	[#Rule 59
-		 'value', 3,
+		 'class_name', 3,
 sub
-#line 154 "script/XSP.yp"
+#line 141 "script/XSP.yp"
 { $_[1] . '::' . $_[3] }
 	],
+	[#Rule 57
+		 'file_name', 1,
+sub
+#line 143 "script/XSP.yp"
+{ '-' }
+	],
+	[#Rule 58
+		 'file_name', 3,
+sub
+#line 144 "script/XSP.yp"
+{ $_[1] . '.' . $_[3] }
+	],
+	[#Rule 59
+		 'file_name', 3,
+sub
+#line 145 "script/XSP.yp"
+{ $_[1] . '/' . $_[3] }
+	],
 	[#Rule 60
-		 'value', 4,
+		 'arg_list', 1,
 sub
-#line 155 "script/XSP.yp"
-{ "$_[1]($_[3])" }
-	],
-	[#Rule 61
-		 'special_block', 3,
-sub
-#line 160 "script/XSP.yp"
-{ $_[2] }
-	],
-	[#Rule 62
-		 'special_block_start', 1,
-sub
-#line 162 "script/XSP.yp"
-{ push_lex_mode( $_[0], 'special' ) }
-	],
-	[#Rule 63
-		 'special_block_end', 1,
-sub
-#line 164 "script/XSP.yp"
-{ pop_lex_mode( $_[0], 'special' ) }
-	],
-	[#Rule 64
-		 'lines', 1,
-sub
-#line 166 "script/XSP.yp"
+#line 147 "script/XSP.yp"
 { [ $_[1] ] }
 	],
+	[#Rule 61
+		 'arg_list', 3,
+sub
+#line 148 "script/XSP.yp"
+{ push @{$_[1]}, $_[3]; $_[1] }
+	],
+	[#Rule 62
+		 'argument', 2,
+sub
+#line 150 "script/XSP.yp"
+{ make_argument( @_ ) }
+	],
+	[#Rule 63
+		 'argument', 4,
+sub
+#line 152 "script/XSP.yp"
+{ make_argument( @_[0, 1, 2, 4] ) }
+	],
+	[#Rule 64
+		 'value', 1, undef
+	],
 	[#Rule 65
-		 'lines', 2,
+		 'value', 2,
+sub
+#line 155 "script/XSP.yp"
+{ '-' . $_[2] }
+	],
+	[#Rule 66
+		 'value', 1, undef
+	],
+	[#Rule 67
+		 'value', 1, undef
+	],
+	[#Rule 68
+		 'value', 1, undef
+	],
+	[#Rule 69
+		 'value', 3,
+sub
+#line 159 "script/XSP.yp"
+{ $_[1] . '::' . $_[3] }
+	],
+	[#Rule 70
+		 'value', 4,
+sub
+#line 160 "script/XSP.yp"
+{ "$_[1]($_[3])" }
+	],
+	[#Rule 71
+		 'special_block', 3,
+sub
+#line 165 "script/XSP.yp"
+{ $_[2] }
+	],
+	[#Rule 72
+		 'special_block_start', 1,
 sub
 #line 167 "script/XSP.yp"
+{ push_lex_mode( $_[0], 'special' ) }
+	],
+	[#Rule 73
+		 'special_block_end', 1,
+sub
+#line 169 "script/XSP.yp"
+{ pop_lex_mode( $_[0], 'special' ) }
+	],
+	[#Rule 74
+		 'lines', 1,
+sub
+#line 171 "script/XSP.yp"
+{ [ $_[1] ] }
+	],
+	[#Rule 75
+		 'lines', 2,
+sub
+#line 172 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	]
 ],
@@ -1685,7 +1834,7 @@ sub
     bless($self,$class);
 }
 
-#line 169 "script/XSP.yp"
+#line 174 "script/XSP.yp"
 
 
 my %tokens = ( '::' => 'DCOLON',
@@ -1716,6 +1865,11 @@ my %tokens = ( '::' => 'DCOLON',
 
 my %keywords = ( const => 1,
                  class => 1,
+                 unsigned => 1,
+                 short => 1,
+                 long => 1,
+                 int => 1,
+                 char => 1,
                );
 
 sub get_lex_mode { return $_[0]->YYData->{LEX}{MODES}[0] || '' }

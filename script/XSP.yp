@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: XSP.yp,v 1.8 2003/12/20 15:41:19 mbarbon Exp $
+## RCS-ID:      $Id: XSP.yp,v 1.9 2004/01/25 08:16:54 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -126,11 +126,16 @@ perc_module:    p_module OPCURLY class_name CLCURLY     { $_[3] };
 perc_file:      p_file OPCURLY file_name CLCURLY        { $_[3] };
 perc_code:      p_code special_block                    { [ code => $_[2] ] };
 
-type:           'const' class_name STAR { make_cptr( $_[0], $_[2] ) }
-              | 'const' class_name AMP  { make_cref( $_[0], $_[2] ) }
-              | class_name STAR         { make_ptr( $_[0], $_[1] ) }
-              | class_name AMP          { make_ref( $_[0], $_[1] ) }
-              | class_name              { make_type( $_[0], $_[1] ) };
+type:           'const' type_name STAR { make_cptr( $_[0], $_[2] ) }
+              | 'const' type_name AMP  { make_cref( $_[0], $_[2] ) }
+              | type_name STAR         { make_ptr( $_[0], $_[1] ) }
+              | type_name AMP          { make_ref( $_[0], $_[1] ) }
+              | type_name              { make_type( $_[0], $_[1] ) };
+
+type_name:    class_name | basic_type | 'unsigned' basic_type;
+
+basic_type:   'char' | 'short' | 'int' | 'long' | 'unsigned'
+            | 'long' 'int' | 'short' 'int';
 
 class_name:     ID
               | ID DCOLON ID { $_[1] . '::' . $_[3] };
@@ -196,6 +201,11 @@ my %tokens = ( '::' => 'DCOLON',
 
 my %keywords = ( const => 1,
                  class => 1,
+                 unsigned => 1,
+                 short => 1,
+                 long => 1,
+                 int => 1,
+                 char => 1,
                );
 
 sub get_lex_mode { return $_[0]->YYData->{LEX}{MODES}[0] || '' }
