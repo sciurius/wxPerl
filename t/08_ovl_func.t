@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib 'build';
-use Test::More 'tests' => 36;
+use Test::More 'tests' => 38;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -25,6 +25,8 @@ sub hijack {
 
 test_app( sub {
 my $frame = Wx::Frame->new( undef, -1, 'a' );
+my $bmpok = Wx::Bitmap->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
+
 ##############################################################################
 # Wx::Brush
 ##############################################################################
@@ -85,11 +87,15 @@ ok( $newicon,  "Wx::Bitmap::newIcon" );
 Wx::Bitmap->new( Wx::Image->new( 1, 1 ) );
 ok( $newimage, "Wx::Bitmap::newImage" );
 
-Wx::Mask->new( Wx::Bitmap->new( 1, 1, 1 ), Wx::Colour->new( 'red' ) );
+Wx::Mask->new( $bmpok, Wx::Colour->new( 'red' ) );
 ok( $newbmpcol,"Wx::Mask::newBitmapColour" );
 
-Wx::Mask->new( $bitmap, 0 );
-ok( $newbmpn,  "Wx::Mask::newBitmapIndex" );
+SKIP: {
+  skip "Does not work on wxGTK", 1 if Wx::wxGTK();
+
+  Wx::Mask->new( $bmpok, 0 );
+  ok( $newbmpn,  "Wx::Mask::newBitmapIndex" );
+}
 
 Wx::Mask->new( $bitmap );
 ok( $newbmp,   "Wx::Mask::newBitmap" );
@@ -190,7 +196,9 @@ ok( $cbsetselectionNN,"Wx::ComboBox::SetMark" );
 my( $newid, $newimage, $newfile ) = ( 0, 0, 0 );
 hijack( Wx::Cursor::newId    => sub { $newid = 1 },
         Wx::Cursor::newImage => sub { $newimage = 1 },
-        Wx::Cursor::newFile  => sub { $newfile = 1 } );
+        ( Wx::wxMSW()
+          ? ( Wx::Cursor::newFile  => sub { $newfile = 1 } )
+          : () ) );
 
 Wx::Cursor->new( 1 );
 ok( $newid,    "Wx::Cursor::newId" );
@@ -198,8 +206,12 @@ ok( $newid,    "Wx::Cursor::newId" );
 Wx::Cursor->new( Wx::Image->new( 1, 1 ) );
 ok( $newimage, "Wx::Cursor::newImage" );
 
-Wx::Cursor->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG(), 2, 2 );
-ok( $newfile, "Wx::Cursor::newFile" );
+SKIP: {
+  skip "Only for wxMSW", 1 unless Wx::wxMSW();
+
+  Wx::Cursor->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG(), 2, 2 );
+  ok( $newfile, "Wx::Cursor::newFile" );
+}
 }
 
 ##############################################################################
@@ -218,7 +230,7 @@ ok( $newfile, "Wx::Icon::newFile" );
 }
 
 ##############################################################################
-# Wx::Icon
+# Wx::ToolBar
 ##############################################################################
 {
 my( $addtoollong, $addtoolshort, $setmarginsxy, $setmarginssize ) =
@@ -229,17 +241,32 @@ hijack( Wx::ToolBarBase::AddToolLong    => sub { $addtoollong = 1 },
         Wx::ToolBarBase::SetMarginsSize => sub { $setmarginssize = 1 } );
 
 my $tbar = Wx::ToolBar->new( $frame, -1 );
-$tbar->AddTool( Wx::wxID_NEW(), Wx::wxNullBitmap(), Wx::wxNullBitmap(), 0, undef, 'foo' );
-ok( $addtoollong, "Wx::ToolBar::AddToolLong" );
-
-$tbar->AddTool( -1, Wx::wxNullBitmap, 'a', 'b' );
-ok( $addtoolshort, "Wx::ToolBar::AddToolShort" );
-
 $tbar->SetMargins( 0, 1 );
 ok( $setmarginsxy, "Wx::ToolBar::SetMarginsXY" );
 
 $tbar->SetMargins( [1, 2] );
 ok( $setmarginssize, "Wx::Toolbar::SetMarginsSize" );
+
+$tbar->AddTool( Wx::wxID_NEW(), $bmpok, Wx::wxNullBitmap(), 0, undef, 'foo' );
+ok( $addtoollong, "Wx::ToolBar::AddToolLong" );
+
+$tbar->AddTool( -1, $bmpok, 'a', 'b' );
+ok( $addtoolshort, "Wx::ToolBar::AddToolShort" );
+}
+
+##############################################################################
+# Wx::StaticBitmap
+##############################################################################
+{
+my( $newicon, $newbitmap ) = ( 0, 0 );
+hijack( Wx::StaticBitmap::newIcon   => sub { $newicon = 1 },
+        Wx::StaticBitmap::newBitmap => sub { $newbitmap =1 } );
+
+Wx::StaticBitmap->new( $frame, -1, Wx::wxNullIcon() );
+ok( $newicon,   "Wx::StaticBitmap::newIcon" );
+
+Wx::StaticBitmap->new( $frame, -1, Wx::wxNullBitmap() );
+ok( $newbitmap, "Wx::StaticBitmap::newBitmap" );
 }
 
 $frame->Destroy;
