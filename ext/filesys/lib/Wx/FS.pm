@@ -23,7 +23,7 @@ $VERSION = '0.01';
 
 @ISA = qw(DynaLoader);
 
-bootstrap Wx::FS;
+Wx::wx_boot( 'Wx::FS', $VERSION );
 
 #
 # properly setup inheritance tree

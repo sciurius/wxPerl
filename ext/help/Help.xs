@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
+//#define PERL_NO_GET_CONTEXT
 
 #include <wx/defs.h>
 #include <stdarg.h>
@@ -47,9 +48,6 @@ WXPL_EXTERN_C_END
 #include <wx/msw/winundef.h>
 #endif // __WXMSW__
 
-#if !WXPL_MSW_EXPORTS
-#define _WXP_DEFINE_CLASSNAME 1
-#endif
 #include "cpp/typedef.h"
 #include "cpp/helpers.h"
 #include "cpp/he_typedef.h"
@@ -57,9 +55,7 @@ WXPL_EXTERN_C_END
 MODULE=Wx__Help
 
 BOOT:
-#if !WXPL_MSW_EXPORTS
   INIT_PLI_HELPERS( wx_pli_helpers );
-#endif
 
 INCLUDE: XS/HelpController.xs
 INCLUDE: XS/HelpProvider.xs

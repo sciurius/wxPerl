@@ -22,7 +22,7 @@ use vars qw(@ISA $VERSION);
 $VERSION = '0.01';
 @ISA = qw(DynaLoader);
 
-bootstrap Wx::Grid;
+Wx::wx_boot( 'Wx::Grid', $VERSION );
 
 #
 # properly setup inheritance tree

@@ -23,7 +23,7 @@ $VERSION = '0.01';
 
 @ISA = qw(DynaLoader);
 
-bootstrap Wx::DND;
+Wx::wx_boot( 'Wx::DND', $VERSION );
 
 use Wx::DropSource;
 
