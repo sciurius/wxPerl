@@ -1,0 +1,99 @@
+WXPERL INSTALLATION
+
+QUICK INSTALLATION
+
+unpack the wxPerl archive
+cd to wxPerl directory
+perl Makefile.PL   # (1) (2)
+make               # (3)
+make test          # (4)
+make install       # (5)
+
+1) this step will output the compilation flags derived from
+   wxWindows (for debugging purpouses)
+2) see below for a way to specify a different installation directory
+3) under Windows you may need to use nmake, or another *make
+4) you may also want to do
+   perl run minimal
+   perl run controls
+   ...
+   against the samples in the 'samples' subdirectory
+   before installing
+5) you may need administrator/root privileges to install
+
+SPECIFYING THE INSTALLATION PATH
+
+If you don't want to install wxPerl as a system module, you must
+specify a different installation path. Usually you do this with
+
+perl Makefile.PL PREFIX=path
+
+however, depending on your Perl setup, you may need different options:
+in my Win2k system, ActivePerl build 620, I use
+
+perl Makefile.PL LIB=path
+
+In my Debian 2.2 system (Perl 5.005_03 and 5.004_05 shipped with
+ Debian), I use
+
+perl Makefile.PL PREFIX=path INSTALLSITELIB=path INSTALLMAN3DIR=manpath
+
+With the Perl 5.004_04 I built from sources ( in my Debian system ) I use
+
+perl Makefile.PL PREFIX=path
+
+Depending on your setup you may need other options: che complete list
+is on the ExtUtils::MakeMaker manpage
+
+perldoc ExtUtils::MakeMaker 
+
+for details.
+
+ADDITIONAL FLAGS
+
+In addition to ExtUtils::MakeMaker flags wxPerl Makefile.PL accepts
+
+* DEBUG={0|1} 
+  Currently only under Win32 VC++ ( and MinGW, but is not tested )
+  adds debugging information to the library
+
+* EXTRA_LIBS={extra libraries}
+  Adds extra libraries to the link command line
+
+* EXTRA_CFLAGS={extra compiler flags}
+  Adds extra compiler flags to compiler line
+
+SPECIFYING C++ COMPILER
+
+wxPerl needs a C++ compiler to build itself. Under Windows there is no
+problem, since there are only 2 supported compilers. Under Unix, if
+your Perl was built with GCC all should be fine, otherwise wxPerl does
+nothing and warns you at Makefile.PL time; in this case you will almost 
+surely need to add some special flags ( via EXTRA_CFLAGS ) or to specify 
+a different compiler ( via perl Makefile.PL CC=c++-compiler ).
+ 
+COMPILING UNDER WIN32
+
+This wxPerl version was tested with MinGW 2.95.2-1 and MS Visual C++ 5.
+For the remainder of this section I'll assume that your Perl is installed
+in C:\Perl
+
+* MS Visual C++ 5 ( and probably 4.x and 6.x, but I've not tested it )
+
+  If you've built Perl from sources, then the plain install ( see above )
+  should work. If you're using ActivePerl with MSVC != 6.x you may
+  experience linking problems ( Can't seek to position XXXXXX ... ),
+  then you need to rebuild the perl56.dll import library.
+
+  Use the make_implib.pl script ( included in the wxPerl distribution ):
+  Make a backup of C:\Perl\lib\CORE\Perl56.lib, then do
+
+  perl script/make_implib.pl --target=vc C:\Perl\bin\Perl56.dll
+
+  This will create a file Perl56.lib; copy this file to C:\Perl\lib\CORE\ .
+
+* MinGW GCC 2.95.2-1
+
+  If you built Perl from sources then the plain install ( see above )
+  should work. If you're using ActivePerl, then the procedure is a
+  little more complicated, see install_mingw.txt for an explanation

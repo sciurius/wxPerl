@@ -1,0 +1,9 @@
+0.04
+  Better overloaded method support
+  Perl 5.004_04 compatibility
+  MinGW compilation ( with ActivePerl and Perl built from sources )
+  wxMotif support
+
+0.03
+  First public release
+   

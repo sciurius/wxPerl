@@ -1,8 +1,5 @@
-PRIORITY URGENT:
-* Better intallation guide
-  ( mention -lstdc++, EXTRALIBS )
-
 PRIORITY NORMAL:
+
 * wxApp::new
     find a better solution yhan just 'croak' if OnInit
     returns a false value
@@ -10,8 +7,14 @@ PRIORITY NORMAL:
 * wxBitmap, wxIcon, wxImage, wxCursor
     add missing constructors ( where applicable )
 
+* Better Makefile.PL structure
+
+* use PERL_REVISION/VERSION/SUBVERSION
+
+DOCUMENTATTION:
+
+* Wx::Caret
+
+* Wx::Palette
+
 * wxDC::DrawSpline, wxDC::DrawLines, wxDC::DrawPolygon
-    implement
-
-* MinGW compilation with ActivePerl
-
