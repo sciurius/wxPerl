@@ -41,7 +41,9 @@ double grid_constant( const char* name, int arg )
         r( wxEVT_GRID_SELECT_CELL );
         r( wxEVT_GRID_EDITOR_SHOWN );
         r( wxEVT_GRID_EDITOR_HIDDEN );
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
         r( wxEVT_GRID_EDITOR_CREATED );
+#endif
         break;
     // !export: wxGridSelectCells wxGridSelectRows wxGridSelectColumns
     case 'G':

@@ -155,6 +155,8 @@ Wx_GridRangeSelectEvent::ShiftDown()
 
 MODULE=Wx PACKAGE=Wx::GridEditorCreatedEvent
 
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+
 Wx_GridEditorCreatedEvent*
 Wx_GridEditorCreatedEvent::new( id, type, obj, row, col, ctrl )
     int id
@@ -184,3 +186,5 @@ Wx_GridEditorCreatedEvent::SetCol( col )
 void
 Wx_GridEditorCreatedEvent::SetControl( control )
     Wx_Control* control
+
+#endif

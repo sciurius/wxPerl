@@ -188,8 +188,12 @@ Wx_Grid::EnableGridLines( enable = TRUE )
 void
 Wx_Grid::EndBatch()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+
 void
 Wx_Grid::ForceRefresh()
+
+#endif
 
 int
 Wx_Grid::GetBatchCount()

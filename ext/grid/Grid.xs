@@ -56,7 +56,9 @@ WXPL_EXTERN_C_END
 
 #include <wx/grid.h>
 typedef wxGrid::wxGridSelectionModes wxGridSelectionModes;
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 typedef wxGridCellAttr::wxAttrKind wxAttrKind;
+#endif
 
 MODULE=Wx__Grid
 
