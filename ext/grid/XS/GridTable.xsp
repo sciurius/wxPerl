@@ -1,0 +1,41 @@
+#############################################################################
+## Name:        ext/grid/GridTable.xsp
+## Purpose:     XS++ for Wx::PlGridTable
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     02/08/2003
+## RCS-ID:      $Id: GridTable.xsp,v 1.1 2003/08/02 21:07:19 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%file{cpp/gridtable.h};
+%{
+
+#include "cpp/v_cback.h"
+
+class wxPlGridTable
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlGridTable );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPlGridTable( const char* package )
+        :m_callback( "Wx::GridTableBase" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+    }
+};
+
+%}
+%file{-};
+
+%{
+#include "cpp/gridtable.h"
+%}
+
+## %name{Wx::PlGridTable} class wxPlGridTable
+## {
+## };
