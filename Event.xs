@@ -49,6 +49,8 @@ WXPL_EXTERN_C_END
 #include "cpp/e_cback.h"
 #include "cpp/e_cback.cpp"
 
+#include "cpp/event.h"
+
 #include "cpp/evthandler.h"
 
 MODULE=Wx_Evt
@@ -156,6 +158,28 @@ Wx_CommandEvent::SetInt( intCommand )
 void
 Wx_CommandEvent::SetString( string )
     const char* string
+
+MODULE=Wx_Evt PACKAGE=Wx::PlEvent
+
+Wx_Event*
+Wx_PlEvent::new( id, type )
+    int id
+    wxEventType type
+  CODE:
+    RETVAL = new wxPlEvent( CLASS, id, type );
+  OUTPUT:
+    RETVAL
+
+MODULE=Wx_Evt PACKAGE=Wx::PlCommandEvent
+
+Wx_Event*
+Wx_PlCommandEvent::new( id, type )
+    int id
+    wxEventType type
+  CODE:
+    RETVAL = new wxPlCommandEvent( CLASS, id, type );
+  OUTPUT:
+    RETVAL
 
 MODULE=Wx_Evt PACKAGE=Wx::ActivateEvent
 
