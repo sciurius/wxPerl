@@ -438,6 +438,7 @@ static double constant( const char *name, int arg )
     r( wxICON_QUESTION );               // icon
     r( wxICON_INFORMATION );            // icon
     r( wxICON_WARNING );                // icon
+    r( wxICON_ERROR );                  // icon
 
     r( wxID_OPEN );                     // id
     r( wxID_CLOSE );                    // id
