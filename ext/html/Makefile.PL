@@ -27,7 +27,8 @@ WriteMakefile( NAME => 'Wx::Html',
 
 package MY;
 
-use wxConfig qw(:MY);
+# not needed, and silences 5.005
+# use wxConfig qw(:MY);
 
 # Local variables: #
 # mode: cperl #
