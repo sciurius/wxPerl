@@ -31,6 +31,13 @@ classes, which includes all C<wxWindow>-derived classes.
 
 I<Introduced in wxPerl 0.16>
 
+=head2 wxPli_get_class
+
+  const char* wxPli_get_class( pTHX_ SV* ref );
+
+The C++ equivalent of C<$class = ref( $obj ) || $obj>; the pointer
+returned by the function is potentially temporary.
+
 =head2 wxPli_non_object_2_sv
 
   SV* wxPli_non_object_2_sv( pTHX_ SV* var, void* data, const char* package );
