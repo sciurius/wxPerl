@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.56 2005/02/26 10:52:45 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.57 2005/03/04 16:02:28 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -378,6 +378,7 @@ wxWindow*
 wxWindow::CreateWindowFromHWND( parent, hWnd )
     wxWindow* parent
     void* hWnd
+  C_ARGS: parent, (WXHWND) hWnd
 
 #endif
 
