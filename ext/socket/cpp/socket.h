@@ -13,6 +13,24 @@
 #include "wx/socket.h"
 #include "cpp/v_cback.h"
 
+class wxPlSocketBase:public wxSocketBase
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlSocketBase );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPlSocketBase( const char* package );
+};
+
+inline wxPlSocketBase::wxPlSocketBase( const char* package )
+    : m_callback( "Wx::SocketBase" )
+{
+    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+}
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlSocketBase , wxSocketBase );
+
+///////////////////////////////////////////////////////////////////////////////
+
 class wxPliSocketClient:public wxSocketClient
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliSocketClient );
@@ -39,6 +57,21 @@ class wxPlSocketServer:public wxSocketServer
     WXPLI_DECLARE_V_CBACK();
 public:
     wxPlSocketServer( const char* package , wxIPV4address _arg1 , long _arg2 );
+
+    wxSocketBase* Accept(bool wait)
+    {
+        wxSocketBase* sock = new wxPlSocketBase( "Wx::SocketBase" );
+
+        sock->SetFlags(GetFlags());
+
+        if (!AcceptWith(*sock, wait))
+        {
+            sock->Destroy();
+            sock = NULL;
+        }
+
+        return sock;
+    }
 };
 
 inline wxPlSocketServer::wxPlSocketServer( const char* package , wxIPV4address _arg1 , long _arg2 )
@@ -71,28 +104,6 @@ public:
 };
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSocketEvent , wxSocketEvent );
-
-#endif
-
-///////////////////////////////////////////////////////////////////////////////
-
-#if 0
-
-class wxPlSocketBase:public wxSocketBase
-{
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlSocketBase );
-    WXPLI_DECLARE_V_CBACK();
-public:
-    wxPlSocketBase( const char* package );
-};
-
-inline wxPlSocketBase::wxPlSocketBase( const char* package )
-    : m_callback( "Wx::SocketBase" )
-{
-    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
-}
-
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlSocketBase , wxSocketBase );
 
 #endif
 

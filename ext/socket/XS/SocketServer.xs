@@ -27,7 +27,10 @@ wxSocketServer::new( host , port , style = 0 )
 wxSocketBase*
 wxSocketServer::Accept(wait = true)
     bool wait
-
+  CODE:
+    // works, more or less; not a good example of C++
+    RETVAL = ((wxPlSocketServer*)THIS)->Accept(wait);
+  OUTPUT: RETVAL
 
 bool
 wxSocketServer::AcceptWith( socket , wait = true )
