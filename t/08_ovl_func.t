@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 144;
+use Test::More 'tests' => 146;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -898,6 +898,33 @@ ok( $lfm, "Wx::Image::LoadFileMIME" );
 
 $frame->Destroy;
 } );
+
+##############################################################################
+# Wx::Sizer
+##############################################################################
+{
+my( $showw, $shows, $showi ) = ( 0, 0, 0 );
+hijack( 'Wx::Sizer::ShowWindow' => sub { $showw = 1 },
+        'Wx::Sizer::ShowSizer'  => sub { $shows = 1 },
+#        'Wx::Sizer::ShowItem'   => sub { $showi = 1 },
+       );
+
+my $win = Wx::Frame->new( undef, -1, 'Foo' );
+my $siz = Wx::BoxSizer->new( Wx::wxVERTICAL() );
+$win->SetSizer( $siz );
+
+$siz->Show( $win );
+ok( $showw, 'Wx::Sizer::ShowWindow' );
+
+$siz->Show( $siz, 1 );
+ok( $shows, 'Wx::Sizer::ShowSizer' );
+
+#$siz->Show( 0 );
+#ok( $showi, 'Wx::Sizer::ShowItem' );
+
+$win->Destroy;
+
+}
 
 # local variables:
 # mode: cperl
