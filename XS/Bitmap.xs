@@ -126,7 +126,7 @@ Wx_Bitmap::ConvertToImage()
 
 #endif
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 AddHandler( handler )
@@ -141,7 +141,7 @@ AddHandler( handler )
 
 #endif
 
-#if defined( __WXPERL_FORCE__ )
+#if defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
 
 Wx_BitmapHandler*
 FindHandlerName( name )
@@ -173,7 +173,7 @@ FindHandlerType( type )
 int
 Wx_Bitmap::GetDepth()
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 GetHandlers()
@@ -212,7 +212,7 @@ Wx_Bitmap::GetSubBitmap( rect )
   OUTPUT:
     RETVAL
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 InitStandardHandlers()
@@ -235,7 +235,7 @@ Wx_Bitmap::LoadFile( name, type )
 bool
 Wx_Bitmap::Ok()
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 bool
 RemoveHandler( name )
@@ -265,7 +265,7 @@ Wx_Bitmap::SetMask( mask )
   CODE:
     THIS->SetMask( new wxMask( *mask ) );
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Bitmap::SetPalette( palette )
