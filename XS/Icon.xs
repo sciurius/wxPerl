@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Icon.xs,v 1.21 2004/03/02 20:13:19 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: Icon.xs,v 1.22 2004/03/20 17:51:04 mbarbon Exp $
+## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -116,7 +116,8 @@ Wx_Icon::LoadFile( name, type )
         RETVAL = THIS->LoadFile( name, type, -1, -1 );
 #endif
 #else
-#if defined( __WXX11__ ) && WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if ( defined( __WXX11__ ) || defined( __WXMAC__ ) ) \
+    && WXPERL_W_VERSION_GE( 2, 5, 1 )
     RETVAL = THIS->LoadFile( name, wxBitmapType(type) );
 #else
     RETVAL = THIS->LoadFile( name, type );
@@ -128,18 +129,10 @@ Wx_Icon::LoadFile( name, type )
 bool
 Wx_Icon::Ok()
 
-#if defined( __WXMSW__ ) || \
-    ( defined( __WXGTK__ ) ) || \
-    ( defined( __WXMOTIF__ ) ) || \
-    defined( __WXPERL_FORCE__ )
-
 void
-Wx_Icon::CopyFromBitmap( bitmap )
-    Wx_Bitmap* bitmap
-  CODE:
-    THIS->CopyFromBitmap( *bitmap );
-
-#endif
+wxIcon::CopyFromBitmap( bitmap )
+    wxBitmap* bitmap
+  C_ARGS: *bitmap
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
