@@ -117,7 +117,7 @@
 #endif
 
 #define WXPLDLL
-#if defined( WXPL_EXT ) && !defined( WXPL_STATIC )
+#if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
 #  define FUNCPTR( name ) ( * name )
 #else
 #  define FUNCPTR( name ) name
