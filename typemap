@@ -300,6 +300,8 @@ wxTreeItemData *        O_NON_WXOBJECT
 Wx_TreeItemId *         O_NON_WXOBJECT
 wxTreeItemId *          O_NON_WXOBJECT
 
+wxFontMapper *          O_NON_WXOBJECT
+wxFontEnumerator *      O_NON_WXOBJECT
 Wx_NativeFontInfo *     O_NON_WXOBJECT
 wxNativeFontInfo *      O_NON_WXOBJECT
 Wx_Font *               O_WXOBJECT

@@ -384,6 +384,27 @@ void wxPli_object_set_deleteable( pTHX_ SV* object, bool deleteable )
     }
 }
 
+void wxPli_stringarray_push( pTHX_ const wxArrayString& strings )
+{
+    dSP;
+
+    size_t max = strings.GetCount();
+    EXTEND( SP, max );
+    for( size_t i = 0; i < max; ++i )
+    {
+#if wxUSE_UNICODE
+        SV* tmp = sv_2mortal( newSVpv( strings[i].mb_str(wxConvUTF8), 0 ) );
+        SvUTF8_on( tmp );
+        PUSHs( tmp );
+#else
+        PUSHs( sv_2mortal( newSVpvn( CHAR_P strings[i].c_str(),
+                                     strings[i].size() ) ) );
+#endif
+    }
+
+    PUTBACK;
+}
+
 AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings )
 {
     AV* av = newAV();
@@ -502,19 +523,28 @@ int wxPli_av_2_intarray( pTHX_ SV* avref, int** array )
     return n;
 }
 
+#include <wx/menu.h>
+
 wxWindowID wxPli_get_wxwindowid( pTHX_ SV* var )
 {
-    if( sv_isobject( var ) && sv_derived_from( var, "Wx::Window" ) )
+    if( sv_isobject( var ) )
     {
-        wxWindow* window = (wxWindow*)
-            wxPli_sv_2_object( aTHX_ var, "Wx::Window" );
+        if( sv_derived_from( var, "Wx::Window" ) ) {
+            wxWindow* window = (wxWindow*)
+                wxPli_sv_2_object( aTHX_ var, "Wx::Window" );
 
-        return window->GetId();
+            return window->GetId();
+        }
+        else if( sv_derived_from( var, "Wx::MenuItem" ) )
+        {
+            wxMenuItem* item = (wxMenuItem*)
+                wxPli_sv_2_object( aTHX_ var, "Wx::MenuItem" );
+
+            return item->GetId();
+        }
     }
-    else
-    {
-        return SvIV( var );
-    }
+
+    return SvIV( var );
 }
 
 int wxPli_av_2_stringarray( pTHX_ SV* avref, wxString** array )

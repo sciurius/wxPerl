@@ -142,6 +142,10 @@ WXPLDLL int wxPli_av_2_uchararray( pTHX_ SV* avref, unsigned char** array );
 WXPLDLL int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array );
 WXPLDLL int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
 
+// pushes the elements of the array into the stack
+// the caller _MUST_ call PUTBACK; before the function
+// and SPAGAIN; after the function
+void wxPli_stringarray_push( pTHX_ const wxArrayString& strings );
 WXPLDLL AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
 AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count );
 

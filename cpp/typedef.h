@@ -181,6 +181,8 @@ FD_TD_NAME( FontDialog, GenericFontDialog );
 FD_TD( FontDialog );
 #endif
 
+FD_TD( FontEnumerator )
+FD_TD( FontMapper )
 FD_TD( Frame );
 FD_TD( Gauge );
 FD_TD( GridSizer );
