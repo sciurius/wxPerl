@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        typemap
+## Name:        ext/print/typemap
 ## Purpose:     typemap
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      4/ 5/2001
+## Created:     04/05/2001
 ## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -26,7 +26,7 @@ Wx_PreviewCanvas *      O_WXOBJECT
 wxPreviewCanvas *       O_WXOBJECT
 Wx_PreviewFrame *       O_WXOBJECT
 
-wxDuplexMode            T_IV
-wxPaperSize             T_IV
-wxPaperQuality          T_IV
-wxPrinterError          T_IV
+wxDuplexMode            T_ENUM
+wxPaperSize             T_ENUM
+wxPaperQuality          T_ENUM
+wxPrinterError          T_ENUM

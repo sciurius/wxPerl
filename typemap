@@ -4,38 +4,38 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.59 2003/12/13 17:13:31 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.60 2003/12/20 15:51:17 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
-wxFlexSizerGrowMode     T_IV
-wxEdge                  T_IV
-wxRelationship          T_IV
+wxFlexSizerGrowMode     T_ENUM
+wxEdge                  T_ENUM
+wxRelationship          T_ENUM
 wxWindowID              T_WINDOWID
-wxStockCursor           T_IV
-wxEventType             T_IV
-wxBitmapType            T_IV
+wxStockCursor           T_ENUM
+wxEventType             T_ENUM
+wxBitmapType            T_ENUM
 const char *            T_PV
 wxCoord                 T_IV
 float                   T_NV
-wxFontEncoding          T_IV
-wxRegionContain         T_IV
-wxSashEdgePosition      T_IV
-wxSashDragStatus        T_IV
-wxListColumnFormat      T_IV
+wxFontEncoding          T_ENUM
+wxRegionContain         T_ENUM
+wxSashEdgePosition      T_ENUM
+wxSashDragStatus        T_ENUM
+wxListColumnFormat      T_ENUM
 off_t                   T_IV
 WXCOLORREF              T_IV
-EntryType               T_IV
-wxKillError             T_IV
-wxSignal                T_IV
-wxItemKind              T_IV
+EntryType               T_ENUM
+wxKillError             T_ENUM
+wxSignal                T_ENUM
+wxItemKind              T_ENUM
 PlClassName             T_CLASSNAME
 
-wxFindReplaceDialogStyles T_IV
-wxFindReplaceFlags      T_IV
+wxFindReplaceDialogStyles T_ENUM
+wxFindReplaceFlags      T_ENUM
 
 wxLogTraceMask          T_UV 
 wxLogLevel              T_UV 

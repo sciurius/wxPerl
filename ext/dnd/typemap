@@ -1,19 +1,19 @@
 #############################################################################
-## Name:        typemap
+## Name:        ext/dnd/typemap
 ## Purpose:     typemap
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 8/2001
-## RCS-ID:      $Id: typemap,v 1.6 2003/11/16 17:20:28 mbarbon Exp $
+## Created:     12/08/2001
+## RCS-ID:      $Id: typemap,v 1.7 2003/12/20 15:51:17 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
-Direction               T_IV
-NativeFormat            T_IV
-wxDragResult            T_IV
+Direction               T_ENUM
+NativeFormat            T_ENUM
+wxDragResult            T_ENUM
 wxDataFormatId          T_ENUM
 
 Wx_DataObject *         O_NON_WXOBJECT

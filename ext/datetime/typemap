@@ -1,20 +1,20 @@
 #############################################################################
-## Name:        typemap
+## Name:        ext/datetime/typemap
 ## Purpose:     typemap
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     22/ 9/2002
-## RCS-ID:      
-## Copyright:   (c) 2002 Mattia Barbon
+## Created:     22/09/2002
+## RCS-ID:      $Id: typemap,v 1.3 2003/12/20 15:51:17 mbarbon Exp $
+## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
-wxDateTime_t            T_IV
-Month                   T_IV
-WeekDay                 T_IV
-WeekFlags               T_IV
+wxDateTime_t            T_ENUM
+Month                   T_ENUM
+WeekDay                 T_ENUM
+WeekFlags               T_ENUM
 
 wxDateTime *            O_NON_WXOBJECT
-wxDateTime::TimeZone    T_IV
+wxDateTime::TimeZone    T_ENUM
