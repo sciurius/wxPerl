@@ -783,7 +783,7 @@ ok( $ixywh, "Wx::Region::IntersectXYWH" );
 $r->Intersect( Wx::Rect->new( 0, 1, 2, 3 ) );
 ok( $irect, "Wx::Region::IntersectRect" );
 
-$r->Intersect( $r );
+$r->Intersect( Wx::Region->new( 0, 0, 50, 50 ) );
 ok( $iregion, "Wx::Region::IntersectRegion" );
 
 $r->Subtract( Wx::Rect->new( 0, 1, 2, 3 ) );
