@@ -8,11 +8,14 @@ run
 
 build/nmake.mak
 build/gmake.mak
+build/Any_OS.pm
 build/Any_wx_config.pm
 build/Win32_MSVC.pm
 build/Win32_MinGW.pm
 build/wxConfig.pm
+build/wxMMUtils.pm
 build/Tests_Helper.pm
+build/Win32.pm
 
 docs/bugs.txt
 docs/changes.txt
@@ -288,3 +291,11 @@ ext/print/typemap
 ext/print/t/1_load.t
 ext/print/t/2_inheritance.t
 
+ext/xrc/Makefile.PL
+ext/xrc/XRC.xs
+ext/xrc/XS/XmlResource.xs
+ext/xrc/cpp/xr_typedef.h
+ext/xrc/lib/Wx/XRC.pm
+ext/xrc/typemap
+ext/xrc/t/1_load.t
+ext/xrc/t/2_inheritance.t
