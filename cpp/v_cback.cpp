@@ -101,9 +101,11 @@ SV* wxPliVirtualCallback_CallCallback( pTHX_ const wxPliVirtualCallback* cb,
     va_list arglist;
     va_start( arglist, argtypes );
 
-    return cb->CallCallback( aTHX_ flags, argtypes, arglist );
+    SV* ret = cb->CallCallback( aTHX_ flags, argtypes, arglist );
     
     va_end( arglist );
+
+    return ret;
 }
 
 // Local variables: //
