@@ -11,7 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
-//#define PERL_NO_GET_CONTEXT
+#define PERL_NO_GET_CONTEXT
 
 #include <wx/defs.h>
 
@@ -22,6 +22,7 @@
 
 #include "cpp/compat.h"
 #include "cpp/chkconfig.h"
+#include "cpp/overload.h"
 
 #if wxPERL_USE_TOOLTIPS
 #include <wx/tooltip.h>
@@ -119,6 +120,14 @@ Wx_Window::CentreOnScreen( direction = wxBOTH )
 void
 Wx_Window::Clear()
 
+void
+Wx_Window::ClientToScreen( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, ClientToScreenXY )
+        MATCH_REDISP( wxPliOvl_wpoi, ClientToScreenPoint )
+    END_OVERLOAD( Wx::Window::ClientToScreen )
+
 Wx_Point*
 Wx_Window::ClientToScreenPoint( point )
     Wx_Point point
@@ -141,6 +150,14 @@ bool
 Wx_Window::Close( force = FALSE )
     bool force
 
+void
+Wx_Window::ConvertDialogToPixels( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wpoi, ConvertDialogPointToPixels )
+        MATCH_REDISP( wxPliOvl_wsiz, ConvertDialogSizeToPixels )
+    END_OVERLOAD( Wx::Window::ConvertDialogToPixels )
+
 Wx_Point*
 Wx_Window::ConvertDialogPointToPixels( point )
     Wx_Point point
@@ -156,6 +173,14 @@ Wx_Window::ConvertDialogSizeToPixels( size )
     RETVAL = new wxSize( THIS->ConvertDialogToPixels( size ) );
   OUTPUT:
     RETVAL
+
+void
+Wx_Window::ConvertPixelsToDialog( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wpoi, ConvertPixelsPointToDialog )
+        MATCH_REDISP( wxPliOvl_wsiz, ConvertPixelsSizeToDialog )
+    END_OVERLOAD( Wx::Window::ConvertPixelsToDialog )
 
 Wx_Point*
 Wx_Window::ConvertPixelsPointToDialog( point )
@@ -463,6 +488,15 @@ Wx_Window::InitDialog()
 bool
 Wx_Window::IsEnabled()
 
+void
+Wx_Window::IsExposed( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wpoi, IsExposedPoint )
+        MATCH_REDISP( wxPliOvl_wrec, IsExposedRect )
+        MATCH_REDISP( wxPliOvl_n_n_n_n, IsExposedXYWH )
+    END_OVERLOAD( Wx_Window::IsExposed )
+
 bool
 Wx_Window::IsExposedXYWH( x, y, w = 0, h = 0 )
     int x
@@ -510,6 +544,14 @@ Wx_Window::MakeModal( flag )
     bool flag
 
 void
+Wx_Window::Move( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wpoi, MovePoint )
+        MATCH_REDISP( wxPliOvl_n_n, MoveXY )
+    END_OVERLOAD( Wx::Window::Move )
+
+void
 Wx_Window::MoveXY( x, y )
     int x
     int y
@@ -525,6 +567,14 @@ Wx_Window::MovePoint( point )
 Wx_EvtHandler*
 Wx_Window::PopEventHandler( deleteHandler )
     bool deleteHandler
+
+void
+Wx_Window::PopupMenu( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wpoi, PopupMenuPoint )
+        MATCH_REDISP( wxPliOvl_n_n, PopupMenuXY )
+    END_OVERLOAD( Wx::Window::PopupMenu )
 
 bool
 Wx_Window::PopupMenuPoint( menu, point )
@@ -571,6 +621,14 @@ Wx_Window::RemoveEventHandler( handler )
 bool
 Wx_Window::Reparent( newParent )
     Wx_Window* newParent
+
+void
+Wx_Window::ScreenToClient( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, ScreenToClientXY )
+        MATCH_REDISP( wxPliOvl_wpoi, ScreenToClientPoint )
+    END_OVERLOAD( Wx::Window::ScreenToClient )
 
 Wx_Point*
 Wx_Window::ScreenToClientPoint( point )
@@ -627,6 +685,14 @@ Wx_Window::SetBackgroundColour( colour )
 void
 Wx_Window::SetCaret( caret )
     Wx_Caret* caret
+
+void
+Wx_Window::SetClientSize( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wsiz, SetClientSizeSize )
+        MATCH_REDISP( wxPliOvl_n_n, SetClientSizeWH )
+    END_OVERLOAD( Wx::Window::SetClientSize )
 
 void
 Wx_Window::SetClientSizeSize( size )
@@ -740,6 +806,16 @@ Wx_Window::SetFont( font )
     THIS->SetFont( *font );
 
 void
+Wx_Window::SetSize( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_n_n, SetSizeXYWHF, 4 )
+        MATCH_REDISP( wxPliOvl_n_n, SetSizeWH )
+        MATCH_REDISP( wxPliOvl_wsiz, SetSizeSize )
+        MATCH_REDISP( wxPliOvl_wrec, SetSizeRect )
+    END_OVERLOAD( Wx::Window::SetSize )
+
+void
 Wx_Window::SetSizeSize( size )
     Wx_Size size
   CODE:
@@ -809,6 +885,14 @@ Wx_Window::SetTitle( title )
     wxString title
 
 #if wxPERL_USE_TOOLTIPS
+
+void
+Wx_Window::SetToolTip( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wtip, SetToolTipTip )
+        MATCH_REDISP( wxPliOvl_s, SetToolTipString )
+    END_OVERLOAD( Wx::Window::SetToolTip )
 
 void
 Wx_Window::SetToolTipTip( tooltip )

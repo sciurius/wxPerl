@@ -90,6 +90,14 @@ Wx_DC::DrawBitmap( bitmap, x, y, transparent )
     THIS->DrawBitmap( *bitmap, x, y, transparent );
 
 void
+Wx_DC::DrawCheckMark( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, DrawCheckMarkXYWH )
+        MATCH_REDISP( wxPliOvl_wrec, DrawCheckMarkRect )
+    END_OVERLOAD( Wx::DC::DrawCheckMark )
+
+void
 Wx_DC::DrawCheckMarkXYWH( x, y, width, height )
     wxCoord x
     wxCoord y
@@ -427,6 +435,14 @@ Wx_DC::SetBrush( brush )
     THIS->SetBrush( *brush );
 
 void
+Wx_DC::SetClippingRegion( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, SetClippingRegionXYWH )
+        MATCH_REDISP( wxPliOvl_wreg, SetClippingRegionRegion )
+    END_OVERLOAD( Wx::DC::SetClippingRegion )
+
+void
 Wx_DC::SetClippingRegionXYWH( x, y, w, h )
     wxCoord x
     wxCoord y
@@ -502,6 +518,14 @@ Wx_ScreenDC::new()
 
 bool
 Wx_ScreenDC::EndDrawingOnTop()
+
+void
+Wx_ScreenDC::StartDrawingOnTop( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin, StartDrawingOnTopWindow )
+        MATCH_REDISP( wxPliOvl_wrec, StartDrawingOnTopRect )
+    END_OVERLOAD( Wx::ScreenDC::StartDrawingOnTop )
 
 bool
 Wx_ScreenDC::StartDrawingOnTopWindow( window )

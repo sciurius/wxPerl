@@ -14,8 +14,18 @@
 
 MODULE=Wx PACKAGE=Wx::Pen
 
+void
+Wx_Pen::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wcol_n_n, newColour )
+        MATCH_REDISP( wxPliOvl_wbmp_n, newBitmap )
+        MATCH_REDISP( wxPliOvl_s_n_n, newString )
+    END_OVERLOAD( Wx::Pen::new )
+
 Wx_Pen*
-newColour( colour, width, style )
+newColour( CLASS, colour, width, style )
+    SV* CLASS
     Wx_Colour* colour
     int width
     int style
@@ -25,7 +35,8 @@ newColour( colour, width, style )
     RETVAL
 
 Wx_Pen*
-newString( name, width, style )
+newString( CLASS, name, width, style )
+    SV* CLASS
     wxString name
     int width
     int style
@@ -37,7 +48,8 @@ newString( name, width, style )
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 Wx_Pen*
-newBitmap( stipple, width )
+newBitmap( CLASS, stipple, width )
+    SV* CLASS
     Wx_Bitmap* stipple
     int width
   CODE:
@@ -98,6 +110,15 @@ Wx_Pen::Ok()
 void
 Wx_Pen::SetCap( capStyle )
     int capStyle
+
+void
+Wx_Pen::SetColour( ... )
+  PPCODE:
+     BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wcol, SetColourColour )
+        MATCH_REDISP( wxPliOvl_n_n_n, SetColourRGB )
+        MATCH_REDISP( wxPliOvl_s, SetColourName )
+    END_OVERLOAD( Wx::Pen::SetColour )
 
 void
 Wx_Pen::SetColourColour( colour )

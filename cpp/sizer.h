@@ -29,6 +29,8 @@ inline wxPlSizer::wxPlSizer( const char* package )
 
 void wxPlSizer::RecalcSizes()
 {
+    dTHX;
+
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "RecalcSizes" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
@@ -40,6 +42,7 @@ void wxPlSizer::RecalcSizes()
 wxSize wxPlSizer::CalcMin()
 {
     static wxSize ret( 0, 0 );
+    dTHX;
 
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "CalcMin" ) )
     {

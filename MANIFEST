@@ -46,23 +46,18 @@ t/08_ovl_func.t
 t/09_create_delete.t
 
 lib/Wx/App.pm
-lib/Wx/DC.pm
 lib/Wx/Event.pm
 lib/Wx/Image.pm
 lib/Wx/ImageList.pm
 lib/Wx/ListCtrl.pm
 lib/Wx/Locale.pm
 lib/Wx/Menu.pm
-lib/Wx/Pen.pm
 lib/Wx/RadioBox.pm
-lib/Wx/Rect.pm
 lib/Wx/Region.pm
-lib/Wx/ScreenDC.pm
 lib/Wx/Sizer.pm
 lib/Wx/SplashScreen.pm
 lib/Wx/Timer.pm
 lib/Wx/TreeCtrl.pm
-lib/Wx/Window.pm
 lib/Wx/_Constants.pm
 lib/Wx/_Functions.pm
 

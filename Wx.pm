@@ -40,7 +40,7 @@ $_msw = 1; $_gtk = 2; $_motif = 3;
 $VERSION = '0.12';
 
 sub BEGIN{
-  @EXPORT_OK = qw(wxPOINT wxSIZE wxUNIVERSAL);
+  @EXPORT_OK = qw(wxPOINT wxSIZE);
   %EXPORT_TAGS = ( );
 }
 
@@ -158,6 +158,9 @@ wx_boot( 'Wx', $VERSION );
 *Wx::SystemSettings::GetColour = \&Wx::SystemSettings::GetSystemColour;
 *Wx::SystemSettings::GetFont   = \&Wx::SystemSettings::GetSystemFont;
 *Wx::SystemSettings::GetMetric = \&Wx::SystemSettings::GetSystemMetric;
+*Wx::Window::Center = \&Wx::Window::Centre;
+*Wx::Window::CenterOnParent = \&Wx::Window::CentreOnParent;
+*Wx::Window::CenterOnScreen = \&Wx::Window::CentreOnScreen;
 
 require Wx::_Constants;
 
@@ -175,32 +178,24 @@ eval( "sub wxMSW() { $_platform == $_msw }" );
 eval( "sub wxGTK() { $_platform == $_gtk }" );
 
 require Wx::App;
-require Wx::DC;
 require Wx::Event;
 require Wx::Image;
 require Wx::ImageList;
 require Wx::ListCtrl;
 require Wx::Locale;
 require Wx::Menu;
-require Wx::Pen;
 require Wx::RadioBox;
-require Wx::Rect;
 require Wx::Region;
-require Wx::ScreenDC;
 require Wx::Sizer;
 require Wx::Timer;
 require Wx::TreeCtrl;
-require Wx::Window;
 require Wx::_Exp;
 require Wx::_Functions;
-
 # for Wx::Stream & co.
 if( $] >= 5.005 ) { require Tie::Handle; }
-package Wx::GDIObject;
-
 require Wx::SplashScreen;
 
-use strict;
+package Wx::GDIObject;
 
 1;
 

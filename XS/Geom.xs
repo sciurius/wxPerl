@@ -87,8 +87,18 @@ Wx_Point::y( ... )
 
 MODULE=Wx PACKAGE=Wx::Rect
 
+void
+Wx_Rect::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, newXYWH )
+        MATCH_REDISP( wxPliOvl_wpoi_wsiz, newPS )
+        MATCH_REDISP( wxPliOvl_wpoi_wpoi, newPP )
+    END_OVERLOAD( Wx::Rect::new )
+
 Wx_Rect*
-newXYWH( x, y, width, height )
+newXYWH( CLASS, x, y, width, height )
+    SV* CLASS
     int x
     int y
     int width
@@ -99,7 +109,8 @@ newXYWH( x, y, width, height )
     RETVAL
 
 Wx_Rect*
-newPP( tl, br )
+newPP( CLASS, tl, br )
+    SV* CLASS
     Wx_Point tl
     Wx_Point br
   CODE:
@@ -108,7 +119,8 @@ newPP( tl, br )
     RETVAL
 
 Wx_Rect*
-newPS( pos, size )
+newPS( CLASS, pos, size )
+    SV* CLASS
     Wx_Point pos
     Wx_Size size
   CODE:
@@ -223,7 +235,16 @@ Wx_Rect::SetY( y )
 MODULE=Wx PACKAGE=Wx::Region
 
 Wx_Region*
-newXYWH( x, y, width, height )
+newEmpty( CLASS )
+    SV* CLASS
+  CODE:
+    RETVAL = new wxRegion();
+  OUTPUT:
+    RETVAL
+
+Wx_Region*
+newXYWH( CLASS, x, y, width, height )
+    SV* CLASS
     wxCoord x
     wxCoord y
     wxCoord width
@@ -234,7 +255,8 @@ newXYWH( x, y, width, height )
     RETVAL
 
 Wx_Region*
-newPP( topLeft, bottomRight )
+newPP( CLASS, topLeft, bottomRight )
+    SV* CLASS
     Wx_Point topLeft
     Wx_Point bottomRight
   CODE:
@@ -243,7 +265,8 @@ newPP( topLeft, bottomRight )
     RETVAL
 
 Wx_Region*
-newRect( rect )
+newRect( CLASS, rect )
+    SV* CLASS
     Wx_Rect* rect
   CODE:
     RETVAL = new wxRegion( *rect );
@@ -254,7 +277,8 @@ newRect( rect )
     && !defined( __WXMOTIF__ )
 
 Wx_Region*
-newPolygon( list, fillStyle = wxODDEVEN_RULE )
+newPolygon( CLASS, list, fillStyle = wxODDEVEN_RULE )
+    SV* CLASS
     SV* list
     int fillStyle
   PREINIT:
