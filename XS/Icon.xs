@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Icon.xs,v 1.24 2004/08/04 20:13:54 mbarbon Exp $
+## RCS-ID:      $Id: Icon.xs,v 1.25 2005/02/19 17:22:59 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -61,7 +61,7 @@ newFile( CLASS, name, type, desW = -1, desH = -1 )
     int desH
   CODE:
 #if WXPERL_W_VERSION_GE( 2, 5, 1 ) && \
-    ( defined( __WXMOTIF__ ) || defined( __WXX11__ ) )
+    ( defined( __WXMOTIF__ ) || defined( __WXX11__ ) || defined( __WXGTK__ ) )
     RETVAL = new wxIcon( name, wxBitmapType(type), desW, desH );
 #else
     RETVAL = new wxIcon( name, type, desW, desH );
@@ -116,7 +116,7 @@ wxIcon::LoadFile( name, type )
         RETVAL = THIS->LoadFile( name, type, -1, -1 );
 #endif
 #else
-#if ( defined( __WXX11__ ) || defined( __WXMAC__ ) ) \
+#if ( defined( __WXX11__ ) || defined( __WXMAC__ ) || defined( __WXGTK__ ) ) \
     && WXPERL_W_VERSION_GE( 2, 5, 1 )
     RETVAL = THIS->LoadFile( name, wxBitmapType(type) );
 #else
