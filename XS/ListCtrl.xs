@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.34 2004/08/04 20:13:54 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.35 2005/03/23 22:09:38 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,6 +19,13 @@ wxListEvent*
 wxListEvent::new( eventType = wxEVT_NULL, id = 0 )
     wxEventType eventType
     int id
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+bool
+wxListEvent::IsEditCancelled()
+
+#endif
 
 long
 wxListEvent::GetCacheFrom()
