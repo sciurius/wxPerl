@@ -20,8 +20,11 @@ For 0.12
 
 PRIORITY NORMAL:
 
+* wxFontEnumerator virtual functions
+
 * wxDocManager::FileHistoryLoad/Save
   wxDocument  CommandProcessor functions
+  wxDocument::Load/Save, investigate
 
 * testing
     tests for all overloaded methods
@@ -132,6 +135,9 @@ DOCUMENTATTION:
 
 * Document wxListBox::GetCount/Number is deprecated
 
+* wxFontMapper
+   GetAltForEncoding
+
 -- not documented in wxWindows --
 
 * Wx::MultipleChoiceDialog
@@ -140,8 +146,6 @@ DOCUMENTATTION:
 
 CLASSES:
   wxGLCanvas
-
-  wxFileHistory
 
   wxCalendarCtrl
   wxDirCtrl
@@ -160,6 +164,4 @@ CLASSES:
   wxTCP*
 
   wxMimeTypesManager
-  wxFontMapper
   wxEncodingConverter
-  wxFontEnumerator

@@ -1,12 +1,14 @@
 wxPerl is a wrapper built around the wxWindows GUI toolkit
 
-Copyright (c) 2000-2001 Mattia Barbon.
+Copyright (c) 2000-2002 Mattia Barbon.
 This package is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
 You need wxWindows in order to build wxPerl (see http://www.wxwindows.org/).
 At this moment you may only use GTK or Win32 ( Motif in alpha stage ) 
  as windowing toolkits for wxPerl.
+
+Please read the DEPRECATIONS section at the bottom!
 
 INSTALLATION:
 
@@ -37,3 +39,32 @@ ActivePerl 616  | Windows 2000  | wxMSW 2.2.9    | MSVC 5
 wxPerl has also been reported to work on FreeBSD.
 
 [1] see docs/bugs.txt
+
+DEPRECATIONS
+
+The following features have been deprecated and may disappear in the future
+
+1 - class->new always returning an hash reference
+    until now calling ->new( ... ) returned an hash reference for most
+    classes derived from Wx::Window, hence the following code
+    worked:
+
+    my $button = Wx::Button->new( ... );
+    $button->{attribute} = 'value';
+
+    At some point in the future this will be changed so that only
+    _user-defined_ classes derived from Wx::Window
+    (or from any class derived from Wx::Window)
+    will yield an hash reference, hence the following code will not work:
+
+    my $button = Wx::Button->new( ... );
+    my $window = Wx::Window->new( ... );
+    $button->{a} = 'b';
+    $window->{c} = 'd';
+
+    while the following code will work as it did before:
+
+    my $button = MyButton->new( ... ); # MyButton ISA Wx::Button
+    my $window = MyWindow->new( ... ); # MyWindow ISA Wx::Window
+    $button->{a} = 'b';
+    $window->{c} = 'd';

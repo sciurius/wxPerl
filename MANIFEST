@@ -164,6 +164,8 @@ XS/EvtHandler.xs
 XS/FindReplaceDialog.xs
 XS/Font.xs
 XS/FontDialog.xs
+XS/FontEnumerator.xs
+XS/FontMapper.xs
 XS/Frame.xs
 XS/Gauge.xs
 XS/Geom.xs
@@ -396,6 +398,8 @@ ext/docview/cpp/dv_typedef.h
 ext/docview/cpp/dv_constants.cpp
 ext/docview/lib/Wx/DocView.pm
 ext/docview/typemap
+ext/docview/t/01_load.t
+ext/docview/t/02_inheritance.t
 
 demo/DataObjects.pm
 demo/DragDrop.pm
