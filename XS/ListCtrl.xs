@@ -674,6 +674,15 @@ Wx_ListView::Select( n, on )
     bool on
 
 void
+Wx_ListView::SetColumnImage( col, image )
+    int col
+    int image
+
+void
+Wx_ListView::ClearColumnImage( col )
+    int col
+
+void
 Wx_ListView::Focus( index )
     long index
 

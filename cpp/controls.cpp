@@ -78,6 +78,10 @@ double listctrl_constant( const char* name, int arg )
       r( wxEVT_COMMAND_LIST_BEGIN_LABEL_EDIT );
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
       r( wxEVT_COMMAND_LIST_CACHE_HINT );
+      r( wxEVT_COMMAND_LIST_COL_RIGHT_CLICK );
+      r( wxEVT_COMMAND_LIST_COL_BEGIN_DRAG );
+      r( wxEVT_COMMAND_LIST_COL_DRAGGING );
+      r( wxEVT_COMMAND_LIST_COL_END_DRAG );
 #endif
       r( wxEVT_COMMAND_LIST_END_LABEL_EDIT );
       r( wxEVT_COMMAND_LIST_DELETE_ITEM );

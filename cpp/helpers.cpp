@@ -286,7 +286,7 @@ SV* wxPli_object_2_sv( SV* var, wxObject* object )
     return var;
 }
 
-SV* wxPli_make_object( wxObject* object, const char* classname ) 
+SV* wxPli_make_object( void* object, const char* classname ) 
 {
     SV* ret;
     SV* value;
@@ -447,6 +447,20 @@ int wxPli_av_2_intarray( SV* avref, int** array )
     *array = arr;
 
     return n;
+}
+
+wxWindowID wxPli_get_wxwindowid( SV* var )
+{
+    if( sv_isobject( var ) && sv_derived_from( var, "Wx::Window" ) )
+    {
+        wxWindow* window = (wxWindow*)wxPli_sv_2_object( var, "Wx::Window" );
+
+        return window->GetId();
+    }
+    else
+    {
+        return SvIV( var );
+    }
 }
 
 int wxPli_av_2_stringarray( SV* avref, wxString** array )

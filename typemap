@@ -13,7 +13,7 @@
 TYPEMAP
 wxEdge                  T_IV
 wxRelationship          T_IV
-wxWindowID              T_IV
+wxWindowID              T_WINDOWID
 wxStockCursor           T_IV
 wxEventType             T_IV
 const char *            T_PV
@@ -25,6 +25,9 @@ wxSashEdgePosition      T_IV
 wxSashDragStatus        T_IV
 wxListColumnFormat      T_IV
 off_t                   T_IV
+
+wxFindReplaceDialogStyles T_IV
+wxFindReplaceFlags      T_IV
 
 wxLogTraceMask          T_UV 
 wxLogLevel              T_UV 
@@ -99,6 +102,8 @@ Wx_PageSetupDialog *    O_WXOBJECT
 Wx_PrintDialog *        O_WXOBJECT
 Wx_MessageDialog *      O_WXOBJECT
 Wx_ProgressDialog *     O_WXOBJECT
+Wx_FindReplaceDialog *  O_WXOBJECT
+Wx_FindReplaceData *    O_WXOBJECT
 
 Wx_ColourData *         O_WXOBJECT
 Wx_FontData *           O_WXOBJECT
@@ -136,6 +141,8 @@ Wx_Colour               O_COLOUR
 Wx_Point &              O_POINT
 Wx_Size &               O_SIZE
 Wx_Colour &             O_COLOUR
+
+Wx_TipProvider *        O_NON_WXOBJECT
 
 Wx_DrawObject *         O_NON_WXOBJECT
 Wx_Size *               O_NON_WXOBJECT
@@ -198,6 +205,7 @@ Wx_ActivateEvent *      O_WXOBJECT
 Wx_CloseEvent *         O_WXOBJECT
 Wx_CommandEvent *       O_WXOBJECT
 Wx_EraseEvent *         O_WXOBJECT
+Wx_FindDialogEvent *    O_WXOBJECT
 Wx_FocusEvent *         O_WXOBJECT
 Wx_KeyEvent *           O_WXOBJECT
 Wx_HelpEvent *          O_WXOBJECT
@@ -351,3 +359,12 @@ T_WXCHAR
 
 T_WXSTRING
     WXSTRING_OUTPUT( $var, $arg );
+
+# typemap for window ID
+INPUT
+T_WINDOWID
+    $var = wxPli_get_wxwindowid( $arg );
+
+OUTPUT
+T_WINDOWID
+    sv_setiv($arg, (IV)$var);
