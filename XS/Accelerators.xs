@@ -58,11 +58,11 @@ Wx_AcceleratorTable::new( ... )
 
             if( SvROK( rv ) )
             {
-                if( sv_derived_from( rv, CHAR_P wxPlAcceleratorEntryName ) )
+                if( sv_derived_from( rv, CHAR_P "Wx::AcceleratorEntry" ) )
                 {
                     entries[i] = *(wxAcceleratorEntry*)
                         wxPli_sv_2_object( aTHX_ rv,
-                                           wxPlAcceleratorEntryName );
+                                           "Wx::AcceleratorEntry" );
                 }
                 else if( SvTYPE( SvRV( rv ) ) == SVt_PVAV )
                 {

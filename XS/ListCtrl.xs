@@ -218,9 +218,9 @@ Wx_ListItemAttr::new( ... )
       Wx_Colour back = NO_INIT
       Wx_Font* font = NO_INIT
     CODE:
-      text = *(Wx_Colour *) wxPli_sv_2_object( aTHX_ ST(1), wxPlColourName );
-      back = *(Wx_Colour *) wxPli_sv_2_object( aTHX_ ST(2), wxPlColourName );
-      font = (Wx_Font *) wxPli_sv_2_object( aTHX_ ST(3), wxPlFontName );
+      text = *(Wx_Colour *) wxPli_sv_2_object( aTHX_ ST(1), "Wx::Colour" );
+      back = *(Wx_Colour *) wxPli_sv_2_object( aTHX_ ST(2), "Wx::Colour" );
+      font = (Wx_Font *) wxPli_sv_2_object( aTHX_ ST(3), "Wx::Font"g );
       RETVAL = new wxListItemAttr( text, back, *font );
     OUTPUT:
       RETVAL

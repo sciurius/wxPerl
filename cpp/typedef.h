@@ -20,7 +20,7 @@
 #define _WXP_DEFINE_CLASSNAME 1
 #endif
 
-#if _WXP_DEFINE_CLASSNAME
+#if 0 // not necessary anymore // _WXP_DEFINE_CLASSNAME
 
 #define FD_TD( name ) \
   class wx##name; \

@@ -72,13 +72,13 @@ tiid_spaceship( tid1, tid2, ... )
     // anyway, comparing ids is useless
     RETVAL = -1;
     if( SvROK( tid1 ) && SvROK( tid2 ) &&
-        sv_derived_from( tid1, CHAR_P wxPlTreeItemIdName ) &&
-        sv_derived_from( tid2, CHAR_P wxPlTreeItemIdName ) )
+        sv_derived_from( tid1, CHAR_P "Wx::TreeItemId" ) &&
+        sv_derived_from( tid2, CHAR_P "Wx::TreeItemId" ) )
     {
         Wx_TreeItemId* id1 = (Wx_TreeItemId*)
-            wxPli_sv_2_object( aTHX_ tid1, wxPlTreeItemIdName );
+            wxPli_sv_2_object( aTHX_ tid1, "Wx::TreeItemId" );
         Wx_TreeItemId* id2 = (Wx_TreeItemId*)
-            wxPli_sv_2_object( aTHX_ tid2, wxPlTreeItemIdName );
+            wxPli_sv_2_object( aTHX_ tid2, "Wx::TreeItemId" );
 
         RETVAL = *id1 == *id2 ? 0 : 1;
     } else
@@ -233,7 +233,7 @@ Wx_TreeCtrl::GetBoundingRect( item, textOnly = FALSE )
     if( ret )
     {
         SV* ret = sv_newmortal();
-        wxPli_non_object_2_sv( aTHX_ ret, new wxRect( rect ), wxPlRectName );
+        wxPli_non_object_2_sv( aTHX_ ret, new wxRect( rect ), "Wx::Rect" );
         XPUSHs( ret );
     }
     else
@@ -290,7 +290,7 @@ Wx_TreeCtrl::GetFirstChild( item )
     EXTEND( SP, 2 );
     PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                   new wxTreeItemId( ret ),
-                                  wxPlTreeItemIdName ) );
+                                  "Wx::TreeItemId" ) );
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
 
 Wx_TreeItemId*
@@ -340,7 +340,7 @@ Wx_TreeCtrl::GetNextChild( item, cookie )
     EXTEND( SP, 2 );
     PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                   new wxTreeItemId( ret ),
-                                  wxPlTreeItemIdName ) );
+                                  "Wx::TreeItemId" ) );
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
 
 Wx_TreeItemId*
@@ -416,7 +416,7 @@ Wx_TreeCtrl::GetSelections()
     {
         PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                       new wxTreeItemId( selections[i] ),
-                                      wxPlTreeItemIdName ) );
+                                      "Wx::TreeItemId" ) );
     }
 
 Wx_ImageList*
@@ -432,7 +432,7 @@ Wx_TreeCtrl::HitTest( point )
     EXTEND( SP, 2 );
     PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                   new wxTreeItemId( ret ),
-                                  wxPlTreeItemIdName ) );
+                                  "Wx::TreeItemId" ) );
     PUSHs( sv_2mortal( newSViv( flags ) ) );
 
 void

@@ -463,7 +463,7 @@ Wx_Image::Rotate( angle, centre, interpolating = TRUE )
     XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), result ) );
     if( GIMME_V == G_ARRAY ) {
       PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(), 
-             new wxPoint( after ), wxPlPointName ) );
+             new wxPoint( after ), "Wx::Point" ) );
     }
 
 Wx_Image*

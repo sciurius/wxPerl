@@ -256,8 +256,6 @@ struct wxPliHelpers
     wxPliInputStream* ( * m_wxPliInputStream_ctor )( SV* );
 };
 
-#if !WXPL_MSW_EXPORTS && !defined( WXPL_STATIC )
-
 #define DEFINE_PLI_HELPERS( name ) \
 wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPli_non_object_2_sv, &wxPli_make_object, &wxPli_sv_2_wxpoint_test, \
@@ -267,6 +265,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPliVirtualCallback_FindCallback, &wxPliVirtualCallback_CallCallback, \
  &wxPli_object_is_deleteable, &wxPli_object_set_deleteable, &wxPli_get_class, \
  &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor };
+
+#if !defined( WXPL_STATIC ) || !defined( WXPL_EXT )
 
 #define INIT_PLI_HELPERS( name ) \
   SV* wxpli_tmp = get_sv( "Wx::_exports", 1 ); \
@@ -293,7 +293,6 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
 
 #else
 
-#define DEFINE_PLI_HELPERS( name ) int name
 #define INIT_PLI_HELPERS( name )
 
 #endif
@@ -500,8 +499,8 @@ class wxPli##name:public wx##name                                       \
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPli##name );                         \
     WXPLI_DECLARE_SELFREF();                                            \
 public:                                                                 \
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, wxPl##name##Name, incref ); \
-    WXPLI_CONSTRUCTOR_6( wxPli##name, wxPl##name##Name, incref,         \
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, "Wx::" #name, incref );     \
+    WXPLI_CONSTRUCTOR_6( wxPli##name, "Wx::" #name, incref,             \
                          argt1, argt2, argt3, argt4, argt5, argt6 );    \
 };
 
@@ -535,10 +534,10 @@ class wxPli##name:public wx##name                                       \
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPli##name );                         \
     WXPLI_DECLARE_SELFREF();                                            \
 public:                                                                 \
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, wxPl##name##Name, incref ); \
-    WXPLI_CONSTRUCTOR_9( wxPli##name, wxPl##name##Name, incref,         \
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, "Wx::" #name, incref );     \
+    WXPLI_CONSTRUCTOR_9( wxPli##name, "Wx::" #name, incref,             \
                          argt1, argt2, argt3, argt4, argt5, argt6,      \
-                         argt7, argt8, argt9 );                                \
+                         argt7, argt8, argt9 );                         \
 };
 
 #define WXPLI_DECLARE_CLASS_10( name, incref, argt1, argt2, argt3, argt4, argt5, argt6, argt7, argt8, argt9, argt10 ) \
@@ -547,8 +546,8 @@ class wxPli##name:public wx##name                                       \
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPli##name );                         \
     WXPLI_DECLARE_SELFREF();                                            \
 public:                                                                 \
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, wxPl##name##Name, incref ); \
-    WXPLI_CONSTRUCTOR_10( wxPli##name, wxPl##name##Name, incref,        \
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, "Wx::" #name, incref );     \
+    WXPLI_CONSTRUCTOR_10( wxPli##name, "Wx::" #name, incref,            \
                          argt1, argt2, argt3, argt4, argt5, argt6,      \
                          argt7, argt8, argt9, argt10 );                 \
 };

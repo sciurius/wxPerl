@@ -417,8 +417,6 @@ O_WXOBJECT
 O_NON_WXOBJECT
     wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
 
-#    wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
-
 T_KEYCODE
     sv_setiv( $arg, $var );
 
@@ -429,12 +427,8 @@ INPUT
 O_WXOBJECT
     $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
-#    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
-
 O_NON_WXOBJECT
     $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
-
-#    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 O_POINT
     $var = wxPli_sv_2_wxpoint( aTHX_ $arg );
@@ -444,8 +438,6 @@ O_SIZE
 
 O_COLOUR
     $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
-
-#    $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/wxPl$1Name/g;\${ntt}} );
 
 T_KEYCODE
     $var = wxPli_sv_2_keycode( aTHX_ $arg );

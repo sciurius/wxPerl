@@ -795,7 +795,7 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
     {
         SV* ref = SvRV( scalar );
         
-        if( sv_derived_from( scalar, CHAR_P wxPlPointName ) ) 
+        if( sv_derived_from( scalar, CHAR_P "Wx::Point" ) ) 
         {
             return *(wxPoint*)SvIV( ref );
         }
@@ -844,7 +844,7 @@ wxSize wxPli_sv_2_wxsize( pTHX_ SV* scalar )
     {
         SV* ref = SvRV( scalar );
         
-        if( sv_derived_from( scalar, CHAR_P wxPlSizeName ) ) 
+        if( sv_derived_from( scalar, CHAR_P "Wx::Size" ) ) 
         {
             return *(wxSize*)SvIV( ref );
         }
@@ -952,7 +952,7 @@ int wxPli_av_2_pointlist( pTHX_ SV* arr, wxList *points, wxPoint** tmp )
         {
             SV* ref = SvRV( scalar );
         
-            if( sv_derived_from( scalar, CHAR_P wxPlPointName ) ) 
+            if( sv_derived_from( scalar, CHAR_P "Wx::Point" ) ) 
             {
                 points->Append( (wxObject*)SvIV( ref ) );
                 continue;

@@ -323,9 +323,9 @@ int wxPliTreeCtrl::OnCompareItems( const wxTreeItemId& item1,
                                            "OnCompareItems" ) )
     {
         SV* t1 = wxPli_non_object_2_sv( aTHX_ newSViv( 0 ),
-                                        (void*)&item1, wxPlTreeItemIdName );
+                                        (void*)&item1, "Wx::TreeItemId" );
         SV* t2 = wxPli_non_object_2_sv( aTHX_ newSViv( 0 ),
-                                        (void*)&item2, wxPlTreeItemIdName );
+                                        (void*)&item2, "Wx::TreeItemId" );
         SV* ret = wxPliVirtualCallback_CallCallback
             ( aTHX_ &m_callback, G_SCALAR, "SS", t1, t2 );
 

@@ -71,11 +71,11 @@ bmp_spaceship( bmp1, bmp2, ... )
     // anyway, comparing bitmaps is just useless
     RETVAL = -1;
     if( SvROK( bmp1 ) && SvROK( bmp2 ) &&
-        sv_derived_from( bmp1, wxPlBitmapName ) &&
-        sv_derived_from( bmp2, wxPlBitmapName ) )
+        sv_derived_from( bmp1, "Wx::Bitmap" ) &&
+        sv_derived_from( bmp2, "Wx::Bitmap" ) )
     {
-        Wx_Bitmap* bitmap1 = (Wx_Bitmap*)_sv_2_object( bmp1, wxPlBitmapName );
-        Wx_Bitmap* bitmap2 = (Wx_Bitmap*)_sv_2_object( bmp2, wxPlBitmapName );
+        Wx_Bitmap* bitmap1 = (Wx_Bitmap*)_sv_2_object( bmp1, "Wx::Bitmap" );
+        Wx_Bitmap* bitmap2 = (Wx_Bitmap*)_sv_2_object( bmp2, "Wx::Bitmap" );
 
         RETVAL = *bitmap1 == *bitmap2 ? 0 : 1;
     } else

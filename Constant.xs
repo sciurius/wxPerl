@@ -146,14 +146,13 @@ static wxPlEVT evts[] =
 
     id = wxPli_get_wxwindowid( aTHX_ ST(1) );;
 
-    THIS = (Wx_EvtHandler *) wxPli_sv_2_object( aTHX_ ST(0), wxPlEvtHandlerName );;
+    THIS = (Wx_EvtHandler *) wxPli_sv_2_object( aTHX_ ST(0), "Wx::EvtHandler" );;
     THIS->Connect(id, lastid, type,
                     (wxObjectEventFunction)&wxPliEventCallback::Handler,
                     new wxPliEventCallback( method, ST(0) ) );
 #endif
 
 #include "cpp/e_cback.h"
-extern "C" const char wxPlEvtHandlerName[];
 
 // THIS, ID, function
 XS(Connect3);
@@ -163,7 +162,7 @@ XS(Connect3)
     assert( items == 3 );
     SV* THISs = ST(0);
     wxEvtHandler *THISo =
-        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, wxPlEvtHandlerName );
+        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
     wxWindowID id = wxPli_get_wxwindowid( aTHX_ ST(1) );
     SV* func = ST(2);
     I32 evtID = CvXSUBANY(cv).any_i32;

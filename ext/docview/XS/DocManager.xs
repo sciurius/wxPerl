@@ -346,7 +346,7 @@ Wx_DocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = F
     {
       SV** pltemplate = av_fetch( (AV*) templates, i, 0 );
       Wx_DocTemplate* thistemplate = (Wx_DocTemplate *)
-                      wxPli_sv_2_object( aTHX_ *pltemplate, wxPlDocTemplateName );
+                      wxPli_sv_2_object( aTHX_ *pltemplate, "Wx::DocTemplate" );
       pltemplates[i] = thistemplate;
     }
     RETVAL = THIS->SelectDocumentPath(pltemplates, noTemplates, path, flags, save);
@@ -371,7 +371,7 @@ Wx_DocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
     {
       SV** pltemplate = av_fetch( (AV*) templates, i, 0 );
       Wx_DocTemplate* thistemplate = (Wx_DocTemplate *)
-                      wxPli_sv_2_object( aTHX_ *pltemplate, wxPlDocTemplateName );
+                      wxPli_sv_2_object( aTHX_ *pltemplate, "Wx::DocTemplate" );
       pltemplates[i] = thistemplate;
     }
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
@@ -402,7 +402,7 @@ Wx_DocManager::SelectViewType( templates, noTemplates, sort = FALSE)
     {
       SV** pltemplate = av_fetch( (AV*) templates, i, 0 );
       Wx_DocTemplate* thistemplate = (Wx_DocTemplate *)
-                      wxPli_sv_2_object( aTHX_ *pltemplate, wxPlDocTemplateName );
+                      wxPli_sv_2_object( aTHX_ *pltemplate, "Wx::DocTemplate" );
       pltemplates[i] = thistemplate;
     }
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
