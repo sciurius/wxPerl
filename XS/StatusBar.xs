@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: StatusBar.xs,v 1.12 2004/10/19 20:28:05 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: StatusBar.xs,v 1.13 2005/01/09 22:35:54 mbarbon Exp $
+## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -84,3 +84,22 @@ wxStatusBar::SetStatusWidths( ... )
     THIS->SetStatusWidths( items-1, widths );
 
     delete[] widths;
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+void
+wxStatusBar::SetStatusStyles( ... )
+  PREINIT:
+    int* styles;
+    int i;
+  CODE:
+    styles = new int[items-1];
+    for( i = 1; i < items; ++i )
+    {
+      styles[i-1] = SvIV( ST(i) );
+    }
+    THIS->SetStatusStyles( items-1, styles );
+
+    delete[] styles;
+
+#endif

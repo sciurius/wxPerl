@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.31 2005/01/04 17:15:07 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.32 2005/01/09 22:35:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -76,6 +76,10 @@
     %name{SetProportion} void SetOption( int proportion );
     int GetOption();
     void SetOption( int option );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    %name{SetMinSizeWH} void SetMinSize( int x, int y );
+    %name{SetMinSizeSize} void SetMinSize( wxSize size );
 #endif
 };
 
@@ -589,6 +593,15 @@ wxSizerItem::GetUserData()
     RETVAL = (Wx_UserDataO*) THIS->GetUserData();
   OUTPUT:
     RETVAL
+
+void
+wxSizerItem::SetMinSize( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT( wxPliOvl_n_n, SetMinSizeWH, 2 )
+        MATCH_REDISP_COUNT( wxPliOvl_wsiz, SetMinSizeSize, 1 )
+    END_OVERLOAD( Wx::SizerItem::SetMinSize )
+
 
 MODULE=Wx PACKAGE=Wx::PlSizer
 

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/05/2001
-// RCS-ID:      $Id: pr_constants.cpp,v 1.5 2004/12/21 21:12:56 mbarbon Exp $
+// RCS-ID:      $Id: pr_constants.cpp,v 1.6 2005/01/09 22:35:55 mbarbon Exp $
 // Copyright:   (c) 2001, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -120,6 +120,25 @@ double print_constant( const char* name, int arg )
         r( wxPRINTER_NO_ERROR );
         r( wxPRINTER_CANCELLED );
         r( wxPRINTER_ERROR );
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+        r( wxPRINTBIN_DEFAULT );
+
+        r( wxPRINTBIN_ONLYONE );
+        r( wxPRINTBIN_LOWER );
+        r( wxPRINTBIN_MIDDLE );
+        r( wxPRINTBIN_MANUAL );
+        r( wxPRINTBIN_ENVELOPE );
+        r( wxPRINTBIN_ENVMANUAL );
+        r( wxPRINTBIN_AUTO );
+        r( wxPRINTBIN_TRACTOR );
+        r( wxPRINTBIN_SMALLFMT );
+        r( wxPRINTBIN_LARGEFMT );
+        r( wxPRINTBIN_LARGECAPACITY );
+        r( wxPRINTBIN_CASSETTE );
+        r( wxPRINTBIN_FORMSOURCE );
+
+        r( wxPRINTBIN_USER );
+#endif
         break;
     default:
         break;

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.54 2005/01/04 17:14:34 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.55 2005/01/09 22:35:50 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -406,6 +406,24 @@ wxWindow::GetLabel()
 wxLayoutConstraints*
 wxWindow::GetConstraints()
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+wxSize*
+wxWindow::GetMinSize()
+  CODE:
+    RETVAL = new wxSize( THIS->GetMinSize() );
+  OUTPUT:
+    RETVAL
+
+wxSize*
+wxWindow::GetMaxSize()
+  CODE:
+    RETVAL = new wxSize( THIS->GetMaxSize() );
+  OUTPUT:
+    RETVAL
+
+#endif
+
 wxString
 wxWindow::GetName()
 
@@ -735,6 +753,14 @@ wxWindow::SetBackgroundColour( colour )
   CODE:
     THIS->SetBackgroundColour( *colour );
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+void
+wxWindow::SetBestFittingSize( size = wxDefaultSize )
+    wxSize size
+
+#endif
+
 void
 wxWindow::SetCaret( caret )
     wxCaret* caret
@@ -846,6 +872,18 @@ wxWindow::SetFont( font )
   CODE:
     THIS->SetFont( *font );
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+void
+wxWindow::SetMinSize( size )
+    wxSize size
+
+void
+wxWindow::SetMaxSize( size )
+    wxSize size
+
+#endif
+
 void
 wxWindow::SetSize( ... )
   PPCODE:
@@ -951,6 +989,10 @@ wxWindow::SetToolTipTip( tooltip )
     wxToolTip* tooltip
   CODE:
     THIS->SetToolTip( tooltip );
+
+#endif
+
+#if wxPERL_USE_TOOLTIPS || WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 void
 wxWindow::SetToolTipString( string )

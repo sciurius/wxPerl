@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.112 2005/01/04 22:09:38 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.113 2005/01/09 22:35:50 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -52,6 +52,7 @@
 #include <wx/wizard.h>
 #include <wx/filefn.h>
 #include <wx/dirdlg.h>
+#include <wx/statusbr.h>
 
 #include "cpp/wxapi.h"
 #include "cpp/setup.h"
@@ -1535,6 +1536,11 @@ static double constant( const char *name, int arg )
     //    r( wxSB_SIZEGRIP );
     r( wxSB_HORIZONTAL );               // scrollbar
     r( wxSB_VERTICAL );                 // scrollbar
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxSB_NORMAL );                   // statusbar
+    r( wxSB_FLAT );                     // statusbar
+    r( wxSB_RAISED );                   // statusbar
+#endif
     r( wxSCRIPT );                      // font
     r( wxSIMPLE_BORDER );               // window
     r( wxSLANT );                       // font

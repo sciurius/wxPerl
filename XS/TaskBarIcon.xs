@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/12/2001
-## RCS-ID:      $Id: TaskBarIcon.xs,v 1.3 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id: TaskBarIcon.xs,v 1.4 2005/01/09 22:35:54 mbarbon Exp $
 ## Copyright:   (c) 2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,7 +12,8 @@
 
 MODULE=Wx PACKAGE=Wx::TaskBarIcon
 
-#if defined(__WXMSW__)
+#if defined(__WXMSW__) || \
+    ( WXPERL_W_VERSION_GE( 2, 5, 2 ) && defined( wxHAS_TASK_BAR_ICON ) )
 
 #include <wx/taskbar.h>
 

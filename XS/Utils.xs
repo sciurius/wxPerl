@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.35 2005/01/04 17:15:07 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.36 2005/01/09 22:35:54 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -131,29 +131,36 @@ wxSingleInstanceChecker::IsAnotherRunning()
 
 MODULE=Wx PACKAGE=Wx::SystemSettings
 
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+#define wxSystemSettings_GetSystemColour wxSystemSettings::GetColour
+#define wxSystemSettings_GetSystemFont wxSystemSettings::GetFont
+#define wxSystemSettings_GetSystemMetric wxSystemSettings::GetMetric
+#else
+#define wxSystemSettings_GetSystemColour wxSystemSettings::GetSystemColour
+#define wxSystemSettings_GetSystemFont wxSystemSettings::GetSystemFont
+#define wxSystemSettings_GetSystemMetric wxSystemSettings::GetSystemMetric
+#endif
+
 wxColour*
 GetSystemColour( index )
-    int index
+    wxSystemColour index
   CODE:
-    RETVAL = new wxColour( wxSystemSettings::GetSystemColour( index ) );
-  OUTPUT:
-    RETVAL
+    RETVAL = new wxColour( wxSystemSettings_GetSystemColour( index ) );
+  OUTPUT: RETVAL
 
 wxFont*
 GetSystemFont( index )
-    int index
+    wxSystemFont index
   CODE:
-    RETVAL = new wxFont( wxSystemSettings::GetSystemFont( index ) );
-  OUTPUT:
-    RETVAL
+    RETVAL = new wxFont( wxSystemSettings_GetSystemFont( index ) );
+  OUTPUT: RETVAL
 
 int
 GetSystemMetric( index )
-    int index
+    wxSystemMetric index
   CODE:
-    RETVAL = wxSystemSettings::GetSystemMetric( index );
-  OUTPUT:
-    RETVAL
+    RETVAL = wxSystemSettings_GetSystemMetric( index );
+  OUTPUT: RETVAL
 
 MODULE=Wx PACKAGE=Wx::TipProvider
 

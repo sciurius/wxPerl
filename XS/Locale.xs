@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs,v 1.23 2004/08/04 20:13:55 mbarbon Exp $
-## Copyright:   (c) 2000-2004 Mattia Barbon
+## RCS-ID:      $Id: Locale.xs,v 1.24 2005/01/09 22:35:54 mbarbon Exp $
+## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -42,7 +42,7 @@ DESTROY( THIS )
 MODULE=Wx PACKAGE=Wx::Locale
 
 wxLocale*
-newLong( name, shorts = 0, locale = 0, loaddefault = true, convertencoding = false )
+newLong( name, shorts = NULL, locale = NULL, loaddefault = true, convertencoding = false )
     const wxChar* name
     const wxChar* shorts = NO_INIT
     const wxChar* locale = NO_INIT
@@ -51,14 +51,14 @@ newLong( name, shorts = 0, locale = 0, loaddefault = true, convertencoding = fal
   CODE:
     wxString shorts_tmp, locale_tmp;
     
-    if( items < 2 ) shorts = 0;
+    if( items < 2 ) shorts = NULL;
     else
     {
         WXSTRING_INPUT( shorts_tmp, const char*, ST(1) );
         shorts = shorts_tmp.c_str();
     }
 
-    if( items < 3 ) locale = 0;
+    if( items < 3 ) locale = NULL;
     else
     {
         WXSTRING_INPUT( locale_tmp, const char*, ST(2) );
@@ -66,11 +66,7 @@ newLong( name, shorts = 0, locale = 0, loaddefault = true, convertencoding = fal
     }
 
     RETVAL = new wxLocale( name, shorts,
-#if wxUSE_UNICODE
-        ( locale && wcslen( locale ) ) ? locale : 0,
-#else
-        ( locale && strlen( locale ) ) ? locale : 0,
-#endif
+        ( locale && wxStrlen( locale ) ) ? locale : NULL,
         loaddefault, convertencoding );
   OUTPUT:
     RETVAL
@@ -109,9 +105,18 @@ wxString
 wxLocale::GetName()
 
 const wxChar*
-wxLocale::GetString( string, domain = 0 )
+wxLocale::GetString( string, domain = NULL )
     const wxChar* string
     const wxChar* domain
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+wxString
+wxLocale::GetHeaderValue( header, domain = NULL )
+    const wxChar* header
+    const wxChar* domain
+
+#endif
 
 int
 GetSystemLanguage()
