@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.87 2003/07/25 20:36:15 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.88 2003/08/02 20:55:15 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1611,6 +1611,9 @@ static double constant( const char *name, int arg )
     r( wxTB_3DBUTTONS );                // toolbar
     r( wxTB_TEXT );                     // toolbar
     r( wxTB_NOICONS );                  // toolbar
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    r( wxTB_HORZ_TEXT );                // toolbar
+#endif
     r( wxTE_PROCESS_ENTER );            // textctrl
     r( wxTE_PROCESS_TAB );              // textctrl
     r( wxTE_MULTILINE );                // textctrl

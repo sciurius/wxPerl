@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/08/2002
-## RCS-ID:      $Id: Wizard.xs,v 1.7 2003/06/04 20:47:27 mbarbon Exp $
+## RCS-ID:      $Id: Wizard.xs,v 1.8 2003/08/02 20:55:17 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -64,6 +64,13 @@ wxWizard::GetPageSize()
 void
 wxWizard::SetPageSize( size )
     wxSize size
+
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
+wxSizer*
+wxWizard::GetPageAreaSizer()
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::WizardPage
 
