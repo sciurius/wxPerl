@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      9/ 2/2001
-## RCS-ID:      $Id: Utils.xs,v 1.26 2003/06/05 17:29:44 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.27 2003/10/19 20:20:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -241,3 +241,17 @@ wxRegisterId( id )
 
 void
 wxBell()
+
+MODULE=Wx PACKAGE=Wx
+
+void
+_utf8_on( sv )
+    SV* sv
+  CODE:
+    SvUTF8_on( sv );
+
+void
+_utf8_off( sv )
+    SV* sv
+  CODE:
+    SvUTF8_off( sv );
