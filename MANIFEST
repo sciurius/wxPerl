@@ -1,5 +1,6 @@
 Makefile.PL
 typemap
+typemap.xsp
 MANIFEST
 MANIFEST.SKIP
 README.txt
@@ -31,10 +32,13 @@ docs/bugs.txt
 docs/install.txt
 docs/todo.txt
 
+script/XSP.pm
+script/XSP.yp
 script/copy_files.pl
 script/make_exp_list.pl
 script/make_ovl_list.pl
 script/pipe.pl
+script/xsubppp.pl
 
 t/01_load.t
 t/02_inheritance.t
@@ -260,6 +264,22 @@ cpp/wxapi.h
 
 ext/Makefile.PL
 ext/pperl/Makefile.PL
+
+ext/calendar/Calendar.pm
+ext/calendar/Calendar.xs
+ext/calendar/cpp/calendar.h
+ext/calendar/Makefile.PL
+ext/calendar/t/01_load.t
+ext/calendar/t/02_inheritance.t
+ext/calendar/typemap
+ext/calendar/XS/CalendarCtrl.xsp
+
+ext/datetime/DateTime.pm
+ext/datetime/DateTime.xs
+ext/datetime/Makefile.PL
+ext/datetime/t/01_load.t
+ext/datetime/typemap
+ext/datetime/XS/DateTime.xsp
 
 ext/dnd/DND.xs
 ext/dnd/Makefile.PL
