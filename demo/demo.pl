@@ -168,12 +168,14 @@ my @demos =
     ],
     [ 'Controls',
       [
+       [ 'CheckListBox', demo( 'wxCheckListBox' ) ],
        [ 'ListCtrl', demo( 'wxListCtrl' ) ],
       ],
     ],
     [ 'Miscellaneous',
       [
        [ 'FileSystem', demo( 'wxFileSystem' ) ],
+       [ 'Dynamic HTML', demo( 'wxHtmlDynamic' ) ],
        [ 'Locale', demo( 'wxLocale' ) ],
        [ 'MDI', demo( 'MDI', 'MDIDemo' ) ],
        [ 'Printing', demo( 'Printing' ) ],
@@ -182,6 +184,7 @@ my @demos =
        [ 'Clipboard', demo( 'wxClipboard' ) ],
        [ 'Drag&Drop', demo( 'DragDrop', 'DNDDemo' ) ],
        [ 'Process', demo( 'wxProcess' ) ],
+       [ 'Threads', demo( 'wxThread' ) ],
       ],
     ],
 #    [ 'Old samples',
