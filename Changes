@@ -7,7 +7,7 @@ Revision history for Perl extension Wx.
 	- Added Wx::MemoryFSHandler
 	- Added Wx::Perl::Carp (thanks to podmaster).
 	- Mac OS X support (requires wxWindows 2.4.0 or newer).
-	- Added Wx::Socket* (thankd to Graciliano M. P.)
+	- Added Wx::Socket* (thanks to Graciliano M. P.)
 
 0.12  Mon Dec 02 17:50:43 2002
 	- new DEPRECATIONS section in README.txt, please read it
