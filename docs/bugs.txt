@@ -3,7 +3,10 @@ KNOWN BUGS:
 All platforms
 
 * Streams do not work with Perl 5.004 for lack of Tie::Handle
-  
+
+* There is a bug in client data handling for 5.004: it only works
+  whith references, not with 'normal' scalars
+
 * The caret sample starts with incorrect size
 
 wxMSW

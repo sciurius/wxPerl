@@ -15,7 +15,9 @@ make install       # (4)
    perl run minimal
    perl run controls
    ...
-   against the samples in the 'samples' subdirectory
+   against the samples in the 'samples' subdirectory, and
+   perl demo/demo.pl
+
    before installing
 4) you may need Administrator/root privileges to install
 
@@ -72,7 +74,7 @@ a different compiler ( via perl Makefile.PL CC=c++-compiler ).
  
 COMPILING UNDER WIN32
 
-This wxPerl version was tested with MinGW 2.95.2-1 and MS Visual C++ 5.
+This wxPerl version was tested with MinGW 1.1 and MS Visual C++ 5.
 For the remainder of this section I'll assume that your Perl is installed
 in C:\Perl
 
@@ -94,7 +96,7 @@ in C:\Perl
 
   This will create a file Perl56.lib; copy this file to C:\Perl\lib\CORE\ .
 
-* MinGW GCC 2.95.2-1
+* MinGW 1.1
 
   If you built Perl from sources then the plain install ( see above )
   should work. If you're using ActivePerl, then the procedure is a
