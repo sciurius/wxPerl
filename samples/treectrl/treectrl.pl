@@ -195,12 +195,25 @@ use vars qw(@ISA);
 
 @ISA = qw(Wx::TreeCtrl);
 
+sub ResizeTo {
+  my( $image, $size ) = @_;
+
+  if( $image->GetWidth != $size || $image->GetHeight != $size ) {
+    return Wx::Image->new( $image )->Rescale( $size, $size )
+      ->ConvertToBitmap();
+  }
+
+  return $image;
+}
+
 sub new {
   my $class = shift;
   my $this = $class->SUPER::new( @_ );
 
   $this->{IMAGELIST} = Wx::ImageList->new( 16, 16, 1 );
-  $this->{IMAGELIST}->Add( Wx::GetWxPerlIcon() );
+  $this->{IMAGELIST}->Add( Wx::GetWxPerlIcon( 1 ) );
+  $this->{IMAGELIST}->Add
+    ( ResizeTo( Wx::wxTheApp()->GetStdIcon( Wx::wxICON_EXCLAMATION() ), 16 ) );
 
   $this->SetImageList( $this->{IMAGELIST} );
   $this->PopulateTree( 2, 3 );
@@ -232,7 +245,7 @@ sub PopulateRecursively {
   foreach my $i ( 1 .. $childs ) {
     my $text = ( $depth > 0 ) ? "Node $i/$childs" : "Leaf $i/$childs";
 
-    $item = $this->AppendItem( $parent, $text, -1, -1,
+    $item = $this->AppendItem( $parent, $text, 0, 1,
                                Wx::TreeItemData->new( $text ) );
     $this->SetItemFont( $item, wxITALIC_FONT ) if $depth == 0;
     $this->SetItemBackgroundColour( $item, wxBLUE ) if $depth == 1;
