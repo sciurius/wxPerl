@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 146;
+use Test::More 'tests' => 166;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -900,17 +900,41 @@ $frame->Destroy;
 } );
 
 ##############################################################################
-# Wx::Sizer
+# Wx::Sizer/Wx::SizerItem
 ##############################################################################
 {
-my( $showw, $shows, $showi ) = ( 0, 0, 0 );
-hijack( 'Wx::Sizer::ShowWindow' => sub { $showw = 1 },
-        'Wx::Sizer::ShowSizer'  => sub { $shows = 1 },
-#        'Wx::Sizer::ShowItem'   => sub { $showi = 1 },
+my( $showw, $shows, $showi, $srfloat, $srwh, $srsize, $addsiz,
+    $addwin, $addspa, $inssiz, $inswin, $insspa, $presiz, $prewin, $prespa,
+    $remwin, $remsiz, $remnth, $smsxy, $smssize, $siswin, $sissiz, $sisnth ) =
+  ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+hijack( 'Wx::Sizer::ShowWindow'       => sub { $showw = 1 },
+        'Wx::Sizer::ShowSizer'        => sub { $shows = 1 },
+#        'Wx::Sizer::ShowItem'         => sub { $showi = 1 },
+        'Wx::SizerItem::SetRatioFloat' => sub { $srfloat = 1 },
+        'Wx::SizerItem::SetRatioWH'   => sub { $srwh = 1 },
+        'Wx::SizerItem::SetRatioSize' => sub { $srsize = 1 },
+        'Wx::Sizer::AddSizer'         => sub { $addsiz = 1 },
+        'Wx::Sizer::AddWindow'        => sub { $addwin = 1 },
+        'Wx::Sizer::AddSpace'         => sub { $addspa = 1 },
+        'Wx::Sizer::InsertSizer'      => sub { $inssiz = 1 },
+        'Wx::Sizer::InsertWindow'     => sub { $inswin = 1 },
+        'Wx::Sizer::InsertSpace'      => sub { $insspa = 1 },
+        'Wx::Sizer::PrependSizer'     => sub { $presiz = 1 },
+        'Wx::Sizer::PrependWindow'    => sub { $prewin = 1 },
+        'Wx::Sizer::PrependSpace'     => sub { $prespa = 1 },
+        'Wx::Sizer::RemoveWindow'     => sub { $remwin = 1 },
+        'Wx::Sizer::RemoveSizer'      => sub { $remsiz = 1 },
+        'Wx::Sizer::RemoveNth'        => sub { $remnth = 1 },
+        'Wx::Sizer::SetMinSizeXY'     => sub { $smsxy  = 1 },
+        'Wx::Sizer::SetMinSizeSize'   => sub { $smssize= 1 },
+        'Wx::Sizer::SetItemMinSizeWindow' => sub { $siswin = 1 },
+        'Wx::Sizer::SetItemMinSizeSizer'  => sub { $sissiz = 1 },
+        'Wx::Sizer::SetItemMinSizeNth'    => sub { $sisnth = 1 },
        );
 
 my $win = Wx::Frame->new( undef, -1, 'Foo' );
 my $siz = Wx::BoxSizer->new( Wx::wxVERTICAL() );
+$siz->Add( Wx::BoxSizer->new( Wx::wxVERTICAL() ) );
 $win->SetSizer( $siz );
 
 $siz->Show( $win );
@@ -922,8 +946,81 @@ ok( $shows, 'Wx::Sizer::ShowSizer' );
 #$siz->Show( 0 );
 #ok( $showi, 'Wx::Sizer::ShowItem' );
 
-$win->Destroy;
+sub siz1 { Wx::BoxSizer->new( Wx::wxHORIZONTAL() ) }
+sub win1 { Wx::Window->new( $win, -1 ) }
 
+my $item = ( $siz->GetChildren )[0];
+
+$item->SetRatio( 1.234 );
+ok( $srfloat, 'Wx::SizerItem::SetRatioFloat' );
+
+$item->SetRatio( 1, 2 );
+ok( $srfloat, 'Wx::SizerItem::SetRatioWH' );
+
+$item->SetRatio( [ 1, 3 ] );
+ok( $srfloat, 'Wx::SizerItem::SetRatioSize' );
+
+$siz->Add( siz1 );
+$siz->Add( siz1, 1, 1, 1, 1 );
+ok( $addsiz, 'Wx::Sizer::AddSizer' );
+
+$siz->Add( win1 );
+$siz->Add( win1, 1, 1, 1, 1 );
+ok( $addwin, 'Wx::Sizer::AddWindow' );
+
+$siz->Add( 100, 100 );
+$siz->Add( 100, 100, 1, 1, 1, 1 );
+ok( $addspa, 'Wx::Sizer::AddSpace' );
+
+$siz->Insert( 2, siz1 );
+$siz->Insert( 2, siz1, 1, 1, 1, 1 );
+ok( $inssiz, 'Wx::Sizer::InsertSizer' );
+
+$siz->Insert( 3, win1 );
+$siz->Insert( 3, win1, 1, 1, 1, 1 );
+ok( $inswin, 'Wx::Sizer::InsertWindow' );
+
+$siz->Insert( 4, 100, 100 );
+$siz->Insert( 4, 100, 100, 1, 1, 1, 1 );
+ok( $insspa, 'Wx::Sizer::InsertSpace' );
+
+$siz->Prepend( siz1 );
+$siz->Prepend( siz1, 1, 1, 1, 1 );
+ok( $presiz, 'Wx::Sizer::PrependSizer' );
+
+$siz->Prepend( win1 );
+$siz->Prepend( win1, 1, 1, 1, 1 );
+ok( $prewin, 'Wx::Sizer::PrependWindow' );
+
+$siz->Prepend( 100, 100 );
+$siz->Prepend( 100, 100, 1, 1, 1, 1 );
+ok( $prespa, 'Wx::Sizer::PrependSpace' );
+
+$siz->Remove( 3 );
+ok( $remnth, 'Wx::Sizer::RemoveNth' );
+
+$siz->Remove( siz1 );
+ok( $remsiz, 'Wx::Sizer::RemoveSizer' );
+
+$siz->Remove( win1 );
+ok( $remwin, 'Wx::Sizer::RemoveWindow' );
+
+$siz->SetItemMinSize( win1, 100, 100 );
+ok( $siswin, 'Wx::Sizer::SetItemMinSizeWindow' );
+
+$siz->SetItemMinSize( siz1, 100, 100 );
+ok( $sissiz, 'Wx::Sizer::SetItemMinSizeSizer' );
+
+$siz->SetItemMinSize( 4, 100, 100 );
+ok( $sisnth, 'Wx::Sizer::SetItemMinSizeNth' );
+
+$siz->SetMinSize( 100, 100 );
+ok( $smsxy, 'Wx::Sizer::SetMinSizeXY' );
+
+$siz->SetMinSize( [ 100, 100 ] );
+ok( $smssize, 'Wx::Sizer::SetMinSizeSize' );
+
+$win->Destroy;
 }
 
 # local variables:
