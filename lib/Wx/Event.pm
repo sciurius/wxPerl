@@ -212,6 +212,28 @@ sub EVT_SASH_DRAGGED_RANGE($$$$) { $_[0]->Connect( _id( $_[1] ), _id( $_[2] ), &
 sub EVT_SIZE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SIZE, $_[1] ); }
 
 #
+# ScrollEvent
+#
+
+sub EVT_SCROLL_TOP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_TOP, $_[1] ); }
+sub EVT_SCROLL_BOTTOM($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_BOTTOM, $_[1] ); }
+sub EVT_SCROLL_LINEUP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_LINEUP, $_[1] ); }
+sub EVT_SCROLL_LINEDOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_LINEDOWN, $_[1] ); }
+sub EVT_SCROLL_PAGEUP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_PAGEUP, $_[1] ); }
+sub EVT_SCROLL_PAGEDOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_PAGEDOWN, $_[1] ); }
+sub EVT_SCROLL_THUMBTRACK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_THUMBTRACK, $_[1] ); }
+sub EVT_SCROLL_THUMBRELEASE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_THUMBRELEASE, $_[1] ); }
+
+sub EVT_COMMAND_SCROLL_TOP($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SCROLL_TOP, $_[2] ); }
+sub EVT_COMMAND_SCROLL_BOTTOM($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SCROLL_BOTTOM, $_[2] ); }
+sub EVT_COMMAND_SCROLL_LINEUP($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SCROLL_LINEUP, $_[2] ); }
+sub EVT_COMMAND_SCROLL_LINEDOWN($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SCROLL_LINEDOWN, $_[2] ); }
+sub EVT_COMMAND_SCROLL_PAGEUP($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SCROLL_PAGEUP, $_[2] ); }
+sub EVT_COMMAND_SCROLL_PAGEDOWN($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SCROLL_PAGEDOWN, $_[2] ); }
+sub EVT_COMMAND_SCROLL_THUMBTRACK($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SCROLL_THUMBTRACK, $_[2] ); }
+sub EVT_COMMAND_SCROLL_THUMBRELEASE($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SCROLL_THUMBRELEASE, $_[2] ); }
+
+#
 # ScrollWinEvent
 #
 
