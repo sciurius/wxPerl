@@ -597,7 +597,11 @@ public:
 
     void AddFileToHistory( const wxString& );
     void RemoveFileFromHistory( int );
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    size_t GetNoHistoryFiles() const;
+#else
     int GetNoHistoryFiles() const;
+#endif
     wxString GetHistoryFile( int ) const;
     void FileHistoryUseMenu( wxMenu* );
     void FileHistoryRemoveMenu( wxMenu* );
@@ -953,7 +957,11 @@ void wxPliDocManager::RemoveFileFromHistory( int i )
     wxDocManager::RemoveFileFromHistory( i );
 }
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+size_t wxPliDocManager::GetNoHistoryFiles() const
+#else
 int wxPliDocManager::GetNoHistoryFiles() const
+#endif
 {
     dTHX;
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
@@ -961,7 +969,11 @@ int wxPliDocManager::GetNoHistoryFiles() const
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                                      G_SCALAR|G_NOARGS);
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
         int retval = (int)SvIV( ret );
+#else
+        size_t retval = (size_t)SvIV( ret );
+#endif
         SvREFCNT_dec( ret );
         return retval;
     }
@@ -1380,7 +1392,11 @@ public:
 
     wxString GetHistoryFile( int ) const;
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    size_t GetCount() const;
+#else
     int GetCount() const;
+#endif
 
     wxList& GetMenus() const;
 
@@ -1522,14 +1538,22 @@ wxString wxPliFileHistory::GetHistoryFile( int i ) const
     return wxFileHistory::GetHistoryFile( i );
 }
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+size_t wxPliFileHistory::GetCount() const
+#else
 int wxPliFileHistory::GetCount() const
+#endif
 {
     dTHX;
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "GetCount" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                                      G_SCALAR|G_NOARGS );
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
         int retval = (int)SvIV( ret );
+#else
+        size_t retval = (size_t)SvIV( ret );
+#endif
         SvREFCNT_dec( ret );
         return retval;
     }
