@@ -10,6 +10,9 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
+#include <wx/object.h>
+#include <wx/list.h>
+
 const char* _cpp_class_2_perl( const char* className );
 void _push_args( SV** stack, const char* argtypes, va_list &list );
 
