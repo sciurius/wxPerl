@@ -115,7 +115,7 @@ Wx_Menu::FindItem( item )
     }
     else {
       wxString string;
-      WXSTRING_INPUT( string, dummy, item );
+      WXSTRING_INPUT( string, const char*, item );
       int id = THIS->FindItem( string );
 
       EXTEND( SP, 1 );

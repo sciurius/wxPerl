@@ -165,7 +165,7 @@ Wx_Window::FindWindow( i )
     }
     else {
       wxString name;
-      WXSTRING_INPUT( name, dummy, i );
+      WXSTRING_INPUT( name, const char*, i );
       RETVAL = THIS->FindWindow( name );
     }
   OUTPUT:

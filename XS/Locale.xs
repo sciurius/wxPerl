@@ -27,14 +27,14 @@ newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FAL
     if( items < 2 ) shorts = 0;
     else
     {
-        WXSTRING_INPUT( shorts_tmp, dummy, ST(1) );
+        WXSTRING_INPUT( shorts_tmp, const char*, ST(1) );
         shorts = shorts_tmp.c_str();
     }
 
     if( items < 3 ) locale = 0;
     else
     {
-        WXSTRING_INPUT( locale_tmp, dummy, ST(2) );
+        WXSTRING_INPUT( locale_tmp, const char*, ST(2) );
         locale = locale_tmp.c_str();
     }
 
@@ -116,7 +116,11 @@ const wxChar*
 wxGetTranslation( string )
     const wxChar* string
   CODE:
+#if wxUSE_UNICODE
     wxMB2WXbuf ret = wxGetTranslation( string );
     RETVAL = ret.data();
+#else
+    RETVAL = wxGetTranslation( string );
+#endif
   OUTPUT:
     RETVAL
