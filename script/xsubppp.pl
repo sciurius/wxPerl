@@ -661,6 +661,8 @@ package main;
 use strict;
 use IO::File;
 use Getopt::Long;
+use File::Spec::Unix;
+use File::Path ();
 
 my @typemap_files;
 
@@ -680,6 +682,12 @@ print $out{'-'};
 foreach my $f ( keys %out ) {
   next if $f eq '-';
   my $fh = IO::File->new;
+
+  my( $vol, $dir, $file ) = File::Spec::Unix->splitpath( $f );
+  my $d = File::Spec::Unix->catpath( $vol, $dir, '' );
+
+  File::Path::mkpath( $d ) or die "mkpath '$d': $!";
+
   $fh->open( "> $f" ) or die "open '$f': $!";
   binmode $fh;
   $fh->print( $out{$f} );
