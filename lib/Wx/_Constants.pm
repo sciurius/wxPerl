@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: _Constants.pm,v 1.11 2003/05/26 20:35:28 mbarbon Exp $
+## RCS-ID:      $Id: _Constants.pm,v 1.12 2003/05/27 19:56:39 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,8 +20,6 @@ BEGIN {
   $_default_position $_default_size $_version_string $_default_validator
   $_null_bitmap $_null_icon $_null_colour $_null_cursor $_null_font $_null_pen
   $_null_brush $_null_palette $_null_accelerator
-  $_cursor_standard $_cursor_hourglass $_cursor_cross
-  $_font_normal $_font_italic $_font_small $_font_swiss
   $_pen_red $_pen_cyan $_pen_green $_pen_black $_pen_white
   $_pen_transparent $_pen_black_dashed $_pen_grey $_pen_medium_grey
   $_pen_light_grey
@@ -33,7 +31,7 @@ BEGIN {
 }
 
 sub END {
-  foreach ( @vars ) { s/^\$//; undef $$_ }
+  foreach ( $_clipboard, $_default_validator ) { s/^\$//; undef $$_ }
 }
 
 # !parser: sub { $_[0] =~ m/^\s*sub\s+(wx\w+)[^\}]*\}\s*(?:\#(.*))?$/ }
@@ -52,15 +50,6 @@ sub wxNullPen() { $_null_pen }                      # pen
 sub wxNullBrush() { $_null_brush }                  # brush
 sub wxNullPalette() { $_null_palette }              # palette
 sub wxNullAcceleratorTable() { $_null_accelerator }
-
-sub wxSTANDARD_CURSOR() { $_cursor_cross }          # cursor
-sub wxHOURGLASS_CURSOR() { $_cursor_hourglass }     # cursor
-sub wxCROSS_CURSOR() { $_cursor_cross }             # cursor
-
-sub wxNORMAL_FONT() { $_font_normal }               # font
-sub wxSMALL_FONT() { $_font_small }                 # font
-sub wxITALIC_FONT() { $_font_italic }               # font
-sub wxSWISS_FONT() { $_font_swiss }                 # font
 
 sub wxRED_PEN() { $_pen_red }                       # pen
 sub wxGREEN_PEN() { $_pen_green }                   # pen

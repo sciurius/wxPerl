@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.82 2003/05/12 17:02:43 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.83 2003/05/27 19:56:17 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1745,6 +1745,15 @@ void SetConstantsOnce()
     wxPli_make_const( "wxCYAN" );               // color colour
     wxPli_make_const( "wxLIGHT_GREY" );         // color colour
 
+    wxPli_make_const( "wxSTANDARD_CURSOR" );    // cursor
+    wxPli_make_const( "wxHOURGLASS_CURSOR" );   // cursor
+    wxPli_make_const( "wxCROSS_CURSOR" );       // cursor
+
+    wxPli_make_const( "wxNORMAL_FONT" );        // font
+    wxPli_make_const( "wxSMALL_FONT" );         // font
+    wxPli_make_const( "wxITALIC_FONT" );        // font
+    wxPli_make_const( "wxSWISS_FONT" );         // font
+
     wxPli_make_const( "wxIMAGE_OPTION_BMP_FORMAT" );    // image
     wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_X" ); // image
     wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_Y" ); // image
@@ -1885,29 +1894,24 @@ void SetConstants()
     //
     // predefined cursors
     //
-    tmp = get_sv( "Wx::_cursor_standard", 0 );
-    sv_setref_pv( tmp, "Wx::Cursor", new wxCursor( *wxSTANDARD_CURSOR ) );
-
-    tmp = get_sv( "Wx::_cursor_hourglass", 0 );
-    sv_setref_pv( tmp, "Wx::Cursor", new wxCursor( *wxHOURGLASS_CURSOR ) );
-
-    tmp = get_sv( "Wx::_cursor_cross", 0 );
-    sv_setref_pv( tmp, "Wx::Cursor", new wxCursor( *wxCROSS_CURSOR ) );
+    wxPli_set_const( "wxSTANDARD_CURSOR", "Wx::Cursor",
+                     new wxCursor( *wxSTANDARD_CURSOR ) );
+    wxPli_set_const( "wxHOURGLASS_CURSOR", "Wx::Cursor",
+                     new wxCursor( *wxHOURGLASS_CURSOR ) );
+    wxPli_set_const( "wxCROSS_CURSOR", "Wx::Cursor",
+                     new wxCursor( *wxCROSS_CURSOR ) );
 
     //
     // predefined fonts
     //
-    tmp = get_sv( "Wx::_font_normal", 0 );
-    sv_setref_pv( tmp, "Wx::Font", new wxFont( *wxNORMAL_FONT ) );
-
-    tmp = get_sv( "Wx::_font_small", 0 );
-    sv_setref_pv( tmp, "Wx::Font", new wxFont( *wxSMALL_FONT ) );
-
-    tmp = get_sv( "Wx::_font_italic", 0 );
-    sv_setref_pv( tmp, "Wx::Font", new wxFont( *wxITALIC_FONT ) );
-
-    tmp = get_sv( "Wx::_font_swiss", 0 );
-    sv_setref_pv( tmp, "Wx::Font", new wxFont( *wxSWISS_FONT ) );
+    wxPli_set_const( "wxNORMAL_FONT", "Wx::Font",
+                     new wxFont( *wxNORMAL_FONT ) );
+    wxPli_set_const( "wxSMALL_FONT", "Wx::Font",
+                     new wxFont( *wxSMALL_FONT ) );
+    wxPli_set_const( "wxITALIC_FONT", "Wx::Font",
+                     new wxFont( *wxITALIC_FONT ) );
+    wxPli_set_const( "wxSWISS_FONT", "Wx::Font",
+                     new wxFont( *wxSWISS_FONT ) );
 
     //
     // predefined pens
