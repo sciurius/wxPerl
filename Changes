@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.10  Sun Mar 03 19:33:55 2002
+	- Fix a silly typo that broke wxTaskBar
+
 0.09  Fri Mar 01 20:59:59 2002
 	- wxTaskBarIcon ( MS Windows only )
 	- wxGrid, wxGridCellAttr
