@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/ 9/2002
-// RCS-ID:      $Id: wxapi.h,v 1.5 2003/05/02 20:27:53 mbarbon Exp $
+// RCS-ID:      $Id: wxapi.h,v 1.6 2003/07/17 22:39:23 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -33,6 +33,14 @@ WXPL_EXTERN_C_START
 #include <perl.h>
 #include <XSUB.h>
 WXPL_EXTERN_C_END
+
+#if WXPERL_P_VERSION_GE( 5, 9, 0 )
+
+// XXX this is an hack
+#undef assert_not_ROK
+#define assert_not_ROK(sv)
+
+#endif
 
 #undef bool
 #undef Move
