@@ -85,6 +85,9 @@ use Wx::Html;
 use Wx::MDI;
 use Wx::Print;
 EOT
+
+      die $@ if $@;
+
       splice @_, $count, 1;
     };
 
@@ -207,6 +210,7 @@ eval( "sub wxPL_STATIC() { $_static }" );
 eval( "sub wxMOTIF() { $_platform == $_motif }" );
 eval( "sub wxMSW() { $_platform == $_msw }" );
 eval( "sub wxGTK() { $_platform == $_gtk }" );
+eval( "sub wxVERSION() { $_wx_version }" );
 
 require Wx::App;
 require Wx::Event;
