@@ -165,7 +165,6 @@ eval( "sub wxMSW() { $_platform == $_msw }" );
 
 require Wx::App;
 require Wx::Bitmap;
-require Wx::Brush;
 require Wx::Caret;
 require Wx::Colour;
 require Wx::ComboBox;
