@@ -90,3 +90,84 @@ void
 Wx_StyledTextCtrl::StyleSetFaceName(style, font_name)
     int style
     wxString font_name
+
+## Retrieve the selected text
+wxString
+Wx_StyledTextCtrl::GetSelectedText()
+
+## Retrieve a range of text
+wxString
+Wx_StyledTextCtrl::GetTextRange(startPos, endPos)
+    int startPos
+    int endPos
+
+## Retrieve all the text in the document.
+wxString
+Wx_StyledTextCtrl::GetText()
+
+## Returns the style byte at the position
+int
+Wx_StyledTextCtrl::GetStyleAt(pos)
+    int pos
+
+## Replace the contents of the document with the argument text.
+void
+Wx_StyledTextCtrl::SetText(text)
+    wxString text
+
+## Sets whether text is word wrapped
+void
+Wx_StyledTextCtrl::SetWrapMode(mode)
+    int mode
+
+## Retrieve whether text is word wrapped
+int
+Wx_StyledTextCtrl::GetWrapMode()
+
+## Returns the position at the start of the selection.
+int
+Wx_StyledTextCtrl::GetSelectionStart()
+
+## Returns the position at the end of the selection.
+int
+Wx_StyledTextCtrl::GetSelectionEnd()
+
+## Retrieve the contents of a line.
+wxString
+Wx_StyledTextCtrl::GetLine(line)
+    int line
+
+## Returns the line number of the line with the caret.
+int
+Wx_StyledTextCtrl::GetCurrentLine()
+
+## Find some text in the document.
+##int
+##Wx_StyledTextCtrl::FindText(minPos, maxPos, text, caseSensitive, wholeWord)
+##	int minPos
+##	int maxPos
+##	wxString text
+##	bool caseSensitive
+##	bool wholeWord
+
+## Sets the current caret position to be the search anchor.
+void
+Wx_StyledTextCtrl::SearchAnchor()
+
+## Find some text starting at the search anchor.
+## Does not ensure the selection is visible.
+int
+Wx_StyledTextCtrl::SearchNext(flags, text)
+    int flags
+    wxString text
+
+## Find some text starting at the search anchor and moving backwards.
+## Does not ensure the selection is visible.
+int
+Wx_StyledTextCtrl::SearchPrev(flags, text)
+    int flags
+    wxString text
+
+## Delete all text in the document
+void
+Wx_StyledTextCtrl::ClearAll()
