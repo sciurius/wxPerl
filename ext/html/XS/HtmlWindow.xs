@@ -51,6 +51,14 @@ Wx_HtmlWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSi
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+bool
+Wx_HtmlWindow::AppendToPage( source )
+    wxString source
+
+#endif
+
 wxString
 Wx_HtmlWindow::GetOpenedAnchor()
 

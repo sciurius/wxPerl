@@ -36,6 +36,13 @@ GetWxPerlIcon( small = FALSE )
 
 MODULE=Wx PACKAGE=Wx::Icon
 
+Wx_Icon*
+newNull()
+  CODE:
+    RETVAL = new wxIcon();
+  OUTPUT:
+    RETVAL
+
 #if ( !defined( __WXMOTIF__ ) && !defined( __WXMSW__ ) && !defined( __WXGTK__ ) ) || defined( __WXPERL_FORCE__ )
 
 Wx_Icon*
@@ -77,6 +84,12 @@ Wx_Icon::LoadFile( name, type )
 
 bool
 Wx_Icon::Ok()
+
+void
+Wx_Icon::CopyFromBitmap( bitmap )
+    Wx_Bitmap* bitmap
+  CODE:
+    THIS->CopyFromBitmap( *bitmap );
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 

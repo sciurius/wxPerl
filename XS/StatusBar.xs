@@ -14,6 +14,21 @@
 
 MODULE=Wx PACKAGE=Wx::StatusBar
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+Wx_StatusBar*
+Wx_StatusBar::new( parent, id, style = 0, name = wxEmptyString )
+    Wx_Window* parent
+    wxWindowID id
+    long style
+    wxString name
+  CODE:
+    RETVAL = new wxStatusBar( parent, id, style, name );
+  OUTPUT:
+    RETVAL
+
+#else
+
 Wx_StatusBar*
 Wx_StatusBar::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxEmptyString )
     Wx_Window* parent
@@ -26,6 +41,8 @@ Wx_StatusBar::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, st
     RETVAL = new wxStatusBar( parent, id, pos, size, style, name );
   OUTPUT:
     RETVAL
+
+#endif
 
 Wx_Rect*
 Wx_StatusBar::GetFieldRect( index )

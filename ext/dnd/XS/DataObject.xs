@@ -273,4 +273,8 @@ Wx_URLDataObject::new()
 wxString
 Wx_URLDataObject::GetURL()
 
+void
+Wx_URLDataObject::SetURL( url )
+    wxString url
+
 #endif
