@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.25 2003/10/01 11:52:32 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.26 2003/12/20 15:48:52 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -548,6 +548,33 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 
 #define DEF_V_CBACK_BOOL__WXSTRING_const( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_BOOL__WXSTRING_( CLASS, return BASE::METHOD(param1), METHOD, wxPli_CONST )
+
+// bool METH(wxObject*)
+#define DEF_V_CBACK_BOOL__WXOBJECTs_( T1, CLASS, CALLBASE, METHOD, CONST )   \
+    bool CLASS::METHOD( T1 p1 ) CONST                                        \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                      \
+        {                                                                    \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback,              \
+                          G_SCALAR, "O", &p1 ) );                            \
+            return SvTRUE( ret );                                            \
+        } else                                                               \
+            CALLBASE;                                                        \
+    }
+
+#define DEF_V_CBACK_BOOL__WXOBJECTsP_( T1, CLASS, CALLBASE, METHOD, CONST )  \
+    bool CLASS::METHOD( T1 p1 ) CONST                                        \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                      \
+        {                                                                    \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback,              \
+                          G_SCALAR, "O", p1 ) );                             \
+            return SvTRUE( ret );                                            \
+        } else                                                               \
+            CALLBASE;                                                        \
+    }
 
 // bool METH(wxString&)
 #define DEC_V_CBACK_BOOL__mWXSTRING_( METHOD, CONST )                         \

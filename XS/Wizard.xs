@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/08/2002
-## RCS-ID:      $Id: Wizard.xs,v 1.10 2003/08/17 19:34:40 mbarbon Exp $
+## RCS-ID:      $Id: Wizard.xs,v 1.11 2003/12/20 15:48:52 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,22 +29,22 @@ wxWizard::new( ... )
 
 wxWizard*
 newEmpty( CLASS )
-    SV* CLASS
+    PlClassName CLASS
   CODE:
-    RETVAL = new wxWizard();
+    RETVAL = new wxPliWizard( CLASS );
   OUTPUT:
     RETVAL
 
 wxWizard*
 newFull( CLASS, parent, id = -1, title = wxEmptyString, bitmap = (wxBitmap*)&wxNullBitmap, pos = wxDefaultPosition )
-    SV* CLASS
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxString title
     wxBitmap* bitmap
     wxPoint pos
   CODE:
-    RETVAL = new wxWizard( parent, id, title, *bitmap, pos );
+    RETVAL = new wxPliWizard( CLASS, parent, id, title, *bitmap, pos );
   OUTPUT:
     RETVAL
 

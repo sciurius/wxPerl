@@ -1,14 +1,48 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        wizard.h
-// Purpose:     c++ wrapper for wxWizardPage
+// Name:        cpp/wizard.h
+// Purpose:     c++ wrapper for wxWizard/wxWizardPage
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     28/ 8/2002
-// RCS-ID:      
-// Copyright:   (c) 2002 Mattia Barbon
+// Created:     28/08/2002
+// RCS-ID:      $Id: wizard.h,v 1.2 2003/12/20 15:48:52 mbarbon Exp $
+// Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
+
+#define DEC_V_CBACK_BOOL__WXWIZARDPAGE( NAME ) \
+    bool NAME( wxWizardPage* page )
+
+#define DEF_V_CBACK_BOOL__WXWIZARDPAGE( CLASS, BASE, METHOD )                \
+    DEF_V_CBACK_BOOL__WXOBJECTsP_( wxWizardPage*, CLASS,                     \
+                                  return BASE::METHOD( p1 ),                 \
+                                  METHOD, wxPli_NOCONST )
+
+#define DEC_V_CBACK_WXWIZARDPAGE__VOID_const( NAME ) \
+    wxWizardPage* NAME() const
+
+#define DEF_V_CBACK_WXWIZARDPAGE__VOID_const_pure( CLASS, BASE, METHOD )     \
+    DEF_V_CBACK_WXOBJECTsP__VOID_( wxWizardPage*, Wx::WizardPage,            \
+                                   CLASS, return NULL, METHOD, wxPli_CONST )
+
+class wxPliWizard : public wxWizard
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliWizard );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliWizard, "Wx::Wizard", TRUE );
+    WXPLI_CONSTRUCTOR_5( wxPliWizard, "Wx::Wizard", TRUE,
+                         wxWindow*, wxWindowID, const wxString&,
+                         const wxBitmap&, const wxPoint& ); 
+
+    DEC_V_CBACK_BOOL__WXWIZARDPAGE( HasPrevPage );
+    DEC_V_CBACK_BOOL__WXWIZARDPAGE( HasNextPage );
+};
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliWizard, wxWizard );
+
+DEF_V_CBACK_BOOL__WXWIZARDPAGE( wxPliWizard, wxWizard, HasPrevPage );
+DEF_V_CBACK_BOOL__WXWIZARDPAGE( wxPliWizard, wxWizard, HasNextPage );
 
 class wxPliWizardPage : public wxWizardPage
 {
@@ -23,43 +57,16 @@ public:
         m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
     }
 
-    wxWizardPage* GetPrev() const;
-    wxWizardPage* GetNext() const;
+    DEC_V_CBACK_WXWIZARDPAGE__VOID_const( GetPrev );
+    DEC_V_CBACK_WXWIZARDPAGE__VOID_const( GetNext );
 };
 
-wxWizardPage* wxPliWizardPage::GetPrev() const
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "GetPrev" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
-        wxWizardPage* val =
-            (wxWizardPage*)wxPli_sv_2_object( aTHX_ ret, "Wx::WizardPage" );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-
-    return 0;
-}
-
-wxWizardPage* wxPliWizardPage::GetNext() const
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "GetNext" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
-        wxWizardPage* val =
-            (wxWizardPage*)wxPli_sv_2_object( aTHX_ ret, "Wx::WizardPage" );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-
-    return 0;
-}
-
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliWizardPage, wxWizardPage );
+
+DEF_V_CBACK_WXWIZARDPAGE__VOID_const_pure( wxPliWizardPage, wxWizardPage,
+                                           GetPrev );
+DEF_V_CBACK_WXWIZARDPAGE__VOID_const_pure( wxPliWizardPage, wxWizardPage,
+                                           GetNext );
 
 // local variables:
 // mode: c++
