@@ -262,6 +262,34 @@ Wx_GridSizer::new( rows, cols, vgap = 0, hgap = 0 )
     int vgap
     int hgap
 
+int
+Wx_GridSizer::GetCols()
+
+int
+Wx_GridSizer::GetHGap()
+
+int
+Wx_GridSizer::GetRows()
+
+int
+Wx_GridSizer::GetVGap()
+
+void
+Wx_GridSizer::SetCols( cols )
+    int cols
+
+void
+Wx_GridSizer::SetHGap( gap )
+    int gap
+
+void
+Wx_GridSizer::SetRows( rows )
+    int rows
+
+void
+Wx_GridSizer::SetVGap( gap )
+   int gap
+
 MODULE=Wx PACKAGE=Wx::FlexGridSizer
 
 Wx_FlexGridSizer*
@@ -270,6 +298,22 @@ Wx_FlexGridSizer::new( rows, cols, vgap = 0, hgap = 0 )
     int cols
     int vgap
     int hgap
+
+void
+Wx_FlexGridSizer::AddGrowableCol( index )
+    size_t index
+
+void
+Wx_FlexGridSizer::AddGrowableRow( index )
+    size_t index
+
+void
+Wx_FlexGridSizer::RemoveGrowableCol( index )
+    size_t index
+
+void
+Wx_FlexGridSizer::RemoveGrowableRow( index )
+    int index
 
 MODULE=Wx PACKAGE=Wx::SizerItem
 
