@@ -512,12 +512,21 @@ int wxPli_av_2_stringarray( SV* avref, wxString** array )
     return n;
 }
 
+char* my_strdup( char* s, size_t len )
+{
+    char* t = (char*)malloc( len + 1 );
+
+    t[len] = 0;
+    memcpy( t, s, len );
+
+    return t;
+}
+
 int wxPli_av_2_charparray( SV* avref, char*** array )
 {
     char** arr;
     int n, i;
     AV* av;
-    SV* t;
 
     if( !SvROK( avref ) || 
         ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
@@ -531,8 +540,10 @@ int wxPli_av_2_charparray( SV* avref, char*** array )
 
     for( i = 0; i < n; ++i )
     {
-        t = *av_fetch( av, i, 0 );
-        arr[i] = strdup( SvPV_nolen( t ) );
+        SV* tmp = *av_fetch( av, i, 0 );
+        STRLEN len;
+        char* t = SvPV( tmp, len );
+        arr[i] = my_strdup( t, len );
     }
 
     *array = arr;

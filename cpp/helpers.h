@@ -14,8 +14,28 @@
 #include <wx/list.h>
 
 // helpers for UTF8 <-> wxString/wxChar
-// because xsubpp does not allow #pragmas in typemaps
+// because xsubpp does not allow preprocessor commands in typemaps
+
+SV* wxPli_wxChar_2_sv( const wxChar* str, SV* out );
+SV* wxPli_wxString_2_sv( const wxString& str, SV* out );
+
 #if wxUSE_UNICODE
+
+inline SV* wxPli_wxChar_2_sv( const wxChar* str, SV* out )
+{
+    sv_setpv( out, wxConvUTF8.cWC2MB( var ? var : wxEmptyString ) );
+    SvUTF8_on( out );
+
+    return out;
+}
+
+inline SV* wxPli_wxString_2_sv( const wxString& str, SV* out )
+{
+    sv_setpv( out, str.mb_str( wxConvUTF8 ) );
+    SvUTF8_on( out );
+
+    return out;
+}
 
 #define WXCHAR_INPUT( var, type, arg ) \
   const wxString var##_tmp = ( SvUTF8( arg ) ) ? \
@@ -24,8 +44,7 @@
   var = (type)var##_tmp.c_str();
 
 #define WXCHAR_OUTPUT( var, arg ) \
-  sv_setpv((SV*)arg, (const char*)wxConvUTF8.cWC2MB( var ? var : wxEmptyString ) ); \
-  SvUTF8_on((SV*)arg);        
+  wxPli_wxChar_2_sv( var, arg )
 
 #define WXSTRING_INPUT( var, type, arg ) \
   var =  ( SvUTF8( arg ) ) ? \
@@ -33,22 +52,33 @@
          : wxString( SvPV_nolen( arg ) );
 
 #define WXSTRING_OUTPUT( var, arg ) \
-  sv_setpv((SV*)arg, (const char*)var.mb_str(wxConvUTF8)); \
-  SvUTF8_on((SV*)arg);
+  wxPli_wxString_2_sv( var, arg )
 
 #else
+
+inline SV* wxPli_wxChar_2_sv( const wxChar* str, SV* out )
+{
+    sv_setpv( out, str );
+    return out;
+}
+
+inline SV* wxPli_wxString_2_sv( const wxString& str, SV* out )
+{
+    sv_setpvn( out, str.c_str(), str.size() );
+    return out;
+}
 
 #define WXCHAR_INPUT( var, type, arg ) \
   var = (type)SvPV_nolen(arg)
 
 #define WXCHAR_OUTPUT( var, arg ) \
-  sv_setpv((SV*)arg, var);
+  wxPli_wxChar_2_sv( var, arg )
 
 #define WXSTRING_INPUT( var, type, arg ) \
   var = (type)SvPV_nolen(arg)
 
 #define WXSTRING_OUTPUT( var, arg ) \
-  sv_setpv((SV*)arg, var);
+  wxPli_wxString_2_sv( var, arg )
 
 #endif
 
@@ -88,7 +118,10 @@ WXPLDLL void wxPli_get_args_objectarray( SV** sp, int items, void** array,
 WXPLDLL wxPoint FUNCPTR( wxPli_sv_2_wxpoint_test )( SV* scalar, bool* ispoint );
 WXPLDLL wxPoint FUNCPTR( wxPli_sv_2_wxpoint )( SV* scalar );
 WXPLDLL wxSize FUNCPTR( wxPli_sv_2_wxsize )( SV* scalar );
+// avoid dependency
+#ifdef _WXPERL_TYPEDEF_H
 WXPLDLL Wx_KeyCode wxPli_sv_2_keycode( SV* scalar );
+#endif
 
 WXPLDLL int wxPli_av_2_pointlist( SV* array, wxList *points, wxPoint** tmp );
 WXPLDLL int wxPli_av_2_pointarray( SV* array, wxPoint** points );
