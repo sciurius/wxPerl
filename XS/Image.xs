@@ -550,6 +550,15 @@ Wx_XPMHandler::new()
 
 #endif
 
+MODULE=Wx PACKAGE=Wx::IFFHandler
+
+#if wxPERL_USE_IFF
+
+Wx_IFFHandler*
+Wx_IFFHandler::new()
+
+#endif
+
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 void
