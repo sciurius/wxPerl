@@ -19,4 +19,4 @@ Wx_PlFSFile *           O_NON_WXOBJECT
 
 Wx_InternetFSHandler *  O_WXOBJECT
 Wx_ZipFSHandler *       O_WXOBJECT
-Wx_MemoryFSHandler *    O_WXOBJECT
+wxMemoryFSHandler *     O_WXOBJECT

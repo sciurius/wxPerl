@@ -31,6 +31,48 @@ Wx_ZipFSHandler::new()
 
 MODULE=Wx PACKAGE=Wx::MemoryFSHandler
 
+wxMemoryFSHandler*
+wxMemoryFSHandler::new()
+
+void
+AddImageFile( name, image, type )
+    wxString name
+    wxImage* image
+    long type
+  CODE:
+    wxMemoryFSHandler::AddFile( name, *image, type );
+
+void
+AddBitmapFile( name, bitmap, type )
+    wxString name
+    wxBitmap* bitmap
+    long type
+  CODE:
+    wxMemoryFSHandler::AddFile( name, *bitmap, type );
+
+void
+AddTextFile( name, string )
+    wxString name
+    wxString string
+  CODE:
+    wxMemoryFSHandler::AddFile( name, string );
+
+void
+AddBinaryFile( name, scalar )
+    wxString name
+    SV* scalar
+  PREINIT:
+    STRLEN len;
+    char* data = SvPV( scalar, len );
+  CODE:
+    wxMemoryFSHandler::AddFile( name, data, len );
+
+void
+RemoveFile( name )
+    wxString name
+  CODE:
+    wxMemoryFSHandler::RemoveFile( name );
+
 MODULE=Wx PACKAGE=Wx::PlFileSystemHandler
 
 #include "cpp/fshandler.h"
