@@ -81,6 +81,8 @@ newData( width, height, dt )
     memcpy( newdata, data, width * height * 3 );
 
     RETVAL = new wxImage( width, height, newdata );
+  OUTPUT:
+    RETVAL
 
 Wx_Image*
 newNameType( name, type )
@@ -118,6 +120,7 @@ newStreamMIME( stream, mime )
   OUTPUT:
     RETVAL
 
+## XXX threads
 void
 Wx_Image::DESTROY()
 

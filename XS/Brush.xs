@@ -40,6 +40,7 @@ newBitmap( stipple )
   OUTPUT:
     RETVAL
 
+## XXX threads
 void
 Wx_Brush::DESTROY()
 
@@ -47,11 +48,15 @@ Wx_Colour*
 Wx_Brush::GetColour()
   CODE:
     RETVAL = new wxColour( THIS->GetColour() );
+  OUTPUT:
+    RETVAL
 
 Wx_Bitmap*
 Wx_Brush::GetStipple()
   CODE:
     RETVAL = new wxBitmap( *THIS->GetStipple() );
+  OUTPUT:
+    RETVAL
 
 int
 Wx_Brush::GetStyle()

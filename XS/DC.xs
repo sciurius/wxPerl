@@ -204,9 +204,8 @@ Wx_DC::DrawSpline( list )
   PREINIT:
     wxList points;
     wxPoint* pts;
-    int n;
   CODE:
-    n = wxPli_av_2_pointlist( list, &points, &pts );
+    wxPli_av_2_pointlist( list, &points, &pts );
     THIS->DrawSpline( &points );
     delete [] pts;
 
@@ -238,6 +237,8 @@ Wx_Brush*
 Wx_DC::GetBackground()
   CODE:
     RETVAL = new wxBrush( THIS->GetBackground() );
+  OUTPUT:
+    RETVAL
 
 int
 Wx_DC::GetBackgroundMode()
@@ -246,6 +247,8 @@ Wx_Brush*
 Wx_DC::GetBrush()
   CODE:
     RETVAL = new wxBrush( THIS->GetBrush() );
+  OUTPUT:
+    RETVAL
 
 wxCoord
 Wx_DC::GetCharHeight()
@@ -269,6 +272,8 @@ Wx_Font*
 Wx_DC::GetFont()
   CODE:
     RETVAL = new wxFont( THIS->GetFont() );
+  OUTPUT:
+    RETVAL
 
 int
 Wx_DC::GetLogicalFunction()
@@ -283,6 +288,8 @@ Wx_Pen*
 Wx_DC::GetPen()
   CODE:
     RETVAL = new wxPen( THIS->GetPen() );
+  OUTPUT:
+    RETVAL
 
 Wx_Colour*
 Wx_DC::GetPixel( x, y )
@@ -300,6 +307,8 @@ Wx_Size*
 Wx_DC::GetSize()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
+  OUTPUT:
+    RETVAL
 
 void
 Wx_DC::GetSizeWH()
@@ -315,6 +324,8 @@ Wx_Colour*
 Wx_DC::GetTextBackground()
   CODE:
     RETVAL = new wxColour( THIS->GetTextBackground() );
+  OUTPUT:
+    RETVAL
 
 void
 Wx_DC::GetTextExtent( string, font = 0 )
@@ -338,6 +349,8 @@ Wx_Colour*
 Wx_DC::GetTextForeground()
   CODE:
     RETVAL = new wxColour( THIS->GetTextForeground() );
+  OUTPUT:
+    RETVAL
 
 void
 Wx_DC::GetUserScale()

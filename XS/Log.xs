@@ -44,7 +44,9 @@ bool
 IsAllowedTraceMask( mask )
     const wxChar* mask
   CODE:
-    wxLog::IsAllowedTraceMask( mask );
+    RETVAL = wxLog::IsAllowedTraceMask( mask );
+  OUTPUT:
+    RETVAL
 
 Wx_Log*
 GetActiveTarget()
@@ -99,6 +101,8 @@ wxTraceMask
 GetTraceMask()
   CODE:
     RETVAL = wxLog::GetTraceMask();
+  OUTPUT:
+    RETVAL
 
 MODULE=Wx PACKAGE=Wx::LogTextCtrl
 

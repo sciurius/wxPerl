@@ -24,6 +24,7 @@ public:
         m_callback.SetSelf( wxPli_make_object( this, package ) );
     }
 private:
+    // SGI CC warns here, but it is harmless
     DEC_V_CBACK_SIZET__VOID__CONST( GetDataSize );
     DEC_V_CBACK_BOOL__VOIDP__CONST( GetDataHere );
     DEC_V_CBACK_BOOL__SIZET_CVOIDP( SetData );

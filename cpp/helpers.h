@@ -162,14 +162,16 @@ struct wxPliHelpers
     wxPoint ( * m_wxPli_sv_2_wxpoint )( SV* );
     wxSize ( * m_wxPli_sv_2_wxsize )( SV* scalar );
     int ( * m_wxPli_av_2_intarray )( SV* avref, int** array );
-    void ( * m_wxPli_stream_2_sv )( SV* scalar, wxStreamBase* stream, const char* package );
+    void ( * m_wxPli_stream_2_sv )( SV* scalar, wxStreamBase* stream,
+                                    const char* package );
 
     void ( * m_wxPli_add_constant_function )
         ( double (**)( const char*, int ) );
     void ( * m_wxPli_remove_constant_function )
         ( double (**)( const char*, int ) );
 
-    bool ( * m_wxPliVirtualCallback_FindCallback )( const wxPliVirtualCallback* cb, const char* name );
+    bool ( * m_wxPliVirtualCallback_FindCallback )( const wxPliVirtualCallback* cb,
+                                                    const char* name );
     SV* ( * m_wxPliVirtualCallback_CallCallback )
         ( const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
           const char* argtypes = 0, ... );
@@ -216,111 +218,72 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 
-#ifdef _WX_WINDOW_H_BASE_
+class wxPliUserDataCD;
+#if defined( _WX_WINDOW_H_BASE_ )
 
 class WXPLDLL wxPliUserDataCD:public wxClientData
 {
 public:
-    wxPliUserDataCD( SV* data );
+    wxPliUserDataCD( SV* data )
+        { m_data = data ? newSVsv( data ) : 0; }
     ~wxPliUserDataCD();
 public:
     SV* m_data;
 };
 
-inline wxPliUserDataCD::wxPliUserDataCD( SV* data )
-{
-    m_data = data ? newSVsv( data ) : 0;
-}
-
-#else
-
-class wxPliUserDataCD;
-
 #endif
 
+class wxPliTreeItemData;
 #if defined( _WX_TREEBASE_H_ ) || defined( _WX_TREECTRL_H_BASE_ )
 
 class wxPliTreeItemData:public wxTreeItemData
 {
 public:
-    wxPliTreeItemData( SV* data );
-    ~wxPliTreeItemData();
+    wxPliTreeItemData( SV* data )
+        { m_data = data ? newSVsv( data ) : 0; }
+    ~wxPliTreeItemData()
+        { if( m_data ) SvREFCNT_dec( m_data ); }
 
-    void SetData( SV* data );
+    void SetData( SV* data )
+    {
+        if( m_data )
+            SvREFCNT_dec( m_data );
+        m_data = data ? newSVsv( data ) : 0;
+    }
 public:
     SV* m_data;
 };
-
-inline wxPliTreeItemData::wxPliTreeItemData( SV* data )
-{
-    m_data = data ? newSVsv( data ) : 0;
-}
-
-inline wxPliTreeItemData::~wxPliTreeItemData()
-{
-    if( m_data )
-        SvREFCNT_dec( m_data );
-}
-
-inline void wxPliTreeItemData::SetData( SV* data )
-{
-    if( m_data )
-        SvREFCNT_dec( m_data );
-    m_data = data ? newSVsv( data ) : 0;
-}
-
-#else
-
-class wxPliTreeItemData;
 
 #endif
 
 class WXPLDLL wxPliUserDataO:public wxObject
 {
 public:
-    wxPliUserDataO( SV* data );
+    wxPliUserDataO( SV* data )
+        { m_data = data ? newSVsv( data ) : 0; }
     ~wxPliUserDataO();
 public:
     SV* m_data;
 };
 
-inline wxPliUserDataO::wxPliUserDataO( SV* data )
-{
-    m_data = data ? newSVsv( data ) : 0;
-}
-
 class WXPLDLL wxPliSelfRef
 {
 public:
-    wxPliSelfRef( const char* unused = 0 );
-    virtual ~wxPliSelfRef();
+    wxPliSelfRef( const char* unused = 0 ) {}
+    virtual ~wxPliSelfRef()
+        { if( m_self ) SvREFCNT_dec( m_self ); }
 
-    void SetSelf( SV* self, bool increment = TRUE );
-    SV* GetSelf();
+    void SetSelf( SV* self, bool increment = TRUE )
+    {
+        m_self = self;
+        if( increment )       
+            SvREFCNT_inc( m_self );
+    }
+
+    SV* GetSelf() { return m_self; }
 public:
     SV* m_self;
 };
-
-inline void wxPliSelfRef::SetSelf( SV* self, bool increment ) 
-{
-    m_self = self;
-    if( increment )       
-        SvREFCNT_inc( m_self );
-}
-
-inline SV* wxPliSelfRef::GetSelf() {
-    return m_self;
-}
-
-inline wxPliSelfRef::wxPliSelfRef( const char* unused )
-{
-}
-
-inline wxPliSelfRef::~wxPliSelfRef() 
-{
-    if( m_self )
-        SvREFCNT_dec( m_self );
-}
 
 typedef wxPliSelfRef* (* wxPliGetCallbackObjectFn)(wxObject* object);
 
@@ -352,11 +315,11 @@ public:\
 
 #define WXPLI_DECLARE_SELFREF() \
 public:\
-  wxPliSelfRef m_callback;
+  wxPliSelfRef m_callback
 
 #define WXPLI_DECLARE_V_CBACK() \
 public:\
-  wxPliVirtualCallback m_callback;
+  wxPliVirtualCallback m_callback
 
 #define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename) \
 wxPliSelfRef* wxPliGetSelfFor##name(wxObject* object) \

@@ -84,6 +84,7 @@ newFromXPM( data )
   OUTPUT:
     RETVAL
 
+## XXX threads
 void
 Wx_Icon::DESTROY()
 
@@ -97,6 +98,8 @@ Wx_Icon::LoadFile( name, type )
 #else
     RETVAL = THIS->LoadFile( name, type );
 #endif
+  OUTPUT:
+    RETVAL
 
 bool
 Wx_Icon::Ok()

@@ -19,6 +19,7 @@ Wx_DataFormat*
 Wx_DataFormat::newNative( format = wxDF_INVALID )
     NativeFormat format
   CODE:
+    THIS = 0; // fool SGI CC warnings
     RETVAL = new wxDataFormat( format );
   OUTPUT:
     RETVAL
@@ -27,10 +28,12 @@ Wx_DataFormat*
 Wx_DataFormat::newUser( id )
     wxChar* id
   CODE:
+    THIS = 0; // fool SGI CC warnings
     RETVAL = new wxDataFormat( id );
   OUTPUT:
     RETVAL
 
+## XXX threads
 void
 Wx_DataFormat::DESTROY()
 
@@ -63,6 +66,7 @@ Wx_DataFormat::SetType( type )
 
 MODULE=Wx PACKAGE=Wx::DataObject
 
+## XXX threads
 void
 DESTROY( THIS )
     Wx_DataObject* THIS

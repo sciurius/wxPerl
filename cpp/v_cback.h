@@ -41,7 +41,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
 // declare/define callbacks for commonly used signatures
 
 #define DEC_V_CBACK_BOOL__VOID( METHOD ) \
-  bool METHOD();
+  bool METHOD()
 
 #define DEF_V_CBACK_BOOL__VOID( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD()                                                        \
@@ -57,7 +57,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
   }
 
 #define DEC_V_CBACK_BOOL__BOOL( METHOD ) \
-  bool METHOD( bool );
+  bool METHOD( bool )
 
 #define DEF_V_CBACK_BOOL__BOOL( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD( bool param1 )                                           \
@@ -74,7 +74,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
   }
 
 #define DEC_V_CBACK_VOID__VOID( METHOD ) \
-  void METHOD();
+  void METHOD()
 
 #define DEF_V_CBACK_VOID__VOID( CLASS, BASE, METHOD ) \
   void CLASS::METHOD()                                                        \
@@ -88,7 +88,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
   }
 
 #define DEC_V_CBACK_BOOL__INT( METHOD ) \
-  bool METHOD( int );
+  bool METHOD( int )
 
 #define DEF_V_CBACK_BOOL__INT( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD( int parameter )                                         \
@@ -119,7 +119,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
   }
 
 #define DEC_V_CBACK_BOOL__INT_INT( METHOD ) \
-  bool METHOD( int, int );
+  bool METHOD( int, int )
 
 #define DEF_V_CBACK_BOOL__INT_INT( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD( int param1, int param2 )                                \
@@ -136,7 +136,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
   }
 
 #define DEC_V_CBACK_SIZET__VOID__CONST( METHOD ) \
-  size_t METHOD() const;
+  size_t METHOD() const
 
 #define DEF_V_CBACK_SIZET__VOID__CONST( CLASS, BASE, METHOD ) \
   size_t CLASS::METHOD() const                                                \
@@ -152,7 +152,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
   }
 
 #define DEC_V_CBACK_BOOL__VOIDP__CONST( METHOD ) \
-  bool METHOD( void* ) const;
+  bool METHOD( void* ) const
 
 #define DEF_V_CBACK_BOOL__VOIDP__CONST( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD( void* param1 ) const                                    \
@@ -174,7 +174,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
   }
 
 #define DEC_V_CBACK_BOOL__SIZET_CVOIDP( METHOD ) \
-  bool METHOD( size_t, const void* );
+  bool METHOD( size_t, const void* )
 
 #define DEF_V_CBACK_BOOL__SIZET_CVOIDP( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD( size_t param1, const void* param2 )                     \
@@ -192,7 +192,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
   }
 
 #define DEC_V_CBACK_BOOL__WXDRAGRESULT( METHOD ) \
-  bool METHOD( wxDragResult );
+  bool METHOD( wxDragResult )
 
 #define DEF_V_CBACK_BOOL__WXDRAGRESULT( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD( wxDragResult param1 )                                   \
