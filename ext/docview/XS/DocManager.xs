@@ -4,7 +4,7 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: DocManager.xs,v 1.10 2004/08/04 20:13:56 mbarbon Exp $
+## RCS-ID:      $Id: DocManager.xs,v 1.11 2004/11/23 22:09:43 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -120,11 +120,15 @@ wxDocManager::OnPrint( event )
   CODE:
     THIS->OnPrint( *event );
 
+#if WXPERL_W_VERSION_LE( 2, 5, 2 )
+
 void
 wxDocManager::OnPrintSetup( event )
     wxCommandEvent* event
   CODE:
     THIS->OnPrintSetup( *event );
+
+#endif
 
 void
 wxDocManager::OnPreview( event )
@@ -198,11 +202,15 @@ wxDocManager::OnUpdatePrint( event )
   CODE:
     THIS->OnUpdatePrint( *event );
 
+#if WXPERL_W_VERSION_LE( 2, 5, 2 )
+
 void
 wxDocManager::OnUpdatePrintSetup( event )
     wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdatePrintSetup( *event );
+
+#endif
 
 void
 wxDocManager::OnUpdatePreview( event )

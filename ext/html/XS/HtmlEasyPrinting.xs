@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      $Id: HtmlEasyPrinting.xs,v 1.5 2003/12/26 11:13:27 mbarbon Exp $
+## RCS-ID:      $Id: HtmlEasyPrinting.xs,v 1.6 2004/11/23 22:09:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -51,8 +51,12 @@ wxHtmlEasyPrinting::PrintText( htmlText, basepath = wxEmptyString )
     wxString htmlText
     wxString basepath
 
+#if WXPERL_W_VERSION_LE( 2, 5, 2 )
+
 void
 wxHtmlEasyPrinting::PrinterSetup()
+
+#endif
 
 void
 wxHtmlEasyPrinting::PageSetup()
