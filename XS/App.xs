@@ -56,8 +56,10 @@ Start( app, sub )
 #endif
     wxEntryInitGui();
 
+    SV* This = ST(0);
+    
     PUSHMARK( SP );
-    XPUSHs( ST(0) );
+    XPUSHs( This );
     PUTBACK;
     call_sv(sub, G_SCALAR);
     SPAGAIN;
