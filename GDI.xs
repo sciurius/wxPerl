@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: GDI.xs,v 1.18 2003/05/05 20:38:34 mbarbon Exp $
+// RCS-ID:      $Id: GDI.xs,v 1.19 2005/04/03 09:14:29 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -25,7 +25,7 @@ MODULE=Wx_GDI
 
 INCLUDE: XS/Colour.xs
 INCLUDE: XS/Font.xs
-INCLUDE: XS/ImageList.xs
+INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/ImageList.xs |
 INCLUDE: XS/Bitmap.xs
 INCLUDE: XS/Icon.xs
 INCLUDE: XS/Cursor.xs

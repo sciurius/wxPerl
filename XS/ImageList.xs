@@ -4,22 +4,53 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ImageList.xs,v 1.10 2004/08/04 20:13:54 mbarbon Exp $
-## Copyright:   (c) 2000-2004 Mattia Barbon
+## RCS-ID:      $Id: ImageList.xs,v 1.11 2005/04/03 09:14:29 mbarbon Exp $
+## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+%{
 #include <wx/imaglist.h>
 
-MODULE=Wx PACKAGE=Wx::ImageList
+#define wxNullBitmapPtr (wxBitmap*) &wxNullBitmap
+%}
 
-wxImageList*
-wxImageList::new( width, height, mask = true, initialCount =1 )
-    int width
-    int height
-    bool mask
-    int initialCount
+%module{Wx};
+
+%name{Wx::ImageList} class wxImageList
+{
+    wxImageList( int width, int height, bool mask = true,
+                 int initialCount = 1 );
+
+    %name{AddBitmap} int Add( const wxBitmap& bitmap,
+                              const wxBitmap& mask = wxNullBitmapPtr );
+    %name{AddWithColourMask} int Add( const wxBitmap& bitmap,
+                                      const wxColour& colour );
+    %name{AddIcon} int Add( const wxIcon& icon );
+    bool Draw( int index, const wxDC& dc, int x, int y,
+               int flags = wxIMAGELIST_DRAW_NORMAL,
+               bool solidBackground = false );
+    int GetImageCount();
+    bool Remove( int index );
+    bool RemoveAll();
+
+#if defined( __WXMSW__ )
+    %name{ReplaceBitmap} bool Replace( int index, const wxBitmap& bitmap,
+                                       const wxBitmap&mask = wxNullBitmapPtr );
+#else
+    %name{ReplaceBitmap} bool Replace( int index, const wxBitmap& bitmap );
+#endif
+    %name{ReplaceIcon} bool Replace( int index, const wxIcon& icon );
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+    wxBitmap GetBitmap( int index );
+    wxIcon GetIcon( int index );
+#endif
+};
+
+%{
+
+MODULE=Wx PACKAGE=Wx::ImageList
 
 ## XXX threads
 void
@@ -38,48 +69,6 @@ wxImageList::Add( ... )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_wbmp, AddBitmap, 1 )
     END_OVERLOAD( Wx::ImageList::Add )
 
-int
-wxImageList::AddBitmap( bitmap, mask = (wxBitmap*)&wxNullBitmap )
-    wxBitmap* bitmap
-    wxBitmap* mask
-  CODE:
-    RETVAL = THIS->Add( *bitmap, *mask );
-  OUTPUT:
-    RETVAL
-
-int
-wxImageList::AddWithColourMask( bitmap, colour )
-    wxBitmap* bitmap
-    wxColour* colour
-  CODE:
-    RETVAL = THIS->Add( *bitmap, *colour );
-  OUTPUT:
-    RETVAL
-
-int
-wxImageList::AddIcon( icon )
-    wxIcon* icon
-  CODE:
-    RETVAL = THIS->Add( *icon );
-  OUTPUT:
-    RETVAL
-
-bool
-wxImageList::Draw( index, dc, x, y, flags = wxIMAGELIST_DRAW_NORMAL, solidBackground = false )
-    int index
-    wxDC* dc
-    int x
-    int y
-    int flags
-    bool solidBackground
-  CODE:
-    RETVAL = THIS->Draw( index, *dc, x, y, flags, solidBackground );
-  OUTPUT:
-    RETVAL
-
-int
-wxImageList::GetImageCount()
-
 void
 wxImageList::GetSize( index )
     int index
@@ -94,13 +83,6 @@ wxImageList::GetSize( index )
     PUSHs( sv_2mortal( newSViv( width ) ) );
     PUSHs( sv_2mortal( newSViv( height ) ) );
 
-bool
-wxImageList::Remove( index )
-    int index
-
-bool
-wxImageList::RemoveAll()
-
 void
 wxImageList::Replace( ... )
   PPCODE:
@@ -109,36 +91,4 @@ wxImageList::Replace( ... )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wbmp_wbmp, ReplaceBitmap, 2 )
     END_OVERLOAD( Wx::ImageList::Replace )
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
-
-bool
-wxImageList::ReplaceBitmap( index, bitmap, mask = (wxBitmap*)&wxNullBitmap )
-    int index
-    wxBitmap* bitmap
-    wxBitmap* mask
-  CODE:
-    RETVAL = THIS->Replace( index, *bitmap, *mask );
-  OUTPUT:
-    RETVAL
-
-#else
-
-bool
-wxImageList::ReplaceBitmap( index, bitmap )
-    int index
-    wxBitmap* bitmap
-  CODE:
-    RETVAL = THIS->Replace( index, *bitmap );
-  OUTPUT:
-    RETVAL
-
-#endif
-
-bool
-wxImageList::ReplaceIcon( index, icon )
-    int index
-    wxIcon* icon
-  CODE:
-    RETVAL = THIS->Replace( index, *icon );
-  OUTPUT:
-    RETVAL
+%}
