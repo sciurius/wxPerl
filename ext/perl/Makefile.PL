@@ -3,7 +3,7 @@
 ## Purpose:     Makefile.PL to enable recursion inside subdirs
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/ 4/2002
+## Created:      4/ 7/2002
 ## RCS-ID:      
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -12,8 +12,8 @@
 
 use ExtUtils::MakeMaker;
 
-WriteMakefile( NAME => 'Wx',
-               DIR => [ @$wxConfig::subdirs, 'perl' ] );
+WriteMakefile( NAME => 'Wx::Perl',
+               DIR => [ 'splashfast' ] );
 
 # Local variables: #
 # mode: cperl #

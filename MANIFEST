@@ -253,6 +253,7 @@ cpp/streams.cpp
 cpp/v_cback.cpp
 
 ext/Makefile.PL
+ext/perl/Makefile.PL
 
 ext/dnd/DND.xs
 ext/dnd/Makefile.PL
@@ -362,6 +363,13 @@ ext/stc/lib/Wx/STC.pm
 ext/stc/t/1_load.t
 ext/stc/t/2_inheritance.t
 ext/stc/typemap
+
+ext/perl/splashfast/Makefile.PL
+ext/perl/splashfast/SplashFast.pm
+ext/perl/splashfast/t/01_load.t
+ext/perl/splashfast/t/02_use.t
+ext/perl/splashfast/t/03_new.t
+ext/perl/splashfast/t/04_app.t
 
 ext/xrc/Makefile.PL
 ext/xrc/XRC.xs
