@@ -77,7 +77,8 @@ Wx_RadioBox::GetSelection()
 wxString
 Wx_RadioBox::GetStringSelection()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if ( WXPERL_W_VERSION_GE( 2, 3 ) && !defined(__WXGTK__) ) \
+    || defined( __WXPERL_FORCE__ )
 
 void
 Wx_RadioBox::SetString( n, label )
@@ -91,7 +92,8 @@ Wx_RadioBox::SetItemLabel( n, label )
     int n
     wxString label
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if ( WXPERL_W_VERSION_GE( 2, 3 ) && !defined(__WXGTK__) ) \
+    || defined( __WXPERL_FORCE__ )
     THIS->SetString( n, label );
 #else
     THIS->SetLabel( n, label );
