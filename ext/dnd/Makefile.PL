@@ -19,12 +19,13 @@ use wxConfig;
 
 if( $^O eq 'darwin' ) {
   ExtUtils::MakeMaker::WriteEmptyMakefile();
-  exit 0;
-}
+} else {
 
 wxWriteMakefile( NAME => 'Wx::DND',
                  VERSION_FROM => 'lib/Wx/DND.pm',
                );
+
+}
 
 # Local variables: #
 # mode: cperl #

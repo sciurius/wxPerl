@@ -19,14 +19,15 @@ use wxConfig;
 
 if( $^O eq 'darwin' ) {
   ExtUtils::MakeMaker::WriteEmptyMakefile();
-  exit 0;
-}
+} else {
 
 wxWriteMakefile( NAME => 'Wx::XRC',
                  VERSION_FROM => 'lib/Wx/XRC.pm',
                  WXLIB => 'wxxrc',
                  REQUIRE_WX => 2.003_000,
                );
+
+}
 
 # Local variables: #
 # mode: cperl #
