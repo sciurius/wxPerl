@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.11 2003/08/05 17:23:47 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.12 2003/11/15 18:16:45 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -578,6 +578,11 @@ Wx_Grid::MovePageDown()
 
 bool
 Wx_Grid::MovePageUp()
+
+bool
+wxGrid::ProcessTableMessage( msg )
+    wxGridTableMessage* msg
+  C_ARGS: *msg
 
 void
 Wx_Grid::RegisterDataType( typeName, renderer, editor )
