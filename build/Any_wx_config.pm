@@ -47,7 +47,7 @@ sub configure {
   my( $cccflags, $libs );
   my( %config ) =
     ( LIBS => $extra_libs . ' ',
-      CCFLAGS => $extra_cflags . ' ',
+      CCFLAGS => $extra_cflags . ' -I. ',
     );
 
   if( cc_is_GNU( $Config{cc} ) ) { $config{CC} = 'g++' }
