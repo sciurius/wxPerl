@@ -13,6 +13,12 @@
 #include "cpp/streams.h"
 #include "cpp/streams.cpp"
 
+#define wxPL_USE_MAGIC 1
+
+// ----------------------------------------------------------------------------
+// wxMSW DLL intialisation
+// ----------------------------------------------------------------------------
+
 #ifdef __WXMSW__
 
 extern "C" 
@@ -24,6 +30,66 @@ BOOL WINAPI DllMain( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 }
 
 #endif
+
+// ----------------------------------------------------------------------------
+// Utility functions for working with MAGIC
+// ----------------------------------------------------------------------------
+
+struct my_magic
+{
+    my_magic() : object( NULL ), deleteable( TRUE ) { }
+
+    wxObject*  object;
+    bool       deleteable;
+};
+
+my_magic* wxPli_get_magic( pTHX_ SV* rv )
+{
+    // check for reference
+    if( !SvROK( rv ) )
+        return NULL;
+    SV* ref = SvRV( rv );
+
+    // if it isn't a SvPVMG, then it can't have MAGIC
+    // so it is deleteable
+    if( SvTYPE( ref ) < SVt_PVMG )
+        return NULL;
+
+    // search for '~' magic, and check the value
+    MAGIC* magic = mg_find( ref, '~' );
+
+    if( !magic )
+        return NULL;
+
+    return (my_magic*)magic->mg_ptr;
+}
+
+my_magic* wxPli_get_or_create_magic( pTHX_ SV* rv )
+{
+    // check for reference
+    if( !SvROK( rv ) )
+        croak( "PANIC: object is not a reference" );
+    SV* ref = SvRV( rv );
+
+    // must be at least a PVMG
+    if( SvTYPE( ref ) < SVt_PVMG )
+        SvUPGRADE( ref, SVt_PVMG );
+
+    // search for '~' magic, and check the value
+    MAGIC* magic;
+
+    while( !( magic = mg_find( ref, '~' ) ) )
+    {
+        my_magic tmp;
+
+        sv_magic( ref, 0, '~', (char*)&tmp, sizeof( tmp ) );
+    }
+
+    return (my_magic*)magic->mg_ptr;
+}
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 wxPliUserDataCD::~wxPliUserDataCD()
 {
@@ -192,6 +258,8 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
     *psp = sp;
 }
 
+#if !wxPL_USE_MAGIC
+
 // this use of static is deprecated, but we need to
 // cope with C++ compilers
 static SV* _key;
@@ -231,6 +299,8 @@ public:
 
 IMPLEMENT_DYNAMIC_CLASS( wxHashModule, wxModule );
 
+#endif // !wxPL_USE_MAGIC
+
 // gets 'this' pointer from a blessed scalar/hash reference
 void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname ) 
 {
@@ -247,6 +317,14 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
     {
         SV* ref = SvRV( scalar );
 
+#if wxPL_USE_MAGIC
+        my_magic* mg = wxPli_get_magic( aTHX_ scalar );
+
+        if( !mg )
+            return (void*)SvIV( ref );
+
+        return mg->object;
+#else // if !wxPL_USE_MAGIC
         if( SvTYPE( ref ) == SVt_PVHV ) 
         {
             HV* hv = (HV*) ref;
@@ -255,13 +333,6 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
             if( value ) 
             {
                 SV* sv = HeVAL( value );
-                /*
-                if( SvGMAGICAL( sv ) )
-                {
-                    wxTrap();
-                    mg_get( sv );
-                }
-                */
                 return (void*)SvIV( sv );
             }
             else 
@@ -273,6 +344,7 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
         }
         else
             return (void*)SvIV( (SV*) ref );
+#endif // wxPL_USE_MAGIC / !wxPL_USE_MAGIC
     }
     else 
     {
@@ -281,11 +353,14 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
     }
 }
 
-SV* wxPli_non_object_2_sv( pTHX_ SV* var, void* data, const char* package ) {
-    if( data == 0 ) {
+SV* wxPli_non_object_2_sv( pTHX_ SV* var, void* data, const char* package )
+{
+    if( data == 0 )
+    {
         sv_setsv( var, &PL_sv_undef );
     }
-    else {
+    else
+    {
         sv_setref_pv( var, CHAR_P package, data );
     }
 
@@ -312,7 +387,8 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, wxObject* object )
         wxPliClassInfo* cci = (wxPliClassInfo*)ci;
         wxPliSelfRef* sr = cci->m_func( object );
 
-        if( sr && sr->m_self ) {
+        if( sr && sr->m_self )
+        {
             SvSetSV_nosteal( var, sr->m_self );
             return var;
         }
@@ -339,38 +415,28 @@ SV* wxPli_make_object( void* object, const char* classname )
     // OK: if you want to keep it, just use SetSelf( sv, TRUE );
     sv_2mortal( ret ); 
 
-    stash = gv_stashpv( CHAR_P classname, 0 );
+#if wxPL_USE_MAGIC
+    my_magic* mg = wxPli_get_or_create_magic( aTHX_ ret );
+
+    mg->object = (wxObject*)object;
+#else
     value = newSViv( (IV) object );
-    if( !hv_store_ent( hv, _key, value, _hash ) ) {
+    if( !hv_store_ent( hv, _key, value, _hash ) )
+    {
         SvREFCNT_dec( value );
         croak( "error storing '_WXTHIS' value" );
     }
+#endif
 
+    stash = gv_stashpv( CHAR_P classname, 0 );
     return sv_bless( ret, stash );
 }
 
-struct my_magic {
-    bool deleteable;
-};
-
 bool wxPli_object_is_deleteable( pTHX_ SV* object )
 {
-    // check for reference
-    if( !SvROK( object ) )
-        return FALSE;
-    SV* rv = SvRV( object );
+    my_magic* mg = wxPli_get_magic( aTHX_ object );
 
-    // if it isn't a SvPVMG, then it can't have MAGIC
-    // so it is deleteable
-    if( SvTYPE( rv ) < SVt_PVMG )
-        return TRUE;
-
-    // search for '~' magic, and check the value
-    MAGIC* magic = mg_find( rv, '~' );
-    if( !magic )
-        return TRUE;
-    
-    return ((my_magic*)( magic->mg_ptr ))->deleteable;
+    return mg ? mg->deleteable : TRUE;
 }
 
 void wxPli_object_set_deleteable( pTHX_ SV* object, bool deleteable )
@@ -380,30 +446,13 @@ void wxPli_object_set_deleteable( pTHX_ SV* object, bool deleteable )
         return;
     SV* rv = SvRV( object );
 
-    // if it isn't a SvPVMG, then it might need to be upgraded
-    if( SvTYPE( rv ) < SVt_PVMG )
-    {
-        // if it isn't magic, then it is deleteable
-        if( !deleteable ) {
-            static my_magic magic = { TRUE };
-          
-            sv_magic( rv, 0, '~', (char*)&magic, sizeof( my_magic ) );
-        }
-    }
-    else
-    {
-        MAGIC* magic = mg_find( rv, '~' );
+    // non-PVMG are always deletable
+    if( deleteable && SvTYPE( rv ) < SVt_PVMG )
+        return;
 
-        if( magic )
-            ((my_magic*)magic->mg_ptr)->deleteable = deleteable;
-        else
-        {
-            my_magic magic;
-            magic.deleteable = deleteable;
+    my_magic* mg = wxPli_get_or_create_magic( aTHX_ object );
 
-            sv_magic( rv, 0, '~', (char*)&magic, sizeof( my_magic ) );
-        }
-    }
+    mg->deleteable = deleteable;
 }
 
 void wxPli_stringarray_push( pTHX_ const wxArrayString& strings )
