@@ -659,6 +659,7 @@ static double constant( const char *name, int arg )
     r( wxLB_HSCROLL );                  // listbox
     r( wxLB_ALWAYS_SB );                // listbox
     r( wxLB_NEEDED_SB );                // listbox
+    r( wxLB_OWNERDRAW );                // listbox
     r( wxLB_SORT );                     // listbox
     r( wxLEFT );                        // sizer layout constraints
     r( wxLIGHT );                       // font
@@ -1165,6 +1166,9 @@ static double constant( const char *name, int arg )
     r( wxTE_PROCESS_ENTER );            // textctrl
     r( wxTE_PROCESS_TAB );              // textctrl
     r( wxTE_MULTILINE );                // textctrl
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+    r( wxTE_NOHIDESEL );                // textctrl
+#endif
     r( wxTE_PASSWORD );                 // textctrl
     r( wxTE_READONLY );                 // textctrl
     r( wxTE_RICH );                     // textctrl
