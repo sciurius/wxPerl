@@ -18,9 +18,16 @@ class wxPliHtmlWindow:public wxHtmlWindow
     WXPLI_DECLARE_V_CBACK();
 public:
     WXPLI_DEFAULT_CONSTRUCTOR( wxPliHtmlWindow, "Wx::HtmlWindow", TRUE );
-    WXPLI_CONSTRUCTOR_6( wxPliHtmlWindow, "Wx::HtmlWIndow", TRUE,
-                         wxWindow*, wxWindowID, const wxPoint&,
-                         const wxSize&, long, const wxString& );
+
+    // this fixes the crashes, for some reason
+    wxPliHtmlWindow( const char* package, wxWindow* _arg1, wxWindowID _arg2,
+                     const wxPoint& _arg3, const wxSize& _arg4, long _arg5,
+                     const wxString& _arg6 )
+        : wxHtmlWindow( _arg1, _arg2, _arg3, _arg4, _arg5, _arg6 ),
+          m_callback( "Wx::HtmlWindow" )
+     {
+         m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+     }
 
     void OnLinkClicked( const wxHtmlLinkInfo& info );
     void OnSetTitle( const wxString& title );
