@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: Html.pm,v 1.6 2003/12/26 11:21:10 mbarbon Exp $
+## RCS-ID:      $Id: Html.pm,v 1.7 2004/12/21 20:58:25 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,6 +19,7 @@ use vars qw($VERSION);
 
 $VERSION = '0.01';
 
+Wx::load_dll( 'net' );
 Wx::load_dll( 'html' );
 Wx::wx_boot( 'Wx::Html', $VERSION );
 
