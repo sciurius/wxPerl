@@ -34,8 +34,9 @@ sub new {
 
   $this->SetAppName($_[0]); # reasonable default for Wx::ConfigBase::Get
 
-  Wx::_App::Start($this,$this->can('OnInit')) ||
-      Wx::_croak( 'OnInit must return a true return value' );
+  my $ret = Wx::_App::Start($this,$this->can('OnInit'));
+  Wx::_croak( 'OnInit must return a true return value' )
+    unless $ret || Wx::wxMAC(); # why does perl return 0?
 
   $this;
 }
