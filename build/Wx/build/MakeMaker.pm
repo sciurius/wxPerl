@@ -211,8 +211,8 @@ sub _process_mm_arguments {
     %{ Wx::build::Options->get_makemaker_options( is_wxPerl_tree()
                                                   ? () : ( 'saved' ) ) };
 
-  $args{CCFLAGS} = $options{extra_cflags};
-  $args{LIBS} = $options{extra_libs};
+  $args{CCFLAGS} .= ' ' . ( $options{extra_cflags} || '' );
+  $args{LIBS} .= ' ' . ( $options{extra_libs} || '' );
 
   foreach ( keys %args ) {
     my $v = $args{$_};
