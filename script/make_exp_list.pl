@@ -58,6 +58,7 @@ foreach my $i ( @ARGV ) {
 
     my @values = $parser->( $_ );
     ( defined( $values[0] ) && length( $values[0] ) ) || next;
+    $values[1] ||= '';
 
     add_to_exports( $values[0], "$values[1] $tag" );
   }
