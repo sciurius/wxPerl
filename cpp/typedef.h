@@ -163,6 +163,8 @@ FD_TD( LayoutConstraints );
 FD_TD( ListBox );
 FD_TD( ListCtrl );
 FD_TD( ListItem );
+FD_TD( ListItemAttr );
+FD_TD( ListView );
 FD_TD( Locale );
 FD_TD( Log );
 FD_TD( LogGui );

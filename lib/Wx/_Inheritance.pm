@@ -52,6 +52,7 @@ package Wx::GenericTreeCtrl; @ISA = qw(Wx::ScrolledWindow);
 package Wx::MiniFrame;    @ISA = qw(Wx::Frame);
 package Wx::SplitterWindow; @ISA = qw(Wx::Window);
 package Wx::ListCtrl;     @ISA = qw(Wx::Control);
+package Wx::ListView;     @ISA = qw(Wx::ListCtrl);
 package Wx::SashWindow;   @ISA = qw(Wx::Window);
 package Wx::ToggleButton; @ISA = qw(Wx::Control);
 
