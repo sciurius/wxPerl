@@ -209,6 +209,15 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CMD_LINEENDDISPLAY );
         r( wxSTC_CMD_LINEENDDISPLAYEXTEND );
 #endif
+#if WXPERL_W_VERSION_GE( 2, 4, 0 )
+        r( wxSTC_CMD_CLEAR );
+        r( wxSTC_CMD_WORDPARTLEFT );
+        r( wxSTC_CMD_WORDPARTLEFTEXTEND );
+        r( wxSTC_CMD_WORDPARTRIGHT );
+        r( wxSTC_CMD_WORDPARTRIGHTEXTEND );
+        r( wxSTC_CMD_DELLINELEFT );
+        r( wxSTC_CMD_DELLINERIGHT );
+#endif
         break;
     case 'D':
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )

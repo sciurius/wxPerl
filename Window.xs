@@ -927,6 +927,19 @@ Wx_Window::Validate()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 3, 4 )
+
+void
+wxWindow::Update()
+
+void
+wxWindow::RefreshRect( rect )
+    wxRect* rect
+  CODE:
+    THIS->RefreshRect( *rect );
+
+#endif
+
 void
 Wx_Window::WarpPointer( x, y )
     int x

@@ -234,9 +234,20 @@ wxSleep( sec )
 bool
 wxYield()
 
+#if WXPERL_W_VERSION_GE( 2, 4, 0 )
+
+bool
+wxSafeYield( window = 0, onlyIfNeeded = FALSE )
+    wxWindow* window
+    bool onlyIfNeeded
+
+#else
+
 bool
 wxSafeYield( window = 0 )
-    Wx_Window* window
+    wxWindow* window
+
+#endif
 
 bool
 wxYieldIfNeeded()

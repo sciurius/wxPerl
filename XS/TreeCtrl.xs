@@ -190,6 +190,16 @@ Wx_TreeCtrl::Delete( item )
   CODE:
     THIS->Delete( *item );
 
+#if WXPERL_W_VERSION_GE( 2, 3, 4 )
+
+void
+wxTreeCtrl::DeleteChildren( item )
+    wxTreeItemId* item;
+  CODE:
+    THIS->DeleteChildren( *item );
+
+#endif
+
 void
 Wx_TreeCtrl::DeleteAllItems()
 
