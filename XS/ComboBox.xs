@@ -38,13 +38,13 @@ Wx_ComboBox::new( parent, id, value, pos, size , choices, style = 0, validator =
 #if defined( __WXGTK__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_ControlWithItems::AppendString( item )
+Wx_ComboBox::AppendString( item )
     wxString item
   CODE:
     THIS->Append( item );
 
 void
-Wx_ControlWithItems::AppendData( item, data )
+Wx_ComboBox::AppendData( item, data )
     wxString item
     SV* data
   CODE:
