@@ -30,7 +30,7 @@ no strict;
 package Wx::PageSetupDialog;    @ISA = qw(Wx::Dialog);
 package Wx::PrintDialog;  @ISA = qw(Wx::Dialog);
 package Wx::GenericPageSetupDialog; @ISA = qw(Wx::Dialog);
-package Wx::genericPrintDialog; @ISA = qw(Wx::Dialog);
+package Wx::GenericPrintDialog; @ISA = qw(Wx::Dialog);
 package Wx::PrinterDC;    @ISA = qw(Wx::DC);
 package Wx::PreviewControlBar; @ISA = qw(Wx::Window);
 package Wx::PreviewCanvas; @ISA = qw(Wx::Window);
