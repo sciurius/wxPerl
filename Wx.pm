@@ -4,28 +4,13 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      
+## RCS-ID:      $Id: Wx.pm,v 1.56 2003/05/02 20:23:32 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 package Wx;
-#use Carp;
-#BEGIN {
-#  *CORE::GLOBAL::require =
-#    sub {
-#      if( $_[0] =~ m/^[\d\.]+$/ ) { return 1; }
-#      if( $_[0] =~ m/Heavy/ ) {
-#        Carp::die;
-#        Carp::cluck;
-#        foreach ( 0 .. 10 ) {
-#          print STDERR join "\t", caller($_),"\n";
-#        }
-#      }
-#      CORE::require $_[0];
-#    }
-#  }
 
 use strict;
 
@@ -38,7 +23,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4; $_x11 = 5;
 
 @ISA = qw(Exporter);
-$VERSION = '0.14';
+$VERSION = '0.15';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE);
@@ -93,51 +78,7 @@ sub END {
   UnLoad();
 }
 
-#use Wx::_Ovl;
-
 sub _match(\@$;$$) { &_xsmatch( [@{shift()}],@_ ) }
-#*_match = \&_xsmatch;
-
-=begin comment
-
-sub _match(\@$;$$) {
-  my( $args, $sig, $required, $dots ) = @_;
-  my( $argc ) = scalar( @$args );
-
-  if( @_ > 2 ) {
-    return if  $dots && $argc < $required;
-    return if !$dots && $argc != $required;
-  }
-
-  my( $i, $t ) = ( 0 );
-
-  foreach ( @$sig ) {
-    last if $i >= $argc;
-    next if $_ == $str;
-    next if $_ == $bool;
-
-    $t = ${$args}[$i];
-    if( $_ == $num ) {
-      if( looks_like_number( $t ) ) { next } else { return 0 } }
-    next if !defined( $t ) ||
-      ( defined( $tnames[$_] ) && UNIVERSAL::isa( $t, $tnames[$_] ) );
-    next if ( $_ == $arr ) && ref( $t ) eq 'ARRAY';
-    next if ( $_ == $wpoi || $_ == $wsiz ) && ref( $t ) eq 'ARRAY';
-    next if ( $_ == $wist || $_ == $wost ) &&
-      ( ref( $t ) || ( \$t ) =~ m/^GLOB/ );
-
-    # type clash: return false
-    return;
-  } continue {
-    ++$i;
-  }
-
-  return 1;
-}
-
-=end comment
-
-=cut
 
 sub _ovl_error {
   ( 'unable to resolve overloaded method for ', $_[0] || (caller(1))[3] );
@@ -148,6 +89,9 @@ sub _croak {
   goto &Carp::croak;
 }
 
+#
+# XSLoader/DynaLoader wrapper
+#
 sub wxPL_STATIC();
 sub wx_boot($$) {
   if( $_[0] eq 'Wx' || !wxPL_STATIC ) {
@@ -178,6 +122,9 @@ wx_boot( 'Wx', $VERSION );
   _boot_GDI( 'Wx', $VERSION );
 }
 
+#
+# British vs. American spelling aliases
+#
 *Wx::SystemSettings::GetColour = \&Wx::SystemSettings::GetSystemColour;
 *Wx::SystemSettings::GetFont   = \&Wx::SystemSettings::GetSystemFont;
 *Wx::SystemSettings::GetMetric = \&Wx::SystemSettings::GetSystemMetric;
@@ -198,7 +145,9 @@ SetOvlConstants();
 SetEvents();
 SetInheritance();
 
+#
 # set up wxUNIVERSAL, wxGTK, wxMSW, etc
+#
 eval( "sub wxUNIVERSAL() { $_universal }" );
 eval( "sub wxPL_STATIC() { $_static }" );
 eval( "sub wxMOTIF() { $_platform == $_motif }" );
@@ -223,12 +172,19 @@ require Wx::_Functions;
 if( $] >= 5.005 ) { require Tie::Handle; }
 
 package Wx::GDIObject;
+
+#
+# overloading for Wx::TreeItemId
+#
 package Wx::TreeItemId;
 
 use overload '<=>'      => \&tiid_spaceship,
              'bool'     => sub { $_[0]->IsOk },
              'fallback' => 1;
 
+#
+# Wx::SplashScreen stub, for wxWindows 2.2
+#
 package Wx::SplashScreen;
 
 use strict;
@@ -268,7 +224,7 @@ Wx - interface to the wxWindows GUI toolkit
 The Wx module is a wrapper for the wxWindows GUI toolkit.
 
 This module comes with extensive documentation in HTML format; you
-can download it at http://wxperl.sourceforge.net/
+can download it from http://wxperl.sourceforge.net/
 
 =head1 AUTHOR
 
