@@ -3,8 +3,8 @@
 ## Purpose:     Makefile.PL for Drag'n'Drop and Clipboard
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 8/2001
-## RCS-ID:      $Id: Makefile.PL,v 1.8 2003/08/23 13:00:37 mbarbon Exp $
+## Created:     12/08/2001
+## RCS-ID:      $Id: Makefile.PL,v 1.9 2004/07/10 13:19:15 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,7 +16,6 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME            => 'Wx::DND',
                  VERSION_FROM    => 'lib/Wx/DND.pm',
-                 NO_WX_PLATFORMS => [ 'mac' ],
                  WX_CORE_LIB     => 'core base',
                );
 
