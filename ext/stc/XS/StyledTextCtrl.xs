@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.12 2004/03/01 21:24:10 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.13 2004/03/20 17:52:54 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -431,20 +431,12 @@ wxStyledTextCtrl::SetPrintColourMode( mode )
 int
 wxStyledTextCtrl::GetPrintColourMode()
 
-#undef FindText
-#if 0
-
 int
 wxStyledTextCtrl::FindText( minPos, maxPos, text, flags = 0 )
     int minPos
     int maxPos
     wxString text
     int flags
-  CODE:
-    RETVAL = THIS->FindText( minPos, maxPos, text, flags );
-  OUTPUT: RETVAL
-
-#endif
 
 int
 wxStyledTextCtrl::GetFirstVisibleLine()
