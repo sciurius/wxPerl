@@ -1961,6 +1961,8 @@ void SetConstants()
     sv_setiv( tmp, 3 );
 #elif defined(__WXMAC__)
     sv_setiv( tmp, 4 );
+#elif defined(__WXX11__)
+    sv_setiv( tmp, 5 );
 #else
     #error must add case
 #endif
