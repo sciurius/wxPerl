@@ -42,11 +42,9 @@ t/05_timer.t
 t/06_loadxpm.t
 t/07_overload.t
 t/08_ovl_func.t
+t/09_create_delete.t
 
 lib/Wx/App.pm
-lib/Wx/Bitmap.pm
-lib/Wx/Caret.pm
-lib/Wx/Colour.pm
 lib/Wx/ComboBox.pm
 lib/Wx/ControlWithItems.pm
 lib/Wx/Cursor.pm
@@ -221,6 +219,7 @@ XS/ToolBar.xs
 XS/ToolTip.xs
 XS/Utils.xs
 XS/Validators.xs
+XS/Wizard.xs
 
 XS/ColourDialog.xs
 XS/DirDialog.xs
@@ -255,6 +254,7 @@ cpp/typedef.h
 cpp/validators.h
 cpp/v_cback.h
 cpp/window.h
+cpp/wizard.h
 
 cpp/controls.cpp
 cpp/e_cback.cpp
