@@ -97,6 +97,16 @@ void
 Wx_Frame::Maximize( maximize )
     bool maximize
 
+wxStatusBar*
+wxFrame::OnCreateStatusBar( number, style, id, name )
+    int number
+    long style
+    wxWindowID id
+    wxString name
+  CODE:
+    RETVAL = THIS->wxFrame::OnCreateStatusBar( number, style, id, name );
+  OUTPUT: RETVAL
+
 void
 Wx_Frame::SetIcon( icon )
     Wx_Icon* icon
