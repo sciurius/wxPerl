@@ -105,7 +105,7 @@ size_t wxPliInputStream::OnSysRead( void* buffer, size_t size )
     SPAGAIN;
 
     SV* sv_read_count = POPs;
-    size_t read_count;
+    size_t read_count = 0;
 
     m_lasterror = wxSTREAM_NO_ERROR;
     if( !SvOK( sv_read_count ) )
@@ -197,7 +197,7 @@ size_t wxPliOutputStream::OnSysWrite( const void* buffer, size_t size )
     SPAGAIN;
 
     SV* sv_write_count = POPs;
-    size_t write_count;
+    size_t write_count = 0;
 
     m_lasterror = wxSTREAM_NO_ERROR;
     if( !SvOK( sv_write_count ) )

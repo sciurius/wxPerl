@@ -62,7 +62,7 @@ newData( width, height, dt )
     unsigned char* data = (unsigned char*)SvPV( dt, len );
     unsigned char* newdata;
   CODE:
-    if( len != width * height * 3 )
+    if( len != (STRLEN) width * height * 3 )
     {
         croak( "too few data" );
     }
