@@ -3,8 +3,10 @@ PRIORITY HIGH:
 * building debugging version in install.pod
 * rewrite docs in POD (?)
 * MSLU
+* -Os on Windows
 * correct "wxPerl" reference in install.txt for Mac OS X
   and put a README in the DMG
+* wxApp::SendIdleEvents
 
 PRIORITY NORMAL:
 

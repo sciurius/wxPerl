@@ -84,8 +84,8 @@ This wxPerl version was tested with MinGW 1.1 and MS Visual C++ 5.
 For the remainder of this section I'll assume that your Perl is installed
 in C:\Perl
 
-- MS Visual C++ 5 (and probably 4.x)
-- MS Visual C++ 6 SP4
+- MS Visual C++ 5 (and probably 4.x) (wxWidgets 2.4.x)
+- MS Visual C++ 6 SP4 (wxWidgets 2.4.x)
 
   Build wxWidgets as a dll
 
@@ -104,9 +104,6 @@ in C:\Perl
   nmake test
   nmake install
 
-  # after wxPerl is installed you need to copy the wxmsw*.dll from
-  # z:\path\to\wx\lib to the directoy where Wx.dll is installed.
-
   If you are using ActivePerl with MSVC != 6.x you may
   experience linking problems (Can't seek to position XXXXXX ...),
   then you need to rebuild the perl56.dll import library.
@@ -118,7 +115,7 @@ in C:\Perl
 
   This will create a file Perl56.lib; copy this file to C:\Perl\lib\CORE\ .
 
-- MinGW 1.1 or later
+- MinGW 1.1 or later (wxWidgets 2.4.x)
 
   Get MinGW from http://www.mingw.org/; direct link is
   http://prdownloads.sourceforge.net/mingw/MinGW-1.1.tar.gz
@@ -132,8 +129,8 @@ in C:\Perl
   Build wxWidgets as a dll (you will need the utilities from
       http://biolpc22.york.ac.uk/pub/ports/mingw32/extra.zip)
 
-  set WXDIR=z:/path/to/wx
-  set WXWIN=z:/path/to/wx
+  set WXDIR=z:\path\to\wx
+  set WXWIN=z:\path\to\wx
   cd z:\path\to\wx\src\msw
   make -f makefile.g95 FINAL=1 WXMAKINGDLL=1
   cd %WXDIR%\contrib\src\stc
@@ -148,8 +145,68 @@ in C:\Perl
   dmake test
   dmake install
 
-  # when wxPerl is installed you need to copy the wxmsw*.dll from
-  # z:\path\to\wx\lib to the directoy where Wx.dll is installed.
+- MS Visual C++ 5 (and probably 4.x) (wxWidgets 2.5.x)
+- MS Visual C++ 6 SP4 (wxWidgets 2.5.x)
+
+  Build wxWidgets as a dll
+
+  cd z:\path\to\wx\build\msw
+  nmake -f makefile.vc SHARED=1 BUILD=release
+  cd ..\..\contrib\build\stc
+  nmake -f makefile.vc SHARED=1 BUILD=release
+  cd ..\xrc
+  nmake -f makefile.vc SHARED=1 BUILD=release
+
+  # build wxPerl
+  set WXDIR=z:\path\to\wx
+  set WXWIN=z:\path\to\wx
+
+  perl Makefile.PL
+  nmake
+  nmake test
+  nmake install
+
+  If you are using ActivePerl with MSVC != 6.x you may
+  experience linking problems (Can't seek to position XXXXXX ...),
+  then you need to rebuild the perl56.dll import library.
+
+  Use the make_implib.pl script (included in the ExtUtils::FakeConfig
+  distribution): make a backup of C:\Perl\lib\CORE\Perl56.lib, then do
+
+  perl script/make_implib.pl --target=vc C:\Perl\bin\Perl56.dll
+
+  This will create a file Perl56.lib; copy this file to C:\Perl\lib\CORE\ .
+
+- MinGW 1.1 or later (wxWidgets 2.5.x)
+
+  Get MinGW from http://www.mingw.org/; direct link is
+  http://prdownloads.sourceforge.net/mingw/MinGW-1.1.tar.gz
+
+  If you want to compile wxPerl against ActivePerl using MinGW,
+  you ned to first download and install ExtUtils::FakeConfig from
+  http://wxperl.sourceforge.net/ap_mingw/; then just replace the
+  "perl Makefile.PL" with "perl -MConfig_m Makefile.PL". If you built
+  Perl from sources, you don't need this additional step.
+
+  Build wxWidgets as a dll (you will need the utilities from
+      http://biolpc22.york.ac.uk/pub/ports/mingw32/extra.zip)
+
+  cd z:\path\to\wx\build\msw
+  make -f makefile.gcc SHARED=1 BUILD=release
+  cd ..\..\contrib\src\stc
+  make -f makefile.gcc SHARED=1 BUILD=release
+  cd ..\xrc
+  make -f makefile.gcc SHARED=1 BUILD=release
+
+  # now build wxPerl
+  # get dmake from http://www.cpan.org/authors/id/GSAR/dmake-4.1pl1-win32.zip
+  set WXDIR=z:\path\to\wx
+  set WXWIN=z:\path\to\wx
+
+  perl Makefile.PL
+  dmake
+  dmake test
+  dmake install
 
 * SPECIFYING THE INSTALLATION PATH
 
