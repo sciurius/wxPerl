@@ -456,6 +456,24 @@ public:                                                                 \
 #define WXPLI_DEFINE_CLASS( name ) \
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPli##name, wx##name );
 
+// this should really, really, really be in compat.h,
+// but requires perl.h to be included
+#if WXPERL_P_VERSION_GE( 5, 4, 0 ) && !WXPERL_P_VERSION_GE( 5, 4, 5 )
+
+inline SV* newSVpvn( const char* sxx, size_t len )
+{
+    if( len > 0 )
+        return newSVpv( CHAR_P sxx, len );
+    else
+    {
+        SV* sv = newSViv( 0 );
+        sv_setpvn( sv, sxx, len );
+        return sv;
+    }
+}
+
+#endif
+
 // Local variables: //
 // mode: c++ //
 // End: //
