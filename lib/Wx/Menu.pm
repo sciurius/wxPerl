@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Menu.pm,v 1.9 2003/05/17 13:20:14 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -51,6 +51,7 @@ sub Remove {
 sub Prepend {
   my( $this ) = shift;
 
+  Wx::_match( @_, $Wx::_n_s_wmen, 3, 1 ) && ( $this->PrependSubMenu( @_ ), return );
   Wx::_match( @_, $Wx::_n_s, 2, 1 )      && ( $this->PrependString( @_ ), return );
   Wx::_match( @_, $Wx::_wmit, 1 )        && ( $this->PrependItem( @_ ), return );
   Wx::_croak Wx::_ovl_error;
@@ -59,6 +60,7 @@ sub Prepend {
 sub Insert {
   my( $this ) = shift;
 
+  Wx::_match( @_, $Wx::_n_n_s_wmen, 4, 1 ) && ( $this->InsertSubMenu( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_s, 3, 1 )      && ( $this->InsertString( @_ ), return );
   Wx::_match( @_, $Wx::_n_wmit, 2 )        && ( $this->InsertItem( @_ ), return );
   Wx::_croak Wx::_ovl_error;

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.17 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.18 2003/05/17 13:20:13 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -180,6 +180,16 @@ Wx_Menu::InsertString( pos, id, item, helpString = wxEmptyString, kind = wxITEM_
     THIS->Insert( pos, id, item, helpString, kind );
 
 void
+wxMenu::InsertSubMenu( pos, id, text, submenu, help = wxEmptyString )
+    int pos
+    int id
+    wxString text
+    wxMenu* submenu
+    wxString help
+  CODE:
+    THIS->Insert( pos, id, text, submenu, help );
+
+void
 Wx_Menu::InsertCheckItem( pos, id, item, helpString )
      size_t pos
      int id
@@ -219,6 +229,15 @@ Wx_Menu::PrependItem( menuItem )
     Wx_MenuItem* menuItem
   CODE:
     THIS->Prepend( menuItem );
+
+void
+Wx_Menu::PrependSubMenu( id, item, subMenu, helpString = wxEmptyString )
+    int id
+    wxString item
+    Wx_Menu* subMenu
+    wxString helpString
+  CODE:
+    THIS->Prepend( id, item, subMenu, helpString );
 
 void
 Wx_Menu::PrependCheckItem( id, item, helpString = wxEmptyString )
