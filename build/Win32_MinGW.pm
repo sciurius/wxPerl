@@ -101,11 +101,10 @@ Wx_res.o: Wx.rc
 \twindres --include-dir ${wxdir}\\include Wx.rc Wx_res.o
 
 ppmdist: pure_all ppd
-\t\$(MV) Wx.ppd ..
 \t\$(CP) ${implib} blib\\arch\\auto\\Wx
 \tstrip blib\\arch\\auto\\Wx\\*.dll
-\t\$(TAR) \$(TARFLAGS) ..\\\$(DISTVNAME).tar blib
-\tgzip --force --best ..\\\$(DISTVNAME).tar
+\t\$(TAR) \$(TARFLAGS) \$(DISTVNAME)-ppm.tar blib
+\tgzip --force --best \$(DISTVNAME)-ppm.tar
 
 EOT
 
