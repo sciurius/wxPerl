@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.33 2004/12/21 21:12:19 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.34 2005/01/03 21:07:59 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -47,6 +47,13 @@ wxControl::Command( event )
     wxCommandEvent* event
   CODE:
     THIS->Command( *event );
+
+wxString
+wxControl::GetLabel()
+
+void
+wxControl::SetLabel( label )
+    wxString label
 
 MODULE=Wx_Ctrl PACKAGE=Wx::ControlWithItems
 
