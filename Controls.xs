@@ -134,7 +134,7 @@ Wx_ControlWithItems::SetClientData( n, data )
     int n
     SV* data
   CODE:
-    if( data == &PL_sv_undef )
+    if( !SvOK( data ) )
     {
       THIS->SetClientObject( n, 0 );
     }

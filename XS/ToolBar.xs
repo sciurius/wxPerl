@@ -49,7 +49,7 @@ Wx_ToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap
   CODE:
     RETVAL = THIS->AddTool( toolId, *bitmap1, *bitmap2, isToggle,
         0, shortHelp, longHelp );
-    if( clientData != &PL_sv_undef )
+    if( !SvOK( clientData ) )
     {
       SV* newdata = sv_newmortal();
       sv_setsv( newdata, clientData );
@@ -156,7 +156,7 @@ Wx_ToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBi
   CODE:
     RETVAL = THIS->InsertTool( pos, toolId, *bitmap1, *bitmap2, isToggle,
         0, shortHelp, longHelp );
-    if( clientData != &PL_sv_undef )
+    if( !SvOK( clientData ) )
     {
       SV* newdata = sv_newmortal();
       sv_setsv( newdata, clientData );
