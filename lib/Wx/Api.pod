@@ -94,7 +94,7 @@ a C<char*> value
 
 a C<wxChar*> value
 
-=item p
+=item P
 
 a C<wxString*> value
 
