@@ -18,16 +18,17 @@ die "4 arguments required" unless @ARGV == 4;
 open IN, '< ' . $ARGV[0];
 
 while( <IN> ) {
+  m<^\s*//prefix\s+([^\s]*)\s*$> && do { $prefix = $1; next };
   m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> || next;
   if( length $2 ) {
     foreach ( split '\s+', $2 ) {
       next if $_ =~ /^\s*$/;
 
-      push @{$Wx_tag{$_}}, $1;
+      push @{$Wx_tag{$_}}, $prefix . $1;
     }
   }
 
-  push @Wx_exp, $1;
+  push @Wx_exp, $prefix . $1;
 }
 
 #
@@ -65,7 +66,7 @@ close IN;
 # write export file
 #
 
-open OUT, '> '.$ARGV[3];
+open OUT, '> '.$ARGV[3] || die "unable to open file";
 
 binmode OUT; # Perl 5.004 on Unix complains for CR
 
