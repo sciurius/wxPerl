@@ -2,6 +2,9 @@ PRIORITY HIGH:
 
 * building debugging version in install.pod
 * rewrite docs in POD (?)
+* MSLU
+* correct "wxPerl" reference in install.txt for Mac OS X
+  and put a README in the DMG
 
 PRIORITY NORMAL:
 
