@@ -466,6 +466,7 @@ demo/data/quotes.gif
 demo/data/update.gif
 demo/demo.pl
 demo/splash.pl
+demo/wxCalendarCtrl.pm
 demo/wxCheckListBox.pm
 demo/wxClipboard.pm
 demo/wxFileSystem.pm
