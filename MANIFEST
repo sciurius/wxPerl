@@ -28,6 +28,7 @@ script/pipe.pl
 
 t/1_load.t
 t/2_inheritance.t
+t/3_event.t
 
 lib/Wx/App.pm
 lib/Wx/Bitmap.pm
@@ -51,6 +52,7 @@ lib/Wx/Rect.pm
 lib/Wx/Region.pm
 lib/Wx/ScreenDC.pm
 lib/Wx/Sizer.pm
+lib/Wx/SplashScreen.pm
 lib/Wx/StaticBitmap.pm
 lib/Wx/Timer.pm
 lib/Wx/ToolBar.pm
@@ -334,21 +336,16 @@ ext/xrc/t/2_inheritance.t
 
 demo/DataObjects.pm
 demo/DragDrop.pm
+demo/MDI.pm
 demo/Printing.pm
 demo/Unicode.pm
 demo/XRC.pm
 demo/data/fs.zip
 demo/data/html/index.html
 demo/data/html/page.html
-demo/data/locale/en/wxperl_demo.mo
 demo/data/locale/en/wxperl_demo.po
-demo/data/locale/en/wxperl_demo.po.poedit
-demo/data/locale/fr/wxperl_demo.mo
 demo/data/locale/fr/wxperl_demo.po
-demo/data/locale/fr/wxperl_demo.po.poedit
-demo/data/locale/it/wxperl_demo.mo
 demo/data/locale/it/wxperl_demo.po
-demo/data/locale/it/wxperl_demo.po.poedit
 demo/data/resource.xrc
 demo/demo.pl
 demo/wxClipboard.pm
@@ -356,3 +353,4 @@ demo/wxFileSystem.pm
 demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm
 demo/wxLocale.pm
+demo/wxSplashScreen.pm
