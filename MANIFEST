@@ -291,6 +291,17 @@ ext/html/typemap
 ext/html/t/1_load.t
 ext/html/t/2_inheritance.t
 
+ext/mdi/MDI.xs
+ext/mdi/Makefile.PL
+ext/mdi/XS/MDIChildFrame.xs
+ext/mdi/XS/MDIParentFrame.xs
+ext/mdi/cpp/md_typedef.h
+ext/mdi/cpp/mdi.h
+ext/mdi/lib/Wx/MDI.pm
+ext/mdi/t/1_load.t
+ext/mdi/t/2_inheritance.t
+ext/mdi/typemap
+
 ext/print/Makefile.PL
 ext/print/Print.xs
 ext/print/XS/PageSetupDialog.xs
