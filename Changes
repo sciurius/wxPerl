@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.15
+0.15  Mon May 19 15:39:05 CEST 2003
 	- Removed support for wxWindows 2.2.x and 2.3.x.
 	- Removed support for Perl 5.004.
 	- Started documentation for the extension api
@@ -96,7 +96,7 @@ Revision history for Perl extension Wx.
 	- wx*HelpController* wrappers
 	- added ppmdist target for Win32
 
-0.05  xxx Mar 04 15:01:03 2001
+0.05  Sun Mar 04 15:01:03 2001
 	- Wx::AcceleratorTable/Entry
 	- most common dialogs
 	- Wx::PlSizer (user defined sizer)
@@ -107,15 +107,15 @@ Revision history for Perl extension Wx.
 	- Wx::SystemSettings
 	- some other minor classes (search for PACKAGE= in the sources)
 
-0.04  xxx Jan 20 15:02:04 2001
+0.04  Sat Jan 20 15:02:04 2001
 	- Better overloaded method support
 	- Perl 5.004_04 compatibility
 	- MinGW compilation (with ActivePerl and Perl built from sources)
 	- wxMotif support (alpha)
 
-0.03  xxx Dec 04 15:00:01 2000
+0.03  Mon Dec 04 15:00:01 2000
 	- First public release
 
-0.02  xxx Nov 30 xx:xx:xx 2000
+0.02  Thu Nov 30 xx:xx:xx 2000
 
-0.01  xxx Nov 28 xx:xx:xx 2000
+0.01  Tue Nov 28 xx:xx:xx 2000
