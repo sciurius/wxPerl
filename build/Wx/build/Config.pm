@@ -88,7 +88,7 @@ sub get_wx_version {
   $ver =~ m/(\d)(\d)(\d+)/ &&
     return $1 + $2 / 1000 + $3 / 1000000;
 
-  die "unable to get wxWindows'version";
+  die "unable to get wxWindows' version ($ver)";
 }
 
 =head2 get_wx_platform
