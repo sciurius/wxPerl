@@ -380,6 +380,7 @@ if( strEQ( name, #n ) ) \
     r( wxID_HELP_COMMANDS );            // id
     r( wxID_HELP_PROCEDURES );          // id
     r( wxID_HELP_CONTEXT );             // id
+    r( wxID_HELP );                     // id
 
     r( wxID_CUT );                      // id
     r( wxID_COPY );                     // id
