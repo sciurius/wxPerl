@@ -103,8 +103,8 @@ inline AV* wxPli_avref_2_av( SV* sv )
 //
 
 const int WXPL_BUF_SIZE = 120;
-WXPLDLL const char* wxPli_cpp_class_2_perl( const wxChar* className,
-                                            char buffer[WXPL_BUF_SIZE] );
+WXPLDLL const char* FUNCPTR( wxPli_cpp_class_2_perl )( const wxChar* className,
+                                              char buffer[WXPL_BUF_SIZE] );
 // argtypes is a string; each character describes the C++ argument
 // type and how it should be used (i.e. a valid string is "ii", assuming
 // you pass two integers as additional parameters
@@ -254,6 +254,8 @@ struct wxPliHelpers
     wxWindowID ( * m_wxPli_get_wxwindowid )( pTHX_ SV* );
     int ( * m_wxPli_av_2_stringarray )( pTHX_ SV*, wxString** );
     wxPliInputStream* ( * m_wxPliInputStream_ctor )( SV* );
+    const char* ( * m_wxPli_cpp_class_2_perl )( const wxChar*,
+                                                char buffer[WXPL_BUF_SIZE] );
 };
 
 #define DEFINE_PLI_HELPERS( name ) \
@@ -264,7 +266,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPli_add_constant_function, &wxPli_remove_constant_function, \
  &wxPliVirtualCallback_FindCallback, &wxPliVirtualCallback_CallCallback, \
  &wxPli_object_is_deleteable, &wxPli_object_set_deleteable, &wxPli_get_class, \
- &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor };
+ &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor, \
+ &wxPli_cpp_class_2_perl };
 
 #if !defined( WXPL_STATIC ) || !defined( WXPL_EXT )
 
@@ -289,7 +292,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   wxPli_get_class = name->m_wxPli_get_class; \
   wxPli_get_wxwindowid = name->m_wxPli_get_wxwindowid; \
   wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray; \
-  wxPliInputStream_ctor = name->m_wxPliInputStream_ctor;
+  wxPliInputStream_ctor = name->m_wxPliInputStream_ctor; \
+  wxPli_cpp_class_2_perl = name->m_wxPli_cpp_class_2_perl;
 
 #else
 
