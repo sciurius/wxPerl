@@ -49,12 +49,7 @@ sub GetTextDataObject {
 sub GetBothDataObject {
   my $data = Wx::DataObjectComposite->new;
   my $text = <<EOT;
- ++++++++ 
-+        +
-+  *  *  +
-+        +
-+        +
- ++++++++ 
+This is a yellow face.
 EOT
   $text =~ s/\n/\r\n/g;
 
