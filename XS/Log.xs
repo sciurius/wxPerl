@@ -23,6 +23,18 @@ AddTraceMask( mask )
   CODE:
     wxLog::AddTraceMask( mask );
 
+void
+RemoveTraceMask( mask )
+    wxString mask
+  CODE:
+    wxLog::RemoveTraceMask( mask );
+
+bool
+IsAllowedTraceMask( mask )
+    wxChar* mask
+  CODE:
+    wxLog::IsAllowedTraceMask( mask );
+
 Wx_Log*
 GetActiveTarget()
   CODE:
@@ -66,11 +78,44 @@ Wx_Log::SetTimestamp( format )
 const char*
 Wx_Log::GetTimestamp()
 
+void
+SetTraceMask( mask )
+    wxTraceMask mask
+  CODE:
+    wxLog::SetTraceMask( mask );
+
+wxTraceMask
+GetTraceMask()
+  CODE:
+    RETVAL = wxLog::GetTraceMask();
 
 MODULE=Wx PACKAGE=Wx::LogTextCtrl
 
 Wx_LogTextCtrl*
 Wx_LogTextCtrl::new( ctrl )
     Wx_TextCtrl* ctrl
+
+MODULE=Wx PACKAGE=Wx::LogNull
+
+Wx_LogNull*
+Wx_LogNull::new()
+
+void
+Wx_LogNull::DESTROY()
+
+MODULE=Wx PACKAGE=Wx::LogGui
+
+Wx_LogGui*
+Wx_LogGui::new()
+
+MODULE=Wx PACKAGE=Wx::LogWindow
+
+Wx_LogWindow*
+Wx_LogWindow::new( parent, title, show = TRUE, passtoold = TRUE )
+    Wx_Frame* parent
+    wxString title
+    bool show
+    bool passtoold
+
 
 
