@@ -99,6 +99,7 @@ sub OnPaste {
   my( $this, $event ) = @_;
 
   wxTheClipboard->Open;
+  wxTheClipboard->UsePrimarySelection( 0 );
 
   my $text = '';
   if( wxTheClipboard->IsSupported( wxDF_TEXT ) ) {
