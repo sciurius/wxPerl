@@ -5,7 +5,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      7/ 8/2002
-// RCS-ID:      
+// RCS-ID:      $Id: overload.cpp,v 1.7 2003/05/04 17:38:10 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -70,10 +70,10 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
         if( !allow_more && argc != required )
             { PUSHMARK(MARK); return FALSE; }
     }
-    else if( argc < nproto )
+    else if( argc < int(nproto) )
         { PUSHMARK(MARK); return FALSE; }
 
-    size_t max = wxMin( nproto, argc ) + offset;
+    size_t max = wxMin( nproto, size_t(argc) ) + offset;
     for( size_t i = offset; i < max; ++i )
     {
         unsigned char p = prototype[i - offset];

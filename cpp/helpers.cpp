@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.53 2003/05/02 20:26:44 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.54 2003/05/04 17:38:10 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -473,7 +473,6 @@ SV* wxPli_make_object( void* object, const char* classname )
 {
     dTHX;
     SV* ret;
-    SV* value;
     HV* hv;
     HV* stash = gv_stashpv( CHAR_P classname, 0 );
 
@@ -514,9 +513,9 @@ void wxPli_stringarray_push( pTHX_ const wxArrayString& strings )
 {
     dSP;
 
-    size_t max = strings.GetCount();
-    EXTEND( SP, max );
-    for( size_t i = 0; i < max; ++i )
+    size_t mx = strings.GetCount();
+    EXTEND( SP, int(mx) );
+    for( size_t i = 0; i < mx; ++i )
     {
 #if wxUSE_UNICODE
         SV* tmp = sv_2mortal( newSVpv( strings[i].mb_str(wxConvUTF8), 0 ) );

@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/ 8/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: make_ovl_list.pl,v 1.11 2003/05/04 17:38:10 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -216,7 +216,6 @@ print OUT2 <<EOT;
 void SetOvlConstants()
 {
     dTHX;
-    SV* tmp;
 EOT
 
 #foreach my $i ( @keys ) {
