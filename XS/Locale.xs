@@ -155,7 +155,7 @@ const wxChar*
 wxGetTranslation( string )
     const wxChar* string
   CODE:
-#if wxUSE_UNICODE
+#if wxUSE_UNICODE && WXPERL_W_VERSION_LE( 2, 3, 2 )
     wxMB2WXbuf ret = wxGetTranslation( string );
     RETVAL = ret.data();
 #else
