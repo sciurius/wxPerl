@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        dropsource.h
+// Name:        ext/dnd/cpp/dropsource.h
 // Purpose:     c++ wrapper for wxPliDropSource
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     16/ 8/2001
-// RCS-ID:      
+// Created:     16/08/2001
+// RCS-ID:      $Id: dropsource.h,v 1.4 2004/06/28 19:18:06 mbarbon Exp $
 // Copyright:   (c) 2001 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -17,7 +17,7 @@ class wxPliDropSource:public wxDropSource
 {
     WXPLI_DECLARE_V_CBACK();
 public:
-#if defined( __WXMSW__ )
+#if defined( __WXMSW__ ) || defined( __WXMAC__ )
     wxPliDropSource( const char* package, wxWindow* win,
                      const wxCursor& c1, const wxCursor& c2,
                      const wxCursor& c3 )
