@@ -49,25 +49,45 @@ EOT
   exit 0;
 }
 
+# small helper, 5.005 does not have F::S::Functions
+sub splitpath {
+  return File::Spec->splitpath( @_ );
+}
+
 #
 # this can only work on Unix, patches welcome...
 #
 if( $o_mksymlinks ) {
   require FindBin;
   require ExtUtils::Manifest;
-  require File::Spec;
+  if( $] >= 5.005 ) {
+    require File::Spec;
+  } else {
+    eval <<'EOT'
+package File::Spec;
+
+# this will work on *nix, and only on files not in root,
+# but almost no-one will use 5.004 on non-unix by now...
+sub splitpath {
+  shift;
+  my $file = shift;
+  return ( undef, $file, undef ) if $file =~ m{/\.{1,2}$};
+  return ( undef, $file, $1 ) if $file =~ s{([^/]+)$}{};
+}
+EOT
+  }
   require File::Path;
 
   *mkpath = \&File::Path::mkpath;
 
-  my $manifest = File::Spec->catfile( $FindBin::RealBin, 'MANIFEST' );
+  my $manifest = MM->catfile( $FindBin::RealBin, 'MANIFEST' );
   die "Can't find MANIFEST" unless -e $manifest;
   my $files = ExtUtils::Manifest::maniread( $manifest );
 
   foreach my $f ( keys %$files ) {
     my( $fr, $to ) = ( "${FindBin::RealBin}/$f", $f );
     my $dir;
-    ( undef, $dir, undef ) = File::Spec->splitpath( $to );
+    ( undef, $dir, undef ) = splitpath( $to );
     mkpath( $dir ) if length $dir && !-d $dir;
     next if -l $to;
     unlink $to or die "unlink '$to' failed: $!" if -e $to;
