@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Makefile.PL,v 1.35 2003/12/13 17:18:34 mbarbon Exp $
+## RCS-ID:      $Id: Makefile.PL,v 1.36 2003/12/20 15:39:08 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -41,6 +41,7 @@ wxWriteMakefile( NAME          => 'Wx',
 
 END {
     print <<EOT;
+
 ======================================================================
 For installation instructions and further help please see
 docs/install.txt
@@ -48,6 +49,7 @@ docs/install.txt
 For command line switches help use:
 perl Makefile.PL --help
 ======================================================================
+
 EOT
 }
 
