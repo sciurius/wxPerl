@@ -32,6 +32,17 @@ Wx_FSFile::GetMimeType()
 wxInputStream*
 Wx_FSFile::GetStream()
 
+MODULE=Wx PACKAGE=Wx::FSFile
 
+#include "cpp/fshandler.h"
 
-
+Wx_PlFSFile*
+Wx_PlFSFile::new( fh, loc, mimetype, anchor )
+    SV* fh
+    wxString loc
+    wxString mimetype
+    wxString anchor
+  CODE:
+    RETVAL = new wxPlFSFile( fh, loc, mimetype, anchor );
+  OUTPUT:
+    RETVAL

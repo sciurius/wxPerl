@@ -30,3 +30,15 @@ Wx_ZipFSHandler*
 Wx_ZipFSHandler::new()
 
 MODULE=Wx PACKAGE=Wx::MemoryFSHandler
+
+MODULE=Wx PACKAGE=Wx::PlFileSystemHandler
+
+#include "cpp/fshandler.h"
+
+Wx_PlFileSystemHandler*
+Wx_PlFileSystemhandler::new()
+  CODE:
+    RETVAL = new wxPlFileSystemHandler( CLASS );
+  OUTPUT:
+    RETVAL
+

@@ -13,7 +13,9 @@
 TYPEMAP
 Wx_FileSystem *         O_WXOBJECT
 Wx_FileSystemHandler *  O_WXOBJECT
+Wx_PlFileSystemHandler * O_WXOBJECT
 Wx_FSFile *             O_NON_WXOBJECT
+Wx_PlFSFile *           O_NON_WXOBJECT
 
 Wx_InternetFSHandler *  O_WXOBJECT
 Wx_ZipFSHandler *       O_WXOBJECT

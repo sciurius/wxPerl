@@ -34,6 +34,8 @@ no strict;
 package Wx::FileSystemHandler;
 package Wx::InternetFSHandler;  @ISA = qw(Wx::FileSystemHandler);
 package Wx::ZipFSHandler;       @ISA = qw(Wx::FileSystemHandler);
+package Wx::PlFileSystemHandler; @ISA = qw(Wx::FileSystemHandler);
+package Wx::PlFSFile;           @ISA = qw(Wx::FSFile);
 
 use strict;
 

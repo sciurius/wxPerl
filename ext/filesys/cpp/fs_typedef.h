@@ -26,6 +26,9 @@ FD_TD( InternetFSHandler );
 FD_TD( ZipFSHandler );
 FD_TD( MemoryFSHandler );
 
+FD_TD( PlFileSystemHandler );
+FD_TD( PlFSFile );
+
 #undef FD_TD
 
 #endif
