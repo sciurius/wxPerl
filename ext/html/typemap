@@ -17,7 +17,7 @@ Wx_HtmlCell *           O_WXOBJECT
 
 Wx_HtmlHelpController * O_WXOBJECT
 
-Wx_HtmlEasyPrinting *   O_WXOBJECT
+Wx_HtmlEasyPrinting *   O_NON_WXOBJECT
 
 Wx_ConfigBase *         O_WXOBJECT
 
