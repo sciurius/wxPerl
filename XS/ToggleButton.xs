@@ -32,5 +32,12 @@ Wx_ToggleButton::new( parent, id, label, pos = wxDefaultPosition, size = wxDefau
   OUTPUT:
     RETVAL
 
+bool
+wxToggleButton::GetValue()
+
+void
+wxToggleButton::SetValue( value )
+    bool value
+
 #endif
 
