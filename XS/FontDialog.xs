@@ -101,7 +101,7 @@ Wx_FontDialog::GetFontData()
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 Wx_Font*
 wxGetFontFromUser( parent = 0, fontInit = (wxFont*)&wxNullFont )
