@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.39 2003/12/13 17:13:31 mbarbon Exp $
+## RCS-ID:      $Id: Event.pm,v 1.40 2003/12/26 10:58:21 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -168,6 +168,13 @@ sub EVT_JOY_BUTTON_DOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_BUTTON_DOWN
 sub EVT_JOY_BUTTON_UP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_BUTTON_UP, $_[1] ); }
 sub EVT_JOY_MOVE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_MOVE, $_[1] ); }
 sub EVT_JOY_ZMOVE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_ZMOVE, $_[1] ); }
+
+#
+# ListbookEvent
+#
+
+sub EVT_LISTBOOK_PAGE_CHANGING($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_LISTBOOK_PAGE_CHANGING, $_[2] ); }
+sub EVT_LISTBOOK_PAGE_CHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_LISTBOOK_PAGE_CHANGED, $_[2] ); }
 
 #
 # ListEvent

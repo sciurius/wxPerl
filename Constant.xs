@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.97 2003/12/20 15:44:10 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.98 2003/12/26 10:58:19 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -53,6 +53,10 @@
 
 #include "cpp/wxapi.h"
 #include "cpp/setup.h"
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+#include <wx/listbook.h>
+#endif
 
 #include <wx/tglbtn.h>
 #include <wx/splash.h>
@@ -222,6 +226,7 @@ static wxPlINH inherit[] =
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     I( BookCtrl,        Control )
     I( Notebook,        BookCtrl )
+    I( Listbook,        BookCtrl )
 #else
     I( Notebook,        Control )
 #endif
@@ -435,6 +440,7 @@ static wxPlINH inherit[] =
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     I( BookCtrlEvent,   NotifyEvent )
     I( NotebookEvent,   BookCtrlEvent )
+    I( ListbookEvent,   BookCtrlEvent )
 #else
     I( NotebookEvent,   NotifyEvent )
 #endif
@@ -645,6 +651,10 @@ static double constant( const char *name, int arg )
   case 'E':
     r( wxEQUIV );                       // dc
 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    r( wxEVT_COMMAND_LISTBOOK_PAGE_CHANGED );
+    r( wxEVT_COMMAND_LISTBOOK_PAGE_CHANGING );
+#endif
     r( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED );
     r( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGING );
     r( wxEVT_COMMAND_BUTTON_CLICKED );
@@ -1101,6 +1111,16 @@ static double constant( const char *name, int arg )
     r( wxLB_NEEDED_SB );                // listbox
     r( wxLB_OWNERDRAW );                // listbox
     r( wxLB_SORT );                     // listbox
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    r( wxLB_DEFAULT );                  // listbook
+    r( wxLB_TOP );                      // listbook
+    r( wxLB_BOTTOM );                   // listbook
+    r( wxLB_LEFT );                     // listbook
+    r( wxLB_RIGHT );                    // listbook
+    r( wxLB_ALIGN_MASK );               // listbook
+#endif
+
     r( wxLEFT );                        // sizer layout constraints
     r( wxLIGHT );                       // font
 

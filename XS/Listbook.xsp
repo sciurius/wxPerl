@@ -1,0 +1,60 @@
+#############################################################################
+## Name:        XS/Listbook.xsp
+## Purpose:     XS++ for Wx::Listbook
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     21/12/2003
+## RCS-ID:      $Id: Listbook.xsp,v 1.1 2003/12/26 10:58:21 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxListbook*}{simple};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+#include <wx/listbook.h>
+%}
+
+%name{Wx::Listbook} class wxListbook
+{
+    %name{newDefault} wxListbook()
+        %code{% RETVAL = new wxListbook();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxListbook(wxWindow *parent,
+                              wxWindowID id,
+                              const wxPoint& pos = wxDefaultPosition,
+                              const wxSize& size = wxDefaultSize,
+                              long style = 0,
+                              const wxString& name = wxEmptyString)
+        %code{% RETVAL = new wxListbook( parent, id, pos, size, style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create(wxWindow *parent,
+                wxWindowID id,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = 0,
+                const wxString& name = wxEmptyString);
+
+};
+
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::Listbook::new" )
+%}
+
+%{
+#endif
+%}
