@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: xsubppp.pl,v 1.7 2003/07/24 19:51:47 mbarbon Exp $
-## Copyright:   (c) 2003 Mattia Barbon
+## RCS-ID:      $Id: xsubppp.pl,v 1.8 2004/12/21 20:57:45 mbarbon Exp $
+## Copyright:   (c) 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -360,7 +360,9 @@ sub print {
 
 sub perl_function_name { $_[0]->perl_name }
 
-=begin documentation XSP::Parser::_call_code( argument_string )
+=begin documentation
+
+XSP::Parser::_call_code( argument_string )
 
 Return something like "foo( $argument_string )".
 

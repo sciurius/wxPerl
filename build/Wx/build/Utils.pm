@@ -142,7 +142,7 @@ sub path_search {
   return;
 }
 
-=end
+=end cut
 
 #
 #
@@ -188,7 +188,7 @@ sub merge_config {
   return \%cfg;
 }
 
-=end
+=end cut
 
 =head2 xs_dependencies
 
