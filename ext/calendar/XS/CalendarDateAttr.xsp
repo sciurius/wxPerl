@@ -1,0 +1,50 @@
+#############################################################################
+## Name:        ext/calendar/XS/CalendarDateAttr.xsp
+## Purpose:     XS++ for Wx::CalenderDateAttr
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     20/ 4/2003
+## RCS-ID:      $Id: CalendarDateAttr.xsp,v 1.1 2003/04/22 19:24:41 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/event.h>
+#include <wx/calctrl.h>
+
+%module{Wx};
+
+%typemap{wxCalendarDateAttr*}{simple};
+%typemap{wxCalendarDateBorder}{simple};
+
+%name{Wx::CalendarDateAttr} class wxCalendarDateAttr
+{
+    wxCalendarDateAttr();
+    ~wxCalendarDateAttr();
+
+    void SetTextColour( const wxColour& colText );
+    void SetBackgroundColour( const wxColour& colBack );
+    void SetBorderColour( const wxColour& col );
+
+    void SetFont( const wxFont& font );
+
+    void SetBorder( wxCalendarDateBorder border );
+    void SetHoliday( bool holiday );
+
+    bool HasTextColour();
+    bool HasBackgroundColour();
+    bool HasBorderColour();
+
+    bool HasFont();
+    bool HasBorder();
+    bool IsHoliday();
+
+    const wxColour& GetTextColour();
+    const wxColour& GetBackgroundColour();
+    const wxColour& GetBorderColour();
+
+    const wxFont& GetFont();
+
+    wxCalendarDateBorder GetBorder();
+};

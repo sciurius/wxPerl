@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: typemap.xsp,v 1.4 2003/03/27 20:11:18 mbarbon Exp $
+## RCS-ID:      $Id: typemap.xsp,v 1.5 2003/04/22 19:24:13 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -39,9 +39,8 @@
 
 %typemap{wxWindow*}{simple};
 %typemap{wxSizer*}{simple};
-
-%typemap{const wxColour&}{reference};
-
 %typemap{wxIconBundle*}{simple};
 
+%typemap{const wxColour&}{reference};
 %typemap{const wxIcon&}{reference};
+%typemap{const wxFont&}{reference};
