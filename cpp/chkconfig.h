@@ -52,6 +52,9 @@
 #       error "Recompile wxWindows with wxUSE_FONTDLG"
 #   endif
 #else
+#   ifndef wxUSE_FONTDLG
+#       define wxUSE_FONTDLG 1
+#   endif
 #   define wxPERL_USE_FONTDLG wxUSE_FONTDLG
 #endif
 
