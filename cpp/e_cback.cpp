@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: e_cback.cpp,v 1.10 2004/08/04 20:13:55 mbarbon Exp $
+// RCS-ID:      $Id: e_cback.cpp,v 1.11 2004/10/05 20:15:28 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -26,6 +26,23 @@ wxPliEventCallback::~wxPliEventCallback()
     SvREFCNT_dec( m_self );
 }
 
+class wxPliGuard {
+public:
+    ~wxPliGuard()
+    {
+        if( m_sv )
+        {
+            dTHX;
+
+            sv_setiv( m_sv, 0 );
+        }
+    }
+
+    void SetSV( SV* sv ) { m_sv = sv; }
+private:
+    SV* m_sv;
+};
+
 void wxPliEventCallback::Handler( wxEvent& event ) 
 {
     wxPliEventCallback* This = (wxPliEventCallback*) event.m_callbackUserData;
@@ -36,8 +53,9 @@ void wxPliEventCallback::Handler( wxEvent& event )
     ENTER;
     SAVETMPS;
 
+    {
     // similar to wxPli_object_2_sv
-    bool clear = false;
+    wxPliGuard guard;
     SV* e = 0;
     SV* rv = 0;
     wxClassInfo *ci = event.GetClassInfo();
@@ -67,7 +85,7 @@ void wxPliEventCallback::Handler( wxEvent& event )
         // destroyed
         SvREFCNT_inc( rv );
         sv_2mortal( rv );
-        clear = true;
+        guard.SetSV( rv );
     }
 
     PUSHMARK( SP );
@@ -76,7 +94,7 @@ void wxPliEventCallback::Handler( wxEvent& event )
     PUTBACK;
 
     call_sv( This->m_method, G_DISCARD );
-    if( clear ) sv_setiv( rv, 0 );
+    }
 
     FREETMPS;
     LEAVE;
