@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: typedef.h,v 1.44 2003/05/28 20:48:46 mbarbon Exp $
+// RCS-ID:      $Id: typedef.h,v 1.45 2003/05/29 20:04:23 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -82,8 +82,6 @@ FD_TD( BusyCursor );
 FD_TD( BusyInfo );
 FD_TD( Caret );
 FD_TD( CaretSuspend );
-FD_TD( CheckListBox );
-FD_TD( Choice );
 FD_TD( ClassInfo );
 FD_TD( ClientDC );
 FD_TD( Colour );
@@ -95,11 +93,9 @@ FD_TD_NAME( ColourDialog, GenericColourDialog );
 FD_TD( ColourDialog );
 #endif
 
-FD_TD( ComboBox );
 FD_TD( Config );
 FD_TD( ConfigBase );
 FD_TD( Control );
-FD_TD( ControlWithItems );
 FD_TD( Cursor );
 FD_TD( DC );
 FD_TD( Dialog );
@@ -128,7 +124,6 @@ FD_TD( FontDialog );
 FD_TD( FontEnumerator )
 FD_TD( FontMapper )
 FD_TD( Frame );
-FD_TD( Gauge );
 FD_TD( GridSizer );
 FD_TD( Icon );
 FD_TD( Image );
@@ -140,7 +135,6 @@ FD_TD( LayoutConstraints );
 FD_TD( ListCtrl );
 FD_TD( ListItem );
 FD_TD( ListItemAttr );
-FD_TD( ListView );
 FD_TD( Locale );
 FD_TD( Log );
 FD_TD( LogGui );
@@ -172,7 +166,6 @@ FD_TD( Pen );
 FD_TD( Point );
 FD_TD( Process );
 FD_TD( ProgressDialog );
-FD_TD( RadioBox );
 FD_TD( RadioButton );
 FD_TD( Rect );
 FD_TD( RegConfig );

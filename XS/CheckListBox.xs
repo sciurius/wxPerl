@@ -1,26 +1,28 @@
 #############################################################################
-## Name:        CheckListBox.xs
+## Name:        XS/CheckListBox.xs
 ## Purpose:     XS for Wx::CheckListBox
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: CheckListBox.xs,v 1.6 2003/05/29 20:04:23 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/checklst.h>
+
 MODULE=Wx PACKAGE=Wx::CheckListBox
 
-Wx_CheckListBox*
-Wx_CheckListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
-    Wx_Window* parent
+wxCheckListBox*
+wxCheckListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     SV* choices
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   PREINIT:
     wxString* chs;
@@ -34,18 +36,19 @@ Wx_CheckListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize,
         chs = 0;
     }
         
-    RETVAL = new wxPliCheckListBox( CLASS, parent, id, pos, size, n, chs, 
+    RETVAL = new wxCheckListBox( parent, id, pos, size, n, chs, 
         style|wxLB_OWNERDRAW, *validator, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
 
     delete[] chs;
   OUTPUT:
     RETVAL
 
 void
-Wx_CheckListBox::Check( item, check = FALSE )
+wxCheckListBox::Check( item, check = FALSE )
     int item
     bool check
 
 bool
-Wx_CheckListBox::IsChecked( item )
+wxCheckListBox::IsChecked( item )
     int item

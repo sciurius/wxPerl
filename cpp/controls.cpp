@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        controls.cpp
+// Name:        cpp/controls.cpp
 // Purpose:     implementation for controls.h
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.cpp,v 1.28 2003/05/28 20:42:49 mbarbon Exp $
+// RCS-ID:      $Id: controls.cpp,v 1.29 2003/05/29 20:04:23 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -12,12 +12,7 @@
 
 #include "cpp/constants.h"
 
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckListBox, wxCheckListBox );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliChoice, wxChoice );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliComboBox, wxComboBox );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListView, wxListView );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliNotebook, wxNotebook );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioBox, wxRadioBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioButton, wxRadioButton );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliScrollBar, wxScrollBar );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSpinButton, wxSpinButton );
@@ -31,12 +26,6 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTextCtrl, wxTextCtrl );
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliToggleButton, wxToggleButton );
 
-#endif
-
-#if defined( __WXMSW__ )
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge95 );
-#else
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge );
 #endif
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSlider, wxSlider );

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.53 2003/05/28 20:48:45 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.54 2003/05/29 20:04:08 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -99,34 +99,27 @@ wxPlValidator *         O_WXOBJECT
 Wx_Validator *          O_WXOBJECT
 wxValidator *           O_WXOBJECT
 wxCheckBox *            O_WXEVTHANDLER
-Wx_Choice *             O_WXOBJECT
-wxChoice *              O_WXOBJECT
-Wx_ComboBox *           O_WXOBJECT
-wxComboBox *            O_WXOBJECT
-Wx_ControlWithItems *   O_WXOBJECT
+wxChoice *              O_WXEVTHANDLER
+wxComboBox *            O_WXEVTHANDLER
 wxControlWithItems *    O_WXOBJECT
 wxListBox *             O_WXEVTHANDLER
 Wx_StaticBox *          O_WXOBJECT
 wxStaticBox *           O_WXOBJECT
 Wx_RadioButton *        O_WXOBJECT
 wxRadioButton *         O_WXOBJECT
-Wx_RadioBox *           O_WXOBJECT
-wxRadioBox *            O_WXOBJECT
+wxRadioBox *            O_WXEVTHANDLER
 Wx_ScrollBar *          O_WXOBJECT
 wxScrollBar *           O_WXOBJECT
 Wx_Notebook *           O_WXOBJECT
 wxNotebook *            O_WXOBJECT
-Wx_CheckListBox *       O_WXOBJECT
-wxCheckListBox *        O_WXOBJECT
-Wx_Gauge *              O_WXOBJECT
-wxGauge *               O_WXOBJECT
+wxCheckListBox *        O_WXEVTHANDLER
+wxGauge *               O_WXEVTHANDLER
 wxBitmapButton *        O_WXEVTHANDLER
 Wx_TreeCtrl *           O_WXOBJECT
 wxTreeCtrl *            O_WXOBJECT
 Wx_ListCtrl *           O_WXOBJECT
 wxListCtrl *            O_WXOBJECT
-Wx_ListView *           O_WXOBJECT
-wxListView *            O_WXOBJECT
+wxListView *            O_WXEVTHANDLER
 Wx_StaticBitmap *       O_WXOBJECT
 wxStaticBitmap *        O_WXOBJECT
 Wx_SpinButton *         O_WXOBJECT
@@ -368,6 +361,7 @@ Wx_Event *              O_WXOBJECT
 Wx_ActivateEvent *      O_WXOBJECT
 Wx_CloseEvent *         O_WXOBJECT
 Wx_CommandEvent *       O_WXOBJECT
+wxCommandEvent *        O_WXOBJECT
 Wx_EraseEvent *         O_WXOBJECT
 Wx_FindDialogEvent *    O_WXOBJECT
 Wx_FocusEvent *         O_WXOBJECT

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        ListCtrl.xs
+## Name:        XS/ListCtrl.xs
 ## Purpose:     XS for Wx::ListCtrl, Wx::ListItem
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      4/ 2/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.25 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.26 2003/05/29 20:04:23 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -684,50 +684,50 @@ Wx_ListCtrl::SortItems( function )
 
 MODULE=Wx PACKAGE=Wx::ListView
 
-Wx_ListView*
-Wx_ListView::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
-    Wx_Window* parent
+wxListView*
+wxListView::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   CODE:
-    RETVAL = new wxPliListView( CLASS, parent, id, pos, size, style,
+    RETVAL = new wxListView( parent, id, pos, size, style,
         *validator, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
 
 void
-Wx_ListView::Select( n, on )
+wxListView::Select( n, on )
     long n
     bool on
 
 void
-Wx_ListView::SetColumnImage( col, image )
+wxListView::SetColumnImage( col, image )
     int col
     int image
 
 void
-Wx_ListView::ClearColumnImage( col )
+wxListView::ClearColumnImage( col )
     int col
 
 void
-Wx_ListView::Focus( index )
+wxListView::Focus( index )
     long index
 
 long
-Wx_ListView::GetFocusedItem()
+wxListView::GetFocusedItem()
 
 long
-Wx_ListView::GetFirstSelected()
+wxListView::GetFirstSelected()
 
 long
-Wx_ListView::GetNextSelected( item )
+wxListView::GetNextSelected( item )
     long item
 
 bool
-Wx_ListView::IsSelected( index )
+wxListView::IsSelected( index )
     long index
-

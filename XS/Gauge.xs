@@ -1,73 +1,76 @@
 #############################################################################
-## Name:        Gauge.xs
+## Name:        XS/Gauge.xs
 ## Purpose:     XS for Wx::Gauge
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2001 Mattia Barbon
+## RCS-ID:      $Id: Gauge.xs,v 1.5 2003/05/29 20:04:23 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/gauge.h>
+
 MODULE=Wx PACKAGE=Wx::Gauge
 
-Wx_Gauge*
-Wx_Gauge::new( parent, id, range, pos = wxDefaultPosition, size = wxDefaultSize, style = wxGA_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxGaugeNameStr )
-    Wx_Window* parent
+wxGauge*
+wxGauge::new( parent, id, range, pos = wxDefaultPosition, size = wxDefaultSize, style = wxGA_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxGaugeNameStr )
+    wxWindow* parent
     wxWindowID id
     int range
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   CODE:
-    RETVAL = new wxPliGauge( CLASS, parent, id, range, pos, size,
+    RETVAL = new wxGauge( parent, id, range, pos, size,
         style, *validator, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
-Wx_Gauge::GetBezelFace()
+wxGauge::GetBezelFace()
 
 #endif
 
 int
-Wx_Gauge::GetRange()
+wxGauge::GetRange()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
-Wx_Gauge::GetShadowWidth()
+wxGauge::GetShadowWidth()
 
 #endif
 
 int
-Wx_Gauge::GetValue()
+wxGauge::GetValue()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_Gauge::SetBezelFace( width )
+wxGauge::SetBezelFace( width )
     int width
 
 #endif
 
 void
-Wx_Gauge::SetRange( range )
+wxGauge::SetRange( range )
     int range
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_Gauge::SetShadowWidth( width )
+wxGauge::SetShadowWidth( width )
     int width
 
 #endif
 
 void
-Wx_Gauge::SetValue( pos )
+wxGauge::SetValue( pos )
     int pos

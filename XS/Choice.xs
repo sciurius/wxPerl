@@ -1,26 +1,28 @@
 #############################################################################
-## Name:        Choice.xs
+## Name:        XS/Choice.xs
 ## Purpose:     XS for Wx::Choice
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      $Id: Choice.xs,v 1.9 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Choice.xs,v 1.10 2003/05/29 20:04:23 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/choice.h>
+
 MODULE=Wx PACKAGE=Wx::Choice
 
-Wx_Choice*
-Wx_Choice::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
-    Wx_Window* parent
+wxChoice*
+wxChoice::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     SV* choices
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   PREINIT:
     int n = 0;
@@ -29,35 +31,36 @@ Wx_Choice::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choic
     if( choices )
         n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
 
-    RETVAL = new wxPliChoice( CLASS, parent, id, pos, size, n, chs, style, 
+    RETVAL = new wxChoice( parent, id, pos, size, n, chs, style, 
         *validator, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
 
     delete[] chs;
   OUTPUT:
     RETVAL
 
 void
-Wx_Choice::Clear()
+wxChoice::Clear()
 
 void
-Wx_Choice::Delete( n )
+wxChoice::Delete( n )
     int n
 
 #if !defined(__WXUNIVERSAL__)
 
 int
-Wx_Choice::GetColumns()
+wxChoice::GetColumns()
 
 void
-Wx_Choice::SetColumns( n = 1 )
+wxChoice::SetColumns( n = 1 )
     int n
 
 #endif
 
 void
-Wx_Choice::SetSelection( n )
+wxChoice::SetSelection( n )
     int n
 
 void
-Wx_Choice::SetStringSelection( string )
+wxChoice::SetStringSelection( string )
     wxString string

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        controls.h
+// Name:        cpp/controls.h
 // Purpose:     c++ wrappers for wxControl-derived classes
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.h,v 1.15 2003/05/28 20:42:49 mbarbon Exp $
+// RCS-ID:      $Id: controls.h,v 1.16 2003/05/29 20:04:23 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -12,24 +12,6 @@
 
 #ifndef _WXPERL_CONTROLS_H
 #define _WXPERL_CONTROLS_H
-
-WXPLI_DECLARE_CLASS_9( CheckListBox, TRUE,
-                       wxWindow*, wxWindowID, const wxPoint&,
-                       const wxSize&, int, const wxString*, long, 
-                       const wxValidator&, const wxString& );
-WXPLI_DECLARE_CLASS_9( Choice, TRUE,
-                       wxWindow*, wxWindowID, const wxPoint&,
-                       const wxSize&, int, const wxString*, long, 
-                       const wxValidator&, const wxString& );
-WXPLI_DECLARE_CLASS_10( ComboBox, TRUE,
-                        wxWindow*, wxWindowID, const wxString&,
-                        const wxPoint&, const wxSize&, int,
-                        const wxString*, long, const wxValidator&, 
-                        const wxString& );
-WXPLI_DECLARE_CLASS_8( Gauge, TRUE,
-                       wxWindow*, wxWindowID, int, const wxPoint&,
-                       const wxSize&, long, const wxValidator&,
-                       const wxString& );
 
 class wxPliListCtrl:public wxListCtrl
 {
@@ -47,26 +29,9 @@ public:
     wxListItemAttr* OnGetItemAttr( long item ) const;
 };
 
-WXPLI_DECLARE_CLASS_7( ListView, TRUE,
-                       wxWindow*, wxWindowID, const wxPoint&,
-                       const wxSize&, long, 
-                       const wxValidator&, const wxString& );
 WXPLI_DECLARE_CLASS_6( Notebook, TRUE,
                        wxWindow*, wxWindowID, const wxPoint&,
                        const wxSize&, long, const wxString& );
-
-class wxPliRadioBox:public wxRadioBox
-{
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliRadioBox );
-    WXPLI_DECLARE_SELFREF();
-public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliRadioBox, "Wx::RadioBox", TRUE );
-    WXPLI_CONSTRUCTOR_11( wxPliRadioBox, "Wx::RadioBox", TRUE,
-                          wxWindow*, wxWindowID, const wxString&,
-                          const wxPoint&, const wxSize&, int,
-                          const wxString*, int, long, 
-                          const wxValidator&, const wxString& );
-};
 
 WXPLI_DECLARE_CLASS_8( RadioButton, TRUE,
                        wxWindow*, wxWindowID, const wxString,
