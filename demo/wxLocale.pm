@@ -112,7 +112,7 @@ sub _create_windows {
   my( $this, $panel ) = @_;
 
   my $label = new Wx::StaticText( $panel, -1, gettext( "Some text" ),
-                                  [ 20, 20 ], [ 150, 50 ] );
+                                  [ 20, 20 ], [ 150, 30 ] );
   my $button1 = new Wx::Button( $panel, -1, gettext( "A button" ),
                                [ 20, 60 ], [ 150, 30 ] );
   my $button2 = new Wx::Button( $panel, -1, gettext( "Change the language" ),
