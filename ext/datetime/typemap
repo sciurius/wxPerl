@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     22/09/2002
-## RCS-ID:      $Id: typemap,v 1.3 2003/12/20 15:51:17 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.4 2004/02/14 14:24:02 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -17,4 +17,8 @@ WeekDay                 T_ENUM
 WeekFlags               T_ENUM
 
 wxDateTime *            O_NON_WXOBJECT
-wxDateTime::TimeZone    T_ENUM
+wxDateTime::TimeZone    T_TIMEZONE
+
+INPUT
+T_TIMEZONE
+    $var = (wxDateTime::TZ)SvIV($arg);
