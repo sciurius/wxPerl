@@ -234,6 +234,15 @@ MODULE=Wx_Evt PACKAGE=Wx::FocusEvent
 #     wxEventType eventType
 #     int id
 
+MODULE=Wx_Evt PACKAGE=Wx::IconizeEvent
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+bool
+Wx_IconizeEvent::Iconized()
+
+#endif
+
 MODULE=Wx_Evt PACKAGE=Wx::KeyEvent
 
 # Wx_KeyEvent*
@@ -439,6 +448,19 @@ Wx_MouseEvent::GetX()
 
 long
 Wx_MouseEvent::GetY()
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+int
+Wx_MouseEvent::GetWheelRotation()
+
+int
+Wx_MouseEvent::GetWheelDelta()
+
+int
+Wx_MouseEvent::GetLinesPerAction()
+
+#endif
 
 bool
 Wx_MouseEvent::IsButton()
