@@ -22,8 +22,6 @@ MODULE=Wx__STC
 
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
-  wxClassInfo::CleanUpClasses();
-  wxClassInfo::InitializeClasses();
 
 INCLUDE: XS/StyledTextCtrl.xs
 

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.56 2003/07/17 22:41:47 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.57 2003/07/24 19:55:29 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -329,6 +329,9 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_create_evthandler = name->m_wxPli_create_evthandler; \
   wxPli_match_arguments_skipfirst = name->m_wxPli_match_arguments_skipfirst; \
   wxPli_objlist_2_av = name->m_wxPli_objlist_2_av; \
+  \
+  wxClassInfo::CleanUpClasses(); \
+  wxClassInfo::InitializeClasses();
 
 #else
 
@@ -390,7 +393,7 @@ public:
             //FIXME//
             m_baseInfo1 = wxClassInfo::FindClass( baseName1 );
             //FIXME// this is an ugly hack!
-#if !defined( __WXMAC__ )
+#if 0 && !defined( __WXMAC__ )
             if( m_baseInfo1 == 0 )
                 croak( "ClassInfo initialization failed '%s'", baseName1 );
 #endif
