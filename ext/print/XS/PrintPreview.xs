@@ -21,7 +21,9 @@ Wx_PrintPreview::new( printout, printoutForPrinting, data = 0 )
     Wx_PrintData* data
 
 void
-Wx_PrintPreview::DESTROY()
+Wx_PrintPreview::Destroy()
+  CODE:
+    delete THIS;
 
 Wx_Window*
 Wx_PrintPreview::GetCanvas()
