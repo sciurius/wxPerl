@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.13 2003/12/13 17:16:56 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: Grid.xs,v 1.14 2004/01/18 08:14:25 mbarbon Exp $
+## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -911,3 +911,12 @@ Wx_Grid::YToRow( y )
 int
 Wx_Grid::YToEdgeOfRow( y )
     int y
+
+wxWindow*
+wxGrid::GetGridWindow()
+
+wxWindow*
+wxGrid::GetGridRowLabelWindow()
+
+wxWindow*
+wxGrid::GetGridColLabelWindow()
