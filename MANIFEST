@@ -18,7 +18,7 @@ build/wxMMUtils.pm
 build/Tests_Helper.pm
 build/W32.pm
 
-build/Test/Builder.pm			Test::Simple, Test::More and Test::Harness
+build/Test/Builder.pm		Test::Simple, Test::More and Test::Harness
 build/Test/Harness.pm
 build/Test/Harness/Assert.pm
 build/Test/Harness/Iterator.pm
@@ -40,10 +40,11 @@ t/03_event.t
 t/04_userdata.t
 t/05_timer.t
 t/06_loadxpm.t
+t/07_overload.t
+t/08_ovl_func.t
 
 lib/Wx/App.pm
 lib/Wx/Bitmap.pm
-lib/Wx/Brush.pm
 lib/Wx/Caret.pm
 lib/Wx/Colour.pm
 lib/Wx/ComboBox.pm
@@ -239,6 +240,8 @@ cpp/evthandler.h
 cpp/frame.h
 cpp/helpers.h
 cpp/panel.h
+cpp/overload.cpp
+cpp/overload.h
 cpp/process.h
 cpp/sashwindow.h
 cpp/scrolledwindow.h
