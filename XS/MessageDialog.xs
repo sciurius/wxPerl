@@ -28,7 +28,7 @@ Wx_MessageDialog::ShowModal()
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 int
-wxMessageBox( message, caption = "Message", style = wxOK|wxCENTRE, parent = 0, x = -1, y = -1 )
+wxMessageBox( message, caption = wxT("Message"), style = wxOK|wxCENTRE, parent = 0, x = -1, y = -1 )
     wxString message
     wxString caption
     int style

@@ -15,7 +15,7 @@
 MODULE=Wx PACKAGE=Wx::HtmlEasyPrinting
 
 Wx_HtmlEasyPrinting*
-Wx_HtmlEasyPrinting::new( name = "Printing", parent_frame = 0 )
+Wx_HtmlEasyPrinting::new( name = wxT("Printing"), parent_frame = 0 )
     wxString name
     Wx_Frame* parent_frame
 

@@ -24,7 +24,7 @@ GetWxPerlIcon( small = FALSE )
   CODE:
 #if defined( __WXMSW__ )
     int sz = small ? 16 : 32;
-    RETVAL = new wxIcon( "wxplicon", wxBITMAP_TYPE_ICO_RESOURCE, -1, -1 );
+    RETVAL = new wxIcon( wxT("wxplicon"), wxBITMAP_TYPE_ICO_RESOURCE, -1, -1 );
     if( !RETVAL->Ok() )
         croak( "Unable to load icon" );
 #else

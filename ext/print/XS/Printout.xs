@@ -31,7 +31,7 @@ Wx_PrinterDC::new( data )
 MODULE=Wx PACKAGE=Wx::Printout
 
 Wx_Printout*
-Wx_Printout::new( title = "Printout" )
+Wx_Printout::new( title = wxT("Printout") )
     wxString title
   CODE:
     RETVAL = new wxPlPrintout( CLASS, title );

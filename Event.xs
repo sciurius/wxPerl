@@ -167,7 +167,7 @@ Wx_CommandEvent::SetInt( intCommand )
 
 void
 Wx_CommandEvent::SetString( string )
-    const char* string
+    wxString string
 
 MODULE=Wx_Evt PACKAGE=Wx::PlEvent
 

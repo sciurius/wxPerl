@@ -29,7 +29,7 @@ Wx_SpinEvent::SetPosition( pos )
 MODULE=Wx PACKAGE=Wx::SpinButton
 
 Wx_SpinButton*
-Wx_SpinButton::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_HORIZONTAL, name = "spinButton" )
+Wx_SpinButton::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_HORIZONTAL, name = wxT("spinButton") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

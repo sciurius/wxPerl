@@ -54,7 +54,7 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 #define WXSTRING_INPUT( var, type, arg ) \
   var =  ( SvUTF8( arg ) ) ? \
            wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) \
-         : wxString( SvPV_nolen( arg ) );
+         : wxString( SvPV_nolen( arg ), wxConvLibc );
 
 #define WXSTRING_OUTPUT( var, arg ) \
   wxPli_wxString_2_sv( aTHX_ var, arg )

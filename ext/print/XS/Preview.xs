@@ -15,7 +15,7 @@
 MODULE=Wx PACKAGE=Wx::PreviewControlBar
 
 Wx_PreviewControlBar*
-Wx_PreviewControlBar::new( preview, buttons, parent, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = "panel" )
+Wx_PreviewControlBar::new( preview, buttons, parent, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("panel") )
     Wx_PrintPreview* preview
     long buttons
     Wx_Window* parent
@@ -41,7 +41,7 @@ Wx_PreviewControlBar::SetZoomControl( zoom )
 MODULE=Wx PACKAGE=Wx::PreviewCanvas
 
 Wx_PreviewCanvas*
-Wx_PreviewCanvas::new( preview, parent, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = "canvas" )
+Wx_PreviewCanvas::new( preview, parent, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("canvas") )
     Wx_PrintPreview* preview
     Wx_Window* parent
     Wx_Point pos
@@ -52,7 +52,7 @@ Wx_PreviewCanvas::new( preview, parent, pos = wxDefaultPosition, size = wxDefaul
 MODULE=Wx PACKAGE=Wx::PreviewFrame
 
 Wx_PreviewFrame*
-Wx_PreviewFrame::new( preview, parent, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = "frame" )
+Wx_PreviewFrame::new( preview, parent, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxT("frame") )
     Wx_PrintPreview* preview
     Wx_Frame* parent
     wxString title

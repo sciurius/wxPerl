@@ -17,7 +17,7 @@
 MODULE=Wx PACKAGE=Wx::ScrolledWindow
 
 Wx_ScrolledWindow*
-Wx_ScrolledWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = "scrolledWindow" )
+Wx_ScrolledWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxT("scrolledWindow") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

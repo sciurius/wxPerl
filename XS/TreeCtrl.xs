@@ -134,7 +134,7 @@ Wx_TreeEvent::GetLabel()
 MODULE=Wx PACKAGE=Wx::TreeCtrl
 
 Wx_TreeCtrl*
-Wx_TreeCtrl::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTR_HAS_BUTTONS, validator = (wxValidator*)&wxDefaultValidator, name = "treeCtrl" )
+Wx_TreeCtrl::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTR_HAS_BUTTONS, validator = (wxValidator*)&wxDefaultValidator, name = wxT("treeCtrl") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

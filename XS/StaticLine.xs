@@ -13,7 +13,7 @@
 MODULE=Wx PACKAGE=Wx::StaticLine
 
 Wx_StaticLine*
-Wx_StaticLine::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLI_HORIZONTAL, name = "staticLine" )
+Wx_StaticLine::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLI_HORIZONTAL, name = wxT("staticLine") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

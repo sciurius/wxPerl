@@ -17,7 +17,7 @@
 MODULE=Wx PACKAGE=Wx::MDIChildFrame
 
 Wx_MDIChildFrame*
-Wx_MDIChildFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = "frame" )
+Wx_MDIChildFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxT("frame") )
     Wx_MDIParentFrame* parent
     wxWindowID id
     wxString title

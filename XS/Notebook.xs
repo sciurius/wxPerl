@@ -38,7 +38,7 @@ Wx_NotebookEvent::SetSelection( oldSel )
 MODULE=Wx PACKAGE=Wx::Notebook
 
 Wx_Notebook*
-Wx_Notebook::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = "notebook" )
+Wx_Notebook::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("notebook") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

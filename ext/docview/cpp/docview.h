@@ -858,25 +858,6 @@ void wxPliDocManager::ActivateView( wxView* view, bool activate, bool deleting)
   wxDocManager::ActivateView( view, activate, deleting );
 }
 
-#if 0
-
-wxView* wxPliDocManager::GetCurrentView() const
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "GetCurrentView" ) )
-    {
-      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,G_SCALAR);
-      wxView* retval =
-        (wxView*)wxPli_sv_2_object( aTHX_ ret, "Wx::View" );
-      SvREFCNT_dec( ret );
-      return retval;
-    }
-  return wxDocManager::GetCurrentView();
-}
-
-#endif
-
 bool wxPliDocManager::MakeDefaultName( wxString& buf )
 {
     dTHX;
@@ -913,27 +894,7 @@ wxString wxPliDocManager::MakeFrameTitle( wxDocument* doc )
   return wxDocManager::MakeFrameTitle( doc );
 }
 
-
 DEF_V_CBACK_VOID__VOID( wxPliDocManager, wxDocManager, OnOpenFileFailure );
-
-#if 0
-
-bool wxPliDocManager::ProcessEvent( wxEvent& event )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "ProcessEvent" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, "O", &event);
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-    return wxDocManager::ProcessEvent( event );
-}
-
-#endif
 
 wxFileHistory* wxPliDocManager::OnCreateFileHistory()
 {
@@ -1224,25 +1185,6 @@ bool wxPliView::OnClose( bool deleteWindow )
   return wxView::OnClose( deleteWindow );
 }
 
-#if 0
-
-bool wxPliView::ProcessEvent(wxEvent& event)
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "ProcessEvent" ) )
-    {
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR, "O", &event);
-        bool val = SvTRUE( ret );
-        SvREFCNT_dec( ret );
-        return val;
-    }
-  return wxView::ProcessEvent( event );
-}
-
-#endif
-
 void wxPliView::Activate( bool activate )
 {
     dTHX;
@@ -1290,7 +1232,7 @@ public:
     wxPliDocChildFrame(const char* package, wxDocument* doc, wxView* view,
       wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint&
       pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-      long style = wxDEFAULT_FRAME_STYLE, const wxString& name = "frame")
+      long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxT("frame"))
        : wxDocChildFrame(doc, view, parent, id, title, pos, size, style, name),
          m_callback( "Wx::DocChildFrame" )
     {
@@ -1320,7 +1262,7 @@ public:
       wxFrame *parent, wxWindowID id, const wxString& title,
       const wxPoint& pos = wxDefaultPosition,
       const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE,
-      const wxString& name = "frame")
+      const wxString& name = wxT("frame"))
        : wxDocParentFrame(manager, parent, id, title, pos, size, style, name),
          m_callback( "Wx::DocParentFrame" )
     {
@@ -1353,7 +1295,7 @@ public:
                           pos = wxDefaultPosition,
                           const wxSize& size = wxDefaultSize,
                           long style = wxDEFAULT_FRAME_STYLE,
-                          const wxString& name = "frame")
+                          const wxString& name = wxT("frame"))
        : wxDocMDIChildFrame(doc, view, frame, id, title, pos,
                             size, style, name),
          m_callback( "Wx::DocMDIChildFrame" )
@@ -1385,7 +1327,7 @@ public:
       wxFrame *parent, wxWindowID id, const wxString& title,
       const wxPoint& pos = wxDefaultPosition,
       const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE,
-      const wxString& name = "frame")
+      const wxString& name = wxT("frame"))
        : wxDocMDIParentFrame(manager, parent, id, title, pos, size,
                              style, name),
          m_callback( "Wx::DocMDIParentFrame" )

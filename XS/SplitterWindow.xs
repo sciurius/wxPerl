@@ -40,7 +40,7 @@ Wx_SplitterEvent::SetSashPosition( pos )
 MODULE=Wx PACKAGE=Wx::SplitterWindow
 
 Wx_SplitterWindow*
-Wx_SplitterWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_3D, name = "splitterWindow" )
+Wx_SplitterWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_3D, name = wxT("splitterWindow") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

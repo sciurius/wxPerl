@@ -39,7 +39,7 @@ Wx_HtmlLinkInfo::GetTarget()
 MODULE=Wx__Html PACKAGE=Wx::HtmlWindow
 
 Wx_HtmlWindow*
-Wx_HtmlWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHW_SCROLLBAR_AUTO, name = "htmlWindow" )
+Wx_HtmlWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHW_SCROLLBAR_AUTO, name = wxT("htmlWindow") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

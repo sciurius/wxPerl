@@ -27,9 +27,9 @@ Wx_ProgressDialog::new( title, message, maximum = 100, parent = 0, style = wxPD_
     RETVAL
 
 bool
-Wx_ProgressDialog::Update( value = -1, newmsg = 0 )
+Wx_ProgressDialog::Update( value = -1, newmsg = wxEmptyString )
     int value
-    const char* newmsg
+    wxString newmsg
 
 void
 Wx_ProgressDialog::Resume()

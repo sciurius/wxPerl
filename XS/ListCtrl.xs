@@ -280,7 +280,7 @@ Wx_ListItemAttr::GetFont()
 MODULE=Wx PACKAGE=Wx::ListCtrl
 
 Wx_ListCtrl*
-Wx_ListCtrl::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_ICON, validator = (wxValidator*)&wxDefaultValidator, name = "listCtrl" )
+Wx_ListCtrl::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_ICON, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos
@@ -726,7 +726,7 @@ MODULE=Wx PACKAGE=Wx::ListView
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 Wx_ListView*
-Wx_ListView::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = "listCtrl" )
+Wx_ListView::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_REPORT, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

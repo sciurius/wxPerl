@@ -36,7 +36,7 @@ Wx_SashEvent::GetDragStatus()
 MODULE=Wx PACKAGE=Wx::SashWindow
 
 Wx_SashWindow*
-Wx_SashWindow::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxCLIP_CHILDREN|wxSW_3D, name = "sashWindow" )
+Wx_SashWindow::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxCLIP_CHILDREN|wxSW_3D, name = wxT("sashWindow") )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos

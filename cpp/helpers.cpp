@@ -681,7 +681,8 @@ wxChar* wxPli_copy_string( SV* scalar, wxChar** )
     STRLEN length;
     wxWCharBuffer tmp = ( SvUTF8( scalar ) ) ?
       wxConvUTF8.cMB2WX( SvPVutf8( scalar, length ) ) :
-      wxWCharBuffer( wxString( SvPV( scalar, length ) ).wc_str() );
+      wxWCharBuffer( wxString( SvPV( scalar, length ),
+                               wxConvLocal ).wc_str() );
     
     wxChar* buffer = new wxChar[length + 1];
     memcpy( buffer, tmp.data(), length * sizeof(wxChar) );

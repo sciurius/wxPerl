@@ -40,7 +40,7 @@ wxDocTemplate::new(manager, descr, filter, dir, ext, docTypeName, viewTypeName, 
         }
         else
         {
-            docClassName = SvPV_nolen( docClassInfo );
+            WXSTRING_INPUT( docClassName, wxString, docClassInfo );
         }
     }
 
@@ -54,7 +54,7 @@ wxDocTemplate::new(manager, descr, filter, dir, ext, docTypeName, viewTypeName, 
         }
         else
         {
-            viewClassName = SvPV_nolen( viewClassInfo );
+            WXSTRING_INPUT( viewClassName, wxString, viewClassInfo );
         }
     }
 
