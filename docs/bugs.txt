@@ -7,6 +7,8 @@ All platforms
 * There is a bug in client data handling for 5.004: it only works
   whith references, not with 'normal' scalars
 
+* Wx::Perl::SplashFast does not work with 5.004 for some obscure reason
+
 * The caret sample starts with incorrect size
 
 wxMSW
