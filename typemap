@@ -24,6 +24,7 @@ wxFontEncoding          T_IV
 wxRegionContain         T_IV
 wxSashEdgePosition      T_IV
 wxSashDragStatus        T_IV
+wxListColumnFormat      T_IV
 
 Wx_ClassInfo *          O_NON_WXOBJECT
 
@@ -125,6 +126,9 @@ Wx_LayoutConstraints *  O_WXOBJECT
 Wx_IndividualLayoutConstraint * O_WXOBJECT
 
 Wx_DropTarget *         O_NON_WXOBJECT
+Wx_ListItem *           O_NON_WXOBJECT
+Wx_TreeItemData *       O_NON_WXOBJECT
+Wx_TreeItemId *         O_NON_WXOBJECT
 
 Wx_Font *               O_WXOBJECT
 Wx_Region *             O_WXOBJECT
@@ -165,6 +169,7 @@ Wx_HelpEvent *          O_WXOBJECT
 Wx_IdleEvent *          O_WXOBJECT
 Wx_InitDialogEvent *    O_WXOBJECT
 Wx_JoystickEvent *      O_WXOBJECT
+Wx_ListEvent *          O_WXOBJECT
 Wx_MenuEvent *          O_WXOBJECT
 Wx_MouseEvent *         O_WXOBJECT
 Wx_MoveEvent *          O_WXOBJECT
@@ -178,6 +183,7 @@ Wx_ScrollWinEvent *     O_WXOBJECT
 Wx_SpinEvent *          O_WXOBJECT
 Wx_SplitterEvent *      O_WXOBJECT
 Wx_SysColourChangedEvent * O_WXOBJECT
+Wx_TreeEvent *          O_WXOBJECT
 Wx_UpdateUIEvent *      O_WXOBJECT
 
 OUTPUT
