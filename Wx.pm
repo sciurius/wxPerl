@@ -42,7 +42,7 @@ sub wxSIZE  { Wx::Size->new( $_[0], $_[1] )  }
 sub AUTOLOAD {
   my( $constname );
 
-  ($constname = $AUTOLOAD) =~ s{^.*::}{};
+  ($constname = $AUTOLOAD) =~ s<^.*::>{};
 
   my( $val ) = constant($constname, 0 );
 
@@ -83,6 +83,7 @@ sub _match(\@$;$$) {
     next if $_ == $num && looks_like_number( $t );
     next if !defined( $t ) ||
       ( defined( $tnames[$_] ) && isa( $t, $tnames[$_] ) );
+    next if ( $_ == $arr ) && ref( $t ) eq 'ARRAY';
     next if ( $_ == $wpoi || $_ == $wsiz ) && ref( $t ) eq 'ARRAY';
     next if ( $_ == $wist || $_ == $wost ) && ref( $t );
 

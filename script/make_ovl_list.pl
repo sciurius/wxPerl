@@ -38,6 +38,7 @@ my %name2type =
    num  => 1,
    str  => 1,
    bool => 1,
+   arr  => 1,
   );
 
 my %constants;
