@@ -31,7 +31,11 @@ double docview_constant( const char* name, int arg )
       case 'I':
          r( wxID_OPEN );
          r( wxID_CLOSE );
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
          r( wxID_CLOSE_ALL );
+#endif
+
          r( wxID_NEW );
          r( wxID_SAVE );
          r( wxID_SAVEAS );
@@ -46,6 +50,18 @@ double docview_constant( const char* name, int arg )
          break;
       case 'D':
          r( wxDEFAULT_TEMPLATE_FLAGS );
+         r( wxDEFAULT_DOCMAN_FLAGS );
+         r( wxDOC_SDI );
+         r( wxDOC_MDI );
+         r( wxDOC_NEW );
+         r( wxDOC_SILENT );
+         break;
+      case 'T':
+         r( wxTEMPLATE_VISIBLE );
+         r( wxTEMPLATE_INVISIBLE );
+         break;
+      case 'M':
+         r( wxMAX_FILE_HISTORY );
          break;
     }
 #undef r
