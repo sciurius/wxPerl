@@ -14,13 +14,6 @@ package Wx::RadioBox;
 
 use strict;
 
-if( $Wx::_platform == $Wx::_gtk ) {
-  @Wx::RadioBox::ISA = qw(Wx::Control);
-}
-else {
-  @Wx::RadioBox::ISA = qw(Wx::ControlWithItems);
-}
-
 sub Enable {
   my( $this ) = shift;
 
