@@ -126,6 +126,16 @@ Wx_Bitmap::ConvertToImage()
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+void
+Wx_Bitmap::CopyFromIcon( icon )
+    Wx_Icon* icon
+  CODE:
+    THIS->CopyFromIcon( *icon );
+
+#endif
+
 #if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
