@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: helpers.cpp,v 1.53 2003/05/02 20:26:44 mbarbon Exp $
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -122,20 +122,16 @@ int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn )
 
     int retval = POPi;
 
-    if( count != 1 )
-    {
-        PUTBACK;
-        FREETMPS;
-        LEAVE;
-
-        croak( "Comparison function returned %d values ( 1 expected )",
-               count );
-    }
-    
     PUTBACK;
 
     FREETMPS;
     LEAVE;
+
+    if( count != 1 )
+    {
+        croak( "Comparison function returned %d values ( 1 expected )",
+               count );
+    }
 
     return retval;
 }
@@ -320,7 +316,11 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
 #if wxPL_USE_MAGIC
         my_magic* mg = wxPli_get_magic( aTHX_ scalar );
 
-        if( !mg )
+        // rationale: if this is an hash-ish object, it always
+        // has both mg and mg->object; if however this is a
+        // scalar-ish object that has been marked/unmarked deletable
+        // it has mg, but not mg->objects
+        if( !mg || !mg->object )
             return (void*)SvIV( ref );
 
         return mg->object;
@@ -402,33 +402,88 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, wxObject* object )
     return var;
 }
 
+void wxPli_attach_object( pTHX_ SV* object, void* ptr )
+{
+    SV* ref = SvRV( object );
+
+    if( SvTYPE( ref ) >= SVt_PVHV )
+    {
+#if wxPL_USE_MAGIC
+        my_magic* mg = wxPli_get_or_create_magic( aTHX_ object );
+
+        mg->object = (wxObject*)ptr;
+#else
+        SV* value = newSViv( (IV)ptr );
+        if( !hv_store_ent( (HV*)ref, _key, value, _hash ) )
+        {
+            SvREFCNT_dec( value );
+            croak( "error storing '_WXTHIS' value" );
+        }
+#endif
+    }
+    else
+    {
+        sv_setiv( ref, (IV)ptr );
+    }
+}
+
+void* wxPli_detach_object( pTHX_ SV* object )
+{
+    SV* ref = SvRV( object );
+
+    if( SvTYPE( ref ) >= SVt_PVHV )
+    {
+#if wxPL_USE_MAGIC
+        my_magic* mg = wxPli_get_magic( aTHX_ object );
+
+        if( mg )
+        {
+            void* tmp = mg->object;
+
+            mg->object = NULL;
+            return tmp;
+        }
+
+        return NULL;
+#else
+        HE* value = hv_fetch_ent( (HV*)ref, _key, 0, _hash );
+
+        if( value ) 
+        {
+            SV* sv = HeVAL( value );
+            void* tmp = (void*)SvIV( sv );
+
+            sv_setiv( sv, 0 );
+            return tmp;
+        }
+
+        return NULL;
+#endif
+    }
+    else
+    {
+        void* tmp = (void*)SvIV( ref );
+
+        sv_setiv( ref, 0 );
+        return tmp;
+    }
+}
+
 SV* wxPli_make_object( void* object, const char* classname ) 
 {
     dTHX;
     SV* ret;
     SV* value;
     HV* hv;
-    HV* stash;
+    HV* stash = gv_stashpv( CHAR_P classname, 0 );
 
     hv = newHV();
     ret = newRV_noinc( (SV*) hv );
     // OK: if you want to keep it, just use SetSelf( sv, TRUE );
     sv_2mortal( ret ); 
 
-#if wxPL_USE_MAGIC
-    my_magic* mg = wxPli_get_or_create_magic( aTHX_ ret );
+    wxPli_attach_object( aTHX_ ret, object );
 
-    mg->object = (wxObject*)object;
-#else
-    value = newSViv( (IV) object );
-    if( !hv_store_ent( hv, _key, value, _hash ) )
-    {
-        SvREFCNT_dec( value );
-        croak( "error storing '_WXTHIS' value" );
-    }
-#endif
-
-    stash = gv_stashpv( CHAR_P classname, 0 );
     return sv_bless( ret, stash );
 }
 
