@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.29 2003/08/16 21:26:28 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.30 2003/11/23 07:44:36 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -465,9 +465,13 @@ Wx_ListCtrl::GetItemState( item, stateMask )
 int
 Wx_ListCtrl::GetItemCount()
 
+#if WXPERL_W_VERSION_LE( 2, 5, 0 )
+
 int
 Wx_ListCtrl::GetItemSpacing( isSmall )
     bool isSmall
+
+#endif
 
 wxString
 Wx_ListCtrl::GetItemText( item )
