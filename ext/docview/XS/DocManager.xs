@@ -4,7 +4,7 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: DocManager.xs,v 1.12 2004/12/21 21:12:49 mbarbon Exp $
+## RCS-ID:      $Id: DocManager.xs,v 1.13 2005/02/26 10:49:26 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -49,21 +49,12 @@ wxDocManager::GetDocuments()
     RETVAL = newRV_noinc( (SV*)arrDocs  );
   OUTPUT: RETVAL
 
-void
+SV*
 wxDocManager::GetTemplates()
-  PPCODE:
-    wxNode* tmplnode;
-    const wxList& tmpllist = THIS->GetTemplates();
-
-    EXTEND( SP, tmpllist.GetCount() );
-
-    for( tmplnode = tmpllist.GetFirst(); tmplnode;
-         tmplnode = tmplnode->GetNext() )
-    {
-       SV* pltmpl
-           = wxPli_object_2_sv( aTHX_ sv_newmortal(), tmplnode->GetData() ); 
-       PUSHs( pltmpl );
-    } 
+  CODE:
+    AV* arrDocs = wxPli_objlist_2_av( aTHX_ THIS->GetTemplates() );
+    RETVAL = newRV_noinc( (SV*)arrDocs  );
+  OUTPUT: RETVAL
 
 wxString
 wxDocManager::GetLastDirectory()
