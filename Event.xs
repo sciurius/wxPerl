@@ -145,7 +145,7 @@ void
 Wx_CommandEvent::SetClientData( data )
     SV* data
   CODE:
-    if( data == &PL_sv_undef )
+    if( !SvOK( data ) )
     {
       THIS->SetClientObject( 0 );
     }
@@ -547,6 +547,21 @@ MODULE=Wx_Evt PACKAGE=Wx::PaintEvent
 # Wx_PaintEvent*
 # Wx_PaintEvent::new( id = 0 )
 #     int id
+
+MODULE=Wx_Evt PACKAGE=Wx::SashEvent
+
+wxSashEdgePosition
+Wx_SashEvent::GetEdge()
+
+Wx_Rect*
+Wx_SashEvent::GetDragRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetDragRect() );
+  OUTPUT:
+    RETVAL
+
+wxSashDragStatus
+Wx_SashEvent::GetDragStatus()
 
 MODULE=Wx_Evt PACKAGE=Wx::SizeEvent
 

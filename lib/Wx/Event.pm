@@ -174,6 +174,13 @@ sub EVT_NOTEBOOK_PAGE_CHANGED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEV
 sub EVT_PAINT($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_PAINT, $_[1] ); }
 
 #
+# SashEvent
+#
+
+sub EVT_SASH_DRAGGED($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_SASH_DRAGGED, $_[2] ); }
+sub EVT_SASH_DRAGGED_RANGE($$$$) { $_[0]->Connect( _id( $_[1] ), _id( $_[2] ), &Wx::wxEVT_SASH_DRAGGED, $_[3] ); }
+
+#
 # SizeEvent
 #
 
@@ -246,6 +253,7 @@ package Wx::NotebookEvent;   @ISA = qw(Wx::NotifyEvent);
 package Wx::NotifyEvent;     @ISA = qw(Wx::CommandEvent);
 package Wx::PaintEvent;      @ISA = qw(Wx::Event);
 package Wx::QueryLayoutInfoEvent; @ISA = qw(Wx::Event);
+package Wx::SashEvent;       @ISA = qw(Wx::CommandEvent);
 package Wx::SizeEvent;       @ISA = qw(Wx::Event);
 package Wx::ScrollWinEvent;  @ISA = qw(Wx::Event);
 package Wx::SpinEvent;       @ISA = qw(Wx::NotifyEvent);

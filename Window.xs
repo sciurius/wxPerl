@@ -23,6 +23,7 @@
 #include <wx/statbox.h>
 #include <wx/notebook.h>
 #include <wx/validate.h>
+#include <wx/sashwin.h>
 #include <wx/dc.h>
 #include <stdarg.h>
 
@@ -57,6 +58,7 @@
 #include "cpp/sizer.h"
 #include "cpp/scrolledwindow.h"
 #include "cpp/splitterwindow.h"
+#include "cpp/sashwindow.h"
 
 #include "cpp/validators.cpp"
 
@@ -742,6 +744,7 @@ INCLUDE: XS/ScrolledWindow.xs
 INCLUDE: XS/Validators.xs
 INCLUDE: XS/Constraint.xs
 INCLUDE: XS/Sizer.xs
+INCLUDE: XS/SashWindow.xs
 
 MODULE=Wx_Win PACKAGE=Wx::Window
 
