@@ -64,6 +64,13 @@ Wx_Frame::GetMenuBar()
 Wx_StatusBar*
 Wx_Frame::GetStatusBar()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+int
+Wx_Frame::GetStatusBarPane()
+
+#endif
+
 Wx_ToolBar*
 Wx_Frame::GetToolBar()
 
@@ -112,6 +119,14 @@ void
 Wx_Frame::SetStatusText( text, number = 0 )
     wxString text
     int number
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Frame::SetStatusBarPane( n )
+    int n
+
+#endif
 
 void
 Wx_Frame::SetStatusWidths( ... )

@@ -548,6 +548,14 @@ Wx_Window::Refresh( eraseBackground = TRUE, rect = 0 )
 void
 Wx_Window::ReleaseMouse()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+bool
+Wx_Window::RemoveEventHandler( handler )
+    Wx_EvtHandler* handler
+
+#endif
+
 bool
 Wx_Window::Reparent( newParent )
     Wx_Window* newParent

@@ -85,38 +85,58 @@ newData( width, height, dt )
     RETVAL
 
 Wx_Image*
-newNameType( name, type )
+newNameType( name, type, index = -1 )
     wxString name
     long type
+    int index
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = new wxImage( name, type, index );
+#else
     RETVAL = new wxImage( name, type );
+#endif
   OUTPUT:
     RETVAL
 
 Wx_Image*
-newNameMIME( name, mimetype )
+newNameMIME( name, mimetype, index = -1 )
     wxString name
     wxString mimetype
+    int index
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = new wxImage( name, mimetype, index );
+#else
     RETVAL = new wxImage( name, mimetype );
+#endif
   OUTPUT:
     RETVAL
 
 Wx_Image*
-newStreamType( stream, type )
+newStreamType( stream, type, index = -1 )
     wxPliInputStream stream
     long type
+    int index
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = new wxImage( stream, type, index );
+#else
     RETVAL = new wxImage( stream, type );
+#endif
   OUTPUT:
     RETVAL
 
 Wx_Image*
-newStreamMIME( stream, mime )
+newStreamMIME( stream, mime, index = -1 )
     wxPliInputStream stream
     wxString mime
+    int index
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = new wxImage( stream, mime, index );
+#else
     RETVAL = new wxImage( stream, mime );
+#endif
   OUTPUT:
     RETVAL
 
@@ -278,38 +298,58 @@ InsertHandler( handler )
     wxImage::InsertHandler( handler );
 
 bool
-Wx_Image::LoadFileType( name, type )
+Wx_Image::LoadFileType( name, type, index = -1 )
     wxString name
     long type
+    int index
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = THIS->LoadFile( name, type, index );
+#else
     RETVAL = THIS->LoadFile( name, type );
+#endif
   OUTPUT:
     RETVAL
 
 bool
-Wx_Image::LoadFileMIME( name, type )
+Wx_Image::LoadFileMIME( name, type, index = -1 )
     wxString name
     wxString type
+    int index
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = THIS->LoadFile( name, type, index );
+#else
     RETVAL = THIS->LoadFile( name, type );
+#endif
   OUTPUT:
     RETVAL
 
 bool
-Wx_Image::LoadStreamType( stream, type )
+Wx_Image::LoadStreamType( stream, type, index = -1 )
     wxPliInputStream stream
     long type
+    int index
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = THIS->LoadFile( stream, type, index );
+#else
     RETVAL = THIS->LoadFile( stream, type );
+#endif
   OUTPUT:
     RETVAL
 
 bool
-Wx_Image::LoadStreamMIME( stream, type )
+Wx_Image::LoadStreamMIME( stream, type, index = -1 )
     wxPliInputStream stream
     wxString type
+    int index
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = THIS->LoadFile( stream, type, index );
+#else
     RETVAL = THIS->LoadFile( stream, type );
+#endif
   OUTPUT:
     RETVAL
 

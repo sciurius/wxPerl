@@ -123,7 +123,6 @@ sub wx_boot($$) {
       require DynaLoader;
       no strict 'refs';
       push @{"$_[0]::ISA"}, 'DynaLoader';
-      use strict 'refs';
       $_[0]->bootstrap( $_[1] );
     } else {
       require XSLoader;
@@ -146,6 +145,10 @@ wx_boot( 'Wx', $VERSION );
   _boot_Frames( 'Wx', $VERSION );
   _boot_GDI( 'Wx', $VERSION );
 }
+
+*Wx::SystemSettings::GetColour = \&Wx::SystemSettings::GetSystemColour;
+*Wx::SystemSettings::GetFont   = \&Wx::SystemSettings::GetSystemFont;
+*Wx::SystemSettings::GetMetric = \&Wx::SystemSettings::GetSystemMetric;
 
 require Wx::_Constants;
 

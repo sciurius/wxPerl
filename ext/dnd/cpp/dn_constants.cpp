@@ -42,6 +42,12 @@ double dnd_constant( const char* name, int arg )
         r( wxDragLink );
 #endif
         r( wxDragCancel );
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+        r( wxDrag_CopyOnly );
+        r( wxDrag_AllowMove );
+        r( wxDrag_DefaultMove );
+#endif
         break;
     case 'G':
         r( Get );

@@ -66,6 +66,19 @@ wxString
 Wx_StatusBar::GetStatusText( ir = 0 )
     int ir
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_StatusBar::PushStatusText( string, n = 0 )
+    wxString string
+    int n
+
+void
+Wx_StatusBar::PopStatusText( n = 0 )
+    int n
+
+#endif
+
 void
 Wx_StatusBar::SetFieldsCount( number = 1 )
     int number

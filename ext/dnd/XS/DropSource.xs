@@ -77,9 +77,19 @@ newIconData( CLASS, data, win = 0, iconCopy = (wxIcon*)&wxNullIcon, iconMove = (
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+wxDragResult
+Wx_DropSource::DoDragDrop( flags = wxDrag_CopyOnly )
+    int flags
+
+#else
+
 wxDragResult
 Wx_DropSource::DoDragDrop( allowMove = FALSE )
     bool allowMove
+
+#endif
 
 void
 Wx_DropSource::SetData( data )
