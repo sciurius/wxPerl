@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Accelerators.xs
+## Name:        XS/Accelerators.xs
 ## Purpose:     XS for Wx::AcceleratorTable, Wx::AcceleratorEntry
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     13/ 2/2001
-## RCS-ID:      
+## Created:     13/02/2001
+## RCS-ID:      $Id: Accelerators.xs,v 1.8 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,34 +14,35 @@
 
 MODULE=Wx PACKAGE=Wx::AcceleratorEntry
 
-Wx_AcceleratorEntry*
-Wx_AcceleratorEntry::new( flags, code, cmd )
+wxAcceleratorEntry*
+wxAcceleratorEntry::new( flags, code, cmd )
     int flags
-    Wx_KeyCode code
+    wxKeyCode code
     int cmd
 
 void
-Wx_AcceleratorEntry::DESTROY()
+wxAcceleratorEntry::DESTROY()
 
 int
-Wx_AcceleratorEntry::GetCommand()
+wxAcceleratorEntry::GetCommand()
 
 int
-Wx_AcceleratorEntry::GetFlags()
+wxAcceleratorEntry::GetFlags()
 
-Wx_KeyCode
-Wx_AcceleratorEntry::GetKeyCode()
+## wxKeyCode
+int
+wxAcceleratorEntry::GetKeyCode()
 
 void
-Wx_AcceleratorEntry::Set( flags, code, cmd )
+wxAcceleratorEntry::Set( flags, code, cmd )
     int flags
-    Wx_KeyCode code
+    wxKeyCode code
     int cmd
 
 MODULE=Wx PACKAGE=Wx::AcceleratorTable
 
-Wx_AcceleratorTable*
-Wx_AcceleratorTable::new( ... )
+wxAcceleratorTable*
+wxAcceleratorTable::new( ... )
   CODE:
     if( items == 1 )
     {
@@ -104,7 +105,7 @@ Wx_AcceleratorTable::new( ... )
 
 ## XXX threads
 void
-Wx_AcceleratorTable::DESTROY()
+wxAcceleratorTable::DESTROY()
 
 bool
-Wx_AcceleratorTable::Ok()
+wxAcceleratorTable::Ok()

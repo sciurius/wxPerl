@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.31 2003/12/26 10:58:19 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.32 2004/02/28 22:58:57 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -100,7 +100,7 @@ wxControlWithItems::GetClientData( n )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 bool
 wxControlWithItems::IsEmpty()

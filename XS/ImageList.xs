@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        ImageList.xs
+## Name:        XS/ImageList.xs
 ## Purpose:     XS for Wx::ImageList
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ImageList.xs,v 1.7 2003/04/11 20:39:32 mbarbon Exp $
+## RCS-ID:      $Id: ImageList.xs,v 1.8 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -39,7 +39,7 @@ wxImageList::Add( ... )
     END_OVERLOAD( Wx::ImageList::Add )
 
 int
-Wx_ImageList::AddBitmap( bitmap, mask = (wxBitmap*)&wxNullBitmap )
+wxImageList::AddBitmap( bitmap, mask = (wxBitmap*)&wxNullBitmap )
     Wx_Bitmap* bitmap
     Wx_Bitmap* mask
   CODE:
@@ -48,7 +48,7 @@ Wx_ImageList::AddBitmap( bitmap, mask = (wxBitmap*)&wxNullBitmap )
     RETVAL
 
 int
-Wx_ImageList::AddWithColourMask( bitmap, colour )
+wxImageList::AddWithColourMask( bitmap, colour )
     Wx_Bitmap* bitmap
     Wx_Colour* colour
   CODE:
@@ -57,7 +57,7 @@ Wx_ImageList::AddWithColourMask( bitmap, colour )
     RETVAL
 
 int
-Wx_ImageList::AddIcon( icon )
+wxImageList::AddIcon( icon )
     Wx_Icon* icon
   CODE:
     RETVAL = THIS->Add( *icon );
@@ -65,7 +65,7 @@ Wx_ImageList::AddIcon( icon )
     RETVAL
 
 bool
-Wx_ImageList::Draw( index, dc, x, y, flags = wxIMAGELIST_DRAW_NORMAL, solidBackground = FALSE )
+wxImageList::Draw( index, dc, x, y, flags = wxIMAGELIST_DRAW_NORMAL, solidBackground = FALSE )
     int index
     Wx_DC* dc
     int x
@@ -78,10 +78,10 @@ Wx_ImageList::Draw( index, dc, x, y, flags = wxIMAGELIST_DRAW_NORMAL, solidBackg
     RETVAL
 
 int
-Wx_ImageList::GetImageCount()
+wxImageList::GetImageCount()
 
 void
-Wx_ImageList::GetSize( index )
+wxImageList::GetSize( index )
     int index
   PREINIT:
     int width;
@@ -95,11 +95,11 @@ Wx_ImageList::GetSize( index )
     PUSHs( sv_2mortal( newSViv( height ) ) );
 
 bool
-Wx_ImageList::Remove( index )
+wxImageList::Remove( index )
     int index
 
 bool
-Wx_ImageList::RemoveAll()
+wxImageList::RemoveAll()
 
 void
 wxImageList::Replace( ... )
@@ -112,7 +112,7 @@ wxImageList::Replace( ... )
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 bool
-Wx_ImageList::ReplaceBitmap( index, bitmap, mask = (wxBitmap*)&wxNullBitmap )
+wxImageList::ReplaceBitmap( index, bitmap, mask = (wxBitmap*)&wxNullBitmap )
     int index
     Wx_Bitmap* bitmap
     Wx_Bitmap* mask
@@ -124,7 +124,7 @@ Wx_ImageList::ReplaceBitmap( index, bitmap, mask = (wxBitmap*)&wxNullBitmap )
 #else
 
 bool
-Wx_ImageList::ReplaceBitmap( index, bitmap )
+wxImageList::ReplaceBitmap( index, bitmap )
     int index
     Wx_Bitmap* bitmap
   CODE:
@@ -135,7 +135,7 @@ Wx_ImageList::ReplaceBitmap( index, bitmap )
 #endif
 
 bool
-Wx_ImageList::ReplaceIcon( index, icon )
+wxImageList::ReplaceIcon( index, icon )
     int index
     Wx_Icon* icon
   CODE:

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        View.xs
+## Name:        ext/docview/XS/View.xs
 ## Purpose:     XS for wxView ( Document / View Framework )
 ## Author:      Simon Flack
 ## Modified by:
-## Created:     11/ 9/2002
-## RCS-ID:      
+## Created:     11/09/2002
+## RCS-ID:      $Id: View.xs,v 1.3 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -68,7 +68,7 @@ Wx_View::OnCreatePrintout()
 void
 Wx_View::OnUpdate( sender, hint = NULL )
     Wx_View* sender
-    Wx_Object* hint
+    wxObject* hint
 
 void
 Wx_View::SetDocument( doc )

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Font.xs
+## Name:        XS/Font.xs
 ## Purpose:     XS for Wx::Font
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Font.xs,v 1.19 2003/10/19 20:17:19 mbarbon Exp $
+## RCS-ID:      $Id: Font.xs,v 1.20 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -81,6 +81,29 @@ newLong( CLASS, pointsize, family, style, weight, underline = FALSE, faceName = 
 ## XXX threads
 void
 Wx_Font::DESTROY()
+
+int
+font_spaceship( fnt1, fnt2, ... )
+    SV* fnt1
+    SV* fnt2
+  CODE:
+    // this is not a proper spaceship method
+    // it just allows autogeneration of != and ==
+    // anyway, comparing fontss is just useless
+    RETVAL = -1;
+    if( SvROK( fnt1 ) && SvROK( fnt2 ) &&
+        sv_derived_from( fnt1, "Wx::Font" ) &&
+        sv_derived_from( fnt2, "Wx::Font" ) )
+    {
+        wxFont* font1 = (wxFont*)wxPli_sv_2_object( aTHX_ fnt1, "Wx::Font" );
+        wxFont* font2 = (wxFont*)wxPli_sv_2_object( aTHX_ fnt2, "Wx::Font" );
+
+        RETVAL = *font1 == *font2 ? 0 : 1;
+    }
+    else
+      RETVAL = 1;
+  OUTPUT:
+    RETVAL
 
 wxFontEncoding
 GetDefaultEncoding()

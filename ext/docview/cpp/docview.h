@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        docview.h
+// Name:        ext/docview/cpp/docview.h
 // Purpose:     c++ wrapper for the wx Document/View Framework
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.15 2003/11/09 17:18:26 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.16 2004/02/28 22:59:07 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -479,7 +479,7 @@ public:
                                    bool sort=FALSE );
     wxDocTemplate* FindTemplateForPath( const wxString& );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     void ActivateView( wxView*, bool activate = TRUE);
 #else
     void ActivateView( wxView*, bool activate = TRUE, bool deleting = FALSE);
@@ -495,7 +495,7 @@ public:
 
     void AddFileToHistory( const wxString& );
     void RemoveFileFromHistory( int );
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     size_t GetHistoryFilesCount() const;
 #else
     int GetNoHistoryFiles() const;
@@ -721,7 +721,7 @@ wxDocTemplate* wxPliDocManager::FindTemplateForPath( const wxString& path )
   return wxDocManager::FindTemplateForPath( path );
 }
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 void wxPliDocManager::ActivateView( wxView* view, bool activate)
 {
     dTHX;
@@ -826,7 +826,7 @@ void wxPliDocManager::RemoveFileFromHistory( int i )
     wxDocManager::RemoveFileFromHistory( i );
 }
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 size_t wxPliDocManager::GetHistoryFilesCount() const
 #else
 int wxPliDocManager::GetNoHistoryFiles() const
@@ -834,7 +834,7 @@ int wxPliDocManager::GetNoHistoryFiles() const
 {
     dTHX;
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
                                                "GetHistoryFilesCount" ) )
 #else
                                                "GetNoHistoryFiles" ) )
@@ -842,7 +842,7 @@ int wxPliDocManager::GetNoHistoryFiles() const
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                                      G_SCALAR|G_NOARGS);
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
         int retval = (int)SvIV( ret );
 #else
         size_t retval = (size_t)SvIV( ret );
@@ -850,7 +850,7 @@ int wxPliDocManager::GetNoHistoryFiles() const
         SvREFCNT_dec( ret );
         return retval;
     }
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     return wxDocManager::GetHistoryFilesCount();
 #else
     return wxDocManager::GetNoHistoryFiles();
@@ -1234,7 +1234,7 @@ public:
 
     wxString GetHistoryFile( int ) const;
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     size_t GetCount() const;
 #else
     int GetCount() const;
@@ -1380,7 +1380,7 @@ wxString wxPliFileHistory::GetHistoryFile( int i ) const
     return wxFileHistory::GetHistoryFile( i );
 }
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 size_t wxPliFileHistory::GetCount() const
 #else
 int wxPliFileHistory::GetCount() const
@@ -1391,7 +1391,7 @@ int wxPliFileHistory::GetCount() const
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                                      G_SCALAR|G_NOARGS );
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
         int retval = (int)SvIV( ret );
 #else
         size_t retval = (size_t)SvIV( ret );

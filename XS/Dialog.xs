@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Dialog.xs,v 1.10 2004/02/07 15:17:20 mbarbon Exp $
+## RCS-ID:      $Id: Dialog.xs,v 1.11 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -80,7 +80,7 @@ Wx_Dialog::IsModal()
 #    bool flag
 
 #if (WXPERL_W_VERSION_GE( 2, 4, 1 ) && !defined(__WXMOTIF__)) \
-    || WXPERL_W_VERSION_GE( 2, 5, 0 )
+    || WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 void
 wxDialog::SetShape( region )

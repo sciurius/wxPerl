@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        TaskBarIcon.xs
+## Name:        XS/TaskBarIcon.xs
 ## Purpose:     XS for Wx::TaskBarIcon
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      3/12/2001
-## RCS-ID:      
+## Created:     03/12/2001
+## RCS-ID:      $Id: TaskBarIcon.xs,v 1.2 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -41,6 +41,6 @@ Wx_TaskBarIcon::RemoveIcon()
 
 bool
 Wx_TaskBarIcon::PopupMenu( menu )
-    Wx_Menu* menu
+    wxMenu* menu
 
 #endif

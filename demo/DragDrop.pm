@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DragDrop.pm
+## Name:        demo/DragDrop.pm
 ## Purpose:     Drag and Drop demo
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 9/2001
-## RCS-ID:      
+## Created:     12/09/2001
+## RCS-ID:      $Id: DragDrop.pm,v 1.6 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -34,7 +34,7 @@ sub description {
 
 <p>
   Drag and drop is a relatively complex topic: you are strongly encouraged to
-  look at the overview in the wxWindows documentation
+  look at the overview in the wxWidgets documentation
   ( Topic overviews => Drag and drop overview ).
 </p>
 </body>

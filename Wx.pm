@@ -3,8 +3,8 @@
 ## Purpose:     main wxPerl module
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.69 2003/12/26 11:02:54 mbarbon Exp $
+## Created:     01/10/2000
+## RCS-ID:      $Id: Wx.pm,v 1.70 2004/02/28 22:58:57 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -89,9 +89,9 @@ sub _croak {
 }
 
 # Blech! (again...)
-# wxWindows DLLs need to be installed in the same directory as Wx.dll,
+# wxWidgets DLLs need to be installed in the same directory as Wx.dll,
 # but then LoadLibrary can't find them unless they are already loaded,
-# so we explicitly load them (on Win32 and wxWindows 2.5.x+) just before
+# so we explicitly load them (on Win32 and wxWidgets 2.5.x+) just before
 # calling Wx::wx_boot. Finding the library requires determining the path
 # and the correct name
 my( $wx_path, $wx_pre, $wx_post );
@@ -220,6 +220,12 @@ use overload '<=>'      => \&tiid_spaceship,
              'bool'     => sub { $_[0]->IsOk },
              'fallback' => 1;
 
+package Wx::Font;
+
+use overload '<=>'      => \&font_spaceship,
+             'bool'     => sub { $_[0]->Ok },
+             'fallback' => 1;
+
 #
 # Various functions
 #
@@ -299,7 +305,7 @@ __END__
 
 =head1 NAME
 
-Wx - interface to the wxWindows GUI toolkit
+Wx - interface to the wxWidgets GUI toolkit
 
 =head1 SYNOPSIS
 
@@ -307,7 +313,8 @@ Wx - interface to the wxWindows GUI toolkit
 
 =head1 DESCRIPTION
 
-The Wx module is a wrapper for the wxWindows GUI toolkit.
+The Wx module is a wrapper for the wxWidgets (formerly known as wxWindows)
+GUI toolkit.
 
 This module comes with extensive documentation in HTML format; you
 can download it from http://wxperl.sourceforge.net/

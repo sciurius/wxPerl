@@ -1,9 +1,9 @@
 #############################################################################
-## Name:        wxIE.pm
-## Purpose:     wxIE minimal demo
+## Name:        samples/socket/wxSocketServer.pl
+## Purpose:     wxSocketServer minimal demo
 ## Author:      Graciliano M. P.
 ## Created:     06/02/2003
-## RCS-ID:
+## RCS-ID:      $Id: wxSocketServer.pl,v 1.2 2004/02/28 22:59:08 mbarbon Exp $
 ## Copyright:   (c) 2003 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -107,6 +107,7 @@ sub onConnect {
 
   $client->Write("This is a data test!\n") ;
   $client->Close ;
+  $client->Destroy ;
   $this->{TEXT}->AppendText("\n-------------------------(closed)\n") ;
 }
 

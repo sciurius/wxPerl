@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 165;
+use Test::More 'tests' => 164;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -101,8 +101,9 @@ SKIP: {
   ok( $newbmpn,  "Wx::Mask::newBitmapIndex" );
 }
 
-Wx::Mask->new( $bitmap );
-ok( $newbmp,   "Wx::Mask::newBitmap" );
+# does not work: colour bitmap
+# Wx::Mask->new( $bitmap );
+# ok( $newbmp,   "Wx::Mask::newBitmap" );
 }
 
 ##############################################################################
@@ -219,7 +220,7 @@ Wx::Cursor->new( 1 );
 ok( $newid,    "Wx::Cursor::newId" );
 
 SKIP: {
-  skip "Only for wxWindows 2.3.x", 1
+  skip "Only for wxWidgets 2.3.x", 1
     unless Wx::wxVERSION() >= 2.003002 && !Wx::wxMAC();
 
   Wx::Cursor->new( Wx::Image->new( 1, 1 ) );
@@ -279,7 +280,7 @@ $tbar->AddTool( -1, $bmpok, 'a', 'b' );
 ok( $addtoolshort, "Wx::ToolBar::AddToolShort" );
 
 SKIP: {
-  skip "Only for wxWindows 2.4", 2 unless Wx::wxVERSION >= 2.004;
+  skip "Only for wxWidgets 2.4", 2 unless Wx::wxVERSION >= 2.004;
 
   $tbar->AddTool( -1, "boo", $bmpok, Wx::wxNullBitmap(), 0,
                   'str', 'foo', 'data' );

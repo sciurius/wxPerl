@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ToolBar.xs,v 1.18 2003/08/22 22:21:57 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: ToolBar.xs,v 1.19 2004/02/28 22:59:06 mbarbon Exp $
+## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,162 +18,162 @@
 MODULE=Wx PACKAGE=Wx::ToolBarToolBase
 
 void
-Wx_ToolBarToolBase::Destroy()
+wxToolBarToolBase::Destroy()
   CODE:
     delete THIS;
 
 int
-Wx_ToolBarToolBase::GetId()
+wxToolBarToolBase::GetId()
 
 Wx_Control*
-Wx_ToolBarToolBase::GetControl()
+wxToolBarToolBase::GetControl()
 
-Wx_ToolBarBase*
-Wx_ToolBarToolBase::GetToolBar()
-
-bool
-Wx_ToolBarToolBase::IsButton()
+wxToolBarBase*
+wxToolBarToolBase::GetToolBar()
 
 bool
-Wx_ToolBarToolBase::IsControl()
+wxToolBarToolBase::IsButton()
 
 bool
-Wx_ToolBarToolBase::IsSeparator()
+wxToolBarToolBase::IsControl()
+
+bool
+wxToolBarToolBase::IsSeparator()
 
 int
-Wx_ToolBarToolBase::GetStyle()
+wxToolBarToolBase::GetStyle()
 
 wxItemKind
-Wx_ToolBarToolBase::GetKind()
+wxToolBarToolBase::GetKind()
 
 bool
-Wx_ToolBarToolBase::IsEnabled()
+wxToolBarToolBase::IsEnabled()
 
 bool
-Wx_ToolBarToolBase::IsToggled()
+wxToolBarToolBase::IsToggled()
 
 bool
-Wx_ToolBarToolBase::CanBeToggled()
+wxToolBarToolBase::CanBeToggled()
 
 Wx_Bitmap*
-Wx_ToolBarToolBase::GetNormalBitmap()
+wxToolBarToolBase::GetNormalBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetNormalBitmap() );
   OUTPUT:
     RETVAL
 
 Wx_Bitmap*
-Wx_ToolBarToolBase::GetDisabledBitmap()
+wxToolBarToolBase::GetDisabledBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetDisabledBitmap() );
   OUTPUT:
     RETVAL
 
 Wx_Bitmap*
-Wx_ToolBarToolBase::GetBitmap1()
+wxToolBarToolBase::GetBitmap1()
   CODE:
     RETVAL = new wxBitmap( THIS->GetNormalBitmap() );
   OUTPUT:
     RETVAL
 
 Wx_Bitmap*
-Wx_ToolBarToolBase::GetBitmap2()
+wxToolBarToolBase::GetBitmap2()
   CODE:
     RETVAL = new wxBitmap( THIS->GetDisabledBitmap() );
   OUTPUT:
     RETVAL
 
 Wx_Bitmap*
-Wx_ToolBarToolBase::GetBitmap()
+wxToolBarToolBase::GetBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmap() );
   OUTPUT:
     RETVAL
 
 wxString
-Wx_ToolBarToolBase::GetLabel()
+wxToolBarToolBase::GetLabel()
 
 wxString
-Wx_ToolBarToolBase::GetShortHelp()
+wxToolBarToolBase::GetShortHelp()
 
 wxString
-Wx_ToolBarToolBase::GetLongHelp()
+wxToolBarToolBase::GetLongHelp()
 
 Wx_UserDataO*
-Wx_ToolBarToolBase::GetClientData()
+wxToolBarToolBase::GetClientData()
   CODE:
     RETVAL = (Wx_UserDataO*) THIS->GetClientData();
   OUTPUT:
     RETVAL
 
 bool
-Wx_ToolBarToolBase::Enable( enable )
+wxToolBarToolBase::Enable( enable )
     bool enable
 
 bool
-Wx_ToolBarToolBase::Toggle( enable )
+wxToolBarToolBase::Toggle( enable )
     bool enable
 
 bool
-Wx_ToolBarToolBase::SetToggle( toggle )
+wxToolBarToolBase::SetToggle( toggle )
     bool toggle
 
 bool
-Wx_ToolBarToolBase::SetShortHelp( help )
+wxToolBarToolBase::SetShortHelp( help )
     wxString help
 
 bool
-Wx_ToolBarToolBase::SetLongHelp( help )
+wxToolBarToolBase::SetLongHelp( help )
     wxString help
 
 void
-Wx_ToolBarToolBase::SetNormalBitmap( bmp )
+wxToolBarToolBase::SetNormalBitmap( bmp )
     Wx_Bitmap* bmp
   CODE:
     THIS->SetNormalBitmap( *bmp );
 
 void
-Wx_ToolBarToolBase::SetDisabledBitmap( bmp )
+wxToolBarToolBase::SetDisabledBitmap( bmp )
     Wx_Bitmap* bmp
   CODE:
     THIS->SetDisabledBitmap( *bmp );
 
 void
-Wx_ToolBarToolBase::SetLabel( label )
+wxToolBarToolBase::SetLabel( label )
     wxString label
 
 void
-Wx_ToolBarToolBase::SetBitmap1( bmp )
+wxToolBarToolBase::SetBitmap1( bmp )
     Wx_Bitmap* bmp
   CODE:
     THIS->SetNormalBitmap( *bmp );
 
 void
-Wx_ToolBarToolBase::SetBitmap2( bmp )
+wxToolBarToolBase::SetBitmap2( bmp )
     Wx_Bitmap* bmp
   CODE:
     THIS->SetDisabledBitmap( *bmp );
 
 void
-Wx_ToolBarToolBase::SetClientData( data = 0 )
+wxToolBarToolBase::SetClientData( data = 0 )
     Wx_UserDataO* data
 
 MODULE=Wx PACKAGE=Wx::ToolBarBase
 
 void
-Wx_ToolBarBase::Destroy()
+wxToolBarBase::Destroy()
   CODE:
     delete THIS;
 
 bool
-Wx_ToolBarBase::AddControl( control )
+wxToolBarBase::AddControl( control )
     Wx_Control* control
 
 void
-Wx_ToolBar::AddSeparator()
+wxToolBar::AddSeparator()
 
 void
-Wx_ToolBarBase::AddTool( ... )
+wxToolBarBase::AddTool( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wbmp_wbmp_b_s_s_s,
@@ -242,52 +242,60 @@ wxToolBarBase::AddToolNewShort( toolId, label, bitmap, shortHelp = wxEmptyString
   OUTPUT: RETVAL
 
 bool
-Wx_ToolBarBase::DeleteTool( toolId )
+wxToolBarBase::DeleteTool( toolId )
     int toolId
 
 bool
-Wx_ToolBarBase::DeleteToolByPos( pos )
+wxToolBarBase::DeleteToolByPos( pos )
     size_t pos
 
 void
-Wx_ToolBarBase::EnableTool( toolId, enable )
+wxToolBarBase::EnableTool( toolId, enable )
     int toolId
     bool enable
 
-Wx_ToolBarToolBase*
-Wx_ToolBarBase::FindToolForPosition( x, y )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+wxToolBarToolBase*
+wxToolBarBase::FindById( toolid )
+    int toolid
+
+#endif
+
+wxToolBarToolBase*
+wxToolBarBase::FindToolForPosition( x, y )
     int x
     int y
 
 Wx_Size*
-Wx_ToolBarBase::GetMargins()
+wxToolBarBase::GetMargins()
   CODE:
     RETVAL = new wxSize( THIS->GetMargins() );
   OUTPUT:
     RETVAL
 
 int
-Wx_ToolBarBase::GetMaxRows()
+wxToolBarBase::GetMaxRows()
 
 int
-Wx_ToolBarBase::GetMaxCols()
+wxToolBarBase::GetMaxCols()
 
 Wx_Size*
-Wx_ToolBarBase::GetToolSize()
+wxToolBarBase::GetToolSize()
   CODE:
     RETVAL = new wxSize( THIS->GetToolSize() );
   OUTPUT:
     RETVAL
 
 Wx_Size*
-Wx_ToolBarBase::GetToolBitmapSize()
+wxToolBarBase::GetToolBitmapSize()
   CODE:
     RETVAL = new wxSize( THIS->GetToolBitmapSize() );
   OUTPUT:
     RETVAL
 
 Wx_UserDataO*
-Wx_ToolBar::GetToolClientData( toolId )
+wxToolBar::GetToolClientData( toolId )
     int toolId
   CODE:
     RETVAL = (Wx_UserDataO*) THIS->GetToolClientData( toolId );
@@ -295,38 +303,38 @@ Wx_ToolBar::GetToolClientData( toolId )
     RETVAL
 
 bool
-Wx_ToolBarBase::GetToolEnabled( toolId )
+wxToolBarBase::GetToolEnabled( toolId )
     int toolId
 
 wxString
-Wx_ToolBarBase::GetToolLongHelp( toolId )
+wxToolBarBase::GetToolLongHelp( toolId )
     int toolId
 
 int
-Wx_ToolBarBase::GetToolPacking()
+wxToolBarBase::GetToolPacking()
 
 int
-Wx_ToolBarBase::GetToolSeparation()
+wxToolBarBase::GetToolSeparation()
 
 wxString
-Wx_ToolBarBase::GetToolShortHelp( toolId )
+wxToolBarBase::GetToolShortHelp( toolId )
    int toolId
 
 bool
-Wx_ToolBarBase::GetToolState( toolId )
+wxToolBarBase::GetToolState( toolId )
     int toolId
 
-Wx_ToolBarToolBase*
-Wx_ToolBarBase::InsertControl( pos, control )
+wxToolBarToolBase*
+wxToolBarBase::InsertControl( pos, control )
    size_t pos
    Wx_Control* control
 
-Wx_ToolBarToolBase*
-Wx_ToolBarBase::InsertSeparator( pos )
+wxToolBarToolBase*
+wxToolBarBase::InsertSeparator( pos )
     size_t pos
 
-Wx_ToolBarToolBase*
-Wx_ToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+wxToolBarToolBase*
+wxToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     size_t pos
     int toolId
     Wx_Bitmap* bitmap1
@@ -344,27 +352,27 @@ Wx_ToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBi
     RETVAL
 
 bool
-Wx_ToolBarBase::Realize()
+wxToolBarBase::Realize()
 
-Wx_ToolBarToolBase*
-Wx_ToolBarBase::RemoveTool( id )
+wxToolBarToolBase*
+wxToolBarBase::RemoveTool( id )
     int id
 
 void
-Wx_ToolBarBase::SetMarginsSize( size )
+wxToolBarBase::SetMarginsSize( size )
     Wx_Size size
   CODE:
     THIS->SetMargins( size );
 
 void
-Wx_ToolBarBase::SetMarginsXY( x, y )
+wxToolBarBase::SetMarginsXY( x, y )
     int x
     int y
   CODE:
     THIS->SetMargins( x, y );
 
 void
-Wx_ToolBarBase::SetMargins( ... )
+wxToolBarBase::SetMargins( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n, SetMarginsXY )
@@ -372,20 +380,20 @@ Wx_ToolBarBase::SetMargins( ... )
     END_OVERLOAD( Wx::ToolBarBase::SetMargins )
 
 void
-Wx_ToolBarBase::SetMaxRowsCols( mRows, mCols )
+wxToolBarBase::SetMaxRowsCols( mRows, mCols )
     int mRows
     int mCols
 
 void
-Wx_ToolBarBase::SetRows( nRows )
+wxToolBarBase::SetRows( nRows )
     int nRows
 
 void
-Wx_ToolBarBase::SetToolBitmapSize( size )
+wxToolBarBase::SetToolBitmapSize( size )
     Wx_Size size
 
 void
-Wx_ToolBarBase::SetToolClientData( id, data )
+wxToolBarBase::SetToolClientData( id, data )
     int id
     Wx_UserDataO* data
   CODE:
@@ -394,25 +402,25 @@ Wx_ToolBarBase::SetToolClientData( id, data )
     THIS->SetToolClientData( id, data );
 
 void
-Wx_ToolBarBase::SetToolLongHelp( toolId, helpString )
+wxToolBarBase::SetToolLongHelp( toolId, helpString )
     int toolId
     wxString helpString
 
 void
-Wx_ToolBarBase::SetToolPacking( packing )
+wxToolBarBase::SetToolPacking( packing )
     int packing
 
 void
-Wx_ToolBarBase::SetToolShortHelp( toolId, helpString )
+wxToolBarBase::SetToolShortHelp( toolId, helpString )
     int toolId
     wxString helpString
 
 void
-Wx_ToolBarBase::SetToolSeparation( separation )
+wxToolBarBase::SetToolSeparation( separation )
     int separation
 
 void
-Wx_ToolBarBase::ToggleTool( toolId, toggle )
+wxToolBarBase::ToggleTool( toolId, toggle )
     int toolId
     bool toggle
 
@@ -434,7 +442,7 @@ newDefault( CLASS )
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT: RETVAL
 
-Wx_ToolBar*
+wxToolBar*
 newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
     PlClassName CLASS
     Wx_Window* parent

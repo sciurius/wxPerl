@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.36 2003/12/13 17:13:31 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.37 2004/02/28 22:58:57 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -16,6 +16,7 @@
 #include "cpp/typedef.h"
 
 #include <wx/event.h>
+#include <wx/window.h>
 #include <wx/dc.h>
 #include <stdarg.h>
 
@@ -42,7 +43,6 @@ MODULE=Wx_Evt PACKAGE=Wx::Event
 
 # unimplemented ( and probably will never be: problems with object
 #                 cloning/destruction )
-# GetEventObject
 # GetObjectType
 # SetEventObject
 
@@ -54,6 +54,18 @@ Wx_Event::DESTROY()
 # Wx_Event::Destroy()
 #   CODE:
 #     delete THIS;
+
+void
+wxEvent::GetEventObject()
+  PPCODE:
+    // to avoid problems with deletion, only windows are supported
+    wxObject* obj = THIS->GetEventObject();
+    wxWindow* win = wxDynamicCast( obj, wxWindow );
+
+    if(win == NULL)
+        PUSHs( &PL_sv_undef );
+    else
+        PUSHs( wxPli_evthandler_2_sv( aTHX_ NEWSV( 0, 0 ), win ) );
 
 wxEventType
 Wx_Event::GetEventType()
@@ -93,7 +105,7 @@ Wx_CommandEvent::new( type = 0, id = 0 )
 Wx_UserDataCD*
 Wx_CommandEvent::GetClientData()
   CODE:
-    RETVAL = (Wx_UserDataCD*) THIS->GetClientObject();
+    RETVAL = (wxPliUserDataCD*)THIS->GetClientObject();
   OUTPUT:
     RETVAL
 

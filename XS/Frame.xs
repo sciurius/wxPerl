@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Frame.xs
+## Name:        XS/Frame.xs
 ## Purpose:     XS for Wx::Frame
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.20 2003/11/08 18:25:24 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: Frame.xs,v 1.21 2004/02/28 22:59:06 mbarbon Exp $
+## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -62,7 +62,7 @@ wxFrame::Create( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSiz
 #if 0
 
 void
-Wx_Frame::Command( id )
+wxFrame::Command( id )
     int id
 
 #endif
@@ -74,52 +74,52 @@ wxFrame::CreateStatusBar( number = 1, style = 0, id = -1, name = wxEmptyString )
     wxWindowID id
     wxString name
 
-Wx_ToolBar*
-Wx_Frame::CreateToolBar( style = wxNO_BORDER | wxTB_HORIZONTAL, id = -1, name = wxToolBarNameStr )
+wxToolBar*
+wxFrame::CreateToolBar( style = wxNO_BORDER | wxTB_HORIZONTAL, id = -1, name = wxToolBarNameStr )
     long style
     wxWindowID id
     wxString name
 
 Wx_Point*
-Wx_Frame::GetClientAreaOrigin()
+wxFrame::GetClientAreaOrigin()
   CODE:
     RETVAL = new wxPoint( THIS->GetClientAreaOrigin() );
   OUTPUT:
     RETVAL
 
-Wx_MenuBar*
-Wx_Frame::GetMenuBar()
+wxMenuBar*
+wxFrame::GetMenuBar()
 
 wxStatusBar*
 wxFrame::GetStatusBar()
 
 int
-Wx_Frame::GetStatusBarPane()
+wxFrame::GetStatusBarPane()
 
-Wx_ToolBar*
-Wx_Frame::GetToolBar()
+wxToolBar*
+wxFrame::GetToolBar()
 
 void
-Wx_Frame::Iconize( iconize )
+wxFrame::Iconize( iconize )
     bool iconize
 
 bool
-Wx_Frame::IsIconized()
+wxFrame::IsIconized()
 
 bool
-Wx_Frame::IsMaximized()
+wxFrame::IsMaximized()
 
 #if defined( __WXMSW__ ) || \
  ( defined( __WXGTK__ ) ) \
  || defined( __WXPERL_FORCE__ )
 
 bool
-Wx_Frame::IsFullScreen()
+wxFrame::IsFullScreen()
 
 #endif
 
 void
-Wx_Frame::Maximize( maximize )
+wxFrame::Maximize( maximize )
     bool maximize
 
 wxStatusBar*
@@ -133,7 +133,7 @@ wxFrame::OnCreateStatusBar( number, style, id, name )
   OUTPUT: RETVAL
 
 void
-Wx_Frame::SetIcon( icon )
+wxFrame::SetIcon( icon )
     Wx_Icon* icon
   CODE:
     THIS->SetIcon( *icon );
@@ -144,11 +144,11 @@ wxFrame::SetIcons( icons )
   C_ARGS: *icons
 
 void
-Wx_Frame::SetMenuBar( menubar )
-    Wx_MenuBar* menubar
+wxFrame::SetMenuBar( menubar )
+    wxMenuBar* menubar
 
 #if (WXPERL_W_VERSION_GE( 2, 4, 1 ) && !defined(__WXMOTIF__)) \
-    || WXPERL_W_VERSION_GE( 2, 5, 0 )
+    || WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 void
 wxFrame::SetShape( region )
@@ -162,20 +162,20 @@ wxFrame::SetStatusBar( statusBar )
     wxStatusBar* statusBar
 
 void
-Wx_Frame::SetToolBar( toolbar )
-    Wx_ToolBar* toolbar
+wxFrame::SetToolBar( toolbar )
+    wxToolBar* toolbar
 
 void
-Wx_Frame::SetStatusText( text, number = 0 )
+wxFrame::SetStatusText( text, number = 0 )
     wxString text
     int number
 
 void
-Wx_Frame::SetStatusBarPane( n )
+wxFrame::SetStatusBarPane( n )
     int n
 
 void
-Wx_Frame::SetStatusWidths( ... )
+wxFrame::SetStatusWidths( ... )
   PREINIT:
     int* w;
     int i;
@@ -193,7 +193,7 @@ Wx_Frame::SetStatusWidths( ... )
  || defined( __WXPERL_FORCE__ )
 
 bool
-Wx_Frame::ShowFullScreen( show, style = wxFULLSCREEN_ALL )
+wxFrame::ShowFullScreen( show, style = wxFULLSCREEN_ALL )
     bool show
     long style
 

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Cursor.xs
+## Name:        XS/Cursor.xs
 ## Purpose:     XS for Wx::Cursor
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Cursor.xs,v 1.10 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Cursor.xs,v 1.11 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -53,7 +53,7 @@ newId( CLASS, id )
 Wx_Cursor*
 newImage( CLASS, img )
     SV* CLASS
-    Wx_Image* img
+    wxImage* img
   CODE:
     RETVAL = new wxCursor( *img );
   OUTPUT:

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxListCtrl.pm
+## Name:        demo/wxListCtrl.pm
 ## Purpose:     wxerl demo helper
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 9/2001
-## RCS-ID:      $Id: wxListCtrl.pm,v 1.5 2003/05/05 20:38:41 mbarbon Exp $
+## Created:     12/09/2001
+## RCS-ID:      $Id: wxListCtrl.pm,v 1.6 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -62,7 +62,7 @@ sub new {
   my $icon = Wx::Button->new( $this, -1, 'Icon' );
 
   #
-  # virtual list controls only supported under wxWindows 2.3.2
+  # virtual list controls only supported under wxWidgets 2.3.2
   #
   my $virtual;
   $virtual = Wx::Button->new( $this, -1, 'Virtual' );
@@ -174,7 +174,7 @@ sub CreateVirtualControl {
 }
 
 #
-# this is used only if compiled with wxWindows 2.3.2
+# this is used only if compiled with wxWidgets 2.3.2
 #
 
 package MyListCtrl;

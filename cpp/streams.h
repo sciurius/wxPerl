@@ -1,12 +1,12 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        streams.h
-// Purpose:     wrappers to pass streams from Perl to wxWindows
-//              ( see also XS/Streams.xs )
+// Name:        cpp/streams.h
+// Purpose:     wrappers to pass streams from Perl to wxWidgets
+//              (see also XS/Streams.xs)
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     30/ 3/2001
-// RCS-ID:      
-// Copyright:   (c) 2001-2002 Mattia Barbon
+// Created:     30/03/2001
+// RCS-ID:      $Id: streams.h,v 1.4 2004/02/28 22:59:06 mbarbon Exp $
+// Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -16,8 +16,8 @@
 
 #include <wx/stream.h>
 
-// for wxWindows use: store a Perl object and
-// read from/write to it using wxWindows functions
+// for wxWidgets use: store a Perl object and
+// read from/write to it using wxWidgets functions
 
 class wxPliInputStream:public wxInputStream
 {

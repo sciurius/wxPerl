@@ -138,7 +138,7 @@ DEF_V_CBACK_BOOL__WXXMLNODE_pure( wxPlXmlResourceHandler, wxXmlResourceHandler,
 DEF_V_CBACK_WXOBJECT__VOID_pure( wxPlXmlResourceHandler, wxXmlResourceHandler,
                                  DoCreateResource );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlXmlResourceHandler, wxXmlResourceHandler );
 #else
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlXmlResourceHandler, wxObject );

@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: Window.xs,v 1.50 2004/02/28 22:58:57 mbarbon Exp $
+// Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ WXPLI_BOOT_ONCE(Wx_Win);
 
 MODULE=Wx_Win PACKAGE=Wx PREFIX=wx
 
-Wx_Point*
+wxPoint*
 wxGetMousePosition()
   PREINIT:
     int x, y;
@@ -47,17 +47,17 @@ wxGetMousePosition()
 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
-Wx_Window*
+wxWindow*
 wxGetTopLevelParent( window )
-    Wx_Window* window
+    wxWindow* window
 
-Wx_Window*
+wxWindow*
 wxFindWindowAtPointer( pt )
-    Wx_Point pt
+    wxPoint pt
 
 #endif
 
-Wx_Window*
+wxWindow*
 wxGetActiveWindow()
 
 MODULE=Wx_Win PACKAGE=Wx::Window
@@ -100,21 +100,21 @@ wxWindow::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, sty
     wxString name
 
 void
-Wx_Window::CaptureMouse()
+wxWindow::CaptureMouse()
 
 void
-Wx_Window::Centre( direction = wxBOTH )
+wxWindow::Centre( direction = wxBOTH )
     int direction
 
 void
-Wx_Window::CentreOnParent( direction = wxBOTH )
+wxWindow::CentreOnParent( direction = wxBOTH )
     int direction
 
 void
-Wx_Window::CentreOnScreen( direction = wxBOTH )
+wxWindow::CentreOnScreen( direction = wxBOTH )
     int direction
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 void
 wxWindow::ClearBackground()
@@ -122,28 +122,28 @@ wxWindow::ClearBackground()
 #else
 
 void
-Wx_Window::Clear()
+wxWindow::Clear()
 
 #endif
 
 void
-Wx_Window::ClientToScreen( ... )
+wxWindow::ClientToScreen( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n, ClientToScreenXY )
         MATCH_REDISP( wxPliOvl_wpoi, ClientToScreenPoint )
     END_OVERLOAD( Wx::Window::ClientToScreen )
 
-Wx_Point*
-Wx_Window::ClientToScreenPoint( point )
-    Wx_Point point
+wxPoint*
+wxWindow::ClientToScreenPoint( point )
+    wxPoint point
   CODE:
     RETVAL = new wxPoint( THIS->ClientToScreen( point ) );
   OUTPUT:
     RETVAL
 
 void
-Wx_Window::ClientToScreenXY( x, y )
+wxWindow::ClientToScreenXY( x, y )
     int x
     int y
   PPCODE:
@@ -153,81 +153,81 @@ Wx_Window::ClientToScreenXY( x, y )
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
 bool
-Wx_Window::Close( force = FALSE )
+wxWindow::Close( force = FALSE )
     bool force
 
 void
-Wx_Window::ConvertDialogToPixels( ... )
+wxWindow::ConvertDialogToPixels( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wpoi, ConvertDialogPointToPixels )
         MATCH_REDISP( wxPliOvl_wsiz, ConvertDialogSizeToPixels )
     END_OVERLOAD( Wx::Window::ConvertDialogToPixels )
 
-Wx_Point*
-Wx_Window::ConvertDialogPointToPixels( point )
-    Wx_Point point
+wxPoint*
+wxWindow::ConvertDialogPointToPixels( point )
+    wxPoint point
   CODE:
     RETVAL = new wxPoint( THIS->ConvertDialogToPixels( point ) );
   OUTPUT:
     RETVAL
 
-Wx_Size*
-Wx_Window::ConvertDialogSizeToPixels( size )
-    Wx_Size size
+wxSize*
+wxWindow::ConvertDialogSizeToPixels( size )
+    wxSize size
   CODE:
     RETVAL = new wxSize( THIS->ConvertDialogToPixels( size ) );
   OUTPUT:
     RETVAL
 
 void
-Wx_Window::ConvertPixelsToDialog( ... )
+wxWindow::ConvertPixelsToDialog( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wpoi, ConvertPixelsPointToDialog )
         MATCH_REDISP( wxPliOvl_wsiz, ConvertPixelsSizeToDialog )
     END_OVERLOAD( Wx::Window::ConvertPixelsToDialog )
 
-Wx_Point*
-Wx_Window::ConvertPixelsPointToDialog( point )
-    Wx_Point point
+wxPoint*
+wxWindow::ConvertPixelsPointToDialog( point )
+    wxPoint point
   CODE:
     RETVAL = new wxPoint( THIS->ConvertPixelsToDialog( point ) );
   OUTPUT:
     RETVAL
 
-Wx_Size*
-Wx_Window::ConvertPixelsSizeToDialog( size )
-    Wx_Size size
+wxSize*
+wxWindow::ConvertPixelsSizeToDialog( size )
+    wxSize size
   CODE:
     RETVAL = new wxSize( THIS->ConvertPixelsToDialog( size ) );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Window::Destroy()
+wxWindow::Destroy()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_Window::DragAcceptFiles( accept )
+wxWindow::DragAcceptFiles( accept )
     bool accept
 
 #endif // __WXMSW__
 
 void
-Wx_Window::Enable( enable )
+wxWindow::Enable( enable )
     bool enable
 
-Wx_Window*
+wxWindow*
 FindFocus()
   CODE:
     RETVAL = wxWindow::FindFocus();
   OUTPUT:
     RETVAL
 
-Wx_Window*
-Wx_Window::FindWindow( i )
+wxWindow*
+wxWindow::FindWindow( i )
     SV* i
   CODE:
     if( looks_like_number( i ) ) {
@@ -271,40 +271,40 @@ FindWindowByLabel( id, parent = NULL )
 
 
 void
-Wx_Window::Fit()
+wxWindow::Fit()
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
-Wx_Window::Freeze()
+wxWindow::Freeze()
 
 #endif
 
-Wx_Colour*
-Wx_Window::GetBackgroundColour()
+wxColour*
+wxWindow::GetBackgroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetBackgroundColour() );
   OUTPUT:
     RETVAL
 
-Wx_Size*
-Wx_Window::GetBestSize()
+wxSize*
+wxWindow::GetBestSize()
   CODE:
     RETVAL = new wxSize( THIS->GetBestSize() );
   OUTPUT:
     RETVAL
 
-Wx_Caret*
-Wx_Window::GetCaret()
+wxCaret*
+wxWindow::GetCaret()
 
 int
-Wx_Window::GetCharHeight()
+wxWindow::GetCharHeight()
 
 int
-Wx_Window::GetCharWidth()
+wxWindow::GetCharWidth()
 
 void
-Wx_Window::GetChildren()
+wxWindow::GetChildren()
   PPCODE:
     const wxWindowList& list = THIS->GetChildren();
     wxWindowListNode* node;
@@ -314,15 +314,15 @@ Wx_Window::GetChildren()
     for( node = list.GetFirst(); node; node = node->GetNext() )
       PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ) );
 
-Wx_Size*
-Wx_Window::GetClientSize()
+wxSize*
+wxWindow::GetClientSize()
   CODE:
     RETVAL = new wxSize( THIS->GetClientSize() );
   OUTPUT:
     RETVAL
 
 void
-Wx_Window::GetClientSizeXY()
+wxWindow::GetClientSizeXY()
   PREINIT:
     int x;
     int y;
@@ -334,15 +334,15 @@ Wx_Window::GetClientSizeXY()
 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
-Wx_Sizer*
-Wx_Window::GetContainingSizer()
+wxSizer*
+wxWindow::GetContainingSizer()
 
 #endif
 
 #if wxPERL_USE_DRAG_AND_DROP
 
-Wx_DropTarget*
-Wx_Window::GetDropTarget()
+wxDropTarget*
+wxWindow::GetDropTarget()
   CLEANUP:
     wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
@@ -350,36 +350,43 @@ Wx_Window::GetDropTarget()
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
-Wx_Window*
-Wx_Window::GetDefaultItem()
+wxWindow*
+wxWindow::GetDefaultItem()
 
 #endif
 
 wxEvtHandler*
-Wx_Window::GetEventHandler()
+wxWindow::GetEventHandler()
 
 long
-Wx_Window::GetExtraStyle()
+wxWindow::GetExtraStyle()
 
-Wx_Font*
-Wx_Window::GetFont()
+wxFont*
+wxWindow::GetFont()
   CODE:
     RETVAL = new wxFont( THIS->GetFont() );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_Window::GetForegroundColour()
+wxColour*
+wxWindow::GetForegroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetForegroundColour() );
   OUTPUT:
     RETVAL
 
-Wx_Window*
-Wx_Window::GetGrandParent()
+wxWindow*
+wxWindow::GetGrandParent()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined( __WXMSW__ )
+
+void*
+wxWindow::GetHandle()
+
+#else
 
 IV
-Wx_Window::GetHandle()
+wxWindow::GetHandle()
   CODE:
 #ifdef __WXMSW__
     WXHWND handle = THIS->GetHandle();
@@ -391,37 +398,35 @@ Wx_Window::GetHandle()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
-wxString
-Wx_Window::GetHelpText()
-
 #endif
 
+wxString
+wxWindow::GetHelpText()
+
 int
-Wx_Window::GetId()
+wxWindow::GetId()
 
 wxString
-Wx_Window::GetLabel()
+wxWindow::GetLabel()
 
-Wx_LayoutConstraints*
-Wx_Window::GetConstraints()
+wxLayoutConstraints*
+wxWindow::GetConstraints()
 
 wxString
-Wx_Window::GetName()
+wxWindow::GetName()
 
-Wx_Window*
-Wx_Window::GetParent()
+wxWindow*
+wxWindow::GetParent()
 
-Wx_Point*
-Wx_Window::GetPosition()
+wxPoint*
+wxWindow::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
 
 void
-Wx_Window::GetPositionXY()
+wxWindow::GetPositionXY()
   PREINIT:
     int x;
     int y;
@@ -431,27 +436,27 @@ Wx_Window::GetPositionXY()
     PUSHs( sv_2mortal( newSViv( (IV) x ) ) );
     PUSHs( sv_2mortal( newSViv( (IV) y ) ) );
 
-Wx_Rect*
-Wx_Window::GetRect()
+wxRect*
+wxWindow::GetRect()
   CODE:
     RETVAL = new wxRect( THIS->GetRect() );
   OUTPUT:
     RETVAL
 
 int
-Wx_Window::GetScrollThumb( orientation )
+wxWindow::GetScrollThumb( orientation )
     int orientation
 
 int
-Wx_Window::GetScrollPos( orientation )
+wxWindow::GetScrollPos( orientation )
     int orientation
 
 int
-Wx_Window::GetScrollRange( orientation )
+wxWindow::GetScrollRange( orientation )
     int orientation
 
-Wx_Size*
-Wx_Window::GetSize()
+wxSize*
+wxWindow::GetSize()
   CODE:
     RETVAL = new wxSize( THIS->GetSize() );
   OUTPUT:
@@ -461,7 +466,7 @@ wxSizer*
 wxWindow::GetSizer()
 
 void
-Wx_Window::GetSizeWH()
+wxWindow::GetSizeWH()
   PREINIT:
     int x;
     int y;
@@ -472,9 +477,9 @@ Wx_Window::GetSizeWH()
     PUSHs( sv_2mortal( newSViv( (IV) y ) ) );
 
 void
-Wx_Window::GetTextExtent( string, font = 0 )
+wxWindow::GetTextExtent( string, font = 0 )
     wxString string
-    Wx_Font* font
+    wxFont* font
   PREINIT:
     int x;
     int y;
@@ -490,49 +495,49 @@ Wx_Window::GetTextExtent( string, font = 0 )
     PUSHs( sv_2mortal( newSViv( externalLeading ) ) );
 
 wxString
-Wx_Window::GetTitle()
+wxWindow::GetTitle()
 
 #if wxPERL_USE_TOOLTIPS
 
-Wx_ToolTip*
-Wx_Window::GetToolTip()
+wxToolTip*
+wxWindow::GetToolTip()
 
 #endif
 
-Wx_Region*
-Wx_Window::GetUpdateRegion()
+wxRegion*
+wxWindow::GetUpdateRegion()
   CODE:
     RETVAL = new wxRegion( THIS->GetUpdateRegion() );
   OUTPUT:
     RETVAL
 
-Wx_Validator*
-Wx_Window::GetValidator()
+wxValidator*
+wxWindow::GetValidator()
 
 long
-Wx_Window::GetWindowStyleFlag()
+wxWindow::GetWindowStyleFlag()
 
 #if WXPERL_W_VERSION_LE( 2, 2, 1 )
 
 void
-Wx_Window::InitDialog()
+wxWindow::InitDialog()
 
 #endif
 
 bool
-Wx_Window::IsEnabled()
+wxWindow::IsEnabled()
 
 void
-Wx_Window::IsExposed( ... )
+wxWindow::IsExposed( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wpoi, IsExposedPoint )
         MATCH_REDISP( wxPliOvl_wrec, IsExposedRect )
         MATCH_REDISP( wxPliOvl_n_n_n_n, IsExposedXYWH )
-    END_OVERLOAD( Wx_Window::IsExposed )
+    END_OVERLOAD( Wx::Window::IsExposed )
 
 bool
-Wx_Window::IsExposedXYWH( x, y, w = 0, h = 0 )
+wxWindow::IsExposedXYWH( x, y, w = 0, h = 0 )
     int x
     int y
     int w
@@ -543,42 +548,42 @@ Wx_Window::IsExposedXYWH( x, y, w = 0, h = 0 )
     RETVAL
 
 bool
-Wx_Window::IsExposedPoint( point )
-    Wx_Point point
+wxWindow::IsExposedPoint( point )
+    wxPoint point
   CODE:
     RETVAL = THIS->IsExposed( point );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Window::IsExposedRect( rect )
-    Wx_Rect* rect
+wxWindow::IsExposedRect( rect )
+    wxRect* rect
   CODE:
     RETVAL = THIS->IsExposed( *rect );
   OUTPUT:
     RETVAL
     
 bool
-Wx_Window::IsRetained()
+wxWindow::IsRetained()
 
 bool
-Wx_Window::IsShown()
+wxWindow::IsShown()
 
 bool
-Wx_Window::IsTopLevel()
+wxWindow::IsTopLevel()
 
 void
-Wx_Window::Layout()
+wxWindow::Layout()
 
 void
-Wx_Window::Lower()
+wxWindow::Lower()
 
 void
-Wx_Window::MakeModal( flag )
+wxWindow::MakeModal( flag )
     bool flag
 
 void
-Wx_Window::Move( ... )
+wxWindow::Move( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wpoi, MovePoint )
@@ -586,24 +591,24 @@ Wx_Window::Move( ... )
     END_OVERLOAD( Wx::Window::Move )
 
 void
-Wx_Window::MoveXY( x, y )
+wxWindow::MoveXY( x, y )
     int x
     int y
   CODE:
     THIS->Move( x, y );
 
 void
-Wx_Window::MovePoint( point )
-    Wx_Point point
+wxWindow::MovePoint( point )
+    wxPoint point
   CODE:
     THIS->Move( point );
 
 wxEvtHandler*
-Wx_Window::PopEventHandler( deleteHandler )
+wxWindow::PopEventHandler( deleteHandler )
     bool deleteHandler
 
 void
-Wx_Window::PopupMenu( ... )
+wxWindow::PopupMenu( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wmen_wpoi, PopupMenuPoint )
@@ -611,17 +616,17 @@ Wx_Window::PopupMenu( ... )
     END_OVERLOAD( Wx::Window::PopupMenu )
 
 bool
-Wx_Window::PopupMenuPoint( menu, point )
-    Wx_Menu* menu
-    Wx_Point point
+wxWindow::PopupMenuPoint( menu, point )
+    wxMenu* menu
+    wxPoint point
   CODE:
     RETVAL = THIS->PopupMenu( menu, point );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Window::PopupMenuXY( menu, x, y )
-    Wx_Menu* menu
+wxWindow::PopupMenuXY( menu, x, y )
+    wxMenu* menu
     int x
     int y
   CODE:
@@ -630,50 +635,50 @@ Wx_Window::PopupMenuXY( menu, x, y )
     RETVAL
 
 void
-Wx_Window::PushEventHandler( handler )
+wxWindow::PushEventHandler( handler )
     wxEvtHandler* handler
 
 void
-Wx_Window::Raise()
+wxWindow::Raise()
 
 void
-Wx_Window::Refresh( eraseBackground = TRUE, rect = 0 )
+wxWindow::Refresh( eraseBackground = TRUE, rect = 0 )
     bool eraseBackground
-    Wx_Rect* rect
+    wxRect* rect
 
 void
-Wx_Window::ReleaseMouse()
+wxWindow::ReleaseMouse()
 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 bool
-Wx_Window::RemoveEventHandler( handler )
+wxWindow::RemoveEventHandler( handler )
     wxEvtHandler* handler
 
 #endif
 
 bool
-Wx_Window::Reparent( newParent )
-    Wx_Window* newParent
+wxWindow::Reparent( newParent )
+    wxWindow* newParent
 
 void
-Wx_Window::ScreenToClient( ... )
+wxWindow::ScreenToClient( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n, ScreenToClientXY )
         MATCH_REDISP( wxPliOvl_wpoi, ScreenToClientPoint )
     END_OVERLOAD( Wx::Window::ScreenToClient )
 
-Wx_Point*
-Wx_Window::ScreenToClientPoint( point )
-    Wx_Point point
+wxPoint*
+wxWindow::ScreenToClientPoint( point )
+    wxPoint point
   CODE:
     RETVAL = new wxPoint( THIS->ScreenToClient( point ) );
   OUTPUT:
     RETVAL
 
 void
-Wx_Window::ScreenToClientXY( x, y )
+wxWindow::ScreenToClientXY( x, y )
     int x
     int y
   PPCODE:
@@ -685,29 +690,29 @@ Wx_Window::ScreenToClientXY( x, y )
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 bool
-Wx_Window::ScrollLines( lines )
+wxWindow::ScrollLines( lines )
     int lines
 
 bool
-Wx_Window::ScrollPages( lines )
+wxWindow::ScrollPages( lines )
     int lines
 
 #endif
 
 void
-Wx_Window::ScrollWindow( x, y, rect = 0 )
+wxWindow::ScrollWindow( x, y, rect = 0 )
     int x
     int y
-    Wx_Rect* rect
+    wxRect* rect
 
 void
-Wx_Window::SetAcceleratorTable( accel )
-    Wx_AcceleratorTable* accel
+wxWindow::SetAcceleratorTable( accel )
+    wxAcceleratorTable* accel
   CODE:
     THIS->SetAcceleratorTable( *accel );
 
 void
-Wx_Window::SetAutoLayout( autoLayout )
+wxWindow::SetAutoLayout( autoLayout )
     bool autoLayout
 
 #ifdef __WXGTK__
@@ -719,17 +724,17 @@ wxWindow::SetThemeEnabled( themeEnabled )
 #endif
 
 void
-Wx_Window::SetBackgroundColour( colour )
-    Wx_Colour* colour
+wxWindow::SetBackgroundColour( colour )
+    wxColour* colour
   CODE:
     THIS->SetBackgroundColour( *colour );
 
 void
-Wx_Window::SetCaret( caret )
-    Wx_Caret* caret
+wxWindow::SetCaret( caret )
+    wxCaret* caret
 
 void
-Wx_Window::SetClientSize( ... )
+wxWindow::SetClientSize( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wsiz, SetClientSizeSize )
@@ -737,49 +742,49 @@ Wx_Window::SetClientSize( ... )
     END_OVERLOAD( Wx::Window::SetClientSize )
 
 void
-Wx_Window::SetClientSizeSize( size )
-    Wx_Size size
+wxWindow::SetClientSizeSize( size )
+    wxSize size
   CODE:
     THIS->SetClientSize( size );
 
 void
-Wx_Window::SetClientSizeWH( width, height )
+wxWindow::SetClientSizeWH( width, height )
     int width
     int height
   CODE:
     THIS->SetClientSize( width, height );
 
 void
-Wx_Window::SetConstraints( constraints )
-    Wx_LayoutConstraints* constraints
+wxWindow::SetConstraints( constraints )
+    wxLayoutConstraints* constraints
 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 void
-Wx_Window::SetContainingSizer( sizer )
-    Wx_Sizer* sizer
+wxWindow::SetContainingSizer( sizer )
+    wxSizer* sizer
 
 #endif
 
 void
-Wx_Window::SetCursor( cursor )
-    Wx_Cursor* cursor
+wxWindow::SetCursor( cursor )
+    wxCursor* cursor
   CODE:
     THIS->SetCursor( *cursor );
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
-Wx_Window*
-Wx_Window::SetDefaultItem( window )
-    Wx_Window* window
+wxWindow*
+wxWindow::SetDefaultItem( window )
+    wxWindow* window
 
 #endif
 
 #if wxPERL_USE_DRAG_AND_DROP
 
 void
-Wx_Window::SetDropTarget( target )
-    Wx_DropTarget* target
+wxWindow::SetDropTarget( target )
+    wxDropTarget* target
   CODE:
     wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
     THIS->SetDropTarget( target );
@@ -787,48 +792,48 @@ Wx_Window::SetDropTarget( target )
 #endif
 
 void
-Wx_Window::SetEventHandler( handler )
+wxWindow::SetEventHandler( handler )
     wxEvtHandler* handler
 
 void
-Wx_Window::SetExtraStyle( style )
+wxWindow::SetExtraStyle( style )
     long style
 
 void
-Wx_Window::SetFocus()
+wxWindow::SetFocus()
 
 void
-Wx_Window::SetForegroundColour( colour )
-    Wx_Colour* colour
+wxWindow::SetForegroundColour( colour )
+    wxColour* colour
   CODE:
     THIS->SetForegroundColour( *colour );
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 void
-Wx_Window::SetHelpText( text )
+wxWindow::SetHelpText( text )
     wxString text
 
 void
-Wx_Window::SetHelpTextForId( text )
+wxWindow::SetHelpTextForId( text )
     wxString text
 
 #endif
 
 void
-Wx_Window::SetId( id )
+wxWindow::SetId( id )
     int id
 
 void
-Wx_Window::SetLabel( label )
+wxWindow::SetLabel( label )
     wxString label
 
 void
-Wx_Window::SetName( name )
+wxWindow::SetName( name )
     wxString name
 
 void
-Wx_Window::SetScrollbar( orientation, position, thumbSize, range, refresh = TRUE )
+wxWindow::SetScrollbar( orientation, position, thumbSize, range, refresh = TRUE )
     int orientation
     int position
     int thumbSize
@@ -836,19 +841,19 @@ Wx_Window::SetScrollbar( orientation, position, thumbSize, range, refresh = TRUE
     bool refresh
 
 void
-Wx_Window::SetScrollPos( orientation, position, refresh = TRUE )
+wxWindow::SetScrollPos( orientation, position, refresh = TRUE )
     int orientation
     int position
     bool refresh
 
 void
-Wx_Window::SetFont( font )
-    Wx_Font* font
+wxWindow::SetFont( font )
+    wxFont* font
   CODE:
     THIS->SetFont( *font );
 
 void
-Wx_Window::SetSize( ... )
+wxWindow::SetSize( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_n_n, SetSizeXYWHF, 4 )
@@ -858,26 +863,26 @@ Wx_Window::SetSize( ... )
     END_OVERLOAD( Wx::Window::SetSize )
 
 void
-Wx_Window::SetSizeSize( size )
-    Wx_Size size
+wxWindow::SetSizeSize( size )
+    wxSize size
   CODE:
     THIS->SetSize( size );
 
 void
-Wx_Window::SetSizeRect( rect )
-    Wx_Rect* rect
+wxWindow::SetSizeRect( rect )
+    wxRect* rect
   CODE:
     THIS->SetSize( *rect );
 
 void
-Wx_Window::SetSizeWH( width, height )
+wxWindow::SetSizeWH( width, height )
     int width
     int height
   CODE:
     THIS->SetSize( width, height );
 
 void
-Wx_Window::SetSizeXYWHF( x, y, width, height, flags = wxSIZE_AUTO )
+wxWindow::SetSizeXYWHF( x, y, width, height, flags = wxSIZE_AUTO )
     int x
     int y
     int width
@@ -887,7 +892,7 @@ Wx_Window::SetSizeXYWHF( x, y, width, height, flags = wxSIZE_AUTO )
     THIS->SetSize( x, y, width, height, flags );
 
 void
-Wx_Window::SetSizeHints( minW, minH, maxW = -1, maxH = -1, incW = -1, incH = -1 )
+wxWindow::SetSizeHints( minW, minH, maxW = -1, maxH = -1, incW = -1, incH = -1 )
     int minW
     int minH
     int maxW
@@ -896,7 +901,7 @@ Wx_Window::SetSizeHints( minW, minH, maxW = -1, maxH = -1, incW = -1, incH = -1 
     int incH
 
 void
-Wx_Window::SetVirtualSizeHints( minW, minH, maxW = -1, maxH = -1 )
+wxWindow::SetVirtualSizeHints( minW, minH, maxW = -1, maxH = -1 )
     int minW
     int minH
     int maxW
@@ -924,23 +929,23 @@ wxWindow::SetVirtualSizeSize( size )
     THIS->SetVirtualSize( size );
 
 void
-Wx_Window::SetSizer( sizer, deleteOld = TRUE )
-    Wx_Sizer* sizer
+wxWindow::SetSizer( sizer, deleteOld = TRUE )
+    wxSizer* sizer
     bool deleteOld
 
 void
-Wx_Window::SetSizerAndFit( sizer, deleteOld = TRUE )
-    Wx_Sizer* sizer
+wxWindow::SetSizerAndFit( sizer, deleteOld = TRUE )
+    wxSizer* sizer
     bool deleteOld
 
 void
-Wx_Window::SetTitle( title )
+wxWindow::SetTitle( title )
     wxString title
 
 #if wxPERL_USE_TOOLTIPS
 
 void
-Wx_Window::SetToolTip( ... )
+wxWindow::SetToolTip( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wtip, SetToolTipTip )
@@ -948,13 +953,13 @@ Wx_Window::SetToolTip( ... )
     END_OVERLOAD( Wx::Window::SetToolTip )
 
 void
-Wx_Window::SetToolTipTip( tooltip )
-    Wx_ToolTip* tooltip
+wxWindow::SetToolTipTip( tooltip )
+    wxToolTip* tooltip
   CODE:
     THIS->SetToolTip( tooltip );
 
 void
-Wx_Window::SetToolTipString( string )
+wxWindow::SetToolTipString( string )
     wxString string
   CODE:
     THIS->SetToolTip( string );
@@ -962,46 +967,46 @@ Wx_Window::SetToolTipString( string )
 #endif
 
 void
-Wx_Window::SetValidator( validator )
-    Wx_Validator* validator
+wxWindow::SetValidator( validator )
+    wxValidator* validator
   CODE:
     THIS->SetValidator( *validator );
 
 void
-Wx_Window::SetWindowStyle( style )
+wxWindow::SetWindowStyle( style )
     long style
 
 void
-Wx_Window::SetWindowStyleFlag( style )
+wxWindow::SetWindowStyleFlag( style )
     long style
 
 bool
-Wx_Window::Show( show )
+wxWindow::Show( show )
     bool show
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
-Wx_Window::Thaw()
+wxWindow::Thaw()
 
 #endif
 
 bool
-Wx_Window::TransferDataFromWindow()
+wxWindow::TransferDataFromWindow()
   CODE:
     RETVAL = THIS->wxWindow::TransferDataFromWindow();
   OUTPUT:
     RETVAL
 
 bool
-Wx_Window::TransferDataToWindow()
+wxWindow::TransferDataToWindow()
   CODE:
     RETVAL = THIS->wxWindow::TransferDataToWindow();
   OUTPUT:
     RETVAL
 
 bool
-Wx_Window::Validate()
+wxWindow::Validate()
   CODE:
     RETVAL = THIS->wxWindow::Validate();
   OUTPUT:
@@ -1021,7 +1026,7 @@ wxWindow::RefreshRect( rect )
 #endif
 
 void
-Wx_Window::WarpPointer( x, y )
+wxWindow::WarpPointer( x, y )
     int x
     int y
 

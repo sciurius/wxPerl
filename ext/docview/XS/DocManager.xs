@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DocManager.xs
+## Name:        ext/docview/XS/DocManager.xs
 ## Purpose:     XS for wxDocument ( Document / View Framework )
 ## Author:      Simon Flack
 ## Modified by:
-## Created:     11/ 9/2002
-## RCS-ID:      $Id: DocManager.xs,v 1.7 2003/08/16 21:26:29 mbarbon Exp $
+## Created:     11/09/2002
+## RCS-ID:      $Id: DocManager.xs,v 1.8 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -244,7 +244,6 @@ wxString
 Wx_DocManager::MakeFrameTitle( doc )
     Wx_Document* doc
 
-##not implimented yet in wxWindows 2.3.2
 Wx_DocTemplate *
 Wx_DocManager::MatchTemplate( path )
     wxString path
@@ -264,11 +263,11 @@ Wx_DocManager::GetHistoryFile( i )
 
 void
 Wx_DocManager::FileHistoryUseMenu( menu )
-    Wx_Menu* menu
+    wxMenu* menu
 
 void
 Wx_DocManager::FileHistoryRemoveMenu( menu )
-    Wx_Menu* menu
+    wxMenu* menu
 
 
 #if wxUSE_CONFIG
@@ -296,14 +295,14 @@ Wx_DocManager::FileHistoryAddFilesToMenu( ... )
       THIS->FileHistoryAddFilesToMenu();
   CASE: items == 2
     INPUT:
-      Wx_Menu* menu = NO_INIT
+      wxMenu* menu = NO_INIT
     CODE:
       THIS->FileHistoryAddFilesToMenu( menu );
   CASE:
     CODE:
       croak( "Usage: Wx::FileHistory::AddfilesToMenu(THIS [, menu ] )" );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 size_t
 wxDocManager::GetHistoryFilesCount()
@@ -418,7 +417,7 @@ bool
 Wx_DocManager::CloseDocuments( force = TRUE )
     bool force
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 void
 wxDocManager::ActivateView( view, activate = TRUE )

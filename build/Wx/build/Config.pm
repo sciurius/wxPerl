@@ -10,7 +10,7 @@ sub is_wxPerl_tree { $is_wxPerl_tree }
 
 =head1 NAME
 
-Wx::build::Config - configuration information about wxWindows/wxPerl
+Wx::build::Config - configuration information about wxWidgets/wxPerl
 
 =head1 METHODS
 
@@ -132,7 +132,7 @@ sub get_wx_version {
   $ver =~ m/(\d)(\d)/ &&
     return $1 + $2 / 1000;
 
-  die "unable to get wxWindows' version ($ver)";
+  die "unable to get wxWidgets' version ($ver)";
 }
 
 =head2 get_wx_platform

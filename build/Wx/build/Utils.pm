@@ -51,7 +51,7 @@ sub is_debug() {
 }
 
 #
-# wxWindows version as M.mmm_sss
+# wxWidgets version as M.mmm_sss
 #
 sub wx_version() {
   no strict 'refs';
@@ -65,7 +65,7 @@ sub wx_version() {
   $ver =~ m/(\d)(\d)(\d+)/ &&
     return $1 + $2 / 1000 + $3 / 1000000;
 
-  die "unable to get wxWindows'version";
+  die "unable to get wxWidgets'version";
 }
 
 #

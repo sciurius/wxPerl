@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.100 2004/02/14 14:23:11 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.101 2004/02/28 22:58:57 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -232,6 +232,7 @@ static wxPlINH inherit[] =
 #else
     I( Notebook,        Control )
 #endif
+    I( NumberEntryDialog, Dialog )
     I( ToolBarBase,     Control )
     I( ToolBarSimple,   Control )
     I( StaticBitmap,    Control )
@@ -319,7 +320,7 @@ static wxPlINH inherit[] =
     I( GridSizer,       Sizer )
     I( FlexGridSizer,   GridSizer )
     I( GridBagSizer,    FlexGridSizer )
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     I( NotebookSizer,   BookCtrlSizer )
 #else
     I( NotebookSizer,   Sizer )
@@ -338,7 +339,7 @@ static wxPlINH inherit[] =
     ///////////////////////////////////////////
     // Conditional part
     ///////////////////////////////////////////
-#define HAS_TLW    !defined(__WXMOTIF__) || WXPERL_W_VERSION_GE( 2, 5, 0 )
+#define HAS_TLW    !defined(__WXMOTIF__) || WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 #if HAS_TLW
     I( Frame,           TopLevelWindow )
@@ -379,7 +380,7 @@ static wxPlINH inherit[] =
 #endif
 
 #if defined(__WXGTK__) || \
-    ( defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 5, 0 ) )
+    ( defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 5, 1 ) )
     I( ComboBox,        Control )
 #else
     I( ComboBox,        Choice )
@@ -393,7 +394,7 @@ static wxPlINH inherit[] =
     I( StatusBar,       Window )
 #endif
 
-#if defined(__WXMOTIF__) && WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if defined(__WXMOTIF__) && WXPERL_W_VERSION_GE( 2, 5, 1 )
     // wxCursor inherits from wxObject
 #elif defined(__WXMOTIF__) || defined(__WXMAC__)
     I( Cursor,          Bitmap )
@@ -633,7 +634,7 @@ static double constant( const char *name, int arg )
 #define wxCenterX wxCentreX
 #define wxCenterY wxCentreY
 
-#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if !WXPERL_W_VERSION_GE( 2, 5, 1 )
     #define wxCLOSE_BOX 0
 #endif
     r( wxCLOSE_BOX );                   // frame
@@ -850,7 +851,7 @@ static double constant( const char *name, int arg )
     r( wxFLOOD_SURFACE );               // dc
     r( wxFLOOD_BORDER );                // dc
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     r( wxFLEX_GROWMODE_NONE );          // sizer
     r( wxFLEX_GROWMODE_SPECIFIED );     // sizer
     r( wxFLEX_GROWMODE_ALL );           // sizer
@@ -1666,7 +1667,7 @@ static double constant( const char *name, int arg )
     r( wxTB_3DBUTTONS );                // toolbar
     r( wxTB_TEXT );                     // toolbar
     r( wxTB_NOICONS );                  // toolbar
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     r( wxTB_HORZ_TEXT );                // toolbar
 #endif
     r( wxTE_PROCESS_ENTER );            // textctrl
@@ -1682,6 +1683,13 @@ static double constant( const char *name, int arg )
     r( wxTE_CENTRE );                   // textctrl
     r( wxTE_CENTER );                   // textctrl
     r( wxTE_AUTO_URL );                 // textctrl
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    r( wxTE_HT_UNKNOWN );               // textctrl
+    r( wxTE_HT_BEFORE );                // textctrl
+    r( wxTE_HT_ON_TEXT );               // textctrl
+    r( wxTE_HT_BELOW );                 // textctrl
+    r( wxTE_HT_BEYOND );                // textctrl
+#endif
     r( wxTHICK_FRAME );                 // frame dialog
     r( wxTINY_CAPTION_HORIZ );
     r( wxTINY_CAPTION_VERT );

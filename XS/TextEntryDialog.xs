@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        TextEntryDialog.xs
+## Name:        XS/TextEntryDialog.xs
 ## Purpose:     XS for Wx::TextEntryDialog
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2001 Mattia Barbon
+## RCS-ID:      $Id: TextEntryDialog.xs,v 1.4 2004/02/28 22:59:06 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,26 +14,50 @@
 
 MODULE=Wx PACKAGE=Wx::TextEntryDialog
 
-Wx_TextEntryDialog*
-Wx_TextEntryDialog::new( parent, message, caption = wxGetTextFromUserPromptStr, defaultValue = wxEmptyString, style = wxOK|wxCANCEL|wxCENTRE, pos = wxDefaultPosition )
-    Wx_Window* parent
+wxTextEntryDialog*
+wxTextEntryDialog::new( parent, message, caption = wxGetTextFromUserPromptStr, defaultValue = wxEmptyString, style = wxOK|wxCANCEL|wxCENTRE, pos = wxDefaultPosition )
+    wxWindow* parent
     wxString message
     wxString caption
     wxString defaultValue
     long style
-    Wx_Point pos
+    wxPoint pos
 
 wxString
-Wx_TextEntryDialog::GetValue()
+wxTextEntryDialog::GetValue()
 
 void
-Wx_TextEntryDialog::SetValue( string )
+wxTextEntryDialog::SetValue( string )
     wxString string
 
 int
-Wx_TextEntryDialog::ShowModal()
+wxTextEntryDialog::ShowModal()
+
+MODULE=Wx PACKAGE=Wx::NumberEntryDialog
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+wxNumberEntryDialog*
+wxNumberEntryDialog::new( parent, message, prompt, caption, value, min, max, pos )
+    wxWindow* parent
+    wxString message
+    wxString prompt
+    wxString caption
+    long value
+    long min
+    long max
+    wxPoint pos
+
+long
+wxNumberEntryDialog::GetValue()
+
+#endif
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+#include <wx/numdlg.h>
+#endif
 
 long
 wxGetNumberFromUser( message, prompt, caption, value, min = 0, max = 100, parent = 0, pos = wxDefaultPosition )
@@ -43,8 +67,8 @@ wxGetNumberFromUser( message, prompt, caption, value, min = 0, max = 100, parent
     long value
     long min
     long max
-    Wx_Window* parent
-    Wx_Point pos
+    wxWindow* parent
+    wxPoint pos
   CODE:
     RETVAL = wxGetNumberFromUser( message, prompt, caption, value, min, max, parent, pos );
   OUTPUT:
@@ -55,14 +79,14 @@ wxGetPasswordFromUser( message, caption = wxGetTextFromUserPromptStr, default_va
   wxString message
   wxString caption
   wxString default_value
-  Wx_Window* parent
+  wxWindow* parent
 
 wxString
 wxGetTextFromUser( message, caption = wxGetTextFromUserPromptStr, default_value = wxEmptyString, parent = 0, x = -1, y = -1, centre = TRUE )
   wxString message
   wxString caption
   wxString default_value
-  Wx_Window* parent
+  wxWindow* parent
   int x
   int y
   bool centre

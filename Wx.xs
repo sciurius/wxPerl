@@ -3,8 +3,8 @@
 // Purpose:     main XS module
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      1/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.55 2003/12/26 11:02:54 mbarbon Exp $
+// Created:     01/10/2000
+// RCS-ID:      $Id: Wx.xs,v 1.56 2004/02/28 22:58:57 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -15,12 +15,9 @@
 
 #include <stddef.h>
 #include "cpp/compat.h"
-#if !WXPERL_W_VERSION_GE( 2, 3, 0 )
-#include <wx/defs.h>
-#endif
 
 // THIS IS AN HACK!
-#if defined(_MSC_VER) && WXPERL_W_VERSION_GE( 2, 3, 2 )
+#if defined(_MSC_VER)
 #define STRICT
 #endif
 
@@ -33,7 +30,7 @@
 #include <wx/msw/private.h>
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     #include <wx/init.h>
 #else
 #if defined(__WXGTK__) && WXPERL_W_VERSION_GE( 2, 3, 3 )
@@ -98,7 +95,7 @@ extern "C" {
 extern void SetConstants();
 extern void SetConstantsOnce();
 
-#if defined(__WXMOTIF__) && !WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if defined(__WXMOTIF__) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 #include <wx/app.h>
 #include <wx/log.h>

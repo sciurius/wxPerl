@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Notebook.xs,v 1.11 2003/12/13 17:13:29 mbarbon Exp $
+## RCS-ID:      $Id: Notebook.xs,v 1.12 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -21,7 +21,7 @@ wxNotebookEvent::new( eventType = wxEVT_NULL, id = 0, sel = -1, oldSel = -1 )
     int sel
     int oldSel
 
-#if WXPERL_W_VERSION_LE( 2, 5, 0 )
+#if WXPERL_W_VERSION_LE( 2, 5, 1 )
 
 int
 wxNotebookEvent::GetOldSelection()
@@ -81,7 +81,7 @@ wxNotebook::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, s
     long style
     wxString name
 
-#if WXPERL_W_VERSION_LE( 2, 5, 0 )
+#if WXPERL_W_VERSION_LE( 2, 5, 1 )
 
 bool
 wxNotebook::AddPage( page, text, select = FALSE, imageId = -1 )

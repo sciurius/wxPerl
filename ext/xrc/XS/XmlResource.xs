@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/07/2001
-## RCS-ID:      $Id: XmlResource.xs,v 1.8 2003/06/04 20:49:48 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: XmlResource.xs,v 1.9 2004/02/28 22:59:07 mbarbon Exp $
+## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -42,11 +42,11 @@ Wx_XmlResource::AddHandler( handler )
 void
 Wx_XmlResource::ClearHandlers()
 
-Wx_Menu*
+wxMenu*
 Wx_XmlResource::LoadMenu( name )
     wxString name
 
-Wx_MenuBar*
+wxMenuBar*
 Wx_XmlResource::LoadMenuBar( name )
     wxString name
 
@@ -58,7 +58,7 @@ wxXmlResource::LoadMenuBarOnParent( parent, name )
     RETVAL = THIS->LoadMenuBar( parent, name );
   OUTPUT: RETVAL
 
-Wx_ToolBar*
+wxToolBar*
 Wx_XmlResource::LoadToolBar( parent, name )
     Wx_Window* parent
     wxString name

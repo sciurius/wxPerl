@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxHtmlWindow.pm
+## Name:        demo/wxHtmlWindow.pm
 ## Purpose:     wxHtmlWindow demo
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 9/2001
-## RCS-ID:      
+## Created:     12/09/2001
+## RCS-ID:      $Id: wxHtmlWindow.pm,v 1.3 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,7 +32,7 @@ sub description {
 
 <p>
   wxHTML is an HTML rendering engine written entirely
-  using wxWindows.
+  using wxWidgets.
 </p>
 
 </body>

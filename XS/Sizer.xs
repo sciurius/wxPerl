@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.24 2003/11/23 13:46:17 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.25 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,7 +29,7 @@
 
 %name{Wx::FlexGridSizer} class wxFlexGridSizer
 {
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     void AddGrowableCol( size_t index, int proportion = 0 );
     void AddGrowableRow( size_t index, int proportion = 0 );
 
@@ -46,7 +46,7 @@
 
 %name{Wx::SizerItem} class wxSizerItem
 {
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     %name{GetOption} int GetProportion();
     %name{SetOption} void SetProportion( int option );
     int GetProportion();

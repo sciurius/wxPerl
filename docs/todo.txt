@@ -113,7 +113,7 @@ DOCUMENTATTION:
 * wxFontMapper
    GetAltForEncoding
 
--- not documented in wxWindows --
+-- not documented in wxWidgets --
 
 * Wx::MultipleChoiceDialog
 

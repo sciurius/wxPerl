@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        MDIParentFrame.xs
+## Name:        ext/mdi/XS/MDIParentFrame.xs
 ## Purpose:     XS for Wx::MDIParentFrame
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      6/ 9/2001
-## RCS-ID:      
+## Created:     06/09/2001
+## RCS-ID:      $Id: MDIParentFrame.xs,v 1.7 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -62,12 +62,12 @@ wxMDIParentFrame::GetClientWindow()
 #if ( !defined(__WXGTK__) && !defined(__WXMAC__) && !defined(__WXMOTIF__) ) \
     || defined(__WXPERL_FORCE__)
 
-Wx_Menu*
+wxMenu*
 Wx_MDIParentFrame::GetWindowMenu()
 
 void
 Wx_MDIParentFrame::SetWindowMenu( menu )
-    Wx_Menu* menu
+    wxMenu* menu
 
 #endif
 

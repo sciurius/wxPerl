@@ -4,7 +4,7 @@ use strict;
 
 =head1 NAME
 
-Wx::build::Options - retrieve wxWindows/wxPerl build options
+Wx::build::Options - retrieve wxWidgets/wxPerl build options
 
 =head1 METHODS
 

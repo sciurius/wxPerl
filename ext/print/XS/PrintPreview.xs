@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        PrintPreview.xs
+## Name:        ext/print/XS/PrintPreview.xs
 ## Purpose:     XS for Wx::PrintPreview
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/ 6/2001
-## RCS-ID:      
+## Created:     02/06/2001
+## RCS-ID:      $Id: PrintPreview.xs,v 1.4 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -31,7 +31,7 @@ Wx_PrintPreview::GetCanvas()
 int
 Wx_PrintPreview::GetCurrentPage()
 
-Wx_Frame*
+wxFrame*
 Wx_PrintPreview::GetFrame()
 
 int
@@ -56,7 +56,7 @@ Wx_PrintPreview::GetPrintoutForPrinting()
 bool
 Wx_PrintPreview::Ok()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 bool
 wxPrintPreview::PaintPage( canvas, dc )
@@ -78,7 +78,7 @@ bool
 Wx_PrintPreview::Print( prompt )
     bool prompt
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 void
 wxPrintPreview::SetCanvas( canvas )
@@ -98,7 +98,7 @@ Wx_PrintPreview::SetCurrentPage( pageNum )
 
 void
 Wx_PrintPreview::SetFrame( frame )
-    Wx_Frame* frame
+    wxFrame* frame
 
 void
 Wx_PrintPreview::SetPrintout( printout )

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        XRC.pm
-## Purpose:     wxWindows' XML Resources demo
+## Name:        demo/XRC.pm
+## Purpose:     wxWidgets' XML Resources demo
 ## Author:      Mattia Barbon
 ## Modified by: Scott Lanning, 11/09/2002
-## Created:     12/ 9/2001
-## RCS-ID:      
+## Created:     12/09/2001
+## RCS-ID:      $Id: XRC.pm,v 1.4 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -1,17 +1,18 @@
-wxPerl is a wrapper built around the wxWindows GUI toolkit
+wxPerl is a wrapper built around the wxWidgets
+(formerly known as wxWindows) GUI toolkit
 
-Copyright (c) 2000-2003 Mattia Barbon.
+Copyright (c) 2000-2004 Mattia Barbon.
 This package is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
-You need wxWindows in order to build wxPerl (see http://www.wxwindows.org/).
+You need wxWidgets in order to build wxPerl (see http://www.wxwindows.org/).
 You can use GTK, Win32, Mac OS X and Motif as windowing toolkits for wxPerl.
 
 Please read the DEPRECATIONS section at the bottom!
 
 INSTALLATION:
 
-Build and install wxWindows
+Build and install wxWidgets
 
 perl Makefile.PL
 make
@@ -23,7 +24,7 @@ in case of problems please consult the FAQ section therein.
 
 TESTED PLATFORMS:
 
-Perl            | OS            | wxWindows      | Compiler
+Perl            | OS            | wxWidgets      | Compiler
 ----------------+---------------+----------------+-------------------
 ActivePerl 6xx  | Windows 2000  |                | MSVC 5
            8xx  |               | wxMSW 2.4.0    | MSVC 6

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.13 2003/12/13 17:16:56 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.14 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -74,6 +74,22 @@ Wx_TextAttr::HasFont()
 
 bool
 Wx_TextAttr::HasTextColour()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+void
+wxTextCtrl::HitTest( pt )
+    wxPoint pt
+  PPCODE:
+    long col, row;
+    wxTextCtrlHitTestResult res = THIS->HitTest( pt, &col, &row );
+
+    EXTEND( SP, 3 );
+    PUSHs( sv_2mortal( newSViv( res ) ) );
+    PUSHs( sv_2mortal( newSViv( col ) ) );
+    PUSHs( sv_2mortal( newSViv( row ) ) );
+
+#endif
 
 bool
 Wx_TextAttr::IsDefault()

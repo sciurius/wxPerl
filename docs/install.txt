@@ -1,16 +1,16 @@
 * wxPerl INSTALLATION
 
 ****************************************************************************
-You need to install wxWindows before you can compile wxPerl.
-For UNIX systems look at the section "INSTALL wxWindows"; for Win32
-systems, detailed build instructions for wxWindows + wxPerl are included
+You need to install wxWidgets before you can compile wxPerl.
+For UNIX systems look at the section "INSTALL wxWidgets"; for Win32
+systems, detailed build instructions for wxWidgets + wxPerl are included
 in the section "COMPILING UNDER WIN32"; for Mac OS X, refer to
-"INSTALL wxWindows", and then to "PREPARING Perl on MAC OS X"
+"INSTALL wxWidgets", and then to "PREPARING Perl on MAC OS X"
 ****************************************************************************
 
 * QUICK INSTALLATION
 
-This applies to UN*X systems, and only if wxWindows is already compiled and
+This applies to UN*X systems, and only if wxWidgets is already compiled and
 installed.
 
 unpack the wxPerl archive
@@ -58,12 +58,12 @@ nothing and warns you at Makefile.PL time; in this case you will almost
 surely need to add some special flags (via --extra-cflags) or to specify 
 a different compiler (via perl Makefile.PL CC=c++-compiler)..
  
-* INSTALLING wxWindows (on UNIX systems and Mac OS X)
+* INSTALLING wxWidgets (on UNIX systems and Mac OS X)
 
   For UNIX systems only. If you are using the prepackaged binaries, you
 need to install the -dev packages in order to compile wxPerl, otherwise
 you just need the main package and the -contrib package.
-If you are compiling wxWindows yourself, the quick way is:
+If you are compiling wxWidgets yourself, the quick way is:
 
 ./configure
 make
@@ -75,7 +75,7 @@ cd ../xrc
 make
 make install
 
-  If something goes wrong, please refer to the wxWindows
+  If something goes wrong, please refer to the wxWidgets
 installation instructions.
 
 * COMPILING UNDER WIN32
@@ -87,7 +87,7 @@ in C:\Perl
 - MS Visual C++ 5 (and probably 4.x)
 - MS Visual C++ 6 SP4
 
-  Build wxWindows as a dll
+  Build wxWidgets as a dll
 
   set WXDIR=z:\path\to\wx
   set WXWIN=z:\path\to\wx
@@ -129,7 +129,7 @@ in C:\Perl
   "perl Makefile.PL" with "perl -MConfig_m Makefile.PL". If you built
   Perl from sources, you don't need this additional step.
 
-  Build wxWindows as a dll (you will need the utilities from
+  Build wxWidgets as a dll (you will need the utilities from
       http://biolpc22.york.ac.uk/pub/ports/mingw32/extra.zip)
 
   set WXDIR=z:/path/to/wx
@@ -184,7 +184,7 @@ for details.
   The 'perl' executable shipped with your OS can't be used to run executables
 that interact with the GUI, hence you need to prepare a special 'wxPerl'
 executable. Let's assume that your 'perl' is in '/usr/local/bin/perl'.
-  First, you need to install wxWindows, then do the following from the
+  First, you need to install wxWidgets, then do the following from the
 command prompt:
 
 $ cp /usr/local/bin/perl wxPerl
@@ -203,6 +203,6 @@ Usually they start like this:
 STC.c:33:24: wx/stc/stc.h: No such file or directory
 
 and go ahead with many compilation errors.
-  This usually means you did not install wxWindows' 'contrib' libraries;
+  This usually means you did not install wxWidgets' 'contrib' libraries;
 either install them or disable STC/XRC passing --disable-stc --disable-xrc
 to Makefile.PL.

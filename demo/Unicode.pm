@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Unicode.pm
+## Name:        demo/Unicode.pm
 ## Purpose:     Unicode support demo
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 9/2001
-## RCS-ID:      
+## Created:     12/09/2001
+## RCS-ID:      $Id: Unicode.pm,v 1.2 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -60,7 +60,7 @@ sub description {
 <p>
   On the platforms where Unicode is supported ( cuttently only
   Windows NT/2000 ) with Perl 5.6.0 or higher, wxPerl can be compiled
-  against an Unicode-enabled wxWindows.
+  against an Unicode-enabled wxWidgets.
 </p>
 
 </body>

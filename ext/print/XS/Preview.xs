@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Preview.xs
+## Name:        ext/print/XS/Preview.xs
 ## Purpose:     XS for Wx::PreviewCanvas, Frame & ControlBar
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/ 6/2001
-## RCS-ID:      
+## Created:     02/06/2001
+## RCS-ID:      $Id: Preview.xs,v 1.4 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -54,7 +54,7 @@ MODULE=Wx PACKAGE=Wx::PreviewFrame
 Wx_PreviewFrame*
 Wx_PreviewFrame::new( preview, parent, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxT("frame") )
     Wx_PrintPreview* preview
-    Wx_Frame* parent
+    wxFrame* parent
     wxString title
     Wx_Point pos
     Wx_Size size

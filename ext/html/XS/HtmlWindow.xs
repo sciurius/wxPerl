@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        HtmlWindow.xs
+## Name:        ext/html/XS/HtmlWindow.xs
 ## Purpose:     XS for Wx::HtmlWindow
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     17/ 3/2001
-## RCS-ID:      $Id: HtmlWindow.xs,v 1.10 2003/12/26 11:13:27 mbarbon Exp $
+## Created:     17/03/2001
+## RCS-ID:      $Id: HtmlWindow.xs,v 1.11 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -67,7 +67,7 @@ Wx_HtmlWindow::GetOpenedPageTitle()
 wxHtmlWinParser*
 wxHtmlWindow::GetParser()
 
-Wx_Frame*
+wxFrame*
 Wx_HtmlWindow::GetRelatedFrame()
 
 bool
@@ -133,7 +133,7 @@ Wx_HtmlWindow::SetPage( source )
 
 void
 Wx_HtmlWindow::SetRelatedFrame( frame, format )
-    Wx_Frame* frame
+    wxFrame* frame
     wxString format
 
 void

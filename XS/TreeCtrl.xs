@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.21 2003/08/16 21:26:28 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.22 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,8 +15,8 @@
 
 MODULE=Wx PACKAGE=Wx::TreeItemData
 
-Wx_TreeItemData*
-Wx_TreeItemData::new( data = 0 )
+wxTreeItemData*
+wxPliTreeItemData::new( data = 0 )
     SV_null* data
   CODE:
     RETVAL = new wxPliTreeItemData( data );
@@ -24,43 +24,43 @@ Wx_TreeItemData::new( data = 0 )
     RETVAL
 
 void
-Wx_TreeItemData::Destroy()
+wxTreeItemData::Destroy()
   CODE:
     delete THIS;
 
 SV_null*
-Wx_TreeItemData::GetData()
+wxTreeItemData::GetData()
   CODE:
-    RETVAL = THIS->m_data;
+    RETVAL = ((wxPliTreeItemData*)THIS)->m_data;
   OUTPUT:
     RETVAL
 
 void
-Wx_TreeItemData::SetData( data = 0 )
+wxTreeItemData::SetData( data = 0 )
     SV_null* data
   CODE:
-    THIS->SetData( data );
+    ((wxPliTreeItemData*)THIS)->SetData( data );
 
-Wx_TreeItemId*
-Wx_TreeItemData::GetId()
+wxTreeItemId*
+wxTreeItemData::GetId()
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetId() );
   OUTPUT:
     RETVAL
 
 void
-Wx_TreeItemData::SetId( id )
-    Wx_TreeItemId* id
+wxTreeItemData::SetId( id )
+    wxTreeItemId* id
   CODE:
     THIS->SetId( *id );
 
 MODULE=Wx PACKAGE=Wx::TreeItemId
 
 void
-Wx_TreeItemId::DESTROY()
+wxTreeItemId::DESTROY()
 
 bool
-Wx_TreeItemId::IsOk()
+wxTreeItemId::IsOk()
 
 int
 tiid_spaceship( tid1, tid2, ... )
@@ -75,9 +75,9 @@ tiid_spaceship( tid1, tid2, ... )
         sv_derived_from( tid1, CHAR_P "Wx::TreeItemId" ) &&
         sv_derived_from( tid2, CHAR_P "Wx::TreeItemId" ) )
     {
-        Wx_TreeItemId* id1 = (Wx_TreeItemId*)
+        wxTreeItemId* id1 = (wxTreeItemId*)
             wxPli_sv_2_object( aTHX_ tid1, "Wx::TreeItemId" );
-        Wx_TreeItemId* id2 = (Wx_TreeItemId*)
+        wxTreeItemId* id2 = (wxTreeItemId*)
             wxPli_sv_2_object( aTHX_ tid2, "Wx::TreeItemId" );
 
         RETVAL = *id1 == *id2 ? 0 : 1;
@@ -88,40 +88,40 @@ tiid_spaceship( tid1, tid2, ... )
 
 MODULE=Wx PACKAGE=Wx::TreeEvent
 
-Wx_TreeEvent*
-Wx_TreeEvent::new( commandType = wxEVT_NULL, id = 0 )
+wxTreeEvent*
+wxTreeEvent::new( commandType = wxEVT_NULL, id = 0 )
     wxEventType commandType
     int id
 
-Wx_TreeItemId*
-Wx_TreeEvent::GetItem()
+wxTreeItemId*
+wxTreeEvent::GetItem()
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetItem() );
   OUTPUT:
     RETVAL
 
 int
-Wx_TreeEvent::GetKeyCode()
+wxTreeEvent::GetKeyCode()
 
-Wx_TreeItemId*
-Wx_TreeEvent::GetOldItem()
+wxTreeItemId*
+wxTreeEvent::GetOldItem()
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetOldItem() );
   OUTPUT:
     RETVAL
 
-Wx_Point*
-Wx_TreeEvent::GetPoint()
+wxPoint*
+wxTreeEvent::GetPoint()
   CODE:
     RETVAL = new wxPoint( THIS->GetPoint() );
   OUTPUT:
     RETVAL
 
 bool
-Wx_TreeEvent::IsEditCancelled()
+wxTreeEvent::IsEditCancelled()
 
 wxString
-Wx_TreeEvent::GetLabel()
+wxTreeEvent::GetLabel()
 
 MODULE=Wx PACKAGE=Wx::TreeCtrl
 
@@ -141,15 +141,15 @@ newDefault( CLASS )
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT: RETVAL
 
-Wx_TreeCtrl*
+wxTreeCtrl*
 newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTR_HAS_BUTTONS, validator = (wxValidator*)&wxDefaultValidator, name = wxT("treeCtrl") )
     PlClassName CLASS
-    Wx_Window* parent
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   CODE:
     RETVAL = new wxPliTreeCtrl( CLASS, parent, id, pos, size,
@@ -168,24 +168,24 @@ wxTreeCtrl::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, s
     wxString name
   C_ARGS: parent, id, pos, size, style, *validator, name
 
-Wx_TreeItemId*
-Wx_TreeCtrl::AddRoot( text, image = -1, selImage = -1, data = 0 )
+wxTreeItemId*
+wxTreeCtrl::AddRoot( text, image = -1, selImage = -1, data = 0 )
     wxString text
     int image
     int selImage
-    Wx_TreeItemData* data
+    wxTreeItemData* data
   CODE:
     RETVAL = new wxTreeItemId( THIS->AddRoot( text, image, selImage, data ) );
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::AppendItem( parent, text, image = -1, selImage = -1, data = 0 )
-    Wx_TreeItemId* parent
+wxTreeItemId*
+wxTreeCtrl::AppendItem( parent, text, image = -1, selImage = -1, data = 0 )
+    wxTreeItemId* parent
     wxString text
     int image
     int selImage
-    Wx_TreeItemData* data
+    wxTreeItemData* data
   CODE:
     RETVAL = new wxTreeItemId( THIS->AppendItem( *parent, text, image,
         selImage, data ) );
@@ -193,20 +193,20 @@ Wx_TreeCtrl::AppendItem( parent, text, image = -1, selImage = -1, data = 0 )
     RETVAL
 
 void
-Wx_TreeCtrl::Collapse( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::Collapse( item )
+    wxTreeItemId* item
   CODE:
     THIS->Collapse( *item );
 
 void
-Wx_TreeCtrl::CollapseAndReset( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::CollapseAndReset( item )
+    wxTreeItemId* item
   CODE:
     THIS->CollapseAndReset( *item );
 
 void
-Wx_TreeCtrl::Delete( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::Delete( item )
+    wxTreeItemId* item
   CODE:
     THIS->Delete( *item );
 
@@ -217,37 +217,37 @@ wxTreeCtrl::DeleteChildren( item )
     THIS->DeleteChildren( *item );
 
 void
-Wx_TreeCtrl::DeleteAllItems()
+wxTreeCtrl::DeleteAllItems()
 
 void
-Wx_TreeCtrl::EditLabel( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::EditLabel( item )
+    wxTreeItemId* item
   CODE:
     THIS->EditLabel( *item );
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_TreeCtrl::EndEditLabel( cancelEdit )
+wxTreeCtrl::EndEditLabel( cancelEdit )
     bool cancelEdit
 
 #endif
 
 void
-Wx_TreeCtrl::EnsureVisible( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::EnsureVisible( item )
+    wxTreeItemId* item
   CODE:
     THIS->EnsureVisible( *item );
 
 void
-Wx_TreeCtrl::Expand( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::Expand( item )
+    wxTreeItemId* item
   CODE:
     THIS->Expand( *item );
 
 void
-Wx_TreeCtrl::GetBoundingRect( item, textOnly = FALSE )
-    Wx_TreeItemId* item
+wxTreeCtrl::GetBoundingRect( item, textOnly = FALSE )
+    wxTreeItemId* item
     bool textOnly
   PREINIT:
     wxRect rect;
@@ -265,8 +265,8 @@ Wx_TreeCtrl::GetBoundingRect( item, textOnly = FALSE )
     }
 
 size_t
-Wx_TreeCtrl::GetChildrenCount( item, recursively = TRUE )
-    Wx_TreeItemId* item
+wxTreeCtrl::GetChildrenCount( item, recursively = TRUE )
+    wxTreeItemId* item
     bool recursively
   CODE:
     RETVAL = THIS->GetChildrenCount( *item, recursively );
@@ -274,19 +274,19 @@ Wx_TreeCtrl::GetChildrenCount( item, recursively = TRUE )
     RETVAL
 
 int
-Wx_TreeCtrl::GetCount()
+wxTreeCtrl::GetCount()
 
-Wx_TreeItemData*
-Wx_TreeCtrl::GetItemData( item )
-    Wx_TreeItemId* item
+wxTreeItemData*
+wxTreeCtrl::GetItemData( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = (wxPliTreeItemData*) THIS->GetItemData( *item );
   OUTPUT:
     RETVAL
 
 SV_null*
-Wx_TreeCtrl::GetPlData( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::GetPlData( item )
+    wxTreeItemId* item
   CODE:
     wxPliTreeItemData* data = (wxPliTreeItemData*) THIS->GetItemData( *item );
     RETVAL = data ? data->m_data : 0;
@@ -295,37 +295,37 @@ Wx_TreeCtrl::GetPlData( item )
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
-Wx_TextCtrl*
-Wx_TreeCtrl::GetEditControl()
+wxTextCtrl*
+wxTreeCtrl::GetEditControl()
 
 #endif
 
 void
-Wx_TreeCtrl::GetFirstChild( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::GetFirstChild( item )
+    wxTreeItemId* item
   PREINIT:
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     void* cookie;
 #else
     long cookie;
 #endif
   PPCODE:
     wxTreeItemId ret = THIS->GetFirstChild( *item, cookie );
-#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if !WXPERL_W_VERSION_GE( 2, 5, 1 )
     if( !ret.IsOk() ) cookie = -1;
 #endif
     EXTEND( SP, 2 );
     PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                   new wxTreeItemId( ret ),
                                   "Wx::TreeItemId" ) );
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     PUSHs( sv_2mortal( newSViv( PTR2IV( cookie ) ) ) );
 #else
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
 #endif
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetFirstVisibleItem()
+wxTreeItemId*
+wxTreeCtrl::GetFirstVisibleItem()
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetFirstVisibleItem() );
   OUTPUT:
@@ -339,11 +339,11 @@ wxTreeCtrl::GetImageList()
     wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 int
-Wx_TreeCtrl::GetIndent()
+wxTreeCtrl::GetIndent()
 
 int
-Wx_TreeCtrl::GetItemImage( item, which = wxTreeItemIcon_Normal )
-    Wx_TreeItemId* item
+wxTreeCtrl::GetItemImage( item, which = wxTreeItemIcon_Normal )
+    wxTreeItemId* item
     wxTreeItemIcon which
   CODE:
     RETVAL = THIS->GetItemImage( *item, which );
@@ -351,26 +351,26 @@ Wx_TreeCtrl::GetItemImage( item, which = wxTreeItemIcon_Normal )
     RETVAL
 
 wxString
-Wx_TreeCtrl::GetItemText( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::GetItemText( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = THIS->GetItemText( *item );
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetLastChild( item )
-    Wx_TreeItemId* item
+wxTreeItemId*
+wxTreeCtrl::GetLastChild( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetLastChild( *item ) );
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 void
-Wx_TreeCtrl::GetNextChild( item, cookie )
-    Wx_TreeItemId* item
+wxTreeCtrl::GetNextChild( item, cookie )
+    wxTreeItemId* item
     IV cookie
   PREINIT:
     void* realcookie = INT2PTR( void*, cookie );
@@ -385,8 +385,8 @@ Wx_TreeCtrl::GetNextChild( item, cookie )
 #else
 
 void
-Wx_TreeCtrl::GetNextChild( item, cookie )
-    Wx_TreeItemId* item
+wxTreeCtrl::GetNextChild( item, cookie )
+    wxTreeItemId* item
     long cookie
   PPCODE:
     wxTreeItemId ret = THIS->GetNextChild( *item, cookie );
@@ -398,17 +398,17 @@ Wx_TreeCtrl::GetNextChild( item, cookie )
 
 #endif
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetNextSibling( item )
-    Wx_TreeItemId* item
+wxTreeItemId*
+wxTreeCtrl::GetNextSibling( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetNextSibling( *item ) );
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetNextVisible( item )
-    Wx_TreeItemId* item
+wxTreeItemId*
+wxTreeCtrl::GetNextVisible( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetNextVisible( *item ) );
   OUTPUT:
@@ -422,9 +422,9 @@ wxTreeCtrl::GetParent( ... )
         MATCH_REDISP( wxPliOvl_wtid, GetItemParent )
     END_OVERLOAD( Wx::TreeCtrl::GetParent )
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetItemParent( item )
-    Wx_TreeItemId* item
+wxTreeItemId*
+wxTreeCtrl::GetItemParent( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = new wxTreeItemId( 
        THIS->GetItemParent( *item )
@@ -432,38 +432,38 @@ Wx_TreeCtrl::GetItemParent( item )
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetPrevSibling( item )
-    Wx_TreeItemId* item
+wxTreeItemId*
+wxTreeCtrl::GetPrevSibling( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetPrevSibling( *item ) );
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetPrevVisible( item )
-    Wx_TreeItemId* item
+wxTreeItemId*
+wxTreeCtrl::GetPrevVisible( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetPrevVisible( *item ) );
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetRootItem()
+wxTreeItemId*
+wxTreeCtrl::GetRootItem()
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetRootItem() );
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::GetSelection()
+wxTreeItemId*
+wxTreeCtrl::GetSelection()
   CODE:
     RETVAL = new wxTreeItemId( THIS->GetSelection() );
   OUTPUT:
     RETVAL
 
 void
-Wx_TreeCtrl::GetSelections()
+wxTreeCtrl::GetSelections()
   PREINIT:
     wxArrayTreeItemIds selections;
   PPCODE:
@@ -484,8 +484,8 @@ wxTreeCtrl::GetStateImageList()
     wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 void
-Wx_TreeCtrl::HitTest( point )
-    Wx_Point point
+wxTreeCtrl::HitTest( point )
+    wxPoint point
   PREINIT:
     int flags;
   PPCODE:
@@ -504,28 +504,28 @@ wxTreeCtrl::InsertItem( ... )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wtid_n_s_n_n, InsertItemBef, 3 )
     END_OVERLOAD( Wx::TreeCtrl::InsertItem )
 
-Wx_TreeItemId*
-Wx_TreeCtrl::InsertItemPrev( parent, previous, text, image = -1, selImage = -1, data = 0 )
-    Wx_TreeItemId* parent
-    Wx_TreeItemId* previous
+wxTreeItemId*
+wxTreeCtrl::InsertItemPrev( parent, previous, text, image = -1, selImage = -1, data = 0 )
+    wxTreeItemId* parent
+    wxTreeItemId* previous
     wxString text
     int image
     int selImage
-    Wx_TreeItemData* data
+    wxTreeItemData* data
   CODE:
     RETVAL = new wxTreeItemId( THIS->InsertItem( *parent, *previous, text,
                 image, selImage, data ) );
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::InsertItemBef( parent, before, text, image = -1, selImage = -1, data = 0 )
-    Wx_TreeItemId* parent
+wxTreeItemId*
+wxTreeCtrl::InsertItemBef( parent, before, text, image = -1, selImage = -1, data = 0 )
+    wxTreeItemId* parent
     size_t before
     wxString text
     int image
     int selImage
-    Wx_TreeItemData* data
+    wxTreeItemData* data
   CODE:
     RETVAL = new wxTreeItemId( THIS->InsertItem( *parent, before, text,
                 image, selImage, data ) );
@@ -533,61 +533,61 @@ Wx_TreeCtrl::InsertItemBef( parent, before, text, image = -1, selImage = -1, dat
     RETVAL
 
 bool
-Wx_TreeCtrl::IsBold( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::IsBold( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = THIS->IsBold( *item );
   OUTPUT:
     RETVAL
 
 bool
-Wx_TreeCtrl::IsExpanded( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::IsExpanded( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = THIS->IsExpanded( *item );
   OUTPUT:
     RETVAL
 
 bool
-Wx_TreeCtrl::IsSelected( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::IsSelected( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = THIS->IsSelected( *item );
   OUTPUT:
     RETVAL
 
 bool
-Wx_TreeCtrl::IsVisible( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::IsVisible( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = THIS->IsVisible( *item );
   OUTPUT:
     RETVAL
 
 bool
-Wx_TreeCtrl::ItemHasChildren( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::ItemHasChildren( item )
+    wxTreeItemId* item
   CODE:
     RETVAL = THIS->ItemHasChildren( *item );
   OUTPUT:
     RETVAL
 
 int
-Wx_TreeCtrl::OnCompareItems( item1, item2 )
-    Wx_TreeItemId* item1
-    Wx_TreeItemId* item2
+wxTreeCtrl::OnCompareItems( item1, item2 )
+    wxTreeItemId* item1
+    wxTreeItemId* item2
   CODE:
     RETVAL = THIS->wxTreeCtrl::OnCompareItems( *item1, *item2 );
   OUTPUT:
     RETVAL
 
-Wx_TreeItemId*
-Wx_TreeCtrl::PrependItem( parent, text, image = -1, selImage = -1, data = 0 )
-    Wx_TreeItemId* parent
+wxTreeItemId*
+wxTreeCtrl::PrependItem( parent, text, image = -1, selImage = -1, data = 0 )
+    wxTreeItemId* parent
     wxString text
     int image
     int selImage
-    Wx_TreeItemData* data
+    wxTreeItemData* data
   CODE:
     RETVAL = new wxTreeItemId( THIS->PrependItem( *parent, text, image,
          selImage, data ) );
@@ -595,51 +595,51 @@ Wx_TreeCtrl::PrependItem( parent, text, image = -1, selImage = -1, data = 0 )
     RETVAL
 
 void
-Wx_TreeCtrl::ScrollTo( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::ScrollTo( item )
+    wxTreeItemId* item
   CODE:
     THIS->ScrollTo( *item );
 
 void
-Wx_TreeCtrl::SelectItem( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::SelectItem( item )
+    wxTreeItemId* item
   CODE:
     THIS->SelectItem( *item );
 
 void
-Wx_TreeCtrl::SetIndent( indent )
+wxTreeCtrl::SetIndent( indent )
     int indent
 
 void
-Wx_TreeCtrl::SetImageList( list )
-    Wx_ImageList* list
+wxTreeCtrl::SetImageList( list )
+    wxImageList* list
 
 void
-Wx_TreeCtrl::SetItemBackgroundColour( item, col )
-    Wx_TreeItemId* item
-    Wx_Colour col
+wxTreeCtrl::SetItemBackgroundColour( item, col )
+    wxTreeItemId* item
+    wxColour col
   CODE:
     THIS->SetItemBackgroundColour( *item, col );
 
 void
-Wx_TreeCtrl::SetItemBold( item, bold = TRUE )
-    Wx_TreeItemId* item
+wxTreeCtrl::SetItemBold( item, bold = TRUE )
+    wxTreeItemId* item
     bool bold
   CODE:
     THIS->SetItemBold( *item, bold );
 
 void
-Wx_TreeCtrl::SetItemData( item, data )
-    Wx_TreeItemId* item
-    Wx_TreeItemData* data
+wxTreeCtrl::SetItemData( item, data )
+    wxTreeItemId* item
+    wxTreeItemData* data
   CODE:
     wxTreeItemData* tid = THIS->GetItemData( *item );
     if( tid ) delete tid;
     THIS->SetItemData( *item, data );
 
 void
-Wx_TreeCtrl::SetPlData( item, data )
-    Wx_TreeItemId* item
+wxTreeCtrl::SetPlData( item, data )
+    wxTreeItemId* item
     SV_null* data
   CODE:
     wxTreeItemData* tid = THIS->GetItemData( *item );
@@ -647,59 +647,59 @@ Wx_TreeCtrl::SetPlData( item, data )
     THIS->SetItemData( *item, data ? new wxPliTreeItemData( data ) : 0 );
 
 void
-Wx_TreeCtrl::SetItemFont( item, font )
-    Wx_TreeItemId* item
-    Wx_Font* font
+wxTreeCtrl::SetItemFont( item, font )
+    wxTreeItemId* item
+    wxFont* font
   CODE:
     THIS->SetItemFont( *item, *font );
 
 void
-Wx_TreeCtrl::SetItemHasChildren( item, hasChildren = TRUE )
-    Wx_TreeItemId* item
+wxTreeCtrl::SetItemHasChildren( item, hasChildren = TRUE )
+    wxTreeItemId* item
     bool hasChildren
   CODE:
     THIS->SetItemHasChildren( *item, hasChildren );
 
 void
-Wx_TreeCtrl::SetItemImage( item, image, which = wxTreeItemIcon_Normal )
-    Wx_TreeItemId* item
+wxTreeCtrl::SetItemImage( item, image, which = wxTreeItemIcon_Normal )
+    wxTreeItemId* item
     int image
     wxTreeItemIcon which
   CODE:
     THIS->SetItemImage( *item, image, which );
 
 void
-Wx_TreeCtrl::SetItemText( item, text )
-    Wx_TreeItemId* item
+wxTreeCtrl::SetItemText( item, text )
+    wxTreeItemId* item
     wxString text
   CODE:
     THIS->SetItemText( *item, text );
 
 void
-Wx_TreeCtrl::SetItemTextColour( item, col )
-    Wx_TreeItemId* item
-    Wx_Colour col
+wxTreeCtrl::SetItemTextColour( item, col )
+    wxTreeItemId* item
+    wxColour col
   CODE:
     THIS->SetItemTextColour( *item, col );
 
 void
-Wx_TreeCtrl::SetStateImageList( imagelist )
-    Wx_ImageList* imagelist
+wxTreeCtrl::SetStateImageList( imagelist )
+    wxImageList* imagelist
 
 void
-Wx_TreeCtrl::SortChildren( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::SortChildren( item )
+    wxTreeItemId* item
   CODE:
     THIS->SortChildren( *item );
 
 void
-Wx_TreeCtrl::Toggle( item )
-    Wx_TreeItemId* item
+wxTreeCtrl::Toggle( item )
+    wxTreeItemId* item
   CODE:
     THIS->Toggle( *item );
 
 void
-Wx_TreeCtrl::Unselect()
+wxTreeCtrl::Unselect()
 
 void
-Wx_TreeCtrl::UnselectAll()
+wxTreeCtrl::UnselectAll()

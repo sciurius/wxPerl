@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        chkconfig.h
-// Purpose:     checks if desired configurations for wxPerl and wxWindows
+// Name:        cpp/chkconfig.h
+// Purpose:     checks if desired configurations for wxPerl and wxWidgets
 //              are compatible
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      5/11/2001
-// RCS-ID:      $Id: chkconfig.h,v 1.10 2003/05/05 20:38:41 mbarbon Exp $
+// Created:     05/11/2001
+// RCS-ID:      $Id: chkconfig.h,v 1.11 2004/02/28 22:59:06 mbarbon Exp $
 // Copyright:   (c) 2001-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -42,7 +42,7 @@
 
 #ifdef wxPERL_USE_DRAG_AND_DROP
 #   if wxPERL_USE_DRAG_AND_DROP && !wxUSE_DRAG_AND_DROP
-#       error "Recompile wxWindows with wxUSE_DRAG_AND_DROP"
+#       error "Recompile wxWidgets with wxUSE_DRAG_AND_DROP"
 #   endif
 #else
 #   define wxPERL_USE_DRAG_AND_DROP wxUSE_DRAG_AND_DROP
@@ -50,7 +50,7 @@
 
 #ifdef wxPERL_USE_FONTDLG
 #   if wxPERL_USE_FONTDLG && !wxUSE_FONTDLG
-#       error "Recompile wxWindows with wxUSE_FONTDLG"
+#       error "Recompile wxWidgets with wxUSE_FONTDLG"
 #   endif
 #else
 #   ifndef wxUSE_FONTDLG
@@ -61,7 +61,7 @@
 
 #ifdef wxPERL_USE_IFF
 #   if wxPERL_USE_IFF && !wxUSE_IFF
-#       error "Recompile wxWindows with wxUSE_IFF"
+#       error "Recompile wxWidgets with wxUSE_IFF"
 #   endif
 #else
 #   define wxPERL_USE_IFF wxUSE_IFF
@@ -69,7 +69,7 @@
 
 #ifdef wxPERL_USE_MDI_ARCHITECTURE
 #   if wxPERL_USE_MDI_ARCHITECTURE && !wxUSE_MDI_ARCHITECTURE
-#       error "Recompile wxWindows with wxUSE_MDI_ARCHITECTURE"
+#       error "Recompile wxWidgets with wxUSE_MDI_ARCHITECTURE"
 #   endif
 #else
 #   define wxPERL_USE_MDI_ARCHITECTURE wxUSE_MDI_ARCHITECTURE
@@ -83,7 +83,7 @@
 
 #ifdef wxPERL_USE_MS_HTML_HELP
 #   if wxPERL_USE_MS_HTML_HELP && !wxUSE_MS_HTML_HELP
-#       error "Recompile wxWindows with wxUSE_MS_HTML_HELP"
+#       error "Recompile wxWidgets with wxUSE_MS_HTML_HELP"
 #   endif
 #else
 #   define wxPERL_USE_MS_HTML_HELP wxUSE_MS_HTML_HELP
@@ -91,7 +91,7 @@
 
 #ifdef wxPERL_USE_PRINTING_ARCHITECTURE
 #   if wxPERL_USE_PRINTING_ARCHITECTURE && !wxUSE_PRINTING_ARCHITECTURE
-#       error "Recompile wxWindows with wxUSE_PRINTING_ARCHITECTURE"
+#       error "Recompile wxWidgets with wxUSE_PRINTING_ARCHITECTURE"
 #   endif
 #else
 #   define wxPERL_USE_PRINTING_ARCHITECTURE wxUSE_PRINTING_ARCHITECTURE
@@ -99,7 +99,7 @@
 
 #ifdef wxPERL_USE_TOOLTIPS
 #   if wxPERL_USE_TOOLTIPS && !wxUSE_TOOLTIPS
-#       error "Recompile wxWindows with wxUSE_TOOLTIPS"
+#       error "Recompile wxWidgets with wxUSE_TOOLTIPS"
 #   endif
 #else
 #   define wxPERL_USE_TOOLTIPS wxUSE_TOOLTIPS
@@ -107,7 +107,7 @@
 
 #ifdef wxPERL_USE_WAVE
 #   if wxPERL_USE_WAVE && !wxUSE_WAVE
-#       error "Recompile wxWindows with wxUSE_WAVE"
+#       error "Recompile wxWidgets with wxUSE_WAVE"
 #   endif
 #else
 #   define wxPERL_USE_WAVE wxUSE_WAVE
@@ -115,7 +115,7 @@
 
 #ifdef wxPERL_USE_BESTHELP
 #   if wxPERL_USE_BESTHELP && !( wxUSE_MS_HTML_HELP && wxUSE_WXHTML_HELP )
-#       error "Recompile wxWindows with wxUSE_MS_HTML_HELP and wxUSE_WXHTML_HELP"
+#       error "Recompile wxWidgets with wxUSE_MS_HTML_HELP and wxUSE_WXHTML_HELP"
 #   endif
 #else
 #   define wxPERL_USE_BESTHELP ( wxUSE_MS_HTML_HELP && wxUSE_WXHTML_HELP )
@@ -123,7 +123,7 @@
 
 #ifdef wxPERL_USE_ICO_CUR
 #   if wxPERL_USE_ICO_CUR && !wxUSE_ICO_CUR
-#       error "Recompile wxWindows with wxUSE_ICO_CUR"
+#       error "Recompile wxWidgets with wxUSE_ICO_CUR"
 #   endif
 #else
 #   define wxPERL_USE_ICO_CUR wxUSE_ICO_CUR
@@ -131,7 +131,7 @@
  
 #ifdef wxPERL_USE_SNGLINST_CHECKER
 #   if wxPERL_USE_SNGLINST_CHECKER && !wxUSE_SNGLINST_CHECKER
-#       error "Recompile wxWindows with wxUSE_SNGLINST_CHECKER"
+#       error "Recompile wxWidgets with wxUSE_SNGLINST_CHECKER"
 #   endif
 #else
 #   define wxPERL_USE_SNGLINST_CHECKER wxUSE_SNGLINST_CHECKER
@@ -139,7 +139,7 @@
 
 #ifdef wxPERL_USE_TOGGLEBTN
 #   if wxPERL_USE_TOGGLEBTN && !wxUSE_TOGGLEBTN
-#       error "Recompile wxWindows with wxUSE_TOGGLEBTN"
+#       error "Recompile wxWidgets with wxUSE_TOGGLEBTN"
 #   endif
 #else
 #   define wxPERL_USE_TOGGLEBTN wxUSE_TOGGLEBTN

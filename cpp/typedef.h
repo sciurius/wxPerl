@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        typedef.h
+// Name:        cpp/typedef.h
 // Purpose:     forward declare and typdef wxClass to Wx_Class
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: typedef.h,v 1.48 2003/06/04 20:38:44 mbarbon Exp $
+// RCS-ID:      $Id: typedef.h,v 1.49 2004/02/28 22:59:06 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -50,7 +50,6 @@ FD_TD( SizeEvent );
 FD_TD( SplitterEvent );
 FD_TD( SysColourChangedEvent );
 FD_TD( TimerEvent );
-FD_TD( TreeEvent );
 FD_TD( UpdateUIEvent );
 FD_TD( ProcessEvent );
 FD_TD( WizardEvent );
@@ -65,7 +64,6 @@ class wxPlValidator;  typedef wxPlValidator  Wx_PlValidator;
 class wxPlSizer;      typedef wxPlSizer      Wx_PlSizer;
 class wxPliUserDataO; typedef wxPliUserDataO   Wx_UserDataO;
 class wxPliUserDataCD;typedef wxPliUserDataCD  Wx_UserDataCD;
-class wxPliTreeItemData;typedef wxPliTreeItemData Wx_TreeItemData;
 
 FD_TD( AcceleratorEntry );
 FD_TD( AcceleratorTable );
@@ -121,9 +119,6 @@ FD_TD( FontMapper )
 FD_TD( Frame );
 FD_TD( GridSizer );
 FD_TD( Icon );
-FD_TD( Image );
-FD_TD( ImageHandler );
-FD_TD( ImageList );
 FD_TD( IndividualLayoutConstraint );
 FD_TDS( LanguageInfo )
 FD_TD( LayoutConstraints );
@@ -185,8 +180,6 @@ FD_TD( ToolBar );
 FD_TD( ToolBarBase );
 FD_TD( ToolBarToolBase );
 FD_TD( ToolTip );
-FD_TD( TreeCtrl );
-FD_TD( TreeItemId );
 FD_TD( Validator );
 FD_TD( Window );
 FD_TD( WindowDC );
@@ -195,29 +188,12 @@ FD_TD( Wizard );
 FD_TD( WizardPage );
 FD_TD( WizardPageSimple );
 
-FD_TD( BMPHandler );
-FD_TD( PNGHandler );
-FD_TD( PCXHandler );
-FD_TD( PNMHandler );
-FD_TD( GIFHandler );
-FD_TD( JPEGHandler );
-FD_TD( TIFFHandler );
-FD_TD( XPMHandler );
-FD_TD( IFFHandler );
-FD_TD( ICOHandler );
-FD_TD( CURHandler );
-FD_TD( ANIHandler );
-
 FD_TD( StreamBase );
 FD_TD( InputStream );
 FD_TD( OutputStream );
 
-//typedef wxQueryLayoutInfoEvent Wx_QueryLayoutInfoEvent;
-
 #undef FD_TD
 #undef TD_TDS
 #undef FD_TD_NAME
-
-typedef int Wx_KeyCode;
 
 #endif // _WXPERL_TYPEDEF_H

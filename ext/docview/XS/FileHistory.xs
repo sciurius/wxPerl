@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        FileHistory.xs
+## Name:        ext/docview/XS/FileHistory.xs
 ## Purpose:     XS for wxFileHistory ( Document / View Framework )
 ## Author:      Simon Flack
 ## Modified by:
-## Created:      11/ 9/2002
-## RCS-ID:      
+## Created:     11/09/2002
+## RCS-ID:      $Id: FileHistory.xs,v 1.5 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -33,11 +33,11 @@ Wx_FileHistory::GetMaxFiles()
 
 void
 Wx_FileHistory::UseMenu( menu )
-    Wx_Menu* menu
+    wxMenu* menu
 
 void
 Wx_FileHistory::RemoveMenu( menu )
-    Wx_Menu* menu
+    wxMenu* menu
 
 ## Work out the config stuff
 
@@ -48,7 +48,7 @@ Wx_FileHistory::AddFilesToMenu( ... )
       THIS->AddFilesToMenu();
   CASE: items == 2
     INPUT:
-      Wx_Menu* menu = NO_INIT
+      wxMenu* menu = NO_INIT
     CODE:
       THIS->AddFilesToMenu( menu );
   CASE:
@@ -62,7 +62,7 @@ Wx_FileHistory::GetHistoryFile( i )
 int
 wxFileHistory::GetCount()
 
-#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if !WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 int
 wxFileHistory::GetNoHistoryFiles()

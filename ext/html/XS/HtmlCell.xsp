@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2003
-## RCS-ID:      $Id: HtmlCell.xsp,v 1.3 2004/02/07 15:20:14 mbarbon Exp $
+## RCS-ID:      $Id: HtmlCell.xsp,v 1.4 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -38,11 +38,11 @@
     void SetId(const wxString& id);
 
     wxHtmlLinkInfo* GetLink(int x = 0, int y = 0) const;
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     wxCursor GetCursor() const;
 #endif
     wxHtmlCell *GetNext() const;
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     wxHtmlCell* GetFirstChild() const;
 #endif
     void SetPos(int x, int y);
@@ -61,12 +61,12 @@
 ##                         int number_of_pages = 0) const;
     void SetCanLiveOnPagebreak(bool can);
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     bool IsLinebreakAllowed() const;
 #endif
     bool IsTerminalCell() const;
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     wxHtmlCell *FindCellByPos(wxCoord x, wxCoord y,
                               unsigned flags = wxHTML_FIND_EXACT) const;
     wxPoint GetAbsPos() const;
@@ -87,7 +87,7 @@
 {
 ##    wxHtmlWordCell(const wxString& word, wxDC& dc);
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     void SetPreviousWord(wxHtmlWordCell *cell);
 #endif
 };
@@ -117,7 +117,7 @@
     wxColour GetBackgroundColour();
     void SetBorder(const wxColour& clr1, const wxColour& clr2);
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     void RemoveExtraSpacing(bool top, bool bottom);
 #endif
 };

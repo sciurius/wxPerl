@@ -41,20 +41,20 @@ parameters, plus:
 
   WX_CORE_LIB => 'xrc core base'
 
-link libraries from wxWindows' core or contrib directory.
+link libraries from wxWidgets' core or contrib directory.
 If not spedified, defaults to 'adv html core net base' for compatibility.
 
 =item * WX_LIB
 
   WX_LIB => '-lxrc'
 
-Link additional libraries from wxWindows' contrib directory.
+Link additional libraries from wxWidgets' contrib directory.
 
 =item * REQUIRE_WX
 
-  REQUIRE_WX => 2.003002  # wxWindows 2.3.2
+  REQUIRE_WX => 2.003002  # wxWidgets 2.3.2
 
-Do not build this module if wxWindows' version is lower than the version
+Do not build this module if wxWidgets' version is lower than the version
 specified.
 
 =item * NO_WX_PLATFORMs

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        ht_constants.cpp
+// Name:        ext/html/cpp/ht_constants.cpp
 // Purpose:     constants for Wx::Html
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     21/ 3/2001
-// RCS-ID:      $Id: ht_constants.cpp,v 1.9 2004/02/07 15:20:14 mbarbon Exp $
+// Created:     21/03/2001
+// RCS-ID:      $Id: ht_constants.cpp,v 1.10 2004/02/28 22:59:07 mbarbon Exp $
 // Copyright:   (c) 2001, 2003-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -42,7 +42,7 @@ double html_constant( const char* name, int arg )
         r( wxHF_ICONS_BOOK_CHAPTER );
         r( wxHF_ICONS_FOLDER );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
         r( wxHW_NO_SELECTION );
 #endif
 
@@ -71,7 +71,7 @@ double html_constant( const char* name, int arg )
         r( wxHTML_COND_ISIMAGEMAP );
         r( wxHTML_COND_USER );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
         r( wxHTML_FIND_EXACT );
         r( wxHTML_FIND_NEAREST_BEFORE );
         r( wxHTML_FIND_NEAREST_AFTER );

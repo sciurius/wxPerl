@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.62 2004/01/25 08:06:13 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.63 2004/02/28 22:58:57 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -35,6 +35,7 @@ wxSignal                T_ENUM
 wxItemKind              T_ENUM
 PlClassName             T_CLASSNAME
 wxUint32                T_IV
+wxTextCtrlHitTestResult T_ENUM
 
 wxFindReplaceDialogStyles T_ENUM
 wxFindReplaceFlags      T_ENUM
@@ -45,7 +46,6 @@ wxTraceMask             T_UV
 wxTreeItemIdValue       T_UV
 wxTreeItemIcon          T_UV
 
-Wx_KeyCode              T_KEYCODE
 wxKeyCode               T_KEYCODE
 
 Wx_UserDataCD *         O_USERDATACD
@@ -56,33 +56,23 @@ wxPliUserDataO *        O_USERDATAO
 
 SV_null *               T_SV_NULL
 
-Wx_ClassInfo *          O_NON_WXOBJECT
 wxClassInfo *           O_NON_WXOBJECT
 
-Wx_Object *             O_WXOBJECT
 wxObject *              O_WXOBJECT
 
-Wx_App *                O_WXOBJECT
 wxApp *                 O_WXOBJECT
 Wx_Window *             O_WXOBJECT
 wxWindow *              O_WXOBJECT
-Wx_Frame *              O_WXOBJECT
 wxFrame *               O_WXOBJECT
 wxEvtHandler *          O_WXOBJECT
-Wx_MiniFrame *          O_WXOBJECT
 wxMiniFrame *           O_WXOBJECT
 
-Wx_MenuBar *            O_WXOBJECT
 wxMenuBar *             O_WXOBJECT
-Wx_Menu *               O_WXOBJECT
 wxMenu *                O_WXOBJECT
-Wx_MenuItem *           O_WXOBJECT
 wxMenuItem *            O_WXOBJECT
 
 wxStatusBar *           O_WXEVTHANDLER
-Wx_ToolBar *            O_WXOBJECT
 wxToolBar *             O_WXOBJECT
-Wx_ToolBarBase *        O_WXOBJECT
 wxToolBarBase *         O_WXOBJECT
 wxToolBarSimple *       O_WXOBJECT
 Wx_Panel *              O_WXOBJECT
@@ -114,9 +104,7 @@ wxBookCtrl *            O_WXEVTHANDLER
 wxCheckListBox *        O_WXEVTHANDLER
 wxGauge *               O_WXEVTHANDLER
 wxBitmapButton *        O_WXEVTHANDLER
-Wx_TreeCtrl *           O_WXOBJECT
 wxTreeCtrl *            O_WXOBJECT
-Wx_ListCtrl *           O_WXOBJECT
 wxListCtrl *            O_WXOBJECT
 wxListView *            O_WXEVTHANDLER
 wxStaticBitmap *        O_WXEVTHANDLER
@@ -143,13 +131,13 @@ Wx_FileDialog *         O_WXOBJECT
 wxFileDialog *          O_WXOBJECT
 Wx_DirDialog *          O_NON_WXOBJECT
 wxDirDialog *           O_NON_WXOBJECT
+wxNumberEntryDialog *   O_WXOBJECT
 Wx_MultiChoiceDialog *  O_WXOBJECT
 wxMultiChoiceDialog *   O_WXOBJECT
 Wx_SingleChoiceDialog * O_WXOBJECT
 wxSingleChoiceDialog *  O_WXOBJECT
 Wx_MultipleChoiceDialog* O_WXOBJECT
 wxMultipleChoiceDialog* O_WXOBJECT
-Wx_TextEntryDialog *    O_WXOBJECT
 wxTextEntryDialog *     O_WXOBJECT
 Wx_FontDialog *         O_WXOBJECT
 wxFontDialog *          O_WXOBJECT
@@ -284,9 +272,8 @@ Wx_ListItem *           O_NON_WXOBJECT
 wxListItem *            O_NON_WXOBJECT
 Wx_ListItemAttr *       O_NON_WXOBJECT
 wxListItemAttr *        O_NON_WXOBJECT
-Wx_TreeItemData *       O_NON_WXOBJECT
 wxPliTreeItemData *     O_NON_WXOBJECT
-Wx_TreeItemId *         O_NON_WXOBJECT
+wxTreeItemData *        O_NON_WXOBJECT
 wxTreeItemId *          O_NON_WXOBJECT
 
 wxFontMapper *          O_NON_WXOBJECT
@@ -317,33 +304,26 @@ wxBitmapHand;er *       O_WXOBJECT
 Wx_Palette *            O_WXOBJECT
 wxPalette *             O_WXOBJECT
 
-Wx_Image *              O_WXOBJECT
 wxImage *               O_WXOBJECT
-Wx_ImageHandler *       O_WXOBJECT
 wxImageHandler *        O_WXOBJECT
-Wx_BMPHandler *         O_WXOBJECT
 wxBMPHandler *          O_WXOBJECT
-Wx_GIFHandler *         O_WXOBJECT
-Wx_PCXHandler *         O_WXOBJECT
-Wx_PNMHandler *         O_WXOBJECT
-Wx_TIFFHandler *        O_WXOBJECT
-Wx_JPEGHandler *        O_WXOBJECT
-Wx_PNGHandler *         O_WXOBJECT
-Wx_XPMHandler *         O_WXOBJECT
-Wx_IFFHandler *         O_WXOBJECT
-Wx_ICOHandler *         O_WXOBJECT
-Wx_CURHandler *         O_WXOBJECT
-Wx_ANIHandler *         O_WXOBJECT
+wxGIFHandler *          O_WXOBJECT
+wxPCXHandler *          O_WXOBJECT
+wxPNMHandler *          O_WXOBJECT
+wxTIFFHandler *         O_WXOBJECT
+wxJPEGHandler *         O_WXOBJECT
+wxPNGHandler *          O_WXOBJECT
+wxXPMHandler *          O_WXOBJECT
+wxIFFHandler *          O_WXOBJECT
+wxICOHandler *          O_WXOBJECT
+wxCURHandler *          O_WXOBJECT
+wxANIHandler *          O_WXOBJECT
 
-Wx_ImageList *          O_WXOBJECT
 wxImageList *           O_WXOBJECT
 
-Wx_ToolBarToolBase *    O_NON_WXOBJECT
 wxToolBarToolBase *     O_NON_WXOBJECT
 
-Wx_AcceleratorEntry *   O_NON_WXOBJECT
 wxAcceleratorEntry *    O_NON_WXOBJECT
-Wx_AcceleratorTable *   O_WXOBJECT
 wxAcceleratorTable *    O_WXOBJECT
 
 Wx_Timer *              O_WXOBJECT
@@ -410,7 +390,6 @@ Wx_SysColourChangedEvent * O_WXOBJECT
 wxSysColourChangedEvent * O_WXOBJECT
 Wx_TimerEvent *         O_WXOBJECT
 wxTimerEvent *          O_WXOBJECT
-Wx_TreeEvent *          O_WXOBJECT
 wxTreeEvent *           O_WXOBJECT
 Wx_UpdateUIEvent *      O_WXOBJECT
 wxUpdateUIEvent *       O_WXOBJECT
@@ -453,13 +432,13 @@ T_UV
 
 INPUT
 O_WXOBJECT
-    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
 O_WXEVTHANDLER
-    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
 O_NON_WXOBJECT
-    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
 O_NON_WXOBJECT_VAL
     $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );

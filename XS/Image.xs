@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Image.xs
+## Name:        XS/Image.xs
 ## Purpose:     XS for Wx::Image
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.33 2003/09/09 20:46:18 mbarbon Exp $
+## Created:     02/12/2000
+## RCS-ID:      $Id: Image.xs,v 1.34 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,7 +32,7 @@ wxImage::new( ... )
         MATCH_REDISP( wxPliOvl_s_s, newNameMIME )
     END_OVERLOAD( Wx::Image::new )
 
-Wx_Image*
+wxImage*
 newNull( CLASS )
     SV* CLASS
   CODE:
@@ -40,7 +40,7 @@ newNull( CLASS )
   OUTPUT:
     RETVAL
 
-Wx_Image*
+wxImage*
 newWH( CLASS, width, height )
     SV* CLASS
     int width
@@ -50,7 +50,7 @@ newWH( CLASS, width, height )
   OUTPUT:
     RETVAL
 
-Wx_Image*
+wxImage*
 newData( CLASS, width, height, dt )
     SV* CLASS
     int width
@@ -72,7 +72,7 @@ newData( CLASS, width, height, dt )
   OUTPUT:
     RETVAL
 
-Wx_Image*
+wxImage*
 newNameType( CLASS, name, type, index = -1 )
     SV* CLASS
     wxString name
@@ -83,7 +83,7 @@ newNameType( CLASS, name, type, index = -1 )
   OUTPUT:
     RETVAL
 
-Wx_Image*
+wxImage*
 newNameMIME( CLASS, name, mimetype, index = -1 )
     SV* CLASS
     wxString name
@@ -94,7 +94,7 @@ newNameMIME( CLASS, name, mimetype, index = -1 )
   OUTPUT:
     RETVAL
 
-Wx_Image*
+wxImage*
 newStreamType( CLASS, stream, type, index = -1 )
     SV* CLASS
     wxPliInputStream stream
@@ -105,7 +105,7 @@ newStreamType( CLASS, stream, type, index = -1 )
   OUTPUT:
     RETVAL
 
-Wx_Image*
+wxImage*
 newStreamMIME( CLASS, stream, mime, index = -1 )
     SV* CLASS
     wxPliInputStream stream
@@ -133,16 +133,16 @@ newIcon( CLASS, icon )
 
 ## XXX threads
 void
-Wx_Image::DESTROY()
+wxImage::DESTROY()
 
 void
 AddHandler( handler )
-    Wx_ImageHandler* handler
+    wxImageHandler* handler
   CODE:
     wxImage::AddHandler( handler );
 
-Wx_Image*
-Wx_Image::ConvertToMono( r, g, b )
+wxImage*
+wxImage::ConvertToMono( r, g, b )
     unsigned char r
     unsigned char g
     unsigned char b
@@ -151,22 +151,22 @@ Wx_Image::ConvertToMono( r, g, b )
   OUTPUT:
     RETVAL
 
-Wx_Image*
-Wx_Image::Copy()
+wxImage*
+wxImage::Copy()
   CODE:
     RETVAL = new wxImage( THIS->Copy() );
   OUTPUT:
     RETVAL
 
 void
-Wx_Image::Create( width, height )
+wxImage::Create( width, height )
     int width
     int height
 
 void
-Wx_Image::Destroy()
+wxImage::Destroy()
 
-Wx_ImageHandler*
+wxImageHandler*
 FindHandlerName( name )
     wxString name
   CODE:
@@ -174,7 +174,7 @@ FindHandlerName( name )
   OUTPUT:
     RETVAL
 
-Wx_ImageHandler*
+wxImageHandler*
 FindHandlerExtType( extension, type )
     wxString extension
     long type
@@ -183,7 +183,7 @@ FindHandlerExtType( extension, type )
   OUTPUT:
     RETVAL
 
-Wx_ImageHandler*
+wxImageHandler*
 FindHandlerType( type )
     long type
   CODE:
@@ -191,7 +191,7 @@ FindHandlerType( type )
   OUTPUT:
     RETVAL
 
-Wx_ImageHandler*
+wxImageHandler*
 FindHandlerMime( mime )
    wxString mime
   CODE:
@@ -200,7 +200,7 @@ FindHandlerMime( mime )
     RETVAL
 
 SV*
-Wx_Image::GetData()
+wxImage::GetData()
   CODE:
     STRLEN len = THIS->GetWidth() * THIS->GetHeight() * 3;
     RETVAL = newSVpvn( (char*)THIS->GetData(), len );
@@ -208,71 +208,71 @@ Wx_Image::GetData()
     RETVAL
 
 unsigned char
-Wx_Image::GetBlue( x, y )
+wxImage::GetBlue( x, y )
     int x
     int y
 
 unsigned char
-Wx_Image::GetGreen( x, y )
+wxImage::GetGreen( x, y )
     int x
     int y
 
 unsigned char
-Wx_Image::GetRed( x, y )
+wxImage::GetRed( x, y )
     int x
     int y
 
 int
-Wx_Image::GetHeight()
+wxImage::GetHeight()
 
 unsigned char
-Wx_Image::GetMaskBlue()
+wxImage::GetMaskBlue()
 
 unsigned char
-Wx_Image::GetMaskGreen()
+wxImage::GetMaskGreen()
 
 unsigned char
-Wx_Image::GetMaskRed()
+wxImage::GetMaskRed()
 
 wxString
-Wx_Image::GetOption( name )
+wxImage::GetOption( name )
     wxString name
 
 int
-Wx_Image::GetOptionInt( name )
+wxImage::GetOptionInt( name )
     wxString name
 
-Wx_Palette*
-Wx_Image::GetPalette()
+wxPalette*
+wxImage::GetPalette()
   CODE:
     RETVAL = new wxPalette( THIS->GetPalette() );
   OUTPUT:
     RETVAL
 
-Wx_Image*
-Wx_Image::GetSubImage( rect )
-    Wx_Rect* rect
+wxImage*
+wxImage::GetSubImage( rect )
+    wxRect* rect
   CODE:
     RETVAL = new wxImage( THIS->GetSubImage( *rect ) );
   OUTPUT:
     RETVAL
 
 int
-Wx_Image::GetWidth()
+wxImage::GetWidth()
 
 bool
-Wx_Image::HasMask()
+wxImage::HasMask()
 
 bool
-Wx_Image::HasOption( name )
+wxImage::HasOption( name )
     wxString name
 
 bool
-Wx_Image::HasPalette()
+wxImage::HasPalette()
 
 void
 InsertHandler( handler )
-    Wx_ImageHandler* handler
+    wxImageHandler* handler
   CODE:
     wxImage::InsertHandler( handler );
 
@@ -287,7 +287,7 @@ wxImage::LoadFile( ... )
     END_OVERLOAD( Wx::Image::LoadFile )
 
 bool
-Wx_Image::LoadFileType( name, type, index = -1 )
+wxImage::LoadFileType( name, type, index = -1 )
     wxString name
     long type
     int index
@@ -297,7 +297,7 @@ Wx_Image::LoadFileType( name, type, index = -1 )
     RETVAL
 
 bool
-Wx_Image::LoadFileMIME( name, type, index = -1 )
+wxImage::LoadFileMIME( name, type, index = -1 )
     wxString name
     wxString type
     int index
@@ -307,7 +307,7 @@ Wx_Image::LoadFileMIME( name, type, index = -1 )
     RETVAL
 
 bool
-Wx_Image::LoadStreamType( stream, type, index = -1 )
+wxImage::LoadStreamType( stream, type, index = -1 )
     wxPliInputStream stream
     long type
     int index
@@ -317,7 +317,7 @@ Wx_Image::LoadStreamType( stream, type, index = -1 )
     RETVAL
 
 bool
-Wx_Image::LoadStreamMIME( stream, type, index = -1 )
+wxImage::LoadStreamMIME( stream, type, index = -1 )
     wxPliInputStream stream
     wxString type
     int index
@@ -327,7 +327,7 @@ Wx_Image::LoadStreamMIME( stream, type, index = -1 )
     RETVAL
 
 bool
-Wx_Image::Ok()
+wxImage::Ok()
 
 void
 wxImage::SaveFile( ... )
@@ -341,7 +341,7 @@ wxImage::SaveFile( ... )
     END_OVERLOAD( Wx::Image::SaveFile )
 
 bool
-Wx_Image::SaveFileOnly( name )
+wxImage::SaveFileOnly( name )
     wxString name
   CODE:
     RETVAL = THIS->SaveFile( name );
@@ -349,7 +349,7 @@ Wx_Image::SaveFileOnly( name )
     RETVAL
 
 bool
-Wx_Image::SaveFileType( name, type )
+wxImage::SaveFileType( name, type )
     wxString name
     long type
   CODE:
@@ -358,7 +358,7 @@ Wx_Image::SaveFileType( name, type )
     RETVAL
 
 bool
-Wx_Image::SaveFileMIME( name, type )
+wxImage::SaveFileMIME( name, type )
     wxString name
     wxString type
   CODE:
@@ -367,7 +367,7 @@ Wx_Image::SaveFileMIME( name, type )
     RETVAL
 
 bool
-Wx_Image::SaveStreamType( stream, type )
+wxImage::SaveStreamType( stream, type )
     wxPliOutputStream stream
     long type
   CODE:
@@ -376,7 +376,7 @@ Wx_Image::SaveStreamType( stream, type )
     RETVAL
 
 bool
-Wx_Image::SaveStreamMIME( stream, type )
+wxImage::SaveStreamMIME( stream, type )
     wxPliOutputStream stream
     wxString type
   CODE:
@@ -392,7 +392,7 @@ wxImage::Mirror( horizontally = TRUE )
   OUTPUT: RETVAL
 
 void
-Wx_Image::Replace( r1, g1, b1, r2, g2, b2 )
+wxImage::Replace( r1, g1, b1, r2, g2, b2 )
     unsigned char r1
     unsigned char g1
     unsigned char b1
@@ -400,8 +400,8 @@ Wx_Image::Replace( r1, g1, b1, r2, g2, b2 )
     unsigned char g2
     unsigned char b2
 
-Wx_Image*
-Wx_Image::Rescale( width, height )
+wxImage*
+wxImage::Rescale( width, height )
     int width
     int height
   CODE:
@@ -410,9 +410,9 @@ Wx_Image::Rescale( width, height )
     RETVAL
 
 void
-Wx_Image::Rotate( angle, centre, interpolating = TRUE )
+wxImage::Rotate( angle, centre, interpolating = TRUE )
     double angle
-    Wx_Point centre
+    wxPoint centre
     bool interpolating
   PREINIT:
     wxPoint after;
@@ -425,8 +425,8 @@ Wx_Image::Rotate( angle, centre, interpolating = TRUE )
              new wxPoint( after ), "Wx::Point" ) );
     }
 
-Wx_Image*
-Wx_Image::Rotate90( clockwise = TRUE )
+wxImage*
+wxImage::Rotate90( clockwise = TRUE )
     bool clockwise
   CODE:
     RETVAL = new wxImage( THIS->Rotate90( clockwise ) );
@@ -445,8 +445,8 @@ wxImage::ShrinkBy( xfactor, yfactor )
 
 #endif
 
-Wx_Image*
-Wx_Image::Scale( width, height )
+wxImage*
+wxImage::Scale( width, height )
     int width
     int height
   CODE:
@@ -455,7 +455,7 @@ Wx_Image::Scale( width, height )
     RETVAL
 
 void
-Wx_Image::SetData( d )
+wxImage::SetData( d )
     SV* d
   CODE:
     STRLEN len;
@@ -466,35 +466,35 @@ Wx_Image::SetData( d )
     THIS->SetData( data_copy );
 
 void
-Wx_Image::SetMask( hasMask = TRUE )
+wxImage::SetMask( hasMask = TRUE )
     bool hasMask
 
 void
-Wx_Image::SetMaskColour( red, green, blue )
+wxImage::SetMaskColour( red, green, blue )
     unsigned char red
     unsigned char green
     unsigned char blue
 
 void
-Wx_Image::SetOption( name, value )
+wxImage::SetOption( name, value )
     wxString name
     wxString value
 
 void
-Wx_Image::SetOptionInt( name, value )
+wxImage::SetOptionInt( name, value )
     wxString name
     int value
   CODE:
     THIS->SetOption( name, value );
 
 void
-Wx_Image::SetPalette( palette )
-    Wx_Palette* palette
+wxImage::SetPalette( palette )
+    wxPalette* palette
   CODE:
     THIS->SetPalette( *palette );
 
 void
-Wx_Image::SetRGB( x, y, red, green, blue )
+wxImage::SetRGB( x, y, red, green, blue )
     int x
     int y
     unsigned char red
@@ -504,100 +504,100 @@ Wx_Image::SetRGB( x, y, red, green, blue )
 MODULE=Wx PACKAGE=Wx::ImageHandler
 
 void
-Wx_ImageHandler::Destroy()
+wxImageHandler::Destroy()
   CODE:
     delete THIS;
 
 int
-Wx_ImageHandler::GetImageCount( stream )
+wxImageHandler::GetImageCount( stream )
     wxPliInputStream stream
 
 wxString
-Wx_ImageHandler::GetName()
+wxImageHandler::GetName()
 
 wxString
-Wx_ImageHandler::GetExtension()
+wxImageHandler::GetExtension()
 
 long
-Wx_ImageHandler::GetType()
+wxImageHandler::GetType()
 
 wxString
-Wx_ImageHandler::GetMimeType()
+wxImageHandler::GetMimeType()
 
 bool
-Wx_ImageHandler::LoadFile( image, stream, verbose = TRUE, index = 0 )
-    Wx_Image* image
+wxImageHandler::LoadFile( image, stream, verbose = TRUE, index = 0 )
+    wxImage* image
     wxPliInputStream stream
     bool verbose
     int index
 
 bool
-Wx_ImageHandler::SaveFile( image, stream )
-    Wx_Image* image
+wxImageHandler::SaveFile( image, stream )
+    wxImage* image
     wxPliOutputStream stream
 
 void
-Wx_ImageHandler::SetName( name )
+wxImageHandler::SetName( name )
     wxString name
 
 void
-Wx_ImageHandler::SetExtension( ext )
+wxImageHandler::SetExtension( ext )
     wxString ext
 
 void
-Wx_ImageHandler::SetMimeType( type )
+wxImageHandler::SetMimeType( type )
     wxString type
 
 void
-Wx_ImageHandler::SetType( type )
+wxImageHandler::SetType( type )
     long type
 
 MODULE=Wx PACKAGE=Wx::GIFHandler
 
-Wx_GIFHandler*
-Wx_GIFHandler::new()
+wxGIFHandler*
+wxGIFHandler::new()
 
 MODULE=Wx PACKAGE=Wx::BMPHandler
 
-Wx_BMPHandler*
-Wx_BMPHandler::new()
+wxBMPHandler*
+wxBMPHandler::new()
 
 MODULE=Wx PACKAGE=Wx::PNMHandler
 
-Wx_PNMHandler*
-Wx_PNMHandler::new()
+wxPNMHandler*
+wxPNMHandler::new()
 
 MODULE=Wx PACKAGE=Wx::PCXHandler
 
-Wx_PCXHandler*
-Wx_PCXHandler::new()
+wxPCXHandler*
+wxPCXHandler::new()
 
 MODULE=Wx PACKAGE=Wx::PNGHandler
 
-Wx_PNGHandler*
-Wx_PNGHandler::new()
+wxPNGHandler*
+wxPNGHandler::new()
 
 MODULE=Wx PACKAGE=Wx::JPEGHandler
 
-Wx_JPEGHandler*
-Wx_JPEGHandler::new()
+wxJPEGHandler*
+wxJPEGHandler::new()
 
 MODULE=Wx PACKAGE=Wx::TIFFHandler
 
-Wx_TIFFHandler*
-Wx_TIFFHandler::new()
+wxTIFFHandler*
+wxTIFFHandler::new()
 
 MODULE=Wx PACKAGE=Wx::XPMHandler
 
-Wx_XPMHandler*
-Wx_XPMHandler::new()
+wxXPMHandler*
+wxXPMHandler::new()
 
 MODULE=Wx PACKAGE=Wx::IFFHandler
 
 #if wxPERL_USE_IFF
 
-Wx_IFFHandler*
-Wx_IFFHandler::new()
+wxIFFHandler*
+wxIFFHandler::new()
 
 #endif
 
@@ -605,18 +605,18 @@ Wx_IFFHandler::new()
 
 MODULE=Wx PACKAGE=Wx::ICOHandler
 
-Wx_ICOHandler*
-Wx_ICOHandler::new()
+wxICOHandler*
+wxICOHandler::new()
 
 MODULE=Wx PACKAGE=Wx::CURHandler
 
-Wx_CURHandler*
-Wx_CURHandler::new()
+wxCURHandler*
+wxCURHandler::new()
 
 MODULE=Wx PACKAGE=Wx::ANIHandler
 
-Wx_ANIHandler*
-Wx_ANIHandler::new()
+wxANIHandler*
+wxANIHandler::new()
 
 #endif
 

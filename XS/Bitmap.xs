@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Bitmap.xs
+## Name:        XS/Bitmap.xs
 ## Purpose:     XS for Wx::Bitmap and Wx::Mask
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
+## RCS-ID:      $Id: Bitmap.xs,v 1.23 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -162,7 +162,7 @@ newFromXPM( CLASS, data )
 Wx_Bitmap*
 newImage( CLASS, image )
     SV* CLASS
-    Wx_Image* image
+    wxImage* image
   CODE:
     RETVAL = new wxBitmap( *image );
   OUTPUT:
@@ -186,7 +186,7 @@ Wx_Bitmap::DESTROY()
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
-Wx_Image*
+wxImage*
 Wx_Bitmap::ConvertToImage()
   CODE:
     RETVAL = new wxImage( THIS->ConvertToImage() );
@@ -237,7 +237,7 @@ FindHandlerExtType( extension, type )
     wxString extension
     long type
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 5, 0 ) && defined(__WXMOTIF__)
+#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined(__WXMOTIF__)
     RETVAL = wxBitmap::FindHandler( extension, wxBitmapType(type) );
 #else
     RETVAL = wxBitmap::FindHandler( extension, type );
@@ -249,7 +249,7 @@ Wx_BitmapHandler*
 FindHandlerType( type )
     long type
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 5, 0 ) && defined(__WXMOTIF__)
+#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined(__WXMOTIF__)
     RETVAL = wxBitmap::FindHandler( wxBitmapType(type) );
 #else
     RETVAL = wxBitmap::FindHandler( type );

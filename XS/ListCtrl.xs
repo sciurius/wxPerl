@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.30 2003/11/23 07:44:36 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: ListCtrl.xs,v 1.31 2004/02/28 22:59:06 mbarbon Exp $
+## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -270,15 +270,15 @@ newDefault( CLASS )
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT: RETVAL
 
-Wx_ListCtrl*
+wxListCtrl*
 newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_ICON, validator = (wxValidator*)&wxDefaultValidator, name = wxT("listCtrl") )
     PlClassName CLASS
-    Wx_Window* parent
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   CODE:
     RETVAL = new wxPliListCtrl( CLASS, parent, id, pos, size, style,
@@ -298,33 +298,33 @@ wxListCtrl::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSi
   C_ARGS: parent, id, pos, size, style, *validator, name
 
 bool
-Wx_ListCtrl::Arrange( flag = wxLIST_ALIGN_DEFAULT )
+wxListCtrl::Arrange( flag = wxLIST_ALIGN_DEFAULT )
     int flag
 
 void
-Wx_ListCtrl::ClearAll()
+wxListCtrl::ClearAll()
 
 bool
-Wx_ListCtrl::DeleteItem( item )
+wxListCtrl::DeleteItem( item )
     long item
 
 bool
-Wx_ListCtrl::DeleteAllItems()
+wxListCtrl::DeleteAllItems()
 
 bool
-Wx_ListCtrl::DeleteColumn( col )
+wxListCtrl::DeleteColumn( col )
     int col
 
 void
-Wx_ListCtrl::EditLabel( item )
+wxListCtrl::EditLabel( item )
     long item
 
 bool
-Wx_ListCtrl::EnsureVisible( item )
+wxListCtrl::EnsureVisible( item )
     long item
 
 long
-Wx_ListCtrl::FindItem( start, str, partial = FALSE )
+wxListCtrl::FindItem( start, str, partial = FALSE )
     long start
     wxString str
     bool partial
@@ -334,7 +334,7 @@ Wx_ListCtrl::FindItem( start, str, partial = FALSE )
     RETVAL
 
 long
-Wx_ListCtrl::FindItemData( start, data )
+wxListCtrl::FindItemData( start, data )
     long start
     long data
   CODE:
@@ -343,17 +343,17 @@ Wx_ListCtrl::FindItemData( start, data )
     RETVAL
 
 long
-Wx_ListCtrl::FindItemAtPos( start, pt, direction )
+wxListCtrl::FindItemAtPos( start, pt, direction )
     long start
-    Wx_Point pt
+    wxPoint pt
     int direction
   CODE:
     RETVAL = THIS->FindItem( start, pt, direction );
   OUTPUT:
     RETVAL
 
-Wx_ListItem*
-Wx_ListCtrl::GetColumn( col )
+wxListItem*
+wxListCtrl::GetColumn( col )
     int col
   PREINIT:
     wxListItem item;
@@ -371,34 +371,34 @@ Wx_ListCtrl::GetColumn( col )
     RETVAL
 
 int
-Wx_ListCtrl::GetColumnCount()
+wxListCtrl::GetColumnCount()
 
 int
-Wx_ListCtrl::GetColumnWidth( col )
+wxListCtrl::GetColumnWidth( col )
     int col
 
 int
-Wx_ListCtrl::GetCountPerPage()
+wxListCtrl::GetCountPerPage()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
-Wx_TextCtrl*
-Wx_ListCtrl::GetEditControl()
+wxTextCtrl*
+wxListCtrl::GetEditControl()
 
 #endif
 
-Wx_ImageList*
-Wx_ListCtrl::GetImageList( which )
+wxImageList*
+wxListCtrl::GetImageList( which )
     int which
   CODE:
-    RETVAL = (Wx_ImageList*)THIS->GetImageList( which );
+    RETVAL = (wxImageList*)THIS->GetImageList( which );
   OUTPUT:
     RETVAL
   CLEANUP:
     wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
-Wx_ListItem*
-Wx_ListCtrl::GetItem( id, col = -1 )
+wxListItem*
+wxListCtrl::GetItem( id, col = -1 )
     long id
     int col
   PREINIT:
@@ -420,11 +420,11 @@ Wx_ListCtrl::GetItem( id, col = -1 )
     RETVAL
 
 long
-Wx_ListCtrl::GetItemData( item )
+wxListCtrl::GetItemData( item )
     long item
 
-Wx_Point*
-Wx_ListCtrl::GetItemPosition( item )
+wxPoint*
+wxListCtrl::GetItemPosition( item )
     long item
   PREINIT:
     wxPoint point;
@@ -440,8 +440,8 @@ Wx_ListCtrl::GetItemPosition( item )
   OUTPUT:
     RETVAL
 
-Wx_Rect*
-Wx_ListCtrl::GetItemRect( item )
+wxRect*
+wxListCtrl::GetItemRect( item )
     long item
   PREINIT:
     wxRect rect;
@@ -458,35 +458,43 @@ Wx_ListCtrl::GetItemRect( item )
     RETVAL
 
 int
-Wx_ListCtrl::GetItemState( item, stateMask )
+wxListCtrl::GetItemState( item, stateMask )
     long item
     long stateMask
 
 int
-Wx_ListCtrl::GetItemCount()
+wxListCtrl::GetItemCount()
 
-#if WXPERL_W_VERSION_LE( 2, 5, 0 )
+#if WXPERL_W_VERSION_LE( 2, 5, 1 )
 
 int
-Wx_ListCtrl::GetItemSpacing( isSmall )
+wxListCtrl::GetItemSpacing( isSmall )
     bool isSmall
+
+#else
+
+wxSize
+wxListCtrl::GetItemSpacing()
+  CODE:
+    RETVAL = new wxSize( THIS->GetItemSpacing() );
+  OUTPUT: RETVAL
 
 #endif
 
 wxString
-Wx_ListCtrl::GetItemText( item )
+wxListCtrl::GetItemText( item )
     long item
 
-Wx_Colour*
-Wx_ListCtrl::GetItemTextColour( item )
+wxColour*
+wxListCtrl::GetItemTextColour( item )
     long item
   CODE:
     RETVAL = new wxColour( THIS->GetItemTextColour( item ) );
   OUTPUT:
     RETVAL
 
-Wx_Colour*
-Wx_ListCtrl::GetItemBackgroundColour( item )
+wxColour*
+wxListCtrl::GetItemBackgroundColour( item )
     long item
   CODE:
     RETVAL = new wxColour( THIS->GetItemBackgroundColour( item ) );
@@ -494,41 +502,51 @@ Wx_ListCtrl::GetItemBackgroundColour( item )
     RETVAL
 
 void
-Wx_ListCtrl::SetItemTextColour( item, colour )
+wxListCtrl::SetItemTextColour( item, colour )
     long item
-    Wx_Colour* colour
+    wxColour* colour
   CODE:
     THIS->SetItemTextColour( item, *colour );
 
 void
-Wx_ListCtrl::SetItemBackgroundColour( item, colour )
+wxListCtrl::SetItemBackgroundColour( item, colour )
     long item
-    Wx_Colour* colour
+    wxColour* colour
   CODE:
     THIS->SetItemBackgroundColour( item, *colour );
 
 long
-Wx_ListCtrl::GetNextItem( item, geometry = wxLIST_NEXT_ALL, state = wxLIST_STATE_DONTCARE )
+wxListCtrl::GetNextItem( item, geometry = wxLIST_NEXT_ALL, state = wxLIST_STATE_DONTCARE )
     long item
     int geometry
     int state
 
 int
-Wx_ListCtrl::GetSelectedItemCount()
+wxListCtrl::GetSelectedItemCount()
 
-Wx_Colour*
-Wx_ListCtrl::GetTextColour()
+wxColour*
+wxListCtrl::GetTextColour()
   CODE:
     RETVAL = new wxColour( THIS->GetTextColour() );
   OUTPUT:
     RETVAL
 
 long
-Wx_ListCtrl::GetTopItem()
+wxListCtrl::GetTopItem()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+wxRect*
+wxListCtrl::GetViewRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetViewRect() );
+  OUTPUT: RETVAL
+
+#endif
 
 void
-Wx_ListCtrl::HitTest( point )
-    Wx_Point point
+wxListCtrl::HitTest( point )
+    wxPoint point
   PREINIT:
     int flags;
     long item;
@@ -547,16 +565,16 @@ wxListCtrl::InsertColumn( ... )
     END_OVERLOAD( Wx::ListCtrl::InsertColumn )
 
 long
-Wx_ListCtrl::InsertColumnInfo( col, info )
+wxListCtrl::InsertColumnInfo( col, info )
     int col
-    Wx_ListItem* info
+    wxListItem* info
   CODE:
     RETVAL = THIS->InsertColumn( col, *info );
   OUTPUT:
     RETVAL
 
 long
-Wx_ListCtrl::InsertColumnString( col, heading, format = wxLIST_FORMAT_LEFT, width = -1 )
+wxListCtrl::InsertColumnString( col, heading, format = wxLIST_FORMAT_LEFT, width = -1 )
     int col
     wxString heading
     int format
@@ -567,15 +585,15 @@ Wx_ListCtrl::InsertColumnString( col, heading, format = wxLIST_FORMAT_LEFT, widt
     RETVAL
 
 long
-Wx_ListCtrl::InsertItem( info )
-    Wx_ListItem* info
+wxListCtrl::InsertItem( info )
+    wxListItem* info
   CODE:
     RETVAL = THIS->InsertItem( *info );
   OUTPUT:
     RETVAL
 
 long
-Wx_ListCtrl::InsertStringItem( index, label )
+wxListCtrl::InsertStringItem( index, label )
     long index
     wxString label
   CODE:
@@ -584,7 +602,7 @@ Wx_ListCtrl::InsertStringItem( index, label )
     RETVAL
 
 long
-Wx_ListCtrl::InsertImageItem( index, image )
+wxListCtrl::InsertImageItem( index, image )
     long index
     int image
   CODE:
@@ -593,7 +611,7 @@ Wx_ListCtrl::InsertImageItem( index, image )
     RETVAL
 
 long
-Wx_ListCtrl::InsertImageStringItem( index, label, image )
+wxListCtrl::InsertImageStringItem( index, label, image )
     long index
     wxString label
     int image
@@ -603,43 +621,43 @@ Wx_ListCtrl::InsertImageStringItem( index, label, image )
     RETVAL
 
 bool
-Wx_ListCtrl::IsVirtual()
+wxListCtrl::IsVirtual()
 
 void
-Wx_ListCtrl::RefreshItem( item )
+wxListCtrl::RefreshItem( item )
     long item
 
 void
-Wx_ListCtrl::RefreshItems( itemFrom, itemTo )
+wxListCtrl::RefreshItems( itemFrom, itemTo )
     long itemFrom
     long itemTo
 
 bool
-Wx_ListCtrl::ScrollList( dx, dy )
+wxListCtrl::ScrollList( dx, dy )
     int dx
     int dy
 
 bool
-Wx_ListCtrl::SetColumn( col, item )
+wxListCtrl::SetColumn( col, item )
     int col
-    Wx_ListItem* item
+    wxListItem* item
   CODE:
     RETVAL = THIS->SetColumn( col, *item );
   OUTPUT:
     RETVAL
 
 bool
-Wx_ListCtrl::SetColumnWidth( col, width )
+wxListCtrl::SetColumnWidth( col, width )
     int col
     int width
 
 void
-Wx_ListCtrl::SetImageList( imagelist, which )
-    Wx_ImageList* imagelist
+wxListCtrl::SetImageList( imagelist, which )
+    wxImageList* imagelist
     int which
 
 void
-Wx_ListCtrl::SetItemCount( count )
+wxListCtrl::SetItemCount( count )
     long count
 
 void
@@ -651,15 +669,15 @@ wxListCtrl::SetItem( ... )
     END_OVERLOAD( Wx::ListCtrl::SetItem )
 
 bool
-Wx_ListCtrl::SetItemInfo( info )
-    Wx_ListItem* info
+wxListCtrl::SetItemInfo( info )
+    wxListItem* info
   CODE:
     RETVAL = THIS->SetItem( *info );
   OUTPUT:
     RETVAL
 
 bool
-Wx_ListCtrl::SetItemString( index, col, label, image = -1 )
+wxListCtrl::SetItemString( index, col, label, image = -1 )
     long index
     int col
     wxString label
@@ -670,47 +688,47 @@ Wx_ListCtrl::SetItemString( index, col, label, image = -1 )
     RETVAL
 
 bool
-Wx_ListCtrl::SetItemData( item, data )
+wxListCtrl::SetItemData( item, data )
     long item
     long data
 
 bool
-Wx_ListCtrl::SetItemImage( item, image, selImage )
+wxListCtrl::SetItemImage( item, image, selImage )
     long item
     int image
     int selImage
 
 bool
-Wx_ListCtrl::SetItemPosition( item, pos )
+wxListCtrl::SetItemPosition( item, pos )
     long item
-    Wx_Point pos
+    wxPoint pos
 
 bool
-Wx_ListCtrl::SetItemState( item, state, stateMask )
+wxListCtrl::SetItemState( item, state, stateMask )
     long item
     long state
     long stateMask
 
 void
-Wx_ListCtrl::SetItemText( item, text )
+wxListCtrl::SetItemText( item, text )
     long item
     wxString text
 
 void
-Wx_ListCtrl::SetSingleStyle( style, add = TRUE )
+wxListCtrl::SetSingleStyle( style, add = TRUE )
     long style
     bool add
 
 void
-Wx_ListCtrl::SetTextColour( colour )
-    Wx_Colour colour
+wxListCtrl::SetTextColour( colour )
+    wxColour colour
 
 void
-Wx_ListCtrl::SetWindowStyleFlag( style )
+wxListCtrl::SetWindowStyleFlag( style )
     long style
 
 bool
-Wx_ListCtrl::SortItems( function )
+wxListCtrl::SortItems( function )
     SV* function
   CODE:
     RETVAL = THIS->SortItems( (wxListCtrlCompare)&ListCtrlCompareFn,

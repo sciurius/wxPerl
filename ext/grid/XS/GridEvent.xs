@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        GridEvent.xs
+## Name:        ext/grid/XS/GridEvent.xs
 ## Purpose:     XS for Wx::Grid*Event
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      8/12/2001
-## RCS-ID:      $Id: GridEvent.xs,v 1.4 2003/05/05 20:38:42 mbarbon Exp $
+## Created:     08/12/2001
+## RCS-ID:      $Id: GridEvent.xs,v 1.5 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,7 +16,7 @@ Wx_GridEvent*
 Wx_GridEvent::new( id, type, obj, row = -1, col = -1, x = -1, y = -1, sel = TRUE, control = TRUE, shift = TRUE, alt = TRUE, meta = TRUE )
     int id
     wxEventType type
-    Wx_Object* obj
+    wxObject* obj
     int row
     int col
     int x
@@ -61,7 +61,7 @@ Wx_GridSizeEvent*
 Wx_GridSizeEvent::new( id, type, obj, rowOrCol = -1, x = -1, y = -1, control = TRUE, shift = TRUE, alt = TRUE, meta = TRUE )
     int id
     wxEventType type
-    Wx_Object* obj
+    wxObject* obj
     int rowOrCol
     int x
     int y
@@ -98,7 +98,7 @@ Wx_GridRangeSelectEvent*
 Wx_GridRangeSelectEvent::new( id, type, obj, topLeft, bottomRight, sel = TRUE, control = FALSE, shift = FALSE, alt = FALSE, meta = FALSE )
     int id
     wxEventType type
-    Wx_Object* obj
+    wxObject* obj
     Wx_GridCellCoords* topLeft
     Wx_GridCellCoords* bottomRight
     bool sel
@@ -159,7 +159,7 @@ Wx_GridEditorCreatedEvent*
 Wx_GridEditorCreatedEvent::new( id, type, obj, row, col, ctrl )
     int id
     wxEventType type
-    Wx_Object* obj
+    wxObject* obj
     int row
     int col
     Wx_Control* ctrl

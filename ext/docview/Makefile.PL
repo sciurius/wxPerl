@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        ext/mdi/Makefile.PL
-## Purpose:     Makefile.PL for wxWindows Document / View Framework
+## Name:        ext/docview/Makefile.PL
+## Purpose:     Makefile.PL for wxWidgets Document / View Framework
 ## Author:      Simon Flack
 ## Modified by:
-## Created:     11/9/2002
-## RCS-ID:      $Id: Makefile.PL,v 1.4 2003/08/23 13:00:37 mbarbon Exp $
+## Created:     11/09/2002
+## RCS-ID:      $Id: Makefile.PL,v 1.5 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

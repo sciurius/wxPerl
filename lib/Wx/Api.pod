@@ -55,7 +55,7 @@ Binds a C<wxObject*> pointer to an C<SV*>, and returns it.  If the
 object is already bound to an C<SV*>, returns a reference to the
 existing C<SV*>, otherwise, it creates a new binding; in the latter
 case, the new C<SV*> is blessed into a package obtained through the
-wxWindows RTTI system.
+wxWidgets RTTI system.
 
 I<Introduced before wxPerl 0.14>
 

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DataObject.xs
+## Name:        ext/dnd/XS/DataObject.xs
 ## Purpose:     XS for Wx::*DataObject and Wx::DataFormat
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 8/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.14 2003/11/16 17:20:32 mbarbon Exp $
+## Created:     12/08/2001
+## RCS-ID:      $Id: DataObject.xs,v 1.15 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -242,7 +242,7 @@ Wx_TextDataObject::SetText( text )
 
 MODULE=Wx PACKAGE=Wx::BitmapDataObject
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 ) || !defined(__WXMOTIF__)
+#if WXPERL_W_VERSION_GE( 2, 5, 1 ) || !defined(__WXMOTIF__)
 
 Wx_BitmapDataObject*
 Wx_BitmapDataObject::new( bitmap = (wxBitmap*)&wxNullBitmap )

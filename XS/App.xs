@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        App.xs
+## Name:        XS/App.xs
 ## Purpose:     XS for Wx::_App and Wx::App
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
+## RCS-ID:      $Id: App.xs,v 1.22 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -38,7 +38,7 @@ End()
 
 int
 Start( app, sub )
-    Wx_App* app 
+    wxApp* app 
     SV* sub
   CODE:
     // for Wx::Perl::SplashFast
@@ -54,7 +54,7 @@ Start( app, sub )
     app->SetClassName( app->argv[0] );
     app->SetAppName( app->argv[0] );
 #endif
-#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if !WXPERL_W_VERSION_GE( 2, 5, 1 )
     wxEntryInitGui();
 #endif
 
@@ -70,11 +70,11 @@ Start( app, sub )
   OUTPUT:
     RETVAL
 
-Wx_App*
-Wx_App::new()
+wxApp*
+wxApp::new()
   CODE:
 ##    RETVAL = new wxPliApp( CLASS );
-#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if !WXPERL_W_VERSION_GE( 2, 5, 1 )
     if( !wxTheApp )
         wxTheApp = new wxPliApp();
 #endif
@@ -88,31 +88,28 @@ MODULE=Wx PACKAGE=Wx::App
 # virtual void OnFatalException() # too low level
 
 void
-Wx_App::Dispatch()
+wxApp::Dispatch()
 
 wxString
-Wx_App::GetAppName()
+wxApp::GetAppName()
 
-#if defined( __WXMSW__ ) && !WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if defined( __WXMSW__ ) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 bool
-Wx_App::GetAuto3D()
+wxApp::GetAuto3D()
 
 #endif
 
 wxString
-Wx_App::GetClassName()
+wxApp::GetClassName()
 
 bool
-Wx_App::GetExitOnFrameDelete()
+wxApp::GetExitOnFrameDelete()
 
 Wx_Icon*
-Wx_App::GetStdIcon( which )
+wxApp::GetStdIcon( which )
     int which
   CODE:
-#if WXPERL_W_VERSION_LE( 2, 3, 2 )
-    RETVAL = new wxIcon( THIS->GetStdIcon( which ) );
-#else
     wxString id;
     switch( which )
     {
@@ -131,67 +128,66 @@ Wx_App::GetStdIcon( which )
     };
 
     RETVAL = new wxIcon( wxArtProvider::GetIcon( id, wxART_MESSAGE_BOX ) );
-#endif
   OUTPUT:
     RETVAL
 
 Wx_Window*
-Wx_App::GetTopWindow()
+wxApp::GetTopWindow()
 
 bool
-Wx_App::GetUseBestVisual()
+wxApp::GetUseBestVisual()
 
 wxString
-Wx_App::GetVendorName()
+wxApp::GetVendorName()
 
 void
-Wx_App::ExitMainLoop()
+wxApp::ExitMainLoop()
 
 bool
-Wx_App::Initialized()
+wxApp::Initialized()
 
 int
-Wx_App::MainLoop()
+wxApp::MainLoop()
 
 bool
-Wx_App::Pending()
+wxApp::Pending()
 
 void
-Wx_App::SetAppName( name )
+wxApp::SetAppName( name )
     wxString name
 
 #if defined( __WXMSW__ ) && !WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 void
-Wx_App::SetAuto3D( auto3d )
+wxApp::SetAuto3D( auto3d )
     bool auto3d
 
 #endif
 
 void
-Wx_App::SetClassName( name )
+wxApp::SetClassName( name )
     wxString name
 
 void
-Wx_App::SetExitOnFrameDelete( flag )
+wxApp::SetExitOnFrameDelete( flag )
     bool flag
 
 void
-Wx_App::SetTopWindow( window )
+wxApp::SetTopWindow( window )
     Wx_Window* window
 
 void
-Wx_App::SetVendorName( name )
+wxApp::SetVendorName( name )
     wxString name
 
 void
-Wx_App::SetUseBestVisual( flag )
+wxApp::SetUseBestVisual( flag )
     bool flag
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
-Wx_App::Yield()
+wxApp::Yield()
   CODE:
     THIS->wxApp::Yield();
 

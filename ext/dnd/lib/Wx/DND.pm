@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        DND.pm
-## Purpose:     Wx::DND pulls in all wxWindows Drag'n'Drop and Clipboard
+## Name:        ext/dnd/lib/Wx/DND.pm
+## Purpose:     Wx::DND pulls in all wxWidgets Drag'n'Drop and Clipboard
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 8/2001
-## RCS-ID:      $Id: DND.pm,v 1.8 2003/05/07 17:22:52 mbarbon Exp $
+## Created:     12/08/2001
+## RCS-ID:      $Id: DND.pm,v 1.9 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

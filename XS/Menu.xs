@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Menu.xs
+## Name:        XS/Menu.xs
 ## Purpose:     XS for Wx::Menu, Wx::MenuBar, Wx::MenuItem
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.20 2003/08/02 20:55:17 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: Menu.xs,v 1.21 2004/02/28 22:59:06 mbarbon Exp $
+## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,93 +14,129 @@
 
 MODULE=Wx PACKAGE=Wx::Menu
 
-Wx_Menu*
-Wx_Menu::new( title = wxEmptyString, style = 0)
+wxMenu*
+wxMenu::new( title = wxEmptyString, style = 0)
     wxString title
     long style
 
 void
-Wx_Menu::AppendString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
+wxMenu::AppendString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
     int id
     wxString item
     wxString help
     wxItemKind kind
-  CODE:
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Append( id, item, help, kind ) ) );
+#else
     THIS->Append( id, item, help, kind );
+#endif
 
 void
-Wx_Menu::AppendSubMenu( id, item, subMenu, helpString = wxEmptyString )
+wxMenu::AppendSubMenu( id, item, subMenu, helpString = wxEmptyString )
     int id
     wxString item
-    Wx_Menu* subMenu
+    wxMenu* subMenu
     wxString helpString
-  CODE:
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Append( id, item, subMenu, helpString ) ) );
+#else
     THIS->Append( id, item, subMenu, helpString );
+#endif
 
 void
-Wx_Menu::AppendItem( menuItem )
-    Wx_MenuItem* menuItem
-  CODE:
+wxMenu::AppendItem( menuItem )
+    wxMenuItem* menuItem
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Append( menuItem ) ) );
+#else
     THIS->Append( menuItem );
+#endif
 
 void
-Wx_Menu::AppendCheckItem( id, item, helpString = wxEmptyString )
+wxMenu::AppendCheckItem( id, item, helpString = wxEmptyString )
     int id
     wxString item
     wxString helpString
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->AppendCheckItem( id, item, helpString ) ) );
+#else
+    THIS->AppendCheckItem( id, item, helpString );
+#endif
 
 void
-Wx_Menu::AppendRadioItem( id, item, helpString = wxEmptyString )
+wxMenu::AppendRadioItem( id, item, helpString = wxEmptyString )
     int id
     wxString item
     wxString helpString
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->AppendRadioItem( id, item, helpString ) ) );
+#else
+    THIS->AppendRadioItem( id, item, helpString );
+#endif
 
 void
-Wx_Menu::AppendSeparator()
+wxMenu::AppendSeparator()
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->AppendSeparator() ) );
+#else
+    THIS->AppendSeparator();
+#endif
 
 void
-Wx_Menu::Break()
+wxMenu::Break()
 
 void
-Wx_Menu::Check( id, check )
+wxMenu::Check( id, check )
     int id
     bool check
 
 void
-Wx_Menu::DeleteId( id )
+wxMenu::DeleteId( id )
     int id
   CODE:
     THIS->Delete( id );
 
 void
-Wx_Menu::DeleteItem( item )
-    Wx_MenuItem* item
+wxMenu::DeleteItem( item )
+    wxMenuItem* item
   CODE:
     THIS->Delete( item );
 
 void
-Wx_Menu::DestroyMenu()
+wxMenu::DestroyMenu()
   CODE:
     delete THIS;
 
 void
-Wx_Menu::DestroyId( id )
+wxMenu::DestroyId( id )
     int id
   CODE:
     THIS->Destroy( id );
 
 void
-Wx_Menu::DestroyItem( item )
-    Wx_MenuItem* item
+wxMenu::DestroyItem( item )
+    wxMenuItem* item
   CODE:
     THIS->Destroy( item );
 
 void
-Wx_Menu::Enable( id, enable )
+wxMenu::Enable( id, enable )
     int id
     bool enable
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 wxMenuItem*
 wxMenu::FindItemByPosition( pos )
@@ -109,7 +145,7 @@ wxMenu::FindItemByPosition( pos )
 #endif
 
 void
-Wx_Menu::FindItem( item )
+wxMenu::FindItem( item )
     SV* item
   PPCODE:
     if( looks_like_number( item ) ) {
@@ -143,18 +179,18 @@ Wx_Menu::FindItem( item )
     }
 
 wxString
-Wx_Menu::GetHelpString( id )
+wxMenu::GetHelpString( id )
     int id
 
 wxString
-Wx_Menu::GetLabel( id )
+wxMenu::GetLabel( id )
     int id
 
 int
-Wx_Menu::GetMenuItemCount()
+wxMenu::GetMenuItemCount()
 
 void
-Wx_Menu::GetMenuItems()
+wxMenu::GetMenuItems()
   PPCODE:
     wxMenuItemList& data = THIS->GetMenuItems();
     wxMenuItemList::Node* node;
@@ -166,26 +202,34 @@ Wx_Menu::GetMenuItems()
     }
 
 wxString
-Wx_Menu::GetTitle()
-
-bool
-Wx_Menu::InsertItem( pos, item )
-    int pos
-    Wx_MenuItem* item
-  CODE:
-    RETVAL = THIS->Insert( pos, item );
-  OUTPUT:
-    RETVAL
+wxMenu::GetTitle()
 
 void
-Wx_Menu::InsertString( pos, id, item, helpString = wxEmptyString, kind = wxITEM_NORMAL )
+wxMenu::InsertItem( pos, item )
+    int pos
+    wxMenuItem* item
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Insert( pos, item ) ) );
+#else
+    XPUSHs( THIS->Insert( pos, item ) ? &PL_sv_yes : &PL_sv_no );
+#endif
+
+void
+wxMenu::InsertString( pos, id, item, helpString = wxEmptyString, kind = wxITEM_NORMAL )
     int pos
     int id
     wxString item
     wxString helpString
     wxItemKind kind
-  CODE:
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Insert( pos, id, item, helpString, kind ) ) );
+#else
     THIS->Insert( pos, id, item, helpString, kind );
+#endif
 
 void
 wxMenu::InsertSubMenu( pos, id, text, submenu, help = wxEmptyString )
@@ -194,136 +238,198 @@ wxMenu::InsertSubMenu( pos, id, text, submenu, help = wxEmptyString )
     wxString text
     wxMenu* submenu
     wxString help
-  CODE:
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Insert( pos, id, text, submenu, help ) ) );
+#else
     THIS->Insert( pos, id, text, submenu, help );
+#endif
 
 void
-Wx_Menu::InsertCheckItem( pos, id, item, helpString )
+wxMenu::InsertCheckItem( pos, id, item, helpString )
      size_t pos
      int id
      wxString item
      wxString helpString
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->InsertCheckItem( pos, id, item, helpString ) ) );
+#else
+    THIS->InsertCheckItem( pos, id, item, helpString );
+#endif
 
 void
-Wx_Menu::InsertRadioItem( pos, id, item, helpString )
+wxMenu::InsertRadioItem( pos, id, item, helpString )
      size_t pos
      int id
      wxString item
      wxString helpString
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->InsertRadioItem( pos, id, item, helpString ) ) );
+#else
+    THIS->InsertRadioItem( pos, id, item, helpString );
+#endif
 
 void
-Wx_Menu::InsertSeparator( pos )
+wxMenu::InsertSeparator( pos )
     size_t pos
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->InsertSeparator( pos ) ) );
+#else
+    THIS->InsertSeparator( pos );
+#endif
 
 bool
-Wx_Menu::IsChecked( id )
+wxMenu::IsChecked( id )
     int id
 
 bool
-Wx_Menu::IsEnabled( id )
+wxMenu::IsEnabled( id )
     int id
 
 void
-Wx_Menu::PrependString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
+wxMenu::PrependString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
     int id
     wxString item
     wxString help
     wxItemKind kind
-  CODE:
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Prepend( id, item, help, kind ) ) );
+#else
     THIS->Prepend( id, item, help, kind );
+#endif
 
 void
-Wx_Menu::PrependItem( menuItem )
-    Wx_MenuItem* menuItem
+wxMenu::PrependItem( menuItem )
+    wxMenuItem* menuItem
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Prepend( menuItem ) ) );
+#else
     THIS->Prepend( menuItem );
+#endif
 
 void
-Wx_Menu::PrependSubMenu( id, item, subMenu, helpString = wxEmptyString )
+wxMenu::PrependSubMenu( id, item, subMenu, helpString = wxEmptyString )
     int id
     wxString item
-    Wx_Menu* subMenu
+    wxMenu* subMenu
     wxString helpString
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->Prepend( id, item, subMenu, helpString ) ) );
+#else
     THIS->Prepend( id, item, subMenu, helpString );
+#endif
 
 void
-Wx_Menu::PrependCheckItem( id, item, helpString = wxEmptyString )
+wxMenu::PrependCheckItem( id, item, helpString = wxEmptyString )
     int id
     wxString item
     wxString helpString
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->PrependCheckItem( id, item, helpString ) ) );
+#else
+   THIS->PrependCheckItem( id, item, helpString );
+#endif
 
 void
-Wx_Menu::PrependRadioItem( id, item, helpString = wxEmptyString )
+wxMenu::PrependRadioItem( id, item, helpString = wxEmptyString )
     int id
     wxString item
     wxString helpString
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->PrependRadioItem( id, item, helpString ) ) );
+#else
+    THIS->PrependRadioItem( id, item, helpString );
+#endif
 
 void
-Wx_Menu::PrependSeparator()
+wxMenu::PrependSeparator()
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(),
+            THIS->PrependSeparator() ) );
+#else
+    THIS->PrependSeparator();
+#endif
 
-Wx_MenuItem*
-Wx_Menu::RemoveId( id )
+wxMenuItem*
+wxMenu::RemoveId( id )
     int id
   CODE:
     RETVAL = THIS->Remove( id );
   OUTPUT:
     RETVAL
 
-Wx_MenuItem*
-Wx_Menu::RemoveItem( item )
-    Wx_MenuItem* item
+wxMenuItem*
+wxMenu::RemoveItem( item )
+    wxMenuItem* item
   CODE:
     RETVAL = THIS->Remove( item );
   OUTPUT:
     RETVAL
 
 void
-Wx_Menu::SetHelpString( id, helpString )
+wxMenu::SetHelpString( id, helpString )
     int id
     wxString helpString
 
 void
-Wx_Menu::SetLabel( id, label )
+wxMenu::SetLabel( id, label )
     int id
     wxString label
 
 void
-Wx_Menu::SetTitle( title )
+wxMenu::SetTitle( title )
     wxString title
 
 void
-Wx_Menu::UpdateUI( source = 0 )
+wxMenu::UpdateUI( source = 0 )
     wxEvtHandler* source
 
 MODULE=Wx PACKAGE=Wx::MenuBar
 
-Wx_MenuBar*
-Wx_MenuBar::new( style = 0 )
+wxMenuBar*
+wxMenuBar::new( style = 0 )
     long style
 
 bool
-Wx_MenuBar::Append( menu, title )
-    Wx_Menu* menu
+wxMenuBar::Append( menu, title )
+    wxMenu* menu
     wxString title
 
 void
-Wx_MenuBar::Check( id, check )
+wxMenuBar::Check( id, check )
     int id
     bool check
 
 void
-Wx_MenuBar::Enable( id, enable )
+wxMenuBar::Enable( id, enable )
     int id
     bool enable
 
 void
-Wx_MenuBar::EnableTop( pos, enable )
+wxMenuBar::EnableTop( pos, enable )
     int pos
     bool enable
 
 void
-Wx_Menu::FindItem( id )
+wxMenu::FindItem( id )
     int id
   PPCODE:
     wxMenu* submenu;
@@ -346,108 +452,108 @@ Wx_Menu::FindItem( id )
     }
 
 int
-Wx_MenuBar::FindMenu( title )
+wxMenuBar::FindMenu( title )
     wxString title
 
 int
-Wx_MenuBar::FindMenuItem( menuString, itemString )
+wxMenuBar::FindMenuItem( menuString, itemString )
     wxString menuString
     wxString itemString
 
 wxString
-Wx_MenuBar::GetHelpString( id )
+wxMenuBar::GetHelpString( id )
     int id
 
 wxString
-Wx_MenuBar::GetLabel( id )
+wxMenuBar::GetLabel( id )
     int id
 
 wxString
-Wx_MenuBar::GetLabelTop( id )
+wxMenuBar::GetLabelTop( id )
     int id
 
-Wx_Menu*
-Wx_MenuBar::GetMenu( index )
+wxMenu*
+wxMenuBar::GetMenu( index )
     int index
 
 int
-Wx_MenuBar::GetMenuCount()
+wxMenuBar::GetMenuCount()
 
 bool
-Wx_MenuBar::Insert( pos, menu, title )
+wxMenuBar::Insert( pos, menu, title )
     int pos
-    Wx_Menu* menu
+    wxMenu* menu
     wxString title
 
 bool
-Wx_MenuBar::IsChecked( id )
+wxMenuBar::IsChecked( id )
     int id
 
 bool
-Wx_MenuBar::IsEnabled( id )
+wxMenuBar::IsEnabled( id )
     int id
 
 void
-Wx_MenuBar::Refresh()
+wxMenuBar::Refresh()
 
-Wx_Menu*
-Wx_MenuBar::Remove( pos )
+wxMenu*
+wxMenuBar::Remove( pos )
     int pos
 
-Wx_Menu*
-Wx_MenuBar::Replace( pos, menu, title )
+wxMenu*
+wxMenuBar::Replace( pos, menu, title )
     int pos
-    Wx_Menu* menu
+    wxMenu* menu
     wxString title
 
 void
-Wx_MenuBar::SetHelpString( id, helpString )
+wxMenuBar::SetHelpString( id, helpString )
     int id
     wxString helpString
 
 void
-Wx_MenuBar::SetLabel( id, label )
+wxMenuBar::SetLabel( id, label )
     int id
     wxString label
 
 void
-Wx_MenuBar::SetLabelTop( pos, label )
+wxMenuBar::SetLabelTop( pos, label )
     int pos
     wxString label
 
 MODULE=Wx PACKAGE=Wx::MenuItem
 
-Wx_MenuItem*
-Wx_MenuItem::new( parentMenu = 0, id = -1, text = wxEmptyString, helpString = wxEmptyString, itemType = wxITEM_NORMAL, subMenu = 0 )
-     Wx_Menu* parentMenu
+wxMenuItem*
+wxMenuItem::new( parentMenu = 0, id = -1, text = wxEmptyString, helpString = wxEmptyString, itemType = wxITEM_NORMAL, subMenu = 0 )
+     wxMenu* parentMenu
      int id
      wxString text
      wxString helpString
      wxItemKind itemType
-     Wx_Menu* subMenu
+     wxMenu* subMenu
 
 void
-Wx_MenuItem::Check( check )
+wxMenuItem::Check( check )
     bool check
 
 # void
-# Wx_MenuItem::DeleteSubMenu()
+# wxMenuItem::DeleteSubMenu()
 
 void
-Wx_MenuItem::Enable( enable )
+wxMenuItem::Enable( enable )
     bool enable
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
-Wx_Colour*
-Wx_MenuItem::GetBackgroundColour()
+wxColour*
+wxMenuItem::GetBackgroundColour()
   CODE:
     RETVAL = new wxColour( THIS->GetBackgroundColour() );
   OUTPUT:
    RETVAL
 
-Wx_Font*
-Wx_MenuItem::GetFont()
+wxFont*
+wxMenuItem::GetFont()
   CODE:
     RETVAL = new wxFont( THIS->GetFont() );
   OUTPUT:
@@ -459,8 +565,8 @@ Wx_MenuItem::GetFont()
  defined( __WXGTK__ ) || \
  defined( __WXPERL_FORCE__ )
 
-Wx_Bitmap*
-Wx_MenuItem::GetBitmap()
+wxBitmap*
+wxMenuItem::GetBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmap() );
   OUTPUT:
@@ -469,16 +575,16 @@ Wx_MenuItem::GetBitmap()
 #endif
 
 wxString
-Wx_MenuItem::GetHelp()
+wxMenuItem::GetHelp()
 
 int
-Wx_MenuItem::GetId()
+wxMenuItem::GetId()
 
 wxItemKind
-Wx_MenuItem::GetKind()
+wxMenuItem::GetKind()
 
 wxString
-Wx_MenuItem::GetLabel()
+wxMenuItem::GetLabel()
 
 wxString
 GetLabelFromText( text )
@@ -491,20 +597,20 @@ GetLabelFromText( text )
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 int
-Wx_MenuItem::GetMarginWidth()
+wxMenuItem::GetMarginWidth()
 
 #endif
 
 wxString
-Wx_MenuItem::GetText()
+wxMenuItem::GetText()
 
-Wx_Menu*
-Wx_MenuItem::GetSubMenu()
+wxMenu*
+wxMenuItem::GetSubMenu()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
-Wx_Colour*
-Wx_MenuItem::GetTextColour()
+wxColour*
+wxMenuItem::GetTextColour()
   CODE:
     RETVAL = new wxColour( THIS->GetTextColour() );
   OUTPUT:
@@ -513,57 +619,57 @@ Wx_MenuItem::GetTextColour()
 #endif 
 
 bool
-Wx_MenuItem::IsCheckable()
+wxMenuItem::IsCheckable()
 
 bool
-Wx_MenuItem::IsChecked()
+wxMenuItem::IsChecked()
 
 bool
-Wx_MenuItem::IsEnabled()
+wxMenuItem::IsEnabled()
 
 bool
-Wx_MenuItem::IsSeparator()
+wxMenuItem::IsSeparator()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_MenuItem::SetBackgroundColour( colour )
-    Wx_Colour* colour
+wxMenuItem::SetBackgroundColour( colour )
+    wxColour* colour
   CODE:
     THIS->SetBackgroundColour( *colour );
 
 void
-Wx_MenuItem::SetFont( font )
-    Wx_Font* font
+wxMenuItem::SetFont( font )
+    wxFont* font
   CODE:
     THIS->SetFont( *font );
 
 #endif
 
 void
-Wx_MenuItem::SetHelp( helpString )
+wxMenuItem::SetHelp( helpString )
     wxString helpString
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
-Wx_MenuItem::SetMarginWidth( width )
+wxMenuItem::SetMarginWidth( width )
     int width
 
 # void
-# Wx_MenuItem::SetName( text )
+# wxMenuItem::SetName( text )
 #     wxString text
 
 void
-Wx_MenuItem::SetTextColour( colour )
-    Wx_Colour* colour
+wxMenuItem::SetTextColour( colour )
+    wxColour* colour
   CODE:
     THIS->SetTextColour( *colour );
 
 void
-Wx_MenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
-    Wx_Bitmap* checked
-    Wx_Bitmap* unchecked
+wxMenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
+    wxBitmap* checked
+    wxBitmap* unchecked
   CODE:
     THIS->SetBitmaps( *checked, *unchecked );
 
@@ -572,8 +678,8 @@ Wx_MenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
 #if defined( __WXMSW__ ) || defined( __WXGTK__ )
 
 void
-Wx_MenuItem::SetBitmap( bitmap )
-    Wx_Bitmap* bitmap
+wxMenuItem::SetBitmap( bitmap )
+    wxBitmap* bitmap
   CODE:
     THIS->SetBitmap( *bitmap );
 

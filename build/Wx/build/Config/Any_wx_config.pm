@@ -108,7 +108,7 @@ sub get_flags {
   }
 
   $config{LD} = $this->wx_config( 'ld' );
-  $config{LD} =~ s/\-o\s*$/ /; # wxWindows puts 'ld -o' into LD
+  $config{LD} =~ s/\-o\s*$/ /; # wxWidgets puts 'ld -o' into LD
 
   my $cccflags = $this->wx_config( 'cxxflags' );
   my $libs = $this->wx_config( 'libs' );

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        SplashFast.pm
+## Name:        ext/pperl/splashfast/SplashFast.pm
 ## Purpose:     Wx::Perl::SplashFast -> Show a splash before loading Wx.
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     30/06/2002
-## RCS-ID:      $Id: SplashFast.pm,v 1.12 2003/11/29 21:57:39 mbarbon Exp $
+## RCS-ID:      $Id: SplashFast.pm,v 1.13 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -213,11 +213,6 @@ Timeout of the splash screen in milliseconds.
   $myApp->SetTopWindow( $win ) ;
   $myApp->MainLoop();
 
-=head1 NOTE
-
-This package only works if wxPerl has been compiled against
-wxWindows 2.3.x.
-
 =head1 SEE ALSO
 
 L<Wx>, L<Wx:SplashScreen>
@@ -225,7 +220,7 @@ L<Wx>, L<Wx:SplashScreen>
 =head1 AUTHOR
 
 Graciliano M. P. <gm@virtuasites.com.br>
-Thanks to wxWindows peoples and Mattia Barbon for wxPerl! :P
+Thanks to wxWidgets people and Mattia Barbon for wxPerl! :P
 
 =head1 COPYRIGHT
 

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        ClassInfo.xs
+## Name:        XS/ClassInfo.xs
 ## Purpose:     XS for Wx::ClassInfo the CLASSINFO macro
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     20/11/2000
-## RCS-ID:      
+## RCS-ID:      $Id: ClassInfo.xs,v 1.4 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,7 +12,7 @@
 
 MODULE=Wx PACKAGE=Wx::ClassInfo
 
-Wx_ClassInfo*
+wxClassInfo*
 FindClass( name )
     wxChar* name
   CODE:
@@ -21,10 +21,10 @@ FindClass( name )
     RETVAL
 
 const wxChar*
-Wx_ClassInfo::GetBaseClassName1()
+wxClassInfo::GetBaseClassName1()
 
 const wxChar*
-Wx_ClassInfo::GetBaseClassName2()
+wxClassInfo::GetBaseClassName2()
 
 const wxChar*
-Wx_ClassInfo::GetClassName()
+wxClassInfo::GetClassName()

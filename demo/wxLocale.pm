@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        wxLocale.pm
+## Name:        demo/wxLocale.pm
 ## Purpose:     wxLocale demo
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     12/ 9/2001
-## RCS-ID:      
+## Created:     12/09/2001
+## RCS-ID:      $Id: wxLocale.pm,v 1.5 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -65,7 +65,7 @@ sub description {
 
 <p>
   The first step in internationalization is message translation.
-  wxWindows, and hence wxPerl uses the GNU gettext approach, and message
+  wxWidgets, and hence wxPerl uses the GNU gettext approach, and message
   catalogs are compatible with the gettext ones.
 </p>
 

@@ -4,7 +4,7 @@
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     27/02/2003
-## RCS-ID:      $Id: Socket.pm,v 1.9 2004/02/14 14:25:32 mbarbon Exp $
+## RCS-ID:      $Id: Socket.pm,v 1.10 2004/02/28 22:59:07 mbarbon Exp $
 ## Copyright:   (c) 2003-2004 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -149,7 +149,7 @@ Wx::Socket - wxSocket* classes
 
 =head1 METHODS
 
-All the methods work as in wxWindows (see the documentation).
+All the methods work as in wxWidgets (see the documentation).
 
 The functions for reading data (Read, ReadMsg, Peek) take 3 arguments,
 like the Perl read() function:
@@ -180,7 +180,7 @@ The events are:
     EVT_SOCKET_CONNECTION
     EVT_SOCKET_LOST
 
-The EVT_SOCKET works as in wxWindows, the others are wxPerl extensions.
+The EVT_SOCKET works as in wxWidgets, the others are wxPerl extensions.
 
 Note that EVT_SOCKET events of wxSocketClient and wxSocketServer
 work differently than other event types.

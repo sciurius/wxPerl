@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Locale.xs
+## Name:        XS/Locale.xs
 ## Purpose:     XS for Wx::Locale
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs,v 1.20 2003/08/02 20:55:17 mbarbon Exp $
+## RCS-ID:      $Id: Locale.xs,v 1.21 2004/02/28 22:59:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -123,7 +123,7 @@ GetSystemLanguage()
 int
 Wx_Locale::GetLanguage()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 wxString
 wxLocale::GetLanguageName( lang )
