@@ -245,7 +245,6 @@ cpp/sashwindow.h
 cpp/scrolledwindow.h
 cpp/singlechoicedialog.h
 cpp/sizer.h
-cpp/splitterwindow.h
 cpp/statusbar.h
 cpp/streams.h
 cpp/timer.h
@@ -483,4 +482,5 @@ demo/wxGridSizer.pm
 demo/wxFlexGridSizer.pm
 demo/wxNotebookSizer.pm
 demo/wxWizard.pm
+demo/wxScrollBar.pm
 demo/wxScrolledWindow.pm
