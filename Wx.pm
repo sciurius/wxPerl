@@ -32,7 +32,8 @@ use strict;
 require Exporter;
 
 use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
-  $_platform $_universal $_msw $_gtk $_motif $_mac $_wx_version $_static $_unicode);
+  $_platform $_universal $_msw $_gtk $_motif $_mac $_wx_version $_static
+  $_unicode);
 
 $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4;
 
@@ -75,16 +76,7 @@ sub import {
   foreach ( @_ ) {
     m/^:/ or last;
     m/^:allclasses$/ and do {
-      eval <<'EOT';
-use Wx::DND;
-use Wx::DocView;
-use Wx::FS;
-use Wx::Grid;
-use Wx::Help;
-use Wx::Html;
-use Wx::MDI;
-use Wx::Print;
-EOT
+      eval _get_packages();
 
       die $@ if $@;
 

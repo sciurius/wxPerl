@@ -332,6 +332,8 @@ static wxPlINH inherit[] =
 
 #if defined(__WXMSW__)
     I( MemoryDC,        DC )
+#elif defined(__WXMAC__)
+    I( MemoryDC,        PaintDC )
 #else
     I( MemoryDC,        WindowDC )
 #endif
@@ -375,13 +377,13 @@ static wxPlINH inherit[] =
     I( StatusBar,       Window )
 #endif
 
-#if defined(__WXMOTIF__)
+#if defined(__WXMOTIF__) || defined(__WXMAC__)
     I( Cursor,          Bitmap )
 #elif !defined(__WXGTK__)
     I( Cursor,          GDIObject )
 #endif
 
-#if defined(__WXGTK__) || defined(__WXMOTIF__)
+#if defined(__WXGTK__) || defined(__WXMOTIF__) || defined(__WXMAC__)
     I( Icon,            Bitmap )
 #else
     I( Icon,            GDIObject )
@@ -425,9 +427,14 @@ static wxPlINH inherit[] =
     I( ProcessEvent,    Event )
     I( QueryLayoutInfoEvent, Event )
     I( SashEvent,       CommandEvent )
+    I( ScrollEvent,     CommandEvent )
     I( SizeEvent,       Event )
     I( ScrollWinEvent,  Event )
+#if defined(__WXMAC__)
+    I( SpinEvent,       ScrollEvent )
+#else
     I( SpinEvent,       NotifyEvent )
+#endif
     I( SysColourChangedEvent, Event )
     I( TextUrlEvent,    CommandEvent )
     I( TimerEvent,      Event )
@@ -1992,3 +1999,37 @@ SetEvents()
 
 void
 SetInheritance()
+
+char*
+_get_packages()
+  CODE:
+    static const char packages[] = ""
+#if wxPERL_USE_DND && !defined(__WXMAC__) && !defined(__WXMOTIF__)
+    "use Wx::DND;"
+#endif
+#if wxPERL_USE_DOCVIEW && !defined(__WXMAC__)
+    "use Wx::DocView;"
+#endif
+#if wxPERL_USE_FILESYS
+    "use Wx::FS;"
+#endif
+#if wxPERL_USE_GRID
+    "use Wx::Grid;"
+#endif
+#if wxPERL_USE_HELP
+    "use Wx::Help;"
+#endif
+#if wxPERL_USE_HTML
+    "use Wx::Html;"
+#endif
+#if wxPERL_USE_MDI
+    "use Wx::MDI;"
+#endif
+#if wxPERL_USE_PRINT
+    "use Wx::Print;"
+#endif
+    ;
+
+    RETVAL = (char*)packages;
+  OUTPUT:
+    RETVAL

@@ -162,11 +162,14 @@ my $good_combo = 'Wx::ComboBox'->isa( 'Wx::Choice' );
 hijack( 'Wx::ControlWithItems::AppendString' => sub { $cwiappendstr = 1 },
         'Wx::ControlWithItems::AppendData'   => sub { $cwiappenddata = 1 },
         ( $good_combo ? () :
-          ( 'Wx::ComboBox::AppendString'         => sub { $cbappendstr = 1 },
-            'Wx::ComboBox::AppendData'           => sub { $cbappenddata = 1 } )
+          ( 'Wx::ComboBox::AppendString'     => sub { $cbappendstr = 1 },
+            'Wx::ComboBox::AppendData'       => sub { $cbappenddata = 1 } )
         ),
         'Wx::ComboBox::SetMark'              => sub { $cbsetselectionNN = 1 },
-        'Wx::ComboBox::SetSelectionN'        => sub { $cbsetselectionN = 1 } );
+        ( !Wx::wxMAC() ?
+          ( 'Wx::ComboBox::SetSelectionN'    => sub { $cbsetselectionN = 1 } )
+          : () ),
+       );
 
 my $cwi = Wx::ListBox->new( $frame, -1 );
 my $cb = Wx::ComboBox->new( $frame, -1, 'bar' );
@@ -186,8 +189,13 @@ if( !$good_combo  ) {
 ok( $cbappendstr,     "Wx::ComboBox::AppendString" );
 ok( $cbappenddata,    "Wx::ComboBox::AppendData" );
 
-$cb->SetSelection( 0 );
-ok( $cbsetselectionN, "Wx::ComboBox::SetSelectionN" );
+SKIP: {
+  skip "Segfaults on wxMAC", 1 if Wx::wxMAC();
+
+  $cb->SetSelection( 0 );
+  ok( $cbsetselectionN, "Wx::ComboBox::SetSelectionN" );
+}
+
 $cb->SetSelection( 0, 1 );
 ok( $cbsetselectionNN,"Wx::ComboBox::SetMark" );
 }
@@ -198,7 +206,7 @@ ok( $cbsetselectionNN,"Wx::ComboBox::SetMark" );
 {
 my( $newid, $newimage, $newfile ) = ( 0, 0, 0 );
 hijack( 'Wx::Cursor::newId'    => sub { $newid = 1 },
-        ( Wx::wxVERSION() >= 2.003002
+        ( Wx::wxVERSION() >= 2.003002 && !Wx::wxMAC()
           ? ( 'Wx::Cursor::newImage' => sub { $newimage = 1 } )
           : () ),
         ( Wx::wxMSW()
@@ -209,7 +217,8 @@ Wx::Cursor->new( 1 );
 ok( $newid,    "Wx::Cursor::newId" );
 
 SKIP: {
-  skip "Only for wxWindows 2.3.x", 1 unless Wx::wxVERSION() >= 2.003002;
+  skip "Only for wxWindows 2.3.x", 1
+    unless Wx::wxVERSION() >= 2.003002 && !Wx::wxMAC();
 
   Wx::Cursor->new( Wx::Image->new( 1, 1 ) );
   ok( $newimage, "Wx::Cursor::newImage" );

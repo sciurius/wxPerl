@@ -1,12 +1,11 @@
 wxPerl is a wrapper built around the wxWindows GUI toolkit
 
-Copyright (c) 2000-2002 Mattia Barbon.
+Copyright (c) 2000-2003 Mattia Barbon.
 This package is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
 You need wxWindows in order to build wxPerl (see http://www.wxwindows.org/).
-At this moment you may only use GTK or Win32 ( Motif in alpha stage ) 
- as windowing toolkits for wxPerl.
+You can use GTK, Win32, Mac OS X and Motif as windowing toolkits for wxPerl.
 
 Please read the DEPRECATIONS section at the bottom!
 
@@ -26,17 +25,19 @@ TESTED PLATFORMS:
 Perl            | OS            | wxWindows      | Compiler
 ----------------+---------------+----------------+-------------------
 ActivePerl 616  | Windows 2000  | wxMSW 2.2.9    | MSVC 5
-       620,628  |               | wxMSW 2.3.3    | MSVC 6
+       620,628  |               | wxMSW 2.4.0    | MSVC 6
 5.6.1           |               |                | MinGW GCC
 5.8.0           |               |                |
 ----------------+---------------+----------------+-------------------
 5.005_03        | Debian 3.0    | wxGTK 2.2.9    | GCC 2.95.2
-5.8.0           | RedHat 7.1    | wxGTK 2.3.2    |
-5.004_04 [1]    |               | wxGTK 2.3.3    |
-5.6.1           |               | wxMotif 2.3.3  |
+5.8.0           | RedHat 7.1    | wxGTK 2.4.0    |
+5.004_04 [1]    |               |                |
+5.6.1           |               | wxMotif 2.4.0  |
 ----------------+---------------+----------------+-------------------  
+5.8.0           | Mac OS X 10.2 | wxMac 2.4.0    | GCC 3.1
+----------------+---------------+----------------+-------------------
 
-wxPerl has also been reported to work on FreeBSD.
+wxPerl has also been reported to work on FreeBSD and IRIX.
 
 [1] see docs/bugs.txt
 

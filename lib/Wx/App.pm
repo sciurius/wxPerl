@@ -36,7 +36,7 @@ sub new {
 
   my $ret = Wx::_App::Start($this,$this->can('OnInit'));
   Wx::_croak( 'OnInit must return a true return value' )
-    unless $ret || Wx::wxMAC(); # why does perl return 0?
+    unless $ret || Wx::wxMAC(); # why does OnInit always return 0 on Mac?
 
   $this;
 }

@@ -4,7 +4,8 @@
 You need to install wxWindows before you can compile wxPerl.
 For UNIX systems look at the section "INSTALL wxWindows"; for Win32
 systems, detailed build instructions for wxWindows + wxPerl are included
-in the section "COMPILING UNDER WIN32"
+in the section "COMPILING UNDER WIN32"; for Mac OS X, refer to
+"INSTALL wxWindows", and then to "PREPARING Perl on MAC OS X"
 ****************************************************************************
 
 * QUICK INSTALLATION
@@ -50,19 +51,19 @@ In addition to ExtUtils::MakeMaker flags wxPerl Makefile.PL accepts
 
 * SPECIFYING C++ COMPILER
 
-wxPerl needs a C++ compiler to build itself. Under Windows there is no
+  wxPerl needs a C++ compiler to build. Under Windows there is no
 problem, since there are only 2 supported compilers. Under Unix, if
 your Perl was built with GCC all should be fine, otherwise wxPerl does
 nothing and warns you at Makefile.PL time; in this case you will almost 
-surely need to add some special flags ( via EXTRA_CFLAGS ) or to specify 
-a different compiler ( via perl Makefile.PL CC=c++-compiler ).
+surely need to add some special flags (via --extra-cflags) or to specify 
+a different compiler (via perl Makefile.PL CC=c++-compiler)..
  
-( INSTALLING wxWindows ( on UNIX systems )
+* INSTALLING wxWindows (on UNIX systems and Mac OS X)
 
-For UNIX systems only. If you are using the prepackaged binaries, you
+  For UNIX systems only. If you are using the prepackaged binaries, you
 need to install the -dev packages in order to compile wxPerl, otherwise
 you just need the main package and the -contrib package.
-If you are compiling wxWindows yourself, th quick way is:
+If you are compiling wxWindows yourself, the quick way is:
 
 ./configure
 make
@@ -71,11 +72,11 @@ cd contrib/src/stc
 make
 make install
 # if you are using wxWindows 2.3.2 or newer
-cd ../../contrib/src/xrc
+cd ../xrc
 make
 make install
 
-If something goes wrong, please refer to the wxWindows
+  If something goes wrong, please refer to the wxWindows
 installation instructions.
 
 * COMPILING UNDER WIN32
@@ -180,3 +181,18 @@ is on the ExtUtils::MakeMaker manpage
 perldoc ExtUtils::MakeMaker 
 
 for details.
+
+* PREPARING Perl on MAC OS X
+
+  The 'perl' executable shipped with your OS can't be used to run execytables
+that interact with the GUI, hence you need to prepare a special 'wxPerl'
+executable. Let's assume that your 'perl' is in '/usr/local/bin/perl'.
+  First, you ned to install wxWindows, then do the following from the
+command prompt:
+
+$ cp /usr/local/bin/perl wxPerl
+$ `wx-config --rezflags` wxPerl
+
+Now test your shiny new wxPerl executable:
+
+$ wxPerl -Mblib samples/minimal/minimal.pl
