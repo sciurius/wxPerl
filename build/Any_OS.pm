@@ -5,38 +5,6 @@ use Config;
 use File::Find;
 use wxMMUtils;
 
-#FIXME// this is an horrendous hack...
-# since MakeMaker does only understand Makefile.PL une level below
-# the top directory, and we need towo level below, we add one additional
-# level to INST_* constants beginning with 'updir' ( usually '..' )
-sub constants {
-  my $this = shift;
-
-  if( $this->{PARENT} ) {
-    foreach my $k ( sort keys %$this ) {
-      $k !~ m/^INST_/ && next;
-      my $dir = $this->{$k};
-      if( index( $dir, $this->updir ) == 0 ) {
-        $this->{$k} = $this->canonpath( $this->catdir
-          ( top_dir(), substr $dir, length( $this->updir ) ) );
-      }
-    }
-
-    if( $] >= 5.007003 ) {
-      foreach my $k ( keys %{$this->{PM}} ) {
-        my $dir = $this->{PM}{$k};
-        if( index( $dir, $this->updir ) == 0 ) {
-          $this->{PM}{$k} = $this->canonpath( $this->catdir
-            ( top_dir(), substr $dir, length( $this->updir ) ) );
-        }
-      }
-    }
-  }
-
-  package MY;
-  $this->SUPER::constants( @_ );
-}
-
 sub depend {
   my $this = shift;
   my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );

@@ -18,7 +18,8 @@ use ExtUtils::MakeMaker;
 
 # parse command line variables
 use vars qw($debug_mode $unicode_mode $extra_libs $extra_cflags
-            $use_shared $use_dllexport $o_help $o_mksymlinks);
+            $use_shared $use_dllexport $o_help $o_mksymlinks
+            $subdirs);
 use vars qw($Arch);
 use Getopt::Long;
 
@@ -60,7 +61,8 @@ sub splitpath {
 if( $o_mksymlinks ) {
   require FindBin;
   require ExtUtils::Manifest;
-  if( $] >= 5.005 ) {
+  # 5.005 does not have splitpath...
+  if( $] >= 5.006 ) {
     require File::Spec;
   } else {
     eval <<'EOT'
@@ -160,6 +162,11 @@ sub wxWriteMakefile {
     if( $i eq 'WXLIB' ) {
       $params{LIBS} .= $Arch->wx_lib( $params{$i} );
       delete $params{WXLIB};
+    }
+
+    if( $i eq 'WXSUBDIRS' ) {
+      $subdirs = $params{WXSUBDIRS};
+      delete $params{WXSUBDIRS};
     }
 
     if( $i eq 'REQUIRE_WX' ) {

@@ -35,15 +35,12 @@ wxWriteMakefile( NAME => 'Wx',
                  ABSTRACT_FROM => 'Wx.pm',
                  AUTHOR => 'Mattia Barbon <mbarbon@dsi.unive.it>',
                  VERSION_FROM => 'Wx.pm',
-                 DIR => [ MM->catdir( qw(ext grid) ),
-                          MM->catdir( qw(ext mdi) ),
-                          MM->catdir( qw(ext dnd) ),
-                          MM->catdir( qw(ext html) ),
-                          MM->catdir( qw(ext help) ),
-                          MM->catdir( qw(ext filesys) ),
-                          MM->catdir( qw(ext print) ),
-                          MM->catdir( qw(ext xrc) ),
-                        ],
+                 # at some point it will be possibile
+                 # to exclude some subdirs from the build
+                 WXSUBDIRS => [ 'dnd', 'filesys', 'grid', 'help',
+                                'html', 'mdi', 'print',
+                                'xrc'
+                               ],
                  OBJECT => join( ' ', obj_from_src( @top_level_xs ) ) . ' ',
                );
 
