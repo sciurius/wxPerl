@@ -73,6 +73,8 @@ sub depend_core {
                  '$(INST_STATIC)'  => $exp,
                  '$(INST_DYNAMIC)' => $exp,
                  'pm_to_blib'      => 'copy_files',
+                 'blibdirs'        => 'copy_files',
+                 'blibdirs.ts'     => 'copy_files',
                  'copy_files'      => join( ' ', keys %files ),
                );
   my %this_depend = @_;
