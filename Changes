@@ -1,10 +1,20 @@
 Revision history for Perl extension Wx.
 
-0.06  Sat Mar 10 17:54:56 2001
+0.07  Thu Jul 19 13:46:58 2001
+	- wxFileSystem & related classes wrappers
+	- wxHtmlEasyPrinting, wxPageSetupDialog
+	- Unicode support for Perl 5.6
+	- Printing Framework
+
+0.06  Tue Apr 10 17:28:56 2001
 	- changelog started
 	- new, modular build system
-        - Wx object module now exports functions ( using __declspec
-          on Win32, an auxiliary structure containig pointer to functions
-          on other platforms ) to related extension modules
+	- Wx object module now exports functions ( using __declspec
+	  on Win32, an auxiliary structure containig pointer to functions
+	  on other platforms ) to related extension modules
 	- infrastructure for other modules exporting
 	  constants from Wx
+	- wxStream wrappers
+	- wxHtmlWindow, wxHtmlHelpController wrappers
+	- wx*HelpController* wrappers
+	- added ppmdist target for Win32

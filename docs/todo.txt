@@ -1,15 +1,12 @@
-PRIORITY HIGH:
-
 PRIORITY NORMAL:
 
-* Wx::App::new
-    find a better solution yhan just 'croak' if OnInit
-    returns a false value
+* move THIS from HV to the MAGIC?
+  
+* submit to CPAN 
+  Wx  am+Op  Wrapper for wxWindows XP GUI toolkit MBARBON
 
-* Wx::Bitmap, Wx::Icon, Wx::Image, Wx::Cursor
+* Wx::Bitmap, Wx::Icon, Wx::Cursor
     add missing constructors ( where applicable )
-    FindHandler and handler related functions ( are they needed? )
-    Wx::Image::Get/SetData
 
 * Wx::ListCtrl
     Overloaded InsertItem?
@@ -17,10 +14,6 @@ PRIORITY NORMAL:
 * Wx::Window
     LoadFromResource
     SetDropTarget
-
-* Wx::Locale ( 2.3 )
-    Wx::LanguageInfo
-    AddLanguage
 
 * Decrease compilation time/code bloat:
     Use precompiled headers where appropriate
@@ -32,6 +25,7 @@ PRIORITY NORMAL:
 * Wx::HtmlWindow
     AddFilter
     GetInternalRepresentation
+    Fix inheritance...
 
 * Wx::HtmlHelp
     CreateHelpFrame
@@ -40,17 +34,41 @@ PRIORITY NORMAL:
     OnQuit
     Get/SetFrameParameters
 
+* Wx::Stream
+    Better READLINE
+    Support for $/, etc
+
 PRIORITY LOW:
+
+* Decent wxClassInfo initialization strategy
 
 * Wx::App methods
     CreateLogTarget
+
+* Wx::App::new
+    find a better solution yhan just 'croak' if OnInit
+    returns a false value
 
 * ::wxCreateFileTipProvider, ::wxShowTip
     implement
 
 * Wx::Help
     enable all Wx::*Help* available in the current setup
-  
+
+* Wx::PrintData
+    PostScript specific functions
+    overloaded constructors
+
+* Wx::PageSetupDialogData
+    overloaded constructors
+
+* Wx::PreviewFrame
+    CreateControlBar
+    CreateCanvas
+
+* Wx::PreviewControlBar
+    CreateButtons
+
 * operator == and != ( are they useful/have side effects? )
     Wx::AcceleratorTable
     Wx::Bitmap ( enable )
@@ -68,11 +86,6 @@ PRIORITY LOW:
     Wx::Pen
 
 DOCUMENTATTION:
-
-* Wx::HtmlHelp
-    CreateHelpFrame
-
-* Wx::ContextHelp & c
 
 -- not documented in wxWindows --
 
