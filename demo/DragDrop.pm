@@ -39,17 +39,20 @@ sub new {
   my $this = $class->SUPER::new( @_ );
 
   Wx::StaticText->new( $this, -1, 'Drop text in listbox', [ 10, 10 ] );
-  my $droptext = Wx::ListBox->new( $this, -1, [ 10 , 40 ] );
+  my $droptext = Wx::ListBox->new( $this, -1, [ 10 , 40 ], [ 150, 90 ] );
 
   Wx::StaticText->new( $this, -1, 'Drop bitmap below', [ 200, 10 ] );
-  my $window = Wx::Window->new( $this, -1, [ 200, 40 ], [ 400, 50 ] );
+  my $window = Wx::Window->new( $this, -1, [ 200, 40 ], [ 100, 50 ] );
   $window->SetBackgroundColour( wxRED );
   my $dropbitmap = Wx::StaticBitmap->new( $this, -1, wxNullBitmap,
                                           [ 200, 100 ], [ 200, 200 ] );
+  Wx::StaticText->new( $this, -1, 'Drop files below', [ 10, 140 ] );
+  my $dropfiles = Wx::ListBox->new( $this, -1, [ 10, 170 ], [ 150, 50 ] );
 
-  my $dragsource = DNDDropSource->new( $this, -1, [ 10, 200 ] );
+  my $dragsource = DNDDropSource->new( $this, -1, [ 10, 230 ] );
 
   $droptext->SetDropTarget( DNDTextDropTarget->new( $droptext ) );
+  $dropfiles->SetDropTarget( DNDFilesDropTarget->new( $dropfiles ) );
   $window->SetDropTarget( DNDBitmapDropTarget->new( $dropbitmap ) );
   $dropbitmap->SetBitmap( Wx::Bitmap->new( wxTheApp->GetStdIcon( wxICON_HAND ) ) );
 
@@ -110,6 +113,32 @@ sub OnDropText {
   $data =~ s/[\r\n]+$//;
   Wx::LogMessage( "Dropped text: '$data'" );
   $this->{LISTBOX}->InsertItems( [ $data ], 0 );
+
+  return 1;
+}
+
+package DNDFilesDropTarget;
+
+use base qw(Wx::FileDropTarget);
+
+sub new {
+  my $class = shift;
+  my $listbox = shift;
+  my $this = $class->SUPER::new( @_ );
+
+  $this->{LISTBOX} = $listbox;
+
+  return $this;
+}
+
+sub OnDropFiles {
+  my( $this, $x, $y, $files ) = @_;
+
+  $this->{LISTBOX}->Clear;
+  Wx::LogMessage( "Dropped files at ($x, $y)" );
+  foreach my $i ( @$files ) {
+    $this->{LISTBOX}->Append( $i );
+  }
 
   return 1;
 }
