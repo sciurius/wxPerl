@@ -86,7 +86,8 @@ newFile( CLASS, name, type, desW = -1, desH = -1 )
 #endif
 
 Wx_Icon*
-newFromXPM( data )
+newFromXPM( CLASS, data )
+    SV* CLASS
     SV* data
   PREINIT:
     char** xpm_data;
