@@ -29,8 +29,12 @@ Wx_ListEvent::GetCacheTo()
 
 #endif
 
+#if WXWIN_COMPATIBILITY_2_2
+
 int
 Wx_ListEvent::GetCode()
+
+#endif
 
 long
 Wx_ListEvent::GetIndex()

@@ -113,8 +113,12 @@ Wx_TreeEvent::GetPoint()
   OUTPUT:
     RETVAL
 
+#if WXWIN_COMPATIBILITY_2_2
+
 int
 Wx_TreeEvent::GetCode()
+
+#endif
 
 wxString
 Wx_TreeEvent::GetLabel()
