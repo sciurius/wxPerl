@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.14
+0.14  Fri Apr 25 13:55:22 CEST 2003
 	- Added Wx::CalendarCtrl.
 	- Added Wx::DateTime (not the full interface).
 	- Restored compatibility with perl 5.005.
@@ -16,7 +16,7 @@ Revision history for Perl extension Wx.
 	- Mac OS X support (requires wxWindows 2.4.0 or newer).
 	- Added Wx::Socket* (thanks to Graciliano M. P.)
 
-0.12  Mon Dec 02 17:50:43 2002
+0.12  Mon Dec 02 17:50:43 CET 2002
 	- new DEPRECATIONS section in README.txt, please read it
 	- it is now possibile to get the native handle of a Wx::Window
 	- implemented wxWizard and related classes
@@ -27,7 +27,7 @@ Revision history for Perl extension Wx.
 	- implemented wxLogChain and wxLogPassThrough (2.3)
 	- Wx::PlLog, Wx::PlLogPassThrough, for custom logging
 
-0.11  Thu Aug 01 15:59:59 2002
+0.11  Thu Aug 01 15:59:59 CEST 2002
 	- wxTextAttr ( 2.3 )
 	- wxStyledTextControl, based on Scintilla
 	  (thanks to Marcus Friedlaender)
