@@ -77,8 +77,8 @@ Wx_ToolBarBase::EnableTool( toolId, enable )
 
 Wx_ToolBarToolBase*
 Wx_ToolBarBase::FindToolForPosition( x, y )
-    float x
-    float y
+    int x
+    int y
 
 Wx_Size*
 Wx_ToolBarBase::GetMargins()
