@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.79 2003/05/05 20:38:34 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.80 2003/05/05 20:55:15 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -247,7 +247,12 @@ static wxPlINH inherit[] =
     I( FindReplaceDialog, Dialog )
     I( FontDialog,      Dialog )
     I( DirDialog,       Dialog )
+#if defined(__WXGTK__)
+    I( GenericFileDialog, Dialog )
+    I( FileDialog,      GenericFileDialog )
+#else
     I( FileDialog,      Dialog )
+#endif
     I( TextEntryDialog, Dialog )
     I( MessageDialog,   Dialog )
     I( GenericMessageDialog, MessageDialog )

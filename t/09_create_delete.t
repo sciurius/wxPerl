@@ -32,7 +32,7 @@ foreach my $t ( @tests ) {
 
 Wx::Event::EVT_IDLE( $this,
                      sub { $this->Destroy } );
-$this->Destroy if Wx::wxMSW || Wx::wxGTK;
+$this->Destroy if Wx::wxMSW || Wx::wxGTK || Wx::wxMOTIF;
 };
 
 package main;
