@@ -69,20 +69,10 @@ Wx_FileHistory::GetNoHistoryFiles()
 
 #endif
 
-void
+SV*
 Wx_FileHistory::GetMenus()
-  PPCODE:
-    wxNode* menunode;
-    const wxList& menulist = THIS->GetMenus();
-    AV* aMenus = newAV();
-
-    for( menunode = menulist.GetFirst(); menunode;
-              menunode = menunode->GetNext() )
-    {
-       SV* plmenu = wxPli_object_2_sv( aTHX_ sv_newmortal(),
-                                       menunode->GetData() ); 
-       av_push( aMenus, plmenu );
-    } 
-    SV* menu_aref = newRV( (SV*)aMenus  );
-    PUSHs(menu_aref);
+  CODE:
+    AV* aMenus = wxPli_objlist_2_av( aTHX_ THIS->GetMenus() );
+    RETVAL = newRV_noinc( (SV*)aMenus  );
+  OUTPUT: RETVAL
 

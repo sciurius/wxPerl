@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.55 2003/06/04 20:48:20 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.56 2003/07/17 22:41:47 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -170,6 +170,7 @@ int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
 void wxPli_stringarray_push( pTHX_ const wxArrayString& strings );
 AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
 AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count );
+AV* FUNCPTR( wxPli_objlist_2_av )( pTHX_ const wxList& objs );
 
 void wxPli_delete_argv( void* argv, bool unicode );
 int wxPli_get_args_argc_argv( void* argv, bool unicode );
@@ -279,6 +280,7 @@ struct wxPliHelpers
                                                  size_t nproto,
                                                  int required = -1,
                                                  bool allow_more = FALSE );
+    AV* (* m_wxPli_objlist_2_av )( pTHX_ const wxList& objs );
 };
 
 #define DEFINE_PLI_HELPERS( name ) \
@@ -293,7 +295,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor, \
  &wxPli_cpp_class_2_perl, &wxPli_push_arguments, &wxPli_attach_object, \
  &wxPli_detach_object, &wxPli_create_evthandler, \
- &wxPli_match_arguments_skipfirst }
+ &wxPli_match_arguments_skipfirst, &wxPli_objlist_2_av }
 
 #if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
 
@@ -326,6 +328,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_detach_object = name->m_wxPli_detach_object; \
   wxPli_create_evthandler = name->m_wxPli_create_evthandler; \
   wxPli_match_arguments_skipfirst = name->m_wxPli_match_arguments_skipfirst; \
+  wxPli_objlist_2_av = name->m_wxPli_objlist_2_av; \
 
 #else
 

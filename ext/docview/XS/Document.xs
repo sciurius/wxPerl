@@ -29,6 +29,16 @@ Wx_Document::Close()
 bool
 Wx_Document::OnCloseDocument()
 
+void
+Wx_Document::NotifyClosing()
+
+SV*
+Wx_Document::GetViews()
+  CODE:
+    AV* arrViews = wxPli_objlist_2_av( aTHX_ THIS->GetViews() );
+    RETVAL = newRV_noinc( (SV*)arrViews  );
+  OUTPUT: RETVAL
+
 bool
 Wx_Document::DeleteAllViews()
 
@@ -60,6 +70,13 @@ Wx_Document::OnSaveDocument( file )
 bool
 Wx_Document::OnOpenDocument( file )
 	wxString file
+
+bool
+Wx_Document::GetDocumentSaved()
+
+void
+Wx_Document::SetDocumentSaved( saved )
+    bool saved
 
 bool
 Wx_Document::Revert()

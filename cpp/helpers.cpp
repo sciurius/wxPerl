@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.56 2003/06/05 17:29:26 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.57 2003/07/17 22:41:47 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -571,6 +571,22 @@ void wxPli_stringarray_push( pTHX_ const wxArrayString& strings )
     }
 
     PUTBACK;
+}
+
+AV* wxPli_objlist_2_av( pTHX_ const wxList& objs )
+{
+    AV* av = newAV();
+    size_t i;
+    wxList::Node* node;
+
+    av_extend( av, objs.GetCount() );
+    for( node = objs.GetFirst(), i = 0; node; ++i, node = node->GetNext() )
+    {
+        SV* tmp = wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ); 
+        av_store( av, i, tmp );
+    }
+
+    return av;
 }
 
 AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings )
