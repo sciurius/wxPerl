@@ -4,9 +4,10 @@ use strict;
 use Config;
 use base 'Exporter';
 
-use vars qw(@EXPORT);
+use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = qw(obj_from_src top_dir building_extension
              xs_depend merge_config wx_version wx_config is_platform);
+@EXPORT_OK = qw(unix_top_dir);
 
 #
 # convenience function
@@ -39,6 +40,21 @@ sub wx_version() {
     return $1 + $2 / 1000 + $3 / 1000000;
 
   die "unable to get wxWindows'version";
+}
+
+#
+# relative UNIX-ish path to the top dir
+#
+sub unix_top_dir() {
+  my $utop = '.';
+  my $top = MM->curdir;
+
+  until( -f MM->catfile( $top, 'Wx.pm' ) ) {
+    $top = MM->catdir( MM->updir, $top );
+    $utop = "../$utop";
+  }
+
+  return $utop;
 }
 
 #
@@ -180,6 +196,37 @@ sub scan_xs($$) {
   close IN;
 
   ( \@cinclude, \@xsinclude );
+}
+
+#
+# Cut'n'paste from 5.005_03 MakeMaker.pm
+#
+sub WriteEmptyMakefile {
+  if (-f 'Makefile.old') {
+    chmod 0666, 'Makefile.old';
+    unlink 'Makefile.old' or warn "unlink Makefile.old: $!";
+  }
+  rename 'Makefile', 'Makefile.old' or warn "rename Makefile Makefile.old: $!"
+    if -f 'Makefile';
+  open MF, '> Makefile' or die "open Makefile for write: $!";
+  print MF <<'EOP';
+all:
+
+clean:
+
+install:
+
+makemakerdflt:
+
+test:
+
+EOP
+  close MF or die "close Makefile for write: $!";
+}
+
+if( $] < 5.005 )
+{
+  *ExtUtils::MakeMaker::WriteEmptyMakefile = \&WriteEmptyMakefile
 }
 
 1;

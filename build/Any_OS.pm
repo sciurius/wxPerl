@@ -160,6 +160,18 @@ sub get_config {
   return $cfg;
 }
 
+# add -Ibuild (or -I../../build) to command line
+sub test {
+  my $this = shift;
+  package MY;
+  my $text = $this->SUPER::test( @_ );
+
+  my $build = wxMMUtils::unix_top_dir() . '/build';
+  $text =~ s/(\$\(FULLPERL\)\s+)/$1\"-I$build\" /gi;
+
+  return $text;
+}
+
 #
 # stubs from now on
 #
