@@ -158,7 +158,7 @@ sub configure {
     $config{DEFINE} .= " -DWXPL_EXT ";
     $config{INC} .= " -I" . top_dir() . " ";
   } else {
-    $config{clean} = { FILES => "$ovlc $ovlh .exists overload" };
+    $config{clean} = { FILES => "$ovlc $ovlh .exists overload " };
   }
 
   if( $wxConfig::o_static ) {
