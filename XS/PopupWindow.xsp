@@ -1,0 +1,192 @@
+#############################################################################
+## Name:        XS/PopupWindow.xsp
+## Purpose:     XS++ for Wx::PopupWindow and Wx::PopupTransientWindow
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     18/03/2005
+## RCS-ID:      $Id: PopupWindow.xsp,v 1.1 2005/03/19 18:12:58 mbarbon Exp $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxPopupWindow*}{simple};
+%typemap{wxPopupTransientWindow*}{simple};
+%typemap{wxPlPopupTransientWindow*}{simple};
+%typemap{wxMouseEvent&}{reference};
+
+%{
+#include "wx/popupwin.h"
+#include "cpp/popupwin.h"
+%}
+
+%file{cpp/popupwin.h};
+%{
+
+#define DEC_V_CBACK_BOOL__WXMOUSEEVENT( METHOD ) \
+  bool METHOD( wxMouseEvent& event )
+
+#define DEF_V_CBACK_BOOL__WXMOUSEEVENT( CLASS, BASE, METHOD ) \
+  bool CLASS::METHOD( wxMouseEvent& param1 )                                  \
+  {                                                                           \
+    dTHX;                                                                     \
+    if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                           \
+    {                                                                         \
+        wxAutoSV evt( aTHX_ wxPli_object_2_sv( aTHX_ newSViv( 0 ), &param1 ));\
+        wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,         \
+                                         "S", evt ) );                        \
+        sv_setiv( SvRV( evt ), 0 );                                           \
+        return SvTRUE( ret );                                                 \
+    } else                                                                    \
+        return BASE::METHOD( param1 );                                        \
+  }
+
+#define DEC_V_CBACK_VOID__WXPOINT_WXSIZE( METHOD ) \
+  void METHOD( const wxPoint&, const wxSize& )
+
+#define DEF_V_CBACK_VOID__WXPOINT_WXSIZE( CLASS, BASE, METHOD ) \
+  void CLASS::METHOD( const wxPoint& param1, const wxSize& param2 )          \
+  {                                                                          \
+      dTHX;                                                                  \
+      if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )  \
+      {                                                                      \
+          wxPliCCback( aTHX_ &m_callback, G_SCALAR|G_DISCARD, "oo",          \
+                       new wxPoint( param1 ), new wxSize( param2 ) );        \
+      } else                                                                 \
+          BASE::METHOD( param1, param2 );                                    \
+  }
+
+class wxPlPopupTransientWindow : public wxPopupTransientWindow
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPopupTransientWindow );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPlPopupTransientWindow,
+                               "Wx::PlPopupTransientWindow", true );
+    WXPLI_CONSTRUCTOR_2( wxPlPopupTransientWindow,
+                         "Wx::PlPopupTransientWindow", true,
+                         wxWindow*, int );
+
+    DEC_V_CBACK_VOID__WXPOINT_WXSIZE( Position );
+    DEC_V_CBACK_VOID__WXWINDOW( Popup );
+    DEC_V_CBACK_VOID__VOID( Dismiss );
+    DEC_V_CBACK_BOOL__VOID( CanDismiss );
+    DEC_V_CBACK_BOOL__WXMOUSEEVENT( ProcessLeftDown );
+    DEC_V_CBACK_BOOL__BOOL( Show );
+};
+
+DEF_V_CBACK_VOID__WXPOINT_WXSIZE( wxPlPopupTransientWindow,
+                                  wxPopupTransientWindow, Position );
+DEF_V_CBACK_VOID__WXWINDOW( wxPlPopupTransientWindow,
+                            wxPopupTransientWindow, Popup );
+DEF_V_CBACK_VOID__VOID( wxPlPopupTransientWindow,
+                        wxPopupTransientWindow, Dismiss );
+DEF_V_CBACK_BOOL__VOID( wxPlPopupTransientWindow,
+                        wxPopupTransientWindow, CanDismiss );
+DEF_V_CBACK_BOOL__WXMOUSEEVENT( wxPlPopupTransientWindow,
+                                wxPopupTransientWindow, ProcessLeftDown );
+DEF_V_CBACK_BOOL__BOOL( wxPlPopupTransientWindow,
+                        wxPopupTransientWindow, Show );
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPopupTransientWindow,
+                               wxPopupTransientWindow );
+
+%}
+%file{-};
+
+%name{Wx::PopupWindow} class wxPopupWindow
+{
+    %name{newDefault} wxPopupWindow()
+        %code{% RETVAL = new wxPopupWindow();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxPopupWindow( wxWindow *parent, int flags = wxBORDER_NONE )
+        %code{% RETVAL = new wxPopupWindow( parent, flags );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create( wxWindow *parent, int flags = wxBORDER_NONE );
+
+    void Position( const wxPoint& ptOrigin, const wxSize& size );
+};
+
+%{
+void
+new()
+  PPCODE:
+    BEGIN_OVERLOAD();
+        MATCH_VOIDM_REDISP( newDefault );
+        MATCH_ANY_REDISP( newFull );
+    END_OVERLOAD( "Wx::PopupWindow::new" );
+%}
+
+%name{Wx::PopupTransientWindow} class wxPopupTransientWindow
+{
+    %name{newDefault} wxPopupTransientWindow()
+        %code{% RETVAL = new wxPopupTransientWindow();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxPopupTransientWindow( wxWindow *parent,
+                                           int flags = wxBORDER_NONE )
+        %code{% RETVAL = new wxPopupTransientWindow( parent, flags );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    void Popup( wxWindow *focus = NULL );
+    void Dismiss();
+    bool CanDismiss();
+    bool ProcessLeftDown( wxMouseEvent& event );
+};
+
+%{
+void
+new()
+  PPCODE:
+    BEGIN_OVERLOAD();
+        MATCH_VOIDM_REDISP( newDefault );
+        MATCH_ANY_REDISP( newFull );
+    END_OVERLOAD( "Wx::PopupTransientWindow::new" );
+
+#define Popup wxPopupTransientWindow::Popup
+#define Dismiss wxPopupTransientWindow::Dismiss
+#define CanDismiss wxPopupTransientWindow::CanDismiss
+#define ProcessLeftDown wxPopupTransientWindow::ProcessLeftDown
+#define Position wxPopupTransientWindow::Position
+%}
+
+%name{Wx::PlPopupTransientWindow} class wxPlPopupTransientWindow
+{
+    %name{newDefault} wxPlPopupTransientWindow()
+        %code{% RETVAL = new wxPlPopupTransientWindow( CLASS );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxPlPopupTransientWindow( wxWindow *parent,
+                                           int flags = wxBORDER_NONE )
+        %code{% RETVAL = new wxPlPopupTransientWindow( CLASS, parent, flags );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    void Popup( wxWindow *focus = NULL );
+    void Dismiss();
+    bool CanDismiss();
+    bool ProcessLeftDown( wxMouseEvent& event );
+    void Position( const wxPoint& ptOrigin, const wxSize& size );
+};
+
+%{
+#undef Popup
+#undef Dismiss
+#undef CanDismiss
+#undef ProcessLeftDown
+#undef Position
+
+void
+new()
+  PPCODE:
+    BEGIN_OVERLOAD();
+        MATCH_VOIDM_REDISP( newDefault );
+        MATCH_ANY_REDISP( newFull );
+    END_OVERLOAD( "Wx::PlPopupTransientWindow::new" );
+%}
