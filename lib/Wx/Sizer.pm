@@ -45,7 +45,7 @@ sub Prepend {
 sub Remove {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_wwin, 1 ) && return $this->RemoveWinodow( @_ );
+  Wx::_match( @_, $Wx::_wwin, 1 ) && return $this->RemoveWindow( @_ );
   Wx::_match( @_, $Wx::_wszr, 1 ) && return $this->RemoveSizer( @_ );
   Wx::_match( @_, $Wx::_n, 1 )    && return $this->RemoveNth( @_ );
   croak Wx::_ovl_error;
