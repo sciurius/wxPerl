@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/ 5/2001
-## RCS-ID:      $Id: demo.pl,v 1.15 2003/05/27 20:13:37 mbarbon Exp $
+## RCS-ID:      $Id: demo.pl,v 1.16 2003/06/05 17:28:10 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -208,7 +208,13 @@ my @demos =
     [ 'Non-managed windows',
       [
        [ 'HtmlWindow', demo( 'wxHtmlWindow' ) ],
-       [ 'Grid', demo( 'wxGrid' ) ],
+       [ 'Grid',
+         [
+          [ 'Simple Grid', demo( 'wxGrid' ) ],
+          [ 'Editors/Renderers', demo( 'wxGridER' ) ],
+          [ 'Custom Editors/Renderers', demo( 'wxGridCER' ) ],
+         ],
+       ],
        [ 'ScrolledWindow', demo( 'wxScrolledWindow' ) ],
       ],
     ],
