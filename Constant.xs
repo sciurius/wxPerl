@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.118 2005/03/28 14:00:59 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.119 2005/04/03 09:09:06 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -897,6 +897,9 @@ static double constant( const char *name, int arg )
     r( wxEXEC_SYNC );
     r( wxEXEC_ASYNC );
     r( wxEXEC_NOHIDE );
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxEXEC_NODISABLE );
+#endif
     break;
   case 'F':
     r( wxFDIAGONAL_HATCH );             // brush pen
@@ -1093,6 +1096,11 @@ static double constant( const char *name, int arg )
     r( wxIMAGELIST_DRAW_TRANSPARENT );  // imagelist
     r( wxIMAGELIST_DRAW_SELECTED );     // imagelist
     r( wxIMAGELIST_DRAW_FOCUSED );      // imagelist
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+    r( wxIMAGE_RESOLUTION_INCHES );     // image
+    r( wxIMAGE_RESOLUTION_CM );         // image
+#endif
 
     r( wxINVERT );                      // dc
 
@@ -1598,6 +1606,9 @@ static double constant( const char *name, int arg )
     r( wxSL_RIGHT );                    // slider
     r( wxSL_TOP );                      // slider
     r( wxSL_SELRANGE );                 // slider
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+    r( wxSL_INVERSE );                  // slider
+#endif
 
     r( wxSIZE_AUTO_WIDTH );             // window
     r( wxSIZE_AUTO_HEIGHT );            // window
@@ -1777,6 +1788,12 @@ static double constant( const char *name, int arg )
     r( wxTE_CENTRE );                   // textctrl
     r( wxTE_CENTER );                   // textctrl
     r( wxTE_AUTO_URL );                 // textctrl
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+    r( wxTE_DONTWRAP );                 // textctrl
+    r( wxTE_WORDWRAP );                 // textctrl
+    r( wxTE_CHARWRAP );                 // textctrl
+    r( wxTE_BESTWRAP );                 // textctrl
+#endif
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     r( wxTE_HT_UNKNOWN );               // textctrl
     r( wxTE_HT_BEFORE );                // textctrl
@@ -1899,6 +1916,24 @@ static void wxPli_make_const( const char* name )
     newCONSTSUB( stash, (char*)name, sv );
 }
 
+static void wxPli_make_const_str( const char* name, const wxChar* value )
+{
+    dTHX;
+    char buffer[256];
+    SV* tmp;
+
+    wxPli_make_const( name );
+
+    strcpy( buffer, "Wx::" );
+    strcpy( buffer + 4, name );
+
+    tmp = get_sv( buffer, 0 );
+    wxPli_wxChar_2_sv( aTHX_ value, tmp );
+}
+
+#define wxPli_make_const_string( v ) \
+    wxPli_make_const_str( #v, v )
+
 static void wxPli_set_const( const char* name, const char* klass, void* ptr )
 {
     dTHX;
@@ -1915,14 +1950,14 @@ static void wxPli_set_const( const char* name, const char* klass, void* ptr )
 #undef sv_setref_pv
 #define sv_setref_pv( s, p, pt ) my_sv_setref_pv( aTHX_ s, p, pt )
 
-// !parser: sub { $_[0] =~ m<^\s*wxPli_\w+\(\s*\"(wx\w+)\"\s*\);\s*(?://(.*))?$> }
+// !parser: sub { $_[0] =~ m<^\s*wxPli_\w+\(\s*\"?(wx\w+)\"?\s*\);\s*(?://(.*))?$> }
 // !package: Wx
 
 void SetConstantsOnce()
 {
     dTHX;
 
-    wxPli_make_const( "wxVERSION_STRING" );
+    wxPli_make_const_string( "wxVERSION_STRING" );
 
     wxPli_make_const( "wxTheClipboard" );       // clipboard
     wxPli_make_const( "wxDefaultValidator" );   // misc
@@ -1979,27 +2014,22 @@ void SetConstantsOnce()
     wxPli_make_const( "wxCYAN_BRUSH" );         // brush
     wxPli_make_const( "wxRED_BRUSH" );          // brush
 
-    wxPli_make_const( "wxIMAGE_OPTION_BMP_FORMAT" );    // image
-    wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_X" ); // image
-    wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_Y" ); // image
-    wxPli_make_const( "wxIMAGE_OPTION_FILENAME" );      // image
+    wxPli_make_const_string( wxIMAGE_OPTION_BMP_FORMAT );      // image
+    wxPli_make_const_string( wxIMAGE_OPTION_CUR_HOTSPOT_X );   // image
+    wxPli_make_const_string( wxIMAGE_OPTION_CUR_HOTSPOT_Y );   // image
+    wxPli_make_const_string( wxIMAGE_OPTION_FILENAME );        // image
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+    wxPli_make_const_string( wxIMAGE_OPTION_QUALITY );         // image
+    wxPli_make_const_string( wxIMAGE_OPTION_RESOLUTION );      // image
+    wxPli_make_const_string( wxIMAGE_OPTION_RESOLUTIONX );     // image
+    wxPli_make_const_string( wxIMAGE_OPTION_RESOLUTIONY );     // image
+    wxPli_make_const_string( wxIMAGE_OPTION_RESOLUTIONUNIT );  // image
+#endif
+
+    wxPli_make_const_string( wxFileSelectorDefaultWildcardStr ); // filedialog
 
     // these are correctly cloned
     SV* tmp;
-    tmp = get_sv( "Wx::wxVERSION_STRING", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxVERSION_STRING, tmp );
-
-    tmp = get_sv( "Wx::wxIMAGE_OPTION_BMP_FORMAT", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_BMP_FORMAT, tmp );
-
-    tmp = get_sv( "Wx::wxIMAGE_OPTION_CUR_HOTSPOT_X", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_CUR_HOTSPOT_X, tmp );
-
-    tmp = get_sv( "Wx::wxIMAGE_OPTION_CUR_HOTSPOT_Y", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_CUR_HOTSPOT_Y, tmp );
-
-    tmp = get_sv( "Wx::wxIMAGE_OPTION_FILENAME", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_FILENAME, tmp );
 
     int universal;
     int xstatic;
