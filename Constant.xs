@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.94 2003/10/19 20:14:54 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.95 2003/11/23 07:43:27 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -363,7 +363,8 @@ static wxPlINH inherit[] =
     I( TreeCtrl,        GenericTreeCtrl )
 #endif
 
-#if defined(__WXGTK__)
+#if defined(__WXGTK__) || \
+    ( defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 5, 0 ) )
     I( ComboBox,        Control )
 #else
     I( ComboBox,        Choice )
