@@ -111,7 +111,7 @@ sub postamble {
   my( $implib ) = wx_config( 'implib' );
   $implib =~ s/\.\w+$/\.dll/;
 
-  my $text = $this->SUPER::postamble( @_ );
+  my $text = $this->SUPER::postamble( @_ ) || '';
   $text .= <<EOT;
 
 Wx.res: Wx.rc

@@ -34,6 +34,8 @@ GetOptions( 'debug' => \$debug_mode,
             'mksymlinks' => \$o_mksymlinks,
           );
 
+$extra_cflags ||= ''; $extra_libs ||= '';
+
 if( $o_help || !$result ) {
   print <<EOT;
 Usage: perl Makefile.PL [options]
@@ -110,6 +112,7 @@ use wxMMUtils;
 
 # BLEAGH!!!!
 sub import {
+  undef *MY::post_initialize;
   *MY::post_initialize = \&post_initialize;
 
   wxConfig->export_to_level( 1, @_ );

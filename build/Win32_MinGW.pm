@@ -100,7 +100,7 @@ sub postamble {
   my( $implib ) = wx_config( 'implib' );
   $implib =~ s/lib(\w+)\.\w+$/$1\.dll/;
 
-  my $text = $this->SUPER::postamble( @_ );
+  my $text = $this->SUPER::postamble( @_ ) || '';
   $text .= <<EOT;
 Wx_res.o: Wx.rc
 \twindres --include-dir ${wxdir}\\include Wx.rc Wx_res.o
