@@ -110,6 +110,7 @@ Wx_Point &              O_POINT
 Wx_Size &               O_SIZE
 Wx_Colour &             O_COLOUR
 
+Wx_DrawObject *         O_NON_WXOBJECT
 Wx_Size *               O_NON_WXOBJECT
 Wx_Point *              O_NON_WXOBJECT
 Wx_Rect *               O_NON_WXOBJECT
@@ -156,6 +157,7 @@ Wx_DropFilesEvent *     O_WXOBJECT
 Wx_EraseEvent *         O_WXOBJECT
 Wx_FocusEvent *         O_WXOBJECT
 Wx_KeyEvent *           O_WXOBJECT
+Wx_HelpEvent *          O_WXOBJECT
 Wx_IdleEvent *          O_WXOBJECT
 Wx_InitDialogEvent *    O_WXOBJECT
 Wx_JoystickEvent *      O_WXOBJECT
