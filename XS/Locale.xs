@@ -100,11 +100,15 @@ void
 Wx_Locale::AddCatalogLookupPathPrefix( prefix )
     wxString prefix
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
 void
 AddLanguage( info )
     Wx_LanguageInfo* info
   CODE:
     wxLocale::AddLanguage( *info );
+
+#endif
 
 const wxChar*
 Wx_Locale::GetLocale()
