@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Timer.xs
+## Name:        XS/Timer.xs
 ## Purpose:     XS for Wx::Timer
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     14/ 2/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## Created:     14/02/2001
+## RCS-ID:      $Id: Timer.xs,v 1.8 2004/01/18 08:12:48 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -49,6 +49,13 @@ Wx_Timer::Destroy()
 
 int
 Wx_Timer::GetInterval()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+int
+wxTimer::GetId()
+
+#endif
 
 bool
 Wx_Timer::IsOneShot()
