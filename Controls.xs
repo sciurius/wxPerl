@@ -10,8 +10,9 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-#undef bool
 #define PERL_NO_GET_CONTEXT
+
+#include "cpp/wxapi.h"
 
 #include <wx/defs.h>
 
@@ -39,39 +40,18 @@
 #include <wx/listctrl.h>
 #include <wx/treectrl.h>
 
-#include <stdarg.h>
-
-#include "cpp/compat.h"
+// needs to be here to see #defines
 #include "cpp/typedef.h"
-#include "cpp/chkconfig.h"
+
+// re-include for client data
+#include "cpp/helpers.h"
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/tglbtn.h>
 #endif
 
-WXPL_EXTERN_C_START
-#include <EXTERN.h>
-#include <perl.h>
-#include <XSUB.h>
-WXPL_EXTERN_C_END
-
-#undef bool
-#undef Move
-#undef Copy
-
 #undef THIS
 
-#if __VISUALC__
-#pragma warning (disable: 4800 )
-#endif
-
-#ifdef __WXMSW__
-#include <wx/msw/winundef.h>
-#endif // __WXMSW__
-
-// #include "cpp/compat.h"
-// #include "cpp/typedef.h"
-#include "cpp/helpers.h"
 #include "cpp/v_cback.h"
 
 #include "cpp/controls.h"

@@ -17,6 +17,7 @@
 #include "cpp/typedef.h"
 
 #undef THIS
+
 WXPLI_BOOT_ONCE(Wx_GDI);
 #define boot_Wx_GDI wxPli_boot_Wx_GDI
 

@@ -48,8 +48,7 @@
 #include <wx/wizard.h>
 #include <wx/filefn.h>
 
-#include "cpp/compat.h"
-#include "cpp/chkconfig.h"
+#include "cpp/wxapi.h"
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/tglbtn.h>
@@ -61,27 +60,11 @@
 #endif
 
 #include <wx/list.h>
-#include <stdarg.h>
-
-WXPL_EXTERN_C_START
-#include <EXTERN.h>
-#include <perl.h>
-#include <XSUB.h>
-WXPL_EXTERN_C_END
-
-#undef bool
-#undef Move
-#undef Copy
-
-#if __VISUALC__
-#pragma warning (disable: 4800 )
-#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // implementation for wxPlConstantsModule OnInit/OnExit
 //////////////////////////////////////////////////////////////////////////////
 
-#include "cpp/helpers.h"
 #include "cpp/constants.h"
 #include <wx/listimpl.cpp>
 

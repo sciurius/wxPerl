@@ -10,51 +10,24 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-#undef bool
 #define PERL_NO_GET_CONTEXT
 
-#include <wx/defs.h>
+#include "cpp/wxapi.h"
+#include "cpp/typedef.h"
 
 #include <wx/window.h>
 #include <wx/layout.h>
 #include <wx/sizer.h>
-#include <stdarg.h>
 
-#include "cpp/compat.h"
-#include "cpp/chkconfig.h"
 #include "cpp/overload.h"
 
 #if wxPERL_USE_TOOLTIPS
 #include <wx/tooltip.h>
 #endif
 
-WXPL_EXTERN_C_START
-#include <EXTERN.h>
-#include <perl.h>
-#include <XSUB.h>
-WXPL_EXTERN_C_END
-
-#undef bool
-#undef Move
-#undef Copy
-#undef Pause
-#undef New
-
 #undef THIS
 
-#if __VISUALC__
-#pragma warning (disable: 4800 )
-#endif
-
-#ifdef __WXMSW__
-#include <wx/msw/winundef.h>
-#endif // __WXMSW__
-
-#include "cpp/typedef.h"
-#include "cpp/helpers.h"
-
 #include "cpp/v_cback.h"
-
 #include "cpp/window.h"
 
 WXPLI_BOOT_ONCE(Wx_Win);
