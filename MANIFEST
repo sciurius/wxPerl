@@ -21,7 +21,6 @@ build/W32.pm
 build/Test/Builder.pm			Test::Simple, Test::More and Test::Harness
 build/Test/Harness.pm
 build/Test/Harness/Assert.pm
-build/Test/Harness/Changes
 build/Test/Harness/Iterator.pm
 build/Test/Harness/Straps.pm
 build/Test/More.pm
