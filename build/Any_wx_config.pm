@@ -59,7 +59,7 @@ sub ld_is_GNU {
 # sometimes, annoying...
 require ExtUtils::Liblist;
 my $save;
-if( defined *ExtUtils::Liblist::Kid::ext ) {
+if( defined &ExtUtils::Liblist::Kid::ext ) {
   $save = \&ExtUtils::Liblist::Kid::ext;
   undef *ExtUtils::Liblist::Kid::ext;
   *ExtUtils::Liblist::Kid::ext = \&my_ext;
