@@ -5,6 +5,7 @@ use base 'Wx::build::MakeMaker::Win32';
 
 sub _res_file { 'Wx.res' }
 sub _res_command { 'rc -I%incdir %src' }
+sub _strip_command { '$(NOOP)' }
 
 sub _dll_name {
   my $this = shift;

@@ -5,6 +5,7 @@ use base 'Wx::build::MakeMaker::Win32';
 
 sub _res_file { 'Wx_res.o' }
 sub _res_command { 'windres --include-dir %incdir %src %dest' }
+sub _strip_command { 'strip blib\arch\auto\Wx\*.dll' }
 
 sub _dll_name {
   my $this = shift;

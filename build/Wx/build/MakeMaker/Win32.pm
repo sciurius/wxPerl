@@ -65,23 +65,22 @@ sub postamble_core {
   $command =~ s/%incdir/$wxdir\\include/;
   $command =~ s/%src/Wx.rc/;
   $command =~ s/%dest/$res_file/;
+  my $strip = $this->_strip_command;
 
-  $text .= <<EOT;
+  $text .= sprintf <<'EOT', $res_file, $command, $strip;
 
-$res_file : Wx.rc
-\t$command
+%s : Wx.rc
+	%s
 
 # for compatibility
 ppmdist : ppm
 
+ppm : pure_all ppd
+	%s
+	$(TAR) $(TARFLAGS) $(DISTVNAME)-ppm.tar blib
+	$(COMPRESS) $(DISTVNAME)-ppm.tar
+
 EOT
-
-# ppm : pure_all ppd
-# \t\$(CP) ${implib} blib\\arch\\auto\\Wx
-# \tstrip blib\\arch\\auto\\Wx\\*.dll
-# \t\$(TAR) \$(TARFLAGS) \$(DISTVNAME)-ppm.tar blib
-# \tgzip --force --best \$(DISTVNAME)-ppm.tar
-
 }
 
 sub files_to_install {
