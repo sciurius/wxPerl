@@ -13,7 +13,7 @@ For 0.12
 PRIORITY NORMAL:
 
 * Threads
-  - cloning of objects with a DESTROY
+   cloning of objects with a DESTROY
 
 * wxGrid
     GetTable
@@ -108,18 +108,6 @@ PRIORITY LOW:
 
 DOCUMENTATTION:
 
-* Wx::Bitmap
-    newFromBits
-    newFromXPM
-
-* Wx::Icon
-    newFromBits
-    newFromXPM
-
-* Wx::Cursor
-    newImage
-    newData
-
 * Wx::PlDataObjectSimple
 
 * Wx::PlFileSystemHandler
@@ -127,8 +115,6 @@ DOCUMENTATTION:
 -- not documented in wxWindows --
 
 * Wx::MultipleChoiceDialog
-
-* Wx::ListItem
 
 * Wx::NativeFontInfo
 
