@@ -68,6 +68,17 @@ sub SetMinSize {
   croak Wx::_ovl_error;
 }
 
+package Wx::SizerItem;
+
+sub SetRatio {
+  my( $this ) = shift;
+
+  Wx::_match( @_, $Wx::_n, 1 )    && ( $this->SetRatioFloat( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->SetRatioWH( @_ ), return );
+  Wx::_match( @_, $Wx::_wsiz, 1 ) && ( $this->SetRatioSize( @_ ), return );
+  croak Wx::_ovl_error;
+}
+
 1;
 
 # Local variables: #

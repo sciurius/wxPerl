@@ -138,6 +138,7 @@ FD_TD( ScrolledWindow );
 FD_TD( SingleChoiceDialog );
 FD_TD( Size );
 FD_TD( Sizer );
+FD_TD( SizerItem );
 FD_TD( Slider );
 FD_TD( SpinButton );
 FD_TD( SpinCtrl );

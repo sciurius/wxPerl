@@ -95,6 +95,7 @@ Wx_StaticBoxSizer *     O_WXOBJECT
 Wx_NotebookSizer *      O_WXOBJECT
 Wx_GridSizer *          O_WXOBJECT
 Wx_FlexGridSizer *      O_WXOBJECT
+Wx_SizerItem*           O_WXOBJECT
 
 Wx_DC *                 O_WXOBJECT
 Wx_MemoryDC *           O_WXOBJECT

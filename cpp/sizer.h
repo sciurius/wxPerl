@@ -21,7 +21,7 @@ public:
     virtual wxSize CalcMin();
 };
 
-_wxPlSizer::_wxPlSizer( const char* package )
+inline _wxPlSizer::_wxPlSizer( const char* package )
     :m_callback( "Wx::PlSizer" )
 {
     m_callback.SetSelf( _make_object( this, package ), FALSE );

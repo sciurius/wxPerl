@@ -12,8 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Sizer
 
-#FIXME// unimplemented Wx::PlSizer
-
 void
 Wx_Sizer::Destroy()
   CODE:
@@ -272,3 +270,124 @@ Wx_FlexGridSizer::new( rows, cols, vgap = 0, hgap = 0 )
     int cols
     int vgap
     int hgap
+
+MODULE=Wx PACKAGE=Wx::SizerItem
+
+Wx_Size*
+Wx_SizerItem::GetSize()
+  CODE:
+    RETVAL = new wxSize( THIS->GetSize() );
+  OUTPUT:
+    RETVAL
+
+Wx_Size*
+Wx_SizerItem::CalcMin()
+  CODE:
+    RETVAL = new wxSize( THIS->GetSize() );
+  OUTPUT:
+    RETVAL
+
+void
+Wx_SizerItem::SetDimension( pos, size )
+    Wx_Point pos
+    Wx_Size size
+
+Wx_Size*
+Wx_SizerItem::GetMinSize()
+  CODE:
+    RETVAL = new wxSize( THIS->GetMinSize() );
+  OUTPUT:
+    RETVAL
+
+void
+Wx_SizerItem::SetRatioWH( width, height )
+    int width
+    int height
+  CODE:
+    THIS->SetRatio( width, height );
+
+void
+Wx_SizerItem::SetRatioSize( size )
+    Wx_Size size
+  CODE:
+    THIS->SetRatio( size );
+
+void
+Wx_SizerItem::SetRatioFloat( ratio )
+    float ratio
+  CODE:
+    THIS->SetRatio( ratio );
+
+float
+Wx_SizerItem::GetRatio()
+
+bool
+Wx_SizerItem::IsWindow()
+
+bool
+Wx_SizerItem::IsSizer()
+
+bool
+Wx_SizerItem::IsSpacer()
+
+void
+Wx_SizerItem::SetInitSize( x, y )
+    int x
+    int y
+
+void
+Wx_SizerItem::SetOption( option )
+    int option
+
+void
+Wx_SizerItem::SetFlag( flag )
+    int flag
+
+void
+Wx_SizerItem::SetBorder( border )
+    int border
+
+Wx_Window*
+Wx_SizerItem::GetWindow()
+
+void
+Wx_SizerItem::SetWindow( window )
+    Wx_Window* window
+
+Wx_Sizer*
+Wx_SizerItem::GetSizer()
+
+void
+Wx_SizerItem::SetSizer( sizer )
+    Wx_Sizer* sizer
+
+int
+Wx_SizerItem::GetOption()
+
+int
+Wx_SizerItem::GetFlag()
+
+int
+Wx_SizerItem::GetBorder()
+
+Wx_Point*
+Wx_SizerItem::GetPosition()
+  CODE:
+    RETVAL = new wxPoint( THIS->GetPosition() );
+
+SV*
+Wx_SizerItem::GetUserData()
+  CODE:
+    RETVAL = ( (_wxUserDataO*)THIS->GetUserData() )->m_data;
+    SvREFCNT_inc( RETVAL );
+  OUTPUT:
+    RETVAL
+
+MODULE=Wx PACKAGE=Wx::PlSizer
+
+Wx_PlSizer*
+Wx_PlSizer::new()
+  CODE:
+    RETVAL = new _wxPlSizer( CLASS );
+  OUTPUT:
+    RETVAL
