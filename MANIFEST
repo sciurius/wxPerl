@@ -19,7 +19,6 @@ build/Tests_Helper.pm
 build/W32.pm
 
 docs/bugs.txt
-docs/changes.txt
 docs/install.txt
 docs/todo.txt
 
