@@ -27,27 +27,36 @@ sub wx_config {
 # takes parameters from the wx-config script
 #
 sub cc_is_GNU {
-  my( $cc ) = shift;
+  my $cc = shift;
+  my $pipe = MM->catfile( top_dir(), 'script', 'pipe.pl' );
 
   return 1 if $cc =~ m/gcc|g\+\+/i;
-  return 1 if qx($^X script/pipe.pl $cc -v) =~ m/gcc|g\+\+|\sgnu\s/i;
+  return 1 if qx($^X $pipe $cc -v) =~ m/gcc|g\+\+|\sgnu\s/i;
   return;
 }
 
 sub ld_is_GNU {
-  my( $ld ) = shift;
+  my $ld = shift;
+  my $pipe = MM->catfile( top_dir(), 'script', 'pipe.pl' );
 
   return 1 if $ld =~ m/gcc|g\+\+/i;
-  return 1 if qx($^X script/pipe.pl $ld -v) =~ m/gcc|g\+\+|\sgnu\s/i;
+  return 1 if qx($^X $pipe $ld -v) =~ m/gcc|g\+\+|\sgnu\s/i;
 
   return;
 }
 
 sub configure {
   my( $cccflags, $libs );
+
   my( %config ) =
     ( LIBS => $extra_libs . ' ',
       CCFLAGS => $extra_cflags . ' -I. ',
+      ( building_extension() ?
+        ( INC => ' -I' . top_dir() . ' ',
+          DEFINE => ' -DWXPL_EXT ',
+          LDFROM => ' $(OBJECT) ',
+        ) : (),
+      ),
     );
 
   if( cc_is_GNU( $Config{cc} ) ) { $config{CC} = 'g++' }
