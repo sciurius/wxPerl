@@ -3,6 +3,8 @@ Revision history for Perl extension Wx.
 0.15
 	- Removed support for wxWindows 2.2.x and 2.3.x.
 	- Removed support for Perl 5.004.
+	- Started documentation for the extension api
+	  (see Wx/Api.pod).
 
 0.14  Fri Apr 25 23:04:42 CEST 2003
 	- Added Wx::CalendarCtrl.
@@ -13,7 +15,7 @@ Revision history for Perl extension Wx.
 
 0.13  Tue Mar 11 19:27:04 CET 2003
 	- New build system, allows building wxPerl extension written using
-	  XS outside of the wxPerl tree.
+	  XS outside the wxPerl tree.
 	- Added Wx::Wave
 	- Added Wx::MemoryFSHandler
 	- Added Wx::Perl::Carp (thanks to podmaster).

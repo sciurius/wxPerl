@@ -52,6 +52,7 @@ t/08_ovl_func.t
 t/09_create_delete.t
 t/Tests_Helper.pm
 
+lib/Wx/Api.pod
 lib/Wx/App.pm
 lib/Wx/Event.pm
 lib/Wx/Locale.pm
