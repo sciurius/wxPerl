@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.85 2003/05/29 19:58:52 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.86 2003/06/04 20:27:53 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -859,6 +859,13 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_UTF7 );           // font
     r( wxFONTENCODING_UTF8 );           // font
     r( wxFONTENCODING_UNICODE );        // font
+
+    r( wxFULLSCREEN_NOMENUBAR );        // frame dialog
+    r( wxFULLSCREEN_NOTOOLBAR );        // frame dialog
+    r( wxFULLSCREEN_NOSTATUSBAR );      // frame dialog
+    r( wxFULLSCREEN_NOBORDER );         // frame dialog
+    r( wxFULLSCREEN_NOCAPTION );        // frame dialog
+    r( wxFULLSCREEN_ALL );              // frame dialog
 
     // !export: Type_Float
     if( strEQ( name, "Type_Float" ) )
