@@ -10,7 +10,7 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-package MacOSX_GCC.pm;
+package MacOSX_GCC;
 
 use strict;
 use wxMMUtils;
