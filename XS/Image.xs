@@ -321,6 +321,16 @@ InsertHandler( handler )
   CODE:
     wxImage::InsertHandler( handler );
 
+void
+wxImage::LoadFile( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wist_n, LoadStreamType )
+        MATCH_REDISP( wxPliOvl_wist_s, LoadStreamMIME )
+        MATCH_REDISP( wxPliOvl_s_n, LoadFileType )
+        MATCH_REDISP( wxPliOvl_s_s, LoadFileMIME )
+    END_OVERLOAD( Wx::Image::LoadFile )
+
 bool
 Wx_Image::LoadFileType( name, type, index = -1 )
     wxString name
@@ -379,6 +389,17 @@ Wx_Image::LoadStreamMIME( stream, type, index = -1 )
 
 bool
 Wx_Image::Ok()
+
+void
+wxImage::SaveFile( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wost_n, SaveFileSType )
+        MATCH_REDISP( wxPliOvl_wost_s, SaveFileSMIME )
+        MATCH_REDISP( wxPliOvl_s_n, SaveFileType )
+        MATCH_REDISP( wxPliOvl_s_s, SaveFileMIME )
+        MATCH_REDISP( wxPliOvl_s, SaveFileOnly )
+    END_OVERLOAD( Wx::Image::SaveFile )
 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
