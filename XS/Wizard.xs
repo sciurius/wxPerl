@@ -20,7 +20,7 @@ void
 wxWizard::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_VOID_REDISP( newEmpty )
+        MATCH_VOIDM_REDISP( newEmpty )
         MATCH_ANY_REDISP( newFull )
     END_OVERLOAD( Wx::Wizard::new )
 

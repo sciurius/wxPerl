@@ -29,8 +29,8 @@
 #define REDISPATCH( NEW_METHOD_NAME ) \
     count = call_method( #NEW_METHOD_NAME, GIMME_V ); SPAGAIN
 
-#define MATCH_VOID_REDISP( METHOD ) \
-    if( items == 0 ) \
+#define MATCH_VOIDM_REDISP( METHOD ) \
+    if( items == 1 ) \
         { REDISPATCH( METHOD ); } \
     else
 
