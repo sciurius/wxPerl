@@ -38,6 +38,8 @@ sub new {
   my $t = Wx::TextCtrl->new( $this, -1, "Log Window\n", wxDefaultPosition,
                              wxDefaultSize, wxTE_MULTILINE);
 
+  $this->SetIcon( Wx::GetWxPerlIcon() );
+
   $this->{OLDLOG} = Wx::Log::SetActiveTarget
     ( Wx::LogTextCtrl->new( $t ) );
 
@@ -59,6 +61,8 @@ sub new {
 
   my $functions = Wx::Menu->new;
   $functions->Append( $ID_MCHOICE_FN, "Wx::Get&MultipleChoice" );
+
+  $functions->Enable( $ID_MCHOICE_FN, $Wx::_wx_version >= 2.003 );
 
   my $menu = Wx::MenuBar->new;
   $menu->Append( $file, "&File" );
@@ -213,7 +217,7 @@ sub OnColourDialog {
 
 sub OnFontDialog {
   my( $this, $event ) = @_;
-  my $dialog = Wx::FontDialog->new( $this );
+  my $dialog = Wx::FontDialog->new( $this, Wx::FontData->new );
 
   if( $dialog->ShowModal == wxID_CANCEL ) {
     Wx::LogMessage( "User cancelled the dialog" );
