@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: CheckBox.xs,v 1.7 2003/06/04 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: CheckBox.xs,v 1.8 2004/01/18 08:11:25 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -62,6 +62,23 @@ wxCheckBox::Create( parent, id, label, pos = wxDefaultPosition, size = wxDefault
 
 bool
 wxCheckBox::GetValue()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+wxCheckBoxState
+wxCheckBox::Get3StateValue()
+
+void
+wxCheckBox::Set3StateValue(state)
+    wxCheckBoxState state
+
+bool
+wxCheckBox::Is3State()
+
+bool
+wxCheckBox::Is3rdStateAllowedForUser()
+
+#endif
 
 void
 wxCheckBox::SetValue( state )

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.98 2003/12/26 10:58:19 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.99 2004/01/18 08:11:25 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -19,6 +19,7 @@
 #include <wx/filedlg.h>
 #include <wx/colordlg.h>
 #include <wx/textdlg.h>
+#include <wx/checkbox.h>
 #include <wx/choicdlg.h>
 #include <wx/msgdlg.h>
 #include <wx/gdicmn.h>
@@ -580,6 +581,16 @@ static double constant( const char *name, int arg )
     r( wxCHOICEDLG_STYLE );
     r( wxCHANGE_DIR );                  // filedlg
     r( wxCLIP_SIBLINGS );               // window
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    r( wxCHK_2STATE );                  // checkbox
+    r( wxCHK_3STATE );                  // checkbox
+    r( wxCHK_ALLOW_3RD_STATE_FOR_USER );// checkbox
+
+    r( wxCHK_UNCHECKED );               // checkbox
+    r( wxCHK_CHECKED );                 // checkbox
+    r( wxCHK_UNDETERMINED );            // checkbox    
+#endif
 
     r( wxCLEAR );                       // dc
     r( wxCOPY );                        // dc
