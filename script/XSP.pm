@@ -1331,7 +1331,7 @@ sub
 		 'methods', 1,
 sub
 #line 61 "script/XSP.yp"
-{ add_data_raw( $_[0], [ $_[1] ] ) }
+{ [ add_data_raw( $_[0], [ $_[1] ] ) ] }
 	],
 	[#Rule 19
 		 'methods', 2,
