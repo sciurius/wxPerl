@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.58 2004/04/10 15:35:51 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.59 2004/06/20 08:24:11 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -26,7 +26,8 @@
 #include <wx/window.h>
 #include <wx/module.h>
 // FIXME hack
-#ifdef __DARWIN__
+#if defined(__DARWIN__) || defined(__UNIX__)
+#define HACK
 #include <wx/html/htmlwin.h>
 #endif
 
@@ -256,7 +257,7 @@ bool
 _load_plugin( string )
     wxString string
   CODE:
-#ifdef __DARWIN__
+#ifdef HACK
     delete new wxHtmlWindow();
 #endif
     RETVAL = wxPluginManager::LoadLibrary( string, wxDL_VERBATIM );
