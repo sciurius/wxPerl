@@ -497,6 +497,9 @@ static double constant( const char *name, int arg )
     r( wxAND_INVERT );                  // dc
     r( wxAND_REVERSE );                 // dc
 
+#if WXPERL_W_VERSION_GE( 2, 3, 4 )
+    r( wxADJUST_MINSIZE );              // layout sizer
+#endif
     r( wxAbove );                       // layout constraints
     r( wxAbsolute );                    // layout constraints
     r( wxAsIs );                        // layout constraints
