@@ -15,14 +15,13 @@ package Wx::Event;
 use strict;
 use vars qw(@ISA @EXPORT_OK);
 
-use Carp;
 use Exporter;
 
 @ISA = qw(Exporter);
 @EXPORT_OK = qw();
 
 sub _id($) {
-  croak 'Undefined id'
+  Wx::_croak 'Undefined id'
     unless defined $_[0]; ref( $_[0] ) ? $_[0]->GetId() : $_[0];
 }
 

@@ -12,8 +12,6 @@
 
 package Wx::DropSource;
 
-use Carp;
-
 sub new {
   my $this = shift;
 
@@ -25,7 +23,7 @@ sub new {
     Wx::_match( @_, $Wx::_wdat_wwin_wcur_wcur_wcur, 1, 1 ) && return $this->newCursorData( @_ );
   }
 
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

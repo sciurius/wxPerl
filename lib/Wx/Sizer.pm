@@ -13,7 +13,6 @@
 package Wx::Sizer;
 
 use strict;
-use Carp;
 
 sub Add {
   my( $this ) = shift;
@@ -21,7 +20,7 @@ sub Add {
   Wx::_match( @_, $Wx::_wwin_n_n_n_s, 1, 1 ) && ( $this->AddWindow( @_ ), return );
   Wx::_match( @_, $Wx::_wszr_n_n_n_s, 1, 1 ) && ( $this->AddSizer( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n_n_n_s, 2, 1 )  && ( $this->AddSpace( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Insert {
@@ -30,7 +29,7 @@ sub Insert {
   Wx::_match( @_, $Wx::_n_wwin_n_n_n_s, 2, 1 ) && ( $this->InsertWindow( @_ ), return );
   Wx::_match( @_, $Wx::_n_wszr_n_n_n_s, 2, 1 ) && ( $this->InsertSizer( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n_n_n_n_s, 3, 1 )  && ( $this->InsertSpace( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Prepend {
@@ -39,7 +38,7 @@ sub Prepend {
   Wx::_match( @_, $Wx::_wwin_n_n_n_s, 1, 1 ) && ( $this->PrependWindow( @_ ), return );
   Wx::_match( @_, $Wx::_wszr_n_n_n_s, 1, 1 ) && ( $this->PrependSizer( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n_n_n_s, 2, 1 )  && ( $this->PrependSpace( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Remove {
@@ -48,7 +47,7 @@ sub Remove {
   Wx::_match( @_, $Wx::_wwin, 1 ) && return $this->RemoveWindow( @_ );
   Wx::_match( @_, $Wx::_wszr, 1 ) && return $this->RemoveSizer( @_ );
   Wx::_match( @_, $Wx::_n, 1 )    && return $this->RemoveNth( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub SetItemMinSize {
@@ -57,7 +56,7 @@ sub SetItemMinSize {
   Wx::_match( @_, $Wx::_wwin_n_n, 3 ) && ( $this->SetItemMinSizeWindow( @_ ), return );
   Wx::_match( @_, $Wx::_wszr_n_n, 3 ) && ( $this->SetItemMinSizeSizer( @_ ), return );
   Wx::_match( @_, $Wx::_n_n_n, 3 )    && ( $this->SetItemMinSizeNth( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub SetMinSize {
@@ -65,13 +64,12 @@ sub SetMinSize {
 
   Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->SetMinSizeXY( @_ ), return );
   Wx::_match( @_, $Wx::_wsiz, 1 ) && ( $this->SetMinSizeSize( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 package Wx::SizerItem;
 
 use strict;
-use Carp;
 
 sub SetRatio {
   my( $this ) = shift;
@@ -79,7 +77,7 @@ sub SetRatio {
   Wx::_match( @_, $Wx::_n, 1 )    && ( $this->SetRatioFloat( @_ ), return );
   Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->SetRatioWH( @_ ), return );
   Wx::_match( @_, $Wx::_wsiz, 1 ) && ( $this->SetRatioSize( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

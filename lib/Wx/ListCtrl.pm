@@ -13,7 +13,6 @@
 package Wx::ListCtrl;
 
 use strict;
-use Carp;
 
 *Wx::ListCtrl::InsertStringImageItem = \&InsertImageStringItem;
 
@@ -22,7 +21,7 @@ sub InsertColumn {
 
   Wx::_match( @_, $Wx::_n_wlci, 2 )     && return $this->InsertColumnInfo( @_ );
   Wx::_match( @_, $Wx::_n_s_n_n, 2, 1 ) && return $this->InsertColumnString( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub SetItem {
@@ -30,7 +29,7 @@ sub SetItem {
 
   Wx::_match( @_, $Wx::_wlci, 1 )       && return $this->SetItemInfo( @_ );
   Wx::_match( @_, $Wx::_n_n_s_n, 3, 1 ) && return $this->SetItemString( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

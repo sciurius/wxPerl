@@ -13,14 +13,13 @@
 package Wx::Colour;
 
 use strict;
-use Carp;
 
 sub new {
   shift;
 
   Wx::_match( @_, $Wx::_n_n_n, 3 ) && return Wx::Colour::newRGB( @_ );
   Wx::_match( @_, $Wx::_s, 1 )     && return Wx::Colour::newName( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

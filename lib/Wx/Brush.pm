@@ -13,7 +13,6 @@
 package Wx::Brush;
 
 use strict;
-use Carp;
 
 sub new {
   shift;
@@ -21,7 +20,7 @@ sub new {
   Wx::_match( @_, $Wx::_wbmp, 1 )   && return Wx::Brush::newBitmap( @_ );
   Wx::_match( @_, $Wx::_wcol_n, 2 ) && return Wx::Brush::newColour( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 )    && return Wx::Brush::newName( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub SetColour {
@@ -30,7 +29,7 @@ sub SetColour {
   Wx::_match( @_, $Wx::_n_n_n, 3 ) && ( $this->SetColourRGB( @_ ), return );
   Wx::_match( @_, $Wx::_wcol, 1 )  && ( $this->SetColourColour( @_ ), return );
   Wx::_match( @_, $Wx::_s, 1 )     && ( $this->SetColourName( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

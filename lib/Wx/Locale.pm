@@ -13,7 +13,6 @@
 package Wx::Locale;
 
 use strict;
-use Carp;
 
 *Wx::gettext = \&Wx::GetTranslation;
 *Wx::gettext_noop = sub { $_[0] };
@@ -52,7 +51,7 @@ sub new {
   # like it is
   Wx::_match( @_, $Wx::_n_n, 2 )          && return Wx::Locale::newShort( @_ );
   Wx::_match( @_, $Wx::_s_s_s_b_b, 1, 1 ) && return Wx::Locale::newLong( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

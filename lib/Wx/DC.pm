@@ -13,14 +13,13 @@
 package Wx::DC;
 
 use strict;
-use Carp;
 
 sub DrawCheckMark {
   my( $this ) = shift;
 
   Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && ( $this->DrawCheckMarkXYWH( @_ ), return );
   Wx::_match( @_, $Wx::_wrec, 1 )    && ( $this->DrawCheckMarkRect( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub SetClippingRegion {
@@ -28,7 +27,7 @@ sub SetClippingRegion {
 
   Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && ( $this->SetClippingRegionXYWH( @_ ), return );
   Wx::_match( @_, $Wx::_wreg, 1 )  && ( $this->SetClippingRegionRegion( @_ ), return );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

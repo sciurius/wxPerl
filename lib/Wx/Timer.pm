@@ -13,21 +13,18 @@
 package Wx::Timer;
 
 use strict;
-use Carp;
 
 sub new {
   my $class = shift;
 
   @_ == 0                              && return Wx::Timer::newDefault( $class, );
   Wx::_match( @_, $Wx::_wehd_n, 1, 1 ) && return Wx::Timer::newEH( $class, @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 package Wx::TimerRunner;
 
 use strict;
-use Carp;
-use UNIVERSAL qw(isa);
 
 sub new {
   my $class = shift;

@@ -13,7 +13,6 @@
 package Wx::Mask;
 
 use strict;
-use Carp;
 
 sub new {
   shift;
@@ -21,7 +20,7 @@ sub new {
   Wx::_match( @_, $Wx::_wbmp_wcol, 2 ) && return Wx::Mask::newBitmapColour( @_ );
   Wx::_match( @_, $Wx::_wbmp_n, 2 )    && return Wx::Mask::newBitmapIndex( @_ );
   Wx::_match( @_, $Wx::_wbmp, 1 )      && return Wx::Mask::newBitmap( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 package Wx::Bitmap;
@@ -30,7 +29,6 @@ use strict;
 # disabled: needs further testing
 # and anyway: is it useful?
 #use overload '<=>' => \&bmp_spaceship;
-use Carp;
 
 sub new {
   shift;
@@ -39,7 +37,7 @@ sub new {
   Wx::_match( @_, $Wx::_s_n, 2 )      && return Wx::Bitmap::newFile( @_ );
   Wx::_match( @_, $Wx::_wico, 1 )     && return Wx::Bitmap::newIcon( @_ );
   Wx::_match( @_, $Wx::_wimg, 1 )     && return Wx::Bitmap::newImage( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 # sub FindHandler {

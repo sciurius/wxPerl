@@ -13,14 +13,13 @@
 package Wx::Icon;
 
 use strict;
-use Carp;
 
 sub new {
   shift;
 
   @_ == 0                             && return Wx::Icon::newNull();
   Wx::_match( @_, $Wx::_s_n_n_n, 2, 1 )  && return Wx::Icon::newFile( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

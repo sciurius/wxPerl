@@ -221,7 +221,6 @@ if( $Wx::_platform == $Wx::_motif ) {
   @ISA = qw(Wx::Bitmap);
 }
 elsif( $Wx::_platform == $Wx::_gtk ) {
-  @ISA = qw(UNIVERSAL);
 }
 else {
   @ISA = qw(Wx::GDIObject);
@@ -245,7 +244,6 @@ use vars qw(@ISA);
 if( $Wx::_platform == $Wx::_gtk ) {
   @ISA = qw(Wx::GDIObject);
 } else {
-  @ISA = qw(UNIVERSAL);
 }
 
 package Wx::PlValidator;

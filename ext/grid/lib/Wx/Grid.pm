@@ -15,12 +15,9 @@ package Wx::Grid;
 use Wx;
 use strict;
 
-require DynaLoader;
-
-use vars qw(@ISA $VERSION);
+use vars qw($VERSION);
 
 $VERSION = '0.01';
-@ISA = qw(DynaLoader);
 
 Wx::wx_boot( 'Wx::Grid', $VERSION );
 
@@ -53,7 +50,6 @@ package Wx::GridCellChoiceEditor; @ISA = qw(Wx::GridCellEditor);
 package Wx::Grid;
 
 use strict;
-use Carp;
 
 # this is for make_ovl_list to find constants
 sub CellToRect {
@@ -61,7 +57,7 @@ sub CellToRect {
 
   Wx::_match( @_, $Wx::_wgco, 1 ) && return $this->CellToRectCo( @_ );
   Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->CellToRectXY( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub _create_ovls {
@@ -77,7 +73,7 @@ sub ${name} {
 
   Wx::_match( \@_, \$Wx::_wgco, 1 ) && return \$this->${name}Co( @_ );
   Wx::_match( \@_, \$Wx::_n_n, 2 )  && return \$this->${name}XY( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 EOT
 
@@ -93,7 +89,7 @@ sub SelectBlock {
 
   Wx::_match( @_, $Wx::_wgco_wgco_b, 3 ) && return $this->SelectBlockPP( @_ );
   Wx::_match( @_, $Wx::_n_n_n_n_b, 5 )  && return $this->SelectBlockXYWH( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub SetCellValue {
@@ -101,7 +97,7 @@ sub SetCellValue {
 
   Wx::_match( @_, $Wx::_wgco_s, 2 ) && return $this->SetCellValueCo( @_ );
   Wx::_match( @_, $Wx::_n_n_s, 3 )  && return $this->SetCellValueXY( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

@@ -17,15 +17,13 @@ use overload '<=>' => \&tiid_spaceship;
 package Wx::TreeCtrl;
 
 use strict;
-use Carp;
-use UNIVERSAL qw(isa);
 
 sub GetParent {
   my $this = shift;
 
-  if( @_ == 1 && isa( $_[0], 'Wx::TreeItemId' ) ) { return $this->GetItemParent( @_ ) }
+  if( @_ == 1 && ref( $_[0] ) && $_[0]->isa( 'Wx::TreeItemId' ) ) { return $this->GetItemParent( @_ ) }
   if( @_ == 0 ) { return $this->SUPER::GetParent() }
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub InsertItem {

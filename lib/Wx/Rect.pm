@@ -13,7 +13,6 @@
 package Wx::Rect;
 
 use strict;
-use Carp;
 
 sub new {
   shift;
@@ -21,7 +20,7 @@ sub new {
   Wx::_match( @_, $Wx::_n_n_n_n, 4 )   && return Wx::Rect::newXYWH( @_ );
   Wx::_match( @_, $Wx::_wpoi_wsiz, 2 ) && return Wx::Rect::newPS( @_ );
   Wx::_match( @_, $Wx::_wpoi_wpoi, 2 ) && return Wx::Rect::newPP( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

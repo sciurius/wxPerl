@@ -13,8 +13,6 @@
 package Wx;
 
 use strict;
-use UNIVERSAL qw(isa);
-use Carp;
 
 # easier to implement than to wrap
 sub GetMultipleChoices {
@@ -45,7 +43,7 @@ sub LogTraceMask {
 sub LogStatus {
   my( $t );
 
-  if( isa( $_[0], 'Wx::Frame' ) ) {
+  if( ref( $_[0] ) && $_[0]->isa( 'Wx::Frame' ) ) {
     my( $f ) = shift;
 
     $t = sprintf( shift, @_ );

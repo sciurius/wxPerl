@@ -13,7 +13,6 @@
 package Wx::ImageList;
 
 use strict;
-use Carp;
 
 sub Add {
   my( $this ) = shift;
@@ -21,7 +20,7 @@ sub Add {
   Wx::_match( @_, $Wx::_wbmp_wbmp, 1, 1 ) && return $this->AddBitmap( @_ );
   Wx::_match( @_, $Wx::_wbmp_wcol, 2 )    && return $this->AddWithColourMask( @_ );
   Wx::_match( @_, $Wx::_wico, 1 )         && return $this->AddIcon( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Replace {
@@ -29,7 +28,7 @@ sub Replace {
 
   Wx::_match( @_, $Wx::_n_wico, 2 )         && return $this->ReplaceIcon( @_ );
   Wx::_match( @_, $Wx::_n_wbmp_wbmp, 2, 1 ) && return $this->ReplaceBitmap( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

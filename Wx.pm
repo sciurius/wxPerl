@@ -11,21 +11,32 @@
 #############################################################################
 
 package Wx;
+#use Carp;
+#BEGIN {
+#  *CORE::GLOBAL::require =
+#    sub {
+#      if( $_[0] =~ m/^[\d\.]+$/ ) { return 1; }
+#      if( $_[0] =~ m/Heavy/ ) {
+#        Carp::die;
+#        Carp::cluck;
+#        foreach ( 0 .. 10 ) {
+#          print STDERR join "\t", caller($_),"\n";
+#        }
+#      }
+#      CORE::require $_[0];
+#    }
+#  }
 
 use strict;
 
-use Carp;
-use UNIVERSAL qw(isa);
-
 require Exporter;
-require DynaLoader;
 
 use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
   $_platform $_universal $_msw $_gtk $_motif $_wx_version $_static);
 
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
-@ISA = qw(Exporter DynaLoader);
+@ISA = qw(Exporter);
 $VERSION = '0.11';
 
 sub BEGIN{
@@ -50,7 +61,7 @@ sub AUTOLOAD {
 # re-add this if need support for autosplitted subroutines
 #    $AutoLoader::AUTOLOAD = $AUTOLOAD;
 #    goto &AutoLoader::AUTOLOAD;
-    croak "Error while autoloading '$AUTOLOAD'";
+    Wx::_croak( "Error while autoloading '$AUTOLOAD'" );
   }
 
   eval "sub $AUTOLOAD { $val }";
@@ -82,7 +93,7 @@ sub _match(\@$;$$) {
     $t = ${$args}[$i];
     next if $_ == $num && looks_like_number( $t );
     next if !defined( $t ) ||
-      ( defined( $tnames[$_] ) && isa( $t, $tnames[$_] ) );
+      ( defined( $tnames[$_] ) && UNIVERSAL::isa( $t, $tnames[$_] ) );
     next if ( $_ == $arr ) && ref( $t ) eq 'ARRAY';
     next if ( $_ == $wpoi || $_ == $wsiz ) && ref( $t ) eq 'ARRAY';
     next if ( $_ == $wist || $_ == $wost ) && ref( $t );
@@ -100,10 +111,24 @@ sub _ovl_error {
   ( 'unable to resolve overloaded method for ', $_[0] || (caller(1))[3] );
 }
 
+sub _croak {
+  require Carp;
+  goto &Carp::croak;
+}
+
 sub wxPL_STATIC();
 sub wx_boot($$) {
   if( $_[0] eq 'Wx' || !wxPL_STATIC ) {
-    $_[0]->bootstrap( $_[1] );
+    if( $] < 5.006 ) {
+      require DynaLoader;
+      no strict 'refs';
+      push @{"$_[0]::ISA"}, 'DynaLoader';
+      use strict 'refs';
+      $_[0]->bootstrap( $_[1] );
+    } else {
+      require XSLoader;
+      XSLoader::load( $_[0], $_[1] );
+    }
   } else {
     no strict 'refs';
     my $t = $_[0]; $t =~ tr/:/_/;

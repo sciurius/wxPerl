@@ -20,7 +20,6 @@ no strict;
 package Wx::Region;
 
 use strict;
-use Carp;
 
 sub new {
   shift;
@@ -29,7 +28,7 @@ sub new {
   Wx::_match( @_, $Wx::_wpoi_wpoi, 2 ) && return Wx::Region::newPP( @_ );
   Wx::_match( @_, $Wx::_wrec, 1 )      && return Wx::Region::newRect( @_ );
   Wx::_match( @_, $Wx::_arr, 1, 1 )    && return Wx::Region::newPolygon( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Contains {
@@ -39,7 +38,7 @@ sub Contains {
   Wx::_match( @_, $Wx::_n_n, 2 )     && return $this->ContainsXY( @_ );
   Wx::_match( @_, $Wx::_wpoi, 1 )    && return $this->ContainsPoint( @_ );
   Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->ContainsRect( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Intersect {
@@ -48,7 +47,7 @@ sub Intersect {
   Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->IntersectXYWH( @_ );
   Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->IntersectRect( @_ );
   Wx::_match( @_, $Wx::_wreg, 1 )    && return $this->IntersectRegion( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Subtract {
@@ -56,7 +55,7 @@ sub Subtract {
 
   Wx::_match( @_, $Wx::_wreg, 1 ) && return $this->SubtractRegion( @_ );
   Wx::_match( @_, $Wx::_wrec, 1 ) && return $this->SubtractRect( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Union {
@@ -65,7 +64,7 @@ sub Union {
   Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->UnionXYWH( @_ );
   Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->UnionRect( @_ );
   Wx::_match( @_, $Wx::_wreg, 1 )    && return $this->UnionRegion( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub Xor {
@@ -74,7 +73,7 @@ sub Xor {
   Wx::_match( @_, $Wx::_n_n_n_n, 4 ) && return $this->XorXYWH( @_ );
   Wx::_match( @_, $Wx::_wrec, 1 )    && return $this->XorRect( @_ );
   Wx::_match( @_, $Wx::_wreg, 1 )    && return $this->XorRegion( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;

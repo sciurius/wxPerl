@@ -13,8 +13,6 @@
 package Wx::Image;
 
 use strict;
-use Carp;
-#use UNIVERSAL qw(isa);
 
 sub new {
   shift;
@@ -29,7 +27,7 @@ sub new {
   Wx::_match( @_, $Wx::_s_n, 2 )  && return Wx::Image::newNameType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 )  && return Wx::Image::newNameMIME( @_ );
 
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 # sub FindHandler {
@@ -45,7 +43,7 @@ sub LoadFile {
   Wx::_match( @_, $Wx::_wist_s, 2 ) && return Wx::Image::LoadStreamMIME( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->LoadFileType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->LoadFileMIME( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 sub SaveFile {
@@ -56,7 +54,7 @@ sub SaveFile {
   Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->SaveFileType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->SaveFileMIME( @_ );
   Wx::_match( @_, $Wx::_s, 1 ) && return $this->SaveFileOnly( @_ );
-  croak Wx::_ovl_error;
+  Wx::_croak Wx::_ovl_error;
 }
 
 1;
