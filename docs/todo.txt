@@ -12,13 +12,11 @@ For 0.12
 
 * write out a "setup.h" with settings for STC, and use it in Wx.xs
 
-* store inheritance tree in a C++ file
 * store events in a C++ file and autogenerate them
+* rewrite lib/Wx/_Constants.pm in C++
 * try to have constants inlined where appropriate
 
 * EVT_FOO( ..., undef ) to disconnect event handlers
-
-* my_looks_like_number, FIXIT!
 
 PRIORITY NORMAL:
 
