@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.50 2004/02/28 22:58:57 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.51 2004/03/20 17:49:56 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -272,6 +272,9 @@ FindWindowByLabel( id, parent = NULL )
 
 void
 wxWindow::Fit()
+
+void
+wxWindow::FitInside()
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
