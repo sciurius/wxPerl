@@ -120,7 +120,7 @@ wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
     argv[n] = 0;
     RETVAL = wxExecute( argv, sync, callback );
     for( i = 0; i < n; ++i )
-        free( argv[i] );
+        delete argv[i];
     delete[] argv;
     delete[] t;
   OUTPUT:
