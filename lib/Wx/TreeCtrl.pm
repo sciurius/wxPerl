@@ -29,7 +29,7 @@ sub GetParent {
 sub InsertItem {
   my $this = shift;
 
-  if( isa( $_[1], 'Wx::TreeItemId' ) ) { return $this->InsertItemPrev( @_ ) }
+  if( ref( $_[1] ) && $_[1]->isa( 'Wx::TreeItemId' ) ) { return $this->InsertItemPrev( @_ ) }
   return $this->InsertItemBef( @_ );
 }
 
