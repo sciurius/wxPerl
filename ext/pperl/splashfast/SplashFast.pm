@@ -25,7 +25,6 @@ sub new {
   my $class = shift;
 
   Wx::Perl::SplashFast::App->new() ;
-  #if (! $theapp) { return( undef ) ;}
   Wx::InitAllImageHandlers() ;
 
   my $any = Wx::constant( 'wxBITMAP_TYPE_ANY', 0 );
@@ -36,7 +35,7 @@ sub new {
   my $splash = Wx::SplashScreen->new( $bitmap , $spl_c|$spl_ti ,
                                       $_[1] || 1000 , undef , -1 );
 
-  return( $splash ) ;
+  return $splash ;
 }
 
 ###################
@@ -67,7 +66,7 @@ $VERSION = '0.11'; # bootstrap will catch wrong versions
 
 sub wxPL_STATIC();
 sub _wx_boot($$) {
-  if( $_[0] eq 'Wx' || !wxPL_STATIC ) {
+  if( $_[0] eq 'Wx' ) {
     if( $] < 5.006 ) {
       require DynaLoader;
       no strict 'refs';
@@ -254,7 +253,6 @@ This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
 =cut
-
 
 # Local variables: #
 # mode: cperl #
