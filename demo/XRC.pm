@@ -40,6 +40,9 @@ sub description {
 <body>
 <h3>wxWindows XML Resources</h3>
 
+<p>
+  Sorry, there is no documentation (yet)...
+</p>
 </body>
 </html>
 EOT

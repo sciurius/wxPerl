@@ -23,6 +23,21 @@ sub window {
 
 sub description {
   return <<EOT;
+<html>
+<head>
+  <title>Wx::CheckListBox</title>
+</head>
+<body>
+<h3>Wx::CheckListBox</h3>
+
+<p>
+  Wx::CheckListBox works exactly as a Wx::ListBox, except that there is
+  a check box on the left of each item. You can query the state of the
+  check box using the <code>IsChecked()</code> method, and set the its state
+  using the <code>Check()</code> method.
+</p>
+</body>
+</html>
 EOT
 }
 
