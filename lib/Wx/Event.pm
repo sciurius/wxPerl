@@ -67,6 +67,7 @@ sub EVT_COMMAND_RIGHT_CLICK($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_
 sub EVT_COMMAND_SET_FOCUS($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SET_FOCUS, $_[2] ); }
 sub EVT_COMMAND_KILL_FOCUS($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_KILL_FOCUS, $_[2] ); }
 sub EVT_COMMAND_ENTER($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_ENTER, $_[2] ); }
+sub EVT_TOGGLEBUTTON($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, $_[2] ); }
 
 #
 # CloseEvent
@@ -112,6 +113,12 @@ sub EVT_HELP($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_HELP, $_[2] ); 
 sub EVT_HELP_RANGE($$$$) { $_[0]->Connect( _id( $_[1] ), _id( $_[2] ), &Wx::wxEVT_HELP, $_[3] ); }
 sub EVT_DETAILED_HELP($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_DETAILED_HELP, $_[2] ); }
 sub EVT_DETAILED_HELP_RANGE($$$$) { $_[0]->Connect( _id( $_[1] ), _id( $_[2] ), &Wx::wxEVT_DETAILED_HELP, $_[3] ); }
+
+#
+# IconizeEvent
+#
+
+sub EVT_ICONIZE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ICONIZE, $_[1] ); }
 
 #
 # IdleEvent
@@ -181,6 +188,7 @@ sub EVT_RIGHT_DCLICK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_RIGHT_DCLICK, $_[1
 sub EVT_MOTION($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MOTION, $_[1] ); }
 sub EVT_ENTER_WINDOW($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ENTER_WINDOW, $_[1] ); }
 sub EVT_LEAVE_WINDOW($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_LEAVE_WINDOW, $_[1] ); }
+sub EVT_MOUSEWHEEL($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MOUSEWHEEL, $_[1] ); }
 
 #
 # MoveEvent
@@ -323,6 +331,7 @@ package Wx::EraseEvent;      @ISA = qw(Wx::Event);
 package Wx::FocusEvent;      @ISA = qw(Wx::Event);
 package Wx::KeyEvent;        @ISA = qw(Wx::Event);
 package Wx::HelpEvent;       @ISA = qw(Wx::CommandEvent);
+package Wx::IconizeEvent;    @ISA = qw(Wx::Event);
 package Wx::IdleEvent;       @ISA = qw(Wx::Event);
 package Wx::InitDialogEvent; @ISA = qw(Wx::Event);
 package Wx::JoystickEvent;   @ISA = qw(Wx::Event);
