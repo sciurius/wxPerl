@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      1/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.53 2003/08/22 22:21:53 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.54 2003/10/19 20:14:54 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -198,6 +198,25 @@ Load()
     sv_setnv( tmp, ver );
     tmp = get_sv( "Wx::wxVERSION", 1 );
     sv_setnv( tmp, ver );
+
+    int platform;
+    // change App.pm whenever these change
+#if defined(__WXMSW__)
+    platform = 1;
+#elif defined(__WXGTK__)
+    platform = 2;
+#elif defined(__WXMOTIF__)
+    platform = 3;
+#elif defined(__WXMAC__)
+    platform = 4;
+#elif defined(__WXX11__)
+    platform = 5;
+#else
+    #error must add case
+#endif
+
+    tmp = get_sv( "Wx::_platform", 1 );
+    sv_setiv( tmp, platform );
 
     if( wxTopLevelWindows.GetCount() > 0 )
         return;
