@@ -206,6 +206,22 @@ sub EVT_MOTION($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MOTION, $_[1] ); }
 sub EVT_ENTER_WINDOW($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ENTER_WINDOW, $_[1] ); }
 sub EVT_LEAVE_WINDOW($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_LEAVE_WINDOW, $_[1] ); }
 sub EVT_MOUSEWHEEL($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MOUSEWHEEL, $_[1] ); }
+sub EVT_MOUSE_EVENTS($$) {
+  my( $x, $y ) = @_;
+  EVT_LEFT_DOWN( $x, $y );
+  EVT_LEFT_UP( $x, $y );
+  EVT_LEFT_DCLICK( $x, $y );
+  EVT_MIDDLE_DOWN( $x, $y );
+  EVT_MIDDLE_UP( $x, $y );
+  EVT_MIDDLE_DCLICK( $x, $y );
+  EVT_RIGHT_DOWN( $x, $y );
+  EVT_RIGHT_UP( $x, $y );
+  EVT_RIGHT_DCLICK( $x, $y );
+  EVT_MOTION( $x, $y );
+  EVT_ENTER_WINDOW( $x, $y );
+  EVT_LEAVE_WINDOW( $x, $y );
+  EVT_MOUSEWHEEL( $x, $y ) if $Wx::_wx_version >= 2.003001;
+}
 
 #
 # MoveEvent
