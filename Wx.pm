@@ -26,7 +26,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter DynaLoader);
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE);
@@ -163,7 +163,6 @@ _SetInstance( $DynaLoader::dl_librefs[ $#DynaLoader::dl_librefs ] );
 
 {
   _boot_Constant( 'Wx', $VERSION );
-  _boot_Functions( 'Wx', $VERSION );
   _boot_Events( 'Wx', $VERSION );
   _boot_Window( 'Wx', $VERSION );
   _boot_Controls( 'Wx', $VERSION );
