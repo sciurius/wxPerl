@@ -272,7 +272,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor, \
  &wxPli_cpp_class_2_perl, &wxPli_push_arguments };
 
-#if !defined( WXPL_STATIC ) || !defined( WXPL_EXT )
+#if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
 
 #define INIT_PLI_HELPERS( name ) \
   SV* wxpli_tmp = get_sv( "Wx::_exports", 1 ); \
