@@ -158,6 +158,7 @@ my @demos =
     [ 'Non-managed windows',
       [
        [ 'HtmlWindow', demo( 'wxHtmlWindow' ) ],
+       [ 'SplashScreen', demo( 'wxSplashScreen' ) ],
       ],
     ],
     [ 'Controls',
@@ -169,6 +170,7 @@ my @demos =
       [
        [ 'FileSystem', demo( 'wxFileSystem' ) ],
        [ 'Locale', demo( 'wxLocale' ) ],
+       [ 'MDI', demo( 'MDI', 'MDIDemo' ) ],
        [ 'Printing', demo( 'Printing' ) ],
        [ 'Unicode', demo( 'Unicode', 'UnicodeDemo' ), 3.0 ],
        [ 'XRC', demo( 'XRC' ), 2.003001 ],
@@ -188,7 +190,8 @@ use Wx::Event qw(EVT_TREE_SEL_CHANGED EVT_CLOSE);
 
 sub new {
   my $class = shift;
-  my $this = $class->SUPER::new( undef, -1, "wxPerl Demo" );
+  my $this = $class->SUPER::new( undef, -1, "wxPerl Demo", wxDefaultPosition,
+                                 [ 400, 300 ] );
 
   my $border_mask = ~( wxSTATIC_BORDER|wxSIMPLE_BORDER|wxDOUBLE_BORDER|
                        wxSUNKEN_BORDER|wxRAISED_BORDER);
