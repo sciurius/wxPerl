@@ -192,6 +192,10 @@ void
 Wx_DataObjectComposite::Add( dataObject, preferred = FALSE )
     Wx_DataObjectSimple* dataObject
     bool preferred
+  CODE:
+    // at this point the data object is owned!
+    wxPli_object_set_deleteable( ST(1), FALSE );
+    THIS->Add( dataObject, preferred );
 
 MODULE=Wx PACKAGE=Wx::TextDataObject
 
