@@ -106,6 +106,7 @@ sub OnIORedir {
   $process->Redirect;
 
   Wx::ExecuteArgs( [$^X, main::filename( 'data/cat.pl' )], 0, $process );
+#  Wx::ExecuteArgs( ['date'], 0, $process );
 }
 
 sub OnEnter {
@@ -117,9 +118,13 @@ sub OnEnter {
 
 sub OnIdle {
   my $this = shift;
+  my $process = $this->process;
 
-  if( defined $this->process ) {
-    my $value = readline $this->process->GetInputStream;
+  if( defined $process ) {
+    my $stream = $process->GetInputStream;
+#    Wx::LogMessage( "Null stream!" ) unless defined $stream;
+#    Wx::LogMessage( "Stream: '%s'", tied( $$stream ) );
+    my $value = <$stream>;
     $this->output->AppendText( $value ) if defined $value;
   }
 }
@@ -154,7 +159,7 @@ sub new {
 sub OnTerminate {
   my( $this, $pid, $status ) = @_;
 
-  Wx::MessageBox( "Process '$pid' terminated with status $status", 'Wx::Process' );
+  Wx::LogMessage( "Process '$pid' terminated with status $status" );
 }
 
 1;

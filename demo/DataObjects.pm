@@ -20,7 +20,9 @@ sub GetImage {
   my $dc = Wx::MemoryDC->new;
   $dc->SelectObject( $bitmap );
 
-  $dc->SetBrush( wxWHITE_BRUSH );
+  my @brushes = ( wxWHITE_BRUSH, wxBLUE_BRUSH, wxGREEN_BRUSH,
+                  wxGREY_BRUSH, wxCYAN_BRUSH );
+  $dc->SetBrush( @brushes[rand(5)] );
   $dc->DrawRectangle( 0, 0, 100, 100 );
 
   $dc->SetPen( wxBLACK_PEN );

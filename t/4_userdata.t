@@ -1,9 +1,9 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 # tests the ability of sending events directly
 # to windows
 
-BEGIN { print "1..5\n"; }
+BEGIN { print "1..6\n"; }
 
 use strict;
 use Wx;
@@ -28,26 +28,30 @@ sub new {
 
   print( ( ( $data eq 'Frobnicate' ) ? '' : 'not ' ) . "ok 1\n" );
 
-  $data = $tree->GetPlData( $root );
+  $data = $trdata->GetData();
 
   print( ( ( $data eq 'Frobnicate' ) ? '' : 'not ' ) . "ok 2\n" );
+
+  $data = $tree->GetPlData( $root );
+
+  print( ( ( $data eq 'Frobnicate' ) ? '' : 'not ' ) . "ok 3\n" );
 
   $trdata = $tree->GetItemData( $root );
   $trdata->SetData( 'Baz' );
   $trdata = $tree->GetItemData( $root );
   $data = $trdata->GetData();
 
-  print( ( ( $data eq 'Baz' ) ? '' : 'not ' ) . "ok 3\n" );
+  print( ( ( $data eq 'Baz' ) ? '' : 'not ' ) . "ok 4\n" );
 
   $tree->SetItemData( $root, Wx::TreeItemData->new( 'Boo' ) );
   $data = $tree->GetPlData( $root );
 
-  print( ( ( $data eq 'Boo' ) ? '' : 'not ' ) . "ok 4\n" );
+  print( ( ( $data eq 'Boo' ) ? '' : 'not ' ) . "ok 5\n" );
 
   $tree->SetPlData( $root, 'XyZ' );
   $data = $tree->GetPlData( $root );
 
-  print( ( ( $data eq 'XyZ' ) ? '' : 'not ' ) . "ok 5\n" );
+  print( ( ( $data eq 'XyZ' ) ? '' : 'not ' ) . "ok 6\n" );
 
   $this->Destroy;
 

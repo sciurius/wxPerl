@@ -31,7 +31,7 @@ EOT
 package ClipboardDemoWindow;
 
 use strict;
-use Wx qw(wxTheClipboard);
+use Wx qw(wxTheClipboard wxNullBitmap);
 use Wx::Event qw(EVT_BUTTON);
 require DataObjects;
 
@@ -46,7 +46,6 @@ sub new {
   my $copy = Wx::Button->new( $this, -1, 'Copy Text', [ 20, 20 ] );
   my $paste = Wx::Button->new( $this, -1, 'Paste', [ 120, 20 ] );
   my $copy_im = Wx::Button->new( $this, -1, 'Copy Image', [ 20, 50 ] );
-  my $copy_both = Wx::Button->new( $this, -1, 'Copy Both', [ 20, 80 ] );
 
   $this->{TEXT} = Wx::StaticText->new( $this, -1, '', [ 220, 20 ] );
   $this->{IMAGE} = Wx::StaticBitmap->new( $this, -1, wxNullBitmap,
@@ -55,7 +54,14 @@ sub new {
   EVT_BUTTON( $this, $copy, \&OnCopyText );
   EVT_BUTTON( $this, $paste, \&OnPaste );
   EVT_BUTTON( $this, $copy_im, \&OnCopyImage );
-  EVT_BUTTON( $this, $copy_both, \&OnCopyBoth );
+  # unfortunately pasting a composite data object segfaults
+  # on wx 2.2/wxGTK
+  unless( $Wx::_platform == $Wx::_gtk && $Wx::_wx_version < 2.003 ) {
+    my $copy_both = Wx::Button->new( $this, -1, 'Copy Both', [ 20, 80 ] );
+    EVT_BUTTON( $this, $copy_both, \&OnCopyBoth )
+  }
+
+  wxTheClipboard->UsePrimarySelection( 0 );
 
   return $this;
 }
@@ -67,6 +73,7 @@ sub _Copy {
   my $data = shift;
 
   wxTheClipboard->Open;
+  wxTheClipboard->Clear;
   wxTheClipboard->SetData( $data );
   wxTheClipboard->Close;
 }
@@ -99,23 +106,32 @@ sub OnPaste {
   my( $this, $event ) = @_;
 
   wxTheClipboard->Open;
-  wxTheClipboard->UsePrimarySelection( 0 );
 
   my $text = '';
   if( wxTheClipboard->IsSupported( wxDF_TEXT ) ) {
     my $data = Wx::TextDataObject->new;
-    wxTheClipboard->GetData( $data );
-    Wx::LogMessage( "Pasted text data" );
-    $text = $data->GetText;
+    my $ok = wxTheClipboard->GetData( $data );
+    if( $ok ) {
+      Wx::LogMessage( "Pasted text data" );
+      $text = $data->GetText;
+    } else {
+      Wx::LogMessage( "Error pasting text data" );
+      $text = '';
+    }
   }
   $this->text->SetLabel( $text );
 
   my $bitmap = wxNullBitmap;
   if( wxTheClipboard->IsSupported( wxDF_BITMAP ) ) {
     my $data = Wx::BitmapDataObject->new;
-    wxTheClipboard->GetData( $data );
-    Wx::LogMessage( "Pasted bitmap data" );
-    $bitmap =  $data->GetBitmap;
+    my $ok = wxTheClipboard->GetData( $data );
+    if( $ok ) {
+      Wx::LogMessage( "Pasted bitmap data" );
+      $bitmap =  $data->GetBitmap;
+    } else {
+      Wx::LogMessage( "Error pasting bitmap data" );
+      $bitmap = wxNullBitmap;
+    }
   }
   $this->image->SetBitmap( $bitmap );
 
