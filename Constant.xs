@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.90 2003/08/17 19:34:29 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.91 2003/08/23 12:56:42 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -303,7 +303,12 @@ static wxPlINH inherit[] =
     I( StaticBoxSizer,  BoxSizer )
     I( GridSizer,       Sizer )
     I( FlexGridSizer,   GridSizer )
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    I( NotebookSizer,   BookCtrlSizer )
+#else
     I( NotebookSizer,   Sizer )
+#endif
+    I( BookCtrlSizer,   Sizer )
     I( PlSizer,         Sizer )
 
     I( TaskBarIcon,     EvtHandler )

@@ -589,7 +589,7 @@ hijack( 'Wx::ImageList::AddBitmap'         => sub { $addbitmap = 1 },
         'Wx::ImageList::ReplaceBitmap'     => sub { $replbmp = 1 } );
 
 my $img = Wx::Image->new( 16, 16 );
-my( $bmp, $ico ) = ( Wx::Bitmap->new( $img ), $icook );
+my( $bmp, $ico ) = ( Wx::Bitmap->new( $img ), Wx::GetWxPerlIcon( 1 ) );
 my $imgl = Wx::ImageList->new( 16, 16 );
 
 $imgl->Add( $bmp );
