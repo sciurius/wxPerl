@@ -213,16 +213,22 @@ sub OnReportView {
   # control hidden to speed up insertion
   $this->{LISTCTRL}->Show( 0 );
 
-  #FIXME//stopwatch
+  my( $watch ) = Wx::StopWatch->new;
+
+  $watch->Start;
+
   my( $id );
-  foreach ( 1 .. 29 ) {
+  my( $elements ) = 300;
+
+  foreach ( 1 .. $elements - 1 ) {
     $id = $this->{LISTCTRL}->InsertStringImageItem( $_, "This is item $_", 0 );
     $this->{LISTCTRL}->SetItemData( $id, $_ );
     $this->{LISTCTRL}->SetItem( $id, 1, "Col 1, Item $_" );
     $this->{LISTCTRL}->SetItem( $id, 2, "Item $_ in column 2" );
   }
 
-  #log time
+  Wx::LogMessage( "Inserted %d elements in %d milliseconds",
+                  $elements, $watch->Time );
 
   $this->{LISTCTRL}->Show( 1 );
 
@@ -354,9 +360,12 @@ sub OnToggleMultiSel {
 sub OnDeleteAll {
   my( $this, $event ) = @_;
 
-  #FIXME// stopwatch
+  my( $watch ) = Wx::StopWatch->new;
 
   $this->{LISTCTRL}->DeleteAllItems;
+
+  Wx::LogMessage( "Deleted all items in %d milliseconds",
+                  $watch->Time() );
 }
 
 sub OnSetFgColour {
@@ -493,7 +502,7 @@ sub OnSelected {
       Wx::LogMessage( "Value of the second field of the selected item: %s",
                       $info->GetText );
     } else {
-      #FIXME// wxFAIL_MSG
+      #die;
     }
   }
 }
