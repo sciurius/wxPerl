@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
-0.17
+0.17  Tue Sep  9 22:45:40 CEST 2003
+	- Bugfix release.
+	- Completed wxWindows 2.5 compatibility.
 
 0.16  Mon Aug 25 00:26:44 CEST 2003
 	- Added Wx::PlGridCellEditor and Wx::PlGridCellRenderer
