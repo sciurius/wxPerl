@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/06/2003
-## RCS-ID:      $Id: wxGridCER.pm,v 1.1 2003/06/05 17:28:10 mbarbon Exp $
+## RCS-ID:      $Id: wxGridCER.pm,v 1.2 2005/01/09 22:39:08 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -126,7 +126,7 @@ sub new {
 sub Create {
   my( $self, $parent, $id, $evthandler ) = @_;
 
-  $self->{text_ctrl} = Wx::TextCtrl->new( $parent, $id, 'Default value' );
+  $self->SetControl( Wx::TextCtrl->new( $parent, $id, 'Default value' ) );
 
   Wx::LogMessage( 'Create called' );
 }
@@ -134,13 +134,14 @@ sub Create {
 sub Destroy {
   my $self = shift;
 
-  $self->{text_ctrl}->Destroy if $self->{text_ctrl};
+  $self->GetControl->Destroy if $self->GetControl;
+  $self->SetControl( undef );
 }
 
 sub SetSize {
   my( $self, $size ) = @_;
 
-  $self->{text_ctrl}->SetSize( $size );
+  $self->GetControl->SetSize( $size );
 
   Wx::LogMessage( 'SetSize called' );
 }
@@ -148,7 +149,7 @@ sub SetSize {
 sub Show {
   my( $self, $show, $attr ) = @_;
 
-  $self->{text_ctrl}->Show( $show );
+  $self->GetControl->Show( $show );
 
   Wx::LogMessage( 'Show called' );
 }
@@ -156,12 +157,15 @@ sub Show {
 sub EndEdit {
   my( $self, $row, $col, $grid ) = @_;
 
-  my $value = '>> ' . $self->{text_ctrl}->GetValue . ' <<';
+  my $value = '>> ' . $self->GetControl->GetValue . ' <<';
   my $oldValue = $grid->GetCellValue( $row, $col );
 
   my $changed =  $value ne $oldValue;
 
   if( $changed ) { $grid->SetCellValue( $row, $col, $value ) }
+
+  $self->GetControl->Destroy;
+  $self->SetControl( undef );
 
   Wx::LogMessage( 'EndEdit called' );
 
