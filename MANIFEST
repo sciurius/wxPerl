@@ -63,7 +63,6 @@ lib/Wx/Region.pm
 lib/Wx/Sizer.pm
 lib/Wx/Timer.pm
 lib/Wx/_Constants.pm
-lib/Wx/_Functions.pm
 
 samples/controls/controls.pl
 samples/controls/icons/choice.bmp
@@ -245,7 +244,6 @@ cpp/sashwindow.h
 cpp/scrolledwindow.h
 cpp/singlechoicedialog.h
 cpp/sizer.h
-cpp/statusbar.h
 cpp/streams.h
 cpp/timer.h
 cpp/tipprovider.h
@@ -320,6 +318,7 @@ ext/grid/XS/Grid.xs
 ext/grid/XS/GridEvent.xs
 ext/grid/cpp/gr_constants.cpp
 ext/grid/cpp/gr_typedef.h
+ext/grid/cpp/renderer.h
 ext/grid/lib/Wx/Grid.pm
 ext/grid/typemap
 ext/grid/t/01_load.t
