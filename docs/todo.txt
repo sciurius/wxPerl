@@ -4,6 +4,10 @@ MISC:
 
 PRIORITY NORMAL:
 
+* Threads
+  - add aTHX_, etc
+  - cloning of objects with a DESTROY
+
 * wxGrid
     GetTable
     SetTable
@@ -110,6 +114,8 @@ DOCUMENTATTION:
     newData
 
 * Wx::PlDataObjectSimple
+
+* Wx::PlFileSystemHandler
 
 -- not documented in wxWindows --
 

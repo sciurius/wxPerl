@@ -28,8 +28,10 @@ ActivePerl 616  | Windows 95    | wxMSW 2.2.9    | MSVC 5
 5.6.1           |               |                | MinGW GCC
 ----------------+---------------+----------------+-------------------
 5.005_03        | Debian 2.2    | wxGTK 2.2.9    | GCC 2.95.2
-5.004_05        |               | wxGTK 2.3.2    |
-5.004_04 [1]    |               |                |
+5.004_05        | Debian 3.0    | wxGTK 2.3.2    |
+5.004_04 [1]    | RedHat 7.1    |                |
 ----------------+---------------+----------------+-------------------  
+
+wxPerl has also been reported to work on FreeBSD.
 
 [1] see docs/bugs.txt
