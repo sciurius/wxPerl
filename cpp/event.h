@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        event.h
+// Name:        cpp/event.h
 // Purpose:     C++ helpers for user-defined events
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     30/ 3/2002
-// RCS-ID:      $Id: event.h,v 1.7 2003/11/08 18:31:55 mbarbon Exp $
+// Created:     30/03/2002
+// RCS-ID:      $Id: event.h,v 1.8 2004/08/04 20:22:01 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -37,7 +37,7 @@ wxEvent* wxPlEvent::Clone() const
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( aTHX_ &self->m_callback, G_SCALAR );
+            ( aTHX_ &self->m_callback, G_SCALAR, NULL );
         wxPlEvent* clone =
             (wxPlEvent*)wxPli_sv_2_object( aTHX_ ret, "Wx::PlEvent" );
         SvREFCNT_dec( ret );
@@ -73,7 +73,7 @@ wxEvent* wxPlCommandEvent::Clone() const
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( aTHX_ &self->m_callback, G_SCALAR );
+            ( aTHX_ &self->m_callback, G_SCALAR, NULL );
         wxPlCommandEvent* clone = (wxPlCommandEvent*)
             wxPli_sv_2_object( aTHX_ ret, "Wx::PlCommandEvent" );
         SvREFCNT_dec( ret );

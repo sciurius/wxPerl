@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        v_cback.h
+// Name:        cpp/v_cback.h
 // Purpose:     callback helper class for virtual functions
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.26 2003/12/20 15:48:52 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.27 2004/08/04 20:22:01 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -138,7 +138,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
     {                                                                         \
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,       \
-                                                     G_SCALAR );              \
+                                                     G_SCALAR, NULL );        \
         size_t val = SvUV( ret );                                             \
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \
@@ -282,7 +282,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \
     } else                                                                    \
-        return FALSE;                                                         \
+        return false;                                                         \
   }
 
 #define DEC_V_CBACK_BOOL__WXCOORD_WXCOORD_WXARRAYSTRING( METHOD ) \
@@ -312,7 +312,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \
     } else                                                                    \
-        return FALSE;                                                         \
+        return false;                                                         \
   }
 
 #define DEC_V_CBACK_WXSTRING__WXSTRING_INT( METHOD ) \
@@ -380,7 +380,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) ) \
         {                                                                     \
             SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,   \
-                                                         G_SCALAR );          \
+                                                         G_SCALAR, NULL );    \
             bool val = SvTRUE( ret );                                         \
             SvREFCNT_dec( ret );                                              \
             return val;                                                       \
@@ -645,7 +645,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) ) \
         {                                                                     \
             SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,   \
-                                                         G_SCALAR );          \
+                                                         G_SCALAR, NULL );    \
             int val = SvOK( ret ) ? SvIV( ret ) : 0;                          \
             SvREFCNT_dec( ret );                                              \
             return val;                                                       \
@@ -690,7 +690,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) ) \
         {                                                                     \
               wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,           \
-                                                 G_SCALAR|G_DISCARD );        \
+                                                 G_SCALAR|G_DISCARD, NULL );  \
         } else                                                                \
             CALLBASE;                                                         \
     }
@@ -878,7 +878,8 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         dTHX;                                                                \
         if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                      \
         {                                                                    \
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR ) );\
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,    \
+                                             NULL ) );                       \
             return (TR)wxPli_sv_2_object( aTHX_ ret, #TRC );                 \
         } else                                                               \
             CALLBASE;                                                        \
@@ -895,7 +896,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) ) \
         {                                                                     \
             SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,   \
-                                                         G_SCALAR );          \
+                                                         G_SCALAR, NULL );    \
             wxString val;                                                     \
             WXSTRING_INPUT( val, wxString, ret );                             \
             SvREFCNT_dec( ret );                                              \

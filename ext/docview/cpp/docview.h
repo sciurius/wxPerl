@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.16 2004/02/28 22:59:07 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.17 2004/08/04 20:22:01 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -25,7 +25,7 @@ class wxPliDocument : public wxDocument
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliDocument );
     WXPLI_DECLARE_V_CBACK();
 public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliDocument, "Wx::Document", TRUE );
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliDocument, "Wx::Document", true );
 
     DEC_V_CBACK_BOOL__VOID( Close );
     DEC_V_CBACK_BOOL__VOID( Save );
@@ -214,7 +214,7 @@ wxDocManager *wxPliDocument::GetDocumentManager() const
                                            "GetDocumentManager" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
+                                                     G_SCALAR, NULL );
         wxDocManager* retval =
             (wxDocManager*)wxPli_sv_2_object( aTHX_ ret, "Wx::DocManager" );
         SvREFCNT_dec( ret );
@@ -231,7 +231,7 @@ wxDocTemplate *wxPliDocument::GetDocumentTemplate() const
                                            "GetDocumentTemplate" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
+                                                     G_SCALAR, NULL );
         wxDocTemplate* retval =
             (wxDocTemplate*)wxPli_sv_2_object( aTHX_ ret, "Wx::DocTemplate" );
         SvREFCNT_dec( ret );
@@ -263,7 +263,7 @@ wxWindow *wxPliDocument::GetDocumentWindow() const
                                            "GetDocumentWindow" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
+                                                     G_SCALAR, NULL );
 
         wxWindow* retval =
           (wxWindow*) wxPli_sv_2_object( aTHX_ ret, "Wx::Window" );
@@ -300,7 +300,7 @@ public:
     {
         m_hasDocClassInfo = docClassInfo != 0;
         m_hasViewClassInfo = viewClassInfo != 0;
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+        m_callback.SetSelf( wxPli_make_object( this, package ), true);
     }
 
     ~wxPliDocTemplate() {}
@@ -368,7 +368,7 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
                                            "CreateDocument" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
+                                                     G_SCALAR, NULL );
         doc = (wxDocument*) wxPli_sv_2_object( aTHX_ ret, "Wx::Document" );
         SvREFCNT_dec( ret );
     }
@@ -406,7 +406,7 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "CreateView" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
+                                                     G_SCALAR, NULL );
         view = (wxView*) wxPli_sv_2_object( aTHX_ ret, "Wx::View" );
         SvREFCNT_dec( ret );
     }
@@ -454,11 +454,11 @@ class wxPliDocManager : public wxDocManager
     WXPLI_DECLARE_V_CBACK();
 public:
     wxPliDocManager(  const char* package, long flags = wxDEFAULT_DOCMAN_FLAGS,
-                     bool initialize = TRUE)
+                     bool initialize = true)
        : wxDocManager(flags, initialize),
          m_callback( "Wx::DocManager" )
     {
-       m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+       m_callback.SetSelf( wxPli_make_object( this, package ), true);
     }
     ~wxPliDocManager();
 
@@ -472,17 +472,17 @@ public:
     wxDocTemplate* MatchTemplate( const wxString& );
     wxDocTemplate* SelectDocumentPath( wxDocTemplate** templates,
                                        int noTemplates, wxString& path,
-                                       long flags, bool save=FALSE);
+                                       long flags, bool save=false);
     wxDocTemplate* SelectDocumentType( wxDocTemplate** templates,
-                                       int noTemplates, bool sort=FALSE);
+                                       int noTemplates, bool sort=false);
     wxDocTemplate* SelectViewType( wxDocTemplate** templates, int noTemplates,
-                                   bool sort=FALSE );
+                                   bool sort=false );
     wxDocTemplate* FindTemplateForPath( const wxString& );
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
-    void ActivateView( wxView*, bool activate = TRUE);
+    void ActivateView( wxView*, bool activate = true);
 #else
-    void ActivateView( wxView*, bool activate = TRUE, bool deleting = FALSE);
+    void ActivateView( wxView*, bool activate = true, bool deleting = false);
 #endif
     // wxView* GetCurrentView() const;
 
@@ -776,7 +776,7 @@ wxFileHistory* wxPliDocManager::OnCreateFileHistory()
                                            "OnCreateFileHistory" ) )
     {
       SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR|G_NOARGS );
+                                                   G_SCALAR|G_NOARGS, NULL );
       wxFileHistory* retval =
         (wxFileHistory*)wxPli_sv_2_object( aTHX_ ret, "Wx::FileHistory" );
       SvREFCNT_dec( ret );
@@ -791,7 +791,7 @@ wxFileHistory* wxPliDocManager::GetFileHistory()
                                            "GetFileHistory" ) )
     {
       SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR|G_NOARGS );
+                                                   G_SCALAR|G_NOARGS, NULL );
       wxFileHistory* retval =
         (wxFileHistory*)wxPli_sv_2_object( aTHX_ ret, "Wx::FileHistory" );
       SvREFCNT_dec( ret );
@@ -841,7 +841,7 @@ int wxPliDocManager::GetNoHistoryFiles() const
 #endif
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR|G_NOARGS);
+                                                     G_SCALAR|G_NOARGS, NULL);
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
         int retval = (int)SvIV( ret );
 #else
@@ -910,7 +910,7 @@ void wxPliDocManager::FileHistoryAddFilesToMenu()
                                                "FileHistoryAddFilesToMenu" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR|G_NOARGS|G_DISCARD);
+                                           G_SCALAR|G_NOARGS|G_DISCARD, NULL);
         return;
     }
     wxDocManager::FileHistoryAddFilesToMenu( );
@@ -949,7 +949,7 @@ public:
        : wxView(),
          m_callback( "Wx::View" )
     {
-       m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+       m_callback.SetSelf( wxPli_make_object( this, package ), true);
     }
     ~wxPliView();
 
@@ -960,7 +960,7 @@ public:
     DEC_V_CBACK_VOID__VOID( OnClosingDocument );
     DEC_V_CBACK_VOID__VOID( OnChangeFilename );
     bool OnCreate( wxDocument*, long );
-    bool Close( bool deleteWindow = TRUE );
+    bool Close( bool deleteWindow = true );
     bool OnClose( bool );
 
     // bool ProcessEvent(wxEvent&);
@@ -1060,7 +1060,7 @@ wxPrintout* wxPliView::OnCreatePrintout()
                                            "OnCreatePrintout" ) )
     {
       SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR);
+                                                   G_SCALAR, NULL);
       wxPrintout* retval =
         (wxPrintout*)wxPli_sv_2_object( aTHX_ ret, "Wx::Printout" );
       SvREFCNT_dec( ret );
@@ -1090,7 +1090,7 @@ public:
        : wxDocChildFrame(doc, view, parent, id, title, pos, size, style, name),
          m_callback( "Wx::DocChildFrame" )
     {
-       m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+       m_callback.SetSelf( wxPli_make_object( this, package ), true);
     }
     ~wxPliDocChildFrame();
 
@@ -1120,7 +1120,7 @@ public:
        : wxDocParentFrame(manager, parent, id, title, pos, size, style, name),
          m_callback( "Wx::DocParentFrame" )
     {
-       m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+       m_callback.SetSelf( wxPli_make_object( this, package ), true);
     }
     ~wxPliDocParentFrame();
 
@@ -1154,7 +1154,7 @@ public:
                             size, style, name),
          m_callback( "Wx::DocMDIChildFrame" )
     {
-       m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+       m_callback.SetSelf( wxPli_make_object( this, package ), true);
     }
     ~wxPliDocMDIChildFrame();
 
@@ -1186,7 +1186,7 @@ public:
                              style, name),
          m_callback( "Wx::DocMDIParentFrame" )
     {
-       m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+       m_callback.SetSelf( wxPli_make_object( this, package ), true);
     }
     ~wxPliDocMDIParentFrame();
 
@@ -1213,7 +1213,7 @@ public:
        : wxFileHistory( maxfiles ),
          m_callback( "Wx::FileHistory" )
     {
-       m_callback.SetSelf( wxPli_make_object( this, package ), TRUE);
+       m_callback.SetSelf( wxPli_make_object( this, package ), true);
     }
     ~wxPliFileHistory();
 
@@ -1279,7 +1279,7 @@ int wxPliFileHistory::GetMaxFiles() const
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "GetMaxFiles" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR);
+                                                     G_SCALAR, NULL);
         int retval = (int)SvIV( ret );
         SvREFCNT_dec( ret );
         return retval;
@@ -1345,7 +1345,7 @@ void wxPliFileHistory::AddFilesToMenu()
                                            "AddFilesToMenu" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR|G_DISCARD|G_NOARGS );
+                                           G_SCALAR|G_DISCARD|G_NOARGS, NULL );
         return;
     }
     wxFileHistory::AddFilesToMenu();
@@ -1390,7 +1390,7 @@ int wxPliFileHistory::GetCount() const
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "GetCount" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR|G_NOARGS );
+                                                     G_SCALAR|G_NOARGS, NULL );
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
         int retval = (int)SvIV( ret );
 #else

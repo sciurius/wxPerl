@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/05/2003
-// RCS-ID:      $Id: editor.h,v 1.3 2004/02/29 14:30:40 mbarbon Exp $
+// RCS-ID:      $Id: editor.h,v 1.4 2004/08/04 20:22:02 mbarbon Exp $
 // Copyright:   (c) 2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -173,7 +173,7 @@ public:
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "Clone" ) )
         {
             SV* ret = wxPliVirtualCallback_CallCallback
-                ( aTHX_ &m_callback, G_SCALAR );
+                ( aTHX_ &m_callback, G_SCALAR, NULL );
             wxGridCellEditor* clone =
                 (wxGridCellEditor*)wxPli_sv_2_object( aTHX_ ret, "Wx::GridCellEditor" );
             SvREFCNT_dec( ret );

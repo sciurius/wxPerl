@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: sizer.h,v 1.10 2003/08/05 17:20:35 mbarbon Exp $
+// RCS-ID:      $Id: sizer.h,v 1.11 2004/08/04 20:22:01 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -24,7 +24,7 @@ public:
 inline wxPlSizer::wxPlSizer( const char* package )
     :m_callback( "Wx::PlSizer" )
 {
-    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), true );
 }
 
 DEF_V_CBACK_VOID__VOID_pure( wxPlSizer, wxSizer, RecalcSizes )
@@ -37,7 +37,7 @@ wxSize wxPlSizer::CalcMin()
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "CalcMin" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                     G_SCALAR );
+                                                     G_SCALAR, NULL );
         wxSize* val = (wxSize*)wxPli_sv_2_object( aTHX_ ret, "Wx::Size" );
         SvREFCNT_dec( ret );
         return *val;

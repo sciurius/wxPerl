@@ -20,7 +20,7 @@
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
     {                                                                         \
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,       \
-                                                     G_SCALAR );              \
+                                                     G_SCALAR, NULL );        \
         wxObject* val = (wxObject*)wxPli_sv_2_object( aTHX_ ret, NULL );      \
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \
@@ -57,7 +57,7 @@ public:
     wxPlXmlResourceHandler( const char* package )
         :m_callback( "Wx::XmlResourceHandler" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 
     DEC_V_CBACK_BOOL__WXXMLNODE_pure( CanHandle );

@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        overload.h
+// Name:        cpp/overload.h
 // Purpose:     C++ code to redispatch a function based on function argument
 //              types
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     11/ 8/2002
-// RCS-ID:      
+// Created:     11/08/2002
+// RCS-ID:      $Id: overload.h,v 1.4 2004/08/04 20:22:01 mbarbon Exp $
 // Copyright:   (c) 2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -35,23 +35,24 @@
     else
 
 #define MATCH_ANY_REDISP( METHOD ) \
-    if( TRUE ) \
+    if( true ) \
         { REDISPATCH( METHOD ); } \
     else
 
 #define MATCH_REDISP( PROTO, METHOD ) \
-    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count ) ) \
+    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count, \
+                                         -1, false ) ) \
         { REDISPATCH( METHOD ); } \
     else
 
 #define MATCH_REDISP_COUNT( PROTO, METHOD, REQUIRED ) \
     if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count, \
-                                         REQUIRED ) ) \
+                                         REQUIRED, false ) ) \
         { REDISPATCH( METHOD ); } \
     else
 
 #define MATCH_REDISP_COUNT_ALLOWMORE( PROTO, METHOD, REQUIRED ) \
     if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count, \
-                                         REQUIRED, TRUE ) ) \
+                                         REQUIRED, true ) ) \
         { REDISPATCH( METHOD ); } \
     else

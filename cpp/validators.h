@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        validators.h
+// Name:        cpp/validators.h
 // Purpose:     c++ wrapper for wxValidator, and wxPlValidator
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
+// RCS-ID:      $Id: validators.h,v 1.7 2004/08/04 20:22:01 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -33,7 +33,7 @@ DEF_V_CBACK_BOOL__VOID( wxPlValidator, wxValidator, TransferFromWindow );
 inline wxPlValidator::wxPlValidator( const char* package )
     :m_callback( "Wx::PlValidator" )
 { 
-    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), true );
 }
 
 wxObject* wxPlValidator::Clone() const
@@ -44,7 +44,7 @@ wxObject* wxPlValidator::Clone() const
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
-            ( aTHX_ &self->m_callback, G_SCALAR );
+            ( aTHX_ &self->m_callback, G_SCALAR, NULL );
         wxValidator* clone =
             (wxValidator*)wxPli_sv_2_object( aTHX_ ret, "Wx::Validator" );
         SvREFCNT_dec( ret );

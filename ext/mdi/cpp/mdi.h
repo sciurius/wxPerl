@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     06/09/2001
-// RCS-ID:      $Id: mdi.h,v 1.3 2004/03/01 21:24:10 mbarbon Exp $
+// RCS-ID:      $Id: mdi.h,v 1.4 2004/08/04 20:22:02 mbarbon Exp $
 // Copyright:   (c) 2001 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -21,7 +21,7 @@ class wxPliMDIParentFrame:public wxMDIParentFrame
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliMDIParentFrame );
     WXPLI_DECLARE_V_CBACK();
 public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliMDIParentFrame, "Wx::MDIParentFrame", TRUE );
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliMDIParentFrame, "Wx::MDIParentFrame", true );
 
     virtual wxStatusBar* OnCreateStatusBar( int, long, wxWindowID,
                                             const wxString& );
@@ -78,7 +78,8 @@ void GetClientSize( int* width, int* height ) const
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "GetClientSize" ) )
     {
-        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR );
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,
+                                                     NULL );
         wxSize* val = (wxSize*)wxPli_sv_2_object( ret, "Wx::Size" );
         *width = val->x;
         *height = val->y;
@@ -95,7 +96,8 @@ wxWindow* GetToolBar() const
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "GetToolBar" ) ) 
     {
-        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR );
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,
+                                                     NULL);
         wxWindow* retval =
             (wxToolBar*)wxPli_sv_2_object( ret, "Wx::Window" );
         SvREFCNT_dec( ret );
@@ -114,7 +116,8 @@ wxMDIClientWindow* OnCreateClient()
 {
     if( wxPliVirtualCallback_FindCallback( &m_callback, "OnCreateClient" ) ) 
     {
-        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR );
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,
+                                                     NULL );
         wxToolBar* retval =
             (wxToolBar*)wxPli_sv_2_object( ret, "Wx::MDIClientWindow" );
         SvREFCNT_dec( ret );
@@ -126,7 +129,7 @@ wxMDIClientWindow* OnCreateClient()
 
 #endif
 
-WXPLI_DECLARE_CLASS_7( MDIChildFrame, TRUE,
+WXPLI_DECLARE_CLASS_7( MDIChildFrame, true,
                        wxMDIParentFrame*, wxWindowID, const wxString&,
                        const wxPoint&, const wxSize&, long,
                        const wxString& );

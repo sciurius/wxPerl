@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.66 2004/04/10 20:35:39 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.67 2004/08/04 20:22:01 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -217,17 +217,17 @@ bool FUNCPTR( wxPliVirtualCallback_FindCallback )
     ( pTHX_ const wxPliVirtualCallback* cb, const char* name );
 // see wxPli_push_args for a description of argtypes
 SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
-    ( pTHX_ const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
-      const char* argtypes = 0, ... );
+    ( pTHX_ const wxPliVirtualCallback* cb, I32 flags,
+      const char* argtypes, ... );
 
 // defined in overload.cpp
 bool wxPli_match_arguments( pTHX_ const unsigned char prototype[],
                             size_t nproto, int required = -1,
-                            bool allow_more = FALSE );
+                            bool allow_more = false );
 bool FUNCPTR( wxPli_match_arguments_skipfirst )( pTHX_ const unsigned char p[],
                                                  size_t nproto,
-                                                 int required = -1,
-                                                 bool allow_more = FALSE );
+                                                 int required,
+                                                 bool allow_more );
 
 #define WXPLI_BOOT_ONCE_( name, xs ) \
 extern "C" XS(wxPli_boot_##name); \
@@ -277,8 +277,8 @@ struct wxPliHelpers
                                                    const wxPliVirtualCallback*,
                                                     const char* );
     SV* ( * m_wxPliVirtualCallback_CallCallback )
-        ( pTHX_ const wxPliVirtualCallback*, I32 = G_SCALAR,
-          const char* = 0, ... );
+        ( pTHX_ const wxPliVirtualCallback*, I32,
+          const char*, ... );
     bool ( * m_wxPli_object_is_deleteable )( pTHX_ SV* );
     void ( * m_wxPli_object_set_deleteable )( pTHX_ SV*, bool );
     const char* ( * m_wxPli_get_class )( pTHX_ SV* );
@@ -295,8 +295,8 @@ struct wxPliHelpers
                                          const char* cln );
     bool (* m_wxPli_match_arguments_skipfirst )( pTHX_ const unsigned char p[],
                                                  size_t nproto,
-                                                 int required = -1,
-                                                 bool allow_more = FALSE );
+                                                 int required,
+                                                 bool allow_more );
     AV* (* m_wxPli_objlist_2_av )( pTHX_ const wxList& objs );
     void (* m_wxPli_intarray_push )( pTHX_ const wxArrayInt& );
 };
@@ -385,7 +385,7 @@ public:
     virtual ~wxPliSelfRef()
         { dTHX; if( m_self ) SvREFCNT_dec( m_self ); }
 
-    void SetSelf( SV* self, bool increment = TRUE )
+    void SetSelf( SV* self, bool increment = true )
     {
         dTHX;
         m_self = self;
