@@ -182,8 +182,8 @@ wxProgressDialog *      O_WXOBJECT
 Wx_FindReplaceDialog *  O_WXOBJECT
 wxFindReplaceDialog *   O_WXOBJECT
 
-Wx_FindReplaceData *    O_WXOBJECT
-wxFindReplaceData *     O_WXOBJECT
+Wx_FindReplaceData *    O_NON_WXOBJECT
+wxFindReplaceData *     O_NON_WXOBJECT
 Wx_ColourData *         O_WXOBJECT
 wxColourData *          O_WXOBJECT
 Wx_FontData *           O_WXOBJECT

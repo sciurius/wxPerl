@@ -63,7 +63,7 @@ Wx_FindDialogEvent::GetDialog()
 MODULE=Wx PACKAGE=Wx::FindReplaceDialog
 
 Wx_FindReplaceDialog*
-Wx_FindReplaceDialog::new( parent, data, title, style )
+Wx_FindReplaceDialog::new( parent, data, title, style = 0 )
     Wx_Window* parent
     Wx_FindReplaceData * data
     wxString title
