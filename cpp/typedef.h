@@ -245,6 +245,7 @@ FD_TD( StaticText );
 FD_TD( StatusBar );
 FD_TD( StopWatch );
 FD_TD( TaskBarIcon );
+FD_TD( TextAttr );
 FD_TD( TextCtrl );
 FD_TD( TextEntryDialog );
 FD_TD( Timer );
