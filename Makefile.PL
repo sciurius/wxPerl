@@ -160,13 +160,12 @@ sub configure_win32_msvc {
   }
 
   if( $Config{make} eq 'nmake' ) {
-    my( $final ) = $debug_mode ? 'FINAL=0' : 'FINAL=1';
+    my( $final ) = $debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
     $cccflags = qx(nmake /nologo /s /f nmake.mak cccflags $final);
     $libs = qx(nmake /nologo /s /f nmake.mak libs $final);
 
     foreach ( split ' ', $cccflags ) {
       m(^[-/]DSTRICT) && next;
-      m(^[-/]M) && next;
       m(^[-/]I) && do { $config{INC} .= $_ . ' '; next; };
       m(^[-/]D) && do { $config{DEFINE} .= $_ . ' '; next; };
       $config{CCFLAGS} .= $_ . ' ';
@@ -208,7 +207,7 @@ sub configure_win32_mingw {
     # $config{dynamic_lib}{OTHERLDFLAGS} .= ' ';
   }
 
-  my( $final ) = $debug_mode ? 'FINAL=0' : 'FINAL=1';
+  my( $final ) = $debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
   $cccflags = qx(make -s -f gmake.mak cccflags $final);
   $libs = qx(make -s -f gmake.mak libs $final);
 
