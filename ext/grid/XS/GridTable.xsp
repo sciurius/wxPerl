@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/08/2003
-## RCS-ID:      $Id: GridTable.xsp,v 1.1 2003/08/02 21:07:19 mbarbon Exp $
+## RCS-ID:      $Id: GridTable.xsp,v 1.2 2003/08/05 17:23:47 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,12 +12,14 @@
 
 %module{Wx};
 
+%typemap{wxPlGridTable*}{simple};
+
 %file{cpp/gridtable.h};
 %{
 
 #include "cpp/v_cback.h"
 
-class wxPlGridTable
+class wxPlGridTable : public wxGridTableBase
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlGridTable );
     WXPLI_DECLARE_V_CBACK();
@@ -27,7 +29,21 @@ public:
     {
         m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
     }
+
+    DEC_V_CBACK_INT__VOID( GetNumberRows );
+    DEC_V_CBACK_INT__VOID( GetNumberCols );
+    DEC_V_CBACK_BOOL__INT_INT( IsEmptyCell );
+    DEC_V_CBACK_WXSTRING__INT_INT( GetValue );
+    DEC_V_CBACK_VOID__INT_INT_WXSTRING( SetValue );
 };
+
+DEF_V_CBACK_INT__VOID_pure( wxPlGridTable, wxGridTableBase, GetNumberRows );
+DEF_V_CBACK_INT__VOID_pure( wxPlGridTable, wxGridTableBase, GetNumberCols );
+DEF_V_CBACK_BOOL__INT_INT_pure( wxPlGridTable, wxGridTableBase, IsEmptyCell );
+DEF_V_CBACK_WXSTRING__INT_INT_pure( wxPlGridTable, wxGridTableBase, GetValue );
+DEF_V_CBACK_VOID__INT_INT_WXSTRING_pure( wxPlGridTable, wxGridTableBase, SetValue );
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlGridTable, wxGridTableBase );
 
 %}
 %file{-};
@@ -36,6 +52,9 @@ public:
 #include "cpp/gridtable.h"
 %}
 
-## %name{Wx::PlGridTable} class wxPlGridTable
-## {
-## };
+%name{Wx::PlGridTable} class wxPlGridTable
+{
+    wxPlGridTable() %code{% RETVAL = new wxPlGridTable( CLASS ); %};
+
+    void Destroy() %code{% delete THIS; %};
+};

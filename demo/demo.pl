@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/ 5/2001
-## RCS-ID:      $Id: demo.pl,v 1.17 2003/07/25 20:36:10 mbarbon Exp $
+## RCS-ID:      $Id: demo.pl,v 1.18 2003/08/05 17:23:47 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -213,6 +213,7 @@ my @demos =
           [ 'Simple Grid', demo( 'wxGrid' ) ],
           [ 'Editors/Renderers', demo( 'wxGridER' ) ],
           [ 'Custom Editors/Renderers', demo( 'wxGridCER' ) ],
+          [ 'Custom GridTable', demo( 'wxGridTable' ) ],
          ],
        ],
        [ 'ScrolledWindow', demo( 'wxScrolledWindow' ) ],

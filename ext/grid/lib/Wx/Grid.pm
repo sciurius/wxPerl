@@ -49,6 +49,9 @@ package Wx::GridCellNumberEditor; @ISA = qw(Wx::GridCellEditor);
 package Wx::GridCellChoiceEditor; @ISA = qw(Wx::GridCellEditor);
 package Wx::PlGridCellEditor; @ISA = qw(Wx::GridCellEditor);
 
+package Wx::GridTableBase;
+package Wx::PlGridTable; @ISA = qw(Wx::GridTableBase);
+
 package Wx::Grid;
 
 use strict;
