@@ -4,22 +4,27 @@ MISC:
 
 PRIORITY HIGH:
 
-For 0.12
+* fix wxExecute/Unicode/2.4.0
+
+0.13
+
+* Modify building system for building external XS modules
+
+PRIORITY NORMAL:
 
 * Overload resolution
-  move all overload resolution routines to XS
-     -> eliminate most lib/Wx/*.pm files
-
-* write out a "setup.h" with settings for STC, and use it in Wx.xs
+  finish it!
 
 * store events in a C++ file and autogenerate them
 * rewrite lib/Wx/_Constants.pm in C++
 * try to have constants inlined where appropriate
 
-* implicit ->GetId for wxMenuItems, too
-
-PRIORITY NORMAL:
-
+* wxCalendarCtrl
+    GetAttr
+    SetAttr
+    ResetAttr
+    HitTest
+    
 * wxFontEnumerator virtual functions
 
 * wxDocManager::FileHistoryLoad/Save
@@ -155,7 +160,6 @@ DOCUMENTATTION:
 CLASSES:
   wxGLCanvas
 
-  wxCalendarCtrl
   wxDirCtrl
   wxMetafileDC
   wxDCClipper
