@@ -384,10 +384,10 @@ static double constant( const char *name, int arg )
     r( wxEVT_ERASE_BACKGROUND );
     r( wxEVT_NC_PAINT );
     r( wxEVT_PAINT_ICON );
-    r( wxEVT_MENU_CHAR );
-    r( wxEVT_MENU_INIT );
+    // r( wxEVT_MENU_CHAR );
+    // r( wxEVT_MENU_INIT );
     r( wxEVT_MENU_HIGHLIGHT );
-    r( wxEVT_POPUP_MENU_INIT );
+    // r( wxEVT_POPUP_MENU_INIT );
     r( wxEVT_CONTEXT_MENU );
     r( wxEVT_SYS_COLOUR_CHANGED );
     r( wxEVT_SETTING_CHANGED );
