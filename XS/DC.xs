@@ -12,11 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::DC
 
-#FIXME// unimplemented
-# DrawLines
-# DrawPolygon
-# DrawSpline (refine interface)
-
 Wx_DC*
 Wx_DC::DESTROY()
 
@@ -132,9 +127,37 @@ Wx_DC::DrawLine( x1, y1, x2, y2 )
     wxCoord y2
 
 void
+Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
+    SV* list
+    wxCoord xoffset
+    wxCoord yoffset
+  PREINIT:
+    wxList points;
+    wxPoint* pts;
+  CODE:
+    _get_pointarray( list, &points, &pts );
+    THIS->DrawLines( &points, xoffset, yoffset );
+    delete [] pts;
+
+void
 Wx_DC::DrawPoint( x, y )
     wxCoord x
     wxCoord y
+
+void
+Wx_DC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
+    SV* list
+    wxCoord xoffset
+    wxCoord yoffset
+    int fill_style
+  PREINIT:
+    wxList points;
+    wxPoint* pts;
+  CODE:
+    _get_pointarray( list, &points, &pts );
+    THIS->DrawPolygon( &points, xoffset, yoffset, fill_style );
+    delete [] pts;
+
 
 void
 Wx_DC::DrawRectangle( x, y, width, height )
@@ -159,16 +182,22 @@ Wx_DC::DrawRoundedRectangle( x, y, width, height, radius = 20 )
     wxCoord radius
 
 void
-Wx_DC::DrawSpline( ... )
+Wx_DC::DrawSpline( list )
+    SV* list
   PREINIT:
     wxList points;
-    int i;
+    wxPoint* pts;
+    int n;
   CODE:
-    for( i = 1; i < items; ++i )
-    {
-      points.Append( (wxObject*)_sv_2_object( ST(i), "Wx::Point" ) );
-    }
+    n = _get_pointarray( list, &points, &pts );
     THIS->DrawSpline( &points );
+    delete [] pts;
+
+ #    for( i = 1; i < items; ++i )
+ #    {
+ #      points.Append( (wxObject*)_sv_2_object( ST(i), "Wx::Point" ) );
+ #    }
+ #    THIS->DrawSpline( &points );
 
 void
 Wx_DC::DrawText( text, x, y )
