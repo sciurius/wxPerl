@@ -56,6 +56,23 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
         return BASE::METHOD();                                                \
   }
 
+#define DEC_V_CBACK_BOOL__BOOL( METHOD ) \
+  bool METHOD( bool );
+
+#define DEF_V_CBACK_BOOL__BOOL( CLASS, BASE, METHOD ) \
+  bool CLASS::METHOD( bool param1 )                                           \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                                                     "b", param1 );           \
+        bool val = SvTRUE( ret );                                             \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return BASE::METHOD();                                                \
+  }
+
 #define DEC_V_CBACK_VOID__VOID( METHOD ) \
   void METHOD();
 
