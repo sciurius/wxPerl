@@ -20,7 +20,9 @@ use strict;
 sub wx_config {
   my $options = join ' ', map { "--$_" } @_;
 
-  return qx(wx-config $options);
+  my $t = qx(wx-config $options);
+  chomp $t;
+  return $t;
 }
 
 #

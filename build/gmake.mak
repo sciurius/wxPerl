@@ -26,3 +26,6 @@ linkflags:
 libs:
 	echo $(LIBS)
 
+# this one is for import library ( not in wx-config )
+implib:
+	echo $(WXLIB)

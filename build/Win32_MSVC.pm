@@ -25,7 +25,9 @@ sub wx_config {
 
   if( $Config{make} eq 'nmake' ) {
     my( $final ) = $debug_mode ? 'FINAL=hybrid' : 'FINAL=1';
-    return qx(nmake /nologo /s /f $makefile @_ $final);
+    my $t = qx(nmake /nologo /s /f $makefile @_ $final);
+    chomp $t;
+    return $t;
   }
 }
 
@@ -114,13 +116,19 @@ sub top_targets {
 sub sysdep_postamble {
   my( $this ) = shift;
   my( $wxdir ) = wx_config( 'wxdir' );
-
-  chomp $wxdir;
+  my( $implib ) = wx_config( 'implib' );
+  $implib =~ s/\.\w+$/\.dll/;
 
   my $text = <<EOT;
 
 Wx.res: Wx.rc
 \trc -I${wxdir}\\include Wx.rc
+
+ppmdist: pure_all ppd
+\t\$(MV) Wx.ppd ..
+\t\$(CP) ${implib} blib\\arch\\auto\\Wx
+\t\$(TAR) \$(TARFLAGS) ..\\\$(DISTVNAME).tar blib
+\tgzip --force --best ..\\\$(DISTVNAME).tar
 
 EOT
 

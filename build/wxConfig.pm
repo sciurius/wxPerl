@@ -32,6 +32,19 @@ use Config;
 %EXPORT_TAGS = ( MY => [ qw(constants depend) ] );
 @ISA = qw(Exporter);
 
+# BLEAGH!!!!
+sub import {
+  my @list = map { if( m/^:/ ) { @{$EXPORT_TAGS{substr $_,1} } }
+                   elsif( m/\w/ ) { $_ } } @_[1,];
+
+  foreach( @list ) {
+    no strict;
+    undef *{caller() . '::' . $_};
+  }
+
+  wxConfig->export_to_level( 1, @_ );
+}
+
 # determines what package we must require
 my $package_to_use;
 
@@ -269,7 +282,7 @@ sub obj_from_src {
 
 use vars qw($included);
 
-unless( $included ) { do "$package_to_use.pm"; $included = 1; }
+require "$package_to_use.pm";
 
 package MY;
 
