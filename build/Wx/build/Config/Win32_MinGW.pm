@@ -21,6 +21,7 @@ sub _data {
   my $final = $this->_debug ? 'BUILD=debug'
                             : 'BUILD=release';
   my $unicode = $this->_unicode ? 'UNICODE=1' : 'UNICODE=0';
+  $unicode .= ' MSLU=1' if $this->_mslu;
 
   my $dir = Cwd::cwd;
   chdir $min_dir or die "chdir '$min_dir'";
@@ -77,7 +78,8 @@ sub wx_config_24 {
 
   my $final = $this->_debug ? 'FINAL=0' : 'FINAL=1';
   my $unicode = $this->_unicode ? 'UNICODE=1' : 'UNICODE=0';
-  my $t = qx(make -s -f $makefile @_ $final $unicode);
+  $unicode .= ' EXTRALIBS=-lunicows' if $this->_mslu;
+  my $t = qx(make -s -f $makefile @_ $final $unicode CXXFLAGS=-Os);
   chomp $t;
   if( $_[0] eq 'libs' && !Wx::build::Config::is_wxPerl_tree() ) {
     return $this->_replace_implib_24( $t );
@@ -152,7 +154,7 @@ sub get_flags {
   }
 
   foreach ( split /\s+/, $libs ) {
-    m(wx)i || next;
+    m(wx|unicows)i || next;
     $config{LIBS} .= "$_ ";
   }
 

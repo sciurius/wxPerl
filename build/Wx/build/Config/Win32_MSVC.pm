@@ -23,6 +23,7 @@ sub _data {
   my $final = $this->_debug ? 'BUILD=debug   DEBUG_RUNTIME_LIBS=0'
                             : 'BUILD=release DEBUG_RUNTIME_LIBS=0';
   my $unicode = $this->_unicode ? 'UNICODE=1' : 'UNICODE=0';
+  $unicode .= ' MSLU=1' if $this->_mslu;
 
   my $dir = Cwd::cwd;
   chdir $min_dir or die "chdir '$min_dir'";
@@ -79,6 +80,7 @@ sub wx_config_24 {
   if( $Config{make} eq 'nmake' ) {
     my $final = $this->_debug ? 'FINAL=hybrid DEBUGINFO=1' : 'FINAL=1';
     my $unicode = $this->_unicode ? 'UNICODE=1' : 'UNICODE=0';
+    $unicode .= ' MSLU=1' if $this->_mslu;
     my $t = qx(nmake /nologo /s /f $makefile @_ $final $unicode);
     chomp $t;
     if( $_[0] eq 'libs' && !Wx::build::Config::is_wxPerl_tree() ) {
@@ -152,7 +154,7 @@ sub get_flags {
   }
 
   foreach ( split /\s+/, $libs ) {
-    m(wx)i || next;
+    m(wx|unicows)i || next;
     next if m{(?:(?:zlib|regex)\w+\.lib)$};
     $config{LIBS} .= "$_ ";
   }

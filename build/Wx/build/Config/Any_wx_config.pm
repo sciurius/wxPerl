@@ -6,14 +6,15 @@ use base 'Wx::build::Config::Any_OS';
 my $libs_sep;
 
 {
-  my $ver = `wx-config --version`;
+  my $wx_config = $ENV{WX_CONFIG} || 'wx-config';
+  my $ver = `$wx_config --version`;
   $ver =~ m/^(\d)\.(\d)/;
   $ver = $1 + $2 / 1000;
 
   if( $ver >= 2.005 ) {
     *wx_config = __PACKAGE__->can( 'wx_config_25' );
     *get_core_lib = __PACKAGE__->can( 'get_core_lib_25' );
-    $libs_sep = `wx-config --libs base > /dev/null 2>&1 || echo 'X'` eq "X\n" ?
+    $libs_sep = `$wx_config --libs base > /dev/null 2>&1 || echo 'X'` eq "X\n" ?
       '=' : ' ';
   } else {
     *wx_config = __PACKAGE__->can( 'wx_config_24' );
@@ -28,8 +29,12 @@ sub _data {
 
   my %data;
 
-  foreach my $item ( qw(cxx ld cxxflags ldflags version libs) ) {
+  foreach my $item ( qw(cxx ld cxxflags version libs) ) {
     $data{$item} = $this->_call_wx_config( $item );
+  }
+
+  if( $data{version} !~ m/^2\.[56]/ ) {
+      $data{ldflags} = $this->_call_wx_config( 'ldflags' );
   }
 
   $data{libs} =~ s/\-lwx\S+//g;

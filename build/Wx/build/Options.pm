@@ -26,6 +26,7 @@ Getopt::Long::Configure( 'pass_through' );
 
 my $debug        = 0;
 my $unicode      = 0;
+my $mslu         = 0;
 my $help         = 0;
 my $static       = 0;
 my $mksymlinks   = 0;
@@ -41,8 +42,8 @@ sub _load_options {
   $options = do 'Wx/build/Opt.pm';
   die "Unable to load options: $@" unless $options;
 
-  ( $debug, $unicode, $static, $extra_cflags, $extra_libs )
-    = @{$options}{qw(debug unicode static extra_cflags extra_libs)};
+  ( $debug, $unicode, $mslu, $static, $extra_cflags, $extra_libs )
+    = @{$options}{qw(debug unicode mslu static extra_cflags extra_libs)};
 }
 
 sub get_options {
@@ -56,6 +57,7 @@ sub get_options {
   }
 
   return ( unicode => $unicode,
+           mslu    => $mslu,
            static  => $static,
            debug   => $debug,
          );
@@ -71,6 +73,7 @@ sub _parse_options {
 
   my $result = GetOptions( 'debug'          => \$debug,
                            'unicode'        => \$unicode,
+                           'mslu'           => \$mslu,
                            'help'           => \$help,
                            'static'         => \$static,
                            'mksymlinks'     => \$mksymlinks,
@@ -89,6 +92,7 @@ Usage: perl Makefile.PL [options]
   --help               you are reading it
   --debug              enable debugging
   --unicode            enable Unicode support (MSW/GTK2 only)
+  --mslu               use libunicows for Unicode
   --static             link all extensions in a single big shared object
   --mksymlinks         create a symlink tree
   --extra-libs=libs    specify extra linking flags
@@ -160,6 +164,7 @@ sub write_config_file {
   require Data::Dumper;
   my $str = Data::Dumper->Dump( [ { debug        => $debug,
                                     unicode      => $unicode,
+                                    mslu         => $mslu,
                                     static       => $static,
                                     extra_libs   => $extra_libs,
                                     extra_cflags => $extra_cflags

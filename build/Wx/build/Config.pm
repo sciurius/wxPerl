@@ -45,9 +45,11 @@ sub new {
     if( $args{get_saved_options} ) {
       my %options = Wx::build::Options->get_options( 'saved' );
       $this->{CORE} = 0;
-      @{$this}{qw(DEBUG STATIC UNICODE)} = @options{qw(debug static unicode)};
+      @{$this}{qw(DEBUG STATIC UNICODE MSLU)} =
+        @options{qw(debug static unicode mslu)};
     } else {
       $this->{UNICODE} = $args{unicode} || 0;
+      $this->{MSLU}    = $args{mslu} || 0;
       $this->{DEBUG}   = $args{debug} || 0;
       $this->{CORE}    = $args{core} || 0;
       $this->{STATIC}  = $args{static} || 0;
@@ -58,6 +60,7 @@ sub new {
 }
 
 sub _unicode { $_[0]->{UNICODE} }
+sub _mslu    { $_[0]->{MSLU} }
 sub _debug   { $_[0]->{DEBUG} }
 sub _core    { $_[0]->{CORE} }
 sub _static  { $_[0]->{STATIC} }
