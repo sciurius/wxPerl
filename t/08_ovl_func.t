@@ -94,8 +94,8 @@ Wx::Mask->new( $bmpok, Wx::Colour->new( 'red' ) );
 ok( $newbmpcol,"Wx::Mask::newBitmapColour" );
 
 SKIP: {
-  skip "Does not work on wxGTK, wxX11 and wxMOTIF", 1
-    if Wx::wxGTK() || Wx::wxX11() || Wx::wxMOTIF();
+  skip "Does not work on wxGTK, wxMAC, wxX11 and wxMOTIF", 1
+    if Wx::wxGTK() || Wx::wxX11() || Wx::wxMOTIF() || Wx::wxMAC();
 
   Wx::Mask->new( $bmpok, 0 );
   ok( $newbmpn,  "Wx::Mask::newBitmapIndex" );
