@@ -63,8 +63,8 @@ sub IsExposed {
 sub Move {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_wpoi, 1 ) && return $this->MovePoint( @_ );
-  Wx::_match( @_, $Wx::_n_n, 2 )  && return $this->MoveXY( @_ );
+  Wx::_match( @_, $Wx::_wpoi, 1 ) && ( $this->MovePoint( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n, 2 )  && ( $this->MoveXY( @_ ), return );
   croak Wx::_ovl_error 'Wx::Window::Move';
 }
 
