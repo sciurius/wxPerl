@@ -1,7 +1,6 @@
 PRIORITY HIGH:
 
 * rewrite docs in POD (?)
-* put a README in the DMG
 
 PRIORITY NORMAL:
 

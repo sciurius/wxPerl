@@ -61,8 +61,8 @@ a different compiler (via perl Makefile.PL CC=c++-compiler)..
 * INSTALLING wxWidgets (on UNIX systems and Mac OS X)
 
   For UNIX systems only. If you are using the prepackaged binaries, you
-need to install the -dev packages in order to compile wxPerl, otherwise
-you just need the main package and the -contrib package.
+need to install the -dev and -contrib-dev packages in order to compile
+wxPerl, otherwise you just need the main package and the -contrib package.
 If you are compiling wxWidgets yourself, the quick way is:
 
 ./configure
