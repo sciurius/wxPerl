@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.14 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.15 2003/05/07 17:26:01 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,20 +19,35 @@
 
 MODULE=Wx PACKAGE=Wx::Frame
 
-Wx_Frame*
-Wx_Frame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr )
- # this is not completely correct, but should be harmless
-    Wx_Window* parent
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::Frame::new" )
+
+wxFrame*
+newDefault( CLASS )
+    char* CLASS
+  CODE:
+    RETVAL = new wxPliFrame( CLASS );
+  OUTPUT: RETVAL
+
+wxFrame*
+newFull( CLASS, parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr )
+    char* CLASS
+    wxWindow* parent
     wxWindowID id
     wxString title
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
-    RETVAL = new wxPliFrame( CLASS , parent, id, title, pos, size, style, name );
-  OUTPUT:
-    RETVAL
+    RETVAL = new wxPliFrame( CLASS , parent, id, title, pos,
+         size, style, name );
+  OUTPUT: RETVAL
 
 void
 Wx_Frame::Command( id )
