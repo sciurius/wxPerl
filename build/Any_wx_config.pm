@@ -75,7 +75,11 @@ sub configure {
     $config{OPTIMIZE} = ' ';
   }
 
-  if( ld_is_GNU( $Config{ld} ) ) { $config{LD} = "$cxx -shared" }
+  if( ld_is_GNU( $Config{ld} ) ) {
+    $config{LD} = "$cxx -shared"
+  } else {
+    $config{LD} = wx_config( 'ld' );
+  }
 
   $cccflags = wx_config( 'cxxflags' );
   $libs = wx_config( 'libs' );
