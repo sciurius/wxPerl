@@ -1,0 +1,16 @@
+name: Wx
+version: 0.16
+license: perl
+distribution_type: module
+build_requires:
+  File::Spec::Functions: 0.82
+  Test::More: 0.46
+  Test::Harness: 2.26
+  Data::Dumper: 0
+dynamic_config: 1
+private:
+  directory:
+    - demo
+    - samples
+    - script
+generated_by: Mattia Barbon, by hand
