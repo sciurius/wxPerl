@@ -39,6 +39,9 @@ FD_TD( CommandEvent );
 FD_TD( DropFilesEvent );
 FD_TD( EraseEvent );
 FD_TD( FocusEvent );
+#if WXPERL_W_VERSION_GE( 2, 3 )
+FD_TD( HelpEvent );
+#endif
 FD_TD( IdleEvent );
 FD_TD( InitDialogEvent );
 FD_TD( JoystickEvent );
@@ -70,8 +73,13 @@ FD_TD( BitmapButton );
 FD_TD( BitmapHandler );
 FD_TD( BoxSizer );
 FD_TD( Brush );
+FD_TD( BusyCursor );
+FD_TD( BusyInfo );
 FD_TD( Button );
 FD_TD( Caret );
+#if WXPERL_W_VERSION_GE( 2, 3 )
+FD_TD( CaretSuspend );
+#endif
 FD_TD( CheckBox );
 FD_TD( CheckListBox );
 FD_TD( Choice );
@@ -80,24 +88,22 @@ FD_TD( ClientDC );
 FD_TD( Colour );
 FD_TD( ColourData );
 FD_TD( ColourDialog );
-FD_TD( FileDialog );
-FD_TD( DirDialog );
-FD_TD( TextEntryDialog );
-FD_TD( FontDialog );
-FD_TD( PageSetupDialog );
-FD_TD( PrintDialog );
-FD_TD( MessageDialog );
-FD_TD( ProgressDialog );
 FD_TD( ComboBox );
 FD_TD( Control );
 FD_TD( ControlWithItems );
 FD_TD( Cursor );
 FD_TD( DC );
 FD_TD( Dialog );
+FD_TD( DirDialog );
+#if WXPERL_W_VERSION_GE( 2, 3 )
+FD_TD( DrawObject );
+#endif
 FD_TD( DropTarget );
 FD_TD( EvtHandler );
+FD_TD( FileDialog );
 FD_TD( FlexGridSizer );
 FD_TD( Font );
+FD_TD( FontDialog );
 FD_TD( Frame );
 FD_TD( Gauge );
 FD_TD( GridSizer );
@@ -118,15 +124,19 @@ FD_TD( MemoryDC );
 FD_TD( Menu );
 FD_TD( MenuBar );
 FD_TD( MenuItem );
+FD_TD( MessageDialog );
 FD_TD( MiniFrame );
 FD_TD( MultiChoiceDialog );
 FD_TD( Notebook );
 FD_TD( NotebookSizer );
+FD_TD( PageSetupDialog );
 FD_TD( PaintDC );
 FD_TD( Palette );
 FD_TD( Panel );
 FD_TD( Pen );
 FD_TD( Point );
+FD_TD( PrintDialog );
+FD_TD( ProgressDialog );
 FD_TD( RadioBox );
 FD_TD( RadioButton );
 FD_TD( Rect );
@@ -143,14 +153,15 @@ FD_TD( Slider );
 FD_TD( SpinButton );
 FD_TD( SpinCtrl );
 FD_TD( SplitterWindow );
-FD_TD( StaticBox );
 FD_TD( StaticBitmap );
+FD_TD( StaticBox );
 FD_TD( StaticBoxSizer );
 FD_TD( StaticCtrl );
 FD_TD( StaticLine );
 FD_TD( StaticText );
 FD_TD( StatusBar );
 FD_TD( TextCtrl );
+FD_TD( TextEntryDialog );
 FD_TD( ToolBar );
 FD_TD( ToolBarBase );
 FD_TD( ToolBarToolBase );
@@ -161,6 +172,7 @@ FD_TD( TreeItemId );
 FD_TD( Validator );
 FD_TD( Window );
 FD_TD( WindowDC );
+FD_TD( WindowDisabler );
 
 FD_TD( BMPHandler );
 FD_TD( PNGHandler );
@@ -169,11 +181,6 @@ FD_TD( PNMHandler );
 FD_TD( GIFHandler );
 FD_TD( JPEGHandler );
 FD_TD( TIFFHandler );
-
-#if WXPERL_W_VERSION_GE( 2, 3 )
-FD_TD( DrawObject );
-FD_TD( HelpEvent );
-#endif
 
 //typedef wxQueryLayoutInfoEvent Wx_QueryLayoutInfoEvent;
 

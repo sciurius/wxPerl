@@ -122,6 +122,10 @@ Wx_Point *              O_NON_WXOBJECT
 Wx_Rect *               O_NON_WXOBJECT
 Wx_Colour *             O_NON_WXOBJECT
 Wx_Caret *              O_NON_WXOBJECT
+Wx_CaretSuspend *       O_NON_WXOBJECT
+Wx_WindowDisabler *     O_NON_WXOBJECT
+Wx_BusyCursor *         O_NON_WXOBJECT
+Wx_BusyInfo *           O_NON_WXOBJECT
 
 Wx_LayoutConstraints *  O_WXOBJECT
 Wx_IndividualLayoutConstraint * O_WXOBJECT

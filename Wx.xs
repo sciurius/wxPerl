@@ -26,6 +26,7 @@
 #include <wx/tooltip.h>
 #include <wx/intl.h>
 #include <wx/module.h>
+#include <wx/busyinfo.h>
 
 #if __WXMSW__
 #include <wx/msw/private.h>
@@ -189,6 +190,7 @@ INCLUDE: XS/Menu.xs
 INCLUDE: XS/Log.xs
 INCLUDE: XS/ToolTip.xs
 INCLUDE: XS/Locale.xs
+INCLUDE: XS/Utils.xs
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs

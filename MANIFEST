@@ -180,6 +180,7 @@ XS/TextCtrl.xs
 XS/TreeCtrl.xs
 XS/ToolBar.xs
 XS/ToolTip.xs
+XS/Utils.xs
 XS/Validators.xs
 
 XS/ColourDialog.xs
