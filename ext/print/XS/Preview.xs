@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/06/2001
-## RCS-ID:      $Id: Preview.xs,v 1.5 2004/03/01 21:24:10 mbarbon Exp $
+## RCS-ID:      $Id: Preview.xs,v 1.6 2004/11/09 20:56:51 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -54,7 +54,7 @@ MODULE=Wx PACKAGE=Wx::PreviewFrame
 wxPreviewFrame*
 wxPreviewFrame::new( preview, parent, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxT("frame") )
     wxPrintPreview* preview
-    wxFrame* parent
+    wxWindow* parent
     wxString title
     wxPoint pos
     wxSize size

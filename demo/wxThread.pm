@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/03/2002
-## RCS-ID:      $Id: wxThread.pm,v 1.3 2004/10/19 20:28:06 mbarbon Exp $
+## RCS-ID:      $Id: wxThread.pm,v 1.4 2004/11/09 20:56:51 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -100,7 +100,7 @@ sub entry_point {
   threads::shared::share( $value );
 
   for(;;) {
-    Wx::Usleep( 200 + rand( 1000 ) );
+    Wx::MilliSleep( 200 + rand( 1000 ) );
 
     last unless $keep_going;
     my $x = Wx::PlThreadEvent->new( -1, $ThreadDemoWin::MY_ID, $value );

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.33 2004/11/01 16:30:16 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.34 2004/11/09 20:56:51 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -207,22 +207,32 @@ wxCreateFileTipProvider( filename, currentTip )
     wxString filename
     size_t currentTip
 
-#if WXPERL_W_VERSION_LE( 2, 5, 2 )
-
 void
 wxUsleep( ms )
     unsigned long ms
-
+  CODE:
+#if WXPERL_W_VERSION_LE( 2, 5, 2 )
+    wxUsleep( ms );
 #else
+    wxMilliSleep( ms );
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 void
 wxMicroSleep( ms )
     unsigned long ms
 
+#endif
+
 void
 wxMilliSleep( ms )
     unsigned long ms
-
+  CODE:
+#if WXPERL_W_VERSION_LE( 2, 5, 2 )
+    wxUsleep( ms );
+#else
+    wxMilliSleep( ms );
 #endif
 
 void
