@@ -10,6 +10,8 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
+#include "cpp/constants.h"
+
 inline _wxBitmapButton::_wxBitmapButton( const char* package,
                                          wxWindow* parent, 
                                          wxWindowID id,
@@ -141,6 +143,93 @@ inline _wxListCtrl::_wxListCtrl( const char* package, wxWindow* parent,
     m_callback.SetSelf( _make_object( this, package ), FALSE );
     Create( parent, id, pos, size, style, validator, name );
 }
+
+double listctrl_constant( const char* name, int arg )
+{
+  // !package: Wx
+  // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+#define r( n ) \
+    if( strEQ( name, #n ) ) \
+        return n;
+
+  WX_PL_CONSTANT_INIT();
+
+  switch( fl )
+  {
+  case 'I':
+      r( wxIMAGE_LIST_NORMAL );         // listctrl
+      r( wxIMAGE_LIST_SMALL );          // listctrl
+      r( wxIMAGE_LIST_STATE );          // listctrl
+      break;
+  case 'L':
+      r( wxLIST_AUTOSIZE );             // listctrl
+      r( wxLIST_AUTOSIZE_USEHEADER );   // listctrl
+
+      r( wxLIST_ALIGN_DEFAULT );        // listctrl
+      r( wxLIST_ALIGN_LEFT );           // listctrl
+      r( wxLIST_ALIGN_TOP );            // listctrl
+      r( wxLIST_ALIGN_SNAP_TO_GRID );   // listctrl
+
+      r( wxLIST_FORMAT_LEFT );          // listctrl
+      r( wxLIST_FORMAT_RIGHT );         // listctrl
+      r( wxLIST_FORMAT_CENTRE );        // listctrl
+
+      r( wxLIST_HITTEST_ABOVE );        // listctrl
+      r( wxLIST_HITTEST_BELOW );        // listctrl
+      r( wxLIST_HITTEST_NOWHERE );      // listctrl
+      r( wxLIST_HITTEST_ONITEMICON );   // listctrl
+      r( wxLIST_HITTEST_ONITEMLABEL );  // listctrl
+      r( wxLIST_HITTEST_ONITEMRIGHT );  // listctrl
+      r( wxLIST_HITTEST_ONITEMSTATEICON );// listctrl
+      r( wxLIST_HITTEST_TOLEFT );       // listctrl
+      r( wxLIST_HITTEST_TORIGHT );      // listctrl
+      r( wxLIST_HITTEST_ONITEM );       // listctrl
+
+      r( wxLIST_MASK_STATE );           // listctrl
+      r( wxLIST_MASK_TEXT );            // listctrl
+      r( wxLIST_MASK_IMAGE );           // listctrl
+      r( wxLIST_MASK_DATA );            // listctrl
+      r( wxLIST_MASK_WIDTH );           // listctrl
+      r( wxLIST_MASK_FORMAT );          // listctrl
+
+      r( wxLIST_NEXT_ABOVE );           // listctrl
+      r( wxLIST_NEXT_ALL );             // listctrl
+      r( wxLIST_NEXT_BELOW );           // listctrl
+      r( wxLIST_NEXT_LEFT );            // listctrl
+      r( wxLIST_NEXT_RIGHT );           // listctrl
+
+      r( wxLIST_STATE_DONTCARE );       // listctrl
+      r( wxLIST_STATE_DROPHILITED );    // listctrl
+      r( wxLIST_STATE_FOCUSED );        // listctrl
+      r( wxLIST_STATE_SELECTED );       // listctrl
+      r( wxLIST_STATE_CUT );            // listctrl
+
+      r( wxLIST_SET_ITEM );             // listctrl
+#if WXPERL_W_VERSION_GE( 2, 3 )
+      r( wxLC_VRULES );                 // listctrl
+      r( wxLC_HRULES );                 // listctrl
+#endif
+      r( wxLC_ICON );                   // listctrl
+      r( wxLC_SMALL_ICON );             // listctrl
+      r( wxLC_LIST );                   // listctrl
+      r( wxLC_REPORT );                 // listctrl
+      r( wxLC_ALIGN_TOP );              // listctrl
+      r( wxLC_ALIGN_LEFT );             // listctrl
+      r( wxLC_AUTOARRANGE );            // listctrl
+      r( wxLC_USER_TEXT );              // listctrl
+      r( wxLC_EDIT_LABELS );            // listctrl
+      r( wxLC_NO_HEADER );              // listctrl
+      r( wxLC_SINGLE_SEL );             // listctrl
+      r( wxLC_SORT_ASCENDING );         // listctrl
+      r( wxLC_SORT_DESCENDING );        // listctrl
+      break;
+  }
+#undef r
+
+  WX_PL_CONSTANT_CLEANUP();
+}
+
+wxPlConstantsModule listctrl_module( &listctrl_constant );
 
 _IMPLEMENT_DYNAMIC_CLASS( _wxListCtrl, wxListCtrl );
 
@@ -326,6 +415,52 @@ inline _wxTreeCtrl::_wxTreeCtrl( const char* package, wxWindow* parent,
     m_callback.SetSelf( _make_object( this, package ), FALSE );
     Create( parent, id, pos, size, style, validator, name );
 }
+
+double treectrl_constant( const char* name, int arg )
+{
+  // !package: Wx
+  // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+#define r( n ) \
+    if( strEQ( name, #n ) ) \
+        return n;
+
+  WX_PL_CONSTANT_INIT();
+
+  switch( fl ) {
+  case 'T':
+    r( wxTR_HAS_BUTTONS );              // treectrl
+    r( wxTR_EDIT_LABELS );              // treectrl
+    r( wxTR_MULTIPLE );                 // treectrl
+
+    r( wxTreeItemIcon_Normal );         // treectrl
+    r( wxTreeItemIcon_Selected );       // treectrl
+    r( wxTreeItemIcon_Expanded );       // treectrl
+    r( wxTreeItemIcon_SelectedExpanded ); // treectrl
+
+    r( wxTREE_HITTEST_ABOVE );          // treectrl
+    r( wxTREE_HITTEST_BELOW );          // treectrl
+    r( wxTREE_HITTEST_NOWHERE );        // treectrl
+    r( wxTREE_HITTEST_ONITEMBUTTON );   // treectrl
+    r( wxTREE_HITTEST_ONITEMICON );     // treectrl
+    r( wxTREE_HITTEST_ONITEMINDENT );   // treectrl
+    r( wxTREE_HITTEST_ONITEMLABEL );    // treectrl
+    r( wxTREE_HITTEST_ONITEMRIGHT );    // treectrl
+    r( wxTREE_HITTEST_ONITEMSTATEICON ); // treectrl
+    r( wxTREE_HITTEST_TOLEFT );         // treectrl
+    r( wxTREE_HITTEST_TORIGHT );        // treectrl
+    r( wxTREE_HITTEST_ONITEMUPPERPART ); // treectrl
+    r( wxTREE_HITTEST_ONITEMLOWERPART ); // treectrl
+    r( wxTREE_HITTEST_ONITEM );         // treectrl
+    break;
+  default:
+    break;
+  }
+#undef r
+
+  WX_PL_CONSTANT_CLEANUP();
+}
+
+wxPlConstantsModule tree_module( &treectrl_constant );
 
 int _wxTreeCtrl::OnCompareItems( const wxTreeItemId& item1,
                                  const wxTreeItemId& item2 )

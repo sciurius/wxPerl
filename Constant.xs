@@ -33,9 +33,9 @@
 #include <wx/splitter.h>
 #include <wx/sashwin.h>
 #include <wx/textctrl.h>
-#include <wx/listctrl.h>
 #include <wx/settings.h>
-#include <wx/treectrl.h>
+
+#include <wx/list.h>
 #include <stdarg.h>
 
 #undef _
@@ -51,22 +51,79 @@
 #pragma warning (disable: 4800 )
 #endif
 
+//
+// implementation for wxPlConstantsModule OnInit/OnExit
+//
 #include "cpp/compat.h"
+#include "cpp/constants.h"
+
+IMPLEMENT_DYNAMIC_CLASS( wxPlConstantsModule, wxModule );
+
+WX_DECLARE_LIST( PL_CONST_FUNC, wxPlConstantFunctions );
+#include <wx/listimpl.cpp>
+WX_DEFINE_LIST( wxPlConstantFunctions );
+WX_DEFINE_LIST( wxPlConstantsModuleList );
+
+// this use of static is deprecated in favour of anonymous namespace
+static wxPlConstantFunctions functions;
+
+bool& wxPlConstantsModule::sm_initialized()
+{
+    static bool var = FALSE;
+    return var;
+}
+
+wxPlConstantsModuleList& wxPlConstantsModule::sm_list()
+{
+    static wxPlConstantsModuleList var;
+    return var;
+}
+
+wxPlConstantsModule::wxPlConstantsModule( PL_CONST_FUNC function )
+    :m_function( function )
+{
+    if( sm_initialized() )
+        AppendFunction();
+    
+    sm_list().Append( this );
+}
+
+void wxPlConstantsModule::AppendFunction() { functions.Append( &m_function ); }
+void wxPlConstantsModule::RemoveFunction() { functions.DeleteObject( &m_function ); }
+
+bool wxPlConstantsModule::OnInit()
+{
+    wxPlConstantsModuleList::Node* node;
+
+    for( node = sm_list().GetFirst(); node; node = node->GetNext() )
+        node->GetData()->AppendFunction();
+
+    sm_initialized() = TRUE;
+
+    return TRUE;
+}
+
+void wxPlConstantsModule::OnExit()
+{
+    wxPlConstantsModuleList::Node* node;
+
+    for( node = sm_list().GetFirst(); node; node = node->GetNext() )
+        node->GetData()->AppendFunction();
+
+    sm_initialized() = FALSE;
+    sm_list().Clear();
+}
 
 // !package: Wx
 
 static double constant( const char *name, int arg ) 
 {
-  errno = 0;
-  char fl = name[0];
-
-  if( tolower( name[0] ) == 'w' && tolower( name[1] ) == 'x' )
-    fl = name[2];
+  WX_PL_CONSTANT_INIT();
 
   // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
 #define r( n ) \
-if( strEQ( name, #n ) ) \
-  return n;
+    if( strEQ( name, #n ) ) \
+        return n;
 
   switch( fl ) {
   case 'A':
@@ -495,10 +552,6 @@ if( strEQ( name, #n ) ) \
     r( wxIMAGELIST_DRAW_SELECTED );     // imagelist
     r( wxIMAGELIST_DRAW_FOCUSED );      // imagelist
 
-    r( wxIMAGE_LIST_NORMAL );           // listctrl
-    r( wxIMAGE_LIST_SMALL );            // listctrl
-    r( wxIMAGE_LIST_STATE );            // listctrl
-
     r( wxINVERT );                      // dc
 
     r( wxITALIC );                      // font
@@ -607,67 +660,6 @@ if( strEQ( name, #n ) ) \
     r( wxLEFT );                        // sizer layout constraints
     r( wxLIGHT );                       // font
 
-    r( wxLIST_AUTOSIZE );               // listctrl
-    r( wxLIST_AUTOSIZE_USEHEADER );     // listctrl
-
-    r( wxLIST_ALIGN_DEFAULT );          // listctrl
-    r( wxLIST_ALIGN_LEFT );             // listctrl
-    r( wxLIST_ALIGN_TOP );              // listctrl
-    r( wxLIST_ALIGN_SNAP_TO_GRID );     // listctrl
-
-    r( wxLIST_FORMAT_LEFT );            // listctrl
-    r( wxLIST_FORMAT_RIGHT );           // listctrl
-    r( wxLIST_FORMAT_CENTRE );          // listctrl
-
-    r( wxLIST_HITTEST_ABOVE );          // listctrl
-    r( wxLIST_HITTEST_BELOW );          // listctrl
-    r( wxLIST_HITTEST_NOWHERE );        // listctrl
-    r( wxLIST_HITTEST_ONITEMICON );     // listctrl
-    r( wxLIST_HITTEST_ONITEMLABEL );    // listctrl
-    r( wxLIST_HITTEST_ONITEMRIGHT );    // listctrl
-    r( wxLIST_HITTEST_ONITEMSTATEICON );// listctrl
-    r( wxLIST_HITTEST_TOLEFT );         // listctrl
-    r( wxLIST_HITTEST_TORIGHT );        // listctrl
-    r( wxLIST_HITTEST_ONITEM );         // listctrl
-
-    r( wxLIST_MASK_STATE );             // listctrl
-    r( wxLIST_MASK_TEXT );              // listctrl
-    r( wxLIST_MASK_IMAGE );             // listctrl
-    r( wxLIST_MASK_DATA );              // listctrl
-    r( wxLIST_MASK_WIDTH );             // listctrl
-    r( wxLIST_MASK_FORMAT );            // listctrl
-
-    r( wxLIST_NEXT_ABOVE );             // listctrl
-    r( wxLIST_NEXT_ALL );               // listctrl
-    r( wxLIST_NEXT_BELOW );             // listctrl
-    r( wxLIST_NEXT_LEFT );              // listctrl
-    r( wxLIST_NEXT_RIGHT );             // listctrl
-
-    r( wxLIST_STATE_DONTCARE );         // listctrl
-    r( wxLIST_STATE_DROPHILITED );      // listctrl
-    r( wxLIST_STATE_FOCUSED );          // listctrl
-    r( wxLIST_STATE_SELECTED );         // listctrl
-    r( wxLIST_STATE_CUT );              // listctrl
-
-    r( wxLIST_SET_ITEM );               // listctrl
-#if WXPERL_W_VERSION_GE( 2, 3 )
-    r( wxLC_VRULES );                   // listctrl
-    r( wxLC_HRULES );                   // listctrl
-#endif
-    r( wxLC_ICON );                     // listctrl
-    r( wxLC_SMALL_ICON );               // listctrl
-    r( wxLC_LIST );                     // listctrl
-    r( wxLC_REPORT );                   // listctrl
-    r( wxLC_ALIGN_TOP );                // listctrl
-    r( wxLC_ALIGN_LEFT );               // listctrl
-    r( wxLC_AUTOARRANGE );              // listctrl
-    r( wxLC_USER_TEXT );                // listctrl
-    r( wxLC_EDIT_LABELS );              // listctrl
-    r( wxLC_NO_HEADER );                // listctrl
-    r( wxLC_SINGLE_SEL );               // listctrl
-    r( wxLC_SORT_ASCENDING );           // listctrl
-    r( wxLC_SORT_DESCENDING );          // listctrl
-
     r( wxLI_HORIZONTAL );               // staticline
     r( wxLI_VERTICAL );                 // staticline
 
@@ -686,7 +678,6 @@ if( strEQ( name, #n ) ) \
 #define rr( n ) \
     if( strEQ( nm, #n ) ) \
         return wxLANGUAGE_##n;
-        //prefix wxLANGUAGE_
         const char* nm = name + 11;
 
         rr( DEFAULT );                  // locale
@@ -1172,30 +1163,6 @@ if( strEQ( name, #n ) ) \
     r( wxTRANSPARENT_WINDOW );          // window
     r( wxTRANSPARENT );                 // dc brush pen
 
-    r( wxTR_HAS_BUTTONS );              // treectrl
-    r( wxTR_EDIT_LABELS );              // treectrl
-    r( wxTR_MULTIPLE );                 // treectrl
-
-    r( wxTreeItemIcon_Normal );         // treectrl
-    r( wxTreeItemIcon_Selected );       // treectrl
-    r( wxTreeItemIcon_Expanded );       // treectrl
-    r( wxTreeItemIcon_SelectedExpanded ); // treectrl
-
-    r( wxTREE_HITTEST_ABOVE );          // treectrl
-    r( wxTREE_HITTEST_BELOW );          // treectrl
-    r( wxTREE_HITTEST_NOWHERE );        // treectrl
-    r( wxTREE_HITTEST_ONITEMBUTTON );   // treectrl
-    r( wxTREE_HITTEST_ONITEMICON );     // treectrl
-    r( wxTREE_HITTEST_ONITEMINDENT );   // treectrl
-    r( wxTREE_HITTEST_ONITEMLABEL );    // treectrl
-    r( wxTREE_HITTEST_ONITEMRIGHT );    // treectrl
-    r( wxTREE_HITTEST_ONITEMSTATEICON ); // treectrl
-    r( wxTREE_HITTEST_TOLEFT );         // treectrl
-    r( wxTREE_HITTEST_TORIGHT );        // treectrl
-    r( wxTREE_HITTEST_ONITEMUPPERPART ); // treectrl
-    r( wxTREE_HITTEST_ONITEMLOWERPART ); // treectrl
-    r( wxTREE_HITTEST_ONITEM );         // treectrl
-
     r( wxTop );                         // layout constraints
     break;
   case 'U':
@@ -1226,13 +1193,27 @@ if( strEQ( name, #n ) ) \
   }
 
 #undef r
+  // now search for modules...
+  {
+    wxPlConstantFunctions::Node* node;
+    PL_CONST_FUNC* func;
+    double ret;
 
-  errno = EINVAL;
-  return 0;
+    for( node = functions.GetFirst(); node; node = node->GetNext() )
+    {
+      func = node->GetData();
+      ret = (*func)( name, arg );
+      if( !errno )
+        return ret;
+    }
+  }
 
+  WX_PL_CONSTANT_CLEANUP();
+/*
  not_there:
   errno = ENOENT;
   return 0;
+*/
 }
 
 void SetConstants()

@@ -206,6 +206,7 @@ XS/MessageDialog.xs
 cpp/app.h
 cpp/button.h
 cpp/compat.h
+cpp/constants.h
 cpp/controls.h
 cpp/dialog.h
 cpp/e_cback.h
