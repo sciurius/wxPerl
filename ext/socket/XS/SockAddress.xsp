@@ -1,0 +1,68 @@
+#############################################################################
+## Name:        ext/socket/XS/SockAddress.xsp
+## Purpose:     XS++ for Wx::SockAddress and derived classes
+## Author:      Mattia Barbon
+## Created:     24/01/2004
+## RCS-ID:      $Id: SockAddress.xsp,v 1.1 2004/01/25 08:15:50 mbarbon Exp $
+## Copyright:   (c) 2004 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxSockAddress*}{simple};
+%typemap{wxIPaddress*}{simple};
+%typemap{wxIPV4address*}{simple};
+%typemap{wxIPV6address*}{simple};
+%typemap{wxUNIXaddress*}{simple};
+
+%name{Wx::SockAddress} class wxSockAddress
+{
+    ~wxSockAddress();
+
+    void Clear();
+    int Type();
+};
+
+%name{Wx::IPaddress} class wxIPaddress
+{
+    %name{SetHostname} bool Hostname(const wxString& name);
+    %name{SetService} bool Service(const wxString& port);
+    bool IsLocalHost();
+
+    %name{IsAnyAddress} bool AnyAddress();
+
+    %name{GetIPAddress} wxString IPAddress();
+
+    %name{GetHostname} wxString Hostname();
+    %name{GetService} unsigned short Service();
+};
+
+%name{Wx::IPV4address} class wxIPV4address
+{
+    wxIPV4address();
+
+    %name{GetOrigHostname} wxString OrigHostname();
+};
+
+#if wxUSE_IPV6
+
+%name{Wx::IPV6address} class wxIPV6address
+{
+    wxIPV6address();
+};
+
+#endif
+
+#ifdef __UNIX__
+
+%name{Wx::UNIXaddress} class wxUNIXaddress
+{
+    wxUNIXaddress();
+
+    %name{GetFilename} wxString Filename();
+    %name{SetFilename} void Filename(const wxString& filename);
+};
+
+#endif

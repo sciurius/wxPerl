@@ -390,6 +390,8 @@ ext/print/t/02_inheritance.t
 
 ext/socket/Makefile.PL
 ext/socket/Socket.xs
+ext/socket/XS/DatagramSocket.xsp
+ext/socket/XS/SockAddress.xsp
 ext/socket/XS/SocketBase.xs
 ext/socket/XS/SocketClient.xs
 ext/socket/XS/SocketEvent.xs

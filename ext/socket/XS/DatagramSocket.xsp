@@ -1,0 +1,44 @@
+#############################################################################
+## Name:        ext/socket/XS/DatagramSocket.xsp
+## Purpose:     XS++ for Wx::DatagramSocket
+## Author:      Mattia Barbon
+## Created:     24/01/2004
+## RCS-ID:      $Id: DatagramSocket.xsp,v 1.1 2004/01/25 08:15:50 mbarbon Exp $
+## Copyright:   (c) 2004 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxSockAddress&}{reference};
+%typemap{wxDatagramSocket*}{simple};
+%typemap{wxSocketFlags}{simple};
+
+%name{Wx::DatagramSocket} class wxDatagramSocket
+{
+    wxDatagramSocket(wxSockAddress& addr, wxSocketFlags flags = wxSOCKET_NONE)
+        %code{% RETVAL = new wxPliDatagramSocket( CLASS , *addr, flags ); %};
+};
+
+%{
+
+size_t
+wxDatagramSocket::RecvFrom( addr, buf, nBytes )
+    wxSockAddress* addr
+    SV* buf
+    wxUint32 nBytes
+  CODE:
+    DO_READ( THIS->RecvFrom( *addr, buffer, nBytes ), buf, nBytes, 0 );
+  OUTPUT: RETVAL
+
+size_t
+wxDatagramSocket::SendTo( addr, buf, nBytes )
+    wxSockAddress* addr
+    SV* buf
+    wxUint32 nBytes
+  CODE:
+    DO_WRITE( THIS->SendTo( *addr, buffer, nBytes ), buf, nBytes );
+  OUTPUT: RETVAL
+
+%}
