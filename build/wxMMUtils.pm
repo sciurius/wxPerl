@@ -69,7 +69,7 @@ sub merge_config {
         my @c;
         foreach my $i ( @b ) {
           foreach my $j ( @a ) {
-            push @c, " $i $j ";
+            push @c, " $i $j $i ";
           }
         }
 
