@@ -76,6 +76,12 @@ Wx_ToolBarBase::FindToolForPosition( x, y )
     float x
     float y
 
+int
+Wx_ToolBarBase::GetMaxRows()
+
+int
+Wx_ToolBarBase::GetMaxCols()
+
 Wx_Size*
 Wx_ToolBarBase::GetToolSize()
   CODE:
@@ -182,6 +188,15 @@ Wx_ToolBarBase::SetMarginsXY( x, y )
 void
 Wx_ToolBarBase::SetMargins( size )
     Wx_Size size
+
+void
+Wx_ToolBarBase::SetMaxRowsCols( mRows, mCols )
+    int mRows
+    int mCols
+
+void
+Wx_ToolBarBase::SetRows( nRows )
+    int nRows
 
 void
 Wx_ToolBarBase::SetToolBitmapSize( size )
