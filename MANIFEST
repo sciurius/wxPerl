@@ -31,6 +31,7 @@ t/1_load.t
 t/2_inheritance.t
 t/3_event.t
 t/4_userdata.t
+t/5_timer.t
 
 lib/Wx/App.pm
 lib/Wx/Bitmap.pm
@@ -158,6 +159,7 @@ XS/Choice.xs
 XS/ClassInfo.xs
 XS/Colour.xs
 XS/ComboBox.xs
+XS/Config.xs
 XS/Constraint.xs
 XS/Cursor.xs
 XS/DC.xs
@@ -182,6 +184,7 @@ XS/Notebook.xs
 XS/Palette.xs
 XS/Panel.xs
 XS/Pen.xs
+XS/Process.xs
 XS/ProgressDialog.xs
 XS/RadioBox.xs
 XS/RadioButton.xs
@@ -227,6 +230,7 @@ cpp/evthandler.h
 cpp/frame.h
 cpp/helpers.h
 cpp/panel.h
+cpp/process.h
 cpp/sashwindow.h
 cpp/scrolledwindow.h
 cpp/singlechoicedialog.h
@@ -277,6 +281,8 @@ ext/filesys/t/2_inheritance.t
 
 ext/grid/Grid.xs
 ext/grid/XS/GridCellAttr.xs
+ext/grid/XS/GridCellEditor.xs
+ext/grid/XS/GridCellRenderer.xs
 ext/grid/Makefile.PL
 ext/grid/XS/Grid.xs
 ext/grid/XS/GridEvent.xs
@@ -286,6 +292,7 @@ ext/grid/lib/Wx/Grid.pm
 ext/grid/typemap
 ext/grid/t/1_load.t
 ext/grid/t/2_inheritance.t
+ext/grid/t/3_attr.t
 
 ext/help/Help.xs
 ext/help/Makefile.PL
@@ -364,6 +371,8 @@ demo/data/locale/fr/wxperl_demo.po
 demo/data/locale/it/wxperl_demo.po
 demo/data/resource.xrc
 demo/data/logo.jpg
+demo/data/cat.pl
+demo/data/dummy.pl
 demo/demo.pl
 demo/wxClipboard.pm
 demo/wxFileSystem.pm
@@ -371,4 +380,5 @@ demo/wxGrid.pm
 demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm
 demo/wxLocale.pm
+demo/wxProcess.pm
 demo/wxSplashScreen.pm
