@@ -80,6 +80,13 @@ Wx_ToolBarBase::FindToolForPosition( x, y )
     float x
     float y
 
+Wx_Size*
+Wx_ToolBarBase::GetMargins()
+  CODE:
+    RETVAL = new wxSize( THIS->GetMargins() );
+  OUTPUT:
+    RETVAL
+
 int
 Wx_ToolBarBase::GetMaxRows()
 

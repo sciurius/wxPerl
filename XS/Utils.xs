@@ -13,6 +13,7 @@
 #include <wx/busyinfo.h>
 #include <wx/settings.h>
 #include <wx/caret.h>
+#include <wx/utils.h>
 
 MODULE=Wx PACKAGE=Wx::CaretSuspend
 
@@ -104,4 +105,16 @@ GetSystemMetric( index )
     RETVAL = wxSystemSettings::GetSystemMetric( index );
   OUTPUT:
     RETVAL
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+bool
+wxYield()
+
+bool
+wxSafeYield( window = 0 )
+    Wx_Window* window
+
+bool
+wxYieldIfNeeded()
 

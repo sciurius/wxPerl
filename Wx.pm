@@ -26,7 +26,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter DynaLoader);
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE);
@@ -61,12 +61,12 @@ sub END {
   UnLoad();
 }
 
-my( $wbmp, $wico, $wmen, $wmit, $wrec, $wreg, $wszr,
+my( $wimg, $wbmp, $wico, $wmen, $wmit, $wrec, $wreg, $wszr,
     $wtip, $wwin, $wcol, $wlci, $wsiz, $wpoi, $wist, $wost,
     $num, $str, $bool ) = ( 1 .. 26 );
 
 my( @tnames ) =
-  ( undef, 'Wx::Bitmap', 'Wx::Icon', 'Wx::Menu', 'Wx::MenuItem',
+  ( undef, 'Wx::Image', 'Wx::Bitmap', 'Wx::Icon', 'Wx::Menu', 'Wx::MenuItem',
     'Wx::Rect', 'Wx::Region', 'Wx::Sizer', 'Wx::ToolTip',
     'Wx::Window', 'Wx::Colour', 'Wx::ListItem', 'Wx::Size', 'Wx::Point' );
 
@@ -106,6 +106,7 @@ $Wx::_wbmp_wcol = [ $wbmp, $wcol ];
 $Wx::_wcol = [ $wcol ];
 $Wx::_wcol_n = [ $wcol, $num ];
 $Wx::_wico = [ $wico ];
+$Wx::_wimg = [ $wimg ];
 $Wx::_wist_n = [ $wist, $num ];
 $Wx::_wist_s = [ $wist, $str ];
 $Wx::_wlci = [ $wlci ];

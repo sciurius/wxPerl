@@ -177,6 +177,7 @@ Wx_PNMHandler *         O_WXOBJECT
 Wx_TIFFHandler *        O_WXOBJECT
 Wx_JPEGHandler *        O_WXOBJECT
 Wx_PNGHandler *         O_WXOBJECT
+Wx_XPMHandler *         O_WXOBJECT
 
 Wx_ImageList *          O_WXOBJECT
 

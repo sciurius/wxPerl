@@ -237,6 +237,7 @@ FD_TD( PNMHandler );
 FD_TD( GIFHandler );
 FD_TD( JPEGHandler );
 FD_TD( TIFFHandler );
+FD_TD( XPMHandler );
 
 FD_TD( StreamBase );
 FD_TD( InputStream );

@@ -104,6 +104,20 @@ Wx_Image::ConvertToBitmap()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_Image*
+Wx_Image::ConvertToMono( r, g, b )
+    unsigned char r
+    unsigned char g
+    unsigned char b
+  CODE:
+    RETVAL = new wxImage( THIS->ConvertToMono( r, g, b ) );
+  OUTPUT:
+    RETVAL
+
+#endif
+
 Wx_Image*
 Wx_Image::Copy()
   CODE:
@@ -484,6 +498,15 @@ MODULE=Wx PACKAGE=Wx::TIFFHandler
 
 Wx_TIFFHandler*
 Wx_TIFFHandler::new()
+
+MODULE=Wx PACKAGE=Wx::XPMHandler
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_XPMHandler*
+Wx_XPMHandler::new()
+
+#endif
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 

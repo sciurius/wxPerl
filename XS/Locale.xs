@@ -64,8 +64,12 @@ Wx_Locale::GetString( string, domain = 0 )
 
 #if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
-# int
-# Wx_Locale::GetSystemLanguage()
+int
+GetSystemLanguage()
+  CODE:
+    RETVAL = wxLocale::GetSystemLanguage();
+  OUTPUT:
+    RETVAL
 
 int
 Wx_Locale::GetLanguage()

@@ -100,8 +100,31 @@ newIcon( icon )
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_Bitmap*
+newImage( image )
+    Wx_Image* image
+  CODE:
+    RETVAL = new wxBitmap( *image );
+  OUTPUT:
+    RETVAL
+
+#endif
+
 void
 Wx_Bitmap::DESTROY()
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_Image*
+Wx_Bitmap::ConvertToImage()
+  CODE:
+    RETVAL = new wxImage( THIS->ConvertToImage() );
+  OUTPUT:
+    RETVAL
+
+#endif
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 

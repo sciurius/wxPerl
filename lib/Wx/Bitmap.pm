@@ -38,6 +38,7 @@ sub new {
   Wx::_match( @_, $Wx::_n_n_n, 2, 1 ) && return Wx::Bitmap::newEmpty( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 )      && return Wx::Bitmap::newFile( @_ );
   Wx::_match( @_, $Wx::_wico, 1 )     && return Wx::Bitmap::newIcon( @_ );
+  Wx::_match( @_, $Wx::_wimg, 1 )     && return Wx::Bitmap::newImage( @_ );
   croak Wx::_ovl_error;
 }
 

@@ -167,6 +167,9 @@ static double constant( const char *name, int arg )
     r( wxCOPY );                        // dc
 
     r( wxCURSOR_ARROW );                // cursor
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxCURSOR_ARROWWAIT );            // cursor
+#endif
     r( wxCURSOR_BULLSEYE );             // cursor
     r( wxCURSOR_CHAR );                 // cursor
     r( wxCURSOR_CROSS );                // cursor

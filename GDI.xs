@@ -60,4 +60,17 @@ INCLUDE: XS/Brush.xs
 INCLUDE: XS/Image.xs
 INCLUDE: XS/Palette.xs
 
+MODULE=Wx PACKAGE=Wx
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_Rect*
+GetClientDisplayRect()
+  CODE:
+    RETVAL = new wxRect( wxGetClientDisplayRect() );
+  OUTPUT:
+    RETVAL
+
+#endif
+
 MODULE=Wx_GDI
