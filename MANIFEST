@@ -307,21 +307,22 @@ ext/filesys/t/01_load.t
 ext/filesys/t/02_inheritance.t
 
 ext/grid/Grid.xs
+ext/grid/Makefile.PL
+ext/grid/XS/Grid.xs
 ext/grid/XS/GridCellAttr.xs
 ext/grid/XS/GridCellEditor.xs
 ext/grid/XS/GridCellRenderer.xs
-ext/grid/Makefile.PL
-ext/grid/XS/Grid.xs
 ext/grid/XS/GridEvent.xs
+ext/grid/XS/GridTable.xsp
+ext/grid/cpp/editor.h
 ext/grid/cpp/gr_constants.cpp
 ext/grid/cpp/gr_typedef.h
-ext/grid/cpp/editor.h
 ext/grid/cpp/renderer.h
 ext/grid/lib/Wx/Grid.pm
-ext/grid/typemap
 ext/grid/t/01_load.t
 ext/grid/t/02_inheritance.t
 ext/grid/t/03_attr.t
+ext/grid/typemap
 
 ext/help/Help.xs
 ext/help/Makefile.PL
