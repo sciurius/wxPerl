@@ -48,7 +48,7 @@ sub new {
   my $class = shift;
   my $this = $class->SUPER::new( $_[0], -1 );
 
-  my $button = Wx::Button->new( $this, -1, "Start wizard" );
+  my $button = Wx::Button->new( $this, -1, "Start wizard", [20, 20] );
   my $wizard = Wx::Wizard->new( $this, -1, "Wizard test" );
 
   # first page
