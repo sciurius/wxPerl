@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.23 2003/08/15 21:45:31 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.24 2003/08/16 21:28:53 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -18,19 +18,28 @@
 class wxAutoSV
 {
 public:
-    wxAutoSV( pTHX_ SV* sv ) : m_sv( sv ), vTHX( aTHX ) { }
+    wxAutoSV( pTHX_ SV* sv )
+        : m_sv( sv )
+#ifdef MULTIPLICITY
+        , vTHX( aTHX )
+#endif
+    { }
     ~wxAutoSV() { SvREFCNT_dec( m_sv ); }
 
     operator SV*() { return m_sv; }
     operator const SV*() const { return m_sv; }
+    operator bool() const { return m_sv != NULL; }
+    bool operator !() const { return m_sv == NULL; }
     SV* operator->() { return m_sv; }
     const SV* operator->() const { return m_sv; }
 private:
     SV* m_sv;
-#undef register
-#define register
+#ifdef MULTIPLICITY
+    #undef register
+    #define register
     pTHX;
-#undef register
+    #undef register
+#endif
 };
 
 #define wxPliFCback wxPliVirtualCallback_FindCallback

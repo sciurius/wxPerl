@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: compat.h,v 1.22 2003/05/05 20:38:41 mbarbon Exp $
+// RCS-ID:      $Id: compat.h,v 1.23 2003/08/16 21:28:53 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -66,6 +66,7 @@
 
 #else
 
+#define vTHX
 #define pTHX
 #define aTHX
 #define dTHX
