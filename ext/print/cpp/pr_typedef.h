@@ -20,7 +20,12 @@
 
 FD_TD( PrintData );
 FD_TD( PageSetupDialogData );
+
+#if defined( __WXMOTIF__ ) || defined( __WXGTK__ )
+FD_TD_NAME( PageSetupDialog, GenericPageSetupDialog );
+#else
 FD_TD( PageSetupDialog );
+#endif
 
 #undef FD_TD
 
