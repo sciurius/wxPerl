@@ -57,6 +57,9 @@ FD_TD( ActivateEvent );
 FD_TD( CloseEvent );
 FD_TD( CommandEvent );
 FD_TD( EraseEvent );
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+FD_TD( FindDialogEvent );
+#endif
 FD_TD( FocusEvent );
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 FD_TD( HelpEvent );
@@ -142,6 +145,10 @@ FD_TD( DrawObject );
 FD_TD( DropTarget );
 FD_TD( EvtHandler );
 FD_TD( FileDialog );
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+FD_TD( FindReplaceData );
+FD_TD( FindReplaceDialog );
+#endif
 FD_TD( FlexGridSizer );
 FD_TD( Font );
 FD_TD( FontData );
@@ -224,6 +231,7 @@ FD_TD( StopWatch );
 FD_TD( TextCtrl );
 FD_TD( TextEntryDialog );
 FD_TD( Timer );
+FD_TD( TipProvider );
 FD_TD( ToggleButton );
 FD_TD( ToolBar );
 FD_TD( ToolBarBase );

@@ -45,6 +45,10 @@
 #include <wx/tglbtn.h>
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+#include <wx/fdrepdlg.h>
+#endif
+
 #include <wx/list.h>
 #include <stdarg.h>
 
@@ -266,6 +270,13 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_SPLITTER_DOUBLECLICKED );
 
     r( wxEVT_TIMER );
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+    r( wxEVT_COMMAND_FIND );
+    r( wxEVT_COMMAND_FIND_NEXT );
+    r( wxEVT_COMMAND_FIND_REPLACE );
+    r( wxEVT_COMMAND_FIND_REPLACE_ALL );
+    r( wxEVT_COMMAND_FIND_CLOSE );
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxEVT_MOUSEWHEEL )
@@ -401,6 +412,15 @@ static double constant( const char *name, int arg )
     r( wxFRAME_EX_CONTEXTHELP );        // frame
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+    r( wxFR_DOWN );                     // findreplace
+    r( wxFR_WHOLEWORD );                // findreplace
+    r( wxFR_MATCHCASE );                // findreplace
+    r( wxFR_REPLACEDIALOG );            // findreplace
+    r( wxFR_NOUPDOWN );                 // findreplace
+    r( wxFR_NOMATCHCASE );              // findreplace
+    r( wxFR_NOWHOLEWORD );              // findreplace
+#endif
     r( wxFONTENCODING_ISO8859_1 );      // font
     r( wxFONTENCODING_ISO8859_2 );      // font
     r( wxFONTENCODING_ISO8859_3 );      // font
