@@ -1,9 +1,5 @@
 KNOWN BUGS:
 
-All platforms
-
-* The caret sample starts with incorrect size
-
 wxMSW
 
 * Wx::ToolBar

@@ -230,7 +230,7 @@ use vars qw(@ISA);
 
 sub OnInit {
   my( $this ) = shift;
-  my( $frame ) = MyFrame->new( "Caret wxPerl sample", [50, 50], [ 450, 50 ] );
+  my( $frame ) = MyFrame->new( "Caret wxPerl sample", [50, 50], [ 450, 400 ] );
 
   $frame->Show( 1 );
   $this->SetTopWindow( $frame );
