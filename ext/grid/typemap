@@ -15,6 +15,7 @@ wxGridSelectionModes    T_IV
 wxGridAttrKind          T_IV
 
 Wx_Grid *               O_WXOBJECT
+wxGrid *                O_WXOBJECT
 Wx_GridEvent *          O_WXOBJECT
 Wx_GridSizeEvent *      O_WXOBJECT
 Wx_GridRangeSelectEvent * O_WXOBJECT

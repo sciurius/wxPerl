@@ -634,6 +634,19 @@ Wx_Grid::SetCellBackgroundColour( row, col, colour )
     Wx_Colour colour
 
 void
+wxGrid::SetCellHighlightColour( colour )
+    wxColour* colour
+  C_ARGS: *colour
+
+void
+wxGrid::SetCellHighlightPenWidth( width )
+    int width
+
+void
+wxGrid::SetCellHighlightROPenWidth( width )
+    int width
+
+void
 Wx_Grid::SetCellEditor( row, col, editor )
     int row
     int col
