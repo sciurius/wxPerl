@@ -10,9 +10,6 @@ PRIORITY NORMAL:
 * try to have constants inlined where appropriate
 
 * wxCalendarCtrl
-    GetAttr
-    SetAttr
-    ResetAttr
     HitTest
     
 * wxFontEnumerator virtual functions
@@ -48,8 +45,6 @@ PRIORITY NORMAL:
 * Wx::DataObject
     Wx::PlDataObject
 
-* move THIS from HV to MAGIC?
-  
 * Decrease compilation time/code bloat:
     Use precompiled headers where appropriate
     Move constants out of Constants.xs when they need a separate #include
@@ -159,11 +154,6 @@ CLASSES:
   wxBufferedDC
   wxTextValidator
   wxGenericValidator
-
-  wxDateTime & co
-
-  wxDialUpManager
-  wxSocket* ?
 
   wxDDE*
   wxTCP*

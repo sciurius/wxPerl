@@ -29,7 +29,7 @@ ActivePerl 6xx  | Windows 2000  |                | MSVC 5
 5.6.1           |               |                | MinGW GCC
 5.8.0           |               |                |
 ----------------+---------------+----------------+-------------------
-5.005_03        | Debian 3.0    |                | GCC 2.95.2
+5.005_03 [1]    | Debian 3.0    |                | GCC 2.95.2
 5.8.0           | RedHat 8.0    | wxGTK 2.4.0    | GCC 3.2
 5.6.1           |               | wxMotif 2.4.0  |
 ----------------+---------------+----------------+-------------------  
@@ -37,6 +37,10 @@ ActivePerl 6xx  | Windows 2000  |                | MSVC 5
 ----------------+---------------+----------------+-------------------
 
 wxPerl has also been reported to work on FreeBSD and IRIX.
+
+[1] 5.005_03 crashes at "perl Makefile.PL" time (at least under Linux)
+    workarounds: "perl -d Makefile.PL" and then type "r", or run it under
+    valgrind (no, it's not a joke...)
 
 DEPRECATIONS
 
