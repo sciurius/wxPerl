@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/05/2001
-// RCS-ID:      $Id: pr_constants.cpp,v 1.6 2005/01/09 22:35:55 mbarbon Exp $
-// Copyright:   (c) 2001, 2004 Mattia Barbon
+// RCS-ID:      $Id: pr_constants.cpp,v 1.7 2005/01/09 23:57:02 mbarbon Exp $
+// Copyright:   (c) 2001, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
