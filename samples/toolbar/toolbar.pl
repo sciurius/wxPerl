@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: toolbar.pl,v 1.7 2004/03/20 17:54:21 mbarbon Exp $
+## RCS-ID:      $Id: toolbar.pl,v 1.8 2005/03/27 16:24:32 mbarbon Exp $
 ## Copyright:   (c) 2000, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -51,7 +51,8 @@ my( $IDM_TOOLBAR_TOGGLE_ANOTHER_TOOLBAR, $IDM_TOOLBAR_TOGGLETOOLBARSIZE,
     $IDM_TOOLBAR_TOGGLETOOLBARORIENT, $IDM_TOOLBAR_TOGGLETOOLBARROWS,
     $IDM_TOOLBAR_ENABLEPRINT, $IDM_TOOLBAR_DELETEPRINT,
     $IDM_TOOLBAR_INSERTPRINT, $IDM_TOOLBAR_TOGGLEHELP,
-    $IDM_TOOLBAR_TOGGLEFULLSCREEN ) = ( 10_000 .. 10_100 );
+    $IDM_TOOLBAR_TOGGLEFULLSCREEN, $IDM_TOOLBAR_TOGGLE_TOOLBAR )
+  = ( 10_000 .. 10_100 );
 
 use Wx qw(wxBITMAP_TYPE_BMP wxBITMAP_TYPE_XPM);
 
@@ -79,6 +80,9 @@ sub new {
   $this->CreateStatusBar();
 
   my( $tmenu ) = Wx::Menu->new();
+  $tmenu->Append( $IDM_TOOLBAR_TOGGLE_TOOLBAR,
+                  "Toggle tool&bar\tCtrl-B",
+                  "Show/Hide test toolbar", 1 );
   $tmenu->Append( $IDM_TOOLBAR_TOGGLE_ANOTHER_TOOLBAR,
                   "Toggle &another toolbar\tCtrl-A",
                   "Show/Hide another test toolbar", 1 );
@@ -118,6 +122,7 @@ sub new {
   EVT_MENU( $this, -1, \&OnToolLeftClick );
   EVT_MENU( $this, wxID_EXIT, \&OnQuit );
   EVT_MENU( $this, wxID_HELP, \&OnAbout );
+  EVT_MENU( $this, $IDM_TOOLBAR_TOGGLE_TOOLBAR, \&OnToggleToolbar );
   EVT_MENU( $this, $IDM_TOOLBAR_TOGGLE_ANOTHER_TOOLBAR, \&OnToggleAnotherToolbar );
   EVT_MENU( $this, $IDM_TOOLBAR_TOGGLETOOLBARSIZE, \&OnToggleToolbarSize );
   EVT_MENU( $this, $IDM_TOOLBAR_TOGGLETOOLBARORIENT, \&OnToggleToolbarOrient );
@@ -173,6 +178,19 @@ sub OnToggleAnotherToolbar {
   }
 
   $this->LayoutChildren();
+}
+
+sub OnToggleToolbar {
+  my( $this, $event ) = @_;
+
+  if( $this->GetToolBar ) {
+    $this->GetToolBar->Destroy();
+    $this->SetToolBar( undef );
+  } else {
+    $this->RecreateToolbar;
+  }
+
+#  $this->LayoutChildren();
 }
 
 sub LayoutChildren {
