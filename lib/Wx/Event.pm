@@ -393,52 +393,6 @@ sub EVT_TREE_ITEM_MIDDLE_CLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMM
 sub EVT_UPDATE_UI($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_UPDATE_UI, $_[2] ); }
 sub EVT_UPDATE_UI_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_UPDATE_UI, $_[3] ); }
 
-no strict;
-
-#
-# Event hierarchy
-#
-
-package Wx::PlEvent;         @ISA = qw(Wx::Event);
-package Wx::PlThreadEvent;   @ISA = qw(Wx::Event);
-package Wx::PlCommandEvent;  @ISA = qw(Wx::CommandEvent);
-package Wx::ActivateEvent;   @ISA = qw(Wx::Event);
-package Wx::CommandEvent;    @ISA = qw(Wx::Event);
-package Wx::CloseEvent;      @ISA = qw(Wx::Event);
-package Wx::EraseEvent;      @ISA = qw(Wx::Event);
-package Wx::FindDialogEvent; @ISA = qw(Wx::CommandEvent);
-package Wx::FocusEvent;      @ISA = qw(Wx::Event);
-package Wx::KeyEvent;        @ISA = qw(Wx::Event);
-package Wx::HelpEvent;       @ISA = qw(Wx::CommandEvent);
-package Wx::IconizeEvent;    @ISA = qw(Wx::Event);
-package Wx::IdleEvent;       @ISA = qw(Wx::Event);
-package Wx::InitDialogEvent; @ISA = qw(Wx::Event);
-package Wx::JoystickEvent;   @ISA = qw(Wx::Event);
-package Wx::ListEvent;       @ISA = qw(Wx::NotifyEvent);
-package Wx::MenuEvent;       @ISA = qw(Wx::Event);
-package Wx::MouseEvent;      @ISA = qw(Wx::Event);
-package Wx::MoveEvent;       @ISA = qw(Wx::Event);
-package Wx::NotebookEvent;   @ISA = qw(Wx::NotifyEvent);
-package Wx::NotifyEvent;     @ISA = qw(Wx::CommandEvent);
-package Wx::PaintEvent;      @ISA = qw(Wx::Event);
-package Wx::ProcessEvent;    @ISA = qw(Wx::Event);
-package Wx::QueryLayoutInfoEvent; @ISA = qw(Wx::Event);
-package Wx::SashEvent;       @ISA = qw(Wx::CommandEvent);
-package Wx::SizeEvent;       @ISA = qw(Wx::Event);
-package Wx::ScrollWinEvent;  @ISA = qw(Wx::Event);
-package Wx::SpinEvent;       @ISA = qw(Wx::NotifyEvent);
-package Wx::SplitterEvent;   @ISA = qw(Wx::CommandEvent);
-package Wx::SysColourChangedEvent; @ISA = qw(Wx::Event);
-package Wx::TextUrlEvent;    @ISA = qw(Wx::CommandEvent);
-package Wx::TimerEvent;      @ISA = qw(Wx::Event);
-package Wx::TreeEvent;       @ISA = qw(Wx::NotifyEvent);
-package Wx::UpdateUIEvent;   @ISA = qw(Wx::CommandEvent);
-package Wx::WizardEvent;     @ISA = qw(Wx::NotifyEvent);
-
-package Wx::SplitterEvent;
-
-if( $Wx::_wx_version >= 2.003003 ) { @ISA = qw(Wx::NotifyEvent) }
-
 1;
 
 __END__

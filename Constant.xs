@@ -326,10 +326,6 @@ static wxPlINH inherit[] =
     // Conditional part
     ///////////////////////////////////////////
 #define HAS_TLW    ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXMOTIF__) )
-#define IS_GTK       defined(__WXGTK__)
-#define IS_MOTIF     defined(__WXMOTIF__)
-#define IS_MSW       defined(__WXMSW__)
-#define IS_UNIVERSAL defined(__WXUNIVERSAL__)
 
 #if HAS_TLW
     I( Frame,           TopLevelWindow )
@@ -343,25 +339,26 @@ static wxPlINH inherit[] =
     I( Dialog,          Panel )
 #endif
 
-#if IS_MSW
+#if defined(__WXMSW__)
     I( MemoryDC,        DC )
 #else
     I( MemoryDC,        WindowDC )
 #endif
 
-#if ( IS_MSW || IS_GTK ) && WXPERL_W_VERSION_GE( 2, 3, 0 )
+#if ( defined(__WXMSW__) || defined(__WXGTK__) ) && \
+    WXPERL_W_VERSION_GE( 2, 3, 0 )
     I( PaintDC,         ClientDC )
 #else
     I( PaintDC,         WindowDC )
 #endif
 
-#if IS_GTK
+#if defined(__WXGTK__)
     I( ScreenDC,        PaintDC )
 #else
     I( ScreenDC,        WindowDC )
 #endif
 
-#if IS_MSW
+#if defined(__WXMSW__)
     I( TreeCtrl,        Control )
 #elif WXPERL_W_VERSION_GE( 2, 3, 0 )
     I( TreeCtrl,        GenericTreeCtrl )
@@ -369,7 +366,7 @@ static wxPlINH inherit[] =
     I( TreeCtrl,        ScrolledWindow )
 #endif
 
-#if IS_GTK
+#if defined(__WXGTK__)
     I( ComboBox,        Control )
 #else
     I( ComboBox,        Choice )
@@ -381,32 +378,76 @@ static wxPlINH inherit[] =
     I( ScrolledWindow,  Panel )
 #endif
 
-#if IS_GTK
+#if defined(__WXGTK__)
     I( StatusBar,       StatusBarGeneric )
 #else
     I( StatusBar,       Window )
 #endif
 
-#if IS_MOTIF
+#if defined(__WXMOTIF__)
     I( Cursor,          Bitmap )
-#elif !IS_GTK
+#elif !defined(__WXGTK__)
     I( Cursor,          GDIObject )
 #endif
 
-#if IS_GTK || IS_MOTIF
+#if defined(__WXGTK__) || defined(__WXMOTIF__)
     I( Icon,            Bitmap )
 #else
     I( Icon,            GDIObject )
 #endif
 
-#if IS_GTK
+#if defined(__WXGTK__)
     I( Colour,          GDIObject )
 #endif
 
-#if IS_UNIVERSAL
+#if defined(__WXUNIVERSAL__)
     I( ToolBar,         ToolBarSimple )
 #else
     I( ToolBar,         ToolBarBase )
+#endif
+
+    ///////////////////////////////////////////
+    // Events
+    ///////////////////////////////////////////
+    I( PlEvent,         Event )
+    I( PlThreadEvent,   Event )
+    I( PlCommandEvent,  CommandEvent )
+    I( ActivateEvent,   Event )
+    I( CommandEvent,    Event )
+    I( CloseEvent,      Event )
+    I( EraseEvent,      Event )
+    I( FindDialogEvent, CommandEvent )
+    I( FocusEvent,      Event )
+    I( KeyEvent,        Event )
+    I( HelpEvent,       CommandEvent )
+    I( IconizeEvent,    Event )
+    I( IdleEvent,       Event )
+    I( InitDialogEvent, Event )
+    I( JoystickEvent,   Event )
+    I( ListEvent,       NotifyEvent )
+    I( MenuEvent,       Event )
+    I( MouseEvent,      Event )
+    I( MoveEvent,       Event )
+    I( NotebookEvent,   NotifyEvent )
+    I( NotifyEvent,     CommandEvent )
+    I( PaintEvent,      Event )
+    I( ProcessEvent,    Event )
+    I( QueryLayoutInfoEvent, Event )
+    I( SashEvent,       CommandEvent )
+    I( SizeEvent,       Event )
+    I( ScrollWinEvent,  Event )
+    I( SpinEvent,       NotifyEvent )
+    I( SysColourChangedEvent, Event )
+    I( TextUrlEvent,    CommandEvent )
+    I( TimerEvent,      Event )
+    I( TreeEvent,       NotifyEvent )
+    I( UpdateUIEvent,   CommandEvent )
+    I( WizardEvent,     NotifyEvent )
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    I( SplitterEvent,   NotifyEvent )
+#else
+    I( SplitterEvent,   CommandEvent )
 #endif
 
     { 0, 0 }
@@ -784,6 +825,7 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_SYSTEM );         // font
     r( wxFRAME_FLOAT_ON_PARENT );       // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
+    r( wxFRAME_NO_WINDOW_MENU );
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxFRAME_NO_TASKBAR );            // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
@@ -1316,6 +1358,7 @@ static double constant( const char *name, int arg )
     r( wxNB_LEFT );                     // notebook
     r( wxNB_RIGHT );                    // notebook
     r( wxNB_BOTTOM );                   // notebook
+    r( wxNO );
     r( wxNO_BORDER );                   // frame toolbar
     r( wxNO_3D );                       // dialog window
     r( wxNO_FULL_REPAINT_ON_RESIZE );   // window
