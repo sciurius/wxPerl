@@ -26,15 +26,15 @@ void
 Wx_Validator::SetWindow( window )
     Wx_Window* window
 
-bool
-Wx_Validator::TransferFromWindow()
+# bool
+# Wx_Validator::TransferFromWindow()
 
-bool
-Wx_Validator::TransferToWindow()
+# bool
+# Wx_Validator::TransferToWindow()
 
-bool
-Wx_Validator::Validate( parent )
-    Wx_Window* parent
+# bool
+# Wx_Validator::Validate( parent )
+#    Wx_Window* parent
 
 MODULE=Wx PACKAGE=Wx::PlValidator
 
