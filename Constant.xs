@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.92 2003/09/07 19:05:12 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.93 2003/09/08 10:42:54 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -532,9 +532,6 @@ static double constant( const char *name, int arg )
     r( wxBU_AUTODRAW );                 // button
     r( wxBU_RIGHT );                    // button
 
-    // !export: Type_Boolean
-    if( strEQ( name, "Type_Boolean" ) )
-        return wxConfigBase::Type_Boolean;
     r( wxBU_EXACTFIT );                 // button
 
     r( wxBDIAGONAL_HATCH );             // brush pen
@@ -879,9 +876,6 @@ static double constant( const char *name, int arg )
     r( wxFULLSCREEN_NOCAPTION );        // frame dialog
     r( wxFULLSCREEN_ALL );              // frame dialog
 
-    // !export: Type_Float
-    if( strEQ( name, "Type_Float" ) )
-        return wxConfigBase::Type_Float;
     break;
   case 'G':
     r( wxGA_HORIZONTAL );               // gauge
@@ -977,9 +971,6 @@ static double constant( const char *name, int arg )
     r( wxITEM_CHECK );                  // menu
     r( wxITEM_RADIO );                  // menu
 
-    // !export: Type_Integer
-    if( strEQ( name, "Type_Integer" ) )
-        return wxConfigBase::Type_Integer;
     break;
   case 'J':
     r( wxJOIN_BEVEL );                  // pen
@@ -1610,9 +1601,6 @@ static double constant( const char *name, int arg )
     // capabilities
     r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
     r( wxSYS_CAN_ICONIZE_FRAME );
-    // !export: Type_String
-    if( strEQ( name, "Type_String" ) )
-        return wxConfigBase::Type_String;
     break;
   case 'T':
     r( wxTAB_TRAVERSAL );               // panel
@@ -1647,13 +1635,26 @@ static double constant( const char *name, int arg )
     r( wxTRANSPARENT );                 // dc brush pen
 
     r( wxTop );                         // layout constraints
+
+    // !export: Type_Boolean
+    // !export: Type_Float
+    // !export: Type_Integer
+    // !export: Type_String
+    // !export: Type_Unknown
+    if( strEQ( name, "Type_Boolean" ) )
+        return wxConfigBase::Type_Boolean;
+    if( strEQ( name, "Type_Float" ) )
+        return wxConfigBase::Type_Float;
+    if( strEQ( name, "Type_Integer" ) )
+        return wxConfigBase::Type_Integer;
+    if( strEQ( name, "Type_Unknown" ) )
+        return wxConfigBase::Type_Unknown;
+    if( strEQ( name, "Type_String" ) )
+        return wxConfigBase::Type_String;
+
     break;
   case 'U':
     r( wxUnconstrained );               // layout constraints
-    // !export: Type_Unknown
-    if( strEQ( name, "Type_Unknown" ) )
-        return wxConfigBase::Type_Unknown;
-
     r( wxUSER_DASH );                   // pen
     break;
   case 'V':
