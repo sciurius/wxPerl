@@ -41,8 +41,12 @@ Wx_Panel::GetDefaultItem()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_LE( 2, 2 )
+
 void
 Wx_Panel::InitDialog()
+
+#endif
 
 void
 Wx_Panel::SetDefaultItem( btn )

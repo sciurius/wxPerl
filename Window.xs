@@ -384,8 +384,12 @@ Wx_Window::GetValidator()
 long
 Wx_Window::GetWindowStyleFlag()
 
+#if WXPERL_W_VERSION_LE( 2, 2 )
+
 void
 Wx_Window::InitDialog()
+
+#endif
 
 bool
 Wx_Window::IsEnabled()
