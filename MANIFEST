@@ -10,6 +10,7 @@ nmake.mak
 gmake.mak
 
 script/make_exp_list.pl
+script/pipe.pl
 
 t/1_load.t
 t/2_inheritance.t

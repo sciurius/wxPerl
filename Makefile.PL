@@ -81,7 +81,7 @@ WriteMakefile( NAME => 'Wx',
                  ) : () ),
                VERSION_FROM => 'Wx.pm',
                CONFIGURE => \&configure,
-               XSOPT => '-C++ -noprototypes',
+               XSOPT => ' -C++ -noprototypes ',
                OBJECT => join( ' ',
                                MY::obj_from_src( @main::top_level_xs ), '' ),
              );
@@ -89,13 +89,33 @@ WriteMakefile( NAME => 'Wx',
 #
 # takes parameters from the wx-config script
 #
+sub cc_is_GNU {
+  my( $cc ) = shift;
+
+  return 1 if $cc =~ m/gcc|g\+\+/i;
+  return 1 if qx($^X script/pipe.pl $cc -v) =~ m/gcc|g\+\+|gnu/i;
+  return;
+}
+
+sub ld_is_GNU {
+  my( $ld ) = shift;
+
+  return 1 if $ld =~ m/gcc|g\+\+/i;
+  return 1 if qx($^X script/pipe.pl $ld -v) =~ m/gcc|g\+\+|gnu/i;
+
+  return;
+}
+
 sub configure_wxconfig {
   my( $cccflags, $libs );
   my( %config ) = ( DEFINE => "-DWXP_VERSION=$perl_version" . ' ',
                     LIBS => $extra_libs,
                   );
 
-  if( $Config{cc} =~ /^cc|gcc$/i ) { $config{CCFLAGS} = ' -x c++ ' }
+  if( cc_is_GNU( $Config{cc} ) ) { $config{CC} = 'g++' }
+  else { $config{CCFLAGS} = ' -x c++ ' }
+
+  if( ld_is_GNU( $Config{ld} ) ) { $config{LD} = 'g++' }
 
   $cccflags = qx(wx-config --cflags);
   $libs = qx(wx-config --libs);
@@ -141,8 +161,8 @@ sub configure_win32_msvc {
 
   if( $Config{make} eq 'nmake' ) {
     my( $final ) = $debug_mode ? 'FINAL=0' : 'FINAL=1';
-    $cccflags = qx"nmake /nologo /s /f nmake.mak cccflags $final";
-    $libs = qx"nmake /nologo /s /f nmake.mak libs $final";
+    $cccflags = qx(nmake /nologo /s /f nmake.mak cccflags $final);
+    $libs = qx(nmake /nologo /s /f nmake.mak libs $final);
 
     foreach ( split ' ', $cccflags ) {
       m(^[-/]DSTRICT) && next;
@@ -172,7 +192,8 @@ sub configure_win32_msvc {
 sub configure_win32_mingw {
   my( $cccflags, $ldflags, $libs );
 
-  my( %config ) = ( CCFLAGS => ' -x c++ ',
+  my( %config ) = ( CC => 'g++ ',
+                    LD => 'g++ ',
                     DEFINE => " -DWXP_VERSION=$perl_version ",
                     depend =>
                     {  File::Spec->catfile( 'blib', 'arch', 'auto', 'Wx',
@@ -190,13 +211,13 @@ sub configure_win32_mingw {
   $debug_mode = 0;
 
   if( $debug_mode ) {
-    $config{CCFLAGS} .= '-Zi ';
-    $config{dynamic_lib}{OTHERLDFLAGS} .= '-debug ';
+    $config{CCFLAGS} .= '-g ';
+    $config{dynamic_lib}{OTHERLDFLAGS} .= ' ';
   }
 
   my( $final ) = $debug_mode ? 'FINAL=0' : 'FINAL=1';
-  $cccflags = qx"make -s -f gmake.mak cccflags $final";
-  $libs = qx"make -s -f gmake.mak libs $final";
+  $cccflags = qx(make -s -f gmake.mak cccflags $final);
+  $libs = qx(make -s -f gmake.mak libs $final);
 
   foreach ( split ' ', $cccflags ) {
     m(^[-/]DSTRICT) && next;
@@ -256,7 +277,7 @@ sub depend {
 #
 sub postamble_win32_msvc {
   my( $this ) = shift;
-  my( $wxdir ) = qx{nmake /nologo /s /f nmake.mak wxdir};
+  my( $wxdir ) = qx(nmake /nologo /s /f nmake.mak wxdir);
 
   chomp $wxdir;
 
@@ -275,7 +296,7 @@ $exp . qq{ :
 #
 sub postamble_win32_mingw {
   my( $this ) = shift;
-  my( $wxdir ) = qx{make -s -f gmake.mak wxdir};
+  my( $wxdir ) = qx(make -s -f gmake.mak wxdir);
 
   chomp $wxdir;
 
