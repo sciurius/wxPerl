@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.67 2004/08/04 20:22:01 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.68 2004/08/28 23:24:23 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -230,13 +230,13 @@ bool FUNCPTR( wxPli_match_arguments_skipfirst )( pTHX_ const unsigned char p[],
                                                  bool allow_more );
 
 #define WXPLI_BOOT_ONCE_( name, xs ) \
+bool name##_booted = false; \
 extern "C" XS(wxPli_boot_##name); \
 extern "C" \
 xs(boot_##name) \
 { \
-    static bool booted = false; \
-    if( booted ) return; \
-    booted = true; \
+    if( name##_booted ) return; \
+    name##_booted = true; \
     wxPli_boot_##name( aTHX_ cv ); \
 }
 

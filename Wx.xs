@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.62 2004/08/04 20:13:45 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.63 2004/08/28 23:24:06 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -161,6 +161,9 @@ typedef wxConfigBase::EntryType EntryType;
 WXPLI_BOOT_ONCE_EXP(Wx);
 #define boot_Wx wxPli_boot_Wx
 
+extern bool Wx_booted, Wx_Const_booted, Wx_Ctrl_booted,
+    Wx_Evt_booted, Wx_Wnd_booted, Wx_GDI_booted, Wx_Win_booted;
+
 MODULE=Wx PACKAGE=Wx
 
 BOOT:
@@ -250,6 +253,8 @@ SetOvlConstants()
 void
 UnLoad()
   CODE:
+    Wx_booted = Wx_Const_booted = Wx_Ctrl_booted =
+        Wx_Evt_booted = Wx_Wnd_booted = Wx_GDI_booted = Wx_Win_booted = false;
     if( wxPerlInitialized && !wxPerlAppCreated )
         wxEntryCleanup();
     wxPerlInitialized = false;
