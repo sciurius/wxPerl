@@ -194,6 +194,8 @@ sub scan_xs($$) {
           push @cinclude, @$cinclude;
           push @xsinclude, @$xsinclude;
           last;
+        } elsif( $file =~ m/ovl_const\.(?:cpp|h)/i ) {
+          push @$arr, MM->catfile( top_dir(), $file );
         }
       }
     }
