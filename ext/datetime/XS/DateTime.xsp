@@ -17,10 +17,15 @@
 %{
 #define wxDateTime__TimeZone wxDateTime::TimeZone
 #define Month wxDateTime::Month
+#define WeekDay wxDateTime::WeekDay
+#define WeekFlags wxDateTime::WeekFlags
 #define wxDateTime_t wxDateTime::wxDateTime_t
+#define Monday_First wxDateTime::Monday_First
 %}
 
 %typemap{Month}{simple};
+%typemap{WeekDay}{simple};
+%typemap{WeekFlags}{simple};
 %typemap{wxDateTime_t}{simple};
 
 %typemap{const wxDateTime::TimeZone&}{parsed}{%wxDateTime::TimeZone%};
@@ -37,21 +42,67 @@
 
     ~wxDateTime();
 
-    wxString Format( const wxChar* format = "%c",
+    
+
+#define wxPL_DATETIME_FORMAT wxT("%c")
+
+    wxString Format( const wxChar* format = wxPL_DATETIME_FORMAT,
                      const wxDateTime::TimeZone& tz = wxDateTime::Local );
     wxString FormatDate();
 
     int GetYear( const wxDateTime::TimeZone& tz = wxDateTime::Local );
     Month GetMonth( const wxDateTime::TimeZone& tz = wxDateTime::Local );
     wxDateTime_t GetDay( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    WeekDay GetWeekDay( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    wxDateTime_t GetHour( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    wxDateTime_t GetMinute( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    wxDateTime_t GetSecond( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    wxDateTime_t GetMillisecond( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    wxDateTime_t GetDayOfYear( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    wxDateTime_t GetWeekOfYear( WeekFlags flags = Monday_First, const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    wxDateTime_t GetWeekOfMonth( WeekFlags flags = Monday_First, const wxDateTime::TimeZone& tz = wxDateTime::Local );
 
     %name{SetTimeT} wxDateTime& Set( time_t time )
-        %code{%    RETVAL = &(THIS->Set( time ));%};
-
+        %code{%    RETVAL = &(THIS->Set( time )); %};
+    %name{SetJDN} wxDateTime& Set( double jdn )
+        %code{%    RETVAL = &(THIS->Set( jdn )); %};
+    %name{SetHMS} wxDateTime& Set( wxDateTime_t hour, wxDateTime_t minute = 0,
+                                   wxDateTime_t second = 0,
+                                   wxDateTime_t msec = 0 )
+        %code{%    RETVAL = &(THIS->Set( hour, minute, second, msec )); %};
+    %name{Set} wxDateTime& Set( wxDateTime_t day,
+                                Month month = wxDateTime::Inv_Month,
+                                int year = wxDateTime::Inv_Year,
+                                wxDateTime_t hour, wxDateTime_t minute = 0,
+                                wxDateTime_t second = 0,
+                                wxDateTime_t msec = 0 )
+        %code{%    RETVAL = &(THIS->Set( day, month, year,
+                                         hour, minute, second, msec ));
+              %};
+    
     wxDateTime& SetYear( int year );
     wxDateTime& SetMonth( Month month );
     wxDateTime& SetDay( wxDateTime_t day );
+    wxDateTime& SetHour( wxDateTime_t hour );
+    wxDateTime& SetMinute( wxDateTime_t minute );
+    wxDateTime& SetSecond( wxDateTime_t second );
+    wxDateTime& SetMillisecond( wxDateTime_t millisecond );
 };
+
+%{
+
+void
+wxDateTime::GetAmPmStrings()
+  PPCODE:
+    wxString am, pm;
+    THIS->GetAmPmStrings( &am, &pm );
+    SV* ams = wxPli_wxString_2_sv( aTHX_ am, sv_newmortal() ),
+      * pms = wxPli_wxString_2_sv( aTHX_ pm, sv_newmortal() );
+    EXTEND( SP, 2 );
+    PUSHs( ams );
+    PUSHs( pms );    
+
+%}
 
 #        %code{%    RETVAL = &(THIS->SetYear( year ));%};
 #        %code{%    RETVAL = &(THIS->SetMonth( month ));%};

@@ -13,6 +13,8 @@
 TYPEMAP
 wxDateTime_t            T_IV
 Month                   T_IV
+WeekDay                 T_IV
+WeekFlags               T_IV
 
 wxDateTime *            O_NON_WXOBJECT
 wxDateTime::TimeZone    T_IV
