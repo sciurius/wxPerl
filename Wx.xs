@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      1/10/2000
-// RCS-ID:      
+// RCS-ID:      $Id: Wx.xs,v 1.49 2003/04/22 19:25:35 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -85,7 +85,7 @@ extern "C" {
 
 extern void SetConstants();
 
-#ifdef __WXMOTIF__
+#if defined(__WXMOTIF__) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 #include <wx/app.h>
 #include <wx/log.h>
@@ -126,6 +126,8 @@ void wxEntryCleanup()
 
     delete wxLog::SetActiveTarget(new wxLogStderr); // So dialog boxes aren't used
     // for further messages
+
+    wxApp::CleanUp();
 
     // some code moved to _wxApp destructor
     // since at this point the app is already destroyed

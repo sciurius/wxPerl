@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
+// RCS-ID:      $Id: app.h,v 1.14 2003/04/22 19:25:50 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -48,8 +48,6 @@ wxPliApp::~wxPliApp()
     wxTheApp->DeletePendingObjects();
 
     wxTheApp->OnExit();
-
-    wxApp::CleanUp();
 #endif
     wxPli_delete_argv( argv, 1 );
 
