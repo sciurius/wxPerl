@@ -21,7 +21,7 @@ Wx_Palette::new( r, g, b )
     unsigned char* red;
     unsigned char* green;
     unsigned char* blue;
-    int rn, gn, bn, n;
+    int rn, gn, bn;
   CODE:
     rn = _av_2_uchararray( r, &red );
     gn = _av_2_uchararray( g, &green );

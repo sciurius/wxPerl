@@ -86,7 +86,7 @@ Wx_Menu::Enable( id, enable )
     int id
     bool enable
 
-int
+void
 Wx_Menu::FindItem( item )
     SV* item
   PPCODE:
@@ -136,7 +136,7 @@ Wx_Menu::GetMenuItems()
     wxMenuItemList& data = THIS->GetMenuItems();
     wxMenuItemList::Node* node;
  
-    EXTEND( SP, data.GetCount() );
+    EXTEND( SP, (IV) data.GetCount() );
     for( node = data.GetFirst(); node; node = node->GetNext() )
     {
       PUSHs( _object_2_sv( sv_newmortal(), node->GetData() ) );

@@ -117,7 +117,7 @@ void
 Wx_Pen::SetDashes( ds )
     SV* ds
   PREINIT:
-    int n;
+    int n = 0;
     wxDash* dashes = 0;
     wxDash* olddashes;
   CODE:

@@ -7,23 +7,20 @@ my( @kv );
 my( $ci, $cn );
 my( %perl_inheritance, %cpp_inheritance );
 
-while ( @kv = each %Wx:: ) {
+LOOP: while ( @kv = each %Wx:: ) {
   next unless $kv[0] =~ m/^([^_].*)::$/;
 
   my( $key ) = $1;
 
-  $cn = 'wx' . $key ;
-
-  next unless Wx::ClassInfo::FindClass( $cn );
+  $ci = Wx::ClassInfo::FindClass( $cn = "wx${key}" ) or next LOOP;
 
   while ( 1 ) {
-    $ci = Wx::ClassInfo::FindClass( $cn );
-
     push @{$cpp_inheritance{$key}}, cpp_2_perl( $cn );
 
     last unless $ci;
     $cn = $ci->GetBaseClassName1();
     last unless $cn;
+    $ci = Wx::ClassInfo::FindClass( $cn );
   }
 
   my( $class ) = ( $key );
@@ -63,8 +60,7 @@ CLASSES: while( @kv = each %perl_inheritance ) {
   while ( @ci ) {
     my( $c_class ) = shift @ci;
     next if $c_class =~ m/Base$/;
-    next if $c_class eq 'Wx::StatusBar95'; #FIXME// ad hoc
-    next if $c_class eq 'Wx::StatusBarGeneric'; #FIXME// ad hoc
+    next if $c_class =~ m/StatusBar/; #FIXME// ad hoc
     next if $c_class eq 'Wx::Object';
     my( $p_class );
 

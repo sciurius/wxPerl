@@ -12,7 +12,7 @@
 
 MODULE=Wx PACKAGE=Wx::DC
 
-Wx_DC*
+void
 Wx_DC::DESTROY()
 
 void

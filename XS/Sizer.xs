@@ -62,7 +62,7 @@ Wx_Sizer::GetChildren()
     const wxList& list = THIS->GetChildren();
     wxNode* node;
     
-    EXTEND( SP, list.GetCount() );
+    EXTEND( SP, (IV) list.GetCount() );
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
       PUSHs( _object_2_sv( sv_newmortal(), node->GetData() ) );
@@ -379,7 +379,6 @@ SV*
 Wx_SizerItem::GetUserData()
   CODE:
     RETVAL = ( (_wxUserDataO*)THIS->GetUserData() )->m_data;
-    SvREFCNT_inc( RETVAL );
   OUTPUT:
     RETVAL
 
