@@ -3,9 +3,15 @@ typemap
 MANIFEST
 MANIFEST.SKIP
 README.txt
+Changes
 run
-nmake.mak
-gmake.mak
+
+build/nmake.mak
+build/gmake.mak
+build/Any_wx_config.pm
+build/Win32_MSVC.pm
+build/Win32_MinGW.pm
+build/wxConfig.pm
 
 docs/bugs.txt
 docs/changes.txt
