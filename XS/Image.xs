@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.36 2005/01/04 17:15:07 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.37 2005/04/03 09:12:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -345,6 +345,13 @@ wxImage::GetWidth()
 
 bool
 wxImage::HasAlpha()
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+void
+wxImage::InitAlpha()
 
 #endif
 

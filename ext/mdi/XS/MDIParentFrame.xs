@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/09/2001
-## RCS-ID:      $Id: MDIParentFrame.xs,v 1.9 2004/12/21 21:12:54 mbarbon Exp $
+## RCS-ID:      $Id: MDIParentFrame.xs,v 1.10 2005/04/03 09:12:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -71,7 +71,18 @@ wxMDIParentFrame::SetWindowMenu( menu )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+void
+wxMDIParentFrame::Tile( orient = wxHORIZONTAL )
+    wxOrientation orient
+
+#else
+
+
 void
 wxMDIParentFrame::Tile()
+
+#endif
 
 #endif

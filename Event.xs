@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.43 2005/03/28 14:01:00 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.44 2005/04/03 09:12:45 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -704,5 +704,16 @@ wxNavigationKeyEvent::GetCurrentFocus()
 void
 wxNavigationKeyEvent::SetCurrentFocus(focus)
     wxWindow* focus
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+bool
+wxNavigationKeyEvent::IsFromTab()
+
+void
+wxNavigationKeyEvent::SetFromTab( fromTab )
+    bool fromTab
+
+#endif
 
 MODULE=Wx_Evt
