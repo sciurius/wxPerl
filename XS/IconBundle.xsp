@@ -1,11 +1,11 @@
 #############################################################################
 ## Name:        XS/IconBundle.xsp
-## Purpose:     XS++ for Wx::Bitmap and Wx::Mask
+## Purpose:     XS++ for Wx::IconBundle
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/03/2003
-## RCS-ID:      $Id: IconBundle.xsp,v 1.3 2004/10/19 20:28:05 mbarbon Exp $
-## Copyright:   (c) 2003 Mattia Barbon
+## RCS-ID:      $Id: IconBundle.xsp,v 1.4 2005/01/04 17:15:07 mbarbon Exp $
+## Copyright:   (c) 2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

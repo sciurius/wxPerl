@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: HtmlWindow.xs,v 1.14 2004/12/21 21:12:53 mbarbon Exp $
-## Copyright:   (c) 2001-2004 Mattia Barbon
+## RCS-ID:      $Id: HtmlWindow.xs,v 1.15 2005/01/04 17:15:09 mbarbon Exp $
+## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -139,6 +139,27 @@ wxHtmlWindow::SetRelatedFrame( frame, format )
 void
 wxHtmlWindow::SetRelatedStatusBar( bar )
     int bar
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+void
+wxHtmlWindow::SelectWord( pos )
+    wxPoint pos
+
+void
+wxHtmlWindow::SelectLine( pos )
+    wxPoint pos
+
+void
+wxHtmlWindow::SelectAll()
+
+wxString
+wxHtmlWindow::SelectionToText()
+
+wxString
+wxHtmlWindow::ToText()
+
+#endif
 
 void
 wxHtmlWindow::WriteCustomization( cfg, path = wxEmptyString )

@@ -31,7 +31,6 @@ sub postamble_core {
   $text .= sprintf <<'EOT', $ENV{WX_CONFIG} || 'wx-config';
 
 wxPerl :
-#	mkdir -p $(INST_BIN)
 	cp $(PERL) wxPerl
 	`%s --rezflags` wxPerl
 

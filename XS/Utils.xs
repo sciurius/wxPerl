@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.34 2004/11/09 20:56:51 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: Utils.xs,v 1.35 2005/01/04 17:15:07 mbarbon Exp $
+## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -13,10 +13,8 @@
 #include <wx/busyinfo.h>
 #include <wx/settings.h>
 #include <wx/caret.h>
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/snglinst.h>
 #include <wx/splash.h>
-#endif
 #include <wx/utils.h>
 #include <wx/debug.h>
 #include <wx/tipdlg.h>

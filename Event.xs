@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.40 2004/09/12 12:36:24 mbarbon Exp $
-// Copyright:   (c) 2000-2004 Mattia Barbon
+// RCS-ID:      $Id: Event.xs,v 1.41 2005/01/04 17:14:34 mbarbon Exp $
+// Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -261,11 +261,25 @@ wxKeyEvent::new( keyEventType )
 bool
 wxKeyEvent::AltDown()
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+bool
+wxKeyEvent::CmdDown()
+
+#endif
+
 bool
 wxKeyEvent::ControlDown()
 
 int
 wxKeyEvent::GetKeyCode()
+
+#if wxUSE_UNICODE && WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+wxChar
+wxKeyEvent::GetUnicodeKey()
+
+#endif 
 
 long
 wxKeyEvent::GetX()
@@ -416,6 +430,13 @@ wxMouseEvent::ButtonDown( button = -1 )
 bool
 wxMouseEvent::ButtonUp( button = -1 )
     int button
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+bool
+wxMouseEvent::CmdDown()
+
+#endif
 
 bool
 wxMouseEvent::ControlDown()

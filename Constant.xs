@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.110 2005/01/03 21:06:15 mbarbon Exp $
-// Copyright:   (c) 2000-2004 Mattia Barbon
+// RCS-ID:      $Id: Constant.xs,v 1.111 2005/01/04 17:14:33 mbarbon Exp $
+// Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -51,12 +51,16 @@
 #include <wx/process.h>
 #include <wx/wizard.h>
 #include <wx/filefn.h>
+#include <wx/dirdlg.h>
 
 #include "cpp/wxapi.h"
 #include "cpp/setup.h"
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 #include <wx/listbook.h>
+#endif
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+#include <wx/choicebk.h>
 #endif
 
 #include <wx/tglbtn.h>
@@ -216,6 +220,7 @@ static wxPlINH inherit[] =
     I( BookCtrl,        Control )
     I( Notebook,        BookCtrl )
     I( Listbook,        BookCtrl )
+    I( Choicebook,      BookCtrl )
 #else
     I( Notebook,        Control )
 #endif
@@ -431,6 +436,7 @@ static wxPlINH inherit[] =
     I( BookCtrlEvent,   NotifyEvent )
     I( NotebookEvent,   BookCtrlEvent )
     I( ListbookEvent,   BookCtrlEvent )
+    I( ChoicebookEvent, BookCtrlEvent )
 #else
     I( NotebookEvent,   NotifyEvent )
 #endif
@@ -553,6 +559,12 @@ static double constant( const char *name, int arg )
 
     r( wxBottom );                      // layout constraints 
     r( wxBelow );                       // layout constraints
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxBG_STYLE_SYSTEM );             // window
+    r( wxBG_STYLE_COLOUR );             // window
+    r( wxBG_STYLE_CUSTOM );             // window
+#endif
     break;
   case 'C':
     r( wxCANCEL );                      // dialog
@@ -582,6 +594,11 @@ static double constant( const char *name, int arg )
     r( wxCHK_UNCHECKED );               // checkbox
     r( wxCHK_CHECKED );                 // checkbox
     r( wxCHK_UNDETERMINED );            // checkbox    
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxCHB_BOTTOM );
+    r( wxCHB_TOP );
 #endif
 
     r( wxCLEAR );                       // dc
@@ -645,6 +662,9 @@ static double constant( const char *name, int arg )
     r( wxDIALOG_EX_CONTEXTHELP );       // dialog
 
     r( wxDD_NEW_DIR_BUTTON );
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxDD_DEFAULT_STYLE );
+#endif
 
     r( wxDOT );                         // pen
     r( wxDOT_DASH );                    // pen
@@ -657,6 +677,10 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     r( wxEVT_COMMAND_LISTBOOK_PAGE_CHANGED );
     r( wxEVT_COMMAND_LISTBOOK_PAGE_CHANGING );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxEVT_COMMAND_CHOICEBOOK_PAGE_CHANGED );
+    r( wxEVT_COMMAND_CHOICEBOOK_PAGE_CHANGING );
 #endif
     r( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED );
     r( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGING );
@@ -993,6 +1017,36 @@ static double constant( const char *name, int arg )
     r( wxID_ABORT );                    // id
     r( wxID_RETRY );                    // id
     r( wxID_IGNORE );                   // id
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxID_ADD );                      // id
+    r( wxID_BOLD );                     // id
+    r( wxID_BACKWARD );                 // id
+    r( wxID_DOWN );                     // id
+    r( wxID_UP );                       // id
+    r( wxID_FORWARD );                  // id
+    r( wxID_HOME );                     // id
+    r( wxID_INDENT );                   // id
+    r( wxID_INDEX );                    // id
+    r( wxID_ITALIC );                   // id
+    r( wxID_JUSTIFY_CENTER );           // id
+    r( wxID_JUSTIFY_LEFT );             // id
+    r( wxID_JUSTIFY_FILL );             // id
+    r( wxID_JUSTIFY_RIGHT );            // id
+    r( wxID_PREFERENCES );              // id
+    r( wxID_PROPERTIES );               // id
+    r( wxID_REFRESH );                  // id
+    r( wxID_REMOVE );                   // id
+    r( wxID_REVERT_TO_SAVED );          // id
+    r( wxID_STOP );                     // id
+    r( wxID_UNDELETE );                 // id
+    r( wxID_UNDERLINE );                // id
+    r( wxID_UNINDENT );                 // id
+    r( wxID_ZOOM_100 );                 // id
+    r( wxID_ZOOM_FIT );                 // id
+    r( wxID_ZOOM_IN );                  // id
+    r( wxID_ZOOM_OUT );                 // id
+#endif
 
     r( wxIMAGELIST_DRAW_NORMAL );       // imagelist
     r( wxIMAGELIST_DRAW_TRANSPARENT );  // imagelist
@@ -1715,6 +1769,10 @@ static double constant( const char *name, int arg )
   case 'U':
     r( wxUnconstrained );               // layout constraints
     r( wxUSER_DASH );                   // pen
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxUSER_ATTENTION_INFO );
+    r( wxUSER_ATTENTION_ERROR );
+#endif
     break;
   case 'V':
     r( wxVERTICAL );                    // window dialog frame sizer

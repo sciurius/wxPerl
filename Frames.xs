@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Frames.xs,v 1.19 2004/10/19 20:27:31 mbarbon Exp $
-// Copyright:   (c) 2000-2003 Mattia Barbon
+// RCS-ID:      $Id: Frames.xs,v 1.20 2005/01/04 17:14:34 mbarbon Exp $
+// Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -31,6 +31,8 @@ INCLUDE: XS/ToolBar.xs
 INCLUDE: XS/Wizard.xs
 
 INCLUDE: perl script/xsubppp.pl --typemap=typemap.xsp XS/IconBundle.xsp |
+
+INCLUDE: perl script/xsubppp.pl --typemap=typemap.xsp XS/TopLevelWindow.xsp |
 
 INCLUDE: XS/ColourDialog.xs
 INCLUDE: XS/DirDialog.xs

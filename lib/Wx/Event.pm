@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.42 2004/12/21 21:12:58 mbarbon Exp $
-## Copyright:   (c) 2000-2004 Mattia Barbon
+## RCS-ID:      $Id: Event.pm,v 1.43 2005/01/04 17:15:10 mbarbon Exp $
+## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -175,6 +175,13 @@ sub EVT_JOY_ZMOVE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_ZMOVE, $_[1] ); }
 
 sub EVT_LISTBOOK_PAGE_CHANGING($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_LISTBOOK_PAGE_CHANGING, $_[2] ); }
 sub EVT_LISTBOOK_PAGE_CHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_LISTBOOK_PAGE_CHANGED, $_[2] ); }
+
+#
+# ChoicebookEvent
+#
+
+sub EVT_CHOICEBOOK_PAGE_CHANGING($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_CHOICEBOOK_PAGE_CHANGING, $_[2] ); }
+sub EVT_CHOICEBOOK_PAGE_CHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_CHOICEBOOK_PAGE_CHANGED, $_[2] ); }
 
 #
 # ListEvent

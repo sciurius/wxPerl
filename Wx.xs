@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.64 2004/12/21 21:12:19 mbarbon Exp $
-// Copyright:   (c) 2000-2002, 2004 Mattia Barbon
+// RCS-ID:      $Id: Wx.xs,v 1.65 2005/01/04 17:14:35 mbarbon Exp $
+// Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     #include <wx/init.h>
 #else
-#if defined(__WXGTK__) && WXPERL_W_VERSION_GE( 2, 3, 3 )
+#if defined(__WXGTK__)
 int  WXDLLEXPORT wxEntryStart( int& argc, char** argv );
 #else
 int  WXDLLEXPORT wxEntryStart( int argc, char** argv );

@@ -1,0 +1,42 @@
+#############################################################################
+## Name:        XS/TopLevelWindow.xsp
+## Purpose:     XS++ for Wx::TopLevelWindow
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     04/01/2005
+## RCS-ID:      $Id: TopLevelWindow.xsp,v 1.1 2005/01/04 17:15:07 mbarbon Exp $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxTopLevelWindow*}{simple};
+
+#if !defined(__WXMOTIF__) || WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+#include <wx/toplevel.h>
+#include "cpp/overload.h"
+
+%name{Wx::TopLevelWindow} class wxTopLevelWindow
+{
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    void RequestUserAttention( int flags = wxUSER_ATTENTION_INFO );
+#endif
+};
+
+%{
+
+##void
+##wxIconBundle::new( ... )
+##  PPCODE:
+##    BEGIN_OVERLOAD()
+##        MATCH_VOIDM_REDISP( newEmpty )
+##        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n, newFile, 1 )
+##        MATCH_REDISP( wxPliOvl_wico, newIcon )
+##    END_OVERLOAD( Wx::IconBundle::new )
+
+%}
+
+#endif

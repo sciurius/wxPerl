@@ -1,6 +1,9 @@
 Revision history for Perl extension Wx.
 
 0.22
+	- Alpha channel support for Wx::Image (2.5).
+	- Wrapped wxChoicebook (2.5).
+	- Various new APIs for wxWidgets 2.5.x.
 
 0.21  Sat Dec 11 18:01:25 CET 2004
 	- Fixed installation of 'wxPerl' command on Mac OS X.

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Bitmap.xs,v 1.24 2004/07/10 21:49:46 mbarbon Exp $
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Bitmap.xs,v 1.25 2005/01/04 17:15:07 mbarbon Exp $
+## Copyright:   (c) 2000-2002, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -157,8 +157,6 @@ newFromXPM( CLASS, data )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 wxBitmap*
 newImage( CLASS, image )
     SV* CLASS
@@ -168,23 +166,9 @@ newImage( CLASS, image )
   OUTPUT:
     RETVAL
 
-#else
-
-wxBitmap*
-newImage( CLASS, image )
-    SV* CLASS
-    wxImage* image
-  CODE:
-    RETVAL = new wxBitmap( image->ConvertToBitmap() );
-  OUTPUT: RETVAL
-
-#endif
-
 ## XXX threads
 void
 wxBitmap::DESTROY()
-
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 wxImage*
 wxBitmap::ConvertToImage()
@@ -193,17 +177,11 @@ wxBitmap::ConvertToImage()
   OUTPUT:
     RETVAL
 
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 wxBitmap::CopyFromIcon( icon )
     wxIcon* icon
   CODE:
     THIS->CopyFromIcon( *icon );
-
-#endif
 
 #if defined( __WXMOTIF__ ) || \
     defined( __WXMSW__ ) || \
@@ -347,23 +325,11 @@ RemoveHandler( name )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 bool
 wxBitmap::SaveFile( name, type, palette = 0 )
     wxString name
     wxBitmapType type
     wxPalette* palette
-
-#else
-
-bool
-wxBitmap::SaveFile( name, type, palette = 0 )
-    wxString name
-    long type
-    wxPalette* palette
-
-#endif
 
 void
 wxBitmap::SetDepth( depth )

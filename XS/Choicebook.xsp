@@ -1,0 +1,61 @@
+#############################################################################
+## Name:        XS/Choicebook.xsp
+## Purpose:     XS++ for Wx::Choicebook
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     04/01/2005
+## RCS-ID:      $Id: Choicebook.xsp,v 1.1 2005/01/04 17:15:07 mbarbon Exp $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxChoicebook*}{simple};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+#include <wx/choicebk.h>
+%}
+
+%name{Wx::Choicebook} class wxChoicebook
+{
+    %name{newDefault} wxChoicebook()
+        %code{% RETVAL = new wxChoicebook();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxChoicebook(wxWindow *parent,
+                              wxWindowID id,
+                              const wxPoint& pos = wxDefaultPosition,
+                              const wxSize& size = wxDefaultSize,
+                              long style = 0,
+                              const wxString& name = wxEmptyString)
+        %code{% RETVAL = new wxChoicebook( parent, id, pos, size, style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create(wxWindow *parent,
+                wxWindowID id,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = 0,
+                const wxString& name = wxEmptyString);
+
+    bool IsVertical();
+};
+
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::Choicebook::new" )
+%}
+
+%{
+#endif
+%}

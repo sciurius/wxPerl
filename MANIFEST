@@ -162,6 +162,7 @@ XS/Caret.xs
 XS/CheckBox.xs
 XS/CheckListBox.xs
 XS/Choice.xs
+XS/Choicebook.xsp
 XS/ClassInfo.xs
 XS/Colour.xs
 XS/ComboBox.xs
@@ -222,6 +223,7 @@ XS/TreeCtrl.xs
 XS/ToggleButton.xs
 XS/ToolBar.xs
 XS/ToolTip.xs
+XS/TopLevelWindow.xsp
 XS/Utils.xs
 XS/Validators.xs
 XS/Wave.xs

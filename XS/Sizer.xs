@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.30 2004/11/09 21:19:52 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: Sizer.xs,v 1.31 2005/01/04 17:15:07 mbarbon Exp $
+## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,11 +19,32 @@
 %module{Wx};
 
 %typemap{wxFlexSizerGrowMode}{simple};
+%typemap{wxSizerItem*}{simple};
 
 %name{Wx::Sizer} class wxSizer
 {
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    %name{ShowWindow} bool Show( wxWindow* window, bool show = true );
+    %name{ShowSizer} bool Show( wxSizer* sizer, bool show = true );
+#else
     %name{ShowWindow} void Show( wxWindow* window, bool show = true );
     %name{ShowSizer} void Show( wxSizer* sizer, bool show = true );
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    %name{ShowIndex} bool Show( size_t index, bool show = true );
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    void AddSpacer( int size );
+    void AddStretchSpacer( int prop = 1 );
+
+    void InsertSpacer( size_t index, int size );
+    void InsertStretchSpacer( size_t index, int prop = 1 );
+
+    void PrependSpacer( int size );
+    void PrependStretchSpacer( int prop = 1 );
+#endif
 };
 
 %name{Wx::FlexGridSizer} class wxFlexGridSizer
@@ -67,6 +88,7 @@ wxSizer::Show( ... )
     BEGIN_OVERLOAD()
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wwin_b, ShowWindow, 1 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wszr_b, ShowSizer, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_b, ShowIndex, 1 )
     END_OVERLOAD( Wx::Sizer::Show )
 
 void

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.35 2004/08/04 20:13:54 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: Image.xs,v 1.36 2005/01/04 17:15:07 mbarbon Exp $
+## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -28,6 +28,7 @@ wxImage::new( ... )
         MATCH_REDISP( wxPliOvl_wist_s, newStreamMIME )
         MATCH_REDISP_COUNT( wxPliOvl_n_n, newWH, 2 )
         MATCH_REDISP( wxPliOvl_n_n_s, newData )
+        MATCH_REDISP( wxPliOvl_n_n_s_s, newDataAlpha )
         MATCH_REDISP( wxPliOvl_s_n, newNameType )
         MATCH_REDISP( wxPliOvl_s_s, newNameMIME )
     END_OVERLOAD( Wx::Image::new )
@@ -71,6 +72,36 @@ newData( CLASS, width, height, dt )
     RETVAL = new wxImage( width, height, newdata );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+wxImage*
+newDataAlpha( CLASS, width, height, dt, al )
+    SV* CLASS
+    int width
+    int height
+    SV* dt
+    SV* al
+  PREINIT:
+    STRLEN len_data, len_alpha;
+    unsigned char* data = (unsigned char*)SvPV( dt, len_data );
+    unsigned char* alpha = (unsigned char*)SvPV( al, len_alpha );
+  CODE:
+    if( len_data != (STRLEN) width * height * 3 ||
+        len_alpha != (STRLEN) width * height )
+    {
+        croak( "not enough data in image constructor" );
+    }
+    unsigned char* newdata = (unsigned char*) malloc( len_data );
+    memcpy( newdata, data, len_data );
+    unsigned char* newalpha = (unsigned char*) malloc( len_alpha );
+    memcpy( newalpha, alpha, len_alpha );
+
+    RETVAL = new wxImage( width, height, newdata, newalpha );
+  OUTPUT:
+    RETVAL
+
+#endif
 
 wxImage*
 newNameType( CLASS, name, type, index = -1 )
@@ -151,6 +182,24 @@ wxImage::ConvertToMono( r, g, b )
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+bool
+wxImage::ConvertAlphaToMask( threshold = 128 )
+    unsigned char threshold
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+bool
+wxImage::ConvertColourToAlpha( r, g, b )
+    unsigned char r
+    unsigned char g
+    unsigned char b
+
+#endif
+
 wxImage*
 wxImage::Copy()
   CODE:
@@ -198,6 +247,38 @@ FindHandlerMime( mime )
     RETVAL = wxImage::FindHandlerMime( mime );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+void
+wxImage::GetAlpha( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( GetAlphaData )
+        MATCH_REDISP( wxPliOvl_n_n, GetAlphaXY )
+    END_OVERLOAD( Wx::Image::GetAlpha )
+
+unsigned char
+wxImage::GetAlphaXY( x, y )
+    int x
+    int y
+  CODE:
+    RETVAL = THIS->GetAlpha( x, y );
+  OUTPUT: RETVAL
+
+SV*
+wxImage::GetAlphaData()
+  CODE:
+    unsigned char* alpha = THIS->GetAlpha();
+
+    if( alpha == NULL )
+        XSRETURN_UNDEF;
+
+    RETVAL = newSVpvn( (char*) alpha, THIS->GetWidth() * THIS->GetHeight() );
+  OUTPUT:
+    RETVAL
+
+#endif
 
 SV*
 wxImage::GetData()
@@ -259,6 +340,13 @@ wxImage::GetSubImage( rect )
 
 int
 wxImage::GetWidth()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+bool
+wxImage::HasAlpha()
+
+#endif
 
 bool
 wxImage::HasMask()
@@ -453,6 +541,37 @@ wxImage::Scale( width, height )
     RETVAL = new wxImage( THIS->Scale( width, height ) );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+void
+wxImage::SetAlpha( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s, SetAlphaData )
+        MATCH_REDISP( wxPliOvl_n_n_n, SetAlphaXY )
+    END_OVERLOAD( Wx::Image::SetAlpha )
+
+void
+wxImage::SetAlphaXY( x, y, alpha )
+    int x
+    int y
+    unsigned char alpha
+  CODE:
+    THIS->SetAlpha( x, y, alpha );
+
+void
+wxImage::SetAlphaData( d )
+    SV* d
+  CODE:
+    STRLEN len;
+    unsigned char* data = (unsigned char*) SvPV( d, len );
+    STRLEN imglen = THIS->GetWidth() * THIS->GetHeight();
+    unsigned char* data_copy = (unsigned char*) malloc( imglen );
+    memcpy( data_copy, data, len );
+    THIS->SetAlpha( data_copy );
+
+#endif
 
 void
 wxImage::SetData( d )

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.68 2004/09/12 12:36:24 mbarbon Exp $
-## Copyright:   (c) 2000-2004 Mattia Barbon
+## RCS-ID:      $Id: typemap,v 1.69 2005/01/04 17:14:35 mbarbon Exp $
+## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -40,6 +40,8 @@ wxTextCtrlHitTestResult T_ENUM
 wxFindReplaceDialogStyles T_ENUM
 wxFindReplaceFlags      T_ENUM
 
+wxBackgroundStyle       T_ENUM
+
 wxLogTraceMask          T_UV 
 wxLogLevel              T_UV 
 wxTraceMask             T_UV
@@ -47,6 +49,7 @@ wxTreeItemIdValue       T_UV
 wxTreeItemIcon          T_UV
 
 wxKeyCode               T_KEYCODE
+wxChar                  T_IV
 
 Wx_UserDataCD *         O_USERDATACD
 wxPliUserDataCD *       O_USERDATACD
@@ -66,6 +69,7 @@ wxWindow *              O_WXOBJECT
 wxPlWindow *            O_WXOBJECT
 wxPlControl *           O_WXOBJECT
 wxFrame *               O_WXOBJECT
+wxTopLevelWindow *      O_WXOBJECT
 wxEvtHandler *          O_WXOBJECT
 wxMiniFrame *           O_WXOBJECT
 
@@ -113,6 +117,7 @@ wxSashWindow *          O_WXEVTHANDLER
 wxToggleButton *        O_WXEVTHANDLER
 wxSplashScreen *        O_WXOBJECT
 wxListbook *            O_WXEVTHANDLER
+wxChoicebook *          O_WXEVTHANDLER
 wxTreebook *            O_WXEVTHANDLER
 
 wxWizard *              O_WXOBJECT

@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.53 2004/11/25 20:39:02 mbarbon Exp $
-// Copyright:   (c) 2000-2002, 2004 Mattia Barbon
+// RCS-ID:      $Id: Window.xs,v 1.54 2005/01/04 17:14:34 mbarbon Exp $
+// Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -45,8 +45,6 @@ wxGetMousePosition()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 wxWindow*
 wxGetTopLevelParent( window )
     wxWindow* window
@@ -54,8 +52,6 @@ wxGetTopLevelParent( window )
 wxWindow*
 wxFindWindowAtPointer( pt )
     wxPoint pt
-
-#endif
 
 wxWindow*
 wxGetActiveWindow()
@@ -276,10 +272,13 @@ wxWindow::Fit()
 void
 wxWindow::FitInside()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 wxWindow::Freeze()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+wxBackgroundStyle
+wxWindow::GetBackgroundStyle()
 
 #endif
 
@@ -335,12 +334,8 @@ wxWindow::GetClientSizeXY()
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 wxSizer*
 wxWindow::GetContainingSizer()
-
-#endif
 
 #if wxPERL_USE_DRAG_AND_DROP
 
@@ -351,12 +346,8 @@ wxWindow::GetDropTarget()
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 wxWindow*
 wxWindow::GetDefaultItem()
-
-#endif
 
 wxEvtHandler*
 wxWindow::GetEventHandler()
@@ -520,10 +511,10 @@ wxWindow::GetValidator()
 long
 wxWindow::GetWindowStyleFlag()
 
-#if WXPERL_W_VERSION_LE( 2, 2, 1 )
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 void
-wxWindow::InitDialog()
+wxWindow::InheritAttributes()
 
 #endif
 
@@ -565,7 +556,7 @@ wxWindow::IsExposedRect( rect )
     RETVAL = THIS->IsExposed( *rect );
   OUTPUT:
     RETVAL
-    
+
 bool
 wxWindow::IsRetained()
 
@@ -605,6 +596,18 @@ wxWindow::MovePoint( point )
     wxPoint point
   CODE:
     THIS->Move( point );
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+void
+wxWindow::MoveBeforeInTabOrder( window )
+    wxWindow* window
+
+void
+wxWindow::MoveAfterInTabOrder( window )
+    wxWindow* window
+
+#endif
 
 wxEvtHandler*
 wxWindow::PopEventHandler( deleteHandler )
@@ -652,13 +655,9 @@ wxWindow::Refresh( eraseBackground = true, rect = 0 )
 void
 wxWindow::ReleaseMouse()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 bool
 wxWindow::RemoveEventHandler( handler )
     wxEvtHandler* handler
-
-#endif
 
 bool
 wxWindow::Reparent( newParent )
@@ -690,8 +689,6 @@ wxWindow::ScreenToClientXY( x, y )
     PUSHs( sv_2mortal( newSViv( (IV) x ) ) );
     PUSHs( sv_2mortal( newSViv( (IV) y ) ) );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 bool
 wxWindow::ScrollLines( lines )
     int lines
@@ -699,8 +696,6 @@ wxWindow::ScrollLines( lines )
 bool
 wxWindow::ScrollPages( lines )
     int lines
-
-#endif
 
 void
 wxWindow::ScrollWindow( x, y, rect = 0 )
@@ -723,6 +718,14 @@ wxWindow::SetAutoLayout( autoLayout )
 void
 wxWindow::SetThemeEnabled( themeEnabled )
      bool themeEnabled
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+bool
+wxWindow::SetBackgroundStyle( style )
+    wxBackgroundStyle style
 
 #endif
 
@@ -761,13 +764,9 @@ void
 wxWindow::SetConstraints( constraints )
     wxLayoutConstraints* constraints
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 wxWindow::SetContainingSizer( sizer )
     wxSizer* sizer
-
-#endif
 
 void
 wxWindow::SetCursor( cursor )
@@ -775,13 +774,9 @@ wxWindow::SetCursor( cursor )
   CODE:
     THIS->SetCursor( *cursor );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 wxWindow*
 wxWindow::SetDefaultItem( window )
     wxWindow* window
-
-#endif
 
 #if wxPERL_USE_DRAG_AND_DROP
 
@@ -811,8 +806,6 @@ wxWindow::SetForegroundColour( colour )
   CODE:
     THIS->SetForegroundColour( *colour );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 void
 wxWindow::SetHelpText( text )
     wxString text
@@ -820,8 +813,6 @@ wxWindow::SetHelpText( text )
 void
 wxWindow::SetHelpTextForId( text )
     wxString text
-
-#endif
 
 void
 wxWindow::SetId( id )
@@ -983,16 +974,19 @@ void
 wxWindow::SetWindowStyleFlag( style )
     long style
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+bool
+wxWindow::ShouldInheritColours()
+
+#endif
+
 bool
 wxWindow::Show( show )
     bool show
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 wxWindow::Thaw()
-
-#endif
 
 bool
 wxWindow::TransferDataFromWindow()
@@ -1015,8 +1009,6 @@ wxWindow::Validate()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 4 )
-
 void
 wxWindow::Update()
 
@@ -1025,8 +1017,6 @@ wxWindow::RefreshRect( rect )
     wxRect* rect
   CODE:
     THIS->RefreshRect( *rect );
-
-#endif
 
 void
 wxWindow::WarpPointer( x, y )
