@@ -43,6 +43,8 @@ sub new {
   my( $this ) = $class->SUPER::new( undef, -1, $_[0], [ @_[1, 2] ],
                                     [ @_[3, 4] ] );
 
+  $this->SetIcon( Wx::GetWxPerlIcon() );
+
   $this->{IMAGELISTNORMAL} = Wx::ImageList->new( 32, 32, 1 );
   $this->{IMAGELISTSMALL} = Wx::ImageList->new( 16, 16, 1 );
 
@@ -51,7 +53,7 @@ sub new {
     $this->{IMAGELISTNORMAL}->Add( ICON( $_ ) );
   }
 
-  $this->{IMAGELISTSMALL}->Add( ICON( 'small1' ) );
+  $this->{IMAGELISTSMALL}->Add( Wx::GetWxPerlIcon( 1 ) );
 
   my( $file ) = Wx::Menu->new;
   $file->Append( $id_about, "&About" );

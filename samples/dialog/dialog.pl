@@ -50,6 +50,8 @@ sub new {
   my( $class ) = shift;
   my( $this ) = $class->SUPER::new( undef, -1, $_[0], $_[1], [250, 110] );
 
+  # $this->SetIcon( Wx::GetWxPerlIcon() );
+
   my( $ct ) = $this->{CELSIUS} =
     Wx::TextCtrl->new( $this, -1, '0', [20, 20], [100, -1] );
   my( $cb ) = Wx::Button->new( $this, -1, 'Celsius', [130, 20] );

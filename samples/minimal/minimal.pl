@@ -56,8 +56,7 @@ sub new {
   my( $this ) = $class->SUPER::new( undef, -1, $_[0], $_[1], $_[2] );
 
   # load an icon and set it as frame icon
-  my( $icon ) = Wx::Icon->new( '../../wxpl.ico', wxBITMAP_TYPE_ICO );
-  $this->SetIcon( $icon );
+  $this->SetIcon( Wx::GetWxPerlIcon() );
 
   # create the menus
   my( $mfile ) = Wx::Menu->new( undef, wxMENU_TEAROFF );

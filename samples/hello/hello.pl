@@ -57,6 +57,8 @@ sub new {
   # set background colour
   $this->SetBackgroundColour( wxWHITE );
 
+  $this->SetIcon( Wx::GetWxPerlIcon() );
+
   # declare that all paint events will be handled with the OnPaint method
   EVT_PAINT( $this, \&OnPaint );
 

@@ -145,6 +145,8 @@ sub new {
   my( $this ) = $class->SUPER::new( $_[0], -1, $_[1], [ @_[2, 3] ],
                                     [ @_[4, 5] ] );
 
+  $this->SetIcon( Wx::GetWxPerlIcon() );
+
   EVT_MENU( $this, $main::layout_load_file, \&LoadFile );
   EVT_MENU( $this, $main::layout_quit, \&Quit );
   EVT_MENU( $this, $main::layout_test_sizer, \&TestSizers );

@@ -78,6 +78,7 @@ sub new {
   my( $this ) = $class->SUPER::new( $_[0], -1, @_[1,2,3] );
 
   $this->CreateStatusBar( 2 );
+  $this->SetIcon( Wx::GetWxPerlIcon() );
 
   my( $filemenu ) = Wx::Menu->new();
   $filemenu->Append( $SPLIT_VERTICAL, "Split &Vertically\tCtrl-V",

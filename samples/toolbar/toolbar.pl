@@ -65,13 +65,15 @@ sub new {
   my( $class ) = shift;
   my( $this ) = $class->SUPER::new( @_ );
 
+  $this->SetIcon( Wx::GetWxPerlIcon() );
+
   $this->{TEXTWINDOW} = Wx::TextCtrl->new( $this, -1, '', [0, 0], [-1, -1],
                                            wxTE_MULTILINE );
   $this->{ROWS} = 1;
   $this->{SMALLTOOLBAR} = 1;
   $this->{HORIZONTALTOOLBAR} = 1;
 
-  $this->SetIcon( Wx::Icon->new( '../../wxpl.ico', wxBITMAP_TYPE_ICO ) );
+  $this->SetIcon( Wx::GetWxPerlIcon() );
   $this->CreateStatusBar();
 
   my( $tmenu ) = Wx::Menu->new();
@@ -281,8 +283,9 @@ sub RecreateToolbar {
   $toolbar && $toolbar->Destroy();
   $this->SetToolBar( undef );
 
-  my( $style ) = ( $this->{HORIZONTALTOOLBAR} ? wxTB_HORIZONTAL : wxTB_VERTICAL ) |
-    wxNO_BORDER | wxTB_FLAT | wxTB_DOCKABLE;
+  my( $style ) =
+    ( $this->{HORIZONTALTOOLBAR} ? wxTB_HORIZONTAL : wxTB_VERTICAL ) |
+      wxNO_BORDER | wxTB_FLAT | wxTB_DOCKABLE;
   $toolbar = $this->CreateToolBar( $style, $ID_TOOLBAR );
   $toolbar->SetMargins( 4, 4 );
 
