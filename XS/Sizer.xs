@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Sizer.xs
+## Name:        XS/Sizer.xs
 ## Purpose:     XS for Wx::Sizer and derived classes
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.18 2003/05/28 20:49:25 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.19 2003/05/29 19:59:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -243,6 +243,15 @@ Wx_Sizer::PrependSpace( width, height, option = 0, flag = 0, border = 0, data = 
 void
 Wx_Sizer::RecalcSizes()
 
+void
+wxSizer::Remove( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin, RemoveWindow )
+        MATCH_REDISP( wxPliOvl_wszr, RemoveSizer )
+        MATCH_REDISP( wxPliOvl_n, RemoveNth )
+    END_OVERLOAD( Wx::Sizer::Remove )
+
 bool
 Wx_Sizer::RemoveWindow( window )
     Wx_Window* window
@@ -275,6 +284,15 @@ Wx_Sizer::SetDimension( x, y, width, height )
     int height
 
 void
+wxSizer::SetItemMinSize( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin_n_n, SetItemMinSizeWindow )
+        MATCH_REDISP( wxPliOvl_wszr_n_n, SetItemMinSizeSizer )
+        MATCH_REDISP( wxPliOvl_n_n_n, SetItemMinSizeNth )
+    END_OVERLOAD( Wx::Sizer::SetItemMinSize )
+
+void
 Wx_Sizer::SetItemMinSizeWindow( window, width, height )
     Wx_Window* window
     int width
@@ -297,6 +315,14 @@ Wx_Sizer::SetItemMinSizeNth( pos, width, height )
     int height
   CODE:
     THIS->SetItemMinSize( pos, width, height );
+
+void
+wxSizer::SetMinSize( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, SetMinSizeXY )
+        MATCH_REDISP( wxPliOvl_wsiz, SetMinSizeSize )
+    END_OVERLOAD( Wx::Sizer::SetMinSize )
 
 void
 Wx_Sizer::SetMinSizeSize( size )

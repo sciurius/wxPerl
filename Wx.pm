@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.60 2003/05/28 20:45:35 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.61 2003/05/29 19:58:52 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -136,14 +136,17 @@ no strict 'refs';
 use strict 'refs';
 *Wx::Size::x = \&Wx::Size::width;
 
-require Wx::_Constants;
-
 Load();
 SetConstants();
 SetConstantsOnce();
 SetOvlConstants();
 SetEvents();
 SetInheritance();
+
+sub END {
+  no strict 'vars';
+  foreach ( $wxTheClipboard, $wxDefaultValidator ) { undef $$_ }
+}
 
 #
 # set up wxUNIVERSAL, wxGTK, wxMSW, etc
@@ -162,11 +165,10 @@ require Wx::Locale;
 require Wx::Menu;
 require Wx::RadioBox;
 require Wx::Region;
-require Wx::Sizer;
 require Wx::Timer;
 require Wx::Wx_Exp;
 # for Wx::Stream & co.
-if( $] >= 5.005 ) { require Tie::Handle; }
+require Tie::Handle;
 
 package Wx::GDIObject; # warning for non-existent package
 
@@ -182,6 +184,8 @@ use overload '<=>'      => \&tiid_spaceship,
 #
 # Various functions
 #
+
+package Wx;
 
 # easier to implement than to wrap
 sub GetMultipleChoices {

@@ -60,9 +60,7 @@ lib/Wx/Locale.pm
 lib/Wx/Menu.pm
 lib/Wx/RadioBox.pm
 lib/Wx/Region.pm
-lib/Wx/Sizer.pm
 lib/Wx/Timer.pm
-lib/Wx/_Constants.pm
 
 samples/controls/controls.pl
 samples/controls/icons/choice.bmp

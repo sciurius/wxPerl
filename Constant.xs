@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.84 2003/05/28 20:40:12 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.85 2003/05/29 19:58:52 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1737,6 +1737,22 @@ void SetConstantsOnce()
 
     wxPli_make_const( "wxVERSION_STRING" );
 
+    wxPli_make_const( "wxTheClipboard" );       // clipboard
+    wxPli_make_const( "wxDefaultValidator" );   // misc
+    wxPli_make_const( "wxFormatInvalid" );      // dnd
+    wxPli_make_const( "wxDefaultPosition" );    // misc
+    wxPli_make_const( "wxDefaultSize" );        // misc
+
+    wxPli_make_const( "wxNullBitmap" );         // bitmap
+    wxPli_make_const( "wxNullIcon" );           // icon
+    wxPli_make_const( "wxNullColour" );         // color colour
+    wxPli_make_const( "wxNullCursor" );         // cursor
+    wxPli_make_const( "wxNullFont" );           // font
+    wxPli_make_const( "wxNullPen" );            // pen
+    wxPli_make_const( "wxNullBrush" );          // brush
+    wxPli_make_const( "wxNullPalette" );        // palette
+    wxPli_make_const( "wxNullAcceleratorTable" );
+
     wxPli_make_const( "wxRED" );                // color colour
     wxPli_make_const( "wxGREEN" );              // color colour
     wxPli_make_const( "wxBLUE" );               // color colour
@@ -1764,6 +1780,17 @@ void SetConstantsOnce()
     wxPli_make_const( "wxGREY_PEN" );           // pen
     wxPli_make_const( "wxMEDIUM_GREY_PEN" );    // pen
     wxPli_make_const( "wxLIGHT_GREY_PEN" );     // pen
+
+    wxPli_make_const( "wxBLUE_BRUSH" );         // brush
+    wxPli_make_const( "wxGREEN_BRUSH" );        // brush
+    wxPli_make_const( "wxWHITE_BRUSH" );        // brush
+    wxPli_make_const( "wxBLACK_BRUSH" );        // brush
+    wxPli_make_const( "wxGREY_BRUSH" );         // brush
+    wxPli_make_const( "wxMEDIUM_GREY_BRUSH" );  // brush
+    wxPli_make_const( "wxLIGHT_GREY_BRUSH" );   // brush
+    wxPli_make_const( "wxTRANSPARENT_BRUSH" );  // brush
+    wxPli_make_const( "wxCYAN_BRUSH" );         // brush
+    wxPli_make_const( "wxRED_BRUSH" );          // brush
 
     wxPli_make_const( "wxIMAGE_OPTION_BMP_FORMAT" );    // image
     wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_X" ); // image
@@ -1850,45 +1877,32 @@ void SetConstants()
     dTHX;
     SV* tmp;
 
-    tmp = get_sv( "Wx::_default_position", 0 );
-    sv_setref_pv( tmp, "Wx::Point", new wxPoint( wxDefaultPosition ) );
+    wxPli_set_const( "wxDefaultPosition", "Wx::Point",
+                     new wxPoint( wxDefaultPosition ) );
+    wxPli_set_const( "wxDefaultSize", "Wx::Size",
+                     new wxSize( wxDefaultSize ) );
 
-    tmp = get_sv( "Wx::_default_size", 0 );
-    sv_setref_pv( tmp, "Wx::Size", new wxSize( wxDefaultSize ) );
-
-    tmp = get_sv( "Wx::_default_validator", 0 );
+    tmp = get_sv( "Wx::wxDefaultValidator", 1 );
     sv_setref_pv( tmp, "Wx::Validator", (wxValidator*)&wxDefaultValidator );
   
     //
     // Null GDI objects
     //
-    tmp = get_sv( "Wx::_null_bitmap", 0 );
-    sv_setref_pv( tmp, "Wx::Bitmap", new wxBitmap( wxNullBitmap ) );
+    #define DEFINE_NULL( name ) \
+        wxPli_set_const( "wxNull" #name, "Wx::" #name, \
+                         new wx##name( wxNull##name ) )
 
-    tmp = get_sv( "Wx::_null_icon", 0 );
-    sv_setref_pv( tmp, "Wx::Icon", new wxIcon( wxNullIcon ) );
+    DEFINE_NULL( Bitmap );
+    DEFINE_NULL( Icon );
+    DEFINE_NULL( Colour );
+    DEFINE_NULL( Cursor );
+    DEFINE_NULL( Font );
+    DEFINE_NULL( Pen );
+    DEFINE_NULL( Brush );
+    DEFINE_NULL( Palette );
+    DEFINE_NULL( AcceleratorTable );
 
-    tmp = get_sv( "Wx::_null_colour", 0 );
-    sv_setref_pv( tmp, "Wx::Colour", new wxColour( wxNullColour ) );
-
-    tmp = get_sv( "Wx::_null_cursor", 0 );
-    sv_setref_pv( tmp, "Wx::Cursor", new wxCursor( wxNullCursor ) );
-
-    tmp = get_sv( "Wx::_null_font", 0 );
-    sv_setref_pv( tmp, "Wx::Font", new wxFont( wxNullFont ) );
-
-    tmp = get_sv( "Wx::_null_pen", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( wxNullPen ) );
-
-    tmp = get_sv( "Wx::_null_brush", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( wxNullBrush ) );
-
-    tmp = get_sv( "Wx::_null_palette", 0 );
-    sv_setref_pv( tmp, "Wx::Palette", new wxPalette( wxNullPalette ) );
-
-    tmp = get_sv( "Wx::_null_accelerator", 0 );
-    sv_setref_pv( tmp, "Wx::AcceleratorTable",
-        new wxAcceleratorTable( wxNullAcceleratorTable ) );
+    #undef DEFINE_NULL
 
     //
     // Predefined colours
@@ -1946,43 +1960,29 @@ void SetConstants()
     //
     // Predefined brushes
     //
-    tmp = get_sv( "Wx::_brush_blue", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxBLUE_BRUSH ) );
+    #define DEFINE_BRUSH( brush ) \
+        wxPli_set_const( #brush, "Wx::Brush", new wxBrush( *brush ) )
 
-    tmp = get_sv( "Wx::_brush_green", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxGREEN_BRUSH ) );
+    DEFINE_BRUSH( wxBLUE_BRUSH );
+    DEFINE_BRUSH( wxGREEN_BRUSH );
+    DEFINE_BRUSH( wxWHITE_BRUSH );
+    DEFINE_BRUSH( wxBLACK_BRUSH );
+    DEFINE_BRUSH( wxGREY_BRUSH );
+    DEFINE_BRUSH( wxMEDIUM_GREY_BRUSH );
+    DEFINE_BRUSH( wxLIGHT_GREY_BRUSH );
+    DEFINE_BRUSH( wxTRANSPARENT_BRUSH );
+    DEFINE_BRUSH( wxCYAN_BRUSH );
+    DEFINE_BRUSH( wxRED_BRUSH );
 
-    tmp = get_sv( "Wx::_brush_white", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxWHITE_BRUSH ) );
-
-    tmp = get_sv( "Wx::_brush_black", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxBLACK_BRUSH ) );
-
-    tmp = get_sv( "Wx::_brush_grey", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxGREY_BRUSH ) );
-
-    tmp = get_sv( "Wx::_brush_medium_grey", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxMEDIUM_GREY_BRUSH ) );
-
-    tmp = get_sv( "Wx::_brush_light_grey", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxLIGHT_GREY_BRUSH ) );
-
-    tmp = get_sv( "Wx::_brush_transparent", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxTRANSPARENT_BRUSH ) );
-
-    tmp = get_sv( "Wx::_brush_cyan", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxCYAN_BRUSH ) );
-
-    tmp = get_sv( "Wx::_brush_red", 0 );
-    sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxRED_BRUSH ) );
+    #undef DEFINE_BRUSH
 
     //
     // Clipboard & Drag'n'Drop
     //
-    tmp = get_sv( "Wx::_format_invalid", 0 );
-    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxFormatInvalid ) );
+    wxPli_set_const( "wxFormatInvalid", "Wx::DataFormat",
+                     new wxDataFormat( wxFormatInvalid ) );
 
-    tmp = get_sv( "Wx::_clipboard", 0 );
+    tmp = get_sv( "Wx::wxTheClipboard", 1 );
     sv_setref_pv( tmp, "Wx::Clipboard", wxTheClipboard );
 }
 
