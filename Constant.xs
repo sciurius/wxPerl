@@ -1701,6 +1701,12 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxWIZARD_EX_HELPBUTTON );
 #endif
+
+    r( wxWS_EX_VALIDATE_RECURSIVELY );
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    r( wxWS_EX_BLOCK_EVENTS );
+    r( wxWS_EX_TRANSIENT );
+#endif
     break;
   case 'X':
     r( wxXOR );                         // dc
