@@ -246,6 +246,11 @@ if( $Wx::_platform == $Wx::_gtk ) {
   @ISA = qw(UNIVERSAL);
 }
 
+package Wx::PlValidator;
+
+# avoids a 'Attempt to free unreferenced scalar' warning
+sub DESTROY {print $_[0],"\n"}
+
 1;
 
 # Local variables: #
