@@ -27,7 +27,7 @@
 // UNICODE, LOG, CMDLINE_PARSER, LOGWINDOW, LOGGUI, LOGDIALOG
 // WCHAR_T, THREADS, STREAMS, INTL, DATETIME, TIMER, STOPWATCH, CONFIG,
 // CONFIG_NATIVE, DIALUP_MANAGER, FILESYSTEM, FS_ZIP, FS_INET, JOYSTICK,
-// FONTMAP, MIMETYPE, SYSTEM_OPTIONS, WAVE, POPUPWIN, BUTTON,
+// FONTMAP, MIMETYPE, SYSTEM_OPTIONS, POPUPWIN, BUTTON,
 // BMPBUTTON, CALENDARCTRL, CHECKBOX, CHECKLISTBOX, CHOICE,
 // COMBOBOX, GAUGE, LISTBOX, LISTCTRL, RADIOBOX, RADIOBTN, 
 // SCROLLBAR, SLIDER, SPINBTN, SPINCTRL, STATBOX, STATLINE,
@@ -40,12 +40,12 @@
 // WXHTML_HELP, RESOURCES, CONSTRAINTS, MOUSEWHEEL, IMAGE,
 // LIBPNG, LIBJPEG, LIBTIFF, GIF, PNM, PCX, XPM, PALETTE
 
-#ifdef wxPERL_USE_TOOLTIPS
-#   if wxPERL_USE_TOOLTIPS && !wxUSE_TOOLTIPS
-#       error "Recompile wxWindows with wxUSE_TOOLTIPS"
+#ifdef wxPERL_USE_DRAG_AND_DROP
+#   if wxPERL_USE_DRAG_AND_DROP && !wxUSE_DRAG_AND_DROP
+#       error "Recompile wxWindows with wxUSE_DRAG_AND_DROP"
 #   endif
 #else
-#   define wxPERL_USE_TOOLTIPS wxUSE_TOOLTIPS
+#   define wxPERL_USE_DRAG_AND_DROP wxUSE_DRAG_AND_DROP
 #endif
 
 #ifdef wxPERL_USE_FONTDLG
@@ -67,12 +67,6 @@
 #   define wxPERL_USE_IFF wxUSE_IFF
 #endif
 
-#ifdef __WXUNIVERSAL__
-#   define wxPERL_USE_MINIFRAME 0
-#else
-#   define wxPERL_USE_MINIFRAME 1
-#endif
-
 #ifdef wxPERL_USE_MDI_ARCHITECTURE
 #   if wxPERL_USE_MDI_ARCHITECTURE && !wxUSE_MDI_ARCHITECTURE
 #       error "Recompile wxWindows with wxUSE_MDI_ARCHITECTURE"
@@ -81,20 +75,10 @@
 #   define wxPERL_USE_MDI_ARCHITECTURE wxUSE_MDI_ARCHITECTURE
 #endif
 
-#ifdef wxPERL_USE_PRINTING_ARCHITECTURE
-#   if wxPERL_USE_PRINTING_ARCHITECTURE && !wxUSE_PRINTING_ARCHITECTURE
-#       error "Recompile wxWindows with wxUSE_PRINTING_ARCHITECTURE"
-#   endif
+#ifdef __WXUNIVERSAL__
+#   define wxPERL_USE_MINIFRAME 0
 #else
-#   define wxPERL_USE_PRINTING_ARCHITECTURE wxUSE_PRINTING_ARCHITECTURE
-#endif
-
-#ifdef wxPERL_USE_DRAG_AND_DROP
-#   if wxPERL_USE_DRAG_AND_DROP && !wxUSE_DRAG_AND_DROP
-#       error "Recompile wxWindows with wxUSE_DRAG_AND_DROP"
-#   endif
-#else
-#   define wxPERL_USE_DRAG_AND_DROP wxUSE_DRAG_AND_DROP
+#   define wxPERL_USE_MINIFRAME 1
 #endif
 
 #ifdef wxPERL_USE_MS_HTML_HELP
@@ -105,29 +89,33 @@
 #   define wxPERL_USE_MS_HTML_HELP wxUSE_MS_HTML_HELP
 #endif
 
-// 2.3 specific checks
+#ifdef wxPERL_USE_PRINTING_ARCHITECTURE
+#   if wxPERL_USE_PRINTING_ARCHITECTURE && !wxUSE_PRINTING_ARCHITECTURE
+#       error "Recompile wxWindows with wxUSE_PRINTING_ARCHITECTURE"
+#   endif
+#else
+#   define wxPERL_USE_PRINTING_ARCHITECTURE wxUSE_PRINTING_ARCHITECTURE
+#endif
 
-// 2.3.1
+#ifdef wxPERL_USE_TOOLTIPS
+#   if wxPERL_USE_TOOLTIPS && !wxUSE_TOOLTIPS
+#       error "Recompile wxWindows with wxUSE_TOOLTIPS"
+#   endif
+#else
+#   define wxPERL_USE_TOOLTIPS wxUSE_TOOLTIPS
+#endif
+
+#ifdef wxPERL_USE_WAVE
+#   if wxPERL_USE_WAVE && !wxUSE_WAVE
+#       error "Recompile wxWindows with wxUSE_WAVE"
+#   endif
+#else
+#   define wxPERL_USE_WAVE wxUSE_WAVE
+#endif
+
+// 2.4 specific checks
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
-#ifdef wxPERL_USE_SNGLINST_CHECKER
-#   if wxPERL_USE_SNGLINST_CHECKER && !wxUSE_SNGLINST_CHECKER
-#       error "Recompile wxWindows with wxUSE_SNGLINST_CHECKER"
-#   endif
-#else
-#   define wxPERL_USE_SNGLINST_CHECKER wxUSE_SNGLINST_CHECKER
-#endif
-
-#ifdef wxPERL_USE_TOGGLEBTN
-#   if wxPERL_USE_TOGGLEBTN && !wxUSE_TOGGLEBTN
-#       error "Recompile wxWindows with wxUSE_TOGGLEBTN"
-#   endif
-#else
-#   define wxPERL_USE_TOGGLEBTN wxUSE_TOGGLEBTN
-#endif
-
-// 2.3.2
 
 #ifdef wxPERL_USE_BESTHELP
 #   if wxPERL_USE_BESTHELP && !( wxUSE_MS_HTML_HELP && wxUSE_WXHTML_HELP )
@@ -145,4 +133,20 @@
 #   define wxPERL_USE_ICO_CUR wxUSE_ICO_CUR
 #endif
  
+#ifdef wxPERL_USE_SNGLINST_CHECKER
+#   if wxPERL_USE_SNGLINST_CHECKER && !wxUSE_SNGLINST_CHECKER
+#       error "Recompile wxWindows with wxUSE_SNGLINST_CHECKER"
+#   endif
+#else
+#   define wxPERL_USE_SNGLINST_CHECKER wxUSE_SNGLINST_CHECKER
+#endif
+
+#ifdef wxPERL_USE_TOGGLEBTN
+#   if wxPERL_USE_TOGGLEBTN && !wxUSE_TOGGLEBTN
+#       error "Recompile wxWindows with wxUSE_TOGGLEBTN"
+#   endif
+#else
+#   define wxPERL_USE_TOGGLEBTN wxUSE_TOGGLEBTN
+#endif
+
 #endif    
