@@ -162,6 +162,11 @@ FD_TD( GIFHandler );
 FD_TD( JPEGHandler );
 FD_TD( TIFFHandler );
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+FD_TD( DrawObject );
+FD_TD( HelpEvent );
+#endif
+
 //typedef wxQueryLayoutInfoEvent Wx_QueryLayoutInfoEvent;
 
 #undef FD_TD

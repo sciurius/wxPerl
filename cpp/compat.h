@@ -27,6 +27,15 @@
    ( 5 == (V) && PATCHLEVEL >= (S) ) )
 #endif
 
+#define WXPERL_W_VERSION_EQ( V, S ) \
+ ( wxMAJOR_VERSION == (V) && wxMINOR_VERSION == (S) )
+#define WXPERL_W_VERSION_GE( V, S ) \
+ ( ( wxMAJOR_VERSION > (V) ) || \
+   ( wxMAJOR_VERSION == (V) && wxMINOR_VERSION >= (S) ) )
+#define WXPERL_W_VERSION_LE( V, S ) \
+ ( ( wxMAJOR_VERSION < (V) ) || \
+   ( wxMAJOR_VERSION == (V) && wxMINOR_VERSION <= (S) ) )
+
 #if WXPERL_P_VERSION_EQ( 5, 4 )
 
 // some functions have changed from char* to const char*, and I want
