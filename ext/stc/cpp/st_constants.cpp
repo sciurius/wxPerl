@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.8 2004/01/18 08:19:20 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.9 2004/01/31 14:27:57 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -144,6 +144,7 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CMD_CUT );
         r( wxSTC_CMD_COPY );
         r( wxSTC_CMD_PASTE );
+        r( wxSTC_CMD_LINECOPY );
         r( wxSTC_CMD_LINEDOWN );
         r( wxSTC_CMD_LINEDOWNEXTEND );
         r( wxSTC_CMD_LINEUP );
@@ -667,6 +668,10 @@ double stc_constant( const char* name, int arg )
     case 'W':
         r( wxSTC_WRAP_NONE );
         r( wxSTC_WRAP_WORD );
+
+        r( wxSTC_WS_INVISIBLE );
+        r( wxSTC_WS_VISIBLEALWAYS );
+        r( wxSTC_WS_VISIBLEAFTERINDENT );
         break;
     }
 #undef r
