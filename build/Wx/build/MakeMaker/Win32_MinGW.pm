@@ -1,6 +1,7 @@
 package Wx::build::MakeMaker::Win32_MinGW;
 
 use strict;
+use Wx::build::Utils qw(path_search);
 use base 'Wx::build::MakeMaker::Win32';
 
 sub _res_file { 'Wx_res.o' }
@@ -19,37 +20,13 @@ EOT
 #
 sub files_to_install {
   my $this = shift;
-  my %files = $this->SUPER::files_to_install();
+  my $dll = 'mingwm10.dll';
+  my $dll_from = path_search( $dll );
 
-  my $dll_from;
-
-  foreach my $dir ( File::Spec->path ) {
-    my( @files ) = glob( File::Spec->catfile( $dir, 'mingwm*.dll' ) );
-    if( @files ) {
-      $dll_from = $files[0];
-      last;
-    }
-  }
-
-  return %files unless defined $dll_from;
-
-  my $base = File::Basename::basename( $dll_from );
-  my $dll_to = Wx::build::Utils::arch_auto_file( "Wx/$base" );
-
-  return ( %files,
-           $dll_from => $dll_to );
-}
-
-#
-# current command line breaks in dmake ( used braces in qq{} )
-#
-sub ppd {
-  my $this = shift;
-  my $text = $this->SUPER::ppd( @_ );
-
-  $text =~ tr/\{\}/##/;
-
-  return $text;
+  return ( $this->SUPER::files_to_install(),
+           ( defined $dll_from ?
+             ( $dll_from => Wx::build::Utils::arch_auto_file( "Wx/$dll" ) ) :
+             () ) );
 }
 
 #

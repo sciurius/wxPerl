@@ -4,8 +4,8 @@ use strict;
 use base 'Wx::build::MakeMaker';
 use File::Spec::Functions qw(curdir);
 use Wx::build::Options;
-use Wx::build::Utils qw(xs_dependencies lib_file);
-use File::Find qw(find);
+use Wx::build::Utils qw(xs_dependencies lib_file
+                        files_with_overload files_with_constants);
 
 my $exp = lib_file( 'Wx/Wx_Exp.pm' );
 my $ovl = lib_file( 'Wx/_Ovl.pm' );
@@ -168,73 +168,6 @@ sub files_to_install {
   return ( 'Opt', Wx::build::Utils::arch_file( 'Wx/build/Opt.pm' ),
            ( map { ( $_ => Wx::build::Utils::lib_file( "Wx/$_" ) ) } @api ),
          );
-}
-
-##############################################################################
-# Utility routines
-##############################################################################
-
-sub files_with_constants {
-  my @files;
-
-  my $wanted = sub {
-    my $name = $File::Find::name;
-
-    m/\.(?:pm|xsp?|cpp|h)$/i && do {
-      local *IN;
-      my $line;
-
-      open IN, "< $_" || warn "unable to open '$_'";
-      while( defined( $line = <IN> ) ) {
-        $line =~ m/^\W+\!\w+:/ && do {
-          push @files, $name;
-          return;
-        };
-      };
-    };
-  };
-
-  find( $wanted, curdir );
-
-  return @files;
-}
-
-sub files_with_overload {
-  my @files;
-
-  my $wanted = sub {
-    my $name = $File::Find::name;
-
-    m/\.pm$/i && do {
-      my $line;
-      local *IN;
-
-      open IN, "< $_" || warn "unable to open '$_'";
-      while( defined( $line = <IN> ) ) {
-        $line =~ m/Wx::_match/ && do {
-          push @files, $name;
-          return;
-        };
-      }
-    };
-
-    m/\.xsp?$/i && do {
-      my $line;
-      local *IN;
-
-      open IN, "< $_" || warn "unable to open '$_'";
-      while( defined( $line = <IN> ) ) {
-        $line =~ m/wxPli_match_arguments|BEGIN_OVERLOAD\(\)/ && do {
-          push @files, $name;
-          return;
-        };
-      }
-    };
-  };
-
-  find( $wanted, curdir );
-
-  return @files;
 }
 
 1;

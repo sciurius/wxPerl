@@ -4,191 +4,18 @@ use strict;
 use Config;
 use base 'Exporter';
 use File::Spec::Functions qw(curdir catdir catfile updir);
+use File::Find qw(find);
 
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT_OK = qw(obj_from_src xs_dependencies write_string
                 lib_file arch_file arch_auto_file
-                path_search);
-#@EXPORT = qw(obj_from_src);
-#@EXPORT_OK = qw(unix_top_dir top_dir building_extension
-#                xs_depend merge_config wx_version wx_config is_platform
-#                get_platform is_debug is_inside_wxperl_tree path_search);
+                path_search files_with_overload files_with_constants);
 
 =head1 NAME
 
 Wx::build::Utils - utility routines
 
 =head1 SUBROUTINES
-
-=cut
-
-=begin cut
-
-#
-# convenience function
-#
-sub wx_config {
-  $wxConfig::Arch->my_wx_config( @_ );
-}
-
-#
-# is that platform/toolkit (msw, motif, gtk, mac)
-#
-sub is_platform($) {
-  my $uc = uc shift;
-  return scalar( wx_config( 'cxxflags' ) =~ m/__WX${uc}__/ );
-}
-
-sub get_platform() {
-  my $cf = wx_config( 'cxxflags' );
-  $cf =~ m/__WX(x11|msw|motif|gtk|mac)__/i && return lc $1;
-
-  die "Unable to determine toolkit!";
-}
-
-sub is_debug() {
-  return scalar( wx_config( 'cxxflags' ) =~ m/__WXDEBUG__/ );
-}
-
-#
-# wxWidgets version as M.mmm_sss
-#
-sub wx_version() {
-  no strict 'refs';
-
-  my $ver = wx_config( 'version' );
-
-  $ver =~ m/(\d+)\.(\d+)\.(\d+)/ &&
-    return $1 + $2 / 1000 + $3 / 1000000;
-  $ver =~ m/(\d)(\d+)_(\d+)/ &&
-    return $1 + $2 / 1000 + $3 / 1000000;
-  $ver =~ m/(\d)(\d)(\d+)/ &&
-    return $1 + $2 / 1000 + $3 / 1000000;
-
-  die "unable to get wxWidgets'version";
-}
-
-#
-# relative UNIX-ish path to the top dir
-#
-sub unix_top_dir() {
-  my $utop = '.';
-  my $top = MM->curdir;
-  my $count = 0;
-
-  until( $count == 10 || -f MM->catfile( $top, 'Wx.pm' ) ) {
-    $top = MM->catdir( MM->updir, $top );
-    $utop = "../$utop";
-    ++$count;
-  }
-
-  # we are outsize wxPerl source tree
-  if( $count == 10 ) {
-    my $build = $INC{'wxConfig.pm'};
-    $build =~ s{\Wbuild\WwxConfig\.pm$}{};
-    die "unable to find unix_top_dir" unless -f "$build/Wx.pm";
-    $utop = $build;
-  }
-
-  return $utop;
-}
-
-#
-# relative path to the top dir ( the one containing Wx.pm )
-#
-sub top_dir() {
-  my $top = MM->curdir;
-  my $count = 0;
-
-  until( $count == 10 || -f MM->catfile( $top, 'Wx.pm' ) ) {
-    $top = MM->catdir( MM->updir, $top );
-    ++$count;
-  }
-
-  if( $count == 10 ) {
-    my $build = $INC{'wxConfig.pm'};
-    $build =~ s{\Wbuild\WwxConfig\.pm$}{};
-    die "unable to find top_dir" unless -f "$build/Wx.pm";
-    $top = $build;
-  }
-  return MM->canonpath( $top );
-}
-
-sub building_extension() {
-  return !-f 'Wx.pm';
-}
-
-sub is_inside_wxperl_tree() {
-  my $top = MM->curdir;
-  my $count = 0;
-
-  until( $count == 10 ) {
-    return 1 if -f MM->catfile( $top, 'Wx.pm' );
-    $top = MM->catdir( MM->updir, $top );
-    ++$count;
-  }
-
-  return 0;
-}
-
-sub path_search {
-  my $file = shift;
-
-  foreach my $d ( split $Config{path_sep}, $ENV{PATH} ) {
-    my $full = MM->catfile( $d, $file );
-    return $full if -f $full;
-  }
-
-  return;
-}
-
-=end cut
-
-#
-#
-#
-
-=begin cut
-
-use vars qw(%cfg1 %cfg2);
-sub merge_config {
-  my( $cfg1, $cfg2 ) = @_;
-  local *cfg1 = $cfg1;
-  local *cfg2 = $cfg2;
-  my %cfg = %cfg1;
-
-  foreach my $i ( keys %cfg2 ) {
-    if( exists $cfg{$i} ) {
-      if( $i eq 'LIBS' ) {
-        my @a = ref(  $cfg{LIBS} ) ? @{$cfg{LIBS}} : ( $cfg{LIBS} );
-        my @b = ref( $cfg2{LIBS} ) ? @{$cfg2{LIBS}} : ( $cfg2{LIBS} );
-
-        my @c;
-        foreach my $i ( @b ) {
-          foreach my $j ( @a ) {
-            push @c, " $i $j $i ";
-          }
-        }
-
-        $cfg{LIBS} = \@c;
-        next;
-      }
-
-      if( ref($cfg{$i}) || ref($cfg2{$i}) ) {
-        die "non scalar key '$i'";
-        $cfg{$i} = $cfg2{$i};
-      } else {
-        $cfg{$i} .= ' ' . $cfg2{$i};
-      }
-    } else {
-      $cfg{$i} = $cfg2{$i};
-    }
-  }
-
-  return \%cfg;
-}
-
-=end cut
 
 =head2 xs_dependencies
 
@@ -368,6 +195,85 @@ sub path_search {
   }
 
   return;
+}
+
+=head2 files_with_constants
+
+  my @files = files_with_constants;
+
+Finds files containing constants
+
+=cut
+
+sub files_with_constants {
+  my @files;
+
+  my $wanted = sub {
+    my $name = $File::Find::name;
+
+    m/\.(?:pm|xsp?|cpp|h)$/i && do {
+      local *IN;
+      my $line;
+
+      open IN, "< $_" || warn "unable to open '$_'";
+      while( defined( $line = <IN> ) ) {
+        $line =~ m/^\W+\!\w+:/ && do {
+          push @files, $name;
+          return;
+        };
+      };
+    };
+  };
+
+  find( $wanted, curdir );
+
+  return @files;
+}
+
+=head2 files_with_overload
+
+  my @files = files_with_overload;
+
+Finds files containing overloaded XS/Perl subroutines
+
+=cut
+
+sub files_with_overload {
+  my @files;
+
+  my $wanted = sub {
+    my $name = $File::Find::name;
+
+    m/\.pm$/i && do {
+      my $line;
+      local *IN;
+
+      open IN, "< $_" || warn "unable to open '$_'";
+      while( defined( $line = <IN> ) ) {
+        $line =~ m/Wx::_match/ && do {
+          push @files, $name;
+          return;
+        };
+      }
+    };
+
+    m/\.xsp?$/i && do {
+      my $line;
+      local *IN;
+
+      open IN, "< $_" || warn "unable to open '$_'";
+      while( defined( $line = <IN> ) ) {
+        $line =~ m/wxPli_match_arguments|BEGIN_OVERLOAD\(\)/ && do {
+          push @files, $name;
+          return;
+        };
+      }
+    };
+  };
+
+  find( $wanted, curdir );
+
+  return @files;
 }
 
 1;
