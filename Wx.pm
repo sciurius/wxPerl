@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.73 2004/12/21 20:55:00 mbarbon Exp $
-## Copyright:   (c) 2000-2004 Mattia Barbon
+## RCS-ID:      $Id: Wx.pm,v 1.74 2005/01/04 22:10:49 mbarbon Exp $
+## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -111,9 +111,10 @@ sub load_dll {
       if( -f "$_/auto/Wx/Wx.dll" ) {
         $wx_path = "$_/auto/Wx";
         my $lib = ( glob "$wx_path/wx*${suff}_html*.dll" )[0];
+        next unless $lib;
         $lib =~ s{.*[/\\]([^/\\]+)$}{$1};
         $lib =~ m/^wx(?:msw)([^_]+)_html_([^\.]+)\.dll/i
-          or die "PANIC: name scheme for '$lib'";
+          or die "PANIC: name scheme for '$lib' in '$_'";
         $wx_pre = $1;
         $wx_post = $2;
         last;
