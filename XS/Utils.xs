@@ -183,6 +183,11 @@ Wx_TipProvider::new( currentTip )
   OUTPUT:
     RETVAL
 
+void
+Wx_TipProvider::Destroy()
+  CODE:
+    delete THIS;
+
 size_t
 Wx_TipProvider::GetCurrentTip()
 
