@@ -65,6 +65,8 @@ BOOT:
 INCLUDE: XS/DataObject.xs
 INCLUDE: XS/DropFiles.xs
 INCLUDE: XS/Clipboard.xs
+INCLUDE: XS/DropSource.xs
+INCLUDE: XS/DropTarget.xs
 
 #  //FIXME//tricky
 #if __WXMSW__

@@ -37,18 +37,38 @@ Wx_DataFormat::DESTROY()
 wxString
 Wx_DataFormat::GetId()
 
-NativeFormat
-Wx_DataFormat::GetType()
-
 void
 Wx_DataFormat::SetId( id )
     wxString id
+
+#if defined( __WXMSW__ )
+
+NativeFormat
+Wx_DataFormat::GetType()
 
 void
 Wx_DataFormat::SetType( type )
     NativeFormat type
 
+#else
+
+wxDataFormatId
+Wx_DataFormat::GetType()
+
+void
+Wx_DataFormat::SetType( type )
+    wxDataFormatId type
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::DataObject
+
+void
+DESTROY( THIS )
+    Wx_DataObject* THIS
+  CODE:
+    if( wxPli_object_is_deleteable( ST(0) ) )
+        delete THIS;
 
 void
 Wx_DataObject::Destroy()

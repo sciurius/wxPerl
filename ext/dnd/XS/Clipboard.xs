@@ -17,6 +17,11 @@ MODULE=Wx PACKAGE=Wx::Clipboard
 bool
 Wx_Clipboard::AddData( data )
     Wx_DataObject* data
+  CODE:
+    wxPli_object_set_deleteable( ST(1), FALSE );
+    RETVAL = THIS->AddData( data );
+  OUTPUT:
+    RETVAL
 
 void
 Wx_Clipboard::Clear()
@@ -49,6 +54,11 @@ Wx_Clipboard::Open()
 bool
 Wx_Clipboard::SetData( data )
     Wx_DataObject* data
+  CODE:
+    wxPli_object_set_deleteable( ST(1), FALSE );
+    RETVAL = THIS->SetData( data );
+  OUTPUT:
+    RETVAL
 
 void
 Wx_Clipboard::UsePrimarySelection( primary = TRUE )

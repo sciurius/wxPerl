@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "cpp/constants.h"
+#include <wx/dnd.h>
 
 const int Get = wxDataObjectBase::Get;
 const int Set = wxDataObjectBase::Set;
@@ -38,6 +39,12 @@ double dnd_constant( const char* name, int arg )
         r( wxDF_BITMAP );
         r( wxDF_METAFILE );
         r( wxDF_FILENAME );
+
+        r( wxDragError );
+        r( wxDragNone );
+        r( wxDragMove );
+        r( wxDragCopy );
+        r( wxDragCancel );
         break;
     case 'G':
         r( Get );

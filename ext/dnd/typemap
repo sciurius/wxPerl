@@ -13,6 +13,8 @@
 TYPEMAP
 Direction               T_IV
 NativeFormat            T_IV
+wxDragResult            T_IV
+wxDataFormatId          T_IV
 
 Wx_DataObject *         O_NON_WXOBJECT
 Wx_FileDataObject *     O_NON_WXOBJECT
@@ -27,3 +29,8 @@ Wx_DataFormat *         O_NON_WXOBJECT
 Wx_DropFilesEvent *     O_NON_WXOBJECT
 
 Wx_Clipboard *          O_WXOBJECT
+
+Wx_DropSource *         O_NON_WXOBJECT
+Wx_DropTarget *         O_NON_WXOBJECT
+Wx_FileDropTarget *     O_NON_WXOBJECT
+Wx_TextDropTarget *     O_NON_WXOBJECT
