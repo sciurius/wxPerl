@@ -148,6 +148,7 @@ sub EVT_JOY_ZMOVE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_JOY_ZMOVE, $_[1] ); }
 sub EVT_LIST_BEGIN_DRAG($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_BEGIN_DRAG, $_[2] ); }
 sub EVT_LIST_BEGIN_RDRAG($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_BEGIN_RDRAG, $_[2] ); }
 sub EVT_LIST_BEGIN_LABEL_EDIT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_BEGIN_LABEL_EDIT, $_[2] ); }
+sub EVT_LIST_CACHE_HINT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_CACHE_HINT, $_[2] ); }
 sub EVT_LIST_END_LABEL_EDIT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_END_LABEL_EDIT, $_[2] ); }
 sub EVT_LIST_DELETE_ITEM($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_DELETE_ITEM, $_[2] ); }
 sub EVT_LIST_DELETE_ALL_ITEMS($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST_DELETE_ALL_ITEMS, $_[2] ); }

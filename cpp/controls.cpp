@@ -76,6 +76,7 @@ double listctrl_constant( const char* name, int arg )
       r( wxEVT_COMMAND_LIST_BEGIN_DRAG );
       r( wxEVT_COMMAND_LIST_BEGIN_RDRAG );
       r( wxEVT_COMMAND_LIST_BEGIN_LABEL_EDIT );
+      r( wxEVT_COMMAND_LIST_CACHE_HINT );
       r( wxEVT_COMMAND_LIST_END_LABEL_EDIT );
       r( wxEVT_COMMAND_LIST_DELETE_ITEM );
       r( wxEVT_COMMAND_LIST_DELETE_ALL_ITEMS );
@@ -183,7 +184,7 @@ wxString wxPliListCtrl::OnGetItemText( long item, long column ) const
         SV* ret = wxPliVirtualCallback_CallCallback( (wxPliVirtualCallback*) &m_callback,
                                                      G_SCALAR, "ll", item, column );
         wxString val;
-        WXSTRING_INPUT( val, dummy, ret );
+        WXSTRING_INPUT( val, char*, ret );
         SvREFCNT_dec( ret );
         return val;
     }

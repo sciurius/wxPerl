@@ -14,6 +14,16 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::ListEvent
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+long
+Wx_ListEvent::GetCacheFrom()
+
+long
+Wx_ListEvent::GetCacheTo()
+
+#endif
+
 int
 Wx_ListEvent::GetCode()
 
@@ -186,7 +196,7 @@ Wx_ListItemAttr::new( text, back, font )
   CODE:
     if( items != 1 && items != 4 )
     {
-        Perl_croak(aTHX_ "Usage: Wx::ListItemAttr::new(THIS [, text, back, font ] )");
+        croak( "Usage: Wx::ListItemAttr::new(THIS [, text, back, font ] )" );
     }
     if( items == 1 )
     {
