@@ -210,8 +210,8 @@ sub EVT_SYS_COLOUR_CHANGED($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SYS_COLOUR_C
 # UpdateUIEvent
 #
 
-sub EVT_UPDATE_UI($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_UPDATE_UI, $_[2] ); }
-sub EVT_UPDATE_UI_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_UPDATE_UI, $_[3] ); }
+sub EVT_UPDATE_UI($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_UPDATE_UI, $_[2] ); }
+sub EVT_UPDATE_UI_RANGE($$$$) { $_[0]->Connect( _id( $_[1] ), _id( $_[2] ), &Wx::wxEVT_UPDATE_UI, $_[3] ); }
 
 no strict;
 
