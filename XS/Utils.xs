@@ -50,5 +50,28 @@ Wx_BusyInfo::new( message )
 void
 Wx_BusyInfo::DESTROY()
 
+MODULE=Wx PACKAGE=Wx::StopWatch
 
+#ifdef Pause
+#undef Pause
+#endif
+
+Wx_StopWatch*
+Wx_StopWatch::new()
+
+void
+Wx_StopWatch::DESTROY()
+
+void
+Wx_StopWatch::Pause()
+
+void
+Wx_StopWatch::Start( milliseconds = 0 )
+    long milliseconds
+
+void
+Wx_StopWatch::Resume()
+
+long
+Wx_StopWatch::Time()
 

@@ -19,6 +19,7 @@
 #include <wx/menu.h>
 #include <wx/icon.h>
 #include <wx/caret.h>
+#include <wx/timer.h>
 
 #include <wx/button.h>
 

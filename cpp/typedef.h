@@ -160,6 +160,7 @@ FD_TD( StaticCtrl );
 FD_TD( StaticLine );
 FD_TD( StaticText );
 FD_TD( StatusBar );
+FD_TD( StopWatch );
 FD_TD( TextCtrl );
 FD_TD( TextEntryDialog );
 FD_TD( ToolBar );
