@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/05/2003
-// RCS-ID:      $Id: renderer.h,v 1.5 2004/08/04 20:22:02 mbarbon Exp $
+// RCS-ID:      $Id: renderer.h,v 1.6 2004/11/01 16:34:40 mbarbon Exp $
 // Copyright:   (c) 2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -74,8 +74,8 @@ public:
             SV* dc_sv = wxPli_object_2_sv( aTHX_ sv_newmortal(), &dc );
 
             SV* ret = wxPliVirtualCallback_CallCallback
-                ( aTHX_ &m_callback, G_SCALAR, "OoOii",
-                  &grid, &attr, "Wx::GridCellAttr", &dc, row, col );
+                ( aTHX_ &m_callback, G_SCALAR, "Ossii",
+                  &grid, attr_sv, dc_sv, row, col );
             wxSize size = *(wxSize*)wxPli_sv_2_object( aTHX_ ret, "Wx::Size" );
             SvREFCNT_dec( ret );
 
