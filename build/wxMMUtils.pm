@@ -186,8 +186,9 @@ sub scan_xs($$) {
     m/^\s*INCLUDE:\s+(.*)$/ and $file = $1 and $arr = \@xsinclude;
 
     if( defined $file ) {
+      $file = MM->catfile( split '/', $file );
       foreach my $dir ( @$incpath ) {
-        my $f = MM->catfile( $dir, $file );
+        my $f = $dir eq MM->curdir ? $file : MM->catfile( $dir, $file );
         if( -f $f ) {
           push @$arr, $f;
           my( $cinclude, $xsinclude ) = scan_xs( $f, $incpath );
@@ -195,7 +196,10 @@ sub scan_xs($$) {
           push @xsinclude, @$xsinclude;
           last;
         } elsif( $file =~ m/ovl_const\.(?:cpp|h)/i ) {
-          push @$arr, MM->catfile( top_dir(), $file );
+          my $dir = top_dir();
+          push @$arr, ( ( $dir eq MM->curdir ) ?
+                                         $file :
+                                         MM->catfile( top_dir(), $file ) );
         }
       }
     }
