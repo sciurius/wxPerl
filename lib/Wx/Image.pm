@@ -41,8 +41,8 @@ sub new {
 sub LoadFile {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_wist_n, 2 ) && return Wx::Image::LoadFileSType( @_ );
-  Wx::_match( @_, $Wx::_wist_s, 2 ) && return Wx::Image::LoadFileSMIME( @_ );
+  Wx::_match( @_, $Wx::_wist_n, 2 ) && return Wx::Image::LoadStreamType( @_ );
+  Wx::_match( @_, $Wx::_wist_s, 2 ) && return Wx::Image::LoadStreamMIME( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->LoadFileType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->LoadFileMIME( @_ );
 }
