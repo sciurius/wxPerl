@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.99 2004/01/18 08:11:25 mbarbon Exp $
-// Copyright:   (c) 2000-2003 Mattia Barbon
+// RCS-ID:      $Id: Constant.xs,v 1.100 2004/02/14 14:23:11 mbarbon Exp $
+// Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -60,6 +60,7 @@
 #endif
 
 #include <wx/tglbtn.h>
+#include <wx/timer.h>
 #include <wx/splash.h>
 #include <wx/fdrepdlg.h>
 #include <wx/list.h>
