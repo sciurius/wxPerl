@@ -142,6 +142,24 @@ Wx_Locale::GetCanonicalName()
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+wxFontEncoding
+GetSystemEncoding()
+  CODE:
+    RETVAL = wxLocale::GetSystemEncoding();
+  OUTPUT:
+    RETVAL
+
+wxString
+GetSystemEncodingName()
+  CODE:
+    RETVAL = wxLocale::GetSystemEncodingName();
+  OUTPUT:
+    RETVAL
+
+#endif
+
 bool
 Wx_Locale::IsLoaded( domain )
     const wxChar* domain
