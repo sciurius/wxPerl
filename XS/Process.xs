@@ -130,6 +130,8 @@ wxExecuteCommand( command, sync = wxEXEC_ASYNC, callback = 0 )
   OUTPUT:
     RETVAL
 
+#if !wxUSE_UNICODE
+
 long
 wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
     SV* args
@@ -151,6 +153,8 @@ wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
     delete[] t;
   OUTPUT:
     RETVAL
+
+#endif
 
 #else
 

@@ -384,9 +384,10 @@ SV* wxPliDocTemplate::CallConstructor( const wxString& className )
 {
     dTHX;
     dSP;
+    char buffer[WXPL_BUF_SIZE];
 
     PUSHMARK(SP);
-    XPUSHs( newSVpv( CHAR_P className.c_str(), className.size() ) );
+    XPUSHs( newSVpv( CHAR_P wxPli_cpp_class_2_perl( className, buffer ), 0 ) );
     PUTBACK;
 
     int count = call_method( "new", G_SCALAR );
