@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: toolbar.pl,v 1.5 2003/09/07 19:09:23 mbarbon Exp $
+## RCS-ID:      $Id: toolbar.pl,v 1.6 2003/11/23 07:52:18 mbarbon Exp $
 ## Copyright:   (c) 2000, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -299,7 +299,7 @@ sub RecreateToolbar {
                      $bitmaps[0]->GetHeight() * 2 );
 
     @bitmaps = map {
-      Wx::Image->new( $_ )->Scale( $w, $h )->ConvertToBitmap();
+      Wx::Bitmap->new( Wx::Image->new( $_ )->Scale( $w, $h ) );
     } @bitmaps;
 
     $toolbar->SetToolBitmapSize( wxSIZE( $w, $h ) );
