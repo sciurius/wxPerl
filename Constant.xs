@@ -1970,6 +1970,13 @@ void SetConstants()
 #else
     sv_setiv( tmp, 0 );
 #endif
+
+    tmp = get_sv( "Wx::_unicode", 0 );
+#if wxUSE_UNICODE
+    sv_setiv( tmp, 1 );
+#else
+    sv_setiv( tmp, 0 );
+#endif
 }
 
 WXPLI_BOOT_ONCE(Wx_Const);
