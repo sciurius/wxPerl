@@ -61,61 +61,66 @@ sub END {
   UnLoad();
 }
 
-no strict;
+my( $wbmp, $wico, $wmen, $wmit, $wrec, $wreg, $wszr,
+    $wtip, $wwin, $wcol, $wsiz, $wpoi, $num, $str, $bool ) = ( 1 .. 25 );
 
-$_n = [ qw(INTEGER) ];
-$_n_n = [ qw(INTEGER INTEGER) ];
-$_n_n_n = [ qw(INTEGER INTEGER INTEGER) ];
-$_n_n_n_n = [ qw(INTEGER INTEGER INTEGER INTEGER) ];
-$_n_n_n_n_n = [ qw(INTEGER INTEGER INTEGER INTEGER INTEGER) ];
-$_n_n_n_n_n_n = [ qw(INTEGER INTEGER INTEGER INTEGER INTEGER INTEGER) ];
-$_n_s = [ qw(INTEGER ?) ];
-$_n_s_wmen = [ qw(INTEGER ? Wx::Menu) ];
-$_n_wbmp_s_s = [ qw(INTEGER Wx::Bitmap ? ?) ];
-$_n_wbmp_wbmp = [ qw(INTEGER Wx::Bitmap Wx::Bitmap) ];
-$_n_wbmp_wbmp_n_s_s_s = [ qw(INTEGER Wx::Bitmap Wx::Bitmap INTEGER ? ? ?) ];
-$_n_wico = [ qw(INTEGER Wx::Icon) ];
-$_n_wszr_n_n_n = [ qw(INTEGER Wx::Sizer INTEGER INTEGER INTEGER) ];
-$_n_wwin_n_n_n = [ qw(INTEGER Wx::Window INTEGER INTEGER INTEGER) ];
-$_s = [ qw(?) ];
-$_s_n = [ qw(? INTEGER) ];
-$_s_n_n_n = [ qw(? INTEGER INTEGER INTEGER) ];
-$_s_s = [ qw(? ?) ];
-$_s_wwin_n_wbmp = [ qw(? Wx::Window INTEGER Wx::Bitmap) ];
-$_s_wwin_n_wico = [ qw(? Wx::Window INTEGER Wx::Icon) ];
-$_wbmp = [ qw(Wx::Bitmap) ];
-$_wbmp_n = [ qw(Wx::Bitmap INTEGER) ];
-$_wbmp_wbmp = [ qw(Wx::Bitmap Wx::Bitmap) ];
-$_wbmp_wcol = [ qw(Wx::Bitmap Wx::Colour) ];
-$_wcol = [ qw(Wx::Colour) ];
-$_wcol_n = [ qw(Wx::Colour INTEGER) ];
-$_wico = [ qw(Wx::Icon) ];
-$_wmit = [ qw(Wx::MenuItem) ];
-$_wpoi = [ qw(Wx::Point) ];
-$_wpoi_wpoi = [ qw(Wx::Point Wx::Point) ];
-$_wpoi_wsiz = [ qw(Wx::Point Wx::Size) ];
-$_wrec = [ qw(Wx::Rect) ];
-$_wreg = [ qw(Wx::Region) ];
-$_wsiz = [ qw(Wx::Size) ];
-$_wszr = [ qw(Wx::Sizer) ];
-$_wszr_n_n = [ qw(Wx::Sizer INTEGER INTEGER) ];
-$_wszr_n_n_n = [ qw(Wx::Sizer INTEGER INTEGER INTEGER) ];
-$_wtip = [ qw(Wx::ToolTip) ];
-$_wwin = [ qw(Wx::Window) ];
-$_wwin_n_n = [ qw(Wx::Window INTEGER INTEGER) ];
-$_wwin_n_n_n = [ qw(Wx::Window INTEGER INTEGER INTEGER) ];
-$_wwin_wsiz = [ qw(Wx::Window Wx::Size) ];
-$s_n_n = [ qw(? INTEGER INTEGER) ];
-$wbmp_n = [ qw(Wx::Bitmap INTEGER) ];
-$wcol_n_n = [ qw(Wx::Colour INTEGER INTEGER) ];
+my( @tnames ) =
+  ( undef, 'Wx::Bitmap', 'Wx::Icon', 'Wx::Menu', 'Wx::MenuItem',
+    'Wx::Rect', 'Wx::Region', 'Wx::Sizer', 'Wx::ToolTip',
+    'Wx::Window', 'Wx::Colour' );
 
-use strict;
+$Wx::_b = [ $bool ];
+$Wx::_n = [ $num ];
+$Wx::_n_b = [ $num, $bool ];
+$Wx::_n_n = [ $num, $num ];
+$Wx::_n_n_n = [ $num, $num, $num ];
+$Wx::_n_n_n_n = [ $num, $num, $num, $num ];
+$Wx::_n_n_n_n_n = [ $num, $num, $num, $num, $num ];
+$Wx::_n_n_n_n_n_n = [ $num, $num, $num, $num, $num, $num ];
+$Wx::_n_s = [ $num, $str ];
+$Wx::_n_s_wmen = [ $num, $str, $wmen ];
+$Wx::_n_wbmp_s_s = [ $num, $wbmp, $str, $str ];
+$Wx::_n_wbmp_wbmp = [ $num, $wbmp, $wbmp ];
+$Wx::_n_wbmp_wbmp_b_s_s_s = [ $num, $wbmp, $wbmp, $bool, $str, $str, $str ];
+$Wx::_n_wico = [ $num, $wico ];
+$Wx::_n_wszr_n_n_n = [ $num, $wszr, $num, $num, $num ];
+$Wx::_n_wwin_n_n_n = [ $num, $wwin, $num, $num, $num ];
+$Wx::_s = [ $str ];
+$Wx::_s_n = [ $str, $num ];
+$Wx::_s_n_n = [ $str, $num, $num ];
+$Wx::_s_n_n_n = [ $str, $num, $num, $num ];
+$Wx::_s_s = [ $str, $str ];
+$Wx::_s_wwin_n_wbmp = [ $str, $wwin, $num, $wbmp ];
+$Wx::_s_wwin_n_wico = [ $str, $wwin, $num, $wico ];
+$Wx::_wbmp = [ $wbmp ];
+$Wx::_wbmp_n = [ $wbmp, $num ];
+$Wx::_wbmp_n = [ $wbmp, $num ];
+$Wx::_wbmp_wbmp = [ $wbmp, $wbmp ];
+$Wx::_wbmp_wcol = [ $wbmp, $wcol ];
+$Wx::_wcol = [ $wcol ];
+$Wx::_wcol_n = [ $wcol, $num ];
+$Wx::_wico = [ $wico ];
+$Wx::_wmit = [ $wmit ];
+$Wx::_wpoi = [ $wpoi ];
+$Wx::_wpoi_wpoi = [ $wpoi, $wpoi ];
+$Wx::_wpoi_wsiz = [ $wpoi, $wsiz ];
+$Wx::_wrec = [ $wrec ];
+$Wx::_wreg = [ $wreg ];
+$Wx::_wsiz = [ $wsiz ];
+$Wx::_wszr = [ $wszr ];
+$Wx::_wszr_n_n = [ $wszr, $num, $num ];
+$Wx::_wszr_n_n_n = [ $wszr, $num, $num, $num ];
+$Wx::_wtip = [ $wtip ];
+$Wx::_wwin = [ $wwin ];
+$Wx::_wwin_n_n = [ $wwin, $num, $num ];
+$Wx::_wwin_n_n_n = [ $wwin, $num, $num, $num ];
+$Wx::_wwin_wsiz = [ $wwin, $wsiz ];
 
 sub _match(\@$;$$) {
   my( $args, $sig, $required, $dots ) = @_;
   my( $argc ) = scalar( @$args );
 
-  if( defined( $required ) ) {
+  if( @_ > 2 ) {
     return if  $dots && $argc < $required;
     return if !$dots && $argc != $required;
   }
@@ -124,12 +129,15 @@ sub _match(\@$;$$) {
 
   foreach ( @$sig ) {
     last if $i >= $argc;
-    next if $_ eq '?';
+    next if $_ == $str;
+    next if $_ == $bool;
+
     $a = ${$args}[$i];
-    next if $_ eq 'INTEGER' && ( ( $a + 0 ) || $a =~ /^\s*-?0+\.?0*\s*$/ );
-    next if !defined( $a ) || isa( $a, $_ );
-    next if $_ eq 'Wx::Point' || $_ eq 'Wx::Size' &&
-      ref( $a ) eq 'ARRAY';
+    next if $_ == $num && ( ( $a + 0 ) || $a =~ /^\s*-?0+\.?0*\s*$/ );
+    next if !defined( $a ) || isa( $a, $tnames[$_] );
+    next if $_ == $wpoi || $_ == $wsiz && ref( $a ) eq 'ARRAY';
+
+    # type clash: return false
     return;
   } continue {
     ++$i;
@@ -139,7 +147,7 @@ sub _match(\@$;$$) {
 }
 
 sub _ovl_error {
-  ( 'unable to resolve overloaded method for ', $_[0] );
+  ( 'unable to resolve overloaded method for ', $_[0] || (caller(1))[3] );
 }
 
 bootstrap Wx $VERSION;
