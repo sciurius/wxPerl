@@ -6,7 +6,23 @@ use base 'Exporter';
 
 use vars qw(@EXPORT);
 @EXPORT = qw(obj_from_src top_dir building_extension
-             xs_depend merge_config);
+             xs_depend merge_config wx_version);
+
+#
+# wxWindows version as M.mmm_sss
+#
+sub wx_version {
+  no strict 'refs';
+
+  my $ver = &{"${wxConfig::Arch}::wx_config"}( 'version' );
+
+  $ver =~ m/(\d+)\.(\d+)\.(\d+)/ &&
+    return $1 + $2 / 1000 + $3 / 1000000;
+  $ver =~ m/(\d)(\d+)_(\d+)/ &&
+    return $1 + $2 / 1000 + $3 / 1000000;
+
+  die "unable to get wxWindows'version";
+}
 
 #
 # relative path to the top dir ( the one containing Wx.pm )

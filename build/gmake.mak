@@ -14,6 +14,9 @@ WXUSINGDLL=1
 
 include $(WXWIN)/src/makeg95.env
 
+version:
+	echo $(WXVERSION)
+
 wxdir:
 	echo $(WXWIN)
 

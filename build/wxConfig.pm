@@ -81,10 +81,17 @@ BEGIN {
 sub wxWriteMakefile {
   my( %params ) = @_;
 
+  my $do_not_use = 0;
+
   foreach my $i ( keys %params ) {
     if( $i eq 'WXLIB' ) {
       $params{LIBS} .= $Arch->wx_lib( $params{$i} );
       delete $params{WXLIB};
+    }
+
+    if( $i eq 'REQUIRE_WX' ) {
+      $do_not_use ||= wx_version() < $params{REQUIRE_WX};
+      delete $params{REQUIRE_WX};
     }
 
     delete $params{$i}
@@ -98,13 +105,17 @@ sub wxWriteMakefile {
   $params{TYPEMAPS} = [ MM->catfile( top_dir(), 'typemap' ) ]
     unless exists $params{TYPEMAPS} || !building_extension();
 
-  WriteMakefile( %params );
+  unless( $do_not_use ) {
+    WriteMakefile( %params );
+  } else {
+    ExtUtils::MakeMaker::WriteEmptyMakefile( %params );
+  }
 }
 
 require "$package_to_use.pm";
 $Arch = $package_to_use;
 
-;
+1;
 
 __DATA__
 

@@ -20,6 +20,7 @@ use wxConfig;
 wxWriteMakefile( NAME => 'Wx::XRC',
                  VERSION_FROM => 'lib/Wx/XRC.pm',
                  WXLIB => 'wxxrc',
+                 REQUIRE_WX => 2.003_000,
                );
 
 # Local variables: #

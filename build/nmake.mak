@@ -15,6 +15,9 @@ WXUSINGDLL=1
 
 !include $(WXWIN)\src\makevc.env
 
+version:
+	echo $(WXVERSION)
+
 wxdir:
     echo $(WXWIN)
 
