@@ -33,7 +33,7 @@ RemoveTraceMask( mask )
 
 bool
 IsAllowedTraceMask( mask )
-    wxChar* mask
+    const wxChar* mask
   CODE:
     wxLog::IsAllowedTraceMask( mask );
 

@@ -18,28 +18,23 @@
 #if wxUSE_UNICODE
 
 #define WXCHAR_INPUT( var, type, arg ) \
-  const wxMB2WXbuf var##_tmp = ( SvUTF8( arg ) ) ? \
-            ( wxConvUTF8.cMB2WX( SvPVutf8_nolen( arg ) ) ) \
-          : ( wxString( SvPV_nolen( arg ) ).wc_str() ); \
-  var = (type)var##_tmp.data();
+  const wxString var##_tmp = ( SvUTF8( arg ) ) ? \
+            ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ) \
+          : ( wxString( SvPV_nolen( arg ), wxConvLibc ) ); \
+  var = (type)var##_tmp.c_str();
 
 #define WXCHAR_OUTPUT( var, arg ) \
   sv_setpv((SV*)arg, (const char*)wxConvUTF8.cWC2MB( var ) ); \
   SvUTF8_on((SV*)arg);        
 
 #define WXSTRING_INPUT( var, type, arg ) \
-  if( SvUTF8( arg ) ) \
-  { \
-    var = wxString(SvPVutf8_nolen(arg),wxConvUTF8); \
-  } \
-  else \
-  { \
-    var = SvPV_nolen(arg); \
-  }
+  var =  ( SvUTF8( arg ) ) ? \
+           wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) \
+         : wxString( SvPV_nolen( arg ) );
 
 #define WXSTRING_OUTPUT( var, arg ) \
   sv_setpv((SV*)arg, (const char*)var.mb_str(wxConvUTF8)); \
-  SvUTF8_on((SV*)arg);        
+  SvUTF8_on((SV*)arg);
 
 #else
 

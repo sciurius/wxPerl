@@ -17,11 +17,27 @@ MODULE=Wx PACKAGE=Wx::Locale
 Wx_Locale*
 newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FALSE )
     const wxChar* name
-    const wxChar* shorts
-    const wxChar* locale
+    const wxChar* shorts = NO_INIT
+    const wxChar* locale = NO_INIT
     bool loaddefault
     bool convertencoding
   CODE:
+    wxString shorts_tmp, locale_tmp;
+    
+    if( items < 2 ) shorts = 0;
+    else
+    {
+        WXSTRING_INPUT( shorts_tmp, dummy, ST(1) );
+        shorts = shorts_tmp.c_str();
+    }
+
+    if( items < 3 ) locale = 0;
+    else
+    {
+        WXSTRING_INPUT( locale_tmp, dummy, ST(2) );
+        locale = locale_tmp.c_str();
+    }
+
     RETVAL = new wxLocale( name, shorts,
 #if wxUSE_UNICODE
         ( locale && wcslen( locale ) ) ? locale : 0,
@@ -99,3 +115,8 @@ MODULE=Wx PACKAGE=Wx PREFIX=wx
 const wxChar*
 wxGetTranslation( string )
     const wxChar* string
+  CODE:
+    wxMB2WXbuf ret = wxGetTranslation( string );
+    RETVAL = ret.data();
+  OUTPUT:
+    RETVAL
