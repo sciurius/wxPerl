@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.32 2005/01/09 22:35:54 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.33 2005/02/26 10:51:59 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -154,9 +154,12 @@ wxSizer::CalcMin()
   OUTPUT:
     RETVAL
 
-void
+wxSize*
 wxSizer::Fit( window )
     wxWindow* window
+  CODE:
+    RETVAL = new wxSize( THIS->CalcMin() );
+  OUTPUT: RETVAL
 
 void
 wxSizer::FitInside( window )
