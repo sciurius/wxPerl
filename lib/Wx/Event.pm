@@ -20,10 +20,10 @@ use Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw();
 
-sub _id($) {
-  Wx::_croak 'Undefined id'
-    unless defined $_[0]; ref( $_[0] ) ? $_[0]->GetId() : $_[0];
-}
+#sub _id($) {
+#  Wx::_croak( 'Undefined id' )
+#    unless defined $_[0]; ref( $_[0] ) ? $_[0]->GetId() : $_[0];
+#}
 
 # !parser: sub { $_[0] =~ m/sub (EVT_\w+)/ }
 # !package: Wx::Event
