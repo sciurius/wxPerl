@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include "cpp/overload.h"
+
 MODULE=Wx PACKAGE=Wx::ComboBox
 
 Wx_ComboBox*
@@ -39,7 +41,15 @@ Wx_ComboBox::new( parent, id, value = wxEmptyString, pos = wxDefaultPosition, si
 void
 Wx_ComboBox::Clear()
 
-#if defined( __WXGTK__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXGTK__ )
+
+void
+Wx_ControlWithItems::Append( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_s, AppendData )
+        MATCH_REDISP( wxPliOvl_s, AppendString )
+    END_OVERLOAD( Wx::ControlWithItems::Append )
 
 void
 Wx_ComboBox::AppendString( item )
@@ -131,6 +141,14 @@ Wx_ComboBox::SetInsertionPoint( pos )
 
 void
 Wx_ComboBox::SetInsertionPointEnd()
+
+void
+Wx_ComboBox::SetSelection( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, SetMark )
+        MATCH_REDISP( wxPliOvl_n, SetSelectionN )
+    END_OVERLOAD( Wx::ComboBox::SetSelection )
 
 void
 Wx_ComboBox::SetSelectionN( n )

@@ -36,15 +36,25 @@ GetWxPerlIcon( small = FALSE )
 
 MODULE=Wx PACKAGE=Wx::Icon
 
+void
+Wx_Icon::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newNull )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, newFile, 2 )
+    END_OVERLOAD( Wx::Icon::new )
+
 Wx_Icon*
-newNull()
+newNull( CLASS )
+    SV* CLASS
   CODE:
     RETVAL = new wxIcon();
   OUTPUT:
     RETVAL
 
 Wx_Icon*
-newFile( name, type, desW = -1, desH = -1 )
+newFile( CLASS, name, type, desW = -1, desH = -1 )
+    SV* CLASS
     wxString name
     long type
     int desW

@@ -76,6 +76,7 @@ WXPL_EXTERN_C_END
 
 #include "cpp/controls.h"
 #include "cpp/controls.cpp"
+#include "cpp/overload.h"
 
 WXPLI_BOOT_ONCE(Wx_Ctrl);
 #define boot_Wx_Ctrl wxPli_boot_Wx_Ctrl
@@ -89,6 +90,14 @@ Wx_Control::Command( event )
     THIS->Command( *event );
 
 MODULE=Wx_Ctrl PACKAGE=Wx::ControlWithItems
+
+void
+Wx_ControlWithItems::Append( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_s, AppendData )
+        MATCH_REDISP( wxPliOvl_s, AppendString )
+    END_OVERLOAD( Wx::ControlWithItems::Append )
 
 void
 Wx_ControlWithItems::AppendString( item )

@@ -14,10 +14,20 @@
 
 MODULE=Wx PACKAGE=Wx::Cursor
 
+void
+Wx_Cursor::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n, newId )
+        MATCH_REDISP( wxPliOvl_wimg, newImage )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, newFile, 2 )
+    END_OVERLOAD( Wx::Cursor::new )
+        
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 Wx_Cursor*
-newFile( name, type, hsx = -1, hsy = -1 )
+newFile( CLASS, name, type, hsx = -1, hsy = -1 )
+    SV* CLASS
     wxString name
     long type
     int hsx
@@ -30,7 +40,8 @@ newFile( name, type, hsx = -1, hsy = -1 )
 #endif
 
 Wx_Cursor*
-newId( id )
+newId( CLASS, id )
+    SV* CLASS
     wxStockCursor id
   CODE:
     RETVAL = new wxCursor( id );
@@ -40,7 +51,8 @@ newId( id )
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 Wx_Cursor*
-newImage( img )
+newImage( CLASS, img )
+    SV* CLASS
     Wx_Image* img
   CODE:
     RETVAL = new wxCursor( *img );
