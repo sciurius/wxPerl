@@ -597,7 +597,7 @@ if( strEQ( name, #n ) ) \
     r( wxLIST_HITTEST_ONITEMLABEL );    // listctrl
     r( wxLIST_HITTEST_ONITEMRIGHT );    // listctrl
     r( wxLIST_HITTEST_ONITEMSTATEICON );// listctrl
-    r( wxLIST_HITTEST_TOLEFT );         // listcrel
+    r( wxLIST_HITTEST_TOLEFT );         // listctrl
     r( wxLIST_HITTEST_TORIGHT );        // listctrl
     r( wxLIST_HITTEST_ONITEM );         // listctrl
 
