@@ -85,7 +85,8 @@ EOT
 }
 
 foreach my $i ( qw(GetCellValue IsInSelection IsVisible MakeCellVisible
-                   ) ) { _create_ovls( $i ); }
+                   GetDefaultEditorForCell) )
+  { _create_ovls( $i ); }
 
 sub SelectBlock {
   my $this = shift;

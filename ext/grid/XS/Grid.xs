@@ -322,6 +322,54 @@ Wx_Grid::GetDefaultColLabelSize()
 int
 Wx_Grid::GetDefaultColSize()
 
+Wx_GridCellEditor*
+Wx_Grid::GetDefaultEditor()
+
+Wx_GridCellEditor*
+Wx_Grid::GetDefaultEditorForType( typeName )
+    wxString typeName
+
+Wx_GridCellEditor*
+Wx_Grid::GetDefaultEditorForCellCo( coords )
+    Wx_GridCellCoords* coords
+  CODE:
+    RETVAL = THIS->GetDefaultEditorForCell( *coords );
+  OUTPUT:
+    RETVAL
+
+Wx_GridCellEditor*
+Wx_Grid::GetDefaultEditorForCellXY( x, y )
+    int x
+    int y
+  CODE:
+    RETVAL = THIS->GetDefaultEditorForCell( x, y );
+  OUTPUT:
+    RETVAL
+
+Wx_GridCellRenderer*
+Wx_Grid::GetDefaultRenderer()
+
+Wx_GridCellRenderer*
+Wx_Grid::GetDefaultRendererForType( typeName )
+    wxString typeName
+
+##Wx_GridCellRenderer*
+##Wx_Grid::GetDefaultRendererForCellCo( coords )
+##    Wx_GridCellCoords* coords
+##  CODE:
+##    RETVAL = THIS->GetDefaultRendererForCell( *coords );
+##  OUTPUT:
+##    RETVAL
+
+Wx_GridCellRenderer*
+Wx_Grid::GetDefaultRendererForCell( x, y )
+    int x
+    int y
+  CODE:
+    RETVAL = THIS->GetDefaultRendererForCell( x, y );
+  OUTPUT:
+    RETVAL
+
 void
 Wx_Grid::GetRowLabelAlignment()
   PREINIT:
@@ -529,6 +577,12 @@ bool
 Wx_Grid::MovePageUp()
 
 void
+Wx_Grid::RegisterDataType( typeName, renderer, editor )
+    wxString typeName
+    Wx_GridCellRenderer* renderer
+    Wx_GridCellEditor* editor
+
+void
 Wx_Grid::SaveEditControlValue()
 
 void
@@ -645,6 +699,20 @@ void
 Wx_Grid::SetDefaultColSize( width, resizeExistingCols = FALSE )
     int width
     bool resizeExistingCols
+
+void
+Wx_Grid::SetDefaultEditor( editor )
+    Wx_GridCellEditor* editor
+  CODE:
+    editor->IncRef();
+    THIS->SetDefaultEditor( editor );
+
+void
+Wx_Grid::SetDefaultRenderer( renderer )
+    Wx_GridCellRenderer* renderer
+  CODE:
+    renderer->IncRef();
+    THIS->SetDefaultRenderer( renderer );
 
 void
 Wx_Grid::SetDefaultRowSize( height, resizeExistingCols = FALSE )
