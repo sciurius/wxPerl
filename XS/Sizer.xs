@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.34 2005/03/19 17:56:05 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.35 2005/03/19 22:32:50 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -111,7 +111,7 @@
     %name{RemoveSizer} bool Remove( wxSizer* window );
     %name{RemoveNth} bool Remove( int nth );
 
-#if WXPERL_W_WINDOW_GE( 2, 5, 3 )
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     %name{DetachWindow} bool Detach( wxWindow* window );
     %name{DetachSizer} bool Detach( wxSizer* window );
     %name{DetachNth} bool Detach( int nth );
