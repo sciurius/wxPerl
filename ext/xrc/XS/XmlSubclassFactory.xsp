@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/06/2003
-## RCS-ID:      $Id: XmlSubclassFactory.xsp,v 1.1 2003/06/05 17:20:59 mbarbon Exp $
+## RCS-ID:      $Id: XmlSubclassFactory.xsp,v 1.2 2003/10/02 17:07:58 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,6 +13,7 @@
 %module{Wx};
 
 %typemap{wxPliXmlSubclassFactory*}{simple};
+%typemap{wxXmlSubclassFactory*}{simple};
 
 %file{cpp/factory.h};
 %{
@@ -59,9 +60,9 @@ DEF_V_CBACK_WXOBJECT__WXSTRING_pure( wxPliXmlSubclassFactory, wxXmlSubclassFacto
 #include "cpp/factory.h"
 %}
 
-%name{Wx::XmlSubclassFactory} class wxPliXmlSubclassFactory
+%name{Wx::XmlSubclassFactory} class wxXmlSubclassFactory
 {
     wxXmlSubclassFactory()
         %code{% RETVAL = new wxPliXmlSubclassFactory( CLASS ); %};
-    ~wxXmlSubclassFactory();
+##    ~wxXmlSubclassFactory();
 };

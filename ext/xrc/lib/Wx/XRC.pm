@@ -28,6 +28,8 @@ Wx::XmlInitResourceModule();
 
 *Wx::XmlResource::GetXMLID = \&Wx::XmlResource::GetXRCID;
 
+# Wx::XmlResource::AddSubclassFactory( Wx::XmlSubclassFactory->new );
+
 #
 # properly setup inheritance tree
 #
@@ -35,6 +37,7 @@ Wx::XmlInitResourceModule();
 no strict;
 
 package Wx::PlXmlResourceHandler; @ISA = qw(Wx::XmlResourceHandler);
+package Wx::PliXmlSubclassFactory; @IAS = qw(Wx::XmlSubclassFactory);
 
 use strict;
 
