@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: _Constants.pm,v 1.10 2003/05/04 17:31:56 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,8 +18,6 @@ BEGIN {
   $_default_position $_default_size $_version_string $_default_validator
   $_null_bitmap $_null_icon $_null_colour $_null_cursor $_null_font $_null_pen
   $_null_brush $_null_palette $_null_accelerator
-  $_colour_black $_colour_red $_colour_green $_colour_blue
-  $_colour_white $_colour_cyan $_colour_light_grey
   $_cursor_standard $_cursor_hourglass $_cursor_cross
   $_font_normal $_font_italic $_font_small $_font_swiss
   $_pen_red $_pen_cyan $_pen_green $_pen_black $_pen_white
@@ -27,8 +25,7 @@ BEGIN {
   $_pen_light_grey
   $_brush_blue $_brush_green $_brush_white $_brush_black $_brush_grey
   $_brush_medium_grey $_brush_light_grey $_brush_transparent
-  $_brush_cyan $_brush_red $_format_invalid $_clipboard
-  $_img_bmp_format $_img_cur_hotspot_x $_img_cur_hotspot_y $_img_filename);
+  $_brush_cyan $_brush_red $_format_invalid $_clipboard);
 
   import vars @vars;
 }
@@ -53,14 +50,6 @@ sub wxNullPen() { $_null_pen }                      # pen
 sub wxNullBrush() { $_null_brush }                  # brush
 sub wxNullPalette() { $_null_palette }              # palette
 sub wxNullAcceleratorTable() { $_null_accelerator }
-
-sub wxRED() { $_colour_red }                        # color colour
-sub wxGREEN() { $_colour_green }                    # color colour
-sub wxBLUE() { $_colour_blue }                      # color colour
-sub wxBLACK() { $_colour_black }                    # color colour
-sub wxWHITE() { $_colour_white }                    # color colour
-sub wxCYAN() { $_colour_cyan }                      # color colour
-sub wxLIGHT_GREY() { $_colour_light_grey }          # color colour
 
 sub wxSTANDARD_CURSOR() { $_cursor_cross }          # cursor
 sub wxHOURGLASS_CURSOR() { $_cursor_hourglass }     # cursor
@@ -95,15 +84,6 @@ sub wxRED_BRUSH() { $_brush_red }                   # brush
 
 sub wxFormatInvalid() { $_format_invalid }          # dnd
 sub wxTheClipboard() { $_clipboard }                # clipboard
-
-sub wxVERSION_STRING() { $_version_string }
-
-sub wxTheApp() { $Wx::App::theapp }
-
-sub wxIMAGE_OPTION_BMP_FORMAT() { $Wx::_img_bmp_format } # image
-sub wxIMAGE_OPTION_CUR_HOTSPOT_X() { $Wx::_img_cur_hotspot_x } # image
-sub wxIMAGE_OPTION_CUR_HOTSPOT_Y() { $Wx::_img_cur_hotspot_y } # image
-sub wxIMAGE_OPTION_FILENAME() { $Wx::_img_filename } # image
 
 1;
 

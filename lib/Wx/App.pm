@@ -4,32 +4,31 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: App.pm,v 1.11 2003/05/04 17:31:56 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 package Wx::App;
 
-use strict;
-use vars qw(@ISA $theapp);
-
 @ISA = qw(Wx::_App);
+
+use strict;
 
 # this allows multiple ->new calls and it is an horrible kludge to allow
 # Wx::Perl::SplashFast to work "better"; see also App.xs:Start
 sub new {
   my $this;
 
-  if( ref $theapp ) {
+  if( ref( $Wx::wxTheApp ) ) {
     my $class = ref( $_[0] ) || $_[0];
-    bless $theapp, $class;
-    $this = $theapp;
+    bless $Wx::wxTheApp, $class;
+    $this = $Wx::wxTheApp;
   } else {
     #Wx::_croak( "Only one 'Wx::App' instance allowed" ) if $theapp;
     $this = $_[0]->SUPER::new();
-    $theapp = $this;
+    $Wx::wxTheApp = $this;
   }
 
   $this->SetAppName($_[0]); # reasonable default for Wx::ConfigBase::Get

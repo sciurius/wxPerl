@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.56 2003/05/02 20:23:32 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.57 2003/05/04 17:32:15 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,12 +13,10 @@
 package Wx;
 
 use strict;
-
 require Exporter;
 
 use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
-  $_platform $_universal $_msw $_gtk $_motif $_mac $_x11 $_wx_version $_static
-  $_unicode);
+  $_platform $_universal $_msw $_gtk $_motif $_mac $_x11 $_static);
 
 $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4; $_x11 = 5;
 
@@ -26,15 +24,16 @@ $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4; $_x11 = 5;
 $VERSION = '0.15';
 
 sub BEGIN{
-  @EXPORT_OK = qw(wxPOINT wxSIZE);
+  @EXPORT_OK = qw(wxPOINT wxSIZE wxTheApp);
   %EXPORT_TAGS = ( );
 }
 
 #
 # utility functions
 #
-sub wxPOINT { Wx::Point->new( $_[0], $_[1] ) }
-sub wxSIZE  { Wx::Size->new( $_[0], $_[1] )  }
+sub wxPOINT  { Wx::Point->new( $_[0], $_[1] ) }
+sub wxSIZE   { Wx::Size->new( $_[0], $_[1] )  }
+sub wxTheApp { $Wx::wxTheApp }
 
 sub AUTOLOAD {
   my( $constname );
@@ -141,6 +140,7 @@ require Wx::_Constants;
 
 Load();
 SetConstants();
+SetConstantsOnce();
 SetOvlConstants();
 SetEvents();
 SetInheritance();
@@ -155,8 +155,6 @@ eval( "sub wxMSW() { $_platform == $_msw }" );
 eval( "sub wxGTK() { $_platform == $_gtk }" );
 eval( "sub wxMAC() { $_platform == $_mac }" );
 eval( "sub wxX11() { $_platform == $_x11 }" );
-eval( "sub wxVERSION() { $_wx_version }" );
-eval( "sub wxUNICODE() { $_unicode }" );
 
 require Wx::App;
 require Wx::Event;
@@ -166,12 +164,12 @@ require Wx::RadioBox;
 require Wx::Region;
 require Wx::Sizer;
 require Wx::Timer;
-require Wx::_Exp;
+require Wx::Wx_Exp;
 require Wx::_Functions;
 # for Wx::Stream & co.
 if( $] >= 5.005 ) { require Tie::Handle; }
 
-package Wx::GDIObject;
+package Wx::GDIObject; # warning for non-existent package
 
 #
 # overloading for Wx::TreeItemId
@@ -190,18 +188,18 @@ package Wx::SplashScreen;
 use strict;
 use vars qw(@ISA);
 
-if( $Wx::_wx_version < 2.003001 ) {
-  require Wx::SplashScreen;
-  @ISA = qw(Wx::_SplashScreenPerl);
-
-  *Wx::wxSPLASH_CENTRE_ON_PARENT = sub { 0x01 };
-  *Wx::wxSPLASH_CENTRE_ON_SCREEN = sub { 0x02 };
-  *Wx::wxSPLASH_NO_CENTRE = sub { 0x00 };
-  *Wx::wxSPLASH_TIMEOUT = sub { 0x04 };
-  *Wx::wxSPLASH_NO_TIMEOUT = sub { 0x00 };
-} else {
+#if( $Wx::_wx_version < 2.003001 ) {
+#  require Wx::SplashScreen;
+#  @ISA = qw(Wx::_SplashScreenPerl);
+#
+#  *Wx::wxSPLASH_CENTRE_ON_PARENT = sub { 0x01 };
+#  *Wx::wxSPLASH_CENTRE_ON_SCREEN = sub { 0x02 };
+#  *Wx::wxSPLASH_NO_CENTRE = sub { 0x00 };
+#  *Wx::wxSPLASH_TIMEOUT = sub { 0x04 };
+#  *Wx::wxSPLASH_NO_TIMEOUT = sub { 0x00 };
+#} else {
   @ISA = qw(Wx::_SplashScreenCpp);
-}
+#}
 
 package Wx::_SplashScreenCpp;
 

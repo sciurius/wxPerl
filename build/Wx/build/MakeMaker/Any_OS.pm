@@ -7,7 +7,7 @@ use Wx::build::Options;
 use Wx::build::Utils qw(xs_dependencies lib_file);
 use File::Find qw(find);
 
-my $exp = lib_file( 'Wx/_Exp.pm' );
+my $exp = lib_file( 'Wx/Wx_Exp.pm' );
 my $ovl = lib_file( 'Wx/_Ovl.pm' );
 my $ovlc = File::Spec->catfile( qw(cpp ovl_const.cpp) );
 my $ovlh = File::Spec->catfile( qw(cpp ovl_const.h) );

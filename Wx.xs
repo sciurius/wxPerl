@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      1/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.49 2003/04/22 19:25:35 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.50 2003/05/04 17:32:15 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -84,6 +84,7 @@ extern "C" {
 #endif
 
 extern void SetConstants();
+extern void SetConstantsOnce();
 
 #if defined(__WXMOTIF__) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
 
@@ -178,10 +179,13 @@ Load()
     if( initialized ) { XSRETURN_EMPTY; }
     initialized = true;
 
+    NV ver = wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 + 
+        wxRELEASE_NUMBER / 1000000.0;
     // set up version as soon as possible
-    SV* tmp = get_sv( "Wx::_wx_version", 0 );
-    sv_setnv( tmp, wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 + 
-        wxRELEASE_NUMBER / 1000000.0 );
+    SV* tmp = get_sv( "Wx::_wx_version", 1 );
+    sv_setnv( tmp, ver );
+    tmp = get_sv( "Wx::wxVERSION", 1 );
+    sv_setnv( tmp, ver );
 
     if( wxTopLevelWindows.Number() > 0 )
         return;
@@ -200,6 +204,9 @@ SetConstants()
     // wxInitializeStockObjects needs to be called
     // (for colours, cursors, pens, etc...)
     SetConstants();
+
+void
+SetConstantsOnce()
 
 void
 SetOvlConstants()

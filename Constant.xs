@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.77 2003/05/02 20:29:02 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.78 2003/05/04 17:32:15 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1743,7 +1743,7 @@ static double constant( const char *name, int arg )
 }
 
 // XXX hacky
-void my_sv_setref_pv( pTHX_ SV* mysv, const char* pack, void* ptr )
+static void my_sv_setref_pv( pTHX_ SV* mysv, const char* pack, void* ptr )
 {
     if( SvROK( mysv ) )
     {
@@ -1757,8 +1757,133 @@ void my_sv_setref_pv( pTHX_ SV* mysv, const char* pack, void* ptr )
     }
 }
 
+static void wxPli_make_const( const char* name )
+{
+    dTHX;
+    char buffer[256];
+    HV* stash = gv_stashpv( CHAR_P "Wx", 1 );
+
+    strcpy( buffer, "Wx::" );
+    strcpy( buffer + 4, name );
+
+    SV* sv = get_sv( buffer, 1 );
+    newCONSTSUB( stash, (char*)name, sv );
+}
+
+static void wxPli_set_const( const char* name, const char* klass, void* ptr )
+{
+    dTHX;
+    char buffer[256];
+
+    strcpy( buffer, "Wx::" );
+    strcpy( buffer + 4, name );
+
+    SV* sv = get_sv( buffer, 1 );
+
+    my_sv_setref_pv( aTHX_ sv, klass, ptr );
+}
+
 #undef sv_setref_pv
 #define sv_setref_pv( s, p, pt ) my_sv_setref_pv( aTHX_ s, p, pt )
+
+// !parser: sub { $_[0] =~ m<^\s*wxPli_\w+\(\s*\"(wx\w+)\"\s*\);\s*(?://(.*))?$> }
+// !package: Wx
+
+void SetConstantsOnce()
+{
+    dTHX;
+
+    wxPli_make_const( "wxVERSION_STRING" );
+
+    wxPli_make_const( "wxRED" );                // color colour
+    wxPli_make_const( "wxGREEN" );              // color colour
+    wxPli_make_const( "wxBLUE" );               // color colour
+    wxPli_make_const( "wxBLACK" );              // color colour
+    wxPli_make_const( "wxWHITE" );              // color colour
+    wxPli_make_const( "wxCYAN" );               // color colour
+    wxPli_make_const( "wxLIGHT_GREY" );         // color colour
+
+    wxPli_make_const( "wxIMAGE_OPTION_BMP_FORMAT" );    // image
+    wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_X" ); // image
+    wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_Y" ); // image
+    wxPli_make_const( "wxIMAGE_OPTION_FILENAME" );      // image
+
+    // these are correctly cloned
+    SV* tmp;
+    tmp = get_sv( "Wx::wxVERSION_STRING", 0 );
+    wxPli_wxChar_2_sv( aTHX_ wxVERSION_STRING, tmp );
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    tmp = get_sv( "Wx::wxIMAGE_OPTION_BMP_FORMAT", 0 );
+    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_BMP_FORMAT, tmp );
+
+    tmp = get_sv( "Wx::wxIMAGE_OPTION_CUR_HOTSPOT_X", 0 );
+    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_CUR_HOTSPOT_X, tmp );
+
+    tmp = get_sv( "Wx::wxIMAGE_OPTION_CUR_HOTSPOT_Y", 0 );
+    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_CUR_HOTSPOT_Y, tmp );
+
+    tmp = get_sv( "Wx::wxIMAGE_OPTION_FILENAME", 0 );
+    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_FILENAME, tmp );
+#endif
+
+    int platform;
+    int universal;
+    int xstatic;
+    int unicode;
+
+#if defined(__WXMSW__)
+    platform = 1;
+#elif defined(__WXGTK__)
+    platform = 2;
+#elif defined(__WXMOTIF__)
+    platform = 3;
+#elif defined(__WXMAC__)
+    platform = 4;
+#elif defined(__WXX11__)
+    platform = 5;
+#else
+    #error must add case
+#endif
+
+#if defined(__WXUNIVERSAL__)
+    universal = 1;
+#else
+    universal = 0;
+#endif
+
+#if defined(WXPL_STATIC)
+    xstatic = 1;
+#else
+    xstatic = 0;
+#endif
+
+#if wxUSE_UNICODE
+    unicode = 1;
+#else
+    unicode = 0;
+#endif
+
+    tmp = get_sv( "Wx::_platform", 1 );
+    sv_setiv( tmp, platform );
+
+    tmp = get_sv( "Wx::_universal", 1 );
+    sv_setiv( tmp, universal );
+
+    tmp = get_sv( "Wx::_static", 1 );
+    sv_setiv( tmp, xstatic );
+
+    tmp = get_sv( "Wx::_unicode", 1 );
+    sv_setiv( tmp, unicode );
+    tmp = get_sv( "Wx::wxUNICODE", 1 );
+    sv_setiv( tmp, unicode );
+
+    // constant functions
+    wxPli_make_const( "wxUNICODE" /* don't export */ );
+    wxPli_make_const( "wxVERSION" /* don't export */ );
+}
+
+// !parser:
 
 void SetConstants()
 {
@@ -1808,27 +1933,14 @@ void SetConstants()
     //
     // Predefined colours
     //
-    tmp = get_sv( "Wx::_colour_black", 0 );
-    sv_setref_pv( tmp, "Wx::Colour", new wxColour( *wxBLACK ) );
-
-    tmp = get_sv( "Wx::_colour_red", 0 );
-    sv_setref_pv( tmp, "Wx::Colour", new wxColour( *wxRED ) );
-
-    tmp = get_sv( "Wx::_colour_green", 0 );
-    sv_setref_pv( tmp, "Wx::Colour", new wxColour( *wxGREEN ) );
-
-    tmp = get_sv( "Wx::_colour_blue", 0 );
-    sv_setref_pv( tmp, "Wx::Colour", new wxColour( *wxBLUE ) );
-
-    tmp = get_sv( "Wx::_colour_white", 0 );
-    sv_setref_pv( tmp, "Wx::Colour", new wxColour( *wxWHITE ) );
-
-    tmp = get_sv( "Wx::_colour_cyan", 0 );
-    sv_setref_pv( tmp, "Wx::Colour", new wxColour( *wxCYAN ) );
-
-    tmp = get_sv( "Wx::_colour_light_grey", 0 );
-    sv_setref_pv( tmp, "Wx::Colour", new wxColour( *wxLIGHT_GREY ) );
-
+    wxPli_set_const( "wxRED", "Wx::Colour", new wxColour( *wxRED ) );
+    wxPli_set_const( "wxGREEN", "Wx::Colour", new wxColour( *wxGREEN ) );
+    wxPli_set_const( "wxBLUE", "Wx::Colour", new wxColour( *wxBLUE ) );
+    wxPli_set_const( "wxBLACK", "Wx::Colour", new wxColour( *wxBLACK ) );
+    wxPli_set_const( "wxWHITE", "Wx::Colour", new wxColour( *wxWHITE ) );
+    wxPli_set_const( "wxCYAN", "Wx::Colour", new wxColour( *wxCYAN ) );
+    wxPli_set_const( "wxLIGHT_GREY", "Wx::Colour",
+                     new wxColour( *wxLIGHT_GREY ) );
 
     //
     // predefined cursors
@@ -1931,62 +2043,6 @@ void SetConstants()
 
     tmp = get_sv( "Wx::_clipboard", 0 );
     sv_setref_pv( tmp, "Wx::Clipboard", wxTheClipboard );
-
-    //
-    // Miscellaneous
-    //
-    tmp = get_sv( "Wx::_version_string", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxVERSION_STRING, tmp );
-
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-    tmp = get_sv( "Wx::_img_bmp_format", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_BMP_FORMAT, tmp );
-
-    tmp = get_sv( "Wx::_img_cur_hotspot_x", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_CUR_HOTSPOT_Y, tmp );
-
-    tmp = get_sv( "Wx::_img_cur_hotspot_y", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_CUR_HOTSPOT_Y, tmp );
-
-    tmp = get_sv( "Wx::_img_filename", 0 );
-    wxPli_wxChar_2_sv( aTHX_ wxIMAGE_OPTION_FILENAME, tmp );
-#endif
-
-    tmp = get_sv( "Wx::_platform", 0 );
-#if defined(__WXMSW__)
-    sv_setiv( tmp, 1 );
-#elif defined(__WXGTK__)
-    sv_setiv( tmp, 2 );
-#elif defined(__WXMOTIF__)
-    sv_setiv( tmp, 3 );
-#elif defined(__WXMAC__)
-    sv_setiv( tmp, 4 );
-#elif defined(__WXX11__)
-    sv_setiv( tmp, 5 );
-#else
-    #error must add case
-#endif
-
-    tmp = get_sv( "Wx::_universal", 0 );
-#if defined(__WXUNIVERSAL__)
-    sv_setiv( tmp, 1 );
-#else
-    sv_setiv( tmp, 0 );
-#endif
-
-    tmp = get_sv( "Wx::_static", 0 );
-#if defined(WXPL_STATIC)
-    sv_setiv( tmp, 1 );
-#else
-    sv_setiv( tmp, 0 );
-#endif
-
-    tmp = get_sv( "Wx::_unicode", 0 );
-#if wxUSE_UNICODE
-    sv_setiv( tmp, 1 );
-#else
-    sv_setiv( tmp, 0 );
-#endif
 }
 
 WXPLI_BOOT_ONCE(Wx_Const);
