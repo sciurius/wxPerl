@@ -11,6 +11,7 @@
 #############################################################################
 
 #include <wx/statusbr.h>
+#include "cpp/statusbar.h"
 
 MODULE=Wx PACKAGE=Wx::StatusBar
 
@@ -23,7 +24,7 @@ Wx_StatusBar::new( parent, id, style = 0, name = wxEmptyString )
     long style
     wxString name
   CODE:
-    RETVAL = new wxStatusBar( parent, id, style, name );
+    RETVAL = new wxPliStatusBar( CLASS, parent, id, style, name );
   OUTPUT:
     RETVAL
 
