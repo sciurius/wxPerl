@@ -10,15 +10,17 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-#if __WXMSW__
-
-BOOL APIENTRY DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
+// for some strange reason this is not called under MinGW
+// so the HMODULE is retrieved from DynaLoader
+#ifdef __WXMSW__
+/*
+BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 {
     if( fdwReason == DLL_PROCESS_ATTACH )
         wxSetInstance( (HINSTANCE)hModule );
     return TRUE;
 }
-
+*/
 #endif
 
 _wxSelfRef::_wxSelfRef( const char* unused )
@@ -264,13 +266,13 @@ int _get_args_argc_argv( char*** argvp )
     {
         I32 i;
         int arg_num = av_len( args ) + 1;
+
         argv = new char* [arg_num + 1 + 1];
 #if WXP_VERSION < 5006
         argv[0] = SvPV( progname, PL_na );
 #else
         argv[0] = SvPV_nolen( progname );
 #endif
-
         for( i=0; i < arg_num; ++i )
         {
 #if WXP_VERSION < 5006
@@ -318,6 +320,8 @@ const char* _get_class( SV* ref )
     return ret;
 }
 
+#if 0
+
 void _get_args_objectarray( SV** sp, int items, void** array, const char* package )
 {
     int i;
@@ -328,6 +332,8 @@ void _get_args_objectarray( SV** sp, int items, void** array, const char* packag
     }
 }
 
+#endif
+
 wxPoint _sv_2_wxpoint( SV* scalar )
 {
     if( SvROK( scalar ) ) 
@@ -336,7 +342,7 @@ wxPoint _sv_2_wxpoint( SV* scalar )
         
         if( sv_derived_from( scalar, CHAR_P wxPlPointName ) ) 
         {
-            return *(wxPoint*)SvIV( (SV*) SvRV( scalar ) );
+            return *(wxPoint*)SvIV( ref );
         }
         else if( SvTYPE( ref ) == SVt_PVAV )
         {
@@ -392,6 +398,69 @@ wxSize _sv_2_wxsize( SV* scalar )
     return wxSize();
 }
 
+int _get_pointarray( SV* arr, wxList *points, wxPoint** tmp )
+{
+    *tmp = 0;
+
+    if( !SvROK( arr ) || SvTYPE( SvRV( arr ) ) != SVt_PVAV )
+    {
+        croak( "variable is not an array reference" );
+    }
+
+    AV* array = (AV*) SvRV( arr );
+    int itm = av_len( array ) + 1, i;
+
+    if( itm == 0 )
+        return 0;
+
+    *tmp = new wxPoint[ itm ];
+    int used = 0;
+
+    for( i = 0; i < itm; ++i )
+    {
+        SV* scalar = *av_fetch( array, i, 0 );
+
+        if( SvROK( scalar ) ) 
+        {
+            SV* ref = SvRV( scalar );
+        
+            if( sv_derived_from( scalar, CHAR_P wxPlPointName ) ) 
+            {
+                points->Append( (wxObject*)SvIV( ref ) );
+                continue;
+            }
+            else if( SvTYPE( ref ) == SVt_PVAV )
+            {
+                AV* av = (AV*) ref;
+            
+                if( av_len( av ) != 1 )
+                {
+                    croak( "the array reference must have 2 elements" );
+                    delete [] *tmp;
+                    return 0;
+                }
+                else
+                {
+                    int x = SvIV( *av_fetch( av, 0, 0 ) );
+                    int y = SvIV( *av_fetch( av, 1, 0 ) );
+
+                    (*tmp)[ used ] = wxPoint( x, y );
+                    points->Append( (wxObject*)(*tmp) + used );
+                    ++used;
+                    continue;
+                }
+            }
+        }
+
+        croak( "variable is not of type Wx::Point" );
+        delete [] *tmp;
+        return 0;
+    }
+
+    return itm;
+}
+
 // Local variables: //
 // mode: c++ //
 // End: //
+

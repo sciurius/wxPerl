@@ -26,6 +26,8 @@ void _get_args_objectarray( SV** sp, int items, void** array, const char* packag
 wxPoint _sv_2_wxpoint( SV* scalar );
 wxSize _sv_2_wxsize( SV* scalar );
 
+int _get_pointarray( SV* array, wxList *points, wxPoint** tmp );
+
 class _wxUserDataCD:public wxClientData
 {
 public:
