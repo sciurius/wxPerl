@@ -33,7 +33,8 @@ sub new {
   my $spl_ti = Wx::constant( 'wxSPLASH_TIMEOUT', 0 );
   my $bitmap = Wx::Bitmap::newFile( $_[0], $any );
 
-  my $splash = Wx::SplashScreen->new( $bitmap , $spl_c|$spl_ti , $_[1] || 1000 , undef , -1 );
+  my $splash = Wx::SplashScreen->new( $bitmap , $spl_c|$spl_ti ,
+                                      $_[1] || 1000 , undef , -1 );
 
   return( $splash ) ;
 }
@@ -50,9 +51,9 @@ use vars qw(@ISA) ;
 
 sub OnInit { return 1 }
 
-################################################################################
-## WX BASICS: ##################################################################
-################################################################################
+###############################################################################
+## WX BASICS: #################################################################
+###############################################################################
 
 ######
 # WX #
@@ -99,7 +100,8 @@ package Wx::SplashScreen;
 
 use vars qw(@ISA); @ISA = qw(Wx::_SplashScreenCpp);
 
-# check wxWindows version, since the C++ implementation of Wx::SplashScreen is only available for wxWindows 2.3.x
+# check wxWindows version, since the C++ implementation of
+# Wx::SplashScreen is only available for wxWindows 2.3.x
 if( $Wx::_wx_version < 2.003 && $Wx::_wx_version > 0 ) {
   require Carp;
   Carp::croak( "You are using wxPerl with wxWindows $Wx::_wx_version. You need wxPerl (0.11+) compiled against wxWindows 2.3!" );
@@ -118,11 +120,12 @@ __END__
 
 =head1 NAME
 
-Wx::Perl::SplashFast - Fast splash screen for the Wx module..
+Wx::Perl::SplashFast - Fast splash screen for the Wx module.
 
 =head1 SYNOPSIS
 
-  use Wx::Perl::SplashFast ('/path/to/logo.jpg',3000); # timeout in milliseconds
+  use Wx::Perl::SplashFast ('/path/to/logo.jpg',3000);
+  # timeout in milliseconds
 
   package myApp ;
   # subclass Wx::App ...
@@ -152,26 +155,52 @@ Just put the code inside the 'BEGIN {}' of your main app, like:
 
   sub BEGIN {
     use Wx::Perl::SplashFast ;
-  Wx::Perl::SplashFast->new("./logo.jpg",5000);
+    Wx::Perl::SplashFast->new("./logo.jpg",5000);
   }
-  
+
 or load the module before any other:
 
   use Wx::Perl::SplashFast ("./logo.jpg",5000) ;
   use Wx ;
   ...
 
-=item import
+=head2 import ( IMG_FILE, SPLASH_TIMEOUT )
 
-If ARGS are past to the import - (use Wx::Perl::SplashFast('img',1000)) - the
-SplashFast will be started, redirecting the ARGS to Wx::Perl::SplashFast::new
+=over 10
 
-=item new ( IMG_FILE , SPLASH_TIMEOUT )
+=item IMG_FILE
+
+Path of the image file to show.
+
+=item SPLASH_TIMEOUT
+
+Timeout of the splash screen in milliseconds.
+
+=back
+
+If you C<use Wx::Perl::SplashFast './logo.jpg', 1000;> this has the same
+affetc as.
+
+  BEGIN {
+    require Wx::Perl::SplashFast;
+    Wx::Perl::SplashFast->new( './logo.jpg', 1000 );
+  }
+
+=head2 new ( IMG_FILE , SPLASH_TIMEOUT )
 
 Show the splash screen.
 
-IMG_FILE => The image file to show.
-SPLASH_TIMEOUT => Timeout of the splash in ms.
+=over 10
+
+=item IMG_FILE
+
+Path of the image file to show.
+
+=item SPLASH_TIMEOUT
+
+Timeout of the splash screen in milliseconds.
+
+=back
 
 =head1 EXAMPLE
 
@@ -179,22 +208,23 @@ SPLASH_TIMEOUT => Timeout of the splash in ms.
   # Don't forget to put your own image in the same path. Duh
 
   package myApp ;
-  use vars qw(@ISA) ; @ISA = qw(Wx::App) ;
+  use base 'Wx::App';
   sub OnInit { return(@_[0]) ;}
 
   package myFrame ;
-  use vars qw(@ISA) ; @ISA = qw(Wx::Frame);
+  use base 'Wx::Frame';
   use Wx qw( wxDEFAULT_FRAME_STYLE );
 
   sub new {
     my $app = shift ;
-    my( $frame ) = $app->SUPER::new( @_[0] , -1, 'wxPerl Test' , [0,0] , [400,300] , wxDEFAULT_FRAME_STYLE) ;
+    my( $frame ) = $app->SUPER::new( @_[0] , -1, 'wxPerl Test' ,
+                                     [0,0] , [400,300] ) ;
     return( $frame ) ;
   }
 
   package main ;
   use Wx ;
-  
+
   my $myApp = myApp->new() ;
 
   print "window\n" ;
@@ -206,8 +236,8 @@ SPLASH_TIMEOUT => Timeout of the splash in ms.
 
 =head1 NOTE
 
-This module show a SplashScreen without load Wx modules! For this we have to work directly with the XS functions of Wx.
-To do this the module works with the package Wx::_SplashScreenCpp. This package are only present in wxPerl 0.11+ (with wxWindows 2.3.+).
+This package only works if wxPerl has been compiled against
+wxWindows 2.3.x.
 
 =head1 SEE ALSO
 
