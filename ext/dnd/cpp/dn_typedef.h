@@ -41,6 +41,7 @@ FD_TD( PlFileDataObject );
 FD_TD( PlTextDataObject );
 FD_TD( TextDataObject );
 FD_TD( TextDropTarget );
+FD_TD( URLDataObject );
 
 #undef FD_TD
 

@@ -262,3 +262,15 @@ Wx_FileDataObject::GetFilenames()
       PUSHs( sv_2mortal( newSVpv( CHAR_P filenames[i].c_str(), 0 ) ) );
 #endif
     }
+
+MODULE=Wx PACKAGE=Wx::URLDataObject
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+Wx_URLDataObject*
+Wx_URLDataObject::new()
+
+wxString
+Wx_URLDataObject::GetURL()
+
+#endif

@@ -20,6 +20,7 @@ Wx_DataObject *         O_NON_WXOBJECT
 Wx_FileDataObject *     O_NON_WXOBJECT
 Wx_TextDataObject *     O_NON_WXOBJECT
 Wx_BitmapDataObject *   O_NON_WXOBJECT
+Wx_URLDataObject *      O_NON_WXOBJECT
 Wx_CustomDataObject *   O_NON_WXOBJECT
 Wx_DataObjectSimple *   O_NON_WXOBJECT
 Wx_DataObjectComposite * O_NON_WXOBJECT
