@@ -12,7 +12,9 @@
 
 package Wx;
 
-use vars qw(
+my @vars;
+BEGIN {
+  @vars = qw(
   $_default_position $_default_size $_version_string $_default_validator
   $_null_bitmap $_null_icon $_null_colour $_null_cursor $_null_font $_null_pen
   $_null_brush $_null_palette $_null_accelerator
@@ -26,6 +28,13 @@ use vars qw(
   $_brush_blue $_brush_green $_brush_white $_brush_black $_brush_grey
   $_brush_medium_grey $_brush_light_grey $_brush_transparent
   $_brush_cyan $_brush_red);
+
+  import vars @vars;
+}
+
+sub END {
+  foreach ( @vars ) { s/^\$//; undef $$_ }
+}
 
 # !parser: sub { $_[0] =~ m/^\s*sub\s+(wx\w+)[^\}]*\}\s*(?:\#(.*))?$/ }
 # !package: Wx
