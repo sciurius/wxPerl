@@ -93,6 +93,7 @@ package Wx::PCXHandler;                 @ISA = qw(Wx::ImageHandler);
 package Wx::PNMHandler;                 @ISA = qw(Wx::ImageHandler);
 package Wx::TIFFHandler;                @ISA = qw(Wx::ImageHandler);
 package Wx::XPMHandler;                 @ISA = qw(Wx::ImageHandler);
+package Wx::IFFHandler;                 @ISA = qw(Wx::ImageHandler);
 
 package Wx::Log;
 package Wx::LogTextCtrl;                @ISA = qw(Wx::Log);

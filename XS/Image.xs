@@ -22,6 +22,8 @@ newNull()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
+
 Wx_Image*
 newBitmap( bitmap )
     Wx_Bitmap* bitmap
@@ -42,6 +44,15 @@ newIcon( icon )
 #endif
   OUTPUT:
     RETVAL
+
+Wx_Bitmap*
+Wx_Image::ConvertToBitmap()
+  CODE:
+    RETVAL = new wxBitmap( THIS->ConvertToBitmap() );
+  OUTPUT:
+    RETVAL
+
+#endif
 
 Wx_Image*
 newWH( width, height )
@@ -115,13 +126,6 @@ AddHandler( handler )
     Wx_ImageHandler* handler
   CODE:
     wxImage::AddHandler( handler );
-
-Wx_Bitmap*
-Wx_Image::ConvertToBitmap()
-  CODE:
-    RETVAL = new wxBitmap( THIS->ConvertToBitmap() );
-  OUTPUT:
-    RETVAL
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
@@ -308,6 +312,18 @@ Wx_Image::LoadStreamMIME( stream, type )
 
 bool
 Wx_Image::Ok()
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+bool
+Wx_Image::SaveFileOnly( name )
+    wxString name
+  CODE:
+    RETVAL = THIS->SaveFile( name );
+  OUTPUT:
+    RETVAL
+
+#endif
 
 bool
 Wx_Image::SaveFileType( name, type )

@@ -54,6 +54,36 @@ newFile( name, type, desW = -1, desH = -1 )
   OUTPUT:
     RETVAL
 
+#if defined( __WXGTK__ ) || defined( __WXPERL_FORCE__ )
+
+##Wx_Icon*
+##newFromBits( bits, width, height, depth = 1 )
+##    SV* bits
+##    int width
+##    int height
+##    int depth
+##  PREINIT:
+##    void* buffer = SvPV_nolen( bits );
+##  CODE:
+##    RETVAL = new wxIcon( buffer, width, height, depth );
+##  OUTPUT:
+##    RETVAL
+
+#endif
+
+Wx_Icon*
+newFromXPM( data )
+    SV* data
+  PREINIT:
+    char** xpm_data;
+    size_t i, n = wxPli_av_2_charparray( data, &xpm_data );
+  CODE:
+    RETVAL = new wxIcon( xpm_data );
+    for( i = 0; i < n; ++i )
+        free( xpm_data[i] );
+  OUTPUT:
+    RETVAL
+
 void
 Wx_Icon::DESTROY()
 
@@ -73,6 +103,7 @@ Wx_Icon::Ok()
 
 #if defined( __WXMSW__ ) || \
     ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3, 1 ) ) || \
+    ( defined( __WXMOTIF__ ) && WXPERL_W_VERSION_GE( 2, 3, 3 ) ) || \
     defined( __WXPERL_FORCE__ )
 
 void

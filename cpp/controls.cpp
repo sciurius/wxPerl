@@ -274,6 +274,9 @@ double treectrl_constant( const char* name, int arg )
     r( wxTR_HAS_BUTTONS );              // treectrl
     r( wxTR_EDIT_LABELS );              // treectrl
     r( wxTR_MULTIPLE );                 // treectrl
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    r( wxTR_HIDE_ROOT );                // treectrl
+#endif
 
     r( wxTreeItemIcon_Normal );         // treectrl
     r( wxTreeItemIcon_Selected );       // treectrl

@@ -45,6 +45,7 @@ sub LoadFile {
   Wx::_match( @_, $Wx::_wist_s, 2 ) && return Wx::Image::LoadStreamMIME( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->LoadFileType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->LoadFileMIME( @_ );
+  croak Wx::_ovl_error;
 }
 
 sub SaveFile {
@@ -54,6 +55,8 @@ sub SaveFile {
   Wx::_match( @_, $Wx::_wost_s, 2 ) && return Wx::Image::SaveFileSMIME( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->SaveFileType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->SaveFileMIME( @_ );
+  Wx::_match( @_, $Wx::_s, 1 ) && return $this->SaveFileOnly( @_ );
+  croak Wx::_ovl_error;
 }
 
 1;

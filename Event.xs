@@ -364,6 +364,13 @@ Wx_MenuEvent::new( eventType = 0, id = 0 )
 int
 Wx_MenuEvent::GetMenuId()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+bool
+Wx_MenuEvent::IsPopup()
+
+#endif
+
 MODULE=Wx_Evt PACKAGE=Wx::MouseEvent
 
 Wx_MouseEvent*

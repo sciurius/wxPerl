@@ -30,6 +30,7 @@ WXCOLORREF              T_IV
 EntryType               T_IV
 wxKillError             T_IV
 wxSignal                T_IV
+wxItemKind              T_IV
 
 wxFindReplaceDialogStyles T_IV
 wxFindReplaceFlags      T_IV
@@ -133,6 +134,8 @@ Wx_PaintDC *            O_WXOBJECT
 Wx_ScreenDC *           O_WXOBJECT
 
 Wx_TaskBarIcon *        O_WXOBJECT
+
+Wx_TextAttr *           O_NON_WXOBJECT
 
 Wx_Log *                O_NON_WXOBJECT
 Wx_LogTextCtrl *        O_NON_WXOBJECT

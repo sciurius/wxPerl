@@ -16,6 +16,7 @@
 
 #include <wx/window.h>
 #include <wx/layout.h>
+#include <wx/sizer.h>
 #include <stdarg.h>
 
 #include "cpp/compat.h"
@@ -240,6 +241,13 @@ Wx_Window::GetClientSizeXY()
     EXTEND( SP, 2 );
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+Wx_Sizer*
+Wx_Window::GetContainingSizer()
+
+#endif
 
 #if wxPERL_USE_DRAG_AND_DROP
 
@@ -589,6 +597,14 @@ void
 Wx_Window::SetConstraints( constraints )
     Wx_LayoutConstraints* constraints
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Window::SetContainingSizer( sizer )
+    Wx_Sizer* sizer
+
+#endif
+
 void
 Wx_Window::SetCursor( cursor )
     Wx_Cursor* cursor
@@ -713,9 +729,20 @@ Wx_Window::SetSizeHints( minW = -1, minH = -1, maxW = -1, maxH = -1, incW = -1, 
     int incW
     int incH
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_Window::SetSizer( sizer, deleteOld = TRUE )
+    Wx_Sizer* sizer
+    bool deleteOld
+
+#else
+
 void
 Wx_Window::SetSizer( sizer )
     Wx_Sizer* sizer
+
+#endif
 
 void
 Wx_Window::SetTitle( title )

@@ -77,7 +77,7 @@ Wx_RadioBox::GetSelection()
 wxString
 Wx_RadioBox::GetStringSelection()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 ) \
+#if WXPERL_W_VERSION_GE( 2, 3, 3 ) \
     || ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXGTK__) ) \
     || defined( __WXPERL_FORCE__ )
 

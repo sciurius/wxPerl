@@ -20,7 +20,7 @@ sub Append {
 
   Wx::_match( @_, $Wx::_n_s_wmen, 3, 1 ) && ( $this->AppendSubMenu( @_ ), return );
   Wx::_match( @_, $Wx::_n_s, 2, 1 )      && ( $this->AppendString( @_ ), return );
-  Wx::_match( @_, $Wx::_wmit, 1 )        && ( $this->Appenditem( @_ ), return );
+  Wx::_match( @_, $Wx::_wmit, 1 )        && ( $this->AppendItem( @_ ), return );
   croak Wx::_ovl_error;
 }
 

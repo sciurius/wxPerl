@@ -368,6 +368,15 @@ Wx_Region::SubtractRect( rect )
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+bool
+Wx_Region::Offset( x, y )
+    wxCoord x
+    wxCoord y
+
+#endif
+
 bool
 Wx_Region::SubtractRegion( region )
     Wx_Region* region

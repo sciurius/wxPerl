@@ -79,6 +79,8 @@ Wx_App::GetClassName()
 bool
 Wx_App::GetExitOnFrameDelete()
 
+#if WXPERL_W_VERSION_LE( 2, 3, 2 )
+
 Wx_Icon*
 Wx_App::GetStdIcon( which )
     int which
@@ -86,6 +88,8 @@ Wx_App::GetStdIcon( which )
     RETVAL = new wxIcon( THIS->GetStdIcon( which ) );
   OUTPUT:
     RETVAL
+
+#endif
 
 Wx_Window*
 Wx_App::GetTopWindow()

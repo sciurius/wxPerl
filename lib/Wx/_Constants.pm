@@ -27,7 +27,8 @@ BEGIN {
   $_pen_light_grey
   $_brush_blue $_brush_green $_brush_white $_brush_black $_brush_grey
   $_brush_medium_grey $_brush_light_grey $_brush_transparent
-  $_brush_cyan $_brush_red $_format_invalid $_clipboard);
+  $_brush_cyan $_brush_red $_format_invalid $_clipboard
+  $_img_bmp_format $_img_cur_hotspot_x $_img_cur_hotspot_y $_img_filename);
 
   import vars @vars;
 }
@@ -98,6 +99,11 @@ sub wxTheClipboard { $_clipboard }                # clipboard
 sub wxVERSION_STRING { $_version_string }
 
 sub wxTheApp { $Wx::App::theapp }
+
+sub wxIMAGE_OPTION_BMP_FORMAT { $Wx::_img_bmp_format } # image
+sub wxIMAGE_OPTION_CUR_HOTSPOT_X { $Wx::_img_cur_hotspot_x } # image
+sub wxIMAGE_OPTION_CUR_HOTSPOT_Y { $Wx::_img_cur_hotspot_y } # image
+sub wxIMAGE_OPTION_FILENAME { $Wx::_img_filename } # image
 
 1;
 

@@ -383,6 +383,15 @@ Wx_DC::Ok()
 void
 Wx_DC::ResetBoundingBox()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_DC::SetAxisOrientation( xLeftRight, yBottomUp )
+    bool xLeftRight
+    bool yBottomUp
+
+#endif
+
 void
 Wx_DC::SetDeviceOrigin( x, y )
     wxCoord x

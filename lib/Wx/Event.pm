@@ -210,6 +210,8 @@ sub EVT_MENU_INIT($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MENU_INIT, $_[1] ); }
 sub EVT_MENU_HIGHLIGHT($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_MENU_HIGHLIGHT, $_[2] ); }
 sub EVT_POPUP_MENU($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_POPUP_MENU, $_[1] ); }
 sub EVT_CONTEXT_MENU($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_CONTEXT_MENU, $_[1] ); }
+sub EVT_MENU_OPEN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MENU_OPEN, $_[1] ); }
+sub EVT_MENU_CLOSE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MENU_CLOSE, $_[1] ); }
 
 #
 # MouseEvent
