@@ -1156,6 +1156,12 @@ static double constant( const char *name, int arg )
     r( wxSYS_SHOW_SOUNDS );
     r( wxSYS_SWAP_BUTTONS );
 
+    // capabilities
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+    r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
+    r( wxSYS_CAN_ICONIZE_FRAME );
+#endif
+
     break;
   case 'T':
     r( wxTAB_TRAVERSAL );               // panel

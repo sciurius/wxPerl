@@ -45,3 +45,17 @@ Wx_DirDialog::SetStyle( style )
 
 int
 Wx_DirDialog::ShowModal()
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+wxString
+wxDirSelector( message, default_path = wxEmptyString, style = 0, pos = wxDefaultPosition, parent = 0 )
+    wxString message
+    wxString default_path
+    long style
+    Wx_Point pos
+    Wx_Window* parent
+
+#endif
