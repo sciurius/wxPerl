@@ -24,7 +24,7 @@
   var = (type)var##_tmp.c_str();
 
 #define WXCHAR_OUTPUT( var, arg ) \
-  sv_setpv((SV*)arg, (const char*)wxConvUTF8.cWC2MB( var ) ); \
+  sv_setpv((SV*)arg, (const char*)wxConvUTF8.cWC2MB( var ? var : wxEmptyString ) ); \
   SvUTF8_on((SV*)arg);        
 
 #define WXSTRING_INPUT( var, type, arg ) \
