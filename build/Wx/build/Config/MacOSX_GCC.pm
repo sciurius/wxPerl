@@ -19,6 +19,15 @@ sub wx_config {
   return $result;
 }
 
+sub get_flags {
+  my $this = shift;
+  my %config = $this->SUPER::get_flags;
+
+  $config{DEFINE} .= "-UWX_PRECOMP ";
+
+  return %config;
+}
+
 1;
 
 # local variables:
