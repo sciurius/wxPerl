@@ -67,7 +67,9 @@ sub test_inheritance {
     while ( $class ) {
       push @{$perl_inheritance{$key}}, "Wx::$class";
 
-      last unless exists $Wx::{"${class}::"}{ISA};
+      last unless exists $Wx::{"${class}::"}{ISA} && 
+        @{ $Wx::{"${class}::"}{ISA} };
+      die $class unless defined @{ $Wx::{"${class}::"}{ISA} }[0];
       $class = substr @{ $Wx::{"${class}::"}{ISA} }[0], 4;
     }
   }
