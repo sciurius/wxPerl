@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/10/2002
-## RCS-ID:      $Id: CalendarCtrl.xsp,v 1.6 2004/12/21 21:12:47 mbarbon Exp $
-## Copyright:   (c) 2002-2004 Mattia Barbon
+## RCS-ID:      $Id: CalendarCtrl.xsp,v 1.7 2005/03/19 18:06:55 mbarbon Exp $
+## Copyright:   (c) 2002-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -17,16 +17,6 @@
 %module{Wx};
 %file{cpp/calendar.h};
 %{
-
-WXPLI_DECLARE_CLASS_7( CalendarCtrl, true,
-                       wxWindow*, wxWindowID, const wxDateTime&,
-                       const wxPoint&, const wxSize&, long, 
-                       const wxString& );
-
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCalendarCtrl, wxCalendarCtrl );
-
-#define wxDefaultDateTimePtr (wxDateTime*)&wxDefaultDateTime
-#define wxDateTime__WeekDay wxDateTime::WeekDay
 
 double calendar_constant( const char* name, int arg )
 {
@@ -90,15 +80,29 @@ wxPlConstants calendar_module( &calendar_constant );
 
 %name{Wx::CalendarCtrl} class wxCalendarCtrl
 {
-    wxCalendarCtrl( wxWindow* parent,
-                    wxWindowID id,
-                    const wxDateTime& date = wxDefaultDateTimePtr,
-                    const wxPoint& pos = wxDefaultPosition,
-                    const wxSize& size = wxDefaultSize,
-                    long style = wxCAL_SHOW_HOLIDAYS,
-                    const wxString& name = wxCalendarNameStr )
-        %code{%    RETVAL = new wxPliCalendarCtrl( CLASS, parent, id, *date,
-              pos, size, style, name ); %};
+    %name{newDefault} wxCalendarCtrl()
+        %code{% RETVAL = new wxCalendarCtrl();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxCalendarCtrl( wxWindow* parent,
+                                   wxWindowID id,
+                                   const wxDateTime& date =
+                                       wxDefaultDateTimePtr,
+                                   const wxPoint& pos = wxDefaultPosition,
+                                   const wxSize& size = wxDefaultSize,
+                                   long style = wxCAL_SHOW_HOLIDAYS,
+                                   const wxString& name = wxCalendarNameStr )
+        %code{% RETVAL = new wxCalendarCtrl( parent, id, *date,
+                                             pos, size, style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create( wxWindow* parent, wxWindowID id,
+                 const wxDateTime& date = wxDefaultDateTimePtr,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxCAL_SHOW_HOLIDAYS,
+                 const wxString& name = wxCalendarNameStr );
 
     void SetDate( const wxDateTime& date );
     const wxDateTime& GetDate();
@@ -140,3 +144,15 @@ wxPlConstants calendar_module( &calendar_constant );
 
     void ResetAttr( size_t day );
 };
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::CalendarCtrl::new" )
+
+%}

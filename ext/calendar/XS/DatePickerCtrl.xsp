@@ -1,0 +1,123 @@
+#############################################################################
+## Name:        ext/calendar/XS/CalendarCtrl.xsp
+## Purpose:     XS++ for Wx::DatePickerCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     18/03/2005
+## RCS-ID:      $Id: DatePickerCtrl.xsp,v 1.1 2005/03/19 18:06:56 mbarbon Exp $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+#include <wx/event.h>
+#include <wx/datectrl.h>
+#include "cpp/datectrl.h"
+
+%typemap{wxDatePickerCtrl*}{simple};
+%typemap{wxDateTime}{reference};
+
+%module{Wx};
+%file{cpp/datectrl.h};
+%{
+
+#define wxDP_STYLE wxDP_DEFAULT|wxDP_SHOWCENTURY
+
+double datepicker_constant( const char* name, int arg )
+{
+    // !package: Wx
+    // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+    // !tag: datepicker
+#define r( n ) \
+    if( strEQ( name, #n ) ) \
+        return n;
+
+    WX_PL_CONSTANT_INIT();
+
+    switch( fl )
+    {
+    case 'D':
+        r( wxDP_DEFAULT );
+        r( wxDP_SPIN );
+        r( wxDP_DROPDOWN );
+        r( wxDP_SHOWCENTURY );
+        r( wxDP_ALLOWNONE );
+        break;
+    }
+#undef r
+
+    WX_PL_CONSTANT_CLEANUP();
+}
+
+wxPlConstants datepicker_module( &datepicker_constant );
+
+%}
+%file{-};
+
+%name{Wx::DatePickerCtrl} class wxDatePickerCtrl
+{
+    %name{newDefault} wxDatePickerCtrl()
+        %code{% RETVAL = new wxDatePickerCtrl();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxDatePickerCtrl(wxWindow *parent,
+                                    wxWindowID id,
+                                    const wxDateTime& date =
+                                        wxDefaultDateTimePtr,
+                                    const wxPoint& pos = wxDefaultPosition,
+                                    const wxSize& size = wxDefaultSize,
+                                    long style = wxDP_STYLE,
+                                    const wxValidator& validator =
+                                        wxDefaultValidatorPtr,
+                                    const wxString& name =
+                                        wxDatePickerCtrlNameStr)
+        %code{% RETVAL = new wxDatePickerCtrl( parent, id, *date, pos, size,
+                                               style, *validator, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create(wxWindow *parent,
+                wxWindowID id,
+                const wxDateTime& dt = wxDefaultDateTimePtr,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = wxDP_STYLE,
+                const wxValidator& validator = wxDefaultValidatorPtr,
+                const wxString& name = wxDatePickerCtrlNameStr);
+
+    void SetValue(const wxDateTime& dt);
+    wxDateTime GetValue() const;
+
+    void SetRange(const wxDateTime& dt1, const wxDateTime& dt2);
+};
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::DatePickerCtrl::new" )
+
+void
+wxDatePickerCtrl::GetRange()
+  PPCODE:
+    wxDateTime dt1, dt2;
+    bool ok = THIS->GetRange( &dt1, &dt2 );
+
+    if( !ok )
+        return;
+
+    EXTEND( SP, 2 );
+    PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(), new wxDateTime( dt1 ),
+                                  "Wx::DateTime" ) );
+    PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(), new wxDateTime( dt2 ),
+                                  "Wx::DateTime" ) );
+
+%}
+
+#endif

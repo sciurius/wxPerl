@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/10/2002
-## RCS-ID:      $Id: typemap,v 1.3 2003/12/20 15:51:17 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.4 2005/03/19 18:06:55 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,5 +16,6 @@ wxCalendarDateBorder    T_ENUM
 
 wxCalendarEvent *	O_WXOBJECT
 wxCalendarCtrl *        O_WXOBJECT
+wxDatePickerCtrl *      O_WXOBJECT
 wxDateTime *            O_NON_WXOBJECT
 wxCalendarDateAttr *    O_NON_WXOBJECT

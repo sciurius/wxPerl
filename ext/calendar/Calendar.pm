@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/10/2002
-## RCS-ID:      $Id: Calendar.pm,v 1.5 2005/01/23 13:38:46 mbarbon Exp $
+## RCS-ID:      $Id: Calendar.pm,v 1.6 2005/03/19 18:06:55 mbarbon Exp $
 ## Copyright:   (c) 2002, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -28,9 +28,10 @@ Wx::wx_boot( 'Wx::Calendar', $VERSION );
 
 no strict;
 
-package Wx::CalendarCtrl;  @ISA = 'Wx::Control';
-package Wx::DateEvent;     @ISA = 'Wx::CommandEvent';
-package Wx::CalendarEvent; @ISA = 'Wx::DateEvent';
+package Wx::CalendarCtrl;    @ISA = 'Wx::Control';
+package Wx::DatePickerCtrl;  @ISA = 'Wx::Control';
+package Wx::DateEvent;       @ISA = 'Wx::CommandEvent';
+package Wx::CalendarEvent;   @ISA = 'Wx::DateEvent';
 
 package Wx::Event;
 
