@@ -93,6 +93,7 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
         }
         // want an object/package name, accept undef, too
         if( !SvOK( t ) || ( wxPliOvl_tnames[size_t(p)] != 0 &&
+            sv_isobject( t ) &&
             sv_derived_from( t, wxPliOvl_tnames[size_t(p)] ) ) )
             continue;
         // want an array reference
