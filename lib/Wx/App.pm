@@ -32,6 +32,8 @@ sub new {
     $theapp = $this;
   }
 
+  $this->SetAppName($_[0]); # reasonable default for Wx::ConfigBase::Get
+
   Wx::_App::Start($this,$this->can('OnInit')) ||
       Wx::_croak( 'OnInit must return a true return value' );
 
