@@ -7,8 +7,9 @@ sub configure_core {
   my $this = shift;
   my %config = $this->SUPER::configure_core( @_ );
 
-  $config{depend}{'$(INST_STATIC)'} .= ' $(INST_BIN)/wxPerl';
-  $config{depend}{'$(INST_DYNAMIC)'} .= ' $(INST_BIN)/wxPerl';
+  $config{depend}{'$(INST_STATIC)'} .= ' wxPerl';
+  $config{depend}{'$(INST_DYNAMIC)'} .= ' wxPerl';
+  $config{clean}{FILES} .= " wxPerl";
 
   return %config;
 }
@@ -29,14 +30,14 @@ sub postamble_core {
 
   $text .= sprintf <<'EOT', ;
 
-$(INST_BIN)/wxPerl :
-	mkdir -p $(INST_BIN)
-	cp $(PERL) $(INST_BIN)/wxPerl
-	`wx-config --rezflags` $(INST_BIN)/wxPerl
+wxPerl :
+#	mkdir -p $(INST_BIN)
+	cp $(PERL) wxPerl
+	`wx-config --rezflags` wxPerl
 
 install_wxperl :
 	mkdir -p $(DESTINSTALLBIN)
-	ditto -rsrcFork $(INST_BIN)/wxPerl $(DESTINSTALLBIN)
+	ditto -rsrcFork wxPerl $(DESTINSTALLBIN)
 
 EOT
 
