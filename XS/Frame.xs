@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.15 2003/05/07 17:26:01 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.16 2003/05/11 20:04:49 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -132,6 +132,15 @@ wxFrame::SetIcons( icons )
 void
 Wx_Frame::SetMenuBar( menubar )
     Wx_MenuBar* menubar
+
+#if WXPERL_W_VERSION_GE( 2, 4, 1 )
+
+void
+wxFrame::SetShape( region )
+  wxRegion* region
+  C_ARGS: *region
+
+#endif
 
 void
 Wx_Frame::SetStatusBar( statusBar )

@@ -4,13 +4,14 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.49 2003/05/05 20:38:34 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.50 2003/05/11 20:04:23 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
+wxFlexSizerGrowMode     T_IV
 wxEdge                  T_IV
 wxRelationship          T_IV
 wxWindowID              T_WINDOWID
@@ -311,7 +312,7 @@ wxNativeFontInfo *      O_NON_WXOBJECT
 Wx_Font *               O_WXOBJECT
 wxFont *                O_WXOBJECT
 Wx_Region *             O_WXOBJECT
-wxRagion *              O_WXOBJECT
+wxRegion *              O_WXOBJECT
 Wx_Icon *               O_WXOBJECT
 wxIcon *                O_WXOBJECT
 wxIconBundle *          O_NON_WXOBJECT
@@ -319,8 +320,8 @@ Wx_Bitmap *             O_WXOBJECT
 wxBitmap *              O_WXOBJECT
 Wx_Cursor *             O_WXOBJECT
 wxCursor *              O_WXOBJECT
-Wx_ToolTip *            O_NON_WXOBJECT
-wxToolTip *             O_NON_WXOBJECT
+Wx_ToolTip *            O_WXOBJECT
+wxToolTip *             O_WXOBJECT
 Wx_Pen *                O_WXOBJECT
 wxPen *                 O_WXOBJECT
 Wx_Mask *               O_WXOBJECT

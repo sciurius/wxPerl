@@ -58,6 +58,15 @@ Wx_Dialog::IsModal()
 # Wx_Dialog::SetModal( flag )
 #    bool flag
 
+#if WXPERL_W_VERSION_GE( 2, 4, 1 )
+
+void
+wxDialog::SetShape( region )
+  wxRegion* region
+  C_ARGS: *region
+
+#endif
+
 void
 Wx_Dialog::SetReturnCode( retCode )
     int retCode

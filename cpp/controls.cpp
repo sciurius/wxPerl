@@ -103,6 +103,11 @@ double listctrl_constant( const char* name, int arg )
       r( wxLIST_ALIGN_TOP );            // listctrl
       r( wxLIST_ALIGN_SNAP_TO_GRID );   // listctrl
 
+      r( wxLIST_FIND_UP );              // listctrl
+      r( wxLIST_FIND_DOWN );            // listctrl
+      r( wxLIST_FIND_LEFT );            // listctrl
+      r( wxLIST_FIND_RIGHT );           // listctrl
+
       r( wxLIST_FORMAT_LEFT );          // listctrl
       r( wxLIST_FORMAT_RIGHT );         // listctrl
       r( wxLIST_FORMAT_CENTRE );        // listctrl

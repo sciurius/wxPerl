@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.80 2003/05/05 20:55:15 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.81 2003/05/11 20:04:23 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -797,6 +797,12 @@ static double constant( const char *name, int arg )
     r( wxFILE_MUST_EXIST );
     r( wxFLOOD_SURFACE );               // dc
     r( wxFLOOD_BORDER );                // dc
+
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    r( wxFLEX_GROWMODE_NONE );          // sizer
+    r( wxFLEX_GROWMODE_SPECIFIED );     // sizer
+    r( wxFLEX_GROWMODE_ALL );           // sizer
+#endif
     r( wxFONTENCODING_DEFAULT );        // font
     r( wxFONTENCODING_SYSTEM );         // font
     r( wxFRAME_FLOAT_ON_PARENT );       // frame
@@ -804,6 +810,9 @@ static double constant( const char *name, int arg )
     r( wxFRAME_NO_TASKBAR );            // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
     r( wxFRAME_EX_CONTEXTHELP );        // frame
+#if WXPERL_W_VERSION_GE( 2, 4, 1 )
+    r( wxFRAME_SHAPED );                // frame
+#endif
 
     r( wxFILE );
 
