@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker;
 use base 'Exporter';
 use vars qw(@EXPORT $VERSION);
 
-$VERSION = '0.18';
+$VERSION = '0.19';
 @EXPORT = 'wxWriteMakefile';
 
 # sanitize File::Find on filesystems where nlink of directories is < 2
@@ -278,7 +278,7 @@ sub wxWriteMakefile {
   push @{$params{TYPEMAPS} ||= []},
     # don't tell anyone this doesn't require a Wx::build::Config *object*
     File::Spec->catfile( Wx::build::Config->get_api_directory, 'typemap' );
-  ( $params{PREREQ_PM} ||= {} )->{Wx} ||= '0.18' unless is_wxPerl_tree();
+  ( $params{PREREQ_PM} ||= {} )->{Wx} ||= '0.19' unless is_wxPerl_tree();
 
   my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params );
 

@@ -1,5 +1,5 @@
 name: Wx
-version: 0.18
+version: 0.19
 license: perl
 distribution_type: module
 build_requires:
