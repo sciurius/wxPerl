@@ -61,7 +61,6 @@ t/Tests_Helper.pm
 
 lib/Wx/App.pm
 lib/Wx/Event.pm
-lib/Wx/Image.pm
 lib/Wx/ImageList.pm
 lib/Wx/Locale.pm
 lib/Wx/Menu.pm
@@ -222,6 +221,7 @@ XS/ToolBar.xs
 XS/ToolTip.xs
 XS/Utils.xs
 XS/Validators.xs
+XS/Wave.xs
 XS/Wizard.xs
 XS/ColourDialog.xs
 XS/DirDialog.xs
