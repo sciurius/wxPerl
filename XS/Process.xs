@@ -59,6 +59,19 @@ Wx_Process::GetInputStream()
 wxOutputStream*
 Wx_Process::GetOutputStream()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+bool
+wxProcess::IsErrorAvailable()
+
+bool
+wxProcess::IsInputAvailable()
+
+bool
+wxProcess::IsInputOpened()
+
+#endif
+
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 wxKillError
@@ -89,6 +102,19 @@ Wx_Process::OnTerminate( pid, status )
 
 void
 Wx_Process::Redirect()
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+wxProcess*
+Open( cmd, flags = wxEXEC_ASYNC )
+    wxString cmd
+    int flags
+  CODE:
+    RETVAL = wxProcess::Open( cmd, flags );
+  OUTPUT:
+    RETVAL
+
+#endif
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 

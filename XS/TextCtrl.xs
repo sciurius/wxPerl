@@ -190,6 +190,16 @@ Wx_TextCtrl::GetValue()
 bool
 Wx_TextCtrl::IsModified()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+bool
+wxTextCtrl::IsSingleLine()
+
+bool
+wxTextCtrl::IsMultiLine()
+
+#endif
+
 bool
 Wx_TextCtrl::LoadFile( filename )
     wxString filename

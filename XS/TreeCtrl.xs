@@ -113,6 +113,13 @@ Wx_TreeEvent::GetPoint()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+bool
+Wx_TreeEvent::IsEditCancelled()
+
+#endif
+
 #if WXWIN_COMPATIBILITY_2_2
 
 int

@@ -232,6 +232,18 @@ void
 Wx_Rect::SetY( y )
    int y
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+wxRect::SetPosition( pos )
+    wxPoint pos
+
+void
+wxRect::SetSize( size )
+    wxSize size
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::Region
 
 Wx_Region*

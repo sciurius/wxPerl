@@ -269,3 +269,9 @@ wxTrap()
 wxString
 wxGetOsDescription()
 
+long
+wxNewId()
+
+void
+wxRegisterId( id )
+    long id

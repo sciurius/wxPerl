@@ -47,3 +47,12 @@ Wx_SpinCtrl::SetRange( min, max )
 void
 Wx_SpinCtrl::SetValue( text )
     wxString text
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 ) && !defined(__WXGTK__)
+
+void
+Wx_SpinCtrl::SetSelection( from, to )
+    long from
+    long to
+
+#endif
