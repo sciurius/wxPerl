@@ -17,6 +17,12 @@
 #include <wx/list.h>
 #include <wx/gdicmn.h>
 
+// forward declare Wx_*Stream
+class wxInputStream;
+class wxOutputStream;
+typedef wxInputStream Wx_InputStream;
+typedef wxOutputStream Wx_OutputStream;
+
 #include <stdarg.h>
 
 I32 my_looks_like_number( pTHX_ SV* sv );

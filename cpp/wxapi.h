@@ -35,6 +35,8 @@ WXPL_EXTERN_C_END
 #undef New
 #undef Pause
 #undef Mkdir
+#undef Seek
+#undef Stat
 #if defined( __WXMSW__ )
 #undef read
 #undef write
