@@ -73,9 +73,12 @@ WXPLDLL const char* FUNCPTR( wxPli_get_class )( SV* ref );
 
 WXPLDLL wxWindowID FUNCPTR( wxPli_get_wxwindowid )( SV* var );
 WXPLDLL int FUNCPTR( wxPli_av_2_stringarray )( SV* avref, wxString** array );
+WXPLDLL int wxPli_av_2_charparray( SV* avref, char*** array );
 WXPLDLL int wxPli_av_2_uchararray( SV* avref, unsigned char** array );
 WXPLDLL int wxPli_av_2_svarray( SV* avref, SV*** array );
 WXPLDLL int FUNCPTR( wxPli_av_2_intarray )( SV* avref, int** array );
+
+WXPLDLL AV* wxPli_stringarray_2_av( const wxArrayString& strings );
 
 void wxPli_delete_argv( void* argv, bool unicode );
 int wxPli_get_args_argc_argv( void* argv, bool unicode );
