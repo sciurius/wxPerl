@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     26/11/2000
-## RCS-ID:      $Id: EvtHandler.xs,v 1.6 2004/10/19 20:28:05 mbarbon Exp $
+## RCS-ID:      $Id: EvtHandler.xs,v 1.7 2005/02/26 10:42:22 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -36,13 +36,13 @@ wxEvtHandler::Connect( id, lastid, type, method )
     if( SvOK( method ) )
     {
         THIS->Connect( id, lastid, type,
-                       (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                       wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
                        new wxPliEventCallback( method, ST(0) ) );
     }
     else
     {
         THIS->Disconnect( id, lastid, type,
-                          (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                          wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
                           0 );
     }
 
@@ -58,7 +58,7 @@ wxEvtHandler::Disconnect( id, lastid, type )
     wxEventType type
   CODE:
     RETVAL = THIS->Disconnect( id, lastid, type,
-        (wxObjectEventFunction)&wxPliEventCallback::Handler );
+        wxPliCastEvtHandler( &wxPliEventCallback::Handler ) );
   OUTPUT:
     RETVAL
 
