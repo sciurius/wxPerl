@@ -132,7 +132,9 @@ samples/listctrl/bitmaps/toolword.xpm
 samples/listctrl/listctrl.pl
 
 samples/socket/wxSocketClient.pl
+samples/socket/wxSocketClientDatagram.pl
 samples/socket/wxSocketServer.pl
+samples/socket/wxSocketServerDatagram.pl
 
 Wx.pm
 Wx.rc
@@ -303,7 +305,6 @@ ext/filesys/Makefile.PL
 ext/filesys/XS/FSFile.xs
 ext/filesys/XS/FileSystem.xs
 ext/filesys/XS/FileSystemHandler.xs
-ext/filesys/cpp/fs_typedef.h
 ext/filesys/cpp/fshandler.h
 ext/filesys/lib/Wx/FS.pm
 ext/filesys/typemap
@@ -321,7 +322,6 @@ ext/grid/XS/GridTable.xsp
 ext/grid/XS/GridTableMessage.xsp
 ext/grid/cpp/editor.h
 ext/grid/cpp/gr_constants.cpp
-ext/grid/cpp/gr_typedef.h
 ext/grid/cpp/renderer.h
 ext/grid/lib/Wx/Grid.pm
 ext/grid/t/01_load.t
@@ -350,7 +350,6 @@ ext/html/XS/HtmlTag.xsp
 ext/html/XS/HtmlTagHandler.xsp
 ext/html/XS/HtmlWindow.xs
 ext/html/cpp/ht_constants.cpp
-ext/html/cpp/ht_typedef.h
 ext/html/cpp/htmlwindow.h
 ext/html/lib/Wx/Html.pm
 ext/html/typemap
@@ -362,7 +361,6 @@ ext/mdi/MDI.xs
 ext/mdi/Makefile.PL
 ext/mdi/XS/MDIChildFrame.xs
 ext/mdi/XS/MDIParentFrame.xs
-ext/mdi/cpp/md_typedef.h
 ext/mdi/cpp/mdi.h
 ext/mdi/lib/Wx/MDI.pm
 ext/mdi/t/01_load.t
@@ -381,7 +379,6 @@ ext/print/XS/PrintPreview.xs
 ext/print/XS/Printer.xs
 ext/print/XS/Printout.xs
 ext/print/cpp/pr_constants.cpp
-ext/print/cpp/pr_typedef.h
 ext/print/cpp/printout.h
 ext/print/lib/Wx/Print.pm
 ext/print/typemap
@@ -408,7 +405,6 @@ ext/stc/STC.xs
 ext/stc/XS/StyledTextCtrl.xs
 ext/stc/XS/StyledTextEvent.xsp
 ext/stc/cpp/st_constants.cpp
-ext/stc/cpp/st_typedef.h
 ext/stc/lib/Wx/STC.pm
 ext/stc/t/01_load.t
 ext/stc/t/02_inheritance.t
@@ -433,7 +429,6 @@ ext/xrc/XS/XmlResource.xs
 ext/xrc/XS/XmlResourceHandler.xsp
 ext/xrc/XS/XmlSubclassFactory.xsp
 ext/xrc/cpp/xr_constants.cpp
-ext/xrc/cpp/xr_typedef.h
 ext/xrc/lib/Wx/XRC.pm
 ext/xrc/t/01_load.t
 ext/xrc/typemap
@@ -450,7 +445,6 @@ ext/docview/XS/DocChildFrame.xs
 ext/docview/XS/DocMDIParentFrame.xs
 ext/docview/XS/DocMDIChildFrame.xs
 ext/docview/cpp/docview.h
-ext/docview/cpp/dv_typedef.h
 ext/docview/cpp/dv_constants.cpp
 ext/docview/lib/Wx/DocView.pm
 ext/docview/typemap
@@ -490,6 +484,7 @@ demo/wxGridCER.pm
 demo/wxGridER.pm
 demo/wxGridTable.pm
 demo/wxHtmlDynamic.pm
+demo/wxHtmlTag.pm
 demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm
 demo/wxLocale.pm

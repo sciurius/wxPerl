@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        printout.h
+// Name:        ext/print/cpp/printout.h
 // Purpose:     c++ wrapper for wxPrintout
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      2/ 6/2001
-// RCS-ID:      
+// Created:     02/06/2001
+// RCS-ID:      $Id: printout.h,v 1.7 2004/03/01 21:24:10 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

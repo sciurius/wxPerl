@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        FS.xs
+## Name:        ext/filesys/XS/FSFile.xs
 ## Purpose:     XS for Wx::FileSystem
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     28/ 4/2001
-## RCS-ID:      
+## Created:     28/04/2001
+## RCS-ID:      $Id: FSFile.xs,v 1.5 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,29 +16,29 @@ MODULE=Wx PACKAGE=Wx::FSFile
 
 ## XXX threads
 void
-Wx_FSFile::DESTROY()
+wxFSFile::DESTROY()
 
 wxString
-Wx_FSFile::GetAnchor()
+wxFSFile::GetAnchor()
 
 wxString
-Wx_FSFile::GetLocation()
+wxFSFile::GetLocation()
 
 wxString
-Wx_FSFile::GetMimeType()
+wxFSFile::GetMimeType()
 
 # wxDateTime
-# Wx_FSFile::GetModificationTime()
+# wxFSFile::GetModificationTime()
 
 wxInputStream*
-Wx_FSFile::GetStream()
+wxFSFile::GetStream()
 
 MODULE=Wx PACKAGE=Wx::FSFile
 
 #include "cpp/fshandler.h"
 
-Wx_PlFSFile*
-Wx_PlFSFile::new( fh, loc, mimetype, anchor )
+wxPlFSFile*
+wxPlFSFile::new( fh, loc, mimetype, anchor )
     SV* fh
     wxString loc
     wxString mimetype

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/06/2001
-## RCS-ID:      $Id: Preview.xs,v 1.4 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id: Preview.xs,v 1.5 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,53 +14,53 @@
 
 MODULE=Wx PACKAGE=Wx::PreviewControlBar
 
-Wx_PreviewControlBar*
-Wx_PreviewControlBar::new( preview, buttons, parent, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("panel") )
-    Wx_PrintPreview* preview
+wxPreviewControlBar*
+wxPreviewControlBar::new( preview, buttons, parent, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("panel") )
+    wxPrintPreview* preview
     long buttons
-    Wx_Window* parent
-    Wx_Point pos
-    Wx_Size size
+    wxWindow* parent
+    wxPoint pos
+    wxSize size
     long style
     wxString name
 
-Wx_PrintPreview*
-Wx_PreviewControlBar::GetPrintPreview()
+wxPrintPreview*
+wxPreviewControlBar::GetPrintPreview()
   CODE:
-    RETVAL = (Wx_PrintPreview*)THIS->GetPrintPreview();
+    RETVAL = (wxPrintPreview*)THIS->GetPrintPreview();
   OUTPUT:
     RETVAL
 
 int
-Wx_PreviewControlBar::GetZoomControl()
+wxPreviewControlBar::GetZoomControl()
 
 void
-Wx_PreviewControlBar::SetZoomControl( zoom )
+wxPreviewControlBar::SetZoomControl( zoom )
     int zoom
 
 MODULE=Wx PACKAGE=Wx::PreviewCanvas
 
-Wx_PreviewCanvas*
-Wx_PreviewCanvas::new( preview, parent, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("canvas") )
-    Wx_PrintPreview* preview
-    Wx_Window* parent
-    Wx_Point pos
-    Wx_Size size
+wxPreviewCanvas*
+wxPreviewCanvas::new( preview, parent, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("canvas") )
+    wxPrintPreview* preview
+    wxWindow* parent
+    wxPoint pos
+    wxSize size
     long style
     wxString name
 
 MODULE=Wx PACKAGE=Wx::PreviewFrame
 
-Wx_PreviewFrame*
-Wx_PreviewFrame::new( preview, parent, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxT("frame") )
-    Wx_PrintPreview* preview
+wxPreviewFrame*
+wxPreviewFrame::new( preview, parent, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxT("frame") )
+    wxPrintPreview* preview
     wxFrame* parent
     wxString title
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
 
 void
-Wx_PreviewFrame::Initialize()
+wxPreviewFrame::Initialize()
 

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        pr_constants.cpp
+// Name:        ext/print/cpp/pr_constants.cpp
 // Purpose:     constants for Print framework
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      4/ 5/2001
-// RCS-ID:      
+// Created:     04/05/2001
+// RCS-ID:      $Id: pr_constants.cpp,v 1.4 2004/03/01 21:24:10 mbarbon Exp $
 // Copyright:   (c) 2001 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

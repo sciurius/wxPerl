@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Printout.xs
+## Name:        ext/print/XS/Printout.xs
 ## Purpose:     XS for Wx::Printout & Wx::PrinterDC
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/ 6/2001
-## RCS-ID:      
+## Created:     02/06/2001
+## RCS-ID:      $Id: Printout.xs,v 1.8 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -18,9 +18,9 @@
 
 MODULE=Wx PACKAGE=Wx::PrinterDC
 
-Wx_PrinterDC*
-Wx_PrinterDC::new( data )
-    Wx_PrintData* data
+wxPrinterDC*
+wxPrinterDC::new( data )
+    wxPrintData* data
   CODE:
     RETVAL = new wxPrinterDC( *data );
   OUTPUT:
@@ -30,8 +30,8 @@ Wx_PrinterDC::new( data )
 
 MODULE=Wx PACKAGE=Wx::Printout
 
-Wx_Printout*
-Wx_Printout::new( title = wxT("Printout") )
+wxPrintout*
+wxPrintout::new( title = wxT("Printout") )
     wxString title
   CODE:
     RETVAL = new wxPlPrintout( CLASS, title );
@@ -39,19 +39,19 @@ Wx_Printout::new( title = wxT("Printout") )
     RETVAL
 
 void
-Wx_Printout::Destroy()
+wxPrintout::Destroy()
   CODE:
     delete THIS;
 
-Wx_DC*
-Wx_Printout::GetDC()
+wxDC*
+wxPrintout::GetDC()
   OUTPUT:
     RETVAL
   CLEANUP:
     wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 void
-Wx_Printout::GetPageInfo()
+wxPrintout::GetPageInfo()
   PREINIT:
     int minPage, maxPage, pageFrom, pageTo;
   PPCODE:
@@ -63,7 +63,7 @@ Wx_Printout::GetPageInfo()
     PUSHs( sv_2mortal( newSViv( pageTo ) ) );
 
 void
-Wx_Printout::GetPageSizeMM()
+wxPrintout::GetPageSizeMM()
   PREINIT:
     int w, h;
   PPCODE:
@@ -73,7 +73,7 @@ Wx_Printout::GetPageSizeMM()
     PUSHs( sv_2mortal( newSViv( h ) ) );
 
 void
-Wx_Printout::GetPageSizePixels()
+wxPrintout::GetPageSizePixels()
   PREINIT:
     int w, h;
   PPCODE:
@@ -83,7 +83,7 @@ Wx_Printout::GetPageSizePixels()
     PUSHs( sv_2mortal( newSViv( h ) ) );
 
 void
-Wx_Printout::GetPPIPrinter()
+wxPrintout::GetPPIPrinter()
   PREINIT:
     int w, h;
   PPCODE:
@@ -93,7 +93,7 @@ Wx_Printout::GetPPIPrinter()
     PUSHs( sv_2mortal( newSViv( h ) ) );
 
 void
-Wx_Printout::GetPPIScreen()
+wxPrintout::GetPPIScreen()
   PREINIT:
     int w, h;
   PPCODE:
@@ -103,7 +103,7 @@ Wx_Printout::GetPPIScreen()
     PUSHs( sv_2mortal( newSViv( h ) ) );
 
 bool
-Wx_Printout::HasPage( pageNum )
+wxPrintout::HasPage( pageNum )
     int pageNum
   CODE:
     RETVAL = THIS->wxPrintout::HasPage( pageNum );
@@ -111,10 +111,10 @@ Wx_Printout::HasPage( pageNum )
     RETVAL
 
 bool
-Wx_Printout::IsPreview()
+wxPrintout::IsPreview()
 
 bool
-Wx_Printout::OnBeginDocument( startPage, endPage )
+wxPrintout::OnBeginDocument( startPage, endPage )
     int startPage
     int endPage
   CODE:
@@ -123,27 +123,27 @@ Wx_Printout::OnBeginDocument( startPage, endPage )
     RETVAL
 
 void
-Wx_Printout::OnEndDocument()
+wxPrintout::OnEndDocument()
   CODE:
     THIS->wxPrintout::OnEndDocument();
 
 void
-Wx_Printout::OnBeginPrinting()
+wxPrintout::OnBeginPrinting()
   CODE:
     THIS->wxPrintout::OnBeginPrinting();
 
 void
-Wx_Printout::OnEndPrinting()
+wxPrintout::OnEndPrinting()
   CODE:
     THIS->wxPrintout::OnEndPrinting();
 
 void
-Wx_Printout::OnPreparePrinting()
+wxPrintout::OnPreparePrinting()
   CODE:
     THIS->wxPrintout::OnPreparePrinting();
 
 #bool
-#Wx_Printout::OnPrintPage( pageNum )
+#wxPrintout::OnPrintPage( pageNum )
 #    int pageNum
 #  CODE:
 #    RETVAL = THIS->wxPrintout::OnPrintPage( pageNum );

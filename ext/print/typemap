@@ -4,27 +4,27 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      
+## RCS-ID:      $Id: typemap,v 1.6 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
-Wx_PrintData *          O_WXOBJECT
-Wx_PageSetupDialogData * O_WXOBJECT
-Wx_PageSetupDialog *    O_WXOBJECT
-Wx_Printer *            O_WXOBJECT
-Wx_PrintDialogData *    O_WXOBJECT
-Wx_Printout *           O_WXOBJECT
-Wx_PrintPreview *       O_WXOBJECT
+wxPrintData *           O_WXOBJECT
+wxPageSetupDialogData * O_WXOBJECT
+wxPageSetupDialog *     O_WXOBJECT
+wxPrinter *             O_WXOBJECT
+wxPrintDialogData *     O_WXOBJECT
+wxPrintout *            O_WXOBJECT
 wxPrintPreview *        O_WXOBJECT
-Wx_PrinterDC *          O_WXOBJECT
-Wx_PrintDialog *        O_WXOBJECT
-Wx_PreviewControlBar *  O_WXOBJECT
-Wx_PreviewCanvas *      O_WXOBJECT
+wxPrintPreview *        O_WXOBJECT
+wxPrinterDC *           O_WXOBJECT
+wxPrintDialog *         O_WXOBJECT
+wxPreviewControlBar *   O_WXOBJECT
 wxPreviewCanvas *       O_WXOBJECT
-Wx_PreviewFrame *       O_WXOBJECT
+wxPreviewCanvas *       O_WXOBJECT
+wxPreviewFrame *        O_WXOBJECT
 
 wxDuplexMode            T_ENUM
 wxPaperSize             T_ENUM

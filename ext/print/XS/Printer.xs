@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Printer.xs
+## Name:        ext/print/XS/Printer.xs
 ## Purpose:     XS for Wx::Printer
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     29/ 5/2001
-## RCS-ID:      $Id: Printer.xs,v 1.7 2003/05/05 20:38:42 mbarbon Exp $
+## Created:     29/05/2001
+## RCS-ID:      $Id: Printer.xs,v 1.8 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,28 +15,28 @@
 
 MODULE=Wx PACKAGE=Wx::Printer
 
-Wx_Printer*
-Wx_Printer::new( data = 0 )
-    Wx_PrintDialogData* data
+wxPrinter*
+wxPrinter::new( data = 0 )
+    wxPrintDialogData* data
 
 ## XXX threads
 void
-Wx_Printer::DESTROY()
+wxPrinter::DESTROY()
 
 bool
-Wx_Printer::GetAbort()
+wxPrinter::GetAbort()
 
-Wx_PrintDialogData*
-Wx_Printer::GetPrintDialogData()
+wxPrintDialogData*
+wxPrinter::GetPrintDialogData()
   CODE:
     RETVAL = &THIS->GetPrintDialogData();
   OUTPUT:
     RETVAL
 
 void
-Wx_Printer::CreateAbortWindow( parent, printout )
-    Wx_Window* parent
-    Wx_Printout* printout
+wxPrinter::CreateAbortWindow( parent, printout )
+    wxWindow* parent
+    wxPrintout* printout
 
 wxPrinterError
 GetLastError()
@@ -46,23 +46,23 @@ GetLastError()
     RETVAL
 
 bool
-Wx_Printer::Print( parent, printout, prompt = TRUE )
-    Wx_Window* parent
-    Wx_Printout* printout
+wxPrinter::Print( parent, printout, prompt = TRUE )
+    wxWindow* parent
+    wxPrintout* printout
     bool prompt
 
-Wx_DC*
-Wx_Printer::PrintDialog( parent )
-    Wx_Window* parent
+wxDC*
+wxPrinter::PrintDialog( parent )
+    wxWindow* parent
 
 void
-Wx_Printer::ReportError( parent, printout, message )
-    Wx_Window* parent
-    Wx_Printout* printout
+wxPrinter::ReportError( parent, printout, message )
+    wxWindow* parent
+    wxPrintout* printout
     wxString message
   CODE:
     THIS->ReportError( parent, printout, message );
 
 bool
-Wx_Printer::Setup( parent )
-    Wx_Window* parent
+wxPrinter::Setup( parent )
+    wxWindow* parent

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        PageSetupDialogData.xs
+## Name:        ext/print/XS/PageSetupDialogData.xs
 ## Purpose:     XS for Wx::PageSetupDialogData
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      4/ 5/2001
-## RCS-ID:      
+## Created:     04/05/2001
+## RCS-ID:      $Id: PageSetupDialogData.xs,v 1.2 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,135 +14,135 @@
 
 MODULE=Wx PACKAGE=Wx::PageSetupDialogData
 
-Wx_PageSetupDialogData*
-Wx_PageSetupDialogData::new()
+wxPageSetupDialogData*
+wxPageSetupDialogData::new()
 
 void
-Wx_PageSetupDialogData::Destroy()
+wxPageSetupDialogData::Destroy()
   CODE:
     delete THIS;
 
 void
-Wx_PageSetupDialogData::EnableHelp( flag )
+wxPageSetupDialogData::EnableHelp( flag )
     bool flag
 
 void
-Wx_PageSetupDialogData::EnableMargins( flag )
+wxPageSetupDialogData::EnableMargins( flag )
     bool flag
 
 void
-Wx_PageSetupDialogData::EnableOrientation( flag )
+wxPageSetupDialogData::EnableOrientation( flag )
     bool flag
 
 void
-Wx_PageSetupDialogData::EnablePaper( flag )
+wxPageSetupDialogData::EnablePaper( flag )
     bool flag
 
 void
-Wx_PageSetupDialogData::EnablePrinter( flag )
+wxPageSetupDialogData::EnablePrinter( flag )
     bool flag
 
 bool
-Wx_PageSetupDialogData::GetDefaultMinMargins()
+wxPageSetupDialogData::GetDefaultMinMargins()
 
 bool
-Wx_PageSetupDialogData::GetEnableMargins()
+wxPageSetupDialogData::GetEnableMargins()
 
 bool
-Wx_PageSetupDialogData::GetEnableOrientation()
+wxPageSetupDialogData::GetEnableOrientation()
 
 bool
-Wx_PageSetupDialogData::GetEnablePaper()
+wxPageSetupDialogData::GetEnablePaper()
 
 bool
-Wx_PageSetupDialogData::GetEnablePrinter()
+wxPageSetupDialogData::GetEnablePrinter()
 
 bool
-Wx_PageSetupDialogData::GetEnableHelp()
+wxPageSetupDialogData::GetEnableHelp()
 
 bool
-Wx_PageSetupDialogData::GetDefaultInfo()
+wxPageSetupDialogData::GetDefaultInfo()
 
-Wx_Point*
-Wx_PageSetupDialogData::GetMarginTopLeft()
+wxPoint*
+wxPageSetupDialogData::GetMarginTopLeft()
   CODE:
     RETVAL = new wxPoint( THIS->GetMarginTopLeft() );
   OUTPUT:
     RETVAL
 
-Wx_Point*
-Wx_PageSetupDialogData::GetMarginBottomRight()
+wxPoint*
+wxPageSetupDialogData::GetMarginBottomRight()
   CODE:
     RETVAL = new wxPoint( THIS->GetMarginBottomRight() );
   OUTPUT:
     RETVAL
 
-Wx_Point*
-Wx_PageSetupDialogData::GetMinMarginTopLeft()
+wxPoint*
+wxPageSetupDialogData::GetMinMarginTopLeft()
   CODE:
     RETVAL = new wxPoint( THIS->GetMinMarginTopLeft() );
   OUTPUT:
     RETVAL
 
-Wx_Point*
-Wx_PageSetupDialogData::GetMinMarginBottomRight()
+wxPoint*
+wxPageSetupDialogData::GetMinMarginBottomRight()
   CODE:
     RETVAL = new wxPoint( THIS->GetMinMarginBottomRight() );
   OUTPUT:
     RETVAL
 
 wxPaperSize
-Wx_PageSetupDialogData::GetPaperId()
+wxPageSetupDialogData::GetPaperId()
 
-Wx_Size*
-Wx_PageSetupDialogData::GetPaperSize()
+wxSize*
+wxPageSetupDialogData::GetPaperSize()
   CODE:
     RETVAL = new wxSize( THIS->GetPaperSize() );
   OUTPUT:
     RETVAL
 
-Wx_PrintData*
-Wx_PageSetupDialogData::GetPrintData()
+wxPrintData*
+wxPageSetupDialogData::GetPrintData()
   CODE:
     RETVAL = &THIS->GetPrintData();
   OUTPUT:
     RETVAL
 
 void
-Wx_PageSetupDialogData::SetDefaultInfo( flag )
+wxPageSetupDialogData::SetDefaultInfo( flag )
     bool flag
 
 void
-Wx_PageSetupDialogData::SetDefaultMinMargins( flag )
+wxPageSetupDialogData::SetDefaultMinMargins( flag )
     bool flag
 
 void
-Wx_PageSetupDialogData::SetMarginTopLeft( point )
-    Wx_Point point
+wxPageSetupDialogData::SetMarginTopLeft( point )
+    wxPoint point
 
 void
-Wx_PageSetupDialogData::SetMarginBottomRight( point )
-    Wx_Point point
+wxPageSetupDialogData::SetMarginBottomRight( point )
+    wxPoint point
 
 void
-Wx_PageSetupDialogData::SetMinMarginTopLeft( point )
-    Wx_Point point
+wxPageSetupDialogData::SetMinMarginTopLeft( point )
+    wxPoint point
 
 void
-Wx_PageSetupDialogData::SetMinMarginBottomRight( point )
-    Wx_Point point
+wxPageSetupDialogData::SetMinMarginBottomRight( point )
+    wxPoint point
 
 void
-Wx_PageSetupDialogData::SetPaperId( id )
+wxPageSetupDialogData::SetPaperId( id )
     wxPaperSize id
 
 void
-Wx_PageSetupDialogData::SetPaperSize( size )
-    Wx_Size size
+wxPageSetupDialogData::SetPaperSize( size )
+    wxSize size
 
 void
-Wx_PageSetupDialogData::SetPrintData( printData )
-    Wx_PrintData* printData
+wxPageSetupDialogData::SetPrintData( printData )
+    wxPrintData* printData
   CODE:
     THIS->SetPrintData( *printData );
 

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        htmlwindow.h
+// Name:        ext/html/cpp/htmlwindow.h
 // Purpose:     C++ wrapper for Wx::HtmlWindow
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     18/ 3/2001
-// RCS-ID:      
+// Created:     18/03/2001
+// RCS-ID:      $Id: htmlwindow.h,v 1.7 2004/03/01 21:24:10 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

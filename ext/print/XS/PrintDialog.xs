@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        PrintDialog.xs
+## Name:        ext/print/XS/PrintDialog.xs
 ## Purpose:     XS for Wx::PrintDialog
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/ 6/2001
-## RCS-ID:      
+## Created:     02/06/2001
+## RCS-ID:      $Id: PrintDialog.xs,v 1.2 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,17 +15,17 @@
 
 MODULE=Wx PACKAGE=Wx::PrintDialog
 
-Wx_PrintDialog*
-Wx_PrintDialog::new( parent, data = 0 )
-    Wx_Window* parent
-    Wx_PrintDialogData* data
+wxPrintDialog*
+wxPrintDialog::new( parent, data = 0 )
+    wxWindow* parent
+    wxPrintDialogData* data
 
-Wx_PrintDialogData*
-Wx_PrintDialog::GetPrintDialogData()
+wxPrintDialogData*
+wxPrintDialog::GetPrintDialogData()
   CODE:
     RETVAL = new wxPrintDialogData( THIS->GetPrintDialogData() );
   OUTPUT:
     RETVAL
 
-Wx_DC*
-Wx_PrintDialog::GetPrintDC()
+wxDC*
+wxPrintDialog::GetPrintDC()

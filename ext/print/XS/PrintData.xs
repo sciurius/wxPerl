@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        PrintData.xs
+## Name:        ext/print/XS/PrintData.xs
 ## Purpose:     XS for Wx::PrintData
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      4/ 5/2001
-## RCS-ID:      
+## Created:     04/05/2001
+## RCS-ID:      $Id: PrintData.xs,v 1.2 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,71 +14,71 @@
 
 MODULE=Wx PACKAGE=Wx::PrintData
 
-Wx_PrintData*
-Wx_PrintData::new()
+wxPrintData*
+wxPrintData::new()
   CODE:
     RETVAL = new wxPrintData();
   OUTPUT:
     RETVAL
 
 void
-Wx_PrintData::Destroy()
+wxPrintData::Destroy()
   CODE:
     delete THIS;
 
 bool
-Wx_PrintData::GetCollate()
+wxPrintData::GetCollate()
 
 bool
-Wx_PrintData::GetColour()
+wxPrintData::GetColour()
 
 wxDuplexMode
-Wx_PrintData::GetDuplex()
+wxPrintData::GetDuplex()
 
 int
-Wx_PrintData::GetNoCopies()
+wxPrintData::GetNoCopies()
 
 int
-Wx_PrintData::GetOrientation()
+wxPrintData::GetOrientation()
 
 wxPaperSize
-Wx_PrintData::GetPaperId()
+wxPrintData::GetPaperId()
 
 wxString
-Wx_PrintData::GetPrinterName()
+wxPrintData::GetPrinterName()
 
-wxPaperQuality
-Wx_PrintData::GetQuality()
+wxPrintQuality
+wxPrintData::GetQuality()
 
 void
-Wx_PrintData::SetCollate( collate )
+wxPrintData::SetCollate( collate )
     bool collate
 
 void
-Wx_PrintData::SetColour( colour )
+wxPrintData::SetColour( colour )
     bool colour
 
 void
-Wx_PrintData::SetDuplex( mode )
+wxPrintData::SetDuplex( mode )
     wxDuplexMode mode
 
 void
-Wx_PrintData::SetNoCopies( noCopies )
+wxPrintData::SetNoCopies( noCopies )
     int noCopies
 
 void
-Wx_PrintData::SetOrientation( orientation )
+wxPrintData::SetOrientation( orientation )
     int orientation
 
 void
-Wx_PrintData::SetPaperId( paperId )
+wxPrintData::SetPaperId( paperId )
     wxPaperSize paperId
 
 void
-Wx_PrintData::SetPrinterName( name )
+wxPrintData::SetPrinterName( name )
     wxString name
 
 void
-Wx_PrintData::SetQuality( quality )
-    wxPaperQuality quality
+wxPrintData::SetQuality( quality )
+    wxPrintQuality quality
 

@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        PageSetupDialog.xs
+## Name:        ext/print/XS/PageSetupDialog.xs
 ## Purpose:     XS for Wx::PageSetupDialog
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      4/ 5/2001
-## RCS-ID:      
+## Created:     04/05/2001
+## RCS-ID:      $Id: PageSetupDialog.xs,v 1.2 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,18 +14,18 @@
 
 MODULE=Wx PACKAGE=Wx::PageSetupDialog
 
-Wx_PageSetupDialog*
-Wx_PageSetupDialog::new( parent, data = 0 )
-    Wx_Window* parent
-    Wx_PageSetupDialogData* data
+wxPageSetupDialog*
+wxPageSetupDialog::new( parent, data = 0 )
+    wxWindow* parent
+    wxPageSetupDialogData* data
 
 void
-Wx_PageSetupDialog::Destroy()
+wxPageSetupDialog::Destroy()
   CODE:
     delete THIS;
 
-Wx_PageSetupDialogData*
-Wx_PageSetupDialog::GetPageSetupData()
+wxPageSetupDialogData*
+wxPageSetupDialog::GetPageSetupData()
   CODE:
     RETVAL = &THIS->GetPageSetupData();
   OUTPUT:

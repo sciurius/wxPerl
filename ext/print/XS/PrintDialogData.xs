@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        PrintDialogData.xs
+## Name:        ext/print/XS/PrintDialogData.xs
 ## Purpose:     XS for Wx::PrintDialogData
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      2/ 6/2001
-## RCS-ID:      
+## Created:     02/06/2001
+## RCS-ID:      $Id: PrintDialogData.xs,v 1.2 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,102 +14,102 @@
 
 MODULE=Wx PACKAGE=Wx::PrintDialogData
 
-Wx_PrintDialogData*
-Wx_PrintDialogData::new()
+wxPrintDialogData*
+wxPrintDialogData::new()
 
 void
-Wx_PrintDialogData::Destroy()
+wxPrintDialogData::Destroy()
   CODE:
     delete THIS;
 
 void
-Wx_PrintDialogData::EnableHelp( enable )
+wxPrintDialogData::EnableHelp( enable )
     bool enable
 
 void
-Wx_PrintDialogData::EnablePageNumbers( enable )
+wxPrintDialogData::EnablePageNumbers( enable )
     bool enable
 
 void
-Wx_PrintDialogData::EnablePrintToFile( enable )
+wxPrintDialogData::EnablePrintToFile( enable )
      bool enable
 
 void
-Wx_PrintDialogData::EnableSelection( enable )
+wxPrintDialogData::EnableSelection( enable )
     bool enable
 
 bool
-Wx_PrintDialogData::GetAllPages()
+wxPrintDialogData::GetAllPages()
 
 bool
-Wx_PrintDialogData::GetCollate()
+wxPrintDialogData::GetCollate()
 
 int
-Wx_PrintDialogData::GetFromPage()
+wxPrintDialogData::GetFromPage()
 
 int
-Wx_PrintDialogData::GetMaxPage()
+wxPrintDialogData::GetMaxPage()
 
 int
-Wx_PrintDialogData::GetMinPage()
+wxPrintDialogData::GetMinPage()
 
 int
-Wx_PrintDialogData::GetNoCopies()
+wxPrintDialogData::GetNoCopies()
 
-Wx_PrintData*
-Wx_PrintDialogData::GetPrintData()
+wxPrintData*
+wxPrintDialogData::GetPrintData()
   CODE:
     RETVAL = &THIS->GetPrintData();
   OUTPUT:
     RETVAL
 
 bool
-Wx_PrintDialogData::GetPrintToFile()
+wxPrintDialogData::GetPrintToFile()
 
 bool
-Wx_PrintDialogData::GetSelection()
+wxPrintDialogData::GetSelection()
 
 int
-Wx_PrintDialogData::GetToPage()
+wxPrintDialogData::GetToPage()
 
 void
-Wx_PrintDialogData::SetCollate( collate )
+wxPrintDialogData::SetCollate( collate )
     bool collate
 
 void
-Wx_PrintDialogData::SetFromPage( page )
+wxPrintDialogData::SetFromPage( page )
     int page
 
 void
-Wx_PrintDialogData::SetMaxPage( page )
+wxPrintDialogData::SetMaxPage( page )
     int page
 
 void
-Wx_PrintDialogData::SetMinPage( page )
+wxPrintDialogData::SetMinPage( page )
     int page
 
 void
-Wx_PrintDialogData::SetNoCopies( n )
+wxPrintDialogData::SetNoCopies( n )
     int n
 
 void
-Wx_PrintDialogData::SetPrintData( printData )
-    Wx_PrintData* printData
+wxPrintDialogData::SetPrintData( printData )
+    wxPrintData* printData
   CODE:
     THIS->SetPrintData( *printData );
 
 void
-Wx_PrintDialogData::SetPrintToFile( flag )
+wxPrintDialogData::SetPrintToFile( flag )
     bool flag
 
 void
-Wx_PrintDialogData::SetSelection( selection )
+wxPrintDialogData::SetSelection( selection )
     bool selection
 
 void
-Wx_PrintDialogData::SetSetupDialog( flag )
+wxPrintDialogData::SetSetupDialog( flag )
     bool flag
 
 void
-Wx_PrintDialogData::SetToPage( page )
+wxPrintDialogData::SetToPage( page )
     int page

@@ -1,23 +1,22 @@
 #############################################################################
-## Name:        typemap
+## Name:        ext/filesys/typemap
 ## Purpose:     typemap
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     28/ 4/2001
-## RCS-ID:      $Id: typemap,v 1.6 2003/08/16 14:54:12 mbarbon Exp $
+## Created:     28/04/2001
+## RCS-ID:      $Id: typemap,v 1.7 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
-Wx_FileSystem *         O_WXOBJECT
-Wx_FileSystemHandler *  O_WXOBJECT
+wxFileSystem *          O_WXOBJECT
 wxFileSystemHandler *   O_WXOBJECT
-Wx_PlFileSystemHandler * O_WXOBJECT
-Wx_FSFile *             O_NON_WXOBJECT
-Wx_PlFSFile *           O_NON_WXOBJECT
+wxPlFileSystemHandler * O_WXOBJECT
+wxFSFile *              O_NON_WXOBJECT
+wxPlFSFile *            O_NON_WXOBJECT
 
-Wx_InternetFSHandler *  O_WXOBJECT
-Wx_ZipFSHandler *       O_WXOBJECT
+wxInternetFSHandler *   O_WXOBJECT
+wxZipFSHandler *        O_WXOBJECT
 wxMemoryFSHandler *     O_WXOBJECT

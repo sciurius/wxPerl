@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.11 2004/02/14 14:27:04 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.12 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -15,25 +15,25 @@ MODULE=Wx PACKAGE=Wx::StyledTextCtrl
 #undef FindText
 #include "wx/stc/stc.h"
 
-Wx_StyledTextCtrl*
-Wx_StyledTextCtrl::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxSTCNameStr )
-    Wx_Window* parent
+wxStyledTextCtrl*
+wxStyledTextCtrl::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxSTCNameStr )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
 
 void
-Wx_StyledTextCtrl::AddText( text )
+wxStyledTextCtrl::AddText( text )
     wxString text
 
 void
-Wx_StyledTextCtrl::SetLexer( lexer )
+wxStyledTextCtrl::SetLexer( lexer )
     int lexer
 
 int
-Wx_StyledTextCtrl::GetLexer()
+wxStyledTextCtrl::GetLexer()
 
 
 ## Extract style settings from a spec-string which is composed of one or
@@ -49,19 +49,19 @@ Wx_StyledTextCtrl::GetLexer()
 ##      underline               turns on underlining
 
 void
-Wx_StyledTextCtrl::StyleSetSpec( style, spec )
+wxStyledTextCtrl::StyleSetSpec( style, spec )
     int style
     wxString spec
 
 void
-Wx_StyledTextCtrl::StyleSetFont( style, font )
+wxStyledTextCtrl::StyleSetFont( style, font )
     int style
-    Wx_Font* font
+    wxFont* font
   CODE:
     THIS->StyleSetFont( style, *font );
 
 void
-Wx_StyledTextCtrl::StyleSetFontAttr( styleNum, size, faceName, bold, italic, underline )
+wxStyledTextCtrl::StyleSetFontAttr( styleNum, size, faceName, bold, italic, underline )
     int styleNum
     int size
     wxString faceName
@@ -70,372 +70,372 @@ Wx_StyledTextCtrl::StyleSetFontAttr( styleNum, size, faceName, bold, italic, und
     bool underline
 
 void
-Wx_StyledTextCtrl::StyleClearAll()
+wxStyledTextCtrl::StyleClearAll()
 
 void
-Wx_StyledTextCtrl::ClearDocumentStyle()
+wxStyledTextCtrl::ClearDocumentStyle()
 
 void
-Wx_StyledTextCtrl::StyleSetForeground( style, fore )
+wxStyledTextCtrl::StyleSetForeground( style, fore )
     int style
-    Wx_Colour* fore
+    wxColour* fore
   CODE:
     THIS->StyleSetForeground( style, *fore );
 
 void
-Wx_StyledTextCtrl::StyleSetBackground( style, back )
+wxStyledTextCtrl::StyleSetBackground( style, back )
     int style
-    Wx_Colour* back
+    wxColour* back
   CODE:
     THIS->StyleSetBackground( style, *back );
 
 void
-Wx_StyledTextCtrl::StyleSetBold( style, bold )
+wxStyledTextCtrl::StyleSetBold( style, bold )
     int style
     bool bold
 
 void
-Wx_StyledTextCtrl::StyleSetItalic( style, italic )
+wxStyledTextCtrl::StyleSetItalic( style, italic )
     int style
     bool italic
 
 void
-Wx_StyledTextCtrl::StyleSetUnderline( style, underline )
+wxStyledTextCtrl::StyleSetUnderline( style, underline )
     int style
     bool underline
 
 void
-Wx_StyledTextCtrl::InsertText(pos, text)
+wxStyledTextCtrl::InsertText(pos, text)
     int pos
     wxString text
 
 void
-Wx_StyledTextCtrl::StyleSetSize(style, size_points)
+wxStyledTextCtrl::StyleSetSize(style, size_points)
     int style
     int size_points
 
 void
-Wx_StyledTextCtrl::StyleSetFaceName(style, font_name)
+wxStyledTextCtrl::StyleSetFaceName(style, font_name)
     int style
     wxString font_name
 
 void
-Wx_StyledTextCtrl::StyleSetEOLFilled( style, filled )
+wxStyledTextCtrl::StyleSetEOLFilled( style, filled )
     int style
     bool filled
 
 void
-Wx_StyledTextCtrl::StyleResetDefault()
+wxStyledTextCtrl::StyleResetDefault()
 
 void
-Wx_StyledTextCtrl::StyleSetCase( style, caseForce )
+wxStyledTextCtrl::StyleSetCase( style, caseForce )
     int style
     int caseForce
 
 void
-Wx_StyledTextCtrl::StyleSetCharacterSet( style, characterSet )
+wxStyledTextCtrl::StyleSetCharacterSet( style, characterSet )
     int style
     int characterSet
 
 void
-Wx_StyledTextCtrl::SetSelForeground( useSetting, fore )
+wxStyledTextCtrl::SetSelForeground( useSetting, fore )
     bool useSetting
-    Wx_Colour* fore
+    wxColour* fore
   CODE:
     THIS->SetSelForeground( useSetting, *fore );
 
 void
-Wx_StyledTextCtrl::SetSelBackground( useSetting, back )
+wxStyledTextCtrl::SetSelBackground( useSetting, back )
     bool useSetting
-    Wx_Colour* back
+    wxColour* back
   CODE:
     THIS->SetSelBackground( useSetting, *back );
 
 void
-Wx_StyledTextCtrl::SetCaretForeground( fore )
-    Wx_Colour* fore
+wxStyledTextCtrl::SetCaretForeground( fore )
+    wxColour* fore
   CODE:
     THIS->SetCaretForeground( *fore );
 
 void
-Wx_StyledTextCtrl::CmdKeyAssign( key, modifiers, cmd )
+wxStyledTextCtrl::CmdKeyAssign( key, modifiers, cmd )
     int key
     int modifiers
     int cmd
 
 void
-Wx_StyledTextCtrl::CmdKeyClear( key, modifiers )
+wxStyledTextCtrl::CmdKeyClear( key, modifiers )
     int key
     int modifiers
 
 void
-Wx_StyledTextCtrl::CmdKeyClearAll()
+wxStyledTextCtrl::CmdKeyClearAll()
 
 void
-Wx_StyledTextCtrl::SetStyleBytes( length, styleBytes )
+wxStyledTextCtrl::SetStyleBytes( length, styleBytes )
     int length
     char* styleBytes
 
 void
-Wx_StyledTextCtrl::StyleSetVisible( style, visible )
+wxStyledTextCtrl::StyleSetVisible( style, visible )
     int style
     bool visible
 
 int
-Wx_StyledTextCtrl::GetCaretPeriod()
+wxStyledTextCtrl::GetCaretPeriod()
 
 void
-Wx_StyledTextCtrl::SetCaretPeriod( periodMilliseconds )
+wxStyledTextCtrl::SetCaretPeriod( periodMilliseconds )
     int periodMilliseconds
 
 void
-Wx_StyledTextCtrl::SetWordChars( characters )
+wxStyledTextCtrl::SetWordChars( characters )
     wxString characters
 
 void
-Wx_StyledTextCtrl::BeginUndoAction()
+wxStyledTextCtrl::BeginUndoAction()
 
 void
-Wx_StyledTextCtrl::EndUndoAction()
+wxStyledTextCtrl::EndUndoAction()
 
 void
-Wx_StyledTextCtrl::IndicatorSetStyle( indic, style )
+wxStyledTextCtrl::IndicatorSetStyle( indic, style )
     int indic
     int style
 
 int
-Wx_StyledTextCtrl::IndicatorGetStyle( indic )
+wxStyledTextCtrl::IndicatorGetStyle( indic )
     int indic
 
 void
-Wx_StyledTextCtrl::IndicatorSetForeground( indic, fore )
+wxStyledTextCtrl::IndicatorSetForeground( indic, fore )
     int indic
-    Wx_Colour* fore
+    wxColour* fore
   CODE:
     THIS->IndicatorSetForeground( indic, *fore );
 
 void
-Wx_StyledTextCtrl::SetWhitespaceForeground( useSetting, fore )
+wxStyledTextCtrl::SetWhitespaceForeground( useSetting, fore )
     bool useSetting
-    Wx_Colour* fore
+    wxColour* fore
   CODE:
     THIS->SetWhitespaceForeground( useSetting, *fore );
 
 void
-Wx_StyledTextCtrl::SetWhitespaceBackground( useSetting, back )
+wxStyledTextCtrl::SetWhitespaceBackground( useSetting, back )
     bool useSetting
-    Wx_Colour* back
+    wxColour* back
   CODE:
     THIS->SetWhitespaceBackground( useSetting, *back );
 
 void
-Wx_StyledTextCtrl::SetStyleBits( bits )
+wxStyledTextCtrl::SetStyleBits( bits )
     int bits
 
 int
-Wx_StyledTextCtrl::GetStyleBits()
+wxStyledTextCtrl::GetStyleBits()
 
 void
-Wx_StyledTextCtrl::SetLineState( line, state )
+wxStyledTextCtrl::SetLineState( line, state )
     int line
     int state
 
 int
-Wx_StyledTextCtrl::GetLineState( line )
+wxStyledTextCtrl::GetLineState( line )
     int line
 
 int
-Wx_StyledTextCtrl::GetMaxLineState()
+wxStyledTextCtrl::GetMaxLineState()
 
 bool
-Wx_StyledTextCtrl::GetCaretLineVisible()
+wxStyledTextCtrl::GetCaretLineVisible()
 
 void
-Wx_StyledTextCtrl::SetCaretLineVisible( show )
+wxStyledTextCtrl::SetCaretLineVisible( show )
     bool show
 
 void
-Wx_StyledTextCtrl::SetCaretLineBack( back )
-    Wx_Colour* back
+wxStyledTextCtrl::SetCaretLineBack( back )
+    wxColour* back
   CODE:
     THIS->SetCaretLineBack( *back );
 
 void
-Wx_StyledTextCtrl::StyleSetChangeable( style, changeable )
+wxStyledTextCtrl::StyleSetChangeable( style, changeable )
     int style
     bool changeable
 
 void
-Wx_StyledTextCtrl::AutoCompShow( lenEntered, itemList )
+wxStyledTextCtrl::AutoCompShow( lenEntered, itemList )
     int lenEntered
     wxString itemList
 
 void
-Wx_StyledTextCtrl::AutoCompCancel()
+wxStyledTextCtrl::AutoCompCancel()
 
 bool
-Wx_StyledTextCtrl::AutoCompActive()
+wxStyledTextCtrl::AutoCompActive()
 
 int
-Wx_StyledTextCtrl::AutoCompPosStart()
+wxStyledTextCtrl::AutoCompPosStart()
 
 void
-Wx_StyledTextCtrl::AutoCompComplete()
+wxStyledTextCtrl::AutoCompComplete()
 
 void
-Wx_StyledTextCtrl::AutoCompStops( characterSet )
+wxStyledTextCtrl::AutoCompStops( characterSet )
     wxString characterSet
 
 void
-Wx_StyledTextCtrl::AutoCompSetSeparator( separatorCharacter )
+wxStyledTextCtrl::AutoCompSetSeparator( separatorCharacter )
     int separatorCharacter
 
 int
-Wx_StyledTextCtrl::AutoCompGetSeparator()
+wxStyledTextCtrl::AutoCompGetSeparator()
 
 void
-Wx_StyledTextCtrl::AutoCompSelect( text )
+wxStyledTextCtrl::AutoCompSelect( text )
     wxString text
 
 void
-Wx_StyledTextCtrl::AutoCompSetCancelAtStart( cancel )
+wxStyledTextCtrl::AutoCompSetCancelAtStart( cancel )
     bool cancel
 
 bool
-Wx_StyledTextCtrl::AutoCompGetCancelAtStart()
+wxStyledTextCtrl::AutoCompGetCancelAtStart()
 
 void
-Wx_StyledTextCtrl::AutoCompSetFillUps( characterSet )
+wxStyledTextCtrl::AutoCompSetFillUps( characterSet )
     wxString characterSet
 
 void
-Wx_StyledTextCtrl::AutoCompSetChooseSingle( chooseSingle )
+wxStyledTextCtrl::AutoCompSetChooseSingle( chooseSingle )
     bool chooseSingle
 
 bool
-Wx_StyledTextCtrl::AutoCompGetChooseSingle()
+wxStyledTextCtrl::AutoCompGetChooseSingle()
 
 bool
-Wx_StyledTextCtrl::AutoCompGetIgnoreCase()
+wxStyledTextCtrl::AutoCompGetIgnoreCase()
 
 void
-Wx_StyledTextCtrl::UserListShow( listType, itemList )
+wxStyledTextCtrl::UserListShow( listType, itemList )
     int listType
     wxString itemList
 
 void
-Wx_StyledTextCtrl::AutoCompSetAutoHide( autoHide )
+wxStyledTextCtrl::AutoCompSetAutoHide( autoHide )
     bool autoHide
 
 bool
-Wx_StyledTextCtrl::AutoCompGetAutoHide()
+wxStyledTextCtrl::AutoCompGetAutoHide()
 
 void
-Wx_StyledTextCtrl::AutoCompSetDropRestOfWord( dropRestOfWord )
+wxStyledTextCtrl::AutoCompSetDropRestOfWord( dropRestOfWord )
     bool dropRestOfWord
 
 bool
-Wx_StyledTextCtrl::AutoCompGetDropRestOfWord()
+wxStyledTextCtrl::AutoCompGetDropRestOfWord()
 
 void
-Wx_StyledTextCtrl::SetIndent( indentSize )
+wxStyledTextCtrl::SetIndent( indentSize )
     int indentSize
 
 int
-Wx_StyledTextCtrl::GetIndent()
+wxStyledTextCtrl::GetIndent()
 
 void
-Wx_StyledTextCtrl::SetUseTabs( useTabs )
+wxStyledTextCtrl::SetUseTabs( useTabs )
     bool useTabs
 
 bool
-Wx_StyledTextCtrl::GetUseTabs()
+wxStyledTextCtrl::GetUseTabs()
 
 void
-Wx_StyledTextCtrl::SetLineIndentation( line, indentSize )
+wxStyledTextCtrl::SetLineIndentation( line, indentSize )
     int line
     int indentSize
 
 int
-Wx_StyledTextCtrl::GetLineIndentation( line )
+wxStyledTextCtrl::GetLineIndentation( line )
     int line
 
 int
-Wx_StyledTextCtrl::GetLineIndentPosition( line )
+wxStyledTextCtrl::GetLineIndentPosition( line )
     int line
 
 int
-Wx_StyledTextCtrl::GetColumn( pos )
+wxStyledTextCtrl::GetColumn( pos )
     int pos
 
 void
-Wx_StyledTextCtrl::SetUseHorizontalScrollBar( show )
+wxStyledTextCtrl::SetUseHorizontalScrollBar( show )
     bool show
 
 bool
-Wx_StyledTextCtrl::GetUseHorizontalScrollBar()
+wxStyledTextCtrl::GetUseHorizontalScrollBar()
 
 void
-Wx_StyledTextCtrl::SetIndentationGuides( show )
+wxStyledTextCtrl::SetIndentationGuides( show )
     bool show
 
 bool
-Wx_StyledTextCtrl::GetIndentationGuides()
+wxStyledTextCtrl::GetIndentationGuides()
 
 void
-Wx_StyledTextCtrl::SetHighlightGuide( column )
+wxStyledTextCtrl::SetHighlightGuide( column )
     int column
 
 int
-Wx_StyledTextCtrl::GetHighlightGuide()
+wxStyledTextCtrl::GetHighlightGuide()
 
 int
-Wx_StyledTextCtrl::GetLineEndPosition( line )
+wxStyledTextCtrl::GetLineEndPosition( line )
     int line
 
 int
-Wx_StyledTextCtrl::GetCodePage()
+wxStyledTextCtrl::GetCodePage()
 
 bool
-Wx_StyledTextCtrl::GetReadOnly()
+wxStyledTextCtrl::GetReadOnly()
 
 void
-Wx_StyledTextCtrl::SetCurrentPos( pos )
+wxStyledTextCtrl::SetCurrentPos( pos )
     int pos
 
 void
-Wx_StyledTextCtrl::SetSelectionStart( pos )
-    int pos
-
-int
-Wx_StyledTextCtrl::GetSelectionStart()
-
-void
-Wx_StyledTextCtrl::SetSelectionEnd( pos )
+wxStyledTextCtrl::SetSelectionStart( pos )
     int pos
 
 int
-Wx_StyledTextCtrl::GetSelectionEnd()
+wxStyledTextCtrl::GetSelectionStart()
 
 void
-Wx_StyledTextCtrl::SetPrintMagnification( magnification )
+wxStyledTextCtrl::SetSelectionEnd( pos )
+    int pos
+
+int
+wxStyledTextCtrl::GetSelectionEnd()
+
+void
+wxStyledTextCtrl::SetPrintMagnification( magnification )
     int magnification
 
 int
-Wx_StyledTextCtrl::GetPrintMagnification()
+wxStyledTextCtrl::GetPrintMagnification()
 
 void
-Wx_StyledTextCtrl::SetPrintColourMode( mode )
+wxStyledTextCtrl::SetPrintColourMode( mode )
     int mode
 
 int
-Wx_StyledTextCtrl::GetPrintColourMode()
+wxStyledTextCtrl::GetPrintColourMode()
 
 #undef FindText
 #if 0
 
 int
-Wx_StyledTextCtrl::FindText( minPos, maxPos, text, flags = 0 )
+wxStyledTextCtrl::FindText( minPos, maxPos, text, flags = 0 )
     int minPos
     int maxPos
     wxString text
@@ -447,764 +447,753 @@ Wx_StyledTextCtrl::FindText( minPos, maxPos, text, flags = 0 )
 #endif
 
 int
-Wx_StyledTextCtrl::GetFirstVisibleLine()
+wxStyledTextCtrl::GetFirstVisibleLine()
 
 int
-Wx_StyledTextCtrl::GetLineCount()
+wxStyledTextCtrl::GetLineCount()
 
 void
-Wx_StyledTextCtrl::SetMarginLeft( pixelWidth )
+wxStyledTextCtrl::SetMarginLeft( pixelWidth )
     int pixelWidth
 
 int
-Wx_StyledTextCtrl::GetMarginLeft()
+wxStyledTextCtrl::GetMarginLeft()
 
 void
-Wx_StyledTextCtrl::SetMarginRight( pixelWidth )
+wxStyledTextCtrl::SetMarginRight( pixelWidth )
     int pixelWidth
 
 int
-Wx_StyledTextCtrl::GetMarginRight()
+wxStyledTextCtrl::GetMarginRight()
 
 bool
-Wx_StyledTextCtrl::GetModify()
+wxStyledTextCtrl::GetModify()
 
 void
-Wx_StyledTextCtrl::SetSelection( start, end )
+wxStyledTextCtrl::SetSelection( start, end )
     int start
     int end
 
 void
-Wx_StyledTextCtrl::HideSelection( normal )
+wxStyledTextCtrl::HideSelection( normal )
     bool normal
 
 int
-Wx_StyledTextCtrl::LineFromPosition( pos )
+wxStyledTextCtrl::LineFromPosition( pos )
     int pos
 
 int
-Wx_StyledTextCtrl::PositionFromLine( line )
+wxStyledTextCtrl::PositionFromLine( line )
     int line
 
 void
-Wx_StyledTextCtrl::LineScroll( columns, lines )
+wxStyledTextCtrl::LineScroll( columns, lines )
     int columns
     int lines
 
 void
-Wx_StyledTextCtrl::EnsureCaretVisible()
+wxStyledTextCtrl::EnsureCaretVisible()
 
 void
-Wx_StyledTextCtrl::ReplaceSelection( text )
+wxStyledTextCtrl::ReplaceSelection( text )
     wxString text
 
 void
-Wx_StyledTextCtrl::SetReadOnly( readOnly )
+wxStyledTextCtrl::SetReadOnly( readOnly )
     bool readOnly
 
 bool
-Wx_StyledTextCtrl::CanPaste()
+wxStyledTextCtrl::CanPaste()
 
 bool
-Wx_StyledTextCtrl::CanUndo()
+wxStyledTextCtrl::CanUndo()
 
 void
-Wx_StyledTextCtrl::EmptyUndoBuffer()
+wxStyledTextCtrl::EmptyUndoBuffer()
 
 void
-Wx_StyledTextCtrl::Undo()
+wxStyledTextCtrl::Undo()
 
 void
-Wx_StyledTextCtrl::Cut()
+wxStyledTextCtrl::Cut()
 
 void
-Wx_StyledTextCtrl::Copy()
+wxStyledTextCtrl::Copy()
 
 void
-Wx_StyledTextCtrl::Paste()
+wxStyledTextCtrl::Paste()
 
 void
-Wx_StyledTextCtrl::Clear()
+wxStyledTextCtrl::Clear()
 
 int
-Wx_StyledTextCtrl::GetTextLength()
+wxStyledTextCtrl::GetTextLength()
 
 void
-Wx_StyledTextCtrl::SetOvertype( overtype )
+wxStyledTextCtrl::SetOvertype( overtype )
     bool overtype
 
 bool
-Wx_StyledTextCtrl::GetOvertype()
+wxStyledTextCtrl::GetOvertype()
 
 void
-Wx_StyledTextCtrl::SetCaretWidth( pixelWidth )
+wxStyledTextCtrl::SetCaretWidth( pixelWidth )
     int pixelWidth
 
 int
-Wx_StyledTextCtrl::GetCaretWidth()
+wxStyledTextCtrl::GetCaretWidth()
 
 void
-Wx_StyledTextCtrl::SetTargetStart( pos )
+wxStyledTextCtrl::SetTargetStart( pos )
     int pos
 
 int
-Wx_StyledTextCtrl::GetTargetStart()
+wxStyledTextCtrl::GetTargetStart()
 
 void
-Wx_StyledTextCtrl::SetTargetEnd( pos )
+wxStyledTextCtrl::SetTargetEnd( pos )
     int pos
 
 int
-Wx_StyledTextCtrl::GetTargetEnd()
+wxStyledTextCtrl::GetTargetEnd()
 
 int
-Wx_StyledTextCtrl::ReplaceTarget( text )
+wxStyledTextCtrl::ReplaceTarget( text )
     wxString text
 
 int
-Wx_StyledTextCtrl::ReplaceTargetRE( text )
+wxStyledTextCtrl::ReplaceTargetRE( text )
     wxString text
 
 int
-Wx_StyledTextCtrl::SearchInTarget( text )
+wxStyledTextCtrl::SearchInTarget( text )
     wxString text
 
 void
-Wx_StyledTextCtrl::SetSearchFlags( flags )
+wxStyledTextCtrl::SetSearchFlags( flags )
     int flags
 
 int
-Wx_StyledTextCtrl::GetSearchFlags()
+wxStyledTextCtrl::GetSearchFlags()
 
 void
-Wx_StyledTextCtrl::CallTipShow( pos, definition )
+wxStyledTextCtrl::CallTipShow( pos, definition )
     int pos
     wxString definition
 
 void
-Wx_StyledTextCtrl::CallTipCancel()
+wxStyledTextCtrl::CallTipCancel()
 
 bool
-Wx_StyledTextCtrl::CallTipActive()
+wxStyledTextCtrl::CallTipActive()
 
 int
-Wx_StyledTextCtrl::CallTipPosAtStart()
+wxStyledTextCtrl::CallTipPosAtStart()
 
 void
-Wx_StyledTextCtrl::CallTipSetHighlight( start, end )
+wxStyledTextCtrl::CallTipSetHighlight( start, end )
     int start
     int end
 
 void
-Wx_StyledTextCtrl::CallTipSetBackground( back )
-    Wx_Colour* back
+wxStyledTextCtrl::CallTipSetBackground( back )
+    wxColour* back
   CODE:
     THIS->CallTipSetBackground( *back );
 
 int
-Wx_StyledTextCtrl::VisibleFromDocLine( line )
+wxStyledTextCtrl::VisibleFromDocLine( line )
     int line
 
 int
-Wx_StyledTextCtrl::DocLineFromVisible( lineDisplay )
+wxStyledTextCtrl::DocLineFromVisible( lineDisplay )
     int lineDisplay
 
 void
-Wx_StyledTextCtrl::SetFoldLevel( line, level )
+wxStyledTextCtrl::SetFoldLevel( line, level )
     int line
     int level
 
 int
-Wx_StyledTextCtrl::GetFoldLevel( line )
+wxStyledTextCtrl::GetFoldLevel( line )
     int line
 
 int
-Wx_StyledTextCtrl::GetLastChild( line, level )
+wxStyledTextCtrl::GetLastChild( line, level )
     int line
     int level
 
 int
-Wx_StyledTextCtrl::GetFoldParent( line )
+wxStyledTextCtrl::GetFoldParent( line )
     int line
 
 void
-Wx_StyledTextCtrl::ShowLines( lineStart, lineEnd )
+wxStyledTextCtrl::ShowLines( lineStart, lineEnd )
     int lineStart
     int lineEnd
 
 void
-Wx_StyledTextCtrl::HideLines( lineStart, lineEnd )
+wxStyledTextCtrl::HideLines( lineStart, lineEnd )
     int lineStart
     int lineEnd
 
 bool
-Wx_StyledTextCtrl::GetLineVisible( line )
+wxStyledTextCtrl::GetLineVisible( line )
     int line
 
 void
-Wx_StyledTextCtrl::SetFoldExpanded( line, expanded )
+wxStyledTextCtrl::SetFoldExpanded( line, expanded )
     int line
     bool expanded
 
 bool
-Wx_StyledTextCtrl::GetFoldExpanded( line )
+wxStyledTextCtrl::GetFoldExpanded( line )
     int line
 
 void
-Wx_StyledTextCtrl::ToggleFold( line )
+wxStyledTextCtrl::ToggleFold( line )
     int line
 
 void
-Wx_StyledTextCtrl::EnsureVisible( line )
+wxStyledTextCtrl::EnsureVisible( line )
     int line
 
 void
-Wx_StyledTextCtrl::SetFoldFlags( flags )
+wxStyledTextCtrl::SetFoldFlags( flags )
     int flags
 
 void
-Wx_StyledTextCtrl::EnsureVisibleEnforcePolicy( line )
+wxStyledTextCtrl::EnsureVisibleEnforcePolicy( line )
     int line
 
 void
-Wx_StyledTextCtrl::SetTabIndents( tabIndents )
+wxStyledTextCtrl::SetTabIndents( tabIndents )
     bool tabIndents
 
 bool
-Wx_StyledTextCtrl::GetTabIndents()
+wxStyledTextCtrl::GetTabIndents()
 
 void
-Wx_StyledTextCtrl::SetBackSpaceUnIndents( bsUnIndents )
+wxStyledTextCtrl::SetBackSpaceUnIndents( bsUnIndents )
     bool bsUnIndents
 
 bool
-Wx_StyledTextCtrl::GetBackSpaceUnIndents()
+wxStyledTextCtrl::GetBackSpaceUnIndents()
 
 void
-Wx_StyledTextCtrl::SetMouseDwellTime( periodMilliseconds )
+wxStyledTextCtrl::SetMouseDwellTime( periodMilliseconds )
     int periodMilliseconds
 
 int
-Wx_StyledTextCtrl::GetMouseDwellTime()
+wxStyledTextCtrl::GetMouseDwellTime()
 
 int
-Wx_StyledTextCtrl::WordStartPosition( pos, onlyWordCharacters )
+wxStyledTextCtrl::WordStartPosition( pos, onlyWordCharacters )
     int pos
     bool onlyWordCharacters
 
 int
-Wx_StyledTextCtrl::WordEndPosition( pos, onlyWordCharacters )
+wxStyledTextCtrl::WordEndPosition( pos, onlyWordCharacters )
     int pos
     bool onlyWordCharacters
 
 void
-Wx_StyledTextCtrl::SetLayoutCache( mode )
+wxStyledTextCtrl::SetLayoutCache( mode )
     int mode
 
 int
-Wx_StyledTextCtrl::GetLayoutCache()
+wxStyledTextCtrl::GetLayoutCache()
 
 void
-Wx_StyledTextCtrl::SetScrollWidth( pixelWidth )
+wxStyledTextCtrl::SetScrollWidth( pixelWidth )
     int pixelWidth
 
 int
-Wx_StyledTextCtrl::GetScrollWidth()
+wxStyledTextCtrl::GetScrollWidth()
 
 int
-Wx_StyledTextCtrl::TextWidth( style, text )
+wxStyledTextCtrl::TextWidth( style, text )
     int style
     wxString text
 
 void
-Wx_StyledTextCtrl::SetEndAtLastLine( endAtLastLine )
+wxStyledTextCtrl::SetEndAtLastLine( endAtLastLine )
     bool endAtLastLine
 
 int
-Wx_StyledTextCtrl::GetEndAtLastLine()
+wxStyledTextCtrl::GetEndAtLastLine()
 
 int
-Wx_StyledTextCtrl::TextHeight( line )
+wxStyledTextCtrl::TextHeight( line )
     int line
 
 void
-Wx_StyledTextCtrl::HomeDisplay()
+wxStyledTextCtrl::HomeDisplay()
 
 void
-Wx_StyledTextCtrl::HomeDisplayExtend()
+wxStyledTextCtrl::HomeDisplayExtend()
 
 void
-Wx_StyledTextCtrl::LineEndDisplay()
+wxStyledTextCtrl::LineEndDisplay()
 
 void
-Wx_StyledTextCtrl::LineEndDisplayExtend()
+wxStyledTextCtrl::LineEndDisplayExtend()
 
 void
-Wx_StyledTextCtrl::MoveCaretInsideView()
+wxStyledTextCtrl::MoveCaretInsideView()
 
 int
-Wx_StyledTextCtrl::LineLength( line )
+wxStyledTextCtrl::LineLength( line )
     int line
 
 void
-Wx_StyledTextCtrl::BraceHighlight( pos1, pos2 )
+wxStyledTextCtrl::BraceHighlight( pos1, pos2 )
     int pos1
     int pos2
 
 void
-Wx_StyledTextCtrl::BraceBadLight( pos )
+wxStyledTextCtrl::BraceBadLight( pos )
     int pos
 
 int
-Wx_StyledTextCtrl::BraceMatch( pos )
+wxStyledTextCtrl::BraceMatch( pos )
     int pos
 
 bool
-Wx_StyledTextCtrl::GetViewEOL()
+wxStyledTextCtrl::GetViewEOL()
 
 void
-Wx_StyledTextCtrl::SetViewEOL( visible )
+wxStyledTextCtrl::SetViewEOL( visible )
     bool visible
 
 void*
-Wx_StyledTextCtrl::GetDocPointer()
+wxStyledTextCtrl::GetDocPointer()
 
 void
-Wx_StyledTextCtrl::SetDocPointer( docPointer )
+wxStyledTextCtrl::SetDocPointer( docPointer )
     void* docPointer
 
 void
-Wx_StyledTextCtrl::SetModEventMask( mask )
+wxStyledTextCtrl::SetModEventMask( mask )
     int mask
 
 int
-Wx_StyledTextCtrl::GetEdgeColumn()
+wxStyledTextCtrl::GetEdgeColumn()
 
 void
-Wx_StyledTextCtrl::SetEdgeColumn( column )
+wxStyledTextCtrl::SetEdgeColumn( column )
     int column
 
 int
-Wx_StyledTextCtrl::GetEdgeMode()
+wxStyledTextCtrl::GetEdgeMode()
 
 void
-Wx_StyledTextCtrl::SetEdgeMode( mode )
+wxStyledTextCtrl::SetEdgeMode( mode )
     int mode
 
 void
-Wx_StyledTextCtrl::SetEdgeColour( edgeColour )
+wxStyledTextCtrl::SetEdgeColour( edgeColour )
     wxColour edgeColour
 
 void
-Wx_StyledTextCtrl::SearchAnchor()
+wxStyledTextCtrl::SearchAnchor()
 
 int
-Wx_StyledTextCtrl::SearchNext( flags, text )
+wxStyledTextCtrl::SearchNext( flags, text )
     int flags
     wxString text
 
 int
-Wx_StyledTextCtrl::SearchPrev( flags, text )
+wxStyledTextCtrl::SearchPrev( flags, text )
     int flags
     wxString text
 
 int
-Wx_StyledTextCtrl::LinesOnScreen()
+wxStyledTextCtrl::LinesOnScreen()
 
 void
-Wx_StyledTextCtrl::UsePopUp( allowPopUp )
+wxStyledTextCtrl::UsePopUp( allowPopUp )
     bool allowPopUp
 
 bool
-Wx_StyledTextCtrl::SelectionIsRectangle()
+wxStyledTextCtrl::SelectionIsRectangle()
 
 void
-Wx_StyledTextCtrl::SetZoom( zoom )
+wxStyledTextCtrl::SetZoom( zoom )
     int zoom
 
 int
-Wx_StyledTextCtrl::GetZoom()
+wxStyledTextCtrl::GetZoom()
 
 void
-Wx_StyledTextCtrl::CreateDocument()
+wxStyledTextCtrl::CreateDocument()
 
 void
-Wx_StyledTextCtrl::AddRefDocument( docPointer )
+wxStyledTextCtrl::AddRefDocument( docPointer )
     void* docPointer
 
 void
-Wx_StyledTextCtrl::ReleaseDocument( docPointer )
+wxStyledTextCtrl::ReleaseDocument( docPointer )
     void* docPointer
 
 int
-Wx_StyledTextCtrl::GetModEventMask()
+wxStyledTextCtrl::GetModEventMask()
 
 void
-Wx_StyledTextCtrl::SetSTCFocus( focus )
+wxStyledTextCtrl::SetSTCFocus( focus )
     bool focus
 
 bool
-Wx_StyledTextCtrl::GetSTCFocus()
+wxStyledTextCtrl::GetSTCFocus()
 
 void
-Wx_StyledTextCtrl::SetStatus( statusCode )
+wxStyledTextCtrl::SetStatus( statusCode )
     int statusCode
 
 int
-Wx_StyledTextCtrl::GetStatus()
+wxStyledTextCtrl::GetStatus()
 
 void
-Wx_StyledTextCtrl::SetMouseDownCaptures( captures )
+wxStyledTextCtrl::SetMouseDownCaptures( captures )
     bool captures
 
 bool
-Wx_StyledTextCtrl::GetMouseDownCaptures()
+wxStyledTextCtrl::GetMouseDownCaptures()
 
 void
-Wx_StyledTextCtrl::SetCursor( cursorType )
-    int cursorType
-
-#if 0
-
-int
-Wx_StyledTextCtrl::GetCursor()
-
-#endif
-
-void
-Wx_StyledTextCtrl::SetControlCharSymbol( symbol )
+wxStyledTextCtrl::SetControlCharSymbol( symbol )
     int symbol
 
 int
-Wx_StyledTextCtrl::GetControlCharSymbol()
+wxStyledTextCtrl::GetControlCharSymbol()
 
 void
-Wx_StyledTextCtrl::WordPartLeft()
+wxStyledTextCtrl::WordPartLeft()
 
 void
-Wx_StyledTextCtrl::WordPartLeftExtend()
+wxStyledTextCtrl::WordPartLeftExtend()
 
 void
-Wx_StyledTextCtrl::WordPartRight()
+wxStyledTextCtrl::WordPartRight()
 
 void
-Wx_StyledTextCtrl::WordPartRightExtend()
+wxStyledTextCtrl::WordPartRightExtend()
 
 void
-Wx_StyledTextCtrl::SetVisiblePolicy( visiblePolicy, visibleSlop )
+wxStyledTextCtrl::SetVisiblePolicy( visiblePolicy, visibleSlop )
     int visiblePolicy
     int visibleSlop
 
 void
-Wx_StyledTextCtrl::DelLineLeft()
+wxStyledTextCtrl::DelLineLeft()
 
 void
-Wx_StyledTextCtrl::DelLineRight()
+wxStyledTextCtrl::DelLineRight()
 
 void
-Wx_StyledTextCtrl::SetXOffset( newOffset )
+wxStyledTextCtrl::SetXOffset( newOffset )
     int newOffset
 
 int
-Wx_StyledTextCtrl::GetXOffset()
+wxStyledTextCtrl::GetXOffset()
 
 void
-Wx_StyledTextCtrl::SetXCaretPolicy( caretPolicy, caretSlop )
+wxStyledTextCtrl::SetXCaretPolicy( caretPolicy, caretSlop )
     int caretPolicy
     int caretSlop
 
 void
-Wx_StyledTextCtrl::SetYCaretPolicy( caretPolicy, caretSlop )
+wxStyledTextCtrl::SetYCaretPolicy( caretPolicy, caretSlop )
     int caretPolicy
     int caretSlop
 
 void
-Wx_StyledTextCtrl::StartRecord()
+wxStyledTextCtrl::StartRecord()
 
 void
-Wx_StyledTextCtrl::StopRecord()
+wxStyledTextCtrl::StopRecord()
 
 void
-Wx_StyledTextCtrl::Colourise( start, end )
+wxStyledTextCtrl::Colourise( start, end )
     int start
     int end
 
 void
-Wx_StyledTextCtrl::SetProperty( key, value )
+wxStyledTextCtrl::SetProperty( key, value )
     wxString key
     wxString value
 
 void
-Wx_StyledTextCtrl::SetKeyWords( keywordSet, keyWords )
+wxStyledTextCtrl::SetKeyWords( keywordSet, keyWords )
     int keywordSet
     wxString keyWords
 
 void
-Wx_StyledTextCtrl::SetLexerLanguage( language )
+wxStyledTextCtrl::SetLexerLanguage( language )
     wxString language
 
 ## Retrieve the selected text
 wxString
-Wx_StyledTextCtrl::GetSelectedText()
+wxStyledTextCtrl::GetSelectedText()
 
 ## Retrieve a range of text
 wxString
-Wx_StyledTextCtrl::GetTextRange(startPos, endPos)
+wxStyledTextCtrl::GetTextRange(startPos, endPos)
     int startPos
     int endPos
 
 ## Retrieve all the text in the document.
 wxString
-Wx_StyledTextCtrl::GetText()
+wxStyledTextCtrl::GetText()
 
 ## Returns the position of the opposite end of the selection to the caret.
 int
-Wx_StyledTextCtrl::GetAnchor()
+wxStyledTextCtrl::GetAnchor()
 
 ## Returns the style byte at the position
 int
-Wx_StyledTextCtrl::GetStyleAt(pos)
+wxStyledTextCtrl::GetStyleAt(pos)
     int pos
 
 ## Redoes the next action on the undo history.
 void
-Wx_StyledTextCtrl::Redo()
+wxStyledTextCtrl::Redo()
 
 ## Select all the text in the document.
 void
-Wx_StyledTextCtrl::SelectAll()
+wxStyledTextCtrl::SelectAll()
 
 ## Remember the current position in the undo history as the position
 ## at which the document was saved.
 void
-Wx_StyledTextCtrl::SetSavePoint()
+wxStyledTextCtrl::SetSavePoint()
 
 ## Replace the contents of the document with the argument text.
 void
-Wx_StyledTextCtrl::SetText(text)
+wxStyledTextCtrl::SetText(text)
     wxString text
 
 ## Are there any redoable actions in the undo history?
 bool
-Wx_StyledTextCtrl::CanRedo()
+wxStyledTextCtrl::CanRedo()
 
 ## Retrieve the line number at which a particular marker is located.
 int
-Wx_StyledTextCtrl::MarkerLineFromHandle( handle )
+wxStyledTextCtrl::MarkerLineFromHandle( handle )
     int handle
 
 ## Delete a marker
 void
-Wx_StyledTextCtrl::MarkerDeleteHandle( handle )
+wxStyledTextCtrl::MarkerDeleteHandle( handle )
     int handle
 
 ## Is undo history being collected?
 bool
-Wx_StyledTextCtrl::GetUndoCollection()
+wxStyledTextCtrl::GetUndoCollection()
 
 ## Are white space characters currently visible?
 ## Returns one of SCWS_* constants.
 int
-Wx_StyledTextCtrl::GetViewWhiteSpace()
+wxStyledTextCtrl::GetViewWhiteSpace()
 
 ## Make white space characters invisible, always visible or visible outside indentation.
 void
-Wx_StyledTextCtrl::SetViewWhiteSpace( viewWs )
+wxStyledTextCtrl::SetViewWhiteSpace( viewWs )
     int viewWs
 
 ## Find the position from a point within the window.
 int
-Wx_StyledTextCtrl::PositionFromPoint( pt )
-    Wx_Point pt
+wxStyledTextCtrl::PositionFromPoint( pt )
+    wxPoint pt
 
 int
-Wx_StyledTextCtrl::PositionFromPointClose( x, y )
+wxStyledTextCtrl::PositionFromPointClose( x, y )
     int x
     int y
 
 ## Set caret to start of a line and ensure it is visible.
 void
-Wx_StyledTextCtrl::GotoLine(line)
+wxStyledTextCtrl::GotoLine(line)
     int line
 
 ## Set caret to a position and ensure it is visible.
 void
-Wx_StyledTextCtrl::GotoPos(pos)
+wxStyledTextCtrl::GotoPos(pos)
     int pos
 
 void
-Wx_StyledTextCtrl::SetAnchor( posAnchor )
+wxStyledTextCtrl::SetAnchor( posAnchor )
     int posAnchor
 
 int
-Wx_StyledTextCtrl::GetEndStyled()
+wxStyledTextCtrl::GetEndStyled()
 
 void
-Wx_StyledTextCtrl::ConvertEOLs( eolMode )
+wxStyledTextCtrl::ConvertEOLs( eolMode )
     int eolMode
 
 int
-Wx_StyledTextCtrl::GetEOLMode()
+wxStyledTextCtrl::GetEOLMode()
 
 void
-Wx_StyledTextCtrl::SetEOLMode( eolMode )
+wxStyledTextCtrl::SetEOLMode( eolMode )
     int eolMode
 
 void
-Wx_StyledTextCtrl::StartStyling( pos, mask )
+wxStyledTextCtrl::StartStyling( pos, mask )
     int pos
     int mask
 
 void
-Wx_StyledTextCtrl::SetStyling( length, style )
+wxStyledTextCtrl::SetStyling( length, style )
     int length
     int style
 
 bool
-Wx_StyledTextCtrl::GetBufferedDraw()
+wxStyledTextCtrl::GetBufferedDraw()
 
 void
-Wx_StyledTextCtrl::SetBufferedDraw( buffered )
+wxStyledTextCtrl::SetBufferedDraw( buffered )
     bool buffered
 
 void
-Wx_StyledTextCtrl::SetTabWidth( tabWidth )
+wxStyledTextCtrl::SetTabWidth( tabWidth )
     int tabWidth
 
 int
-Wx_StyledTextCtrl::GetTabWidth()
+wxStyledTextCtrl::GetTabWidth()
 
 void
-Wx_StyledTextCtrl::SetCodePage( codePage )
+wxStyledTextCtrl::SetCodePage( codePage )
     int codePage
 
 void
-Wx_StyledTextCtrl::MarkerDefine( markerNumber, markerSymbol, foreground, background )
+wxStyledTextCtrl::MarkerDefine( markerNumber, markerSymbol, foreground, background )
     int markerNumber
     int markerSymbol
-    Wx_Colour* foreground
-    Wx_Colour* background
+    wxColour* foreground
+    wxColour* background
   CODE:
     THIS->MarkerDefine( markerNumber, markerSymbol, *foreground, *background );
 
 void
-Wx_StyledTextCtrl::MarkerSetForeground( markerNumber, fore )
+wxStyledTextCtrl::MarkerSetForeground( markerNumber, fore )
     int markerNumber
-    Wx_Colour* fore
+    wxColour* fore
   CODE:
     THIS->MarkerSetForeground( markerNumber, *fore );
 
 void
-Wx_StyledTextCtrl::MarkerSetBackground( markerNumber, back )
+wxStyledTextCtrl::MarkerSetBackground( markerNumber, back )
     int markerNumber
-    Wx_Colour* back
+    wxColour* back
   CODE:
     THIS->MarkerSetBackground( markerNumber, *back );
 
 void
-Wx_StyledTextCtrl::MarkerAdd( line, markerNumber )
+wxStyledTextCtrl::MarkerAdd( line, markerNumber )
     int line
     int markerNumber
 
 void
-Wx_StyledTextCtrl::MarkerDelete( line, markerNumber )
+wxStyledTextCtrl::MarkerDelete( line, markerNumber )
     int line
     int markerNumber
 
 void
-Wx_StyledTextCtrl::MarkerDeleteAll( markerNumber )
+wxStyledTextCtrl::MarkerDeleteAll( markerNumber )
     int markerNumber
 
 int
-Wx_StyledTextCtrl::MarkerGet( line )
+wxStyledTextCtrl::MarkerGet( line )
     int line
 
 int
-Wx_StyledTextCtrl::MarkerNext( lineStart, markerMask )
+wxStyledTextCtrl::MarkerNext( lineStart, markerMask )
     int lineStart
     int markerMask
 
 int
-Wx_StyledTextCtrl::MarkerPrevious( lineStart, markerMask )
+wxStyledTextCtrl::MarkerPrevious( lineStart, markerMask )
     int lineStart
     int markerMask
 
 void
-Wx_StyledTextCtrl::SetMarginType( margin, marginType )
+wxStyledTextCtrl::SetMarginType( margin, marginType )
     int margin
     int marginType
 
 int
-Wx_StyledTextCtrl::GetMarginType( margin )
+wxStyledTextCtrl::GetMarginType( margin )
     int margin
 
 void
-Wx_StyledTextCtrl::SetMarginWidth( margin, pixelWidth )
+wxStyledTextCtrl::SetMarginWidth( margin, pixelWidth )
     int margin
     int pixelWidth
 
 int
-Wx_StyledTextCtrl::GetMarginWidth( margin )
+wxStyledTextCtrl::GetMarginWidth( margin )
     int margin
 
 void
-Wx_StyledTextCtrl::SetMarginMask( margin, mask )
+wxStyledTextCtrl::SetMarginMask( margin, mask )
     int margin
     int mask
 
 int
-Wx_StyledTextCtrl::GetMarginMask( margin )
+wxStyledTextCtrl::GetMarginMask( margin )
     int margin
 
 void
-Wx_StyledTextCtrl::SetMarginSensitive( margin, sensitive )
+wxStyledTextCtrl::SetMarginSensitive( margin, sensitive )
     int margin
     bool sensitive
 
 bool
-Wx_StyledTextCtrl::GetMarginSensitive( margin )
+wxStyledTextCtrl::GetMarginSensitive( margin )
     int margin
 
 
 ## Returns the position of the caret
 int
-Wx_StyledTextCtrl::GetCurrentPos()
+wxStyledTextCtrl::GetCurrentPos()
 
 int
-Wx_StyledTextCtrl::GetLength()
+wxStyledTextCtrl::GetLength()
 
 int
-Wx_StyledTextCtrl::GetCharAt( pos )
+wxStyledTextCtrl::GetCharAt( pos )
     int pos
 
 ## Sets whether text is word wrapped
 void
-Wx_StyledTextCtrl::SetWrapMode(mode)
+wxStyledTextCtrl::SetWrapMode(mode)
     int mode
 
 ## Retrieve whether text is word wrapped
 int
-Wx_StyledTextCtrl::GetWrapMode()
+wxStyledTextCtrl::GetWrapMode()
 
 ## Retrieve the contents of a line.
 wxString
-Wx_StyledTextCtrl::GetLine(line)
+wxStyledTextCtrl::GetLine(line)
     int line
 
 ## Delete all text in the document
 void
-Wx_StyledTextCtrl::ClearAll()
+wxStyledTextCtrl::ClearAll()
 
 ## Returns the line number of the line with the caret.
 int
-Wx_StyledTextCtrl::GetCurrentLine()
+wxStyledTextCtrl::GetCurrentLine()
 
 void
-Wx_StyledTextCtrl::CmdKeyExecute( cmd )
+wxStyledTextCtrl::CmdKeyExecute( cmd )
     int cmd
 
 void
-Wx_StyledTextCtrl::SetMargins( left, right )
+wxStyledTextCtrl::SetMargins( left, right )
     int left
     int right
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: typemap,v 1.8 2004/02/29 14:43:24 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.9 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,12 +16,10 @@ wxHtmlURLType           T_ENUM
 wxHtmlWindow *          O_WXOBJECT
 wxHtmlLinkInfo *        O_WXOBJECT
 wxHtmlSelection *       O_WXOBJECT
-Wx_HtmlCell *           O_WXOBJECT
 
 wxHtmlHelpController *  O_WXOBJECT
 wxBestHelpController *  O_WXOBJECT
 
-Wx_HtmlEasyPrinting *   O_NON_WXOBJECT
 wxHtmlEasyPrinting *    O_NON_WXOBJECT
 
 wxPrintData *           O_WXOBJECT

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        mdi.h
+// Name:        ext/mdi/cpp/mdi.h
 // Purpose:     c++ wrapper for wxMDI*
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      6/ 9/2001
-// RCS-ID:      
+// Created:     06/09/2001
+// RCS-ID:      $Id: mdi.h,v 1.3 2004/03/01 21:24:10 mbarbon Exp $
 // Copyright:   (c) 2001 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/09/2001
-## RCS-ID:      $Id: MDIParentFrame.xs,v 1.7 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id: MDIParentFrame.xs,v 1.8 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -17,13 +17,13 @@
 
 MODULE=Wx PACKAGE=Wx::MDIParentFrame
 
-Wx_MDIParentFrame*
-Wx_MDIParentFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE|wxVSCROLL|wxHSCROLL, name = wxT("frame") )
-    Wx_Window* parent
+wxMDIParentFrame*
+wxMDIParentFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE|wxVSCROLL|wxHSCROLL, name = wxT("frame") )
+    wxWindow* parent
     wxWindowID id
     wxString title
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
@@ -33,19 +33,19 @@ Wx_MDIParentFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDef
     RETVAL
 
 void
-Wx_MDIParentFrame::ActivateNext()
+wxMDIParentFrame::ActivateNext()
 
 void
-Wx_MDIParentFrame::ActivatePrevious()
+wxMDIParentFrame::ActivatePrevious()
 
 void
-Wx_MDIParentFrame::ArrangeIcons()
+wxMDIParentFrame::ArrangeIcons()
 
 void
-Wx_MDIParentFrame::Cascade()
+wxMDIParentFrame::Cascade()
 
-Wx_MDIChildFrame*
-Wx_MDIParentFrame::GetActiveChild()
+wxMDIChildFrame*
+wxMDIParentFrame::GetActiveChild()
 
 #ifdef __WXUNIVERSAL__
 
@@ -63,15 +63,15 @@ wxMDIParentFrame::GetClientWindow()
     || defined(__WXPERL_FORCE__)
 
 wxMenu*
-Wx_MDIParentFrame::GetWindowMenu()
+wxMDIParentFrame::GetWindowMenu()
 
 void
-Wx_MDIParentFrame::SetWindowMenu( menu )
+wxMDIParentFrame::SetWindowMenu( menu )
     wxMenu* menu
 
 #endif
 
 void
-Wx_MDIParentFrame::Tile()
+wxMDIParentFrame::Tile()
 
 #endif

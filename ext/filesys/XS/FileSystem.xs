@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        FS.xs
+## Name:        ext/filesys/XS/FileSystem.xs
 ## Purpose:     XS for Wx::FileSystem
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     28/ 4/2001
-## RCS-ID:      
+## Created:     28/04/2001
+## RCS-ID:      $Id: FileSystem.xs,v 1.4 2004/03/01 21:24:10 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,35 +14,35 @@
 
 MODULE=Wx PACKAGE=Wx::FileSystem
 
-Wx_FileSystem*
-Wx_FileSystem::new()
+wxFileSystem*
+wxFileSystem::new()
 
 ## XXX threads
 void
-Wx_FileSystem::DESTROY()
+wxFileSystem::DESTROY()
 
 void
 AddHandler( handler )
-    Wx_FileSystemHandler* handler
+    wxFileSystemHandler* handler
   CODE:
     wxFileSystem::AddHandler( handler );
 
 void
-Wx_FileSystem::ChangePathTo( location, is_dir = FALSE )
+wxFileSystem::ChangePathTo( location, is_dir = FALSE )
     wxString location
     bool is_dir
 
 wxString
-Wx_FileSystem::GetPath()
+wxFileSystem::GetPath()
 
 wxString
-Wx_FileSystem::FindFirst( wildcard, flags = 0 )
+wxFileSystem::FindFirst( wildcard, flags = 0 )
     wxString wildcard
     int flags
 
 wxString
-Wx_FileSystem::FindNext()
+wxFileSystem::FindNext()
 
-Wx_FSFile*
-Wx_FileSystem::OpenFile( location )
+wxFSFile*
+wxFileSystem::OpenFile( location )
     wxString location
