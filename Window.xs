@@ -174,7 +174,7 @@ Wx_Window::FindWindow( i )
 void
 Wx_Window::Fit()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
 Wx_Window::Freeze()
@@ -233,10 +233,12 @@ Wx_Window::GetClientSizeXY()
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
-# Wx_DropTarget*
-# Wx_Window::GetDropTarget()
+Wx_DropTarget*
+Wx_Window::GetDropTarget()
+  CLEANUP:
+    wxPli_object_set_deleteable( ST(0), FALSE );
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 Wx_Window*
 Wx_Window::GetDefaultItem()
@@ -273,7 +275,7 @@ Wx_Window::GetHandle()
 
 #endif // __WXMSW__
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 wxString
 Wx_Window::GetHelpText()
@@ -391,7 +393,7 @@ Wx_Window::GetValidator()
 long
 Wx_Window::GetWindowStyleFlag()
 
-#if WXPERL_W_VERSION_LE( 2, 2 )
+#if WXPERL_W_VERSION_LE( 2, 2, 1 )
 
 void
 Wx_Window::InitDialog()
@@ -569,13 +571,20 @@ Wx_Window::SetCursor( cursor )
   CODE:
     THIS->SetCursor( *cursor );
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 Wx_Window*
 Wx_Window::SetDefaultItem( window )
     Wx_Window* window
 
 #endif
+
+void
+Wx_Window::SetDropTarget( target )
+    Wx_DropTarget* target
+  CODE:
+    wxPli_object_set_deleteable( ST(1), FALSE );
+    THIS->SetDropTarget( target );
 
 void
 Wx_Window::SetEventHandler( handler )
@@ -594,7 +603,7 @@ Wx_Window::SetForegroundColour( colour )
   CODE:
     THIS->SetForegroundColour( *colour );
 
-#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
 void
 Wx_Window::SetHelpText( text )
@@ -718,7 +727,7 @@ bool
 Wx_Window::Show( show )
     bool show
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
 Wx_Window::Thaw()

@@ -24,8 +24,12 @@ Wx_DropTarget::new( data = 0 )
     RETVAL
 
 void
-Wx_DropTarget::DESTROY()
-
+DESTROY( THIS )
+    Wx_DropTarget* THIS
+  CODE:
+    if( wxPli_object_is_deleteable( ST(0) ) )
+        delete THIS;
+  
 void
 Wx_DropTarget::GetData()
 
