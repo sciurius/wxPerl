@@ -71,6 +71,8 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
         if( !allow_more && argc != required )
             { PUSHMARK(MARK); return FALSE; }
     }
+    else if( argc < nproto )
+        { PUSHMARK(MARK); return FALSE; }
 
     size_t max = wxMin( nproto, argc ) + offset;
     for( size_t i = offset; i < max; ++i )
@@ -109,4 +111,19 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
 
     PUSHMARK(MARK);
     return TRUE;
+}
+
+void wxPli_set_ovl_constant( const char* name, const unsigned char* value,
+                             int count )
+{
+    dTHX;
+    char buffer[1024];
+    strcpy( buffer, "Wx::_" );
+    strcat( buffer, name );
+
+    SV* sv = get_sv( buffer, 1 );
+    AV* av = wxPli_uchararray_2_av( aTHX_ value, count );
+    SV* rv = newRV_noinc( (SV*)av );
+    sv_setsv( sv, rv );
+    SvREFCNT_dec( rv );
 }

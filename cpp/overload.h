@@ -14,7 +14,8 @@
 #include "cpp/ovl_const.h"
 
 #define BEGIN_OVERLOAD() \
-    PUSHMARK(MARK);
+    PUSHMARK(MARK); \
+    int count;
 
 #define END_OVERLOAD( FUNCTION ) \
     { \
@@ -23,12 +24,34 @@
         const char* argv[3]; argv[0] = msg; argv[1] = #FUNCTION; argv[2] = 0; \
         call_argv( "Carp::croak", G_VOID|G_DISCARD, (char**) argv ); \
     } \
-    POPMARK;
+    /* POPMARK; */
 
 #define REDISPATCH( NEW_METHOD_NAME ) \
-    call_method( #NEW_METHOD_NAME, GIMME_V ); SPAGAIN
+    count = call_method( #NEW_METHOD_NAME, GIMME_V ); SPAGAIN
+
+#define MATCH_VOID_REDISP( METHOD ) \
+    if( items == 0 ) \
+        { REDISPATCH( METHOD ); } \
+    else
+
+#define MATCH_ANY_REDISP( METHOD ) \
+    if( TRUE ) \
+        { REDISPATCH( METHOD ); } \
+    else
 
 #define MATCH_REDISP( PROTO, METHOD ) \
     if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count ) ) \
+        { REDISPATCH( METHOD ); } \
+    else
+
+#define MATCH_REDISP_COUNT( PROTO, METHOD, REQUIRED ) \
+    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count, \
+                                         REQUIRED ) ) \
+        { REDISPATCH( METHOD ); } \
+    else
+
+#define MATCH_REDISP_COUNT_ALLOWMORE( PROTO, METHOD, REQUIRED ) \
+    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count, \
+                                         REQUIRED, TRUE ) ) \
         { REDISPATCH( METHOD ); } \
     else
