@@ -24,20 +24,6 @@ TIEHANDLE( package, var )
   OUTPUT:
     RETVAL
 
-# wxInputStream*
-# TestI()
-#   CODE:
-#     RETVAL = new wxFFileInputStream( "foo.txt" );
-#   OUTPUT:
-#     RETVAL
-
-# wxOutputStream*
-# TestO()
-#   CODE:
-#     RETVAL = new wxFFileOutputStream( "foo.txt" );
-#   OUTPUT:
-#     RETVAL
-
 MODULE=Wx PACKAGE=Wx::InputStream
 
 size_t
@@ -63,11 +49,11 @@ Wx_InputStream::READ( buf, len, offset = 0 )
 
     char* buffer = SvGROW( buf, (UV)offset + len + 1 );
     SvPOK_on( buf );
-    SvCUR_set( buf, offset + len );
     if( offset > maxlen )
         Zero( buffer + maxlen, offset - maxlen, char );
     buffer += offset;
     RETVAL = THIS->Read( buffer, len ).LastRead();
+    SvCUR_set( buf, offset + RETVAL );
   OUTPUT:
     RETVAL
 
@@ -101,6 +87,27 @@ Wx_InputStream::TELL()
   OUTPUT:
     RETVAL
 
+
+#if WXPERL_W_VERSION_GE( 2, 3, 4 )
+
+SV*
+Wx_InputStream::READLINE()
+  PREINIT:
+    char c;
+    wxString val;
+  CODE:
+    if( THIS->Eof() ) { XSRETURN_UNDEF; }
+
+    while( THIS->CanRead() && THIS->Read( &c, 1 ).LastRead() != 0 ) {
+        val.Append( c );
+        if( c == '\n' ) break;
+    }
+    RETVAL = newSViv( 0 );
+    WXSTRING_OUTPUT( val, RETVAL );
+  OUTPUT: RETVAL
+
+#else
+
 SV*
 Wx_InputStream::READLINE()
   PREINIT:
@@ -110,14 +117,14 @@ Wx_InputStream::READLINE()
     if( THIS->Eof() ) { XSRETURN_UNDEF; }
 
     while( THIS->Read( &c, 1 ).LastRead() != 0 ) {
-##        printf("!%s!\n", val.c_str() );
         val.Append( c );
         if( c == '\n' ) break;
     }
     RETVAL = newSViv( 0 );
     WXSTRING_OUTPUT( val, RETVAL );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::OutputStream
 
