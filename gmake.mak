@@ -1,28 +1,28 @@
 #############################################################################
-## Name:        nmake.mak
-## Purpose:     extracts some flag information from makevc.env
+## Name:        gmake.mak
+## Purpose:     extracts some flag information from makeg95.env
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     29/10/2000
+## Created:     10/12/2000
 ## RCS-ID:      
 ## Copyright:   (c) 2000 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-NOPCH=1
 WXUSINGDLL=1
 
-!include $(WXWIN)\src\makevc.env
+include $(WXWIN)/src/makeg95.env
 
 wxdir:
-    echo $(WXWIN)
+	echo $(WXWIN)
 
 cccflags:
-    echo $(CPPFLAGS)
+	echo $(CPPFLAGS)
 
 linkflags:
-    echo $(LINKFLAGS)
+	echo $(LINKFLAGS)
 
 libs:
-    echo $(LIBS)
+	echo $(LIBS)
+

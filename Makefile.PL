@@ -15,6 +15,8 @@ use strict;
 use ExtUtils::MakeMaker;
 use Config;
 
+# Perl < 5.005 does not include File::Spec (nor anything similar I'm
+# aware of) so there is a quick-and-dirty (Unix only) implementation
 sub BEGIN {
   if( $] < 5.005 ) {
     package File::Spec;
@@ -31,9 +33,9 @@ sub BEGIN {
   }
 }
 
-use vars qw(@interesting_xs $debug_mode);
+use vars qw(@top_level_xs $debug_mode $extra_libs);
 
-@interesting_xs = qw(Wx.xs Controls.xs Event.xs Constant.xs 
+@top_level_xs = qw(Wx.xs Controls.xs Event.xs Constant.xs 
 Functions.xs Window.xs Frames.xs GDI.xs);
 
 my( $perl_version ) = int( $] * 1000 );
@@ -45,9 +47,13 @@ sub BEGIN {
       local( $_ ) = $Config{osname};
 
       /MSWin32/ && do {
-        if( $Config{cc} =~ /^cl/i ) {
+        if( $Config{cc} =~ m/^cl/i ) {
           *main::configure = \&configure_win32_msvc;
           *MY::postamble = \&MY::postamble_win32_msvc;
+          last SWITCH;
+        } elsif( $Config{cc} =~ m/^gcc/i ) {
+          *main::configure = \&configure_win32_mingw;
+          *MY::postamble = \&MY::postamble_win32_mingw;
           last SWITCH;
         }
 
@@ -62,10 +68,14 @@ sub BEGIN {
     }
 }
 
-foreach ( @ARGV ) { if( m/^DEBUG=(\d+)$/ ) { $debug_mode = $1 ; undef $_; } }
+LOOP: foreach ( @ARGV ) {
+  m/^DEBUG=(\d+)$/ && do { $debug_mode = $1 ; undef $_; last LOOP; };
+  m/^EXTRALIBS=(.*)$/ && do { $extra_libs = $1; undef $_; last LOOP; };
+}
 
 WriteMakefile( NAME => 'Wx',
-               ( $] >= 5.005 ? 
+               # Perl < 5.005 does not support some attributes
+               ( $] >= 5.005 ?
                  ( ABSTRACT_FROM => 'Wx.pm',
                    AUTHOR => 'Mattia Barbon <mbarbon@dsi.unive.it>',
                  ) : () ),
@@ -73,7 +83,7 @@ WriteMakefile( NAME => 'Wx',
                CONFIGURE => \&configure,
                XSOPT => '-C++ -noprototypes',
                OBJECT => join( ' ',
-                               MY::obj_from_src( @main::interesting_xs ), '' ),
+                               MY::obj_from_src( @main::top_level_xs ), '' ),
              );
 
 #
@@ -82,9 +92,10 @@ WriteMakefile( NAME => 'Wx',
 sub configure_wxconfig {
   my( $cccflags, $libs );
   my( %config ) = ( DEFINE => "-DWXP_VERSION=$perl_version" . ' ',
+                    LIBS => $extra_libs,
                   );
 
-  if( $Config{cc} =~ /^cc|gcc$/i ) { $config{CCFLAGS} = '-g -x c++ ' }
+  if( $Config{cc} =~ /^cc|gcc$/i ) { $config{CCFLAGS} = ' -x c++ ' }
 
   $cccflags = qx(wx-config --cflags);
   $libs = qx(wx-config --libs);
@@ -110,8 +121,8 @@ sub configure_wxconfig {
 sub configure_win32_msvc {
   my( $cccflags, $ldflags, $libs );
 
-  my( %config ) = ( CCFLAGS => '-TP' . ' ',
-                    DEFINE => " -DWXP_VERSION=$perl_version" . ' ',
+  my( %config ) = ( CCFLAGS => ' -TP ',
+                    DEFINE => " -DWXP_VERSION=$perl_version ",
                     depend =>
                     {  File::Spec->catfile( 'blib', 'arch', 'auto', 'Wx',
                                             'Wx.' . $Config{dlext} )
@@ -120,6 +131,7 @@ sub configure_win32_msvc {
                     },
                     clean => { FILES => '*.pdb *.res Wx_def.old', },
                     LDFROM => '$(OBJECT) Wx.res',
+                    LIBS => $extra_libs,
                   );
 
   if( $debug_mode ) {
@@ -154,6 +166,58 @@ sub configure_win32_msvc {
   \%config;
 }
 
+#
+# takes parametes form make*.env
+#
+sub configure_win32_mingw {
+  my( $cccflags, $ldflags, $libs );
+
+  my( %config ) = ( CCFLAGS => ' -x c++ ',
+                    DEFINE => " -DWXP_VERSION=$perl_version ",
+                    depend =>
+                    {  File::Spec->catfile( 'blib', 'arch', 'auto', 'Wx',
+                                            'Wx.' . $Config{dlext} )
+                       => 'Wx_res.o ',
+                       'Wx_res.o' => 'Wx.rc ',
+                    },
+                    #FIXME//
+                    clean => { FILES => 'dll.exp dll.exp dll.base ', },
+                    LDFROM => '$(OBJECT) Wx_res.o',
+                    LIBS => $extra_libs,
+                  );
+
+  #FIXME// debug mode support?
+  $debug_mode = 0;
+
+  if( $debug_mode ) {
+    $config{CCFLAGS} .= '-Zi ';
+    $config{dynamic_lib}{OTHERLDFLAGS} .= '-debug ';
+  }
+
+  my( $final ) = $debug_mode ? 'FINAL=0' : 'FINAL=1';
+  $cccflags = qx"make -s -f gmake.mak cccflags $final";
+  $libs = qx"make -s -f gmake.mak libs $final";
+
+  foreach ( split ' ', $cccflags ) {
+    m(^[-/]DSTRICT) && next;
+    m(^-W.*) && next; # under Win32 -Wall gives you TONS of warnings
+    m(^-I) && do { $config{INC} .= $_ . ' '; next; };
+    m(^-D) && do { $config{DEFINE} .= $_ . ' '; next; };
+    $config{CCFLAGS} .= $_ . ' ';
+  }
+
+  foreach ( split ' ', $libs ) {
+    m(wx)i || next;
+    $config{LIBS} .= $_ . ' ';
+  }
+
+  foreach (keys %config) {
+    m/^[A-Z]+$/ || next;
+    print( $_ ," => ", $config{$_}, "\n" );
+  }
+
+  \%config;
+}
 
 package MY;
 
@@ -199,6 +263,25 @@ sub postamble_win32_msvc {
   qq{
 Wx.res: Wx.rc
 \trc -I${wxdir}\\include Wx.rc
+
+} .
+$exp . qq{ :
+\tperl script/make_exp_list.pl Constant.xs $evt $cst $exp
+};
+}
+
+#
+# for .rc file compilation and automatic export list generation
+#
+sub postamble_win32_mingw {
+  my( $this ) = shift;
+  my( $wxdir ) = qx{make -s -f gmake.mak wxdir};
+
+  chomp $wxdir;
+
+  qq{
+Wx_res.o: Wx.rc
+\twindres --include-dir ${wxdir}\\include Wx.rc Wx_res.o
 
 } .
 $exp . qq{ :
@@ -266,7 +349,7 @@ sub xs_depend {
 
   $depend{ File::Spec->catfile( 'blib', 'arch', 'auto', 'Wx',
                                 'Wx.' . $Config{dlext} ) }
-    .= join(' ', obj_from_src( @main::interesting_xs ) );
+    .= join(' ', obj_from_src( @main::top_level_xs ) );
 
   %depend;
 }
