@@ -15,6 +15,9 @@ package Wx::Region;
 use strict;
 use Carp;
 
+*Wx::Size::y = \&Wx::Size::height;
+*Wx::Size::x = \&Wx::Size::width;
+
 sub new {
   shift;
 
