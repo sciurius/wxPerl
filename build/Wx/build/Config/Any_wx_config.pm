@@ -89,12 +89,11 @@ sub _is_wx_debug {
 sub get_contrib_lib {
   my( $this, $lib ) = @_;
 
-  my $plat = $this->get_wx_platform;
   ( my $ver = $this->wx_config( 'version' ) ) =~ s/\.\d+$//;
-  my $debug = $this->_is_wx_debug ? 'd' : '';
+  my $base = $this->wx_config( 'basename' );
   $lib =~ s/^\s*wx(.*?)\s*/$1/;
 
-  return " -lwx_${plat}${debug}_${lib}-${ver} ";
+  return " -l${base}_${lib}-${ver} ";
 }
 
 sub get_flags {
