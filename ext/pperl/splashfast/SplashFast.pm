@@ -62,7 +62,7 @@ package Wx ;
 
 use vars qw($VERSION);
 
-$VERSION = '0.13'; # bootstrap will catch wrong versions
+$VERSION = '0.14'; # bootstrap will catch wrong versions
 
 sub wxPL_STATIC();
 sub _wx_boot($$) {
