@@ -37,6 +37,8 @@ WriteMakefile( NAME => 'Wx',
                XSOPT => ' -C++ -noprototypes ',
                DIR => [ MM->catdir( qw(ext html) ),
                         MM->catdir( qw(ext help) ),
+                        MM->catdir( qw(ext filesys) ),
+                        MM->catdir( qw(ext print) ),
                       ],
                OBJECT => join( ' ', obj_from_src( @top_level_xs ) ) . ' ',
              );
