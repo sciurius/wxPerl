@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.67 2005/01/05 14:47:57 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.68 2005/01/09 22:37:50 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -904,7 +904,6 @@ void wxPli_delete_argv( void* argv, bool unicode )
     {
         wxChar** arg = (wxChar**)argv;
         wxChar** i;
-        for( i = arg; *i; ++i ) { /*delete[] ( *arg );*/ }
         delete[] arg;
     }
     else
@@ -912,7 +911,6 @@ void wxPli_delete_argv( void* argv, bool unicode )
 #endif
         char** arg = (char**)argv;
         char** i;
-        for( i = arg; *i; ++i ) { /*delete[] ( *arg );*/ }
         delete[] arg;
 #if wxUSE_UNICODE
     }
