@@ -133,6 +133,8 @@ FD_TD( ColourDialog );
 #endif
 
 FD_TD( ComboBox );
+FD_TD( Config );
+FD_TD( ConfigBase );
 FD_TD( Control );
 FD_TD( ControlWithItems );
 FD_TD( Cursor );
@@ -144,6 +146,7 @@ FD_TD( DrawObject );
 #endif
 FD_TD( DropTarget );
 FD_TD( EvtHandler );
+FD_TD( FileConfig );
 FD_TD( FileDialog );
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 FD_TD( FindReplaceData );
@@ -207,6 +210,7 @@ FD_TD( ProgressDialog );
 FD_TD( RadioBox );
 FD_TD( RadioButton );
 FD_TD( Rect );
+FD_TD( RegConfig );
 FD_TD( Region );
 FD_TD( SashWindow );
 FD_TD( ScreenDC );

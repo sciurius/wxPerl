@@ -38,6 +38,7 @@
 #include <wx/button.h>
 #include <wx/dataobj.h>
 #include <wx/clipbrd.h>
+#include <wx/confbase.h>
 #if defined(__WXMSW__)
 #include <wx/taskbar.h>
 #endif
@@ -184,6 +185,10 @@ static double constant( const char *name, int arg )
     r( wxBU_BOTTOM );                   // button
     r( wxBU_AUTODRAW );                 // button
     r( wxBU_RIGHT );                    // button
+
+    // !export: Type_Boolean
+    if( strEQ( name, "Type_Boolean" ) )
+        return wxConfigBase::Type_Boolean;
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxBU_EXACTFIT );                 // button
 #endif
@@ -217,6 +222,10 @@ static double constant( const char *name, int arg )
 
     r( wxCLEAR );                       // dc
     r( wxCOPY );                        // dc
+
+    r( wxCONFIG_USE_LOCAL_FILE );       // config
+    r( wxCONFIG_USE_GLOBAL_FILE );      // config
+    r( wxCONFIG_USE_RELATIVE_PATH );    // config
 
     r( wxCURSOR_ARROW );                // cursor
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
@@ -485,6 +494,10 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_CP1250 );         // font
     r( wxFONTENCODING_CP1251 );         // font
     r( wxFONTENCODING_CP1252 );         // font
+
+    // !export: Type_Float
+    if( strEQ( name, "Type_Float" ) )
+        return wxConfigBase::Type_Float;
     break;
   case 'G':
     r( wxGA_HORIZONTAL );               // gauge
@@ -574,6 +587,10 @@ static double constant( const char *name, int arg )
     r( wxITALIC );                      // font
 
     r( wxInRegion );                    // region
+
+    // !export: Type_Integer
+    if( strEQ( name, "Type_Integer" ) )
+        return wxConfigBase::Type_Integer;
     break;
   case 'J':
     r( wxJOIN_BEVEL );                  // pen
@@ -1174,7 +1191,9 @@ static double constant( const char *name, int arg )
     r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
     r( wxSYS_CAN_ICONIZE_FRAME );
 #endif
-
+    // !export: Type_String
+    if( strEQ( name, "Type_String" ) )
+        return wxConfigBase::Type_String;
     break;
   case 'T':
     r( wxTAB_TRAVERSAL );               // panel
@@ -1201,6 +1220,9 @@ static double constant( const char *name, int arg )
     break;
   case 'U':
     r( wxUnconstrained );               // layout constraints
+    // !export: Type_Unknown
+    if( strEQ( name, "Type_Unknown" ) )
+        return wxConfigBase::Type_Unknown;
 
     r( wxUSER_DASH );                   // pen
     break;

@@ -133,6 +133,9 @@ void wxEntryCleanup()
 
 DEFINE_PLI_HELPERS( st_wxPliHelpers );
 
+#include <wx/confbase.h>
+typedef wxConfigBase::EntryType EntryType;
+
 MODULE=Wx PACKAGE=Wx
 
 BOOT:
@@ -200,6 +203,7 @@ INCLUDE: XS/Utils.xs
 INCLUDE: XS/Timer.xs
 INCLUDE: XS/Stream.xs
 INCLUDE: XS/TaskBarIcon.xs
+INCLUDE: XS/Config.xs
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs
@@ -207,7 +211,7 @@ INCLUDE: XS/ClassInfo.xs
 #  //FIXME// tricky
 #if defined(__WXMSW__)
 #undef XS
-#define XS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
+#define XS( name ) WXXS( name )
 #endif
 
 MODULE=Wx PACKAGE=Wx
