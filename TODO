@@ -1,3 +1,8 @@
+PRIORITY URGENT:
+* Better intallation guide
+  ( mention -lstdc++, EXTRALIBS )
+
+PRIORITY NORMAL:
 * wxApp::new
     find a better solution yhan just 'croak' if OnInit
     returns a false value
@@ -9,3 +14,4 @@
     implement
 
 * MinGW compilation with ActivePerl
+

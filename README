@@ -11,15 +11,18 @@ INSTALLATION:
 
 When you have built and installed wxWindows, do
 
-perl Makefile.PL   # (1)
-make               # (2)
-make test          # (3)
+perl Makefile.PL   # (1) (2)
+make               # (3)
+make test          # (4)
 make install
 
 1) this step will output the compilation flags derived from
    wxWindows (for debugging purpouses)
-2) under Windows you may need to use nmake, or another *make
-3) you may also want to do
+2) you may also use
+   perl Makefile.PL LIB=some-other-dir
+   to install a private copy of the package
+3) under Windows you may need to use nmake, or another *make
+4) you may also want to do
    perl run minimal
    perl run controls
    ...
@@ -38,5 +41,5 @@ Perl 5.005_03
   i386,   RedHat Linux 6.1,     wxGTK 2.2.3,   GCC 2.91.x
   i386,   Debian GNU/Linux 2.2, wxGTK 2.2.3,   GCC 2.95.2
 
-Perl 5.004_04
+Perl 5.004_05
   i386,   Debian GNU/Linux 2.2, wxGTK 2.2.3,   GCC 2.95.2
