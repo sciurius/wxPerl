@@ -9,7 +9,9 @@ use Tests_Helper qw(test_app);
 
 my $frame;
 my $app = test_app( sub {
-                      $frame = new Wx::Frame( undef, -1, 'boo' );return 1; } );
+                      $frame = new Wx::Frame( undef, -1, 'boo' );
+                      return 1;
+                    } );
 
 # test with Notify
 
@@ -45,6 +47,7 @@ sub new {
 sub OnTimer {
   print "ok 2\n";
   $frame->Destroy;
+  Wx::WakeUpIdle;
 }
 
 package main;
