@@ -38,6 +38,9 @@
 #include <wx/button.h>
 #include <wx/dataobj.h>
 #include <wx/clipbrd.h>
+#if defined(__WXMSW__)
+#include <wx/taskbar.h>
+#endif
 
 #include "cpp/compat.h"
 #include "cpp/chkconfig.h"
@@ -134,11 +137,11 @@ static double constant( const char *name, int arg )
 
   switch( fl ) {
   case 'A':
-    r( wxALIGN_LEFT );                  // sizer statictext
-    r( wxALIGN_CENTRE );                // sizer statictext
-    r( wxALIGN_RIGHT );                 // sizer statictext
-    r( wxALIGN_TOP );                   // sizer
-    r( wxALIGN_BOTTOM );                // sizer
+    r( wxALIGN_LEFT );                  // sizer grid statictext
+    r( wxALIGN_CENTRE );                // sizer grid statictext
+    r( wxALIGN_RIGHT );                 // sizer grid statictext
+    r( wxALIGN_TOP );                   // sizer grid
+    r( wxALIGN_BOTTOM );                // sizer grid
     r( wxALIGN_CENTER_VERTICAL );       // sizer
     r( wxALIGN_CENTER_HORIZONTAL );     // sizer
     r( wxALL );                         // sizer
@@ -302,6 +305,16 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_SPLITTER_DOUBLECLICKED );
 
     r( wxEVT_TIMER );
+
+#if defined(__WXMSW__)
+    r( wxEVT_TASKBAR_MOVE );
+    r( wxEVT_TASKBAR_LEFT_DOWN );
+    r( wxEVT_TASKBAR_LEFT_UP );
+    r( wxEVT_TASKBAR_RIGHT_DOWN );
+    r( wxEVT_TASKBAR_RIGHT_UP );
+    r( wxEVT_TASKBAR_LEFT_DCLICK );
+    r( wxEVT_TASKBAR_RIGHT_DCLICK );
+#endif
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxEVT_COMMAND_FIND );
     r( wxEVT_COMMAND_FIND_NEXT );
