@@ -71,8 +71,8 @@ sub _create_ovls {
 sub ${name} {
   my \$this = shift;
 
-  Wx::_match( \@_, \$Wx::_wgco, 1 ) && return \$this->${name}Co( @_ );
-  Wx::_match( \@_, \$Wx::_n_n, 2 )  && return \$this->${name}XY( @_ );
+  Wx::_match( \@_, \$Wx::_wgco, 1 ) && return \$this->${name}Co( \@_ );
+  Wx::_match( \@_, \$Wx::_n_n, 2 )  && return \$this->${name}XY( \@_ );
   Wx::_croak Wx::_ovl_error;
 }
 EOT
