@@ -373,7 +373,7 @@ Wx_Window::GetTextExtent( string, font = 0 )
     int y;
     int descent;
     int externalLeading;
-  CODE:
+  PPCODE:
     THIS->GetTextExtent( string, &x, &y, &descent, &externalLeading,
         font );
     EXTEND( SP, 4 );
