@@ -249,6 +249,22 @@ newRect( rect )
     RETVAL = new wxRegion( *rect );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+
+Wx_Region*
+newPolygon( list, fillStyle = wxODDEVEN_RULE )
+    SV* list
+    int fillStyle
+  PREINIT:
+    wxPoint* points;
+    size_t n;
+  CODE:
+    n = wxPli_av_2_pointarray( list, &points );
+    RETVAL = new wxRegion( n, points, fillStyle );
+    delete [] points;
+
+#endif
  
 void
 Wx_Region::DESTROY()

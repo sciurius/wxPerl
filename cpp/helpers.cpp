@@ -619,6 +619,16 @@ void _get_args_objectarray( SV** sp, int items, void** array, const char* packag
 
 wxPoint wxPli_sv_2_wxpoint( SV* scalar )
 {
+    return wxPli_sv_2_wxpoint_test( scalar, 0 );
+}
+
+wxPoint wxPli_sv_2_wxpoint_test( SV* scalar, bool* ispoint )
+{
+    static wxPoint dummy;
+
+    if( ispoint )
+        *ispoint = TRUE;
+
     if( SvROK( scalar ) ) 
     {
         SV* ref = SvRV( scalar );
@@ -633,7 +643,15 @@ wxPoint wxPli_sv_2_wxpoint( SV* scalar )
             
             if( av_len( av ) != 1 )
             {
-                croak( "the array reference must have 2 elements" );
+                if( ispoint )
+                {
+                    *ispoint = FALSE;
+                    return dummy;
+                }
+                else
+                {
+                    croak( "the array reference must have 2 elements" );
+                }
             }
             else
             {
@@ -645,8 +663,17 @@ wxPoint wxPli_sv_2_wxpoint( SV* scalar )
         }
     }
     
-    croak( "variable is not of type Wx::Point" );
-    return wxPoint();
+    if( ispoint )
+    {
+        *ispoint = FALSE;
+        return dummy;
+    }
+    else
+    {
+        croak( "variable is not of type Wx::Point" );
+    }
+
+    return dummy;
 }
 
 wxSize wxPli_sv_2_wxsize( SV* scalar )
@@ -699,7 +726,45 @@ Wx_KeyCode wxPli_sv_2_keycode( SV* sv )
     return 0; // yust to silence a possible warning
 }
 
-int wxPli_av_2_pointarray( SV* arr, wxList *points, wxPoint** tmp )
+int wxPli_av_2_pointarray( SV* arr, wxPoint** points )
+{
+    *points = 0;
+
+    if( !SvROK( arr ) || SvTYPE( SvRV( arr ) ) != SVt_PVAV )
+    {
+        croak( "variable is not an array reference" );
+    }
+
+    AV* array = (AV*) SvRV( arr );
+    size_t items = av_len( array ) + 1, i;
+
+    if( items == 0 )
+        return 0;
+
+    wxPoint* tmp = new wxPoint[ items ];
+    for( i = 0; i < items; ++i )
+    {
+        SV* scalar = *av_fetch( array, i, 0 );
+
+        if( SvROK( scalar ) ) 
+        {
+            bool isPoint;
+
+            tmp[ i ] = wxPli_sv_2_wxpoint_test( scalar, &isPoint );
+            if( !isPoint )
+            {
+                delete [] tmp;
+                croak( "variable is not of type Wx::Point" );
+                return 0;
+            }
+        }
+    }
+
+    *points = tmp;
+    return items;
+}
+
+int wxPli_av_2_pointlist( SV* arr, wxList *points, wxPoint** tmp )
 {
     *tmp = 0;
 

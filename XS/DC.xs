@@ -144,7 +144,7 @@ Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
     wxList points;
     wxPoint* pts;
   CODE:
-    wxPli_av_2_pointarray( list, &points, &pts );
+    wxPli_av_2_pointlist( list, &points, &pts );
     THIS->DrawLines( &points, xoffset, yoffset );
     delete [] pts;
 
@@ -171,7 +171,7 @@ Wx_DC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
     wxList points;
     wxPoint* pts;
   CODE:
-    wxPli_av_2_pointarray( list, &points, &pts );
+    wxPli_av_2_pointlist( list, &points, &pts );
     THIS->DrawPolygon( &points, xoffset, yoffset, fill_style );
     delete [] pts;
 
@@ -206,15 +206,9 @@ Wx_DC::DrawSpline( list )
     wxPoint* pts;
     int n;
   CODE:
-    n = wxPli_av_2_pointarray( list, &points, &pts );
+    n = wxPli_av_2_pointlist( list, &points, &pts );
     THIS->DrawSpline( &points );
     delete [] pts;
-
- #    for( i = 1; i < items; ++i )
- #    {
- #      points.Append( (wxObject*)_sv_2_object( ST(i), "Wx::Point" ) );
- #    }
- #    THIS->DrawSpline( &points );
 
 void
 Wx_DC::DrawText( text, x, y )
