@@ -1,12 +1,14 @@
 #!/usr/bin/perl -w
 
 use lib '../../../t';
-use Test::More 'tests' => 2;
+use Test::More ( $^O eq 'MSWin32' && $] == 5.008000 ) ?
+               ( 'skip_all' => 'Bug with Win32 WM_TIMER handling in 5.8.0' ) :
+               ( 'tests' => 2 );
 
 use Wx::Perl::SplashFast;
 
 BEGIN {
-  my $splash = Wx::Perl::SplashFast->new( '../../../demo/data/logo.jpg', 400 );
+  my $splash = Wx::Perl::SplashFast->new( '../../../demo/data/logo.jpg', 1200 );
   isa_ok( $splash, 'Wx::SplashScreen' );
 }
 

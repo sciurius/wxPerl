@@ -58,8 +58,8 @@ foreach my $d ( @data ) {
       # simple creation
       skip "Some controls are weird", 2
         if Wx::wxMOTIF() && $class eq 'Wx::StaticLine'
-        or Wx::wxGTK() && $class =~ m/^Wx::(MiniFrame|StatusBar)/;
-        or Wx::wwxMAC() && $class eq 'Wx::SpinCtrl';
+        or Wx::wxGTK() && $class =~ m/^Wx::(MiniFrame|StatusBar)/
+        or Wx::wxMAC() && $class eq 'Wx::SpinCtrl';
 
       my $lb = $class->new( $this, -1, @$args );
       my $lb2 = ($this->GetChildren)[-1];
