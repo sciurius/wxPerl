@@ -89,6 +89,14 @@ use vars qw($ID_CHOICE $ID_CHOICE_SORTED $ID_BUTTON_TEST1 $ID_BUTTON_TEST2);
 ( $ID_LISTBOX, $ID_LISTBOX_SORTED, $ID_CHANGE_COLOUR, $ID_CHOICE,
   $ID_CHOICE_SORTED, $ID_BUTTON_TEST1, $ID_BUTTON_TEST2 ) = ( 100 .. 120 );
 
+sub BITMAP {
+  if( $Wx::_platform == $Wx::_msw ) {
+    Wx::Bitmap->new( "icons/$_[0].bmp", wxBITMAP_TYPE_BMP );
+  } else {
+    Wx::Bitmap->new( "icons/$_[0].xpm", wxBITMAP_TYPE_XPM );
+  }
+}
+
 sub SetControlClientData {
   my( $name, $ctrl ) = @_;
   my( $text );
@@ -124,12 +132,10 @@ sub new {
     #
     my( $imagelist ) = $this->{IMAGELIST} = Wx::ImageList->new( 16, 16, 0 );
 
-    $imagelist->Add( Wx::Bitmap->new( "icons/list.bmp", wxBITMAP_TYPE_BMP ) );
-    $imagelist->Add( Wx::Bitmap->new( "icons/choice.bmp", wxBITMAP_TYPE_BMP ) );
-    $imagelist->Add( Wx::Bitmap->new( "icons/combo.bmp", wxBITMAP_TYPE_BMP ) );
-    $imagelist->Add( Wx::Bitmap->new( "icons/radio.bmp", wxBITMAP_TYPE_BMP ) );
-    $imagelist->Add( Wx::Bitmap->new( "icons/gauge.bmp", wxBITMAP_TYPE_BMP ) );
-    $imagelist->Add( Wx::Bitmap->new( "icons/text.bmp", wxBITMAP_TYPE_BMP ) );
+    foreach ( qw(list choice combo radio gauge text) ) {
+      $imagelist->Add( BITMAP( $_ ) );
+    }
+
     $this->{NOTEBOOK}->SetImageList( $imagelist );
 
     my( $choices ) = [ 'This', 'is one of my',
@@ -383,7 +389,7 @@ sub new {
 
     my( $b1 ) = Wx::BitmapButton->new( $panel, -1, $bmp, [100, 20] );
 
-    if( $Wx::_platform == $Wx::_msw ) {
+    if( $Wx::_platform != $Wx::_motif ) {
       my( $bmp ) = Wx::Bitmap->new( "test2.bmp", wxBITMAP_TYPE_BMP );
 
       if( $bmp->Ok() ) {

@@ -51,6 +51,16 @@ my( $IDM_TOOLBAR_TOGGLE_ANOTHER_TOOLBAR, $IDM_TOOLBAR_TOGGLETOOLBARSIZE,
     $IDM_TOOLBAR_INSERTPRINT, $IDM_TOOLBAR_TOGGLEHELP,
     $IDM_TOOLBAR_TOGGLEFULLSCREEN ) = ( 10_000 .. 10_100 );
 
+use Wx qw(wxBITMAP_TYPE_BMP wxBITMAP_TYPE_XPM);
+
+sub BITMAP {
+  if( $Wx::_platform == $Wx::_msw ) {
+    Wx::Bitmap->new( "bitmaps/$_[0].bmp", wxBITMAP_TYPE_BMP );
+  } else {
+    Wx::Bitmap->new( "bitmaps/$_[0].xpm", wxBITMAP_TYPE_XPM );
+  }
+}
+
 sub new {
   my( $class ) = shift;
   my( $this ) = $class->SUPER::new( @_ );
@@ -137,8 +147,7 @@ sub OnUpdateCopyAndCut {
   $event->Enable( $this->{TEXTWINDOW}->CanCopy() );
 }
 
-use Wx qw(wxDefaultPosition wxDefaultSize wxNullBitmap wxTB_VERTICAL
-  wxBITMAP_TYPE_BMP);
+use Wx qw(wxDefaultPosition wxDefaultSize wxNullBitmap wxTB_VERTICAL);
 
 sub OnToggleAnotherToolbar {
   my( $this, $event ) = @_;
@@ -153,7 +162,7 @@ sub OnToggleAnotherToolbar {
                                                  wxTB_VERTICAL );
 
     $t->AddTool( wxID_HELP,
-                 Wx::Bitmap->new( 'bitmaps/help.bmp', wxBITMAP_TYPE_BMP ),
+                 BITMAP( 'help' ),
                  wxNullBitmap, 0, undef, 'This is the help button',
                  'This is the long help for the help button' );
     $t->Realize();
@@ -255,7 +264,7 @@ sub DoToggleHelp {
 sub OnInsertPrint {
   my( $this, $event ) = @_;
 
-  my( $bmp ) = Wx::Bitmap->new( 'bitmaps/print.bmp', wxBITMAP_TYPE_BMP );
+  my( $bmp ) = BITMAP( 'print' );
   $this->GetToolBar()->InsertTool( 0, wxID_PRINT, $bmp, wxNullBitmap,
                                    0, undef, 'Delete this tool',
                                    'This button was inserted into the toolbar'
@@ -279,7 +288,7 @@ sub RecreateToolbar {
 
   my( @bitmaps );
   foreach ( qw(new open save copy cut paste print help) ) {
-    push @bitmaps, Wx::Bitmap->new( "bitmaps/$_.bmp", wxBITMAP_TYPE_BMP );
+    push @bitmaps, BITMAP( $_ );
   }
 
   if( !$this->{SMALLTOOLBAR} ) {
