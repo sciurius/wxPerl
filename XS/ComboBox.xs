@@ -81,6 +81,12 @@ Wx_ComboBox::GetString( n )
 
 int
 Wx_ComboBox::GetCount()
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+    RETVAL = THIS->GetCount();
+#else
+    RETVAL = THIS->Number();
+#endif
 
 wxString
 Wx_ComboBox::GetStringSelection()

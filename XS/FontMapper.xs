@@ -17,7 +17,11 @@ MODULE=Wx PACKAGE=Wx::FontMapper
 wxFontMapper*
 Get()
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     RETVAL = wxFontMapper::Get();
+#else
+    RETVAL = wxTheFontMapper;
+#endif
   OUTPUT:
     RETVAL
 

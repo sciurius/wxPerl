@@ -119,5 +119,9 @@ MODULE=Wx PACKAGE=Wx::WizardEvent
 bool
 wxWizardEvent::GetDirection()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
 wxWizardPage*
 wxWizardEvent::GetPage()
+
+#endif

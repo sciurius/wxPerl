@@ -131,7 +131,9 @@ static wxPlEVT evts[] =
     SEVT( EVT_WIZARD_PAGE_CHANGED, 3 )
     SEVT( EVT_WIZARD_PAGE_CHANGING, 3 )
     SEVT( EVT_WIZARD_CANCEL, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     SEVT( EVT_WIZARD_HELP, 3 )
+#endif
     { 0, 0, 0 }
 };
 
