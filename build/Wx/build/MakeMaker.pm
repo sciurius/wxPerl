@@ -17,7 +17,55 @@ $File::Find::dont_use_nlink = 1 if ( stat('.') )[3] < 2;
 
 Wx::build::MakeMaker - ExtUtils::MakeMaker specialisation for wxPerl modules
 
-=head1 METHODS
+=head1 SYNOPSIS
+
+use Wx::build::MakeMaker;
+
+wxWriteMakefile( NAME         => 'My::Module',
+                 VERSION_FROM => 'Module.pm' );
+
+=head1 FUNCTIONS
+
+=head2 wxWriteMakefile
+
+  wxWriteMakefile( arameter => value, ... );
+
+This functions is meant to be used exactly as
+ExtUtils::MakeMaker::WriteMakefile (see). It accepts all WriteMakefile's
+parameters, plus:
+
+=over 4
+
+=item * WX_LIB
+
+  WX_LIB => '-lxrc'
+
+Link additional libraries from wxWindows' contrib directory.
+
+=item * REQUIRE_WX
+
+  REQUIRE_WX => 2.003002  # wxWindows 2.3.2
+
+Do not build this module if wxWindows' version is lower than the version
+specified.
+
+=item * NO_WX_PLATFORMs
+
+  NO_WX_PLATFORMS => [ 'x11', 'msw' ]
+
+Do not build this module on the specified platform(s).
+
+=item * ON_WX_PLATFORMs
+
+  ON_WX_PLATFORMS => [ 'gtk' ]
+
+only build this module on the specified platform(s).
+
+=back
+
+=head1 PRIVATE FUNCTIONS
+
+These functions are here for reference, do not use them.
 
 =head2 is_core
 
@@ -75,6 +123,8 @@ sub import {
 
   Wx::build::MakeMaker->export_to_level( 1, @_ );
 }
+
+=head1 METHODS
 
 =head2 wx_config
 
