@@ -94,7 +94,8 @@ Wx::Mask->new( $bmpok, Wx::Colour->new( 'red' ) );
 ok( $newbmpcol,"Wx::Mask::newBitmapColour" );
 
 SKIP: {
-  skip "Does not work on wxGTK", 1 if Wx::wxGTK();
+  skip "Does not work on wxGTK, wxX11 and wxMOTIF", 1
+    if Wx::wxGTK() || Wx::wxX11() || Wx::wxMOTIF();
 
   Wx::Mask->new( $bmpok, 0 );
   ok( $newbmpn,  "Wx::Mask::newBitmapIndex" );
@@ -296,10 +297,10 @@ my( $newicon, $newbitmap ) = ( 0, 0 );
 hijack( 'Wx::StaticBitmap::newIcon'   => sub { $newicon = 1 },
         'Wx::StaticBitmap::newBitmap' => sub { $newbitmap =1 } );
 
-Wx::StaticBitmap->new( $frame, -1, Wx::wxNullIcon() );
+Wx::StaticBitmap->new( $frame, -1, $icook );
 ok( $newicon,   "Wx::StaticBitmap::newIcon" );
 
-Wx::StaticBitmap->new( $frame, -1, Wx::wxNullBitmap() );
+Wx::StaticBitmap->new( $frame, -1, $bmpok );
 ok( $newbitmap, "Wx::StaticBitmap::newBitmap" );
 }
 
