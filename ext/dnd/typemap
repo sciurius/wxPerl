@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/ 8/2001
-## RCS-ID:      $Id: typemap,v 1.5 2003/05/07 17:22:32 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.6 2003/11/16 17:20:28 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,7 +14,7 @@ TYPEMAP
 Direction               T_IV
 NativeFormat            T_IV
 wxDragResult            T_IV
-wxDataFormatId          T_IV
+wxDataFormatId          T_ENUM
 
 Wx_DataObject *         O_NON_WXOBJECT
 Wx_FileDataObject *     O_NON_WXOBJECT

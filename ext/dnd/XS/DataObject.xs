@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/ 8/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.13 2003/05/17 13:15:02 mbarbon Exp $
+## RCS-ID:      $Id: DataObject.xs,v 1.14 2003/11/16 17:20:32 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,6 +15,18 @@
 
 MODULE=Wx PACKAGE=Wx::DataFormat
 
+#ifdef __WXGTK20__
+
+wxDataFormat*
+newNative( dummy, format = wxDF_INVALID )
+    SV* dummy
+    wxDataFormatId format
+  CODE:
+    RETVAL = new wxDataFormat( format );
+  OUTPUT: RETVAL
+
+#else
+
 Wx_DataFormat*
 newNative( dummy, format = wxDF_INVALID )
     SV* dummy
@@ -23,6 +35,8 @@ newNative( dummy, format = wxDF_INVALID )
     RETVAL = new wxDataFormat( format );
   OUTPUT:
     RETVAL
+
+#endif
 
 Wx_DataFormat*
 newUser( dummy, id )
