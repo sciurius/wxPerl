@@ -96,4 +96,6 @@ in C:\Perl
 
   If you built Perl from sources then the plain install ( see above )
   should work. If you're using ActivePerl, then the procedure is a
-  little more complicated, see install_mingw.txt for an explanation
+  little more complicated, see the progedure at
+
+  http://wxperl.sourceforge.net/ap_mingw/

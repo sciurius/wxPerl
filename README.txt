@@ -5,7 +5,8 @@ This package is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
 You need wxWindows in order to build wxPerl (see http://www.wxwindows.org/).
-At this moment you may only use GTK, Motif or Win32 as windowing toolkits.
+At this moment you may only use GTK or Win32 ( Motif in alpha stage ) 
+ as windowing toolkits for wxPerl.
 
 INSTALLATION:
 

@@ -9,8 +9,6 @@ PRIORITY NORMAL:
 
 * Better Makefile.PL structure
 
-* use PERL_REVISION/VERSION/SUBVERSION
-
 DOCUMENTATTION:
 
 * Wx::Caret
