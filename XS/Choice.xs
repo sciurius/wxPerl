@@ -13,7 +13,7 @@
 MODULE=Wx PACKAGE=Wx::Choice
 
 Wx_Choice*
-Wx_Choice::new( parent, id, pos, size, choices, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
+Wx_Choice::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
     Wx_Window* parent
     wxWindowID id
     Wx_Point pos
@@ -23,10 +23,11 @@ Wx_Choice::new( parent, id, pos, size, choices, style = 0, validator = (wxValida
     Wx_Validator* validator
     wxString name
   PREINIT:
-    int n;
-    wxString *chs;
+    int n = 0;
+    wxString *chs = 0;
   CODE:
-    n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
+    if( choices )
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
 
     RETVAL = new wxPliChoice( CLASS, parent, id, pos, size, n, chs, style, 
         *validator, name );

@@ -13,7 +13,7 @@
 MODULE=Wx PACKAGE=Wx::ComboBox
 
 Wx_ComboBox*
-Wx_ComboBox::new( parent, id, value, pos, size , choices, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxComboBoxNameStr )
+Wx_ComboBox::new( parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxComboBoxNameStr )
     Wx_Window* parent
     wxWindowID id
     wxString value
@@ -24,10 +24,11 @@ Wx_ComboBox::new( parent, id, value, pos, size , choices, style = 0, validator =
     Wx_Validator* validator
     wxString name
   PREINIT:
-    wxString* chs;
-    int n;
+    wxString* chs = 0;
+    int n = 0;
   CODE:
-    n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
+    if( choices != 0 )
+        n = wxPli_av_2_stringarray( aTHX_ choices, &chs );
     RETVAL = new wxPliComboBox( CLASS, parent, id, value, pos, size, n, chs, 
         style, *validator, name );
 
