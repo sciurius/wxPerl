@@ -532,7 +532,9 @@ static double constant( const char *name, int arg )
     r( wxID_HELP_PROCEDURES );          // id
     r( wxID_HELP_CONTEXT );             // id
     r( wxID_HELP );                     // id
-    
+    r( wxID_HIGHEST );
+    r( wxID_LOWEST );
+
     r( wxID_CUT );                      // id
     r( wxID_COPY );                     // id
     r( wxID_PASTE );                    // id
