@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.41 2005/01/04 17:14:34 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.42 2005/02/19 17:27:14 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -62,11 +62,12 @@ wxEvent::GetEventObject()
     wxObject* obj = THIS->GetEventObject();
     wxWindow* win = wxDynamicCast( obj, wxWindow );
 
+    EXTEND( SP, 1 );
     if(win == NULL)
         PUSHs( &PL_sv_undef );
     else
-        PUSHs( wxPli_evthandler_2_sv( aTHX_ NEWSV( 0, 0 ), win ) );
-
+        PUSHs( wxPli_object_2_sv( aTHX_ NEWSV( 0, 0 ), win ) );
+        
 wxEventType
 wxEvent::GetEventType()
 
