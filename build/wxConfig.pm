@@ -107,40 +107,64 @@ sub constants {
 #
 # portable paths for blib/lib/Wx/_Exp.pm and lib/Wx/Event.pm
 #
-#FIXME// remove this and use File::Find and regexes...
-my( $exp, $evt, $cst, $cst2 );
-sub BEGIN {
-  $exp = MM->catfile( 'blib', 'lib', 'Wx', '_Exp.pm' );
-  $evt = MM->catfile( 'lib', 'Wx', 'Event.pm' );
-  $cst = MM->catfile( 'lib', 'Wx', '_Constants.pm' );
-  $cst2 = 'Constant.xs';
+use File::Find;
+
+sub files_with_constants {
+  my @files;
+
+  my $wanted = sub {
+    my $name = $File::Find::name;
+
+    m/\.(?:pm|xs|cpp|h)$/i && do {
+      local *IN;
+      my $line;
+
+      open IN, "< $_" || warn "unable to open '$_'";
+      while( defined( $line = <IN> ) ) {
+        $line =~ m/^\W+\!\w+:/ && do {
+          push @files, $name;
+          return;
+        };
+      }
+    };
+  };
+
+  find( { no_chdir => 1,
+          wanted => $wanted,
+          }, MM->curdir );
+
+  return @files;
 }
 
 sub postamble {
-  package MY;
-
   my $this = shift;
   my $text = wxConfig::sysdep_postamble( @_ );
 
   unless( $this->{PARENT} ) {
+    my @files = files_with_constants();
+    my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
+
     $text .= <<EOT;
 
 $exp :
-\t\$(PERL) script/make_exp_list.pl $exp $cst2 $evt $cst
+\t\$(PERL) script/make_exp_list.pl $exp @files
 
 EOT
   }
+
+  package MY;
 
   $text;
 }
 
 sub depend {
   my $this = shift;
+  my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
 
   my %depend = ( xs_depend( $this, [ MM->curdir(), top_dir() ] ),
                  ( $this->{PARENT} ?
                    () :
-                   ( $exp => join( ' ', $cst2 , $evt, $cst ),
+                   ( $exp => join( ' ', files_with_constants() ),
                      '$(INST_STATIC)' => $exp,
                      '$(INST_DYNAMIC)' => $exp,
                    )

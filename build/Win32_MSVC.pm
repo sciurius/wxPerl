@@ -83,13 +83,6 @@ sub configure {
   \%config;
 }
 
-my( $exp, $evt, $cst );
-sub BEGIN {
-  $exp = MM->catfile( 'blib', 'lib', 'Wx', '_Exp.pm' );
-  $evt = MM->catfile( 'lib', 'Wx', 'Event.pm' );
-  $cst = MM->catfile( 'lib', 'Wx', '_Constants.pm' );
-}
-
 sub dynamic_lib {
   package MY;
 
