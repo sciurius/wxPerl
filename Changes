@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.23
+
 0.22  Tue Jan  4 23:07:56 CET 2005
 	- Alpha channel support for Wx::Image (2.5).
 	- Wrapped wxChoicebook (2.5).
