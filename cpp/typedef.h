@@ -284,8 +284,4 @@ FD_TD( OutputStream );
 
 typedef int Wx_KeyCode;
 
-struct sv;
-typedef struct sv SV;
-typedef SV SV_null; // equal to SV except that maps C++ 0 <-> Perl undef
-
 #endif // _WXPERL_TYPEDEF_H
