@@ -19,6 +19,9 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckListBox, wxCheckListBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliChoice, wxChoice );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliComboBox, wxComboBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListBox, wxListBox );
+#if WXPERL_W_VERSION_GE( 2, 3 )
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListView, wxListView );
+#endif
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliNotebook, wxNotebook );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioBox, wxRadioBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioButton, wxRadioButton );
@@ -30,7 +33,12 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticBox, wxStaticBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticLine, wxStaticLine );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticText, wxStaticText );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTextCtrl, wxTextCtrl );
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliToggleButton, wxToggleButton );
+
+#endif
 
 #if defined( __WXMSW__ )
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge95 );
@@ -165,6 +173,53 @@ double listctrl_constant( const char* name, int arg )
 }
 
 wxPlConstants listctrl_module( &listctrl_constant );
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+wxString wxPliListCtrl::OnGetItemText( long item, long column ) const
+{
+    if( wxPliVirtualCallback_FindCallback( (wxPliVirtualCallback*) &m_callback, "OnGetItemText" ) )           
+    {                                                                         
+        SV* ret = wxPliVirtualCallback_CallCallback( (wxPliVirtualCallback*) &m_callback,
+                                                     G_SCALAR, "ll", item, column );
+        wxString val;
+        WXSTRING_INPUT( val, dummy, ret );
+        SvREFCNT_dec( ret );
+        return val;
+    }
+
+    return wxListCtrl::OnGetItemText( item, column );
+}
+
+int wxPliListCtrl::OnGetItemImage( long item ) const
+{
+    if( wxPliVirtualCallback_FindCallback( (wxPliVirtualCallback*) &m_callback, "OnGetItemImage" ) )           
+    {                                                                         
+        SV* ret = wxPliVirtualCallback_CallCallback( (wxPliVirtualCallback*) &m_callback,
+                                                     G_SCALAR, "l", item );
+        int val = SvIV( ret );
+        SvREFCNT_dec( ret );
+        return val;
+    }
+
+    return wxListCtrl::OnGetItemImage( item );
+}
+
+wxListItemAttr* wxPliListCtrl::OnGetItemAttr( long item ) const
+{
+    if( wxPliVirtualCallback_FindCallback( (wxPliVirtualCallback*) &m_callback, "OnGetItemAttr" ) )           
+    {                                                                         
+        SV* ret = wxPliVirtualCallback_CallCallback( (wxPliVirtualCallback*) &m_callback,
+                                                     G_SCALAR, "l", item );
+        wxListItemAttr* val = (wxListItemAttr*)wxPli_sv_2_object( ret, "Wx::ListItemAttr" );
+        SvREFCNT_dec( ret );
+        return val;
+    }
+
+    return wxListCtrl::OnGetItemAttr( item );
+}
+
+#endif
 
 //
 // Wx::TreeCtrl implementation
