@@ -89,7 +89,7 @@ wxSTD ostream wxPliDocument::SaveObject( wxSTD ostream& stream )
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "SaveObject" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR, "o", &stream );
+                                           G_DISCARD|G_SCALAR, "o", &stream );
     }
     return wxDocument::SaveObject( stream );
 }
@@ -100,7 +100,7 @@ wxSTD istream wxPliDocument::LoadObject( istream& stream )
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "LoadObject" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR, "o", &stream );
+                                           G_DISCARD|G_SCALAR, "o", &stream );
     }
     return wxDocument::LoadObject( stream );
 }
@@ -111,7 +111,7 @@ wxOutputStream& wxPliDocument::SaveObject( wxOutputStream& stream )
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "SaveObject" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR, "o", &stream );
+                                           G_DISCARD|G_SCALAR, "o", &stream );
     }
     return wxDocument::SaveObject( stream );
 }
@@ -122,7 +122,7 @@ wxInputStream& wxPliDocument::LoadObject( wxInputStream& stream )
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "LoadObject" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR, "o", &stream );
+                                           G_DISCARD|G_SCALAR, "o", &stream );
     }
     return wxDocument::LoadObject( stream );
 }
@@ -202,7 +202,7 @@ void wxPliDocument::Modify( bool mod )
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "Modify" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR, "b", mod );
+                                           G_DISCARD|G_SCALAR, "b", mod );
     }
     wxDocument::Modify( mod );
 }
@@ -242,7 +242,8 @@ void wxPliDocument::UpdateAllViews( wxView *sender, wxObject *hint)
                                            "UpdateAllViews" ) )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                           G_SCALAR, "OO", sender, hint);
+                                           G_DISCARD|G_SCALAR,
+                                           "OO", sender, hint);
     }
     wxDocument::UpdateAllViews( sender, hint );
 }
@@ -384,10 +385,20 @@ SV* wxPliDocTemplate::CallConstructor( const wxString& className )
 {
     dTHX;
     dSP;
+
+    ENTER;
+    SAVETMPS;
+
     char buffer[WXPL_BUF_SIZE];
+#if wxUSE_UNICODE
+    wxConvUTF8.WC2MB( buffer, className, WXPL_BUF_SIZE - 4 );
+#else
+    strcpy( buffer, className.c_str() );
+#endif
+    SV* sv = newSVpv( CHAR_P buffer, 0 );
 
     PUSHMARK(SP);
-    XPUSHs( newSVpv( CHAR_P wxPli_cpp_class_2_perl( className, buffer ), 0 ) );
+    XPUSHs( sv_2mortal( sv ) );
     PUTBACK;
 
     int count = call_method( "new", G_SCALAR );
@@ -399,6 +410,9 @@ SV* wxPliDocTemplate::CallConstructor( const wxString& className )
     SV* obj = POPs;
     SvREFCNT_inc( obj );
     PUTBACK;
+
+    FREETMPS;
+    LEAVE;
 
     return obj;
 }
@@ -424,6 +438,7 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
             return wxDocTemplate::CreateDocument( path, flags );
         SV* obj = CallConstructor( m_docClassName );
         doc = (wxDocument*)wxPli_sv_2_object( aTHX_ obj, "Wx::Document" );
+        SvREFCNT_dec( obj );
     }
 
     doc->SetFilename(path);
@@ -461,6 +476,7 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
             return wxDocTemplate::CreateView( doc, flags );
         SV* obj = CallConstructor( m_viewClassName );
         view = (wxView*)wxPli_sv_2_object( aTHX_ obj, "Wx::View" );
+        SvREFCNT_dec( obj );
     }
 
     view->SetDocument(doc);
@@ -545,7 +561,7 @@ public:
     }
     ~wxPliDocManager();
 
-    bool ProcessEvent( wxEvent& );
+    // bool ProcessEvent( wxEvent& );
     DEC_V_CBACK_VOID__VOID( OnOpenFileFailure );
 
     wxDocument* CreateDocument( const wxString& path, long flags = 0 );
@@ -570,7 +586,7 @@ public:
     wxDocTemplate* FindTemplateForPath( const wxString& );
 
     void ActivateView( wxView*, bool activate = TRUE, bool deleting = FALSE);
-    wxView* GetCurrentView() const;
+    // wxView* GetCurrentView() const;
 
     bool MakeDefaultName( wxString& );
 
@@ -793,6 +809,8 @@ void wxPliDocManager::ActivateView( wxView* view, bool activate, bool deleting)
   wxDocManager::ActivateView( view, activate, deleting );
 }
 
+#if 0
+
 wxView* wxPliDocManager::GetCurrentView() const
 {
     dTHX;
@@ -807,6 +825,8 @@ wxView* wxPliDocManager::GetCurrentView() const
     }
   return wxDocManager::GetCurrentView();
 }
+
+#endif
 
 bool wxPliDocManager::MakeDefaultName( wxString& buf )
 {
@@ -847,11 +867,13 @@ wxString wxPliDocManager::MakeFrameTitle( wxDocument* doc )
 
 DEF_V_CBACK_VOID__VOID( wxPliDocManager, wxDocManager, OnOpenFileFailure );
 
+#if 0
+
 bool wxPliDocManager::ProcessEvent( wxEvent& event )
 {
     dTHX;
-        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                               "ProcessEvent" ) )
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+                                           "ProcessEvent" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                                      G_SCALAR, "O", &event);
@@ -861,6 +883,8 @@ bool wxPliDocManager::ProcessEvent( wxEvent& event )
     }
     return wxDocManager::ProcessEvent( event );
 }
+
+#endif
 
 wxFileHistory* wxPliDocManager::OnCreateFileHistory()
 {
@@ -1043,7 +1067,7 @@ public:
     bool Close( bool deleteWindow = TRUE );
     bool OnClose( bool );
 
-    bool ProcessEvent(wxEvent&);
+    // bool ProcessEvent(wxEvent&);
     void Activate( bool );
 
     virtual void OnDraw(wxDC* dc);
@@ -1151,6 +1175,8 @@ bool wxPliView::OnClose( bool deleteWindow )
   return wxView::OnClose( deleteWindow );
 }
 
+#if 0
+
 bool wxPliView::ProcessEvent(wxEvent& event)
 {
     dTHX;
@@ -1166,6 +1192,7 @@ bool wxPliView::ProcessEvent(wxEvent& event)
   return wxView::ProcessEvent( event );
 }
 
+#endif
 
 void wxPliView::Activate( bool activate )
 {
