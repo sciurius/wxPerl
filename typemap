@@ -25,6 +25,10 @@ wxRegionContain         T_IV
 wxSashEdgePosition      T_IV
 wxSashDragStatus        T_IV
 wxListColumnFormat      T_IV
+wxLogTraceMask          T_UV
+wxLogLevel              T_UV
+wxTraceMask             T_UV
+wxChar *                T_PV
 
 Wx_ClassInfo *          O_NON_WXOBJECT
 
@@ -106,6 +110,9 @@ Wx_ScreenDC *           O_WXOBJECT
 
 Wx_Log *                O_NON_WXOBJECT
 Wx_LogTextCtrl *        O_NON_WXOBJECT
+Wx_LogNull *            O_NON_WXOBJECT
+Wx_LogGui *             O_NON_WXOBJECT
+Wx_LogWindow *          O_NON_WXOBJECT
 
 Wx_Locale *             O_NON_WXOBJECT
 
@@ -162,6 +169,9 @@ Wx_PNGHandler *         O_WXOBJECT
 Wx_ImageList *          O_WXOBJECT
 
 Wx_ToolBarToolBase *    O_NON_WXOBJECT
+
+Wx_AcceleratorEntry *   O_NON_WXOBJECT
+Wx_AcceleratorTable *   O_WXOBJECT
 
 # events
 Wx_Event *              O_WXOBJECT
