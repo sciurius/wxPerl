@@ -389,6 +389,7 @@ ext/print/XS/PrintData.xs
 ext/print/XS/Preview.xs
 ext/print/XS/PrintDialog.xs
 ext/print/XS/PrintDialogData.xs
+ext/print/XS/PrintFactory.xsp
 ext/print/XS/PrintPreview.xs
 ext/print/XS/Printer.xs
 ext/print/XS/Printout.xs
