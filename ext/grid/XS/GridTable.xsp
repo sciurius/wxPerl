@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/08/2003
-## RCS-ID:      $Id: GridTable.xsp,v 1.2 2003/08/05 17:23:47 mbarbon Exp $
+## RCS-ID:      $Id: GridTable.xsp,v 1.3 2003/08/15 21:56:07 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,6 +13,9 @@
 %module{Wx};
 
 %typemap{wxPlGridTable*}{simple};
+%typemap{wxGrid*}{simple};
+%typemap{wxGridCellAttr*}{simple};
+%typemap{wxGridCellAttr::wxAttrKind}{simple};
 
 %file{cpp/gridtable.h};
 %{
@@ -35,6 +38,30 @@ public:
     DEC_V_CBACK_BOOL__INT_INT( IsEmptyCell );
     DEC_V_CBACK_WXSTRING__INT_INT( GetValue );
     DEC_V_CBACK_VOID__INT_INT_WXSTRING( SetValue );
+    DEC_V_CBACK_WXSTRING__INT_INT( GetTypeName );
+    DEC_V_CBACK_BOOL__INT_INT_WXSTRING( CanGetValueAs );
+    DEC_V_CBACK_BOOL__INT_INT_WXSTRING( CanSetValueAs );
+    DEC_V_CBACK_LONG__INT_INT( GetValueAsLong );
+    DEC_V_CBACK_DOUBLE__INT_INT( GetValueAsDouble );
+    DEC_V_CBACK_BOOL__INT_INT( GetValueAsBool );
+    // DEC_V_CBACK_VOIDP__INT_INT_WXSTRING( GetValueAsCustom );
+    DEC_V_CBACK_VOID__INT_INT_LONG( SetValueAsLong );
+    DEC_V_CBACK_VOID__INT_INT_DOUBLE( SetValueAsDouble );
+    DEC_V_CBACK_VOID__INT_INT_BOOL( SetValueAsBool );
+    // DEC_V_CBACK_VOIDP_INT_INT_WXSTRING_VOIDP( SetValueAsCustom );
+    DEC_V_CBACK_VOID__WXGRID( SetView );
+    DEC_V_CBACK_WXGRID__VOID_const( GetView );
+    DEC_V_CBACK_VOID__VOID( Clear );
+    DEC_V_CBACK_BOOL__SIZET_SIZET( InsertRows );
+    DEC_V_CBACK_BOOL__SIZET( AppendRows );
+    DEC_V_CBACK_BOOL__SIZET_SIZET( DeleteRows );
+    DEC_V_CBACK_BOOL__SIZET_SIZET( InsertCols );
+    DEC_V_CBACK_BOOL__SIZET( AppendCols );
+    DEC_V_CBACK_BOOL__SIZET_SIZET( DeleteCols );
+    DEC_V_CBACK_WXSTRING__INT( GetRowLabelValue );
+    DEC_V_CBACK_WXSTRING__INT( GetColLabelValue );
+    DEC_V_CBACK_VOID__INT_WXSTRING( SetRowLabelValue );
+    DEC_V_CBACK_VOID__INT_WXSTRING( SetColLabelValue );
 };
 
 DEF_V_CBACK_INT__VOID_pure( wxPlGridTable, wxGridTableBase, GetNumberRows );
@@ -42,6 +69,30 @@ DEF_V_CBACK_INT__VOID_pure( wxPlGridTable, wxGridTableBase, GetNumberCols );
 DEF_V_CBACK_BOOL__INT_INT_pure( wxPlGridTable, wxGridTableBase, IsEmptyCell );
 DEF_V_CBACK_WXSTRING__INT_INT_pure( wxPlGridTable, wxGridTableBase, GetValue );
 DEF_V_CBACK_VOID__INT_INT_WXSTRING_pure( wxPlGridTable, wxGridTableBase, SetValue );
+DEF_V_CBACK_WXSTRING__INT_INT( wxPlGridTable, wxGridTableBase, GetTypeName );
+DEF_V_CBACK_BOOL__INT_INT_WXSTRING( wxPlGridTable, wxGridTableBase, CanGetValueAs );
+DEF_V_CBACK_BOOL__INT_INT_WXSTRING( wxPlGridTable, wxGridTableBase, CanSetValueAs );
+DEF_V_CBACK_LONG__INT_INT( wxPlGridTable, wxGridTableBase, GetValueAsLong );
+DEF_V_CBACK_DOUBLE__INT_INT( wxPlGridTable, wxGridTableBase, GetValueAsDouble );
+DEF_V_CBACK_BOOL__INT_INT( wxPlGridTable, wxGridTableBase, GetValueAsBool );
+// DEF_V_CBACK_VOIDP__INT_INT_WXSTRING( wxPlGridTable, wxGridTableBase, GetValueAsCustom );
+DEF_V_CBACK_VOID__INT_INT_LONG( wxPlGridTable, wxGridTableBase, SetValueAsLong );
+DEF_V_CBACK_VOID__INT_INT_DOUBLE( wxPlGridTable, wxGridTableBase, SetValueAsDouble );
+DEF_V_CBACK_VOID__INT_INT_BOOL( wxPlGridTable, wxGridTableBase, SetValueAsBool );
+// DEF_V_CBACK_VOIDP_INT_INT_WXSTRING_VOIDP( wxPlGridTable, wxGridTableBase, SetValueAsCustom );
+DEF_V_CBACK_VOID__WXGRID( wxPlGridTable, wxGridTableBase, SetView );
+DEF_V_CBACK_WXGRID__VOID_const( wxPlGridTable, wxGridTableBase, GetView );
+DEF_V_CBACK_VOID__VOID( wxPlGridTable, wxGridTableBase, Clear );
+DEF_V_CBACK_BOOL__SIZET_SIZET( wxPlGridTable, wxGridTableBase, InsertRows );
+DEF_V_CBACK_BOOL__SIZET( wxPlGridTable, wxGridTableBase, AppendRows );
+DEF_V_CBACK_BOOL__SIZET_SIZET( wxPlGridTable, wxGridTableBase, DeleteRows );
+DEF_V_CBACK_BOOL__SIZET_SIZET( wxPlGridTable, wxGridTableBase, InsertCols );
+DEF_V_CBACK_BOOL__SIZET( wxPlGridTable, wxGridTableBase, AppendCols );
+DEF_V_CBACK_BOOL__SIZET_SIZET( wxPlGridTable, wxGridTableBase, DeleteCols );
+DEF_V_CBACK_WXSTRING__INT( wxPlGridTable, wxGridTableBase, GetRowLabelValue );
+DEF_V_CBACK_WXSTRING__INT( wxPlGridTable, wxGridTableBase, GetColLabelValue );
+DEF_V_CBACK_VOID__INT_WXSTRING( wxPlGridTable, wxGridTableBase, SetRowLabelValue );
+DEF_V_CBACK_VOID__INT_WXSTRING( wxPlGridTable, wxGridTableBase, SetColLabelValue );
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlGridTable, wxGridTableBase );
 
@@ -52,9 +103,73 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlGridTable, wxGridTableBase );
 #include "cpp/gridtable.h"
 %}
 
+#define wxGridCellAttr__wxAttrKind wxGridCellAttr::wxAttrKind
+
 %name{Wx::PlGridTable} class wxPlGridTable
 {
-    wxPlGridTable() %code{% RETVAL = new wxPlGridTable( CLASS ); %};
+    wxPlGridTable()  %code{% RETVAL = new wxPlGridTable( CLASS ); %};
 
     void Destroy() %code{% delete THIS; %};
+    wxString GetTypeName( int row, int col )
+        %code{% RETVAL = THIS->wxGridTableBase::GetTypeName( row, col );  %};
+    bool CanGetValueAs( int row, int col, const wxString& typeName )
+        %code{% RETVAL = THIS->wxGridTableBase::CanGetValueAs( row, col, typeName ); %};
+    bool CanSetValueAs( int row, int col, const wxString& typeName )
+        %code{% RETVAL = THIS->wxGridTableBase::CanSetValueAs( row, col, typeName ); %};
+    long GetValueAsLong( int row, int col )
+        %code{% RETVAL = THIS->wxGridTableBase::GetValueAsLong( row, col ); %};
+    double GetValueAsDouble( int row, int col )
+        %code{% RETVAL = THIS->wxGridTableBase::GetValueAsDouble( row, col ); %};
+    bool GetValueAsBool( int row, int col )
+        %code{% RETVAL = THIS->wxGridTableBase::GetValueAsBool( row, col ); %};
+    void SetValueAsLong( int row, int col, long value )
+        %code{% THIS->wxGridTableBase::SetValueAsLong( row, col, value ); %};
+    void SetValueAsDouble( int row, int col, double value )
+        %code{% THIS->wxGridTableBase::SetValueAsDouble( row, col, value ); %};
+    void SetValueAsBool( int row, int col, bool value )
+        %code{% THIS->wxGridTableBase::SetValueAsBool( row, col, value ); %};
+
+##  void* GetValueAsCustom( int row, int col, const wxString& typeName ) %code{%  %};
+##  void  SetValueAsCustom( int row, int col, const wxString& typeName, void* value ) %code{%  %};
+
+    void SetView( wxGrid *grid )
+        %code{% THIS->wxGridTableBase::SetView( grid ); %};
+    wxGrid* GetView()
+        %code{% RETVAL = THIS->wxGridTableBase::GetView(); %};
+
+    void Clear() %code{% THIS->wxGridTableBase::Clear(); %};
+    bool InsertRows( size_t pos = 0, size_t numRows = 1 )
+        %code{% RETVAL = THIS->wxGridTableBase::InsertRows( pos, numRows ); %};
+    bool AppendRows( size_t numRows = 1 )
+        %code{% RETVAL = THIS->wxGridTableBase::AppendRows( numRows ); %};
+    bool DeleteRows( size_t pos = 0, size_t numRows = 1 )
+        %code{% RETVAL = THIS->wxGridTableBase::DeleteRows( pos, numRows ); %};
+    bool InsertCols( size_t pos = 0, size_t numCols = 1 )
+        %code{% RETVAL = THIS->wxGridTableBase::InsertCols( pos, numCols ); %};
+    bool AppendCols( size_t numCols = 1 )
+        %code{% RETVAL = THIS->wxGridTableBase::AppendCols( numCols ); %};
+    bool DeleteCols( size_t pos = 0, size_t numCols = 1 )
+        %code{% RETVAL = THIS->wxGridTableBase::DeleteCols( pos, numCols ); %};
+
+    wxString GetRowLabelValue( int row )
+        %code{% RETVAL = THIS->wxGridTableBase::GetRowLabelValue( row ); %};
+    wxString GetColLabelValue( int col )
+        %code{% RETVAL = THIS->wxGridTableBase::GetColLabelValue( col ); %};
+    void SetRowLabelValue( int row, const wxString& value )
+        %code{% THIS->wxGridTableBase::SetRowLabelValue( row, value ); %};
+    void SetColLabelValue( int col, const wxString& value )
+        %code{% THIS->wxGridTableBase::SetColLabelValue( col, value ); %};
+##  void SetAttrProvider(wxGridCellAttrProvider *attrProvider) %code{%  %};
+##  wxGridCellAttrProvider *GetAttrProvider() const { RETVAL = m_attrProvider %code{%  %}; }
+    bool CanHaveAttributes()
+        %code{% RETVAL = THIS->wxGridTableBase::CanHaveAttributes(); %};
+    wxGridCellAttr *GetAttr( int row, int col,
+                             wxGridCellAttr::wxAttrKind  kind )
+        %code{% RETVAL = THIS->wxGridTableBase::GetAttr( row, col, kind ); %};
+    void SetAttr(wxGridCellAttr* attr, int row, int col)
+        %code{% THIS->wxGridTableBase::SetAttr( attr, row, col ); %};
+    void SetRowAttr(wxGridCellAttr *attr, int row)
+        %code{% THIS->wxGridTableBase::SetRowAttr( attr, row ); %};
+    void SetColAttr(wxGridCellAttr *attr, int col)
+        %code{% THIS->wxGridTableBase::SetColAttr( attr, col ); %};
 };
