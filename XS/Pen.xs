@@ -45,6 +45,9 @@ newBitmap( stipple, width )
 
 #endif
 
+void
+Wx_Pen::DESTROY()
+
 int
 Wx_Pen::GetCap()
 
