@@ -13,6 +13,22 @@
 #include <wx/app.h>
 #include "cpp/app.h"
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+#include <wx/artprov.h>
+#endif
+
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+void
+wxPostEvent( evthnd, event )
+    Wx_EvtHandler* evthnd
+    Wx_Event* event
+  CODE:
+    wxPostEvent( evthnd, *event );
+
+void
+wxWakeUpIdle()
+
 MODULE=Wx PACKAGE=Wx::_App
 
 void
@@ -79,17 +95,34 @@ Wx_App::GetClassName()
 bool
 Wx_App::GetExitOnFrameDelete()
 
-#if WXPERL_W_VERSION_LE( 2, 3, 2 )
-
 Wx_Icon*
 Wx_App::GetStdIcon( which )
     int which
   CODE:
+#if WXPERL_W_VERSION_LE( 2, 3, 2 )
     RETVAL = new wxIcon( THIS->GetStdIcon( which ) );
+#else
+    wxString id;
+    switch( which )
+    {
+    case wxICON_EXCLAMATION:
+        id = wxART_WARNING;
+        break;
+    case wxICON_HAND:
+        id = wxART_ERROR; 
+        break;
+    case wxICON_QUESTION:
+        id = wxART_INFORMATION;
+        break;
+    case wxICON_INFORMATION:
+        id = wxART_QUESTION;
+        break;
+    };
+
+    RETVAL = new wxIcon( wxArtProvider::GetIcon( id, wxART_MESSAGE_BOX ) );
+#endif
   OUTPUT:
     RETVAL
-
-#endif
 
 Wx_Window*
 Wx_App::GetTopWindow()
