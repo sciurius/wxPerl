@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.57 2003/06/04 20:38:16 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.58 2003/07/25 20:57:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -228,14 +228,14 @@ Wx_Point                O_POINT
 wxPoint                 O_POINT
 Wx_Size                 O_SIZE
 wxSize                  O_SIZE
-Wx_Colour               O_COLOUR
-wxColour                O_COLOUR
+Wx_Colour               O_NON_WXOBJECT_VAL
+wxColour                O_NON_WXOBJECT_VAL
 Wx_Point &              O_POINT
 wxPoint &               O_POINT
 Wx_Size &               O_SIZE
 wxSize &                O_SIZE
-Wx_Colour &             O_COLOUR
-wxColour &              O_COLOUR
+Wx_Colour &             O_NON_WXOBJECT_VAL
+wxColour &              O_NON_WXOBJECT_VAL
 
 Wx_Process *            O_WXOBJECT
 wxProcess *             O_WXOBJECT
@@ -427,6 +427,12 @@ O_WXEVTHANDLER
 O_NON_WXOBJECT
     wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
 
+O_SIZE
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
+
+O_POINT
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
+
 T_KEYCODE
     sv_setiv( $arg, $var );
 
@@ -443,14 +449,14 @@ O_WXEVTHANDLER
 O_NON_WXOBJECT
     $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
+O_NON_WXOBJECT_VAL
+    $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
+
 O_POINT
     $var = wxPli_sv_2_wxpoint( aTHX_ $arg );
 
 O_SIZE
     $var = wxPli_sv_2_wxsize( aTHX_ $arg );
-
-O_COLOUR
-    $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
 T_KEYCODE
     $var = wxPli_sv_2_keycode( aTHX_ $arg );
