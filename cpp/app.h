@@ -74,6 +74,10 @@ inline int wxPliApp::MainLoop() {
 
     if( Initialized() ) 
     {
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+        if( m_exitOnFrameDelete == Later )
+            m_exitOnFrameDelete = Yes;
+#endif
         retval = wxApp::MainLoop();
         OnExit();
     }
