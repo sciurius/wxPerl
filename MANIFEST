@@ -211,7 +211,6 @@ XS/ToolTip.xs
 XS/Utils.xs
 XS/Validators.xs
 XS/Wizard.xs
-
 XS/ColourDialog.xs
 XS/DirDialog.xs
 XS/FileDialog.xs
@@ -417,6 +416,11 @@ demo/data/resource.xrc
 demo/data/logo.jpg
 demo/data/cat.pl
 demo/data/dummy.pl
+demo/data/fileopen.gif
+demo/data/filesave.gif
+demo/data/fuzzy.gif
+demo/data/quotes.gif
+demo/data/update.gif
 demo/demo.pl
 demo/splash.pl
 demo/wxCheckListBox.pm
