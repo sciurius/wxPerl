@@ -1627,6 +1627,7 @@ static double constant( const char *name, int arg )
     r( wxTE_LEFT );                     // textctrl
     r( wxTE_RIGHT );                    // textctrl
     r( wxTE_CENTRE );                   // textctrl
+    r( wxTE_AUTO_URL );                 // textctrl
 #endif
     r( wxTHICK_FRAME );                 // frame dialog
     r( wxTOP );                         // sizer layout constraints
