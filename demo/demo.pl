@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/05/2001
-## RCS-ID:      $Id: demo.pl,v 1.20 2005/03/19 18:06:39 mbarbon Exp $
+## RCS-ID:      $Id: demo.pl,v 1.21 2005/03/27 16:25:06 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -237,7 +237,9 @@ my @demos =
       [
        [ 'CalendarCtrl', demo( 'wxCalendarCtrl' ) ],
        [ 'CheckListBox', demo( 'wxCheckListBox' ) ],
-       [ 'DatePickerCtrl', demo( 'wxDatePickerCtrl' ) ],
+       ( Wx::wxVERSION >= 2.005 ?
+         [ 'DatePickerCtrl', demo( 'wxDatePickerCtrl' ) ] :
+         () ),
        [ 'ListCtrl', demo( 'wxListCtrl' ) ],
        [ 'ScrollBar', demo( 'wxScrollBar' ) ],
       ],
