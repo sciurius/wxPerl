@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.33 2005/02/26 10:51:59 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.34 2005/03/19 17:56:05 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,9 +20,119 @@
 
 %typemap{wxFlexSizerGrowMode}{simple};
 %typemap{wxSizerItem*}{simple};
+%typemap{Wx_UserDataO*}{simple};
 
 %name{Wx::Sizer} class wxSizer
 {
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    %name{AddWindow} wxSizerItem* Add( wxWindow* window, int option = 0,
+                                       int flag = 0, int border = 0,
+                                       Wx_UserDataO* data = NULL );
+    %name{AddSizer} wxSizerItem* Add( wxSizer* sizer, int option = 0,
+                                      int flag = 0, int border = 0,
+                                      Wx_UserDataO* data = NULL );
+    %name{AddSpace} wxSizerItem* Add( int width, int height, int option = 0,
+                                      int flag = 0, int border = 0,
+                                      Wx_UserDataO* data = NULL );
+
+    %name{PrependWindow} wxSizerItem* Prepend( wxWindow* window,
+                                               int option = 0, int flag = 0,
+                                               int border = 0,
+                                               Wx_UserDataO* data = NULL );
+    %name{PrependSizer} wxSizerItem* Prepend( wxSizer* sizer, int option = 0,
+                                              int flag = 0, int border = 0,
+                                              Wx_UserDataO* data = NULL );
+    %name{PrependSpace} wxSizerItem* Prepend( int width, int height,
+                                              int option = 0,
+                                              int flag = 0, int border = 0,
+                                              Wx_UserDataO* data = NULL );
+
+    %name{InsertWindow} wxSizerItem* Insert( int pos, wxWindow* window,
+                                             int option = 0, int flag = 0,
+                                             int border = 0,
+                                             Wx_UserDataO* data = NULL );
+    %name{InsertSizer} wxSizerItem* Insert( int pos, wxSizer* sizer,
+                                            int option = 0,
+                                            int flag = 0, int border = 0,
+                                            Wx_UserDataO* data = NULL );
+    %name{InsertSpace} wxSizerItem* Insert( int pos, int width, int height,
+                                            int option = 0,
+                                            int flag = 0, int border = 0,
+                                            Wx_UserDataO* data = NULL );
+#else
+    %name{AddWindow} void Add( wxWindow* window, int option = 0,
+                               int flag = 0, int border = 0,
+                               Wx_UserDataO* data = NULL );
+    %name{AddSizer} void Add( wxSizer* sizer, int option = 0,
+                              int flag = 0, int border = 0,
+                              Wx_UserDataO* data = NULL );
+    %name{AddSpace} void Add( int width, int height, int option = 0,
+                              int flag = 0, int border = 0,
+                              Wx_UserDataO* data = NULL );
+
+    %name{PrependWindow} void Prepend( wxWindow* window,
+                                       int option = 0, int flag = 0,
+                                       int border = 0,
+                                       Wx_UserDataO* data = NULL );
+    %name{PrependSizer} void Prepend( wxSizer* sizer, int option = 0,
+                                      int flag = 0, int border = 0,
+                                      Wx_UserDataO* data = NULL );
+    %name{PrependSpace} void Prepend( int width, int height,
+                                      int option = 0,
+                                      int flag = 0, int border = 0,
+                                      Wx_UserDataO* data = NULL );
+
+    %name{InsertWindow} void Insert( int pos, wxWindow* window,
+                                     int option = 0, int flag = 0,
+                                     int border = 0,
+                                     Wx_UserDataO* data = NULL );
+    %name{InsertSizer} void Insert( int pos, wxSizer* sizer,
+                                    int option = 0,
+                                    int flag = 0, int border = 0,
+                                    Wx_UserDataO* data = NULL );
+    %name{InsertSpace} void Insert( int pos, int width, int height,
+                                    int option = 0,
+                                    int flag = 0, int border = 0,
+                                    Wx_UserDataO* data = NULL );
+#endif
+
+    void RecalcSizes();
+    void Clear( bool deleteWindows = true );
+    void DeleteWindows();
+    wxSize CalcMin();
+    wxSize Fit( wxWindow* window );
+    void FitInside( wxWindow* window );
+    wxSize GetSize();
+    wxPoint GetPosition();
+    wxSize GetMinSize();
+    void Layout();
+
+    %name{RemoveWindow} bool Remove( wxWindow* window );
+    %name{RemoveSizer} bool Remove( wxSizer* window );
+    %name{RemoveNth} bool Remove( int nth );
+
+#if WXPERL_W_WINDOW_GE( 2, 5, 3 )
+    %name{DetachWindow} bool Detach( wxWindow* window );
+    %name{DetachSizer} bool Detach( wxSizer* window );
+    %name{DetachNth} bool Detach( int nth );
+#endif
+
+    void SetDimension( int x, int y, int width, int height );
+
+    %name{SetItemMinSizeWindow}
+    void SetItemMinSize( wxWindow* window, int width, int height );
+    %name{SetItemMinSizeSizer}
+    void SetItemMinSize( wxSizer* window, int width, int height );
+    %name{SetItemMinSizeNth}
+    void SetItemMinSize( int pos, int width, int height );
+
+    %name{SetMinSizeSize} void SetMinSize( wxSize size );
+    %name{SetMinSizeXY} void SetMinSize( int x, int y );
+
+    void SetSizeHints( wxWindow* window );
+
+    void SetVirtualSizeHints( wxWindow* window );
+
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     %name{ShowWindow} bool Show( wxWindow* window, bool show = true );
     %name{ShowSizer} bool Show( wxSizer* sizer, bool show = true );
@@ -36,14 +146,14 @@
 #endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
-    void AddSpacer( int size );
-    void AddStretchSpacer( int prop = 1 );
+    wxSizerItem* AddSpacer( int size );
+    wxSizerItem* AddStretchSpacer( int prop = 1 );
 
-    void InsertSpacer( size_t index, int size );
-    void InsertStretchSpacer( size_t index, int prop = 1 );
+    wxSizerItem* InsertSpacer( size_t index, int size );
+    wxSizerItem* InsertStretchSpacer( size_t index, int prop = 1 );
 
-    void PrependSpacer( int size );
-    void PrependStretchSpacer( int prop = 1 );
+    wxSizerItem* PrependSpacer( int size );
+    wxSizerItem* PrependStretchSpacer( int prop = 1 );
 #endif
 };
 
@@ -110,62 +220,6 @@ wxSizer::Add( ... )
     END_OVERLOAD( Wx::Sizer::Add )
 
 void
-wxSizer::AddWindow( window, option = 0, flag = 0, border = 0, data = 0 )
-    wxWindow* window
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Add( window, option, flag, border, data );
-
-void
-wxSizer::AddSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
-    wxSizer* sizer
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Add( sizer, option, flag, border, data );
-
-void
-wxSizer::AddSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
-    int width
-    int height
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Add( width, height, option, flag, border, data );
-
-void
-wxSizer::Clear( deleteWindows = true )
-    bool deleteWindows
-
-void
-wxSizer::DeleteWindows()
-
-wxSize*
-wxSizer::CalcMin()
-  CODE:
-    RETVAL = new wxSize( THIS->CalcMin() );
-  OUTPUT:
-    RETVAL
-
-wxSize*
-wxSizer::Fit( window )
-    wxWindow* window
-  CODE:
-    RETVAL = new wxSize( THIS->CalcMin() );
-  OUTPUT: RETVAL
-
-void
-wxSizer::FitInside( window )
-    wxWindow* window
-
-void
 wxSizer::GetChildren()
   PPCODE:
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
@@ -182,27 +236,6 @@ wxSizer::GetChildren()
     for( node = list.GetFirst(); node; node = node->GetNext() )
       PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ) );
 
-wxSize*
-wxSizer::GetSize()
-  CODE:
-    RETVAL = new wxSize( THIS->GetSize() );
-  OUTPUT:
-    RETVAL
-
-wxPoint*
-wxSizer::GetPosition()
-  CODE:
-    RETVAL = new wxPoint( THIS->GetPosition() );
-  OUTPUT:
-    RETVAL
-
-wxSize*
-wxSizer::GetMinSize()
-  CODE:
-    RETVAL = new wxSize( THIS->GetMinSize() );
-  OUTPUT:
-    RETVAL
-
 void
 wxSizer::Insert( ... )
   PPCODE:
@@ -211,43 +244,6 @@ wxSizer::Insert( ... )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wszr_n_n_n_s, InsertSizer, 2 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_n_n_n_s, InsertSpace, 3 )
     END_OVERLOAD( "Wx::Sizer::Insert" )
-
-void
-wxSizer::InsertWindow( pos, window, option = 0, flag = 0, border = 0, data = 0 )
-    int pos
-    wxWindow* window
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Insert( pos, window, option, flag, border, data );
-
-void
-wxSizer::InsertSizer( pos, sizer, option = 0, flag = 0, border = 0, data = 0 )
-    int pos
-    wxSizer* sizer
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Insert( pos, sizer, option, flag, border, data );
-
-void
-wxSizer::InsertSpace( pos, width, height, option = 0, flag = 0, border = 0, data = 0 )
-    int pos
-    int width
-    int height
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Insert( pos, width, height, option, flag, border, data );
-
-void
-wxSizer::Layout()
 
 void
 wxSizer::Prepend( ... )
@@ -259,40 +255,6 @@ wxSizer::Prepend( ... )
     END_OVERLOAD( "Wx::Sizer::Prepend" )
 
 void
-wxSizer::PrependWindow( window, option = 0, flag = 0, border = 0, data = 0 )
-    wxWindow* window
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Prepend( window, option, flag, border, data );
-
-void
-wxSizer::PrependSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
-    wxSizer* sizer
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Prepend( sizer, option, flag, border, data );
-
-void
-wxSizer::PrependSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
-    int width
-    int height
-    int option
-    int flag
-    int border
-    Wx_UserDataO* data
-  CODE:
-    THIS->Prepend( width, height, option, flag, border, data );
-
-void
-wxSizer::RecalcSizes()
-
-void
 wxSizer::Remove( ... )
   PPCODE:
     BEGIN_OVERLOAD()
@@ -300,37 +262,6 @@ wxSizer::Remove( ... )
         MATCH_REDISP( wxPliOvl_wszr, RemoveSizer )
         MATCH_REDISP( wxPliOvl_n, RemoveNth )
     END_OVERLOAD( Wx::Sizer::Remove )
-
-bool
-wxSizer::RemoveWindow( window )
-    wxWindow* window
-  CODE:
-    RETVAL = THIS->Remove( window );
-  OUTPUT:
-    RETVAL
-
-bool
-wxSizer::RemoveSizer( sizer )
-    wxSizer* sizer
-  CODE:
-    RETVAL = THIS->Remove( sizer );
-  OUTPUT:
-    RETVAL
-
-bool
-wxSizer::RemoveNth( nth )
-    int nth
-  CODE:
-    RETVAL = THIS->Remove( nth );
-  OUTPUT:
-    RETVAL
-
-void
-wxSizer::SetDimension( x, y, width, height )
-    int x
-    int y
-    int width
-    int height
 
 void
 wxSizer::SetItemMinSize( ... )
@@ -342,57 +273,12 @@ wxSizer::SetItemMinSize( ... )
     END_OVERLOAD( Wx::Sizer::SetItemMinSize )
 
 void
-wxSizer::SetItemMinSizeWindow( window, width, height )
-    wxWindow* window
-    int width
-    int height
-  CODE:
-    THIS->SetItemMinSize( window, width, height );
-
-void
-wxSizer::SetItemMinSizeSizer( sizer, width, height )
-    wxSizer* sizer
-    int width
-    int height
-  CODE:
-    THIS->SetItemMinSize( sizer, width, height );
-
-void
-wxSizer::SetItemMinSizeNth( pos, width, height )
-    int pos
-    int width
-    int height
-  CODE:
-    THIS->SetItemMinSize( pos, width, height );
-
-void
 wxSizer::SetMinSize( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n, SetMinSizeXY )
         MATCH_REDISP( wxPliOvl_wsiz, SetMinSizeSize )
     END_OVERLOAD( Wx::Sizer::SetMinSize )
-
-void
-wxSizer::SetMinSizeSize( size )
-    wxSize size
-  CODE:
-    THIS->SetMinSize( size );
-
-void
-wxSizer::SetMinSizeXY( x, y )
-    int x
-    int y
-  CODE:
-    THIS->SetMinSize( x, y );
-
-void
-wxSizer::SetSizeHints( window )
-    wxWindow* window
-
-void
-wxSizer::SetVirtualSizeHints( window )
-    wxWindow* window
 
 MODULE=Wx PACKAGE=Wx::BoxSizer
 
