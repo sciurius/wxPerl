@@ -12,8 +12,17 @@
 
 MODULE=Wx PACKAGE=Wx::Colour
 
+void
+Wx_Colour::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n, newRGB )
+        MATCH_REDISP( wxPliOvl_s, newName )
+    END_OVERLOAD( Wx::Colour::new )
+
 Wx_Colour*
-newRGB( red, green, blue )
+newRGB( CLASS, red, green, blue )
+    SV* CLASS
     unsigned char red
     unsigned char green
     unsigned char blue
@@ -23,7 +32,8 @@ newRGB( red, green, blue )
     RETVAL
 
 Wx_Colour*
-newName( name )
+newName( CLASS, name )
+    SV* CLASS
     wxString name
   CODE:
     RETVAL = new wxColour( name );

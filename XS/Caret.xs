@@ -14,8 +14,17 @@
 
 MODULE=Wx PACKAGE=Wx::Caret
 
+void
+Wx_Caret::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin_n_n, newWH )
+        MATCH_REDISP( wxPliOvl_wwin_wsiz, newSize )
+    END_OVERLOAD( Wx::Caret::new )
+
 Wx_Caret*
-newSize( window, size )
+newSize( CLASS, window, size )
+    SV* CLASS
     Wx_Window* window
     Wx_Size size
   CODE:
@@ -24,7 +33,8 @@ newSize( window, size )
     RETVAL
 
 Wx_Caret*
-newWH( window, width, height )
+newWH( CLASS, window, width, height )
+    SV* CLASS
     Wx_Window* window
     int width
     int height
@@ -94,6 +104,14 @@ bool
 Wx_Caret::IsVisible()
 
 void
+Wx_Caret::Move( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wpoi, MovePoint )
+        MATCH_REDISP( wxPliOvl_n_n, MoveXY )
+    END_OVERLOAD( Wx::Caret::Move )
+
+void
 Wx_Caret::MovePoint( point )
     Wx_Point point
   CODE:
@@ -111,6 +129,14 @@ SetBlinkTime( milliseconds )
     int milliseconds
   CODE:
     wxCaret::SetBlinkTime( milliseconds );
+
+void
+Wx_Caret::SetSize( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+      MATCH_REDISP( wxPliOvl_wsiz, SetSizeSize )
+      MATCH_REDISP( wxPliOvl_n_n, SetSizeWH )
+    END_OVERLOAD( Wx::Caret::SetSize )
 
 void
 Wx_Caret::SetSizeSize( size )
