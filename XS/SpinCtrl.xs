@@ -4,11 +4,13 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      $Id: SpinCtrl.xs,v 1.7 2003/05/31 15:36:56 mbarbon Exp $
+## RCS-ID:      $Id: SpinCtrl.xs,v 1.8 2003/06/02 08:44:50 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
+
+#include <wx/spinctrl.h>
 
 MODULE=Wx PACKAGE=Wx::SpinCtrl
 

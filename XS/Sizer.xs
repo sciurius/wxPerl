@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.20 2003/05/31 15:36:56 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.21 2003/06/02 08:44:50 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -356,13 +356,13 @@ Wx_BoxSizer::GetOrientation()
 
 MODULE=Wx PACKAGE=Wx::StaticBoxSizer
 
-Wx_StaticBoxSizer*
-Wx_StaticBoxSizer::new( box, orient )
-    Wx_StaticBox* box
+wxStaticBoxSizer*
+wxStaticBoxSizer::new( box, orient )
+    wxStaticBox* box
     int orient
 
-Wx_StaticBox*
-Wx_StaticBoxSizer::GetStaticBox()
+wxStaticBox*
+wxStaticBoxSizer::GetStaticBox()
 
 MODULE=Wx PACKAGE=Wx::NotebookSizer
 

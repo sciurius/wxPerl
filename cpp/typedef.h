@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: typedef.h,v 1.46 2003/05/31 15:36:56 mbarbon Exp $
+// RCS-ID:      $Id: typedef.h,v 1.47 2003/06/02 08:44:51 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -172,11 +172,8 @@ FD_TD( SingleInstanceChecker );
 FD_TD( Size );
 FD_TD( Sizer );
 FD_TD( SizerItem );
-FD_TD( Slider );
 FD_TD( SplashScreen );
 FD_TD( SplitterWindow );
-FD_TD( StaticBitmap );
-FD_TD( StaticBox );
 FD_TD( StaticBoxSizer );
 FD_TD( StaticCtrl );
 FD_TD( StaticLine );

@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        StaticBox.xs
+## Name:        XS/StaticBox.xs
 ## Purpose:     XS for Wx::StaticBox
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2001 Mattia Barbon
+## RCS-ID:      $Id: StaticBox.xs,v 1.5 2003/06/02 08:44:50 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,17 +14,18 @@
 
 MODULE=Wx PACKAGE=Wx::StaticBox
 
-Wx_StaticBox*
-Wx_StaticBox::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxStaticBoxNameStr )
-    Wx_Window* parent
+wxStaticBox*
+wxStaticBox::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxStaticBoxNameStr )
+    wxWindow* parent
     wxWindowID id
     wxString label
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
-    RETVAL = new wxPliStaticBox( CLASS, parent, id, label, pos, 
+    RETVAL = new wxStaticBox( parent, id, label, pos, 
         size, style, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
