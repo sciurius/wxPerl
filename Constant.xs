@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.102 2004/03/02 20:13:16 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.103 2004/04/10 20:32:34 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1693,6 +1693,8 @@ static double constant( const char *name, int arg )
     r( wxTHICK_FRAME );                 // frame dialog
     r( wxTINY_CAPTION_HORIZ );
     r( wxTINY_CAPTION_VERT );
+    r( wxTIMER_CONTINUOUS );
+    r( wxTIMER_ONE_SHOT );
     r( wxTOP );                         // sizer layout constraints
     r( wxTRANSPARENT_WINDOW );          // window
     r( wxTRANSPARENT );                 // dc brush pen
