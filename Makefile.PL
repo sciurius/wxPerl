@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Makefile.PL,v 1.34 2003/08/23 13:02:46 mbarbon Exp $
+## RCS-ID:      $Id: Makefile.PL,v 1.35 2003/12/13 17:18:34 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -38,6 +38,18 @@ wxWriteMakefile( NAME          => 'Wx',
 #                   ( WXLIB => [ 'wxxrc', 'stc' ] ) :
 #                   () ),
                );
+
+END {
+    print <<EOT;
+======================================================================
+For installation instructions and further help please see
+docs/install.txt
+
+For command line switches help use:
+perl Makefile.PL --help
+======================================================================
+EOT
+}
 
 # local variables:
 # mode: cperl

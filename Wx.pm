@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.67 2003/11/29 21:57:32 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.68 2003/12/13 17:18:34 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -306,6 +306,10 @@ The Wx module is a wrapper for the wxWindows GUI toolkit.
 
 This module comes with extensive documentation in HTML format; you
 can download it from http://wxperl.sourceforge.net/
+
+=head1 INSTALLATION
+
+Please see F<docs/install.txt> in source package.
 
 =head1 Windows XP look
 
