@@ -95,11 +95,13 @@ sub SetControlClientData {
   }
 }
 
-#sub DESTROY {
-#  my( $this ) = shift;
-#
+sub DESTROY {
+  my( $this ) = shift;
+
+  $this->{TIMER}->Destroy;
+  $this->{TIMER2}->Destroy;
 #  Wx::Log::SetActiveTarget( delete $this->{OLDLOG} );
-#}
+}
 
 sub new {
     my( $class, $frame, $x, $y, $w, $h ) = @_;
@@ -397,8 +399,15 @@ sub new {
     my( $b1 ) = Wx::BitmapButton->new( $panel, -1, $bmp, [100, 20] );
 
     if( $Wx::_platform != $Wx::_motif ) {
-      my( $bmp ) = Wx::Bitmap->new( "test2.bmp", wxBITMAP_TYPE_BMP );
+#      require IO::File;
 
+#      my $file = IO::File->new( "test2.bmp", "r" );binmode $file;
+#      my $handler = Wx::Image::FindHandlerType( wxBITMAP_TYPE_BMP );
+#      my( $image ) = Wx::Image->new();
+#      $handler->LoadFile( $image, $file );
+#      my( $bmp ) = $image->ConvertToBitmap();
+
+      my $bmp = Wx::Bitmap->new( "test2.bmp", wxBITMAP_TYPE_BMP );
       if( $bmp->Ok() ) {
         $bmp->SetMask( Wx::Mask->new( $bmp, wxBLUE ) );
         Wx::StaticBitmap->new( $panel, -1, $bmp, [300, 120] );
@@ -1156,6 +1165,8 @@ sub OnClose {
   my( $this ) = shift;
 
   Wx::Log::SetActiveTarget( $this->{PANEL}->{OLDLOG} );
+
+  $this->Destroy;
 
   $_[0]->Skip();
 }
