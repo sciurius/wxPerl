@@ -19,11 +19,31 @@ use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK);
 
 @ISA = qw(Exporter);
 
-@EXPORT_OK = qw(print_result test_inheritance test_inheritance_all);
+@EXPORT_OK = qw(print_result test_inheritance test_inheritance_all
+                test_app test_frame);
 
 %EXPORT_TAGS =
   ( inheritance => [ qw(test_inheritance test_inheritance_all) ],
   );
+
+sub test_app {
+  my $function = shift;
+
+  my $app = Tests_Helper_App->new( $function );
+}
+
+sub test_frame {
+  my $class = shift;
+  my @params = @_;
+
+  my $function = sub {
+    my $frame = $class->new( @params );
+
+    $frame->Destroy;
+  };
+
+  my $app = Tests_Helper_App->new( $function );
+}
 
 sub test_inheritance {
   my( %perl_inheritance, %cpp_inheritance );
@@ -118,6 +138,27 @@ sub cpp_2_perl {
   $v =~ s/^wx/Wx::/;
 
   $v;
+}
+
+package Tests_Helper_App;
+
+use vars qw(@ISA); @ISA = qw(Wx::App);
+
+my $on_init;
+
+sub new {
+  my $class = shift;
+  my $function = shift;
+  $on_init = $function;
+  my $this = $class->SUPER::new( @_ );
+
+  return $this;
+}
+
+sub OnInit {
+  &$on_init;
+
+  return 1;
 }
 
 1;
