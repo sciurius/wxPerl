@@ -82,5 +82,6 @@ INCLUDE: XS/MessageDialog.xs
 INCLUDE: XS/ProgressDialog.xs
 INCLUDE: XS/SingleChoiceDialog.xs
 INCLUDE: XS/MultiChoiceDialog.xs
+INCLUDE: XS/FontDialog.xs
 
 MODULE=Wx_Wnd
