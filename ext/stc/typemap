@@ -12,3 +12,4 @@
 
 TYPEMAP
 Wx_StyledTextCtrl*      O_WXOBJECT
+wxStyledTextCtrl*       O_WXOBJECT
