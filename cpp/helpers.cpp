@@ -13,19 +13,16 @@
 #include "cpp/streams.h"
 #include "cpp/streams.cpp"
 
-// for some strange reason this is not called under MinGW
-// so the HMODULE is retrieved from DynaLoader
-// ( BTW this is bad since NOTHING guarantees that the handle from
-//   DynaLoader is the HMODULE of the library: it happens to work... )
 #ifdef __WXMSW__
-/*
+
+extern "C" 
 BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 {
     if( fdwReason == DLL_PROCESS_ATTACH )
         wxSetInstance( (HINSTANCE)hModule );
     return TRUE;
 }
-*/
+
 #endif
 
 wxPliUserDataCD::~wxPliUserDataCD()

@@ -102,7 +102,7 @@ sub _ovl_error {
 
 bootstrap Wx $VERSION;
 
-_SetInstance( $DynaLoader::dl_librefs[ $#DynaLoader::dl_librefs ] );
+# _SetInstance( $DynaLoader::dl_librefs[ $#DynaLoader::dl_librefs ] );
 
 {
   _boot_Constant( 'Wx', $VERSION );
