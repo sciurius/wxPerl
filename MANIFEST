@@ -126,7 +126,6 @@ Constant.xs
 Controls.xs
 Event.xs
 Frames.xs
-Functions.xs
 GDI.xs
 Window.xs
 Wx.xs
