@@ -147,7 +147,7 @@ wxFileSelector( message, default_path = wxEmptyString, default_filename = wxEmpt
     int y
 
 Wx_Colour*
-wxGetColourFromUser( parent, colInit )
+wxGetColourFromUser( parent, colInit = (wxColour*)&wxNullColour )
     Wx_Window* parent
     Wx_Colour* colInit
   CODE:
