@@ -129,7 +129,7 @@ DOCUMENTATTION:
   - implemented/not implemented classes
   - non-implemented functions
 
-* Documente Wx::PlValidator
+* Documente Wx::PlValidator, Wx::PlLog, Wx::PlLogPassThrough
 
 * Document wxStatusBar::GetFieldRect
 

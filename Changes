@@ -6,6 +6,8 @@ Revision history for Perl extension Wx.
 	- implemented wxWizard and related classes
 	- Document/View framework (thanks to Simon Flack)
 	- implemented wxFontEnumerator and wxFontMapper
+	- implemented wxLogChain and wxLogPassThrough (2.3)
+	- Wx::PlLog, Wx::PlLogPassThrough, for custom logging
 
 0.11  Thu Aug 01 15:59:59 2002
 	- wxTextAttr ( 2.3 )
