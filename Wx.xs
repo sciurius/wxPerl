@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.68 2005/01/23 13:43:01 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.69 2005/03/28 14:01:00 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -348,6 +348,8 @@ INCLUDE: XS/FontMapper.xs
 INCLUDE: XS/FontEnumerator.xs
 INCLUDE: XS/Wave.xs
 INCLUDE: perl ./script/xsubppp.pl --typemap=typemap.xsp XS/ArtProvider.xsp |
+
+INCLUDE: perl ./script/xsubppp.pl --typemap=typemap.xsp XS/MimeTypes.xsp |
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs

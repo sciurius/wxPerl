@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.117 2005/03/19 17:51:15 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.118 2005/03/28 14:00:59 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -455,6 +455,7 @@ static wxPlINH inherit[] =
     I( PlCommandEvent,  CommandEvent )
     I( ActivateEvent,   Event )
     I( CommandEvent,    Event )
+    I( ContextMenuEvent, CommandEvent )
     I( CloseEvent,      Event )
     I( EraseEvent,      Event )
     I( FindDialogEvent, CommandEvent )
@@ -494,6 +495,7 @@ static wxPlINH inherit[] =
     I( TextUrlEvent,    CommandEvent )
     I( TimerEvent,      Event )
     I( Timer,           EvtHandler )
+    I( TaskBarIconEvent, Event )
     I( TreeEvent,       NotifyEvent )
     I( UpdateUIEvent,   CommandEvent )
     I( WizardEvent,     NotifyEvent )

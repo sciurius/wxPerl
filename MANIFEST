@@ -198,6 +198,7 @@ XS/ListBox.xs
 XS/ListCtrl.xs
 XS/Locale.xs
 XS/Log.xs
+XS/MimeTypes.xsp
 XS/Menu.xs
 XS/MultiChoiceDialog.xs
 XS/Notebook.xs

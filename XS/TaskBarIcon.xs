@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/12/2001
-## RCS-ID:      $Id: TaskBarIcon.xs,v 1.5 2005/01/09 23:56:51 mbarbon Exp $
+## RCS-ID:      $Id: TaskBarIcon.xs,v 1.6 2005/03/28 14:00:32 mbarbon Exp $
 ## Copyright:   (c) 2001, 2004-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -43,5 +43,12 @@ wxTaskBarIcon::RemoveIcon()
 bool
 wxTaskBarIcon::PopupMenu( menu )
     wxMenu* menu
+
+MODULE=Wx PACKAGE=Wx::TaskBarIconEvent
+
+wxTaskBarIconEvent*
+wxTaskBarIconEvent::new( evtType, tbIcon )
+    wxEventType evtType
+    wxTaskBarIcon *tbIcon
 
 #endif
