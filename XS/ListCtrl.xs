@@ -189,28 +189,27 @@ MODULE=Wx PACKAGE=Wx::ListItemAttr
 #if WXPERL_W_VERSION_GE( 2, 3 )
 
 Wx_ListItemAttr*
-Wx_ListItemAttr::new( text, back, font )
-    Wx_Colour text = NO_INIT
-    Wx_Colour back = NO_INIT
-    Wx_Font* font = NO_INIT
-  CODE:
-    if( items != 1 && items != 4 )
-    {
-        croak( "Usage: Wx::ListItemAttr::new(THIS [, text, back, font ] )" );
-    }
-    if( items == 1 )
-    {
-        RETVAL = new wxListItemAttr();
-    }
-    else
-    {
-        text = *(Wx_Colour *) wxPli_sv_2_object( ST(1), wxPlColourName );
-        back = *(Wx_Colour *) wxPli_sv_2_object( ST(2), wxPlColourName );
-        font = (Wx_Font *) wxPli_sv_2_object( ST(3), wxPlFontName );
-	RETVAL = new wxListItemAttr( text, back, *font );
-    }
-  OUTPUT:
-    RETVAL
+Wx_ListItemAttr::new( ... )
+  CASE: items == 1
+    CODE:
+      RETVAL = new wxListItemAttr();
+    OUTPUT:
+      RETVAL
+  CASE: items == 4
+    INPUT:
+      Wx_Colour text = NO_INIT
+      Wx_Colour back = NO_INIT
+      Wx_Font* font = NO_INIT
+    CODE:
+      text = *(Wx_Colour *) wxPli_sv_2_object( ST(1), wxPlColourName );
+      back = *(Wx_Colour *) wxPli_sv_2_object( ST(2), wxPlColourName );
+      font = (Wx_Font *) wxPli_sv_2_object( ST(3), wxPlFontName );
+      RETVAL = new wxListItemAttr( text, back, *font );
+    OUTPUT:
+      RETVAL
+  CASE:
+    CODE:
+      croak( "Usage: Wx::ListItemAttr::new(THIS [, text, back, font ] )" );
 
 void
 Wx_ListItemAttr::DESTROY()
