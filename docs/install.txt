@@ -112,8 +112,8 @@ in C:\Perl
   experience linking problems ( Can't seek to position XXXXXX ... ),
   then you need to rebuild the perl56.dll import library.
 
-  Use the make_implib.pl script ( included in the wxPerl distribution ):
-  Make a backup of C:\Perl\lib\CORE\Perl56.lib, then do
+  Use the make_implib.pl script (included in the ExtUtils::FakeConfig
+  distribution): make a backup of C:\Perl\lib\CORE\Perl56.lib, then do
 
   perl script/make_implib.pl --target=vc C:\Perl\bin\Perl56.dll
 
