@@ -50,7 +50,8 @@ foreach my $i ( @ARGV ) {
   open IN, '< ' . $i or die "unable to open '$i'";
 
   while( <IN> ) {
-    if( m/Wx::_match\(\s*\@_\s*,\s*\$Wx::_(\w+)\s*\,/ ) {
+    if( m/Wx::_match\(\s*\@_\s*,\s*\$Wx::_(\w+)\s*\,/ ||
+        m/wxPliOvl_(\w+)/ ) {
       my $const = $1;
       my @const = split /_/, $const;
       foreach my $j ( @const ) {
@@ -68,6 +69,13 @@ foreach my $i ( @ARGV ) {
 
 my @keys = ( ( sort grep { $name2type{$_} != 1 } keys %name2type ),
              ( sort grep { $name2type{$_} == 1 } keys %name2type ) );
+
+my $vars_comma = join ", ", map { "\$$_" } @keys;
+my $vars = $vars_comma; $vars =~ s/,//g;
+my $types = join ", ", map { "'$name2type{$_}'" }
+  grep { $name2type{$_} != 1 } @keys;
+
+=for comment
 
 open OUT, '> '. $ovl || die "unable to open file '$ovl'";
 binmode OUT; # Perl 5.004 on Unix complains for CR
@@ -89,11 +97,6 @@ package Wx;
 
 EOT
 
-my $vars_comma = join ", ", map { "\$$_" } @keys;
-my $vars = $vars_comma; $vars =~ s/,//g;
-my $types = join ", ", map { "'$name2type{$_}'" }
-  grep { $name2type{$_} != 1 } @keys;
-
 print OUT "use vars qw(\@tnames ${vars});\n";
 print OUT "( ${vars_comma} ) = ( 1 .. 100 );\n\n";
 print OUT "\@tnames = ( undef, ${types} );\n\n";
@@ -112,6 +115,8 @@ print OUT <<EOT;
 # mode: cperl #
 # End: #
 EOT
+
+=cut
 
 open OUT, '> '. $ovlh || die "unable to open file '$ovlc'";
 binmode OUT;
@@ -138,7 +143,7 @@ foreach my $i ( sort keys %constants ) {
 }
 
 
-open OUT, '> '. $ovlc || die "unable to open file '$ovlh'";
+open OUT, '> '. $ovlc || die "unable to open file '$ovlc'";
 binmode OUT;
 
 print OUT <<EOT;
@@ -148,10 +153,29 @@ const char* wxPliOvl_tnames[] = { 0,
 $cpp_types
 };
 
+extern void wxPli_set_ovl_constant( const char* name,
+                                    const unsigned char* value, int count );
 EOT
 
+print OUT <<EOT;
+void SetOvlConstants()
+{
+    dTHX;
+    SV* tmp;
+EOT
+
+#foreach my $i ( @keys ) {
+#  print OUT "    tmp = get_sv( \"Wx::${i}\", 1 ); sv_setiv( tmp, wxPliOvl${i} );\n";
+#}
+
+foreach my $i ( keys %constants ) {
+  print OUT "    wxPli_set_ovl_constant( \"$i\", wxPliOvl_${i}, wxPliOvl_${i}_count );\n";
+}
+
+print OUT "}\n\n";
+
 foreach my $i ( sort keys %constants ) {
-  print OUT "extern const unsigned char wxPliOvl_$i\[\] = { ";
+  print OUT "const unsigned char wxPliOvl_$i\[\] = { ";
   print OUT join ", ", map { "wxPliOvl$_" } @{$constants{$i}};
   print OUT " };\n";
 }

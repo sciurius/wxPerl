@@ -72,7 +72,11 @@ sub END {
   UnLoad();
 }
 
-use Wx::_Ovl;
+#use Wx::_Ovl;
+
+*_match = \&_xsmatch;
+
+=for comment
 
 sub _match(\@$;$$) {
   my( $args, $sig, $required, $dots ) = @_;
@@ -108,6 +112,8 @@ sub _match(\@$;$$) {
 
   return 1;
 }
+
+=cut
 
 sub _ovl_error {
   ( 'unable to resolve overloaded method for ', $_[0] || (caller(1))[3] );
@@ -156,6 +162,8 @@ require Wx::_Constants;
 
 Load();
 SetConstants();
+SetOvlConstants();
+SetEvents();
 
 # set up wxUNIVERSAL, wxGTK, wxMSW, etc
 eval( "sub wxUNIVERSAL() { $_universal }" );

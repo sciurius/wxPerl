@@ -433,6 +433,7 @@ package Wx::TextUrlEvent;    @ISA = qw(Wx::CommandEvent);
 package Wx::TimerEvent;      @ISA = qw(Wx::Event);
 package Wx::TreeEvent;       @ISA = qw(Wx::NotifyEvent);
 package Wx::UpdateUIEvent;   @ISA = qw(Wx::CommandEvent);
+package Wx::WizardEvent;     @ISA = qw(Wx::NotifyEvent);
 
 package Wx::SplitterEvent;
 

@@ -214,6 +214,9 @@ SetConstants()
     SetConstants();
 
 void
+SetOvlConstants()
+
+void
 UnLoad()
   CODE:
     wxEntryCleanup();

@@ -18,11 +18,10 @@ sub depend {
                  ( $this->{PARENT} ?
                    () :
                    ( $exp => join( ' ', files_with_constants() ),
-                     $ovl => join( ' ', @ovl ),
-                     $ovlc => $ovl,
-                     $ovlh => $ovl,
-                     '$(INST_STATIC)' => " $exp $ovl $ovlc $ovlh ",
-                     '$(INST_DYNAMIC)' => " $exp $ovl $ovlc $ovlh ",
+                     $ovlc => join( ' ', @ovl ),
+                     $ovlh => $ovlc,
+                     '$(INST_STATIC)' => " $exp $ovlc $ovlh ",
+                     '$(INST_DYNAMIC)' => " $exp $ovlc $ovlh ",
                    )
                  )
                );
@@ -89,7 +88,7 @@ sub files_with_overload {
 
       open IN, "< $_" || warn "unable to open '$_'";
       while( defined( $line = <IN> ) ) {
-        $line =~ m/wxPli_match_arguments/ && do {
+        $line =~ m/wxPli_match_arguments|BEGIN_OVERLOAD\(\)/ && do {
           push @files, $name;
           return;
         };
@@ -110,16 +109,16 @@ sub postamble {
     my @c_files = files_with_constants();
     my @o_files = files_with_overload();
 
-#    my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
-#    my $ovl = MM->catfile( qw(blib lib Wx _Ovl.pm) );
-
     $text = <<EOT;
 
 $exp :
 \t\$(PERL) script/make_exp_list.pl $exp @c_files
 
-$ovl :
-\t\$(PERL) script/make_ovl_list.pl $ovl $ovlc $ovlh @o_files
+$ovlc :
+\t\$(PERL) script/make_ovl_list.pl foo_unused $ovlc $ovlh @o_files
+
+$ovlh :
+\t\$(PERL) script/make_ovl_list.pl foo_unused $ovlc $ovlh @o_files
 
 EOT
   }

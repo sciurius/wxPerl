@@ -211,6 +211,11 @@ my @demos =
        [ 'SplashScreen', external( 'splash', '.' ) ],
       ],
     ],
+    [ 'Managed windows',
+      [
+       [ 'Wizard', demo( 'wxWizard' ) ],
+      ],
+    ],
     [ 'Controls',
       [
        [ 'CheckListBox', demo( 'wxCheckListBox' ) ],

@@ -53,6 +53,9 @@ package Wx::ListCtrl;                   @ISA = qw(Wx::Control);
 package Wx::ListView;                   @ISA = qw(Wx::ListCtrl);
 package Wx::SashWindow;                 @ISA = qw(Wx::Window);
 package Wx::ToggleButton;               @ISA = qw(Wx::Control);
+package Wx::Wizard;                     @ISA = qw(Wx::Dialog);
+package Wx::WizardPage;                 @ISA = qw(Wx::Panel);
+package Wx::WizardPageSimple;           @ISA = qw(Wx::WizardPage);
 
 package Wx::ColourDialog;               @ISA = qw(Wx::Dialog);
 package Wx::GenericColourDialog;        @ISA = qw(Wx::ColourDialog);
@@ -62,6 +65,7 @@ package Wx::DirDialog;                  @ISA = qw(Wx::Dialog);
 package Wx::FileDialog;                 @ISA = qw(Wx::Dialog);
 package Wx::TextEntryDialog;            @ISA = qw(Wx::Dialog);
 package Wx::MessageDialog;              @ISA = qw(Wx::Dialog);
+package Wx::GenericMessageDialog;       @ISA = qw(Wx::MessageDialog);
 package Wx::ProgressDialog;             @ISA = qw(Wx::Dialog);
 package Wx::SingleChoiceDialog;         @ISA = qw(Wx::Dialog);
 package Wx::MultiChoiceDialog;          @ISA = qw(Wx::Dialog);

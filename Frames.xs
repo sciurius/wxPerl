@@ -63,6 +63,7 @@ INCLUDE: XS/Dialog.xs
 INCLUDE: XS/Frame.xs
 INCLUDE: XS/StatusBar.xs
 INCLUDE: XS/ToolBar.xs
+INCLUDE: XS/Wizard.xs
 
 INCLUDE: XS/ColourDialog.xs
 INCLUDE: XS/DirDialog.xs

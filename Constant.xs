@@ -45,6 +45,7 @@
 #include <wx/taskbar.h>
 #endif
 #include <wx/process.h>
+#include <wx/wizard.h>
 
 #include "cpp/compat.h"
 #include "cpp/chkconfig.h"
@@ -75,9 +76,10 @@ WXPL_EXTERN_C_END
 #pragma warning (disable: 4800 )
 #endif
 
-//
+//////////////////////////////////////////////////////////////////////////////
 // implementation for wxPlConstantsModule OnInit/OnExit
-//
+//////////////////////////////////////////////////////////////////////////////
+
 #include "cpp/helpers.h"
 #include "cpp/constants.h"
 #include <wx/listimpl.cpp>
@@ -102,8 +104,114 @@ void wxPli_remove_constant_function( double (**f)( const char*, int ) )
     s_functions().DeleteObject( f );
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// descriptor for all event macros
+//////////////////////////////////////////////////////////////////////////////
+
+struct wxPlEVT
+{
+    // 2 - only THIS and function
+    // 3 - THIS, function, one ID
+    // 4 - THIS, function, two ids
+    // 5 - THIS, function, two ids, event id
+    const char* name;
+    unsigned char args;
+    int evtID;    
+};
+
+#define SEVT( NAME, ARGS ) { #NAME, ARGS, wx##NAME },
+#define EVT( NAME, ARGS, ID ) { #NAME, ARGS, ID },
+
+// !package: Wx::Event
+// !tag:
+// !parser: sub { $_[0] =~ m<^\s*S?EVT\(\s*(\w+)\s*\,> }
+
+static wxPlEVT evts[] =
+{
+    SEVT( EVT_WIZARD_PAGE_CHANGED, 3 )
+    SEVT( EVT_WIZARD_PAGE_CHANGING, 3 )
+    SEVT( EVT_WIZARD_CANCEL, 3 )
+    SEVT( EVT_WIZARD_HELP, 3 )
+    { 0, 0, 0 }
+};
+
+#if 0
+	wxWindowID	id;
+	int	lastid = (int)SvIV(ST(2));
+	wxEventType	type = (wxEventType)SvIV(ST(3));
+	SV*	method = ST(4);
+	Wx_EvtHandler *	THIS;
+
+    id = wxPli_get_wxwindowid( aTHX_ ST(1) );;
+
+    THIS = (Wx_EvtHandler *) wxPli_sv_2_object( aTHX_ ST(0), wxPlEvtHandlerName );;
+    THIS->Connect(id, lastid, type,
+                    (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                    new wxPliEventCallback( method, ST(0) ) );
+#endif
+
+#include "cpp/e_cback.h"
+extern "C" const char wxPlEvtHandlerName[];
+
+// THIS, ID, function
+XS(Connect3);
+XS(Connect3)
+{
+    dXSARGS;
+    assert( items == 3 );
+    SV* THISs = ST(0);
+    wxEvtHandler *THIS =
+        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, wxPlEvtHandlerName );
+    wxWindowID id = wxPli_get_wxwindowid( aTHX_ ST(1) );
+    SV* func = ST(2);
+    I32 evtID = CvXSUBANY(cv).any_i32;
+
+    if( SvOK( func ) )
+    {
+        THIS->Connect( id, -1, evtID,
+                       (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                       new wxPliEventCallback( func, THISs ) );
+    }
+    else
+    {
+        THIS->Disconnect( id, -1, evtID,
+                          (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                          0 );
+    }
+}
+
+void CreateEventMacro( const char* name, unsigned char args, int id )
+{
+    char buffer[1024];
+    CV* cv;
+    dTHX;
+
+    strcpy( buffer, "Wx::Event::" );
+    strcat( buffer, name );
+
+    switch( args )
+    {
+    case 3:
+        cv = (CV*)newXS( buffer, Connect3, "Constants.xs" );
+        sv_setpv((SV*)cv, "$$$");
+        break;
+    }
+
+    CvXSUBANY(cv).any_i32 = id;
+}
+
+void SetEvents()
+{
+    for( size_t i = 0; evts[i].name != 0; ++i )
+        CreateEventMacro( evts[i].name, evts[i].args, evts[i].evtID );
+}
+
 // !package: Wx
 // !tag:
+
+//////////////////////////////////////////////////////////////////////////////
+// the constant() function
+//////////////////////////////////////////////////////////////////////////////
 
 static double constant( const char *name, int arg ) 
 {
@@ -432,6 +540,11 @@ static double constant( const char *name, int arg )
     r( wxEVT_HELP );
     r( wxEVT_DETAILED_HELP );
 #endif
+
+//    r( wxEVT_WIZARD_PAGE_CHANGED );
+//    r( wxEVT_WIZARD_PAGE_CHANGING );
+//    r( wxEVT_WIZARD_CANCEL );
+//    r( wxEVT_WIZARD_HELP );
 
     r( wxEXPAND );                      // sizer
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
@@ -1268,7 +1381,9 @@ static double constant( const char *name, int arg )
     r( wxWANTS_CHARS );
     r( wxWINDING_RULE );                // dc
     r( wxWidth );                       // layout constraints
-
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+    r( wxWIZARD_EX_HELPBUTTON );
+#endif
     break;
   case 'X':
     r( wxXOR );                         // dc
@@ -1549,3 +1664,6 @@ double
 constant(name,arg)
     const char* name
     int arg
+
+void
+SetEvents()

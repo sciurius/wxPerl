@@ -94,6 +94,7 @@ FD_TD( TimerEvent );
 FD_TD( TreeEvent );
 FD_TD( UpdateUIEvent );
 FD_TD( ProcessEvent );
+FD_TD( WizardEvent );
 
 FD_TD( PlEvent );
 FD_TD( PlCommandEvent );
@@ -270,6 +271,9 @@ FD_TD( Validator );
 FD_TD( Window );
 FD_TD( WindowDC );
 FD_TD( WindowDisabler );
+FD_TD( Wizard );
+FD_TD( WizardPage );
+FD_TD( WizardPageSimple );
 
 FD_TD( BMPHandler );
 FD_TD( PNGHandler );
