@@ -1,13 +1,15 @@
-Changes
 Makefile.PL
 typemap
 MANIFEST
 MANIFEST.SKIP
-README
-TODO
+README.txt
 run
 nmake.mak
 gmake.mak
+
+docs/changes.txt
+docs/install.txt
+docs/todo.txt
 
 script/make_exp_list.pl
 script/pipe.pl
@@ -18,6 +20,7 @@ t/2_inheritance.t
 lib/Wx/App.pm
 lib/Wx/Bitmap.pm
 lib/Wx/Brush.pm
+lib/Wx/Caret.pm
 lib/Wx/Colour.pm
 lib/Wx/ComboBox.pm
 lib/Wx/ControlWithItems.pm
@@ -62,6 +65,27 @@ samples/dialog/dialog.pl
 samples/minimal/minimal.pl
 samples/hello/hello.pl
 samples/layout/layout.pl
+samples/splitter/splitter.pl
+
+samples/toolbar/bitmaps/copy.bmp
+samples/toolbar/bitmaps/copy.xpm
+samples/toolbar/bitmaps/cut.bmp
+samples/toolbar/bitmaps/cut.xpm
+samples/toolbar/bitmaps/help.bmp
+samples/toolbar/bitmaps/help.xpm
+samples/toolbar/bitmaps/new.bmp
+samples/toolbar/bitmaps/new.xpm
+samples/toolbar/bitmaps/open.bmp
+samples/toolbar/bitmaps/open.xpm
+samples/toolbar/bitmaps/page.bmp
+samples/toolbar/bitmaps/paste.bmp
+samples/toolbar/bitmaps/preview.bmp
+samples/toolbar/bitmaps/preview.xpm
+samples/toolbar/bitmaps/print.bmp
+samples/toolbar/bitmaps/print.xpm
+samples/toolbar/bitmaps/save.bmp
+samples/toolbar/bitmaps/save.xpm
+samples/toolbar/toolbar.pl
 
 Wx.pm
 Wx.rc
@@ -81,6 +105,7 @@ XS/Bitmap.xs
 XS/BitmapButton.xs
 XS/Brush.xs
 XS/Button.xs
+XS/Caret.xs
 XS/CheckBox.xs
 XS/CheckListBox.xs
 XS/Choice.xs
@@ -104,8 +129,10 @@ XS/Locale.xs
 XS/Log.xs
 XS/Menu.xs
 XS/Notebook.xs
+XS/Palette.xs
 XS/Panel.xs
 XS/Pen.xs
+XS/ProgressDialog.xs
 XS/RadioBox.xs
 XS/RadioButton.xs
 XS/ScrollBar.xs
