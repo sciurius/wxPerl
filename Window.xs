@@ -15,6 +15,7 @@
 #include <wx/defs.h>
 
 #include <wx/window.h>
+#include <wx/accel.h>
 #include <wx/layout.h>
 #include <wx/sizer.h>
 #include <wx/tooltip.h>
@@ -221,7 +222,7 @@ Wx_Window::GetChildren()
     const wxWindowList& list = THIS->GetChildren();
     wxWindowListNode* node;
     
-    EXTEND( SP, list.GetCount() );
+    EXTEND( SP, (IV) list.GetCount() );
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
       PUSHs( _object_2_sv( sv_newmortal(), node->GetData() ) );
@@ -527,6 +528,12 @@ Wx_Window::ScrollWindow( x, y, rect = 0 )
     Wx_Rect* rect
 
 void
+Wx_Window::SetAcceleratorTable( accel )
+    Wx_AcceleratorTable* accel
+  CODE:
+    THIS->SetAcceleratorTable( *accel );
+
+void
 Wx_Window::SetAutoLayout( autoLayout )
     bool autoLayout
 
@@ -730,6 +737,7 @@ Wx_Window::WarpPointer( x, y )
     int x
     int y
 
+INCLUDE: XS/Accelerators.xs
 INCLUDE: XS/SplitterWindow.xs
 INCLUDE: XS/ScrolledWindow.xs
 INCLUDE: XS/Validators.xs
