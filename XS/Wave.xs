@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#if wxPERL_USE_WAVE
+
 #include <wx/wave.h>
 
 MODULE=Wx PACKAGE=Wx::Wave
@@ -25,3 +27,5 @@ bool
 wxWave::Play( async = TRUE, looped = FALSE )
     bool async
     bool looped
+
+#endif
