@@ -11,16 +11,13 @@
 #############################################################################
 
 use strict;
-
-use Config;
 use lib '../../build';
+use Wx::build::MakeMaker;
 
-use wxConfig;
-
-wxWriteMakefile( NAME => 'Wx::FS',
+wxWriteMakefile( NAME         => 'Wx::FS',
                  VERSION_FROM => 'lib/Wx/FS.pm',
                );
 
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:

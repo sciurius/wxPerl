@@ -11,17 +11,14 @@
 #############################################################################
 
 use strict;
-
-use Config;
 use lib '../../build';
+use Wx::build::MakeMaker;
 
-use wxConfig;
-
-wxWriteMakefile( NAME => 'Wx::STC',
+wxWriteMakefile( NAME         => 'Wx::STC',
                  VERSION_FROM => 'lib/Wx/STC.pm',
-                 WXLIB => 'stc',
+                 WX_LIB       => 'stc',
                );
 
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:

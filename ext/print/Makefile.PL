@@ -11,16 +11,13 @@
 #############################################################################
 
 use strict;
-
-use Config;
 use lib '../../build';
+use Wx::build::MakeMaker;
 
-use wxConfig;
-
-wxWriteMakefile( NAME => 'Wx::Print',
+wxWriteMakefile( NAME         => 'Wx::Print',
                  VERSION_FROM => 'lib/Wx/Print.pm',
                );
 
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:

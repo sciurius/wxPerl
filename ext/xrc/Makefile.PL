@@ -11,26 +11,17 @@
 #############################################################################
 
 use strict;
-
-use Config;
 use lib '../../build';
+use Wx::build::MakeMaker;
 
-use wxConfig;
-use wxMMUtils;
-
-if( is_platform( 'mac' ) ) {
-  ExtUtils::MakeMaker::WriteEmptyMakefile();
-} else {
-
-wxWriteMakefile( NAME => 'Wx::XRC',
-                 VERSION_FROM => 'lib/Wx/XRC.pm',
-                 WXLIB => 'wxxrc',
-                 REQUIRE_WX => 2.003_000,
+wxWriteMakefile( NAME            => 'Wx::XRC',
+                 VERSION_FROM    => 'lib/Wx/XRC.pm',
+                 WX_LIB          => 'wxxrc',
+                 REQUIRE_WX      => 2.003_000,
+                 NO_WX_PLATFORMS => [ 'mac' ],
                );
 
-}
-
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:
 

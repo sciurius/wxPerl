@@ -1,4 +1,10 @@
-package wxMMHacks;
+package Wx::build::MakeMaker::Hacks;
+
+use strict;
+use base 'Exporter';
+use vars '@EXPORT_OK';
+
+@EXPORT_OK = qw(hijack);
 
 sub _find_name($$) {
   my( $package, $method ) = @_;
@@ -18,10 +24,10 @@ sub _find_name($$) {
 
 sub hijack($$$) {
   my( $obj, $method, $replace ) = @_;
-  my $spackage = ref $obj ? ref $obj : $obj;
+  my $spackage = ref( $obj ) || $obj;
   my $rpackage = _find_name( $spackage, $method );
 
-  die "Can't hijack method '$method' from package '$package'",
+  die "Can't hijack method '$method' from package '$spackage'",
     unless $rpackage;
 
   my $fqn = "${rpackage}::$method";

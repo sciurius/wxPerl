@@ -11,21 +11,19 @@
 #############################################################################
 
 use strict;
-
 use lib '../../../build';
-
-use wxConfig;
+use Wx::build::MakeMaker;
 
 # strange failure with 5.004
 if( $] < 5.005 ) {
   ExtUtils::MakeMaker::WriteEmptyMakefile();
 } else {
 
-wxWriteMakefile( NAME => 'Wx::Perl::SplashFast',
+wxWriteMakefile( NAME          => 'Wx::Perl::SplashFast',
                  ABSTRACT_FROM => 'SplashFast.pm',
-                 AUTHOR => 'Graciliano M. P. <gm@virtuasites.com.br>',
-                 VERSION_FROM => 'SplashFast.pm',
-                 REQUIRE_WX => 2.003_001,
+                 AUTHOR        => 'Graciliano M. P. <gm@virtuasites.com.br>',
+                 VERSION_FROM  => 'SplashFast.pm',
+                 REQUIRE_WX    => 2.003_001,
                 );
 
 }

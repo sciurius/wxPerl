@@ -11,24 +11,15 @@
 #############################################################################
 
 use strict;
-
-use Config;
 use lib '../../build';
+use Wx::build::MakeMaker;
 
-use wxConfig;
-use wxMMUtils;
-
-if( is_platform( 'mac' ) || is_platform( 'motif' ) ) {
-  ExtUtils::MakeMaker::WriteEmptyMakefile();
-} else {
-
-wxWriteMakefile( NAME => 'Wx::DND',
-                 VERSION_FROM => 'lib/Wx/DND.pm',
+wxWriteMakefile( NAME            => 'Wx::DND',
+                 VERSION_FROM    => 'lib/Wx/DND.pm',
+                 NO_WX_PLATFORMS => [ 'mac', 'motif' ],
                );
 
-}
-
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:
 

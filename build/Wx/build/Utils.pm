@@ -1,14 +1,28 @@
-package wxMMUtils;
+package Wx::build::Utils;
 
 use strict;
 use Config;
 use base 'Exporter';
+use File::Spec::Functions qw(curdir catdir catfile updir);
 
 use vars qw(@EXPORT @EXPORT_OK);
-@EXPORT = qw(obj_from_src top_dir building_extension
-             xs_depend merge_config wx_version wx_config is_platform
-             get_platform is_debug is_inside_wxperl_tree path_search);
-@EXPORT_OK = qw(unix_top_dir);
+@EXPORT_OK = qw(obj_from_src xs_dependencies write_string
+                lib_file arch_file arch_auto_file
+                path_search);
+#@EXPORT = qw(obj_from_src);
+#@EXPORT_OK = qw(unix_top_dir top_dir building_extension
+#                xs_depend merge_config wx_version wx_config is_platform
+#                get_platform is_debug is_inside_wxperl_tree path_search);
+
+=head1 NAME
+
+Wx::build::Utils - utility routines
+
+=head1 SUBROUTINES
+
+=cut
+
+=begin cut
 
 #
 # convenience function
@@ -128,9 +142,14 @@ sub path_search {
   return;
 }
 
+=end
+
 #
 #
 #
+
+=begin cut
+
 use vars qw(%cfg1 %cfg2);
 sub merge_config {
   my( $cfg1, $cfg2 ) = @_;
@@ -146,15 +165,8 @@ sub merge_config {
 
         my @c;
         foreach my $i ( @b ) {
-          my $mi = $i;
-          my @ipaths = $mi =~ m/(-L[^ ]+)/g;
-          $mi =~ s/-L[^ ]+ +//g;
-
           foreach my $j ( @a ) {
-            my $mj = $j;
-            my @jpaths = $mj =~ m/(-L[^ ]+)/g;
-            $mj =~ s/-L[^ ]+ +//g;
-            push @c, " @ipaths @jpaths $mj $mi ";
+            push @c, " $i $j $i ";
           }
         }
 
@@ -176,11 +188,15 @@ sub merge_config {
   return \%cfg;
 }
 
-#
-# Makes dependencies for
-# *.xs, *.c (from *.xs), *.obj (from *.xs) and
-#
-sub xs_depend {
+=end
+
+=head2 xs_dependencies
+
+  my %dependencies = xs_dependencies( $mm_object, [ 'dir1', 'dir2' ] );
+
+=cut
+
+sub xs_dependencies {
   my( $this, $dirs ) = @_;
 
   my( %depend );
@@ -196,25 +212,37 @@ sub xs_depend {
     $depend{ $o } = $c . ' ' . join( ' ', @$cinclude );
   }
 
-  %depend;
+  return %depend;
 }
 
-#
-# computes the name for an object file, given
-# the source file name
-#
-sub obj_from_src {
-  my( @xs ) = @_;
-  my( $obj_ext ) = $Config{obj_ext} || $Config{_o};
+=head2 obj_from_src
 
-  foreach( @xs ) {
-    $_ =~ s[\.(?:xs|c|cc|cpp)$][$obj_ext]e;
+  my @obj_files = obj_from_src( 'Foo.xs', 'bar.c', 'cpp/bar.cpp' );
+
+Calculates the object file name from the source file name.
+In scalar context returns the first file.
+
+=cut
+
+sub obj_from_src {
+  my @xs = @_;
+  my $obj_ext = $Config{obj_ext} || $Config{_o};
+
+  foreach ( @xs ) { s[\.(?:xs|c|cc|cpp)$][$obj_ext] }
+
+  return wantarray ? @xs : $xs[0];
+}
+
+sub _top_dir {
+  my $d = curdir;
+
+  for ( 1 .. 5 ) {
+    return $d if -f catfile( $d, 'Wx.pm' );
+    $d = catdir( updir, $d );
   }
 
-  if( wantarray ) { return @xs }
-  else { return $xs[0] };
+  die "Unable to find top level directory";
 }
-
 
 #
 # quick and dirty method for creating dependencies:
@@ -243,9 +271,10 @@ sub scan_xs($$) {
       $arr = \@xsinclude;
 
     if( defined $file ) {
-      $file = MM->catfile( split '/', $file );
+      $file = catfile( split '/', $file );
+
       foreach my $dir ( @$incpath ) {
-        my $f = $dir eq MM->curdir ? $file : MM->catfile( $dir, $file );
+        my $f = $dir eq curdir() ? $file : catfile( $dir, $file );
         if( -f $f ) {
           push @$arr, $f;
           my( $cinclude, $xsinclude ) = scan_xs( $f, $incpath );
@@ -253,10 +282,10 @@ sub scan_xs($$) {
           push @xsinclude, @$xsinclude;
           last;
         } elsif( $file =~ m/ovl_const\.(?:cpp|h)/i ) {
-          my $dir = top_dir();
-          push @$arr, ( ( $dir eq MM->curdir ) ?
-                                         $file :
-                                         MM->catfile( top_dir(), $file ) );
+          my $top = _top_dir();
+          push @$arr, ( ( $top eq curdir() ) ?
+                        $file :
+                        catfile( $top, $file ) );
         }
       }
     }
@@ -267,8 +296,82 @@ sub scan_xs($$) {
   ( \@cinclude, \@xsinclude );
 }
 
+=head2 write_string
+
+  write_string( 'file', $scalar );
+
+Convenience function, simply creates a file containing the string.
+
+=cut
+
+sub write_string {
+  my( $file, $string ) = @_;
+  local *OUT;
+  open OUT, "> $file" or die "open '$file': $!";
+  binmode *OUT;
+  print OUT $string;
+  close OUT or die "close: $!";
+}
+
+=head2 lib_file, arch_file, arch_auto_file
+
+  my $file = lib_file( 'Foo.pm' );          # blib/lib/Foo.pm     on *nix
+  my $file = lib_file( 'Foo/Bar.pm' );      # blib\lib\Foo\Bar.pm on Win32
+  my $file = arch_auto_file( 'My\My.dll' ); # blib\arch\auto\My\My.dll
+
+All input paths must be relative, output paths may be absolute.
+
+=cut
+
+sub _split {
+  require File::Spec::Unix;
+
+  my $path = shift;
+  my( $volume, $dir, $file ) = File::Spec::Unix->splitpath( $path );
+  my @dirs = File::Spec::Unix->splitdir( $dir );
+
+  return ( @dirs, $file );
+}
+
+sub lib_file {
+  my @split = _split( shift );
+
+  return File::Spec->catfile( 'blib', 'lib', @split );
+}
+
+sub arch_file {
+  my @split = _split( shift );
+
+  return File::Spec->catfile( 'blib', 'arch', @split );
+}
+
+sub arch_auto_file {
+  my @split = _split( shift );
+
+  return File::Spec->catfile( 'blib', 'arch', 'auto', @split );
+}
+
+=head path_search
+
+  my $file = path_search( 'foo.exe' );
+
+Searches PATH for the given executable.
+
+=cut
+
+sub path_search {
+  my $file = shift;
+
+  foreach my $d ( File::Spec->path ) {
+    my $full = File::Spec->catfile( $d, $file );
+    return $full if -f $full;
+  }
+
+  return;
+}
+
 1;
 
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:

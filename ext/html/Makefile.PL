@@ -11,16 +11,13 @@
 #############################################################################
 
 use strict;
-
-use Config;
 use lib '../../build';
+use Wx::build::MakeMaker;
 
-use wxConfig;
-
-wxWriteMakefile( NAME => 'Wx::Html',
+wxWriteMakefile( NAME         => 'Wx::Html',
                  VERSION_FROM => 'lib/Wx/Html.pm',
                );
 
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:

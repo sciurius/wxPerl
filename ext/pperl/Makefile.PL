@@ -13,8 +13,8 @@
 use ExtUtils::MakeMaker;
 
 WriteMakefile( NAME => 'Wx::Perl',
-               DIR => [ 'splashfast' ] );
+               DIR  => [ 'splashfast' ] );
 
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:
