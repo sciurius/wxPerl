@@ -196,6 +196,7 @@ sub configure_win32_mingw {
                     depend =>
                     { 'Wx_res.o' => 'Wx.rc ',
                     },
+                    clean => { FILES => 'dll.base dll.exp ' },
                     LDFROM => '$(OBJECT) Wx_res.o',
                     LIBS => $extra_libs . ' ',
                     CCFLAGS => $extra_cflags . ' -fvtable-thunks ',
