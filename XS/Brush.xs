@@ -11,11 +11,22 @@
 #############################################################################
 
 #include <wx/brush.h>
+#include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::Brush
 
+void
+Wx_Brush::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wbmp, newBitmap )
+        MATCH_REDISP( wxPliOvl_wcol_n, newColour )
+        MATCH_REDISP( wxPliOvl_s_n, newName )
+    END_OVERLOAD( Wx::Brush::new )
+
 Wx_Brush*
-newColour( colour, style )
+newColour( CLASS, colour, style )
+    SV* CLASS
     Wx_Colour* colour
     int style
   CODE:
@@ -24,7 +35,8 @@ newColour( colour, style )
     RETVAL
 
 Wx_Brush*
-newName( name, style )
+newName( CLASS, name, style )
+    SV* CLASS
     wxString name
     int style
   CODE:
@@ -33,7 +45,8 @@ newName( name, style )
     RETVAL
 
 Wx_Brush*
-newBitmap( stipple )
+newBitmap( CLASS, stipple )
+    SV* CLASS
     Wx_Bitmap* stipple
   CODE:
     RETVAL = new wxBrush( *stipple );
@@ -63,6 +76,15 @@ Wx_Brush::GetStyle()
 
 bool
 Wx_Brush::Ok()
+
+void
+Wx_Brush::SetColour( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n, SetColourRGB )
+        MATCH_REDISP( wxPliOvl_wcol, SetColourColour )
+        MATCH_REDISP( wxPliOvl_s, SetColourName )
+    END_OVERLOAD( Wx::Brush::SetColour )
 
 void
 Wx_Brush::SetColourColour( colour )
