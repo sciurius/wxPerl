@@ -190,6 +190,19 @@ Wx_TipProvider::SetCurrentTip( number )
   CODE:
     ((wxPliTipProvider*)THIS)->SetCurrentTip( number );
 
+MODULE=Wx PACKAGE=Wx::Thread
+
+#if wxUSE_THREADS
+
+bool
+IsMain()
+  CODE:
+    RETVAL = wxThread::IsMain();
+  OUTPUT:
+    RETVAL
+
+#endif
+
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 bool
@@ -202,6 +215,14 @@ Wx_TipProvider*
 wxCreateFileTipProvider( filename, currentTip )
     wxString filename
     size_t currentTip
+
+void
+wxUsleep( ms )
+    unsigned long ms
+
+void
+wxSleep( sec )
+    int sec
 
 bool
 wxYield()
