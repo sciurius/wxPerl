@@ -66,7 +66,7 @@ Wx_ScrolledWindow::GetScrollPixelsPerUnit()
   PREINIT:
     int xUnit;
     int yUnit;
-  CODE:
+  PPCODE:
     THIS->GetScrollPixelsPerUnit( &xUnit, &yUnit );
     EXTEND( SP, 2 );
     PUSHs( sv_2mortal( newSViv( xUnit ) ) );
@@ -77,7 +77,7 @@ Wx_ScrolledWindow::GetVirtualSize()
   PREINIT:
     int x;
     int y;
-  CODE:
+  PPCODE:
     THIS->GetVirtualSize( &x, &y );
     EXTEND( SP, 2 );
     PUSHs( sv_2mortal( newSViv( x ) ) );
