@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Wizard.xs
+## Name:        XS/Wizard.xs
 ## Purpose:     XS for Wx::Wizard and related classes
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     28/ 8/2002
-## RCS-ID:      $Id: Wizard.xs,v 1.6 2003/05/05 20:38:41 mbarbon Exp $
+## Created:     28/08/2002
+## RCS-ID:      $Id: Wizard.xs,v 1.7 2003/06/04 20:47:27 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
