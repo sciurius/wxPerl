@@ -1,3 +1,4 @@
+#!/usr/bin/perl -w
 #############################################################################
 ## Name:        pipe.pl
 ## Purpose:     redirects stderr to stdout and execs arguments
