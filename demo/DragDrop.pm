@@ -24,6 +24,20 @@ sub window {
 
 sub description {
   return <<EOT;
+<html>
+<head>
+  <title>Drag and Drop</title>
+</head>
+<body>
+<h3>Drag and Drop</h3>
+
+<p>
+  Drag and drop is a relatively complex topic: you are strongly encouraged to
+  look at the overview in the wxWindows documentation
+  ( Topic overviews => Drag and drop overview ).
+</p>
+</body>
+</html>
 EOT
 }
 
@@ -34,29 +48,94 @@ use vars qw(@ISA); @ISA = qw(Wx::Panel);
 use Wx qw(wxNullBitmap wxTheApp wxICON_HAND wxRED);
 require DataObjects;
 
+my $tree;
+
 sub new {
   my $class = shift;
   my $this = $class->SUPER::new( @_ );
 
+  # text drop target
   Wx::StaticText->new( $this, -1, 'Drop text in listbox', [ 10, 10 ] );
   my $droptext = Wx::ListBox->new( $this, -1, [ 10 , 40 ], [ 150, 90 ] );
+  $droptext->SetDropTarget( DNDTextDropTarget->new( $droptext ) );
 
+  # bitmap drop target
   Wx::StaticText->new( $this, -1, 'Drop bitmap below', [ 200, 10 ] );
-  my $window = Wx::Window->new( $this, -1, [ 200, 40 ], [ 100, 50 ] );
+  my $window = Wx::Window->new( $this, -1, [ 200, 40 ], [ 80, 50 ] );
   $window->SetBackgroundColour( wxRED );
   my $dropbitmap = Wx::StaticBitmap->new( $this, -1, wxNullBitmap,
                                           [ 200, 100 ], [ 200, 200 ] );
-  Wx::StaticText->new( $this, -1, 'Drop files below', [ 10, 140 ] );
-  my $dropfiles = Wx::ListBox->new( $this, -1, [ 10, 170 ], [ 150, 50 ] );
-
-  my $dragsource = DNDDropSource->new( $this, -1, [ 10, 230 ] );
-
-  $droptext->SetDropTarget( DNDTextDropTarget->new( $droptext ) );
-  $dropfiles->SetDropTarget( DNDFilesDropTarget->new( $dropfiles ) );
   $window->SetDropTarget( DNDBitmapDropTarget->new( $dropbitmap ) );
   $dropbitmap->SetBitmap( Wx::Bitmap->new( wxTheApp->GetStdIcon( wxICON_HAND ) ) );
 
+  # files drop target
+  Wx::StaticText->new( $this, -1, 'Drop files below', [ 10, 140 ] );
+  my $dropfiles = Wx::ListBox->new( $this, -1, [ 10, 170 ], [ 150, 50 ] );
+  $dropfiles->SetDropTarget( DNDFilesDropTarget->new( $dropfiles ) );
+
+  # drop source
+  my $dragsource = DNDDropSource->new( $this, -1, [ 10, 230 ] );
+
+  # tree control; you can drop on items
+  $tree = Wx::TreeCtrl->new( $this, -1, [ 300, 10 ], [ 100, 150 ] );
+  my $root = $tree->AddRoot( "Drop here" );
+  $tree->AppendItem( $root, "and here" );
+  $tree->AppendItem( $root, "and here" );
+  $tree->AppendItem( $root, "and here" );
+  $tree->SetDropTarget( TreeDropTarget->new( $tree, $dropbitmap ) );
+
   return $this;
+}
+
+package TreeDropTarget;
+
+use base qw(Wx::DropTarget);
+
+sub new {
+  my $class = shift;
+  my $tree = shift;
+  my $canvas = shift;
+  my $this = $class->SUPER::new;
+
+  my $data = Wx::BitmapDataObject->new;
+  $this->SetDataObject( $data );
+  $this->{TREE} = $tree;
+  $this->{DATA} = $data;
+  $this->{CANVAS} = $canvas;
+
+  return $this;
+}
+
+sub data { $_[0]->{DATA} }
+sub canvas { $_[0]->{CANVAS} }
+
+use Wx qw(:treectrl wxDragNone wxDragCopy);
+
+# give visual feedback: select the item we're on
+# ( probably better forms of feedback are possible )
+# also return the desired action to make the OS display an appropriate
+# "can drop here" icon
+sub OnDragOver {
+  my( $this, $x, $y, $desired ) = @_;
+  my $tree = $this->{TREE};
+
+  my( $item, $flags ) = $tree->HitTest( [$x, $y] );
+  if( $flags & wxTREE_HITTEST_ONITEMLABEL ) {
+    $tree->SelectItem( $item );
+    return $desired;
+  } else {
+    $tree->Unselect();
+    return wxDragNone;
+  }
+}
+
+sub OnData {
+  my( $this, $x, $y, $def ) = @_;
+
+  $this->GetData;
+  $this->canvas->SetBitmap( $this->data->GetBitmap );
+
+  return $def;
 }
 
 package DNDDropSource;
@@ -85,11 +164,12 @@ sub OnPaint {
 sub OnDrag {
   my( $this, $event ) = @_;
 
+  # defined inf DataObjects.pm; just returns a data object containing
+  # both text and bitmap data
   my $data = DataObjects::GetBothDataObject();
-#  my $data = DataObjects::GetBitmapDataObject();
   my $source = Wx::DropSource->new( $this );
   $source->SetData( $data );
-  $source->DoDragDrop( 1 );
+  Wx::LogMessage( "Status: %d", $source->DoDragDrop( 1 ) );
 }
 
 package DNDTextDropTarget;
