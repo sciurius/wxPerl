@@ -62,7 +62,8 @@ void wxPlPrintout::GetPageInfo( int* minPage, int* maxPage,
         XPUSHs( m_callback.GetSelf() );
         PUTBACK;
 
-        int items = call_sv( m_callback.GetMethod(), G_ARRAY );
+        SV* method = sv_2mortal( newRV_inc( (SV*) m_callback.GetMethod() ) );
+        int items = call_sv( method, G_ARRAY );
 
         if( items != 4 )
         {

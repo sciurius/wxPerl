@@ -25,11 +25,11 @@ public:
     bool FindCallback( pTHX_ const char* name ) const;
     SV* CallCallback( pTHX_ I32 flags, const char* argtypes,
                       va_list& arglist ) const;
-    SV* GetMethod() const { return m_method; }
+    CV* GetMethod() const { return m_method; }
 public:
     const char* m_package;
     HV* m_stash;
-    SV* m_method;
+    CV* m_method;
 };
 
 inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
