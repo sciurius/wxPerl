@@ -381,7 +381,13 @@ Wx_TreeItemId*
 Wx_TreeCtrl::GetItemParent( item )
     Wx_TreeItemId* item
   CODE:
-    RETVAL = new wxTreeItemId( THIS->GetParent( *item ) );
+    RETVAL = new wxTreeItemId( 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+       THIS->GetItemParent( *item )
+#else
+       THIS->GetParent( *item )
+#endif
+     );
   OUTPUT:
     RETVAL
 

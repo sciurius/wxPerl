@@ -315,7 +315,8 @@ static wxPlINH inherit[] =
     ///////////////////////////////////////////
     // Conditional part
     ///////////////////////////////////////////
-#define HAS_TLW    ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXMOTIF__) )
+#define HAS_TLW    ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXMOTIF__) )\
+                     || WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 #if HAS_TLW
     I( Frame,           TopLevelWindow )

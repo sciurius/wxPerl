@@ -31,7 +31,9 @@ no strict;
 
 package Wx::MDIParentFrame;     @ISA = qw(Wx::Frame);
 package Wx::MDIChildFrame;      @ISA = qw(Wx::Frame);
-package Wx::MDIClientWindow;    @ISA = qw(Wx::Window);
+package Wx::MDIClientWindow;    
+
+@ISA = Wx::wxMOTIF ? 'Wx::Notebook' : 'Wx::Window';
 
 use strict;
 

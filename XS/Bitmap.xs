@@ -112,7 +112,11 @@ newFile( CLASS, name, type )
     wxString name
     long type
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 0 ) && defined(__WXMOTIF__)
+    RETVAL = new wxBitmap( name, wxBitmapType(type) );
+#else
     RETVAL = new wxBitmap( name, type );
+#endif
   OUTPUT:
     RETVAL
 
@@ -233,7 +237,11 @@ FindHandlerExtType( extension, type )
     wxString extension
     long type
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 0 ) && defined(__WXMOTIF__)
+    RETVAL = wxBitmap::FindHandler( extension, wxBitmapType(type) );
+#else
     RETVAL = wxBitmap::FindHandler( extension, type );
+#endif
   OUTPUT:
     RETVAL
 
@@ -241,7 +249,11 @@ Wx_BitmapHandler*
 FindHandlerType( type )
     long type
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 0 ) && defined(__WXMOTIF__)
+    RETVAL = wxBitmap::FindHandler( wxBitmapType(type) );
+#else
     RETVAL = wxBitmap::FindHandler( type );
+#endif
   OUTPUT:
     RETVAL
 
@@ -250,7 +262,8 @@ FindHandlerType( type )
 int
 Wx_Bitmap::GetDepth()
 
-#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) \
+    || defined( __WXPERL_FORCE__ )
 
 void
 GetHandlers()

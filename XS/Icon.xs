@@ -60,7 +60,11 @@ newFile( CLASS, name, type, desW = -1, desH = -1 )
     int desW
     int desH
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 0 ) && defined(__WXMOTIF__)
+    RETVAL = new wxIcon( name, wxBitmapType(type), desW, desH );
+#else
     RETVAL = new wxIcon( name, type, desW, desH );
+#endif
   OUTPUT:
     RETVAL
 
@@ -104,7 +108,11 @@ Wx_Icon::LoadFile( name, type )
     long type
   CODE:
 #ifdef __WXMOTIF__
-    RETVAL = THIS->LoadFile( name, type, -1, -1 );
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+        RETVAL = THIS->LoadFile( name, wxBitmapType(type), -1, -1 );
+#else
+        RETVAL = THIS->LoadFile( name, type, -1, -1 );
+#endif
 #else
     RETVAL = THIS->LoadFile( name, type );
 #endif
