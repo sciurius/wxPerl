@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        ColourDialog.xs
+## Name:        XS/ColourDialog.xs
 ## Purpose:     XS for Wx::ColourDialog
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2001 Mattia Barbon
+## RCS-ID:      $Id: ColourDialog.xs,v 1.5 2003/11/23 07:45:53 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,70 +14,65 @@
 
 MODULE=Wx PACKAGE=Wx::ColourDialog
 
-Wx_ColourDialog*
-Wx_ColourDialog::new( parent, data = 0 )
-    Wx_Window* parent
-    Wx_ColourData* data
+wxColourDialog*
+wxColourDialog::new( parent, data = 0 )
+    wxWindow* parent
+    wxColourData* data
 
-Wx_ColourData*
-Wx_ColourDialog::GetColourData()
+wxColourData*
+wxColourDialog::GetColourData()
   CODE:
     RETVAL = new wxColourData( THIS->GetColourData() );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 int
-Wx_ColourDialog::ShowModal()
+wxColourDialog::ShowModal()
 
 MODULE=Wx PACKAGE=Wx::ColourData
 
-Wx_ColourData*
-Wx_ColourData::new()
+wxColourData*
+wxColourData::new()
 
 void
-Wx_ColourData::DESTROY()
+wxColourData::DESTROY()
 
 bool
-Wx_ColourData::GetChooseFull()
+wxColourData::GetChooseFull()
 
-Wx_Colour*
-Wx_ColourData::GetColour()
+wxColour*
+wxColourData::GetColour()
   CODE:
     RETVAL = new wxColour( THIS->GetColour() );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
-Wx_Colour*
-Wx_ColourData::GetCustomColour( i )
+wxColour*
+wxColourData::GetCustomColour( i )
     int i
   CODE:
     RETVAL = new wxColour( THIS->GetCustomColour( i ) );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 void
-Wx_ColourData::SetChooseFull( flag )
+wxColourData::SetChooseFull( flag )
     bool flag
 
 void
-Wx_ColourData::SetColour( colour )
-    Wx_Colour* colour
-  CODE:
-    THIS->SetColour( *colour );
+wxColourData::SetColour( colour )
+    wxColour* colour
+  C_ARGS: *colour
 
 void
-Wx_ColourData::SetCustomColour( i, colour )
+wxColourData::SetCustomColour( i, colour )
     int i
-    Wx_Colour* colour
-  CODE:
-    THIS->SetCustomColour( i, *colour );
+    wxColour* colour
+  C_ARGS: i, *colour
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
-Wx_Colour*
+wxColour*
 wxGetColourFromUser( parent, colInit = (wxColour*)&wxNullColour )
-    Wx_Window* parent
-    Wx_Colour* colInit
+    wxWindow* parent
+    wxColour* colInit
   CODE:
     RETVAL = new wxColour( wxGetColourFromUser( parent, *colInit ) );
   OUTPUT:

@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        MessageDialog.xs
+## Name:        XS/MessageDialog.xs
 ## Purpose:     XS for Wx::MessageDialog
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: MessageDialog.xs,v 1.5 2003/11/23 07:45:53 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,16 +14,16 @@
 
 MODULE=Wx PACKAGE=Wx::MessageDialog
 
-Wx_MessageDialog*
-Wx_MessageDialog::new( parent, message, caption = wxMessageBoxCaptionStr, style = wxOK|wxCANCEL|wxCENTRE, pos = wxDefaultPosition )
-    Wx_Window* parent
+wxMessageDialog*
+wxMessageDialog::new( parent, message, caption = wxMessageBoxCaptionStr, style = wxOK|wxCANCEL|wxCENTRE, pos = wxDefaultPosition )
+    wxWindow* parent
     wxString message
     wxString caption
     long style
     Wx_Point pos
 
 int
-Wx_MessageDialog::ShowModal()
+wxMessageDialog::ShowModal()
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
@@ -32,7 +32,7 @@ wxMessageBox( message, caption = wxT("Message"), style = wxOK|wxCENTRE, parent =
     wxString message
     wxString caption
     int style
-    Wx_Window* parent
+    wxWindow* parent
     int x
     int y
 
