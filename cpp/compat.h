@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -54,6 +54,9 @@
 #define get_av      perl_get_av
 #define call_sv     perl_call_sv
 #define eval_pv     perl_eval_pv
+#define call_method perl_call_method
+#define require_pv perl_require_pv
+#define call_argv perl_call_argv
 
 #define PL_sv_undef sv_undef
 #define PL_sv_yes   sv_yes
@@ -73,6 +76,9 @@
 #define get_av perl_get_av
 #define call_sv perl_call_sv
 #define eval_pv perl_eval_pv
+#define call_method perl_call_method
+#define require_pv perl_require_pv
+#define call_argv perl_call_argv
 
 #define newSVuv( val ) newSViv( (IV)(UV)val )
 #define SvPV_nolen( s ) SvPV( (s), PL_na )
@@ -99,6 +105,37 @@
 #include <config.h>
 #undef HAS_CRYPT_R
 #undef HAS_LOCALTIME_R
+
+#endif
+
+#ifndef PTR2IV
+
+// from perl.h
+/*
+ *  The macros INT2PTR and NUM2PTR are (despite their names)
+ *  bi-directional: they will convert int/float to or from pointers.
+ *  However the conversion to int/float are named explicitly:
+ *  PTR2IV, PTR2UV, PTR2NV.
+ *
+ *  For int conversions we do not need two casts if pointers are
+ *  the same size as IV and UV.   Otherwise we need an explicit
+ *  cast (PTRV) to avoid compiler warnings.
+ */
+#if (IVSIZE == PTRSIZE) && (UVSIZE == PTRSIZE)
+#  define PTRV			UV
+#  define INT2PTR(any,d)	(any)(d)
+#else
+#  if PTRSIZE == LONGSIZE
+#    define PTRV		unsigned long
+#  else
+#    define PTRV		unsigned
+#  endif
+#  define INT2PTR(any,d)	(any)(PTRV)(d)
+#endif
+#define NUM2PTR(any,d)	(any)(PTRV)(d)
+#define PTR2IV(p)	INT2PTR(IV,p)
+#define PTR2UV(p)	INT2PTR(UV,p)
+#define PTR2NV(p)	NUM2PTR(NV,p)
 
 #endif
 

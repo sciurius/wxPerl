@@ -6,7 +6,7 @@
 // Modified by:
 // Created:      7/ 8/2002
 // RCS-ID:      
-// Copyright:   (c) 2002 Mattia Barbon
+// Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
         if( !IsGV( t ) && (
             !SvOK( t ) || ( wxPliOvl_tnames[size_t(p)] != 0 &&
             sv_isobject( t ) &&
-            sv_derived_from( t, wxPliOvl_tnames[size_t(p)] ) ) ) )
+            sv_derived_from( t, CHAR_P wxPliOvl_tnames[size_t(p)] ) ) ) )
             continue;
         // want an array reference
         if( p == wxPliOvlarr && wxPli_avref_2_av( t ) ) continue;

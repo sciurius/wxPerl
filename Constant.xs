@@ -462,7 +462,7 @@ void SetInheritance()
         strcat( buffer, "::ISA" );
 
         AV* isa = get_av( buffer, 1 );
-        av_store( isa, 0, newSVpv( inherit[i].base, 0 ) );
+        av_store( isa, 0, newSVpv( CHAR_P inherit[i].base, 0 ) );
     }
 }
 

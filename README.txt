@@ -24,22 +24,19 @@ TESTED PLATFORMS:
 
 Perl            | OS            | wxWindows      | Compiler
 ----------------+---------------+----------------+-------------------
-ActivePerl 616  | Windows 2000  | wxMSW 2.2.9    | MSVC 5
-       620,628  |               | wxMSW 2.4.0    | MSVC 6
+ActivePerl 6xx  | Windows 2000  |                | MSVC 5
+           8xx  |               | wxMSW 2.4.0    | MSVC 6
 5.6.1           |               |                | MinGW GCC
 5.8.0           |               |                |
 ----------------+---------------+----------------+-------------------
-5.005_03        | Debian 3.0    | wxGTK 2.2.9    | GCC 2.95.2
+5.005_03        | Debian 3.0    |                | GCC 2.95.2
 5.8.0           | RedHat 7.1    | wxGTK 2.4.0    |
-5.004_04 [1]    |               |                |
 5.6.1           |               | wxMotif 2.4.0  |
 ----------------+---------------+----------------+-------------------  
 5.8.0           | Mac OS X 10.2 | wxMac 2.4.0    | GCC 3.1
 ----------------+---------------+----------------+-------------------
 
 wxPerl has also been reported to work on FreeBSD and IRIX.
-
-[1] see docs/bugs.txt
 
 DEPRECATIONS
 

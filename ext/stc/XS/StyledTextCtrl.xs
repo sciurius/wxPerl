@@ -4,8 +4,8 @@
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/ 5/2002
 ## RCS-ID:
-## Copyright:   (c) 2002 Graciliano M. P., Marcus Friedlaender,
-##                       Mattia Barbon, Simon Flack
+## Copyright:   (c) 2002-2003 Graciliano M. P., Marcus Friedlaender,
+##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -61,7 +61,7 @@ Wx_StyledTextCtrl::StyleSetFont( style, font )
     THIS->StyleSetFont( style, *font );
 
 void
-Wx_StyledTextCtrl::StyleSetFontAttr( styleNum, size, faceName, bold, italic, underline );
+Wx_StyledTextCtrl::StyleSetFontAttr( styleNum, size, faceName, bold, italic, underline )
     int styleNum
     int size
     wxString faceName
