@@ -1,0 +1,43 @@
+#############################################################################
+## Name:        ext/html/XS/HtmlCell.xsp
+## Purpose:     XS++ for Wx::HtmlCell and derived classes
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     13/12/2003
+## RCS-ID:      $Id: HtmlCell.xsp,v 1.1 2003/12/26 11:13:27 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#include <wx/html/htmlcell.h>
+%}
+
+%name{Wx::HtmlCell} class wxHtmlCell
+{
+};
+
+%name{Wx::HtmlWordCell} class wxHtmlWordCell
+{
+};
+
+%name{Wx::HtmlContainerCell} class wxHtmlContainerCell
+{
+    void InsertCell(wxHtmlCell *cell);
+};
+
+%name{Wx::HtmlColourCell} class wxHtmlColourCell
+{
+};
+
+%name{Wx::HtmlFontCell} class wxHtmlFontCell
+{
+};
+
+%name{Wx::HtmlWidgetCell} class wxHtmlWidgetCell
+{
+    wxHtmlWidgetCell(wxWindow* window, int w = 0);
+};

@@ -1,0 +1,34 @@
+#############################################################################
+## Name:        ext/html/typemap.xsp
+## Purpose:     typemap for XS++
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     30/11/2003
+## RCS-ID:      $Id: typemap.xsp,v 1.1 2003/12/26 11:13:27 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%typemap{wxHtmlParser*}{simple};
+%typemap{wxHtmlWinParser*}{simple};
+%typemap{wxFileSystem*}{simple};
+%typemap{wxFSFile*}{simple};
+%typemap{wxHtmlURLType}{simple};
+%typemap{wxHtmlTag*}{simple};
+%typemap{wxHtmlTagHandler*}{simple};
+%typemap{wxHtmlWinTagHandler*}{simple};
+%typemap{wxPlHtmlTagHandler*}{simple};
+%typemap{wxPlHtmlWinTagHandler*}{simple};
+%typemap{wxHtmlWindow*}{simple};
+%typemap{wxHtmlContainerCell*}{simple};
+%typemap{const wxHtmlLinkInfo&}{reference};
+%typemap{wxFontEncoding}{simple};
+%typemap{wxEncodingConverter*}{simple};
+%typemap{const wxHtmlTag&}{reference};
+%typemap{wxHtmlCell*}{simple};
+%typemap{wxHtmlWordCell*}{simple};
+%typemap{wxHtmlContainerCell*}{simple};
+%typemap{wxHtmlColourCell*}{simple};
+%typemap{wxHtmlFontCell*}{simple};
+%typemap{wxHtmlWidgetCell*}{simple};

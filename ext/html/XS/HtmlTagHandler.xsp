@@ -1,0 +1,101 @@
+#############################################################################
+## Name:        ext/html/XS/HtmlTagHandler.xsp
+## Purpose:     XS for Wx::HtmlTagHandler
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     30/11/2003
+## RCS-ID:      $Id: HtmlTagHandler.xsp,v 1.1 2003/12/26 11:13:27 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#include <wx/html/htmlpars.h>
+#include "cpp/htmltag.h"
+%}
+
+%file{cpp/htmltag.h};
+%{
+
+#include "cpp/v_cback.h"
+
+#define DEC_V_CBACK_BOOL__WXHTMLTAG( NAME ) \
+    bool NAME( const wxHtmlTag& tag );
+
+#define DEF_V_CBACK_BOOL__WXHTMLTAG_pure( CLASS, BASE, METHOD )              \
+    DEF_V_CBACK_BOOL__WXOBJECTs_( const wxHtmlTag&, CLASS, return false,     \
+                                  METHOD, wxPli_NOCONST )
+
+class wxPlHtmlTagHandler : public wxHtmlTagHandler
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlHtmlTagHandler );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPlHtmlTagHandler( const char* package )
+        :m_callback( "Wx::PlHtmlTagHandler" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+    }
+
+    wxHtmlParser* GetParser() { return m_Parser; }
+
+    DEC_V_CBACK_WXSTRING__VOID( GetSupportedTags );
+    DEC_V_CBACK_BOOL__WXHTMLTAG( HandleTag );
+};
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlHtmlTagHandler, wxHtmlTagHandler );
+
+DEF_V_CBACK_WXSTRING__VOID_pure( wxPlHtmlTagHandler, wxHtmlTagHandler, GetSupportedTags );
+DEF_V_CBACK_BOOL__WXHTMLTAG_pure( wxPlHtmlTagHandler, wxHtmlTagHandler, HandleTag );
+
+class wxPlHtmlWinTagHandler : public wxHtmlWinTagHandler
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlHtmlWinTagHandler );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPlHtmlWinTagHandler( const char* package )
+        :m_callback( "Wx::PlHtmlWinTagHandler" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+    }
+
+    wxHtmlWinParser* GetParser() { return m_WParser; }
+
+    DEC_V_CBACK_WXSTRING__VOID( GetSupportedTags );
+    DEC_V_CBACK_BOOL__WXHTMLTAG( HandleTag );
+};
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlHtmlWinTagHandler, wxHtmlWinTagHandler );
+
+DEF_V_CBACK_WXSTRING__VOID_pure( wxPlHtmlWinTagHandler, wxHtmlWinTagHandler, GetSupportedTags );
+DEF_V_CBACK_BOOL__WXHTMLTAG_pure( wxPlHtmlWinTagHandler, wxHtmlWinTagHandler, HandleTag );
+
+%}
+%file{-};
+
+%name{Wx::HtmlTagHandler} class wxHtmlTagHandler
+{
+    void SetParser(wxHtmlParser *parser);
+    wxString GetSupportedTags();
+    bool HandleTag(const wxHtmlTag& tag);
+};
+
+%name{Wx::HtmlWinTagHandler} class wxHtmlWinTagHandler
+{
+};
+
+%name{Wx::PlHtmlTagHandler} class wxPlHtmlTagHandler
+{
+    wxPlHtmlTagHandler() %code{% RETVAL = new wxPlHtmlTagHandler( CLASS ); %};
+    wxHtmlParser* GetParser();
+};
+
+%name{Wx::PlHtmlWinTagHandler} class wxPlHtmlWinTagHandler
+{
+    wxPlHtmlWinTagHandler()
+        %code{% RETVAL = new wxPlHtmlWinTagHandler( CLASS ); %};
+    wxHtmlWinParser* GetParser();
+};

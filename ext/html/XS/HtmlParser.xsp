@@ -1,0 +1,109 @@
+#############################################################################
+## Name:        ext/html/XS/HtmlParser.xsp
+## Purpose:     XS++ for Wx::HtmlParser and Wx::HtmlWinParser
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     30/11/2003
+## RCS-ID:      $Id: HtmlParser.xsp,v 1.1 2003/12/26 11:13:27 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#include <wx/dc.h>
+#include <wx/html/winpars.h>
+%}
+
+%name{Wx::HtmlParser} class wxHtmlParser
+{
+##    wxHtmlParser();
+##    ~wxHtmlParser();
+
+    void SetFS(wxFileSystem *fs);
+    wxFileSystem* GetFS() const;
+    wxFSFile *OpenURL(wxHtmlURLType type, const wxString& url) const;
+    wxObject* Parse(const wxString& source);
+    void InitParser(const wxString& source);
+    void DoneParser();
+    void StopParsing();
+
+##    void DoParsing(int begin_pos, int end_pos);
+##    void DoParsing();
+
+    wxHtmlTag *GetCurrentTag() const;
+
+    wxObject* GetProduct();
+
+    void AddTagHandler(wxHtmlTagHandler *handler);
+
+    void PushTagHandler(wxHtmlTagHandler *handler, wxString tags);
+    void PopTagHandler();
+
+##    wxString* GetSource();
+    void SetSource(const wxString& src);
+    
+    void SetSourceAndSaveState(const wxString& src);
+    bool RestoreState();
+};
+
+%name{Wx::HtmlWinParser} class wxHtmlWinParser
+{
+##    wxHtmlWinParser(wxHtmlWindow *wnd = NULL);
+##    ~wxHtmlWinParser();
+
+    wxFSFile *OpenURL(wxHtmlURLType type, const wxString& url) const;
+
+    void SetDC(wxDC *dc, double pixel_scale = 1.0);
+
+    wxDC *GetDC();
+    double GetPixelScale();
+    int GetCharHeight() const;
+    int GetCharWidth() const;
+
+    wxHtmlWindow *GetWindow();
+
+##    void SetFonts(wxString normal_face, wxString fixed_face,
+##                  const int *sizes = NULL);
+
+##    static void AddModule(wxHtmlTagsModule *module);
+##    static void RemoveModule(wxHtmlTagsModule *module);
+
+    wxHtmlContainerCell *GetContainer() const;
+    wxHtmlContainerCell *OpenContainer();
+    wxHtmlContainerCell *SetContainer(wxHtmlContainerCell *c);
+    wxHtmlContainerCell *CloseContainer();
+
+    int GetFontSize() const;
+    void SetFontSize(int s);
+    int GetFontBold() const;
+    void SetFontBold(int x);
+    int GetFontItalic() const;
+    void SetFontItalic(int x);
+    int GetFontUnderlined() const;
+    void SetFontUnderlined(int x);
+    int GetFontFixed() const;
+    void SetFontFixed(int x);
+    wxString GetFontFace() const;
+    void SetFontFace(const wxString& face);
+
+    int GetAlign() const;
+    void SetAlign(int a);
+    const wxColour& GetLinkColor() const;
+    void SetLinkColor(const wxColour& clr);
+    const wxColour& GetActualColor() const;
+    void SetActualColor(const wxColour& clr);
+    const wxHtmlLinkInfo& GetLink() const;
+    void SetLink(const wxHtmlLinkInfo& link);
+
+#if !wxUSE_UNICODE
+    void SetInputEncoding(wxFontEncoding enc);
+    wxFontEncoding GetInputEncoding() const;
+    wxFontEncoding GetOutputEncoding() const;
+    wxEncodingConverter *GetEncodingConverter() const;
+#endif
+
+    wxFont* CreateCurrentFont();
+};

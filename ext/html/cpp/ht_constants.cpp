@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/ 3/2001
-// RCS-ID:      $Id: ht_constants.cpp,v 1.7 2003/08/02 20:55:17 mbarbon Exp $
+// RCS-ID:      $Id: ht_constants.cpp,v 1.8 2003/12/26 11:13:27 mbarbon Exp $
 // Copyright:   (c) 2001, 2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -45,6 +45,39 @@ double html_constant( const char* name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
         r( wxHW_NO_SELECTION );
 #endif
+
+        r( wxHTML_ALIGN_LEFT );
+        r( wxHTML_ALIGN_CENTER );
+        r( wxHTML_ALIGN_RIGHT );
+        r( wxHTML_ALIGN_BOTTOM );
+        r( wxHTML_ALIGN_TOP );
+
+        r( wxHTML_CLR_FOREGROUND );
+        r( wxHTML_CLR_BACKGROUND );
+
+        r( wxHTML_UNITS_PIXELS );
+        r( wxHTML_UNITS_PERCENT );
+
+        r( wxHTML_INDENT_LEFT );
+        r( wxHTML_INDENT_RIGHT );
+        r( wxHTML_INDENT_TOP );
+        r( wxHTML_INDENT_BOTTOM );
+
+        r( wxHTML_INDENT_HORIZONTAL );
+        r( wxHTML_INDENT_VERTICAL );
+        r( wxHTML_INDENT_ALL );
+
+        r( wxHTML_COND_ISANCHOR );
+        r( wxHTML_COND_ISIMAGEMAP );
+        r( wxHTML_COND_USER );
+
+        r( wxHTML_FONT_SIZE_1 );
+        r( wxHTML_FONT_SIZE_2 );
+        r( wxHTML_FONT_SIZE_3 );
+        r( wxHTML_FONT_SIZE_4 );
+        r( wxHTML_FONT_SIZE_5 );
+        r( wxHTML_FONT_SIZE_6 );
+        r( wxHTML_FONT_SIZE_7 );
         break;
     case 'P':
         r( wxPAGE_ODD );

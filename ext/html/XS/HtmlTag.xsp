@@ -1,0 +1,71 @@
+#############################################################################
+## Name:        ext/html/XS/HtmlTag.xsp
+## Purpose:     XS for Wx::HtmlTag
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     30/11/2003
+## RCS-ID:      $Id: HtmlTag.xsp,v 1.1 2003/12/26 11:13:27 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#include <wx/html/htmltag.h>
+%}
+
+%name{Wx::HtmlTag} class wxHtmlTag
+{
+    wxHtmlTag *GetParent() const;
+    wxHtmlTag *GetFirstSibling() const;
+    wxHtmlTag *GetLastSibling() const;
+    wxHtmlTag *GetChildren() const;
+    wxHtmlTag *GetPreviousSibling() const;
+    wxHtmlTag *GetNextSibling() const;
+    wxHtmlTag *GetNextTag() const;
+
+    wxString GetName() const;
+
+    bool HasParam(const wxString& par) const;
+
+    wxString GetParam(const wxString& par, bool with_commas = FALSE) const;
+
+##    int ScanParam(const wxString& par, const wxChar *format,
+##                  void *param) const;
+
+    wxString GetAllParams() const;
+
+    bool HasEnding() const;
+
+    int GetBeginPos() const;
+    int GetEndPos1() const;
+    int GetEndPos2() const;
+};
+
+%{
+
+void
+wxHtmlTag::GetParamAsColour( wxString par )
+  PPCODE:
+    wxColour col;
+    bool ret = THIS->GetParamAsColour( par, &col );
+
+    EXTEND( SP, 2 );
+    XPUSHs( newSViv( ret ) );
+    XPUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                   ( ret ? new wxColour( col ) : NULL ),
+                                   "Wx::Colour" ) );
+
+void
+wxHtmlTag::GetParamAsInt(wxString par)
+  PPCODE:
+    int val;
+    bool ret = THIS->GetParamAsInt( par, &val );
+
+    EXTEND( SP, 2 );
+    XPUSHs( newSViv( ret ) );
+    XPUSHs( newSViv( val ) );
+
+%}
