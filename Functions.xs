@@ -128,7 +128,6 @@ wxMessageBox( message, caption = "Message", style = wxOK|wxCENTRE, parent = 0, x
 MODULE=Wx_Func PACKAGE=Wx
 
 #FIXME// unimplemented
-# wxLogStatus
 # wxLogTrace
 
 void
@@ -158,6 +157,19 @@ wxLogSysError( string )
 void
 wxLogDebug( string )
     const char* string
+
+void
+wxLogStatusFrame( frame, string )
+    Wx_Frame* frame
+    const char* string
+  CODE:
+    wxLogStatus( frame, string );
+
+void
+wxLogStatus( string )
+    const char* string
+  CODE:
+    wxLogStatus( string );
 
 MODULE=Wx_Func PACKAGE=Wx PREFIX=wx
 

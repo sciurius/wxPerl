@@ -13,10 +13,24 @@
 package Wx;
 
 use strict;
+use UNIVERSAL qw(isa);
 
 push @Wx::EXPORT_OK, qw(_);
 
 *Wx::_ = \&GetTranslation;
+
+sub LogStatus {
+  my( $t );
+
+  if( isa( $_[0], 'Wx::Frame' ) ) {
+    my( $f ) = shift;
+
+    $t = sprintf( shift, @_ );
+    $t =~ s/\%/\%\%/g; wxLogStatusFrame( $f, $t );
+  } else {
+    $t = sprintf( shift, @_ ); $t =~ s/\%/\%\%/g; wxLogStatus( $t );
+  }
+}
 
 sub LogError {
   my( $t ) = sprintf( shift, @_ ); $t =~ s/\%/\%\%/g; wxLogError( $t );
@@ -38,10 +52,6 @@ sub LogVerbose {
   my( $t ) = sprintf( shift, @_ ); $t =~ s/\%/\%\%/g; wxLogVerbose( $t );
 }
 
-sub LogStatus {
-  my( $t ) = sprintf( shift, @_ ); $t =~ s/\%/\%\%/g; wxLogStatus( $t );
-}
-
 sub LogSysError {
   my( $t ) = sprintf( shift, @_ ); $t =~ s/\%/\%\%/g; wxLogSysError( $t ); 
 }
@@ -51,3 +61,7 @@ sub LogDebug {
 }
 
 1;
+
+# Local variables: #
+# mode: cperl #
+# End: #
