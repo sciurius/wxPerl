@@ -197,7 +197,6 @@ Wx_Event *              O_WXOBJECT
 Wx_ActivateEvent *      O_WXOBJECT
 Wx_CloseEvent *         O_WXOBJECT
 Wx_CommandEvent *       O_WXOBJECT
-Wx_DropFilesEvent *     O_WXOBJECT
 Wx_EraseEvent *         O_WXOBJECT
 Wx_FocusEvent *         O_WXOBJECT
 Wx_KeyEvent *           O_WXOBJECT

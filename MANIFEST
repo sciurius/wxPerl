@@ -237,6 +237,19 @@ cpp/helpers.cpp
 cpp/streams.cpp
 cpp/v_cback.cpp
 
+ext/dnd/DND.xs
+ext/dnd/Makefile.PL
+ext/dnd/XS/Clipboard.xs
+ext/dnd/XS/DataObject.xs
+ext/dnd/XS/DropFiles.xs
+ext/dnd/cpp/dataobject.h
+ext/dnd/cpp/dn_constants.cpp
+ext/dnd/cpp/dn_typedef.h
+ext/dnd/lib/Wx/DND.pm
+ext/dnd/t/1_load.t
+ext/dnd/t/2_inheritance.t
+ext/dnd/typemap
+
 ext/filesys/FS.xs
 ext/filesys/Makefile.PL
 ext/filesys/XS/FSFile.xs

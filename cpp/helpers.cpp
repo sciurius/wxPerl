@@ -138,6 +138,9 @@ void wxPli_push_args( SV*** psp, const char* argtypes, va_list& args )
             svval = va_arg( args, SV* );
             XPUSHs( sv_2mortal( newSVsv( svval ) ) );
             break;
+        case 's':
+            svval = va_arg( args, SV* );
+            XPUSHs( svval );
         case 'O':
             oval = va_arg( args, wxObject* );
             XPUSHs( wxPli_object_2_sv( sv_newmortal(), oval ) );

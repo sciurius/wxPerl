@@ -1,0 +1,29 @@
+#############################################################################
+## Name:        typemap
+## Purpose:     typemap
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     12/ 8/2001
+## RCS-ID:      
+## Copyright:   (c) 2001 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+Direction               T_IV
+NativeFormat            T_IV
+
+Wx_DataObject *         O_NON_WXOBJECT
+Wx_FileDataObject *     O_NON_WXOBJECT
+Wx_TextDataObject *     O_NON_WXOBJECT
+Wx_BitmapDataObject *   O_NON_WXOBJECT
+Wx_CustomDataObject *   O_NON_WXOBJECT
+Wx_DataObjectSimple *   O_NON_WXOBJECT
+Wx_DataObjectComposite * O_NON_WXOBJECT
+
+Wx_DataFormat *         O_NON_WXOBJECT
+
+Wx_DropFilesEvent *     O_NON_WXOBJECT
+
+Wx_Clipboard *          O_WXOBJECT

@@ -56,7 +56,6 @@ FD_TD( Event );
 FD_TD( ActivateEvent );
 FD_TD( CloseEvent );
 FD_TD( CommandEvent );
-FD_TD( DropFilesEvent );
 FD_TD( EraseEvent );
 FD_TD( FocusEvent );
 #if WXPERL_W_VERSION_GE( 2, 3 )

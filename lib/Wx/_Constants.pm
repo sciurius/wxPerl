@@ -27,7 +27,7 @@ BEGIN {
   $_pen_light_grey
   $_brush_blue $_brush_green $_brush_white $_brush_black $_brush_grey
   $_brush_medium_grey $_brush_light_grey $_brush_transparent
-  $_brush_cyan $_brush_red);
+  $_brush_cyan $_brush_red $_format_invalid $_clipboard);
 
   import vars @vars;
 }
@@ -91,6 +91,9 @@ sub wxLIGHT_GREY_BRUSH { $_brush_light_grey }     # brush
 sub wxTRANSPARENT_BRUSH { $_brush_transparent }   # brush
 sub wxCYAN_BRUSH { $_brush_cyan }                 # brush
 sub wxRED_BRUSH { $_brush_red }                   # brush
+
+sub wxFormatInvalid { $_format_invalid }          # dnd
+sub wxTheClipboard { $_clipboard }                # clipboard
 
 sub wxVERSION_STRING { $_version_string }
 

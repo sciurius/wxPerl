@@ -36,6 +36,8 @@
 #include <wx/textctrl.h>
 #include <wx/settings.h>
 #include <wx/button.h>
+#include <wx/dataobj.h>
+#include <wx/clipbrd.h>
 
 #include "cpp/compat.h"
 
@@ -1323,7 +1325,16 @@ void SetConstants()
 
     tmp = get_sv( "Wx::_brush_red", 0 );
     sv_setref_pv( tmp, "Wx::Brush", new wxBrush( *wxRED_BRUSH ) );
-  
+
+    //
+    // Clipboard & Drag'n'Drop
+    //
+    tmp = get_sv( "Wx::_format_invalid", 0 );
+    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxFormatInvalid ) );
+
+    tmp = get_sv( "Wx::_clipboard", 0 );
+    sv_setref_pv( tmp, "Wx::Clipboard", wxTheClipboard );
+
     //
     // Miscellaneous
     //
