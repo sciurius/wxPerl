@@ -110,8 +110,12 @@ size_t wxPliInputStream::OnSysRead( void* buffer, size_t size )
     m_lasterror = wxSTREAM_NO_ERROR;
     if( !SvOK( sv_read_count ) )
         m_lasterror = wxSTREAM_READ_ERROR;
-    else if( !( read_count = SvIV( sv_read_count ) ) )
-        m_lasterror = wxSTREAM_EOF;
+    else 
+    {
+        read_count = SvUV( sv_read_count );
+        if( !read_count )
+            m_lasterror = wxSTREAM_EOF;
+    }
 
     PUTBACK;
 
@@ -195,6 +199,10 @@ size_t wxPliOutputStream::OnSysWrite( const void* buffer, size_t size )
     m_lasterror = wxSTREAM_NO_ERROR;
     if( !SvOK( sv_write_count ) )
         m_lasterror = wxSTREAM_WRITE_ERROR;
+    else
+    {
+        write_count = SvUV( sv_write_count );
+    }
 
     PUTBACK;
 
