@@ -150,6 +150,8 @@ sub new {
 
   my $listctrl = Wx::ListCtrl->new( $this, -1, [-1, -1], [-1, -1],
                                     Wx::wxLC_REPORT() );
+  $listctrl->InsertColumn( 1, "Type" );
+
   $listctrl->InsertStringItem( 0, 'text0' );
   $listctrl->InsertStringItem( 1, 'text1' );
   $listctrl->InsertStringItem( 2, 'text2' );
