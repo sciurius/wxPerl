@@ -66,8 +66,8 @@ package MyPanel;
 
 use strict;
 use vars qw(@ISA);
-use Wx qw(wxTE_MULTILINE wxLB_SORT wxLB_ALWAYS_SB wxCB_SORT wxPOINT
- wxSIZE wxBLUE wxCROSS_CURSOR wxCURSOR_HAND wxPROCESS_ENTER wxTE_PROCESS_ENTER
+use Wx qw(wxTE_MULTILINE wxLB_SORT wxLB_ALWAYS_SB wxCB_SORT
+ wxBLUE wxCROSS_CURSOR wxCURSOR_HAND wxPROCESS_ENTER wxTE_PROCESS_ENTER
  wxBITMAP_TYPE_XPM wxBITMAP_TYPE_BMP
  wxNOT_FOUND wxITALIC_FONT wxDefaultSize wxRA_SPECIFY_COLS wxRA_SPECIFY_ROWS
  wxRB_GROUP);
@@ -104,11 +104,9 @@ sub SetControlClientData {
 
 sub new {
     my( $class, $frame, $x, $y, $w, $h ) = @_;
-    my( $this ) = $class->SUPER::new( $frame, -1, wxPOINT( $x, $y ),
-                                      wxSIZE( $w, $h ) );
+    my( $this ) = $class->SUPER::new( $frame, -1, [$x, $y], [$w, $h] );
     $this->{TEXT} = Wx::TextCtrl->new( $this, -1, "This is the log Window.\n",
-                                       wxPOINT( 0, 250 ), wxSIZE( 100, 50 ),
-                                       wxTE_MULTILINE );
+                                       [0, 250], [100, 50], wxTE_MULTILINE );
     $this->{TEXT}->SetBackgroundColour( Wx::Colour->new( "wheat" ) );
     $this->{OLDLOG} =
       Wx::Log::SetActiveTarget( Wx::LogTextCtrl->new( $this->{TEXT} ) );
@@ -138,57 +136,37 @@ sub new {
     $this->{NOTEBOOK}->AddPage( $panel, "Wx::ListBox", 1, 0 );
     $panel->SetCursor( Wx::Cursor->new( wxCURSOR_HAND ) );
 
-    $this->{LISTBOX} = Wx::ListBox->new( $panel, $ID_LISTBOX, wxPOINT( 10, 10 ),
-                                         wxSIZE( 120, 70 ),
-                                         $choices,
-                                         wxLB_ALWAYS_SB );
+    $this->{LISTBOX} = Wx::ListBox->new( $panel, $ID_LISTBOX, [10, 10],
+                                         [120, 70], $choices, wxLB_ALWAYS_SB );
     $this->{LISTBOXSORTED} = Wx::ListBox->new( $panel, $ID_LISTBOX_SORTED,
-                                               wxPOINT( 10, 90 ),
-                                               wxSIZE( 120, 70 ),
-                                               $choices,
-                                               wxLB_SORT );
+                                               [10, 90], [120, 70],
+                                               $choices, wxLB_SORT );
     $this->{LISTBOX}->SetCursor( wxCROSS_CURSOR );
     $this->{LISTBOX}->SetToolTip( "This is a list box" );
 
     SetControlClientData( 'listbox', $this->{LISTBOX} );
     SetControlClientData( 'listbox', $this->{LISTBOXSORTED} );
 
-    $this->{LBSELECTNUM} = Wx::Button->new( $panel, -1, 'Select #&2', 
-                                            wxPOINT( 180, 30 ),
-                                            wxSIZE( 140, 30 ),
-                                            );
+    $this->{LBSELECTNUM} = Wx::Button->new( $panel, -1, 'Select #&2',
+                                            [180, 30], [140, 30] );
     $this->{LBSELECTTHIS} = Wx::Button->new( $panel, -1, '&Select \'This\'',
-                                             wxPOINT( 340, 30 ),
-                                             wxSIZE( 140, 30 ),
-                                             );
-    my( $b1 ) = Wx::Button->new( $panel, -1, '&Clear', wxPOINT( 180, 80 ),
-                                 wxSIZE( 140, 30 ),
-                                 );
-    my( $b2) = MyButton->new( $panel, -1, '&Append \'Hi!\'', 
-                              wxPOINT( 340, 80 ),
-                              wxSIZE( 140, 30 ),
-                            );
+                                             [340, 30], [140, 30] );
+    my( $b1 ) = Wx::Button->new( $panel, -1, '&Clear', [180, 80], [140, 30] );
+    my( $b2) = MyButton->new( $panel, -1, '&Append \'Hi!\'', [340, 80 ], [140, 30] );
     my( $b3 ) = Wx::Button->new( $panel, -1, 'D&elete selected item',
-                                 wxPOINT( 180, 130 ),
-                                 wxSIZE( 140, 30 ),
-                                 );
+                                 [180, 130], [140, 30] );
     my( $button ) = MyButton->new( $panel, -1, 'Set &Italic font',
-                                   wxPOINT( 340, 130 ),
-                                   wxSIZE( 140, 30 ),
-                                 );
+                                   [340, 130], [140, 30] );
     $button->SetDefault();
     $button->SetForegroundColour( wxBLUE );
     $button->SetToolTip( "Press here to set Italic font" );
 
-    $this->{CHECKBOX} = Wx::CheckBox->new( $panel, -1, '&Disable',
-                                           wxPOINT( 20, 170 ),
-                                           );
+    $this->{CHECKBOX} = Wx::CheckBox->new( $panel, -1, '&Disable', [20, 170] );
     $this->{CHECKBOX}->SetValue( 0 );
     $this->{CHECKBOX}->SetToolTip( "Click here to disable the listbox" );
 
     my( $cb ) = Wx::CheckBox->new( $panel, $ID_CHANGE_COLOUR, '&Toggle colour',
-                                   wxPOINT( 100, 170 ),
-                                   );
+                                   [100, 170] );
     EVT_LISTBOX( $this, $this->{LISTBOX}, \&OnListBox );
     EVT_LISTBOX( $this, $this->{LISTBOXSORTED}, \&OnListBox );
     EVT_LISTBOX_DCLICK( $this, $this->{LISTBOX}, \&OnListBoxDoubleClick );
@@ -207,29 +185,26 @@ sub new {
     my( $panel ) = Wx::Panel->new( $this->{NOTEBOOK}, -1 );
 
     $this->{NOTEBOOK}->AddPage( $panel, "Wx::Choice", 0, 1 );
-    $this->{CHOICE} = Wx::Choice->new( $panel, $ID_CHOICE, wxPOINT( 10, 10 ),
-                                       wxSIZE( 120, -1 ), $choices );
+    $this->{CHOICE} = Wx::Choice->new( $panel, $ID_CHOICE, [10, 10],
+                                       [120, -1], $choices );
     $this->{CHOICESORTED} = Wx::Choice->new( $panel, $ID_CHOICE_SORTED,
-                                             wxPOINT( 10, 70 ),
-                                             wxSIZE( 120, -1 ), $choices,
+                                             [10, 70], [120, -1], $choices,
                                              wxCB_SORT );
     $this->{CHOICE}->SetSelection( 2 );
     $this->{CHOICE}->SetBackgroundColour( Wx::Colour->new( "red" ) );
 
-    my( $b1 ) = Wx::Button->new( $panel, -1, 'Select #&2', wxPOINT( 180, 30 ),
-                                 wxSIZE( 140, 30 ) );
-    my( $b2 ) = Wx::Button->new( $panel, -1, '&Select \'This\'', 
-                                 wxPOINT( 340, 30 ), wxSIZE( 140, 30 ) );
-    my( $b3 ) = Wx::Button->new( $panel, -1, '&Clear', wxPOINT( 180, 80 ),
-                                 wxSIZE( 140, 30 ) );
-    my( $b4 ) = Wx::Button->new( $panel, -1, '&Append \'Hi!\'', 
-                                 wxPOINT( 340, 80 ), wxSIZE( 140, 30 ) );
+    my( $b1 ) = Wx::Button->new( $panel, -1, 'Select #&2', [180, 30], [140, 30] );
+    my( $b2 ) = Wx::Button->new( $panel, -1, '&Select \'This\'',
+                                 [340, 30], [140, 30] );
+    my( $b3 ) = Wx::Button->new( $panel, -1, '&Clear', [180, 80], [140, 30] );
+    my( $b4 ) = Wx::Button->new( $panel, -1, '&Append \'Hi!\'',
+                                 [340, 80], [140, 30] );
     my( $b5 ) = Wx::Button->new( $panel, -1, 'D&elete selected item',
-                                 wxPOINT( 180, 130 ), wxSIZE( 140, 30 ) );
+                                 [180, 130], [140, 30] );
     my( $b6 ) = Wx::Button->new( $panel, -1, 'Set &Italic font',
-                                 wxPOINT( 340, 130 ), wxSIZE( 140, 30 ) );
+                                 [340, 130], [140, 30] );
     my( $c1 ) = Wx::CheckBox->new( $panel, -1, "&Disable",
-                                   wxPOINT( 20, 130 ), wxSIZE( 140, 130 ) );
+                                   [20, 130], [140, 130] );
 
     EVT_BUTTON( $this, $b1, \&OnChoiceButtons_SelNum );
     EVT_BUTTON( $this, $b2, \&OnChoiceButtons_SelStr );
@@ -247,27 +222,23 @@ sub new {
     my( $panel ) = Wx::Panel->new( $this->{NOTEBOOK}, -1 );
 
     $this->{NOTEBOOK}->AddPage( $panel, "Wx::ComboBox", 0, 2 );
-    Wx::StaticBox->new( $panel, -1, "&Box around combobox",
-                        wxPOINT( 5, 5 ), wxSIZE( 150, 100 ) );
-    $this->{COMBO} = MyComboBox->new( $panel, -1, "This",
-                                      wxPOINT( 20, 25 ), wxSIZE( 120, -1 ),
+    Wx::StaticBox->new( $panel, -1, "&Box around combobox", [5, 5], [150, 100] );
+    $this->{COMBO} = MyComboBox->new( $panel, -1, "This", [20, 25], [120, -1],
                                       $choices, wxTE_PROCESS_ENTER );
     $this->{COMBO}->SetToolTip( Wx::ToolTip->new( "This is a natural combobox\ncan you believe me?" ) );
 
-    my( $b1 ) = Wx::Button->new( $panel, -1, 'Select #&2', wxPOINT( 180, 30 ),
-                                 wxSIZE( 140, 30 ) );
-    my( $b2 ) = Wx::Button->new( $panel, -1, '&Select \'This\'', 
-                                 wxPOINT( 340, 30 ), wxSIZE( 140, 30 ) );
-    my( $b3 ) = Wx::Button->new( $panel, -1, '&Clear', wxPOINT( 180, 80 ),
-                                 wxSIZE( 140, 30 ) );
+    my( $b1 ) = Wx::Button->new( $panel, -1, 'Select #&2', [180, 30], [140, 30] );
+    my( $b2 ) = Wx::Button->new( $panel, -1, '&Select \'This\'',
+                                 [340, 30], [140, 30] );
+    my( $b3 ) = Wx::Button->new( $panel, -1, '&Clear', [180, 80], [140, 30] );
     my( $b4 ) = Wx::Button->new( $panel, -1, '&Append \'Hi!\'', 
-                                 wxPOINT( 340, 80 ), wxSIZE( 140, 30 ) );
+                                 [340, 80], [140, 30] );
     my( $b5 ) = Wx::Button->new( $panel, -1, 'D&elete selected item',
-                                 wxPOINT( 180, 130 ), wxSIZE( 140, 30 ) );
+                                 [180, 130], [140, 30] );
     my( $b6 ) = Wx::Button->new( $panel, -1, 'Set &Italic font',
-                                 wxPOINT( 340, 130 ), wxSIZE( 140, 30 ) );
+                                 [340, 130], [140, 30] );
     my( $c1 ) = Wx::CheckBox->new( $panel, -1, "&Disable",
-                                   wxPOINT( 20, 130 ), wxSIZE( 140, 130 ) );
+                                   [20, 130], [140, 130] );
 
     EVT_BUTTON( $this, $b1, \&OnComboButtons_SelNum );
     EVT_BUTTON( $this, $b2, \&OnComboButtons_SelStr );
@@ -290,32 +261,33 @@ sub new {
     my( $panel ) = Wx::Panel->new( $this->{NOTEBOOK}, -1 );
     $this->{NOTEBOOK}->AddPage( $panel, "Wx::RadioBox", 0, 3 );
 
-    $this->{RADIO} = Wx::RadioBox->new( $panel, -1, "T&his", wxPOINT( 10, 10 ),
+    $this->{RADIO} = Wx::RadioBox->new( $panel, -1, "T&his", [10, 10],
                                         wxDefaultSize, $choices, 1,
                                         wxRA_SPECIFY_COLS );
-    my( $rb1 ) = MyRadioBox->new( $panel, -1, "&That", wxPOINT( 10, 160 ),
+    my( $rb1 ) = MyRadioBox->new( $panel, -1, "&That", [10, 160],
                                  wxDefaultSize, $choices2, 1,
                                  wxRA_SPECIFY_ROWS );
-    my( $rb2 ) = Wx::RadioBox->new( $panel, -1, "And another one wiyh very long title", wxPOINT( 165, 115 ), wxDefaultSize, $choices10, 3, wxRA_SPECIFY_COLS );
+    my( $rb2 ) = Wx::RadioBox->new( $panel, -1, 
+                                    "And another one wiyh very long title", 
+                                    [165, 115], 
+                                    wxDefaultSize, $choices10, 3, 
+                                    wxRA_SPECIFY_COLS );
     $rb2->SetToolTip( "Ever seen a radiobox?" );
 
-    my( $b1 ) = Wx::Button->new( $panel, -1, "Select #&2", wxPOINT( 180, 30 ),
-                                 wxSIZE( 140, 30 ) );
+    my( $b1 ) = Wx::Button->new( $panel, -1, "Select #&2", [180, 30], [140, 30] );
     my( $b2 ) = Wx::Button->new( $panel, -1, "&Select 'This'",
-                                 wxPOINT( 180, 80 ), wxSIZE( 140, 30 ) );
+                                 [180, 80], [140, 30] );
     $this->{FONTBUTTON} = Wx::Button->new( $panel, -1, "Set &more Italic font",
-                                           wxPOINT( 340, 30 ),
-                                           wxSIZE( 140, 30 ) );
+                                           [340, 30], [140, 30] );
     my( $b3 ) = Wx::Button->new( $panel, -1, "Set &Italic font",
-                                 wxPOINT( 340, 80 ), wxSIZE( 140, 30 ) );
+                                 [340, 80], [140, 30] );
     my( $cb ) = Wx::CheckBox->new( $panel, -1, "&Disable",
-                                   wxPOINT( 400, 130 ), wxDefaultSize );
-    my( $rb1 ) = Wx::RadioButton->new( $panel, -1, "Radio&1", 
-                                      wxPOINT( 400, 170 ),
-                                      wxDefaultSize, wxRB_GROUP );
+                                   [400, 130], wxDefaultSize );
+    my( $rb1 ) = Wx::RadioButton->new( $panel, -1, "Radio&1",
+                                      [400, 170], wxDefaultSize, wxRB_GROUP );
     $rb1->SetValue( 1 );
     my( $rb2 ) = Wx::RadioButton->new( $panel, -1, "Radio&2",
-                                       wxPOINT( 460, 170 ), wxDefaultSize );
+                                       [460, 170], wxDefaultSize );
     EVT_CHECKBOX( $this, $cb, \&OnRadioButtons_Enable );
     EVT_BUTTON( $this, $b1, \&OnRadioButtons_SelNum );
     EVT_BUTTON( $this, $b2, \&OnRadioButtons_SelStr );
@@ -332,18 +304,16 @@ sub new {
 
     use Wx qw(wxGA_HORIZONTAL wxNO_BORDER wxGREEN wxRED wxSL_LABELS);
 
-    Wx::StaticBox->new( $panel, -1, "&wxGauge and wxSlider", wxPOINT( 10, 10 ),
-                        wxSIZE( 200, 130 ) );
-    $this->{GAUGE} = Wx::Gauge->new( $panel, -1, 200, wxPOINT( 18, 50 ),
-                                     wxSIZE( 155, 30 ), wxGA_HORIZONTAL |
-                                     wxNO_BORDER );
+    Wx::StaticBox->new( $panel, -1, "&wxGauge and wxSlider", [10, 10],
+                        [200, 130] );
+    $this->{GAUGE} = Wx::Gauge->new( $panel, -1, 200, [18, 50],
+                                     [155, 30], wxGA_HORIZONTAL|wxNO_BORDER );
     $this->{GAUGE}->SetBackgroundColour( wxGREEN );
     $this->{GAUGE}->SetForegroundColour( wxRED );
     $this->{SLIDER} = Wx::Slider->new( $panel, -1, 0, 0, 200,
-                                       wxPOINT( 18, 90 ), wxSIZE( 155, -1 ),
+                                       [18, 90], [155, -1],
                                        wxSL_LABELS );
-    Wx::StaticBox->new( $panel, -1, "&Explanation", wxPOINT( 220, 10 ),
-                        wxSIZE( 270, 130 ) );
+    Wx::StaticBox->new( $panel, -1, "&Explanation", [220, 10], [270, 130] );
     Wx::StaticText->new( $panel, -1,
                          join( '',
                                "In order see the gauge (aka progress bar)\n",
@@ -353,23 +323,21 @@ sub new {
                                "This is also supposed to demonstrate how\n",
                                "to use static controls.\n",
                              ),
-                         wxPOINT(228,25),
-                         wxSIZE(240, 110)
+                         [228, 25], [240, 110]
                        );
     $this->{SPINTEXT} = new Wx::TextCtrl( $panel, -1, "-5",
-                                          wxPOINT( 20, 160 ),
-                                          wxSIZE( 80, -1 ) );
-    $this->{SPINBUTTON} = new Wx::SpinButton( $panel, -1, wxPOINT( 103, 160 ),
-                                              wxSIZE( 80, -1 ) );
+                                          [20, 160 ], [80, -1] );
+    $this->{SPINBUTTON} = new Wx::SpinButton( $panel, -1, [103, 160],
+                                              [80, -1] );
     $this->{SPINBUTTON}->SetRange( -10, 30 );
     $this->{SPINBUTTON}->SetValue( -5 );
 
     $this->{BTNPROGRESS} = Wx::Button->new( $panel, -1, 
                                             "&Show progress dialog",
-                                            wxPOINT( 300, 160 ) );
+                                            [300, 160] );
 
-    $this->{SPINCTRL} = Wx::SpinCtrl->new( $panel, -1, '', wxPOINT( 200, 160 ),
-                                           wxSIZE( 80, -1 ) );
+    $this->{SPINCTRL} = Wx::SpinCtrl->new( $panel, -1, '', [200, 160],
+                                           [80, -1] );
     $this->{SPINCTRL}->SetRange( 10, 30 );
     $this->{SPINCTRL}->SetValue( 15 );
 
@@ -389,8 +357,8 @@ sub new {
 
     use Wx qw(wxTheApp wxICON_INFORMATION wxICON_QUESTION wxICON_WARNING wxNullIcon wxNullBitmap wxGREEN_PEN);
     my( $icon ) = wxTheApp->GetStdIcon( wxICON_INFORMATION );
-    my( $st1 ) = Wx::StaticBitmap->new( $panel, -1, $icon, wxPOINT( 10, 10 ) );
-    my( $st2 ) = Wx::StaticBitmap->new( $panel, -1, wxNullIcon, wxPOINT( 50, 10 ) );
+    my( $st1 ) = Wx::StaticBitmap->new( $panel, -1, $icon, [10, 10] );
+    my( $st2 ) = Wx::StaticBitmap->new( $panel, -1, wxNullIcon, [50, 10] );
 
     $st2->SetIcon( wxTheApp->GetStdIcon( wxICON_QUESTION ) );
 
@@ -404,14 +372,14 @@ sub new {
     $dc->DrawText( "Bitmap", 30, 40 );
     $dc->SelectObject( wxNullBitmap );
 
-    my( $b1 ) = Wx::BitmapButton->new( $panel, -1, $bmp, wxPOINT( 100, 20 ) );
+    my( $b1 ) = Wx::BitmapButton->new( $panel, -1, $bmp, [100, 20] );
 
     if( $Wx::_platform == $Wx::_msw ) {
       my( $bmp ) = Wx::Bitmap->new( "test2.bmp", wxBITMAP_TYPE_BMP );
 
       if( $bmp->Ok() ) {
         $bmp->SetMask( Wx::Mask->new( $bmp, wxBLUE ) );
-        Wx::StaticBitmap->new( $panel, -1, $bmp, wxPOINT( 300, 120 ) );
+        Wx::StaticBitmap->new( $panel, -1, $bmp, [300, 120] );
       }
     }
 
@@ -419,14 +387,17 @@ sub new {
     my( $bmp2 ) = Wx::Bitmap->new( wxTheApp->GetStdIcon( wxICON_WARNING ) );
     my( $bmp3 ) = Wx::Bitmap->new( wxTheApp->GetStdIcon( wxICON_QUESTION ) );
 
-    my( $b2 ) = Wx::BitmapButton->new( $panel, -1, $bmp1, wxPOINT( 30, 50 ) );
+    my( $b2 ) = Wx::BitmapButton->new( $panel, -1, $bmp1, [30, 50] );
     $b2->SetBitmapSelected( $bmp2 );
     $b2->SetBitmapFocus( $bmp3 );
 
     use Wx qw(wxALIGN_RIGHT);
 
-    my( $b3 ) = Wx::Button->new( $panel, -1, "&Toggle label", wxPOINT( 250, 20 ) );
-    $this->{LABEL} = Wx::StaticText->new( $panel, -1, "Label with some long text", wxPOINT( 250, 60 ), wxDefaultSize, wxALIGN_RIGHT );
+    my( $b3 ) = Wx::Button->new( $panel, -1, "&Toggle label", [250, 20] );
+    $this->{LABEL} = Wx::StaticText->new( $panel, -1,
+                                          "Label with some long text",
+                                          [250, 60], wxDefaultSize,
+                                          wxALIGN_RIGHT );
     $this->{LABEL}->SetForegroundColour( wxBLUE );
 
     EVT_BUTTON( $this, $b3, \&OnUpdateLabel );
@@ -493,8 +464,8 @@ sub OnSize {
     my( $this ) = @_;
     my( $x, $y ) = $this->GetClientSizeXY();
 
-    $this->{NOTEBOOK}->SetDimensions( 2, 2, $x-4, $y*2/3-4 );
-    $this->{TEXT}->SetDimensions( 2, $y*2/3+2, $x-4, $y/3-4 );
+    $this->{NOTEBOOK}->SetSize( 2, 2, $x-4, $y*2/3-4 );
+    $this->{TEXT}->SetSize( 2, $y*2/3+2, $x-4, $y/3-4 );
 }
 
 sub OnListBox {

@@ -71,8 +71,7 @@ sub OnInit {
   $b1->height->PercentOf( $frame->panel, wxHeight, 10 );
   $btn1->SetConstraints( $b1 );
 
-  my( $list ) = Wx::ListBox->new( $frame->panel, -1, wxPOINT( -1, -1 ),
-                                  wxSIZE( 200, 100 ) );
+  my( $list ) = Wx::ListBox->new( $frame->panel, -1, [-1, -1], [200, 100] );
 
   $list->Append( 'Apple' );
   $list->Append( 'Pear' );
@@ -88,7 +87,7 @@ sub OnInit {
   $list->SetConstraints( $b2 );
 
   my( $mtext ) = Wx::TextCtrl->new( $frame->panel, -1, 'Some text',
-                                    wxPOINT( -1, -1 ), wxSIZE( 150, 100 ) );
+                                    [-1, -1], [150, 100] );
 
   my( $b3 ) = Wx::LayoutConstraints->new();
   $b3->top->Below( $btn1, 5 );
@@ -174,7 +173,7 @@ sub TestSizers {
   $frame->Show( 1 );
 }
 
-use Wx qw(wxID_OK wxDefaultPosition wxDefaultSize wxTE_MULTILINE wxSIZE);
+use Wx qw(wxID_OK wxDefaultPosition wxDefaultSize wxTE_MULTILINE);
 use Wx qw(:sizer);
 
 sub TestNotebookSizers {
@@ -195,10 +194,10 @@ sub TestNotebookSizers {
   $notebook->AddPage( $panel, 'Page Two' );
   my( $panelsizer ) = Wx::BoxSizer->new( wxVERTICAL );
   my( $text ) = Wx::TextCtrl->new( $panel, -1, 'Textline 1', wxDefaultPosition,
-                                   wxSIZE( 250, -1 ) );
+                                   [250, -1] );
   $panelsizer->Add( $text, 0, wxGROW|wxALL, 30 );
   $text = Wx::TextCtrl->new( $panel, -1, 'Textline 2', wxDefaultPosition,
-                             wxSIZE( 250, -1 ) );
+                             [250, -1] );
   $panelsizer->Add( $text, 0, wxGROW|wxALL, 30 );
   my( $button2 ) = Wx::Button->new( $panel, -1, 'Hello' );
   $panelsizer->Add( $button2, 0, wxALIGN_RIGHT|wxLEFT|wxRIGHT|wxBOTTOM, 30 );
@@ -215,8 +214,8 @@ sub TestNotebookSizers {
   $dialog->Destroy();
 }
 
-use Wx qw(wxGREEN_PEN wxCYAN_BRUSH wxRED_PEN wxBLACK_PEN wxPOINT);
-
+use Wx qw(wxGREEN_PEN wxCYAN_BRUSH wxRED_PEN wxBLACK_PEN);
+use Wx qw(wxPOINT);
 sub Draw {
   my( $this, $dc ) = @_;
 

@@ -45,18 +45,17 @@ use vars qw(@ISA);
 
 use Wx::Event qw(EVT_CLOSE EVT_BUTTON);
 use Wx qw(wxDefaultSize wxDefaultValidator);
-use Wx qw(wxPOINT wxSIZE);
 
 sub new {
   my( $class ) = shift;
-  my( $this ) = $class->SUPER::new( undef, -1, $_[0], $_[1], wxSIZE( 250, 110 ) );
+  my( $this ) = $class->SUPER::new( undef, -1, $_[0], $_[1], [250, 110] );
 
   my( $ct ) = $this->{CELSIUS} =
-    Wx::TextCtrl->new( $this, -1, '0', wxPOINT( 20, 20 ), wxSIZE( 100, -1 ) );
-  my( $cb ) = Wx::Button->new( $this, -1, 'Celsius', wxPOINT( 130, 20 ) );
+    Wx::TextCtrl->new( $this, -1, '0', [20, 20], [100, -1] );
+  my( $cb ) = Wx::Button->new( $this, -1, 'Celsius', [130, 20] );
   my( $ft ) = $this->{FAHRENHEIT} = 
-    Wx::TextCtrl->new( $this, -1, '32', wxPOINT( 20, 50 ), wxSIZE( 100, -1 ) );
-  my( $fb ) = Wx::Button->new( $this, -1, 'Fahrenheit', wxPOINT( 130, 50 ) );
+    Wx::TextCtrl->new( $this, -1, '32', [20, 50], [100, -1] );
+  my( $fb ) = Wx::Button->new( $this, -1, 'Fahrenheit', [130, 50] );
 
   EVT_BUTTON( $this, $cb, \&CelsiusToFahrenheit );
   EVT_BUTTON( $this, $fb, \&FahrenheitToCelsius );
