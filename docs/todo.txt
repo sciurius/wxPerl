@@ -1,3 +1,30 @@
+MISC:
+
+* tut & man in one file
+
+* wxGrid
+    GetCellEditor
+    GetCellRenderer
+    GetDefaultEditor
+    GetDefaultRenderer
+    GetTable
+    SetCellEditor
+    SetCellRenderer
+    SetDefaultEditor
+    SetDefaultRenderer
+    SetTable
+    RegisterDataType
+    GetDefaultEditorForCell
+    GetDefaultRendererForCell
+    GetDefaultEditorForType
+    GetDefaultRendererForType
+
+* wxGridCellAttr
+    SetRenderer
+    SetEditor
+    GetRenderer
+    GetEditor
+
 PRIORITY NORMAL:
 
 * configuration system
@@ -53,9 +80,6 @@ PRIORITY LOW:
     find a better solution yhan just 'croak' if OnInit
     returns a false value
 
-* ::wxCreateFileTipProvider, ::wxShowTip
-    implement
-
 * Wx::Help
     enable all Wx::*Help* available in the current setup
 
@@ -92,6 +116,13 @@ PRIORITY LOW:
 DOCUMENTATTION:
 
 * Wx::MDIParentFrame
+
+* Wx::Grid
+    GetRow/ColLabelAlignment
+    GetCellAlignment
+
+* Wx::GridCellAttr memory management
+    GetAlignment
 
 -- not documented in wxWindows --
 
