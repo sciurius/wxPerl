@@ -1,5 +1,12 @@
 PRIORITY NORMAL:
 
+* configuration system
+
+* finish cpp/chkconfig.h
+
+* Wx::Colour::GetPixel
+    Does not work on wxMac
+
 * Wx::DataObject
     Wx::PlDataObject
 

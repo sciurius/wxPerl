@@ -65,7 +65,7 @@ INCLUDE: XS/MDIChildFrame.xs
 INCLUDE: XS/MDIParentFrame.xs
 
 #  //FIXME//tricky
-#if __WXMSW__
+#if defined(__WXMSW__)
 #undef XS
 #define XS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
 #endif

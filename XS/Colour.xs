@@ -44,11 +44,13 @@ Wx_Colour::Green()
 WXCOLORREF
 Wx_Colour::GetPixel()
 
-#elif defined( __WXGTK__ )
+#else
+#if defined( __WXGTK__ )
 
 int
 Wx_Colour::GetPixel()
 
+#endif
 #endif
 
 bool

@@ -1440,9 +1440,9 @@ void SetConstants()
         wxRELEASE_NUMBER / 1000000.0 );
 
     tmp = get_sv( "Wx::_platform", 0 );
-#if __WXMSW__
+#if defined(__WXMSW__)
     sv_setiv( tmp, 1 );
-#elif __WXGTK__
+#elif defined(__WXGTK__)
     sv_setiv( tmp, 2 );
 #else
     sv_setiv( tmp, 3 );

@@ -66,7 +66,7 @@ INCLUDE: XS/HelpProvider.xs
 INCLUDE: XS/ContextHelp.xs
 
 #  //FIXME//tricky
-#if __WXMSW__
+#if defined(__WXMSW__)
 #undef XS
 #define XS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
 #endif

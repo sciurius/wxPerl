@@ -63,9 +63,13 @@ MODULE=Wx_Evt PACKAGE=Wx::Event
 # GetObjectType
 # SetEventObject
 
+#if WXPERL_W_VERSION_LE( 2, 3, 1 )
+
 Wx_Event*
 Wx_Event::new( id = 0 )
     int id
+
+#endif
 
 void
 Wx_Event::DESTROY()

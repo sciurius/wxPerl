@@ -277,7 +277,7 @@ Wx_Window::GetForegroundColour()
 Wx_Window*
 Wx_Window::GetGrandParent()
 
-#if __WXMSW__
+#if defined(__WXMSW__)
 
 long
 Wx_Window::GetHandle()

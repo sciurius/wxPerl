@@ -45,8 +45,12 @@ Wx_ListEvent::GetOldIndex()
 int
 Wx_ListEvent::GetColumn()
 
+#if WXPERL_W_VERSION_LE( 2, 3, 1 )
+
 bool
 Wx_ListEvent::Cancelled()
+
+#endif
 
 Wx_Point*
 Wx_ListEvent::GetPoint()

@@ -41,7 +41,7 @@ WXPL_EXTERN_C_END
 #include <wx/module.h>
 #include "cpp/chkconfig.h"
 
-#if __WXMSW__
+#if defined(__WXMSW__)
 #include <wx/msw/private.h>
 #endif
 
@@ -145,7 +145,7 @@ BOOT:
   SV* tmp = get_sv( "Wx::_exports", 1 );
   sv_setiv( tmp, (IV)(void*)&st_wxPliHelpers );
 
-#if __WXMSW__
+#if defined(__WXMSW__)
 
 void
 _SetInstance( instance )
@@ -204,7 +204,7 @@ INCLUDE: XS/Stream.xs
 INCLUDE: XS/ClassInfo.xs
 
 #  //FIXME// tricky
-#if __WXMSW__
+#if defined(__WXMSW__)
 #undef XS
 #define XS( name ) __declspec(dllexport) void name( pTHXo_ CV* cv )
 #endif
