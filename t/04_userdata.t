@@ -22,7 +22,7 @@ sub DESTROY { &{$_[0][0]} }
 
 package DataFrame;
 
-use Test::More 'tests' => 41;
+use Test::More 'tests' => 45;
 
 use strict;
 use base 'Wx::Frame';
@@ -88,7 +88,7 @@ sub new {
   ok( $ctrldelete, 'Wx::TreeCtrl: deleting the tree deletes the data' );
 
   ############################################################################
-  # wxListBox
+  # wxListBox & co.
   ############################################################################
 
   my $list = Wx::ListBox->new( $this, -1 );
@@ -102,10 +102,11 @@ sub new {
               [ $combo, 'Wx::ComboBox' ],
               [ $checklist, 'Wx::CheckListBox' ], ) {
   SKIP: {
-      skip( "wxMSW wxCheckListBox can't store client data yet", 8 )
-        if Wx::wxMSW;
       my( $list, $name ) = @$x;
       ( $deleting, $setting, $ctrldelete ) = ( 0, 0, 0 );
+
+      skip( "wxMSW wxCheckListBox can't store client data yet", 8 )
+        if Wx::wxMSW && $name eq 'Wx::CheckListBox';
 
       # diag "starting tests for $name";
       my $data = 'Foo';
@@ -142,6 +143,28 @@ sub new {
       ok( $ctrldelete, "$name: deleting the control deletes the data" );
     }
   }
+
+  ############################################################################
+  # wxListCtrl
+  ############################################################################
+
+  my $listctrl = Wx::ListCtrl->new( $this, -1, [-1, -1], [-1, -1],
+                                    Wx::wxLC_REPORT() );
+  $listctrl->InsertStringItem( 0, 'text0' );
+  $listctrl->InsertStringItem( 1, 'text1' );
+  $listctrl->InsertStringItem( 2, 'text2' );
+
+  $listctrl->SetItemData( 0, 123 );
+  $listctrl->SetItemData( 1, 456 );
+  $listctrl->SetItemData( 2, 789 );
+
+  is( $listctrl->GetItemData( 0 ), 123, "Wx::ListCtrl first item data" );
+  is( $listctrl->GetItemData( 1 ), 456, "Wx::ListCtrl second item data" );
+  is( $listctrl->GetItemData( 2 ), 789, "Wx::ListCtrl third item data" );
+
+  $listctrl->SetItemData( 1, 135 );
+
+  is( $listctrl->GetItemData( 1 ), 135, "Wx::ListCtrl, changing item data" );
 
   $this->Destroy;
 
