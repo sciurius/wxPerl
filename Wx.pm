@@ -74,7 +74,8 @@ sub END {
 
 #use Wx::_Ovl;
 
-*_match = \&_xsmatch;
+sub _match(\@$;$$) { &_xsmatch( [@{shift()}],@_ ) }
+#*_match = \&_xsmatch;
 
 =for comment
 
