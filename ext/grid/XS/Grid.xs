@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.21 2005/01/04 17:15:08 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.22 2005/01/05 14:50:23 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -630,6 +630,10 @@ wxGrid::RegisterDataType( typeName, renderer, editor )
     wxString typeName
     wxGridCellRenderer* renderer
     wxGridCellEditor* editor
+  CODE:
+    renderer->IncRef();
+    editor->IncRef();
+    THIS->RegisterDataType( typeName, renderer, editor );
 
 void
 wxGrid::SaveEditControlValue()
