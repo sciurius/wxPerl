@@ -286,6 +286,23 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
         return FALSE;                                                         \
   }
 
+#define DEC_V_CBACK_WXSTRING__VOID( METHOD ) \
+  wxString METHOD()
+
+#define DEF_V_CBACK_WXSTRING__VOID_pure( CLASS, BASE, METHOD )\
+  wxString CLASS::METHOD()                                                    \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR ); \
+        wxString val;                                                         \
+        WXSTRING_INPUT( val, dummy, ret );                                    \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    }                                                                         \
+    return wxEmptyString;                                                     \
+  }
+
 #endif // _WXPERL_V_CBACK_H
 
 // Local variables: //
