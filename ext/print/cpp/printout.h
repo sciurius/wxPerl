@@ -61,9 +61,9 @@ void wxPlPrintout::GetPageInfo( int* minPage, int* maxPage,
         XPUSHs( m_callback.GetSelf() );
         PUTBACK;
 
-        int items = call_sv( m_callback.GetMethod(), 0 );
+        int items = call_sv( m_callback.GetMethod(), G_ARRAY );
 
-        if( items != 0 )
+        if( items != 4 )
         {
             croak( "wxPlPrintout::GetPageInfo, expected 4 values, got %i",
                    items );
@@ -71,10 +71,11 @@ void wxPlPrintout::GetPageInfo( int* minPage, int* maxPage,
 
         SPAGAIN;
         SV* tmp;
-        tmp = POPs; *minPage = SvIV( tmp );
-        tmp = POPs; *maxPage = SvIV( tmp );
-        tmp = POPs; *pageFrom = SvIV( tmp );
+        // pop in reverse order...
         tmp = POPs; *pageTo = SvIV( tmp );
+        tmp = POPs; *pageFrom = SvIV( tmp );
+        tmp = POPs; *maxPage = SvIV( tmp );
+        tmp = POPs; *minPage = SvIV( tmp );
         PUTBACK;
 
         FREETMPS;
