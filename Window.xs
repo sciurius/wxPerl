@@ -1018,11 +1018,15 @@ Wx_Window::WarpPointer( x, y )
     int y
 
 INCLUDE: XS/Accelerators.xs
+
 INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/SplitterWindow.xs |
+
 INCLUDE: XS/ScrolledWindow.xs
 INCLUDE: XS/Validators.xs
 INCLUDE: XS/Constraint.xs
+
 INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/Sizer.xs |
+
 INCLUDE: XS/SashWindow.xs
 
 MODULE=Wx_Win PACKAGE=Wx::Window

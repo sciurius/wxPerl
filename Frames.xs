@@ -29,6 +29,7 @@ INCLUDE: XS/Frame.xs
 INCLUDE: XS/StatusBar.xs
 INCLUDE: XS/ToolBar.xs
 INCLUDE: XS/Wizard.xs
+
 INCLUDE: perl script/xsubppp.pl --typemap=typemap.xsp XS/IconBundle.xsp |
 
 INCLUDE: XS/ColourDialog.xs
