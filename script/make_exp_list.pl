@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: make_exp_list.pl,v 1.14 2003/05/04 17:32:14 mbarbon Exp $
+## RCS-ID:      $Id: make_exp_list.pl,v 1.15 2003/05/26 20:35:28 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -86,6 +86,9 @@ print OUT <<EOT;
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
+
+package Wx::Wx_Exp; # for RPM
+
 EOT
 
 foreach my $package ( sort keys %packages ) {

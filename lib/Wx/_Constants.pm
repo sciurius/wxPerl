@@ -4,11 +4,13 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: _Constants.pm,v 1.10 2003/05/04 17:31:56 mbarbon Exp $
+## RCS-ID:      $Id: _Constants.pm,v 1.11 2003/05/26 20:35:28 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
+
+package Wx::_Constants; # for RPM
 
 package Wx;
 
