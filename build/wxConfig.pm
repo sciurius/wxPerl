@@ -166,7 +166,7 @@ sub wxWriteMakefile {
 
   foreach my $i ( keys %params ) {
     if( $i eq 'WXLIB' ) {
-      $params{LIBS} .= join ' ', map { $Arch->wx_lib( $_ ) }
+      $params{LIBS} .= join ' ', map { $Arch->wx_contrib_lib( $_ ) }
         @{ ( ref( $params{$i} ) ? $params{$i} : [ $params{$i} ] ) };
       delete $params{WXLIB};
     }
@@ -186,7 +186,8 @@ sub wxWriteMakefile {
   }
 
   require Any_OS; # perl 5.004_04 needs this...
-  $params{XSOPT} = ' -C++ -noprototypes ' unless exists $params{XSOPT};
+  $params{XSOPT} = ' -C++ -nolinenumbers -noprototypes '
+    unless exists $params{XSOPT};
   $params{CONFIGURE} = \&Any_OS::get_config
     unless exists $params{CONFIGURE};
   $params{TYPEMAPS} = [ MM->catfile( top_dir(), 'typemap' ) ]

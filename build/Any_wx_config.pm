@@ -91,7 +91,7 @@ sub configure {
   \%config;
 }
 
-sub wx_lib {
+sub wx_contrib_lib {
   my( $this, $lib ) = @_;
   $lib =~ s/^\s*(.*?)\s*/$1/;
 

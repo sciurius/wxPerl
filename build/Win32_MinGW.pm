@@ -31,11 +31,13 @@ sub my_wx_config {
   return $t;
 }
 
-sub wx_lib {
+sub wx_contrib_lib {
   my( $this, $lib ) = @_;
   $lib =~ s/^\s*(.*?)\s*/$1/;
 
-  return ' ' . MM->catfile( wx_config( 'wxdir' ), 'lib',
+  return ' ' . MM->catfile( wx_config( 'wxdir' ),
+                            ( wx_version() < 2.003 ? 'contrib' : () ),
+                            'lib',
                             'lib' . $lib . $Config{lib_ext} ) . ' ';
 }
 

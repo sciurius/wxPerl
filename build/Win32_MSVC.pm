@@ -33,13 +33,14 @@ sub my_wx_config {
   }
 }
 
-sub wx_lib {
+sub wx_contrib_lib {
   my( $this, $lib ) = @_;
   my $suff = $wxConfig::debug_mode ? 'h' : '';
 
   $lib =~ s/^\s*(.*?)\s*/$1/;
 
-  return ' ' . MM->catfile( wx_config( 'wxdir' ), 'lib',
+  return ' ' . MM->catfile( wx_config( 'wxdir' ),
+                            ( wx_version() < 2.003 ? 'contrib' : () ), 'lib',
                             $lib . $suff . $Config{lib_ext} ) . ' ';
 }
 
