@@ -40,10 +40,9 @@ void _wxScrolledWindow::OnDraw( wxDC& dc )
     if( m_callback.FindCallback( "OnDraw" ) )
     {
         SV* val = _object_2_sv( newSViv( 0 ), &dc );
-        SV* ret = m_callback.CallCallback( G_SCALAR|G_DISCARD, "S", val );
+        m_callback.CallCallback( G_SCALAR|G_DISCARD, "S", val );
         sv_setiv( SvRV( val ), 0 );
         SvREFCNT_dec( val );
-        SvREFCNT_dec( ret );
     } else
         wxScrolledWindow::OnDraw( dc );
 }

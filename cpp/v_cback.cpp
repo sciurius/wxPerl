@@ -69,12 +69,18 @@ SV* _wxVirtualCallback::CallCallback( I32 flags, const char* argtypes, ... )
 
     call_sv( m_method, flags );
 
-    SPAGAIN;
+    SV* retval;
 
-    SV* retval = POPs;
-    SvREFCNT_inc( retval );
+    if( ( flags & G_DISCARD ) == 0 ) {
+        SPAGAIN;
 
-    PUTBACK;
+        retval = POPs;
+        SvREFCNT_inc( retval );
+
+        PUTBACK;
+    } else
+        retval = 0;
+
     FREETMPS;
     LEAVE;
 
