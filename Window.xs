@@ -319,12 +319,18 @@ Wx_Window::GetForegroundColour()
 Wx_Window*
 Wx_Window::GetGrandParent()
 
-#if defined(__WXMSW__)
-
-long
+IV
 Wx_Window::GetHandle()
-
-#endif // __WXMSW__
+  CODE:
+#ifdef __WXMSW__
+    WXHWND handle = THIS->GetHandle();
+    RETVAL = handle;
+#else
+    WXWidget handle = THIS->GetHandle();
+    RETVAL = PTR2IV(handle);
+#endif
+  OUTPUT:
+    RETVAL
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
