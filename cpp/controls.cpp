@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.cpp,v 1.34 2003/11/23 07:52:40 mbarbon Exp $
+// RCS-ID:      $Id: controls.cpp,v 1.35 2004/11/01 16:30:16 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -43,8 +43,10 @@ double listctrl_constant( const char* name, int arg )
       r( wxEVT_COMMAND_LIST_END_LABEL_EDIT );
       r( wxEVT_COMMAND_LIST_DELETE_ITEM );
       r( wxEVT_COMMAND_LIST_DELETE_ALL_ITEMS );
+#if WXPERL_W_VERSION_LE( 2, 5, 2 )
       r( wxEVT_COMMAND_LIST_SET_INFO );
       r( wxEVT_COMMAND_LIST_GET_INFO );
+#endif
       r( wxEVT_COMMAND_LIST_ITEM_SELECTED );
       r( wxEVT_COMMAND_LIST_ITEM_DESELECTED );
       r( wxEVT_COMMAND_LIST_KEY_DOWN );

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.24 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.25 2004/11/01 16:30:16 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,6 +12,7 @@
 
 #include <wx/frame.h>
 #include <wx/menu.h>
+#include <wx/icon.h>
 #if wxPERL_USE_MINIFRAME
 #include <wx/minifram.h>
 #endif
@@ -86,6 +87,18 @@ wxFrame::GetClientAreaOrigin()
     RETVAL = new wxPoint( THIS->GetClientAreaOrigin() );
   OUTPUT:
     RETVAL
+
+wxIcon*
+wxFrame::GetIcon()
+  CODE:
+    RETVAL = new wxIcon( THIS->GetIcon() );
+  OUTPUT: RETVAL
+
+wxIconBundle*
+wxFrame::GetIcons()
+  CODE:
+    RETVAL = new wxIconBundle( THIS->GetIcons() );
+  OUTPUT: RETVAL
 
 wxMenuBar*
 wxFrame::GetMenuBar()

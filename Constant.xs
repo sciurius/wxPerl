@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.107 2004/08/28 19:24:41 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.108 2004/11/01 16:30:08 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -456,6 +456,8 @@ static wxPlINH inherit[] =
     I( WizardEvent,     NotifyEvent )
 
     I( SplitterEvent,   NotifyEvent )
+
+    I( NavigationKeyEvent, Event )
 
     { 0, 0 }
 };

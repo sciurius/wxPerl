@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: App.xs,v 1.24 2004/07/10 21:46:40 mbarbon Exp $
+## RCS-ID:      $Id: App.xs,v 1.25 2004/11/01 16:30:16 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -188,11 +188,26 @@ void
 wxApp::SetUseBestVisual( flag )
     bool flag
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
-
 void
 wxApp::Yield()
   CODE:
     THIS->wxApp::Yield();
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+
+void
+wxApp::Exit()
+
+bool
+wxApp::ProcessIdle()
+
+bool
+wxApp::SendIdleEvents( window, event )
+    wxWindow* window
+    wxIdleEvent* event
+  C_ARGS: window, *event
+
+bool
+wxApp::IsActive()
 
 #endif
