@@ -40,8 +40,8 @@ sub EVT_ACTIVATE_APP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ACTIVATE_APP, $_[1
 # CommandEvent
 #
 
-sub EVT_COMMAND($$$) { $_[0]->Connect( $_[1], -1, $_[1], $_[2] ); }
-sub EVT_COMMAND_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], $_[3], $_[4] ); }
+sub EVT_COMMAND($$$$) { $_[0]->Connect( $_[1], -1, $_[2], $_[3] ); }
+sub EVT_COMMAND_RANGE($$$$$) { $_[0]->Connect( $_[1], $_[2], $_[3], $_[4] ); }
 sub EVT_BUTTON($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_BUTTON_CLICKED, $_[2] ); }
 sub EVT_CHECKBOX($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_CHECKBOX_CLICKED, $_[2] ); }
 sub EVT_CHOICE($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_CHOICE_SELECTED, $_[2] ); }
@@ -70,6 +70,7 @@ sub EVT_COMMAND_SET_FOCUS($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_S
 sub EVT_COMMAND_KILL_FOCUS($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_KILL_FOCUS, $_[2] ); }
 sub EVT_COMMAND_ENTER($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_ENTER, $_[2] ); }
 sub EVT_TOGGLEBUTTON($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, $_[2] ); }
+sub EVT_CHECKLISTBOX($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_CHECKLISTBOX_TOGGLED, $_[2] ); }
 
 #
 # CloseEvent
@@ -398,6 +399,8 @@ no strict;
 # Event hierarchy
 #
 
+package Wx::PlEvent;         @ISA = qw(Wx::Event);
+package Wx::PlCommandEvent;  @ISA = qw(Wx::CommandEvent);
 package Wx::ActivateEvent;   @ISA = qw(Wx::Event);
 package Wx::CommandEvent;    @ISA = qw(Wx::Event);
 package Wx::CloseEvent;      @ISA = qw(Wx::Event);
