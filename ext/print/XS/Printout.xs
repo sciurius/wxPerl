@@ -55,7 +55,7 @@ Wx_Printout::GetPageInfo()
   PREINIT:
     int minPage, maxPage, pageFrom, pageTo;
   PPCODE:
-    THIS->GetPageInfo( &minPage, &maxPage, &pageFrom, &pageTo );
+    THIS->wxPrintout::GetPageInfo( &minPage, &maxPage, &pageFrom, &pageTo );
     EXTEND( SP, 4 );
     PUSHs( sv_2mortal( newSViv( minPage ) ) );
     PUSHs( sv_2mortal( newSViv( maxPage ) ) );
