@@ -55,18 +55,45 @@
 typedef wxDataObjectBase::Direction Direction;
 typedef wxDataFormat::NativeFormat  NativeFormat;
 
+#include <wx/dataobj.h>
+
+void SetDNDConstants()
+{
+    SV* tmp;
+
+    tmp = get_sv( "Wx::_df_invalid", 0 );
+    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_INVALID ) );
+
+    tmp = get_sv( "Wx::_df_text", 0 );
+    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_TEXT ) );
+
+    tmp = get_sv( "Wx::_df_bitmap", 0 );
+    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_BITMAP ) );
+
+    tmp = get_sv( "Wx::_df_metafile", 0 );
+    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_METAFILE ) );
+
+    tmp = get_sv( "Wx::_df_filename", 0 );
+    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_FILENAME ) );
+}
+
 MODULE=Wx__DND
 
 BOOT:
 #if !WXPL_MSW_EXPORTS
   INIT_PLI_HELPERS( wx_pli_helpers );
 #endif
-
+  
 INCLUDE: XS/DataObject.xs
 INCLUDE: XS/DropFiles.xs
 INCLUDE: XS/Clipboard.xs
 INCLUDE: XS/DropSource.xs
 INCLUDE: XS/DropTarget.xs
+
+MODULE=Wx__DND PACKAGE=Wx
+
+void
+SetDNDConstants()
 
 #  //FIXME//tricky
 #if __WXMSW__

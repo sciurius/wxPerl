@@ -45,6 +45,26 @@ package Wx::FileDropTarget;     @ISa = qw(Wx::DropTarget);
 
 use strict;
 
+#
+# constants
+#
+
+package Wx;
+
+use vars qw($_df_invalid $_df_bitmap $_df_text $_df_metafile $_df_filename);
+
+# !parser: sub { $_[0] =~ m/^\s*sub\s+(wx\w+)[^\}]*\}\s*(?:\#(.*))?$/ }
+# !package: Wx
+# !tag: dnd clipboard
+
+sub wxDF_INVALID { $_df_invalid }
+sub wxDF_TEXT { $_df_text }
+sub wxDF_BITMAP { $_df_bitmap }
+sub wxDF_METAFILE { $_df_metafile }
+sub wxDF_FILENAME { $_df_filename }
+
+SetDNDConstants();
+
 1;
 
 # Local variables: #

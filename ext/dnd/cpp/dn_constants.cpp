@@ -34,12 +34,6 @@ double dnd_constant( const char* name, int arg )
         r( Both );
         break;
     case 'D':
-        r( wxDF_INVALID );
-        r( wxDF_TEXT );
-        r( wxDF_BITMAP );
-        r( wxDF_METAFILE );
-        r( wxDF_FILENAME );
-
         r( wxDragError );
         r( wxDragNone );
         r( wxDragMove );
