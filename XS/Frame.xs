@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.21 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.22 2004/06/20 08:24:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -121,6 +121,14 @@ wxFrame::IsFullScreen()
 void
 wxFrame::Maximize( maximize )
     bool maximize
+
+#ifdef __WXMAC__
+
+void
+wxFrame::MacSetMetalAppearance( ismetal )
+    bool ismetal
+
+#endif
 
 wxStatusBar*
 wxFrame::OnCreateStatusBar( number, style, id, name )
