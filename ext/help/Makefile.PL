@@ -27,8 +27,14 @@ WriteMakefile( NAME => 'Wx::Help',
 
 package MY;
 
-# not needed, and silences 5.005
-# use wxConfig qw(:MY);
+# dirty hack...
+BEGIN {
+  undef *constants;
+  undef *top_targets;
+  undef *depend;
+  undef *dynamic_lib;
+}
+use wxConfig qw(:MY);
 
 # Local variables: #
 # mode: cperl #

@@ -190,6 +190,8 @@ sub depend {
 # considers files included via #include "..." or INCLUDE: ...
 # (not #include <...>) and does not take into account preprocessor directives
 #
+sub scan_xs($$);
+
 sub scan_xs($$) {
   my( $xs, $incpath ) = @_;
 
@@ -265,7 +267,9 @@ sub obj_from_src {
   else { return $xs[0] };
 }
 
-do "$package_to_use.pm" || die "$package_to_use: $!/$@";
+use vars qw($included);
+
+unless( $included ) { do "$package_to_use.pm"; $included = 1; }
 
 package MY;
 
