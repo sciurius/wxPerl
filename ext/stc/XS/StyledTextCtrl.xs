@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.13 2004/03/20 17:52:54 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.14 2004/04/10 20:36:25 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -1067,6 +1067,12 @@ wxStyledTextCtrl::MarkerDefine( markerNumber, markerSymbol, foreground, backgrou
     wxColour* background
   CODE:
     THIS->MarkerDefine( markerNumber, markerSymbol, *foreground, *background );
+
+void
+wxStyledTextCtrl::MarkerDefineBitmap( markerNumber, bmp )
+    int markerNumber
+    wxBitmap* bmp
+  C_ARGS: markerNumber, *bmp
 
 void
 wxStyledTextCtrl::MarkerSetForeground( markerNumber, fore )
