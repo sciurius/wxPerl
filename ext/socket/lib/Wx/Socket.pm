@@ -50,30 +50,30 @@ sub MAKE_EVT {
   my $type = shift ;
   my( $handler, $sock, $callback ) = @_;
   &ENABLE_SKEVT($sock , $handler , $callback) ;
-  $sock->{EVT}{SUB}{$type} = $callback ;
-  if (!$sock->{EVT}{CONNECT}) {
-    $handler->Connect( $handler , $sock->{EVT}{ID} , &Wx::wxEVT_SOCKET ,
+  $sock->{_WXEVT}{SUB}{$type} = $callback ;
+  if (!$sock->{_WXEVT}{CONNECT}) {
+    $handler->Connect( $handler , $sock->{_WXEVT}{ID} , &Wx::wxEVT_SOCKET ,
                        sub{ &CHECK_EVT_TYPE($sock,@_) } );
-    $sock->{EVT}{CONNECT} = 1 ;
+    $sock->{_WXEVT}{CONNECT} = 1 ;
   }
 }
 
 sub ENABLE_SKEVT {
   my ( $sock , $parent ) = @_ ;
-  if ( $sock->{EVT}{ENABLE} ) { return ;}
-  $sock->{EVT}{ID} = ++$EVTID ;
-  $sock->SetEventHandler($parent, $sock->{EVT}{ID}) ;
+  if ( $sock->{_WXEVT}{ENABLE} ) { return ;}
+  $sock->{_WXEVT}{ID} = ++$EVTID ;
+  $sock->SetEventHandler($parent, $sock->{_WXEVT}{ID}) ;
   $sock->SetNotify(wxSOCKET_INPUT_FLAG|wxSOCKET_OUTPUT_FLAG|
                    wxSOCKET_CONNECTION_FLAG|wxSOCKET_LOST_FLAG) ;
   $sock->Notify(1) ;
-  $sock->{EVT}{ENABLE} = 1 ;
+  $sock->{_WXEVT}{ENABLE} = 1 ;
 }
 
 sub CHECK_EVT_TYPE {
   my ( $sock , $this , $evt ) = @_ ;
   #print "$sock\n" ;
   my $evt_type = $evt->GetSocketEvent ;
-  my $sub = $sock->{EVT}{SUB}{$evt_type} || $sock->{EVT}{SUB}{all} ;
+  my $sub = $sock->{_WXEVT}{SUB}{$evt_type} || $sock->{_WXEVT}{SUB}{all} ;
   if ($sub) { return &$sub($sock , $this , $evt) ;}
   return( undef ) ;
 }

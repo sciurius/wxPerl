@@ -1669,6 +1669,8 @@ static double constant( const char *name, int arg )
     r( wxTE_AUTO_URL );                 // textctrl
 #endif
     r( wxTHICK_FRAME );                 // frame dialog
+    r( wxTINY_CAPTION_HORIZ );
+    r( wxTINY_CAPTION_VERT );
     r( wxTOP );                         // sizer layout constraints
     r( wxTRANSPARENT_WINDOW );          // window
     r( wxTRANSPARENT );                 // dc brush pen
@@ -2026,6 +2028,9 @@ _get_packages()
 #endif
 #if wxPERL_USE_PRINT
     "use Wx::Print;"
+#endif
+#if wxPERL_USE_SOCKET
+    "use Wx::Socket;"
 #endif
     ;
 
