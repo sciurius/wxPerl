@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/09/2001
-## RCS-ID:      $Id: Printing.pm,v 1.4 2004/10/19 20:28:06 mbarbon Exp $
+## RCS-ID:      $Id: Printing.pm,v 1.5 2005/03/14 20:59:26 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -82,9 +82,10 @@ sub OnPreview {
   my $prev = PrintingDemoPrintout->new( $this->canvas, "Preview" );
   my $print = PrintingDemoPrintout->new( $this->canvas, "Print" );
   my $preview = Wx::PrintPreview->new( $prev, $print );
-  my $frame = Wx::PreviewFrame->new( $preview, wxTheApp->GetTopWindow,
-                                     "Printing Demo Preview" );
+  my $frame = PrintingDemoPreviewFrame->new( $preview, wxTheApp->GetTopWindow,
+                                     "Printing Demo Preview", [-1, -1], [600, -1] );
   $frame->Initialize();
+
   $frame->Show( 1 );
 }
 
@@ -96,6 +97,34 @@ sub OnPrint {
   $printer->Print( $this, $printout, 1 );
 
   $printout->Destroy;
+}
+
+package PrintingDemoPreviewFrame;
+
+use base 'Wx::PlPreviewFrame';
+
+sub CreateControlBar {
+    Wx::LogMessage( 'PrintingDemoPreviewFrame::CreateControlBar' );
+
+    $_[0]->SetPreviewControlBar
+      ( PrintingDemoControlBar->new( $_[0]->GetPrintPreview, $_[0] ) );
+    $_[0]->GetPreviewControlBar->CreateButtons;
+}
+
+package PrintingDemoControlBar;
+
+use base 'Wx::PlPreviewControlBar';
+
+sub new {
+    Wx::LogMessage( 'PrintingDemoControlBar::new' );
+
+    $_[0]->SUPER::new( $_[1], 0xffffffff, $_[2], [0, 0], [400, 40] );
+}
+
+sub CreateButtons {
+    Wx::LogMessage( 'PrintingDemoControlBar::CreateButtons' );
+
+    shift->SUPER::CreateButtons;
 }
 
 package PrintingDemoPrintout;

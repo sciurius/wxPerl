@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      $Id: Makefile.PL,v 1.9 2004/12/21 21:12:55 mbarbon Exp $
-## Copyright:   (c) 2001-2004 Mattia Barbon
+## RCS-ID:      $Id: Makefile.PL,v 1.10 2005/03/14 20:59:26 mbarbon Exp $
+## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,6 +16,7 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME             => 'Wx::Print',
                  VERSION_FROM     => 'lib/Wx/Print.pm',
+                 clean            => { FILES => 'cpp/previewcontrolbar.h cpp/previewframe.h' }
                  WX_CORE_LIB      => 'core base',
                );
 

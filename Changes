@@ -3,6 +3,9 @@ Revision history for Perl extension Wx.
 0.23
 	- Added wxArtProvider and Wx::PlArtProvider
           (thanks to Matthew "Cheetah" Gabeler-Lee).
+        - Compatibility with wxWidgets 2.5.4.
+	- Added Wx::PlPreviewFrame, Wx::PlPreviewControlBar,
+	  Wx::PrintFactory.
 
 0.22  Tue Jan  4 23:07:56 CET 2005
 	- Alpha channel support for Wx::Image (2.5).

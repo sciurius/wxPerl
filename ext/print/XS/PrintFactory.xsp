@@ -1,0 +1,76 @@
+#############################################################################
+## Name:        ext/print/XS/PrintFactory.xsp
+## Purpose:     XS++ for Wx::PrintFactory
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     23/05/2004
+## RCS-ID:      $Id: PrintFactory.xsp,v 1.1 2005/03/14 20:59:27 mbarbon Exp $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+%typemap{wxPrintFactory*}{simple};
+%typemap{wxPlPrintFactory*}{simple};
+%typemap{wxPrinterBase*}{simple};
+%typemap{wxPrintPreviewBase*}{simple};
+%typemap{wxPrintDialogBase*}{simple};
+%typemap{wxPageSetupDialogBase*}{simple};
+%typemap{wxPrintData*}{simple};
+%typemap{wxPrintDialogData*}{simple};
+%typemap{wxPageSetupDialogData*}{simple};
+%typemap{wxPrintout*}{simple};
+
+%name{Wx::PrintFactory} class wxPrintFactory
+{
+    wxPrinterBase *CreatePrinter( wxPrintDialogData* data );
+
+    %name{CreatePrintPreviewDD}
+    wxPrintPreviewBase *CreatePrintPreview( wxPrintout *preview, 
+                                            wxPrintout *printout = NULL, 
+                                            wxPrintDialogData *data = NULL );
+    %name{CreatePrintPreviewD}
+    wxPrintPreviewBase *CreatePrintPreview( wxPrintout *preview, 
+                                            wxPrintout *printout, 
+                                            wxPrintData *data );
+
+    %name{CreatePrintDialogDD}
+    wxPrintDialogBase *CreatePrintDialog( wxWindow *parent, 
+                                          wxPrintDialogData *data = NULL );
+    %name{CreatePrintDialogD}
+    wxPrintDialogBase *CreatePrintDialog( wxWindow *parent, 
+                                          wxPrintData *data );
+                                                  
+    wxPageSetupDialogBase *CreatePageSetupDialog( wxWindow *parent,
+                                                  wxPageSetupDialogData * data = NULL );
+                                                  
+    bool HasPrintSetupDialog();
+    wxDialog *CreatePrintSetupDialog( wxWindow *parent, wxPrintData *data );
+    bool HasOwnPrintToFile();
+    bool HasPrinterLine();
+    wxString CreatePrinterLine();
+    bool HasStatusLine();
+    wxString CreateStatusLine();
+};
+
+%{
+MODULE=Wx PACKAGE=Wx::PrintFactory
+
+void
+wxPrintFactory::SetPrintFactory( factory )
+    wxPrintFactory* factory
+  CODE:
+    wxPrintFactory::SetPrintFactory( factory );
+
+wxPrintFactory*
+wxPrintFactory::GetFactory()
+  CODE:
+    RETVAL = wxPrintFactory::GetFactory();
+  OUTPUT: RETVAL
+%}
+
+#endif
