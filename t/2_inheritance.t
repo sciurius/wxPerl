@@ -2,6 +2,8 @@
 
 use strict;
 use Wx;
+use Wx::Html;
+use Wx::Help;
 
 my( @kv );
 my( $ci, $cn );
