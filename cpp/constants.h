@@ -37,15 +37,15 @@ private:
 };
 
 // duplicated from helpers.h
-WXPLDLL extern void FUNCPTR( wxPli_add_constant_function )
+extern void FUNCPTR( wxPli_add_constant_function )
     ( double (**)( const char*, int ) );
-WXPLDLL extern void FUNCPTR( wxPli_remove_constant_function )
+extern void FUNCPTR( wxPli_remove_constant_function )
     ( double (**)( const char*, int ) );
 
 inline wxPlConstants::wxPlConstants( PL_CONST_FUNC function )
     :m_function( function )
 {
-#if defined( WXPL_EXT ) && !WXPL_MSW_EXPORTS && !defined( WXPL_STATIC )
+#if defined( WXPL_EXT ) && !defined( WXPL_STATIC )
     dTHX;
     // GRR! init helpers...
     SV* wxpli_tmp = get_sv( "Wx::_exports", 1 );

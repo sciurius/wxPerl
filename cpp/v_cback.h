@@ -15,7 +15,7 @@
 
 #include <stddef.h>
 
-class WXPLDLL wxPliVirtualCallback:public wxPliSelfRef
+class wxPliVirtualCallback : public wxPliSelfRef
 {
 public:
     wxPliVirtualCallback( const char* package );

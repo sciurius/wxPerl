@@ -405,7 +405,8 @@ Wx_Region::SubtractRect( rect )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 ) && !defined(__WXMOTIF__)
+#if WXPERL_W_VERSION_GE( 2, 3, 3 ) && !defined(__WXMOTIF__) \
+    && !defined(__WXMAC__)
 
 bool
 Wx_Region::Offset( x, y )

@@ -41,7 +41,6 @@ int  WXDLLEXPORT wxEntryStart( int argc, char** argv );
 int  WXDLLEXPORT wxEntryInitGui();
 void WXDLLEXPORT wxEntryCleanup();
 
-#define _WXP_DEFINE_CLASSNAME 1
 #include "cpp/typedef.h"
 
 #include "cpp/v_cback.h"

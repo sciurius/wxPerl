@@ -13,48 +13,17 @@
 #ifndef _WXPERL_TYPEDEF_H
 #define _WXPERL_TYPEDEF_H
 
-// forward declares and typedefs a class wxClass to Wx_Class
-// and declares the string holding the class name
-#if ( defined( WXPL_EXT ) && !WXPL_MSW_EXPORTS && !defined( WXPL_STATIC ) )
-#undef _WXP_DEFINE_CLASSNAME
-#define _WXP_DEFINE_CLASSNAME 1
-#endif
-
-#if 0 // not necessary anymore // _WXP_DEFINE_CLASSNAME
-
 #define FD_TD( name ) \
   class wx##name; \
-  typedef wx##name Wx_##name; \
-  extern "C" WXPLDLL const char wxPl##name##Name[] = "Wx::" #name; 
+  typedef wx##name Wx_##name;
 
 #define FD_TDS( name ) \
   struct wx##name; \
-  typedef wx##name Wx_##name; \
-  extern "C" WXPLDLL const char wxPl##name##Name[] = "Wx::" #name; 
+  typedef wx##name Wx_##name;
 
 #define FD_TD_NAME( name, cls ) \
   class wx##cls; \
-  typedef wx##cls Wx_##name; \
-  extern "C" WXPLDLL const char wxPl##name##Name[] = "Wx::" #name;
-
-#else
-
-#define FD_TD( name ) \
-  class wx##name; \
-  typedef wx##name Wx_##name; \
-  extern "C" WXPLDLL const char wxPl##name##Name[];
-
-#define FD_TDS( name ) \
-  struct wx##name; \
-  typedef wx##name Wx_##name; \
-  extern "C" WXPLDLL const char wxPl##name##Name[]; 
-
-#define FD_TD_NAME( name, cls ) \
-  class wx##cls; \
-  typedef wx##cls Wx_##name; \
-  extern "C" WXPLDLL const char wxPl##name##Name[];
-
-#endif
+  typedef wx##cls Wx_##name;
 
 // event classes
 FD_TD( Event );
@@ -108,12 +77,6 @@ class wxPliUserDataO; typedef wxPliUserDataO   Wx_UserDataO;
 class wxPliUserDataCD;typedef wxPliUserDataCD  Wx_UserDataCD;
 class wxPliTreeItemData;typedef wxPliTreeItemData Wx_TreeItemData;
 
-#if _WXP_DEFINE_CLASSNAME
-extern "C" const char wxPlTreeItemDataName[] = "Wx::TreeItemData"; 
-#else
-extern "C" const char wxPlTreeItemDataName[]; 
-#endif
-
 FD_TD( AcceleratorEntry );
 FD_TD( AcceleratorTable );
 FD_TD( App );
@@ -137,7 +100,7 @@ FD_TD( ClientDC );
 FD_TD( Colour );
 FD_TD( ColourData );
 
-#if defined( __WXMOTIF__ ) || defined( __WXGTK__ ) || defined( __WXMAC__ )
+#if defined( __WXMOTIF__ ) || defined( __WXGTK__ )
 FD_TD_NAME( ColourDialog, GenericColourDialog );
 #else
 FD_TD( ColourDialog );

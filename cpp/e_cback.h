@@ -13,7 +13,7 @@
 #ifndef _WXPERL_E_CBACK_H
 #define _WXPERL_E_CBACK_H
 
-class WXPLDLL wxPliEventCallback:public wxObject
+class wxPliEventCallback : public wxObject
 {
 public:
     wxPliEventCallback( SV* method, SV* self );

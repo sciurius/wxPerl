@@ -881,22 +881,22 @@ wxSize wxPli_sv_2_wxsize( pTHX_ SV* scalar )
     return wxSize();
 }
 
-Wx_KeyCode wxPli_sv_2_keycode( pTHX_ SV* sv )
+wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* sv )
 {
     if( SvIOK( sv ) || SvNOK( sv ) )
     {
-        return SvIV( sv );
+        return (wxKeyCode) SvIV( sv );
     }
     else if( SvPOK( sv ) && SvLEN( sv ) == 2 )
     {
-        return ( SvPV_nolen( sv ) )[0];
+        return (wxKeyCode) ( SvPV_nolen( sv ) )[0];
     }
     else
     {
         croak( "You must supply either a number or a 1-character string" );
     }
 
-    return 0; // yust to silence a possible warning
+    return wxKeyCode( 0 ); // yust to silence a possible warning
 }
 
 int wxPli_av_2_pointarray( pTHX_ SV* arr, wxPoint** points )
