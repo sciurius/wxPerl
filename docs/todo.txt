@@ -16,9 +16,12 @@ For 0.12
 * rewrite lib/Wx/_Constants.pm in C++
 * try to have constants inlined where appropriate
 
-* EVT_FOO( ..., undef ) to disconnect event handlers
+* implicit ->GetId for wxMenuItems, too
 
 PRIORITY NORMAL:
+
+* wxDocManager::FileHistoryLoad/Save
+  wxDocument  CommandProcessor functions
 
 * testing
     tests for all overloaded methods
@@ -33,8 +36,6 @@ PRIORITY NORMAL:
     SetTable
 
 * Wx::PlGridCellEditor/Renderer
-
-* wxMenu::Prepend*
 
 * wxXmlResource::LoadMenuBar
     overload
@@ -157,8 +158,6 @@ CLASSES:
 
   wxDDE*
   wxTCP*
-
-  Document/View
 
   wxMimeTypesManager
   wxFontMapper
