@@ -838,7 +838,6 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_DEFAULT );        // font
     r( wxFONTENCODING_SYSTEM );         // font
     r( wxFRAME_FLOAT_ON_PARENT );       // frame
-    r( wxFRAME_TOOL_WINDOW );           // frame
     r( wxFRAME_NO_WINDOW_MENU );
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
     r( wxFRAME_NO_TASKBAR );            // frame
