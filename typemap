@@ -364,7 +364,9 @@ Wx_Timer *              O_WXOBJECT
 wxTimer *               O_WXOBJECT
 
 Wx_SingleInstanceChecker * O_NON_WXOBJECT
-wxSingleInstanceChecker * O_WNON_WXOBJECT
+wxSingleInstanceChecker * O_NON_WXOBJECT
+
+wxWave *                O_WXOBJECT
 
 # events
 Wx_Event *              O_WXOBJECT

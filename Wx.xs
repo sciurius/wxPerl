@@ -264,6 +264,7 @@ INCLUDE: XS/Config.xs
 INCLUDE: XS/Process.xs
 INCLUDE: XS/FontMapper.xs
 INCLUDE: XS/FontEnumerator.xs
+INCLUDE: XS/Wave.xs
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs
