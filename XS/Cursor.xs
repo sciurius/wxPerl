@@ -52,7 +52,8 @@ newImage( img )
 #if !defined( __WXGTK__ )
 
 Wx_Cursor*
-newData( bits, width, height, hotSpotX = -1, hotSpotY = -1, maskBits = 0 )
+newData( CLASS, bits, width, height, hotSpotX = -1, hotSpotY = -1, maskBits = 0 )
+    SV* CLASS
     SV* bits
     int width
     int height

@@ -101,7 +101,8 @@ newIcon( icon )
     RETVAL
 
 Wx_Bitmap*
-newFromBits( bits, width, height, depth = 1 )
+newFromBits( CLASS, bits, width, height, depth = 1 )
+    SV* CLASS
     SV* bits
     int width
     int height
@@ -114,7 +115,8 @@ newFromBits( bits, width, height, depth = 1 )
     RETVAL
 
 Wx_Bitmap*
-newFromXPM( data )
+newFromXPM( CLASS, data )
+    SV* CLASS
     SV* data
   PREINIT:
     char** xpm_data;

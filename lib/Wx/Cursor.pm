@@ -18,7 +18,7 @@ sub new {
   shift;
 
   Wx::_match( @_, $Wx::_n, 1 )          && return Wx::Cursor::newId( @_ );
-  Wx::_match( @_, $Wx::_wimg, 1 )       && return Wx::Cursor::newFile( @_ );
+  Wx::_match( @_, $Wx::_wimg, 1 )       && return Wx::Cursor::newImage( @_ );
   Wx::_match( @_, $Wx::_s_n_n_n, 2, 1 ) && return Wx::Cursor::newFile( @_ );
   Wx::_croak Wx::_ovl_error;
 }
