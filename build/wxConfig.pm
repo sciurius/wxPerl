@@ -18,7 +18,7 @@ use ExtUtils::MakeMaker;
 
 # parse command line variables
 use vars qw($debug_mode $unicode_mode $extra_libs $extra_cflags
-            $use_shared $use_dllexport $o_help);
+            $use_shared $use_dllexport $o_help $o_mksymlinks);
 use vars qw($Arch);
 use Getopt::Long;
 
@@ -30,6 +30,7 @@ GetOptions( 'debug' => \$debug_mode,
             'mingw-shared!' => \$use_shared,
             'use-dllexport!' => \$use_dllexport,
             'help' => \$o_help,
+            'mksymlinks' => \$o_mksymlinks,
           );
 
 if( $o_help || !$result ) {
@@ -41,9 +42,37 @@ Usage: perl Makefile.PL [options]
   --extra-cflags=s     specify extra compilation flags
   --[no]mingw-shared   use 'g++ --shared' with MinGW ( MSW only )
   --[no]use-dllexport  use 'dllexport' ( MSW only )
+  --mksymlinks         create a symlink tree ( only if filesystem
+                       supports that, of course )
   --help               you are reading it
 EOT
   exit 0;
+}
+
+#
+# this can only work on Unix, patches welcome...
+#
+if( $o_mksymlinks ) {
+  require FindBin;
+  require ExtUtils::Manifest;
+  require File::Spec;
+  require File::Path;
+
+  *mkpath = \&File::Path::mkpath;
+
+  my $manifest = File::Spec->catfile( $FindBin::RealBin, 'MANIFEST' );
+  die "Can't find MANIFEST" unless -e $manifest;
+  my $files = ExtUtils::Manifest::maniread( $manifest );
+
+  foreach my $f ( keys %$files ) {
+    my( $fr, $to ) = ( "${FindBin::RealBin}/$f", $f );
+    my $dir;
+    ( undef, $dir, undef ) = File::Spec->splitpath( $to );
+    mkpath( $dir ) if length $dir && !-d $dir;
+    next if -l $to;
+    unlink $to or die "unlink '$to' failed: $!" if -e $to;
+    symlink( $fr, $to ) or die "symlink '$fr' => '$to' failed: $!";
+  }
 }
 
 $use_dllexport = 0 unless $use_shared;

@@ -14,8 +14,8 @@
 use strict;
 
 use Config;
-
-use lib 'build';
+use FindBin;
+use lib "${FindBin::RealBin}/build";
 use wxConfig;
 use wxMMUtils;
 
