@@ -34,6 +34,8 @@ Wx_Panel::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, s
     OUTPUT:
       RETVAL
 
+#if WXPERL_W_VERSION_LE( 2, 2 )
+
 Wx_Button*
 Wx_Panel::GetDefaultItem()
   CODE:
@@ -41,16 +43,14 @@ Wx_Panel::GetDefaultItem()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_LE( 2, 2 )
-
 void
 Wx_Panel::InitDialog()
-
-#endif
 
 void
 Wx_Panel::SetDefaultItem( btn )
     Wx_Button* btn
+
+#endif
 
 bool
 Wx_Panel::TransferDataFromWindow()

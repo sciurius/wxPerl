@@ -236,6 +236,13 @@ Wx_Window::GetClientSizeXY()
 # Wx_DropTarget*
 # Wx_Window::GetDropTarget()
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_Window*
+Wx_Window::GetDefaultItem()
+
+#endif
+
 Wx_EvtHandler*
 Wx_Window::GetEventHandler()
 
@@ -561,6 +568,14 @@ Wx_Window::SetCursor( cursor )
     Wx_Cursor* cursor
   CODE:
     THIS->SetCursor( *cursor );
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_Window*
+Wx_Window::SetDefaultItem( window )
+    Wx_Window* window
+
+#endif
 
 void
 Wx_Window::SetEventHandler( handler )
