@@ -342,7 +342,8 @@ bool
 RemoveHandler( name )
     wxString name
   CODE:
-    wxBitmap::RemoveHandler( name );
+    RETVAL = wxBitmap::RemoveHandler( name );
+  OUTPUT: RETVAL
 
 #endif
 

@@ -36,7 +36,7 @@ Wx_NativeFontInfo::ToString()
 
 MODULE=Wx PACKAGE=Wx::Font
 
-wxFont*
+void
 wxFont::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
