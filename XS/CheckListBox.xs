@@ -35,7 +35,7 @@ Wx_CheckListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize,
     }
         
     RETVAL = new wxPliCheckListBox( CLASS, parent, id, pos, size, n, chs, 
-        style, *validator, name );
+        style|wxLB_OWNERDRAW, *validator, name );
 
     delete[] chs;
   OUTPUT:
