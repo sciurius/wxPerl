@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Makefile.PL,v 1.39 2004/06/20 08:24:11 mbarbon Exp $
+## RCS-ID:      $Id: Makefile.PL,v 1.40 2004/07/10 21:45:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,6 +19,16 @@ use strict;
 use FindBin;
 use lib "${FindBin::RealBin}/build";
 use Wx::build::MakeMaker::Core;
+
+( my $mmv = ExtUtils::MakeMaker->VERSION ) =~ s/_//g;
+
+if( $mmv == 6.21 ) {
+    die <<EOT
+ExtUtils::MakeMaker 6.21 is known not to work with wxPerl;
+please downgrade to 6.17 or install the snapshot frm
+http://makemaker.org/
+EOT
+}
 
 # $ExtUtils::MakeMaker::Verbose = 2;
 # $wxConfig::Verbose = 10;
