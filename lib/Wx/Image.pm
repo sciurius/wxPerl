@@ -25,6 +25,7 @@ sub new {
   Wx::_match( @_, $Wx::_wist_n, 2 ) && return Wx::Image::newStreamType( @_ );
   Wx::_match( @_, $Wx::_wist_s, 2 ) && return Wx::Image::newStreamMIME( @_ );
   Wx::_match( @_, $Wx::_n_n, 2 )  && return Wx::Image::newWH( @_ );
+  Wx::_match( @_, $Wx::_n_n_s, 3 )  && return Wx::Image::newData( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 )  && return Wx::Image::newNameType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 )  && return Wx::Image::newNameMIME( @_ );
 
