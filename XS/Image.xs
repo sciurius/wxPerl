@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      2/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.28 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.29 2003/05/12 17:00:40 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -21,7 +21,7 @@ wxImage::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_VOIDM_REDISP( newNull )
-        MATCH_REDISP( wxPliOvl_wico, newIcon )
+	MATCH_REDISP( wxPliOvl_wico, newIcon )
         MATCH_REDISP( wxPliOvl_wbmp, newBitmap )
         MATCH_REDISP( wxPliOvl_wist_n, newStreamType )
         MATCH_REDISP( wxPliOvl_wist_s, newStreamMIME )
@@ -114,6 +114,21 @@ newStreamMIME( CLASS, stream, mime, index = -1 )
     RETVAL = new wxImage( stream, mime, index );
   OUTPUT:
     RETVAL
+
+wxImage*
+newBitmap( CLASS, bitmap )
+    wxBitmap* bitmap
+  CODE:
+    RETVAL = new wxImage( bitmap->ConvertToImage() );
+  OUTPUT: RETVAL
+
+wxImage*
+newIcon( CLASS, icon )
+    wxIcon* icon
+  CODE:
+    wxBitmap tmp; tmp.CopyFromIcon( *icon );
+    RETVAL = new wxImage( tmp.ConvertToImage() );
+  OUTPUT: RETVAL
 
 ## XXX threads
 void
@@ -413,6 +428,14 @@ Wx_Image::Rotate90( clockwise = TRUE )
     RETVAL = new wxImage( THIS->Rotate90( clockwise ) );
   OUTPUT:
     RETVAL
+
+wxImage*
+wxImage::ShrinkBy( xfactor, yfactor )
+    int xfactor
+    int yfactor
+  CODE:
+    RETVAL = new wxImage( THIS->ShrinkBy( xfactor, yfactor ) );
+  OUTPUT: RETVAL
 
 Wx_Image*
 Wx_Image::Scale( width, height )

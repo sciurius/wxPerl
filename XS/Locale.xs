@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs,v 1.18 2003/05/05 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Locale.xs,v 1.19 2003/05/12 17:00:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,13 +14,13 @@
 
 MODULE=Wx PACKAGE=Wx::LanguageInfo
 
-Wx_LanguageInfo*
-Wx_LanguageInfo::new( language, canonicalName, winLang, winSublang, description )
+wxLanguageInfo*
+wxLanguageInfo::new( language, canonicalName, winLang, winSublang, descr )
     int language
     wxString canonicalName
     int winLang
     int winSublang
-    wxString description
+    wxString descr
   CODE:
     RETVAL = new wxLanguageInfo;
     RETVAL->Language = language;
@@ -29,12 +29,15 @@ Wx_LanguageInfo::new( language, canonicalName, winLang, winSublang, description 
     RETVAL->WinLang = winLang;
     RETVAL->WinSublang = winSublang;
 #endif
-    RETVAL->Description = description;
-  OUTPUT:
-    RETVAL
+    RETVAL->Description = descr;
+  OUTPUT: RETVAL
 
 void
-Wx_LanguageInfo::DESTROY()
+DESTROY( THIS )
+    wxLanguageInfo* THIS
+  CODE:
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;
 
 MODULE=Wx PACKAGE=Wx::Locale
 

@@ -199,8 +199,8 @@ sub ResizeTo {
   my( $image, $size ) = @_;
 
   if( $image->GetWidth != $size || $image->GetHeight != $size ) {
-    return Wx::Image->new( $image )->Rescale( $size, $size )
-      ->ConvertToBitmap();
+    return Wx::Bitmap->new
+      ( Wx::Image->new( $image )->Rescale( $size, $size ) );
   }
 
   return $image;

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.20 2003/05/05 20:38:34 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.21 2003/05/12 17:00:23 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -118,6 +118,13 @@ Wx_ControlWithItems::GetClientData( n )
     RETVAL = (Wx_UserDataCD*) THIS->GetClientObject( n );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
+bool
+wxControlWithItems::IsEmpty()
+
+#endif
 
 void
 Wx_ControlWithItems::SetClientData( n, data )

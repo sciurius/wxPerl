@@ -62,8 +62,12 @@ Wx_FileHistory::GetHistoryFile( i )
 int
 Wx_FileHistory::GetCount()
 
+#if WXPERL_W_VERSION_LE( 2, 5, 0 )
+
 int
 Wx_FileHistory::GetNoHistoryFiles()
+
+#endif
 
 void
 Wx_FileHistory::GetMenus()

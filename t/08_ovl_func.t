@@ -828,8 +828,8 @@ my( $newnull, $newicon, $newbitmap, $newstreamt, $newstreamm,
     $lsm, $lst, $lft, $lfm, $ssm, $sst, $sft, $sfm, $sfo )
   = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
 hijack( 'Wx::Image::newNull'        => sub { $newnull = 1 },
-#        'Wx::Image::newIcon'        => sub { $newicon = 1 },
-#        'Wx::Image::newBitmap'      => sub { $newbitmap = 1 },
+        'Wx::Image::newIcon'        => sub { $newicon = 1 },
+        'Wx::Image::newBitmap'      => sub { $newbitmap = 1 },
         'Wx::Image::newStreamType'  => sub { $newstreamt = 1 },
         'Wx::Image::newStreamMIME'  => sub { $newstreamm = 1 },
         'Wx::Image::newWH'          => sub { $newwh = 1 },
@@ -851,15 +851,11 @@ my $op = '< demo/data/logo.jpg';
 Wx::Image->new;
 ok( $newnull, "Wx::Image::newNull" );
 
-SKIP: {
-  skip "Only for backward compatibility", 2;
+Wx::Image->new( $icook );
+ok( $newicon, "Wx::Image::newIcon" );
 
-  Wx::Image->new( $icook );
-  ok( $newicon, "Wx::Image::newIcon" );
-
-  Wx::Image->new( $bmpok );
-  ok( $newbitmap, "Wx::Image::newBitmap" );
-}
+Wx::Image->new( $bmpok );
+ok( $newbitmap, "Wx::Image::newBitmap" );
 
 open IN, $op; binmode IN;
 Wx::Image->new( *IN, Wx::wxBITMAP_TYPE_JPEG() );
