@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.62 2003/11/08 18:31:55 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.63 2003/11/09 17:19:19 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -426,11 +426,19 @@ public:
     wxPliGetCallbackObjectFn m_func;
 };
 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 #define WXPLI_DECLARE_DYNAMIC_CLASS(name) \
 public:\
   static wxPliClassInfo ms_classInfo;\
   virtual wxClassInfo *GetClassInfo() const \
    { return &ms_classInfo; }
+#else
+#define WXPLI_DECLARE_DYNAMIC_CLASS(name) \
+public:\
+  static wxPliClassInfo sm_class##name;\
+  virtual wxClassInfo *GetClassInfo() const \
+   { return &sm_class##name; }
+#endif
 
 #define WXPLI_DECLARE_SELFREF() \
 public:\
