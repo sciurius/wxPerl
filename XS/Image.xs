@@ -53,6 +53,25 @@ newWH( width, height )
     RETVAL
 
 Wx_Image*
+newData( width, height, dt )
+    int width
+    int height
+    SV* dt
+  PREINIT:
+    STRLEN len;
+    unsigned char* data = (unsigned char*)SvPV( dt, len );
+    unsigned char* newdata;
+  CODE:
+    if( len != width * height * 3 )
+    {
+        croak( "too few data" );
+    }
+    newdata = (unsigned char*)malloc( width * height * 3 );
+    memcpy( newdata, data, width * height * 3 );
+
+    RETVAL = new wxImage( width, height, newdata );
+
+Wx_Image*
 newNameType( name, type )
     wxString name
     long type

@@ -75,6 +75,7 @@ $Wx::_n = [ $num ];
 $Wx::_n_b = [ $num, $bool ];
 $Wx::_n_n = [ $num, $num ];
 $Wx::_n_n_n = [ $num, $num, $num ];
+$Wx::_n_n_s = [ $num, $num, $str ];
 $Wx::_n_n_s_n = [ $num, $num, $str, $num ];
 $Wx::_n_n_n_n = [ $num, $num, $num, $num ];
 $Wx::_n_n_n_n_n = [ $num, $num, $num, $num, $num ];
