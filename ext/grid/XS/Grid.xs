@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.19 2004/10/05 20:14:24 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.20 2004/11/23 22:10:54 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -449,6 +449,17 @@ wxGrid::GetRowLabelValue( row )
 int
 wxGrid::GetRowSize( row )
     int row
+
+void
+wxGrid::GetSelectedCells()
+  PPCODE:
+    wxGridCellCoordsArray selection = THIS->GetSelectedCells();
+    EXTEND( SP, (IV) selection.GetCount() );
+
+    for( size_t i = 0; i < selection.GetCount(); ++i )
+      PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+             new wxGridCellCoords( selection[i] ),
+             "Wx::GridCellCoords" ) );
 
 void
 wxGrid::GetSelectedCols()
