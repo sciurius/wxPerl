@@ -291,7 +291,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 
 class wxPliUserDataCD;
-#if defined( _WX_WINDOW_H_BASE_ )
+#if defined( _WX_WINDOW_H_BASE_ ) || defined( _WX_CLNTDATAH__ )
 
 class WXPLDLL wxPliUserDataCD:public wxClientData
 {

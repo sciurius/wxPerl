@@ -160,7 +160,7 @@ XS(Connect3)
     dXSARGS;
     assert( items == 3 );
     SV* THISs = ST(0);
-    wxEvtHandler *THIS =
+    wxEvtHandler *THISo =
         (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, wxPlEvtHandlerName );
     wxWindowID id = wxPli_get_wxwindowid( aTHX_ ST(1) );
     SV* func = ST(2);
@@ -168,15 +168,15 @@ XS(Connect3)
 
     if( SvOK( func ) )
     {
-        THIS->Connect( id, -1, evtID,
-                       (wxObjectEventFunction)&wxPliEventCallback::Handler,
-                       new wxPliEventCallback( func, THISs ) );
+        THISo->Connect( id, -1, evtID,
+                        (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                        new wxPliEventCallback( func, THISs ) );
     }
     else
     {
-        THIS->Disconnect( id, -1, evtID,
-                          (wxObjectEventFunction)&wxPliEventCallback::Handler,
-                          0 );
+        THISo->Disconnect( id, -1, evtID,
+                           (wxObjectEventFunction)&wxPliEventCallback::Handler,
+                           0 );
     }
 }
 
