@@ -26,9 +26,18 @@ wxSashEdgePosition      T_IV
 wxSashDragStatus        T_IV
 wxListColumnFormat      T_IV
 wxChar *                T_PV
-wxLogTraceMask          T_IV # should really be T_UV
-wxLogLevel              T_IV # but 5.004_04 does not support it
-wxTraceMask             T_IV
+
+wxLogTraceMask          T_UV 
+wxLogLevel              T_UV 
+wxTraceMask             T_UV
+wxTreeItemIdValue       T_UV
+wxTreeItemIcon          T_UV
+
+Wx_KeyCode              T_KEYCODE
+
+Wx_UserDataCD *         O_USERDATACD
+Wx_UserDataO *          O_USERDATAO
+SV_null *               T_SV_NULL
 
 Wx_ClassInfo *          O_NON_WXOBJECT
 
@@ -215,6 +224,12 @@ O_WXOBJECT
 O_NON_WXOBJECT
     _non_object_2_sv( $arg, $var, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
+T_KEYCODE
+    sv_setiv( $arg, $var );
+
+T_UV
+    sv_setuv( $arg, (UV)$var );
+
 INPUT
 O_WXOBJECT
     $var = ($type) _sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
@@ -230,3 +245,56 @@ O_SIZE
 
 O_COLOUR
     $var = *($type *) _sv_2_object( $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)(?:Ptr)?$/wxPl$1Name/g;\${ntt}} );
+
+T_KEYCODE
+    $var = _sv_2_keycode( $arg );
+
+T_UV
+    $var = ($type)SvUV( $arg );
+
+#
+# Wx_UserData*
+#
+
+INPUT
+O_USERDATACD
+    if( SvOK( $arg ) )
+    {
+        SV* _data = sv_newmortal();
+        sv_setsv( _data, $arg );
+        $var = new _wxUserDataCD( _data );
+    }
+    else
+        $var = 0;
+
+O_USERDATAO
+    if( SvOK( $arg ) )
+    {
+        SV* _data = sv_newmortal();
+        sv_setsv( _data, $arg );
+        $var = new _wxUserDataO( _data );
+    }
+    else
+        $var = 0;
+
+OUTPUT
+O_USERDATACD
+    $arg = ( $var == 0 ) ? &PL_sv_undef : $var->m_data;
+    SvREFCNT_inc( $arg ); // xsubpp mortalizes it...
+
+O_USERDATAO
+    $arg = ( $var == 0 ) ? &PL_sv_undef : $var->m_data;
+    SvREFCNT_inc( $arg ); // xsubpp mortalizes it...
+
+#
+# SV_null
+#
+
+INPUT
+T_SV_NULL
+    $var = SvOK( $arg ) ? $arg : 0;
+
+OUTPUT
+T_SV_NULL
+    $arg = ( $var == 0 ) ? &PL_sv_undef : $var;
+    SvREFCNT_inc( $arg ); // xsubpp mortalizes it...

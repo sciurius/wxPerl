@@ -36,6 +36,7 @@
 #include <wx/statline.h>
 #include <wx/imaglist.h>
 #include <wx/listctrl.h>
+#include <wx/treectrl.h>
 
 #include <stdarg.h>
 
@@ -61,6 +62,7 @@
 #include "cpp/compat.h"
 #include "cpp/typedef.h"
 #include "cpp/helpers.h"
+#include "cpp/v_cback.h"
 
 #include "cpp/button.h"
 #include "cpp/controls.h"
@@ -86,9 +88,9 @@ Wx_ControlWithItems::AppendString( item )
 void
 Wx_ControlWithItems::AppendData( item, data )
     wxString item
-    SV* data
+    Wx_UserDataCD* data
   CODE:
-    THIS->Append( item, new _wxUserDataCD( data ) );
+    THIS->Append( item, data );
 
 void
 Wx_ControlWithItems::Clear()
@@ -114,36 +116,20 @@ Wx_ControlWithItems::GetString( n )
 wxString
 Wx_ControlWithItems::GetStringSelection()
 
-void
+Wx_UserDataCD*
 Wx_ControlWithItems::GetClientData( n )
     int n
-  PREINIT:
-    _wxUserDataCD* ud;
-  PPCODE:
-    if( ( ud = (_wxUserDataCD*)THIS->GetClientObject( n ) ) )
-    {
-      XPUSHs( ud->m_data );
-    }
-    else
-    {
-      XPUSHs( &PL_sv_undef );
-    }
+  CODE:
+    RETVAL = (Wx_UserDataCD*) THIS->GetClientObject( n );
+  OUTPUT:
+    RETVAL
 
 void
 Wx_ControlWithItems::SetClientData( n, data )
     int n
-    SV* data
+    Wx_UserDataCD* data
   CODE:
-    if( !SvOK( data ) )
-    {
-      THIS->SetClientObject( n, 0 );
-    }
-    else
-    {
-      SV* newdata = sv_newmortal();
-      sv_setsv( newdata, data );
-      THIS->SetClientObject( n, new _wxUserDataCD( newdata ) );
-    }
+    THIS->SetClientObject( n, data );
 
 INCLUDE: XS/BitmapButton.xs
 INCLUDE: XS/Button.xs

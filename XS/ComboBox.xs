@@ -46,9 +46,9 @@ Wx_ComboBox::AppendString( item )
 void
 Wx_ComboBox::AppendData( item, data )
     wxString item
-    SV* data
+    Wx_UserDataCD* data
   CODE:
-    THIS->Append( item, new _wxUserDataCD( data ) );
+    THIS->Append( item, data );
 
 void
 Wx_ComboBox::Clear()
@@ -75,36 +75,20 @@ void
 Wx_ComboBox::SetStringSelection( string )
     wxString string
 
-void
+Wx_UserDataCD*
 Wx_ComboBox::GetClientData( n )
     int n
-  PREINIT:
-    _wxUserDataCD* ud;
-  PPCODE:
-    if( ( ud = (_wxUserDataCD*)THIS->GetClientObject( n ) ) )
-    {
-      XPUSHs( ud->m_data );
-    }
-    else
-    {
-      XPUSHs( &PL_sv_undef );
-    }
+  CODE:
+    RETVAL = (Wx_UserDataCD*) THIS->GetClientObject( n );
+  OUTPUT:
+    RETVAL
 
 void
 Wx_ComboBox::SetClientData( n, data )
     int n
-    SV* data
+    Wx_UserDataCD* data
   CODE:
-    if( !SvOK( data ) )
-    {
-      THIS->SetClientObject( n, 0 );
-    }
-    else
-    {
-      SV* newdata = sv_newmortal();
-      sv_setsv( newdata, data );
-      THIS->SetClientObject( n, new _wxUserDataCD( newdata ) );
-    }
+    THIS->SetClientObject( n, data );
 
 #endif
 

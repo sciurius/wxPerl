@@ -18,32 +18,35 @@ Wx_Sizer::Destroy()
     delete THIS;
 
 void
-Wx_Sizer::AddWindow( window, option = 0, flag = 0, border = 0 )
+Wx_Sizer::AddWindow( window, option = 0, flag = 0, border = 0, data = 0 )
     Wx_Window* window
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Add( window, option, flag, border );
+    THIS->Add( window, option, flag, border, data );
 
 void
-Wx_Sizer::AddSizer( sizer, option = 0, flag = 0, border = 0 )
+Wx_Sizer::AddSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
     Wx_Sizer* sizer
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Add( sizer, option, flag, border );
+    THIS->Add( sizer, option, flag, border, data );
 
 void
-Wx_Sizer::AddSpace( width, height, option = 0, flag = 0, border = 0 )
+Wx_Sizer::AddSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
     int width
     int height
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Add( width, height, option, flag, border );
+    THIS->Add( width, height, option, flag, border, data );
 
 Wx_Size*
 Wx_Sizer::CalcMin()
@@ -89,66 +92,72 @@ Wx_Sizer::GetMinSize()
     RETVAL
 
 void
-Wx_Sizer::InsertWindow( pos, window, option = 0, flag = 0, border = 0 )
+Wx_Sizer::InsertWindow( pos, window, option = 0, flag = 0, border = 0, data = 0 )
     int pos
     Wx_Window* window
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Insert( pos, window, option, flag, border );
+    THIS->Insert( pos, window, option, flag, border, data );
 
 void
-Wx_Sizer::InsertSizer( pos, sizer, option = 0, flag = 0, border = 0 )
+Wx_Sizer::InsertSizer( pos, sizer, option = 0, flag = 0, border = 0, data = 0 )
     int pos
     Wx_Sizer* sizer
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Insert( pos, sizer, option, flag, border );
+    THIS->Insert( pos, sizer, option, flag, border, data );
 
 void
-Wx_Sizer::InsertSpace( pos, width, height, option = 0, flag = 0, border = 0 )
+Wx_Sizer::InsertSpace( pos, width, height, option = 0, flag = 0, border = 0, data = 0 )
     int pos
     int width
     int height
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Insert( pos, width, height, option, flag, border );
+    THIS->Insert( pos, width, height, option, flag, border, data );
 
 void
 Wx_Sizer::Layout()
 
 void
-Wx_Sizer::PrependWindow( window, option = 0, flag = 0, border = 0 )
+Wx_Sizer::PrependWindow( window, option = 0, flag = 0, border = 0, data = 0 )
     Wx_Window* window
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Prepend( window, option, flag, border );
+    THIS->Prepend( window, option, flag, border, data );
 
 void
-Wx_Sizer::PrependSizer( sizer, option = 0, flag = 0, border = 0 )
+Wx_Sizer::PrependSizer( sizer, option = 0, flag = 0, border = 0, data = 0 )
     Wx_Sizer* sizer
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Prepend( sizer, option, flag, border );
+    THIS->Prepend( sizer, option, flag, border, data );
 
 void
-Wx_Sizer::PrependSpace( width, height, option = 0, flag = 0, border = 0 )
+Wx_Sizer::PrependSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
     int width
     int height
     int option
     int flag
     int border
+    Wx_UserDataO* data
   CODE:
-    THIS->Prepend( width, height, option, flag, border );
+    THIS->Prepend( width, height, option, flag, border, data );
 
 void
 Wx_Sizer::RecalcSizes()
@@ -419,10 +428,10 @@ Wx_SizerItem::GetPosition()
   CODE:
     RETVAL = new wxPoint( THIS->GetPosition() );
 
-SV*
+Wx_UserDataO*
 Wx_SizerItem::GetUserData()
   CODE:
-    RETVAL = ( (_wxUserDataO*)THIS->GetUserData() )->m_data;
+    RETVAL = (Wx_UserDataO*) THIS->GetUserData();
   OUTPUT:
     RETVAL
 

@@ -38,23 +38,19 @@ Wx_ToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHe
     RETVAL
 
 Wx_ToolBarToolBase*
-Wx_ToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = &PL_sv_undef, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+Wx_ToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     int toolId
     Wx_Bitmap* bitmap1
     Wx_Bitmap* bitmap2
     bool isToggle
-    SV* clientData
+    Wx_UserDataO* clientData
     wxString shortHelp
     wxString longHelp
   CODE:
     RETVAL = THIS->AddTool( toolId, *bitmap1, *bitmap2, isToggle,
         0, shortHelp, longHelp );
-    if( !SvOK( clientData ) )
-    {
-      SV* newdata = sv_newmortal();
-      sv_setsv( newdata, clientData );
-      RETVAL->SetClientData( new _wxUserDataO( newdata ) );
-    }
+    if( clientData )
+      RETVAL->SetClientData( clientData );
   OUTPUT:
     RETVAL
 
@@ -96,20 +92,13 @@ Wx_ToolBarBase::GetToolBitmapSize()
   OUTPUT:
     RETVAL
 
-void
+Wx_UserDataO*
 Wx_ToolBar::GetToolClientData( toolId )
     int toolId
-  PREINIT:
-    _wxUserDataO* ud;
-  PPCODE:
-    if( ( ud = (_wxUserDataO*) THIS->GetToolClientData( toolId ) ) )
-    {
-      XPUSHs( ud->m_data );
-    }
-    else
-    {
-      XPUSHs( &PL_sv_undef );
-    }
+  CODE:
+    RETVAL = (Wx_UserDataO*) THIS->GetToolClientData( toolId );
+  OUTPUT:
+    RETVAL
 
 bool
 Wx_ToolBarBase::GetToolEnabled( toolId )
@@ -143,24 +132,20 @@ Wx_ToolBarBase::InsertSeparator( pos )
     size_t pos
 
 Wx_ToolBarToolBase*
-Wx_ToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = &PL_sv_undef, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+Wx_ToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     size_t pos
     int toolId
     Wx_Bitmap* bitmap1
     Wx_Bitmap* bitmap2
     bool isToggle
-    SV* clientData
+    Wx_UserDataO* clientData
     wxString shortHelp
     wxString longHelp
   CODE:
     RETVAL = THIS->InsertTool( pos, toolId, *bitmap1, *bitmap2, isToggle,
         0, shortHelp, longHelp );
-    if( !SvOK( clientData ) )
-    {
-      SV* newdata = sv_newmortal();
-      sv_setsv( newdata, clientData );
-      THIS->SetClientData( new _wxUserDataO( newdata ) );
-    }
+    if( clientData )
+        THIS->SetClientData( clientData );
   OUTPUT:
     RETVAL
 
@@ -204,20 +189,11 @@ Wx_ToolBarBase::SetToolBitmapSize( size )
 void
 Wx_ToolBarBase::SetToolClientData( id, data )
     int id
-    SV* data
+    Wx_UserDataO* data
   CODE:
     delete THIS->GetToolClientData( id );
 
-    if( data == &PL_sv_undef )
-    {
-      THIS->SetToolClientData( id, 0 );
-    }
-    else
-    {
-      SV* newdata = sv_newmortal();
-      sv_setsv( newdata, data );
-      THIS->SetToolClientData( id, new _wxUserDataO( newdata ) );
-    }
+    THIS->SetToolClientData( id, data );
 
 void
 Wx_ToolBarBase::SetToolLongHelp( toolId, helpString )

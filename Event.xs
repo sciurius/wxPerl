@@ -112,19 +112,12 @@ Wx_CommandEvent::new( type = 0, id = 0 )
     wxEventType type
     int id
 
-void
+Wx_UserDataCD*
 Wx_CommandEvent::GetClientData()
-  PREINIT:
-    _wxUserDataCD* ud;
-  PPCODE:
-    if( ( ud = (_wxUserDataCD*) THIS->GetClientObject() ) )
-    {
-      XPUSHs( ud->m_data );
-    }
-    else
-    {
-      XPUSHs( &PL_sv_undef );
-    }
+  CODE:
+    RETVAL = (Wx_UserDataCD*) THIS->GetClientObject();
+  OUTPUT:
+    RETVAL
 
 long
 Wx_CommandEvent::GetExtraLong()
@@ -146,18 +139,9 @@ Wx_CommandEvent::IsSelection()
 
 void
 Wx_CommandEvent::SetClientData( data )
-    SV* data
+    Wx_UserDataCD* data
   CODE:
-    if( !SvOK( data ) )
-    {
-      THIS->SetClientObject( 0 );
-    }
-    else
-    {
-      SV* newdata = sv_newmortal();
-      sv_setsv( newdata, data );
-      THIS->SetClientObject( new _wxUserDataCD( newdata ) );
-    }
+    THIS->SetClientObject( data );
 
 void
 Wx_CommandEvent::SetExtraLong( extraLong )
@@ -284,7 +268,7 @@ MODULE=Wx_Evt PACKAGE=Wx::HelpEvent
 
 # Wx_HelpEvent::new()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 Wx_Point*
 Wx_HelpEvent::GetPosition()
@@ -590,6 +574,9 @@ Wx_NotifyEvent::IsAllowed()
 
 void
 Wx_NotifyEvent::Veto()
+
+void
+Wx_NotifyEvent::Allow()
 
 MODULE=Wx_Evt PACKAGE=Wx::PaintEvent
 

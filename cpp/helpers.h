@@ -28,6 +28,7 @@ void _get_args_objectarray( SV** sp, int items, void** array, const char* packag
 
 wxPoint _sv_2_wxpoint( SV* scalar );
 wxSize _sv_2_wxsize( SV* scalar );
+Wx_KeyCode _sv_2_keycode( SV* scalar );
 
 int _get_pointarray( SV* array, wxList *points, wxPoint** tmp );
 
@@ -46,9 +47,49 @@ public:
 
 inline _wxUserDataCD::_wxUserDataCD( SV* data )
 {
-    m_data = data;
-    SvREFCNT_inc( m_data );
+    m_data = data ? newSVsv( data ) : 0;
 }
+
+#else
+
+class _wxUserDataCD;
+
+#endif
+
+#if defined( _WX_TREEBASE_H_ ) || defined( _WX_TREECTRL_H_BASE_ )
+
+class _wxTreeItemData:public wxTreeItemData
+{
+public:
+    _wxTreeItemData( SV* data );
+    ~_wxTreeItemData();
+
+    void SetData( SV* data );
+public:
+    SV* m_data;
+};
+
+inline _wxTreeItemData::_wxTreeItemData( SV* data )
+{
+    m_data = data ? newSVsv( data ) : 0;
+}
+
+inline _wxTreeItemData::~_wxTreeItemData()
+{
+    if( m_data )
+        SvREFCNT_dec( m_data );
+}
+
+inline void _wxTreeItemData::SetData( SV* data )
+{
+    if( m_data )
+        SvREFCNT_dec( data );
+    m_data = data ? newSVsv( data ) : 0;
+}
+
+#else
+
+class _wxTreeItemData;
 
 #endif
 
@@ -63,8 +104,7 @@ public:
 
 inline _wxUserDataO::_wxUserDataO( SV* data )
 {
-    m_data = data;
-    SvREFCNT_inc( m_data );
+    m_data = data ? newSVsv( data ) : 0;
 }
 
 class _wxSelfRef

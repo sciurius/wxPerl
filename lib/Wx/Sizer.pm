@@ -18,27 +18,27 @@ use Carp;
 sub Add {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_wwin_n_n_n, 1, 1 ) && ( $this->AddWindow( @_ ), return );
-  Wx::_match( @_, $Wx::_wszr_n_n_n, 1, 1 ) && ( $this->AddSizer( @_ ), return );
-  Wx::_match( @_, $Wx::_n_n_n_n_n, 2, 1 )  && ( $this->AddSpace( @_ ), return );
+  Wx::_match( @_, $Wx::_wwin_n_n_n_s, 1, 1 ) && ( $this->AddWindow( @_ ), return );
+  Wx::_match( @_, $Wx::_wszr_n_n_n_s, 1, 1 ) && ( $this->AddSizer( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n_n_n_n_s, 2, 1 )  && ( $this->AddSpace( @_ ), return );
   croak Wx::_ovl_error;
 }
 
 sub Insert {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_n_wwin_n_n_n, 2, 1 ) && ( $this->InsertWindow( @_ ), return );
-  Wx::_match( @_, $Wx::_n_wszr_n_n_n, 2, 1 ) && ( $this->InsertSizer( @_ ), return );
-  Wx::_match( @_, $Wx::_n_n_n_n_n_n, 3, 1 )  && ( $this->InsertSpace( @_ ), return );
+  Wx::_match( @_, $Wx::_n_wwin_n_n_n_s, 2, 1 ) && ( $this->InsertWindow( @_ ), return );
+  Wx::_match( @_, $Wx::_n_wszr_n_n_n_s, 2, 1 ) && ( $this->InsertSizer( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n_n_n_n_n_s, 3, 1 )  && ( $this->InsertSpace( @_ ), return );
   croak Wx::_ovl_error;
 }
 
 sub Prepend {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_wwin_n_n_n, 1, 1 ) && ( $this->PrependWindow( @_ ), return );
-  Wx::_match( @_, $Wx::_wszr_n_n_n, 1, 1 ) && ( $this->PrependSizer( @_ ), return );
-  Wx::_match( @_, $Wx::_n_n_n_n_n, 2, 1 )  && ( $this->PrependSpace( @_ ), return );
+  Wx::_match( @_, $Wx::_wwin_n_n_n_s, 1, 1 ) && ( $this->PrependWindow( @_ ), return );
+  Wx::_match( @_, $Wx::_wszr_n_n_n_s, 1, 1 ) && ( $this->PrependSizer( @_ ), return );
+  Wx::_match( @_, $Wx::_n_n_n_n_n_s, 2, 1 )  && ( $this->PrependSpace( @_ ), return );
   croak Wx::_ovl_error;
 }
 
