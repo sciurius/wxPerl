@@ -95,7 +95,8 @@ sub get_core_lib_24 {
         exists($dlls->{$_} ) ? $dlls->{$_}{lib}           :
                                die "No such lib: '$_'";
     }
-    grep { !m/^(?:adv|base|html|net|xml)$/ } @libs;
+#   FXME: core
+    grep { !m/^(?:adv|base|html|net|xml|core)$/ } @libs;
 }
 
 sub get_contrib_lib {

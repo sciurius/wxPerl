@@ -39,10 +39,10 @@ sub configure_ext {
   my $impbase =
     File::Basename::basename( $cfg->wx_config( 'implib' ) );
   my $rimp = File::Spec->catfile( $this->_arch_directory,
-                                  'Wx', 'build', $impbase );
+                                  'auto', 'Wx', $impbase );
   my $libs = '';
   foreach ( split /\s+/, $config{LIBS} ) {
-    m{\Q$impbase\E$} and $_ = $rimp;
+    m{${impbase}$} and $_ = $rimp;
     $libs .= "$_ ";
   }
   $config{LIBS} = $libs;
@@ -75,10 +75,9 @@ sub postamble_core {
 # for compatibility
 ppmdist : ppm
 
-ppm : pure_all ppd
+ppm : pure_all
 %s
-	$(TAR) $(TARFLAGS) $(DISTVNAME)-ppm.tar blib
-	$(COMPRESS) $(DISTVNAME)-ppm.tar
+	perl script/make_ppm.pl
 
 EOT
 }

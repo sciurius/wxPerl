@@ -39,6 +39,7 @@ script/XSP.yp
 script/copy_files.pl
 script/make_exp_list.pl
 script/make_ovl_list.pl
+script/make_ppm.pl
 script/pipe.pl
 script/xsubppp.pl
 
@@ -475,6 +476,7 @@ demo/wxFileSystem.pm
 demo/wxGrid.pm
 demo/wxGridCER.pm
 demo/wxGridER.pm
+demo/wxGridTable.pm
 demo/wxHtmlDynamic.pm
 demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm

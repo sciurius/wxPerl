@@ -1,5 +1,9 @@
 PRIORITY HIGH:
 
+* remove build system hacks, fixes for wxWindows 2.5.x (look for FXME)
+* building debugging version in install.pod
+* rewrite docs in POD (?)
+
 PRIORITY NORMAL:
 
 * Overload resolution
