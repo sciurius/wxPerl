@@ -33,6 +33,8 @@ int _get_pointarray( SV* array, wxList *points, wxPoint** tmp );
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 
+#ifdef _WX_WINDOW_H_BASE_
+
 class _wxUserDataCD:public wxClientData
 {
 public:
@@ -47,6 +49,8 @@ inline _wxUserDataCD::_wxUserDataCD( SV* data )
     m_data = data;
     SvREFCNT_inc( m_data );
 }
+
+#endif
 
 class _wxUserDataO:public wxObject
 {
