@@ -29,7 +29,7 @@ Wx_SingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, st
     n = _av_2_stringarray( chs, &choices );
     if( !SvOK( dt ) )
     {
-      RETVAL = new wxSingleChoiceDialog( parent, message, caption, n,
+      RETVAL = new _wxSingleChoiceDialog( parent, message, caption, n,
             choices, 0, style, pos );
     }
     else
@@ -42,8 +42,8 @@ Wx_SingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, st
         choices = 0; data = 0; n = 0;
         croak( "supplied arrays of different size" );
       }
-      RETVAL = new wxSingleChoiceDialog( parent, message, caption, n,
-            choices, (char**)data, style, pos );
+      RETVAL = new _wxSingleChoiceDialog( parent, message, caption, n,
+            choices, data, style, pos );
       delete[] data;
     }
     delete[] choices;
@@ -59,7 +59,12 @@ Wx_SingleChoiceDialog::GetSelectionClientData()
     char* t;
   CODE:
     t = THIS->GetSelectionClientData();
-    RETVAL = t ? (SV*)t : &PL_sv_undef;
+    RETVAL = &PL_sv_undef;
+    if( t )
+    {
+        RETVAL = (SV*)t;
+        SvREFCNT_inc( RETVAL );
+    }
   OUTPUT:
     RETVAL
 

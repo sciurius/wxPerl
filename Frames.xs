@@ -62,6 +62,8 @@
 #include "cpp/dialog.h"
 #include "cpp/frame.h"
 
+#include "cpp/singlechoicedialog.h"
+
 #undef THIS
 
 MODULE=Wx_Wnd
