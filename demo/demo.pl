@@ -195,7 +195,8 @@ package DemoFrame;
 
 use base qw(Wx::Frame);
 use Wx qw(:textctrl :sizer :window);
-use Wx qw(wxDefaultPosition wxDefaultSize);
+use Wx qw(wxDefaultPosition wxDefaultSize 
+          wxDEFAULT_FRAME_STYLE wxNO_FULL_REPAINT_ON_RESIZE);
 
 sub sample { return Demo::Sample->new( $_[0] ) }
 sub external { return Demo::External->new( $_[0], $_[1] ) }
@@ -265,7 +266,8 @@ use Wx::Event qw(EVT_TREE_SEL_CHANGED EVT_CLOSE EVT_IDLE EVT_MENU);
 sub new {
   my $class = shift;
   my $this = $class->SUPER::new( undef, -1, "wxPerl Demo", wxDefaultPosition,
-                                 [ 600, 500 ] );
+                                 [ 600, 500 ], wxDEFAULT_FRAME_STYLE
+                                 | wxNO_FULL_REPAINT_ON_RESIZE );
 
   my $border_mask = ~( wxSTATIC_BORDER|wxSIMPLE_BORDER|wxDOUBLE_BORDER|
                        wxSUNKEN_BORDER|wxRAISED_BORDER);
@@ -287,19 +289,26 @@ sub new {
   $this->SetMenuBar( $bar );
 
   # create splitters
-  my $split1 = Wx::SplitterWindow->new( $this, -1 );
-  my $split2 = Wx::SplitterWindow->new( $split1, -1 );
+  my $split1 = Wx::SplitterWindow->new( $this, -1, wxDefaultPosition,
+                                        wxDefaultSize,
+                                        wxNO_FULL_REPAINT_ON_RESIZE);
+  my $split2 = Wx::SplitterWindow->new( $split1, -1, wxDefaultPosition,
+                                        wxDefaultSize,
+                                        wxNO_FULL_REPAINT_ON_RESIZE );
   my $tree = Wx::TreeCtrl->new( $split1, -1 );
   my $text = Wx::TextCtrl->new( $split2, -1, "Welcome to wxPerl\n",
                                 wxDefaultPosition, wxDefaultSize,
-                                wxTE_READONLY|wxTE_MULTILINE );
+                                wxTE_READONLY|wxTE_MULTILINE
+                                |wxNO_FULL_REPAINT_ON_RESIZE );
   $this->{OLDLOG} = Wx::Log::SetActiveTarget( Wx::LogTextCtrl->new( $text ) );
 
   # create main notebook
-  my $nb = Wx::Notebook->new( $split2, -1 );
+  my $nb = Wx::Notebook->new( $split2, -1, wxDefaultPosition, wxDefaultSize,
+                              wxNO_FULL_REPAINT_ON_RESIZE );
   my $html = Wx::HtmlWindow->new( $nb, -1 );
   my $code = Wx::TextCtrl->new( $nb, -1, '', wxDefaultPosition,
-                                wxDefaultSize, wxTE_READONLY|wxTE_MULTILINE );
+                                wxDefaultSize, wxTE_READONLY|wxTE_MULTILINE
+                                |wxNO_FULL_REPAINT_ON_RESIZE );
 
   $nb->AddPage( $code, "Source", 0 );
   $nb->AddPage( $html, "Description", 0 );
