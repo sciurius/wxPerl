@@ -128,12 +128,14 @@ package Wx::Frame;
 use vars qw(@ISA);
 
 @ISA = $Wx::_wx_version >= 2.003002 ? qw(Wx::TopLevelWindow) : qw(Wx::Window);
+@ISA = qw(Wx::Window) if &Wx::wxMOTIF;
 
 package Wx::Dialog;
 
 use vars qw(@ISA);
 
 @ISA = $Wx::_wx_version >= 2.003002 ? qw(Wx::TopLevelWindow) : qw(Wx::Panel);
+@ISA = qw(Wx::Panel) if &Wx::wxMOTIF;
 
 package Wx::MemoryDC;
 

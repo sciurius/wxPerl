@@ -158,6 +158,7 @@ SetConstants();
 # set up wxUNIVERSAL, wxGTK, wxMSW, etc
 eval( "sub wxUNIVERSAL() { $_universal }" );
 eval( "sub wxPL_STATIC() { $_static }" );
+eval( "sub wxMOTIF() { $_platform == $_motif }" );
 
 require Wx::App;
 require Wx::Bitmap;

@@ -250,7 +250,8 @@ newRect( rect )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined( __WXMAC__ )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined( __WXMAC__ ) \
+    && !defined( __WXMOTIF__ )
 
 Wx_Region*
 newPolygon( list, fillStyle = wxODDEVEN_RULE )
@@ -368,7 +369,7 @@ Wx_Region::SubtractRect( rect )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 3 ) && !defined(__WXMOTIF__)
 
 bool
 Wx_Region::Offset( x, y )
