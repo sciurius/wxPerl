@@ -70,6 +70,13 @@ Wx_Frame::IsIconized()
 bool
 Wx_Frame::IsMaximized()
 
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+
+bool
+Wx_Frame::IsFullScreen()
+
+#endif
+
 void
 Wx_Frame::Maximize( maximize )
     bool maximize
