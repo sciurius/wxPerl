@@ -35,7 +35,7 @@ package Wx::WinHelpController;  @ISA = qw(Wx::HelpControllerBase);
 package Wx::HelpControllerHtml; @ISA = qw(Wx::HelpControllerBase);
 package Wx::CHMHelpController;  @ISA = qw(Wx::HelpControllerBase);
 package Wx::ExtHelpController;  @ISA = qw(Wx::HelpControllerBase);
-package Wx::BesthelpController; @ISA = qw(Wx::HelpController);
+package Wx::BesthelpController; @ISA = qw(Wx::HelpControllerBase);
 
 package Wx::ContextHelpButton;  @ISA = qw(Wx::BitmapButton);
 package Wx::SimpleHelpProvider; @ISA = qw(Wx::HelpProvider);
