@@ -624,6 +624,10 @@ static double constant( const char *name, int arg )
     r( wxDIALOG_EX_CONTEXTHELP );       // dialog
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    r( wxDD_NEW_DIR_BUTTON );
+#endif
+
     r( wxDOT );                         // pen
     r( wxDOT_DASH );                    // pen
 
@@ -1620,6 +1624,9 @@ static double constant( const char *name, int arg )
     r( wxTE_RICH );                     // textctrl
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxTE_RICH2 );                    // textctrl
+    r( wxTE_LEFT );                     // textctrl
+    r( wxTE_RIGHT );                    // textctrl
+    r( wxTE_CENTRE );                   // textctrl
 #endif
     r( wxTHICK_FRAME );                 // frame dialog
     r( wxTOP );                         // sizer layout constraints
