@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        Print.pm
+## Name:        XRC.pm
 ## Purpose:     Wx::XRC ( pulls in all wxWindows XML Resources )
 ## Author:      Mattia Barbon
 ## Modified by:

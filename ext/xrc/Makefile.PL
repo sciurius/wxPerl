@@ -3,7 +3,7 @@
 ## Purpose:     Makefile.PL for wxWindows XML resources ( xrc )
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     27/ 6/2001
+## Created:     27/ 7/2001
 ## RCS-ID:      
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or

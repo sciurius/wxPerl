@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        PageSetupDialog.xs
+## Name:        XmlResource.xs
 ## Purpose:     XS for Wx::XmlResource
 ## Author:      Mattia Barbon
 ## Modified by:
