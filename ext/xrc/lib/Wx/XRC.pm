@@ -19,6 +19,9 @@ use vars qw($VERSION);
 
 $VERSION = '0.01';
 
+Wx::load_dll( 'xml' );
+Wx::load_dll( 'html' );
+Wx::load_dll( 'adv' );
 Wx::load_dll( 'xrc' );
 Wx::wx_boot( 'Wx::XRC', $VERSION );
 

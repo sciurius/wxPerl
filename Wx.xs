@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      1/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.54 2003/10/19 20:14:54 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.55 2003/12/26 11:02:54 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -246,6 +246,18 @@ void
 UnLoad()
   CODE:
     wxEntryCleanup();
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+#include <wx/dynload.h>
+
+bool
+_load_plugin( string )
+    const char* string
+  CODE:
+    wxPluginManager::LoadLibrary( string, wxDL_VERBATIM );
+
+#endif
 
 bool
 _xsmatch( avref, proto, required = -1, allow_more = FALSE )

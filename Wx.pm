@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.68 2003/12/13 17:18:34 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.69 2003/12/26 11:02:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -96,6 +96,11 @@ sub _croak {
 # and the correct name
 my( $wx_path, $wx_pre, $wx_post );
 
+sub _load_file {
+  Wx::wxVERSION() < 2.005 ? DynaLoader::dl_load_file( $_[0], 0 ) :
+                            Wx::_load_plugin( $_[0] );
+}
+
 sub load_dll {
   return if $^O ne 'MSWin32' || Wx::wxVERSION() < 2.005;
   my $suff = ( Wx::wxUNICODE() ? 'u' : '' ) .
@@ -118,7 +123,7 @@ sub load_dll {
 
   foreach my $path ( "$wx_path/wxmsw${wx_pre}_$_[0]_${wx_post}.dll",
                      "$wx_path/wxbase${wx_pre}_$_[0]_${wx_post}.dll" ) {
-      -f $path and DynaLoader::dl_load_file( $path, 0 ) and last;
+      -f $path and Wx::_load_file( $path ) and last;
   }
 }
 
