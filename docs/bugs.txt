@@ -8,8 +8,6 @@ All platforms
     - $tree->GetItemData( $item )->SetData( $foo )
       does not work
 
-* The build system is a mess
-
 * The caret sample starts with incorrect size
 
 wxMSW

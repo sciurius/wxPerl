@@ -1,19 +1,15 @@
 PRIORITY NORMAL:
 
+* Wx::DataObject
+    Wx::PlDataObject
+
 * move THIS from HV to the MAGIC?
   
-* submit to CPAN 
-  Wx  am+Op  Wrapper for wxWindows XP GUI toolkit MBARBON
-
 * Wx::Bitmap, Wx::Icon, Wx::Cursor
     add missing constructors ( where applicable )
 
 * Wx::ListCtrl
     Overloaded InsertItem?
-
-* Wx::Window
-    LoadFromResource
-    SetDropTarget
 
 * Decrease compilation time/code bloat:
     Use precompiled headers where appropriate
@@ -36,9 +32,11 @@ PRIORITY NORMAL:
 
 * Wx::Stream
     Better READLINE
-    Support for $/, etc
+    Support for $/, etc?
 
 PRIORITY LOW:
+
+* Wx::HtmlHelpData ?
 
 * Decent wxClassInfo initialization strategy
 
@@ -86,6 +84,8 @@ PRIORITY LOW:
     Wx::Pen
 
 DOCUMENTATTION:
+
+* Wx::MDIParentFrame
 
 -- not documented in wxWindows --
 

@@ -17,7 +17,7 @@ make install       # (4)
    ...
    against the samples in the 'samples' subdirectory
    before installing
-4) you may need administrator/root privileges to install
+4) you may need Administrator/root privileges to install
 
 SPECIFYING THE INSTALLATION PATH
 
