@@ -190,7 +190,7 @@ wx_boot( 'Wx', $VERSION );
 *Wx::Window::Center = \&Wx::Window::Centre;
 *Wx::Window::CenterOnParent = \&Wx::Window::CentreOnParent;
 *Wx::Window::CenterOnScreen = \&Wx::Window::CentreOnScreen;
-*Wx::ListCtrl::InsertStringImageItem = \&InsertImageStringItem;
+*Wx::ListCtrl::InsertStringImageItem = \&Wx::ListCtrl::InsertImageStringItem;
 no strict 'refs';
 *{"Wx::Size::y"} = \&Wx::Size::height; # work around syntax highlighting
 use strict 'refs';
