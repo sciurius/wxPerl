@@ -189,6 +189,7 @@ XS/StaticBox.xs
 XS/StaticLine.xs
 XS/StaticText.xs
 XS/StatusBar.xs
+XS/Stream.xs
 XS/TextCtrl.xs
 XS/Timer.xs
 XS/TreeCtrl.xs
@@ -220,6 +221,7 @@ cpp/scrolledwindow.h
 cpp/singlechoicedialog.h
 cpp/sizer.h
 cpp/splitterwindow.h
+cpp/streams.h
 cpp/timer.h
 cpp/typedef.h
 cpp/validators.h
@@ -229,6 +231,25 @@ cpp/window.h
 cpp/controls.cpp
 cpp/e_cback.cpp
 cpp/helpers.cpp
+cpp/streams.cpp
 cpp/validators.cpp
 cpp/v_cback.cpp
 
+ext/help/Help.xs
+ext/help/Makefile.PL
+ext/help/XS/ContextHelp.xs
+ext/help/XS/HelpController.xs
+ext/help/XS/HelpProvider.xs
+ext/help/cpp/he_typedef.h
+ext/help/lib/Wx/Help.pm
+ext/help/typemap
+
+ext/html/Html.xs
+ext/html/Makefile.PL
+ext/html/XS/HtmlHelpController.xs
+ext/html/XS/HtmlWindow.xs
+ext/html/cpp/ht_constants.cpp
+ext/html/cpp/ht_typedef.h
+ext/html/cpp/htmlwindow.h
+ext/html/lib/Wx/Html.pm
+ext/html/typemap
