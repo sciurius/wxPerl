@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.10 2003/08/02 21:19:12 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.11 2003/08/05 17:24:45 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -730,25 +730,7 @@ void wxPliDocManager::ActivateView( wxView* view, bool activate, bool deleting)
   wxDocManager::ActivateView( view, activate, deleting );
 }
 
-bool wxPliDocManager::MakeDefaultName( wxString& buf )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "MakeDefaultName" ) )
-    {
-      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR,
-                                                   "P", &buf );
-      wxString val;
-      WXSTRING_INPUT( val, const char *, ret );
-      buf = val;
-
-      bool retval = SvTRUE( ret );
-      SvREFCNT_dec( ret );
-      return retval;
-    }
-  return wxDocManager::MakeDefaultName( buf );
-}
+DEF_V_CBACK_BOOL__mWXSTRING( wxPliDocManager, wxDocManager, MakeDefaultName );
 
 wxString wxPliDocManager::MakeFrameTitle( wxDocument* doc )
 {
@@ -1027,37 +1009,8 @@ bool wxPliView::OnCreate( wxDocument* doc, long flags )
   return wxView::OnCreate( doc, flags );
 }
 
-
-bool wxPliView::Close( bool deleteWindow )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "Close" ) )
-    {
-      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR, "b",
-                                                   deleteWindow );
-      bool val = SvTRUE( ret );
-      SvREFCNT_dec( ret );
-      return val;
-    }
-  return wxView::Close( deleteWindow );
-}
-
-
-bool wxPliView::OnClose( bool deleteWindow )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnClose" ) )
-    {
-      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR, "b",
-                                                   deleteWindow );
-      bool val = SvTRUE( ret );
-      SvREFCNT_dec( ret );
-      return val;
-    }
-  return wxView::OnClose( deleteWindow );
-}
+DEF_V_CBACK_BOOL__BOOL( wxPliView, wxView, Close );
+DEF_V_CBACK_BOOL__BOOL( wxPliView, wxView, OnClose );
 
 void wxPliView::Activate( bool activate )
 {
