@@ -18,7 +18,7 @@ die "4 arguments required" unless @ARGV == 4;
 open IN, '< ' . $ARGV[0];
 
 while( <IN> ) {
-  m<^\s*r\(\s*(\w+)\s*\);\s*(?://(.*))?$> || next;
+  m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> || next;
   if( length $2 ) {
     foreach ( split '\s+', $2 ) {
       next if $_ =~ /^\s*$/;
