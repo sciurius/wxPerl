@@ -28,6 +28,14 @@ newBitmap( bitmap )
     RETVAL
 
 Wx_Image*
+newIcon( icon )
+    Wx_Icon* icon
+  CODE:
+    RETVAL = new wxImage( *icon );
+  OUTPUT:
+    RETVAL
+
+Wx_Image*
 newWH( width, height )
     int width
     int height
@@ -145,7 +153,7 @@ Wx_Image::GetMaskGreen()
 unsigned char
 Wx_Image::GetMaskRed()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 wxString
 Wx_Image::GetOption( name )
@@ -178,7 +186,7 @@ Wx_Image::GetWidth()
 bool
 Wx_Image::HasMask()
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 bool
 Wx_Image::HasOption( name )
@@ -299,7 +307,7 @@ Wx_Image::SetMaskColour( red, green, blue )
     unsigned char green
     unsigned char blue
 
-#if WXPERL_W_VERSION_GE( 2, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3 ) || defined( __WXPERL_FORCE__ )
 
 void
 Wx_Image::SetOption( name, value )

@@ -20,6 +20,7 @@ sub new {
   shift;
 
   @_ == 0                     && return Wx::Image::newNull();
+  Wx::_match( @_, $Wx::_wico, 1 ) && return Wx::Image::newIcon( @_ );
   Wx::_match( @_, $Wx::_wbmp, 1 ) && return Wx::Image::newBitmap( @_ );
   Wx::_match( @_, $Wx::_n_n, 2 )  && return Wx::Image::newWH( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 )  && return Wx::Image::newNameType( @_ );
