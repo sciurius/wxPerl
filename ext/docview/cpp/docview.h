@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.13 2003/08/22 22:21:57 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.14 2003/10/02 17:06:28 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -254,7 +254,7 @@ void wxPliDocument::SetDocumentTemplate( wxDocTemplate *temp )
 }
 
 DEF_V_CBACK_BOOL__mWXSTRING_const( wxPliDocument, wxDocument,
-                                  GetPrintableName );
+                                   GetPrintableName );
 
 wxWindow *wxPliDocument::GetDocumentWindow() const
 {
