@@ -86,7 +86,7 @@ Wx_DataObject::GetAllFormats( dir = wxDataObjectBase::Get )
     THIS->GetAllFormats( formats_d, dir );
     if( GIMME_V == G_SCALAR )
         wanted = 1;
-    EXTEND( SP, wanted );
+    EXTEND( SP, (IV)wanted );
     for( i = 0; i < wanted; ++i )
     {
         PUSHs( wxPli_non_object_2_sv( sv_newmortal(),
