@@ -5,6 +5,21 @@ use Config;
 use base 'Any_OS';
 use wxMMUtils;
 
+# check for WXDIR and WXWIN environment variables
+unless( exists $ENV{WXDIR} and exists $ENV{WXWIN} ) {
+  warn <<EOT;
+
+**********************************************************************
+WARNING!
+
+You need to set the WXDIR and WXWIN variables; refer to
+docs/install.txt for a detailed explanation
+**********************************************************************
+
+EOT
+  exit 1;
+}
+
 sub top_targets {
   my $this = shift;
 
