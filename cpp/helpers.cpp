@@ -468,10 +468,10 @@ int wxPli_av_2_stringarray( SV* avref, wxString** array )
 #if wxUSE_UNICODE
 wxChar* wxPli_copy_string( SV* scalar, wxChar** )
 {
-    unsigned int length;
-    const wxMB2WXbuf tmp = ( SvUTF8( scalar ) ) ?
-        ( wxConvUTF8.cMB2WX( SvPVutf8( scalar, length ) ) )
-        : ( wxString( SvPV( scalar, length ) ).wc_str() ); 
+    STRLEN length;
+    wxWCharBuffer tmp = ( SvUTF8( scalar ) ) ?
+      wxConvUTF8.cMB2WX( SvPVutf8( scalar, length ) ) :
+      wxWCharBuffer( wxString( SvPV( scalar, length ) ).wc_str() );
     
     wxChar* buffer = new wxChar[length + 1];
     memcpy( buffer, tmp.data(), length * sizeof(wxChar) );
