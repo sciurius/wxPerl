@@ -166,6 +166,14 @@ FindHandlerMime( mime )
   OUTPUT:
     RETVAL
 
+SV*
+Wx_Image::GetData()
+  CODE:
+    STRLEN len = THIS->GetWidth() * THIS->GetHeight() * 3;
+    RETVAL = newSVpvn( (char*)THIS->GetData(), len );
+  OUTPUT:
+    RETVAL
+
 unsigned char
 Wx_Image::GetBlue( x, y )
     int x
@@ -372,6 +380,17 @@ Wx_Image::Scale( width, height )
     RETVAL = new wxImage( THIS->Scale( width, height ) );
   OUTPUT:
     RETVAL
+
+void
+Wx_Image::SetData( d )
+    SV* d
+  CODE:
+    STRLEN len;
+    unsigned char* data = (unsigned char*)SvPV( d, len );
+    STRLEN imglen = THIS->GetWidth() * THIS->GetHeight() * 3;
+    unsigned char* data_copy = (unsigned char*)malloc( imglen );
+    memcpy( data_copy, data, len );
+    THIS->SetData( data_copy );
 
 void
 Wx_Image::SetMask( hasMask = TRUE )
