@@ -26,6 +26,11 @@ AddTraceMask( mask )
     wxLog::AddTraceMask( mask );
 
 void
+ClearTraceMasks()
+  CODE:
+    wxLog::ClearTraceMasks();
+
+void
 RemoveTraceMask( mask )
     wxString mask
   CODE:

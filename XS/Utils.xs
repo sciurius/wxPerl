@@ -13,7 +13,11 @@
 #include <wx/busyinfo.h>
 #include <wx/settings.h>
 #include <wx/caret.h>
+#if WXPERL_W_VERSION_GE( 2, 3 )
+#include <wx/snglinst.h>
+#endif
 #include <wx/utils.h>
+#include <wx/debug.h>
 
 MODULE=Wx PACKAGE=Wx::CaretSuspend
 
@@ -80,6 +84,26 @@ Wx_StopWatch::Resume()
 long
 Wx_StopWatch::Time()
 
+MODULE=Wx PACKAGE=Wx::SingleInstanceChecker
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_SingleInstanceChecker*
+Wx_SingleInstanceChecker::new()
+
+void
+Wx_SingleInstanceChecker::DESTROY()
+
+bool
+Wx_SingleInstanceChecker::Create( name, path = wxEmptyString )
+    wxString name
+    wxString path
+
+bool
+Wx_SingleInstanceChecker::IsAnotherRunning()
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::SystemSettings
 
 Wx_Colour*
@@ -118,3 +142,5 @@ wxSafeYield( window = 0 )
 bool
 wxYieldIfNeeded()
 
+void
+wxTrap()
