@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.16 2004/04/10 20:35:39 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.17 2004/06/01 19:27:15 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -325,12 +325,8 @@ wxGrid::GetDefaultColSize()
 int
 wxGrid::GetColMinimalAcceptableWidth()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 2 )
-
 int
-wxGrid::GetRowMinimalAcceptableWidth()
-
-#endif
+wxGrid::GetRowMinimalAcceptableHeight()
 
 wxGridCellEditor*
 wxGrid::GetDefaultEditor()
@@ -808,12 +804,8 @@ wxGrid::SetColLabelValue( col, value )
 void
 wxGrid::SetColMinimalAcceptableWidth( int width )
 
-#if WXPERL_W_VERSION_GE( 2, 5, 2 )
-
 void
-wxGrid::SetRowMinimalAcceptableWidth( int width )
-
-#endif
+wxGrid::SetRowMinimalAcceptableHeight( int width )
 
 void
 wxGrid::SetColMinimalWidth( col, width )
