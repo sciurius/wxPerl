@@ -5,18 +5,24 @@ use Config;
 use File::Find;
 use wxMMUtils;
 
+my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
+my $ovl = MM->catfile( qw(blib lib Wx _Ovl.pm) );
+my $ovlc = MM->catfile( qw(cpp ovl_const.cpp) );
+my $ovlh = MM->catfile( qw(cpp ovl_const.h) );
+
 sub depend {
   my $this = shift;
-  my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
-  my $ovl = MM->catfile( qw(blib lib Wx _Ovl.pm) );
 
+  my @ovl = files_with_overload();
   my %depend = ( xs_depend( $this, [ MM->curdir(), top_dir() ] ),
                  ( $this->{PARENT} ?
                    () :
                    ( $exp => join( ' ', files_with_constants() ),
-                     $ovl => join( ' ', files_with_overload() ),
-                     '$(INST_STATIC)' => " $exp $ovl ",
-                     '$(INST_DYNAMIC)' => " $exp $ovl ",
+                     $ovl => join( ' ', @ovl ),
+                     $ovlc => $ovl,
+                     $ovlh => $ovl,
+                     '$(INST_STATIC)' => " $exp $ovl $ovlc $ovlh ",
+                     '$(INST_DYNAMIC)' => " $exp $ovl $ovlc $ovlh ",
                    )
                  )
                );
@@ -64,7 +70,7 @@ sub files_with_overload {
   my $wanted = sub {
     my $name = $File::Find::name;
 
-    m/\.(?:pm)$/i && do {
+    m/\.pm$/i && do {
       my $line;
       local *IN;
 
@@ -74,7 +80,20 @@ sub files_with_overload {
           push @files, $name;
           return;
         };
-      };
+      }
+    };
+
+    m/\.xs$/i && do {
+      my $line;
+      local *IN;
+
+      open IN, "< $_" || warn "unable to open '$_'";
+      while( defined( $line = <IN> ) ) {
+        $line =~ m/wxPli_match_arguments/ && do {
+          push @files, $name;
+          return;
+        };
+      }
     };
   };
 
@@ -91,8 +110,8 @@ sub postamble {
     my @c_files = files_with_constants();
     my @o_files = files_with_overload();
 
-    my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
-    my $ovl = MM->catfile( qw(blib lib Wx _Ovl.pm) );
+#    my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
+#    my $ovl = MM->catfile( qw(blib lib Wx _Ovl.pm) );
 
     $text = <<EOT;
 
@@ -100,7 +119,7 @@ $exp :
 \t\$(PERL) script/make_exp_list.pl $exp @c_files
 
 $ovl :
-\t\$(PERL) script/make_ovl_list.pl $ovl @o_files
+\t\$(PERL) script/make_ovl_list.pl $ovl $ovlc $ovlh @o_files
 
 EOT
   }

@@ -974,6 +974,13 @@ void wxPli_stream_2_sv( pTHX_ SV* scalar, wxStreamBase* stream,
     PUTBACK;
 }
 
+I32 my_looks_like_number( pTHX_ SV* sv )
+{
+    if( SvROK( sv ) || !SvOK( sv ) ) return 0;
+    if( SvIOK( sv ) || SvNOK( sv ) ) return 1;
+    return looks_like_number( sv );
+}
+
 // Local variables: //
 // mode: c++ //
 // End: //

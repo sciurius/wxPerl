@@ -13,6 +13,8 @@
 use strict;
 
 my $ovl = shift @ARGV;
+my $ovlc = shift @ARGV;
+my $ovlh = shift @ARGV;
 
 my %name2type =
   (
@@ -68,7 +70,6 @@ my @keys = ( ( sort grep { $name2type{$_} != 1 } keys %name2type ),
              ( sort grep { $name2type{$_} == 1 } keys %name2type ) );
 
 open OUT, '> '. $ovl || die "unable to open file '$ovl'";
-
 binmode OUT; # Perl 5.004 on Unix complains for CR
 
 print OUT <<EOT;
@@ -111,6 +112,49 @@ print OUT <<EOT;
 # mode: cperl #
 # End: #
 EOT
+
+open OUT, '> '. $ovlh || die "unable to open file '$ovlc'";
+binmode OUT;
+
+my $enum = join ",\n", map { "    wxPliOvl$_" } @keys;
+my $cpp_types = $types; $cpp_types =~ s/\'/\"/g;
+
+print OUT <<EOT;
+// GENERATED FILE, DO NOT EDIT
+
+enum
+{
+    wxPliOvl_Dummy = 0,
+$enum
+};
+
+extern const char* wxPliOvl_tnames[];
+
+EOT
+
+foreach my $i ( sort keys %constants ) {
+  print OUT "extern const unsigned char wxPliOvl_$i\[\];\n";
+  print OUT "#define wxPliOvl_${i}_count " . scalar @{$constants{$i}} . "\n";
+}
+
+
+open OUT, '> '. $ovlc || die "unable to open file '$ovlh'";
+binmode OUT;
+
+print OUT <<EOT;
+// GENERATED FILE, DO NOT EDIT
+
+const char* wxPliOvl_tnames[] = { 0,
+$cpp_types
+};
+
+EOT
+
+foreach my $i ( sort keys %constants ) {
+  print OUT "extern const unsigned char wxPliOvl_$i\[\] = { ";
+  print OUT join ", ", map { "wxPliOvl$_" } @{$constants{$i}};
+  print OUT " };\n";
+}
 
 exit 0;
 

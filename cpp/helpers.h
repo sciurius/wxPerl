@@ -82,6 +82,21 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 
 #endif
 
+// some utility functions
+
+inline AV* wxPli_avref_2_av( SV* sv )
+{
+    if( SvROK( sv ) )
+    {
+        SV* rv = SvRV( sv );
+        return SvTYPE( rv ) == SVt_PVAV ? (AV*)rv : (AV*)0;
+    }
+
+    return (AV*)0;
+}
+
+//
+
 const int WXPL_BUF_SIZE = 120;
 WXPLDLL const char* wxPli_cpp_class_2_perl( const wxChar* className,
                                             char buffer[WXPL_BUF_SIZE] );
@@ -157,6 +172,14 @@ WXPLDLL bool FUNCPTR( wxPliVirtualCallback_FindCallback )
 WXPLDLL SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
     ( pTHX_ const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
       const char* argtypes = 0, ... );
+
+// defined in overload.cpp
+bool wxPli_match_arguments( pTHX_ const unsigned char prototype[],
+                            size_t nproto, int required = -1,
+                            bool allow_more = FALSE );
+bool wxPli_match_arguments_skipfirst(  pTHX_ const unsigned char prototype[],
+                                       size_t nproto, int required = -1,
+                                       bool allow_more = FALSE );
 
 #define WXPLI_BOOT_ONCE_( name, xs ) \
 extern "C" XS(wxPli_boot_##name); \

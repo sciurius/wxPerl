@@ -70,6 +70,8 @@ void WXDLLEXPORT wxEntryCleanup();
 
 #include "cpp/helpers.cpp"
 #include "cpp/v_cback.cpp"
+#include "cpp/overload.cpp"
+#include "cpp/ovl_const.cpp"
 
 #undef THIS
 
@@ -147,6 +149,9 @@ void wxEntryCleanup()
 
 #endif
 
+//FIXME// move to header
+extern I32 my_looks_like_number( pTHX_ SV* sv );
+  
 DEFINE_PLI_HELPERS( st_wxPliHelpers );
 
 #include <wx/confbase.h>
@@ -165,6 +170,7 @@ BOOT:
   newXSproto( "Wx::_boot_Frames", boot_Wx_Wnd, file, "$$" );
   newXSproto( "Wx::_boot_GDI", boot_Wx_GDI, file, "$$" );
 #if defined( WXPL_STATIC )
+  newXSproto( "Wx::_boot_Wx__STC", boot_Wx__STC, file, "$$" );
   newXSproto( "Wx::_boot_Wx__XRC", boot_Wx__XRC, file, "$$" );
   newXSproto( "Wx::_boot_Wx__Print", boot_Wx__Print, file, "$$" );
   newXSproto( "Wx::_boot_Wx__MDI", boot_Wx__MDI, file, "$$" );
@@ -212,9 +218,40 @@ UnLoad()
   CODE:
     wxEntryCleanup();
 
+bool
+_xsmatch( avref, proto, required = -1, allow_more = FALSE )
+    SV* avref
+    SV* proto
+    int required
+    bool allow_more
+  PREINIT:
+    AV* av;
+    unsigned char* prototype;
+    int i, n, len;
+  PROTOTYPE: \@$;$$
+  CODE:
+    av = wxPli_avref_2_av( avref );
+    if( !av ) croak( "first parameter must be an ARRAY reference" );
+    n = wxPli_av_2_uchararray( aTHX_ proto, &prototype );
+    len = av_len( av ) + 1;
+    PUSHMARK(SP);
+    for( i = 0; i < len; ++i )
+        XPUSHs( *av_fetch( av, i, 0 ) );
+    PUTBACK;
+    RETVAL = wxPli_match_arguments( aTHX_ prototype, n, required, allow_more );
+    SPAGAIN;
+    POPMARK; // wxPli_match_* does a PUSHMARK
+    delete[] prototype;
+  OUTPUT:
+    RETVAL
+
 I32
 looks_like_number( sval )
     SV* sval
+  CODE:
+    RETVAL = my_looks_like_number( aTHX_ sval );
+  OUTPUT:
+    RETVAL
 
 void
 CLONE( CLASS )
