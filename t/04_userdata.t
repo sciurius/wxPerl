@@ -5,7 +5,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Tests_Helper qw(test_frame);
+use Tests_Helper qw(in_frame);
 use Wx::Event qw(EVT_BUTTON);
 
 package MyClass;
@@ -20,22 +20,19 @@ sub new {
 
 sub DESTROY { &{$_[0][0]} }
 
-package DataFrame;
+package main;
 
 use Test::More 'tests' => 45;
 
 use strict;
-use base 'Wx::Frame';
+#use base 'Wx::Frame';
 use vars '$TODO';
 
 sub tdata($) { Wx::TreeItemData->new( MyClass->new( $_[0] ) ) }
 sub cdata($) { MyClass->new( $_[0] ) }
 
-sub new {
-  my $class = shift;
-  my $this = $class->SUPER::new( undef, -1, 'Test!' );
-
-  $this->Show(1);
+sub tests {
+  my $this = shift;
 
   ############################################################################
   # wxTreeCtrl
@@ -167,17 +164,11 @@ sub new {
   $listctrl->SetItemData( 1, 135 );
 
   is( $listctrl->GetItemData( 1 ), 135, "Wx::ListCtrl, changing item data" );
-
-  $this->Destroy;
-
-  return $this;
 }
 
-package main;
+in_frame( \&tests );
 
-test_frame( 'DataFrame' );
-
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:
 

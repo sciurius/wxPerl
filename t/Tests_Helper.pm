@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/06/2001
-## RCS-ID:      $Id: Tests_Helper.pm,v 1.4 2004/03/14 13:48:53 mbarbon Exp $
+## RCS-ID:      $Id: Tests_Helper.pm,v 1.5 2004/04/10 20:36:57 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,6 +13,7 @@
 package Tests_Helper;
 
 use strict;
+use Wx;
 require Exporter;
 
 use Test::More ();
@@ -26,12 +27,25 @@ use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK);
 
 @EXPORT_OK = qw(test_inheritance test_inheritance_all
                 test_inheritance_start test_inheritance_end
-                test_app test_frame app_timeout);
+                test_app test_frame app_timeout in_frame);
 
 %EXPORT_TAGS =
   ( inheritance => [ qw(test_inheritance test_inheritance_all
                         test_inheritance_start test_inheritance_end) ],
   );
+
+sub in_frame($) {
+  my $callback = shift;
+  my $sub = sub {
+    my $frame = Tests_Helper_Frame->new( $callback );
+
+    $frame->Show( 1 );
+  };
+
+  test_app( $sub );
+
+  Wx::wxTheApp->MainLoop;
+}
 
 sub app_timeout($) {
   test_app( sub {
@@ -44,7 +58,7 @@ sub app_timeout($) {
                                     } );
 
               $timer->Start( 500, 1 );
-              Wx::WakeUpIdle;
+              Wx::WakeUpIdle();
               $frame->Show( 1 );
             } );
 }
@@ -198,6 +212,29 @@ sub OnInit {
   &$on_init;
 
   return 1;
+}
+
+package Tests_Helper_Frame;
+
+use base 'Wx::Frame';
+
+sub new {
+  my $ref = shift;
+  my $callback = shift;
+  my $self = $ref->SUPER::new( undef, -1, "Test Frame" );
+  my $timer = Wx::Timer->new( $self );
+
+  Wx::Event::EVT_TIMER( $self, -1, sub {
+                            &$callback( $self, $_[1] );
+                            $self->Destroy;
+                            Wx::wxTheApp()->ExitMainLoop;
+                            Wx::WakeUpIdle();
+                        } );
+
+  $timer->Start( 500, 1 );
+  Wx::WakeUpIdle();
+
+  return $self;
 }
 
 1;
