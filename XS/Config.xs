@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Config.xs
+## Name:        XS/Config.xs
 ## Purpose:     XS for Wx::*Config*
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      
+## RCS-ID:      $Id: Config.xs,v 1.4 2004/02/29 14:43:23 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,11 +15,11 @@
 MODULE=Wx PACKAGE=Wx::ConfigBase
 
 void
-Wx_ConfigBase::Destroy()
+wxConfigBase::Destroy()
   CODE:
     delete THIS;
 
-Wx_ConfigBase*
+wxConfigBase*
 Create()
   CODE:
     RETVAL = wxConfigBase::Create();
@@ -32,26 +32,26 @@ DontCreateOnDemand()
     wxConfigBase::DontCreateOnDemand();
 
 bool
-Wx_ConfigBase::DeleteAll()
+wxConfigBase::DeleteAll()
 
 bool
-Wx_ConfigBase::DeleteEntry( key, deleteGroupIfEmpty = TRUE )
+wxConfigBase::DeleteEntry( key, deleteGroupIfEmpty = TRUE )
     wxString key
     bool deleteGroupIfEmpty
 
 bool
-Wx_ConfigBase::DeleteGroup( key )
+wxConfigBase::DeleteGroup( key )
     wxString key
 
 bool
-Wx_ConfigBase::Exists( key )
+wxConfigBase::Exists( key )
     wxString key
 
 bool
-Wx_ConfigBase::Flush( currentOnly = FALSE )
+wxConfigBase::Flush( currentOnly = FALSE )
     bool currentOnly
 
-Wx_ConfigBase*
+wxConfigBase*
 Get( createOnDemand = TRUE )
     bool createOnDemand
   CODE:
@@ -60,14 +60,14 @@ Get( createOnDemand = TRUE )
     RETVAL
 
 wxString
-Wx_ConfigBase::GetAppName()
+wxConfigBase::GetAppName()
 
 EntryType
-Wx_ConfigBase::GetEntryType( name )
+wxConfigBase::GetEntryType( name )
     wxString name
 
 void
-Wx_ConfigBase::GetFirstEntry()
+wxConfigBase::GetFirstEntry()
   PREINIT:
     wxString name;
     long index;
@@ -82,7 +82,7 @@ Wx_ConfigBase::GetFirstEntry()
     PUSHs( sv_2mortal( newSViv( index ) ) );
 
 void
-Wx_ConfigBase::GetFirstGroup()
+wxConfigBase::GetFirstGroup()
   PREINIT:
     wxString name;
     long index;
@@ -97,7 +97,7 @@ Wx_ConfigBase::GetFirstGroup()
     PUSHs( sv_2mortal( newSViv( index ) ) );
 
 void
-Wx_ConfigBase::GetNextEntry( index )
+wxConfigBase::GetNextEntry( index )
     long index
   PREINIT:
     wxString name;
@@ -112,7 +112,7 @@ Wx_ConfigBase::GetNextEntry( index )
     PUSHs( sv_2mortal( newSViv( index ) ) );
 
 void
-Wx_ConfigBase::GetNextGroup( index )
+wxConfigBase::GetNextGroup( index )
     long index
   PREINIT:
     wxString name;
@@ -127,35 +127,35 @@ Wx_ConfigBase::GetNextGroup( index )
     PUSHs( sv_2mortal( newSViv( index ) ) );
 
 unsigned int
-Wx_ConfigBase::GetNumberOfEntries( recursive = FALSE )
+wxConfigBase::GetNumberOfEntries( recursive = FALSE )
     bool recursive
 
 unsigned int
-Wx_ConfigBase::GetNumberOfGroups( recursive = FALSE )
+wxConfigBase::GetNumberOfGroups( recursive = FALSE )
     bool recursive
 
 wxString
-Wx_ConfigBase::GetPath()
+wxConfigBase::GetPath()
 
 wxString
-Wx_ConfigBase::GetVendorName()
+wxConfigBase::GetVendorName()
 
 bool
-Wx_ConfigBase::HasEntry( name )
+wxConfigBase::HasEntry( name )
     wxString name
 
 bool
-Wx_ConfigBase::HasGroup( name )
+wxConfigBase::HasGroup( name )
     wxString name
 
 bool
-Wx_ConfigBase::IsExpandingEnvVars()
+wxConfigBase::IsExpandingEnvVars()
 
 bool
-Wx_ConfigBase::IsRecordingDefaults()
+wxConfigBase::IsRecordingDefaults()
 
 wxString
-Wx_ConfigBase::Read( key, def = wxEmptyString )
+wxConfigBase::Read( key, def = wxEmptyString )
     wxString key
     wxString def
   CODE:
@@ -164,7 +164,7 @@ Wx_ConfigBase::Read( key, def = wxEmptyString )
     RETVAL
 
 long
-Wx_ConfigBase::ReadInt( key, def = 0 )
+wxConfigBase::ReadInt( key, def = 0 )
     wxString key
     long def
   CODE:
@@ -173,7 +173,7 @@ Wx_ConfigBase::ReadInt( key, def = 0 )
     RETVAL
 
 double
-Wx_ConfigBase::ReadFloat( key, def = 0.0 )
+wxConfigBase::ReadFloat( key, def = 0.0 )
     wxString key
     double def
   CODE:
@@ -182,7 +182,7 @@ Wx_ConfigBase::ReadFloat( key, def = 0.0 )
     RETVAL
 
 bool
-Wx_ConfigBase::ReadBool( key, def = FALSE )
+wxConfigBase::ReadBool( key, def = FALSE )
     wxString key
     bool def
   CODE:
@@ -191,56 +191,56 @@ Wx_ConfigBase::ReadBool( key, def = FALSE )
     RETVAL
 
 bool
-Wx_ConfigBase::RenameEntry( oldName, newName )
+wxConfigBase::RenameEntry( oldName, newName )
      wxString oldName
      wxString newName
 
 bool
-Wx_ConfigBase::RenameGroup( oldName, newName )
+wxConfigBase::RenameGroup( oldName, newName )
      wxString oldName
      wxString newName
 
 void
 Set( config )
-    Wx_ConfigBase* config
+    wxConfigBase* config
   CODE:
     wxConfigBase::Set( config );
 
 void
-Wx_ConfigBase::SetExpandEnvVars( doIt = TRUE )
+wxConfigBase::SetExpandEnvVars( doIt = TRUE )
     bool doIt
 
 void
-Wx_ConfigBase::SetPath( path )
+wxConfigBase::SetPath( path )
     wxString path
 
 void
-Wx_ConfigBase::SetRecordDefaults( doIt = TRUE )
+wxConfigBase::SetRecordDefaults( doIt = TRUE )
     bool doIt
 
 void
-Wx_ConfigBase::Write( key, value )
+wxConfigBase::Write( key, value )
     wxString key
     wxString value
   CODE:
     THIS->Write( key, value );
 
 void
-Wx_ConfigBase::WriteInt( key, value )
+wxConfigBase::WriteInt( key, value )
     wxString key
     long value
   CODE:
     THIS->Write( key, value );
 
 void
-Wx_ConfigBase::WriteFloat( key, value )
+wxConfigBase::WriteFloat( key, value )
     wxString key
     double value
   CODE:
     THIS->Write( key, value );
 
 void
-Wx_ConfigBase::WriteBool( key, value )
+wxConfigBase::WriteBool( key, value )
     wxString key
     bool value
   CODE:
@@ -252,8 +252,8 @@ MODULE=Wx PACKAGE=Wx::RegConfig
 
 #include <wx/msw/regconf.h>
 
-Wx_ConfigBase*
-Wx_RegConfig::new( appName = wxEmptyString, vendorName = wxEmptyString, localFilename = wxEmptyString, globalFilename = wxEmptyString, style = 0 )
+wxConfigBase*
+wxRegConfig::new( appName = wxEmptyString, vendorName = wxEmptyString, localFilename = wxEmptyString, globalFilename = wxEmptyString, style = 0 )
     wxString appName
     wxString vendorName
     wxString localFilename
@@ -266,8 +266,8 @@ MODULE=Wx PACKAGE=Wx::FileConfig
 
 #include <wx/fileconf.h>
 
-Wx_ConfigBase*
-Wx_FileConfig::new( appName = wxEmptyString, vendorName = wxEmptyString, localFilename = wxEmptyString, globalFilename = wxEmptyString, style = 0 )
+wxConfigBase*
+wxFileConfig::new( appName = wxEmptyString, vendorName = wxEmptyString, localFilename = wxEmptyString, globalFilename = wxEmptyString, style = 0 )
     wxString appName
     wxString vendorName
     wxString localFilename

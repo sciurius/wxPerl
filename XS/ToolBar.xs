@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ToolBar.xs,v 1.19 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: ToolBar.xs,v 1.20 2004/02/29 14:43:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -25,7 +25,7 @@ wxToolBarToolBase::Destroy()
 int
 wxToolBarToolBase::GetId()
 
-Wx_Control*
+wxControl*
 wxToolBarToolBase::GetControl()
 
 wxToolBarBase*
@@ -55,35 +55,35 @@ wxToolBarToolBase::IsToggled()
 bool
 wxToolBarToolBase::CanBeToggled()
 
-Wx_Bitmap*
+wxBitmap*
 wxToolBarToolBase::GetNormalBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetNormalBitmap() );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
+wxBitmap*
 wxToolBarToolBase::GetDisabledBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetDisabledBitmap() );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
+wxBitmap*
 wxToolBarToolBase::GetBitmap1()
   CODE:
     RETVAL = new wxBitmap( THIS->GetNormalBitmap() );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
+wxBitmap*
 wxToolBarToolBase::GetBitmap2()
   CODE:
     RETVAL = new wxBitmap( THIS->GetDisabledBitmap() );
   OUTPUT:
     RETVAL
 
-Wx_Bitmap*
+wxBitmap*
 wxToolBarToolBase::GetBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmap() );
@@ -128,13 +128,13 @@ wxToolBarToolBase::SetLongHelp( help )
 
 void
 wxToolBarToolBase::SetNormalBitmap( bmp )
-    Wx_Bitmap* bmp
+    wxBitmap* bmp
   CODE:
     THIS->SetNormalBitmap( *bmp );
 
 void
 wxToolBarToolBase::SetDisabledBitmap( bmp )
-    Wx_Bitmap* bmp
+    wxBitmap* bmp
   CODE:
     THIS->SetDisabledBitmap( *bmp );
 
@@ -144,13 +144,13 @@ wxToolBarToolBase::SetLabel( label )
 
 void
 wxToolBarToolBase::SetBitmap1( bmp )
-    Wx_Bitmap* bmp
+    wxBitmap* bmp
   CODE:
     THIS->SetNormalBitmap( *bmp );
 
 void
 wxToolBarToolBase::SetBitmap2( bmp )
-    Wx_Bitmap* bmp
+    wxBitmap* bmp
   CODE:
     THIS->SetDisabledBitmap( *bmp );
 
@@ -167,7 +167,7 @@ wxToolBarBase::Destroy()
 
 bool
 wxToolBarBase::AddControl( control )
-    Wx_Control* control
+    wxControl* control
 
 void
 wxToolBar::AddSeparator()
@@ -267,7 +267,7 @@ wxToolBarBase::FindToolForPosition( x, y )
     int x
     int y
 
-Wx_Size*
+wxSize*
 wxToolBarBase::GetMargins()
   CODE:
     RETVAL = new wxSize( THIS->GetMargins() );
@@ -280,14 +280,14 @@ wxToolBarBase::GetMaxRows()
 int
 wxToolBarBase::GetMaxCols()
 
-Wx_Size*
+wxSize*
 wxToolBarBase::GetToolSize()
   CODE:
     RETVAL = new wxSize( THIS->GetToolSize() );
   OUTPUT:
     RETVAL
 
-Wx_Size*
+wxSize*
 wxToolBarBase::GetToolBitmapSize()
   CODE:
     RETVAL = new wxSize( THIS->GetToolBitmapSize() );
@@ -327,7 +327,7 @@ wxToolBarBase::GetToolState( toolId )
 wxToolBarToolBase*
 wxToolBarBase::InsertControl( pos, control )
    size_t pos
-   Wx_Control* control
+   wxControl* control
 
 wxToolBarToolBase*
 wxToolBarBase::InsertSeparator( pos )
@@ -337,8 +337,8 @@ wxToolBarToolBase*
 wxToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     size_t pos
     int toolId
-    Wx_Bitmap* bitmap1
-    Wx_Bitmap* bitmap2
+    wxBitmap* bitmap1
+    wxBitmap* bitmap2
     bool isToggle
     Wx_UserDataO* clientData
     wxString shortHelp
@@ -360,7 +360,7 @@ wxToolBarBase::RemoveTool( id )
 
 void
 wxToolBarBase::SetMarginsSize( size )
-    Wx_Size size
+    wxSize size
   CODE:
     THIS->SetMargins( size );
 
@@ -390,7 +390,7 @@ wxToolBarBase::SetRows( nRows )
 
 void
 wxToolBarBase::SetToolBitmapSize( size )
-    Wx_Size size
+    wxSize size
 
 void
 wxToolBarBase::SetToolClientData( id, data )
@@ -445,10 +445,10 @@ newDefault( CLASS )
 wxToolBar*
 newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
     PlClassName CLASS
-    Wx_Window* parent
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
@@ -472,10 +472,10 @@ MODULE=Wx PACKAGE=Wx::ToolBarSimple
 
 wxToolBar*
 wxToolBarSimple::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
-    Wx_Window* parent
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Panel.xs,v 1.10 2003/06/04 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: Panel.xs,v 1.11 2004/02/29 14:43:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,7 +15,7 @@
 
 MODULE=Wx PACKAGE=Wx::Panel
 
-Wx_Panel*
+wxPanel*
 newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTAB_TRAVERSAL, name = wxPanelNameStr )
   CASE: items == 1
       PlClassName CLASS
@@ -25,10 +25,10 @@ newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, 
       RETVAL
   CASE:
       PlClassName CLASS
-      Wx_Window* parent
+      wxWindow* parent
       wxWindowID id
-      Wx_Point pos
-      Wx_Size size
+      wxPoint pos
+      wxSize size
       long style
       wxString name
     CODE:
@@ -46,21 +46,21 @@ wxPanel::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize,
     wxString name
 
 bool
-Wx_Panel::TransferDataFromWindow()
+wxPanel::TransferDataFromWindow()
   CODE:
     RETVAL = THIS->wxPanel::TransferDataFromWindow();
   OUTPUT:
     RETVAL
 
 bool
-Wx_Panel::TransferDataToWindow()
+wxPanel::TransferDataToWindow()
   CODE:
     RETVAL = THIS->wxPanel::TransferDataToWindow();
   OUTPUT:
     RETVAL
 
 bool
-Wx_Panel::Validate()
+wxPanel::Validate()
   CODE:
     RETVAL = THIS->wxPanel::Validate();
   OUTPUT:

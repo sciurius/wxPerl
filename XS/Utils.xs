@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.29 2004/01/25 08:02:05 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.30 2004/02/29 14:43:24 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -24,12 +24,12 @@
 
 MODULE=Wx PACKAGE=Wx::CaretSuspend
 
-Wx_CaretSuspend*
-Wx_CaretSuspend::new( window )
-    Wx_Window* window
+wxCaretSuspend*
+wxCaretSuspend::new( window )
+    wxWindow* window
 
 void
-Wx_CaretSuspend::DESTROY()
+wxCaretSuspend::DESTROY()
 
 MODULE=Wx PACKAGE=Wx::SplashScreen
 
@@ -41,15 +41,15 @@ MODULE=Wx PACKAGE=Wx::SplashScreen
 #define wxFRAME_TOOL_WINDOW 0
 #endif
 
-Wx_SplashScreen*
-Wx_SplashScreen::new( bitmap, splashStyle, milliseconds, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSIMPLE_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP )
-    Wx_Bitmap* bitmap
+wxSplashScreen*
+wxSplashScreen::new( bitmap, splashStyle, milliseconds, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSIMPLE_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP )
+    wxBitmap* bitmap
     long splashStyle
     int milliseconds
-    Wx_Window* parent
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
   CODE:
     RETVAL = new wxSplashScreen( *bitmap, splashStyle, milliseconds, parent,
@@ -59,30 +59,30 @@ Wx_SplashScreen::new( bitmap, splashStyle, milliseconds, parent, id, pos = wxDef
 
 MODULE=Wx PACKAGE=Wx::WindowDisabler
 
-Wx_WindowDisabler*
-Wx_WindowDisabler::new( skip = 0 )
-    Wx_Window* skip
+wxWindowDisabler*
+wxWindowDisabler::new( skip = 0 )
+    wxWindow* skip
 
 void
-Wx_WindowDisabler::DESTROY()
+wxWindowDisabler::DESTROY()
 
 MODULE=Wx PACKAGE=Wx::BusyCursor
 
-Wx_BusyCursor*
-Wx_BusyCursor::new( cursor = wxHOURGLASS_CURSOR )
-    Wx_Cursor* cursor
+wxBusyCursor*
+wxBusyCursor::new( cursor = wxHOURGLASS_CURSOR )
+    wxCursor* cursor
 
 void
-Wx_BusyCursor::DESTROY()
+wxBusyCursor::DESTROY()
 
 MODULE=Wx PACKAGE=Wx::BusyInfo
 
-Wx_BusyInfo*
-Wx_BusyInfo::new( message )
+wxBusyInfo*
+wxBusyInfo::new( message )
     wxString message
 
 void
-Wx_BusyInfo::DESTROY()
+wxBusyInfo::DESTROY()
 
 MODULE=Wx PACKAGE=Wx::StopWatch
 
@@ -90,50 +90,50 @@ MODULE=Wx PACKAGE=Wx::StopWatch
 #undef Pause
 #endif
 
-Wx_StopWatch*
-Wx_StopWatch::new()
+wxStopWatch*
+wxStopWatch::new()
 
 ## XXX threads
 void
-Wx_StopWatch::DESTROY()
+wxStopWatch::DESTROY()
 
 void
-Wx_StopWatch::Pause()
+wxStopWatch::Pause()
 
 void
-Wx_StopWatch::Start( milliseconds = 0 )
+wxStopWatch::Start( milliseconds = 0 )
     long milliseconds
 
 void
-Wx_StopWatch::Resume()
+wxStopWatch::Resume()
 
 long
-Wx_StopWatch::Time()
+wxStopWatch::Time()
 
 MODULE=Wx PACKAGE=Wx::SingleInstanceChecker
 
 #if wxUSE_SNGLINST_CHECKER
 
-Wx_SingleInstanceChecker*
-Wx_SingleInstanceChecker::new()
+wxSingleInstanceChecker*
+wxSingleInstanceChecker::new()
 
 ## XXX threads
 void
-Wx_SingleInstanceChecker::DESTROY()
+wxSingleInstanceChecker::DESTROY()
 
 bool
-Wx_SingleInstanceChecker::Create( name, path = wxEmptyString )
+wxSingleInstanceChecker::Create( name, path = wxEmptyString )
     wxString name
     wxString path
 
 bool
-Wx_SingleInstanceChecker::IsAnotherRunning()
+wxSingleInstanceChecker::IsAnotherRunning()
 
 #endif
 
 MODULE=Wx PACKAGE=Wx::SystemSettings
 
-Wx_Colour*
+wxColour*
 GetSystemColour( index )
     int index
   CODE:
@@ -141,7 +141,7 @@ GetSystemColour( index )
   OUTPUT:
     RETVAL
 
-Wx_Font*
+wxFont*
 GetSystemFont( index )
     int index
   CODE:
@@ -159,8 +159,8 @@ GetSystemMetric( index )
 
 MODULE=Wx PACKAGE=Wx::TipProvider
 
-Wx_TipProvider*
-Wx_TipProvider::new( currentTip )
+wxTipProvider*
+wxTipProvider::new( currentTip )
     size_t currentTip
   CODE:
     RETVAL = new wxPliTipProvider( CLASS, currentTip );
@@ -168,15 +168,15 @@ Wx_TipProvider::new( currentTip )
     RETVAL
 
 void
-Wx_TipProvider::Destroy()
+wxTipProvider::Destroy()
   CODE:
     delete THIS;
 
 size_t
-Wx_TipProvider::GetCurrentTip()
+wxTipProvider::GetCurrentTip()
 
 void
-Wx_TipProvider::SetCurrentTip( number )
+wxTipProvider::SetCurrentTip( number )
     size_t number
   CODE:
     ((wxPliTipProvider*)THIS)->SetCurrentTip( number );
@@ -198,11 +198,11 @@ MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 bool
 wxShowTip( parent, tipProvider, showAtStartup = TRUE )
-    Wx_Window* parent
-    Wx_TipProvider* tipProvider
+    wxWindow* parent
+    wxTipProvider* tipProvider
     bool showAtStartup
 
-Wx_TipProvider*
+wxTipProvider*
 wxCreateFileTipProvider( filename, currentTip )
     wxString filename
     size_t currentTip

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.14 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.15 2004/02/29 14:43:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -143,35 +143,35 @@ wxTextCtrl::Create( parent, id, value, pos = wxDefaultPosition, size = wxDefault
   C_ARGS: parent, id, value, pos, size, style, *validator, name
 
 void
-Wx_TextCtrl::AppendText( text )
+wxTextCtrl::AppendText( text )
     wxString text
 
 bool
-Wx_TextCtrl::CanCopy()
+wxTextCtrl::CanCopy()
 
 bool
-Wx_TextCtrl::CanCut()
+wxTextCtrl::CanCut()
 
 bool
-Wx_TextCtrl::CanPaste()
+wxTextCtrl::CanPaste()
 
 bool
-Wx_TextCtrl::CanRedo()
+wxTextCtrl::CanRedo()
 
 bool
-Wx_TextCtrl::CanUndo()
+wxTextCtrl::CanUndo()
 
 void
-Wx_TextCtrl::Clear()
+wxTextCtrl::Clear()
 
 void
-Wx_TextCtrl::Copy()
+wxTextCtrl::Copy()
 
 void
-Wx_TextCtrl::Cut()
+wxTextCtrl::Cut()
 
 void
-Wx_TextCtrl::DiscardEdits()
+wxTextCtrl::DiscardEdits()
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
@@ -180,37 +180,37 @@ wxTextCtrl::MarkDirty()
 
 #endif
 
-Wx_TextAttr*
-Wx_TextCtrl::GetDefaultStyle()
+wxTextAttr*
+wxTextCtrl::GetDefaultStyle()
   CODE:
     RETVAL = new wxTextAttr( THIS->GetDefaultStyle() );
   OUTPUT:
     RETVAL
 
 long
-Wx_TextCtrl::GetInsertionPoint()
+wxTextCtrl::GetInsertionPoint()
 
 long
-Wx_TextCtrl::GetLastPosition()
+wxTextCtrl::GetLastPosition()
 
 int
-Wx_TextCtrl::GetLineLength( lineno )
+wxTextCtrl::GetLineLength( lineno )
     int lineno
 
 wxString
-Wx_TextCtrl::GetLineText( lineno )
+wxTextCtrl::GetLineText( lineno )
     int lineno
 
 int
-Wx_TextCtrl::GetNumberOfLines()
+wxTextCtrl::GetNumberOfLines()
 
 wxString
-Wx_TextCtrl::GetRange( from, to )
+wxTextCtrl::GetRange( from, to )
     long from
     long to
 
 void
-Wx_TextCtrl::GetSelection()
+wxTextCtrl::GetSelection()
   PREINIT:
     long from;
     long to;
@@ -221,13 +221,13 @@ Wx_TextCtrl::GetSelection()
     PUSHs( sv_2mortal( newSViv( to ) ) );
 
 wxString
-Wx_TextCtrl::GetStringSelection()
+wxTextCtrl::GetStringSelection()
 
 wxString
-Wx_TextCtrl::GetValue()
+wxTextCtrl::GetValue()
 
 bool
-Wx_TextCtrl::IsModified()
+wxTextCtrl::IsModified()
 
 bool
 wxTextCtrl::IsSingleLine()
@@ -236,14 +236,14 @@ bool
 wxTextCtrl::IsMultiLine()
 
 bool
-Wx_TextCtrl::LoadFile( filename )
+wxTextCtrl::LoadFile( filename )
     wxString filename
 
 void
-Wx_TextCtrl::Paste()
+wxTextCtrl::Paste()
 
 void
-Wx_TextCtrl::PositionToXY( pos )
+wxTextCtrl::PositionToXY( pos )
     long pos
   PREINIT:
     long x;
@@ -255,73 +255,73 @@ Wx_TextCtrl::PositionToXY( pos )
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
 void
-Wx_TextCtrl::Redo()
+wxTextCtrl::Redo()
 
 void
-Wx_TextCtrl::Remove( from, to )
+wxTextCtrl::Remove( from, to )
     long from
     long to
 
 void
-Wx_TextCtrl::Replace( from, to, value )
+wxTextCtrl::Replace( from, to, value )
     long from
     long to
     wxString value
 
 bool
-Wx_TextCtrl::SaveFile( filename )
+wxTextCtrl::SaveFile( filename )
     wxString filename
 
 void
-Wx_TextCtrl::SetDefaultStyle( style )
-    Wx_TextAttr* style
+wxTextCtrl::SetDefaultStyle( style )
+    wxTextAttr* style
   CODE:
     THIS->SetDefaultStyle( *style );
 
 void
-Wx_TextCtrl::SetEditable( editable )
+wxTextCtrl::SetEditable( editable )
     bool editable
 
 void
-Wx_TextCtrl::SetInsertionPoint( pos )
+wxTextCtrl::SetInsertionPoint( pos )
     long pos
 
 void
-Wx_TextCtrl::SetInsertionPointEnd()
+wxTextCtrl::SetInsertionPointEnd()
 
 void
-Wx_TextCtrl::SetMaxLength( len )
+wxTextCtrl::SetMaxLength( len )
     unsigned long len
 
 void
-Wx_TextCtrl::SetSelection( from, to )
+wxTextCtrl::SetSelection( from, to )
     long from
     long to
 
 void
-Wx_TextCtrl::SetStyle( start, end, style )
+wxTextCtrl::SetStyle( start, end, style )
     long start
     long end
-    Wx_TextAttr* style
+    wxTextAttr* style
   CODE:
     THIS->SetStyle( start, end, *style );
 
 void
-Wx_TextCtrl::SetValue( value )
+wxTextCtrl::SetValue( value )
     wxString value
 
 void
-Wx_TextCtrl::ShowPosition( pos )
+wxTextCtrl::ShowPosition( pos )
     long pos
 
 void
-Wx_TextCtrl::Undo()
+wxTextCtrl::Undo()
 
 void
-Wx_TextCtrl::WriteText( text )
+wxTextCtrl::WriteText( text )
     wxString text
 
 long
-Wx_TextCtrl::XYToPosition( x, y )
+wxTextCtrl::XYToPosition( x, y )
     long x
     long y

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: ScrolledWindow.xs,v 1.9 2003/06/04 20:38:43 mbarbon Exp $
+## RCS-ID:      $Id: ScrolledWindow.xs,v 1.10 2004/02/29 14:43:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,13 +32,13 @@ newDefault( CLASS )
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT: RETVAL
 
-Wx_ScrolledWindow*
+wxScrolledWindow*
 newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxT("scrolledWindow") )
     PlClassName CLASS
-    Wx_Window* parent
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
@@ -57,7 +57,7 @@ wxScrolledWindow::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDef
     wxString name
 
 void
-Wx_ScrolledWindow::CalcScrolledPosition( x, y )
+wxScrolledWindow::CalcScrolledPosition( x, y )
     int x
     int y
   PREINIT:
@@ -70,7 +70,7 @@ Wx_ScrolledWindow::CalcScrolledPosition( x, y )
     PUSHs( sv_2mortal( newSViv( yy ) ) );
 
 void
-Wx_ScrolledWindow::CalcUnscrolledPosition( x, y )
+wxScrolledWindow::CalcUnscrolledPosition( x, y )
     int x
     int y
   PREINIT:
@@ -83,12 +83,12 @@ Wx_ScrolledWindow::CalcUnscrolledPosition( x, y )
     PUSHs( sv_2mortal( newSViv( yy ) ) );
 
 void
-Wx_ScrolledWindow::EnableScrolling( xScrolling, yScrolling )
+wxScrolledWindow::EnableScrolling( xScrolling, yScrolling )
     bool xScrolling
     bool yScrolling
 
 void
-Wx_ScrolledWindow::GetScrollPixelsPerUnit()
+wxScrolledWindow::GetScrollPixelsPerUnit()
   PREINIT:
     int xUnit;
     int yUnit;
@@ -99,7 +99,7 @@ Wx_ScrolledWindow::GetScrollPixelsPerUnit()
     PUSHs( sv_2mortal( newSViv( yUnit ) ) );
 
 void
-Wx_ScrolledWindow::GetVirtualSize()
+wxScrolledWindow::GetVirtualSize()
   PREINIT:
     int x;
     int y;
@@ -110,21 +110,21 @@ Wx_ScrolledWindow::GetVirtualSize()
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
 bool
-Wx_ScrolledWindow::IsRetained()
+wxScrolledWindow::IsRetained()
 
 void
-Wx_ScrolledWindow::PrepareDC( dc )
-    Wx_DC* dc
+wxScrolledWindow::PrepareDC( dc )
+    wxDC* dc
   CODE:
     THIS->PrepareDC( *dc );
 
 void
-Wx_ScrolledWindow::Scroll( x, y )
+wxScrolledWindow::Scroll( x, y )
     int x
     int y
 
 void
-Wx_ScrolledWindow::SetScrollbars( ppuX, ppuY, nX, nY, xPos = 0, yPos = 0, noRefresh = FALSE )
+wxScrolledWindow::SetScrollbars( ppuX, ppuY, nX, nY, xPos = 0, yPos = 0, noRefresh = FALSE )
     int ppuX
     int ppuY
     int nX
@@ -139,11 +139,11 @@ wxScrolledWindow::SetScrollRate( xstep, ystep )
     int ystep
 
 void
-Wx_ScrolledWindow::SetTargetWindow( window )
-    Wx_Window* window
+wxScrolledWindow::SetTargetWindow( window )
+    wxWindow* window
 
 void
-Wx_ScrolledWindow::GetViewStart()
+wxScrolledWindow::GetViewStart()
   PREINIT:
     int x;
     int y;

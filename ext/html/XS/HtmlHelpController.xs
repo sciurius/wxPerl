@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        HtmlHelpController.xs
+## Name:        ext/html/XS/HtmlHelpController.xs
 ## Purpose:     XS for Wx::HtmlHelpController
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     21/ 3/2001
-## RCS-ID:      $Id: HtmlHelpController.xs,v 1.5 2003/05/05 20:38:42 mbarbon Exp $
+## Created:     21/03/2001
+## RCS-ID:      $Id: HtmlHelpController.xs,v 1.6 2004/02/29 14:43:24 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,8 +20,8 @@
 
 MODULE=Wx PACKAGE=Wx::BestHelpController
 
-Wx_BestHelpController*
-Wx_BestHelpController::new()
+wxBestHelpController*
+wxBestHelpController::new()
   CODE:
     RETVAL = new wxBestHelpController();
   OUTPUT:
@@ -32,8 +32,8 @@ Wx_BestHelpController::new()
 
 MODULE=Wx PACKAGE=Wx::HtmlHelpController
 
-Wx_HtmlHelpController*
-Wx_HtmlHelpController::new( style = wxHF_DEFAULTSTYLE )
+wxHtmlHelpController*
+wxHtmlHelpController::new( style = wxHF_DEFAULTSTYLE )
     long style
   CODE:
     RETVAL = new wxHtmlHelpController( style );
@@ -41,51 +41,51 @@ Wx_HtmlHelpController::new( style = wxHF_DEFAULTSTYLE )
     RETVAL
 
 bool
-Wx_HtmlHelpController::AddBook( book, show_wait )
+wxHtmlHelpController::AddBook( book, show_wait )
      wxString book
      bool show_wait
 
 void
-Wx_HtmlHelpController::Display( x )
+wxHtmlHelpController::Display( x )
     wxString x
 
 void
-Wx_HtmlHelpController::DisplayId( id )
+wxHtmlHelpController::DisplayId( id )
     int id
   CODE:
     THIS->Display( id );
 
 void
-Wx_HtmlHelpController::DisplayContents()
+wxHtmlHelpController::DisplayContents()
 
 void
-Wx_HtmlHelpController::DisplayIndex()
+wxHtmlHelpController::DisplayIndex()
 
 bool
-Wx_HtmlHelpController::KeywordSearch( keyword )
+wxHtmlHelpController::KeywordSearch( keyword )
     wxString keyword
 
 void
-Wx_HtmlHelpController::ReadCustomization( cfg, path = wxEmptyString )
-     Wx_ConfigBase* cfg
+wxHtmlHelpController::ReadCustomization( cfg, path = wxEmptyString )
+     wxConfigBase* cfg
      wxString path
 
 void
-Wx_HtmlHelpController::SetTempDir( path )
+wxHtmlHelpController::SetTempDir( path )
     wxString path
 
 void
-Wx_HtmlHelpController::SetTitleFormat( format )
+wxHtmlHelpController::SetTitleFormat( format )
     wxString format
 
 void
-Wx_HtmlHelpController::UseConfig( config, path = wxEmptyString )
-    Wx_ConfigBase* config
+wxHtmlHelpController::UseConfig( config, path = wxEmptyString )
+    wxConfigBase* config
     wxString path
 
 void
-Wx_HtmlHelpController::WriteCustomization( cfg, path = wxEmptyString )
-     Wx_ConfigBase* cfg
+wxHtmlHelpController::WriteCustomization( cfg, path = wxEmptyString )
+     wxConfigBase* cfg
      wxString path
 
 

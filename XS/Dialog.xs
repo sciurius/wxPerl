@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Dialog.xs,v 1.11 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Dialog.xs,v 1.12 2004/02/29 14:43:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -35,11 +35,11 @@ newDefault( CLASS )
 wxDialog*
 newFull( CLASS, parent, id = -1, title = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_DIALOG_STYLE, name = wxDialogNameStr )
       PlClassName CLASS
-      Wx_Window* parent
+      wxWindow* parent
       wxWindowID id
       wxString title
-      Wx_Point pos
-      Wx_Size size
+      wxPoint pos
+      wxSize size
       long style
       wxString name
     CODE:
@@ -59,24 +59,24 @@ wxDialog::Create( parent, id = -1, title = wxEmptyString, pos = wxDefaultPositio
     wxString name
 
 void
-Wx_Dialog::EndModal( retCode )
+wxDialog::EndModal( retCode )
     int retCode
 
 int
-Wx_Dialog::GetReturnCode()
+wxDialog::GetReturnCode()
 
 void
-Wx_Dialog::Iconize( iconize )
+wxDialog::Iconize( iconize )
     bool iconize
 
 bool
-Wx_Dialog::IsIconized()
+wxDialog::IsIconized()
 
 bool
-Wx_Dialog::IsModal()
+wxDialog::IsModal()
 
 # void
-# Wx_Dialog::SetModal( flag )
+# wxDialog::SetModal( flag )
 #    bool flag
 
 #if (WXPERL_W_VERSION_GE( 2, 4, 1 ) && !defined(__WXMOTIF__)) \
@@ -100,29 +100,29 @@ wxDialog::SetIcons( icons )
   C_ARGS: *icons
 
 void
-Wx_Dialog::SetReturnCode( retCode )
+wxDialog::SetReturnCode( retCode )
     int retCode
 
 int
-Wx_Dialog::ShowModal()
+wxDialog::ShowModal()
 
 bool
-Wx_Dialog::TransferDataFromWindow()
+wxDialog::TransferDataFromWindow()
   CODE:
     RETVAL = THIS->wxDialog::TransferDataFromWindow();
   OUTPUT:
     RETVAL
 
 bool
-Wx_Dialog::TransferDataToWindow()
+wxDialog::TransferDataToWindow()
   CODE:
     RETVAL = THIS->wxDialog::TransferDataToWindow();
   OUTPUT:
     RETVAL
 
 bool
-Wx_Dialog::Validate()
+wxDialog::Validate()
   CODE:
-    RETVAL = THIS->Validate();
+    RETVAL = THIS->wxDialog::Validate();
   OUTPUT:
     RETVAL

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.63 2004/02/28 22:58:57 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.64 2004/02/29 14:43:23 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -75,16 +75,12 @@ wxStatusBar *           O_WXEVTHANDLER
 wxToolBar *             O_WXOBJECT
 wxToolBarBase *         O_WXOBJECT
 wxToolBarSimple *       O_WXOBJECT
-Wx_Panel *              O_WXOBJECT
 wxPanel *               O_WXOBJECT
-Wx_Dialog *             O_WXOBJECT
 wxDialog *              O_WXOBJECT
-Wx_Control *            O_WXOBJECT
 wxControl *             O_WXOBJECT
 wxButton *              O_WXEVTHANDLER
 wxStaticText *          O_WXEVTHANDLER
 wxStaticLine *          O_WXEVTHANDLER
-Wx_TextCtrl *           O_WXOBJECT
 wxTextCtrl *            O_WXOBJECT
 Wx_PlValidator *        O_WXOBJECT
 wxPlValidator *         O_WXOBJECT
@@ -111,12 +107,10 @@ wxStaticBitmap *        O_WXEVTHANDLER
 wxSpinButton *          O_WXEVTHANDLER
 wxSpinCtrl *            O_WXEVTHANDLER
 wxSlider *              O_WXEVTHANDLER
-Wx_ScrolledWindow *     O_WXOBJECT
 wxScrolledWindow *      O_WXOBJECT
 wxSplitterWindow *      O_WXEVTHANDLER
 wxSashWindow *          O_WXEVTHANDLER
 wxToggleButton *        O_WXEVTHANDLER
-Wx_SplashScreen *       O_WXOBJECT
 wxSplashScreen *        O_WXOBJECT
 wxListbook *            O_WXEVTHANDLER
 wxTreebook *            O_WXEVTHANDLER
@@ -326,10 +320,8 @@ wxToolBarToolBase *     O_NON_WXOBJECT
 wxAcceleratorEntry *    O_NON_WXOBJECT
 wxAcceleratorTable *    O_WXOBJECT
 
-Wx_Timer *              O_WXOBJECT
 wxTimer *               O_WXOBJECT
 
-Wx_SingleInstanceChecker * O_NON_WXOBJECT
 wxSingleInstanceChecker * O_NON_WXOBJECT
 
 wxWave *                O_NON_WXOBJECT
@@ -403,9 +395,7 @@ Wx_PlEvent*             O_WXOBJECT
 Wx_PlCommandEvent*      O_WXOBJECT
 Wx_PlThreadEvent*       O_WXOBJECT
 
-Wx_ConfigBase *         O_NON_WXOBJECT
 wxConfigBase *          O_NON_WXOBJECT
-Wx_Config *             O_NON_WXOBJECT
 wxConfig *              O_NON_WXOBJECT
 
 OUTPUT

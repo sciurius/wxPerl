@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: HtmlWindow.xs,v 1.11 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id: HtmlWindow.xs,v 1.12 2004/02/29 14:43:24 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,34 +16,34 @@
 
 MODULE=Wx PACKAGE=Wx::HtmlLinkInfo
 
-Wx_MouseEvent*
-Wx_HtmlLinkInfo::GetEvent()
+wxMouseEvent*
+wxHtmlLinkInfo::GetEvent()
   CODE:
-    RETVAL = (Wx_MouseEvent*) THIS->GetEvent();
+    RETVAL = (wxMouseEvent*) THIS->GetEvent();
   OUTPUT:
     RETVAL
 
-Wx_HtmlCell*
-Wx_HtmlLinkInfo::GetHtmlCell()
+wxHtmlCell*
+wxHtmlLinkInfo::GetHtmlCell()
   CODE:
-    RETVAL = (Wx_HtmlCell*) THIS->GetHtmlCell();
+    RETVAL = (wxHtmlCell*) THIS->GetHtmlCell();
   OUTPUT:
     RETVAL
 
 wxString
-Wx_HtmlLinkInfo::GetHref()
+wxHtmlLinkInfo::GetHref()
 
 wxString
-Wx_HtmlLinkInfo::GetTarget()
+wxHtmlLinkInfo::GetTarget()
 
-MODULE=Wx__Html PACKAGE=Wx::HtmlWindow
+MODULE=Wx PACKAGE=Wx::HtmlWindow
 
-Wx_HtmlWindow*
-Wx_HtmlWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHW_SCROLLBAR_AUTO, name = wxT("htmlWindow") )
-    Wx_Window* parent
+wxHtmlWindow*
+wxHtmlWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHW_SCROLLBAR_AUTO, name = wxT("htmlWindow") )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
@@ -52,66 +52,66 @@ Wx_HtmlWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSi
     RETVAL
 
 bool
-Wx_HtmlWindow::AppendToPage( source )
+wxHtmlWindow::AppendToPage( source )
     wxString source
 
 wxString
-Wx_HtmlWindow::GetOpenedAnchor()
+wxHtmlWindow::GetOpenedAnchor()
 
 wxString
-Wx_HtmlWindow::GetOpenedPage()
+wxHtmlWindow::GetOpenedPage()
 
 wxString
-Wx_HtmlWindow::GetOpenedPageTitle()
+wxHtmlWindow::GetOpenedPageTitle()
 
 wxHtmlWinParser*
 wxHtmlWindow::GetParser()
 
 wxFrame*
-Wx_HtmlWindow::GetRelatedFrame()
+wxHtmlWindow::GetRelatedFrame()
 
 bool
-Wx_HtmlWindow::HistoryBack()
+wxHtmlWindow::HistoryBack()
 
 bool
-Wx_HtmlWindow::HistoryCanForward()
+wxHtmlWindow::HistoryCanForward()
 
 bool
-Wx_HtmlWindow::HistoryCanBack()
+wxHtmlWindow::HistoryCanBack()
 
 void
-Wx_HtmlWindow::HistoryClear()
+wxHtmlWindow::HistoryClear()
 
 bool
-Wx_HtmlWindow::HistoryForward()
+wxHtmlWindow::HistoryForward()
 
 bool
-Wx_HtmlWindow::LoadPage( location )
+wxHtmlWindow::LoadPage( location )
     wxString location
 
 void
-Wx_HtmlWindow::OnLinkClicked( info )
-    Wx_HtmlLinkInfo* info
+wxHtmlWindow::OnLinkClicked( info )
+    wxHtmlLinkInfo* info
   CODE:
     THIS->wxHtmlWindow::OnLinkClicked( *info );
 
 void
-Wx_HtmlWindow::OnSetTitle( title )
+wxHtmlWindow::OnSetTitle( title )
     wxString title
   CODE:
     THIS->wxHtmlWindow::OnSetTitle( title );
 
 void
-Wx_HtmlWindow::ReadCustomization( cfg, path = wxEmptyString )
-    Wx_ConfigBase* cfg
+wxHtmlWindow::ReadCustomization( cfg, path = wxEmptyString )
+    wxConfigBase* cfg
     wxString path
 
 void
-Wx_HtmlWindow::SetBorders( b )
+wxHtmlWindow::SetBorders( b )
     int b
 
 void
-Wx_HtmlWindow::SetFonts( normal_face, fixed_face, sizes )
+wxHtmlWindow::SetFonts( normal_face, fixed_face, sizes )
     wxString normal_face
     wxString fixed_face
     SV* sizes
@@ -128,19 +128,19 @@ Wx_HtmlWindow::SetFonts( normal_face, fixed_face, sizes )
     delete[] sizes;
 
 bool
-Wx_HtmlWindow::SetPage( source )
+wxHtmlWindow::SetPage( source )
     wxString source
 
 void
-Wx_HtmlWindow::SetRelatedFrame( frame, format )
+wxHtmlWindow::SetRelatedFrame( frame, format )
     wxFrame* frame
     wxString format
 
 void
-Wx_HtmlWindow::SetRelatedStatusBar( bar )
+wxHtmlWindow::SetRelatedStatusBar( bar )
     int bar
 
 void
-Wx_HtmlWindow::WriteCustomization( cfg, path = wxEmptyString )
-    Wx_ConfigBase* cfg
+wxHtmlWindow::WriteCustomization( cfg, path = wxEmptyString )
+    wxConfigBase* cfg
     wxString path
