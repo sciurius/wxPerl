@@ -1008,7 +1008,7 @@ void wxPli_stream_2_sv( pTHX_ SV* scalar, wxStreamBase* stream,
     }
 
     static SV* tie = eval_pv
-        ( "sub { local *o; my $c = shift; tie *o, $c, @_; return \\*o }", 1 );
+        ( "sub { local *o; my $c = shift; tie *o, $c, @_; return *o }", 1 );
     static SV* dummy = SvREFCNT_inc( tie );
 
     dSP;
@@ -1022,7 +1022,11 @@ void wxPli_stream_2_sv( pTHX_ SV* scalar, wxStreamBase* stream,
 
     SPAGAIN;
     SV* ret = POPs;
-    SvSetSV_nosteal( scalar, ret );
+    SV* tmp = newSViv( 0 );
+    SvSetSV_nosteal( tmp, ret );
+    SV* rv = newRV_noinc( tmp );
+    SvSetSV_nosteal( scalar, rv );
+    SvREFCNT_dec( rv );
     PUTBACK;
 }
 

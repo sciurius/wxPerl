@@ -46,8 +46,12 @@ Wx_InputStream::READ( buf, len, offset = 0 )
     IV len
     IV offset
   PREINIT:
-    IV maxlen = SvCUR( buf );
+    IV maxlen;
   CODE:
+    if( THIS->Eof() ) { SvOK_off( buf ); XSRETURN_IV( 0 ); }
+
+    maxlen = SvPOK( buf ) ? SvCUR( buf ) : 0;
+
     if( offset < 0 )
     {
         if( abs( offset ) > maxlen )
@@ -58,8 +62,8 @@ Wx_InputStream::READ( buf, len, offset = 0 )
     }
 
     char* buffer = SvGROW( buf, (UV)offset + len + 1 );
-    if( offset + len > maxlen )
-        SvCUR_set( buf, offset + len );
+    SvPOK_on( buf );
+    SvCUR_set( buf, offset + len );
     if( offset > maxlen )
         Zero( buffer + maxlen, offset - maxlen, char );
     buffer += offset;
