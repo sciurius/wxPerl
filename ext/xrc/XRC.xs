@@ -53,6 +53,7 @@ WXPL_EXTERN_C_END
 #include "cpp/typedef.h"
 #include "cpp/helpers.h"
 #include "cpp/xr_typedef.h"
+#include "cpp/xr_constants.cpp"
 
 MODULE=Wx__XRC
 
@@ -67,6 +68,12 @@ MODULE=Wx__XRC PACKAGE=Wx PREFIX=wx
 
 void
 wxXmlInitXmlModule()
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    // nothing here
+#else
+    wxXmlInitXmlModule();
+#endif
 
 void
 wxXmlInitResourceModule()

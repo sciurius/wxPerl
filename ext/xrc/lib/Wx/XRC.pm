@@ -29,6 +29,8 @@ bootstrap Wx::XRC;
 Wx::XmlInitXmlModule();
 Wx::XmlInitResourceModule();
 
+*Wx::XmlResource::GetXMLID = \&Wx::XmlResource::GetXRCID;
+
 #
 # properly setup inheritance tree
 #

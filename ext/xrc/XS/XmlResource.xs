@@ -18,9 +18,19 @@
 
 MODULE=Wx PACKAGE=Wx::XmlResource
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+Wx_XmlResource*
+Wx_XmlResource::new( flags = wxXRC_USE_LOCALE )
+    int flags
+
+#else
+
 Wx_XmlResource*
 Wx_XmlResource::new( use_locale = TRUE )
     bool use_locale
+
+#endif
 
 void
 Wx_XmlResource::DESTROY()
@@ -111,10 +121,14 @@ Wx_XmlResource::AttachUnknownControl( name, control, parent = 0 )
     Wx_Window* parent
 
 int
-GetXMLID( str_id )
+GetXRCID( str_id )
     wxChar* str_id
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+    RETVAL = wxXmlResource::GetXRCID( str_id );
+#else
     RETVAL = wxXmlResource::GetXMLID( str_id );
+#endif
   OUTPUT:
     RETVAL
 
@@ -127,3 +141,16 @@ Wx_XmlResource::CompareVersion( major, minor, release, revision )
     int minor
     int release
     int revision
+
+##Wx_XmlResource*
+##Get()
+##  CODE:
+##    RETVAL = wxXmlResource::Get();
+##  OUTPUT:
+##    RETVAL
+
+##void
+##Wx_XmlResource::Set( res )
+##    Wx_XmlResource* res
+##  CODE:
+##    wxXmlResource::Set( res );
