@@ -299,7 +299,7 @@ public:
             //FIXME//
             m_baseInfo1 = wxClassInfo::FindClass( baseName1 );
             //FIXME// this is an ugly hack!
-#ifdef __WXMAC__
+#if !defined( __WXMAC__ )
             if( m_baseInfo1 == 0 )
                 croak( "ClassInfo initialization failed '%s'", baseName1 );
 #endif
