@@ -4,11 +4,43 @@ use strict;
 use Config;
 use File::Find;
 use wxMMUtils;
+use Cwd;
 
 my $exp = MM->catfile( qw(blib lib Wx _Exp.pm) );
 my $ovl = MM->catfile( qw(blib lib Wx _Ovl.pm) );
 my $ovlc = MM->catfile( qw(cpp ovl_const.cpp) );
 my $ovlh = MM->catfile( qw(cpp ovl_const.h) );
+
+sub constants {
+  my $this = shift;
+
+  if( $this->{PARENT} && !is_inside_wxperl_tree ) {
+    my $top = top_dir;
+    my $p = $this->{PARENT};
+
+    # dmake gets Really Confused by rules like C:\foo: bar baz
+    # work atound that (not really correct, but the best compromise)
+    $top =~ s/^\w:// if $^O eq 'MSWin32';
+
+    for my $k ( keys %$p ) {
+      next unless $k =~ m/^INST_/;
+      my $dir = $p->{$k};
+      next unless $dir;
+
+      # it's a make macro, use as it is
+      if( $dir =~ m/^\$/ ) {
+        $this->{$k} = $dir;
+      } else {
+        $this->{$k} = MM->catdir( $top, 'ext', $dir );
+      }
+
+      #warn $k, ' = ', $this->{$k};
+    }
+  }
+
+  package MY;
+  $this->SUPER::constants( @_ );
+}
 
 sub depend {
   my $this = shift;
@@ -197,7 +229,8 @@ sub test {
   my $text = $this->SUPER::test( @_ );
 
   my $build = wxMMUtils::unix_top_dir() . '/build';
-  $text =~ s/(\$\(FULLPERL\)\s+)/$1\"-I$build\" /gi;
+  $text =~ s/(\$\(FULLPERL\)\s+)/$1\"-I$build\" /g;
+  $text =~ s/-Mblib\b/-Mblib=$build/g;
 
   return $text;
 }
@@ -220,6 +253,6 @@ Any_OS - INTERNAL, USED AT BUILD TIME
 
 =cut
 
-# Local variables: #
-# mode: cperl #
-# End: #
+# local variables:
+# mode: cperl
+# end:
