@@ -3,19 +3,12 @@ MISC:
 * tut & man in one file
 
 * wxGrid
-    GetDefaultEditor
-    GetDefaultRenderer
     GetTable
-    SetDefaultEditor
-    SetDefaultRenderer
     SetTable
-    RegisterDataType
-    GetDefaultEditorForCell
-    GetDefaultRendererForCell
-    GetDefaultEditorForType
-    GetDefaultRendererForType
 
 * Wx::PlGridCellEditor/Renderer
+
+* wxMenu::Prepend*
 
 PRIORITY NORMAL:
 
@@ -31,12 +24,6 @@ PRIORITY NORMAL:
 
 * move THIS from HV to MAGIC?
   
-* Wx::Bitmap, Wx::Icon, Wx::Cursor
-    add missing constructors ( where applicable )
-
-* Wx::ListCtrl
-    Overloaded InsertItem?
-
 * Decrease compilation time/code bloat:
     Use precompiled headers where appropriate
     Move constants out of Constants.xs when they need a separate #include
@@ -107,6 +94,20 @@ PRIORITY LOW:
 
 DOCUMENTATTION:
 
+* Wx::Bitmap
+    newFromBits
+    newFromXPM
+
+* Wx::Icon
+    newFromBits
+    newFromXPM
+
+* Wx::Cursor
+    newImage
+    newData
+
+* Wx::PlDataObjectSimple
+
 -- not documented in wxWindows --
 
 * Wx::MultipleChoiceDialog
@@ -114,3 +115,33 @@ DOCUMENTATTION:
 * Wx::ListItem
 
 * Wx::NativeFontInfo
+
+CLASSES:
+  wxWizard
+  wxWizardPageSimple
+  wxWizardPage
+
+  wxFileHistory
+
+  wxCalendarCtrl
+  wxDirCtrl
+  wxMetafileDC
+  wxDCClipper
+  wxBufferedDC
+  wxTextValidator
+  wxGenericValidator
+
+  wxDateTime & co
+
+  wxDialUpManager
+  wxSocket* ?
+
+  wxDDE*
+  wxTCP*
+
+  Document/View
+
+  wxMimeTypesManager
+  wxFontMapper
+  wxEncodingConverter
+  wxFontEnumerator
