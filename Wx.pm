@@ -63,7 +63,7 @@ sub END {
 
 my( $wimg, $wbmp, $wico, $wmen, $wmit, $wrec, $wreg, $wszr,
     $wtip, $wwin, $wcol, $wlci, $wsiz, $wpoi, $wist, $wost,
-    $num, $str, $bool ) = ( 1 .. 26 );
+    $num, $str, $bool ) = ( 1 .. 100 );
 
 my( @tnames ) =
   ( undef, 'Wx::Image', 'Wx::Bitmap', 'Wx::Icon', 'Wx::Menu', 'Wx::MenuItem',
@@ -135,7 +135,7 @@ sub _match(\@$;$$) {
     return if !$dots && $argc != $required;
   }
 
-  my( $i, $a );
+  my( $i, $a ) = ( 0 );
 
   foreach ( @$sig ) {
     last if $i >= $argc;
