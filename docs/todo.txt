@@ -1,10 +1,5 @@
 PRIORITY HIGH:
 
-0.13
-
-* Modify building system for building external XS modules
-* wxADJUST_MINSIZE
-
 PRIORITY NORMAL:
 
 * Overload resolution
@@ -175,6 +170,4 @@ CLASSES:
 
 FEATURE REQUESTS
 
-* wxWave
-* wxMemoryFSHandler
 * wxAutomationObject
