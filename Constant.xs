@@ -619,6 +619,8 @@ if( strEQ( name, #n ) ) \
     r( wxLIST_STATE_FOCUSED );          // listctrl
     r( wxLIST_STATE_SELECTED );         // listctrl
     r( wxLIST_STATE_CUT );              // listctrl
+
+    r( wxLIST_SET_ITEM );               // listctrl
 #if WXPERL_W_VERSION_GE( 2, 3 )
     r( wxLC_VRULES );                   // listctrl
     r( wxLC_HRULES );                   // listctrl

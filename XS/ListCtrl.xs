@@ -128,12 +128,6 @@ Wx_ListItem::GetFont()
 
 MODULE=Wx PACKAGE=Wx::ListCtrl
 
-#FIXME// unimplemented
-# FindItem
-# GetFirstItem
-# GetNextItem
-# SortItems
-
 Wx_ListCtrl*
 Wx_ListCtrl::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLC_ICON, validator = (wxValidator*)&wxDefaultValidator, name = "listCtrl" )
     Wx_Window* parent
@@ -175,6 +169,35 @@ bool
 Wx_ListCtrl::EnsureVisible( item )
     long item
 
+long
+Wx_ListCtrl::FindItem( start, str, partial = FALSE )
+    long start
+    wxString str
+    bool partial
+  CODE:
+    RETVAL = THIS->FindItem( start, str, partial );
+  OUTPUT:
+    RETVAL
+
+long
+Wx_ListCtrl::FindItemData( start, data )
+    long start
+    long data
+  CODE:
+    RETVAL = THIS->FindItem( start, data );
+  OUTPUT:
+    RETVAL
+
+long
+Wx_ListCtrl::FindItemAtPos( start, pt, direction )
+    long start
+    Wx_Point pt
+    int direction
+  CODE:
+    RETVAL = THIS->FindItem( start, pt, direction );
+  OUTPUT:
+    RETVAL
+
 Wx_ListItem*
 Wx_ListCtrl::GetColumn( col )
     int col
@@ -187,8 +210,13 @@ Wx_ListCtrl::GetColumn( col )
     }
     else
     {
-      XSRETURN_UNDEF;
+      RETVAL = 0;
     }
+  OUTPUT:
+    RETVAL
+
+int
+Wx_ListCtrl::GetColumnCount()
 
 int
 Wx_ListCtrl::GetColumnWidth( col )
@@ -217,14 +245,18 @@ Wx_ListCtrl::GetItem( id, col = -1 )
   CODE:
     item.SetId( id );
     if( col != -1 ) { item.SetColumn( col ); }
+    item.SetMask( wxLIST_MASK_TEXT|wxLIST_MASK_DATA|wxLIST_MASK_IMAGE|
+        wxLIST_MASK_STATE );
     if( THIS->GetItem( item ) )
     {
       RETVAL = new wxListItem( item );
     }
     else
     {
-      XSRETURN_UNDEF;
+      RETVAL = 0;
     }
+  OUTPUT:
+    RETVAL
 
 long
 Wx_ListCtrl::GetItemData( item )
@@ -242,8 +274,10 @@ Wx_ListCtrl::GetItemPosition( item )
     }
     else
     {
-      XSRETURN_UNDEF;
+      RETVAL = 0;
     }
+  OUTPUT:
+    RETVAL
 
 Wx_Rect*
 Wx_ListCtrl::GetItemRect( item )
@@ -257,8 +291,10 @@ Wx_ListCtrl::GetItemRect( item )
     }
     else
     {
-      XSRETURN_UNDEF;
+      RETVAL = 0;
     }
+  OUTPUT:
+    RETVAL
 
 int
 Wx_ListCtrl::GetItemState( item, stateMask )
@@ -275,6 +311,12 @@ Wx_ListCtrl::GetItemSpacing( isSmall )
 wxString
 Wx_ListCtrl::GetItemText( item )
     long item
+
+long
+Wx_ListCtrl::GetNextItem( item, geometry = wxLIST_NEXT_ALL, state = wxLIST_STATE_DONTCARE )
+    long item
+    int geometry
+    int state
 
 int
 Wx_ListCtrl::GetSelectedItemCount()
@@ -440,3 +482,10 @@ void
 Wx_ListCtrl::SetWindowStyleFlag( style )
     long style
 
+bool
+Wx_ListCtrl::SortItems( function )
+    SV* function
+  CODE:
+    RETVAL = THIS->SortItems( &ListCtrlCompareFn, (long)function );
+  OUTPUT:
+    RETVAL

@@ -42,7 +42,7 @@ sub wxSIZE  { Wx::Size->new( $_[0], $_[1] )  }
 sub AUTOLOAD {
   my( $constname );
 
-  ($constname = $AUTOLOAD) =~ s{.*::}{};
+  ($constname = $AUTOLOAD) =~ s{^.*::}{};
 
   my( $val ) = constant($constname, 0 );
 
@@ -62,7 +62,8 @@ sub END {
 }
 
 my( $wbmp, $wico, $wmen, $wmit, $wrec, $wreg, $wszr,
-    $wtip, $wwin, $wcol, $wsiz, $wpoi, $wlci, $num, $str, $bool ) = ( 1 .. 26 );
+    $wtip, $wwin, $wcol, $wlci, $wsiz, $wpoi, $num, $str,
+    $bool ) = ( 1 .. 26 );
 
 my( @tnames ) =
   ( undef, 'Wx::Bitmap', 'Wx::Icon', 'Wx::Menu', 'Wx::MenuItem',

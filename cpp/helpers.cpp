@@ -43,6 +43,37 @@ _wxUserDataO::~_wxUserDataO()
     SvREFCNT_dec( m_data );
 }
 
+int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn ) {
+    dSP;
+    SV* func = (SV*)comparefn;
+
+    ENTER;
+    SAVETMPS;
+
+    PUSHMARK( SP );
+    XPUSHs( sv_2mortal( newSViv( item1 ) ) );
+    XPUSHs( sv_2mortal( newSViv( item2 ) ) );
+    PUTBACK;
+
+    int count = call_sv( (SV*)func, G_SCALAR );
+    SPAGAIN;
+
+    int retval = POPi;
+
+    if( count != 1 )
+    {
+        croak( "Comparison function returned %d values ( 1 expected )",
+               count );
+    }
+    
+    PUTBACK;
+
+    FREETMPS;
+    LEAVE;
+
+    return retval;
+}
+
 const char* _cpp_class_2_perl( const char* className ) 
 {
     static char buffer[128] = "Wx::";

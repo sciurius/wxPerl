@@ -31,6 +31,8 @@ wxSize _sv_2_wxsize( SV* scalar );
 
 int _get_pointarray( SV* array, wxList *points, wxPoint** tmp );
 
+int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
+
 class _wxUserDataCD:public wxClientData
 {
 public:
