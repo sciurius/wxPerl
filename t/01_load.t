@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 
 use strict;
-
 use lib "build";
 use Test::More tests => 1;
 
