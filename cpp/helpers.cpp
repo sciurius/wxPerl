@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.59 2003/08/16 21:26:28 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.60 2003/09/03 20:23:45 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -597,6 +597,7 @@ AV* wxPli_objlist_2_av( pTHX_ const wxList& objs )
     for( node = objs.GetFirst(), i = 0; node; ++i, node = node->GetNext() )
     {
         SV* tmp = wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ); 
+        SvREFCNT_inc( tmp );
         av_store( av, i, tmp );
     }
 
