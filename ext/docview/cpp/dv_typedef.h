@@ -15,8 +15,7 @@
 
 #define FD_TD( name ) \
   class wx##name; \
-  typedef wx##name Wx_##name; \
-  extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
+  typedef wx##name Wx_##name;
 
 FD_TD( CommandProcessor );
 FD_TD( DocChildFrame );
@@ -34,8 +33,6 @@ class wxPrintout;
 class wxMDIParentFrame;
 typedef wxPrintout Wx_Printout;
 typedef wxMDIParentFrame Wx_MDIParentFrame;
-extern "C" const char wxPlMDIParentFrameName[];
-extern "C" const char wxPlPrintoutName[];
 #else
 FD_TD( MDIParentFrame );
 FD_TD( Printout );

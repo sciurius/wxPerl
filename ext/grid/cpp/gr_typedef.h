@@ -15,8 +15,7 @@
 
 #define FD_TD( name ) \
   class wx##name; \
-  typedef wx##name Wx_##name; \
-  extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
+  typedef wx##name Wx_##name;
 
 FD_TD(Grid);
 FD_TD(GridCellCoords);

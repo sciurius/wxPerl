@@ -15,13 +15,11 @@
 
 #define FD_TD( name ) \
   class wx##name; \
-  typedef wx##name Wx_##name; \
-  extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
+  typedef wx##name Wx_##name;
 
 #define FD_TD_NAME( name, cls ) \
   class wx##cls; \
-  typedef wx##cls Wx_##name; \
-  extern "C" const char wxPl##name##Name[] = "Wx::" #name;
+  typedef wx##cls Wx_##name;
 
 FD_TD( XmlResource );
 FD_TD( XmlResourceHandler );
