@@ -571,7 +571,7 @@ public:
     wxDocTemplate* MatchTemplate( const wxString& );
     wxDocTemplate* SelectDocumentPath( wxDocTemplate** templates,
                                        int noTemplates, wxString& path,
-                                       bool save=FALSE);
+                                       long flags, bool save=FALSE);
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
     wxDocTemplate* SelectDocumentType( wxDocTemplate** templates,
                                        int noTemplates, bool sort=FALSE);
@@ -693,23 +693,72 @@ wxDocTemplate* wxPliDocManager::MatchTemplate( const wxString& path )
 }
 
 wxDocTemplate* wxPliDocManager::SelectDocumentPath( wxDocTemplate** templates,
-                                                    int noTemplate,
+                                                    int noTemplates,
                                                     wxString& path,
-                                                    bool save)
+                                                    long flags, bool save)
 {
     dTHX;
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
                                            "SelectDocumentPath" ) )
     {
-      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR, "OiPb", templates,
-                                                   noTemplate, &path, save );
-      wxDocTemplate* retval =
-        (wxDocTemplate*)wxPli_sv_2_object( aTHX_ ret, "Wx::DocTemplate" );
-      SvREFCNT_dec( ret );
-      return retval;
+        dSP;
+
+        ENTER;
+        SAVETMPS;
+
+        // Create a perl arrayref from the list of wxDocTemplates
+        int i;
+        AV* arrTemplates = newAV();
+        for (i = 0; i < noTemplates ; i++)
+        {
+            SV* svval = wxPli_object_2_sv( aTHX_ sv_newmortal(),
+                                           templates[i] );
+            av_store( arrTemplates, i, svval );
+            SvREFCNT_inc( svval );
+        }
+        SV* template_aref = sv_2mortal( newRV_noinc( (SV*)arrTemplates  ) );
+
+        PUSHMARK( SP );
+        wxPli_push_arguments( aTHX_ &SP, "sSiPlb",
+                              m_callback.GetSelf(), template_aref,
+                              noTemplates, &path, flags, save );
+        PUTBACK;
+
+        SV* method = sv_2mortal( newRV_inc( (SV*) m_callback.GetMethod() ) );
+        int items = call_sv( method, G_ARRAY );
+
+        SPAGAIN;
+
+        SV* tmp;
+        if( items == 2 )
+        {
+            tmp = POPs;
+            WXSTRING_INPUT( path, wxString, tmp );  // Set the selected path
+        }
+        else if( items == 1 )
+        {
+            // valid if user alter the path
+        }
+        else
+        {
+            croak( "wxPliDocManager::SelectDocumentPath() expected 1"
+                   " or 2 values, got %i", items );
+        }
+
+        tmp = POPs;
+        wxDocTemplate* retval =
+            (wxDocTemplate*)wxPli_sv_2_object( aTHX_ tmp, "Wx::DocTemplate" );
+
+        PUTBACK;
+
+        FREETMPS;
+        LEAVE;
+
+        return retval; //return the doctemplate
     }
-  return wxDocManager::SelectDocumentPath(templates, noTemplate, path, save);
+
+    return wxDocManager::SelectDocumentPath( templates, noTemplates,
+                                             path, save );
 }
 
 
