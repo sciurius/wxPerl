@@ -478,7 +478,9 @@ ok( $iiint, "Wx::TreeCtrl::InsertItemBef" );
 my( $newcol, $newbitmap, $newstring,
     $setcolcol, $setcolrgb, $setcolname ) = ( 0, 0, 0, 0, 0, 0 );
 hijack( Wx::Pen::newColour    => sub { $newcol = 1 },
-        Wx::Pen::newBitmap    => sub { $newbitmap = 1 },
+        ( Wx::wxMSW() ?
+          ( Wx::Pen::newBitmap    => sub { $newbitmap = 1 } ) :
+          () ),
         Wx::Pen::newString    => sub { $newstring = 1 },
         Wx::Pen::SetColourColour => sub { $setcolcol = 1 },
         Wx::Pen::SetColourRGB    => sub { $setcolrgb = 1 },
@@ -517,7 +519,7 @@ hijack( Wx::ListCtrl::InsertColumnInfo   => sub { $ici = 1 },
         Wx::ListCtrl::SetItemInfo        => sub { $setii = 1 },
         Wx::ListCtrl::SetItemString      => sub { $setstr = 1 } );
 
-my $lc = Wx::ListCtrl->new( $frame, -1 );
+my $lc = Wx::ListCtrl->new( $frame, -1, [-1,-1], [-1,-1], Wx::wxLC_REPORT() );
 
 $lc->InsertColumn( 0, 'Column' );
 ok( $istr, "Wx::ListCtrl::InsertColumnString" );
