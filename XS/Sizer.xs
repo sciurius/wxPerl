@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.17 2003/05/27 20:06:11 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.18 2003/05/28 20:49:25 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -199,6 +199,15 @@ Wx_Sizer::InsertSpace( pos, width, height, option = 0, flag = 0, border = 0, dat
 
 void
 Wx_Sizer::Layout()
+
+void
+wxSizer::Prepend( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wwin_n_n_n_s, PrependWindow, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wszr_n_n_n_s, PrependSizer, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_n_n_s, PrependSpace, 2 )
+    END_OVERLOAD( "Wx::Sizer::Prepend" )
 
 void
 Wx_Sizer::PrependWindow( window, option = 0, flag = 0, border = 0, data = 0 )
