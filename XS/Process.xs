@@ -59,6 +59,8 @@ Wx_Process::GetInputStream()
 wxOutputStream*
 Wx_Process::GetOutputStream()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 wxKillError
 Kill( pid, signal = wxSIGNONE )
     int pid
@@ -75,6 +77,8 @@ Exists( pid )
     RETVAL = wxProcess::Exists( pid );
   OUTPUT:
     RETVAL
+
+#endif
 
 void
 Wx_Process::OnTerminate( pid, status )

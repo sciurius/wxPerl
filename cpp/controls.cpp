@@ -46,7 +46,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge95 );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge );
 #endif
 
-#if defined( __WXMSW__ )
+#if defined( __WXMSW__ ) && WXPERL_W_VERSION_LE( 2, 3, 2 )
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSlider, wxSlider95 );
 #else
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSlider, wxSlider );
@@ -214,11 +214,12 @@ int wxPliListCtrl::OnGetItemImage( long item ) const
 
 wxListItemAttr* wxPliListCtrl::OnGetItemAttr( long item ) const
 {
-    if( wxPliVirtualCallback_FindCallback( (wxPliVirtualCallback*) &m_callback, "OnGetItemAttr" ) )           
+    if( wxPliVirtualCallback_FindCallback( (wxPliVirtualCallback*) &m_callback, "OnGetItemAttr" ) )
     {                                                                         
         SV* ret = wxPliVirtualCallback_CallCallback( (wxPliVirtualCallback*) &m_callback,
                                                      G_SCALAR, "l", item );
         wxListItemAttr* val = (wxListItemAttr*)wxPli_sv_2_object( ret, "Wx::ListItemAttr" );
+        val = new wxListItemAttr( *val );
         SvREFCNT_dec( ret );
         return val;
     }
