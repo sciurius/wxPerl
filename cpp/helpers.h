@@ -135,6 +135,7 @@ WXPLDLL void wxPli_sv_2_istream( SV* scalar, wxPliInputStream& stream );
 WXPLDLL void wxPli_sv_2_ostream( SV* scalar, wxPliOutputStream& stream );
 WXPLDLL void FUNCPTR( wxPli_stream_2_sv )( SV* scalar, wxStreamBase* stream,
                                 const char* package );
+WXPLDLL wxPliInputStream* FUNCPTR( wxPliInputStream_ctor )( SV* sv );
 
 // defined in Constants.xs
 WXPLDLL void FUNCPTR( wxPli_add_constant_function )
@@ -177,6 +178,7 @@ struct wxPliHelpers
     const char* ( * m_wxPli_get_class )( SV* ref );
     wxWindowID ( * m_wxPli_get_wxwindowid )( SV* var );
     int ( * m_wxPli_av_2_stringarray )( SV* avref, wxString** array );
+    wxPliInputStream* ( * m_wxPliInputStream_ctor )( SV* sv );
 };
 
 #define DEFINE_PLI_HELPERS( name ) \
@@ -187,7 +189,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPli_add_constant_function, &wxPli_remove_constant_function, \
  &wxPliVirtualCallback_FindCallback, &wxPliVirtualCallback_CallCallback, \
  &wxPli_object_is_deleteable, &wxPli_object_set_deleteable, &wxPli_get_class, \
- &wxPli_get_wxwindowid, &wxPli_av_2_stringarray };
+ &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor };
 
 #define INIT_PLI_HELPERS( name ) \
   SV* wxpli_tmp = get_sv( "Wx::_exports", 1 ); \
@@ -209,7 +211,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   wxPli_object_set_deleteable = name->m_wxPli_object_set_deleteable; \
   wxPli_get_class = name->m_wxPli_get_class; \
   wxPli_get_wxwindowid = name->m_wxPli_get_wxwindowid; \
-  wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray;
+  wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray; \
+  wxPliInputStream_ctor = name->m_wxPliInputStream_ctor;
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 
@@ -491,6 +494,8 @@ public:                                                                 \
 
 #define WXPLI_DEFINE_CLASS( name ) \
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPli##name, wx##name );
+
+typedef SV SV_null; // equal to SV except that maps C++ 0 <-> Perl undef
 
 // this should really, really, really be in compat.h,
 // but requires perl.h to be included

@@ -136,7 +136,7 @@ void wxPli_push_args( SV*** psp, const char* argtypes, va_list& args )
         {
             wxsval = va_arg( args, wxString* );
             SV* sv = sv_newmortal();
-            WXSTRING_OUTPUT( (*wxsval), sv );
+            wxPli_wxString_2_sv( *wxsval, sv );
             XPUSHs( sv );
             break;
         }

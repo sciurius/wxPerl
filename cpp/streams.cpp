@@ -53,6 +53,11 @@ off_t stream_tell( const wxStreamBase* stream, SV* fh );
 
 // input stream
 
+wxPliInputStream* wxPliInputStream_ctor( SV* sv )
+{
+    return new wxPliInputStream( sv );
+}
+
 wxPliInputStream::wxPliInputStream( SV* fh )
     :m_fh( fh )
 {
