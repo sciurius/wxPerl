@@ -18,10 +18,10 @@ sub depend {
                  ( $this->{PARENT} ?
                    () :
                    ( $exp => join( ' ', files_with_constants() ),
-                     $ovlc => join( ' ', @ovl ),
+                     $ovlc => 'overload', # join( ' ', @ovl, 'overload' ),
                      $ovlh => $ovlc,
-                     '$(INST_STATIC)' => " $exp overload ",
-                     '$(INST_DYNAMIC)' => " $exp overload ",
+                     '$(INST_STATIC)' => " $exp ",
+                     '$(INST_DYNAMIC)' => " $exp ",
                    )
                  )
                );
