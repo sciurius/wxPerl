@@ -398,6 +398,9 @@ Wx_Window::GetSize()
   OUTPUT:
     RETVAL
 
+wxSizer*
+wxWindow::GetSizer()
+
 void
 Wx_Window::GetSizeWH()
   PREINIT:
