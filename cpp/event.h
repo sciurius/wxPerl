@@ -20,9 +20,16 @@ class wxPlEvent:public wxEvent
     WXPLI_DECLARE_V_CBACK();
 public:
     wxPlEvent( const char* package, int id, wxEventType eventType )
+#if WXPERL_W_VERSION_GE( 2, 3, 0 )
         : wxEvent( id, eventType ),
+#else
+        : wxEvent( id ),
+#endif
           m_callback( "Wx::PlEvent" )
     {
+#if !WXPERL_W_VERSION_GE( 2, 3, 0 )
+        m_eventType = eventType;
+#endif
         m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 
