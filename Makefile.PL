@@ -24,7 +24,9 @@ use wxConfig qw(configure obj_from_src);
 
 use vars qw(@top_level_xs);
 
-@top_level_xs = glob( "*.xs" );
+# @top_level_xs = glob( "*.xs" );
+@top_level_xs = qw(Constant.xs Controls.xs Event.xs
+                   Frames.xs GDI.xs Window.xs Wx.xs);
 
 WriteMakefile( NAME => 'Wx',
                # Perl < 5.005 does not support some attributes
