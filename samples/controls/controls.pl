@@ -341,13 +341,16 @@ sub new {
     $this->{SPINCTRL}->SetRange( 10, 30 );
     $this->{SPINCTRL}->SetValue( 15 );
 
-    use Wx::Event qw(EVT_SLIDER EVT_SPIN EVT_SPIN_UP EVT_SPIN_DOWN EVT_SPINCTRL);
+    use Wx::Event qw(EVT_SLIDER EVT_SPIN EVT_SPIN_UP EVT_SPIN_DOWN
+       EVT_UPDATE_UI EVT_SPINCTRL);
 
     EVT_SLIDER( $this, $this->{SLIDER}, \&OnSliderUpdate );
     EVT_SPIN( $this, $this->{SPINBUTTON}, \&OnSpinUpdate );
     EVT_SPIN_UP( $this, $this->{SPINBUTTON}, \&OnSpinUp );
     EVT_SPIN_DOWN( $this, $this->{SPINBUTTON}, \&OnSpinDown );
     EVT_SPINCTRL( $this, $this->{SPINCTRL}, \&OnSpinCtrl );
+    EVT_BUTTON( $this, $this->{BTNPROGRESS}, \&OnShowProgress );
+    EVT_UPDATE_UI( $this, $this->{BTNPROGRESS}, \&OnUpdateShowProgress );
 
     #
     # BitmapXXX
@@ -737,6 +740,44 @@ sub OnSetFont {
 
   $this->{FONTBUTTON}->SetFont( wxITALIC_FONT );
   $this->{TEXT}->SetFont( wxITALIC_FONT );
+}
+
+use Wx qw(:progressdialog);
+
+sub OnUpdateShowProgress {
+  my( $this, $event ) = @_;
+
+  $event->Enable( $this->{SPINBUTTON}->GetValue > 0 );
+}
+
+sub OnShowProgress {
+  my( $this, $event ) = @_;
+  my( $max ) = $this->{SPINBUTTON}->GetValue();
+
+  my $dialog = Wx::ProgressDialog->new( 'Progress dialog example',
+                                        'An informative message',
+                                        $max, $this,
+                                        wxPD_CAN_ABORT|wxPD_AUTO_HIDE|
+                                        wxPD_APP_MODAL|wxPD_ELAPSED_TIME|
+                                        wxPD_ESTIMATED_TIME|
+                                        wxPD_REMAINING_TIME );
+
+  my( $cont ) = 1;
+
+  foreach ( 1 .. $max ) {
+    sleep 1;
+    if( $_ == $max ) { $cont = $dialog->Update( $_, "That's all, folks!" ) }
+    elsif( $_ == int( $max / 2 ) ) {
+      $cont = $dialog->Update( $_, "Only a half left (very long message)" )
+    } else { $cont = $dialog->Update( $_ ) }
+    last unless $cont;
+  }
+
+  $this->{TEXT}->AppendText( $cont ?
+                             "Countdown from $max finished.\n" :
+                             "Progress dialog aborted" );
+
+  $dialog->Destroy;
 }
 
 use Wx qw(wxNullColour);
