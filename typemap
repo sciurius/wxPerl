@@ -28,6 +28,8 @@ wxListColumnFormat      T_IV
 off_t                   T_IV
 WXCOLORREF              T_IV
 EntryType               T_IV
+wxKillError             T_IV
+wxSignal                T_IV
 
 wxFindReplaceDialogStyles T_IV
 wxFindReplaceFlags      T_IV
@@ -150,6 +152,8 @@ Wx_Point &              O_POINT
 Wx_Size &               O_SIZE
 Wx_Colour &             O_COLOUR
 
+Wx_Process *            O_WXOBJECT
+
 Wx_TipProvider *        O_NON_WXOBJECT
 
 Wx_DrawObject *         O_NON_WXOBJECT
@@ -239,6 +243,7 @@ Wx_TimerEvent *         O_WXOBJECT
 Wx_TreeEvent *          O_WXOBJECT
 Wx_UpdateUIEvent *      O_WXOBJECT
 Wx_TextUrlEvent *       O_WXOBJECT
+Wx_ProcessEvent *       O_WXOBJECT
 
 Wx_ConfigBase *         O_NON_WXOBJECT
 Wx_Config *             O_NON_WXOBJECT

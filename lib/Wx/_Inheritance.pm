@@ -110,6 +110,8 @@ package Wx::PlSizer;                    @ISA = qw(Wx::Sizer);
 
 package Wx::TaskBarIcon;                @ISA = qw(Wx::EvtHandler);
 
+package Wx::Process;                    @ISA = qw(Wx::EvtHandler);
+
 if( $] >= 5.005 ) { require Tie::Handle; }
 
 package Wx::Stream;                     @ISA = qw(Tie::Handle);

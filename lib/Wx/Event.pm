@@ -264,6 +264,12 @@ sub EVT_NOTEBOOK_PAGE_CHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMA
 sub EVT_PAINT($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_PAINT, $_[1] ); }
 
 #
+# ProcessEvent
+#
+
+sub EVT_END_PROCESS($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_END_PROCESS, $_[2] ); }
+
+#
 # SashEvent
 #
 
@@ -408,6 +414,7 @@ package Wx::MoveEvent;       @ISA = qw(Wx::Event);
 package Wx::NotebookEvent;   @ISA = qw(Wx::NotifyEvent);
 package Wx::NotifyEvent;     @ISA = qw(Wx::CommandEvent);
 package Wx::PaintEvent;      @ISA = qw(Wx::Event);
+package Wx::ProcessEvent;    @ISA = qw(Wx::Event);
 package Wx::QueryLayoutInfoEvent; @ISA = qw(Wx::Event);
 package Wx::SashEvent;       @ISA = qw(Wx::CommandEvent);
 package Wx::SizeEvent;       @ISA = qw(Wx::Event);
