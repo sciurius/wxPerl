@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/ 5/2003
-// RCS-ID:      $Id: renderer.h,v 1.1 2003/05/28 20:53:00 mbarbon Exp $
+// RCS-ID:      $Id: renderer.h,v 1.2 2003/05/29 20:00:05 mbarbon Exp $
 // Copyright:   (c) 2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -65,12 +65,25 @@ public:
 
         if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "GetBestSize" ) )
         {
+            ENTER;
+            SAVETMPS;
+
+            SV* attr_sv = wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                                 &attr, "Wx::GridCellAttr" );
+            SV* dc_sv = wxPli_object_2_sv( aTHX_ sv_newmortal(), &dc );
+
             SV* ret = wxPliVirtualCallback_CallCallback
                 ( aTHX_ &m_callback, G_SCALAR, "OoOii",
                   &grid, &attr, "Wx::GridCellAttr", &dc, row, col );
             wxSize size = *(wxSize*)wxPli_sv_2_object( aTHX_ ret, "Wx::Size" );
             SvREFCNT_dec( ret );
-        
+
+            wxPli_detach_object( aTHX_ attr_sv );
+            wxPli_detach_object( aTHX_ dc_sv );
+
+            FREETMPS;
+            LEAVE;
+
             return size;
         }
 
