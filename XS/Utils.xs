@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        Utils.xs
+## Name:        XS/Utils.xs
 ## Purpose:     XS for some utility classes
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:      9/ 2/2001
-## RCS-ID:      $Id: Utils.xs,v 1.28 2003/11/09 17:22:37 mbarbon Exp $
+## Created:     09/02/2001
+## RCS-ID:      $Id: Utils.xs,v 1.29 2004/01/25 08:02:05 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -244,6 +244,10 @@ wxBell()
 
 void
 wxExit()
+
+bool
+wxShell(command = wxEmptyString)
+    wxString command
 
 MODULE=Wx PACKAGE=Wx
 
