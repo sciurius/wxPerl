@@ -26,12 +26,26 @@ use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK);
 
 @EXPORT_OK = qw(test_inheritance test_inheritance_all
                 test_inheritance_start test_inheritance_end 
-                test_app test_frame);
+                test_app test_frame app_timeout);
 
 %EXPORT_TAGS =
   ( inheritance => [ qw(test_inheritance test_inheritance_all
                         test_inheritance_start test_inheritance_end) ],
   );
+
+sub app_timeout($) {
+  test_app( sub {
+              my $frame = Wx::Frame->new( undef, -1, 'test' );
+              my $timer = Wx::Timer->new( $frame );
+
+              Wx::Event::EVT_TIMER( $frame, -1, sub {
+                                      $frame->Destroy;
+                                    } );
+
+              $timer->Start( 500, 1 );
+              #$frame->Show( 1 );
+            } );
+}
 
 sub test_app {
   my $function = shift;
@@ -174,7 +188,7 @@ sub new {
   my $function = shift;
   $on_init = $function;
   my $this = $class->SUPER::new( @_ );
-
+  $this->SetExitOnFrameDelete(1);
   return $this;
 }
 
