@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        ContextHelp.xs
+## Name:        ext/help/XS/ContextHelp.xs
 ## Purpose:     XS for Wx::ContextHelp, Wx::ContextHelpButton
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     21/ 3/2001
-## RCS-ID:      $Id: ContextHelp.xs,v 1.4 2003/05/05 20:38:42 mbarbon Exp $
-## Copyright:   (c) 2001, 2003 Mattia Barbon
+## Created:     21/03/2001
+## RCS-ID:      $Id: ContextHelp.xs,v 1.5 2004/08/04 19:38:46 mbarbon Exp $
+## Copyright:   (c) 2001, 2003, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,9 +16,9 @@
 
 MODULE=Wx PACKAGE=Wx::ContextHelp
 
-Wx_ContextHelp*
-Wx_ContextHelp::new( window = NULL, beginHelp = TRUE )
-    Wx_Window* window
+wxContextHelp*
+wxContextHelp::new( window = NULL, beginHelp = TRUE )
+    wxWindow* window
     bool beginHelp
   CODE:
     RETVAL = new wxContextHelp( window, beginHelp );
@@ -26,27 +26,27 @@ Wx_ContextHelp::new( window = NULL, beginHelp = TRUE )
     RETVAL
 
 void
-Wx_ContextHelp::DESTROY()
+wxContextHelp::DESTROY()
 
 bool
-Wx_ContextHelp::BeginContextHelp( window )
-    Wx_Window* window
+wxContextHelp::BeginContextHelp( window )
+    wxWindow* window
 
 bool
-Wx_ContextHelp::EndContextHelp()
+wxContextHelp::EndContextHelp()
 
 void
-Wx_ContextHelp::SetStatus( status )
+wxContextHelp::SetStatus( status )
     bool status
 
 MODULE=Wx PACKAGE=Wx::ContextHelpButton
 
-Wx_ContextHelpButton*
-Wx_ContextHelpButton::new( parent, id = wxID_CONTEXT_HELP, pos = wxDefaultPosition, size = wxDefaultSize, style = wxBU_AUTODRAW )
-    Wx_Window* parent
+wxContextHelpButton*
+wxContextHelpButton::new( parent, id = wxID_CONTEXT_HELP, pos = wxDefaultPosition, size = wxDefaultSize, style = wxBU_AUTODRAW )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
   CODE:
     RETVAL = new wxContextHelpButton( parent, id, pos, size, style );

@@ -1,26 +1,26 @@
 #############################################################################
-## Name:        typemap
+## Name:        ext/help/typemap
 ## Purpose:     typemap
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     18/ 3/2001
-## RCS-ID:      
-## Copyright:   (c) 2001 Mattia Barbon
+## Created:     18/03/2001
+## RCS-ID:      $Id: typemap,v 1.2 2004/08/04 19:38:29 mbarbon Exp $
+## Copyright:   (c) 2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
-Wx_HelpControllerBase * O_WXOBJECT
-Wx_HelpController *     O_WXOBJECT
-Wx_HelpControllerHtml * O_WXOBJECT
-Wx_ExtHelpController *  O_WXOBJECT
-Wx_WinHelpController *  O_WXOBJECT
-Wx_CHMHelpController *  O_WXOBJECT
+wxHelpControllerBase *  O_WXOBJECT
+wxHelpController *      O_WXOBJECT
+wxHelpControllerHtml *  O_WXOBJECT
+wxExtHelpController *   O_WXOBJECT
+wxWinHelpController *   O_WXOBJECT
+wxCHMHelpController *   O_WXOBJECT
 
-Wx_ContextHelp *        O_WXOBJECT
-Wx_ContextHelpButton *  O_WXOBJECT
+wxContextHelp *         O_WXOBJECT
+wxContextHelpButton *   O_WXOBJECT
 
-Wx_HelpProvider *       O_NON_WXOBJECT
-Wx_SimpleHelpProvider * O_NON_WXOBJECT
-Wx_HelpControllerHelpProvider * O_NON_WXOBJECT
+wxHelpProvider *        O_NON_WXOBJECT
+wxSimpleHelpProvider *  O_NON_WXOBJECT
+wxHelpControllerHelpProvider * O_NON_WXOBJECT
