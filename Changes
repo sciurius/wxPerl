@@ -1,5 +1,13 @@
 Revision history for Perl extension Wx.
 
+0.11  xxx xxx xx xx:xx:xx xxxx
+	- compatibility with Perl 5.8
+	- wxTextAttr ( 2.3 )
+	- wxToolBarTool
+	- wxThread::IsMain(), some testing with threads
+	  for Perl 5.8.0
+	- wxPlEvent and wxPlCommandEvent
+
 0.10  Sun Mar 03 19:33:55 2002
 	- Fix a silly typo that broke wxTaskBar
 

@@ -2,6 +2,8 @@ MISC:
 
 * tut & man in one file
 
+PRIORITY NORMAL:
+
 * wxGrid
     GetTable
     SetTable
@@ -10,7 +12,8 @@ MISC:
 
 * wxMenu::Prepend*
 
-PRIORITY NORMAL:
+* wxXmlResource::LoadMenuBar
+    overload
 
 * configuration system
 
