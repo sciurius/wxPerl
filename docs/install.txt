@@ -104,16 +104,28 @@ in C:\Perl
   nmake test
   nmake install
 
-  If you are using ActivePerl with MSVC != 6.x you may
-  experience linking problems (Can't seek to position XXXXXX ...),
-  then you need to rebuild the perl56.dll import library.
+  To build the debugging version apply this patch to wxWidgets:
 
-  Use the make_implib.pl script (included in the ExtUtils::FakeConfig
-  distribution): make a backup of C:\Perl\lib\CORE\Perl56.lib, then do
+Index: src/makevc.env
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/src/makevc.env,v
+retrieving revision 1.48.2.5
+diff -u -2 -r1.48.2.5 makevc.env
+--- src/makevc.env	2003/02/26 05:26:20	1.48.2.5
++++ src/makevc.env	2004/08/05 21:14:07
+@@ -213,6 +213,6 @@
+ !else if "$(FINAL)" == "hybrid"
+ OPT = /Ox /Gy
+-DEBUG_FLAGS= /D__WXDEBUG__ /D__NO_VC_CRTDBG__
+-LINK_DEBUG_FLAGS=/RELEASE
++DEBUG_FLAGS= /Zi /D__WXDEBUG__ /D__NO_VC_CRTDBG__
++LINK_DEBUG_FLAGS=-debug:full -debugtype:cv
+ _CRTFLAG=/MD
+ 
+==END
 
-  perl script/make_implib.pl --target=vc C:\Perl\bin\Perl56.dll
-
-  This will create a file Perl56.lib; copy this file to C:\Perl\lib\CORE\ .
+  then follow the instructions above, passing FINAL=hybrid to wxWidgets
+  makefiles, and --debug to Makefile.PL.
 
 - MinGW 1.1 or later (wxWidgets 2.4.x)
 
@@ -145,6 +157,9 @@ in C:\Perl
   dmake test
   dmake install
 
+  To build a debugging wxPerl, follow the instructions above passing
+  FINAL=0 to wxWidgets makefile and --debug to Makefile.PL.
+
 - MS Visual C++ 5 (and probably 4.x) (wxWidgets 2.5.x)
 - MS Visual C++ 6 SP4 (wxWidgets 2.5.x)
 
@@ -166,16 +181,9 @@ in C:\Perl
   nmake test
   nmake install
 
-  If you are using ActivePerl with MSVC != 6.x you may
-  experience linking problems (Can't seek to position XXXXXX ...),
-  then you need to rebuild the perl56.dll import library.
-
-  Use the make_implib.pl script (included in the ExtUtils::FakeConfig
-  distribution): make a backup of C:\Perl\lib\CORE\Perl56.lib, then do
-
-  perl script/make_implib.pl --target=vc C:\Perl\bin\Perl56.dll
-
-  This will create a file Perl56.lib; copy this file to C:\Perl\lib\CORE\ .
+  To build a debugging wxPerl, follow the instructions above passing
+  BUILD=debug DEBUG_RUNTIME_LIBS=0 to wxWidgets makefile and --debug
+  to Makefile.PL.
 
 - MinGW 1.1 or later (wxWidgets 2.5.x)
 
@@ -208,6 +216,9 @@ in C:\Perl
   dmake test
   dmake install
 
+  To build a debugging wxPerl, follow the instructions above passing
+  BUILD=debug to wxWidgets makefile and --debug to Makefile.PL.
+
 * SPECIFYING THE INSTALLATION PATH
 
 If you don't want to install wxPerl as a system module, you must
@@ -239,17 +250,8 @@ for details.
 * PREPARING Perl on MAC OS X
 
   The 'perl' executable shipped with your OS can't be used to run executables
-that interact with the GUI, hence you need to prepare a special 'wxPerl'
-executable. Let's assume that your 'perl' is in '/usr/local/bin/perl'.
-  First, you need to install wxWidgets, then do the following from the
-command prompt:
-
-$ cp /usr/local/bin/perl wxPerl
-$ `wx-config --rezflags` wxPerl
-
-Now test your shiny new wxPerl executable:
-
-$ wxPerl -Mblib samples/minimal/minimal.pl
+that interact with the GUI, hence you need to use the special 'wxPerl'
+executable created by wxPerl.
 
 * FAQ
 
