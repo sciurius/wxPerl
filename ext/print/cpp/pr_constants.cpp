@@ -106,6 +106,12 @@ double print_constant( const char* name, int arg )
 
         r( wxPORTRAIT );
 
+        r( wxPREVIEW_PRINT );
+        r( wxPREVIEW_NEXT );
+        r( wxPREVIEW_PREVIOUS );
+        r( wxPREVIEW_ZOOM );
+        r( wxPREVIEW_DEFAULT );
+
         r( wxPRINT_QUALITY_HIGH );
         r( wxPRINT_QUALITY_MEDIUM );
         r( wxPRINT_QUALITY_LOW );

@@ -17,6 +17,12 @@ Wx_PageSetupDialog *    O_WXOBJECT
 Wx_Printer *            O_WXOBJECT
 Wx_PrintDialogData *    O_WXOBJECT
 Wx_Printout *           O_WXOBJECT
+Wx_PrintPreview *       O_WXOBJECT
+Wx_PrinterDC *          O_WXOBJECT
+Wx_PrintDialog *        O_WXOBJECT
+Wx_PreviewControlBar *  O_WXOBJECT
+Wx_PreviewCanvas *      O_WXOBJECT
+Wx_PreviewFrame *       O_WXOBJECT
 
 wxDuplexMode            T_IV
 wxPaperSize             T_IV

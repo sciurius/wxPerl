@@ -81,6 +81,7 @@ package Wx::Palette;      @ISA = qw(Wx::GDIObject);
 package Wx::DC;
 package Wx::WindowDC;     @ISA = qw(Wx::DC);
 package Wx::ClientDC;     @ISA = qw(Wx::WindowDC);
+package Wx::PrinterDC;    @ISA = qw(Wx::DC);
 
 package Wx::Image;
 package Wx::ImageHandler;
@@ -111,6 +112,11 @@ require Tie::Handle;
 package Wx::Stream;       @ISA = qw(Tie::Handle);
 package Wx::InputStream;  @ISA = qw(Wx::Stream);
 package Wx::OutputStream; @ISA = qw(Wx::Stream);
+
+package Wx::PreviewControlBar; @ISA = qw(Wx::Window);
+package Wx::PreviewCanvas; @ISA = qw(Wx::Window);
+package Wx::PrintDialog;  @ISA = qw(Wx::Dialog);
+package Wx::PreviewFrame; @ISA = qw(Wx::Frame);
 
 # this is because the inheritance tree is a bit different between
 # wxGTK, wxMSW and wxMotif
@@ -209,6 +215,8 @@ use vars qw(@ISA);
 
 if( $Wx::_platform == $Wx::_gtk ) {
   @ISA = qw(Wx::GDIObject);
+} else {
+  @ISA = qw(UNIVERSAL);
 }
 
 1;

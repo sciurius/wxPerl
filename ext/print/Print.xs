@@ -60,6 +60,11 @@ INCLUDE: XS/PrintData.xs
 INCLUDE: XS/PageSetupDialog.xs
 INCLUDE: XS/PageSetupDialogData.xs
 INCLUDE: XS/Printer.xs
+INCLUDE: XS/PrintDialogData.xs
+INCLUDE: XS/PrintPreview.xs
+INCLUDE: XS/Printout.xs
+INCLUDE: XS/PrintDialog.xs
+INCLUDE: XS/Preview.xs
 
 #include "cpp/pr_constants.cpp"
 

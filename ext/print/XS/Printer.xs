@@ -53,10 +53,14 @@ Wx_Printer::ReportError( parent, printout, message )
     Wx_Printout* printout
     wxString message
   CODE:
-#if wxUSE_UNICODE
-    THIS->ReportError( parent, printout, (char*)message.mb_str().data() );
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    THIS->ReportError( parent, printout, message );
 #else
+#  if wxUSE_UNICODE
+    THIS->ReportError( parent, printout, (char*)message.mb_str().data() );
+#  else
     THIS->ReportError( parent, printout, (char*)(const char*)message );
+#  endif
 #endif
 
 bool

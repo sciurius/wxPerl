@@ -189,7 +189,6 @@ FD_TD( Palette );
 FD_TD( Panel );
 FD_TD( Pen );
 FD_TD( Point );
-FD_TD( PrintDialog );
 FD_TD( ProgressDialog );
 FD_TD( RadioBox );
 FD_TD( RadioButton );

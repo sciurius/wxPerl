@@ -22,6 +22,11 @@ FD_TD( PrintData );
 FD_TD( PageSetupDialogData );
 FD_TD( PrintDialogData );
 FD_TD( Printout );
+FD_TD( PrinterDC );
+FD_TD( PrintDialog );
+FD_TD( PreviewControlBar );
+FD_TD( PreviewCanvas );
+FD_TD( PreviewFrame );
 
 #if defined( __WXMSW__ )
 FD_TD_NAME( Printer, WindowsPrinter );
