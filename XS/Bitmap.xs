@@ -227,10 +227,21 @@ InsertHandler( handler )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+
+bool
+Wx_Bitmap::LoadFile( name, type )
+    wxString name
+    wxBitmapType type
+
+#else
+
 bool
 Wx_Bitmap::LoadFile( name, type )
     wxString name
     long type
+
+#endif
 
 bool
 Wx_Bitmap::Ok()
@@ -245,11 +256,23 @@ RemoveHandler( name )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+
+bool
+Wx_Bitmap::SaveFile( name, type, palette = 0 )
+    wxString name
+    wxBitmapType type
+    Wx_Palette* palette
+
+#else
+
 bool
 Wx_Bitmap::SaveFile( name, type, palette = 0 )
     wxString name
     long type
     Wx_Palette* palette
+
+#endif
 
 void
 Wx_Bitmap::SetDepth( depth )

@@ -144,7 +144,7 @@ WXPLI_DECLARE_CLASS_8( TextCtrl, TRUE,
                        const wxPoint&, const wxSize&, long,
                        const wxValidator&, const wxString& );
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 ) && wxPERL_USE_TOGGLEBTN
 
 WXPLI_DECLARE_CLASS_8( ToggleButton, TRUE,
                        wxWindow*, wxWindowID, const wxString&,

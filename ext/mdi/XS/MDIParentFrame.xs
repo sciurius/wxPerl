@@ -48,7 +48,7 @@ Wx_MDIParentFrame::GetActiveChild()
 Wx_MDIClientWindow*
 Wx_MDIParentFrame::GetClientWindow()
 
-#if !defined(__WXGTK__) || defined(__WXPERL_FORCE__)
+#if ( !defined(__WXGTK__) && !defined(__WXMAC__) ) || defined(__WXPERL_FORCE__)
 
 Wx_Menu*
 Wx_MDIParentFrame::GetWindowMenu()

@@ -35,6 +35,9 @@ FD_TD( PreviewFrame );
 #if defined( __WXMSW__ )
 FD_TD_NAME( Printer, WindowsPrinter );
 FD_TD_NAME( PrintPreview, WindowsPrintPreview );
+#elif defined( __WXMAC__ )
+FD_TD_NAME( Printer, MacPrinter );
+FD_TD_NAME( PrintPreview, MacPrintPreview );
 #else
 FD_TD_NAME( Printer, PostScriptPrinter );
 FD_TD_NAME( PrintPreview, PostScriptPrintPreview );

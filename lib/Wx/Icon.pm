@@ -19,7 +19,6 @@ sub new {
   shift;
 
   @_ == 0                             && return Wx::Icon::newNull();
-  Wx::_match( @_, $Wx::_n_n_n, 2, 1 ) && return Wx::Icon::newEmpty( @_ );
   Wx::_match( @_, $Wx::_s_n_n_n, 2, 1 )  && return Wx::Icon::newFile( @_ );
   croak Wx::_ovl_error;
 }

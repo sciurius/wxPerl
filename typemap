@@ -16,6 +16,7 @@ wxRelationship          T_IV
 wxWindowID              T_WINDOWID
 wxStockCursor           T_IV
 wxEventType             T_IV
+wxBitmapType            T_IV
 const char *            T_PV
 wxCoord                 T_IV
 float                   T_NV

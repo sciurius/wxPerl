@@ -16,6 +16,7 @@
 #include <stdarg.h>
 
 #include "cpp/compat.h"
+#include "cpp/chkconfig.h"
 
 WXPL_EXTERN_C_START
 #include <EXTERN.h>

@@ -43,20 +43,6 @@ newNull()
   OUTPUT:
     RETVAL
 
-#if ( !defined( __WXMOTIF__ ) && !defined( __WXMSW__ ) && !defined( __WXGTK__ ) ) || defined( __WXPERL_FORCE__ )
-
-Wx_Icon*
-newEmpty( width, height, depth = -1 )
-    int width
-    int height
-    int depth
-  CODE:
-    RETVAL = new wxIcon( width, height, depth );
-  OUTPUT:
-    RETVAL
-
-#endif
-
 Wx_Icon*
 newFile( name, type, desW = -1, desH = -1 )
     wxString name

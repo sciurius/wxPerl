@@ -39,6 +39,7 @@ WXPL_EXTERN_C_END
 #include <wx/defs.h>
 #include <wx/window.h>
 #include <wx/module.h>
+#include "cpp/chkconfig.h"
 
 #if __WXMSW__
 #include <wx/msw/private.h>

@@ -10,7 +10,7 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 ) && wxPERL_USE_TOGGLEBTN
 
 #include <wx/tglbtn.h>
 

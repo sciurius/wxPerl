@@ -17,6 +17,11 @@ use lib '../../build';
 
 use wxConfig;
 
+if( $^O eq 'darwin' ) {
+  ExtUtils::MakeMaker::WriteEmptyMakefile();
+  exit 0;
+}
+
 wxWriteMakefile( NAME => 'Wx::XRC',
                  VERSION_FROM => 'lib/Wx/XRC.pm',
                  WXLIB => 'wxxrc',

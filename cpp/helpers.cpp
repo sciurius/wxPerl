@@ -508,7 +508,7 @@ wxChar* wxPli_copy_string( SV* scalar, wxChar** )
 
 char* wxPli_copy_string( SV* scalar, char** )
 {
-    unsigned int length;
+    STRLEN length;
     const char* tmp = SvPV( scalar, length );
 
     char* buffer = new char[length + 1];

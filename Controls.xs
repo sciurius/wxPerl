@@ -42,6 +42,7 @@
 
 #include "cpp/compat.h"
 #include "cpp/typedef.h"
+#include "cpp/chkconfig.h"
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/tglbtn.h>

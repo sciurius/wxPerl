@@ -40,6 +40,7 @@
 #include <wx/clipbrd.h>
 
 #include "cpp/compat.h"
+#include "cpp/chkconfig.h"
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 #include <wx/tglbtn.h>
@@ -285,7 +286,7 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_SCROLLBAR_UPDATED );
     r( wxEVT_COMMAND_VLBOX_SELECTED );
     r( wxEVT_COMMAND_COMBOBOX_SELECTED );
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+#if WXPERL_W_VERSION_GE( 2, 3, 1 ) && wxPERL_USE_TOGGLEBTN
     r( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED );
 #endif
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )

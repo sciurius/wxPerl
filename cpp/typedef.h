@@ -126,7 +126,7 @@ FD_TD( ClientDC );
 FD_TD( Colour );
 FD_TD( ColourData );
 
-#if defined( __WXMOTIF__ ) || defined( __WXGTK__ )
+#if defined( __WXMOTIF__ ) || defined( __WXGTK__ ) || defined( __WXMAC__ )
 FD_TD_NAME( ColourDialog, GenericColourDialog );
 #else
 FD_TD( ColourDialog );
@@ -153,7 +153,7 @@ FD_TD( FlexGridSizer );
 FD_TD( Font );
 FD_TD( FontData );
 
-#if defined( __WXMOTIF__ )
+#if defined( __WXMOTIF__ ) || defined( __WXMAC__ )
 FD_TD_NAME( FontDialog, GenericFontDialog );
 #else
 FD_TD( FontDialog );

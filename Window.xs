@@ -20,6 +20,7 @@
 #include <stdarg.h>
 
 #include "cpp/compat.h"
+#include "cpp/chkconfig.h"
 
 WXPL_EXTERN_C_START
 #include <EXTERN.h>
@@ -237,10 +238,14 @@ Wx_Window::GetClientSizeXY()
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
+#if wxPERL_USE_DRAG_AND_DROP
+
 Wx_DropTarget*
 Wx_Window::GetDropTarget()
   CLEANUP:
     wxPli_object_set_deleteable( ST(0), FALSE );
+
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
@@ -595,12 +600,16 @@ Wx_Window::SetDefaultItem( window )
 
 #endif
 
+#if wxPERL_USE_DRAG_AND_DROP
+
 void
 Wx_Window::SetDropTarget( target )
     Wx_DropTarget* target
   CODE:
     wxPli_object_set_deleteable( ST(1), FALSE );
     THIS->SetDropTarget( target );
+
+#endif
 
 void
 Wx_Window::SetEventHandler( handler )
