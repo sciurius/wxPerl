@@ -127,7 +127,7 @@ I<Introduced before wxPerl 0.14>
 
 Extracts a bound pointer from a perl reference, checking that
 the reference belongs to the correct class (die()s on failure),
-and returns it.
+and returns it. If C<classname> is C<NULL>, the check is not done.
 
 I<Introduced before wxPerl 0.14>
 
