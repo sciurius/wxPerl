@@ -194,6 +194,7 @@ XS/Stream.xs
 XS/TextCtrl.xs
 XS/Timer.xs
 XS/TreeCtrl.xs
+XS/ToggleButton.xs
 XS/ToolBar.xs
 XS/ToolTip.xs
 XS/Utils.xs
