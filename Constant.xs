@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.83 2003/05/27 19:56:17 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.84 2003/05/28 20:40:12 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1754,6 +1754,17 @@ void SetConstantsOnce()
     wxPli_make_const( "wxITALIC_FONT" );        // font
     wxPli_make_const( "wxSWISS_FONT" );         // font
 
+    wxPli_make_const( "wxRED_PEN" );            // pen
+    wxPli_make_const( "wxGREEN_PEN" );          // pen
+    wxPli_make_const( "wxCYAN_PEN" );           // pen
+    wxPli_make_const( "wxBLACK_PEN" );          // pen
+    wxPli_make_const( "wxWHITE_PEN" );          // pen
+    wxPli_make_const( "wxTRANSPARENT_PEN" );    // pen
+    wxPli_make_const( "wxBLACK_DASHED_PEN" );   // pen
+    wxPli_make_const( "wxGREY_PEN" );           // pen
+    wxPli_make_const( "wxMEDIUM_GREY_PEN" );    // pen
+    wxPli_make_const( "wxLIGHT_GREY_PEN" );     // pen
+
     wxPli_make_const( "wxIMAGE_OPTION_BMP_FORMAT" );    // image
     wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_X" ); // image
     wxPli_make_const( "wxIMAGE_OPTION_CUR_HOTSPOT_Y" ); // image
@@ -1916,35 +1927,21 @@ void SetConstants()
     //
     // predefined pens
     //
-    tmp = get_sv( "Wx::_pen_red", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxRED_PEN ) );
+    #define DEFINE_PEN( pen ) \
+        wxPli_set_const( #pen, "Wx::Pen", new wxPen( *pen ) )
 
-    tmp = get_sv( "Wx::_pen_cyan", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxCYAN_PEN ) );
+    DEFINE_PEN( wxRED_PEN );
+    DEFINE_PEN( wxGREEN_PEN );
+    DEFINE_PEN( wxCYAN_PEN );
+    DEFINE_PEN( wxBLACK_PEN );
+    DEFINE_PEN( wxWHITE_PEN );
+    DEFINE_PEN( wxTRANSPARENT_PEN );
+    DEFINE_PEN( wxBLACK_DASHED_PEN );
+    DEFINE_PEN( wxGREY_PEN );
+    DEFINE_PEN( wxMEDIUM_GREY_PEN );
+    DEFINE_PEN( wxLIGHT_GREY_PEN );
 
-    tmp = get_sv( "Wx::_pen_green", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxGREEN_PEN ) );
-
-    tmp = get_sv( "Wx::_pen_black", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxBLACK_PEN ) );
-
-    tmp = get_sv( "Wx::_pen_white", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxWHITE_PEN ) );
-
-    tmp = get_sv( "Wx::_pen_transparent", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxTRANSPARENT_PEN ) );
-
-    tmp = get_sv( "Wx::_pen_black_dashed", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxBLACK_DASHED_PEN ) );
-
-    tmp = get_sv( "Wx::_pen_grey", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxGREY_PEN ) );
-
-    tmp = get_sv( "Wx::_pen_medium_grey", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxMEDIUM_GREY_PEN ) );
-
-    tmp = get_sv( "Wx::_pen_light_grey", 0 );
-    sv_setref_pv( tmp, "Wx::Pen", new wxPen( *wxLIGHT_GREY_PEN ) );
+    #undef DEFINE_PEN
 
     //
     // Predefined brushes

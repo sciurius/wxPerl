@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: _Constants.pm,v 1.12 2003/05/27 19:56:39 mbarbon Exp $
+## RCS-ID:      $Id: _Constants.pm,v 1.13 2003/05/28 20:40:33 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,9 +20,6 @@ BEGIN {
   $_default_position $_default_size $_version_string $_default_validator
   $_null_bitmap $_null_icon $_null_colour $_null_cursor $_null_font $_null_pen
   $_null_brush $_null_palette $_null_accelerator
-  $_pen_red $_pen_cyan $_pen_green $_pen_black $_pen_white
-  $_pen_transparent $_pen_black_dashed $_pen_grey $_pen_medium_grey
-  $_pen_light_grey
   $_brush_blue $_brush_green $_brush_white $_brush_black $_brush_grey
   $_brush_medium_grey $_brush_light_grey $_brush_transparent
   $_brush_cyan $_brush_red $_format_invalid $_clipboard);
@@ -50,17 +47,6 @@ sub wxNullPen() { $_null_pen }                      # pen
 sub wxNullBrush() { $_null_brush }                  # brush
 sub wxNullPalette() { $_null_palette }              # palette
 sub wxNullAcceleratorTable() { $_null_accelerator }
-
-sub wxRED_PEN() { $_pen_red }                       # pen
-sub wxGREEN_PEN() { $_pen_green }                   # pen
-sub wxCYAN_PEN() { $_pen_cyan }                     # pen
-sub wxBLACK_PEN() { $_pen_black }                   # pen
-sub wxWHITE_PEN() { $_pen_white }                   # pen
-sub wxTRANSPARENT_PEN() { $_pen_transparent }       # pen
-sub wxBLACK_DASHED_PEN() { $_pen_black_dashed }     # pen
-sub wxGREY_PEN() { $_pen_grey }                     # pen
-sub wxMEDIUM_GREY_PEN() { $_pen_medium_grey }       # pen
-sub wxLIGHT_GREY_PEN() { $_pen_light_grey }         # pen
 
 sub wxBLUE_BRUSH() { $_brush_blue }                 # brush
 sub wxGREEN_BRUSH() { $_brush_green }               # brush
