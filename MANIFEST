@@ -251,6 +251,7 @@ cpp/e_cback.cpp
 cpp/helpers.cpp
 cpp/streams.cpp
 cpp/v_cback.cpp
+cpp/wxapi.h
 
 ext/Makefile.PL
 ext/pperl/Makefile.PL
