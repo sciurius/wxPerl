@@ -20,8 +20,9 @@ version:
 wxdir:
 	echo $(WXWIN)
 
+# for 2.4.0 or less vs. 2.4.1 and 2.5.0
 cxxflags:
-	echo $(CPPFLAGS)
+	echo $(CPPFLAGS) $(ALL_CPPFLAGS) $(ALL_CXXFLAGS)
 
 linkflags:
 	echo $(LINKFLAGS)
