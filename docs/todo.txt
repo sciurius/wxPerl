@@ -32,15 +32,9 @@ PRIORITY NORMAL:
 
 * Wx::PlGridCellEditor/Renderer
 
-* wxXmlResource::LoadMenuBar
-    overload
-
 * configuration system
 
 * finish cpp/chkconfig.h
-
-* Wx::Colour::GetPixel
-    Does not work on wxMac
 
 * Wx::DataObject
     Wx::PlDataObject
@@ -53,19 +47,13 @@ PRIORITY NORMAL:
 
 * Wx::HtmlWindow
     AddFilter
-    GetInternalRepresentation
+    AddProcessor
+    GetParser
     Fix inheritance...
-
-* Wx::HtmlHelp
-    CreateHelpFrame
 
 * Wx::HelpController
     OnQuit
     Get/SetFrameParameters
-
-* Wx::Stream
-    Better READLINE
-    Support for $/, etc?
 
 * Wx::StyledTextCtrl
     AddStyledText
@@ -85,9 +73,7 @@ PRIORITY LOW:
 * Wx::App::new
     find a better solution yhan just 'croak' if OnInit
     returns a false value
-
-* Wx::Help
-    enable all Wx::*Help* available in the current setup
+    fix wxMac hack
 
 * Wx::PrintData
     PostScript specific functions
@@ -103,9 +89,9 @@ PRIORITY LOW:
 * Wx::PreviewControlBar
     CreateButtons
 
-* operator == and != ( are they useful/have side effects? )
+* operator == and != (are they useful/have side effects?)
     Wx::AcceleratorTable
-    Wx::Bitmap ( enable )
+    Wx::Bitmap (enable)
     Wx::Brush
     Wx::Colour
     Wx::Cursor
@@ -124,8 +110,6 @@ DOCUMENTATTION:
 * Document Wx::PlValidator, Wx::PlLog, Wx::PlLogPassThrough
 
 * Document wxStatusBar::GetFieldRect
-
-* Document wxListBox::GetCount/Number is deprecated
 
 * Document wxDocTemplate::new
 
