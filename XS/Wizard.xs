@@ -41,7 +41,7 @@ newFull( CLASS, parent, id = -1, title = wxEmptyString, bitmap = (wxBitmap*)&wxN
     wxBitmap* bitmap
     wxPoint pos
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     RETVAL = new wxWizard( parent, id, title, *bitmap, pos );
 #else
     RETVAL = wxWizard::Create( parent, id, title, *bitmap, pos );
