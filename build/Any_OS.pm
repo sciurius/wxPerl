@@ -33,8 +33,12 @@ sub constants {
       } else {
         $this->{$k} = MM->catdir( $top, 'ext', $dir );
       }
+    }
 
-      #warn $k, ' = ', $this->{$k};
+    if( $] >= 5.008 ) {
+      for my $m ( keys %{$this->{PM}} ) {
+        ${$this->{PM}}{$m} =~ s{.*[\\/]lib([\\/])}{\$(INST_LIB)$1};
+      }
     }
   }
 

@@ -7,7 +7,7 @@ use base 'Exporter';
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = qw(obj_from_src top_dir building_extension
              xs_depend merge_config wx_version wx_config is_platform
-             get_platform is_debug is_inside_wxperl_tree);
+             get_platform is_debug is_inside_wxperl_tree path_search);
 @EXPORT_OK = qw(unix_top_dir);
 
 #
@@ -115,6 +115,17 @@ sub is_inside_wxperl_tree() {
   }
 
   return 0;
+}
+
+sub path_search {
+  my $file = shift;
+
+  foreach my $d ( split $Config{path_sep}, $ENV{PATH} ) {
+    my $full = MM->catfile( $d, $file );
+    return $full if -f $full;
+  }
+
+  return;
 }
 
 #

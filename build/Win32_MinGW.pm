@@ -53,9 +53,12 @@ sub configure {
   local *config; *config = $this->SUPER::configure();
 
   my $wximplib = MM->catfile( top_dir(), qw(blib arch auto Wx Wx.a) );
+  my $path = path_search( 'gcc.exe' ) or warn "Unable to find gcc";
+  $path =~ s{bin[\\/]gcc\.exe$}{}i;
+
   $config{CC} = 'g++';
   $config{LD} = 'g++';
-  $config{CCFLAGS} .= ' -fvtable-thunks ';
+  $config{CCFLAGS} .= " -fvtable-thunks ";
   $config{clean}{FILES} .= 'dll.base dll.exp ';
   if( building_extension() && $wxConfig::use_dllexport ) {
     $config{LDFROM} .= "\$(OBJECT) $wximplib ";
@@ -83,6 +86,8 @@ sub configure {
     m(wx)i || next;
     $config{LIBS} .= $_ . ' ';
   }
+
+  $config{LIBS} = " -L${path}lib " . $config{LIBS};
 
   \%config;
 }
