@@ -489,6 +489,84 @@ if( strEQ( name, #n ) ) \
     r( wxJOY_BUTTON4 );                 // joystick
     r( wxJOY_BUTTON_ANY );              // joystick
     break;
+  case 'K':
+    if( strnEQ( name, "WXK_", 4 ) )
+    {
+        r( WXK_BACK );                  // keycode
+        r( WXK_TAB );                   // keycode
+        r( WXK_RETURN );                // keycode
+        r( WXK_ESCAPE );                // keycode
+        r( WXK_SPACE );                 // keycode
+        r( WXK_DELETE );                // keycode
+        r( WXK_START );                 // keycode
+        r( WXK_LBUTTON );               // keycode
+        r( WXK_RBUTTON );               // keycode
+        r( WXK_CANCEL );                // keycode
+        r( WXK_MBUTTON );               // keycode
+        r( WXK_CLEAR );                 // keycode
+        r( WXK_SHIFT );                 // keycode
+        r( WXK_CONTROL );               // keycode
+        r( WXK_MENU );                  // keycode
+        r( WXK_PAUSE );                 // keycode
+        r( WXK_CAPITAL );               // keycode
+        r( WXK_PRIOR );                 // keycode
+        r( WXK_NEXT );                  // keycode
+        r( WXK_END );                   // keycode
+        r( WXK_HOME );                  // keycode
+        r( WXK_LEFT );                  // keycode
+        r( WXK_UP );                    // keycode
+        r( WXK_RIGHT );                 // keycode
+        r( WXK_DOWN );                  // keycode
+        r( WXK_SELECT );                // keycode
+        r( WXK_PRINT );                 // keycode
+        r( WXK_EXECUTE );               // keycode
+        r( WXK_SNAPSHOT );              // keycode
+        r( WXK_INSERT );                // keycode
+        r( WXK_HELP );                  // keycode
+        r( WXK_NUMPAD0 );               // keycode
+        r( WXK_NUMPAD1 );               // keycode
+        r( WXK_NUMPAD2 );               // keycode
+        r( WXK_NUMPAD3 );               // keycode
+        r( WXK_NUMPAD4 );               // keycode
+        r( WXK_NUMPAD5 );               // keycode
+        r( WXK_NUMPAD6 );               // keycode
+        r( WXK_NUMPAD7 );               // keycode
+        r( WXK_NUMPAD8 );               // keycode
+        r( WXK_NUMPAD9 );               // keycode
+        r( WXK_MULTIPLY );              // keycode
+        r( WXK_ADD );                   // keycode
+        r( WXK_SEPARATOR );             // keycode
+        r( WXK_SUBTRACT );              // keycode
+        r( WXK_DECIMAL );               // keycode
+        r( WXK_DIVIDE );                // keycode
+        r( WXK_F1 );                    // keycode
+        r( WXK_F2 );                    // keycode
+        r( WXK_F3 );                    // keycode
+        r( WXK_F4 );                    // keycode
+        r( WXK_F5 );                    // keycode
+        r( WXK_F6 );                    // keycode
+        r( WXK_F7 );                    // keycode
+        r( WXK_F8 );                    // keycode
+        r( WXK_F9 );                    // keycode
+        r( WXK_F10 );                   // keycode
+        r( WXK_F11 );                   // keycode
+        r( WXK_F12 );                   // keycode
+        r( WXK_F13 );                   // keycode
+        r( WXK_F14 );                   // keycode
+        r( WXK_F15 );                   // keycode
+        r( WXK_F16 );                   // keycode
+        r( WXK_F17 );                   // keycode
+        r( WXK_F18 );                   // keycode
+        r( WXK_F19 );                   // keycode
+        r( WXK_F20 );                   // keycode
+        r( WXK_F21 );                   // keycode
+        r( WXK_F22 );                   // keycode
+        r( WXK_F23 );                   // keycode
+        r( WXK_F24 );                   // keycode
+        r( WXK_NUMLOCK );               // keycode
+        r( WXK_SCROLL  );               // keycode
+    }
+    break;
   case 'L':
     r( wxLB_SINGLE );                   // listbox
     r( wxLB_MULTIPLE );                 // listbox
@@ -576,7 +654,7 @@ if( strEQ( name, #n ) ) \
 #define rr( n ) \
     if( strEQ( nm, #n ) ) \
         return wxLANGUAGE_##n;
-
+        //prefix wxLANGUAGE_
         const char* nm = name + 11;
 
         rr( DEFAULT );                  // locale
@@ -810,7 +888,7 @@ if( strEQ( name, #n ) ) \
         rr( ZHUANG );                   // locale
         rr( ZULU );                     // locale
         rr( USER_DEFINED );             // locale
-
+        //prefix
 #undef rr
     }
 #endif
@@ -992,6 +1070,7 @@ if( strEQ( name, #n ) ) \
     r( wxWANTS_CHARS );
     r( wxWINDING_RULE );                // dc
     r( wxWidth );                       // layout constraints
+
     break;
   case 'X':
     r( wxXOR );                         // dc
