@@ -18,6 +18,7 @@ require Exporter;
 use Test::More ();
 *ok = \&Test::More::ok;
 *is = \&Test::More::is;
+*diag = \&Test::More::diag;
 
 use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK);
 
