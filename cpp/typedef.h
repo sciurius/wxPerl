@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: typedef.h,v 1.45 2003/05/29 20:04:23 mbarbon Exp $
+// RCS-ID:      $Id: typedef.h,v 1.46 2003/05/31 15:36:56 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -43,13 +43,10 @@ FD_TD( ListEvent );
 FD_TD( MenuEvent );
 FD_TD( MouseEvent );
 FD_TD( MoveEvent );
-FD_TD( NotebookEvent );
 FD_TD( NotifyEvent );
 FD_TD( PaintEvent );
-FD_TD( SashEvent );
 FD_TD( ScrollWinEvent );
 FD_TD( SizeEvent );
-FD_TD( SpinEvent );
 FD_TD( SplitterEvent );
 FD_TD( SysColourChangedEvent );
 FD_TD( TextUrlEvent );
@@ -156,7 +153,6 @@ FD_TD( MessageDialog );
 FD_TD( MiniFrame );
 FD_TD( MultiChoiceDialog );
 FD_TDS( NativeFontInfo );
-FD_TD( Notebook );
 FD_TD( NotebookSizer );
 FD_TD( Object );
 FD_TD( PaintDC );
@@ -166,13 +162,10 @@ FD_TD( Pen );
 FD_TD( Point );
 FD_TD( Process );
 FD_TD( ProgressDialog );
-FD_TD( RadioButton );
 FD_TD( Rect );
 FD_TD( RegConfig );
 FD_TD( Region );
-FD_TD( SashWindow );
 FD_TD( ScreenDC );
-FD_TD( ScrollBar );
 FD_TD( ScrolledWindow );
 FD_TD( SingleChoiceDialog );
 FD_TD( SingleInstanceChecker );
@@ -180,8 +173,6 @@ FD_TD( Size );
 FD_TD( Sizer );
 FD_TD( SizerItem );
 FD_TD( Slider );
-FD_TD( SpinButton );
-FD_TD( SpinCtrl );
 FD_TD( SplashScreen );
 FD_TD( SplitterWindow );
 FD_TD( StaticBitmap );
@@ -197,7 +188,6 @@ FD_TD( TextCtrl );
 FD_TD( TextEntryDialog );
 FD_TD( Timer );
 FD_TD( TipProvider );
-FD_TD( ToggleButton );
 FD_TD( ToolBar );
 FD_TD( ToolBarBase );
 FD_TD( ToolBarToolBase );

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.54 2003/05/29 20:04:08 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.55 2003/05/31 15:36:45 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -105,13 +105,10 @@ wxControlWithItems *    O_WXOBJECT
 wxListBox *             O_WXEVTHANDLER
 Wx_StaticBox *          O_WXOBJECT
 wxStaticBox *           O_WXOBJECT
-Wx_RadioButton *        O_WXOBJECT
-wxRadioButton *         O_WXOBJECT
+wxRadioButton *         O_WXEVTHANDLER
 wxRadioBox *            O_WXEVTHANDLER
-Wx_ScrollBar *          O_WXOBJECT
-wxScrollBar *           O_WXOBJECT
-Wx_Notebook *           O_WXOBJECT
-wxNotebook *            O_WXOBJECT
+wxScrollBar *           O_WXEVTHANDLER
+wxNotebook *            O_WXEVTHANDLER
 wxCheckListBox *        O_WXEVTHANDLER
 wxGauge *               O_WXEVTHANDLER
 wxBitmapButton *        O_WXEVTHANDLER
@@ -122,19 +119,15 @@ wxListCtrl *            O_WXOBJECT
 wxListView *            O_WXEVTHANDLER
 Wx_StaticBitmap *       O_WXOBJECT
 wxStaticBitmap *        O_WXOBJECT
-Wx_SpinButton *         O_WXOBJECT
-wxSpinButton *          O_WXOBJECT
-Wx_SpinCtrl *           O_WXOBJECT
-wxSpinCtrl *            O_WXOBJECT
+wxSpinButton *          O_WXEVTHANDLER
+wxSpinCtrl *            O_WXEVTHANDLER
 Wx_Slider *             O_WXOBJECT
 wxSlider *              O_WXOBJECT
 Wx_ScrolledWindow *     O_WXOBJECT
 wxScrolledWindow *      O_WXOBJECT
 wxSplitterWindow *      O_WXEVTHANDLER
-Wx_SashWindow *         O_WXOBJECT
-wxSashWindow *          O_WXOBJECT
-Wx_ToggleButton *       O_WXOBJECT
-wxToggleButton *        O_WXOBJECT
+wxSashWindow *          O_WXEVTHANDLER
+wxToggleButton *        O_WXEVTHANDLER
 Wx_SplashScreen *       O_WXOBJECT
 wxSplashScreen *        O_WXOBJECT
 
@@ -375,15 +368,15 @@ Wx_ListEvent *          O_WXOBJECT
 Wx_MenuEvent *          O_WXOBJECT
 Wx_MouseEvent *         O_WXOBJECT
 Wx_MoveEvent *          O_WXOBJECT
-Wx_NotebookEvent *      O_WXOBJECT
+wxNotebookEvent *       O_WXOBJECT
 Wx_NotifyEvent *        O_WXOBJECT
 Wx_PaintEvent *         O_WXOBJECT
 Wx_QueryLayoutInfo *    O_WXOBJECT
-Wx_SashEvent *          O_WXOBJECT
+wxSashEvent *           O_WXOBJECT
 Wx_SizeEvent *          O_WXOBJECT
 wxScrollEvent *         O_WXOBJECT
 Wx_ScrollWinEvent *     O_WXOBJECT
-Wx_SpinEvent *          O_WXOBJECT
+wxSpinEvent *           O_WXOBJECT
 wxSplitterEvent *       O_WXOBJECT
 Wx_SysColourChangedEvent * O_WXOBJECT
 Wx_TimerEvent *         O_WXOBJECT

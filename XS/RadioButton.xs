@@ -1,36 +1,39 @@
 #############################################################################
-## Name:        RadioButton.xs
+## Name:        XS/RadioButton.xs
 ## Purpose:     XS for Wx::RadioButton
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2001 Mattia Barbon
+## RCS-ID:      $Id: RadioButton.xs,v 1.4 2003/05/31 15:36:56 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/radiobut.h>
+
 MODULE=Wx PACKAGE=Wx::RadioButton
 
-Wx_RadioButton*
-Wx_RadioButton::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxRadioButtonNameStr )
-    Wx_Window* parent
+wxRadioButton*
+wxRadioButton::new( parent, id, label, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxRadioButtonNameStr )
+    wxWindow* parent
     wxWindowID id
     wxString label
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   CODE:
-    RETVAL = new wxPliRadioButton( CLASS, parent, id, label, pos, size, 
+    RETVAL = new wxRadioButton( parent, id, label, pos, size, 
         style, *validator, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
 
 bool
-Wx_RadioButton::GetValue()
+wxRadioButton::GetValue()
 
 void
-Wx_RadioButton::SetValue( value )
+wxRadioButton::SetValue( value )
     bool value

@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        Notebook.xs
+## Name:        XS/Notebook.xs
 ## Purpose:     XS for Wx::Notebook
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Notebook.xs,v 1.9 2003/05/31 15:36:56 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,58 +14,59 @@
 
 MODULE=Wx_Evt PACKAGE=Wx::NotebookEvent
 
-Wx_NotebookEvent*
-Wx_NotebookEvent::new( eventType = wxEVT_NULL, id = 0, sel = -1, oldSel = -1 )
+wxNotebookEvent*
+wxNotebookEvent::new( eventType = wxEVT_NULL, id = 0, sel = -1, oldSel = -1 )
     wxEventType eventType
     int id
     int sel
     int oldSel
 
 int
-Wx_NotebookEvent::GetOldSelection()
+wxNotebookEvent::GetOldSelection()
 
 int
-Wx_NotebookEvent::GetSelection()
+wxNotebookEvent::GetSelection()
 
 void
-Wx_NotebookEvent::SetOldSelection( sel )
+wxNotebookEvent::SetOldSelection( sel )
     int sel
 
 void
-Wx_NotebookEvent::SetSelection( oldSel )
+wxNotebookEvent::SetSelection( oldSel )
     int oldSel
 
 MODULE=Wx PACKAGE=Wx::Notebook
 
-Wx_Notebook*
-Wx_Notebook::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("notebook") )
-    Wx_Window* parent
+wxNotebook*
+wxNotebook::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxT("notebook") )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     long style
     wxString name
   CODE:
-    RETVAL = new wxPliNotebook( CLASS, parent, id, pos, size, style, name );
+    RETVAL = new wxNotebook( parent, id, pos, size, style, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
 
 bool
-Wx_Notebook::AddPage( page, text, select = FALSE, imageId = -1 )
-    Wx_Window* page
+wxNotebook::AddPage( page, text, select = FALSE, imageId = -1 )
+    wxWindow* page
     wxString text
     bool select
     int imageId
 
 void
-Wx_Notebook::AdvanceSelection( forward = TRUE )
+wxNotebook::AdvanceSelection( forward = TRUE )
     bool forward
 
 bool
-Wx_Notebook::DeleteAllPages()
+wxNotebook::DeleteAllPages()
 
 bool
-Wx_Notebook::DeletePage( page )
+wxNotebook::DeletePage( page )
     int page
 
 wxImageList*
@@ -75,66 +76,66 @@ wxNotebook::GetImageList()
   CLEANUP:
     wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
-Wx_Window*
-Wx_Notebook::GetPage( page )
+wxWindow*
+wxNotebook::GetPage( page )
     int page
 
 int
-Wx_Notebook::GetPageCount()
+wxNotebook::GetPageCount()
 
 int
-Wx_Notebook::GetPageImage( page )
+wxNotebook::GetPageImage( page )
     int page
 
 wxString
-Wx_Notebook::GetPageText( page )
+wxNotebook::GetPageText( page )
     int page
 
 int
-Wx_Notebook::GetRowCount()
+wxNotebook::GetRowCount()
 
 int
-Wx_Notebook::GetSelection()
+wxNotebook::GetSelection()
 
 bool
-Wx_Notebook::InsertPage( index, page, text, select = FALSE, imageId = -1 )
+wxNotebook::InsertPage( index, page, text, select = FALSE, imageId = -1 )
     int index
-    Wx_Window* page
+    wxWindow* page
     wxString text
     bool select
     int imageId
 
 bool
-Wx_Notebook::RemovePage( page )
+wxNotebook::RemovePage( page )
     int page
 
 void
-Wx_Notebook::SetImageList( imagelist )
-    Wx_ImageList* imagelist
+wxNotebook::SetImageList( imagelist )
+    wxImageList* imagelist
 
 #if !defined( __WXMOTIF__ ) && !defined( __WXGTK__ ) || \
   defined( __WXPERL_FORCE__ )
 
 void
-Wx_Notebook::SetPadding( padding )
-    Wx_Size padding
+wxNotebook::SetPadding( padding )
+    wxSize padding
 
 void
-Wx_Notebook::SetPageSize( padding )
-    Wx_Size padding
+wxNotebook::SetPageSize( padding )
+    wxSize padding
 
 #endif
 
 bool
-Wx_Notebook::SetPageImage( page, image )
+wxNotebook::SetPageImage( page, image )
     int page
     int image
 
 bool
-Wx_Notebook::SetPageText( page, text )
+wxNotebook::SetPageText( page, text )
     int page
     wxString text
 
 int
-Wx_Notebook::SetSelection( page )
+wxNotebook::SetSelection( page )
     int page

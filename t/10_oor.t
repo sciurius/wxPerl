@@ -15,7 +15,7 @@ use base 'Wx::ListBox';
 package MyFrame;
 
 use base 'Wx::Frame';
-use Test::More 'tests' => 27;
+use Test::More 'tests' => 28;
 
 sub new {
 my $this = shift->SUPER::new( undef, -1, 'a' );
@@ -34,6 +34,7 @@ my @data = ( [ 'Wx::Button', [ 'a' ] ],
              [ 'Wx::Notebook', [] ],
              [ 'Wx::RadioBox', [ 'a', [-1, -1], [-1, -1], [ 'a' ] ] ],
              [ 'Wx::RadioButton', [ 'a' ] ],
+             [ 'Wx::SashWindow', [] ],
              [ 'Wx::ScrollBar', [] ],
              [ 'Wx::SpinButton', [] ],
              [ 'Wx::SpinCtrl', [ 'aaa' ] ],
@@ -59,7 +60,7 @@ foreach my $d ( @data ) {
 
       my $lb2 = ($this->GetChildren)[0];
 
-      is( $lb2, $lb, "$class: objects reference the same hash" );
+      is( $lb2, $lb, "$class:\t\tobjects reference the same hash" );
 
       $lb->Destroy;
   }

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.19 2003/05/29 19:59:12 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.20 2003/05/31 15:36:56 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -368,9 +368,9 @@ MODULE=Wx PACKAGE=Wx::NotebookSizer
 
 Wx_NotebookSizer*
 Wx_NotebookSizer::new( notebook )
-    Wx_Notebook* notebook
+    wxNotebook* notebook
 
-Wx_Notebook*
+wxNotebook*
 Wx_NotebookSizer::GetNotebook()
 
 MODULE=Wx PACKAGE=Wx::GridSizer

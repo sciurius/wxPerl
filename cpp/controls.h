@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.h,v 1.16 2003/05/29 20:04:23 mbarbon Exp $
+// RCS-ID:      $Id: controls.h,v 1.17 2003/05/31 15:36:56 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -29,25 +29,6 @@ public:
     wxListItemAttr* OnGetItemAttr( long item ) const;
 };
 
-WXPLI_DECLARE_CLASS_6( Notebook, TRUE,
-                       wxWindow*, wxWindowID, const wxPoint&,
-                       const wxSize&, long, const wxString& );
-
-WXPLI_DECLARE_CLASS_8( RadioButton, TRUE,
-                       wxWindow*, wxWindowID, const wxString,
-                       const wxPoint&, const wxSize&, long,
-                       const wxValidator&, const wxString& );
-WXPLI_DECLARE_CLASS_7( ScrollBar, TRUE,
-                       wxWindow*, wxWindowID, const wxPoint&,
-                       const wxSize&, long, const wxValidator&,
-                       const wxString& );
-WXPLI_DECLARE_CLASS_6( SpinButton, TRUE,
-                       wxWindow*, wxWindowID, const wxPoint&,
-                       const wxSize&, long, const wxString& );
-WXPLI_DECLARE_CLASS_10( SpinCtrl, TRUE,
-                        wxWindow*, wxWindowID, const wxString&,
-                        const wxPoint&, const wxSize&, long,
-                        int, int, int, const wxString& );
 WXPLI_DECLARE_CLASS_10( Slider, TRUE,
                         wxWindow*, wxWindowID, int, int, int,
                         const wxPoint&, const wxSize&, long,
@@ -84,15 +65,6 @@ WXPLI_DECLARE_CLASS_8( TextCtrl, TRUE,
                        wxWindow*, wxWindowID, const wxString&,
                        const wxPoint&, const wxSize&, long,
                        const wxValidator&, const wxString& );
-
-#if wxPERL_USE_TOGGLEBTN
-
-WXPLI_DECLARE_CLASS_8( ToggleButton, TRUE,
-                       wxWindow*, wxWindowID, const wxString&,
-                       const wxPoint&, const wxSize&, long,
-                       const wxValidator&, const wxString& );
-
-#endif
 
 class wxPliTreeCtrl:public wxTreeCtrl
 {

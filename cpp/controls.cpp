@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.cpp,v 1.29 2003/05/29 20:04:23 mbarbon Exp $
+// RCS-ID:      $Id: controls.cpp,v 1.30 2003/05/31 15:36:56 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -12,21 +12,10 @@
 
 #include "cpp/constants.h"
 
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliNotebook, wxNotebook );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioButton, wxRadioButton );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliScrollBar, wxScrollBar );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSpinButton, wxSpinButton );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSpinCtrl, wxSpinCtrl );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticBitmap, wxStaticBitmap );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticBox, wxStaticBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticText, wxStaticText );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTextCtrl, wxTextCtrl );
-
-#if wxPERL_USE_TOGGLEBTN
-
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliToggleButton, wxToggleButton );
-
-#endif
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSlider, wxSlider );
 

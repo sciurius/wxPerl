@@ -238,7 +238,6 @@ cpp/panel.h
 cpp/overload.cpp
 cpp/overload.h
 cpp/process.h
-cpp/sashwindow.h
 cpp/scrolledwindow.h
 cpp/singlechoicedialog.h
 cpp/sizer.h
