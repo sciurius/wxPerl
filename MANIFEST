@@ -10,6 +10,7 @@ build/nmake.mak
 build/gmake.mak
 build/Any_OS.pm
 build/Any_wx_config.pm
+build/MacOSX_GCC.pm
 build/Win32_MSVC.pm
 build/Win32_MinGW.pm
 build/wxConfig.pm
@@ -29,6 +30,7 @@ script/pipe.pl
 t/1_load.t
 t/2_inheritance.t
 t/3_event.t
+t/4_userdata.t
 
 lib/Wx/App.pm
 lib/Wx/Bitmap.pm
@@ -214,6 +216,7 @@ XS/TextEntryDialog.xs
 XS/MessageDialog.xs
 
 cpp/app.h
+cpp/chkconfig.h
 cpp/compat.h
 cpp/constants.h
 cpp/controls.h
