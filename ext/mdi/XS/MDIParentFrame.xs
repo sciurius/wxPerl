@@ -47,8 +47,17 @@ Wx_MDIParentFrame::Cascade()
 Wx_MDIChildFrame*
 Wx_MDIParentFrame::GetActiveChild()
 
-Wx_MDIClientWindow*
-Wx_MDIParentFrame::GetClientWindow()
+#ifdef __WXUNIVERSAL__
+
+wxGenericMDIClientWindow*
+wxMDIParentFrame::GetClientWindow()
+
+#else
+
+wxMDIClientWindow*
+wxMDIParentFrame::GetClientWindow()
+
+#endif
 
 #if ( !defined(__WXGTK__) && !defined(__WXMAC__) && !defined(__WXMOTIF__) ) \
     || defined(__WXPERL_FORCE__)
