@@ -382,6 +382,10 @@ Wx_ListCtrl::GetEditControl()
 Wx_ImageList*
 Wx_ListCtrl::GetImageList( which )
     int which
+  CODE:
+    RETVAL = (Wx_ImageList*)THIS->GetImageList( which );
+  OUTPUT:
+    RETVAL
 
 Wx_ListItem*
 Wx_ListCtrl::GetItem( id, col = -1 )
