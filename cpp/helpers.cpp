@@ -398,7 +398,7 @@ int wxPli_av_2_stringarray( SV* avref, wxString** array )
     for( i = 0; i < n; ++i )
     {
         t = *av_fetch( av, i, 0 );
-        arr[i] = SvPV_nolen( t );
+        WXSTRING_INPUT( arr[i], dummy, t );
     }
 
     *array = arr;

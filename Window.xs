@@ -158,16 +158,14 @@ FindFocus()
 Wx_Window*
 Wx_Window::FindWindow( i )
     SV* i
-  PREINIT:
-    const char* name;
-    int id;
   CODE:
     if( looks_like_number( i ) ) {
-      id = SvIV( i );
+      int id = SvIV( i );
       RETVAL = THIS->FindWindow( id );
     }
     else {
-      name = SvPV_nolen( i );
+      wxString name;
+      WXSTRING_INPUT( name, dummy, i );
       RETVAL = THIS->FindWindow( name );
     }
   OUTPUT:

@@ -114,7 +114,8 @@ Wx_Menu::FindItem( item )
       }
     }
     else {
-      const char* string = SvPV_nolen( item );
+      wxString string;
+      WXSTRING_INPUT( string, dummy, item );
       int id = THIS->FindItem( string );
 
       EXTEND( SP, 1 );
