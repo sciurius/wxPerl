@@ -22,7 +22,11 @@ class wxPliMDIParentFrame:public wxMDIParentFrame
     WXPLI_DECLARE_V_CBACK();
 public:
     WXPLI_DEFAULT_CONSTRUCTOR( wxPliMDIParentFrame, "Wx::MDIParentFrame", TRUE );
-    
+
+    virtual wxStatusBar* OnCreateStatusBar( int, long, wxWindowID,
+                                            const wxString& );
+    virtual wxToolBar* OnCreateToolBar( long, wxWindowID, const wxString& );
+
     // void GetClientSize( int* width, int* height ) const;
     // wxWindow* GetToolBar() const;
     // wxMDIClientWindow* OnCreateClient();
@@ -30,6 +34,44 @@ public:
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliMDIParentFrame, wxMDIParentFrame );
 
+inline wxStatusBar* wxPliMDIParentFrame::OnCreateStatusBar( int number, long style,
+                                                   wxWindowID id,
+                                                   const wxString& name ) 
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+                                           "OnCreateStatusBar" ) ) 
+    {
+        SV* ret = wxPliVirtualCallback_CallCallback
+            ( aTHX_ &m_callback, G_SCALAR, "illP",
+              number, style, id, &name );
+        wxStatusBar* retval =
+            (wxStatusBar*)wxPli_sv_2_object( aTHX_ ret, "Wx::StatusBar" );
+        SvREFCNT_dec( ret );
+
+        return retval;
+    } else
+        return wxFrame::OnCreateStatusBar( number, style, id, name );
+}
+
+inline wxToolBar* wxPliMDIParentFrame::OnCreateToolBar( long style, wxWindowID id,
+                                               const wxString& name )
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+                                           "OnCreateToolBar" ) ) 
+    {
+        SV* ret = wxPliVirtualCallback_CallCallback
+            ( aTHX_ &m_callback, G_SCALAR, "llP", style, id, &name );
+        wxToolBar* retval =
+            (wxToolBar*)wxPli_sv_2_object( aTHX_ ret, "Wx::ToolBar" );
+        SvREFCNT_dec( ret );
+
+        return retval;
+    } else
+        return wxFrame::OnCreateToolBar( style, id, name );
+}
+    
 # if 0
 
 void GetClientSize( int* width, int* height ) const
