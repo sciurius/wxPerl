@@ -203,7 +203,7 @@ Wx_ToolBarBase::SetToolBitmapSize( size )
     Wx_Size size
 
 void
-Wx_ToolBar::SetToolClientData( id, data )
+Wx_ToolBarBase::SetToolClientData( id, data )
     int id
     SV* data
   CODE:
@@ -255,5 +255,21 @@ Wx_ToolBar::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, styl
     wxString name
   CODE:
     RETVAL = new wxToolBar( parent, id, pos, size, style, name );
+  OUTPUT:
+    RETVAL
+
+MODULE=Wx PACKAGE=Wx::ToolBarSimple
+
+Wx_ToolBar*
+Wx_ToolBarSimple::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
+    Wx_Window* parent
+    wxWindowID id
+    Wx_Point pos
+    Wx_Size size
+    long style
+    wxString name
+  CODE:
+    RETVAL = (wxToolBar*)new wxToolBarSimple( parent, id, pos, size, style,
+        name );
   OUTPUT:
     RETVAL
