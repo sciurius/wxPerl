@@ -58,7 +58,7 @@ Wx_ListBox::GetSelections()
     EXTEND( SP, n );
     for( i = 0; i < n; ++i )
     {
-        PUSHs( sv_2mortal( newSViv( selections[n] ) ) );
+        PUSHs( sv_2mortal( newSViv( selections[i] ) ) );
     }
 
 void
