@@ -62,7 +62,7 @@ SV* _wxVirtualCallback::CallCallback( I32 flags, const char* argtypes, ... )
 
     PUSHMARK( SP );
     XPUSHs( m_self );
-    _push_args( SP, argtypes, arglist );
+    _push_args( &SP, argtypes, arglist );
     PUTBACK;
 
     va_end( arglist );

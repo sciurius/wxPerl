@@ -72,8 +72,10 @@ const char* _cpp_class_2_perl( const char* className )
     return buffer;
 }
 
-void _push_args( SV** sp, const char* argtypes, va_list& args ) 
+void _push_args( SV*** psp, const char* argtypes, va_list& args ) 
 {
+    SV** sp = *psp;
+
     if( argtypes == 0 )
         return;
 
@@ -113,11 +115,14 @@ void _push_args( SV** sp, const char* argtypes, va_list& args )
             XPUSHs( _object_2_sv( sv_newmortal(), oval ) );
             break;
         default:
-            XPUSHs( &PL_sv_undef );
+            printf( "Internal error: unrecognized type '%c'\n", *argtypes );
+            abort();
         }
 
         ++argtypes;
     }
+
+    *psp = sp;
 }
 
 // gets 'this' pointer from a blessed scalar/hash reference
