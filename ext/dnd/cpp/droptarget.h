@@ -25,7 +25,7 @@ public:
         // the perl program _is not_ this one!
         // so _this_ SV must not delete the object,
         // this is responsibility of the program's one!
-        SV* sv = wxPli_non_object_2_sv( sv_newmortal(), this, package );
+        SV* sv = wxPli_make_object( this, package );
         wxPli_object_set_deleteable( sv, FALSE );
         m_callback.SetSelf( sv );
     }
@@ -51,7 +51,7 @@ public:
         :wxTextDropTarget(),
          m_callback( "Wx::TextDropTarget" )
     {
-        SV* sv = wxPli_non_object_2_sv( sv_newmortal(), this, package );
+        SV* sv = wxPli_make_object( this, package );
         wxPli_object_set_deleteable( sv, FALSE );
         m_callback.SetSelf( sv );
     }
@@ -69,7 +69,7 @@ public:
         :wxFileDropTarget(),
          m_callback( "Wx::FileDropTarget" )
     {
-        SV* sv = wxPli_non_object_2_sv( sv_newmortal(), this, package );
+        SV* sv = wxPli_make_object( this, package );
         wxPli_object_set_deleteable( sv, FALSE );
         m_callback.SetSelf( sv );
     }

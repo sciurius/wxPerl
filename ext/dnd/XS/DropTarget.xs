@@ -15,11 +15,13 @@
 
 MODULE=Wx PACKAGE=Wx::DropTarget
 
-Wx_DropTarget*
+SV*
 Wx_DropTarget::new( data = 0 )
     Wx_DataObject* data
   CODE:
-    RETVAL = new wxPliDropTarget( CLASS, data );
+    wxPliDropTarget* retval = new wxPliDropTarget( CLASS, data );
+    RETVAL = retval->m_callback.GetSelf();
+    SvREFCNT_inc( RETVAL );
   OUTPUT:
     RETVAL
 
@@ -36,6 +38,9 @@ Wx_DropTarget::GetData()
 void
 Wx_DropTarget::SetDataObject( data )
     Wx_DataObject* data
+  CODE:
+    wxPli_object_set_deleteable( ST(1), FALSE );
+    THIS->SetDataObject( data );
 
 # callbacks
 
@@ -85,18 +90,22 @@ Wx_DropTarget::OnLeave()
 
 MODULE=Wx PACKAGE=Wx::TextDropTarget
 
-Wx_TextDropTarget*
+SV*
 Wx_TextDropTarget::new()
   CODE:
-    RETVAL = new wxPliTextDropTarget( CLASS );
+    wxPliTextDropTarget* retval = new wxPliTextDropTarget( CLASS );
+    RETVAL = retval->m_callback.GetSelf();
+    SvREFCNT_inc( RETVAL );
   OUTPUT:
     RETVAL
 
 MODULE=Wx PACKAGE=Wx::FileDropTarget
 
-Wx_FileDropTarget*
+SV*
 Wx_FileDropTarget::new()
   CODE:
-    RETVAL = new wxPliFileDropTarget( CLASS );
+    wxPliFileDropTarget* retval = new wxPliFileDropTarget( CLASS );
+    RETVAL = retval->m_callback.GetSelf();
+    SvREFCNT_inc( RETVAL );
   OUTPUT:
     RETVAL

@@ -24,8 +24,7 @@ public:
         :wxDropSource( win, c1, c2, c3 ),
          m_callback( "Wx::DropSource" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( sv_newmortal(), this,
-                                                   package ) );
+        m_callback.SetSelf( wxPli_make_object( this, package ) );
     }
 
     wxPliDropSource( const char* package, wxDataObject& data, wxWindow* win,
@@ -34,8 +33,7 @@ public:
         :wxDropSource( data, win, c1, c2, c3 ),
          m_callback( "Wx::DropSource" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( sv_newmortal(), this,
-                                                   package ) );
+        m_callback.SetSelf( wxPli_make_object( this, package ) );
     }
 #else
     wxPliDropSource( const char* package, wxWindow* win,
@@ -44,8 +42,7 @@ public:
         :wxDropSource( win, c1, c2, c3 ),
          m_callback( "Wx::DropSource" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( sv_newmortal(), this,
-                                                   package ) );
+        m_callback.SetSelf( wxPli_make_object( this, package ) );
     }
 
     wxPliDropSource( const char* package, wxDataObject& data, wxWindow* win,
@@ -54,8 +51,7 @@ public:
         :wxDropSource( data, win, c1, c2, c3 ),
          m_callback( "Wx::DropSource" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( sv_newmortal(), this,
-                                                   package ) );
+        m_callback.SetSelf( wxPli_make_object( this, package ) );
     }
 #endif
 

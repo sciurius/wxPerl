@@ -21,8 +21,7 @@ public:
         :wxDataObjectSimple( format ),
          m_callback( "Wx::PlDataObjectSimple" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( newSViv( 0 ), this,
-                                                   package ) );
+        m_callback.SetSelf( wxPli_make_object( this, package ) );
     }
 private:
     DEC_V_CBACK_SIZET__VOID__CONST( GetDataSize );
