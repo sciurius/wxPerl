@@ -17,7 +17,7 @@ use strict;
 sub AddTool {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_n_wbmp_wbmp_b_s_s_s, 2, 1 ) && return $this->AddToolLong( @_ );
+  Wx::_match( @_, $Wx::_n_wbmp_wbmp_b_s_s_s, 3, 1 ) && return $this->AddToolLong( @_ );
   Wx::_match( @_, $Wx::_n_wbmp_s_s, 2, 1 )          && return $this->AddToolShort( @_ );
 
   Wx::_croak Wx::_ovl_error;
