@@ -53,6 +53,7 @@ Wx_Object *             O_WXOBJECT
 
 Wx_App *                O_WXOBJECT
 Wx_Window *             O_WXOBJECT
+wxWindow *              O_WXOBJECT
 Wx_Frame *              O_WXOBJECT
 Wx_EvtHandler *         O_WXOBJECT
 Wx_MiniFrame *          O_WXOBJECT
@@ -98,6 +99,10 @@ Wx_SplitterWindow *     O_WXOBJECT
 Wx_SashWindow *         O_WXOBJECT
 Wx_ToggleButton *       O_WXOBJECT
 Wx_SplashScreen *       O_WXOBJECT
+
+wxWizard *              O_WXOBJECT
+wxWizardPage *          O_WXOBJECT
+wxWizardPageSimple *    O_WXOBJECT
 
 Wx_ColourDialog *       O_WXOBJECT
 Wx_FileDialog *         O_WXOBJECT
@@ -149,11 +154,17 @@ Wx_LanguageInfo *       O_NON_WXOBJECT
 Wx_StopWatch *          O_NON_WXOBJECT
 
 Wx_Point                O_POINT
+wxPoint                 O_POINT
 Wx_Size                 O_SIZE
+wxSize                  O_SIZE
 Wx_Colour               O_COLOUR
+wxColour                O_COLOUR
 Wx_Point &              O_POINT
+wxPoint &               O_POINT
 Wx_Size &               O_SIZE
+wxSize &                O_SIZE
 Wx_Colour &             O_COLOUR
+wxColour &              O_COLOUR
 
 Wx_Process *            O_WXOBJECT
 
@@ -161,9 +172,12 @@ Wx_TipProvider *        O_NON_WXOBJECT
 
 Wx_DrawObject *         O_NON_WXOBJECT
 Wx_Size *               O_NON_WXOBJECT
+wxSize *                O_NON_WXOBJECT
 Wx_Point *              O_NON_WXOBJECT
+wxPoint *               O_NON_WXOBJECT
 Wx_Rect *               O_NON_WXOBJECT
 Wx_Colour *             O_NON_WXOBJECT
+wxColour *              O_NON_WXOBJECT
 Wx_Caret *              O_NON_WXOBJECT
 Wx_CaretSuspend *       O_NON_WXOBJECT
 Wx_WindowDisabler *     O_NON_WXOBJECT
@@ -184,6 +198,7 @@ Wx_Font *               O_WXOBJECT
 Wx_Region *             O_WXOBJECT
 Wx_Icon *               O_WXOBJECT
 Wx_Bitmap *             O_WXOBJECT
+wxBitmap *              O_WXOBJECT
 Wx_Cursor *             O_WXOBJECT
 Wx_ToolTip *            O_WXOBJECT
 Wx_Pen *                O_WXOBJECT
@@ -251,6 +266,7 @@ Wx_TreeEvent *          O_WXOBJECT
 Wx_UpdateUIEvent *      O_WXOBJECT
 Wx_TextUrlEvent *       O_WXOBJECT
 Wx_ProcessEvent *       O_WXOBJECT
+wxWizardEvent *         O_WXOBJECT
 
 Wx_PlEvent*             O_WXOBJECT
 Wx_PlCommandEvent*      O_WXOBJECT
@@ -264,7 +280,7 @@ O_WXOBJECT
     wxPli_object_2_sv( aTHX_ $arg, $var );
 
 O_NON_WXOBJECT
-    wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 T_KEYCODE
     sv_setiv( $arg, $var );
@@ -274,10 +290,10 @@ T_UV
 
 INPUT
 O_WXOBJECT
-    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 O_NON_WXOBJECT
-    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
+    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/wxPl$1Name/g;\${ntt}} );
 
 O_POINT
     $var = wxPli_sv_2_wxpoint( aTHX_ $arg );
@@ -286,7 +302,7 @@ O_SIZE
     $var = wxPli_sv_2_wxsize( aTHX_ $arg );
 
 O_COLOUR
-    $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^Wx_(.*)(?:Ptr)?$/wxPl$1Name/g;\${ntt}} );
+    $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/wxPl$1Name/g;\${ntt}} );
 
 T_KEYCODE
     $var = wxPli_sv_2_keycode( aTHX_ $arg );
