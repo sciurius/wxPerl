@@ -98,7 +98,6 @@ package Wx::NotebookSizer;@ISA = qw(Wx::Sizer);
 
 # this is because the inheritance tree is a bit different between
 # wxGTK and wxMSW
-#FIXME// motif?
 
 use strict;
 

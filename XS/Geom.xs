@@ -231,7 +231,7 @@ Wx_Rect::SetY( y )
 
 MODULE=Wx PACKAGE=Wx::Region
 
-#FIXME//
+#FIXME// unimplemented
 # operator =
 
 Wx_Region*

@@ -205,9 +205,6 @@ Wx_CloseEvent::Veto( veto = TRUE )
 
 MODULE=Wx_Evt PACKAGE=Wx::DropFilesEvent
 
-#FIXME// unimplemented
-# new
-
 void
 Wx_DropFilesEvent::GetFiles()
   PPCODE:

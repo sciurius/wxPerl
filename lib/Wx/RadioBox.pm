@@ -15,7 +15,6 @@ package Wx::RadioBox;
 use strict;
 use Carp;
 
-#FIXME// motif?
 if( $Wx::_platform == $Wx::_gtk ) {
   @Wx::RadioBox::ISA = qw(Wx::Control);
 }

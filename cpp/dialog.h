@@ -33,8 +33,6 @@ _wxDialog::_wxDialog( const char* package, wxWindow* parent, wxWindowID id,
     Create( parent, id, title, pos, size, style, name );
 }
 
-//FIXME// implement
-
 bool _wxDialog::TransferDataFromWindow()
 {
     if( m_callback.FindCallback( "TransferDataFromWindow" ) )
