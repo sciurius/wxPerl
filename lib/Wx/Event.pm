@@ -199,6 +199,7 @@ sub EVT_LIST_COL_RIGHT_CLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAN
 sub EVT_LIST_COL_BEGIN_DRAG($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_LIST_COL_BEGIN_DRAG, $_[2] ); }
 sub EVT_LIST_COL_DRAGGING($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_LIST_COL_DRAGGING, $_[2] ); }
 sub EVT_LIST_COL_END_DRAG($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_LIST_COL_END_DRAG, $_[2] ); }
+sub EVT_LIST_ITEM_FOCUSED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_LIST_ITEM_FOCUSED, $_[2] ); }
 
 #
 # MenuEvent

@@ -96,7 +96,9 @@ double listctrl_constant( const char* name, int arg )
       r( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK );
       r( wxEVT_COMMAND_LIST_ITEM_MIDDLE_CLICK );
       r( wxEVT_COMMAND_LIST_ITEM_ACTIVATED );
-
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+      r( wxEVT_COMMAND_LIST_ITEM_FOCUSED );
+#endif
       break;
   case 'I':
       r( wxIMAGE_LIST_NORMAL );         // listctrl

@@ -106,6 +106,13 @@ Wx_TextCtrl::GetSelection()
     PUSHs( sv_2mortal( newSViv( from ) ) );
     PUSHs( sv_2mortal( newSViv( to ) ) );
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+wxString
+Wx_TextCtrl::GetStringSelection()
+
+#endif
+
 wxString
 Wx_TextCtrl::GetValue()
 

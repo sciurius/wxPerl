@@ -53,6 +53,17 @@ Wx_Sizer::AddSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
   CODE:
     THIS->Add( width, height, option, flag, border, data );
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+void
+Wx_Sizer::Clear( deleteWindows = TRUE )
+    bool deleteWindows
+
+void
+Wx_Sizer::DeleteWindows()
+
+#endif
+
 Wx_Size*
 Wx_Sizer::CalcMin()
   CODE:

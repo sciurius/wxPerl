@@ -38,6 +38,9 @@ double dnd_constant( const char* name, int arg )
         r( wxDragNone );
         r( wxDragMove );
         r( wxDragCopy );
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+        r( wxDragLink );
+#endif
         r( wxDragCancel );
         break;
     case 'G':
