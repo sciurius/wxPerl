@@ -98,7 +98,9 @@ const char* wxPli_cpp_class_2_perl( const wxChar* className )
 void wxPli_push_args( SV*** psp, const char* argtypes, va_list& args ) 
 {
     SV** sp = *psp;
+#if WXPERL_P_VERSION_GE( 5, 5 )
     dTHR;
+#endif
 
     if( argtypes == 0 )
         return;

@@ -147,9 +147,7 @@ sub files_with_constants {
     };
   };
 
-  find( { no_chdir => 1,
-          wanted => $wanted,
-          }, MM->curdir );
+  find( $wanted, MM->curdir );
 
   return @files;
 }

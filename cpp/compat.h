@@ -17,13 +17,13 @@
 #define WXPERL_P_VERSION_EQ( V, S ) \
  ( ( PERL_REVISION == (V) ) && ( PERL_VERSION == (S) ) )
 #define WXPERL_P_VERSION_GE( V, S ) \
- ( ( PERL_REVISION >= (V) ) || \
+ ( ( PERL_REVISION > (V) ) || \
    ( PERL_REVISION == (V) && PERL_VERSION >= (S) ) )
 #else
 #define WXPERL_P_VERSION_EQ( V, S ) \
  ( ( 5 == (V) ) && ( PATCHLEVEL == (S) ) )
 #define WXPERL_P_VERSION_GE( V, S ) \
- ( ( 5 >= (V) ) || \
+ ( ( 5 > (V) ) || \
    ( 5 == (V) && PATCHLEVEL >= (S) ) )
 #endif
 

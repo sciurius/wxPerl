@@ -189,7 +189,11 @@ SV*
 Wx_Image::GetData()
   CODE:
     STRLEN len = THIS->GetWidth() * THIS->GetHeight() * 3;
+#if WXPERL_P_VERSION_GE( 5, 5 )
     RETVAL = newSVpvn( (char*)THIS->GetData(), len );
+#else
+    RETVAL = newSVpv( (char*)THIS->GetData(), len );
+#endif
   OUTPUT:
     RETVAL
 

@@ -2,6 +2,8 @@ KNOWN BUGS:
 
 All platforms
 
+* Streams do not work with Perl 5.004 for lack of Tie::Handle
+  
 * Wx::TreeCtrl
     - $tree->GetItemData( $item )->SetData( $foo )
       does not work

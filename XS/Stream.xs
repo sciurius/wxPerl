@@ -71,7 +71,11 @@ SV*
 Wx_InputStream::GETC()
   CODE:
     char value = THIS->GetC();
+#if WXPERL_P_VERSION_GE( 5, 5 )
     RETVAL = newSVpvn( &value, 1 );
+#else
+    RETVAL = newSVpv( &value, 1 );
+#endif
   OUTPUT:
     RETVAL
 

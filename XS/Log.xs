@@ -137,16 +137,18 @@ MODULE=Wx PACKAGE=Wx
 #define dXSFUNCTION( a ) \
   void (*XSFUNCTION)( const wxChar* )
 
-void
-interface__ccharp( string )
-    const wxChar* string
-  INTERFACE_MACRO:
-    XSINTERFACE__ccharp
-    XSINTERFACE__ccharp_SET
-  INTERFACE:
-    wxLogError wxLogFatalError wxLogWarning
-    wxLogVerbose wxLogDebug
-    wxLogMessage
+# xsubpp from Perl 5.004_04 does not like this at all.
+
+# void
+# interface__ccharp( string )
+#     const wxChar* string
+#   INTERFACE_MACRO:
+#     XSINTERFACE__ccharp
+#     XSINTERFACE__ccharp_SET
+#   INTERFACE:
+#     wxLogError wxLogFatalError wxLogWarning
+#     wxLogVerbose wxLogDebug
+#     wxLogMessage
     
 #else
 
