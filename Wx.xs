@@ -36,7 +36,10 @@ WXPL_EXTERN_C_END
 #undef Pause
 #undef New
 
+#ifdef __WXMSW__
 #include <wx/msw/winundef.h>
+#endif
+
 #include <wx/defs.h>
 #include <wx/window.h>
 #include <wx/module.h>

@@ -12,7 +12,7 @@
 
 #include <wx/object.h>
 #include <wx/list.h>
-#include <wx/geometry.h>
+#include <wx/gdicmn.h>
 
 #include <stdarg.h>
 
@@ -511,8 +511,8 @@ class wxPli##name:public wx##name                                       \
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPli##name );                         \
     WXPLI_DECLARE_SELFREF();                                            \
 public:                                                                 \
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, wxPl##name##Name, incref ); \
-    WXPLI_CONSTRUCTOR_7( wxPli##name, wxPl##name##Name, incref,         \
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, "Wx::" #name, incref );     \
+    WXPLI_CONSTRUCTOR_7( wxPli##name, "Wx::" #name, incref,             \
                          argt1, argt2, argt3, argt4, argt5, argt6,      \
                          argt7 );                                       \
 };
@@ -523,8 +523,8 @@ class wxPli##name:public wx##name                                       \
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPli##name );                         \
     WXPLI_DECLARE_SELFREF();                                            \
 public:                                                                 \
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, wxPl##name##Name, incref ); \
-    WXPLI_CONSTRUCTOR_8( wxPli##name, wxPl##name##Name, incref,         \
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPli##name, "Wx::" #name, incref );     \
+    WXPLI_CONSTRUCTOR_8( wxPli##name, "Wx::" #name, incref,             \
                          argt1, argt2, argt3, argt4, argt5, argt6,      \
                          argt7, argt8 );                                \
 };

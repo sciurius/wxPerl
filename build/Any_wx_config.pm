@@ -86,12 +86,17 @@ sub configure {
 
 sub wx_contrib_lib {
   my( $this, $lib ) = @_;
-  my $plat = get_platform;
-  ( my $ver = wx_config( 'version' ) ) =~ s/\.\d+$//;
-  my $debug = is_debug ? 'd' : '';
-  $lib =~ s/^\s*wx(.*?)\s*/$1/;
 
-  return " -lwx_${plat}${debug}_${lib}-${ver} ";
+  if( wx_version >= 2.003003 ) {
+    my $plat = get_platform;
+    ( my $ver = wx_config( 'version' ) ) =~ s/\.\d+$//;
+    my $debug = is_debug ? 'd' : '';
+    $lib =~ s/^\s*wx(.*?)\s*/$1/;
+
+    return " -lwx_${plat}${debug}_${lib}-${ver} ";
+  } else {
+    return " -l$lib ";
+  }
 }
 
 1;
