@@ -1,3 +1,14 @@
+#############################################################################
+## Name:        script/XSP.yp
+## Purpose:     Grammar file for xsubppp.pl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     01/03/2003
+## RCS-ID:      $Id: XSP.yp,v 1.3 2003/03/27 20:09:00 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
 
 %token OPCURLY CLCURLY OPPAR CLPAR PERC SEMICOLON TILDE DCOLON
 %token STAR AMP COMMA EQUAL OPSPECIAL CLSPECIAL
@@ -229,6 +240,7 @@ sub yylex {
       }
     } else {
       $$buf =~ s/^[\s\n\r]+//;
+      next unless length $$buf;
 
       if( $$buf =~ s/^( \%}
                       | \%{ | {\%
@@ -238,20 +250,20 @@ sub yylex {
                       | ::
                        )//x ) {
         return ( $tokens{$1}, $1 );
-      } elsif( $$buf =~ m/^([a-zA-Z_]\w+)\W/ ) {
+      } elsif( $$buf =~ m/^([a-zA-Z_]\w*)\W/ ) {
         $$buf =~ s/^(\w+)//;
 
         return ( $1, $1 ) if exists $keywords{$1};
 
         return ( 'ID', $1 );
-      } elsif( $$buf =~ s/^(\d+)\D// ) {
+      } elsif( $$buf =~ s/^(\d+)// ) {
         return ( 'INTEGER', $1 );
       } elsif( $$buf =~ s/^("[^"]*")// ) {
         return ( 'QUOTED_STRING', $1 );
-      } elsif( $$buf =~ s/^(#.*)$// ) {
+      } elsif( $$buf =~ s/^(#.*(?:\r\n|\r|\n))// ) {
         return ( 'RAW_CODE', $1 );
       } else {
-#        warn $$buf;
+        warn $$buf;
       }
     }
   }
@@ -260,9 +272,9 @@ sub yylex {
 sub yyerror {
   my $buf = $_[0]->YYData->{LEX}{BUFFER};
 
-  print "Error: ", $_[0]->YYCurtok, ' ',
-    $_[0]->YYCurval, ' ', ( $buf ? $$buf : '--empty buffer--' ),
-      "\n";
+  print "Error: (", $_[0]->YYCurtok, ') (',
+    $_[0]->YYCurval, ') "', ( $buf ? $$buf : '--empty buffer--' ),
+      q{"} . "\n";
 }
 
 sub make_cptr { XSP::Parser::Type->new( base => $_[1],

@@ -1216,61 +1216,61 @@ sub new {
 	[#Rule 1
 		 'top', 1,
 sub
-#line 8 "script/XSP.yp"
+#line 19 "script/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 2
 		 'top', 1,
 sub
-#line 9 "script/XSP.yp"
+#line 20 "script/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 3
 		 'top', 1,
 sub
-#line 10 "script/XSP.yp"
+#line 21 "script/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 4
 		 'top', 2,
 sub
-#line 11 "script/XSP.yp"
+#line 22 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 5
 		 'top', 2,
 sub
-#line 12 "script/XSP.yp"
+#line 23 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 6
 		 'top', 2,
 sub
-#line 13 "script/XSP.yp"
+#line 24 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 7
 		 'directive', 2,
 sub
-#line 17 "script/XSP.yp"
+#line 28 "script/XSP.yp"
 { XSP::Parser::Module->new( module => $_[1] ) }
 	],
 	[#Rule 8
 		 'directive', 2,
 sub
-#line 19 "script/XSP.yp"
+#line 30 "script/XSP.yp"
 { XSP::Parser::File->new( file => $_[1] ) }
 	],
 	[#Rule 9
 		 'directive', 2,
 sub
-#line 20 "script/XSP.yp"
+#line 31 "script/XSP.yp"
 { add_data_raw( $_[0], [ "\n" ] ) }
 	],
 	[#Rule 10
 		 'typemap', 7,
 sub
-#line 23 "script/XSP.yp"
+#line 34 "script/XSP.yp"
 { my $package = "XSP::typemap::" . $_[6];
                       my $type = $_[3];
                       my $tm = $package->new( type => $type );
@@ -1280,7 +1280,7 @@ sub
 	[#Rule 11
 		 'typemap', 8,
 sub
-#line 30 "script/XSP.yp"
+#line 41 "script/XSP.yp"
 { my $package = "XSP::typemap::" . $_[6];
                       my( $type, $arg1 ) = ( $_[3], join( '', @{$_[8]} ) );
                       my $tm = $package->new( type => $type,
@@ -1291,19 +1291,19 @@ sub
 	[#Rule 12
 		 'raw', 1,
 sub
-#line 37 "script/XSP.yp"
+#line 48 "script/XSP.yp"
 { add_data_raw( $_[0], [ $_[1] ] ) }
 	],
 	[#Rule 13
 		 'raw', 1,
 sub
-#line 38 "script/XSP.yp"
+#line 49 "script/XSP.yp"
 { add_data_raw( $_[0], $_[1] ) }
 	],
 	[#Rule 14
 		 'class', 7,
 sub
-#line 41 "script/XSP.yp"
+#line 52 "script/XSP.yp"
 { add_data_class( $_[0], class   => $_[3],
                                      perl    => $_[1],
                                      methods => $_[5] ) }
@@ -1311,38 +1311,38 @@ sub
 	[#Rule 15
 		 'class', 6,
 sub
-#line 45 "script/XSP.yp"
+#line 56 "script/XSP.yp"
 { add_data_class( $_[0], class   => $_[2],
                                      methods => $_[4] ) }
 	],
 	[#Rule 16
 		 'methods', 1,
 sub
-#line 48 "script/XSP.yp"
+#line 59 "script/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 17
 		 'methods', 2,
 sub
-#line 49 "script/XSP.yp"
+#line 60 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 18
 		 'methods', 1,
 sub
-#line 50 "script/XSP.yp"
+#line 61 "script/XSP.yp"
 { add_data_raw( $_[0], [ $_[1] ] ) }
 	],
 	[#Rule 19
 		 'methods', 2,
 sub
-#line 52 "script/XSP.yp"
+#line 63 "script/XSP.yp"
 { push @{$_[1]}, add_data_raw( $_[0], [ $_[2] ] ); $_[1] }
 	],
 	[#Rule 20
 		 'method', 1,
 sub
-#line 54 "script/XSP.yp"
+#line 65 "script/XSP.yp"
 { my $f = $_[1];
                            my $m = add_data_method
                              ( $_[0],
@@ -1356,7 +1356,7 @@ sub
 	[#Rule 21
 		 'method', 2,
 sub
-#line 64 "script/XSP.yp"
+#line 75 "script/XSP.yp"
 { my $f = $_[2];
                       my $m = add_data_method
                         ( $_[0],
@@ -1374,7 +1374,7 @@ sub
 	[#Rule 23
 		 'method', 2,
 sub
-#line 76 "script/XSP.yp"
+#line 87 "script/XSP.yp"
 { $_[2]->{PERL_NAME} = $_[1]; $_[2] }
 	],
 	[#Rule 24
@@ -1383,7 +1383,7 @@ sub
 	[#Rule 25
 		 'function', 7,
 sub
-#line 80 "script/XSP.yp"
+#line 91 "script/XSP.yp"
 { add_data_function( $_[0],
                                          name      => $_[2],
                                          ret_type  => $_[1],
@@ -1393,7 +1393,7 @@ sub
 	[#Rule 26
 		 'function', 6,
 sub
-#line 86 "script/XSP.yp"
+#line 97 "script/XSP.yp"
 { add_data_function( $_[0],
                                          name     => $_[2],
                                          ret_type => $_[1],
@@ -1402,7 +1402,7 @@ sub
 	[#Rule 27
 		 'ctor', 6,
 sub
-#line 92 "script/XSP.yp"
+#line 103 "script/XSP.yp"
 { add_data_ctor( $_[0], name      => $_[1],
                                             arguments => $_[3],
                                             @{ $_[5] } ) }
@@ -1410,80 +1410,80 @@ sub
 	[#Rule 28
 		 'ctor', 5,
 sub
-#line 96 "script/XSP.yp"
+#line 107 "script/XSP.yp"
 { add_data_ctor( $_[0], name => $_[1],
                                             @{ $_[4] } ) }
 	],
 	[#Rule 29
 		 'dtor', 5,
 sub
-#line 100 "script/XSP.yp"
+#line 111 "script/XSP.yp"
 { add_data_dtor( $_[0], $_[2] ) }
 	],
 	[#Rule 30
 		 'metadata', 1,
 sub
-#line 102 "script/XSP.yp"
+#line 113 "script/XSP.yp"
 { $_[1] }
 	],
 	[#Rule 31
 		 'metadata', 0,
 sub
-#line 103 "script/XSP.yp"
+#line 114 "script/XSP.yp"
 { [] }
 	],
 	[#Rule 32
 		 'perc_name', 4,
 sub
-#line 105 "script/XSP.yp"
+#line 116 "script/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 33
 		 'perc_module', 4,
 sub
-#line 106 "script/XSP.yp"
+#line 117 "script/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 34
 		 'perc_file', 4,
 sub
-#line 107 "script/XSP.yp"
+#line 118 "script/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 35
 		 'perc_code', 2,
 sub
-#line 108 "script/XSP.yp"
+#line 119 "script/XSP.yp"
 { [ code => $_[2] ] }
 	],
 	[#Rule 36
 		 'type', 3,
 sub
-#line 110 "script/XSP.yp"
+#line 121 "script/XSP.yp"
 { make_cptr( $_[0], $_[2] ) }
 	],
 	[#Rule 37
 		 'type', 3,
 sub
-#line 111 "script/XSP.yp"
+#line 122 "script/XSP.yp"
 { make_cref( $_[0], $_[2] ) }
 	],
 	[#Rule 38
 		 'type', 2,
 sub
-#line 112 "script/XSP.yp"
+#line 123 "script/XSP.yp"
 { make_ptr( $_[0], $_[1] ) }
 	],
 	[#Rule 39
 		 'type', 2,
 sub
-#line 113 "script/XSP.yp"
+#line 124 "script/XSP.yp"
 { make_ref( $_[0], $_[1] ) }
 	],
 	[#Rule 40
 		 'type', 1,
 sub
-#line 114 "script/XSP.yp"
+#line 125 "script/XSP.yp"
 { make_type( $_[0], $_[1] ) }
 	],
 	[#Rule 41
@@ -1492,49 +1492,49 @@ sub
 	[#Rule 42
 		 'class_name', 3,
 sub
-#line 117 "script/XSP.yp"
+#line 128 "script/XSP.yp"
 { $_[1] . '::' . $_[3] }
 	],
 	[#Rule 43
 		 'file_name', 1,
 sub
-#line 119 "script/XSP.yp"
+#line 130 "script/XSP.yp"
 { '-' }
 	],
 	[#Rule 44
 		 'file_name', 3,
 sub
-#line 120 "script/XSP.yp"
+#line 131 "script/XSP.yp"
 { $_[1] . '.' . $_[3] }
 	],
 	[#Rule 45
 		 'file_name', 3,
 sub
-#line 121 "script/XSP.yp"
+#line 132 "script/XSP.yp"
 { $_[1] . '/' . $_[3] }
 	],
 	[#Rule 46
 		 'arg_list', 1,
 sub
-#line 123 "script/XSP.yp"
+#line 134 "script/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 47
 		 'arg_list', 3,
 sub
-#line 124 "script/XSP.yp"
+#line 135 "script/XSP.yp"
 { push @{$_[1]}, $_[3]; $_[1] }
 	],
 	[#Rule 48
 		 'argument', 2,
 sub
-#line 126 "script/XSP.yp"
+#line 137 "script/XSP.yp"
 { make_argument( @_ ) }
 	],
 	[#Rule 49
 		 'argument', 4,
 sub
-#line 128 "script/XSP.yp"
+#line 139 "script/XSP.yp"
 { make_argument( @_[0, 1, 2, 4] ) }
 	],
 	[#Rule 50
@@ -1543,7 +1543,7 @@ sub
 	[#Rule 51
 		 'value', 2,
 sub
-#line 131 "script/XSP.yp"
+#line 142 "script/XSP.yp"
 { '-' . $_[2] }
 	],
 	[#Rule 52
@@ -1555,37 +1555,37 @@ sub
 	[#Rule 54
 		 'value', 3,
 sub
-#line 134 "script/XSP.yp"
+#line 145 "script/XSP.yp"
 { $_[1] . '::' . $_[3] }
 	],
 	[#Rule 55
 		 'special_block', 3,
 sub
-#line 138 "script/XSP.yp"
+#line 149 "script/XSP.yp"
 { $_[2] }
 	],
 	[#Rule 56
 		 'special_block_start', 1,
 sub
-#line 140 "script/XSP.yp"
+#line 151 "script/XSP.yp"
 { push_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 57
 		 'special_block_end', 1,
 sub
-#line 142 "script/XSP.yp"
+#line 153 "script/XSP.yp"
 { pop_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 58
 		 'lines', 1,
 sub
-#line 144 "script/XSP.yp"
+#line 155 "script/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 59
 		 'lines', 2,
 sub
-#line 145 "script/XSP.yp"
+#line 156 "script/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	]
 ],
@@ -1593,7 +1593,7 @@ sub
     bless($self,$class);
 }
 
-#line 147 "script/XSP.yp"
+#line 158 "script/XSP.yp"
 
 
 my %tokens = ( '::' => 'DCOLON',
@@ -1679,6 +1679,7 @@ sub yylex {
       }
     } else {
       $$buf =~ s/^[\s\n\r]+//;
+      next unless length $$buf;
 
       if( $$buf =~ s/^( \%}
                       | \%{ | {\%
@@ -1688,20 +1689,20 @@ sub yylex {
                       | ::
                        )//x ) {
         return ( $tokens{$1}, $1 );
-      } elsif( $$buf =~ m/^([a-zA-Z_]\w+)\W/ ) {
+      } elsif( $$buf =~ m/^([a-zA-Z_]\w*)\W/ ) {
         $$buf =~ s/^(\w+)//;
 
         return ( $1, $1 ) if exists $keywords{$1};
 
         return ( 'ID', $1 );
-      } elsif( $$buf =~ s/^(\d+)\D// ) {
+      } elsif( $$buf =~ s/^(\d+)// ) {
         return ( 'INTEGER', $1 );
       } elsif( $$buf =~ s/^("[^"]*")// ) {
         return ( 'QUOTED_STRING', $1 );
-      } elsif( $$buf =~ s/^(#.*)$// ) {
+      } elsif( $$buf =~ s/^(#.*(?:\r\n|\r|\n))// ) {
         return ( 'RAW_CODE', $1 );
       } else {
-#        warn $$buf;
+        warn $$buf;
       }
     }
   }
@@ -1710,9 +1711,9 @@ sub yylex {
 sub yyerror {
   my $buf = $_[0]->YYData->{LEX}{BUFFER};
 
-  print "Error: ", $_[0]->YYCurtok, ' ',
-    $_[0]->YYCurval, ' ', ( $buf ? $$buf : '--empty buffer--' ),
-      "\n";
+  print "Error: (", $_[0]->YYCurtok, ') (',
+    $_[0]->YYCurval, ') "', ( $buf ? $$buf : '--empty buffer--' ),
+      q{"} . "\n";
 }
 
 sub make_cptr { XSP::Parser::Type->new( base => $_[1],

@@ -1,4 +1,15 @@
 #!/usr/bin/perl -w
+#############################################################################
+## Name:        script/xsubppp.pl
+## Purpose:     XS++ preprocessor
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     01/03/2003
+## RCS-ID:      $Id: xsubppp.pl,v 1.4 2003/03/27 20:09:01 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
 
 use strict;
 use FindBin;
