@@ -107,20 +107,6 @@ PRIORITY LOW:
 
 DOCUMENTATTION:
 
-* Wx::MDIParentFrame
-
-* Wx::Grid
-    GetRow/ColLabelAlignment
-    GetCellAlignment
-
-* Wx::GridCellAttr memory management
-    GetAlignment
-
-* Wx::Config
-    GetFirst/NextEntry/Group
-    Read
-    Write
-
 -- not documented in wxWindows --
 
 * Wx::MultipleChoiceDialog
