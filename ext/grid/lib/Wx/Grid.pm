@@ -86,6 +86,13 @@ EOT
   die $@ if $@;
 }
 
+# for copytex.pl
+#!sub GetCellValue
+#!sub IsInSelection
+#!sub IsVisible
+#!sub MakeCellVisible
+#!sub GetDefaultEditorForCell
+
 foreach my $i ( qw(GetCellValue IsInSelection IsVisible MakeCellVisible
                    GetDefaultEditorForCell) )
   { _create_ovls( $i ); }
