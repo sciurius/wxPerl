@@ -10,9 +10,24 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-#define WXPERL_P_VERSION ( PERL_REVISION * 1000 + PERL_VERSION )
+#include <patchlevel.h>
 
-#if WXPERL_P_VERSION == 5004
+// < 5.6 does not define PERL_
+#ifdef PERL_REVISION
+#define WXPERL_P_VERSION_EQ( V, S ) \
+ ( ( PERL_REVISION == (V) ) && ( PERL_VERSION == (S) ) )
+#define WXPERL_P_VERSION_GE( V, S ) \
+ ( ( PERL_REVISION >= (V) ) || \
+   ( PERL_REVISION == (V) && PERL_VERSION >= (S) ) )
+#else
+#define WXPERL_P_VERSION_EQ( V, S ) \
+ ( ( 5 == (V) ) && ( PATCHLEVEL == (S) ) )
+#define WXPERL_P_VERSION_GE( V, S ) \
+ ( ( 5 >= (V) ) || \
+   ( 5 == (V) && PATCHLEVEL >= (S) ) )
+#endif
+
+#if WXPERL_P_VERSION_EQ( 5, 4 )
 
 // some functions have changed from char* to const char*, and I want
 // a stronger type check (under Perl 5.6 CHAR_P is defined to
@@ -28,19 +43,25 @@
 
 #define PL_na       na
 
-#endif // WXPERL_P_VERSION
+#define newSVuv( val ) newSViv( (IV)(UV)(val) )
+#define SvPV_nolen( s ) SvPV( (s), PL_na )
 
-#if WXPERL_P_VERSION == 5005 
+#endif
+
+#if WXPERL_P_VERSION_EQ( 5, 5 )
 
 #define CHAR_P (char*)
 #define get_sv perl_get_sv
 #define get_av perl_get_av
 #define call_sv perl_call_sv
 
-#endif // WXPERL_P_VERSION
+#define newSVuv( val ) newSViv( (IV)(UV)val )
+#define SvPV_nolen( s ) SvPV( (s), PL_na )
 
-#if WXPERL_P_VERSION == 5006
+#endif
+
+#if WXPERL_P_VERSION_EQ( 5, 6 )
 
 #define CHAR_P
 
-#endif // WXPERL_P_VERSION
+#endif

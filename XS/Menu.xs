@@ -112,11 +112,7 @@ Wx_Menu::FindItem( item )
       }
     }
     else {
-#if WXPERL_P_VERSION < 5006
-      const char* string = SvPV( item, PL_na );
-#else
       const char* string = SvPV_nolen( item );
-#endif
       int id = THIS->FindItem( string );
 
       EXTEND( SP, 1 );

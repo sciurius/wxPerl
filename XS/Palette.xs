@@ -61,15 +61,9 @@ Wx_Palette::GetRGB( pixel )
     if( THIS->GetRGB( pixel, &red, &green, &blue ) ) 
     {
       EXTEND( SP, 3 );
-#if WXPERL_P_VERSION < 5006
-      PUSHs( sv_2mortal( newSViv( (int)(unsigned int)red ) ) );
-      PUSHs( sv_2mortal( newSViv( (int)(unsigned int)green ) ) );
-      PUSHs( sv_2mortal( newSViv( (int)(unsigned int)blue ) ) ); 
-#else
       PUSHs( sv_2mortal( newSVuv( red ) ) );
       PUSHs( sv_2mortal( newSVuv( green ) ) );
       PUSHs( sv_2mortal( newSVuv( blue ) ) ); 
-#endif
     }
     else
     {

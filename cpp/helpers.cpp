@@ -307,11 +307,7 @@ int _av_2_stringarray( SV* avref, wxString** array )
     for( i = 0; i < n; ++i )
     {
         t = *av_fetch( av, i, 0 );
-#if WXPERL_P_VERSION < 5006
-        arr[i] = SvPV( t, PL_na );
-#else
         arr[i] = SvPV_nolen( t );
-#endif
     }
 
     *array = arr;
@@ -332,18 +328,11 @@ int _get_args_argc_argv( char*** argvp )
         int arg_num = av_len( args ) + 1;
 
         argv = new char* [arg_num + 1 + 1];
-#if WXPERL_P_VERSION < 5006
-        argv[0] = SvPV( progname, PL_na );
-#else
         argv[0] = SvPV_nolen( progname );
-#endif
+
         for( i=0; i < arg_num; ++i )
         {
-#if WXPERL_P_VERSION < 5006
-            argv[i + 1] = SvPV( *av_fetch( args, i, 0 ), PL_na );
-#else
             argv[i + 1] = SvPV_nolen( *av_fetch( args, i, 0 ) );
-#endif
         }
         argv[arg_num + 1] = 0;
         argc = arg_num + 1;
@@ -352,11 +341,7 @@ int _get_args_argc_argv( char*** argvp )
     {
         argc = 1;
         argv = new char* [2];
-#if WXPERL_P_VERSION < 5006
-        argv[0] = SvPV( progname, PL_na );
-#else
         argv[0] = SvPV_nolen( progname );
-#endif
         argv[1] = 0;
     }
 
@@ -374,11 +359,7 @@ const char* _get_class( SV* ref )
     }
     else
     {
-#if WXPERL_P_VERSION < 5006
-        ret = SvPV( ref, PL_na );
-#else
         ret = SvPV_nolen( ref );
-#endif
     }
 
     return ret;
