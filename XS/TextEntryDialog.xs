@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: TextEntryDialog.xs,v 1.4 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: TextEntryDialog.xs,v 1.5 2004/02/29 14:53:21 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -37,6 +37,8 @@ MODULE=Wx PACKAGE=Wx::NumberEntryDialog
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
+#include <wx/numdlg.h>
+
 wxNumberEntryDialog*
 wxNumberEntryDialog::new( parent, message, prompt, caption, value, min, max, pos )
     wxWindow* parent
@@ -54,10 +56,6 @@ wxNumberEntryDialog::GetValue()
 #endif
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
-
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-#include <wx/numdlg.h>
-#endif
 
 long
 wxGetNumberFromUser( message, prompt, caption, value, min = 0, max = 100, parent = 0, pos = wxDefaultPosition )
