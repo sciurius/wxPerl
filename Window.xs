@@ -526,6 +526,18 @@ Wx_Window::ScreenToClientXY( x, y )
     PUSHs( sv_2mortal( newSViv( (IV) x ) ) );
     PUSHs( sv_2mortal( newSViv( (IV) y ) ) );
 
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+
+bool
+Wx_Window::ScrollLines( lines )
+    int lines
+
+bool
+Wx_Window::ScrollPages( lines )
+    int lines
+
+#endif
+
 void
 Wx_Window::ScrollWindow( x, y, rect = 0 )
     int x
