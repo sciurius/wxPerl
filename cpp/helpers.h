@@ -10,6 +10,9 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
+#ifndef __CPP_HELPERS_H
+#define __CPP_HELPERS_H
+
 #include <wx/object.h>
 #include <wx/list.h>
 #include <wx/gdicmn.h>
@@ -309,43 +312,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 
 class wxPliUserDataCD;
-#if defined( _WX_WINDOW_H_BASE_ ) || defined( _WX_CLNTDATAH__ )
-
-class WXPLDLL wxPliUserDataCD:public wxClientData
-{
-public:
-    wxPliUserDataCD( SV* data )
-        { dTHX; m_data = data ? newSVsv( data ) : 0; }
-    ~wxPliUserDataCD();
-public:
-    SV* m_data;
-};
-
-#endif
-
 class wxPliTreeItemData;
-#if defined( _WX_TREEBASE_H_ ) || defined( _WX_TREECTRL_H_BASE_ )
-
-class wxPliTreeItemData:public wxTreeItemData
-{
-public:
-    wxPliTreeItemData( SV* data )
-        { dTHX; m_data = data ? newSVsv( data ) : 0; }
-    ~wxPliTreeItemData()
-        { dTHX; if( m_data ) SvREFCNT_dec( m_data ); }
-
-    void SetData( SV* data )
-    {
-        dTHX;
-        if( m_data )
-            SvREFCNT_dec( m_data );
-        m_data = data ? newSVsv( data ) : 0;
-    }
-public:
-    SV* m_data;
-};
-
-#endif
 
 class WXPLDLL wxPliUserDataO:public wxObject
 {
@@ -585,6 +552,51 @@ inline SV* newSVpvn( const char* sxx, size_t len )
 
 #endif
 
-// Local variables: //
-// mode: c++ //
-// End: //
+#endif // __CPP_HELPERS_H
+
+#if defined( _WX_WINDOW_H_BASE_ ) || defined( _WX_CLNTDATAH__ )
+#ifndef __CPP_HELPERS_H_UDCD
+#define __CPP_HELPERS_H_UDCD
+
+class WXPLDLL wxPliUserDataCD:public wxClientData
+{
+public:
+    wxPliUserDataCD( SV* data )
+        { dTHX; m_data = data ? newSVsv( data ) : 0; }
+    ~wxPliUserDataCD();
+public:
+    SV* m_data;
+};
+
+#endif // __CPP_HELPERS_H_UDCD
+#endif
+
+#if defined( _WX_TREEBASE_H_ ) || defined( _WX_TREECTRL_H_BASE_ )
+#ifndef __CPP_HELPERS_H_TID
+#define __CPP_HELPERS_H_TID
+
+class wxPliTreeItemData:public wxTreeItemData
+{
+public:
+    wxPliTreeItemData( SV* data )
+        { dTHX; m_data = data ? newSVsv( data ) : 0; }
+    ~wxPliTreeItemData()
+        { dTHX; if( m_data ) SvREFCNT_dec( m_data ); }
+
+    void SetData( SV* data )
+    {
+        dTHX;
+        if( m_data )
+            SvREFCNT_dec( m_data );
+        m_data = data ? newSVsv( data ) : 0;
+    }
+public:
+    SV* m_data;
+};
+
+#endif // __CPP_HELPERS_H_TID
+#endif
+
+// local variables:
+// mode: c++
+// end:

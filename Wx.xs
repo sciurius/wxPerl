@@ -24,26 +24,10 @@
 #define STRICT
 #endif
 
-WXPL_EXTERN_C_START
-#include <EXTERN.h>
-#include <perl.h>
-#include <XSUB.h>
-WXPL_EXTERN_C_END
+#include "cpp/wxapi.h"
 
-#undef bool
-#undef Move
-#undef Copy
-#undef Pause
-#undef New
-
-#ifdef __WXMSW__
-#include <wx/msw/winundef.h>
-#endif
-
-#include <wx/defs.h>
 #include <wx/window.h>
 #include <wx/module.h>
-#include "cpp/chkconfig.h"
 
 #if defined(__WXMSW__)
 #include <wx/msw/private.h>
@@ -57,20 +41,13 @@ int  WXDLLEXPORT wxEntryStart( int argc, char** argv );
 int  WXDLLEXPORT wxEntryInitGui();
 void WXDLLEXPORT wxEntryCleanup();
 
-#if __VISUALC__
-#pragma warning (disable: 4800)
-#endif
-
-#ifdef __WXMSW__
-#include <wx/msw/winundef.h>
-#endif // __WXMSW__
-
 #define _WXP_DEFINE_CLASSNAME 1
 #include "cpp/typedef.h"
-#include "cpp/helpers.h"
 
 #include "cpp/v_cback.h"
 
+// to declare wxPliUserDataCD
+#include "cpp/helpers.h"
 #include "cpp/helpers.cpp"
 #include "cpp/v_cback.cpp"
 #include "cpp/overload.cpp"
