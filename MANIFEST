@@ -279,6 +279,7 @@ ext/grid/Grid.xs
 ext/grid/XS/GridCellAttr.xs
 ext/grid/Makefile.PL
 ext/grid/XS/Grid.xs
+ext/grid/XS/GridEvent.xs
 ext/grid/cpp/gr_constants.cpp
 ext/grid/cpp/gr_typedef.h
 ext/grid/lib/Wx/Grid.pm
@@ -366,6 +367,7 @@ demo/data/logo.jpg
 demo/demo.pl
 demo/wxClipboard.pm
 demo/wxFileSystem.pm
+demo/wxGrid.pm
 demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm
 demo/wxLocale.pm
