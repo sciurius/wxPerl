@@ -49,7 +49,7 @@ sub get_flags {
   my $this = shift;
   my %config = $this->SUPER::get_flags;
 
-  $config{CC} = $this->wx_config( 'cxx' );
+  $config{CC} = $ENV{CXX} || $this->wx_config( 'cxx' );
   if( $this->_debug ) {
     $config{CCFLAGS} .= ' -g ';
     $config{OPTIMIZE} = ' ';
