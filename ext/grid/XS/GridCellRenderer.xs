@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: GridCellRenderer.xs,v 1.4 2003/05/28 20:53:01 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -40,7 +40,8 @@ Wx_GridCellRenderer::GetBestSize( grid, attr, dc, row, col )
 void
 Wx_GridCellRenderer::DESTROY()
   CODE:
-    THIS->DecRef();
+    if( THIS )
+        THIS->DecRef();
 
 void
 Wx_GridCellRenderer::SetParameters( parameters )
@@ -82,5 +83,16 @@ MODULE=Wx PACKAGE=Wx::GridCellBoolRenderer
 Wx_GridCellBoolRenderer*
 Wx_GridCellBoolRenderer::new()
 
+MODULE=Wx PACKAGE=Wx::PlGridCellRenderer
+
+#include "cpp/renderer.h"
+
+SV*
+wxPlGridCellRenderer::new()
+  CODE:
+    wxPlGridCellRenderer* r = new wxPlGridCellRenderer( CLASS );
+    RETVAL = r->m_callback.GetSelf();
+    SvREFCNT_inc( RETVAL );
+  OUTPUT: RETVAL
 
 

@@ -124,7 +124,7 @@ sub new {
   my $class = shift;
   my $this = $class->SUPER::new( $_[0], -1 );
 
-  $this->CreateGrid( 11, 7 );
+  $this->CreateGrid( 11, 11 );
   # set every cell read-only
   for my $x ( 1 .. 7 ) {
     for my $y ( 1 .. 11 ) {
@@ -182,7 +182,29 @@ sub new {
   $this->SetCellRenderer( 7, 5, Wx::GridCellNumberRenderer->new() );
   $this->SetReadOnly( 7, 5, 0 );
 
+  $this->SetCellValue( 9, 4, "Custom renderer" );
+  $this->SetCellRenderer( 9, 5, MyCellRenderer->new );
+
   return $this;
+}
+
+package MyCellRenderer;
+
+use strict;
+use base 'Wx::PlGridCellRenderer';
+use Wx qw(wxBLACK_PEN);
+
+sub Draw {
+  my( $self, $grid, $attr, $dc, $rect, $row, $col, $sel ) = @_;
+
+  $dc->SetPen( wxBLACK_PEN );
+  $dc->DrawEllipse( $rect->x, $rect->y, $rect->width, $rect->height );
+}
+
+sub Clone {
+  my $self = shift;
+
+  return $self->new;
 }
 
 package wxTestGrid1;

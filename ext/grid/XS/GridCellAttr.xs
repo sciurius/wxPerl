@@ -19,7 +19,8 @@ Wx_GridCellAttr::new()
 void
 Wx_GridCellAttr::DESTROY()
   CODE:
-    THIS->DecRef();
+    if( THIS )
+        THIS->DecRef();
 
 void
 Wx_GridCellAttr::IncRef()

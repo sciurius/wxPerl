@@ -16,7 +16,8 @@ MODULE=Wx PACKAGE=Wx::GridCellEditor
 void
 Wx_GridCellEditor::DESTROY()
   CODE:
-    THIS->DecRef();
+    if( THIS )
+        THIS->DecRef();
 
 bool
 Wx_GridCellEditor::IsCreated()
