@@ -156,6 +156,25 @@ double listctrl_constant( const char* name, int arg )
 
   switch( fl )
   {
+  case 'E':
+      r( wxEVT_COMMAND_LIST_BEGIN_DRAG );
+      r( wxEVT_COMMAND_LIST_BEGIN_RDRAG );
+      r( wxEVT_COMMAND_LIST_BEGIN_LABEL_EDIT );
+      r( wxEVT_COMMAND_LIST_END_LABEL_EDIT );
+      r( wxEVT_COMMAND_LIST_DELETE_ITEM );
+      r( wxEVT_COMMAND_LIST_DELETE_ALL_ITEMS );
+      r( wxEVT_COMMAND_LIST_SET_INFO );
+      r( wxEVT_COMMAND_LIST_GET_INFO );
+      r( wxEVT_COMMAND_LIST_ITEM_SELECTED );
+      r( wxEVT_COMMAND_LIST_ITEM_DESELECTED );
+      r( wxEVT_COMMAND_LIST_KEY_DOWN );
+      r( wxEVT_COMMAND_LIST_INSERT_ITEM );
+      r( wxEVT_COMMAND_LIST_COL_CLICK );
+      r( wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK );
+      r( wxEVT_COMMAND_LIST_ITEM_MIDDLE_CLICK );
+      r( wxEVT_COMMAND_LIST_ITEM_ACTIVATED );
+
+      break;
   case 'I':
       r( wxIMAGE_LIST_NORMAL );         // listctrl
       r( wxIMAGE_LIST_SMALL );          // listctrl
@@ -427,6 +446,27 @@ double treectrl_constant( const char* name, int arg )
   WX_PL_CONSTANT_INIT();
 
   switch( fl ) {
+  case 'E':
+      r( wxEVT_COMMAND_TREE_BEGIN_DRAG );
+      r( wxEVT_COMMAND_TREE_BEGIN_RDRAG );
+      r( wxEVT_COMMAND_TREE_BEGIN_LABEL_EDIT );
+      r( wxEVT_COMMAND_TREE_END_LABEL_EDIT );
+      r( wxEVT_COMMAND_TREE_DELETE_ITEM );
+      r( wxEVT_COMMAND_TREE_GET_INFO );
+      r( wxEVT_COMMAND_TREE_SET_INFO );
+      r( wxEVT_COMMAND_TREE_ITEM_EXPANDED );
+      r( wxEVT_COMMAND_TREE_ITEM_EXPANDING );
+      r( wxEVT_COMMAND_TREE_ITEM_COLLAPSED );
+      r( wxEVT_COMMAND_TREE_ITEM_COLLAPSING );
+      r( wxEVT_COMMAND_TREE_SEL_CHANGED );
+      r( wxEVT_COMMAND_TREE_SEL_CHANGING );
+      r( wxEVT_COMMAND_TREE_KEY_DOWN );
+      r( wxEVT_COMMAND_TREE_ITEM_ACTIVATED );
+      r( wxEVT_COMMAND_TREE_ITEM_RIGHT_CLICK );
+      r( wxEVT_COMMAND_TREE_ITEM_MIDDLE_CLICK );
+      r( wxEVT_COMMAND_TREE_END_DRAG );
+
+      break;
   case 'T':
     r( wxTR_HAS_BUTTONS );              // treectrl
     r( wxTR_EDIT_LABELS );              // treectrl
