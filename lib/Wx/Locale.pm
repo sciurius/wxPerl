@@ -15,9 +15,12 @@ package Wx::Locale;
 use strict;
 use Carp;
 
-push @Wx::EXPORT_OK, qw(_);
+push @Wx::EXPORT_OK, qw(_ _noop gettext_noop gettext);
 
 *Wx::_ = \&Wx::GetTranslation;
+*Wx::gettext = \&Wx::GetTranslation;
+*Wx::_noop = sub { $_[0] };
+*Wx::gettext_noop = \&Wx::_noop;
 
 sub new {
   shift;
