@@ -37,7 +37,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter);
-$VERSION = '0.11';
+$VERSION = '0.12';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE wxUNIVERSAL);
@@ -91,12 +91,14 @@ sub _match(\@$;$$) {
     next if $_ == $bool;
 
     $t = ${$args}[$i];
-    next if $_ == $num && looks_like_number( $t );
+    if( $_ == $num ) {
+      if( looks_like_number( $t ) ) { next } else { return 0 } }
     next if !defined( $t ) ||
       ( defined( $tnames[$_] ) && UNIVERSAL::isa( $t, $tnames[$_] ) );
     next if ( $_ == $arr ) && ref( $t ) eq 'ARRAY';
     next if ( $_ == $wpoi || $_ == $wsiz ) && ref( $t ) eq 'ARRAY';
-    next if ( $_ == $wist || $_ == $wost ) && ref( $t );
+    next if ( $_ == $wist || $_ == $wost ) &&
+      ( ref( $t ) || ( \$t ) =~ m/^GLOB/ );
 
     # type clash: return false
     return;
@@ -159,6 +161,7 @@ SetConstants();
 eval( "sub wxUNIVERSAL() { $_universal }" );
 eval( "sub wxPL_STATIC() { $_static }" );
 eval( "sub wxMOTIF() { $_platform == $_motif }" );
+eval( "sub wxMSW() { $_platform == $_msw }" );
 
 require Wx::App;
 require Wx::Bitmap;
