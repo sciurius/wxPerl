@@ -14,8 +14,7 @@ sub configure_core {
   my $res = $this->_res_file;
   $config{depend}      = { $res => 'Wx.rc ' };
   $config{LDFROM}     .= "\$(OBJECT) $res ";
-  $config{dynamic_lib} = { INST_DYNAMIC_DEP => $res,
-                           OTHERLDFLAGS     => ' ' };
+  $config{dynamic_lib}{INST_DYNAMIC_DEP} .= " $res";
 
   die "Unable to find setup.h directory"
     unless $config{INC} =~ m{[/-]I(\S+lib[\\/]\w+)\b};
@@ -49,7 +48,8 @@ sub configure_ext {
   $config{LIBS} = $libs;
 
   # installed setup.h
-  $config{INC} = '-I' . File::Spec->catdir( $this->_arch_directory, 'build' )
+  $config{INC} = '-I' . File::Spec->catdir( $this->_arch_directory,
+                                            'Wx', 'build' )
     . ' ' . $config{INC};
 
   return %config;
