@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        StyledTextCtrl.xs
+## Name:        ext/stc/XS/StyledTextCtrl.xs
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
-## Created:     23/ 5/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.10 2003/12/13 17:16:56 mbarbon Exp $
-## Copyright:   (c) 2002-2003 Graciliano M. P., Marcus Friedlaender,
+## Created:     23/05/2002
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.11 2004/02/14 14:27:04 mbarbon Exp $
+## Copyright:   (c) 2002-2004 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -766,7 +766,7 @@ void
 Wx_StyledTextCtrl::SetViewEOL( visible )
     bool visible
 
-void
+void*
 Wx_StyledTextCtrl::GetDocPointer()
 
 void

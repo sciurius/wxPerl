@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.10 2004/02/07 15:22:51 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.11 2004/02/14 14:27:04 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -144,9 +144,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CMD_CUT );
         r( wxSTC_CMD_COPY );
         r( wxSTC_CMD_PASTE );
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
-        r( wxSTC_CMD_LINECOPY );
-#endif
         r( wxSTC_CMD_LINEDOWN );
         r( wxSTC_CMD_LINEDOWNEXTEND );
         r( wxSTC_CMD_LINEUP );
@@ -613,25 +610,14 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_SCMOD_CTRL );
         r( wxSTC_SCMOD_ALT );
         r( wxSTC_SCRIPTOL_DEFAULT );
-        r( wxSTC_SCRIPTOL_COMMENT );
         r( wxSTC_SCRIPTOL_COMMENTLINE );
-        r( wxSTC_SCRIPTOL_COMMENTDOC );
         r( wxSTC_SCRIPTOL_NUMBER );
-        r( wxSTC_SCRIPTOL_WORD );
         r( wxSTC_SCRIPTOL_STRING );
         r( wxSTC_SCRIPTOL_CHARACTER );
-        r( wxSTC_SCRIPTOL_UUID );
         r( wxSTC_SCRIPTOL_PREPROCESSOR );
         r( wxSTC_SCRIPTOL_OPERATOR );
         r( wxSTC_SCRIPTOL_IDENTIFIER );
         r( wxSTC_SCRIPTOL_STRINGEOL );
-        r( wxSTC_SCRIPTOL_VERBATIM );
-        r( wxSTC_SCRIPTOL_REGEX );
-        r( wxSTC_SCRIPTOL_COMMENTLINEDOC );
-        r( wxSTC_SCRIPTOL_WORD2 );
-        r( wxSTC_SCRIPTOL_COMMENTDOCKEYWORD );
-        r( wxSTC_SCRIPTOL_COMMENTDOCKEYWORDERROR );
-        r( wxSTC_SCRIPTOL_COMMENTBASIC );
 
         r( wxEVT_STC_CHANGE );
         r( wxEVT_STC_STYLENEEDED );
