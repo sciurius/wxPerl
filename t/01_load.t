@@ -11,13 +11,18 @@ my $x = wxYES;
 
 ok( 1, "Exported constant" );
 
-use Wx qw(:frame :allclasses wxNO_3D wxTAB_TRAVERSAL);
+SKIP: {
+  skip( "Does not work with wxMotif", 2 ) if Wx::wxMOTIF();
 
-$x = wxTAB_TRAVERSAL;
-$x = wxCAPTION;
+  use Wx ( Wx::wxMOTIF() ?
+           () : qw(:frame :allclasses wxNO_3D wxTAB_TRAVERSAL) );
 
-ok( 1, "Export list with :allclasses" );
-ok( Wx::HtmlWindow->isa( 'Wx::Window' ), "Wx::Html was loaded" );
+  $x = wxTAB_TRAVERSAL();
+  $x = wxCAPTION();
+
+  ok( 1, "Export list with :allclasses" );
+  ok( Wx::HtmlWindow->isa( 'Wx::Window' ), "Wx::Html was loaded" );
+}
 
 # Local variables: #
 # mode: cperl #
