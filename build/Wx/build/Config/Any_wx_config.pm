@@ -36,11 +36,12 @@ sub _data {
 sub _call_wx_config {
   my $this = shift;
   my $options = join ' ', map { "--$_" } @_;
+  my $wx_config = $ENV{WX_CONFIG} || 'wx-config';
 
   # not completely correct, but close
   $options = "--static $options" if $this->_static;
 
-  my $t = qx(wx-config $options);
+  my $t = qx($wx_config $options);
   chomp $t;
 
   return $t;
