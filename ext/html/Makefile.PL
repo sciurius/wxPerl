@@ -27,13 +27,6 @@ WriteMakefile( NAME => 'Wx::Html',
 
 package MY;
 
-# dirty hack...
-BEGIN {
-  undef *constants;
-  undef *top_targets;
-  undef *depend;
-  undef *dynamic_lib;
-}
 use wxConfig qw(:MY);
 
 # Local variables: #
