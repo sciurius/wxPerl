@@ -14,11 +14,11 @@
 use strict;
 use Wx;
 
-use vars qw($frame $menu_bar $layout_load_file $layout_test_sizer 
- $layout_test_nb $layout_quit $layout_about);
+use vars qw($frame $menu_bar $layout_load_file $layout_test_sizer
+ $layout_test_nb $layout_quit $layout_about $layout_test_plsizer);
 
 ( $layout_load_file, $layout_test_sizer, $layout_test_nb, $layout_quit,
-  $layout_about ) = ( 1 .. 10 );
+  $layout_about, $layout_test_plsizer ) = ( 1 .. 10 );
 
 package MyApp;
 
@@ -41,6 +41,8 @@ sub OnInit {
   $file_menu->Append( $main::layout_test_sizer, '&Test sizers', 'Test sizer' );
   $file_menu->Append( $main::layout_test_nb, '&Test notebook sizers',
                       'Test notebook sizers' );
+  $file_menu->Append( $main::layout_test_plsizer, '&Test Perl Sizers',
+                      'Test Perl Sizers' );
   $file_menu->AppendSeparator();
   $file_menu->Append( $main::layout_quit, 'E&xit', 'Quit program' );
 
@@ -148,6 +150,7 @@ sub new {
   EVT_MENU( $this, $main::layout_test_sizer, \&TestSizers );
   EVT_MENU( $this, $main::layout_test_nb, \&TestNotebookSizers );
   EVT_MENU( $this, $main::layout_about, \&About );
+  EVT_MENU( $this, $main::layout_test_plsizer, \&TestPlSizers );
 
   return $this;
 }
@@ -170,6 +173,11 @@ sub About {
 
 sub TestSizers {
   my( $frame ) = MySizerFrame->new( undef, 'Sizer test frame', 50, 50 );
+  $frame->Show( 1 );
+}
+
+sub TestPlSizers {
+  my( $frame ) = MyPlSizerFrame->new( undef, 'PlSizer test frame', 100, 100 );
   $frame->Show( 1 );
 }
 
@@ -353,6 +361,168 @@ sub new {
   $this->SetSizer( $topsizer );
 
   return $this;
+}
+
+package MyPlSizerFrame;
+
+use strict;
+use vars qw(@ISA);
+
+@ISA = qw(Wx::Frame);
+
+use Wx qw(:sizer);
+
+sub new {
+  my $class = shift;
+  my $this = $class->SUPER::new( $_[0], -1, $_[1], [ @_[2,3] ] );
+
+  my $panel = Wx::Panel->new( $this, -1 );
+  my $s = MyBoxSizer->new( wxVERTICAL );
+
+  $s->Add( Wx::TextCtrl->new( $panel, -1, "This is a test" ),
+           2, wxGROW|wxALL, 20 );
+
+  my $s2 = MyBoxSizer->new( wxHORIZONTAL );
+  $s->Add( $s2, 1, wxGROW|wxALL, 10 );
+
+  $s2->Add( Wx::Button->new( $panel, -1, "Button1" ), 1, wxGROW, 5 );
+  $s2->Add( Wx::Button->new( $panel, -1, "Button2" ), 2, wxGROW, 10 );
+
+  $panel->SetSizer( $s );
+  $panel->SetAutoLayout( 1 );
+
+  $this
+}
+
+package MyBoxSizer;
+
+use strict;
+use vars qw(@ISA);
+
+@ISA = qw(Wx::PlSizer);
+
+sub new {
+  my $class = shift;
+  my $this = $class->SUPER::new;
+
+  $this->{ORIENT} = shift;
+
+  $this;
+}
+
+use Wx qw(:sizer);
+
+sub RecalcSizes {
+  my $this = shift;
+
+  return if $this->GetChildren == 0;
+
+  my( $delta, $extra );
+  if( $this->{STRETCHABLE} ) {
+    my $t;
+
+    if( $this->{ORIENT} == wxHORIZONTAL ) {
+      $t = $this->GetSize->x - $this->{FIXEDWIDTH};
+    } else {
+      $t = $this->GetSize->y - $this->{FIXEDHEIGHT};
+    }
+
+    $delta = int( $t / $this->{STRETCHABLE} );
+    $extra = $t % $this->{STRETCHABLE};
+  }
+
+  my $pt = $this->GetPosition;
+
+  foreach my $item ( $this->GetChildren ) {
+    my $weight = $item->GetOption ? $item->GetOption : 1;
+    my $size = $item->CalcMin;
+
+    if( $this->{ORIENT} == wxVERTICAL ) {
+      my $height = $size->y;
+      if( $item->GetOption ) {
+        $height = $delta * $weight + $extra;
+        $extra = 0;
+      }
+
+      my $child_pos = $pt;
+      my $child_size = Wx::Size->new( $size->x, $height );
+
+      if( $item->GetFlag & ( wxEXPAND | wxSHAPED ) ) {
+        $child_size->x( $this->GetSize->x );
+      } elsif( $item->GetFlag & wxALIGN_RIGHT ) {
+        $child_pos->x( $child_pos->x + $this->GetSize->x - $size->x );
+      } elsif( $item->GetFlag & ( wxCENTER | wxALIGN_CENTER_HORIZONTAL ) ) {
+        $child_pos->x( $child_pos->x + ( $this->GetSize->x - $size->x ) / 2 );
+      }
+
+      $item->SetDimension( $child_pos, $child_size );
+
+      $pt->y( $pt->y + $height );
+    } else {
+      my $width = $size->x;
+      if( $item->GetOption ) {
+        $width = $delta * $weight + $extra;
+        $extra = 0;
+      }
+
+      my $child_pos = $pt;
+      my $child_size = Wx::Size->new( $width, $size->y );
+
+      if( $item->GetFlag & ( wxEXPAND | wxSHAPED ) ) {
+        $child_size->y( $this->GetSize->y );
+      } elsif( $item->GetFlag & wxALIGN_BOTTOM ) {
+        $child_pos->y( $child_pos->y + $this->GetSize->y - $size->y );
+      } elsif( $item->GetFlag & ( wxCENTER | wxALIGN_CENTER_VERTICAL ) ) {
+        $child_pos->y( $child_pos->y + ( $this->GetSize->y - $size->y ) / 2 );
+      }
+
+      $item->SetDimension( $child_pos, $child_size );
+
+      $pt->x( $pt->x + $width );
+    }
+  }
+}
+
+sub CalcMin {
+  my $this = shift;
+
+  return Wx::Size->new( 10, 10 ) if( $this->GetChildren == 0 );
+
+  $this->{STRETCHABLE} = 0;
+  $this->{MINWIDTH} = 0;
+  $this->{MINHEIGHT} = 0;
+  $this->{FIXEDWIDTH} = 0;
+  $this->{FIXEDHEIGHT} = 0;
+
+  foreach my $item ( $this->GetChildren ) {
+    $this->{STRETCHABLE} += $item->GetOption;
+
+    my $size = $item->CalcMin;
+
+    if( $this->{ORIENT} == wxHORIZONTAL ) {
+      $this->{MINWIDTH} += $size->x;
+      $this->{MINHEIGHT} = $this->{MINHEIGHT} < $size->y ?
+        $size->y : $this->{MINHEIGHT};
+    } else {
+      $this->{MINHEIGHT} += $size->y;
+      $this->{MINWIDTH} = $this->{MINWIDTH} < $size->x ?
+        $size->x : $this->{MINWIDTH};
+    }
+
+    if( $item->GetOption == 0 ) {
+      if( $this->{ORIENT} == wxVERTICAL ) {
+        $this->{FIXEDHEIGHT} += $size->y;
+        $this->{FIXEDWIDTH} = $this->{FIXEDWIDTH} < $size->x ?
+          $size->x : $this->{FIXEDWIDTH};
+      } else {
+        $this->{FIXEDWIDTH} += $size->x;
+        $this->{FIXEDHEIGHT} = $this->{FIXEDHEIGHT} < $size->y ?
+          $size->y : $this->{FIXEDHEIGHT};
+      }
+    }
+  }
+
+  return Wx::Size->new( $this->{MINWIDTH}, $this->{MINHEIGHT} );
 }
 
 package main;

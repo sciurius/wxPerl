@@ -97,6 +97,7 @@ package Wx::StaticBoxSizer;@ISA = qw(Wx::BoxSizer);
 package Wx::GridSizer;    @ISA = qw(Wx::Sizer);
 package Wx::FlexGridSizer;@ISA = qw(Wx::GridSizer);
 package Wx::NotebookSizer;@ISA = qw(Wx::Sizer);
+package Wx::PlSizer;      @ISA = qw(Wx::Sizer);
 
 # this is because the inheritance tree is a bit different between
 # wxGTK, wxMSW and wxMotif

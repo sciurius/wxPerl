@@ -70,6 +70,9 @@ sub SetMinSize {
 
 package Wx::SizerItem;
 
+use strict;
+use Carp;
+
 sub SetRatio {
   my( $this ) = shift;
 
