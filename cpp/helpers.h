@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.61 2003/10/19 20:20:06 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.62 2003/11/08 18:31:55 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -428,9 +428,9 @@ public:
 
 #define WXPLI_DECLARE_DYNAMIC_CLASS(name) \
 public:\
-  static wxPliClassInfo sm_class##name;\
+  static wxPliClassInfo ms_classInfo;\
   virtual wxClassInfo *GetClassInfo() const \
-   { return &name::sm_class##name; }
+   { return &ms_classInfo; }
 
 #define WXPLI_DECLARE_SELFREF() \
 public:\
@@ -440,12 +440,12 @@ public:\
 public:\
   wxPliVirtualCallback m_callback
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 #define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename)                        \
     wxPliSelfRef* wxPliGetSelfFor##name(wxObject* object)                    \
         { return &((name *)object)->m_callback; }                            \
-    wxPliClassInfo name::sm_class##name((wxChar *) wxT(#name),               \
-        &sm_class##basename, NULL, (int) sizeof(name),                       \
+    wxPliClassInfo name::ms_classInfo((wxChar *) wxT(#name),                 \
+        &basename::ms_classInfo, NULL, (int) sizeof(name),                   \
         (wxPliGetCallbackObjectFn) wxPliGetSelfFor##name);
 #else
 #define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename) \

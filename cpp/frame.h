@@ -56,7 +56,7 @@ inline wxToolBar* wxPliFrame::OnCreateToolBar( long style, wxWindowID id,
         SV* ret = wxPliVirtualCallback_CallCallback
             ( aTHX_ &m_callback, G_SCALAR, "llP", style, id, &name );
         wxToolBar* retval =
-            (wxToolBar*)wxPli_sv_2_object( aTHX_ ret, "Wx::ToolBarSimple" );
+            (wxToolBar*)wxPli_sv_2_object( aTHX_ ret, "Wx::ToolBar" );
         SvREFCNT_dec( ret );
 
         return retval;
