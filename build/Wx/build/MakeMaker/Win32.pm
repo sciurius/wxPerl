@@ -76,7 +76,7 @@ sub postamble_core {
 ppmdist : ppm
 
 ppm : pure_all ppd
-	%s
+%s
 	$(TAR) $(TARFLAGS) $(DISTVNAME)-ppm.tar blib
 	$(COMPRESS) $(DISTVNAME)-ppm.tar
 
