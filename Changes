@@ -1,9 +1,14 @@
 Revision history for Perl extension Wx.
 
 0.19
-	- wxGridBagSizer and wxListbook. (2.5)
 	- Started wxHtmlParser/wxHtmlTag/custom tag handlers
 	  wrapping.
+	- Mac OS X build now installs the 'wxPerl' binary in perl
+	  bin directory.
+	- wxDatagramSocket and wxSockAddress.
+	- wxNumberEntryDialog. (2.5)
+	- wxGridBagSizer. (2.5)
+	- wxListbook. (2.5)
 
 0.18  Sun Nov 23 14:42:39 CET 2003
 	- Corrected handling of UTF-8 encoded strings in ANSI builds.
