@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.64 2004/02/29 14:43:23 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.65 2004/05/15 21:28:58 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -72,9 +72,9 @@ wxMenu *                O_WXOBJECT
 wxMenuItem *            O_WXOBJECT
 
 wxStatusBar *           O_WXEVTHANDLER
-wxToolBar *             O_WXOBJECT
-wxToolBarBase *         O_WXOBJECT
-wxToolBarSimple *       O_WXOBJECT
+wxToolBar *             O_WXEVTHANDLER
+wxToolBarBase *         O_WXEVTHANDLER
+wxToolBarSimple *       O_WXEVTHANDLER
 wxPanel *               O_WXOBJECT
 wxDialog *              O_WXOBJECT
 wxControl *             O_WXOBJECT

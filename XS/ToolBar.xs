@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ToolBar.xs,v 1.20 2004/02/29 14:43:24 mbarbon Exp $
+## RCS-ID:      $Id: ToolBar.xs,v 1.21 2004/05/15 21:28:58 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -453,8 +453,8 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style
     wxString name
   CODE:
     RETVAL = new wxToolBar( parent, id, pos, size, style, name );
-  OUTPUT:
-    RETVAL
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
 
 bool
 wxToolBar::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
