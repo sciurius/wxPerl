@@ -404,6 +404,7 @@ ext/socket/typemap
 ext/stc/Makefile.PL
 ext/stc/STC.xs
 ext/stc/XS/StyledTextCtrl.xs
+ext/stc/XS/StyledTextEvent.xsp
 ext/stc/cpp/st_constants.cpp
 ext/stc/cpp/st_typedef.h
 ext/stc/lib/Wx/STC.pm

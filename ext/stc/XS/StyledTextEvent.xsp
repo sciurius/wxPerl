@@ -1,0 +1,72 @@
+#############################################################################
+## Name:        ext/stc/XS/StyledTextEvent.xsp
+## Purpose:     XS++ for Wx::StyledTextEvent
+## Author:      Mattia Barbon
+## Created:     27/12/2003
+## RCS-ID:      $Id: StyledTextEvent.xsp,v 1.1 2004/01/18 08:19:20 mbarbon Exp $
+## Copyright:   (c) 2003 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxStyledTextEvent*}{simple};
+%typemap{wxDragResult}{simple};
+
+%name{Wx::StyledTextEvent} class wxStyledTextEvent
+{
+    void SetPosition(int pos);
+    void SetKey(int k);
+    void SetModifiers(int m);
+    void SetModificationType(int t);
+    void SetText(const wxString& t);
+    void SetLength(int len);
+    void SetLinesAdded(int num);
+    void SetLine(int val);
+    void SetFoldLevelNow(int val);
+    void SetFoldLevelPrev(int val);
+    void SetMargin(int val);
+    void SetMessage(int val);
+    void SetWParam(int val);
+    void SetLParam(int val);
+    void SetListType(int val);
+    void SetX(int val);
+    void SetY(int val);
+    void SetDragText(const wxString& val);
+    void SetDragAllowMove(bool val);
+#ifdef  STC_USE_DND
+    void SetDragResult(wxDragResult val);
+#endif
+
+    int  GetPosition() const;
+    int  GetKey()  const;
+    int  GetModifiers() const;
+    int  GetModificationType() const;
+    wxString GetText() const;
+    int  GetLength() const;
+    int  GetLinesAdded() const;
+    int  GetLine() const;
+    int  GetFoldLevelNow() const;
+    int  GetFoldLevelPrev() const;
+    int  GetMargin() const;
+    int  GetMessage() const;
+    int  GetWParam() const;
+    int  GetLParam() const;
+    int  GetListType() const;
+    int  GetX() const;
+    int  GetY() const;
+    wxString GetDragText();
+    bool GetDragAllowMove();
+#ifdef STC_USE_DND
+    wxDragResult GetDragResult();
+#endif
+
+    bool GetShift() const;
+    bool GetControl() const;
+    bool GetAlt() const;
+
+##    virtual wxEvent* Clone() const;
+};
+
+

@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        st_constants.cpp
+// Name:        ext/stc/cpp/st_constants.cpp
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
-// Created:     23/ 5/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.7 2003/05/05 20:38:42 mbarbon Exp $
+// Created:     23/05/2002
+// RCS-ID:      $Id: st_constants.cpp,v 1.8 2004/01/18 08:19:20 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -629,6 +629,33 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_SCRIPTOL_COMMENTDOCKEYWORD );
         r( wxSTC_SCRIPTOL_COMMENTDOCKEYWORDERROR );
         r( wxSTC_SCRIPTOL_COMMENTBASIC );
+
+        r( wxEVT_STC_CHANGE );
+        r( wxEVT_STC_STYLENEEDED );
+        r( wxEVT_STC_CHARADDED );
+        r( wxEVT_STC_SAVEPOINTREACHED );
+        r( wxEVT_STC_SAVEPOINTLEFT );
+        r( wxEVT_STC_ROMODIFYATTEMPT );
+        r( wxEVT_STC_KEY );
+        r( wxEVT_STC_DOUBLECLICK );
+        r( wxEVT_STC_UPDATEUI );
+        r( wxEVT_STC_MODIFIED );
+        r( wxEVT_STC_MACRORECORD );
+        r( wxEVT_STC_MARGINCLICK );
+        r( wxEVT_STC_NEEDSHOWN );
+        r( wxEVT_STC_POSCHANGED );
+        r( wxEVT_STC_PAINTED );
+        r( wxEVT_STC_USERLISTSELECTION );
+        r( wxEVT_STC_URIDROPPED );
+        r( wxEVT_STC_DWELLSTART );
+        r( wxEVT_STC_DWELLEND );
+        r( wxEVT_STC_START_DRAG );
+        r( wxEVT_STC_DRAG_OVER );
+        r( wxEVT_STC_DO_DROP );
+        r( wxEVT_STC_ZOOM );
+        r( wxEVT_STC_HOTSPOT_CLICK );
+        r( wxEVT_STC_HOTSPOT_DCLICK );
+        r( wxEVT_STC_CALLTIP_CLICK );
         break;
     case 'T':
         r( wxSTC_TIME_FOREVER );
