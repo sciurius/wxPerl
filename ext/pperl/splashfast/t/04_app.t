@@ -13,8 +13,18 @@ sub OnInit {
   my $this = shift;
 
   $this->{FOO} = 'bar';
-  $this->SetExitOnFrameDelete( 1 );
   main::ok( 1, "OnInit was called" ); # OnInit called
+
+  my $timer = Wx::Timer->new( $this );
+
+  Wx::Event::EVT_TIMER( $this, -1, sub {
+                          $this->ExitMainLoop;
+                        } );
+
+  $timer->Start( 500, 1 );
+  Wx::WakeUpIdle;
+
+  1;
 }
 
 package main;
@@ -28,7 +38,6 @@ my $app = myApp->new;
 isa_ok( $app, 'myApp' );
 is( $app->{FOO}, 'bar', "fields are preserved" );
 is( wxTheApp, $app, "wxTheApp and myApp->new return the same value" );
-
 
 wxTheApp->MainLoop();
 

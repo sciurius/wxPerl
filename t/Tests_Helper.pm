@@ -25,7 +25,7 @@ use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK);
 @ISA = qw(Exporter);
 
 @EXPORT_OK = qw(test_inheritance test_inheritance_all
-                test_inheritance_start test_inheritance_end 
+                test_inheritance_start test_inheritance_end
                 test_app test_frame app_timeout);
 
 %EXPORT_TAGS =
@@ -39,6 +39,7 @@ sub app_timeout($) {
               my $timer = Wx::Timer->new( $frame );
 
               Wx::Event::EVT_TIMER( $frame, -1, sub {
+                                      Wx::wxTheApp()->ExitMainLoop;
                                       $frame->Destroy;
                                     } );
 

@@ -5,6 +5,7 @@
 
 use strict;
 use Wx;
+use lib './t';
 use Test::More 'tests' => 2;
 use Tests_Helper qw(test_frame);
 

@@ -2,6 +2,7 @@
 
 use strict;
 use Wx;
+use lib './t';
 use Tests_Helper 'test_frame';
 
 package MyFrame;
@@ -28,7 +29,7 @@ foreach my $t ( @tests ) {
   ok( 1, "got there after $class->Destroy" );
 }
 
-$this->Destroy;
+Wx::Event::EVT_IDLE( $this, sub { $this->Destroy } );
 };
 
 package main;

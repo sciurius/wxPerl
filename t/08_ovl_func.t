@@ -5,6 +5,7 @@
 
 use strict;
 use Wx;
+use lib './t';
 use Test::More 'tests' => 142;
 use Tests_Helper qw(test_app);
 
@@ -326,8 +327,9 @@ hijack( 'Wx::Window::SetSizeXYWHF' => sub { $ssxywh = 1 },
         'Wx::Window::SetSizeWH'    => sub { $sswh = 1 },
         'Wx::Window::SetSizeSize'  => sub { $sssize = 1 },
         'Wx::Window::SetSizeRect'  => sub { $ssrect = 1 },
-        'Wx::Window::SetToolTipTip'    => sub { $stttip = 1 },
-        'Wx::Window::SetToolTipString' => sub { $sttstr = 1 },
+        ( Wx::wxMOTIF() ? () :
+          ( 'Wx::Window::SetToolTipTip'    => sub { $stttip = 1 },
+            'Wx::Window::SetToolTipString' => sub { $sttstr = 1 }, ) ),
         'Wx::Window::ClientToScreenXY'    => sub { $ctsxy = 1 },
         'Wx::Window::ClientToScreenPoint' => sub { $ctspoint = 1 },
         'Wx::Window::ConvertDialogPointToPixels' => sub { $cdppoint = 1 },
@@ -358,11 +360,15 @@ ok( $sssize, "Wx::Window::SetSizeSize" );
 $frame->SetSize( Wx::Rect->new( 40, 40, 60, 60 ) );
 ok( $ssrect, "Wx::Window::SetSizeRect" );
 
-$frame->SetToolTip( "FOO" );
-ok( $sttstr, "Wx::Window::SetToolTipString" );
+SKIP: {
+  skip "No ToolTips under wxMOTIF", 2 if Wx::wxMOTIF();
 
-$frame->SetToolTip( Wx::ToolTip->new( "Bar" ) );
-ok( $stttip, "Wx::Window::SetToolTipTip" );
+  $frame->SetToolTip( "FOO" );
+  ok( $sttstr, "Wx::Window::SetToolTipString" );
+
+  $frame->SetToolTip( Wx::ToolTip->new( "Bar" ) );
+  ok( $stttip, "Wx::Window::SetToolTipTip" );
+}
 
 $frame->ClientToScreen( 1, 2 );
 ok( $ctsxy, "Wx::Window::ClientToScreenXY" );
@@ -796,8 +802,8 @@ my( $newnull, $newicon, $newbitmap, $newstreamt, $newstreamm,
     $lsm, $lst, $lft, $lfm, $ssm, $sst, $sft, $sfm, $sfo )
   = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
 hijack( 'Wx::Image::newNull'        => sub { $newnull = 1 },
-        'Wx::Image::newIcon'        => sub { $newicon = 1 },
-        'Wx::Image::newBitmap'      => sub { $newbitmap = 1 },
+#        'Wx::Image::newIcon'        => sub { $newicon = 1 },
+#        'Wx::Image::newBitmap'      => sub { $newbitmap = 1 },
         'Wx::Image::newStreamType'  => sub { $newstreamt = 1 },
         'Wx::Image::newStreamMIME'  => sub { $newstreamm = 1 },
         'Wx::Image::newWH'          => sub { $newwh = 1 },
@@ -819,11 +825,15 @@ my $op = '< demo/data/logo.jpg';
 Wx::Image->new;
 ok( $newnull, "Wx::Image::newNull" );
 
-Wx::Image->new( $icook );
-ok( $newicon, "Wx::Image::newIcon" );
+SKIP: {
+  skip "Only for backward compatibility", 2;
 
-Wx::Image->new( $bmpok );
-ok( $newbitmap, "Wx::Image::newBitmap" );
+  Wx::Image->new( $icook );
+  ok( $newicon, "Wx::Image::newIcon" );
+
+  Wx::Image->new( $bmpok );
+  ok( $newbitmap, "Wx::Image::newBitmap" );
+}
 
 open IN, $op; binmode IN;
 Wx::Image->new( *IN, Wx::wxBITMAP_TYPE_JPEG() );
