@@ -29,6 +29,8 @@ newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FAL
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
 Wx_Locale*
 newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
     int language
@@ -37,6 +39,8 @@ newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
     RETVAL = new wxLocale( language, flags );
   OUTPUT:
     RETVAL
+
+#endif
 
 void
 Wx_Locale::DESTROY()

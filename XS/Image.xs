@@ -186,12 +186,16 @@ Wx_Image::GetWidth()
 bool
 Wx_Image::HasMask()
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
 bool
 Wx_Image::HasOption( name )
     wxString name
 
 bool
 Wx_Image::HasPalette()
+
+#endif
 
 void
 InsertHandler( handler )

@@ -462,7 +462,8 @@ Wx_MenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
 
 #endif
 
-#if defined( __WXMSW__ ) || \
+#if \
+ ( defined( __WXMSW__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) || \
  ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) || \
  defined( __WXPERL_FORCE__ )
 
