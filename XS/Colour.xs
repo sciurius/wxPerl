@@ -50,20 +50,6 @@ Wx_Colour::Blue()
 unsigned char
 Wx_Colour::Green()
 
-#if !defined( __WXMAC__ ) && !defined( __WXGTK__ ) && !defined( __WXMOTIF__ )
-
-WXCOLORREF
-Wx_Colour::GetPixel()
-
-#else
-#if defined( __WXGTK__ ) || defined( __WXMOTIF__ )
-
-int
-Wx_Colour::GetPixel()
-
-#endif
-#endif
-
 bool
 Wx_Colour::Ok()
 
