@@ -30,7 +30,7 @@ sub new {
   my $any = Wx::constant( 'wxBITMAP_TYPE_ANY', 0 );
   my $spl_c = Wx::constant( 'wxSPLASH_CENTRE_ON_SCREEN', 0 );
   my $spl_ti = Wx::constant( 'wxSPLASH_TIMEOUT', 0 );
-  my $bitmap = Wx::Bitmap::newFile( $_[0], $any );
+  my $bitmap = Wx::Bitmap->new( $_[0], $any );
 
   my $splash = Wx::SplashScreen->new( $bitmap , $spl_c|$spl_ti ,
                                       $_[1] || 1000 , undef , -1 );
