@@ -43,8 +43,6 @@
 #include "cpp/compat.h"
 #include "cpp/typedef.h"
 
-#undef _
-
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>

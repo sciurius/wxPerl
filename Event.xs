@@ -20,8 +20,6 @@
 #include <wx/window.h>
 #include <stdarg.h>
 
-#undef _
-
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>

@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #undef bool
+#define WXINTL_NO_GETTEXT_MACRO 1
 
 #include <wx/defs.h>
 
@@ -37,8 +38,6 @@
 
 #include <wx/list.h>
 #include <stdarg.h>
-
-#undef _
 
 #include <EXTERN.h>
 #include <perl.h>

@@ -45,6 +45,7 @@
 #define get_sv      perl_get_sv
 #define get_av      perl_get_av
 #define call_sv     perl_call_sv
+#define eval_pv     perl_eval_pv
 
 #define PL_sv_undef sv_undef
 #define PL_sv_yes   sv_yes
@@ -63,6 +64,7 @@
 #define get_sv perl_get_sv
 #define get_av perl_get_av
 #define call_sv perl_call_sv
+#define eval_pv perl_eval_pv
 
 #define newSVuv( val ) newSViv( (IV)(UV)val )
 #define SvPV_nolen( s ) SvPV( (s), PL_na )
@@ -74,6 +76,8 @@
 #define CHAR_P
 
 #endif
+
+#define WXINTL_NO_GETTEXT_MACRO 1
 
 // Win32 dll stuff
 #if __WXMSW__
