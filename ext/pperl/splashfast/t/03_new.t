@@ -14,7 +14,9 @@ use Wx 'wxTheApp';
 
 ok( 1, "compilation OK" );
 
-Wx::WakeUpIdle();
+use Tests_Helper 'app_timeout';
+
+app_timeout( 500 );
 wxTheApp->MainLoop();
 
 # local variables:

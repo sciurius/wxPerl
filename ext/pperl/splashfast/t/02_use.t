@@ -8,7 +8,9 @@ use Wx 'wxTheApp';
 
 ok( 1, "use Splashfast with arguments" );
 
-Wx::WakeUpIdle();
+use Tests_Helper qw(app_timeout);
+
+app_timeout( 500 );
 wxTheApp->MainLoop();
 
 # local variables:

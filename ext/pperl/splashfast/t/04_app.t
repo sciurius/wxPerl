@@ -13,6 +13,7 @@ sub OnInit {
   my $this = shift;
 
   $this->{FOO} = 'bar';
+  $this->SetExitOnFrameDelete( 1 );
   main::ok( 1, "OnInit was called" ); # OnInit called
 }
 
@@ -28,7 +29,7 @@ isa_ok( $app, 'myApp' );
 is( $app->{FOO}, 'bar', "fields are preserved" );
 is( wxTheApp, $app, "wxTheApp and myApp->new return the same value" );
 
-Wx::WakeUpIdle();
+
 wxTheApp->MainLoop();
 
 # local variables:
