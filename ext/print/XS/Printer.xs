@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/05/2001
-## RCS-ID:      $Id: Printer.xs,v 1.8 2004/03/01 21:24:10 mbarbon Exp $
+## RCS-ID:      $Id: Printer.xs,v 1.9 2004/08/04 20:13:58 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -46,7 +46,7 @@ GetLastError()
     RETVAL
 
 bool
-wxPrinter::Print( parent, printout, prompt = TRUE )
+wxPrinter::Print( parent, printout, prompt = true )
     wxWindow* parent
     wxPrintout* printout
     bool prompt

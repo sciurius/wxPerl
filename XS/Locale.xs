@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs,v 1.22 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id: Locale.xs,v 1.23 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -42,7 +42,7 @@ DESTROY( THIS )
 MODULE=Wx PACKAGE=Wx::Locale
 
 wxLocale*
-newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FALSE )
+newLong( name, shorts = 0, locale = 0, loaddefault = true, convertencoding = false )
     const wxChar* name
     const wxChar* shorts = NO_INIT
     const wxChar* locale = NO_INIT

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/02/2001
-## RCS-ID:      $Id: SingleChoiceDialog.xs,v 1.8 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: SingleChoiceDialog.xs,v 1.9 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -84,7 +84,7 @@ MODULE=Wx PACKAGE=Wx PREFIX=wx
 #
 
 wxString
-wxGetSingleChoice( message, caption, chs, parent = 0, x = -1, y = -1, centre = TRUE, width = wxCHOICE_WIDTH, height = wxCHOICE_HEIGHT )
+wxGetSingleChoice( message, caption, chs, parent = 0, x = -1, y = -1, centre = true, width = wxCHOICE_WIDTH, height = wxCHOICE_HEIGHT )
     wxString message
     wxString caption
     SV* chs
@@ -106,7 +106,7 @@ wxGetSingleChoice( message, caption, chs, parent = 0, x = -1, y = -1, centre = T
     RETVAL
 
 int
-wxGetSingleChoiceIndex( message, caption, chs, parent = 0, x = -1, y = -1, centre = TRUE, width = wxCHOICE_WIDTH, height = wxCHOICE_HEIGHT )
+wxGetSingleChoiceIndex( message, caption, chs, parent = 0, x = -1, y = -1, centre = true, width = wxCHOICE_WIDTH, height = wxCHOICE_HEIGHT )
     wxString message
     wxString caption
     SV* chs
@@ -128,7 +128,7 @@ wxGetSingleChoiceIndex( message, caption, chs, parent = 0, x = -1, y = -1, centr
     RETVAL
 
 SV*
-wxGetSingleChoiceData( message, caption, chs, dt, parent = 0, x = -1, y = -1, centre = TRUE, width = wxCHOICE_WIDTH, height = wxCHOICE_HEIGHT )
+wxGetSingleChoiceData( message, caption, chs, dt, parent = 0, x = -1, y = -1, centre = true, width = wxCHOICE_WIDTH, height = wxCHOICE_HEIGHT )
     wxString message
     wxString caption
     SV* chs

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ToolBar.xs,v 1.21 2004/05/15 21:28:58 mbarbon Exp $
+## RCS-ID:      $Id: ToolBar.xs,v 1.22 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -197,7 +197,7 @@ wxToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHel
     RETVAL
 
 wxToolBarToolBase*
-wxToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+wxToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = false, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     int toolId
     wxBitmap* bitmap1
     wxBitmap* bitmap2
@@ -334,7 +334,7 @@ wxToolBarBase::InsertSeparator( pos )
     size_t pos
 
 wxToolBarToolBase*
-wxToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = FALSE, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+wxToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = false, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     size_t pos
     int toolId
     wxBitmap* bitmap1

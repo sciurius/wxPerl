@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2003
-## RCS-ID:      $Id: HtmlTagHandler.xsp,v 1.1 2003/12/26 11:13:27 mbarbon Exp $
+## RCS-ID:      $Id: HtmlTagHandler.xsp,v 1.2 2004/08/04 20:13:58 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -37,7 +37,7 @@ public:
     wxPlHtmlTagHandler( const char* package )
         :m_callback( "Wx::PlHtmlTagHandler" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 
     wxHtmlParser* GetParser() { return m_Parser; }
@@ -59,7 +59,7 @@ public:
     wxPlHtmlWinTagHandler( const char* package )
         :m_callback( "Wx::PlHtmlWinTagHandler" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 
     wxHtmlWinParser* GetParser() { return m_WParser; }

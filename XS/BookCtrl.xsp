@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/12/2003
-## RCS-ID:      $Id: BookCtrl.xsp,v 1.1 2003/12/13 17:13:29 mbarbon Exp $
+## RCS-ID:      $Id: BookCtrl.xsp,v 1.2 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -49,7 +49,7 @@ wxBookCtrl::GetImageList()
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 %}
 
 %name{Wx::BookCtrlEvent} class wxBookCtrlEvent

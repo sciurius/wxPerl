@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        process.h
+// Name:        cpp/process.h
 // Purpose:     C++ wrapper for wxProcess
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     11/ 2/2002
-// RCS-ID:      
+// Created:     11/02/2002
+// RCS-ID:      $Id: process.h,v 1.3 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -25,7 +25,7 @@ inline wxPliProcess::wxPliProcess( const char* package,
     : wxProcess( parent, id ),
       m_callback( "Wx::Process" )
 {
-    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), true );
 }
 
 void wxPliProcess::OnTerminate( int pid, int status )

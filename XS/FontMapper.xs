@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        FontMapper.xs
+## Name:        XS/FontMapper.xs
 ## Purpose:     XS for Wx::FontMapper
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     13/ 9/2002
-## RCS-ID:      $Id: FontMapper.xs,v 1.3 2003/05/05 20:38:41 mbarbon Exp $
+## Created:     13/09/2002
+## RCS-ID:      $Id: FontMapper.xs,v 1.4 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -22,7 +22,7 @@ Get()
     RETVAL
 
 void
-wxFontMapper::GetAltForEncoding( encoding, facename = wxEmptyString, interactive = TRUE )
+wxFontMapper::GetAltForEncoding( encoding, facename = wxEmptyString, interactive = true )
     wxFontEncoding encoding
     wxString facename
     bool interactive
@@ -42,7 +42,7 @@ wxFontMapper::IsEncodingAvailable( encoding, facename = wxEmptyString )
     wxString facename
 
 wxFontEncoding
-wxFontMapper::CharsetToEncoding( charset, interactive = TRUE )
+wxFontMapper::CharsetToEncoding( charset, interactive = true )
     wxString charset
     bool interactive
 

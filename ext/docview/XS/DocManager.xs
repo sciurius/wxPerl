@@ -4,7 +4,7 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: DocManager.xs,v 1.9 2004/02/29 14:30:40 mbarbon Exp $
+## RCS-ID:      $Id: DocManager.xs,v 1.10 2004/08/04 20:13:56 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,7 +14,7 @@
 MODULE=Wx PACKAGE=Wx::DocManager
 
 wxDocManager*
-wxDocManager::new( flags = wxDEFAULT_DOCMAN_FLAGS, initialize = TRUE )
+wxDocManager::new( flags = wxDEFAULT_DOCMAN_FLAGS, initialize = true )
     long flags
     bool initialize
   CODE:
@@ -319,7 +319,7 @@ wxDocManager::FindTemplateForPath( path )
     wxString path
 
 wxDocTemplate *
-wxDocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = FALSE)
+wxDocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = false)
     AV* templates
     int noTemplates
     wxString path
@@ -346,7 +346,7 @@ wxDocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = FA
     RETVAL
 
 wxDocTemplate *
-wxDocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
+wxDocManager::SelectDocumentType( templates, noTemplates, sort = false)
     AV* templates
     int noTemplates
     bool sort
@@ -373,7 +373,7 @@ wxDocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
 
 
 wxDocTemplate *
-wxDocManager::SelectViewType( templates, noTemplates, sort = FALSE)
+wxDocManager::SelectViewType( templates, noTemplates, sort = false)
     AV* templates
     int noTemplates
     bool sort
@@ -414,20 +414,20 @@ wxDocManager::RemoveDocument( doc )
     wxDocument* doc
 
 bool
-wxDocManager::CloseDocuments( force = TRUE )
+wxDocManager::CloseDocuments( force = true )
     bool force
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 void
-wxDocManager::ActivateView( view, activate = TRUE )
+wxDocManager::ActivateView( view, activate = true )
     wxView* view
     bool activate
 
 #else
 
 void
-wxDocManager::ActivateView( view, activate = TRUE, deleting = FALSE )
+wxDocManager::ActivateView( view, activate = true, deleting = false )
     wxView* view
     bool activate
     bool deleting

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        v_cback.cpp
+// Name:        cpp/v_cback.cpp
 // Purpose:     implementation for v_cback.h
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
+// RCS-ID:      $Id: v_cback.cpp,v 1.13 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -37,7 +37,7 @@ bool wxPliVirtualCallback::FindCallback( pTHX_ const char* name ) const
         return false;
 
     if( !m_stash )
-        *pm_stash = gv_stashpv( CHAR_P m_package, FALSE );
+        *pm_stash = gv_stashpv( CHAR_P m_package, false );
   
     if( !m_stash )
         return true;

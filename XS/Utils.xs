@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.31 2004/03/20 17:51:32 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.32 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -197,7 +197,7 @@ IsMain()
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 bool
-wxShowTip( parent, tipProvider, showAtStartup = TRUE )
+wxShowTip( parent, tipProvider, showAtStartup = true )
     wxWindow* parent
     wxTipProvider* tipProvider
     bool showAtStartup
@@ -219,7 +219,7 @@ bool
 wxYield()
 
 bool
-wxSafeYield( window = 0, onlyIfNeeded = FALSE )
+wxSafeYield( window = 0, onlyIfNeeded = false )
     wxWindow* window
     bool onlyIfNeeded
 

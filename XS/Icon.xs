@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Icon.xs,v 1.23 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: Icon.xs,v 1.24 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,7 +19,7 @@ MODULE=Wx PACKAGE=Wx
 #endif
 
 wxIcon*
-GetWxPerlIcon( small = FALSE )
+GetWxPerlIcon( small = false )
     bool small
   CODE:
 #if defined( __WXMSW__ )

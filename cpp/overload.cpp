@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        overload.cpp
+// Name:        cpp/overload.cpp
 // Purpose:     C++ implementation for a function to match a function's
 //              argument list against a prototype
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      7/ 8/2002
-// RCS-ID:      $Id: overload.cpp,v 1.7 2003/05/04 17:38:10 mbarbon Exp $
+// Created:     07/08/2002
+// RCS-ID:      $Id: overload.cpp,v 1.8 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -40,7 +40,7 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
 
 bool wxPli_match_arguments_skipfirst( pTHX_ const unsigned char prototype[],
                                       size_t nproto, int required /* = -1 */,
-                                      bool allow_more /* = FALSE */ )
+                                      bool allow_more /* = false */ )
 {
     return wxPli_match_arguments_offset( aTHX_ prototype, nproto, required,
                                          allow_more, 1 );
@@ -48,7 +48,7 @@ bool wxPli_match_arguments_skipfirst( pTHX_ const unsigned char prototype[],
 
 bool wxPli_match_arguments( pTHX_ const unsigned char prototype[],
                             size_t nproto, int required /* = -1 */,
-                            bool allow_more /* = FALSE */ )
+                            bool allow_more /* = false */ )
 {
     return wxPli_match_arguments_offset( aTHX_ prototype, nproto, required,
                                          allow_more, 0 );
@@ -66,12 +66,12 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
     if( required != -1 )
     {
         if(  allow_more && argc <  required )
-            { PUSHMARK(MARK); return FALSE; }
+            { PUSHMARK(MARK); return false; }
         if( !allow_more && argc != required )
-            { PUSHMARK(MARK); return FALSE; }
+            { PUSHMARK(MARK); return false; }
     }
     else if( argc < int(nproto) )
-        { PUSHMARK(MARK); return FALSE; }
+        { PUSHMARK(MARK); return false; }
 
     size_t max = wxMin( nproto, size_t(argc) ) + offset;
     for( size_t i = offset; i < max; ++i )
@@ -88,7 +88,7 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
         if( p == wxPliOvlnum )
         {
             if( my_looks_like_number( aTHX_ t ) ) continue;
-            else { PUSHMARK(MARK); return FALSE; }
+            else { PUSHMARK(MARK); return false; }
         }
         // want an object/package name, accept undef, too
         if( !IsGV( t ) && (
@@ -105,13 +105,13 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
         if( ( p == wxPliOvlwist || p == wxPliOvlwost ) &&
             ( SvROK( t ) || IsGV( t ) ) ) continue;
 
-        // type clash: return FALSE
+        // type clash: return false
         PUSHMARK(MARK);
-        return FALSE;
+        return false;
     }
 
     PUSHMARK(MARK);
-    return TRUE;
+    return true;
 }
 
 void wxPli_set_ovl_constant( const char* name, const unsigned char* value,

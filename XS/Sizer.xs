@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.26 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.27 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -23,8 +23,8 @@
 
 %name{Wx::Sizer} class wxSizer
 {
-    %name{ShowWindow} void Show( wxWindow* window, bool show = TRUE );
-    %name{ShowSizer} void Show( wxSizer* sizer, bool show = TRUE );
+    %name{ShowWindow} void Show( wxWindow* window, bool show = true );
+    %name{ShowSizer} void Show( wxSizer* sizer, bool show = true );
 };
 
 %name{Wx::FlexGridSizer} class wxFlexGridSizer
@@ -116,7 +116,7 @@ wxSizer::AddSpace( width, height, option = 0, flag = 0, border = 0, data = 0 )
     THIS->Add( width, height, option, flag, border, data );
 
 void
-wxSizer::Clear( deleteWindows = TRUE )
+wxSizer::Clear( deleteWindows = true )
     bool deleteWindows
 
 void

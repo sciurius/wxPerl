@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/12/2000
-## RCS-ID:      $Id: Caret.xs,v 1.6 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: Caret.xs,v 1.7 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -152,5 +152,5 @@ wxCaret::SetSizeWH( w, h )
     THIS->SetSize( w, h );
 
 void
-wxCaret::Show( show = TRUE )
+wxCaret::Show( show = true )
     bool show

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        panel.h
+// Name:        cpp/panel.h
 // Purpose:     c++ wrapper for wxPanel
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
+// RCS-ID:      $Id: panel.h,v 1.7 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2000-2001 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -15,8 +15,8 @@ class wxPliPanel:public wxPanel
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliPanel );
     WXPLI_DECLARE_V_CBACK();
 public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliPanel, "Wx::Panel", TRUE );
-    WXPLI_CONSTRUCTOR_6( wxPliPanel, "Wx::Panel", TRUE,
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliPanel, "Wx::Panel", true );
+    WXPLI_CONSTRUCTOR_6( wxPliPanel, "Wx::Panel", true,
                          wxWindow*, wxWindowID, const wxPoint&,
                          const wxSize&, long, const wxString& );
 

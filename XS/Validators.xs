@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Validators.xs,v 1.8 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id: Validators.xs,v 1.9 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,7 +19,7 @@ wxWindow*
 wxValidator::GetWindow()
 
 void
-wxValidator::SetBellOnError( doit = TRUE )
+wxValidator::SetBellOnError( doit = true )
     bool doit
 
 void

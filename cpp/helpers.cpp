@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.63 2004/07/10 14:01:48 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.64 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -41,7 +41,7 @@ BOOL WINAPI DllMain( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 
 struct my_magic
 {
-    my_magic() : object( NULL ), deleteable( TRUE ) { }
+    my_magic() : object( NULL ), deleteable( true ) { }
 
     wxObject*  object;
     bool       deleteable;
@@ -297,7 +297,7 @@ public:
         _key = newSVpvn( CHAR_P kname, klen );
         _hash = calc_hash( kname, klen );
 
-        return TRUE;
+        return true;
     };
 
     void OnExit()
@@ -535,7 +535,7 @@ SV* wxPli_make_object( void* object, const char* classname )
 
     hv = newHV();
     ret = newRV_noinc( (SV*) hv );
-    // OK: if you want to keep it, just use SetSelf( sv, TRUE );
+    // OK: if you want to keep it, just use SetSelf( sv, true );
     sv_2mortal( ret ); 
 
     wxPli_attach_object( aTHX_ ret, object );
@@ -547,7 +547,7 @@ bool wxPli_object_is_deleteable( pTHX_ SV* object )
 {
     my_magic* mg = wxPli_get_magic( aTHX_ object );
 
-    return mg ? mg->deleteable : TRUE;
+    return mg ? mg->deleteable : true;
 }
 
 void wxPli_object_set_deleteable( pTHX_ SV* object, bool deleteable )
@@ -994,7 +994,7 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
     static wxPoint dummy;
 
     if( ispoint )
-        *ispoint = TRUE;
+        *ispoint = true;
 
     if( SvROK( scalar ) ) 
     {
@@ -1012,7 +1012,7 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
             {
                 if( ispoint )
                 {
-                    *ispoint = FALSE;
+                    *ispoint = false;
                     return dummy;
                 }
                 else
@@ -1032,7 +1032,7 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
     
     if( ispoint )
     {
-        *ispoint = FALSE;
+        *ispoint = false;
         return dummy;
     }
     else

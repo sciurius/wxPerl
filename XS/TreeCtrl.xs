@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.22 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.23 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -246,7 +246,7 @@ wxTreeCtrl::Expand( item )
     THIS->Expand( *item );
 
 void
-wxTreeCtrl::GetBoundingRect( item, textOnly = FALSE )
+wxTreeCtrl::GetBoundingRect( item, textOnly = false )
     wxTreeItemId* item
     bool textOnly
   PREINIT:
@@ -265,7 +265,7 @@ wxTreeCtrl::GetBoundingRect( item, textOnly = FALSE )
     }
 
 size_t
-wxTreeCtrl::GetChildrenCount( item, recursively = TRUE )
+wxTreeCtrl::GetChildrenCount( item, recursively = true )
     wxTreeItemId* item
     bool recursively
   CODE:
@@ -336,7 +336,7 @@ wxTreeCtrl::GetImageList()
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 int
 wxTreeCtrl::GetIndent()
@@ -481,7 +481,7 @@ wxTreeCtrl::GetStateImageList()
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 void
 wxTreeCtrl::HitTest( point )
@@ -622,7 +622,7 @@ wxTreeCtrl::SetItemBackgroundColour( item, col )
     THIS->SetItemBackgroundColour( *item, col );
 
 void
-wxTreeCtrl::SetItemBold( item, bold = TRUE )
+wxTreeCtrl::SetItemBold( item, bold = true )
     wxTreeItemId* item
     bool bold
   CODE:
@@ -654,7 +654,7 @@ wxTreeCtrl::SetItemFont( item, font )
     THIS->SetItemFont( *item, *font );
 
 void
-wxTreeCtrl::SetItemHasChildren( item, hasChildren = TRUE )
+wxTreeCtrl::SetItemHasChildren( item, hasChildren = true )
     wxTreeItemId* item
     bool hasChildren
   CODE:

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     18/03/2001
-// RCS-ID:      $Id: htmlwindow.h,v 1.7 2004/03/01 21:24:10 mbarbon Exp $
+// RCS-ID:      $Id: htmlwindow.h,v 1.8 2004/08/04 20:13:58 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -17,7 +17,7 @@ class wxPliHtmlWindow:public wxHtmlWindow
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliHtmlWindow );
     WXPLI_DECLARE_V_CBACK();
 public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliHtmlWindow, "Wx::HtmlWindow", TRUE );
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliHtmlWindow, "Wx::HtmlWindow", true );
 
     // this fixes the crashes, for some reason
     wxPliHtmlWindow( const char* package, wxWindow* _arg1, wxWindowID _arg2,
@@ -26,7 +26,7 @@ public:
         : wxHtmlWindow( _arg1, _arg2, _arg3, _arg4, _arg5, _arg6 ),
           m_callback( "Wx::HtmlWindow" )
      {
-         m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+         m_callback.SetSelf( wxPli_make_object( this, package ), true );
      }
 
     void OnLinkClicked( const wxHtmlLinkInfo& info );

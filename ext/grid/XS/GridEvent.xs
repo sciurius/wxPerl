@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/12/2001
-## RCS-ID:      $Id: GridEvent.xs,v 1.6 2004/02/29 14:30:40 mbarbon Exp $
+## RCS-ID:      $Id: GridEvent.xs,v 1.7 2004/08/04 20:13:57 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,7 +13,7 @@
 MODULE=Wx PACKAGE=Wx::GridEvent
 
 wxGridEvent*
-wxGridEvent::new( id, type, obj, row = -1, col = -1, x = -1, y = -1, sel = TRUE, control = TRUE, shift = TRUE, alt = TRUE, meta = TRUE )
+wxGridEvent::new( id, type, obj, row = -1, col = -1, x = -1, y = -1, sel = true, control = true, shift = true, alt = true, meta = true )
     int id
     wxEventType type
     wxObject* obj
@@ -58,7 +58,7 @@ wxGridEvent::ShiftDown()
 MODULE=Wx PACKAGE=Wx::GridSizeEvent
 
 wxGridSizeEvent*
-wxGridSizeEvent::new( id, type, obj, rowOrCol = -1, x = -1, y = -1, control = TRUE, shift = TRUE, alt = TRUE, meta = TRUE )
+wxGridSizeEvent::new( id, type, obj, rowOrCol = -1, x = -1, y = -1, control = true, shift = true, alt = true, meta = true )
     int id
     wxEventType type
     wxObject* obj
@@ -95,7 +95,7 @@ wxGridSizeEvent::ShiftDown()
 MODULE=Wx PACKAGE=Wx::GridRangeSelectEvent
 
 wxGridRangeSelectEvent*
-wxGridRangeSelectEvent::new( id, type, obj, topLeft, bottomRight, sel = TRUE, control = FALSE, shift = FALSE, alt = FALSE, meta = FALSE )
+wxGridRangeSelectEvent::new( id, type, obj, topLeft, bottomRight, sel = true, control = false, shift = false, alt = false, meta = false )
     int id
     wxEventType type
     wxObject* obj

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.34 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.35 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -385,7 +385,7 @@ wxImage::SaveStreamMIME( stream, type )
     RETVAL
 
 wxImage*
-wxImage::Mirror( horizontally = TRUE )
+wxImage::Mirror( horizontally = true )
     bool horizontally
   CODE:
     RETVAL = new wxImage( THIS->Mirror( horizontally ) );
@@ -410,7 +410,7 @@ wxImage::Rescale( width, height )
     RETVAL
 
 void
-wxImage::Rotate( angle, centre, interpolating = TRUE )
+wxImage::Rotate( angle, centre, interpolating = true )
     double angle
     wxPoint centre
     bool interpolating
@@ -426,7 +426,7 @@ wxImage::Rotate( angle, centre, interpolating = TRUE )
     }
 
 wxImage*
-wxImage::Rotate90( clockwise = TRUE )
+wxImage::Rotate90( clockwise = true )
     bool clockwise
   CODE:
     RETVAL = new wxImage( THIS->Rotate90( clockwise ) );
@@ -466,7 +466,7 @@ wxImage::SetData( d )
     THIS->SetData( data_copy );
 
 void
-wxImage::SetMask( hasMask = TRUE )
+wxImage::SetMask( hasMask = true )
     bool hasMask
 
 void
@@ -525,7 +525,7 @@ wxString
 wxImageHandler::GetMimeType()
 
 bool
-wxImageHandler::LoadFile( image, stream, verbose = TRUE, index = 0 )
+wxImageHandler::LoadFile( image, stream, verbose = true, index = 0 )
     wxImage* image
     wxPliInputStream stream
     bool verbose

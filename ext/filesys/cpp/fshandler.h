@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     17/04/2002
-// RCS-ID:      $Id: fshandler.h,v 1.4 2004/03/01 21:24:10 mbarbon Exp $
+// RCS-ID:      $Id: fshandler.h,v 1.5 2004/08/04 20:13:56 mbarbon Exp $
 // Copyright:   (c) 2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -34,7 +34,7 @@ public:
     wxPlFileSystemHandler( const char* package )
         : m_callback( "Wx::PlFileSystemHandler" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 
     DEC_V_CBACK_BOOL__WXSTRING( CanOpen );

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: ScrollBar.xs,v 1.5 2003/06/04 20:38:43 mbarbon Exp $
+## RCS-ID:      $Id: ScrollBar.xs,v 1.6 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -75,7 +75,7 @@ wxScrollBar::SetThumbPosition( viewStart )
     int viewStart
 
 void
-wxScrollBar::SetScrollbar( position, thumbSize, range, pageSize, refresh = TRUE )
+wxScrollBar::SetScrollbar( position, thumbSize, range, pageSize, refresh = true )
     int position
     int thumbSize
     int range

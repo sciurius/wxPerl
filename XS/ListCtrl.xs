@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.33 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.34 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -323,7 +323,7 @@ wxListCtrl::EnsureVisible( item )
     long item
 
 long
-wxListCtrl::FindItem( start, str, partial = FALSE )
+wxListCtrl::FindItem( start, str, partial = false )
     long start
     wxString str
     bool partial
@@ -394,7 +394,7 @@ wxListCtrl::GetImageList( which )
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 wxListItem*
 wxListCtrl::GetItem( id, col = -1 )
@@ -714,7 +714,7 @@ wxListCtrl::SetItemText( item, text )
     wxString text
 
 void
-wxListCtrl::SetSingleStyle( style, add = TRUE )
+wxListCtrl::SetSingleStyle( style, add = true )
     long style
     bool add
 

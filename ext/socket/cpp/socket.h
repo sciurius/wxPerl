@@ -4,7 +4,7 @@
 // Author:      Graciliano M. P.
 // Modified by:
 // Created:     06/03/2003
-// RCS-ID:      $Id: socket.h,v 1.4 2004/01/25 08:06:13 mbarbon Exp $
+// RCS-ID:      $Id: socket.h,v 1.5 2004/08/04 20:13:58 mbarbon Exp $
 // Copyright:   (c) 2003-2004 Graciliano M. P.
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -50,7 +50,7 @@ public:
     wxPlSocketBase( const char* package )
         : m_callback( "Wx::SocketBase" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 };
 
@@ -63,14 +63,14 @@ class wxPliSocketClient:public wxSocketClient
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliSocketClient );
     WXPLI_DECLARE_V_CBACK();
 public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliSocketClient, "Wx::SocketClient", TRUE );
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliSocketClient, "Wx::SocketClient", true );
 
     // this fixes the crashes, for some reason
     wxPliSocketClient( const char* package, long _arg1 )
         : wxSocketClient( _arg1 ),
           m_callback( "Wx::SocketClient" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 };
 
@@ -87,7 +87,7 @@ public:
         : wxSocketServer( _arg1 , _arg2 ),
           m_callback( "Wx::SocketServer" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 
     wxSocketBase* Accept(bool wait)
@@ -116,7 +116,7 @@ class wxPliDatagramSocket : public wxDatagramSocket
     WXPLI_DECLARE_V_CBACK();
 public:
 //    WXPLI_DEFAULT_CONSTRUCTOR( wxPliDatagramSocket,
-//                               "Wx::DatagramSocket", TRUE );
+//                               "Wx::DatagramSocket", true );
 
     // this fixes the crashes, for some reason
     wxPliDatagramSocket( const char* package, wxSockAddress& _arg1,
@@ -124,7 +124,7 @@ public:
         : wxDatagramSocket( _arg1, _arg2 ),
           m_callback( "Wx::SocketClient" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 };
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: ScrolledWindow.xs,v 1.10 2004/02/29 14:43:24 mbarbon Exp $
+## RCS-ID:      $Id: ScrolledWindow.xs,v 1.11 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -124,7 +124,7 @@ wxScrolledWindow::Scroll( x, y )
     int y
 
 void
-wxScrolledWindow::SetScrollbars( ppuX, ppuY, nX, nY, xPos = 0, yPos = 0, noRefresh = FALSE )
+wxScrolledWindow::SetScrollbars( ppuX, ppuY, nX, nY, xPos = 0, yPos = 0, noRefresh = false )
     int ppuX
     int ppuY
     int nX

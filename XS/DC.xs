@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.20 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.21 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -28,7 +28,7 @@ void
 wxDC::BeginDrawing()
 
 bool
-wxDC::Blit( xdest, ydest, width, height, source, xsrc, ysrc, logicalFunc = wxCOPY, useMask = FALSE )
+wxDC::Blit( xdest, ydest, width, height, source, xsrc, ysrc, logicalFunc = wxCOPY, useMask = false )
     wxCoord xdest
     wxCoord ydest
     wxCoord width

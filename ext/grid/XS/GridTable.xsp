@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/08/2003
-## RCS-ID:      $Id: GridTable.xsp,v 1.4 2004/02/29 14:30:40 mbarbon Exp $
+## RCS-ID:      $Id: GridTable.xsp,v 1.5 2004/08/04 20:13:57 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -30,7 +30,7 @@ public:
     wxPlGridTable( const char* package )
         :m_callback( "Wx::GridTableBase" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 
     DEC_V_CBACK_INT__VOID( GetNumberRows );

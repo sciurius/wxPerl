@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/08/2001
-## RCS-ID:      $Id: Clipboard.xs,v 1.6 2004/03/02 21:12:34 mbarbon Exp $
+## RCS-ID:      $Id: Clipboard.xs,v 1.7 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -18,7 +18,7 @@ bool
 wxClipboard::AddData( data )
     wxDataObject* data
   CODE:
-    wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
     RETVAL = THIS->AddData( data );
   OUTPUT:
     RETVAL
@@ -58,11 +58,11 @@ bool
 wxClipboard::SetData( data )
     wxDataObject* data
   CODE:
-    wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
     RETVAL = THIS->SetData( data );
   OUTPUT:
     RETVAL
 
 void
-wxClipboard::UsePrimarySelection( primary = TRUE )
+wxClipboard::UsePrimarySelection( primary = true )
     bool primary

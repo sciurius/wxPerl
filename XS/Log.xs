@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.18 2004/03/02 20:20:59 mbarbon Exp $
+## RCS-ID:      $Id: Log.xs,v 1.19 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -75,7 +75,7 @@ bool
 wxLog::HasPendingMessages()
 
 void
-wxLog::SetVerbose( verbose = TRUE )
+wxLog::SetVerbose( verbose = true )
     bool verbose
 
 bool
@@ -132,7 +132,7 @@ wxLogGui::new()
 MODULE=Wx PACKAGE=Wx::LogWindow
 
 wxLogWindow*
-wxLogWindow::new( parent, title, show = TRUE, passtoold = TRUE )
+wxLogWindow::new( parent, title, show = true, passtoold = true )
     wxFrame* parent
     wxString title
     bool show

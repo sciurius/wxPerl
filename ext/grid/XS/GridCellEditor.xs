@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      $Id: GridCellEditor.xs,v 1.6 2004/02/29 14:30:40 mbarbon Exp $
+## RCS-ID:      $Id: GridCellEditor.xs,v 1.7 2004/08/04 20:13:57 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -115,7 +115,7 @@ wxGridCellBoolEditor::new()
 MODULE=Wx PACKAGE=Wx::GridCellChoiceEditor
 
 wxGridCellChoiceEditor*
-wxGridCellChoiceEditor::new( choices, allowOthers = FALSE )
+wxGridCellChoiceEditor::new( choices, allowOthers = false )
     SV* choices
     bool allowOthers
   PREINIT:

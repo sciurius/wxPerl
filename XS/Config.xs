@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      $Id: Config.xs,v 1.4 2004/02/29 14:43:23 mbarbon Exp $
+## RCS-ID:      $Id: Config.xs,v 1.5 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -35,7 +35,7 @@ bool
 wxConfigBase::DeleteAll()
 
 bool
-wxConfigBase::DeleteEntry( key, deleteGroupIfEmpty = TRUE )
+wxConfigBase::DeleteEntry( key, deleteGroupIfEmpty = true )
     wxString key
     bool deleteGroupIfEmpty
 
@@ -48,11 +48,11 @@ wxConfigBase::Exists( key )
     wxString key
 
 bool
-wxConfigBase::Flush( currentOnly = FALSE )
+wxConfigBase::Flush( currentOnly = false )
     bool currentOnly
 
 wxConfigBase*
-Get( createOnDemand = TRUE )
+Get( createOnDemand = true )
     bool createOnDemand
   CODE:
     RETVAL = wxConfigBase::Get( createOnDemand );
@@ -127,11 +127,11 @@ wxConfigBase::GetNextGroup( index )
     PUSHs( sv_2mortal( newSViv( index ) ) );
 
 unsigned int
-wxConfigBase::GetNumberOfEntries( recursive = FALSE )
+wxConfigBase::GetNumberOfEntries( recursive = false )
     bool recursive
 
 unsigned int
-wxConfigBase::GetNumberOfGroups( recursive = FALSE )
+wxConfigBase::GetNumberOfGroups( recursive = false )
     bool recursive
 
 wxString
@@ -182,7 +182,7 @@ wxConfigBase::ReadFloat( key, def = 0.0 )
     RETVAL
 
 bool
-wxConfigBase::ReadBool( key, def = FALSE )
+wxConfigBase::ReadBool( key, def = false )
     wxString key
     bool def
   CODE:
@@ -207,7 +207,7 @@ Set( config )
     wxConfigBase::Set( config );
 
 void
-wxConfigBase::SetExpandEnvVars( doIt = TRUE )
+wxConfigBase::SetExpandEnvVars( doIt = true )
     bool doIt
 
 void
@@ -215,7 +215,7 @@ wxConfigBase::SetPath( path )
     wxString path
 
 void
-wxConfigBase::SetRecordDefaults( doIt = TRUE )
+wxConfigBase::SetRecordDefaults( doIt = true )
     bool doIt
 
 void

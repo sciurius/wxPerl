@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        e_cback.cpp
+// Name:        cpp/e_cback.cpp
 // Purpose:     implementation for e_cback.h
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
+// RCS-ID:      $Id: e_cback.cpp,v 1.10 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -37,7 +37,7 @@ void wxPliEventCallback::Handler( wxEvent& event )
     SAVETMPS;
 
     // similar to wxPli_object_2_sv
-    bool clear = FALSE;
+    bool clear = false;
     SV* e = 0;
     SV* rv = 0;
     wxClassInfo *ci = event.GetClassInfo();
@@ -67,7 +67,7 @@ void wxPliEventCallback::Handler( wxEvent& event )
         // destroyed
         SvREFCNT_inc( rv );
         sv_2mortal( rv );
-        clear = TRUE;
+        clear = true;
     }
 
     PUSHMARK( SP );

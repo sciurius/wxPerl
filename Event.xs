@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.38 2004/07/10 13:16:43 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.39 2004/08/04 20:13:37 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -92,7 +92,7 @@ wxEvent::SetTimestamp( timeStamp )
     long timeStamp
 
 void
-wxEvent::Skip( skip = TRUE )
+wxEvent::Skip( skip = true )
     bool skip
 
 MODULE=Wx_Evt PACKAGE=Wx::CommandEvent
@@ -193,7 +193,7 @@ wxPlThreadEvent::SetData( data )
 MODULE=Wx_Evt PACKAGE=Wx::ActivateEvent
 
 wxActivateEvent*
-wxActivateEvent::new( type = 0, active = TRUE, id = 0 )
+wxActivateEvent::new( type = 0, active = true, id = 0 )
     wxEventType type
     bool active
     int id
@@ -223,7 +223,7 @@ wxCloseEvent::SetLoggingOff( loggingOff )
     bool loggingOff
 
 void
-wxCloseEvent::Veto( veto = TRUE )
+wxCloseEvent::Veto( veto = true )
     bool veto
 
 MODULE=Wx_Evt PACKAGE=Wx::EraseEvent
@@ -238,7 +238,7 @@ wxEraseEvent::GetDC()
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 MODULE=Wx_Evt PACKAGE=Wx::FocusEvent
 
@@ -321,7 +321,7 @@ bool
 wxIdleEvent::MoreRequested()
 
 void
-wxIdleEvent::RequestMore( needMore = TRUE )
+wxIdleEvent::RequestMore( needMore = true )
     bool needMore
 
 MODULE=Wx_Evt PACKAGE=Wx::InitDialogEvent

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: wizard.h,v 1.2 2003/12/20 15:48:52 mbarbon Exp $
+// RCS-ID:      $Id: wizard.h,v 1.3 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -30,8 +30,8 @@ class wxPliWizard : public wxWizard
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliWizard );
     WXPLI_DECLARE_V_CBACK();
 public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliWizard, "Wx::Wizard", TRUE );
-    WXPLI_CONSTRUCTOR_5( wxPliWizard, "Wx::Wizard", TRUE,
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliWizard, "Wx::Wizard", true );
+    WXPLI_CONSTRUCTOR_5( wxPliWizard, "Wx::Wizard", true,
                          wxWindow*, wxWindowID, const wxString&,
                          const wxBitmap&, const wxPoint& ); 
 
@@ -54,7 +54,7 @@ public:
         :wxWizardPage( parent, bitmap ),
          m_callback( "Wx::WizardPage" )
     {
-        m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
     }
 
     DEC_V_CBACK_WXWIZARDPAGE__VOID_const( GetPrev );

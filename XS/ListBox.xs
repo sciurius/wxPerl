@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: ListBox.xs,v 1.8 2003/06/04 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: ListBox.xs,v 1.9 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -134,11 +134,11 @@ wxListBox::SetString( n, string )
     wxString string
 
 void
-wxListBox::SetSelection( n, select = TRUE )
+wxListBox::SetSelection( n, select = true )
     int n
     bool select
 
 void
-wxListBox::SetStringSelection( string, select = TRUE )
+wxListBox::SetStringSelection( string, select = true )
     wxString string
     bool select

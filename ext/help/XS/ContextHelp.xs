@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/03/2001
-## RCS-ID:      $Id: ContextHelp.xs,v 1.5 2004/08/04 19:38:46 mbarbon Exp $
+## RCS-ID:      $Id: ContextHelp.xs,v 1.6 2004/08/04 20:13:57 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -17,7 +17,7 @@
 MODULE=Wx PACKAGE=Wx::ContextHelp
 
 wxContextHelp*
-wxContextHelp::new( window = NULL, beginHelp = TRUE )
+wxContextHelp::new( window = NULL, beginHelp = true )
     wxWindow* window
     bool beginHelp
   CODE:

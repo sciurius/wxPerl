@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Notebook.xs,v 1.12 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Notebook.xs,v 1.13 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -84,14 +84,14 @@ wxNotebook::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, s
 #if WXPERL_W_VERSION_LE( 2, 5, 1 )
 
 bool
-wxNotebook::AddPage( page, text, select = FALSE, imageId = -1 )
+wxNotebook::AddPage( page, text, select = false, imageId = -1 )
     wxWindow* page
     wxString text
     bool select
     int imageId
 
 void
-wxNotebook::AdvanceSelection( forward = TRUE )
+wxNotebook::AdvanceSelection( forward = true )
     bool forward
 
 bool
@@ -106,7 +106,7 @@ wxNotebook::GetImageList()
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 wxWindow*
 wxNotebook::GetPage( page )
@@ -127,7 +127,7 @@ int
 wxNotebook::GetSelection()
 
 bool
-wxNotebook::InsertPage( index, page, text, select = FALSE, imageId = -1 )
+wxNotebook::InsertPage( index, page, text, select = false, imageId = -1 )
     int index
     wxWindow* page
     wxString text

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ImageList.xs,v 1.9 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id: ImageList.xs,v 1.10 2004/08/04 20:13:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,7 +15,7 @@
 MODULE=Wx PACKAGE=Wx::ImageList
 
 wxImageList*
-wxImageList::new( width, height, mask = TRUE, initialCount =1 )
+wxImageList::new( width, height, mask = true, initialCount =1 )
     int width
     int height
     bool mask
@@ -65,7 +65,7 @@ wxImageList::AddIcon( icon )
     RETVAL
 
 bool
-wxImageList::Draw( index, dc, x, y, flags = wxIMAGELIST_DRAW_NORMAL, solidBackground = FALSE )
+wxImageList::Draw( index, dc, x, y, flags = wxIMAGELIST_DRAW_NORMAL, solidBackground = false )
     int index
     wxDC* dc
     int x

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/12/2001
-## RCS-ID:      $Id: GridCellAttr.xs,v 1.6 2004/02/29 14:30:40 mbarbon Exp $
+## RCS-ID:      $Id: GridCellAttr.xs,v 1.7 2004/08/04 20:13:57 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -48,7 +48,7 @@ wxGridCellAttr::SetAlignment( hAlign, vAlign )
     int vAlign
 
 void
-wxGridCellAttr::SetReadOnly( isReadOnly = TRUE )
+wxGridCellAttr::SetReadOnly( isReadOnly = true )
     bool isReadOnly
 
 bool

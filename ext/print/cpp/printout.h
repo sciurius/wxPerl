@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     02/06/2001
-// RCS-ID:      $Id: printout.h,v 1.7 2004/03/01 21:24:10 mbarbon Exp $
+// RCS-ID:      $Id: printout.h,v 1.8 2004/08/04 20:13:58 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -34,7 +34,7 @@ inline wxPlPrintout::wxPlPrintout( const char* package, const wxString& title )
     :wxPrintout( title ),
      m_callback( "Wx::PlPrintout" )
 {
-    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), true );
 }
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPrintout, wxPrintout );

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        droptarget.h
+// Name:        ext/dnd/cpp/droptarget.h
 // Purpose:     c++ wrapper for wxPli*DropTarget
 // Author:      Mattia Barbon
 // Modified by:
-// Created:     16/ 8/2001
-// RCS-ID:      
+// Created:     16/08/2001
+// RCS-ID:      $Id: droptarget.h,v 1.6 2004/08/04 20:13:56 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -27,7 +27,7 @@ public:
         // so _this_ SV must not delete the object,
         // this is responsibility of the program's one!
         SV* sv = wxPli_make_object( this, package );
-        wxPli_object_set_deleteable( aTHX_ sv, FALSE );
+        wxPli_object_set_deleteable( aTHX_ sv, false );
         m_callback.SetSelf( sv );
     }
 
@@ -54,7 +54,7 @@ public:
     {
         dTHX;
         SV* sv = wxPli_make_object( this, package );
-        wxPli_object_set_deleteable( aTHX_ sv, FALSE );
+        wxPli_object_set_deleteable( aTHX_ sv, false );
         m_callback.SetSelf( sv );
     }
 
@@ -73,7 +73,7 @@ public:
     {
         dTHX;
         SV* sv = wxPli_make_object( this, package );
-        wxPli_object_set_deleteable( aTHX_ sv, FALSE );
+        wxPli_object_set_deleteable( aTHX_ sv, false );
         m_callback.SetSelf( sv );
     }
 

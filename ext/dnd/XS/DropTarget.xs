@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     16/08/2001
-## RCS-ID:      $Id: DropTarget.xs,v 1.6 2004/03/02 21:12:35 mbarbon Exp $
+## RCS-ID:      $Id: DropTarget.xs,v 1.7 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -40,7 +40,7 @@ void
 wxDropTarget::SetDataObject( data )
     wxDataObject* data
   CODE:
-    wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
     THIS->SetDataObject( data );
 
 # callbacks

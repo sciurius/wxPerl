@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.h,v 1.19 2003/06/04 20:38:44 mbarbon Exp $
+// RCS-ID:      $Id: controls.h,v 1.20 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -18,8 +18,8 @@ class wxPliListCtrl:public wxListCtrl
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliListCtrl );
     WXPLI_DECLARE_V_CBACK();
 public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliListCtrl, "Wx::ListCtrl", TRUE );
-    WXPLI_CONSTRUCTOR_7( wxPliListCtrl, "Wx::ListCtrl", TRUE,
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliListCtrl, "Wx::ListCtrl", true );
+    WXPLI_CONSTRUCTOR_7( wxPliListCtrl, "Wx::ListCtrl", true,
                          wxWindow*, wxWindowID, const wxPoint&,
                          const wxSize&, long, const wxValidator&,
                          const wxString& );
@@ -34,8 +34,8 @@ class wxPliTreeCtrl:public wxTreeCtrl
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliTreeCtrl );
     WXPLI_DECLARE_V_CBACK();
 public:
-    WXPLI_DEFAULT_CONSTRUCTOR( wxPliTreeCtrl, "Wx::TreeCtrl", TRUE );
-    WXPLI_CONSTRUCTOR_7( wxPliTreeCtrl, "Wx::TreeCtrl", TRUE,
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPliTreeCtrl, "Wx::TreeCtrl", true );
+    WXPLI_CONSTRUCTOR_7( wxPliTreeCtrl, "Wx::TreeCtrl", true,
                          wxWindow*, wxWindowID, const wxPoint&,
                          const wxSize&, long, const wxValidator&,
                          const wxString& );

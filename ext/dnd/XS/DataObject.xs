@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.16 2004/03/02 21:12:34 mbarbon Exp $
+## RCS-ID:      $Id: DataObject.xs,v 1.17 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -216,12 +216,12 @@ wxDataObjectComposite*
 wxDataObjectComposite::new()
 
 void
-wxDataObjectComposite::Add( dataObject, preferred = FALSE )
+wxDataObjectComposite::Add( dataObject, preferred = false )
     wxDataObjectSimple* dataObject
     bool preferred
   CODE:
     // at this point the data object is owned!
-    wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
     THIS->Add( dataObject, preferred );
 
 MODULE=Wx PACKAGE=Wx::TextDataObject

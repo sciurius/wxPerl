@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.51 2004/03/20 17:49:56 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.52 2004/08/04 20:13:45 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -153,7 +153,7 @@ wxWindow::ClientToScreenXY( x, y )
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
 bool
-wxWindow::Close( force = FALSE )
+wxWindow::Close( force = false )
     bool force
 
 void
@@ -347,7 +347,7 @@ wxWindow::GetContainingSizer()
 wxDropTarget*
 wxWindow::GetDropTarget()
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 #endif
 
@@ -645,7 +645,7 @@ void
 wxWindow::Raise()
 
 void
-wxWindow::Refresh( eraseBackground = TRUE, rect = 0 )
+wxWindow::Refresh( eraseBackground = true, rect = 0 )
     bool eraseBackground
     wxRect* rect
 
@@ -789,7 +789,7 @@ void
 wxWindow::SetDropTarget( target )
     wxDropTarget* target
   CODE:
-    wxPli_object_set_deleteable( aTHX_ ST(1), FALSE );
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
     THIS->SetDropTarget( target );
 
 #endif
@@ -836,7 +836,7 @@ wxWindow::SetName( name )
     wxString name
 
 void
-wxWindow::SetScrollbar( orientation, position, thumbSize, range, refresh = TRUE )
+wxWindow::SetScrollbar( orientation, position, thumbSize, range, refresh = true )
     int orientation
     int position
     int thumbSize
@@ -844,7 +844,7 @@ wxWindow::SetScrollbar( orientation, position, thumbSize, range, refresh = TRUE 
     bool refresh
 
 void
-wxWindow::SetScrollPos( orientation, position, refresh = TRUE )
+wxWindow::SetScrollPos( orientation, position, refresh = true )
     int orientation
     int position
     bool refresh
@@ -932,12 +932,12 @@ wxWindow::SetVirtualSizeSize( size )
     THIS->SetVirtualSize( size );
 
 void
-wxWindow::SetSizer( sizer, deleteOld = TRUE )
+wxWindow::SetSizer( sizer, deleteOld = true )
     wxSizer* sizer
     bool deleteOld
 
 void
-wxWindow::SetSizerAndFit( sizer, deleteOld = TRUE )
+wxWindow::SetSizerAndFit( sizer, deleteOld = true )
     wxSizer* sizer
     bool deleteOld
 

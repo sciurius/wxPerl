@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: TextEntryDialog.xs,v 1.5 2004/02/29 14:53:21 mbarbon Exp $
+## RCS-ID:      $Id: TextEntryDialog.xs,v 1.6 2004/08/04 20:13:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -80,7 +80,7 @@ wxGetPasswordFromUser( message, caption = wxGetTextFromUserPromptStr, default_va
   wxWindow* parent
 
 wxString
-wxGetTextFromUser( message, caption = wxGetTextFromUserPromptStr, default_value = wxEmptyString, parent = 0, x = -1, y = -1, centre = TRUE )
+wxGetTextFromUser( message, caption = wxGetTextFromUserPromptStr, default_value = wxEmptyString, parent = 0, x = -1, y = -1, centre = true )
   wxString message
   wxString caption
   wxString default_value

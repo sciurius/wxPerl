@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.21 2004/07/10 21:50:55 mbarbon Exp $
+// RCS-ID:      $Id: app.h,v 1.22 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -49,7 +49,7 @@ public:
 inline wxPliApp::wxPliApp( const char* package )
     :m_callback( "Wx::App" ) 
 {
-    m_callback.SetSelf( wxPli_make_object( this, package ), TRUE );
+    m_callback.SetSelf( wxPli_make_object( this, package ), true );
 }
 
 wxPliApp::~wxPliApp()
@@ -75,7 +75,7 @@ inline bool wxPliApp::OnInit()
 {
     wxApp::OnInit();
 
-    return FALSE;
+    return false;
 }
 
 inline int wxPliApp::MainLoop() {

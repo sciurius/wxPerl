@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        scrolledwindow.h
+// Name:        cpp/scrolledwindow.h
 // Purpose:     c++ wrapper for wxScrolledWindow
 // Author:      Mattia Barbon
 // Modified by:
-// Created:      2/12/2000
-// RCS-ID:      
+// Created:     02/12/2000
+// RCS-ID:      $Id: scrolledwindow.h,v 1.9 2004/08/04 20:13:55 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -16,9 +16,9 @@ class wxPliScrolledWindow:public wxScrolledWindow
     WXPLI_DECLARE_V_CBACK();
 public:
     WXPLI_DEFAULT_CONSTRUCTOR( wxPliScrolledWindow, "Wx::ScrolledWindow",
-                               TRUE );
+                               true );
     WXPLI_CONSTRUCTOR_6( wxPliScrolledWindow, "Wx::ScrolledWindow",
-                         TRUE, wxWindow*, wxWindowID, const wxPoint&,
+                         true, wxWindow*, wxWindowID, const wxPoint&,
                          const wxSize&, long, const wxString& );
 
     void OnDraw( wxDC& dc );
