@@ -190,7 +190,7 @@ sub files_with_constants {
   my $wanted = sub {
     my $name = $File::Find::name;
 
-    m/\.(?:pm|xs|cpp|h)$/i && do {
+    m/\.(?:pm|xsp?|cpp|h)$/i && do {
       local *IN;
       my $line;
 
@@ -228,7 +228,7 @@ sub files_with_overload {
       }
     };
 
-    m/\.xs$/i && do {
+    m/\.xsp?$/i && do {
       my $line;
       local *IN;
 
