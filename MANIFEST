@@ -151,6 +151,7 @@ XS/Accelerators.xs
 XS/App.xs
 XS/Bitmap.xs
 XS/BitmapButton.xs
+XS/BookCtrl.xsp
 XS/Brush.xs
 XS/Button.xs
 XS/Caret.xs
@@ -174,10 +175,12 @@ XS/FontMapper.xs
 XS/Frame.xs
 XS/Gauge.xs
 XS/Geom.xs
+XS/GridBagSizer.xsp
 XS/Icon.xs
 XS/IconBundle.xsp
 XS/Image.xs
 XS/ImageList.xs
+XS/Listbook.xsp
 XS/ListBox.xs
 XS/ListCtrl.xs
 XS/Locale.xs
@@ -339,14 +342,19 @@ ext/help/t/02_inheritance.t
 
 ext/html/Html.xs
 ext/html/Makefile.PL
+ext/html/XS/HtmlCell.xsp
 ext/html/XS/HtmlEasyPrinting.xs
 ext/html/XS/HtmlHelpController.xs
+ext/html/XS/HtmlParser.xsp
+ext/html/XS/HtmlTag.xsp
+ext/html/XS/HtmlTagHandler.xsp
 ext/html/XS/HtmlWindow.xs
 ext/html/cpp/ht_constants.cpp
 ext/html/cpp/ht_typedef.h
 ext/html/cpp/htmlwindow.h
 ext/html/lib/Wx/Html.pm
 ext/html/typemap
+ext/html/typemap.xsp
 ext/html/t/01_load.t
 ext/html/t/02_inheritance.t
 

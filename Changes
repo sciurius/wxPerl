@@ -1,6 +1,9 @@
 Revision history for Perl extension Wx.
 
 0.19
+	- wxGridBagSizer and wxListbook. (2.5)
+	- Started wxHtmlParser/wxHtmlTag/custom tag handlers
+	  wrapping.
 
 0.18  Sun Nov 23 14:42:39 CET 2003
 	- Corrected handling of UTF-8 encoded strings in ANSI builds.
