@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/ 8/2001
-## RCS-ID:      $Id: make_ovl_list.pl,v 1.11 2003/05/04 17:38:10 mbarbon Exp $
+## RCS-ID:      $Id: make_ovl_list.pl,v 1.12 2003/06/04 20:51:13 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -83,6 +83,7 @@ my %name2type =
    wehd => 'Wx::EvtHandler',
    wtid => 'Wx::TreeItemId',
    wfon => 'Wx::Font',
+   wfrm => 'Wx::Frame',
    wist => 1,
    wost => 1,
    num  => 1,
@@ -213,6 +214,9 @@ extern void wxPli_set_ovl_constant( const char* name,
 EOT
 
 print OUT2 <<EOT;
+
+#ifndef WXPL_EXT
+
 void SetOvlConstants()
 {
     dTHX;
@@ -226,7 +230,12 @@ foreach my $i ( keys %constants ) {
   print OUT2 "    wxPli_set_ovl_constant( \"$i\", wxPliOvl_${i}, wxPliOvl_${i}_count );\n";
 }
 
-print OUT2 "}\n\n";
+print OUT2 <<EOT;
+}
+
+#endif // WXPL_EXT
+
+EOT
 
 foreach my $i ( sort keys %constants ) {
   print OUT2 "const unsigned char wxPliOvl_$i\[\] = { ";
