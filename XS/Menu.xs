@@ -12,9 +12,6 @@
 
 MODULE=Wx PACKAGE=Wx::Menu
 
-#FIXME// unimplemented
-# GetMenuItems
-
 Wx_Menu*
 Wx_Menu::new( title = wxEmptyString, style = 0)
     wxString title
@@ -115,7 +112,7 @@ Wx_Menu::FindItem( item )
       }
     }
     else {
-#if WXP_VERSION < 5006
+#if WXPERL_P_VERSION < 5006
       const char* string = SvPV( item, PL_na );
 #else
       const char* string = SvPV_nolen( item );
@@ -136,6 +133,18 @@ Wx_Menu::GetLabel( id )
 
 int
 Wx_Menu::GetMenuItemCount()
+
+void
+Wx_Menu::GetMenuItems()
+  PPCODE:
+    wxMenuItemList& data = THIS->GetMenuItems();
+    wxMenuItemList::Node* node;
+ 
+    EXTEND( SP, data.GetCount() );
+    for( node = data.GetFirst(); node; node = node->GetNext() )
+    {
+      PUSHs( _object_2_sv( sv_newmortal(), node->GetData() ) );
+    }
 
 wxString
 Wx_Menu::GetTitle()
@@ -188,8 +197,6 @@ Wx_Menu::UpdateUI( source = 0 )
     Wx_EvtHandler* source
 
 MODULE=Wx PACKAGE=Wx::MenuBar
-
-#FIXME// unimplemented
 
 Wx_MenuBar*
 Wx_MenuBar::new( style = 0 )
