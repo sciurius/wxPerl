@@ -1,27 +1,13 @@
-WXPERL INSTALLATION
+* wxPerl INSTALLATION
 
-INSTALL wxWindows
+****************************************************************************
+You need to install wxWindows before you can compile wxPerl.
+For UNIX systems look at the section "INSTALL wxWindows"; for Win32
+systems, detailed build instructions for wxWindows + wxPerl are included
+in the section "COMPILING UNDER WIN32"
+****************************************************************************
 
-For UNIX systems only. If you are using the prepackaged binaries, you
-need to install the -dev packages in order to compile wxPerl, otherwise
-you just need the main package and the -contrib package.
-If you are compiling wxWindows yourself, th quick way is:
-
-./configure
-make
-make install
-cd contrib/src/stc
-make
-make install
-# if you are using wxWindows 2.3.2 or newer
-cd ../../contrib/src/xrc
-make
-make install
-
-If something goes wrong, please refer to the wxWindows
-installation instructions.
-
-QUICK INSTALLATION
+* QUICK INSTALLATION ( for UNIX systems )
 
 unpack the wxPerl archive
 cd to wxPerl directory
@@ -42,24 +28,24 @@ make install       # (4)
    before installing
 4) you may need Administrator/root privileges to install
 
-ADDITIONAL FLAGS
+* ADDITIONAL FLAGS TO Makefile.PL
 
 In addition to ExtUtils::MakeMaker flags wxPerl Makefile.PL accepts
 
-* --debug
-  Currently only under Win32 or GCC
-  adds debugging information to the library
+  - --debug
+    Currently only under Win32 or GCC
+    adds debugging information to the library
 
-* --extra-libs={extra libraries}
-  Adds extra libraries to the link command line
+  - --extra-libs={extra libraries}
+    Adds extra libraries to the link command line
 
-* --extra-cflags={extra compiler flags}
-  Adds extra compiler flags to compiler line
+  - --extra-cflags={extra compiler flags}
+    Adds extra compiler flags to compiler line
 
-* --help
-  Show the full list of options
+  - --help
+    Show the full list of options
 
-SPECIFYING C++ COMPILER
+* SPECIFYING C++ COMPILER
 
 wxPerl needs a C++ compiler to build itself. Under Windows there is no
 problem, since there are only 2 supported compilers. Under Unix, if
@@ -68,14 +54,35 @@ nothing and warns you at Makefile.PL time; in this case you will almost
 surely need to add some special flags ( via EXTRA_CFLAGS ) or to specify 
 a different compiler ( via perl Makefile.PL CC=c++-compiler ).
  
-COMPILING UNDER WIN32
+( INSTALLING wxWindows ( on UNIX systems )
+
+For UNIX systems only. If you are using the prepackaged binaries, you
+need to install the -dev packages in order to compile wxPerl, otherwise
+you just need the main package and the -contrib package.
+If you are compiling wxWindows yourself, th quick way is:
+
+./configure
+make
+make install
+cd contrib/src/stc
+make
+make install
+# if you are using wxWindows 2.3.2 or newer
+cd ../../contrib/src/xrc
+make
+make install
+
+If something goes wrong, please refer to the wxWindows
+installation instructions.
+
+* COMPILING UNDER WIN32
 
 This wxPerl version was tested with MinGW 1.1 and MS Visual C++ 5.
 For the remainder of this section I'll assume that your Perl is installed
 in C:\Perl
 
-* MS Visual C++ 5 ( and probably 4.x )
-* MS Visual C++ 6 SP4
+- MS Visual C++ 5 ( and probably 4.x )
+- MS Visual C++ 6 SP4
 
   Build wxWindows as a dll
 
@@ -83,23 +90,22 @@ in C:\Perl
   set WXWIN=z:\path\to\wx
   cd %WXDIR%\src\msw
   nmake -f makefile.vc FINAL=1 dll
-  cd %WXDIR#\contrib\src\stc
+  cd %WXDIR%\contrib\src\stc
   nmake -f makefile.vc FINAL=1 WXUSINGDLL=1
   # if you are using wxWIndows 2.3.2 or newer
-  cd %WXDIR#\contrib\src\xrc
+  cd %WXDIR%\contrib\src\xrc
   nmake -f makefile.vc FINAL=1 WXUSINGDLL=1
 
-  when wxPerl is installed you need to copy the wxmsw*.dll from
-  z:\path\to\wx\lib to the directoy where Wx.dll is installed.
-
-  If you've built Perl from sources, then the plain install
-
+  # build wxPerl
   perl Makefile.PL
   nmake
   nmake test
   nmake install
 
-  should work. If you're using ActivePerl with MSVC != 6.x you may
+  # after wxPerl is installed you need to copy the wxmsw*.dll from
+  # z:\path\to\wx\lib to the directoy where Wx.dll is installed.
+
+  If you are using ActivePerl with MSVC != 6.x you may
   experience linking problems ( Can't seek to position XXXXXX ... ),
   then you need to rebuild the perl56.dll import library.
 
@@ -110,7 +116,13 @@ in C:\Perl
 
   This will create a file Perl56.lib; copy this file to C:\Perl\lib\CORE\ .
 
-* MinGW 1.1
+- MinGW 1.1
+
+  If you want to compile wxPerl against ActivePerl using MinGW,
+  you ned to first download and install ExtUtils::FakeConfig from
+  http://wxperl.sourceforge.net/ap_mingw/; then just replace the
+  "perl Makefile.PL" with "perl -MConfig_m Makefile.PL". If you built
+  Perl from sources, you don't need this additional step.
 
   Build wxWindows as a dll
 
@@ -118,30 +130,22 @@ in C:\Perl
   set WXWIN=z:/path/to/wx
   cd z:\path\to\wx\src\msw
   make -f makefile.g95 FINAL=1 WXMAKINGDLL=1
-  cd %WXDIR#\contrib\src\stc
+  cd %WXDIR%\contrib\src\stc
   make -f makefile.g95 FINAL=1 WXUSINGDLL=1
   # if you are using wxWIndows 2.3.2 or newer
-  cd %WXDIR#\contrib\src\xrc
+  cd %WXDIR%\contrib\src\xrc
   make -f makefile.g95 FINAL=1 WXUSINGDLL=1
 
-  when wxPerl is installed you need to copy the wxmsw*.dll from
-  z:\path\to\wx\lib to the directoy where Wx.dll is installed.
-
-  If you built Perl from sources then the plain install
-
+  # now build wxPerl
   perl Makefile.PL
   dmake
   dmake test
   dmake install
 
-  should work. If you're using ActivePerl, then the procedure is a
-  little more complicated, look at
+  # when wxPerl is installed you need to copy the wxmsw*.dll from
+  # z:\path\to\wx\lib to the directoy where Wx.dll is installed.
 
-  http://wxperl.sourceforge.net/ap_mingw/
-
-  for more details.
-
-SPECIFYING THE INSTALLATION PATH
+* SPECIFYING THE INSTALLATION PATH
 
 If you don't want to install wxPerl as a system module, you must
 specify a different installation path. Usually you do this with
