@@ -10,13 +10,6 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-package Wx::Size;
-
-no strict;
-
-*y = \&Wx::Size::height;
-*x = \&Wx::Size::width;
-
 package Wx::Region;
 
 use strict;
