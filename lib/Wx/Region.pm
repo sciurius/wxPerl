@@ -22,12 +22,13 @@ package Wx::Region;
 use strict;
 
 sub new {
-  shift;
+  my $class = shift;
 
-  Wx::_match( @_, $Wx::_n_n_n_n, 4 )   && return Wx::Region::newXYWH( @_ );
-  Wx::_match( @_, $Wx::_wpoi_wpoi, 2 ) && return Wx::Region::newPP( @_ );
-  Wx::_match( @_, $Wx::_wrec, 1 )      && return Wx::Region::newRect( @_ );
-  Wx::_match( @_, $Wx::_arr, 1, 1 )    && return Wx::Region::newPolygon( @_ );
+  @_ == 0 && return $class->newEmpty();
+  Wx::_match( @_, $Wx::_n_n_n_n, 4 )   && return $class->newXYWH( @_ );
+  Wx::_match( @_, $Wx::_wpoi_wpoi, 2 ) && return $class->newPP( @_ );
+  Wx::_match( @_, $Wx::_wrec, 1 )      && return $class->newRect( @_ );
+  Wx::_match( @_, $Wx::_arr, 1, 1 )    && return $class->newPolygon( @_ );
   Wx::_croak Wx::_ovl_error;
 }
 
