@@ -16,7 +16,7 @@
 #ifdef __WXMSW__
 
 extern "C" 
-BOOL WINAPI DllMain ( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
+BOOL WINAPI DllMain( HANDLE hModule, DWORD fdwReason, LPVOID lpReserved )
 {
     if( fdwReason == DLL_PROCESS_ATTACH )
         wxSetInstance( (HINSTANCE)hModule );

@@ -28,7 +28,6 @@ $File::Find::dont_use_nlink = 1 if ( stat('.') )[3] <= 1;
 
 use vars qw(@top_level_xs);
 
-# @top_level_xs = glob( "*.xs" );
 @top_level_xs = qw(Wx.xs Constant.xs Controls.xs Event.xs
                    Frames.xs GDI.xs Window.xs);
 
