@@ -80,9 +80,9 @@ sub new {
 
   # create a status bar (note that the status bar that gets created
   # has three panes, see the OnCreateStatusBar callback below
-  $this->CreateStatusBar( 2 );
+  $this->CreateStatusBar( 1 );
   # and show a message
-  $this->SetStatusText( "Welcome to wxWindows!", 1 );
+  $this->SetStatusText( "Welcome to wxPerl!", 1 );
 
   $this;
 }
@@ -93,7 +93,7 @@ sub OnCreateStatusBar {
   my( $this ) = shift;
   my( $status ) = Wx::StatusBar->new( $this, -1 );
 
-  $status->SetFieldsCount( 3 );
+  $status->SetFieldsCount( 2 );
 
   $status;
 }
