@@ -72,6 +72,9 @@ extern void SetConstants();
 
 #ifdef __WXMOTIF__
 
+#include <wx/app.h>
+#include <wx/log.h>
+
 int wxEntryStart( int argc, char** argv )
 {
 #if (defined(__WXDEBUG__) && wxUSE_MEMORY_TRACING) || wxUSE_DEBUG_CONTEXT

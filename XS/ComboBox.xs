@@ -35,6 +35,9 @@ Wx_ComboBox::new( parent, id, value, pos, size , choices, style = 0, validator =
   OUTPUT:
     RETVAL
 
+void
+Wx_ComboBox::Clear()
+
 #if defined( __WXGTK__ ) || defined( __WXPERL_FORCE__ )
 
 void
@@ -49,9 +52,6 @@ Wx_ComboBox::AppendData( item, data )
     Wx_UserDataCD* data
   CODE:
     THIS->Append( item, data );
-
-void
-Wx_ComboBox::Clear()
 
 void
 Wx_ComboBox::Delete( n )

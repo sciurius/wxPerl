@@ -92,9 +92,6 @@ Wx_ControlWithItems::AppendData( item, data )
     THIS->Append( item, data );
 
 void
-Wx_ControlWithItems::Clear()
-
-void
 Wx_ControlWithItems::Delete( n )
     int n
 

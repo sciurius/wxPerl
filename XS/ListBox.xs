@@ -42,6 +42,9 @@ Wx_ListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choi
     RETVAL
 
 void
+Wx_ListBox::Clear()
+
+void
 Wx_ListBox::Deselect( n )
     int n
 

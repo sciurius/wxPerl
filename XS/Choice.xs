@@ -35,6 +35,9 @@ Wx_Choice::new( parent, id, pos, size, choices, style = 0, validator = (wxValida
   OUTPUT:
     RETVAL
 
+void
+Wx_Choice::Clear()
+
 int
 Wx_Choice::GetColumns()
 

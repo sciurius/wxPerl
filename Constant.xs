@@ -35,6 +35,7 @@
 #include <wx/sashwin.h>
 #include <wx/textctrl.h>
 #include <wx/settings.h>
+#include <wx/button.h>
 
 #include <wx/list.h>
 #include <stdarg.h>
