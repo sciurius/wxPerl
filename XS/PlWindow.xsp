@@ -1,0 +1,180 @@
+#############################################################################
+## Name:        XS/PlWIndow.xsp
+## Purpose:     XS++ for Wx::PlWindow
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     23/05/2004
+## RCS-ID:      $Id: PlWindow.xsp,v 1.1 2004/11/25 20:38:59 mbarbon Exp $
+## Copyright:   (c) 2004 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+## TODO:  Which (if any?) of these should be done also???
+##      Destroy
+##      DoCaptureMouse
+##      DoClientToScreen
+##      DoHitTest
+##      DoMoveWindow
+##      DoPopupMenu
+##      DoReleaseMouse
+##      DoScreenToClient
+##      DoSetToolTip
+##      Enable
+##      Fit
+##      GetCharHeight
+##      GetCharWidth
+##      GetClientAreaOrigin
+##      GetDefaultItem
+##      IsTopLevel
+##      SetBackgroundColour
+##      SetDefaultItem
+##      SetFocus
+##      SetFocusFromKbd
+##      SetForegroundColour
+##      SetSizeHints
+##      SetVirtualSizeHints
+##      Show
+
+%typemap{wxPlWindow*}{simple};
+
+%file{cpp/plwindow.h};
+%{
+
+#include "cpp/v_cback.h"
+
+// ANY METH()
+#define DEC_V_CBACK_ANY__VOID_( RET, METHOD, CONST ) \
+    RET METHOD() CONST
+
+#define DEF_V_CBACK_ANY__VOID_( RET, CVT, CLASS, CALLBASE, METHOD, CONST )   \
+    RET CLASS::METHOD() CONST                                                \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )\
+        {                                                                    \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,    \
+                                             NULL  ) );                      \
+            return CVT;                                                      \
+        } else                                                               \
+            CALLBASE;                                                        \
+    }
+
+// wxSize METH()
+#define DEC_V_CBACK_WXSIZE__VOID( METHOD ) \
+    DEC_V_CBACK_ANY__VOID_( wxSize, METHOD, wxPli_NOCONST )
+
+#define DEC_V_CBACK_WXSIZE__VOID_const( METHOD ) \
+    DEC_V_CBACK_ANY__VOID_( wxSize, METHOD, wxPli_CONST )
+
+#define DEF_V_CBACK_WXSIZE__VOID( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__VOID_( wxSize, wxPli_sv_2_wxsize( aTHX_ ret ), CLASS, return BASE::METHOD(), METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_WXSIZE__VOID_pure( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__VOID_( wxSize, wxPli_sv_2_wxsize( aTHX_ ret ), CLASS, return wxSize(), METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_WXSIZE__VOID_const( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__VOID_( wxSize, wxPli_sv_2_wxsize( aTHX_ ret ), CLASS, return BASE::METHOD(), METHOD, wxPli_CONST )
+
+
+
+class wxPlWindow : public wxWindow {
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlWindow );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPlWindow, "Wx::Window", true );
+    WXPLI_CONSTRUCTOR_6( wxPlWindow, "Wx::Window", true,
+                         wxWindow*, wxWindowID, const wxPoint&,
+                         const wxSize&, long, const wxString& );
+
+    virtual ~wxPlWindow();
+
+    wxSize base_DoGetBestSize() const { return wxWindow::DoGetBestSize(); }
+
+    DEC_V_CBACK_WXSIZE__VOID_const( DoGetBestSize );
+    DEC_V_CBACK_BOOL__VOID_const( AcceptsFocus );
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    DEC_V_CBACK_WXSIZE__VOID_const( GetMinSize );
+    DEC_V_CBACK_WXSIZE__VOID_const( GetMaxSize );
+#endif
+};
+
+DEF_V_CBACK_WXSIZE__VOID_const( wxPlWindow, wxWindow, DoGetBestSize );
+DEF_V_CBACK_BOOL__VOID_const( wxPlWindow, wxWindow, AcceptsFocus );
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+DEF_V_CBACK_WXSIZE__VOID_const( wxPlWindow, wxWindow, GetMinSize );
+DEF_V_CBACK_WXSIZE__VOID_const( wxPlWindow, wxWindow, GetMaxSize );
+#endif
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlWindow, wxWindow );
+
+wxPlWindow::~wxPlWindow()
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "DoDestroy" ) )
+    {
+        // Call DoDestroy if it exists
+        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, 0, "" );
+    }
+}
+
+%}
+%file{-};
+
+#include "cpp/plwindow.h"
+
+%{
+#define GetMaxSize wxWindow::GetMaxSize
+#define GetMinSize wxWindow::GetMinSize
+#define AcceptsFocus wxWindow::AcceptsFocus
+%}
+
+%name{Wx::PlWindow} class wxPlWindow {
+    %name{newDefault} wxPlWindow()
+        %code{% RETVAL = new wxPlWindow( CLASS );
+                // wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxPlWindow(wxWindow *parent,
+                              wxWindowID id,
+                              const wxPoint& pos = wxDefaultPosition,
+                              const wxSize& size = wxDefaultSize,
+                              long style = 0,
+                              const wxString& name = wxEmptyString)
+        %code{% RETVAL = new wxPlWindow( CLASS, parent, id, pos, size,
+                                         style, name );
+                // wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create(wxWindow *parent,
+                wxWindowID id,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = 0,
+                const wxString& name = wxEmptyString);
+
+    %name{DoGetBestSize} wxSize base_DoGetBestSize() const;
+    bool AcceptsFocus() const;
+
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+    wxSize GetMaxSize() const;
+    wxSize GetMinSize() const;
+#endif
+};
+
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::Listbook::new" )
+%}
+
+%{
+#undef GetMaxSize
+#undef GetMinSize
+#undef AcceptsFocus
+%}

@@ -193,6 +193,7 @@ XS/Notebook.xs
 XS/Palette.xs
 XS/Panel.xs
 XS/Pen.xs
+XS/PlWindow.xsp
 XS/Process.xs
 XS/ProgressDialog.xs
 XS/RadioBox.xs

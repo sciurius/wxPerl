@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.52 2004/08/04 20:13:45 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.53 2004/11/25 20:39:02 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1034,6 +1034,8 @@ wxWindow::WarpPointer( x, y )
     int y
 
 INCLUDE: XS/Accelerators.xs
+
+INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/PlWindow.xsp |
 
 INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/SplitterWindow.xs |
 
