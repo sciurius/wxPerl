@@ -20,6 +20,7 @@ use ExtUtils::MakeMaker;
 use vars qw($debug_mode $unicode_mode $extra_libs $extra_cflags
             $use_shared $use_dllexport $o_help $o_mksymlinks
             $subdirs $o_static @extra_dirs);
+$use_shared = 1;
 use vars qw($Arch);
 use Getopt::Long;
 Getopt::Long::Configure( 'pass_through' );
