@@ -30,6 +30,8 @@ newBitmap( cls, parent, id, bitmap, pos = wxDefaultPosition, size = wxDefaultSiz
   OUTPUT:
     RETVAL
 
+#if !defined(__WXUNIVERSAL__) || defined(__WXPERL_FORCE__)
+
 Wx_StaticBitmap*
 newIcon( cls, parent, id, icon, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxStaticBitmapNameStr )
     SV* cls
@@ -48,6 +50,8 @@ newIcon( cls, parent, id, icon, pos = wxDefaultPosition, size = wxDefaultSize, s
   OUTPUT:
     RETVAL
 
+#endif
+
 Wx_Bitmap*
 Wx_StaticBitmap::GetBitmap()
   CODE:
@@ -61,6 +65,8 @@ Wx_StaticBitmap::SetBitmap( bitmap )
   CODE:
     THIS->SetBitmap( *bitmap );
 
+#if !defined(__WXUNIVERSAL__) || defined(__WXPERL_FORCE__)
+
 Wx_Icon*
 Wx_StaticBitmap::GetIcon()
   CODE:
@@ -73,3 +79,5 @@ Wx_StaticBitmap::SetIcon( icon )
     Wx_Icon* icon
   CODE:
     THIS->SetIcon( *icon );
+
+#endif

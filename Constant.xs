@@ -191,7 +191,7 @@ static double constant( const char *name, int arg )
     r( wxCLIP_CHILDREN );               // window
     r( wxCHOICEDLG_STYLE );
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
-    r( wxCHANGE_DIR );
+    r( wxCHANGE_DIR );                  // filedlg
     r( wxCLIP_SIBLINGS );               // window
 #endif
 
@@ -1465,6 +1465,13 @@ void SetConstants()
     sv_setiv( tmp, 2 );
 #else
     sv_setiv( tmp, 3 );
+#endif
+
+    tmp = get_sv( "Wx::_universal", 0 );
+#if defined(__WXUNIVERSAL__)
+    sv_setiv( tmp, 1 );
+#else
+    sv_setiv( tmp, 0 );
 #endif
 }
 

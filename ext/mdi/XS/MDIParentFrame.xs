@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#if wxPERL_USE_MDI_ARCHITECTURE
+
 #include <wx/menu.h>
 #include "cpp/mdi.h"
 
@@ -61,3 +63,5 @@ Wx_MDIParentFrame::SetWindowMenu( menu )
 
 void
 Wx_MDIParentFrame::Tile()
+
+#endif

@@ -15,12 +15,15 @@
 #include <wx/defs.h>
 
 #include <wx/window.h>
-#include <wx/tooltip.h>
 #include <wx/layout.h>
 #include <stdarg.h>
 
 #include "cpp/compat.h"
 #include "cpp/chkconfig.h"
+
+#if wxPERL_USE_TOOLTIPS
+#include <wx/tooltip.h>
+#endif
 
 WXPL_EXTERN_C_START
 #include <EXTERN.h>
@@ -382,7 +385,7 @@ Wx_Window::GetTextExtent( string, font = 0 )
 wxString
 Wx_Window::GetTitle()
 
-#if !defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
+#if wxPERL_USE_TOOLTIPS
 
 Wx_ToolTip*
 Wx_Window::GetToolTip()
@@ -718,7 +721,7 @@ void
 Wx_Window::SetTitle( title )
     wxString title
 
-#if !defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
+#if wxPERL_USE_TOOLTIPS
 
 void
 Wx_Window::SetToolTipTip( tooltip )

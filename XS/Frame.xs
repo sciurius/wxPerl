@@ -11,9 +11,10 @@
 #############################################################################
 
 #include <wx/frame.h>
-#include <wx/minifram.h>
 #include <wx/menu.h>
-
+#if wxPERL_USE_MINIFRAME
+#include <wx/minifram.h>
+#endif
 #include "cpp/frame.h"
 
 MODULE=Wx PACKAGE=Wx::Frame
@@ -139,6 +140,8 @@ Wx_Frame::ShowFullScreen( show, style = wxFULLSCREEN_ALL )
 
 MODULE=Wx PACKAGE=Wx::MiniFrame
 
+#if wxPERL_USE_MINIFRAME
+
 Wx_MiniFrame*
 Wx_MiniFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr )
     Wx_Window* parent
@@ -153,3 +156,5 @@ Wx_MiniFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultS
         style, name );
   OUTPUT:
     RETVAL
+
+#endif

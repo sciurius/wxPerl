@@ -92,8 +92,9 @@ Wx_RadioBox::SetItemLabel( n, label )
     int n
     wxString label
   CODE:
-#if ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && !defined(__WXGTK__) ) \
-    || defined( __WXPERL_FORCE__ )
+#if ( WXPERL_W_VERSION_GE( 2, 3, 2 ) && \
+    ( !defined(__WXGTK__) || defined(__WXUNIVERSAL__) ) ) || \
+    defined( __WXPERL_FORCE__ )
     THIS->SetString( n, label );
 #else
     THIS->SetLabel( n, label );

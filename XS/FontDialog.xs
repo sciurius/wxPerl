@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#if wxPERL_USE_FONTDLG
+
 #include <wx/fontdlg.h>
 
 MODULE=Wx PACKAGE=Wx::FontData
@@ -97,3 +99,19 @@ Wx_FontDialog::GetFontData()
   OUTPUT:
     RETVAL
 
+MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+Wx_Font*
+wxGetFontFromUser( parent = 0, fontInit = (wxFont*)&wxNullFont )
+    Wx_Window* parent
+    Wx_Font* fontInit
+  CODE:
+    RETVAL = new wxFont( wxGetFontFromUser( parent, *fontInit ) );
+  OUTPUT:
+    RETVAL
+
+#endif
+
+#endif

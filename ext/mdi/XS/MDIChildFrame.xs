@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#if wxPERL_USE_MDI_ARCHITECTURE
+
 #include "cpp/mdi.h"
 
 MODULE=Wx PACKAGE=Wx::MDIChildFrame
@@ -41,3 +43,5 @@ Wx_MDIChildFrame::Maximize()
 
 void
 Wx_MDIChildFrame::Restore()
+
+#endif

@@ -38,12 +38,16 @@ Wx_Choice::new( parent, id, pos, size, choices, style = 0, validator = (wxValida
 void
 Wx_Choice::Clear()
 
+#if !defined(__WXUNIVERSAL__)
+
 int
 Wx_Choice::GetColumns()
 
 void
 Wx_Choice::SetColumns( n = 1 )
     int n
+
+#endif
 
 void
 Wx_Choice::SetSelection( n )

@@ -6,25 +6,36 @@
 BEGIN { print "1..1\n"; }
 
 use strict;
+use lib 'build';
 use Wx;
+use Tests_Helper qw(test_frame);
+
+test_frame( 'MyFrame' );
+
+package MyFrame;
+
+use base 'Wx::Frame';
 use Wx::Event qw(EVT_BUTTON);
 
-my $frame = Wx::Frame->new( undef, -1, 'Test' );
-my $button = Wx::Button->new( $frame, -1, 'Button' );
+sub new {
+  my $class = shift;
+  my $this = $class->SUPER::new( undef, -1, 'Test' );
 
-my $var = 'not ok';
+  my $button = Wx::Button->new( $this, -1, 'Button' );
 
-EVT_BUTTON( $frame, $button, sub { $var = 'ok' } );
+  my $var = 'not ok';
 
-my $event = Wx::CommandEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED, $button->GetId() );
+  EVT_BUTTON( $this, $button, sub { $var = 'ok' } );
 
-$button->GetEventHandler->ProcessEvent( $event );
+  my $event = Wx::CommandEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
+                                     $button->GetId() );
 
-print $var;
+  $button->GetEventHandler->ProcessEvent( $event );
 
-$frame->Destroy;
+  print $var, "\n";
 
-exit 0;
+  $this->Destroy;
+}
 
 # Local variables: #
 # mode: cperl #

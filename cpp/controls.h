@@ -121,10 +121,12 @@ public:
                          wxWindow*, wxWindowID, const wxBitmap&,
                          const wxPoint&, const wxSize&, long,
                          const wxString& );
+#if !defined(__WXUNIVERSAL__)
     WXPLI_CONSTRUCTOR_7( wxPliStaticBitmap, "Wx::StaticBitmap", TRUE,
                          wxWindow*, wxWindowID, const wxIcon&,
                          const wxPoint&, const wxSize&, long,
                          const wxString& );
+#endif
 };
 
 

@@ -32,7 +32,6 @@ package Wx::Choice;                     @ISA = qw(Wx::ControlWithItems);
 package Wx::ListBox;                    @ISA = qw(Wx::ControlWithItems);
 package Wx::Notebook;                   @ISA = qw(Wx::Control);
 package Wx::ToolBarBase;                @ISA = qw(Wx::Control);
-package Wx::ToolBar;                    @ISA = qw(Wx::ToolBarBase);
 package Wx::ToolBarSimple;              @ISA = qw(Wx::Control);
 package Wx::ToolBarToolBase;
 package Wx::StaticBitmap;               @ISA = qw(Wx::Control);
@@ -252,6 +251,12 @@ package Wx::PlValidator;
 
 # avoids a 'Attempt to free unreferenced scalar' warning
 sub DESTROY {print $_[0],"\n"}
+
+no strict;
+
+package Wx::ToolBar;
+
+@ISA = wxUNIVERSAL ? qw(Wx::ToolBarSimple) : qw(Wx::ToolBarBase);
 
 1;
 

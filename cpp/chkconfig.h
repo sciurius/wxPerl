@@ -11,7 +11,9 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-#if 1
+#include <wx/setup.h>
+
+#if 0
 #define wxPERL_USE_PRINTING_ARCHITECTURE 1
 #define wxPERL_USE_MDI_ARCHITECTURE 1
 #define wxPERL_USE_SNGLINST_CHECKER 1
@@ -30,43 +32,73 @@
 // SCROLLBAR, SLIDER, SPINBTN, SPINCTRL, STATBOX, STATLINE,
 // STATTEXT, STATBMP, TEXTCTRL, TOGGLEBTN, TREECTRL
 // STATUSBAR, TOOLBAR, TOOLBAR_SIMPLE, NOTEBOOK, GRID, ACCEL
-// CARET, IMAGLIST, MENUS, SASH, SPLITTER, TOOLTIPS, VALIDATORS,
+// CARET, IMAGLIST, MENUS, SASH, SPLITTER, VALIDATORS,
 // BUSYINFO, CHOICEDLG, COLOURDLG, DIRDLG, FILEDLG, FINDREPLDLG
-// FONTDLG, MSGDLG, PROGRESSDLG, STARTUP_TIPS, TEXTDLG, NUMBERDLG,
+// MSGDLG, PROGRESSDLG, STARTUP_TIPS, TEXTDLG, NUMBERDLG,
 // SPLASH, WIZARDDLG, HTML, CLIPBOARD, DATAOBJ, HELP,
 // WXHTML_HELP, RESOURCES, CONSTRAINTS, MOUSEWHEEL, IMAGE,
 // LIBPNG, LIBJPEG, LIBTIFF, GIF, PNM, PCX, XPM, PALETTE
 
-#if wxUSE_MDI_ARCHITECTURE
-#   ifndef wxPERL_USE_MDI_ARCHITECTURE
-#       define wxPERL_USE_MDI_ARCHITECTURE 1
+#ifdef wxPERL_USE_TOOLTIPS
+#   if wxPERL_USE_TOOLTIPS && !wxUSE_TOOLTIPS
+#       error "Recompile wxWindows with wxUSE_TOOLTIPS"
 #   endif
-#elif wxPERL_USE_MDI_ARCHITECTURE
-#   error "Recompile wxWindows with wxUSE_MDI_ARCHITECTURE"
+#else
+#   define wxPERL_USE_TOOLTIPS wxUSE_TOOLTIPS
 #endif
 
-#if wxUSE_PRINTING_ARCHITECTURE
-#   ifndef wxPERL_USE_PRINTING_ARCHITECTURE
-#       define wxPERL_USE_PRINTING_ARCHITECTURE 1
+#ifdef wxPERL_USE_FONTDLG
+#   if wxPERL_USE_FONTDLG && !wxUSE_FONTDLG
+#       error "Recompile wxWindows with wxUSE_FONTDLG"
 #   endif
-#elif wxPERL_USE_PRINTING_ARCHITECTURE
-#   error "Recompile wxWindows with wxUSE_PRINTING_ARCHITECTURE"
+#else
+#   define wxPERL_USE_FONTDLG wxUSE_FONTDLG
 #endif
 
-#if wxUSE_DRAG_AND_DROP
-#   ifndef wxPERL_USE_DRAG_AND_DROP
-#       define wxPERL_USE_DRAG_AND_DROP 1
+#ifdef wxPERL_USE_IFF
+#   if wxPERL_USE_IFF && !wxUSE_IFF
+#       error "Recompile wxWindows with wxUSE_IFF"
 #   endif
-#elif wxPERL_USE_DRAG_AND_DROP
-#   error "Recompile wxWindows with wxUSE_DRAG_AND_DROP"
+#else
+#   define wxPERL_USE_IFF wxUSE_IFF
 #endif
 
-#if wxUSE_MS_HTML_HELP
-#   ifndef wxPERL_USE_MS_HTML_HELP
-#       define wxPERL_USE_MS_HTML_HELP 1
+#ifdef __WXUNIVERSAL__
+#   define wxPERL_USE_MINIFRAME 0
+#else
+#   define wxPERL_USE_MINIFRAME 1
+#endif
+
+#ifdef wxPERL_USE_MDI_ARCHITECTURE
+#   if wxPERL_USE_MDI_ARCHITECTURE && !wxUSE_MDI_ARCHITECTURE
+#       error "Recompile wxWindows with wxUSE_MDI_ARCHITECTURE"
 #   endif
-#elif wxPERL_USE_MS_HTML_HELP
-#   error "Recompile wxWindows with wxUSE_MS_HTML_HELP"
+#else
+#   define wxPERL_USE_MDI_ARCHITECTURE wxUSE_MDI_ARCHITECTURE
+#endif
+
+#ifdef wxPERL_USE_PRINTING_ARCHITECTURE
+#   if wxPERL_USE_PRINTING_ARCHITECTURE && !wxUSE_PRINTING_ARCHITECTURE
+#       error "Recompile wxWindows with wxUSE_PRINTING_ARCHITECTURE"
+#   endif
+#else
+#   define wxPERL_USE_PRINTING_ARCHITECTURE wxUSE_PRINTING_ARCHITECTURE
+#endif
+
+#ifdef wxPERL_USE_DRAG_AND_DROP
+#   if wxPERL_USE_DRAG_AND_DROP && !wxUSE_DRAG_AND_DROP
+#       error "Recompile wxWindows with wxUSE_DRAG_AND_DROP"
+#   endif
+#else
+#   define wxPERL_USE_DRAG_AND_DROP wxUSE_DRAG_AND_DROP
+#endif
+
+#ifdef wxPERL_USE_MS_HTML_HELP
+#   if wxPERL_USE_MS_HTML_HELP && !wxUSE_MS_HTML_HELP
+#       error "Recompile wxWindows with wxUSE_MS_HTML_HELP"
+#   endif
+#else
+#   define wxPERL_USE_MS_HTML_HELP wxUSE_MS_HTML_HELP
 #endif
 
 // 2.3 specific checks
@@ -75,30 +107,30 @@
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
-#if wxUSE_SNGLINST_CHECKER
-#   ifndef wxPERL_USE_SNGLINST_CHECKER
-#       define wxPERL_USE_SNGLINST_CHECKER 1
+#ifdef wxPERL_USE_SNGLINST_CHECKER
+#   if wxPERL_USE_SNGLINST_CHECKER && !wxUSE_SNGLINST_CHECKER
+#       error "Recompile wxWindows with wxUSE_SNGLINST_CHECKER"
 #   endif
-#elif wxPERL_USE_SNGLINST_CHECKER
-#   error "Recompile wxWindows with wxUSE_SNGLINST_CHECKER"
+#else
+#   define wxPERL_USE_SNGLINST_CHECKER wxUSE_SNGLINST_CHECKER
 #endif
 
-#if wxUSE_TOGGLEBTN
-#   ifndef wxPERL_USE_TOGGLEBTN
-#       define wxPERL_USE_TOGGLEBTN 1
+#ifdef wxPERL_USE_TOGGLEBTN
+#   if wxPERL_USE_TOGGLEBTN && !wxUSE_TOGGLEBTN
+#       error "Recompile wxWindows with wxUSE_TOGGLEBTN"
 #   endif
-#elif wxPERL_USE_TOGGLEBTN
-#   error "Recompile wxWindows with wxUSE_TOGGLEBTN"
+#else
+#   define wxPERL_USE_TOGGLEBTN wxUSE_TOGGLEBTN
 #endif
 
 // 2.3.2
 
-#if wxUSE_MS_HTML_HELP && wxUSE_WXHTML_HELP
-#   ifndef wxPERL_USE_BESTHELP
-#       define wxPERL_USE_BESTHELP 1
+#ifdef wxPERL_USE_BESTHELP
+#   if wxPERL_USE_BESTHELP && !( wxUSE_MS_HTML_HELP && wxUSE_WXHTML_HELP )
+#       error "Recompile wxWindows with wxUSE_MS_HTML_HELP and wxUSE_WXHTML_HELP"
 #   endif
-#elif wxPERL_USE_BESTHELP
-#   error "Recompile wxWindows with wxUSE__MS_HTML_HELP and wxUSE_WXHTML_HELP"
+#else
+#   define wxPERL_USE_BESTHELP ( wxUSE_MS_HTML_HELP && wxUSE_WXHTML_HELP )
 #endif
 
 #endif    

@@ -10,11 +10,11 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#if wxPERL_USE_TOOLTIPS
+
 #include <wx/tooltip.h>
 
 MODULE=Wx PACKAGE=Wx::ToolTip
-
-#if !defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
 
 void
 Enable( enable )

@@ -165,7 +165,7 @@ FD_TD( FlexGridSizer );
 FD_TD( Font );
 FD_TD( FontData );
 
-#if defined( __WXMOTIF__ ) || defined( __WXMAC__ )
+#if defined( __WXMOTIF__ ) || defined( __WXMAC__ ) || defined(__WXUNIVERSAL__)
 FD_TD_NAME( FontDialog, GenericFontDialog );
 #else
 FD_TD( FontDialog );
@@ -269,6 +269,7 @@ FD_TD( GIFHandler );
 FD_TD( JPEGHandler );
 FD_TD( TIFFHandler );
 FD_TD( XPMHandler );
+FD_TD( IFFHandler );
 
 FD_TD( StreamBase );
 FD_TD( InputStream );
