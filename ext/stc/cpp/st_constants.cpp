@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.11 2004/02/14 14:27:04 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.12 2004/03/14 13:47:10 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -200,6 +200,21 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CMD_WORDPARTRIGHTEXTEND );
         r( wxSTC_CMD_DELLINELEFT );
         r( wxSTC_CMD_DELLINERIGHT );
+        r( wxSTC_CSS_DEFAULT );
+        r( wxSTC_CSS_TAG );
+        r( wxSTC_CSS_CLASS );
+        r( wxSTC_CSS_PSEUDOCLASS );
+        r( wxSTC_CSS_UNKNOWN_PSEUDOCLASS );
+        r( wxSTC_CSS_OPERATOR );
+        r( wxSTC_CSS_IDENTIFIER );
+        r( wxSTC_CSS_UNKNOWN_IDENTIFIER );
+        r( wxSTC_CSS_VALUE );
+        r( wxSTC_CSS_COMMENT );
+        r( wxSTC_CSS_ID );
+        r( wxSTC_CSS_IMPORTANT );
+        r( wxSTC_CSS_DIRECTIVE );
+        r( wxSTC_CSS_DOUBLESTRING );
+        r( wxSTC_CSS_SINGLESTRING );
         break;
     case 'D':
         r( wxSTC_DIFF_DEFAULT );
@@ -395,6 +410,7 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_KEY_DIVIDE );
         break;
     case 'L':
+        r( wxSTC_LEX_CSS );
         r( wxSTC_LEX_PERL );
         r( wxSTC_LEX_XML );
         r( wxSTC_LEX_HTML );
