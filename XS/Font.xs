@@ -10,6 +10,24 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+MODULE=Wx PACKAGE=Wx::NativeFontInfo
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+#include <wx/fontutil.h>
+
+void
+Wx_NativeFontInfo::DESTROY()
+
+bool
+Wx_NativeFontInfo::FromString( string )
+    wxString string
+
+wxString
+Wx_NativeFontInfo::ToString()
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::Font
 
 Wx_Font*
@@ -45,6 +63,16 @@ Wx_Font::GetFontId()
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_NativeFontInfo*
+Wx_Font::GetNativeFontInfo()
+
+wxString
+Wx_Font::GetNativeFontInfoDesc()
+
+#endif
+
 int
 Wx_Font::GetPointSize()
 
@@ -70,6 +98,16 @@ Wx_Font::SetFaceName( faceName )
 void
 Wx_Font::SetFamily( family )
     int family
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+void
+Wx_Font::SetNativeFontInfo( info )
+    Wx_NativeFontInfo* info
+  CODE:
+    THIS->SetNativeFontInfo( *info );
+
+#endif
 
 void
 Wx_Font::SetPointSize( pointsize )
