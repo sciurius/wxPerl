@@ -34,6 +34,7 @@ package Wx::ListBox;      @ISA = qw(Wx::ControlWithItems);
 package Wx::Notebook;     @ISA = qw(Wx::Control);
 package Wx::ToolBarBase;  @ISA = qw(Wx::Control);
 package Wx::ToolBar;      @ISA = qw(Wx::ToolBarBase);
+package Wx::ToolBarSimple;@ISA = qw(Wx::Control);
 package Wx::ToolBarToolBase;
 package Wx::StaticBitmap; @ISA = qw(Wx::Control);
 package Wx::Gauge;        @ISA = qw(Wx::Control);
@@ -54,6 +55,7 @@ package Wx::DirDialog;    @ISA = qw(Wx::Dialog);
 package Wx::FileDialog;   @ISA = qw(Wx::Dialog);
 package Wx::TextEntryDialog; @ISA = qw(Wx::Dialog);
 package Wx::MessageDialog; @ISA = qw(Wx::Dialog);
+package Wx::ProgressDialog;@ISA = qw(Wx::Dialog);
 
 package Wx::Validator;    @ISA = qw(Wx::EvtHandler);
 package Wx::TextValidator;@ISA = qw(Wx::Validator);
@@ -102,7 +104,7 @@ package Wx::MemoryDC;
 
 use vars qw(@ISA);
 
-if( $Wx::_platform == $Wx::_gtk ) {
+if( $Wx::_platform == $Wx::_gtk || $Wx::_platform == $Wx::_motif ) {
   @ISA = qw(Wx::WindowDC);
 }
 else {

@@ -230,8 +230,8 @@ sub Draw {
   $dc->DrawRoundedRectangle( 150, 150, 100, 50, 20 );
 
   $dc->DrawEllipse( 250, 250, 100, 50 );
-  $dc->DrawSpline( wxPOINT(50, 200 ), wxPOINT( 50, 100 ),
-                   wxPOINT( 200, 10 ) );
+  $dc->DrawSpline( [ wxPOINT(50, 200 ), [ 50, 100 ],
+                   wxPOINT( 200, 10 ) ] );
 
   $dc->DrawLine( 50, 230, 200, 230 );
   $dc->SetPen( wxBLACK_PEN );
