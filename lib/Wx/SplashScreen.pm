@@ -32,32 +32,39 @@ package Wx::_SplashScreenPerl;
 use strict;
 use vars qw(@ISA); @ISA = qw(Wx::Frame);
 
-use Wx qw(wxSIMPLE_BORDER wxFRAME_FLOAT_ON_PARENT wxDefaultPosition wxDefaultSize);
+use Wx qw(wxSIMPLE_BORDER wxFRAME_FLOAT_ON_PARENT wxFRAME_TOOL_WINDOW
+          wxDefaultPosition wxDefaultSize);
 use Wx::Event qw(EVT_CLOSE EVT_TIMER);
 
 use Wx qw(:splashscreen);
 
 sub new {
   my $class = shift;
-  my $this = $class->SUPER::new( $_[3], $_[4] || -1, '', $_[5] || wxDefaultPosition,
+  my $this = $class->SUPER::new( $_[3], $_[4] || -1, '',
+                                 $_[5] || wxDefaultPosition,
                                  $_[6] || wxDefaultSize,
-                                 $_[7] || (wxFRAME_FLOAT_ON_PARENT|wxSIMPLE_BORDER) );
+                                 $_[7] ||
+                                 (wxSIMPLE_BORDER|wxFRAME_TOOL_WINDOW) );
 
-  @{$this}{qw(BITMAP STYLE MILLISECONDS)} = ( $_[0], $_[1] || 0, $_[2] || 1000 );
+  @{$this}{qw(BITMAP STYLE MILLISECONDS)} = ( $_[0], $_[1] || 0,
+                                              $_[2] || 1000 );
   $this->{TIMER} = Wx::Timer->new( $this, -1 );
 
   my $bitmap = $this->{BITMAP};
   my $style = $this->{STYLE};
 
   my $sbmp = Wx::_SplashScreenPerlWindow->new( $this, -1, $bitmap, [0,0],
-                                               [$bitmap->GetWidth, $bitmap->GetHeight] );
+                                               [$bitmap->GetWidth,
+                                                $bitmap->GetHeight] );
 
   $this->SetClientSize( $bitmap->GetWidth, $bitmap->GetHeight );
 
   if( $style & wxSPLASH_CENTRE_ON_PARENT ) { $this->CentreOnParent }
   if( $style & wxSPLASH_CENTRE_ON_SCREEN ) { $this->CentreOnScreen }
 
-  if( $style & wxSPLASH_TIMEOUT ) { $this->{TIMER}->Start( $this->{MILLISECONDS}, 1 ) }
+  if( $style & wxSPLASH_TIMEOUT ) {
+    $this->{TIMER}->Start( $this->{MILLISECONDS}, 1 );
+  }
 
   EVT_CLOSE( $this, \&OnCloseWindow );
   EVT_TIMER( $this, -1, \&OnTimer );
