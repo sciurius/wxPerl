@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.17
+
 0.16  Mon Aug 25 00:26:44 CEST 2003
 	- Added Wx::PlGridCellEditor and Wx::PlGridCellRenderer
 	  for custom Wx::Grid cell editing/displaying.
