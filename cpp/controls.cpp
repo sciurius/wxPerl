@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: controls.cpp,v 1.26 2003/05/26 20:33:05 mbarbon Exp $
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -13,12 +13,10 @@
 #include "cpp/constants.h"
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliBitmapButton, wxBitmapButton );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliButton, wxButton );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckBox, wxCheckBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliCheckListBox, wxCheckListBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliChoice, wxChoice );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliComboBox, wxComboBox );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListBox, wxListBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliListView, wxListView );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliNotebook, wxNotebook );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliRadioBox, wxRadioBox );
@@ -28,7 +26,6 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSpinButton, wxSpinButton );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliSpinCtrl, wxSpinCtrl );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticBitmap, wxStaticBitmap );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticBox, wxStaticBox );
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticLine, wxStaticLine );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticText, wxStaticText );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTextCtrl, wxTextCtrl );
 

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.53 2003/05/05 20:38:41 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.54 2003/05/26 20:33:05 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -18,8 +18,10 @@
 #include <wx/gdicmn.h>
 
 // forward declare Wx_*Stream
-class wxInputStream;
-class wxOutputStream;
+class WXDLLEXPORT wxInputStream;
+class WXDLLEXPORT wxOutputStream;
+class WXDLLEXPORT wxEvtHandler;
+class WXDLLEXPORT wxClientDataContainer;
 typedef wxInputStream Wx_InputStream;
 typedef wxOutputStream Wx_OutputStream;
 
@@ -135,10 +137,13 @@ void wxPli_push_args( pTHX_ SV*** stack, const char* argtypes, va_list &list );
 
 void* FUNCPTR( wxPli_sv_2_object )( pTHX_ SV* scalar, const char* classname );
 SV* FUNCPTR( wxPli_object_2_sv )( pTHX_ SV* var, wxObject* object );
+SV* FUNCPTR( wxPli_evthandler_2_sv )( pTHX_ SV* var, wxEvtHandler* evth );
 SV* FUNCPTR( wxPli_non_object_2_sv )( pTHX_ SV* var, void* data,
                                       const char* package );
 
 SV* FUNCPTR( wxPli_make_object )( void* object, const char* cname );
+SV* FUNCPTR( wxPli_create_evthandler )( pTHX_ wxEvtHandler* object,
+                                        const char* classn );
 
 bool FUNCPTR( wxPli_object_is_deleteable )( pTHX_ SV* object );
 void FUNCPTR( wxPli_object_set_deleteable )( pTHX_ SV* object,
@@ -233,6 +238,7 @@ xs(boot_##name) \
 struct wxPliHelpers
 {
     void* ( * m_wxPli_sv_2_object )( pTHX_ SV*, const char* );
+    SV* ( * m_wxPli_evthandler_2_sv )( pTHX_ SV* var, wxEvtHandler* evth );
     SV* ( * m_wxPli_object_2_sv )( pTHX_ SV*, wxObject* );
     SV* ( * m_wxPli_non_object_2_sv )( pTHX_ SV* , void*, const char* );
     SV* ( * m_wxPli_make_object )( void*, const char* );
@@ -265,10 +271,13 @@ struct wxPliHelpers
                                        const char* argtypes, ... );
     void ( * m_wxPli_attach_object )( pTHX_ SV* object, void* ptr );
     void* ( * m_wxPli_detach_object )( pTHX_ SV* object );
+    SV* ( * m_wxPli_create_evthandler )( pTHX_ wxEvtHandler* object,
+                                         const char* cln );
 };
 
 #define DEFINE_PLI_HELPERS( name ) \
-wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
+wxPliHelpers name = { &wxPli_sv_2_object, \
+ &wxPli_evthandler_2_sv, &wxPli_object_2_sv, \
  &wxPli_non_object_2_sv, &wxPli_make_object, &wxPli_sv_2_wxpoint_test, \
  &wxPli_sv_2_wxpoint, \
  &wxPli_sv_2_wxsize, &wxPli_av_2_intarray, wxPli_stream_2_sv, \
@@ -277,7 +286,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPli_object_is_deleteable, &wxPli_object_set_deleteable, &wxPli_get_class, \
  &wxPli_get_wxwindowid, &wxPli_av_2_stringarray, &wxPliInputStream_ctor, \
  &wxPli_cpp_class_2_perl, &wxPli_push_arguments, &wxPli_attach_object, \
- &wxPli_detach_object };
+ &wxPli_detach_object, &wxPli_create_evthandler } \
 
 #if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
 
@@ -285,6 +294,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   SV* wxpli_tmp = get_sv( "Wx::_exports", 1 ); \
   wxPliHelpers* name = (wxPliHelpers*)(void*)SvIV( wxpli_tmp ); \
   wxPli_sv_2_object = name->m_wxPli_sv_2_object; \
+  wxPli_evthandler_2_sv = name->m_wxPli_evthandler_2_sv; \
   wxPli_object_2_sv = name->m_wxPli_object_2_sv; \
   wxPli_non_object_2_sv = name->m_wxPli_non_object_2_sv; \
   wxPli_make_object = name->m_wxPli_make_object; \
@@ -307,6 +317,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   wxPli_push_arguments = name->m_wxPli_push_arguments; \
   wxPli_attach_object = name->m_wxPli_attach_object; \
   wxPli_detach_object = name->m_wxPli_detach_object; \
+  wxPli_create_evthandler = name->m_wxPli_create_evthandler; \
 
 #else
 
@@ -323,9 +334,15 @@ class wxPliUserDataO : public wxObject
 {
 public:
     wxPliUserDataO( SV* data )
-        { dTHX; m_data = data ? newSVsv( data ) : 0; }
+    {
+        dTHX;
+        m_data = data ? newSVsv( data ) : NULL;
+    }
+
     ~wxPliUserDataO();
-public:
+
+    SV* GetData() { return m_data; }
+private:
     SV* m_data;
 };
 
@@ -541,7 +558,7 @@ typedef SV SV_null; // equal to SV except that maps C++ 0 <-> Perl undef
 
 #endif // __CPP_HELPERS_H
 
-#if defined( _WX_WINDOW_H_BASE_ ) || defined( _WX_CLNTDATAH__ )
+#if defined( _WX_CLNTDATAH__ )
 #ifndef __CPP_HELPERS_H_UDCD
 #define __CPP_HELPERS_H_UDCD
 
@@ -549,9 +566,15 @@ class wxPliUserDataCD : public wxClientData
 {
 public:
     wxPliUserDataCD( SV* data )
-        { dTHX; m_data = data ? newSVsv( data ) : 0; }
+    {
+        dTHX;
+        m_data = data ? newSVsv( data ) : NULL;
+    }
+
     ~wxPliUserDataCD();
-public:
+
+    SV* GetData() { return m_data; }
+private:
     SV* m_data;
 };
 
@@ -566,16 +589,22 @@ class wxPliTreeItemData:public wxTreeItemData
 {
 public:
     wxPliTreeItemData( SV* data )
-        { dTHX; m_data = data ? newSVsv( data ) : 0; }
+        : m_data( NULL )
+    {
+        SetData( data );
+    }
+
     ~wxPliTreeItemData()
-        { dTHX; if( m_data ) SvREFCNT_dec( m_data ); }
+    {
+        SetData( NULL );
+    }
 
     void SetData( SV* data )
     {
         dTHX;
         if( m_data )
             SvREFCNT_dec( m_data );
-        m_data = data ? newSVsv( data ) : 0;
+        m_data = data ? newSVsv( data ) : NULL;
     }
 public:
     SV* m_data;

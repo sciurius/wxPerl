@@ -12,6 +12,25 @@ be non-decreasing. wxPerl 0.15 value is 0150; wxPerl 1.00 value will be
 
 I<Introduced in wxPerl 0.15>
 
+=head2 wxPli_create_evthandler
+
+  SV* wxPli_create_evthandler( pTHX_ wxEvtHandler* object,
+                               const char* classname );
+
+Creates a new hash reference, blessed into C<classname>,
+and bindsC<object> to it.
+
+I<Introduced in wxPerl 0.16>
+
+=head2 wxPli_evthandler_2_sv
+
+  SV* wxPli_evthandler_2_sv( pTHX_ SV* var, wxEvtHandler* evth );
+
+Same as L<wxPli_object_2_sv>, but works with C<wxEvtHandler>-derived
+classes, which includes all C<wxWindow>-derived classes.
+
+I<Introduced in wxPerl 0.16>
+
 =head2 wxPli_non_object_2_sv
 
   SV* wxPli_non_object_2_sv( pTHX_ SV* var, void* data, const char* package );
@@ -27,7 +46,7 @@ I<Introduced before wxPerl 0.14>
 
 Binds a C<wxObject*> pointer to an C<SV*>, and returns it.  If the
 object is already bound to an C<SV*>, returns a reference to the
-existing C<SV*>, otherwise, it creates a new binding; in teh latter
+existing C<SV*>, otherwise, it creates a new binding; in the latter
 case, the new C<SV*> is blessed into a package obtained through the
 wxWindows RTTI system.
 
@@ -95,7 +114,7 @@ C<wxPli_non_object_2_sv> and push the result on the stack.
 
 I<Introduced before wxPerl 0.14>
 
-=item wxPli_sv_2_object
+=head2 wxPli_sv_2_object
 
   void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname );
 
@@ -105,7 +124,7 @@ and returns it.
 
 I<Introduced before wxPerl 0.14>
 
-=item wxPli_wxChar_2_sv
+=head2 wxPli_wxChar_2_sv
 
   SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out );
 
@@ -113,7 +132,7 @@ Stores a string into a C<SV*>, and returns the C<SV*>.
 
 I<Introduced before wxPerl 0.14>
 
-=item wxPli_wxString_2_sv
+=head2 wxPli_wxString_2_sv
 
   SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out );
 

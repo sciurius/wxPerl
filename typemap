@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.50 2003/05/11 20:04:23 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.51 2003/05/26 20:32:51 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -89,18 +89,16 @@ Wx_Dialog *             O_WXOBJECT
 wxDialog *              O_WXOBJECT
 Wx_Control *            O_WXOBJECT
 wxControl *             O_WXOBJECT
-Wx_Button *             O_WXOBJECT
-wxButton *              O_WXOBJECT
+wxButton *              O_WXEVTHANDLER
 Wx_StaticText *         O_WXOBJECT
 wxStaticText *          O_WXOBJECT
-Wx_StaticLine *         O_WXOBJECT
-wxStaticLine *          O_WXOBJECT
+wxStaticLine *          O_WXEVTHANDLER
 Wx_TextCtrl *           O_WXOBJECT
 wxTextCtrl *            O_WXOBJECT
 Wx_PlValidator *        O_WXOBJECT
 wxPlValidator *         O_WXOBJECT
 Wx_Validator *          O_WXOBJECT
-wxValidataor *          O_WXOBJECT
+wxValidator *           O_WXOBJECT
 Wx_CheckBox *           O_WXOBJECT
 wxChackBox *            O_WXOBJECT
 Wx_Choice *             O_WXOBJECT
@@ -109,8 +107,7 @@ Wx_ComboBox *           O_WXOBJECT
 wxComboBox *            O_WXOBJECT
 Wx_ControlWithItems *   O_WXOBJECT
 wxControlWithItems *    O_WXOBJECT
-Wx_ListBox *            O_WXOBJECT
-wxListBox *             O_WXOBJECT
+wxListBox *             O_WXEVTHANDLER
 Wx_StaticBox *          O_WXOBJECT
 wxStaticBox *           O_WXOBJECT
 Wx_RadioButton *        O_WXOBJECT
@@ -419,6 +416,9 @@ OUTPUT
 O_WXOBJECT
     wxPli_object_2_sv( aTHX_ $arg, $var );
 
+O_WXEVTHANDLER
+    wxPli_evthandler_2_sv( aTHX_ $arg, $var );
+
 O_NON_WXOBJECT
     wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
 
@@ -430,6 +430,9 @@ T_UV
 
 INPUT
 O_WXOBJECT
+    $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
+
+O_WXEVTHANDLER
     $var = ($type) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
 O_NON_WXOBJECT
@@ -473,11 +476,11 @@ O_USERDATAO
 
 OUTPUT
 O_USERDATACD
-    $arg = ( $var == 0 ) ? &PL_sv_undef : $var->m_data;
+    $arg = ( $var == 0 ) ? &PL_sv_undef : $var->GetData();
     SvREFCNT_inc( $arg ); // xsubpp mortalizes it...
 
 O_USERDATAO
-    $arg = ( $var == 0 ) ? &PL_sv_undef : $var->m_data;
+    $arg = ( $var == 0 ) ? &PL_sv_undef : $var->GetData();
     SvREFCNT_inc( $arg ); // xsubpp mortalizes it...
 
 #

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.21 2003/05/12 17:00:23 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.22 2003/05/26 20:32:51 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -16,8 +16,6 @@
 
 #include <wx/defs.h>
 
-#include <wx/button.h>
-#include <wx/listbox.h>
 #include <wx/radiobut.h>
 #include <wx/radiobox.h>
 #include <wx/choice.h>
@@ -35,7 +33,6 @@
 #include <wx/slider.h>
 #include <wx/spinbutt.h>
 #include <wx/spinctrl.h>
-#include <wx/statline.h>
 #include <wx/imaglist.h>
 #include <wx/listctrl.h>
 #include <wx/treectrl.h>

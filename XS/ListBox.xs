@@ -4,23 +4,25 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      8/11/2000
-## RCS-ID:      
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: ListBox.xs,v 1.7 2003/05/26 20:33:05 mbarbon Exp $
+## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 MODULE=Wx PACKAGE=Wx::ListBox
 
-Wx_ListBox*
-Wx_ListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
-    Wx_Window* parent
+#include <wx/listbox.h>
+
+wxListBox*
+wxListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+    wxWindow* parent
     wxWindowID id
-    Wx_Point pos
-    Wx_Size size
+    wxPoint pos
+    wxSize size
     SV* choices
     long style
-    Wx_Validator* validator
+    wxValidator* validator
     wxString name
   PREINIT:
     wxString* chs;
@@ -34,22 +36,23 @@ Wx_ListBox::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choi
         chs = 0;
     }
         
-    RETVAL = new wxPliListBox( CLASS, parent, id, pos, size, n, chs, 
+    RETVAL = new wxListBox( parent, id, pos, size, n, chs, 
         style, *validator, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
 
     delete[] chs;
   OUTPUT:
     RETVAL
 
 void
-Wx_ListBox::Clear()
+wxListBox::Clear()
 
 void
-Wx_ListBox::Deselect( n )
+wxListBox::Deselect( n )
     int n
 
 void
-Wx_ListBox::GetSelections()
+wxListBox::GetSelections()
   PREINIT:
     wxArrayInt selections;
     int i, n;
@@ -62,7 +65,7 @@ Wx_ListBox::GetSelections()
     }
 
 void
-Wx_ListBox::InsertItems( items, pos )
+wxListBox::InsertItems( items, pos )
     SV* items
     int pos
   PREINIT:
@@ -75,20 +78,20 @@ Wx_ListBox::InsertItems( items, pos )
     delete[] its;
 
 bool
-Wx_ListBox::Selected( n )
+wxListBox::Selected( n )
     int n
 
 void
-Wx_ListBox::SetString( n, string )
+wxListBox::SetString( n, string )
     int n
     wxString string
 
 void
-Wx_ListBox::SetSelection( n, select = TRUE )
+wxListBox::SetSelection( n, select = TRUE )
     int n
     bool select
 
 void
-Wx_ListBox::SetStringSelection( string, select = TRUE )
+wxListBox::SetStringSelection( string, select = TRUE )
     wxString string
     bool select
