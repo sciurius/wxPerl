@@ -198,12 +198,13 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
     dTHX;                                                                     \
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
     {                                                                         \
+        SV* n = newSVpvn( CHAR_P (const char*)param2, param1 );               \
         SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,       \
                                                      G_SCALAR,                \
-                               "s", newSVpvn( CHAR_P (const char*)param2,     \
-                                              param1 ) );                     \
+                               "s", n );                                      \
         bool val = SvTRUE( ret );                                             \
         SvREFCNT_dec( ret );                                                  \
+        SvREFCNT_dec( n );                                                    \
         return val;                                                           \
     } else                                                                    \
         return BASE::METHOD( param1, param2 );                                \
