@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/10/2000
-## RCS-ID:      $Id: Sizer.pm,v 1.10 2003/05/04 17:37:09 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.pm,v 1.11 2003/05/27 20:05:48 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -25,8 +25,6 @@ sub Add {
   Wx::_croak Wx::_ovl_error;
 }
 
-=cut
-
 sub Insert {
   my( $this ) = shift;
 
@@ -35,6 +33,8 @@ sub Insert {
   Wx::_match( @_, $Wx::_n_n_n_n_n_n_s, 3, 1 )  && ( $this->InsertSpace( @_ ), return );
   Wx::_croak Wx::_ovl_error;
 }
+
+=cut
 
 sub Prepend {
   my( $this ) = shift;

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.16 2003/05/11 20:04:49 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.17 2003/05/27 20:06:11 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -153,6 +153,15 @@ Wx_Sizer::GetMinSize()
     RETVAL = new wxSize( THIS->GetMinSize() );
   OUTPUT:
     RETVAL
+
+void
+wxSizer::Insert( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wwin_n_n_n_s, InsertWindow, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_wszr_n_n_n_s, InsertSizer, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_n_n_n_s, InsertSpace, 3 )
+    END_OVERLOAD( "Wx::Sizer::Insert" )
 
 void
 Wx_Sizer::InsertWindow( pos, window, option = 0, flag = 0, border = 0, data = 0 )
