@@ -10,8 +10,6 @@ BEGIN { test_inheritance_start() }
 use Wx::MDI;
 test_inheritance_end();
 
-exit 0;
-
 # Local variables: #
 # mode: cperl #
 # End: #

@@ -177,8 +177,6 @@ package main;
 
 test_frame( 'DataFrame' );
 
-exit 0;
-
 # Local variables: #
 # mode: cperl #
 # End: #

@@ -11,8 +11,6 @@ use Wx::DocView;
 use Wx::MDI;
 test_inheritance_end();
 
-exit 0;
-
 # Local variables: #
 # mode: cperl #
 # End: #

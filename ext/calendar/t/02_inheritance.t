@@ -10,8 +10,6 @@ BEGIN { test_inheritance_start() }
 use Wx::Calendar;
 test_inheritance_end();
 
-exit 0;
-
 # local variables:
 # mode: cperl
 # end:

@@ -8,8 +8,6 @@ use Wx::Calendar;
 
 print "ok\n";
 
-exit 0;
-
 # local variables:
 # mode: cperl
 # end:

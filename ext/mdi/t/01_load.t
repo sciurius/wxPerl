@@ -8,8 +8,6 @@ use Wx::MDI;
 
 print "ok\n";
 
-exit 0;
-
 # Local variables: #
 # mode: cperl #
 # End: #

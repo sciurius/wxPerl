@@ -6,9 +6,7 @@ use strict;
 use Wx;
 use Wx::DND;
 
-print "ok\n";
-
-exit 0;
+print "ok 1\n";
 
 # Local variables: #
 # mode: cperl #
