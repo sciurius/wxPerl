@@ -184,7 +184,6 @@ FD_TD( MultiChoiceDialog );
 FD_TDS( NativeFontInfo );
 FD_TD( Notebook );
 FD_TD( NotebookSizer );
-FD_TD( PageSetupDialog );
 FD_TD( PaintDC );
 FD_TD( Palette );
 FD_TD( Panel );
