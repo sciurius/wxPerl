@@ -34,7 +34,7 @@ class wxPlConstantsModule;
 WX_DECLARE_LIST( wxPlConstantsModule, wxPlConstantsModuleList );
 
 // implementation for OnInit/OnExit in Constants.xs
-class  WXPLDLL wxPlConstantsModule:public wxModule
+class WXPLDLL wxPlConstantsModule:public wxModule
 {
     DECLARE_DYNAMIC_CLASS( wxPlConstantsModule );
 public:
