@@ -127,6 +127,40 @@ void _push_args( SV*** psp, const char* argtypes, va_list& args )
     *psp = sp;
 }
 
+// this use of static is deprecated, but we need to
+// cope with C++ compilers
+static SV* _key;
+static U32 _hash;
+
+// precalculate key and hash value for "_WXTHIS"
+class wxHashModule:public wxModule {
+    DECLARE_DYNAMIC_CLASS( wxHashModule );
+public:
+    wxHashModule() {};
+
+    bool OnInit()
+    {
+        _key = newSVpv( "_WXTHIS", 7 );
+        _hash = 0;
+
+        HV* hv = newHV();
+        HE* he = hv_store_ent( hv, _key, _key, 0 );
+
+        if( he ) _hash = HeHASH( he );
+        hv_undef( hv );
+        SvREFCNT_dec( hv );
+
+        return true;
+    };
+
+    void OnExit()
+    {
+        SvREFCNT_dec( _key );
+    };
+};
+
+IMPLEMENT_DYNAMIC_CLASS( wxHashModule, wxModule );
+
 // gets 'this' pointer from a blessed scalar/hash reference
 void* _sv_2_object( SV* scalar, const char* classname ) 
 {
@@ -143,11 +177,11 @@ void* _sv_2_object( SV* scalar, const char* classname )
         if( SvTYPE( ref ) == SVt_PVHV ) 
         {
             HV* hv = (HV*) ref;
-            SV** value;
-            //FIXME// precalculate key/hash
-            if( ( value = hv_fetch( hv, "_WXTHIS", 7, 0 ) ) ) 
+            HE* value;
+
+            if( ( value = hv_fetch_ent( hv, _key, 0, _hash ) ) ) 
             {
-                return (void*)SvIV( *value );
+                return (void*)SvIV( HeVAL( value ) );
             }
             else 
             {
@@ -217,8 +251,10 @@ SV* _make_object( wxObject* object, const char* classname )
 
     stash = gv_stashpv( CHAR_P classname, 0 );
     value = newSViv( (IV) object );
-    if( !hv_store( hv, "_WXTHIS", 7, value, 0 ) )
+    if( !hv_store_ent( hv, _key, value, _hash ) ) {
+        SvREFCNT_dec( value );
         croak( "error storing '_WXTHIS' value" );
+    }
 
     return sv_bless( ret, stash );
 }
@@ -271,7 +307,7 @@ int _av_2_stringarray( SV* avref, wxString** array )
     for( i = 0; i < n; ++i )
     {
         t = *av_fetch( av, i, 0 );
-#if WXP_VERSION < 5006
+#if WXPERL_P_VERSION < 5006
         arr[i] = SvPV( t, PL_na );
 #else
         arr[i] = SvPV_nolen( t );
@@ -296,14 +332,14 @@ int _get_args_argc_argv( char*** argvp )
         int arg_num = av_len( args ) + 1;
 
         argv = new char* [arg_num + 1 + 1];
-#if WXP_VERSION < 5006
+#if WXPERL_P_VERSION < 5006
         argv[0] = SvPV( progname, PL_na );
 #else
         argv[0] = SvPV_nolen( progname );
 #endif
         for( i=0; i < arg_num; ++i )
         {
-#if WXP_VERSION < 5006
+#if WXPERL_P_VERSION < 5006
             argv[i + 1] = SvPV( *av_fetch( args, i, 0 ), PL_na );
 #else
             argv[i + 1] = SvPV_nolen( *av_fetch( args, i, 0 ) );
@@ -316,7 +352,7 @@ int _get_args_argc_argv( char*** argvp )
     {
         argc = 1;
         argv = new char* [2];
-#if WXP_VERSION < 5006
+#if WXPERL_P_VERSION < 5006
         argv[0] = SvPV( progname, PL_na );
 #else
         argv[0] = SvPV_nolen( progname );
@@ -338,7 +374,7 @@ const char* _get_class( SV* ref )
     }
     else
     {
-#if WXP_VERSION < 5006
+#if WXPERL_P_VERSION < 5006
         ret = SvPV( ref, PL_na );
 #else
         ret = SvPV_nolen( ref );
