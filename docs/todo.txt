@@ -7,27 +7,29 @@ PRIORITY HIGH:
 For 0.12
 
 * Overload resolution
-  rewrite _match in C++ and move all overload resolution
-  routines to XS -> eliminate most lib/Wx/*.pm files
+  move all overload resolution routines to XS
+     -> eliminate most lib/Wx/*.pm files
 
 * write out a "setup.h" with settings for STC, and use it in Wx.xs
 
 * resolve kludge in Any_wx_config.pm
 * store inheritance tree in a C++ file
 * store events in a C++ file and autogenerate them
+* try to have constants inlined where appropriate
 
 * EVT_FOO( ..., undef ) to disconnect event handlers
 
-* wxTipProvider::Destroy
-* wxShowTips docs
-* GenericMessageDialog inheritance (and regression tests)
-
-* Native handles
+* my_looks_like_number, FIXIT!
 
 PRIORITY NORMAL:
 
+* testing
+    tests for all overloaded methods
+    tests for all events
+    tests for all classes creation/deletion
+
 * Threads
-   cloning of objects with a DESTROY
+    cloning of objects with a DESTROY
 
 * wxGrid
     GetTable
@@ -122,6 +124,12 @@ PRIORITY LOW:
 
 DOCUMENTATTION:
 
+* Add notes for:
+  - implemented/not implemented classes
+  - non-implemented functions
+
+* Documente Wx::PlValidator
+
 -- not documented in wxWindows --
 
 * Wx::MultipleChoiceDialog
@@ -130,10 +138,6 @@ DOCUMENTATTION:
 
 CLASSES:
   wxGLCanvas
-
-  wxWizard
-  wxWizardPageSimple
-  wxWizardPage
 
   wxFileHistory
 
