@@ -12,6 +12,13 @@ my $ovl = lib_file( 'Wx/_Ovl.pm' );
 my $ovlc = File::Spec->catfile( qw(cpp ovl_const.cpp) );
 my $ovlh = File::Spec->catfile( qw(cpp ovl_const.h) );
 
+# try workarounding 5.005_3 crash....
+# *catdir = File::Spec->can( 'catdir' );
+# *updir = File::Spec->can( 'updir' );
+# *curdir = File::Spec->can( 'curdir' );
+# *catfile = File::Spec->can( 'catfile' );
+# *canonpath = File::Spec->can( 'canonpath' );
+
 sub configure_core {
   my $this = shift;
   my $cfg =
