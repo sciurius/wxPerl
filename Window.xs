@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.55 2005/01/09 22:35:50 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.56 2005/02/26 10:52:45 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -372,7 +372,17 @@ wxWindow::GetForegroundColour()
 wxWindow*
 wxWindow::GetGrandParent()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined( __WXMSW__ )
+#if defined( __WXMSW__ )
+
+wxWindow*
+wxWindow::CreateWindowFromHWND( parent, hWnd )
+    wxWindow* parent
+    void* hWnd
+
+#endif
+
+#if ( WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined( __WXMSW__ ) ) \
+    || WXPERL_W_VERSION_GE( 2, 5, 4 )
 
 void*
 wxWindow::GetHandle()
