@@ -83,6 +83,7 @@ sub files_to_install {
     $files{$dll} = Wx::build::Utils::arch_auto_file( "Wx/$base" );
   }
   foreach my $lib ( map { $_->{lib} } values %$dlls ) {
+    next unless defined $lib;
     my $base = File::Basename::basename( $lib );
     $files{$lib} = Wx::build::Utils::arch_auto_file( "Wx/$base" );
   }
