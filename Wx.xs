@@ -82,6 +82,16 @@ extern "C" {
     XS( boot_Wx_Win );
     XS( boot_Wx_Wnd );
     XS( boot_Wx_GDI );
+#if defined( WXPL_STATIC )
+    XS( boot_Wx__XRC );
+    XS( boot_Wx__Print );
+    XS( boot_Wx__MDI );
+    XS( boot_Wx__Html );
+    XS( boot_Wx__Help );
+    XS( boot_Wx__Grid );
+    XS( boot_Wx__FS );
+    XS( boot_Wx__DND );
+#endif
 #ifdef __cplusplus
 }
 #endif
@@ -150,6 +160,16 @@ BOOT:
   newXSproto( "Wx::_boot_Window", boot_Wx_Win, file, "$$" );
   newXSproto( "Wx::_boot_Frames", boot_Wx_Wnd, file, "$$" );
   newXSproto( "Wx::_boot_GDI", boot_Wx_GDI, file, "$$" );
+#if defined( WXPL_STATIC )
+  newXSproto( "Wx::_boot_Wx__XRC", boot_Wx__XRC, file, "$$" );
+  newXSproto( "Wx::_boot_Wx__Print", boot_Wx__Print, file, "$$" );
+  newXSproto( "Wx::_boot_Wx__MDI", boot_Wx__MDI, file, "$$" );
+  newXSproto( "Wx::_boot_Wx__Html", boot_Wx__Html, file, "$$" );
+  newXSproto( "Wx::_boot_Wx__Help", boot_Wx__Help, file, "$$" );
+  newXSproto( "Wx::_boot_Wx__Grid", boot_Wx__Grid, file, "$$" );
+  newXSproto( "Wx::_boot_Wx__FS", boot_Wx__FS, file, "$$" );
+  newXSproto( "Wx::_boot_Wx__DND", boot_Wx__DND, file, "$$" );
+#endif
   SV* tmp = get_sv( "Wx::_exports", 1 );
   sv_setiv( tmp, (IV)(void*)&st_wxPliHelpers );
 

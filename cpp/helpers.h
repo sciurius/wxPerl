@@ -183,6 +183,8 @@ struct wxPliHelpers
     wxPliInputStream* ( * m_wxPliInputStream_ctor )( SV* sv );
 };
 
+#if !WXPL_MSW_EXPORTS && !defined( WXPL_STATIC )
+
 #define DEFINE_PLI_HELPERS( name ) \
 wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
  &wxPli_non_object_2_sv, &wxPli_make_object, &wxPli_sv_2_wxpoint_test, \
@@ -215,6 +217,13 @@ wxPliHelpers name = { &wxPli_sv_2_object, &wxPli_object_2_sv, \
   wxPli_get_wxwindowid = name->m_wxPli_get_wxwindowid; \
   wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray; \
   wxPliInputStream_ctor = name->m_wxPliInputStream_ctor;
+
+#else
+
+#define DEFINE_PLI_HELPERS( name ) int name
+#define INIT_PLI_HELPERS( name )
+
+#endif
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
 

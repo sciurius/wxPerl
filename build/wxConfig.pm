@@ -19,7 +19,7 @@ use ExtUtils::MakeMaker;
 # parse command line variables
 use vars qw($debug_mode $unicode_mode $extra_libs $extra_cflags
             $use_shared $use_dllexport $o_help $o_mksymlinks
-            $subdirs);
+            $subdirs $o_static);
 use vars qw($Arch);
 use Getopt::Long;
 
@@ -32,6 +32,7 @@ GetOptions( 'debug' => \$debug_mode,
             'use-dllexport!' => \$use_dllexport,
             'help' => \$o_help,
             'mksymlinks' => \$o_mksymlinks,
+            'static' => \$o_static,
           );
 
 $extra_cflags ||= ''; $extra_libs ||= '';
@@ -43,10 +44,12 @@ Usage: perl Makefile.PL [options]
   --unicode            enable Unicode support ( MSW only )
   --extra-libs=s       specify extra linking flags
   --extra-cflags=s     specify extra compilation flags
-  --[no]mingw-shared   use 'g++ --shared' with MinGW ( MSW only )
-  --[no]use-dllexport  use 'dllexport' ( MSW only )
   --mksymlinks         create a symlink tree ( only if filesystem
                        supports that, of course )
+  --static             link all extensions in a single big shared
+                       object
+  --[no]mingw-shared   use 'g++ --shared' with MinGW ( MSW only )
+  --[no]use-dllexport  use 'dllexport' ( MSW only )
   --help               you are reading it
 EOT
   exit 0;
@@ -163,7 +166,8 @@ sub wxWriteMakefile {
 
   foreach my $i ( keys %params ) {
     if( $i eq 'WXLIB' ) {
-      $params{LIBS} .= $Arch->wx_lib( $params{$i} );
+      $params{LIBS} .= join ' ', map { $Arch->wx_lib( $_ ) }
+        @{ ( ref( $params{$i} ) ? $params{$i} : [ $params{$i} ] ) };
       delete $params{WXLIB};
     }
 

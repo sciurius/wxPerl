@@ -41,6 +41,9 @@ wxWriteMakefile( NAME => 'Wx',
                                 'html', 'mdi', 'print',
                                 'xrc'
                                ],
+                 ( $wxConfig::o_static ?
+                   ( WXLIB => [ 'wxxrc' ] ) :
+                   () ),
                  OBJECT => join( ' ', obj_from_src( @top_level_xs ) ) . ' ',
                );
 

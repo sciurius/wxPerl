@@ -108,8 +108,40 @@ EOT
   $text;
 }
 
+sub dynamic {
+  my $this = shift;
+  package MY;
+  my $text = $this->SUPER::dynamic( @_ );
+
+  if( $this->{PARENT} && $wxConfig::o_static ) {
+    if( $text =~ m/(.*?)^(dynamic\s*:+.*?)$(.*)/ms ) {
+      my( $pre, $dyn, $post ) = ( $1, $2, $3 );
+      # this 'works' because $post is a no-op
+      $dyn =~ s/\$\(INST_\w+\)\s*//g;
+      return "$pre$dyn \$(OBJECT)$post";
+    }
+  } else {
+    return $text;
+  }
+}
+
 sub configure {
-  return @_;
+  my %config =
+    ( LIBS => $wxConfig::extra_libs,
+      CCFLAGS => $wxConfig::extra_cflags,
+    );
+
+  if( $wxConfig::o_static ) {
+    $config{DEFINE} .= " -DWXPL_STATIC ";
+    if( !building_extension() ) {
+      $config{LDFROM} = join( ' ',
+        obj_from_src( map { glob "ext/$_/*.xs" }
+                      @$wxConfig::subdirs
+                    ) ) . ' ';
+    }
+  }
+
+  return \%config;
 }
 
 sub get_config {
@@ -127,6 +159,14 @@ sub get_config {
 
   return $cfg;
 }
+
+#
+# stubs from now on
+#
+
+sub top_targets { package MY; my $x = shift; $x->SUPER::top_targets( @_ ); }
+sub dynamic_lib { package MY; my $x = shift; $x->SUPER::dynamic_lib( @_ ); }
+sub ppd { package MY; my $x = shift; $x->SUPER::ppd( @_ ); }
 
 1;
 

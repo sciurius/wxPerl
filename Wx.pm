@@ -21,7 +21,7 @@ require Exporter;
 require DynaLoader;
 
 use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
-  $_platform $_universal $_msw $_gtk $_motif $_wx_version);
+  $_platform $_universal $_msw $_gtk $_motif $_wx_version $_static);
 
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
@@ -100,7 +100,18 @@ sub _ovl_error {
   ( 'unable to resolve overloaded method for ', $_[0] || (caller(1))[3] );
 }
 
-bootstrap Wx $VERSION;
+sub wxPL_STATIC();
+sub wx_boot($$) {
+  if( $_[0] eq 'Wx' || !wxPL_STATIC ) {
+    $_[0]->bootstrap( $_[1] );
+  } else {
+    no strict 'refs';
+    my $t = $_[0]; $t =~ tr/:/_/;
+    &{"_boot_$t"}( $_[0], $_[1] );
+  }
+}
+
+wx_boot( 'Wx', $VERSION );
 
 {
   _boot_Constant( 'Wx', $VERSION );
@@ -117,7 +128,8 @@ Load();
 SetConstants();
 
 # set up wxUNIVERSAL, wxGTK, wxMSW, etc
-eval( $_universal ? "sub wxUNIVERSAL() { 1 }" : "sub wxUNIVERSAL() { 0 }" );
+eval( "sub wxUNIVERSAL() { $_universal }" );
+eval( "sub wxPL_STATIC() { $_static }" );
 
 require Wx::App;
 require Wx::Bitmap;

@@ -83,6 +83,14 @@
 
 #define CHAR_P
 
+#else
+
+#define pTHX
+#define aTHX
+#define dTHX
+#define pTHX_
+#define aTHX_
+
 #endif
 
 #define WXINTL_NO_GETTEXT_MACRO 1
@@ -115,7 +123,7 @@
 #  define FUNCPTR( name ) name
 #else
 #  define WXPLDLL
-#  if defined( WXPL_EXT )
+#  if defined( WXPL_EXT ) && !defined( WXPL_STATIC )
 #    define FUNCPTR( name ) ( * name )
 #  else
 #    define FUNCPTR( name ) name

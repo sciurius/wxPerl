@@ -40,6 +40,7 @@
 #include <wx/dataobj.h>
 #include <wx/clipbrd.h>
 #include <wx/confbase.h>
+#include <wx/image.h>
 #if defined(__WXMSW__)
 #include <wx/taskbar.h>
 #endif
@@ -1236,7 +1237,7 @@ static double constant( const char *name, int arg )
     r( wxTE_PASSWORD );                 // textctrl
     r( wxTE_READONLY );                 // textctrl
     r( wxTE_RICH );                     // textctrl
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
     r( wxTE_RICH2 );                    // textctrl
 #endif
     r( wxTHICK_FRAME );                 // frame dialog
@@ -1524,6 +1525,13 @@ void SetConstants()
 
     tmp = get_sv( "Wx::_universal", 0 );
 #if defined(__WXUNIVERSAL__)
+    sv_setiv( tmp, 1 );
+#else
+    sv_setiv( tmp, 0 );
+#endif
+
+    tmp = get_sv( "Wx::_static", 0 );
+#if defined(WXPL_STATIC)
     sv_setiv( tmp, 1 );
 #else
     sv_setiv( tmp, 0 );

@@ -53,19 +53,18 @@ sub ld_is_GNU {
   return;
 }
 
+use vars qw(%config);
 sub configure {
+  my $this = shift;
   my( $cccflags, $libs );
+  local *config; *config = $this->SUPER::configure();
 
-  my( %config ) =
-    ( LIBS => $wxConfig::extra_libs . ' ',
-      CCFLAGS => $wxConfig::extra_cflags . ' -I. ',
-      ( building_extension() ?
-        ( INC => ' -I' . top_dir() . ' ',
-          DEFINE => ' -DWXPL_EXT ',
-          LDFROM => ' $(OBJECT) ',
-        ) : (),
-      ),
-    );
+  $config{CCFLAGS} .= " -I. ";
+  $config{LDFROM} .= " \$(OBJECT) ";
+  if( building_extension() ) {
+    $config{INC} .= " -I" . top_dir() . " ";
+    $config{DEFINE} .= " -DWXPL_EXT ";
+  }
 
   my $cxx = wx_config( 'cxx' );
   $config{CC} = $cxx;
@@ -75,12 +74,8 @@ sub configure {
     $config{OPTIMIZE} = ' ';
   }
 
-  if( ld_is_GNU( $Config{ld} ) ) {
-    $config{LD} = "$cxx -shared"
-  } else {
-    $config{LD} = wx_config( 'ld' );
-    $config{LD} =~ s/\-o\s*$/ /;
-  }
+  $config{LD} = wx_config( 'ld' );
+  $config{LD} =~ s/\-o\s*$/ /;
 
   $cccflags = wx_config( 'cxxflags' );
   $libs = wx_config( 'libs' );
@@ -91,7 +86,7 @@ sub configure {
     $config{CCFLAGS} .= $_ . ' ';
   }
 
-  $config{LIBS} .= ' ' . $libs;
+  $config{LIBS} .= " $libs ";
 
   \%config;
 }

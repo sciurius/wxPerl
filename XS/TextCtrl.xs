@@ -157,12 +157,16 @@ Wx_TextCtrl::GetLineText( lineno )
 int
 Wx_TextCtrl::GetNumberOfLines()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 wxString
 Wx_TextCtrl::GetRange( from, to )
     long from
     long to
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
 Wx_TextCtrl::GetSelection()

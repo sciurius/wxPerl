@@ -15,6 +15,11 @@
 
 // forward declares and typedefs a class wxClass to Wx_Class
 // and declares the string holding the class name
+#if ( defined( WXPL_EXT ) && !WXPL_MSW_EXPORTS && !defined( WXPL_STATIC ) )
+#undef _WXP_DEFINE_CLASSNAME
+#define _WXP_DEFINE_CLASSNAME 1
+#endif
+
 #if _WXP_DEFINE_CLASSNAME
 
 #define FD_TD( name ) \
@@ -145,7 +150,7 @@ FD_TD( ControlWithItems );
 FD_TD( Cursor );
 FD_TD( DC );
 FD_TD( Dialog );
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 #  if defined( __WXMSW__ ) || defined( __WXMAC__ )
 FD_TD( DirDialog );
 #  else

@@ -45,7 +45,7 @@ WXPLDLL extern void FUNCPTR( wxPli_remove_constant_function )
 inline wxPlConstants::wxPlConstants( PL_CONST_FUNC function )
     :m_function( function )
 {
-#if defined( WXPL_EXT ) && !WXPL_MSW_EXPORTS
+#if defined( WXPL_EXT ) && !WXPL_MSW_EXPORTS && !defined( WXPL_STATIC )
     // GRR! init helpers...
     SV* wxpli_tmp = get_sv( "Wx::_exports", 1 );
     wxPliHelpers* name = (wxPliHelpers*)(void*)SvIV( wxpli_tmp );
