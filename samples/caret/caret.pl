@@ -44,6 +44,8 @@ sub new {
   $this->CreateStatusBar( 2 );
   $this->SetStatusText( 'Welcome to wxPerl!' );
 
+  $this->SetIcon( Wx::GetWxPerlIcon() );
+
   use Wx::Event qw(EVT_MENU);
 
   EVT_MENU( $this, $id_quit, \&OnQuit );
@@ -104,11 +106,10 @@ sub PrevChar { if( ! $_[0]->{XCARET} -- ) { $_[0]->End; $_[0]->PrevLine } }
 sub NextChar { if( ++ $_[0]->{XCARET} == $_[0]->{XCHARS} ) {
   $_[0]->Home; $_[0]->NextLine } }
 sub PrevLine { if( ! $_[0]->{YCARET} -- ) { $_[0]->LastLine } }
-sub NextLine { if( ++ $_[0]->{YCARET} == $_[0]->{YCHARS} ) { $_[0]->FirstLine }
-             }
+sub NextLine { if( ( ++ $_[0]->{YCARET} ) == $_[0]->{YCHARS} ) { $_[0]->FirstLine } }
 
 use Wx qw(wxDefaultPosition wxDefaultSize wxSUNKEN_BORDER);
-use Wx qw(wxWHITE wxNORMAL_FONT);
+use Wx qw(:font wxWHITE wxNORMAL_FONT);
 use Wx::Event qw(EVT_SIZE EVT_PAINT EVT_CHAR);
 
 sub new {
@@ -118,7 +119,7 @@ sub new {
 
   $this->{TEXT} = undef;
   $this->SetBackgroundColour( wxWHITE );
-  $this->{FONT} = wxNORMAL_FONT;
+  $this->{FONT} = Wx::Font->new( 14, wxMODERN, wxNORMAL, wxNORMAL );
 
   my( $dc ) = Wx::ClientDC->new( $this );
   $dc->SetFont( $this->{FONT} );
@@ -129,6 +130,7 @@ sub new {
   $this->SetCaret( $caret );
 
   @{$this}{'XMARGIN','YMARGIN'} = ( 5, 5 );
+  @{$this}{'XCARET','YCARET'} = ( 0, 0 );
   $caret->Move( @{$this}{'XMARGIN','YMARGIN'} );
   $caret->Show();
 
@@ -178,10 +180,10 @@ sub OnChar {
 sub OnSize {
   my( $this, $event ) = @_;
 
-  $this->{XCHARS} = ( $event->GetSize->x - 2 * $this->{XMARGIN} ) /
-    $this->{WIDTHCHAR} || 1;
-  $this->{YCHARS} = ( $event->GetSize->y - 2 * $this->{YMARGIN} ) /
-    $this->{HEIGHTCHAR} || 1;
+  $this->{XCHARS} = int( ( $event->GetSize->x - 2 * $this->{XMARGIN} ) /
+    $this->{WIDTHCHAR} ) || 1;
+  $this->{YCHARS} = int( ( $event->GetSize->y - 2 * $this->{YMARGIN} ) /
+    $this->{HEIGHTCHAR} ) || 1;
 
   $this->{TEXT} = ' ' x ( $this->{XCHARS} * $this->{YCHARS} );
 
@@ -189,6 +191,8 @@ sub OnSize {
 
   $frame->SetStatusText( sprintf( 'Panel size is ( %d, %d)',
                                   $this->{XCHARS}, $this->{YCHARS} ), 1 );
+
+  $event->Skip;
 }
 
 sub OnPaint {
