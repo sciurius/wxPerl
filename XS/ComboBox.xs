@@ -44,7 +44,7 @@ Wx_ComboBox::Clear()
 #if defined( __WXGTK__ )
 
 void
-Wx_ControlWithItems::Append( ... )
+Wx_ComboBox::Append( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_s_s, AppendData )
