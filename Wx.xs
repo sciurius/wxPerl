@@ -199,6 +199,7 @@ INCLUDE: XS/Locale.xs
 INCLUDE: XS/Utils.xs
 INCLUDE: XS/Timer.xs
 INCLUDE: XS/Stream.xs
+INCLUDE: XS/TaskBarIcon.xs
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs

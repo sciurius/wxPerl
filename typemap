@@ -127,6 +127,8 @@ Wx_ClientDC *           O_WXOBJECT
 Wx_PaintDC *            O_WXOBJECT
 Wx_ScreenDC *           O_WXOBJECT
 
+Wx_TaskBarIcon *        O_WXOBJECT
+
 Wx_Log *                O_NON_WXOBJECT
 Wx_LogTextCtrl *        O_NON_WXOBJECT
 Wx_LogNull *            O_NON_WXOBJECT
