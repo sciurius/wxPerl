@@ -10,6 +10,20 @@ For 0.12
   rewrite _match in C++ and move all overload resolution
   routines to XS -> eliminate most lib/Wx/*.pm files
 
+* write out a "setup.h" with settings for STC, and use it in Wx.xs
+
+* resolve kludge in Any_wx_config.pm
+* store inheritance tree in a C++ file
+* store events in a C++ file and autogenerate them
+
+* EVT_FOO( ..., undef ) to disconnect event handlers
+
+* wxTipProvider::Destroy
+* wxShowTips docs
+* GenericMessageDialog inheritance (and regression tests)
+
+* Native handles
+
 PRIORITY NORMAL:
 
 * Threads
@@ -115,6 +129,8 @@ DOCUMENTATTION:
 * Wx::NativeFontInfo
 
 CLASSES:
+  wxGLCanvas
+
   wxWizard
   wxWizardPageSimple
   wxWizardPage
