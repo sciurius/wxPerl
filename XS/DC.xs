@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.22 2004/11/01 16:30:16 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.23 2005/01/23 13:38:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -291,8 +291,12 @@ wxDC::GetLogicalFunction()
 int
 wxDC::GetMapMode()
 
+#ifndef __WXMAC__
+
 bool
 wxDC::GetOptimization()
+
+#endif
 
 wxPen*
 wxDC::GetPen()
@@ -475,9 +479,13 @@ void
 wxDC::SetMapMode( mode )
     int mode
 
+#ifndef __WXMAC__
+
 void
 wxDC::SetOptimization( optimize )
     bool optimize
+
+#endif 
 
 void
 wxDC::SetPalette( palette )
