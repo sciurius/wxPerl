@@ -10,23 +10,6 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-package Wx::SplashScreen;
-
-use strict;
-use vars qw(@ISA);
-
-if( $Wx::_wx_version < 2.003001 ) {
-  @ISA = qw(Wx::_SplashScreenPerl);
-
-  *Wx::wxSPLASH_CENTRE_ON_PARENT = sub { 0x01 };
-  *Wx::wxSPLASH_CENTRE_ON_SCREEN = sub { 0x02 };
-  *Wx::wxSPLASH_NO_CENTRE = sub { 0x00 };
-  *Wx::wxSPLASH_TIMEOUT = sub { 0x04 };
-  *Wx::wxSPLASH_NO_TIMEOUT = sub { 0x00 };
-} else {
-  @ISA = qw(Wx::_SplashScreenCpp);
-}
-
 package Wx::_SplashScreenPerl;
 
 use strict;
@@ -138,10 +121,6 @@ sub DrawBitmap {
   $dc->Blit( 0, 0, $bitmap->GetWidth, $bitmap->GetHeight, $memdc, 0, 0 );
   $memdc->SelectObject( wxNullBitmap );
 }
-
-package Wx::_SplashScreenCpp;
-
-use vars qw(@ISA); @ISA = qw(Wx::Frame);
 
 1;
 
