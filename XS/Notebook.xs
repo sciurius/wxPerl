@@ -68,8 +68,12 @@ bool
 Wx_Notebook::DeletePage( page )
     int page
 
-Wx_ImageList*
-Wx_Notebook::GetImageList()
+wxImageList*
+wxNotebook::GetImageList()
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 Wx_Window*
 Wx_Notebook::GetPage( page )

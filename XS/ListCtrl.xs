@@ -391,6 +391,8 @@ Wx_ListCtrl::GetImageList( which )
     RETVAL = (Wx_ImageList*)THIS->GetImageList( which );
   OUTPUT:
     RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 Wx_ListItem*
 Wx_ListCtrl::GetItem( id, col = -1 )

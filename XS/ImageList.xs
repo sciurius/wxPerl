@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ImageList.xs,v 1.6 2003/03/27 20:11:34 mbarbon Exp $
+## RCS-ID:      $Id: ImageList.xs,v 1.7 2003/04/11 20:39:32 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,8 +14,8 @@
 
 MODULE=Wx PACKAGE=Wx::ImageList
 
-Wx_ImageList*
-Wx_ImageList::new( width, height, mask = TRUE, initialCount =1 )
+wxImageList*
+wxImageList::new( width, height, mask = TRUE, initialCount =1 )
     int width
     int height
     bool mask
@@ -23,7 +23,11 @@ Wx_ImageList::new( width, height, mask = TRUE, initialCount =1 )
 
 ## XXX threads
 void
-Wx_ImageList::DESTROY()
+DESTROY( THIS )
+    wxImageList* THIS
+  CODE:
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;
 
 void
 wxImageList::Add( ... )

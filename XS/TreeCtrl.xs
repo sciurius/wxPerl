@@ -310,8 +310,12 @@ Wx_TreeCtrl::GetFirstVisibleItem()
   OUTPUT:
     RETVAL
 
-Wx_ImageList*
-Wx_TreeCtrl::GetImageList()
+wxImageList*
+wxTreeCtrl::GetImageList()
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 int
 Wx_TreeCtrl::GetIndent()
@@ -435,8 +439,12 @@ Wx_TreeCtrl::GetSelections()
                                       "Wx::TreeItemId" ) );
     }
 
-Wx_ImageList*
-Wx_TreeCtrl::GetStateImageList()
+wxImageList*
+wxTreeCtrl::GetStateImageList()
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), FALSE );
 
 void
 Wx_TreeCtrl::HitTest( point )
