@@ -1089,6 +1089,8 @@ sub new {
     $this->CreateStatusBar( 2 );
     $this->{PANEL} = MyPanel->new( $this, 10, 10, 300, 100 );
 
+    $this->SetIcon( Wx::GetWxPerlIcon() );
+
     my( $file_menu ) = Wx::Menu->new( '', wxMENU_TEAROFF );
 
     $file_menu->Append( 2, "&Clear log\tCtrl-L" );
@@ -1130,7 +1132,7 @@ sub new {
     $this->SetAcceleratorTable
       ( Wx::AcceleratorTable->new
         ( [ wxACCEL_NORMAL, WXK_F1, 3 ],
-          Wx::AcceleratorEntry->new( wxACCEL_ALT, ord( 'X' ), 4 ) )
+          Wx::AcceleratorEntry->new( wxACCEL_ALT, 'X', 4 ) )
       );
 
     $this;
