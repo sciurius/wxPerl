@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.36 2003/05/05 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: Event.pm,v 1.37 2003/07/17 22:46:39 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -392,12 +392,22 @@ sub EVT_UPDATE_UI_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_UPDATE_
 # Socket
 #
 
-sub EVT_SOCKET { goto &Wx::Socket::Event::EVT_SOCKET }
-sub EVT_SOCKET_ALL { goto &Wx::Socket::Event::EVT_SOCKET_ALL }
-sub EVT_SOCKET_INPUT { goto &Wx::Socket::Event::EVT_SOCKET_INPUT }
-sub EVT_SOCKET_OUTPUT { goto &Wx::Socket::Event::EVT_SOCKET_OUTPUT }
-sub EVT_SOCKET_CONNECTION { goto &Wx::Socket::Event::EVT_SOCKET_CONNECTION }
-sub EVT_SOCKET_LOST { goto &Wx::Socket::Event::EVT_SOCKET_LOST }
+sub EVT_SOCKET($$$) { goto &Wx::Socket::Event::EVT_SOCKET }
+sub EVT_SOCKET_ALL($$$) { goto &Wx::Socket::Event::EVT_SOCKET_ALL }
+sub EVT_SOCKET_INPUT($$$) { goto &Wx::Socket::Event::EVT_SOCKET_INPUT }
+sub EVT_SOCKET_OUTPUT($$$) { goto &Wx::Socket::Event::EVT_SOCKET_OUTPUT }
+sub EVT_SOCKET_CONNECTION($$$) { goto &Wx::Socket::Event::EVT_SOCKET_CONNECTION }
+sub EVT_SOCKET_LOST($$$) { goto &Wx::Socket::Event::EVT_SOCKET_LOST }
+
+#
+# Prototypes
+#
+sub EVT_CALENDAR($$$);
+sub EVT_CALENDAR_SEL_CHANGED($$$);
+sub EVT_CALENDAR_DAY($$$);
+sub EVT_CALENDAR_MONTH($$$);
+sub EVT_CALENDAR_YEAR($$$);
+sub EVT_CALENDAR_WEEKDAY_CLICKED($$$);
 
 1;
 
