@@ -48,15 +48,15 @@ Wx_MultiChoiceDialog::GetSelections()
     }
 
 void
-Wx_MultiChoiceDialog::SetSelections()
+Wx_MultiChoiceDialog::SetSelections( ... )
   PREINIT:
     wxArrayInt array;
     int i;
   CODE:
-    array.Alloc( items );
-    for( i = 0; i < items; ++i )
+    array.Alloc( items - 1 );
+    for( i = 1; i < items; ++i )
     {
-      array[ i ] = SvIV( ST( i ) );
+      array.Add( SvIV( ST( i ) ) );
     }
     THIS->SetSelections( array );
 
