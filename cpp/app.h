@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.17 2003/08/17 19:34:40 mbarbon Exp $
+// RCS-ID:      $Id: app.h,v 1.18 2003/11/16 17:18:29 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -66,7 +66,7 @@ inline int wxPliApp::MainLoop() {
     int retval = 0;
   
     DeletePendingObjects();
-#ifdef __WXGTK__
+#if defined( __WXGTK__ ) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
     m_initialized = wxTopLevelWindows.GetCount() != 0;
 #endif
 
