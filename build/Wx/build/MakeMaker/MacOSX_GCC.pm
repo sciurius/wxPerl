@@ -28,12 +28,12 @@ sub postamble_core {
   my $this = shift;
   my $text = $this->SUPER::postamble_core( @_ );
 
-  $text .= sprintf <<'EOT', ;
+  $text .= sprintf <<'EOT', $ENV{WX_CONFIG} || 'wx-config';
 
 wxPerl :
 #	mkdir -p $(INST_BIN)
 	cp $(PERL) wxPerl
-	`wx-config --rezflags` wxPerl
+	`%s --rezflags` wxPerl
 
 install_wxperl :
 	mkdir -p $(DESTINSTALLBIN)
