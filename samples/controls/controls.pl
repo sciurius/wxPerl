@@ -13,6 +13,12 @@
 
 use Wx;
 
+# hack for wxMotif compatibility
+if( $Wx::_platform == $Wx::_motif ) { 
+  eval 'sub Wx::Window::SetToolTip {}';
+  eval 'sub Wx::ToolTip::new {}';
+};
+
 package MyApp;
 
 use strict;
