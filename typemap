@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.51 2003/05/26 20:32:51 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.52 2003/05/27 20:15:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -122,8 +122,7 @@ Wx_CheckListBox *       O_WXOBJECT
 wxCheckListBox *        O_WXOBJECT
 Wx_Gauge *              O_WXOBJECT
 wxGauge *               O_WXOBJECT
-Wx_BitmapButton *       O_WXOBJECT
-wxBitmapButton *        O_WXOBJECT
+wxBitmapButton *        O_WXEVTHANDLER
 Wx_TreeCtrl *           O_WXOBJECT
 wxTreeCtrl *            O_WXOBJECT
 Wx_ListCtrl *           O_WXOBJECT
@@ -140,8 +139,7 @@ Wx_Slider *             O_WXOBJECT
 wxSlider *              O_WXOBJECT
 Wx_ScrolledWindow *     O_WXOBJECT
 wxScrolledWindow *      O_WXOBJECT
-Wx_SplitterWindow *     O_WXOBJECT
-wxSplitterWindow *      O_WXOBJECT
+wxSplitterWindow *      O_WXEVTHANDLER
 Wx_SashWindow *         O_WXOBJECT
 wxSashWindow *          O_WXOBJECT
 Wx_ToggleButton *       O_WXOBJECT
@@ -394,7 +392,7 @@ Wx_SizeEvent *          O_WXOBJECT
 wxScrollEvent *         O_WXOBJECT
 Wx_ScrollWinEvent *     O_WXOBJECT
 Wx_SpinEvent *          O_WXOBJECT
-Wx_SplitterEvent *      O_WXOBJECT
+wxSplitterEvent *       O_WXOBJECT
 Wx_SysColourChangedEvent * O_WXOBJECT
 Wx_TimerEvent *         O_WXOBJECT
 Wx_TreeEvent *          O_WXOBJECT

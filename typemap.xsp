@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: typemap.xsp,v 1.5 2003/04/22 19:24:13 mbarbon Exp $
+## RCS-ID:      $Id: typemap.xsp,v 1.6 2003/05/27 20:15:42 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -24,6 +24,7 @@
 
 %typemap{wxWindowID}{simple};
 %typemap{wxCoord}{simple};
+%typemap{wxEventType}{simple};
 
 %typemap{const wxChar*}{simple};
 
@@ -37,6 +38,8 @@
 %typemap{wxDateTime&}{reference};
 %typemap{const wxDateTime&}{reference};
 
+%typemap{wxSplitterWindow*}{simple};
+%typemap{wxSplitterEvent*}{simple};
 %typemap{wxWindow*}{simple};
 %typemap{wxSizer*}{simple};
 %typemap{wxIconBundle*}{simple};
