@@ -75,3 +75,29 @@ Wx_StopWatch::Resume()
 long
 Wx_StopWatch::Time()
 
+MODULE=Wx PACKAGE=Wx::SystemSettings
+
+Wx_Colour*
+GetSystemColour( index )
+    int index
+  CODE:
+    RETVAL = new wxColour( wxSystemSettings::GetSystemColour( index ) );
+  OUTPUT:
+    RETVAL
+
+Wx_Font*
+GetSystemFont( index )
+    int index
+  CODE:
+    RETVAL = new wxFont( wxSystemSettings::GetSystemFont( index ) );
+  OUTPUT:
+    RETVAL
+
+int
+GetSystemMetric( index )
+    int index
+  CODE:
+    RETVAL = wxSystemSettings::GetSystemMetric( index );
+  OUTPUT:
+    RETVAL
+
