@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.27 2003/06/04 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.28 2003/07/17 22:38:24 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -30,6 +30,9 @@ Wx_ListEvent::GetIndex()
 
 int
 Wx_ListEvent::GetColumn()
+
+int
+Wx_ListEvent::GetKeyCode()
 
 Wx_Point*
 Wx_ListEvent::GetPoint()
