@@ -415,6 +415,13 @@ Wx_SizerItem::IsSizer()
 bool
 Wx_SizerItem::IsSpacer()
 
+#if WXPERL_W_VERSION_GE( 2, 4, 0 )
+
+bool
+wxSizer::IsShown();
+
+#endif
+
 void
 Wx_SizerItem::SetInitSize( x, y )
     int x
@@ -431,6 +438,14 @@ Wx_SizerItem::SetFlag( flag )
 void
 Wx_SizerItem::SetBorder( border )
     int border
+
+#if WXPERL_W_VERSION_GE( 2, 4, 0 )
+
+void
+wxSizer::Show( doShow )
+    bool doShow
+
+#endif
 
 Wx_Window*
 Wx_SizerItem::GetWindow()
