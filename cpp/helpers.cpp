@@ -294,6 +294,63 @@ SV* wxPli_make_object( wxObject* object, const char* classname )
     return sv_bless( ret, stash );
 }
 
+struct my_magic {
+    bool deleteable;
+};
+
+bool wxPli_object_is_deleteable( SV* object )
+{
+    // check for reference
+    if( !SvROK( object ) )
+        return FALSE;
+    SV* rv = SvRV( object );
+
+    // if it isn't a SvPVMG, then it can't have MAGIC
+    // so it is deleteable
+    if( SvTYPE( rv ) < SVt_PVMG )
+        return TRUE;
+
+    // search for '~' magic, and check the value
+    MAGIC* magic = mg_find( rv, '~' );
+    if( !magic )
+        return TRUE;
+    
+    return ((my_magic*)( magic->mg_ptr ))->deleteable;
+}
+
+void wxPli_object_set_deleteable( SV* object, bool deleteable )
+{
+    // check for reference
+    if( !SvROK( object ) )
+        return;
+    SV* rv = SvRV( object );
+
+    // if it isn't a SvPVMG, then it might need to be upgraded
+    if( SvTYPE( rv ) < SVt_PVMG )
+    {
+        // if it isn't magic, then it is deleteable
+        if( !deleteable ) {
+            static my_magic magic = { TRUE };
+          
+            sv_magic( rv, 0, '~', (char*)&magic, sizeof( my_magic ) );
+        }
+    }
+    else
+    {
+        MAGIC* magic = mg_find( rv, '~' );
+
+        if( magic )
+            ((my_magic*)magic->mg_ptr)->deleteable = deleteable;
+        else
+        {
+            my_magic magic;
+            magic.deleteable = deleteable;
+
+            sv_magic( rv, 0, '~', (char*)&magic, sizeof( my_magic ) );
+        }
+    }
+}
+
 int wxPli_av_2_svarray( SV* avref, SV*** array )
 {
     SV** arr;

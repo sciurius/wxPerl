@@ -18,7 +18,11 @@
 MODULE=Wx PACKAGE=Wx::DC
 
 void
-Wx_DC::DESTROY()
+DESTROY( THIS )
+    Wx_DC* THIS
+  CODE:
+    if( wxPli_object_is_deleteable( ST(0) ) )
+        delete THIS;
 
 void
 Wx_DC::BeginDrawing()
