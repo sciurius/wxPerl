@@ -80,6 +80,7 @@ my %name2type =
    wdat => 'Wx::DataObject',
    wcur => 'Wx::Cursor',
    wehd => 'Wx::EvtHandler',
+   wtid => 'Wx::TreeItemId',
    wist => 1,
    wost => 1,
    num  => 1,
