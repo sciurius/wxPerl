@@ -22,6 +22,7 @@ FD_TD( HtmlWindow );
 FD_TD( HtmlLinkInfo );
 FD_TD( HtmlCell );
 FD_TD( HtmlHelpController );
+FD_TD( BestHelpController );
 FD_TD( HtmlEasyPrinting );
 // do not need to depend upon Wx::Config
 FD_TD( ConfigBase );
