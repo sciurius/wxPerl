@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.24 2003/08/16 21:28:53 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.25 2003/10/01 11:52:32 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -563,6 +563,11 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
             SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,   \
                                                          G_SCALAR, "P",       \
                                                          &param1 );           \
+                                                                              \
+            wxString tmp; 	                                              \
+            WXSTRING_INPUT( tmp, const char *, ret ); 	                      \
+            param1 = tmp; 	                                              \
+                                                                              \
             bool val = SvTRUE( ret );                                         \
             SvREFCNT_dec( ret );                                              \
             return val;                                                       \
