@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     17/03/2001
-// RCS-ID:      $Id: constants.h,v 1.9 2004/10/19 20:28:05 mbarbon Exp $
+// RCS-ID:      $Id: constants.h,v 1.10 2005/01/03 21:06:35 mbarbon Exp $
 // Copyright:   (c) 2001-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -49,7 +49,7 @@ inline wxPlConstants::wxPlConstants( PL_CONST_FUNC function )
     dTHX;
     // GRR! init helpers...
     SV* wxpli_tmp = get_sv( "Wx::_exports", 1 );
-    wxPliHelpers* name = (wxPliHelpers*)(void*)SvIV( wxpli_tmp );
+    wxPliHelpers* name = INT2PTR( wxPliHelpers*, SvIV( wxpli_tmp ) );
     wxPli_add_constant_function = name->m_wxPli_add_constant_function;
 #endif
     wxPli_add_constant_function( &m_function );

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.109 2004/11/09 20:56:45 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.110 2005/01/03 21:06:15 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1773,7 +1773,7 @@ static void my_sv_setref_pv( pTHX_ SV* mysv, const char* pack, void* ptr )
     if( SvROK( mysv ) )
     {
         HV* stash = gv_stashpv( CHAR_P pack, 1 );
-        sv_setiv( SvRV( mysv ), (IV)ptr );
+        sv_setiv( SvRV( mysv ), PTR2IV( ptr ) );
         sv_bless( mysv, stash );
     }
     else

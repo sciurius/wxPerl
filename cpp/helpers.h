@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.69 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.70 2005/01/03 21:06:40 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -319,7 +319,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
 
 #define INIT_PLI_HELPERS( name ) \
   SV* wxpli_tmp = get_sv( "Wx::_exports", 1 ); \
-  wxPliHelpers* name = (wxPliHelpers*)(void*)SvIV( wxpli_tmp ); \
+  wxPliHelpers* name = INT2PTR( wxPliHelpers*, SvIV( wxpli_tmp ) ); \
   wxPli_sv_2_object = name->m_wxPli_sv_2_object; \
   wxPli_evthandler_2_sv = name->m_wxPli_evthandler_2_sv; \
   wxPli_object_2_sv = name->m_wxPli_object_2_sv; \

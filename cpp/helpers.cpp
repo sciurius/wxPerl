@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.65 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.66 2005/01/03 21:06:40 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -335,7 +335,7 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
         // scalar-ish object that has been marked/unmarked deletable
         // it has mg, but not mg->objects
         if( !mg || !mg->object )
-            return (void*)SvIV( ref );
+            return INT2PTR( void*, SvIV( ref ) );
 
         return mg->object;
 #else // if !wxPL_USE_MAGIC
@@ -469,7 +469,7 @@ void wxPli_attach_object( pTHX_ SV* object, void* ptr )
     }
     else
     {
-        sv_setiv( ref, (IV)ptr );
+        sv_setiv( ref, PTR2IV( ptr ) );
     }
 }
 
@@ -508,7 +508,7 @@ void* wxPli_detach_object( pTHX_ SV* object )
     }
     else
     {
-        void* tmp = (void*)SvIV( ref );
+        void* tmp = INT2PTR( void*, SvIV( ref ) );
 
         sv_setiv( ref, 0 );
         return tmp;
@@ -1002,7 +1002,7 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
         
         if( sv_derived_from( scalar, CHAR_P "Wx::Point" ) ) 
         {
-            return *(wxPoint*)SvIV( ref );
+            return *INT2PTR( wxPoint*, SvIV( ref ) );
         }
         else if( SvTYPE( ref ) == SVt_PVAV )
         {
@@ -1051,7 +1051,7 @@ wxSize wxPli_sv_2_wxsize( pTHX_ SV* scalar )
         
         if( sv_derived_from( scalar, CHAR_P "Wx::Size" ) ) 
         {
-            return *(wxSize*)SvIV( ref );
+            return *INT2PTR( wxSize*, SvIV( ref ) );
         }
         else if( SvTYPE( ref ) == SVt_PVAV )
         {
@@ -1159,7 +1159,7 @@ int wxPli_av_2_pointlist( pTHX_ SV* arr, wxList *points, wxPoint** tmp )
         
             if( sv_derived_from( scalar, CHAR_P "Wx::Point" ) ) 
             {
-                points->Append( (wxObject*)SvIV( ref ) );
+                points->Append( INT2PTR( wxObject*, SvIV( ref ) ) );
                 continue;
             }
             else if( SvTYPE( ref ) == SVt_PVAV )
@@ -1220,7 +1220,7 @@ void wxPli_stream_2_sv( pTHX_ SV* scalar, wxStreamBase* stream,
 
     PUSHMARK( SP );
     XPUSHs( newSVpv( CHAR_P package, 0 ) );
-    XPUSHs( newSViv( (IV)stream ) );
+    XPUSHs( newSViv( PTR2IV( stream ) ) );
     PUTBACK;
 
     call_sv( tie, G_SCALAR );
