@@ -27,6 +27,9 @@ sub new {
 package Wx::Bitmap;
 
 use strict;
+# disabled: needs further testing
+# and anyway: is it useful?
+#use overload '<=>' => \&bmp_spaceship;
 use Carp;
 
 sub new {

@@ -375,6 +375,9 @@ sub new {
     my( $st1 ) = Wx::StaticBitmap->new( $panel, -1, $icon, [10, 10] );
     my( $st2 ) = Wx::StaticBitmap->new( $panel, -1, wxNullIcon, [50, 10] );
 
+    Wx::LogMessage( "Not Equal ==" ) unless $st1->GetBitmap == $st1->GetBitmap;
+    Wx::LogMessage( "Not Equal !=" ) if $st1->GetBitmap != $st1->GetBitmap;
+
     $st2->SetIcon( wxTheApp->GetStdIcon( wxICON_QUESTION ) );
 
     my( $bmp ) = Wx::Bitmap->new( 100, 100 );
@@ -1123,7 +1126,7 @@ sub _UpdateStatusBar {
 
     my( $f ) = Wx::Window::FindFocus();
 
-    #FIXME// must be overloaded
+    #FIXME// must be overloaded ==
     if( $f && $f ne $focused ) {
       $focused = $f;
 

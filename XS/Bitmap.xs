@@ -45,10 +45,29 @@ Wx_Mask::Destroy()
 
 MODULE=Wx PACKAGE=Wx::Bitmap
 
-#FIXME// unimplemented
-# constructor ( some )
-# FindHandler ?
-# operator == !=
+#if 0
+
+int
+bmp_spaceship( bmp1, bmp2, ... )
+    SV* bmp1
+    SV* bmp2
+  CODE:
+    // this is not a proper spaceship method
+    // it just allows autogeneration of != and ==
+    RETVAL = -1;
+    if( SvROK( bmp1 ) && SvROK( bmp2 ) &&
+        sv_derived_from( bmp1, wxPlBitmapName ) &&
+        sv_derived_from( bmp2, wxPlBitmapName ) )
+    {
+        Wx_Bitmap* bitmap1 = (Wx_Bitmap*)_sv_2_object( bmp1, wxPlBitmapName );
+        Wx_Bitmap* bitmap2 = (Wx_Bitmap*)_sv_2_object( bmp2, wxPlBitmapName );
+
+        RETVAL = *bitmap1 == *bitmap2 ? 0 : 1;
+    }
+  OUTPUT:
+    RETVAL
+
+#endif
 
 Wx_Bitmap*
 newEmpty( width, height, depth = -1 )
