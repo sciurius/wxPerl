@@ -54,6 +54,7 @@ bmp_spaceship( bmp1, bmp2, ... )
   CODE:
     // this is not a proper spaceship method
     // it just allows autogeneration of != and ==
+    // anyway, comparing bitmaps is just useless
     RETVAL = -1;
     if( SvROK( bmp1 ) && SvROK( bmp2 ) &&
         sv_derived_from( bmp1, wxPlBitmapName ) &&
@@ -63,7 +64,8 @@ bmp_spaceship( bmp1, bmp2, ... )
         Wx_Bitmap* bitmap2 = (Wx_Bitmap*)_sv_2_object( bmp2, wxPlBitmapName );
 
         RETVAL = *bitmap1 == *bitmap2 ? 0 : 1;
-    }
+    } else
+      RETVAL = 1;
   OUTPUT:
     RETVAL
 
