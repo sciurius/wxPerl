@@ -260,3 +260,7 @@ wxTrap()
     // TODO
 #endif // Win/Unix
 #endif
+
+wxString
+wxGetOsDescription()
+
