@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.13 2004/03/20 17:53:21 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.14 2004/06/01 19:30:40 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -45,6 +45,23 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_ADA_CHARACTER );
         r( wxSTC_ADA_IDENTIFIER );
         r( wxSTC_ADA_STRINGEOL );
+        r( wxSTC_ASM_DEFAULT );
+        r( wxSTC_ASM_COMMENT );
+        r( wxSTC_ASM_NUMBER );
+        r( wxSTC_ASM_STRING );
+        r( wxSTC_ASM_OPERATOR );
+        r( wxSTC_ASM_IDENTIFIER );
+        r( wxSTC_ASM_CPUINSTRUCTION );
+        r( wxSTC_ASM_MATHINSTRUCTION );
+        r( wxSTC_ASM_REGISTER );
+        r( wxSTC_ASM_DIRECTIVE );
+        r( wxSTC_ASM_DIRECTIVEOPERAND );
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+        r( wxSTC_ASM_COMMENTBLOCK );
+        r( wxSTC_ASM_CHARACTER );
+        r( wxSTC_ASM_STRINGEOL );
+        r( wxSTC_ASM_EXTINSTRUCTION );
+#endif
         break;
     case 'B':
         r( wxSTC_B_DEFAULT );
@@ -413,6 +430,7 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_KEY_DIVIDE );
         break;
     case 'L':
+        r( wxSTC_LEX_ASM );
         r( wxSTC_LEX_CSS );
         r( wxSTC_LEX_PERL );
         r( wxSTC_LEX_XML );
