@@ -30,6 +30,9 @@ void
 Wx_Clipboard::Close()
 
 bool
+Wx_Clipboard::Flush()
+
+bool
 Wx_Clipboard::GetData( data )
     Wx_DataObject* data
   CODE:
