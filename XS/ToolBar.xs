@@ -20,6 +20,174 @@ Wx_ToolBarToolBase::Destroy()
   CODE:
     delete THIS;
 
+int
+Wx_ToolBarToolBase::GetId()
+
+Wx_Control*
+Wx_ToolBarToolBase::GetControl()
+
+Wx_ToolBarBase*
+Wx_ToolBarToolBase::GetToolBar()
+
+bool
+Wx_ToolBarToolBase::IsButton()
+
+bool
+Wx_ToolBarToolBase::IsControl()
+
+bool
+Wx_ToolBarToolBase::IsSeparator()
+
+int
+Wx_ToolBarToolBase::GetStyle()
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+wxItemKind
+Wx_ToolBarToolBase::GetKind()
+
+#endif
+
+bool
+Wx_ToolBarToolBase::IsEnabled()
+
+bool
+Wx_ToolBarToolBase::IsToggled()
+
+bool
+Wx_ToolBarToolBase::CanBeToggled()
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+Wx_Bitmap*
+Wx_ToolBarToolBase::GetNormalBitmap()
+  CODE:
+    RETVAL = new wxBitmap( THIS->GetNormalBitmap() );
+  OUTPUT:
+    RETVAL
+
+Wx_Bitmap*
+Wx_ToolBarToolBase::GetDisabledBitmap()
+  CODE:
+    RETVAL = new wxBitmap( THIS->GetDisabledBitmap() );
+  OUTPUT:
+    RETVAL
+
+#endif
+
+Wx_Bitmap*
+Wx_ToolBarToolBase::GetBitmap1()
+  CODE:
+#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
+    RETVAL = new wxBitmap( THIS->GetBitmap1() );
+#else
+    RETVAL = new wxBitmap( THIS->GetNormalBitmap() );
+#endif
+  OUTPUT:
+    RETVAL
+
+Wx_Bitmap*
+Wx_ToolBarToolBase::GetBitmap2()
+  CODE:
+#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
+    RETVAL = new wxBitmap( THIS->GetBitmap2() );
+#else
+    RETVAL = new wxBitmap( THIS->GetDisabledBitmap() );
+#endif
+  OUTPUT:
+    RETVAL
+
+Wx_Bitmap*
+Wx_ToolBarToolBase::GetBitmap()
+  CODE:
+    RETVAL = new wxBitmap( THIS->GetBitmap() );
+  OUTPUT:
+    RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+wxString
+Wx_ToolBarToolBase::GetLabel()
+
+#endif
+
+wxString
+Wx_ToolBarToolBase::GetShortHelp()
+
+wxString
+Wx_ToolBarToolBase::GetLongHelp()
+
+Wx_UserDataO*
+Wx_ToolBarToolBase::GetClientData()
+  CODE:
+    RETVAL = (Wx_UserDataO*) THIS->GetClientData();
+  OUTPUT:
+    RETVAL
+
+bool
+Wx_ToolBarToolBase::Enable( enable )
+    bool enable
+
+bool
+Wx_ToolBarToolBase::Toggle( enable )
+    bool enable
+
+bool
+Wx_ToolBarToolBase::SetToggle( toggle )
+    bool toggle
+
+bool
+Wx_ToolBarToolBase::SetShortHelp( help )
+    wxString help
+
+bool
+Wx_ToolBarToolBase::SetLongHelp( help )
+    wxString help
+
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+void
+Wx_ToolBarToolBase::SetNormalBitmap( bmp )
+    Wx_Bitmap* bmp
+  CODE:
+    THIS->SetNormalBitmap( *bmp );
+
+void
+Wx_ToolBarToolBase::SetDisabledBitmap( bmp )
+    Wx_Bitmap* bmp
+  CODE:
+    THIS->SetDisabledBitmap( *bmp );
+
+void
+Wx_ToolBarToolBase::SetLabel( label )
+    wxString label
+
+#endif
+
+void
+Wx_ToolBarToolBase::SetBitmap1( bmp )
+    Wx_Bitmap* bmp
+  CODE:
+#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
+    THIS->SetBitmap1( *bmp );
+#else
+    THIS->SetNormalBitmap( *bmp );
+#endif
+
+void
+Wx_ToolBarToolBase::SetBitmap2( bmp )
+    Wx_Bitmap* bmp
+  CODE:
+#if WXPERL_W_VERSION_LE( 2, 3, 2 ) || WXWIN_COMPATIBILITY_2_2
+    THIS->SetBitmap2( *bmp );
+#else
+    THIS->SetDisabledBitmap( *bmp );
+#endif
+
+void
+Wx_ToolBarToolBase::SetClientData( data = 0 )
+    Wx_UserDataO* data
+
 MODULE=Wx PACKAGE=Wx::ToolBarBase
 
 void
