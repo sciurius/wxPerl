@@ -122,7 +122,6 @@ Wx_ControlWithItems::GetClientData( n )
   PPCODE:
     if( ( ud = (_wxUserDataCD*)THIS->GetClientObject( n ) ) )
     {
-      SvREFCNT_inc( ud->m_data );
       XPUSHs( ud->m_data );
     }
     else

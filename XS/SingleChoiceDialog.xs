@@ -63,7 +63,6 @@ Wx_SingleChoiceDialog::GetSelectionClientData()
     if( t )
     {
         RETVAL = (SV*)t;
-        SvREFCNT_inc( RETVAL );
     }
   OUTPUT:
     RETVAL

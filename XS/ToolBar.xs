@@ -102,9 +102,8 @@ Wx_ToolBar::GetToolClientData( toolId )
   PREINIT:
     _wxUserDataO* ud;
   PPCODE:
-    if( ( ud = (_wxUserDataO*) THIS->GetClientObject() ) )
+    if( ( ud = (_wxUserDataO*) THIS->GetToolClientData( toolId ) ) )
     {
-      SvREFCNT_inc( ud->m_data );
       XPUSHs( ud->m_data );
     }
     else

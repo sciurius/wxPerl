@@ -18,14 +18,14 @@ bool _wxVirtualCallback::FindCallback( const char* name )
 
     pkg = SvSTASH( SvRV( m_self ) );
 
-    void* p_method;
+    void* p_method = 0;
 
     if( pkg ) 
     {
         GV* gv = gv_fetchmethod( pkg, CHAR_P name );
         if( gv && isGV( gv ) )
             // mortal, since CallCallback is called before we return to perl
-            m_method = sv_2mortal( newRV( (SV*) ( p_method = GvCV( gv ) ) ) );
+            m_method = sv_2mortal( newRV_inc( (SV*) ( p_method = GvCV( gv ) ) ) );
     }
 
     if( !m_method )
@@ -71,9 +71,10 @@ SV* _wxVirtualCallback::CallCallback( I32 flags, const char* argtypes, ... )
 
     SPAGAIN;
 
-    SV* retval=POPs;
+    SV* retval = POPs;
     SvREFCNT_inc( retval );
 
+    PUTBACK;
     FREETMPS;
     LEAVE;
 

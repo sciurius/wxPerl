@@ -62,6 +62,10 @@ int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn ) {
 
     if( count != 1 )
     {
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+
         croak( "Comparison function returned %d values ( 1 expected )",
                count );
     }
@@ -114,7 +118,7 @@ void _push_args( SV*** psp, const char* argtypes, va_list& args )
             break;
         case 'l':
             lval = va_arg( args, long );
-            XPUSHs( sv_2mortal( newSViv( ival ) ) );
+            XPUSHs( sv_2mortal( newSViv( lval ) ) );
             break;
         case 'p':
             stval = va_arg( args, char* );
@@ -189,9 +193,9 @@ void* _sv_2_object( SV* scalar, const char* classname )
         if( SvTYPE( ref ) == SVt_PVHV ) 
         {
             HV* hv = (HV*) ref;
-            HE* value;
+            HE* value = hv_fetch_ent( hv, _key, 0, _hash );
 
-            if( ( value = hv_fetch_ent( hv, _key, 0, _hash ) ) ) 
+            if( value ) 
             {
                 return (void*)SvIV( HeVAL( value ) );
             }
@@ -259,7 +263,7 @@ SV* _make_object( wxObject* object, const char* classname )
     HV* stash;
 
     hv = newHV();
-    ret = newRV_inc( (SV*) hv );
+    ret = newRV_noinc( (SV*) hv );
 
     stash = gv_stashpv( CHAR_P classname, 0 );
     value = newSViv( (IV) object );

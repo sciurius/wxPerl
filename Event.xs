@@ -118,7 +118,6 @@ Wx_CommandEvent::GetClientData()
   PPCODE:
     if( ( ud = (_wxUserDataCD*) THIS->GetClientObject() ) )
     {
-      SvREFCNT_inc( ud->m_data );
       XPUSHs( ud->m_data );
     }
     else
