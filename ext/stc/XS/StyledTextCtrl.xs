@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.14 2004/04/10 20:36:25 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.15 2004/08/28 19:43:46 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -817,7 +817,7 @@ wxStyledTextCtrl::SetZoom( zoom )
 int
 wxStyledTextCtrl::GetZoom()
 
-void
+void*
 wxStyledTextCtrl::CreateDocument()
 
 void
