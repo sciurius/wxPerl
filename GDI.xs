@@ -13,42 +13,8 @@
 #undef bool
 #define PERL_NO_GET_CONTEXT
 
-#include <wx/defs.h>
-#include <stdarg.h>
-
-#include "cpp/compat.h"
-#include "cpp/chkconfig.h"
-
-WXPL_EXTERN_C_START
-#include <EXTERN.h>
-#include <perl.h>
-#include <XSUB.h>
-WXPL_EXTERN_C_END
-
-#undef bool
-#undef Move
-#undef Copy
-#undef New
-#undef Pause
-#if defined( __WXMSW__ )
-#undef read
-#undef write
-#undef eof
-#undef form
-#undef vform
-#endif
-
-#if __VISUALC__
-#pragma warning (disable: 4800 )
-#endif
-
-#ifdef __WXMSW__
-#include <wx/msw/winundef.h>
-#endif // __WXMSW__
-
-// some helper functions/classes/macros
+#include "cpp/wxapi.h"
 #include "cpp/typedef.h"
-#include "cpp/helpers.h"
 
 #undef THIS
 WXPLI_BOOT_ONCE(Wx_GDI);
@@ -72,13 +38,41 @@ MODULE=Wx PACKAGE=Wx
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
 
-Wx_Rect*
+wxRect*
 GetClientDisplayRect()
   CODE:
     RETVAL = new wxRect( wxGetClientDisplayRect() );
   OUTPUT:
     RETVAL
 
+bool
+wxColourDisplay()
+  CODE:
+    RETVAL = wxColourDisplay();
+  OUTPUT:
+    RETVAL
+
+int
+wxDisplayDepth()
+  CODE:
+    RETVAL = wxDisplayDepth();
+  OUTPUT:
+    RETVAL
+
+wxSize*
+wxGetDisplaySizeMM()
+  CODE:
+    RETVAL = new wxSize( wxGetDisplaySizeMM() );
+  OUTPUT:
+    RETVAL
+
 #endif
+
+wxSize*
+wxGetDisplaySize()
+  CODE:
+    RETVAL = new wxSize( wxGetDisplaySize() );
+  OUTPUT:
+    RETVAL
 
 MODULE=Wx_GDI
