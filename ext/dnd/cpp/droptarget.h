@@ -21,8 +21,13 @@ public:
         :wxDropTarget( data ),
          m_callback( "Wx::DropTarget" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( newSViv( 0 ), this,
-                                                   package ) );
+        // this is necessary because the SV returned to
+        // the perl program _is not_ this one!
+        // so _this_ SV must not delete the object,
+        // this is responsibility of the program's one!
+        SV* sv = wxPli_non_object_2_sv( sv_newmortal(), this, package );
+        wxPli_object_set_deleteable( sv, FALSE );
+        m_callback.SetSelf( sv );
     }
 
     DEC_V_CBACK_WXDRAGRESULT__WXCOORD_WXCOORD_WXDRAGRESULT( OnData );
@@ -46,8 +51,9 @@ public:
         :wxTextDropTarget(),
          m_callback( "Wx::TextDropTarget" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( newSViv( 0 ), this,
-                                                   package ) );
+        SV* sv = wxPli_non_object_2_sv( sv_newmortal(), this, package );
+        wxPli_object_set_deleteable( sv, FALSE );
+        m_callback.SetSelf( sv );
     }
 
     DEC_V_CBACK_BOOL__WXCOORD_WXCOORD_WXSTRING( OnDropText );
@@ -63,8 +69,9 @@ public:
         :wxFileDropTarget(),
          m_callback( "Wx::FileDropTarget" )
     {
-        m_callback.SetSelf( wxPli_non_object_2_sv( newSViv( 0 ), this,
-                                                   package ) );
+        SV* sv = wxPli_non_object_2_sv( sv_newmortal(), this, package );
+        wxPli_object_set_deleteable( sv, FALSE );
+        m_callback.SetSelf( sv );
     }
 
     DEC_V_CBACK_BOOL__WXCOORD_WXCOORD_WXARRAYSTRING( OnDropFiles );
