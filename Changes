@@ -1,17 +1,21 @@
 Revision history for Perl extension Wx.
 
 0.11  xxx xxx xx xx:xx:xx xxxx
-	- compatibility with Perl 5.7.3 and later
 	- wxTextAttr ( 2.3 )
+	- wxStyledTextControl, based on Scintilla
+	  (thanks to Marcus Friedlaender)
+	- Wx::Perl::SplashFast, for faster splash screens
+	  (thanks to Graciliano M. P.)
 	- wxToolBarTool
+	- Wx::PlFileSystemHandler, for custom file system handlers
+	- compatibility with Perl 5.7.3 and later
+	- updated build instructions, using suggestions from
+	  Graciliano M. P. and Marcus Friedlaender
+	- allow compilation of a single big Wx.so/dll; this allows building
+	  against a static wxWindows library
 	- wxThread::IsMain(), some testing with threads
 	  for Perl 5.7.3 ( works with some caveats )
 	- wxPlEvent and wxPlCommandEvent
-	- Wx::PlFileSystemHandler, for custom file system handlers
-	- allow compilation of a single big Wx.so/dll; this allows building
-	  against a static wxWindows library
-	- updated build instructions, using suggestions from
-	  Graciliano M. P. and Marcus
 
 0.10  Sun Mar 03 19:33:55 2002
 	- Fix a silly typo that broke wxTaskBar
