@@ -1,11 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        st_constants.cpp
 // Purpose:     constants for Wx::STC
-// Author:      Mattia Barbon
-// Modified by:
+// Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/ 5/2002
-// RCS-ID:      
-// Copyright:   (c) 2002 Mattia Barbon
+// RCS-ID:
+// Copyright:   (c) 2002 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -26,7 +25,7 @@ double stc_constant( const char* name, int arg )
         fl = name[6];
     else
         fl = 0;
-    
+
     switch( fl )
     {
     case 'E':
@@ -50,11 +49,15 @@ double stc_constant( const char* name, int arg )
     case 'L':
         r( wxSTC_LEX_PERL );
         r( wxSTC_LEX_XML );
+        r( wxSTC_LEX_HTML );
+        break;
+	case 'S':
+        r( wxSTC_STYLE_DEFAULT );
         break;
     }
 #undef r
 
-  WX_PL_CONSTANT_CLEANUP();
+    WX_PL_CONSTANT_CLEANUP();
 }
 
 wxPlConstants stc_module( &stc_constant );
