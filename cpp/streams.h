@@ -5,7 +5,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2001
-// RCS-ID:      $Id: streams.h,v 1.5 2004/10/05 20:13:36 mbarbon Exp $
+// RCS-ID:      $Id: streams.h,v 1.6 2004/12/21 20:59:21 mbarbon Exp $
 // Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -33,7 +33,7 @@ protected:
     size_t GetSize() const { return ~(size_t)0; }
     size_t OnSysRead( void* buffer, size_t bufsize );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     wxFileOffset OnSysSeek(wxFileOffset seek, wxSeekMode mode);
     wxFileOffset OnSysTell() const;
 #else
@@ -56,7 +56,7 @@ public:
 protected:
     size_t OnSysWrite( const void* buffer, size_t size );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
     wxFileOffset OnSysSeek(wxFileOffset seek, wxSeekMode mode);
     wxFileOffset OnSysTell() const;
 #else
