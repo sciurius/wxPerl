@@ -240,6 +240,9 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
         return 0;
     }
 
+    if( !SvROK( scalar ) )
+        croak( "the invocant must be a reference" );
+
     if( /* 1 || */ sv_derived_from( scalar, CHAR_P classname ) ) 
     {
         SV* ref = SvRV( scalar );
