@@ -233,6 +233,34 @@ Wx_Window::FindWindow( i )
   OUTPUT:
     RETVAL
 
+wxWindow*
+FindWindowById( id, parent = NULL )
+    wxWindowID id
+    wxWindow* parent
+  CODE:
+    RETVAL = wxWindow::FindWindowById( id, parent );
+  OUTPUT:
+    RETVAL
+
+wxWindow*
+FindWindowByName( id, parent = NULL )
+    wxString id
+    wxWindow* parent
+  CODE:
+    RETVAL = wxWindow::FindWindowByName( id, parent );
+  OUTPUT:
+    RETVAL
+
+wxWindow*
+FindWindowByLabel( id, parent = NULL )
+    wxString id
+    wxWindow* parent
+  CODE:
+    RETVAL = wxWindow::FindWindowByLabel( id, parent );
+  OUTPUT:
+    RETVAL
+
+
 void
 Wx_Window::Fit()
 
