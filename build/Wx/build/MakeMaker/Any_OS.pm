@@ -44,37 +44,14 @@ sub configure_ext {
                             get_saved_options => !$is_tree );
   my %config = $cfg->get_flags;
 
-  $config{INC} .= '-I' . $this->_api_directory;
-
   return %config;
-}
-
-sub _api_directory {
-  if( Wx::build::MakeMaker::is_wxPerl_tree() ) {
-    return Wx::build::Utils::_top_dir();
-  } else {
-    my $path = $INC{'Wx/build/MakeMaker.pm'};
-    my( $vol, $dir, $file ) = File::Spec->splitpath( $path );
-    my @dirs = File::Spec->splitdir( $dir ); pop @dirs; pop @dirs;
-    return File::Spec->catpath( $vol, File::Spec->catdir( @dirs ) );
-  }
-}
-
-sub _arch_directory {
-  if( Wx::build::MakeMaker::is_wxPerl_tree() ) {
-    die "Should not be called!";
-  } else {
-    my $path = $INC{'Wx/build/Opt.pm'};
-    my( $vol, $dir, $file ) = File::Spec->splitpath( $path );
-    my @dirs = File::Spec->splitdir( $dir ); pop @dirs; pop @dirs; pop @dirs;
-    return File::Spec->catpath( $vol, File::Spec->catdir( @dirs ) );
-  }
 }
 
 sub _depend_common {
   my $this = shift;
 
-  return xs_dependencies( $this, [ curdir, $this->_api_directory ] );
+  return xs_dependencies( $this, [ curdir, $this->wx_config->get_api_directory
+                                 ] );
 }
 
 my( @files_with_constants, @files_with_overload );

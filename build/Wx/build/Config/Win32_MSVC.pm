@@ -21,22 +21,27 @@ sub _data {
   die "PANIC: you are not using nmake!" unless $Config{make} eq 'nmake';
 
   my $final = $this->_debug ? 'BUILD=debug   DEBUG_RUNTIME_LIBS=0'
-                            : 'BUILD=release DEBUG_RUNTIME_LIBS=0';
+                            : 'BUILD=release XDEBUG_RUNTIME_LIBS=0';
   my $unicode = $this->_unicode ? 'UNICODE=1' : 'UNICODE=0';
 
   my $dir = Cwd::cwd;
   chdir $min_dir or die "chdir '$min_dir'";
-  my @t = qx(nmake /nologo /n /u /f makefile.vc $final $unicode);
+  my @t = qx(nmake /nologo /n /u /f makefile.vc $final $unicode SHARED=1);
 
-  my( $accu, $libdir );
+  my( $accu, $libdir, $digits );
   foreach ( @t ) {
     chomp;
     m/^\s*echo\s+(.*)>\s*\S+\s*$/ and $accu .= ' ' . $1 and next;
     s/\@\S+\s*$/$accu/ and undef $accu;
 
     if( s/^\s*link\s+// ) {
+      m/\swxmsw(\d+)\S+\.lib/ and $digits = $1;
       s/\s+\S+\.(exe|res|obj)/ /g;
-      s{[-/]LIBPATH:(\S+)}{'-L' . ( $libdir = canonpath( rel2abs( $1 ) ) )}egi;
+      s{[-/]LIBPATH:(\S+)}
+       {'-L' . ( $libdir = Wx::build::Config::is_wxPerl_tree() ?
+                           canonpath( rel2abs( $1 ) )   :
+                           catfile( $this->get_arch_directory, 'auto', 'Wx' ) )
+        }egi;
       $data{libs} = $_;
     } elsif( s/^\s*cl\s+// ) {
       s/\s+\S+\.(cpp|pdb|obj)/ /g;
@@ -49,13 +54,13 @@ sub _data {
 
   chdir $dir or die "chdir '$dir'";
 
-  $data{dlls} = $this->_grep_dlls( $libdir );
+  $data{dlls} = $this->_grep_dlls( $libdir, $digits );
 
-  {
-    my $tmp = $data{dlls}{core}{dll};
-    $tmp =~ m/^\D+(\d+)/;
-    $data{version} = $1;
-  }
+#  {
+#    my $tmp = $data{dlls}{core}{dll};
+#    $tmp =~ m/^\D+(\d+)/;
+    $data{version} = $digits;
+#  }
   $this->{data} = \%data;
 }
 
@@ -64,6 +69,8 @@ sub wx_config_24 {
 
   if( $_[0] eq 'dlls' ) {
     my $implib = $this->wx_config( 'implib' );
+    $implib = $this->_replace_implib_24( $implib )
+      unless Wx::build::Config::is_wxPerl_tree();
     my $dll = $implib;
     $dll =~ s/\.lib$/.dll/;
     return { core => { dll => $dll, lib => $implib } };
@@ -74,6 +81,9 @@ sub wx_config_24 {
     my $unicode = $this->_unicode ? 'UNICODE=1' : 'UNICODE=0';
     my $t = qx(nmake /nologo /s /f $makefile @_ $final $unicode);
     chomp $t;
+    if( $_[0] eq 'libs' && !Wx::build::Config::is_wxPerl_tree() ) {
+      return $this->_replace_implib_24( $t );
+    }
     return $t;
   } else {
     die "PANIC: you are not using nmake!";

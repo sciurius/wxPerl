@@ -276,8 +276,8 @@ sub wxWriteMakefile {
   $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;
   require Wx::build::MakeMaker::Any_OS;
   push @{$params{TYPEMAPS} ||= []},
-    File::Spec->catfile( Wx::build::MakeMaker::Any_OS->_api_directory,
-                         'typemap' );
+    # don't tell anyone this doesn't require a Wx::build::Config *object*
+    File::Spec->catfile( Wx::build::Config->get_api_directory, 'typemap' );
   ( $params{PREREQ_PM} ||= {} )->{Wx} ||= '0.17' unless is_wxPerl_tree();
 
   my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params );

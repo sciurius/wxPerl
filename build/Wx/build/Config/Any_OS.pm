@@ -9,6 +9,7 @@ sub get_flags {
   my %config;
 
   $config{INC} .= '-I' . curdir . ' ';
+  $config{INC} .= '-I' . $this->get_api_directory . ' ';
 
   unless( $this->_core ) {
     $config{DEFINE} .= " -DWXPL_EXT ";

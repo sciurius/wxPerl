@@ -50,11 +50,14 @@ sub _init {
 }
 
 sub _grep_dlls {
-  my( $this, $libdir ) = @_;
+  my( $this, $libdir, $digits ) = @_;
   my $ret = {};
+  my $suff = ( $this->_unicode ? 'u' : '' ) . ( $this->_debug ? 'd' : '' );
 
-  my @dlls = glob( catfile( $libdir, '*.dll' ) );
-  my @libs = grep { m/libwx(?:msw|base)[\w\.]+$/ }
+  my @dlls = grep { m/${digits}\d*${suff}_/ }
+             glob( catfile( $libdir, '*.dll' ) );
+  my @libs = grep { m/(?:lib)?wx(?:msw|base)[\w\.]+$/ }
+             grep { m/${digits}\d*${suff}(_|\.)/ }
              glob( catfile( $libdir, "*$Config{lib_ext}" ) );
 
   foreach my $full ( @dlls, @libs ) {
@@ -62,11 +65,23 @@ sub _grep_dlls {
     local $_ = File::Basename::basename( $full );
     m/^[^_]+_([^_\.]+)/ and $name = $1;
     $name = 'base' if !defined $name || $name =~ m/^(gcc|vc)$/;
-    $type = m/\.$Config{lib_ext}$/i ? 'lib' : 'dll';
+    $type = m/$Config{lib_ext}$/i ? 'lib' : 'dll';
     $ret->{$name}{$type} = $full;
   }
 
   return $ret;
+}
+
+sub _replace_implib_24 {
+  my $this = shift;
+  my $text = shift;
+  my $impbase =
+    File::Basename::basename( $this->wx_config( 'implib' ) );
+  my $rimp = catfile( $this->get_arch_directory,
+                      'auto', 'Wx', $impbase );
+  return join ' ',
+         map { m{\Q${impbase}\E$} ? $rimp : $_ }
+         split ' ', $text;
 }
 
 1;

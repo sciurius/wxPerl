@@ -23,6 +23,7 @@ my @top_level_xs = qw(Wx.xs Constant.xs Controls.xs Event.xs
 my %subdirs;
 
 Wx::build::MakeMaker::_set_is_wxPerl_tree( 1 );
+Wx::build::Config::_set_is_wxPerl_tree( 1 );
 my %options = Wx::build::Options->get_makemaker_options;
 
 {

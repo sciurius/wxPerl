@@ -5,6 +5,7 @@ use base 'Wx::build::MakeMaker::Any_OS';
 use Wx::build::Utils;
 use File::Basename ();
 
+# only used for core (to copy the file)
 my $wx_setup_dir = undef;
 
 sub configure_core {
@@ -35,20 +36,8 @@ sub configure_ext {
                             core => 0,
                             get_saved_options => !$is_tree );
 
-  # installed import library
-  my $impbase =
-    File::Basename::basename( $cfg->wx_config( 'implib' ) );
-  my $rimp = File::Spec->catfile( $this->_arch_directory,
-                                  'auto', 'Wx', $impbase );
-  my $libs = '';
-  foreach ( split /\s+/, $config{LIBS} ) {
-    m{${impbase}$} and $_ = $rimp;
-    $libs .= "$_ ";
-  }
-  $config{LIBS} = $libs;
-
   # installed setup.h
-  $config{INC} = '-I' . File::Spec->catdir( $this->_arch_directory,
+  $config{INC} = '-I' . File::Spec->catdir( $cfg->get_arch_directory,
                                             'Wx', 'build' )
     . ' ' . $config{INC};
 

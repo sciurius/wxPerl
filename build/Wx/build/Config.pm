@@ -2,6 +2,11 @@ package Wx::build::Config;
 
 use strict;
 use Config;
+use Wx::build::Utils;
+
+my $is_wxPerl_tree = 0;
+sub _set_is_wxPerl_tree { $is_wxPerl_tree = shift; }
+sub is_wxPerl_tree { $is_wxPerl_tree }
 
 =head1 NAME
 
@@ -61,7 +66,38 @@ sub _static  { $_[0]->{STATIC} }
 
   my $string = $cfg->wx_config( 'cxx' );
 
+=head2 get_api_directory
+
+  my $dir = $cfg->get_api_directory;
+
+=head2 get_arch_directory
+
+  my $dir = $cfg->get_arch_directory;
+
 =cut
+
+sub get_api_directory {
+  if( Wx::build::Config::is_wxPerl_tree() ) {
+    return Wx::build::Utils::_top_dir();
+  } else {
+    my $path = $INC{'Wx/build/Config.pm'};
+    my( $vol, $dir, $file ) = File::Spec->splitpath( $path );
+    my @dirs = File::Spec->splitdir( $dir ); pop @dirs; pop @dirs;
+    return File::Spec->catpath( $vol, File::Spec->catdir( @dirs ) );
+  }
+}
+
+sub get_arch_directory {
+  if( Wx::build::Config::is_wxPerl_tree() ) {
+    require Carp;
+    Carp::confess( "Should not be called!" );
+  } else {
+    my $path = $INC{'Wx/build/Opt.pm'};
+    my( $vol, $dir, $file ) = File::Spec->splitpath( $path );
+    my @dirs = File::Spec->splitdir( $dir ); pop @dirs; pop @dirs; pop @dirs;
+    return File::Spec->catpath( $vol, File::Spec->catdir( @dirs ) );
+  }
+}
 
 =head2 get_flags
 
@@ -93,6 +129,8 @@ sub get_wx_version {
     return $1 + $2 / 1000 + $3 / 1000000;
   $ver =~ m/(\d)(\d)(\d+)/ &&
     return $1 + $2 / 1000 + $3 / 1000000;
+  $ver =~ m/(\d)(\d)/ &&
+    return $1 + $2 / 1000;
 
   die "unable to get wxWindows' version ($ver)";
 }

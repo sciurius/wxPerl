@@ -24,17 +24,22 @@ sub _data {
 
   my $dir = Cwd::cwd;
   chdir $min_dir or die "chdir '$min_dir'";
-  my @t = qx(make -n -f makefile.gcc $final $unicode);
+  my @t = qx(make -n -f makefile.gcc $final $unicode SHARED=1);
 
-  my( $libdir );
+  my( $libdir, $digits );
   foreach ( @t ) {
     chomp;
 
     if( m/\s-l\w+/ ) {
+      m/-lwxbase(\d+)/ and $digits = $1;
       s/^[cg]\+\+//;
       s/(?:\s|^)-[co]//g;
       s/\s+\S+\.(exe|o)/ /gi;
-      s{[-/]L(\S+)}{'-L' . ( $libdir = canonpath( rel2abs( $1 ) ) )}eg;
+      s{-L(\S+)}
+       {'-L' . ( $libdir = Wx::build::Config::is_wxPerl_tree() ?
+                           canonpath( rel2abs( $1 ) )   :
+                           catfile( $this->get_arch_directory, 'auto', 'Wx' ) )
+        }eg;
       $data{libs} = $_;
     } elsif( s/^\s*g\+\+\s+// ) {
       s/\s+\S+\.(cpp|o)/ /g;
@@ -48,13 +53,13 @@ sub _data {
 
   chdir $dir or die "chdir '$dir'";
 
-  $data{dlls} = $this->_grep_dlls( $libdir );
+  $data{dlls} = $this->_grep_dlls( $libdir, $digits );
 
-  {
-    my $tmp = $data{dlls}{core}{dll};
-    $tmp =~ m/^\D+(\d+)/;
-    $data{version} = $1;
-  }
+#  {
+#    my $tmp = $data{dlls}{core}{dll};
+#    $tmp =~ m/^\D+(\d+)/;
+    $data{version} = $digits;
+#  }
   $this->{data} = \%data;
 }
 
@@ -63,6 +68,8 @@ sub wx_config_24 {
 
   if( $_[0] eq 'dlls' ) {
     my $implib = $this->wx_config( 'implib' );
+    $implib = $this->_replace_implib_24( $implib )
+      unless Wx::build::Config::is_wxPerl_tree();
     my $dll = $implib;
     $dll =~ s/\.a$/.dll/; $dll =~ s/lib(wx[\w\.]+)$/$1/;
     return { core => { dll => $dll, lib => $implib } };
@@ -72,6 +79,9 @@ sub wx_config_24 {
   my $unicode = $this->_unicode ? 'UNICODE=1' : 'UNICODE=0';
   my $t = qx(make -s -f $makefile @_ $final $unicode);
   chomp $t;
+  if( $_[0] eq 'libs' && !Wx::build::Config::is_wxPerl_tree() ) {
+    return $this->_replace_implib_24( $t );
+  }
   return $t;
 }
 
