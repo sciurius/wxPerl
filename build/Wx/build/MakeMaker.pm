@@ -200,6 +200,7 @@ sub _make_override {
 _make_override( 'subdirs' );
 _make_override( 'postamble' );
 _make_override( 'depend' );
+_make_override( 'install' );
 _make_override( 'libscan' );
 _make_override( 'constants' );
 sub ppd { package MY; shift->SUPER::ppd( @_ ) }

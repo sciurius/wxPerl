@@ -13,6 +13,16 @@ sub configure_core {
   return %config;
 }
 
+sub install_core {
+  my $this = shift;
+  my $text = $this->SUPER::install_core( @_ );
+
+  $text =~ m/^(install\s*:+)/m and
+    $text .= "\n\n$1 install_wxperl\n\n";
+
+  return $text;
+}
+
 sub postamble_core {
   my $this = shift;
   my $text = $this->SUPER::postamble_core( @_ );
@@ -23,6 +33,9 @@ $(INST_BIN)/wxPerl :
 	mkdir -p $(INST_BIN)
 	cp $(PERL) $(INST_BIN)/wxPerl
 	`wx-config --rezflags` $(INST_BIN)/wxPerl
+
+install_wxperl :
+	ditto -rsrcFork $(INST_BIN)/wxPerl $(INSTALLBIN)
 
 EOT
 
