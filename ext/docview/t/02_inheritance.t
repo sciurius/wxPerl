@@ -8,6 +8,7 @@ use Tests_Helper qw(:inheritance);
 
 BEGIN { test_inheritance_start() }
 use Wx::DocView;
+use Wx::MDI;
 test_inheritance_end();
 
 exit 0;
