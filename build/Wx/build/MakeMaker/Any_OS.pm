@@ -28,7 +28,8 @@ sub configure_core {
   my %config = $cfg->get_flags;
 
   $config{clean} =
-    { FILES => "$ovlc $ovlh .exists overload Opt copy_files files.lst" };
+    { FILES => "$ovlc $ovlh .exists overload Opt copy_files files.lst" .
+               " cpp/setup.h" };
 
   return %config;
 }
