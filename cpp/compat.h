@@ -10,7 +10,9 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-#if WXP_VERSION == 5004
+#define WXPERL_P_VERSION ( PERL_REVISION * 1000 + PERL_VERSION )
+
+#if WXPERL_P_VERSION == 5004
 
 // some functions have changed from char* to const char*, and I want
 // a stronger type check (under Perl 5.6 CHAR_P is defined to
@@ -26,19 +28,19 @@
 
 #define PL_na       na
 
-#endif // WXP_VERSION
+#endif // WXPERL_P_VERSION
 
-#if WXP_VERSION == 5005 
+#if WXPERL_P_VERSION == 5005 
 
 #define CHAR_P (char*)
 #define get_sv perl_get_sv
 #define get_av perl_get_av
 #define call_sv perl_call_sv
 
-#endif // WXP_VERSION
+#endif // WXPERL_P_VERSION
 
-#if WXP_VERSION == 5006
+#if WXPERL_P_VERSION == 5006
 
 #define CHAR_P
 
-#endif // WXP_VERSION
+#endif // WXPERL_P_VERSION

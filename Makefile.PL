@@ -38,8 +38,6 @@ use vars qw(@top_level_xs $debug_mode $extra_libs $extra_cflags);
 @top_level_xs = qw(Wx.xs Controls.xs Event.xs Constant.xs 
 Functions.xs Window.xs Frames.xs GDI.xs);
 
-my( $perl_version ) = int( $] * 1000 );
-
 # configures subroutines depending
 # from os/window system
 sub BEGIN {
@@ -110,8 +108,7 @@ sub ld_is_GNU {
 
 sub configure_wxconfig {
   my( $cccflags, $libs );
-  my( %config ) = ( DEFINE => "-DWXP_VERSION=$perl_version" . ' ',
-                    LIBS => $extra_libs . ' ',
+  my( %config ) = ( LIBS => $extra_libs . ' ',
                     CCFLAGS => $extra_cflags . ' ',
                   );
 
@@ -148,7 +145,6 @@ sub configure_win32_msvc {
   my( $cccflags, $ldflags, $libs );
 
   my( %config ) = ( CCFLAGS => $extra_cflags . ' -TP ',
-                    DEFINE => " -DWXP_VERSION=$perl_version ",
                     depend =>
                     { 'Wx.res' => 'Wx.rc ',
                     },
@@ -198,12 +194,9 @@ sub configure_win32_mingw {
 
   my( %config ) = ( CC => 'g++ ',
                     LD => 'g++ ',
-                    DEFINE => " -DWXP_VERSION=$perl_version ",
                     depend =>
                     { 'Wx_res.o' => 'Wx.rc ',
                     },
-                    #FIXME//
-                    clean => { FILES => 'dll.exp dll.exp dll.base ', },
                     LDFROM => '$(OBJECT) Wx_res.o',
                     LIBS => $extra_libs . ' ',
                     CCFLAGS => $extra_cflags . ' -fvtable-thunks ',

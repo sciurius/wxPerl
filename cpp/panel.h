@@ -33,7 +33,6 @@ _wxPanel::_wxPanel( const char* package, wxWindow* parent, wxWindowID id,
     Create( parent, id, pos, size, style, name );
 }
 
-//FIXME// implement
 bool _wxPanel::TransferDataFromWindow()
 {
     if( m_callback.FindCallback( "TransferDataFromWindow" ) )

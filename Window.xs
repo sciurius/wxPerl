@@ -190,7 +190,7 @@ Wx_Window::FindWindow( i )
       RETVAL = THIS->FindWindow( id );
     }
     else {
-#if WXP_VERSION < 5006
+#if WXPERL_P_VERSION < 5006
       name = SvPV( i, PL_na );
 #else
       name = SvPV_nolen( i );
