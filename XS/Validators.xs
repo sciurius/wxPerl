@@ -45,4 +45,9 @@ Wx_PlValidator::new()
   OUTPUT:
     RETVAL
 
-
+void
+Wx_PlValidator::DESTROY()
+  PREINIT:
+    static char wxPlPlValidatorName[] = "Wx::PlValidator";
+  CODE:
+    // nothing
