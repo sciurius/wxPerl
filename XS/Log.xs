@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.17 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Log.xs,v 1.18 2004/03/02 20:20:59 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -114,7 +114,7 @@ MODULE=Wx PACKAGE=Wx::LogTextCtrl
 
 wxLogTextCtrl*
 wxLogTextCtrl::new( ctrl )
-    Wx_TextCtrl* ctrl
+    wxTextCtrl* ctrl
 
 MODULE=Wx PACKAGE=Wx::LogNull
 
