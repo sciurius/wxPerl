@@ -222,6 +222,7 @@ Wx_SysColourChangedEvent * O_WXOBJECT
 Wx_TimerEvent *         O_WXOBJECT
 Wx_TreeEvent *          O_WXOBJECT
 Wx_UpdateUIEvent *      O_WXOBJECT
+Wx_TextUrlEvent *       O_WXOBJECT
 
 OUTPUT
 O_WXOBJECT

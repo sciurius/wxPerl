@@ -79,6 +79,9 @@ FD_TD( SizeEvent );
 FD_TD( SpinEvent );
 FD_TD( SplitterEvent );
 FD_TD( SysColourChangedEvent );
+#if WXPERL_W_VERSION_GE( 2, 3 )
+FD_TD( TextUrlEvent );
+#endif
 FD_TD( TimerEvent );
 FD_TD( TreeEvent );
 FD_TD( UpdateUIEvent );

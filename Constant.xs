@@ -252,6 +252,8 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_COMBOBOX_SELECTED );
 #if WXPERL_W_VERSION_GE( 2, 3 )
     r( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED );
+    r( wxEVT_COMMAND_TEXT_MAXLEN );
+    r( wxEVT_COMMAND_TEXT_URL );
 #endif
     r( wxEVT_COMMAND_TOOL_RCLICKED );
     r( wxEVT_COMMAND_TOOL_ENTER );

@@ -49,6 +49,8 @@ sub EVT_LISTBOX($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LIST
 sub EVT_LISTBOX_DCLICK($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_LISTBOX_DOUBLECLICKED, $_[2] ); }
 sub EVT_TEXT($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TEXT_UPDATED, $_[2] ); }
 sub EVT_TEXT_ENTER($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TEXT_ENTER, $_[2] ); }
+sub EVT_TEXT_MAXLEN($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TEXT_MAXLEN, $_[2] ); }
+sub EVT_TEXT_URL($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_TEXT_URL, $_[2] ); }
 sub EVT_MENU($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_MENU_SELECTED, $_[2] ); }
 sub EVT_MENU_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_COMMAND_MENU_RANGE, $_[3] ); }
 sub EVT_SLIDER($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_COMMAND_SLIDER_UPDATED, $_[2] ); }
@@ -349,6 +351,7 @@ package Wx::ScrollWinEvent;  @ISA = qw(Wx::Event);
 package Wx::SpinEvent;       @ISA = qw(Wx::NotifyEvent);
 package Wx::SplitterEvent;   @ISA = qw(Wx::CommandEvent);
 package Wx::SysColourChangedEvent; @ISA = qw(Wx::Event);
+package Wx::TextUrlEvent;    @ISA = qw(Wx::CommandEvent);
 package Wx::TimerEvent;      @ISA = qw(Wx::Event);
 package Wx::TreeEvent;       @ISA = qw(Wx::NotifyEvent);
 package Wx::UpdateUIEvent;   @ISA = qw(Wx::CommandEvent);
