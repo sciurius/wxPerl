@@ -37,7 +37,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter);
-$VERSION = '0.12';
+$VERSION = '0.13';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE);
