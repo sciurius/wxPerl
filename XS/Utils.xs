@@ -22,6 +22,12 @@
 #include <wx/tipdlg.h>
 #include "cpp/tipprovider.h"
 
+#if !WXPERL_W_VERSION_GE( 2, 3, 1 )
+#if !defined(__WXMSW__) || defined(__WXMICROWIN__)
+  #include  <signal.h>      // for SIGTRAP used by wxTrap()
+#endif  //Win/Unix
+#endif
+
 MODULE=Wx PACKAGE=Wx::CaretSuspend
 
 #if WXPERL_W_VERSION_GE( 2, 3, 1 )
@@ -197,9 +203,27 @@ wxSafeYield( window = 0 )
 bool
 wxYieldIfNeeded()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 void
 wxTrap()
-
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 1 )
+    wxTrap();
+#else
+#if defined(__WXMSW__) && !defined(__WXMICROWIN__)
+    DebugBreak();
+#elif defined(__WXMAC__)
+#if 0
+#if __powerc
+    Debugger();
+#else
+    SysBreak();
+#endif
+#endif
+#elif defined(__UNIX__)
+#if 0
+    raise(SIGTRAP);
+#endif
+#else
+    // TODO
+#endif // Win/Unix
 #endif
