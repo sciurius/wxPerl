@@ -351,7 +351,7 @@ sub arch_auto_file {
   return File::Spec->catfile( 'blib', 'arch', 'auto', @split );
 }
 
-=head path_search
+=head2 path_search
 
   my $file = path_search( 'foo.exe' );
 
