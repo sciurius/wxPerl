@@ -121,6 +121,35 @@ Wx_LogWindow::new( parent, title, show = TRUE, passtoold = TRUE )
 
 MODULE=Wx PACKAGE=Wx
 
+# this is a test for INTERFACE:
+# in thi specific case it saves around 256 bytes / function,
+# more for more complex typemaps / longer parameter lists
+
+#if 0
+
+#define XSINTERFACE__ccharp( _ret, _cv, _f ) \
+  ( ( void (*)( const char * ) ) _f)
+
+#define XSINTERFACE__ccharp_SET( _cv, _f ) \
+  ( CvXSUBANY( _cv ).any_ptr = (void*) _f ) 
+
+#undef dXSFUNCTION
+#define dXSFUNCTION( a ) \
+  void (*XSFUNCTION)( const char* )
+
+void
+interface__ccharp( string )
+    const char* string
+  INTERFACE_MACRO:
+    XSINTERFACE__ccharp
+    XSINTERFACE__ccharp_SET
+  INTERFACE:
+    wxLogError wxLogFatalError wxLogWarning
+    wxLogVerbose wxLogDebug
+    wxLogMessage
+    
+#else
+
 void
 wxLogError( string )
     const char* string
@@ -142,12 +171,10 @@ wxLogVerbose( string )
     const char* string
 
 void
-wxLogSysError( string )
-    const char* string
-
-void
 wxLogDebug( string )
     const char* string
+
+#endif
 
 void
 wxLogStatusFrame( frame, string )
@@ -159,14 +186,10 @@ wxLogStatusFrame( frame, string )
 void
 wxLogStatus( string )
     const char* string
-  CODE:
-    ::wxLogStatus( string );
 
 void
 wxLogTrace( string )
     const char* string
-  CODE:
-    ::wxLogTrace( string );
 
 void
 wxLogTraceMask( mask, string )
@@ -174,6 +197,10 @@ wxLogTraceMask( mask, string )
     const char* string
   CODE:
     ::wxLogTrace( mask, string );
+
+void
+wxLogSysError( string )
+    const char* string
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
