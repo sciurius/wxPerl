@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.19
+0.19  Sat Apr 24 12:32:36 CEST 2004
 	- Started wxHtmlParser/wxHtmlTag/custom tag handlers
 	  wrapping.
 	- Mac OS X build now installs the 'wxPerl' binary in perl
