@@ -1,10 +1,4 @@
-MISC:
-
-* tut & man in one file
-
 PRIORITY HIGH:
-
-* fix wxExecute/Unicode/2.4.0
 
 0.13
 
@@ -177,3 +171,9 @@ CLASSES:
 
   wxMimeTypesManager
   wxEncodingConverter
+
+FEATURE REQUESTS
+
+* wxWave
+* wxMemoryFSHandler
+* wxAutomationObject
