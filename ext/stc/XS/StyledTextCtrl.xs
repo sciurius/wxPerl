@@ -115,6 +115,8 @@ void
 Wx_StyledTextCtrl::SetText(text)
     wxString text
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 ## Sets whether text is word wrapped
 void
 Wx_StyledTextCtrl::SetWrapMode(mode)
@@ -123,6 +125,8 @@ Wx_StyledTextCtrl::SetWrapMode(mode)
 ## Retrieve whether text is word wrapped
 int
 Wx_StyledTextCtrl::GetWrapMode()
+
+#endif
 
 ## Returns the position at the start of the selection.
 int
