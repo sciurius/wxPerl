@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.65 2003/09/07 19:11:25 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.66 2003/09/12 22:08:45 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -21,7 +21,7 @@ use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4; $_x11 = 5;
 
 @ISA = qw(Exporter);
-$VERSION = '0.17';
+$VERSION = '0.18';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE wxTheApp);
