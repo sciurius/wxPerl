@@ -12,8 +12,12 @@
 
 MODULE=Wx PACKAGE=Wx::Locale
 
+#FIXME// unimplemented
+# AddLanguage
+# class wxLanguageInfo ( 2.3 )
+
 Wx_Locale*
-Wx_Locale::new( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FALSE )
+newLong( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencoding = FALSE )
     const char* name
     const char* shorts
     const char* locale
@@ -22,6 +26,15 @@ Wx_Locale::new( name, shorts = 0, locale = 0, loaddefault = TRUE, convertencodin
   CODE:
     RETVAL = new wxLocale( name, shorts, ( locale && strlen( locale ) ) ? locale : 0,
         loaddefault, convertencoding );
+  OUTPUT:
+    RETVAL
+
+Wx_Locale*
+newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
+    int language
+    int flags
+  CODE:
+    RETVAL = new wxLocale( language, flags );
   OUTPUT:
     RETVAL
 
@@ -46,6 +59,22 @@ const char*
 Wx_Locale::GetString( string, domain = 0 )
     const char* string
     const char* domain
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+int
+Wx_Locale::GetSystemLanguage()
+
+int
+Wx_Locale::GetLanguage()
+
+wxString
+Wx_Locale::GetSysName()
+
+wxString
+Wx_Locale::GetCanonicalName()
+
+#endif
 
 bool
 Wx_Locale::IsLoaded( domain )

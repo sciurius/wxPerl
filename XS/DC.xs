@@ -139,6 +139,14 @@ Wx_DC::DrawLines( list, xoffset = 0, yoffset = 0 )
     THIS->DrawLines( &points, xoffset, yoffset );
     delete [] pts;
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+void
+Wx_DC::DrawObject( object )
+    Wx_DrawObject* object
+
+#endif
+
 void
 Wx_DC::DrawPoint( x, y )
     wxCoord x

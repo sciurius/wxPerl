@@ -284,6 +284,13 @@ Wx_Window::GetHandle()
 
 #endif // __WXMSW__
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+wxString
+Wx_Window::GetHelpText()
+
+#endif
+
 int
 Wx_Window::GetId()
 
@@ -579,6 +586,18 @@ Wx_Window::SetForegroundColour( colour )
     Wx_Colour* colour
   CODE:
     THIS->SetForegroundColour( *colour );
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+void
+Wx_Window::SetHelpText( text )
+    wxString text
+
+void
+Wx_Window::SetHelpTextForId( text )
+    wxString text
+
+#endif
 
 void
 Wx_Window::SetId( id )

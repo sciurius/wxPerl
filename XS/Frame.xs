@@ -70,7 +70,9 @@ Wx_Frame::IsIconized()
 bool
 Wx_Frame::IsMaximized()
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) || \
+ ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) \
+ || defined( __WXPERL_FORCE__ )
 
 bool
 Wx_Frame::IsFullScreen()
@@ -118,7 +120,9 @@ Wx_Frame::SetStatusWidths( ... )
     THIS->SetStatusWidths( items - 1, w );
     delete [] w;
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) || \
+ ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) \
+ || defined( __WXPERL_FORCE__ )
 
 bool
 Wx_Frame::ShowFullScreen( show, style = wxFULLSCREEN_ALL )

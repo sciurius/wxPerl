@@ -21,12 +21,12 @@ require Exporter;
 require DynaLoader;
 
 use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
-  $_platform $_msw $_gtk $_motif);
+  $_platform $_msw $_gtk $_motif $_wx_version);
 
 $_msw = 1; $_gtk = 2; $_motif = 3;
 
 @ISA = qw(Exporter DynaLoader);
-$VERSION = '0.04';
+$VERSION = '0.05';
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE);
@@ -90,6 +90,7 @@ $Wx::_s_n = [ $str, $num ];
 $Wx::_s_n_n = [ $str, $num, $num ];
 $Wx::_s_n_n_n = [ $str, $num, $num, $num ];
 $Wx::_s_s = [ $str, $str ];
+$Wx::_s_s_s_b_b = [ $str, $str, $str, $bool, $bool ];
 $Wx::_s_wwin_n_wbmp = [ $str, $wwin, $num, $wbmp ];
 $Wx::_s_wwin_n_wico = [ $str, $wwin, $num, $wico ];
 $Wx::_wbmp = [ $wbmp ];
@@ -181,6 +182,7 @@ require Wx::Event;
 require Wx::Icon;
 require Wx::Image;
 require Wx::ImageList;
+require Wx::Locale;
 require Wx::Menu;
 require Wx::Pen;
 require Wx::RadioBox;

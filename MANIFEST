@@ -30,6 +30,7 @@ lib/Wx/Event.pm
 lib/Wx/Icon.pm
 lib/Wx/Image.pm
 lib/Wx/ImageList.pm
+lib/Wx/Locale.pm
 lib/Wx/Menu.pm
 lib/Wx/Pen.pm
 lib/Wx/RadioBox.pm

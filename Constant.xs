@@ -21,12 +21,17 @@
 #include <wx/msgdlg.h>
 #include <wx/gdicmn.h>
 #include <wx/bitmap.h>
+#include <wx/intl.h>
 #include <wx/icon.h>
 #include <wx/imaglist.h>
+#include <wx/notebook.h>
+#include <wx/dialup.h>
+#include <wx/process.h>
 #include <wx/pen.h>
 #include <wx/brush.h>
 #include <wx/layout.h>
 #include <wx/splitter.h>
+#include <wx/sashwin.h>
 #include <stdarg.h>
 
 #undef _
@@ -122,6 +127,10 @@ if( strEQ( name, #n ) ) \
     r( wxCENTRE );                      // dialog sizer
     r( wxCENTER );                      // dialog sizer
     r( wxCLIP_CHILDREN );               // window
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxCHANGE_DIR );
+    r( wxCLIP_SIBLINGS );               // window
+#endif
 
     r( wxCLEAR );                       // dc
     r( wxCOPY );                        // dc
@@ -164,6 +173,10 @@ if( strEQ( name, #n ) ) \
     r( wxDEFAULT_FRAME_STYLE );         // frame
     r( wxDIALOG_MODAL );                // dialog
     r( wxDOUBLE_BORDER );               // window
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxDIALOG_NO_PARENT );            // dialog
+    r( wxDIALOG_EX_CONTEXTHELP );       // dialog
+#endif
 
     r( wxDOT );                         // pen
     r( wxDOT_DASH );                    // pen
@@ -306,6 +319,11 @@ if( strEQ( name, #n ) ) \
     r( wxEVT_COMMAND_KILL_FOCUS );
     r( wxEVT_COMMAND_ENTER );
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxEVT_HELP );
+    r( wxEVT_DETAILED_HELP );
+#endif
+
     r( wxEXPAND );                      // sizer
     break;
   case 'F':
@@ -318,6 +336,11 @@ if( strEQ( name, #n ) ) \
     r( wxFONTENCODING_SYSTEM );         // font
     r( wxFRAME_FLOAT_ON_PARENT );       // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxFRAME_NO_TASKBAR );            // frame
+    r( wxFRAME_TOOL_WINDOW );           // frame
+    r( wxFRAME_EX_CONTEXTHELP );        // frame
+#endif
 
     r( wxFONTENCODING_ISO8859_1 );      // font
     r( wxFONTENCODING_ISO8859_2 );      // font
@@ -381,7 +404,7 @@ if( strEQ( name, #n ) ) \
     r( wxID_HELP_PROCEDURES );          // id
     r( wxID_HELP_CONTEXT );             // id
     r( wxID_HELP );                     // id
-
+    
     r( wxID_CUT );                      // id
     r( wxID_COPY );                     // id
     r( wxID_PASTE );                    // id
@@ -406,6 +429,15 @@ if( strEQ( name, #n ) ) \
     r( wxID_YES );                      // id
     r( wxID_NO );                       // id
     r( wxID_STATIC );                   // id
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxID_CONTEXT_HELP );             // id
+    r( wxID_YESTOALL );                 // id
+    r( wxID_NOTOALL );                  // id
+    r( wxID_ABORT );                    // id
+    r( wxID_RETRY );                    // id
+    r( wxID_IGNORE );                   // id
+#endif
 
     r( wxIMAGELIST_DRAW_NORMAL );       // imagelist
     r( wxIMAGELIST_DRAW_TRANSPARENT );  // imagelist
@@ -442,6 +474,13 @@ if( strEQ( name, #n ) ) \
     r( wxLEFT );                        // sizer layout constraints
     r( wxLIGHT );                       // font
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxLC_VRULES );                   // listctrl
+    r( wxLC_HRULES );                   // listctrl
+#endif
+    r( wxLC_ICON );                     // listctrl
+    r( wxLC_SMALL_ICON );               // listctrl
+
     r( wxLI_HORIZONTAL );               // staticline
     r( wxLI_VERTICAL );                 // staticline
 
@@ -449,6 +488,254 @@ if( strEQ( name, #n ) ) \
 
     r( wxLeft );                        // layout constraints
     r( wxLeftOf );                      // layout constraints
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxLOCALE_LOAD_DEFAULT );
+    r( wxLOCALE_CONV_ENCODING );
+
+    if( strnEQ( name, "wxLANGUAGE_", 11 ) )
+    {
+#define rr( n ) \
+    if( strEQ( nm, #n ) ) \
+        return wxLANGUAGE_##n;
+
+        const char* nm = name + 11;
+
+        rr( DEFAULT ); 
+        rr( UNKNOWN ); 
+        rr( ABKHAZIAN );
+        rr( AFAR );
+        rr( AFRIKAANS );
+        rr( ALBANIAN );
+        rr( AMHARIC );
+        rr( ARABIC );
+        rr( ARABIC_ALGERIA );
+        rr( ARABIC_BAHRAIN );
+        rr( ARABIC_EGYPT );
+        rr( ARABIC_IRAQ );
+        rr( ARABIC_JORDAN );
+        rr( ARABIC_KUWAIT );
+        rr( ARABIC_LEBANON );
+        rr( ARABIC_LIBYA );
+        rr( ARABIC_MOROCCO );
+        rr( ARABIC_OMAN );
+        rr( ARABIC_QATAR );
+        rr( ARABIC_SAUDI_ARABIA );
+        rr( ARABIC_SUDAN );
+        rr( ARABIC_SYRIA );
+        rr( ARABIC_TUNISIA );
+        rr( ARABIC_UAE );
+        rr( ARABIC_YEMEN );
+        rr( ARMENIAN );
+        rr( ASSAMESE );
+        rr( AYMARA );
+        rr( AZERI );
+        rr( AZERI_CYRILLIC );
+        rr( AZERI_LATIN );
+        rr( BASHKIR );
+        rr( BASQUE );
+        rr( BELARUSIAN );
+        rr( BENGALI );
+        rr( BHUTANI );
+        rr( BIHARI );
+        rr( BISLAMA );
+        rr( BRETON );
+        rr( BULGARIAN );
+        rr( BURMESE );
+        rr( CAMBODIAN );
+        rr( CATALAN );
+        rr( CHINESE );
+        rr( CHINESE_SIMPLIFIED );
+        rr( CHINESE_TRADITIONAL );
+        rr( CHINESE_HONGKONG );
+        rr( CHINESE_MACAU );
+        rr( CHINESE_SINGAPORE );
+        rr( CHINESE_TAIWAN );
+        rr( CORSICAN );
+        rr( CROATIAN );
+        rr( CZECH );
+        rr( DANISH );
+        rr( DUTCH );
+        rr( DUTCH_BELGIAN );
+        rr( ENGLISH );
+        rr( ENGLISH_UK );
+        rr( ENGLISH_US );
+        rr( ENGLISH_AUSTRALIA );
+        rr( ENGLISH_BELIZE );
+        rr( ENGLISH_BOTSWANA );
+        rr( ENGLISH_CANADA );
+        rr( ENGLISH_CARIBBEAN );
+        rr( ENGLISH_DENMARK );
+        rr( ENGLISH_EIRE );
+        rr( ENGLISH_JAMAICA );
+        rr( ENGLISH_NEW_ZEALAND );
+        rr( ENGLISH_PHILIPPINES );
+        rr( ENGLISH_SOUTH_AFRICA );
+        rr( ENGLISH_TRINIDAD );
+        rr( ENGLISH_ZIMBABWE );
+        rr( ESPERANTO );
+        rr( ESTONIAN );
+        rr( FAEROESE );
+        rr( FARSI );
+        rr( FIJI );
+        rr( FINNISH );
+        rr( FRENCH );
+        rr( FRENCH_BELGIAN );
+        rr( FRENCH_CANADIAN );
+        rr( FRENCH_LUXEMBOURG );
+        rr( FRENCH_MONACO );
+        rr( FRENCH_SWISS );
+        rr( FRISIAN );
+        rr( GALICIAN );
+        rr( GEORGIAN );
+        rr( GERMAN );
+        rr( GERMAN_AUSTRIAN );
+        rr( GERMAN_BELGIUM );
+        rr( GERMAN_LIECHTENSTEIN );
+        rr( GERMAN_LUXEMBOURG );
+        rr( GERMAN_SWISS );
+        rr( GREEK );
+        rr( GREENLANDIC );
+        rr( GUARANI );
+        rr( GUJARATI );
+        rr( HAUSA );
+        rr( HEBREW );
+        rr( HINDI );
+        rr( HUNGARIAN );
+        rr( ICELANDIC );
+        rr( INDONESIAN );
+        rr( INTERLINGUA );
+        rr( INTERLINGUE );
+        rr( INUKTITUT );
+        rr( INUPIAK );
+        rr( IRISH );
+        rr( ITALIAN );
+        rr( ITALIAN_SWISS );
+        rr( JAPANESE );
+        rr( JAVANESE );
+        rr( KANNADA );
+        rr( KASHMIRI );
+        rr( KASHMIRI_INDIA );
+        rr( KAZAKH );
+        rr( KERNEWEK );
+        rr( KINYARWANDA );
+        rr( KIRGHIZ );
+        rr( KIRUNDI );
+        rr( KONKANI );
+        rr( KOREAN );
+        rr( KURDISH );
+        rr( LAOTHIAN );
+        rr( LATIN );
+        rr( LATVIAN );
+        rr( LINGALA );
+        rr( LITHUANIAN );
+        rr( MACEDONIAN );
+        rr( MALAGASY );
+        rr( MALAY );
+        rr( MALAYALAM );
+        rr( MALAY_BRUNEI_DARUSSALAM );
+        rr( MALAY_MALAYSIA );
+        rr( MALTESE );
+        rr( MANIPURI );
+        rr( MAORI );
+        rr( MARATHI );
+        rr( MOLDAVIAN );
+        rr( MONGOLIAN );
+        rr( NAURU );
+        rr( NEPALI );
+        rr( NEPALI_INDIA );
+        rr( NORWEGIAN_BOKMAL );
+        rr( NORWEGIAN_NYNORSK );
+        rr( OCCITAN );
+        rr( ORIYA );
+        rr( OROMO );
+        rr( PASHTO );
+        rr( POLISH );
+        rr( PORTUGUESE );
+        rr( PORTUGUESE_BRAZILIAN );
+        rr( PUNJABI );
+        rr( QUECHUA );
+        rr( RHAETO_ROMANCE );
+        rr( ROMANIAN );
+        rr( RUSSIAN );
+        rr( RUSSIAN_UKRAINE );
+        rr( SAMOAN );
+        rr( SANGHO );
+        rr( SANSKRIT );
+        rr( SCOTS_GAELIC );
+        rr( SERBIAN );
+        rr( SERBIAN_CYRILLIC );
+        rr( SERBIAN_LATIN );
+        rr( SERBO_CROATIAN );
+        rr( SESOTHO );
+        rr( SETSWANA );
+        rr( SHONA );
+        rr( SINDHI );
+        rr( SINHALESE );
+        rr( SISWATI );
+        rr( SLOVAK );
+        rr( SLOVENIAN );
+        rr( SOMALI );
+        rr( SPANISH );
+        rr( SPANISH_ARGENTINA );
+        rr( SPANISH_BOLIVIA );
+        rr( SPANISH_CHILE );
+        rr( SPANISH_COLOMBIA );
+        rr( SPANISH_COSTA_RICA );
+        rr( SPANISH_DOMINICAN_REPUBLIC );
+        rr( SPANISH_ECUADOR );
+        rr( SPANISH_EL_SALVADOR );
+        rr( SPANISH_GUATEMALA );
+        rr( SPANISH_HONDURAS );
+        rr( SPANISH_MEXICAN );
+        rr( SPANISH_MODERN );
+        rr( SPANISH_NICARAGUA );
+        rr( SPANISH_PANAMA );
+        rr( SPANISH_PARAGUAY );
+        rr( SPANISH_PERU );
+        rr( SPANISH_PUERTO_RICO );
+        rr( SPANISH_URUGUAY );
+        rr( SPANISH_US );
+        rr( SPANISH_VENEZUELA );
+        rr( SUNDANESE );
+        rr( SWAHILI );
+        rr( SWEDISH );
+        rr( SWEDISH_FINLAND );
+        rr( TAGALOG );
+        rr( TAJIK );
+        rr( TAMIL );
+        rr( TATAR );
+        rr( TELUGU );
+        rr( THAI );
+        rr( TIBETAN );
+        rr( TIGRINYA );
+        rr( TONGA );
+        rr( TSONGA );
+        rr( TURKISH );
+        rr( TURKMEN );
+        rr( TWI );
+        rr( UIGHUR );
+        rr( UKRAINIAN );
+        rr( URDU );
+        rr( URDU_INDIA );
+        rr( URDU_PAKISTAN );
+        rr( UZBEK );
+        rr( UZBEK_CYRILLIC );
+        rr( UZBEK_LATIN );
+        rr( VIETNAMESE );
+        rr( VOLAPUK );
+        rr( WELSH );
+        rr( WOLOF );
+        rr( XHOSA );
+        rr( YIDDISH );
+        rr( YORUBA );
+        rr( ZHUANG );
+        rr( ZULU );
+        rr( USER_DEFINED );
+
+#undef rr
+    }
+#endif
     break;
   case 'M':
     r( wxMAXIMIZE );                    // frame
@@ -459,6 +746,9 @@ if( strEQ( name, #n ) ) \
     r( wxMODERN );                      // font
     r( wxMULTIPLE );                    
     
+    r( wxMAJOR_VERSION );
+    r( wxMINOR_VERSION );
+
     r( wxMM_TWIPS );                    // dc
     r( wxMM_POINTS );                   // dc
     r( wxMM_METRIC );                   // dc
@@ -670,6 +960,9 @@ void SetConstants()
     tmp = get_sv( "Wx::_null_brush", 0 );
     sv_setref_pv( tmp, "Wx::Brush", new wxBrush( wxNullBrush ) );
 
+    tmp = get_sv( "Wx::_null_palette", 0 );
+    sv_setref_pv( tmp, "Wx::Palette", new wxPalette( wxNullPalette ) );
+
     //
     // Predefined colours
     //
@@ -793,6 +1086,9 @@ void SetConstants()
     //
     tmp = get_sv( "Wx::_version_string", 0 );
     sv_setpv( tmp, wxVERSION_STRING );
+
+    tmp = get_sv( "Wx::_wx_version", 0 );
+    sv_setnv( tmp, wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 );
 
     tmp = get_sv( "Wx::_platform", 0 );
 #if __WXMSW__

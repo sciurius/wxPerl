@@ -17,6 +17,7 @@
 #include <wx/event.h>
 #include <wx/notebook.h>
 #include <wx/spinctrl.h>
+#include <wx/sashwin.h>
 #include <wx/dc.h>
 #include <wx/splitter.h>
 #include <stdarg.h>

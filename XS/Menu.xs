@@ -349,6 +349,12 @@ Wx_MenuItem::GetFont()
   OUTPUT:
     RETVAL
 
+#endif
+
+#if defined( __WXMSW__ ) || \
+ ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) || \
+ defined( __WXPERL_FORCE__ )
+
 Wx_Bitmap*
 Wx_MenuItem::GetBitmap()
   CODE:
@@ -397,7 +403,7 @@ Wx_MenuItem::GetTextColour()
   OUTPUT:
     RETVAL
 
-#endif // __WXMSW_
+#endif 
 
 bool
 Wx_MenuItem::IsCheckable()
@@ -456,3 +462,14 @@ Wx_MenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
 
 #endif
 
+#if defined( __WXMSW__ ) || \
+ ( defined( __WXGTK__ ) && WXPERL_W_VERSION_GE( 2, 3 ) ) || \
+ defined( __WXPERL_FORCE__ )
+
+void
+Wx_MenuItem::SetBitmap( bitmap )
+    Wx_Bitmap* bitmap
+  CODE:
+    THIS->SetBitmap( *bitmap );
+
+#endif

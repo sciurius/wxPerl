@@ -25,6 +25,7 @@
 #include <wx/log.h>
 #include <wx/tooltip.h>
 #include <wx/intl.h>
+#include <wx/module.h>
 
 #if __WXMSW__
 #include <wx/msw/private.h>
@@ -54,8 +55,8 @@ void WXDLLEXPORT wxEntryCleanup();
 #endif // __WXMSW__
 
 #define _WXP_DEFINE_CLASSNAME 1
-#include "cpp/typedef.h"
 #include "cpp/compat.h"
+#include "cpp/typedef.h"
 #include "cpp/helpers.h"
 
 #include "cpp/v_cback.h"

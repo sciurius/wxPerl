@@ -153,12 +153,24 @@ Wx_Image::GetMaskGreen()
 unsigned char
 Wx_Image::GetMaskRed()
 
-# Wx_Palette*
-# Wx_Image::GetPalette()
-#   CODE:
-#     RETVAL = new wxPalette( THIS->GetPalette() );
-#   OUTPUT:
-#     RETVAL
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+wxString
+Wx_Image::GetOption( name )
+    wxString name
+
+int
+Wx_Image::GetOptionInt( name )
+    wxString name
+
+Wx_Palette*
+Wx_Image::GetPalette()
+  CODE:
+    RETVAL = new wxPalette( THIS->GetPalette() );
+  OUTPUT:
+    RETVAL
+
+#endif
 
 Wx_Image*
 Wx_Image::GetSubImage( rect )
@@ -173,6 +185,13 @@ Wx_Image::GetWidth()
 
 bool
 Wx_Image::HasMask()
+
+bool
+Wx_Image::HasOption( name )
+    wxString name
+
+bool
+Wx_Image::HasPalette()
 
 void
 InsertHandler( handler )
@@ -284,11 +303,27 @@ Wx_Image::SetMaskColour( red, green, blue )
     unsigned char green
     unsigned char blue
 
-# void
-# Wx_Image::SetPalette( palette )
-#     Wx_Palette* palette
-#   CODE:
-#     THIS->SetPalette( *palette );
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+void
+Wx_Image::SetOption( name, value )
+    wxString name
+    wxString value
+
+void
+Wx_Image::SetOptionInt( name, value )
+    wxString name
+    int value
+  CODE:
+    THIS->SetOption( name, value );
+
+void
+Wx_Image::SetPalette( palette )
+    Wx_Palette* palette
+  CODE:
+    THIS->SetPalette( *palette );
+
+#endif
 
 void
 Wx_Image::SetRGB( x, y, red, green, blue )

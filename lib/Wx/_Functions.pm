@@ -15,10 +15,6 @@ package Wx;
 use strict;
 use UNIVERSAL qw(isa);
 
-push @Wx::EXPORT_OK, qw(_);
-
-*Wx::_ = \&GetTranslation;
-
 sub LogStatus {
   my( $t );
 

@@ -15,7 +15,7 @@ package Wx;
 use vars qw(
   $_default_position $_default_size $_version_string $_default_validator
   $_null_bitmap $_null_icon $_null_colour $_null_cursor $_null_font $_null_pen
-  $_null_brush
+  $_null_brush $_null_palette
   $_colour_black $_colour_red $_colour_green $_colour_blue
   $_colour_white $_colour_cyan $_colour_light_grey
   $_cursor_standard $_cursor_hourglass $_cursor_cross
@@ -38,6 +38,7 @@ sub wxNullCursor { $_null_cursor }                # cursor
 sub wxNullFont { $_null_font }                    # font
 sub wxNullPen { $_null_pen }                      # pen
 sub wxNullBrush { $_null_brush }                  # brush
+sub wxNullPalette { $_null_palette }              # palette
 
 sub wxRED { $_colour_red }                        # color colour
 sub wxGREEN { $_colour_green }                    # color colour
