@@ -6,18 +6,6 @@ README.txt
 Changes
 run
 
-# build/nmake.mak
-# build/gmake.mak
-# build/Any_OS.pm
-# build/Any_wx_config.pm
-# build/MacOSX_GCC.pm
-# build/Win32_MSVC.pm
-# build/Win32_MinGW.pm
-# build/wxConfig.pm
-# build/wxMMUtils.pm
-# build/wxMMHacks.pm
-# build/W32.pm
-
 build/Wx/build/Config/Any_OS.pm
 build/Wx/build/Config/Any_wx_config.pm
 build/Wx/build/Config/gmake.mak
@@ -378,6 +366,10 @@ ext/stc/lib/Wx/STC.pm
 ext/stc/t/01_load.t
 ext/stc/t/02_inheritance.t
 ext/stc/typemap
+
+ext/pperl/carp/Carp.pm
+ext/pperl/carp/Makefile.PL
+ext/pperl/carp/t/01_load.t
 
 ext/pperl/splashfast/Makefile.PL
 ext/pperl/splashfast/SplashFast.pm
