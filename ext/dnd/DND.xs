@@ -66,8 +66,8 @@ void SetDNDConstants()
 {
     SV* tmp;
 
-    tmp = get_sv( "Wx::_df_invalid", 0 );
-    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_INVALID ) );
+//    tmp = get_sv( "Wx::_df_invalid", 0 );
+//    sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_INVALID ) );
 
     tmp = get_sv( "Wx::_df_text", 0 );
     sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_TEXT ) );
@@ -75,8 +75,10 @@ void SetDNDConstants()
     tmp = get_sv( "Wx::_df_bitmap", 0 );
     sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_BITMAP ) );
 
+#ifndef __WXGTK__
     tmp = get_sv( "Wx::_df_metafile", 0 );
     sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_METAFILE ) );
+#endif
 
     tmp = get_sv( "Wx::_df_filename", 0 );
     sv_setref_pv( tmp, "Wx::DataFormat", new wxDataFormat( wxDF_FILENAME ) );
