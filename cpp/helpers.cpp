@@ -103,6 +103,8 @@ void _push_args( SV*** psp, const char* argtypes, va_list& args )
     char* stval;
     SV* svval;
     wxObject* oval;
+    void* pval;
+    const char* package;
 
     while( *argtypes ) 
     {
@@ -131,6 +133,11 @@ void _push_args( SV*** psp, const char* argtypes, va_list& args )
         case 'O':
             oval = va_arg( args, wxObject* );
             XPUSHs( _object_2_sv( sv_newmortal(), oval ) );
+            break;
+        case 'o':
+            pval = va_arg( args, void* );
+            package = va_arg( args, const char* );
+            XPUSHs( _non_object_2_sv( sv_newmortal(), pval, package ) );
             break;
         default:
             printf( "Internal error: unrecognized type '%c'\n", *argtypes );
@@ -485,6 +492,24 @@ wxSize _sv_2_wxsize( SV* scalar )
     
     croak( "variable is not of type Wx::Size" );
     return wxSize();
+}
+
+Wx_KeyCode _sv_2_keycode( SV* sv )
+{
+    if( SvIOK( sv ) || SvNOK( sv ) )
+    {
+        return SvIV( sv );
+    }
+    else if( SvPOK( sv ) && SvLEN( sv ) == 2 )
+    {
+        return ( SvPV_nolen( sv ) )[0];
+    }
+    else
+    {
+        croak( "You must supply either a number or a 1-character string" );
+    }
+
+    return 0; // yust to silence a possible warning
 }
 
 int _get_pointarray( SV* arr, wxList *points, wxPoint** tmp )

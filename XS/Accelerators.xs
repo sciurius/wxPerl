@@ -15,7 +15,7 @@ MODULE=Wx PACKAGE=Wx::AcceleratorEntry
 Wx_AcceleratorEntry*
 Wx_AcceleratorEntry::new( flags, code, cmd )
     int flags
-    int code
+    Wx_KeyCode code
     int cmd
 
 void
@@ -27,13 +27,13 @@ Wx_AcceleratorEntry::GetCommand()
 int
 Wx_AcceleratorEntry::GetFlags()
 
-int
+Wx_KeyCode
 Wx_AcceleratorEntry::GetKeyCode()
 
 void
 Wx_AcceleratorEntry::Set( flags, code, cmd )
     int flags
-    int code
+    Wx_KeyCode code
     int cmd
 
 MODULE=Wx PACKAGE=Wx::AcceleratorTable
@@ -74,7 +74,7 @@ Wx_AcceleratorTable::new( ... )
                     }
 
                     entries[i].Set( SvIV( *av_fetch( av, 0, 0 ) ),
-                                    SvIV( *av_fetch( av, 1, 0 ) ),
+                                    _sv_2_keycode( *av_fetch( av, 1, 0 ) ),
                                     SvIV( *av_fetch( av, 2, 0 ) ) );
                 }
                 else
