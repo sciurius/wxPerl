@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.17 2003/05/17 13:14:56 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.18 2003/05/28 20:48:45 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -53,8 +53,8 @@ void
 Wx_Frame::Command( id )
     int id
 
-Wx_StatusBar*
-Wx_Frame::CreateStatusBar( number = 1, style = 0, id = -1, name = wxEmptyString )
+wxStatusBar*
+wxFrame::CreateStatusBar( number = 1, style = 0, id = -1, name = wxEmptyString )
     int number
     long style
     wxWindowID id
@@ -76,8 +76,8 @@ Wx_Frame::GetClientAreaOrigin()
 Wx_MenuBar*
 Wx_Frame::GetMenuBar()
 
-Wx_StatusBar*
-Wx_Frame::GetStatusBar()
+wxStatusBar*
+wxFrame::GetStatusBar()
 
 int
 Wx_Frame::GetStatusBarPane()
@@ -144,8 +144,8 @@ wxFrame::SetShape( region )
 #endif
 
 void
-Wx_Frame::SetStatusBar( statusBar )
-    Wx_StatusBar* statusBar
+wxFrame::SetStatusBar( statusBar )
+    wxStatusBar* statusBar
 
 void
 Wx_Frame::SetToolBar( toolbar )

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: typedef.h,v 1.43 2003/05/27 20:16:01 mbarbon Exp $
+// RCS-ID:      $Id: typedef.h,v 1.44 2003/05/28 20:48:46 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -82,7 +82,6 @@ FD_TD( BusyCursor );
 FD_TD( BusyInfo );
 FD_TD( Caret );
 FD_TD( CaretSuspend );
-FD_TD( CheckBox );
 FD_TD( CheckListBox );
 FD_TD( Choice );
 FD_TD( ClassInfo );
@@ -198,7 +197,6 @@ FD_TD( StaticBoxSizer );
 FD_TD( StaticCtrl );
 FD_TD( StaticLine );
 FD_TD( StaticText );
-FD_TD( StatusBar );
 FD_TD( StopWatch );
 FD_TD( TaskBarIcon );
 FD_TD( TextAttr );

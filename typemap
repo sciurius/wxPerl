@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.52 2003/05/27 20:15:41 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.53 2003/05/28 20:48:45 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -77,8 +77,7 @@ wxMenu *                O_WXOBJECT
 Wx_MenuItem *           O_WXOBJECT
 wxMenuItem *            O_WXOBJECT
 
-Wx_StatusBar *          O_WXOBJECT
-wxStatusBar *           O_WXOBJECT
+wxStatusBar *           O_WXEVTHANDLER
 Wx_ToolBar *            O_WXOBJECT
 wxToolBar *             O_WXOBJECT
 Wx_ToolBarBase *        O_WXOBJECT
@@ -99,8 +98,7 @@ Wx_PlValidator *        O_WXOBJECT
 wxPlValidator *         O_WXOBJECT
 Wx_Validator *          O_WXOBJECT
 wxValidator *           O_WXOBJECT
-Wx_CheckBox *           O_WXOBJECT
-wxChackBox *            O_WXOBJECT
+wxCheckBox *            O_WXEVTHANDLER
 Wx_Choice *             O_WXOBJECT
 wxChoice *              O_WXOBJECT
 Wx_ComboBox *           O_WXOBJECT
