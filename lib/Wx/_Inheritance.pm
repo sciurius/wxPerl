@@ -239,10 +239,8 @@ else {
 
 package Wx::Colour;
 
-use vars qw(@ISA);
-
 if( $Wx::_platform == $Wx::_gtk ) {
-  @ISA = qw(Wx::GDIObject);
+  @Wx::Colour::ISA = qw(Wx::GDIObject);
 } else {
 }
 
