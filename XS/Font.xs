@@ -121,6 +121,16 @@ Wx_Font::SetNativeFontInfo( info )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
+
+##void
+##Wx_Font::SetNativeFontInfo( info )
+##    wxString info
+##  CODE:
+##    THIS->SetNativeFontInfo( info );
+
+#endif
+
 void
 Wx_Font::SetPointSize( pointsize )
     int pointsize
