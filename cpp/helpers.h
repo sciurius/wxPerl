@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.58 2003/08/15 21:42:13 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.59 2003/08/16 21:26:28 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -387,6 +387,15 @@ typedef wxPliSelfRef* (* wxPliGetCallbackObjectFn)(wxObject* object);
 class wxPliClassInfo : public wxClassInfo
 {
 public:
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    wxPliClassInfo( wxChar *cName, const wxClassInfo *baseInfo1,
+                    const wxClassInfo *baseInfo2, 
+                    int sz, wxPliGetCallbackObjectFn fn )
+        :wxClassInfo( cName, baseInfo1, baseInfo2, sz, 0)
+    {
+        m_func = fn;
+    }
+#else
     wxPliClassInfo( wxChar *cName, wxChar *baseName1, wxChar *baseName2, 
                     int sz, wxPliGetCallbackObjectFn fn )
         :wxClassInfo( cName, baseName1, baseName2, sz, 0)
@@ -400,6 +409,7 @@ public:
                 croak( "ClassInfo initialization failed '%s'", baseName1 );
 #endif
         }
+#endif
 public:
     wxPliGetCallbackObjectFn m_func;
 };
@@ -418,12 +428,21 @@ public:\
 public:\
   wxPliVirtualCallback m_callback
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+#define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename)                        \
+    wxPliSelfRef* wxPliGetSelfFor##name(wxObject* object)                    \
+        { return &((name *)object)->m_callback; }                            \
+    wxPliClassInfo name::sm_class##name((wxChar *) wxT(#name),               \
+        &sm_class##basename, NULL, (int) sizeof(name),                       \
+        (wxPliGetCallbackObjectFn) wxPliGetSelfFor##name);
+#else
 #define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename) \
 wxPliSelfRef* wxPliGetSelfFor##name(wxObject* object) \
   { return &((name *)object)->m_callback; }\
 wxPliClassInfo name::sm_class##name((wxChar *) wxT(#name), \
   (wxChar *) wxT(#basename), (wxChar *) NULL, (int) sizeof(name), \
   (wxPliGetCallbackObjectFn) wxPliGetSelfFor##name);
+#endif
 
 #define WXPLI_DEFAULT_CONSTRUCTOR_NC( name, packagename, incref ) \
     name( const char* package )                                   \

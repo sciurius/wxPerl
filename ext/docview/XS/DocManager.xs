@@ -4,7 +4,7 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/ 9/2002
-## RCS-ID:      $Id: DocManager.xs,v 1.6 2003/07/17 22:41:49 mbarbon Exp $
+## RCS-ID:      $Id: DocManager.xs,v 1.7 2003/08/16 21:26:29 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -418,8 +418,19 @@ bool
 Wx_DocManager::CloseDocuments( force = TRUE )
     bool force
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
+void
+wxDocManager::ActivateView( view, activate = TRUE )
+    wxView* view
+    bool activate
+
+#else
+
 void
 Wx_DocManager::ActivateView( view, activate = TRUE, deleting = FALSE )
     Wx_View* view
     bool activate
     bool deleting
+
+#endif

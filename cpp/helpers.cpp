@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.58 2003/08/15 21:42:13 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.59 2003/08/16 21:26:28 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -12,6 +12,10 @@
 
 #include "cpp/streams.h"
 #include "cpp/streams.cpp"
+
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    #include <wx/arrstr.h>
+#endif
 
 #define wxPL_USE_MAGIC 1
 

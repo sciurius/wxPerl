@@ -114,8 +114,17 @@ void
 Wx_Window::CentreOnScreen( direction = wxBOTH )
     int direction
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
+void
+wxWindow::ClearBackground()
+
+#else
+
 void
 Wx_Window::Clear()
+
+#endif
 
 void
 Wx_Window::ClientToScreen( ... )

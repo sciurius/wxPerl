@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.11 2003/08/05 17:24:45 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.12 2003/08/16 21:26:29 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -479,7 +479,11 @@ public:
                                    bool sort=FALSE );
     wxDocTemplate* FindTemplateForPath( const wxString& );
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    void ActivateView( wxView*, bool activate = TRUE);
+#else
     void ActivateView( wxView*, bool activate = TRUE, bool deleting = FALSE);
+#endif
     // wxView* GetCurrentView() const;
 
     bool MakeDefaultName( wxString& );
@@ -717,6 +721,20 @@ wxDocTemplate* wxPliDocManager::FindTemplateForPath( const wxString& path )
   return wxDocManager::FindTemplateForPath( path );
 }
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+void wxPliDocManager::ActivateView( wxView* view, bool activate)
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+                                           "ActivateView" ) )
+    {
+      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
+                                         "Ob", view, activate );
+      return;
+    }
+  wxDocManager::ActivateView( view, activate );
+}
+#else
 void wxPliDocManager::ActivateView( wxView* view, bool activate, bool deleting)
 {
     dTHX;
@@ -729,6 +747,7 @@ void wxPliDocManager::ActivateView( wxView* view, bool activate, bool deleting)
     }
   wxDocManager::ActivateView( view, activate, deleting );
 }
+#endif
 
 DEF_V_CBACK_BOOL__mWXSTRING( wxPliDocManager, wxDocManager, MakeDefaultName );
 

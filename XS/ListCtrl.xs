@@ -4,12 +4,13 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.28 2003/07/17 22:38:24 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.29 2003/08/16 21:26:28 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/colour.h>
 #include <wx/listctrl.h>
 
 MODULE=Wx_Evt PACKAGE=Wx::ListEvent

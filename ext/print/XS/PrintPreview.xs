@@ -56,22 +56,41 @@ Wx_PrintPreview::GetPrintoutForPrinting()
 bool
 Wx_PrintPreview::Ok()
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
+bool
+wxPrintPreview::PaintPage( canvas, dc )
+    wxPreviewCanvas* canvas
+    wxDC* dc
+  C_ARGS: canvas, *dc
+
+#else
+
 bool
 Wx_PrintPreview::PaintPage( window, dc )
-    Wx_Window* window
-    Wx_DC* dc
-  CODE:
-    RETVAL = THIS->PaintPage( window, *dc );
-  OUTPUT:
-    RETVAL
+    wxWindow* window
+    wxDC* dc
+  C_ARGS: window, *dc
+
+#endif
 
 bool
 Wx_PrintPreview::Print( prompt )
     bool prompt
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
 void
-Wx_PrintPreview::SetCanvas( window )
-    Wx_Window* window
+wxPrintPreview::SetCanvas( canvas )
+    wxPreviewCanvas* canvas
+
+#else
+
+void
+wxPrintPreview::SetCanvas( window )
+    wxWindow* window
+
+#endif
 
 void
 Wx_PrintPreview::SetCurrentPage( pageNum )

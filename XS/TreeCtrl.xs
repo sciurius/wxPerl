@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.20 2003/07/23 19:30:31 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.21 2003/08/16 21:26:28 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -304,15 +304,25 @@ void
 Wx_TreeCtrl::GetFirstChild( item )
     Wx_TreeItemId* item
   PREINIT:
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    void* cookie;
+#else
     long cookie;
+#endif
   PPCODE:
     wxTreeItemId ret = THIS->GetFirstChild( *item, cookie );
+#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
     if( !ret.IsOk() ) cookie = -1;
+#endif
     EXTEND( SP, 2 );
     PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                   new wxTreeItemId( ret ),
                                   "Wx::TreeItemId" ) );
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    PUSHs( sv_2mortal( newSViv( PTR2IV( cookie ) ) ) );
+#else
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
+#endif
 
 Wx_TreeItemId*
 Wx_TreeCtrl::GetFirstVisibleItem()
@@ -356,6 +366,24 @@ Wx_TreeCtrl::GetLastChild( item )
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
+void
+Wx_TreeCtrl::GetNextChild( item, cookie )
+    Wx_TreeItemId* item
+    IV cookie
+  PREINIT:
+    void* realcookie = INT2PTR( void*, cookie );
+  PPCODE:
+    wxTreeItemId ret = THIS->GetNextChild( *item, realcookie );
+    EXTEND( SP, 2 );
+    PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                  new wxTreeItemId( ret ),
+                                  "Wx::TreeItemId" ) );
+    PUSHs( sv_2mortal( newSViv( PTR2IV( realcookie ) ) ) );
+
+#else
+
 void
 Wx_TreeCtrl::GetNextChild( item, cookie )
     Wx_TreeItemId* item
@@ -367,6 +395,8 @@ Wx_TreeCtrl::GetNextChild( item, cookie )
                                   new wxTreeItemId( ret ),
                                   "Wx::TreeItemId" ) );
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
+
+#endif
 
 Wx_TreeItemId*
 Wx_TreeCtrl::GetNextSibling( item )

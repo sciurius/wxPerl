@@ -4,13 +4,14 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/ 5/2003
-// RCS-ID:      $Id: renderer.h,v 1.2 2003/05/29 20:00:05 mbarbon Exp $
+// RCS-ID:      $Id: renderer.h,v 1.3 2003/08/16 21:26:29 mbarbon Exp $
 // Copyright:   (c) 2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
 #include "cpp/v_cback.h"
+#include <wx/dc.h>
 
 class wxPlGridCellRenderer : public wxGridCellRenderer
 {

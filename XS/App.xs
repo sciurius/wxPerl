@@ -54,7 +54,9 @@ Start( app, sub )
     app->SetClassName( app->argv[0] );
     app->SetAppName( app->argv[0] );
 #endif
+#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
     wxEntryInitGui();
+#endif
 
     SV* This = ST(0);
     

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.88 2003/08/02 20:55:15 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.89 2003/08/16 21:26:26 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -42,7 +42,8 @@
 #include <wx/confbase.h>
 #include <wx/image.h>
 #include <wx/sizer.h>
-#if defined(__WXMSW__)
+#include <wx/toolbar.h>
+#if defined(__WXMSW__) || defined(wxHAS_TASK_BAR_ICON)
 #include <wx/taskbar.h>
 #endif
 #include <wx/process.h>
@@ -654,7 +655,7 @@ static double constant( const char *name, int arg )
 
     r( wxEVT_TIMER );
 
-#if defined(__WXMSW__)
+#if defined(__WXMSW__) || defined(wxHAS_TASK_BAR_ICON)
     r( wxEVT_TASKBAR_MOVE );
     r( wxEVT_TASKBAR_LEFT_DOWN );
     r( wxEVT_TASKBAR_LEFT_UP );

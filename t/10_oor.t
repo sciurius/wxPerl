@@ -56,8 +56,9 @@ foreach my $d ( @data ) {
 
   SKIP: {
       # simple creation
-      skip "Generic wxStaticLine is weird", 2
-        if Wx::wxMOTIF() && $class eq 'Wx::StaticLine';
+      skip "Some controls are weird", 2
+        if Wx::wxMOTIF() && $class eq 'Wx::StaticLine'
+        or Wx::wxGTK() && $class =~ m/^Wx::(MiniFrame|StatusBar)/;
 
       my $lb = $class->new( $this, -1, @$args );
       my $lb2 = ($this->GetChildren)[-1];

@@ -4,11 +4,13 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.11 2003/06/04 20:38:43 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.12 2003/08/16 21:26:28 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
+
+#include <wx/textctrl.h>
 
 MODULE=Wx PACKAGE=Wx::TextUrlEvent
 

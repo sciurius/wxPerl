@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      1/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.50 2003/05/04 17:32:15 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.51 2003/08/16 21:26:27 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -33,6 +33,9 @@
 #include <wx/msw/private.h>
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+    #include <wx/init.h>
+#else
 #if defined(__WXGTK__) && WXPERL_W_VERSION_GE( 2, 3, 3 )
 int  WXDLLEXPORT wxEntryStart( int& argc, char** argv );
 #else
@@ -40,6 +43,7 @@ int  WXDLLEXPORT wxEntryStart( int argc, char** argv );
 #endif
 int  WXDLLEXPORT wxEntryInitGui();
 void WXDLLEXPORT wxEntryCleanup();
+#endif
 
 #include "cpp/typedef.h"
 
@@ -86,7 +90,7 @@ extern "C" {
 extern void SetConstants();
 extern void SetConstantsOnce();
 
-#if defined(__WXMOTIF__) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if defined(__WXMOTIF__) && !WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 #include <wx/app.h>
 #include <wx/log.h>
