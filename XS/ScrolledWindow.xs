@@ -108,6 +108,11 @@ Wx_ScrolledWindow::SetScrollbars( ppuX, ppuY, nX, nY, xPos = 0, yPos = 0, noRefr
     bool noRefresh
 
 void
+wxScrolledWindow::SetScrollRate( xstep, ystep )
+    int xstep
+    int ystep
+
+void
 Wx_ScrolledWindow::SetTargetWindow( window )
     Wx_Window* window
 

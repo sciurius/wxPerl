@@ -826,14 +826,33 @@ Wx_Window::SetSizeHints( minW, minH, maxW = -1, maxH = -1, incW = -1, incH = -1 
     int incW
     int incH
 
-#if WXPERL_W_VERSION_GE( 2, 3, 3 )
-
 void
 Wx_Window::SetVirtualSizeHints( minW, minH, maxW = -1, maxH = -1 )
     int minW
     int minH
     int maxW
     int maxH
+
+void
+wxWindow::SetVirtualSize( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, SetVirtualSizeXY )
+        MATCH_REDISP( wxPliOvl_wsiz, SetVirtualSizeSize )
+    END_OVERLOAD( Wx::Window::SetVirtualSize )
+
+void
+wxWindow::SetVirtualSizeXY( width, height )
+    int width
+    int height
+  CODE:
+    THIS->SetVirtualSize( width, height );
+
+void
+wxWindow::SetVirtualSizeSize( size )
+    wxSize size
+  CODE:
+    THIS->SetVirtualSize( size );
 
 void
 Wx_Window::SetSizer( sizer, deleteOld = TRUE )
@@ -844,14 +863,6 @@ void
 Wx_Window::SetSizerAndFit( sizer, deleteOld = TRUE )
     Wx_Sizer* sizer
     bool deleteOld
-
-#else
-
-void
-Wx_Window::SetSizer( sizer )
-    Wx_Sizer* sizer
-
-#endif
 
 void
 Wx_Window::SetTitle( title )
