@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/03/2002
-## RCS-ID:      $Id: wxThread.pm,v 1.4 2004/11/09 20:56:51 mbarbon Exp $
+## RCS-ID:      $Id: wxThread.pm,v 1.5 2004/12/08 17:50:56 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -88,7 +88,7 @@ sub DESTROY {
     #print "Join end\n";
   }
 
-  $this->SUPER::DESTROY();
+  #$this->SUPER::DESTROY();
   #print "Join leave\n";
 }
 
