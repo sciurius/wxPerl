@@ -1462,6 +1462,7 @@ static double constant( const char *name, int arg )
     r( wxSTATIC_BORDER );               // window
     r( wxSTAY_ON_TOP );                 // frame dialog
     r( wxST_NO_AUTORESIZE );            // statictext
+    r( wxST_SIZEGRIP );
     r( wxSUNKEN_BORDER );               // window
     r( wxSYSTEM_MENU );                 // frame dialog
     r( wxSWISS );                       // font
