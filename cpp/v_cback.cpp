@@ -10,11 +10,11 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-bool wxPliVirtualCallback::FindCallback( const char* name ) 
+bool wxPliVirtualCallback::FindCallback( const char* name ) const
 {
     HV* pkg = 0;
 
-    m_method = 0;
+    (SV*)m_method = 0;
 
     pkg = SvSTASH( SvRV( m_self ) );
 
@@ -25,14 +25,14 @@ bool wxPliVirtualCallback::FindCallback( const char* name )
         GV* gv = gv_fetchmethod( pkg, CHAR_P name );
         if( gv && isGV( gv ) )
             // mortal, since CallCallback is called before we return to perl
-            m_method = sv_2mortal( newRV_inc( (SV*) ( p_method = GvCV( gv ) ) ) );
+            (SV*)m_method = sv_2mortal( newRV_inc( (SV*) ( p_method = GvCV( gv ) ) ) );
     }
 
     if( !m_method )
         return false;
 
     if( !m_stash )
-        m_stash = gv_stashpv( CHAR_P m_package, FALSE );
+        (HV*)m_stash = gv_stashpv( CHAR_P m_package, FALSE );
   
     if( !m_stash )
         return true;
@@ -47,7 +47,7 @@ bool wxPliVirtualCallback::FindCallback( const char* name )
 }
 
 SV* wxPliVirtualCallback::CallCallback( I32 flags, const char* argtypes,
-                                        va_list& arglist ) 
+                                        va_list& arglist ) const
 {
     if( !m_method )
         return 0;
@@ -82,13 +82,13 @@ SV* wxPliVirtualCallback::CallCallback( I32 flags, const char* argtypes,
     return retval;
 }
 
-bool wxPliVirtualCallback_FindCallback( wxPliVirtualCallback* cb,
+bool wxPliVirtualCallback_FindCallback( const wxPliVirtualCallback* cb,
                                         const char* name )
 {
     return cb->FindCallback( name );
 }
 
-SV* wxPliVirtualCallback_CallCallback( wxPliVirtualCallback* cb,
+SV* wxPliVirtualCallback_CallCallback( const wxPliVirtualCallback* cb,
                                        I32 flags,
                                        const char* argtypes, ... )
 {

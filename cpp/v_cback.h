@@ -13,15 +13,19 @@
 #ifndef _WXPERL_V_CBACK_H
 #define _WXPERL_V_CBACK_H
 
+#include <stddef.h>
+
 class WXPLDLL wxPliVirtualCallback:public wxPliSelfRef
 {
 public:
     wxPliVirtualCallback( const char* package );
 
-    bool FindCallback( const char* name );
+    // these aren't really const functions, but we will need
+    // to declare m_method mutable...
+    bool FindCallback( const char* name ) const;
     SV* CallCallback( I32 flags, const char* argtypes,
-                      va_list& arglist );
-    SV* GetMethod() { return m_method; }
+                      va_list& arglist ) const;
+    SV* GetMethod() const { return m_method; }
 public:
     const char* m_package;
     HV* m_stash;
@@ -39,15 +43,6 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
 #define DEC_V_CBACK_BOOL__VOID( METHOD ) \
   bool METHOD();
 
-#define DEC_V_CBACK_VOID__VOID( METHOD ) \
-  void METHOD();
-
-#define DEC_V_CBACK_BOOL__INT( METHOD ) \
-  bool METHOD( int );
-
-#define DEC_V_CBACK_BOOL__INT_INT( METHOD ) \
-  bool METHOD( int, int );
-
 #define DEF_V_CBACK_BOOL__VOID( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD()                                                        \
   {                                                                           \
@@ -61,6 +56,9 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
         return BASE::METHOD();                                                \
   }
 
+#define DEC_V_CBACK_VOID__VOID( METHOD ) \
+  void METHOD();
+
 #define DEF_V_CBACK_VOID__VOID( CLASS, BASE, METHOD ) \
   void CLASS::METHOD()                                                        \
   {                                                                           \
@@ -71,6 +69,9 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
     } else                                                                    \
         BASE::METHOD();                                                \
   }
+
+#define DEC_V_CBACK_BOOL__INT( METHOD ) \
+  bool METHOD( int );
 
 #define DEF_V_CBACK_BOOL__INT( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD( int parameter )                                         \
@@ -100,6 +101,9 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
     return false;                                                             \
   }
 
+#define DEC_V_CBACK_BOOL__INT_INT( METHOD ) \
+  bool METHOD( int, int );
+
 #define DEF_V_CBACK_BOOL__INT_INT( CLASS, BASE, METHOD ) \
   bool CLASS::METHOD( int param1, int param2 )                                \
   {                                                                           \
@@ -107,6 +111,61 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package ) {
     {                                                                         \
         SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
                                                      "ii", param1, param2 );  \
+        bool val = SvTRUE( ret );                                             \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return BASE::METHOD( param1, param2 );                                \
+  }
+
+#define DEC_V_CBACK_SIZET__VOID__CONST( METHOD ) \
+  size_t METHOD() const;
+
+#define DEF_V_CBACK_SIZET__VOID__CONST( CLASS, BASE, METHOD ) \
+  size_t CLASS::METHOD() const                                                \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR ); \
+        size_t val = SvUV( ret );                                             \
+        SvREFCNT_dec( ret );                                                  \
+        return val;                                                           \
+    } else                                                                    \
+        return BASE::METHOD();                                                \
+  }
+
+#define DEC_V_CBACK_BOOL__VOIDP__CONST( METHOD ) \
+  bool METHOD( void* ) const;
+
+#define DEF_V_CBACK_BOOL__VOIDP__CONST( CLASS, BASE, METHOD ) \
+  bool CLASS::METHOD( void* param1 ) const                                    \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* buf = newSViv( 0 );                                               \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                                                     "s", buf );              \
+        STRLEN len;                                                           \
+        char* val = SvPV( buf, len );                                         \
+        memcpy( param1, val, len );                                           \
+        bool retv = SvTRUE( ret );                                            \
+        SvREFCNT_dec( buf );                                                  \
+        SvREFCNT_dec( ret );                                                  \
+        return retv;                                                          \
+    } else                                                                    \
+        return BASE::METHOD( param1 );                                        \
+  }
+
+#define DEC_V_CBACK_BOOL__SIZET_CVOIDP( METHOD ) \
+  bool METHOD( size_t, const void* );
+
+#define DEF_V_CBACK_BOOL__SIZET_CVOIDP( CLASS, BASE, METHOD ) \
+  bool CLASS::METHOD( size_t param1, const void* param2 )                     \
+  {                                                                           \
+    if( wxPliVirtualCallback_FindCallback( &m_callback, #METHOD ) )           \
+    {                                                                         \
+        SV* ret = wxPliVirtualCallback_CallCallback( &m_callback, G_SCALAR,   \
+                               "s", newSVpvn( (const char*)param2, param1 ) );\
         bool val = SvTRUE( ret );                                             \
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \

@@ -107,9 +107,9 @@ WXPLDLL void FUNCPTR( wxPli_remove_constant_function )
 class wxPliVirtualCallback;
 
 WXPLDLL bool FUNCPTR( wxPliVirtualCallback_FindCallback )
-    ( wxPliVirtualCallback* cb, const char* name );
+    ( const wxPliVirtualCallback* cb, const char* name );
 WXPLDLL SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
-    ( wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
+    ( const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
       const char* argtypes = 0, ... );
 
 struct wxPliHelpers
@@ -128,9 +128,9 @@ struct wxPliHelpers
     void ( * m_wxPli_remove_constant_function )
         ( double (**)( const char*, int ) );
 
-    bool ( * m_wxPliVirtualCallback_FindCallback )( wxPliVirtualCallback* cb, const char* name );
+    bool ( * m_wxPliVirtualCallback_FindCallback )( const wxPliVirtualCallback* cb, const char* name );
     SV* ( * m_wxPliVirtualCallback_CallCallback )
-        ( wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
+        ( const wxPliVirtualCallback* cb, I32 flags = G_SCALAR,
           const char* argtypes = 0, ... );
     bool ( * m_wxPli_object_is_deleteable )( SV* object );
     void ( * m_wxPli_object_set_deleteable )( SV* object, bool deleteable );
