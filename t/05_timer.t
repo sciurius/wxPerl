@@ -2,7 +2,6 @@
 
 use strict;
 use Wx;
-use lib 'build';
 use Test::More 'tests' => 2;
 use Tests_Helper qw(test_app);
 

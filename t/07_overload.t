@@ -2,7 +2,6 @@
 
 use strict;
 use Wx;
-use lib 'build';
 use Test::More 'tests' => 110;
 
 my $undef = undef;

@@ -1,7 +1,6 @@
 #!/usr/bin/perl -w
 
 use strict;
-use lib 'build';
 use Wx;
 use Tests_Helper 'test_frame';
 

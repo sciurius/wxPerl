@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use lib '../../../lib';
+use lib '../../../t';
 use Test::More 'tests' => 5;
 
 use Wx::Perl::SplashFast '../../../demo/data/logo.jpg', 400;

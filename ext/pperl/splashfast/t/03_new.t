@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use lib '../../../build';
+use lib '../../../t';
 use Test::More 'tests' => 2;
 
 use Wx::Perl::SplashFast;

@@ -2,7 +2,7 @@
 
 use strict;
 use Wx;
-use lib "../../build";
+use lib "../../t";
 use Test::More 'no_plan';
 use Tests_Helper qw(:inheritance);
 

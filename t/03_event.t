@@ -4,7 +4,6 @@
 # to windows
 
 use strict;
-use lib 'build';
 use Wx;
 use Test::More 'tests' => 2;
 use Tests_Helper qw(test_frame);
