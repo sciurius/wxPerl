@@ -16,7 +16,7 @@ MODULE=Wx PACKAGE=Wx::Icon
 # some constructors
 # operator == !=
 
-#if ( !defined( __WXMSW__ ) && !defined( __WXGTK__ ) ) || defined( __WXPERL_FORCE__ )
+#if ( !defined( __WXMOTIF__ ) && !defined( __WXMSW__ ) && !defined( __WXGTK__ ) ) || defined( __WXPERL_FORCE__ )
 
 Wx_Icon*
 newEmpty( width, height, depth = -1 )
@@ -49,7 +49,11 @@ Wx_Icon::LoadFile( name, type )
     wxString name
     long type
   CODE:
+#ifdef __WXMOTIF__
+    RETVAL = THIS->LoadFile( name, type, -1, -1 );
+#else
     RETVAL = THIS->LoadFile( name, type );
+#endif
 
 bool
 Wx_Icon::Ok()

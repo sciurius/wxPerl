@@ -12,6 +12,8 @@
 
 MODULE=Wx PACKAGE=Wx::ToolTip
 
+#if !defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
+
 void
 Enable( enable )
     bool enable
@@ -37,3 +39,5 @@ Wx_ToolTip::GetTip()
 
 Wx_Window*
 Wx_ToolTip::GetWindow()
+
+#endif

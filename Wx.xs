@@ -17,6 +17,7 @@
 #include <wx/app.h>
 #include <wx/window.h>
 #include <wx/menu.h>
+#include <wx/icon.h>
 
 #include <wx/button.h>
 
@@ -81,6 +82,60 @@ extern "C" {
 #endif
 
 extern void SetConstants();
+
+#ifdef __WXMOTIF__
+
+int wxEntryStart( int argc, char** argv )
+{
+#if (defined(__WXDEBUG__) && wxUSE_MEMORY_TRACING) || wxUSE_DEBUG_CONTEXT
+    // This seems to be necessary since there are 'rogue'
+    // objects present at this point (perhaps global objects?)
+    // Setting a checkpoint will ignore them as far as the
+    // memory checking facility is concerned.
+    // Of course you may argue that memory allocated in globals should be
+    // checked, but this is a reasonable compromise.
+    wxDebugContext::SetCheckpoint();
+#endif
+
+    if (!wxApp::Initialize())
+        return FALSE;
+}
+
+int wxEntryInitGui()
+{
+    int retValue = 0;
+
+    // GUI-specific initialization, such as creating an app context.
+    if( !wxTheApp->OnInitGui() )
+        retValue = -1;
+
+    return retValue;
+}
+
+void wxEntryCleanup()
+{
+    // flush the logged messages if any
+    wxLog *pLog = wxLog::GetActiveTarget();
+    if ( pLog != NULL && pLog->HasPendingMessages() )
+        pLog->Flush();
+
+    delete wxLog::SetActiveTarget(new wxLogStderr); // So dialog boxes aren't used
+    // for further messages
+
+    if (wxTheApp->GetTopWindow())
+    {
+        delete wxTheApp->GetTopWindow();
+        wxTheApp->SetTopWindow(NULL);
+    }
+
+    wxTheApp->DeletePendingObjects();
+
+    wxTheApp->OnExit();
+
+    wxApp::CleanUp();
+}
+
+#endif
 
 MODULE=Wx PACKAGE=Wx
 

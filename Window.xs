@@ -23,6 +23,7 @@
 #include <wx/statbox.h>
 #include <wx/notebook.h>
 #include <wx/validate.h>
+#include <wx/dc.h>
 #include <stdarg.h>
 
 #undef _
@@ -378,8 +379,12 @@ Wx_Window::GetTextExtent( string, font = 0 )
 wxString
 Wx_Window::GetTitle()
 
+#if !defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
+
 Wx_ToolTip*
 Wx_Window::GetToolTip()
+
+#endif
 
 Wx_Region*
 Wx_Window::GetUpdateRegion()
@@ -657,6 +662,8 @@ void
 Wx_Window::SetTitle( title )
     wxString title
 
+#if !defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
+
 void
 Wx_Window::SetToolTipTip( tooltip )
     Wx_ToolTip* tooltip
@@ -668,6 +675,8 @@ Wx_Window::SetToolTipString( string )
     wxString string
   CODE:
     THIS->SetToolTip( string );
+
+#endif
 
 void
 Wx_Window::SetValidator( validator )

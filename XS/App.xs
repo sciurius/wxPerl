@@ -28,6 +28,10 @@ Start( app, sub )
       croak( "sub must be a CODE reference" );
 
     app->argc = _get_args_argc_argv( &app->argv );
+#ifdef __WXMOTIF__
+    app->SetClassName( app->argv[0] );
+    app->SetAppName( app->argv[0] );
+#endif
     wxEntryInitGui();
 
     PUSHMARK( SP );
