@@ -33,7 +33,7 @@ sub BEGIN {
   }
 }
 
-use vars qw(@top_level_xs $debug_mode $extra_libs);
+use vars qw(@top_level_xs $debug_mode $extra_libs $extra_cflags);
 
 @top_level_xs = qw(Wx.xs Controls.xs Event.xs Constant.xs 
 Functions.xs Window.xs Frames.xs GDI.xs);
@@ -54,6 +54,7 @@ sub BEGIN {
         } elsif( $Config{cc} =~ m/^gcc/i ) {
           *main::configure = \&configure_win32_mingw;
           *MY::postamble = \&MY::postamble_win32_mingw;
+          *MY::dynamic_lib = \&MY::dynamic_lib_win32_mingw;
           last SWITCH;
         }
 
@@ -69,8 +70,9 @@ sub BEGIN {
 }
 
 LOOP: foreach ( @ARGV ) {
-  m/^DEBUG=(\d+)$/ && do { $debug_mode = $1 ; undef $_; last LOOP; };
-  m/^EXTRALIBS=(.*)$/ && do { $extra_libs = $1; undef $_; last LOOP; };
+  m/^DEBUG=(\d+)$/ && do { $debug_mode = $1 ; undef $_; next LOOP; };
+  m/^EXTRA_LIBS=(.*)$/ && do { $extra_libs = $1; undef $_; next LOOP; };
+  m/^EXTRA_CFLAGS=(.*)$/ && do { $extra_cflags = $1; undef $_; next LOOP; };
 }
 
 WriteMakefile( NAME => 'Wx',
@@ -109,11 +111,15 @@ sub ld_is_GNU {
 sub configure_wxconfig {
   my( $cccflags, $libs );
   my( %config ) = ( DEFINE => "-DWXP_VERSION=$perl_version" . ' ',
-                    LIBS => $extra_libs,
+                    LIBS => $extra_libs . ' ',
+                    CCFLAGS => $extra_cflags . ' ',
                   );
 
   if( cc_is_GNU( $Config{cc} ) ) { $config{CC} = 'g++' }
-  else { $config{CCFLAGS} = ' -x c++ ' }
+  else { warn 'unknown compiler: set EXTRA_CFLAGS to force C++ mode'
+           unless length( $extra_cflags ) > 1 }
+
+  if( $debug_mode ) { $config{CCFLAGS} .= ' -g ' }
 
   if( ld_is_GNU( $Config{ld} ) ) { $config{LD} = 'g++' }
 
@@ -141,22 +147,20 @@ sub configure_wxconfig {
 sub configure_win32_msvc {
   my( $cccflags, $ldflags, $libs );
 
-  my( %config ) = ( CCFLAGS => ' -TP ',
+  my( %config ) = ( CCFLAGS => $extra_cflags . ' -TP ',
                     DEFINE => " -DWXP_VERSION=$perl_version ",
                     depend =>
-                    {  File::Spec->catfile( 'blib', 'arch', 'auto', 'Wx',
-                                            'Wx.' . $Config{dlext} )
-                       => 'Wx.res ',
-                       'Wx.res' => 'Wx.rc ',
+                    { 'Wx.res' => 'Wx.rc ',
                     },
                     clean => { FILES => '*.pdb *.res Wx_def.old', },
                     LDFROM => '$(OBJECT) Wx.res',
-                    LIBS => $extra_libs,
+                    LIBS => $extra_libs . ' ',
+                    dynamic_lib => { INST_DYNAMIC_DEP => 'Wx.res', },
                   );
 
   if( $debug_mode ) {
-    $config{CCFLAGS} .= '-Zi ';
-    $config{dynamic_lib}{OTHERLDFLAGS} .= '-debug ';
+    $config{CCFLAGS} .= ' -Zi ';
+    $config{dynamic_lib}{OTHERLDFLAGS} .= ' -debug ';
   }
 
   if( $Config{make} eq 'nmake' ) {
@@ -196,24 +200,19 @@ sub configure_win32_mingw {
                     LD => 'g++ ',
                     DEFINE => " -DWXP_VERSION=$perl_version ",
                     depend =>
-                    {  File::Spec->catfile( 'blib', 'arch', 'auto', 'Wx',
-                                            'Wx.' . $Config{dlext} )
-                       => 'Wx_res.o ',
-                       'Wx_res.o' => 'Wx.rc ',
+                    { 'Wx_res.o' => 'Wx.rc ',
                     },
                     #FIXME//
                     clean => { FILES => 'dll.exp dll.exp dll.base ', },
                     LDFROM => '$(OBJECT) Wx_res.o',
-                    LIBS => $extra_libs,
-                    CCFLAGS => ' -fvtable-thunks ',
+                    LIBS => $extra_libs . ' ',
+                    CCFLAGS => $extra_cflags . ' -fvtable-thunks ',
+                    dynamic_lib => { INST_DYNAMIC_DEP => 'Wx_res.o', },
                   );
 
-  #FIXME// debug mode support?
-  $debug_mode = 0;
-
   if( $debug_mode ) {
-    $config{CCFLAGS} .= '-g ';
-    $config{dynamic_lib}{OTHERLDFLAGS} .= ' ';
+    $config{CCFLAGS} .= ' -g ';
+    # $config{dynamic_lib}{OTHERLDFLAGS} .= ' ';
   }
 
   my( $final ) = $debug_mode ? 'FINAL=0' : 'FINAL=1';
@@ -310,6 +309,26 @@ $exp . qq{ :
 \tperl script/make_exp_list.pl Constant.xs $evt $cst $exp
 };
 }
+
+#
+# fixes link command line to use g++ instead of dlltool
+#
+sub dynamic_lib_win32_mingw {
+  my( $this ) = shift;
+  my( $text ) = $this->SUPER::dynamic_lib( @_ );
+
+  return $text unless $text =~ m/dlltool/i;
+
+  $text =~ s{(?:^\s+(?:dlltool|\$\(LD\)).*\n)+}
+    {\tg++ -mdll -o \$@ \$(LDDLFLAGS) \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(EXPORT_LIST)\n}m;
+
+  $text;
+}
+
+# g++ -mdll -o blib\arch\auto\Wx\Wx.dll  -L"C:\Programmi\Devel\Perl\lib\CORE"
+#     Wx.o Controls.o Event.o Constant.o Functions.o Window.o Frames.o GDI.o 
+#     Wx_res.o 
+#     -lperl56  C:\Developement\wxWindows\2.2\wxWindows\lib\libwx22_1.a Wx.def
 
 #
 # automatic export list generation
