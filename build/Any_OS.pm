@@ -212,6 +212,14 @@ sub ppd { package MY; my $x = shift; $x->SUPER::ppd( @_ ); }
 
 1;
 
+__DATA__
+
+=head NAME
+
+Any_OS - INTERNAL, USED AT BUILD TIME
+
+=cut
+
 # Local variables: #
 # mode: cperl #
 # End: #

@@ -56,7 +56,14 @@ sub unix_top_dir() {
     ++$count;
   }
 
-  die "unable to find unix_top_dir" if $count == 10;
+  # we are outsize wxPerl source tree
+  if( $count == 10 ) {
+    my $build = $INC{'wxConfig.pm'};
+    $build =~ s{\Wbuild\WwxConfig\.pm$}{};
+    die "unable to find unix_top_dir" unless -f "$build/Wx.pm";
+    $utop = $build;
+  }
+
   return $utop;
 }
 
@@ -72,7 +79,12 @@ sub top_dir() {
     ++$count;
   }
 
-  die "unable to find unix_top_dir" if $count == 10;
+  if( $count == 10 ) {
+    my $build = $INC{'wxConfig.pm'};
+    $build =~ s{\Wbuild\WwxConfig\.pm$}{};
+    die "unable to find top_dir" unless -f "$build/Wx.pm";
+    $top = $build;
+  }
   return MM->canonpath( $top );
 }
 

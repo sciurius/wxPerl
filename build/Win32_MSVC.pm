@@ -57,7 +57,7 @@ sub configure {
 
   my $wximppath = MM->catdir( top_dir(), qw(blib arch auto Wx) );
   my $wximplib = MM->catfile( $wximppath, 'Wx.lib' );
-  $config{CCFLAGS} .= " -TP ";
+  $config{CCFLAGS} .= " -GF -TP ";
   $config{clean}{FILES} .= '*.pdb *.res *_def.old ';
 
   if( building_extension() && $wxConfig::use_dllexport ) {

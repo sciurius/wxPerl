@@ -86,8 +86,12 @@ extern "C" {
     XS( boot_Wx_GDI );
 #if defined( WXPL_STATIC )
     XS( boot_Wx__DocView );
+#if wxPERL_USE_STC
     XS( boot_Wx__STC );
+#endif
+#if wxPERL_USE_XRC
     XS( boot_Wx__XRC );
+#endif
     XS( boot_Wx__Print );
     XS( boot_Wx__MDI );
     XS( boot_Wx__Html );
@@ -169,8 +173,12 @@ BOOT:
   newXSproto( "Wx::_boot_GDI", boot_Wx_GDI, file, "$$" );
 #if defined( WXPL_STATIC )
   newXSproto( "Wx::_boot_Wx__DocView", boot_Wx__DocView, file, "$$" );
+#if wxPERL_USE_STC
   newXSproto( "Wx::_boot_Wx__STC", boot_Wx__STC, file, "$$" );
+#endif
+#if wxPERL_USE_XRC
   newXSproto( "Wx::_boot_Wx__XRC", boot_Wx__XRC, file, "$$" );
+#endif
   newXSproto( "Wx::_boot_Wx__Print", boot_Wx__Print, file, "$$" );
   newXSproto( "Wx::_boot_Wx__MDI", boot_Wx__MDI, file, "$$" );
   newXSproto( "Wx::_boot_Wx__Html", boot_Wx__Html, file, "$$" );
