@@ -67,7 +67,13 @@ sub get_flags {
     $config{CCFLAGS} .= $_ . ' ';
   }
 
-  $config{LIBS} .= " $libs ";
+  foreach ( split /\s+/, $libs ) {
+    m{^-[lL]|/} && do { $config{LIBS} .= " $_"; next; };
+    if( $_ eq '-pthread' && $^O =~ m/linux/i ) {
+      $config{LIBS} .= " -lpthread"
+    }
+    $config{dynamic_lib}{OTHERLDFLAGS} .= " $_";
+  }
 
   return %config;
 }
