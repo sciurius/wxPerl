@@ -25,7 +25,7 @@ use Getopt::Long;
 Getopt::Long::Configure( 'pass_through' );
 
 my %subdirs = map { ( $_, 1 ) }
-  ( qw(dnd filesys grid help html mdi print xrc stc) );
+  ( qw(dnd filesys grid help html mdi print xrc stc docview) );
 
 my $result =
 GetOptions( 'debug' => \$debug_mode,
@@ -76,6 +76,7 @@ Usage: perl Makefile.PL [options]
                        object
   --enable/disable-foo where foo is one of: dnd filesys grid help
                                             html mdi print xrc stc
+                                            docview
   --[no]mingw-shared   use 'g++ --shared' with MinGW ( MSW only )
   --[no]use-dllexport  use 'dllexport' ( MSW only )
   --help               you are reading it

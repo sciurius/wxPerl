@@ -380,6 +380,23 @@ ext/xrc/lib/Wx/XRC.pm
 ext/xrc/typemap
 ext/xrc/t/01_load.t
 
+ext/docview/Makefile.PL
+ext/docview/DocView.xs
+ext/docview/XS/DocManager.xs
+ext/docview/XS/DocTemplate.xs
+ext/docview/XS/Document.xs
+ext/docview/XS/View.xs
+ext/docview/XS/FileHistory.xs
+ext/docview/XS/DocParentFrame.xs
+ext/docview/XS/DocChildFrame.xs
+ext/docview/XS/DocMDIParentFrame.xs
+ext/docview/XS/DocMDIChildFrame.xs
+ext/docview/cpp/docview.h
+ext/docview/cpp/dv_typedef.h
+ext/docview/cpp/dv_constants.cpp
+ext/docview/lib/Wx/DocView.pm
+ext/docview/typemap
+
 demo/DataObjects.pm
 demo/DragDrop.pm
 demo/MDI.pm

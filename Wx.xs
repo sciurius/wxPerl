@@ -85,6 +85,7 @@ extern "C" {
     XS( boot_Wx_Wnd );
     XS( boot_Wx_GDI );
 #if defined( WXPL_STATIC )
+    XS( boot_Wx__DocView );
     XS( boot_Wx__STC );
     XS( boot_Wx__XRC );
     XS( boot_Wx__Print );
@@ -167,6 +168,7 @@ BOOT:
   newXSproto( "Wx::_boot_Frames", boot_Wx_Wnd, file, "$$" );
   newXSproto( "Wx::_boot_GDI", boot_Wx_GDI, file, "$$" );
 #if defined( WXPL_STATIC )
+  newXSproto( "Wx::_boot_Wx__DocView", boot_Wx__DocView, file, "$$" );
   newXSproto( "Wx::_boot_Wx__STC", boot_Wx__STC, file, "$$" );
   newXSproto( "Wx::_boot_Wx__XRC", boot_Wx__XRC, file, "$$" );
   newXSproto( "Wx::_boot_Wx__Print", boot_Wx__Print, file, "$$" );

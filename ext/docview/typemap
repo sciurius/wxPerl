@@ -1,0 +1,28 @@
+#############################################################################
+## Name:        typemap
+## Purpose:     typemap
+## Author:      Simon Flack
+## Modified by:
+## Created:     11/ 9/2002
+## RCS-ID:      
+## Copyright:   (c) 2002 Simon Flack
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+
+Wx_Document *           O_WXOBJECT
+Wx_View *               O_WXOBJECT
+Wx_DocTemplate *        O_WXOBJECT
+Wx_DocManager *         O_WXOBJECT
+Wx_DocChildFrame *      O_WXOBJECT
+Wx_DocParentFrame *     O_WXOBJECT
+Wx_DocMDIChildFrame *   O_WXOBJECT
+Wx_DocMDIParentFrame *  O_WXOBJECT
+Wx_MDIParentFrame *     O_WXOBJECT
+Wx_DocPrintout *        O_WXOBJECT
+Wx_Printout *           O_WXOBJECT
+Wx_CommandProcessor *   O_NON_WXOBJECT
+Wx_CommandEvent *       O_WXOBJECT
+Wx_FileHistory *        O_WXOBJECT
