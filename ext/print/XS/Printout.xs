@@ -39,10 +39,16 @@ Wx_Printout::new( title = "Printout" )
     RETVAL
 
 void
-Wx_Printout::DESTROY()
+Wx_Printout::Destroy()
+  CODE:
+    delete THIS;
 
 Wx_DC*
 Wx_Printout::GetDC()
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( ST(0), FALSE );
 
 void
 Wx_Printout::GetPageInfo()

@@ -215,16 +215,17 @@ Wx_DropFilesEvent::GetPosition()
 
 MODULE=Wx_Evt PACKAGE=Wx::EraseEvent
 
-# unimplemented: problem with DC destruction
-# GetDC
-
 # Wx_EraseEvent*
 # Wx_EraseEvent::new( id = 0, dc = 0 )
 #     int id
 #     Wx_DC* dc
 
-# Wx_DC*
-# Wx_EraseEvent::GetDC()
+Wx_DC*
+Wx_EraseEvent::GetDC()
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( ST(0), FALSE );
 
 MODULE=Wx_Evt PACKAGE=Wx::FocusEvent
 
