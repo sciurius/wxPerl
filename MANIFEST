@@ -45,12 +45,8 @@ t/08_ovl_func.t
 t/09_create_delete.t
 
 lib/Wx/App.pm
-lib/Wx/ComboBox.pm
-lib/Wx/ControlWithItems.pm
-lib/Wx/Cursor.pm
 lib/Wx/DC.pm
 lib/Wx/Event.pm
-lib/Wx/Icon.pm
 lib/Wx/Image.pm
 lib/Wx/ImageList.pm
 lib/Wx/ListCtrl.pm
@@ -247,6 +243,7 @@ cpp/scrolledwindow.h
 cpp/singlechoicedialog.h
 cpp/sizer.h
 cpp/splitterwindow.h
+cpp/statusbar.h
 cpp/streams.h
 cpp/timer.h
 cpp/tipprovider.h
