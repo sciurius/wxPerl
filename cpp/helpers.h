@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.57 2003/07/24 19:55:29 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.58 2003/08/15 21:42:13 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -123,6 +123,8 @@ const char* FUNCPTR( wxPli_cpp_class_2_perl )( const wxChar* className,
 // b - a boolean value
 // i - an 'int' value
 // l - a 'long' value
+// L - an 'unsigned long' value
+// d - a 'double' value
 // p - a char*
 // w - a wxChar*
 // P - a wxString*

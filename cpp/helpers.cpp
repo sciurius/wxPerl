@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.57 2003/07/17 22:41:47 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.58 2003/08/15 21:42:13 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -182,6 +182,7 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
     bool bval;
     IV ival;
     long lval;
+    unsigned long ulval;
     char* stval;
     wxChar* wstval;
     SV* svval;
@@ -189,6 +190,7 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
     void* pval;
     wxString* wxsval;
     const char* package;
+    double dval;
 
     while( *argtypes ) 
     {
@@ -205,6 +207,14 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
         case 'l':
             lval = va_arg( args, long );
             XPUSHs( sv_2mortal( newSViv( lval ) ) );
+            break;
+        case 'L':
+            ulval = va_arg( args, unsigned long );
+            XPUSHs( sv_2mortal( newSVuv( ulval ) ) );
+            break;
+        case 'd':
+            dval = va_arg( args, double );
+            XPUSHs( sv_2mortal( newSVnv( dval ) ) );
             break;
         case 'p':
             stval = va_arg( args, char* );

@@ -86,6 +86,14 @@ an C<int> value
 
 a C<long> value
 
+=item L
+
+an C<unsigned long> value
+
+=item d
+
+a C<double> value
+
 =item p
 
 a C<char*> value
