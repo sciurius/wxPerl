@@ -27,6 +27,11 @@
   typedef wx##name Wx_##name; \
   extern "C" const char wxPl##name##Name[] = "Wx::" #name; 
 
+#define FD_TD_NAME( name, cls ) \
+  class wx##cls; \
+  typedef wx##cls Wx_##name; \
+  extern "C" const char wxPl##name##Name[] = "Wx::" #name;
+
 #else
   
 #define FD_TD( name ) \
@@ -38,6 +43,11 @@
   struct wx##name; \
   typedef wx##name Wx_##name; \
   extern "C" const char wxPl##name##Name[]; 
+
+#define FD_TD_NAME( name, cls ) \
+  class wx##cls; \
+  typedef wx##cls Wx_##name; \
+  extern "C" const char wxPl##name##Name[];
 
 #endif
 
@@ -87,21 +97,6 @@ extern "C" const char wxPlTreeItemDataName[] = "Wx::TreeItemData";
 extern "C" const char wxPlTreeItemDataName[]; 
 #endif
 
-#if defined( __WXMOTIF__ )
-  //FIXME// need to check for wxGenericFontDialog, but at this time
-         // wx/fontdlg.h has not been included
-class wxGenericFontDialog;
-typedef wxGenericFontDialog Wx_FontDialog;
-#if _WXP_DEFINE_CLASSNAME
-extern "C" const char wxPlFontDialogName[] = "Wx::FontDialogName"; 
-#else
-extern "C" const char wxPlFontDialogName[]; 
-#endif
-
-#else
-FD_TD( FontDialog );
-#endif
-
 FD_TD( AcceleratorEntry );
 FD_TD( AcceleratorTable );
 FD_TD( App );
@@ -124,7 +119,13 @@ FD_TD( ClassInfo );
 FD_TD( ClientDC );
 FD_TD( Colour );
 FD_TD( ColourData );
+
+#if defined( __WXMOTIF__ ) || defined( __WXGTK__ )
+FD_TD_NAME( ColourDialog, GenericColourDialog );
+#else
 FD_TD( ColourDialog );
+#endif
+
 FD_TD( ComboBox );
 FD_TD( Control );
 FD_TD( ControlWithItems );
@@ -141,6 +142,13 @@ FD_TD( FileDialog );
 FD_TD( FlexGridSizer );
 FD_TD( Font );
 FD_TD( FontData );
+
+#if defined( __WXMOTIF__ )
+FD_TD_NAME( FontDialog, GenericFontDialog );
+#else
+FD_TD( FontDialog );
+#endif
+
 FD_TD( Frame );
 FD_TD( Gauge );
 FD_TD( GridSizer );
@@ -164,7 +172,13 @@ FD_TD( MemoryDC );
 FD_TD( Menu );
 FD_TD( MenuBar );
 FD_TD( MenuItem );
+
+#if defined( __WXGTK__ ) || defined( __WXMOTIF__ )
+FD_TD_NAME( MessageDialog, GenericMessageDialog );
+#else
 FD_TD( MessageDialog );
+#endif
+
 FD_TD( MiniFrame );
 FD_TD( MultiChoiceDialog );
 FD_TDS( NativeFontInfo );
