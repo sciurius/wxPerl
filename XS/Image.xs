@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      2/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.32 2003/08/17 19:34:40 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.33 2003/09/09 20:46:18 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -384,9 +384,12 @@ Wx_Image::SaveStreamMIME( stream, type )
   OUTPUT:
     RETVAL
 
-void
-Wx_Image::Mirror( horizontally = TRUE )
+wxImage*
+wxImage::Mirror( horizontally = TRUE )
     bool horizontally
+  CODE:
+    RETVAL = new wxImage( THIS->Mirror( horizontally ) );
+  OUTPUT: RETVAL
 
 void
 Wx_Image::Replace( r1, g1, b1, r2, g2, b2 )
