@@ -68,7 +68,7 @@ sub configure {
     $config{OPTIMIZE} = ' ';
   }
 
-  $cccflags = wx_config( 'cccflags' );
+  $cccflags = wx_config( 'cxxflags' );
   $libs = wx_config( 'libs' );
 
   foreach ( split ' ', $cccflags ) {

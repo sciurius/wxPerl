@@ -6,7 +6,7 @@ use base 'Exporter';
 
 use vars qw(@EXPORT);
 @EXPORT = qw(obj_from_src top_dir building_extension
-             xs_depend merge_config wx_version wx_config);
+             xs_depend merge_config wx_version wx_config is_platform);
 
 #
 # convenience function
@@ -16,9 +16,17 @@ sub wx_config {
 }
 
 #
+# is that platform/toolkit (msw, motif, gtk, mac)
+#
+sub is_platform($) {
+  my $uc = uc shift;
+  return scalar( wx_config('cxxflags' ) =~ m/__WX${uc}__/ );
+}
+
+#
 # wxWindows version as M.mmm_sss
 #
-sub wx_version {
+sub wx_version() {
   no strict 'refs';
 
   my $ver = wx_config( 'version' );
@@ -36,7 +44,7 @@ sub wx_version {
 #
 # relative path to the top dir ( the one containing Wx.pm )
 #
-sub top_dir {
+sub top_dir() {
   my $top = MM->curdir;
 
   until( -f MM->catfile( $top, 'Wx.pm' ) ) {
@@ -46,7 +54,7 @@ sub top_dir {
   return MM->canonpath( $top );
 }
 
-sub building_extension {
+sub building_extension() {
   return !-f 'Wx.pm';
 }
 

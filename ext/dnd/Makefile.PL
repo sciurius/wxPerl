@@ -16,8 +16,9 @@ use Config;
 use lib '../../build';
 
 use wxConfig;
+use wxMMUtils;
 
-if( $^O eq 'darwin' ) {
+if( is_platform( 'mac' ) || is_platform( 'motif' ) ) {
   ExtUtils::MakeMaker::WriteEmptyMakefile();
 } else {
 

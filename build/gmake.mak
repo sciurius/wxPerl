@@ -20,7 +20,7 @@ version:
 wxdir:
 	echo $(WXWIN)
 
-cccflags:
+cxxflags:
 	echo $(CPPFLAGS)
 
 linkflags:

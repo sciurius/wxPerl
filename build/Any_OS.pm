@@ -85,7 +85,7 @@ sub files_with_overload {
 
 sub postamble {
   my $this = shift;
-  my $text;
+  my $text = '';
 
   unless( $this->{PARENT} ) {
     my @c_files = files_with_constants();
