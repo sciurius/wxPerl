@@ -508,3 +508,9 @@ Wx_MemoryDC::SelectObject( bitmap )
     Wx_Bitmap* bitmap
   CODE:
     THIS->SelectObject( *bitmap );
+
+MODULE=Wx PACKAGE=Wx::ClientDC
+
+Wx_ClientDC*
+Wx_ClientDC::new( window )
+    Wx_Window* window
