@@ -20,11 +20,6 @@ use Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw();
 
-#sub _id($) {
-#  Wx::_croak( 'Undefined id' )
-#    unless defined $_[0]; ref( $_[0] ) ? $_[0]->GetId() : $_[0];
-#}
-
 # !parser: sub { $_[0] =~ m/sub (EVT_\w+)/ }
 # !package: Wx::Event
 
@@ -392,6 +387,17 @@ sub EVT_TREE_ITEM_MIDDLE_CLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMM
 
 sub EVT_UPDATE_UI($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_UPDATE_UI, $_[2] ); }
 sub EVT_UPDATE_UI_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_UPDATE_UI, $_[3] ); }
+
+#
+# Socket
+#
+
+sub EVT_SOCKET { goto &Wx::Socket::Event::EVT_SOCKET }
+sub EVT_SOCKET_ALL { goto &Wx::Socket::Event::EVT_SOCKET_ALL }
+sub EVT_SOCKET_INPUT { goto &Wx::Socket::Event::EVT_SOCKET_INPUT }
+sub EVT_SOCKET_OUTPUT { goto &Wx::Socket::Event::EVT_SOCKET_OUTPUT }
+sub EVT_SOCKET_CONNECTION { goto &Wx::Socket::Event::EVT_SOCKET_CONNECTION }
+sub EVT_SOCKET_LOST { goto &Wx::Socket::Event::EVT_SOCKET_LOST }
 
 1;
 

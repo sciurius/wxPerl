@@ -1,0 +1,19 @@
+#############################################################################
+## Name:        typemap
+## Purpose:     typemap
+## Author:      Graciliano M. P.
+## Modified by:
+## Created:     27/02/2003
+## RCS-ID:      
+## Copyright:   (c) 2003 Graciliano M. P.
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+wxSocketBase*           O_WXOBJECT
+wxSocketClient*         O_WXOBJECT
+wxSocketServer*         O_WXOBJECT
+wxSocketEvent*          O_WXOBJECT
+wxSockAddress *         O_NON_WXOBJECT
+wxIPV4address *         O_NON_WXOBJECT

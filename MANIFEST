@@ -128,6 +128,9 @@ samples/listctrl/bitmaps/toolword.ico
 samples/listctrl/bitmaps/toolword.xpm
 samples/listctrl/listctrl.pl
 
+samples/socket/wxSocketClient.pl
+samples/socket/wxSocketServer.pl
+
 Wx.pm
 Wx.rc
 wxpl.ico
@@ -356,6 +359,19 @@ ext/print/lib/Wx/Print.pm
 ext/print/typemap
 ext/print/t/01_load.t
 ext/print/t/02_inheritance.t
+
+ext/socket/Makefile.PL
+ext/socket/Socket.xs
+ext/socket/XS/SocketBase.xs
+ext/socket/XS/SocketClient.xs
+ext/socket/XS/SocketEvent.xs
+ext/socket/XS/SocketServer.xs
+ext/socket/cpp/sk_constants.cpp
+ext/socket/cpp/socket.h
+ext/socket/lib/Wx/Socket.pm
+ext/socket/t/01_load.t
+ext/socket/t/02_inheritance.t
+ext/socket/typemap
 
 ext/stc/Makefile.PL
 ext/stc/STC.xs
