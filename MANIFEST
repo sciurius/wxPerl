@@ -6,31 +6,44 @@ README.txt
 Changes
 run
 
-build/nmake.mak
-build/gmake.mak
-build/Any_OS.pm
-build/Any_wx_config.pm
-build/MacOSX_GCC.pm
-build/Win32_MSVC.pm
-build/Win32_MinGW.pm
-build/wxConfig.pm
-build/wxMMUtils.pm
-build/wxMMHacks.pm
-build/Tests_Helper.pm
-build/W32.pm
+# build/nmake.mak
+# build/gmake.mak
+# build/Any_OS.pm
+# build/Any_wx_config.pm
+# build/MacOSX_GCC.pm
+# build/Win32_MSVC.pm
+# build/Win32_MinGW.pm
+# build/wxConfig.pm
+# build/wxMMUtils.pm
+# build/wxMMHacks.pm
+# build/W32.pm
 
-build/Test/Builder.pm		Test::Simple, Test::More and Test::Harness
-build/Test/Harness.pm
-build/Test/Harness/Assert.pm
-build/Test/Harness/Iterator.pm
-build/Test/Harness/Straps.pm
-build/Test/More.pm
-build/Test/Simple.pm
+build/Wx/build/Config/Any_OS.pm
+build/Wx/build/Config/Any_wx_config.pm
+build/Wx/build/Config/gmake.mak
+build/Wx/build/Config/MacOSX_GCC.pm
+build/Wx/build/Config/nmake.mak
+build/Wx/build/Config/Win32.pm
+build/Wx/build/Config/Win32_MinGW.pm
+build/Wx/build/Config/Win32_MSVC.pm
+build/Wx/build/Config.pm
+build/Wx/build/MakeMaker/Any_OS.pm
+build/Wx/build/MakeMaker/Any_wx_config.pm
+build/Wx/build/MakeMaker/MacOSX_GCC.pm
+build/Wx/build/MakeMaker/Core.pm
+build/Wx/build/MakeMaker/Hacks.pm
+build/Wx/build/MakeMaker/Win32.pm
+build/Wx/build/MakeMaker/Win32_MinGW.pm
+build/Wx/build/MakeMaker/Win32_MSVC.pm
+build/Wx/build/MakeMaker.pm
+build/Wx/build/Options.pm
+build/Wx/build/Utils.pm
 
 docs/bugs.txt
 docs/install.txt
 docs/todo.txt
 
+script/copy_files.pl
 script/make_exp_list.pl
 script/make_ovl_list.pl
 script/pipe.pl
@@ -44,6 +57,7 @@ t/06_loadxpm.t
 t/07_overload.t
 t/08_ovl_func.t
 t/09_create_delete.t
+t/Tests_Helper.pm
 
 lib/Wx/App.pm
 lib/Wx/Event.pm
