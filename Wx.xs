@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.59 2004/06/20 08:24:11 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.60 2004/06/20 08:43:41 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -26,7 +26,8 @@
 #include <wx/window.h>
 #include <wx/module.h>
 // FIXME hack
-#if defined(__DARWIN__) || defined(__UNIX__)
+#if WXPERL_W_VERSION_GE( 2, 5, 2 ) \
+    && (defined(__DARWIN__) || defined(__UNIX__))
 #define HACK
 #include <wx/html/htmlwin.h>
 #endif
