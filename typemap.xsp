@@ -1,0 +1,29 @@
+# typemap file for xsubppp
+
+%typemap{void}{simple};
+%typemap{bool}{simple};
+%typemap{char}{simple};
+%typemap{short}{simple};
+%typemap{int}{simple};
+%typemap{long}{simple};
+%typemap{float}{simple};
+%typemap{double}{simple};
+
+%typemap{time_t}{simple};
+
+%typemap{wxWindowID}{simple};
+
+%typemap{const wxChar*}{simple};
+
+%typemap{wxString&}{parsed}{%wxString%};
+%typemap{const wxString&}{parsed}{%wxString%};
+%typemap{const wxPoint&}{parsed}{%wxPoint%};
+%typemap{const wxSize&}{parsed}{%wxSize%};
+
+%typemap{wxDateTime*}{simple};
+%typemap{wxDateTime&}{reference};
+%typemap{const wxDateTime&}{reference};
+
+%typemap{wxWindow*}{simple};
+
+%typemap{const wxColour&}{reference};

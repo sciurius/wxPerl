@@ -1,0 +1,346 @@
+
+%token OPCURLY CLCURLY OPPAR CLPAR PERC SEMICOLON TILDE DCOLON
+%token STAR AMP COMMA EQUAL OPSPECIAL CLSPECIAL
+%token INTEGER RAW_CODE ID
+
+%%
+
+top:    raw             { [ $_[1] ] }
+      | class           { [ $_[1] ] }
+      | directive       { [ $_[1] ] }
+      | top raw         { push @{$_[1]}, $_[2]; $_[1] }
+      | top class       { push @{$_[1]}, $_[2]; $_[1] }
+      | top directive   { push @{$_[1]}, $_[2]; $_[1] }
+        ;
+
+directive:      perc_module SEMICOLON
+                    { XSP::Parser::Module->new( module => $_[1] ) }
+              | perc_file SEMICOLON
+                    { XSP::Parser::File->new( file => $_[1] ) }
+              | typemap SEMICOLON { add_data_raw( $_[0], [ "\n" ] ) };
+
+typemap:        p_typemap OPCURLY type CLCURLY OPCURLY ID CLCURLY
+                    { my $package = "XSP::typemap::" . $_[6];
+                      my $type = $_[3];
+                      my $tm = $package->new( type => $type );
+                      XSP::typemap::add_typemap_for_type( $type, $tm );
+                      undef }
+              | p_typemap OPCURLY type CLCURLY OPCURLY ID CLCURLY
+                special_block
+                    { my $package = "XSP::typemap::" . $_[6];
+                      my( $type, $arg1 ) = ( $_[3], join( '', @{$_[8]} ) );
+                      my $tm = $package->new( type => $type,
+                                              arg1 => $arg1 );
+                      XSP::typemap::add_typemap_for_type( $type, $tm );
+                      undef };
+
+raw:    RAW_CODE        { add_data_raw( $_[0], [ $_[1] ] ) }
+      | special_block   { add_data_raw( $_[0], $_[1] ) };
+
+class:  perc_name 'class' ID OPCURLY methods CLCURLY SEMICOLON
+            { add_data_class( $_[0], class   => $_[3],
+                                     perl    => $_[1],
+                                     methods => $_[5] ) }
+      | 'class' ID OPCURLY methods CLCURLY SEMICOLON
+            { add_data_class( $_[0], class   => $_[2],
+                                     methods => $_[4] ) };
+
+methods:        method          { [ $_[1] ] }
+              | methods method  { push @{$_[1]}, $_[2]; $_[1] }
+              | RAW_CODE        { add_data_raw( $_[0], [ $_[1] ] ) }
+              | methods RAW_CODE
+                    { push @{$_[1]}, add_data_raw( $_[0], [ $_[2] ] ); $_[1] };
+
+method:         function { my $f = $_[1];
+                           my $m = add_data_method
+                             ( $_[0],
+                               name      => $f->cpp_name,
+                               ret_type  => $f->ret_type,
+                               arguments => $f->arguments,
+                               code      => $f->code );
+                           $m
+                         }
+              | perc_name function
+                    { my $f = $_[2];
+                      my $m = add_data_method
+                        ( $_[0],
+                          name      => $f->cpp_name,
+                          ret_type  => $f->ret_type,
+                          arguments => $f->arguments,
+                          code      => $f->code );
+                      $m->{PERL_NAME} = $_[1];
+                      $m
+                    }
+              | ctor
+              | perc_name ctor
+                    { $_[2]->{PERL_NAME} = $_[1]; $_[2] }
+              | dtor ;
+
+function:       type ID OPPAR arg_list CLPAR metadata SEMICOLON
+                    { add_data_function( $_[0],
+                                         name      => $_[2],
+                                         ret_type  => $_[1],
+                                         arguments => $_[4],
+                                         @{ $_[6] } ) }
+              | type ID OPPAR CLPAR metadata SEMICOLON
+                    { add_data_function( $_[0],
+                                         name     => $_[2],
+                                         ret_type => $_[1],
+                                         @{ $_[5] } ) };
+
+ctor:           ID OPPAR arg_list CLPAR metadata SEMICOLON
+                    { add_data_ctor( $_[0], name      => $_[1],
+                                            arguments => $_[3],
+                                            @{ $_[5] } ) }
+              | ID OPPAR CLPAR metadata SEMICOLON
+                    { add_data_ctor( $_[0], name => $_[1],
+                                            @{ $_[4] } ) };
+
+dtor:           TILDE ID OPPAR CLPAR SEMICOLON
+                    { add_data_dtor( $_[0], $_[2] ) };
+
+metadata:       perc_code       { $_[1] }
+              |                 { [] };
+
+perc_name:      p_name OPCURLY class_name CLCURLY       { $_[3] };
+perc_module:    p_module OPCURLY class_name CLCURLY     { $_[3] };
+perc_file:      p_file OPCURLY file_name CLCURLY        { $_[3] };
+perc_code:      p_code special_block                    { [ code => $_[2] ] };
+
+type:           'const' class_name STAR { make_cptr( $_[0], $_[2] ) }
+              | 'const' class_name AMP  { make_cref( $_[0], $_[2] ) }
+              | class_name STAR         { make_ptr( $_[0], $_[1] ) }
+              | class_name AMP          { make_ref( $_[0], $_[1] ) }
+              | class_name              { make_type( $_[0], $_[1] ) };
+
+class_name:     ID
+              | ID DCOLON ID { $_[1] . '::' . $_[3] };
+
+file_name:      DASH                            { '-' }
+              | ID DOT ID                       { $_[1] . '.' . $_[3] }
+              | ID SLASH file_name              { $_[1] . '/' . $_[3] };
+
+arg_list:       argument                { [ $_[1] ] }
+              | arg_list COMMA argument { push @{$_[1]}, $_[3]; $_[1] };
+
+argument:       type ID                 { make_argument( @_ ) }
+              | type ID EQUAL value
+                    { make_argument( @_[0, 1, 2, 4] ) };
+
+value:          INTEGER
+              | QUOTED_STRING
+              | ID
+              | ID DCOLON ID    { $_[1] . '::' . $_[3] };
+
+
+special_block:          special_block_start lines special_block_end
+                            { $_[2] };
+
+special_block_start:    OPSPECIAL       { push_lex_mode( $_[0], 'special' ) };
+
+special_block_end:      CLSPECIAL       { pop_lex_mode( $_[0], 'special' ) };
+
+lines: line             { [ $_[1] ] } 
+     | lines line       { push @{$_[1]}, $_[2]; $_[1] };
+
+%%
+
+my %tokens = ( '::' => 'DCOLON',
+               '%{' => 'OPSPECIAL',
+               '%}' => 'CLSPECIAL',
+               '{%' => 'OPSPECIAL',
+                '{' => 'OPCURLY',
+                '}' => 'CLCURLY',
+                '(' => 'OPPAR',
+                ')' => 'CLPAR',
+                ';' => 'SEMICOLON',
+                '%' => 'PERC',
+                '~' => 'TILDE',
+                '*' => 'STAR',
+                '&' => 'AMP',
+                ',' => 'COMMA',
+                '=' => 'EQUAL',
+                '/' => 'SLASH',
+                '.' => 'DOT',
+                '-' => 'DASH',
+               # these are here due to my lack of skill with yacc
+               '%name' => 'p_name',
+               '%typemap' => 'p_typemap',
+               '%file' => 'p_file',
+               '%module' => 'p_module',
+               '%code' => 'p_code',
+             );
+
+my %keywords = ( const => 1,
+                 class => 1,
+               );
+
+sub get_lex_mode { return $_[0]->YYData->{LEX}{MODES}[0] || '' }
+
+sub push_lex_mode {
+  my( $p, $mode ) = @_;
+
+  push @{$p->YYData->{LEX}{MODES}}, $mode;
+}
+
+sub pop_lex_mode {
+  my( $p, $mode ) = @_;
+
+  die "Unexpected mode: '$mode'"
+    unless get_lex_mode( $p ) eq $mode;
+
+  pop @{$p->YYData->{LEX}{MODES}};
+}
+
+sub read_more {
+  my( $fh, $buf ) = @_;
+  my $v = <$fh>;
+
+  return unless defined $v;
+
+  $$buf .= $v;
+
+  return 1;
+}
+
+sub yylex {
+  my $data = $_[0]->YYData->{LEX};
+  my $fh = $data->{FH};
+  my $buf = $data->{BUFFER};
+
+  for(;;) {
+    if( !length( $$buf ) && !read_more( $fh, $buf ) ) {
+      return ( '', undef );
+    }
+
+    if( get_lex_mode( $_[0] ) eq 'special' ) {
+      if( $$buf =~ s/^%}// ) {
+        return ( 'CLSPECIAL', '%}' );
+      } elsif( $$buf =~ s/^([^\n]*)\n$// ) {
+        my $line = $1;
+
+        if( $line =~ m/^(.*?)\%}(.*)$/ ) {
+          $$buf = "%}$2\n";
+          $line = $1;
+        }
+
+        return ( 'line', $line );
+      }
+    } else {
+      $$buf =~ s/^[\s\n\r]+//;
+
+      if( $$buf =~ s/^( \%}
+                      | \%{ | {\%
+                      | \%name | \%typemap | \%module | \%typemap | \%code
+                      | \%file
+                      | [{}();%~*&,=\/\.\-]
+                      | ::
+                       )//x ) {
+        return ( $tokens{$1}, $1 );
+      } elsif( $$buf =~ m/^(\w+)\W/ ) {
+        $$buf =~ s/^(\w+)//;
+
+        return ( $1, $1 ) if exists $keywords{$1};
+
+        return ( 'ID', $1 );
+      } elsif( $$buf =~ m/^(\d+)\D/ ) {
+        return ( 'INTEGER', $1 );
+      } elsif( $$buf =~ s/^("[^"]*")// ) {
+        return ( 'QUOTED_STRING', $1 );
+      } elsif( $$buf =~ s/^(#.*)$// ) {
+        return ( 'RAW_CODE', $1 );
+      } else {
+#        warn $$buf;
+      }
+    }
+  }
+}
+
+sub yyerror {
+  my $buf = $_[0]->YYData->{LEX}{BUFFER};
+
+  print "Error: ", $_[0]->YYCurtok, ' ',
+    $_[0]->YYCurval, ' ', ( $buf ? $$buf : '--empty buffer--' ),
+      "\n";
+}
+
+sub make_cptr { XSP::Parser::Type->new( base => $_[1],
+                                        const => 1, pointer => 1 ) }
+sub make_cref { XSP::Parser::Type->new( base => $_[1],
+                                        const => 1, reference => 1 ) }
+sub make_ref  { XSP::Parser::Type->new( base => $_[1], reference => 1 ) }
+sub make_ptr  { XSP::Parser::Type->new( base => $_[1], pointer => 1 ) }
+sub make_type { XSP::Parser::Type->new( base => $_[1] ) }
+
+sub add_data_raw {
+  my $p = shift;
+  my $rows = shift;
+
+  XSP::Parser::Raw->new( rows => $rows );
+}
+
+sub make_argument {
+  my( $p, $type, $name, $default ) = @_;
+
+  XSP::Parser::Argument->new( type    => $type,
+                              name    => $name,
+                              default => $default );
+}
+
+sub add_data_class {
+  my( $parser, %args ) = @_;
+
+  my $class = XSP::Parser::Class->new( perl_name => $args{perl},
+                                       cpp_name => $args{class},
+                                       methods => $args{methods} );
+
+  foreach my $m ( @{$class->methods} ) { $m->{CLASS} = $class }
+
+  $class;
+}
+
+sub add_data_function {
+  my( $parser, %args ) = @_;
+
+  XSP::Parser::Function->new( cpp_name  => $args{name},
+                              ret_type  => $args{ret_type},
+                              arguments => $args{arguments},
+                              code      => $args{code} );
+}
+
+sub add_data_method {
+  my( $parser, %args ) = @_;
+
+  XSP::Parser::Method->new( cpp_name  => $args{name},
+                            ret_type  => $args{ret_type},
+                            arguments => $args{arguments},
+                            code      => $args{code} );
+}
+
+sub add_data_ctor {
+  my( $parser, %args ) = @_;
+
+  XSP::Parser::Constructor->new( cpp_name  => $args{name},
+                                 arguments => $args{arguments},
+                                 code      => $args{code} );
+}
+
+sub add_data_dtor {
+  my( $parser, $name ) = @_;
+
+  XSP::Parser::Destructor->new( cpp_name => $name ); 
+}
+
+sub is_directive {
+  my( $p, $d, $name ) = @_;
+
+  return $d->[0] eq $name;
+}
+
+#sub assert_directive {
+#  my( $p, $d, $name ) = @_;
+#
+#  if( $d->[0] ne $name )
+#    { $p->YYError }
+#  1;
+#}

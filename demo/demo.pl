@@ -219,6 +219,7 @@ my @demos =
     ],
     [ 'Controls',
       [
+       [ 'CalendarCtrl', demo( 'wxCalendarCtrl' ) ],
        [ 'CheckListBox', demo( 'wxCheckListBox' ) ],
        [ 'ListCtrl', demo( 'wxListCtrl' ) ],
       ],

@@ -131,6 +131,9 @@ copy_files :
 \t\$(PERL) script/copy_files.pl files.lst
 \t\$(TOUCH) copy_files
 
+parser :
+	yapp -s -o script/XSP.pm script/XSP.yp
+
 EOT
 
   $text;

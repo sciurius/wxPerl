@@ -1,0 +1,18 @@
+#############################################################################
+## Name:        typemap
+## Purpose:     typemap
+## Author:      Mattia Barbon
+## Modified by:
+## Created:      5/10/2002
+## RCS-ID:      
+## Copyright:   (c) 2002 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+wxDateTime__WeekDay     T_IV
+
+wxCalendarEvent *	O_WXOBJECT
+wxCalendarCtrl *        O_WXOBJECT
+wxDateTime *            O_NON_WXOBJECT

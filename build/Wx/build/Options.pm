@@ -85,7 +85,7 @@ sub _parse_options {
     print <<HELP;
 Usage: perl Makefile.PL [options]
   --enable/disable-foo where foo is one of: dnd filesys grid help
-                                            html mdi print xrc stc docview
+                       html mdi print xrc stc docview calendar datetime 
   --help               you are reading it
   --debug              enable debugging
   --unicode            enable Unicode support (MSW/GTK2 only)

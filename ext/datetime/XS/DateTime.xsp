@@ -1,0 +1,56 @@
+#############################################################################
+## Name:        DateTime.xsp
+## Purpose:     XS++ for Wx::DateTime
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     22/ 9/2002
+## RCS-ID:      
+## Copyright:   (c) 2002 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/datetime.h>
+
+%module{Wx};
+
+%{
+#define wxDateTime__TimeZone wxDateTime::TimeZone
+#define Month wxDateTime::Month
+#define wxDateTime_t wxDateTime::wxDateTime_t
+%}
+
+%typemap{Month}{simple};
+%typemap{wxDateTime_t}{simple};
+
+%typemap{const wxDateTime::TimeZone&}{parsed}{%wxDateTime::TimeZone%};
+
+%name{Wx::DateTime} class wxDateTime
+{
+    wxDateTime();
+    %name{newFromTimeT} wxDateTime( time_t time );
+    %name{newFromDMY} wxDateTime( wxDateTime_t day,
+        Month month = wxDateTime::Inv_Month,
+        int year = wxDateTime::Inv_Year, wxDateTime_t hour = 0,
+        wxDateTime_t minute = 0, wxDateTime_t second = 0,
+        wxDateTime_t millisec = 0 );
+    ~wxDateTime();
+
+    const wxString& Format( const wxChar* format = "%c",
+                     const wxDateTime::TimeZone& tz = wxDateTime::Local );
+
+    int GetYear( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    Month GetMonth( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+    wxDateTime_t GetDay( const wxDateTime::TimeZone& tz = wxDateTime::Local );
+
+    %name{SetTimeT} wxDateTime& Set( time_t time )
+        %code{%    RETVAL = &(THIS->Set( time ));%};
+
+    wxDateTime& SetYear( int year );
+    wxDateTime& SetMonth( Month month );
+    wxDateTime& SetDay( wxDateTime_t day );
+};
+
+#        %code{%    RETVAL = &(THIS->SetYear( year ));%};
+#        %code{%    RETVAL = &(THIS->SetMonth( month ));%};
+#        %code{%    RETVAL = &(THIS->SetDay( day ));%};
