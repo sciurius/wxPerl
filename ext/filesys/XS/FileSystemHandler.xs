@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/ 4/2001
-## RCS-ID:      
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id: FileSystemHandler.xs,v 1.6 2003/08/16 14:54:12 mbarbon Exp $
+## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,10 +19,38 @@
 
 MODULE=Wx PACKAGE=Wx::FileSystemHandler
 
+#if 0
+
+wxString
+wxFileSystemHandler::GetAnchor( location )
+    wxString location
+
+wxString
+wxFileSystemHandler::GetLeftLocation( location )
+    wxString location
+
+wxString
+wxFileSystemHandler::GetMimeTypeFromExt( location )
+    wxString location
+
+wxString
+wxFileSystemHandler::GetProtocol( location )
+    wxString location
+
+wxString
+wxFileSystemHandler::GetRightLocation( location )
+    wxString location
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::InternetFSHandler
+
+#if wxUSE_PROTOCOL_HTTP || wxUSE_PROTOCOL_FTP
 
 Wx_InternetFSHandler*
 Wx_InternetFSHandler::new()
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::ZipFSHandler
 
