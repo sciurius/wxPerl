@@ -36,7 +36,7 @@ sub BEGIN {
 use vars qw(@top_level_xs $debug_mode $extra_libs $extra_cflags);
 
 @top_level_xs = qw(Wx.xs Controls.xs Event.xs Constant.xs 
-Functions.xs Window.xs Frames.xs GDI.xs);
+Window.xs Frames.xs GDI.xs);
 
 # configures subroutines depending
 # from os/window system
@@ -342,9 +342,7 @@ sub postamble_wxconfig {
 #
 # quick and dirty method for creating dependencies:
 # considers files included via #include "..." or INCLUDE: ...
-# (not #include <...>) and assumes no included file
-# incudes another file (since these are all local files,
-# this is no problem)
+# (not #include <...>) and does not take into account preprocessor directives
 #
 sub scan_xs($) {
   my( $xs ) = @_;
@@ -355,8 +353,20 @@ sub scan_xs($) {
   open IN,$xs;
 
   while( $_ = <IN> ) {
-    m/^\#\s*include\s+"([^"]*)"\s*$/ && do { push @cinclude, $1; next; };
-    m/^\s*INCLUDE:\s+(.*)$/ && do { push @xsinclude, $1; next; };
+    m/^\#\s*include\s+"([^"]*)"\s*$/ && do {
+      push @cinclude, $1;
+      my( $cinclude, $xsinclude ) = scan_xs( $1 );
+      push @cinclude, @$cinclude;
+      push @xsinclude, @$xsinclude;
+      next;
+    };
+    m/^\s*INCLUDE:\s+(.*)$/ && do {
+      push @xsinclude, $1;
+      my( $cinclude, $xsinclude ) = scan_xs( $1 );
+      push @cinclude, @$cinclude;
+      push @xsinclude, @$xsinclude;
+      next;
+    };
   }
 
   close IN;
