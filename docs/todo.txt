@@ -62,15 +62,12 @@ PRIORITY LOW:
 
 * Wx::HtmlHelpData ?
 
-* Decent wxClassInfo initialization strategy
-
 * Wx::App methods
     CreateLogTarget
 
 * Wx::App::new
     find a better solution yhan just 'croak' if OnInit
     returns a false value
-    fix wxMac hack
 
 * Wx::PrintData
     PostScript specific functions
