@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.25 2005/01/04 17:15:07 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.26 2005/01/04 22:10:11 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -221,11 +221,23 @@ wxTreeCtrl::EditLabel( item )
   CODE:
     THIS->EditLabel( *item );
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ )
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+void
+wxTreeCtrl::EndEditLabel( item, discardChanges = false )
+    wxTreeItemId* item
+    bool discardChanges
+  C_ARGS: *item, discardChanges
+
+#else
 
 void
 wxTreeCtrl::EndEditLabel( cancelEdit )
     bool cancelEdit
+
+#endif
 
 #endif
 

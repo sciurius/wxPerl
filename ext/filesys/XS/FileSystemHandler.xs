@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/04/2001
-## RCS-ID:      $Id: FileSystemHandler.xs,v 1.8 2004/12/21 21:12:51 mbarbon Exp $
-## Copyright:   (c) 2001-2004 Mattia Barbon
+## RCS-ID:      $Id: FileSystemHandler.xs,v 1.9 2005/01/04 22:10:13 mbarbon Exp $
+## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,7 +19,7 @@
 
 MODULE=Wx PACKAGE=Wx::FileSystemHandler
 
-#if 0
+#if 0 // protected!
 
 wxString
 wxFileSystemHandler::GetAnchor( location )
@@ -45,7 +45,7 @@ wxFileSystemHandler::GetRightLocation( location )
 
 MODULE=Wx PACKAGE=Wx::InternetFSHandler
 
-#if wxUSE_PROTOCOL_HTTP || wxUSE_PROTOCOL_FTP
+#if wxUSE_FS_INET
 
 wxInternetFSHandler*
 wxInternetFSHandler::new()
