@@ -1371,7 +1371,8 @@ void SetConstants()
 #endif
 
     tmp = get_sv( "Wx::_wx_version", 0 );
-    sv_setnv( tmp, wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 );
+    sv_setnv( tmp, wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 + 
+        wxRELEASE_NUMBER / 1000000.0 );
 
     tmp = get_sv( "Wx::_platform", 0 );
 #if __WXMSW__
