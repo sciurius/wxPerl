@@ -15,6 +15,7 @@ build/Win32_MSVC.pm
 build/Win32_MinGW.pm
 build/wxConfig.pm
 build/wxMMUtils.pm
+build/wxMMHacks.pm
 build/Tests_Helper.pm
 build/W32.pm
 
@@ -59,14 +60,11 @@ lib/Wx/Region.pm
 lib/Wx/ScreenDC.pm
 lib/Wx/Sizer.pm
 lib/Wx/SplashScreen.pm
-lib/Wx/StaticBitmap.pm
 lib/Wx/Timer.pm
-lib/Wx/ToolBar.pm
 lib/Wx/TreeCtrl.pm
 lib/Wx/Window.pm
 lib/Wx/_Constants.pm
 lib/Wx/_Functions.pm
-lib/Wx/_Inheritance.pm
 
 samples/controls/controls.pl
 samples/controls/icons/choice.bmp
@@ -420,3 +418,4 @@ demo/wxBoxSizer.pm
 demo/wxGridSizer.pm
 demo/wxFlexGridSizer.pm
 demo/wxNotebookSizer.pm
+demo/wxWizard.pm
