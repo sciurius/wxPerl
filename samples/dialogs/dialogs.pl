@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/ 2/2001
-## RCS-ID:      $Id: dialogs.pl,v 1.4 2003/05/05 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: dialogs.pl,v 1.5 2003/05/18 15:07:21 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -57,12 +57,12 @@ sub new {
   $dialogs->Append( $ID_TEXTDIALOG, "Wx::&TextEntryDialog\tF6" );
   $dialogs->Append( $ID_FONTDIALOG, "Wx::F&ontDialog\tF7" );
 
-  $dialogs->Enable( $ID_MCHOICE );
+  $dialogs->Enable( $ID_MCHOICE, 1 );
 
   my $functions = Wx::Menu->new;
   $functions->Append( $ID_MCHOICE_FN, "Wx::Get&MultipleChoice" );
 
-  $functions->Enable( $ID_MCHOICE_FN );
+  $functions->Enable( $ID_MCHOICE_FN, 1 );
 
   my $menu = Wx::MenuBar->new;
   $menu->Append( $file, "&File" );
