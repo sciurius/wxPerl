@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/06/2001
-## RCS-ID:      $Id: PrintPreview.xs,v 1.6 2004/12/21 21:12:55 mbarbon Exp $
+## RCS-ID:      $Id: PrintPreview.xs,v 1.7 2005/02/19 17:25:57 mbarbon Exp $
 ## Copyright:   (c) 2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -39,13 +39,6 @@ wxPrintPreview::GetMaxPage()
 
 int
 wxPrintPreview::GetMinPage()
-
-# wxPrintData*
-# wxPrintPreview::GetPrintData()
-#   CODE:
-#     RETVAL = &THIS->GetPrintData();
-#  #UTPUT:
-#    RETVAL
 
 wxPrintout*
 wxPrintPreview::GetPrintout()
