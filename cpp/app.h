@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.16 2003/08/02 21:19:09 mbarbon Exp $
-// Copyright:   (c) 2000-2002 Mattia Barbon
+// RCS-ID:      $Id: app.h,v 1.17 2003/08/17 19:34:40 mbarbon Exp $
+// Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -19,11 +19,12 @@ class wxPliApp:public wxApp
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliApp );
     WXPLI_DECLARE_V_CBACK();
 public:
-    wxPliApp( const char* package );
+    wxPliApp( const char* package = "Wx::App" );
     ~wxPliApp();
 
     bool OnInit();
     int MainLoop();
+    void CleanUp() { DeletePendingObjects(); wxApp::CleanUp(); }
 
     DEC_V_CBACK_INT__VOID( OnExit );
     DEC_V_CBACK_BOOL__BOOL( Yield );

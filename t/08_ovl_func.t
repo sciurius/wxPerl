@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 166;
+use Test::More 'tests' => 165;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -210,9 +210,10 @@ hijack( 'Wx::Cursor::newId'    => sub { $newid = 1 },
         ( Wx::wxVERSION() >= 2.003002 && !Wx::wxMAC()
           ? ( 'Wx::Cursor::newImage' => sub { $newimage = 1 } )
           : () ),
-        ( Wx::wxMSW()
-          ? ( 'Wx::Cursor::newFile'  => sub { $newfile = 1 } )
-          : () ) );
+#        ( Wx::wxMSW()
+#          ? ( 'Wx::Cursor::newFile'  => sub { $newfile = 1 } )
+#          : () ),
+      );
 
 Wx::Cursor->new( 1 );
 ok( $newid,    "Wx::Cursor::newId" );
@@ -225,12 +226,12 @@ SKIP: {
   ok( $newimage, "Wx::Cursor::newImage" );
 }
 
-SKIP: {
-  skip "Only for wxMSW", 1 unless Wx::wxMSW();
+#SKIP: {
+#  skip "Only for wxMSW", 1 unless Wx::wxMSW();
 
-  Wx::Cursor->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG(), 2, 2 );
-  ok( $newfile, "Wx::Cursor::newFile" );
-}
+#  Wx::Cursor->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG(), 2, 2 );
+#  ok( $newfile, "Wx::Cursor::newFile" );
+#}
 }
 
 ##############################################################################

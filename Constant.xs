@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.89 2003/08/16 21:26:26 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.90 2003/08/17 19:34:29 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -2007,6 +2007,17 @@ double
 constant(name,arg)
     const char* name
     int arg
+
+void
+UnsetConstants()
+  CODE:
+    SV* tmp;
+
+    tmp = get_sv( "Wx::wxTheClipboard", 1 );
+    sv_setiv( SvRV( tmp ), 0 );
+
+    tmp = get_sv( "Wx::wxDefaultValidator", 1 );
+    sv_setiv( SvRV( tmp ), 0 );
 
 void
 SetEvents()

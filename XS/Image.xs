@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      2/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.31 2003/05/19 19:29:35 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.32 2003/08/17 19:34:40 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -63,7 +63,7 @@ newData( CLASS, width, height, dt )
   CODE:
     if( len != (STRLEN) width * height * 3 )
     {
-        croak( "too few data in image constructor" );
+        croak( "not enough data in image constructor" );
     }
     newdata = (unsigned char*)malloc( width * height * 3 );
     memcpy( newdata, data, width * height * 3 );

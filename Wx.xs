@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:      1/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.51 2003/08/16 21:26:27 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.52 2003/08/17 19:34:29 mbarbon Exp $
 // Copyright:   (c) 2000-2002 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -55,6 +55,14 @@ void WXDLLEXPORT wxEntryCleanup();
 #include "cpp/v_cback.cpp"
 #include "cpp/overload.cpp"
 #include "cpp/ovl_const.cpp"
+
+//
+// our App
+//
+#include <wx/app.h>
+#include "cpp/app.h"
+
+IMPLEMENT_APP_NO_MAIN(wxPliApp);
 
 #undef THIS
 

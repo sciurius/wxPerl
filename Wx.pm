@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:      1/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.62 2003/07/25 20:36:15 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.63 2003/08/17 19:34:29 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -88,6 +88,38 @@ sub _croak {
   goto &Carp::croak;
 }
 
+# Blech! (again...)
+# wxWindows DLLs need to be installed in the same directory as Wx.dll,
+# but then LoadLibrary can't find them unless they are already loaded,
+# so we explicitly load them (on Win32 and wxWindows 2.5.x+) just before
+# calling Wx::wx_boot. Finding the library requires determining the path
+# and the correct name
+my( $wx_path, $wx_pre, $wx_post );
+
+sub load_dll {
+  return if $^O ne 'MSWin32' || Wx::wxVERSION() < 2.005;
+
+  unless( $wx_path ) {
+    foreach ( @INC ) {
+      if( -f "$_/auto/Wx/Wx.dll" ) {
+        $wx_path = "$_/auto/Wx";
+        my $lib = ( glob "$wx_path/wx*html*.dll" )[0];
+        $lib =~ s{.*[/\\]([^/\\]+)$}{$1};
+        $lib =~ m/^wx(?:msw)([^_]+)_html_([^\.]+)\.dll/i
+          or die "PANIC: name scheme for '$lib'";
+        $wx_pre = $1;
+        $wx_post = $2;
+        last;
+      }
+    }
+  }
+
+  foreach my $path ( "$wx_path/wxmsw${wx_pre}_$_[0]_${wx_post}.dll",
+                     "$wx_path/wxbase${wx_pre}_$_[0]_${wx_post}.dll" ) {
+      -f $path and DynaLoader::dl_load_file( $path, 0 ) and last;
+  }
+}
+
 #
 # XSLoader/DynaLoader wrapper
 #
@@ -144,8 +176,7 @@ SetEvents();
 SetInheritance();
 
 sub END {
-  no strict 'vars';
-  foreach ( $wxTheClipboard, $wxDefaultValidator ) { undef $$_ }
+  UnsetConstants();
 }
 
 #

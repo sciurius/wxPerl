@@ -11,7 +11,7 @@
 #############################################################################
 
 #include <wx/app.h>
-#include "cpp/app.h"
+##include "cpp/app.h"
 
 #if WXPERL_W_VERSION_GE( 2, 3, 3 )
 #include <wx/artprov.h>
@@ -73,7 +73,12 @@ Start( app, sub )
 Wx_App*
 Wx_App::new()
   CODE:
-    RETVAL = new wxPliApp( CLASS );
+##    RETVAL = new wxPliApp( CLASS );
+#if !WXPERL_W_VERSION_GE( 2, 5, 0 )
+    if( !wxTheApp )
+        wxTheApp = new wxPliApp();
+#endif
+    RETVAL = wxTheApp;
   OUTPUT:
     RETVAL
 
@@ -88,7 +93,7 @@ Wx_App::Dispatch()
 wxString
 Wx_App::GetAppName()
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) && !WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 bool
 Wx_App::GetAuto3D()
@@ -155,7 +160,7 @@ void
 Wx_App::SetAppName( name )
     wxString name
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) && !WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 void
 Wx_App::SetAuto3D( auto3d )

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/08/2002
-## RCS-ID:      $Id: Wizard.xs,v 1.9 2003/08/16 21:26:28 mbarbon Exp $
+## RCS-ID:      $Id: Wizard.xs,v 1.10 2003/08/17 19:34:40 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -127,3 +127,4 @@ wxWizardEvent::GetDirection()
 
 wxWizardPage*
 wxWizardEvent::GetPage()
+
