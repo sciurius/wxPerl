@@ -53,7 +53,7 @@ sub new {
   my $this = $class->SUPER::new( @_ );
 
   my $timer2 = Wx::Timer->new( MyHandler->new );
-  $timer2->Start( 400, 1 );
+  $timer2->Start( 800, 1 );
 
   my $timer1 = MyTimer->new;
   $timer1->Start( 100, 1 );
