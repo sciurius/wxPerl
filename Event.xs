@@ -276,6 +276,39 @@ Wx_KeyEvent::HasModifiers()
 bool
 Wx_KeyEvent::ShiftDown()
 
+MODULE=Wx_Evt PACKAGE=Wx::HelpEvent
+
+# Wx_HelpEvent::new()
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+Wx_Point*
+Wx_HelpEvent::GetPosition()
+  CODE:
+    RETVAL = new wxPoint( THIS->GetPosition() );
+  OUTPUT:
+    RETVAL
+
+wxString
+Wx_HelpEvent::GetLink()
+
+wxString
+Wx_HelpEvent::GetTarget()
+
+void
+Wx_HelpEvent::SetPosition( point )
+    Wx_Point point
+
+void
+Wx_HelpEvent::SetLink( link )
+    wxString link
+
+void
+Wx_HelpEvent::SetTarget( target )
+    wxString target
+
+#endif
+
 MODULE=Wx_Evt PACKAGE=Wx::IdleEvent
 
 # Wx_IdleEvent*

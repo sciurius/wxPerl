@@ -98,6 +98,15 @@ sub EVT_KEY_DOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_KEY_DOWN, $_[1] ); }
 sub EVT_KEY_UP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_KEY_UP, $_[1] ); }
 
 #
+# HelpEvent
+#
+
+sub EVT_HELP($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_HELP, $_[2] ); }
+sub EVT_HELP_RANGE($$$$) { $_[0]->Connect( _id( $_[1] ), _id( $_[2] ), &Wx::wxEVT_HELP, $_[3] ); }
+sub EVT_DETAILED_HELP($$$) { $_[0]->Connect( _id( $_[1] ), -1, &Wx::wxEVT_DETAILED_HELP, $_[2] ); }
+sub EVT_DETAILED_HELP_RANGE($$$$) { $_[0]->Connect( _id( $_[1] ), _id( $_[2] ), &Wx::wxEVT_DETAILED_HELP, $_[3] ); }
+
+#
 # IdleEvent
 #
 
@@ -226,6 +235,7 @@ package Wx::DropFilesEvent;  @ISA = qw(Wx::Event);
 package Wx::EraseEvent;      @ISA = qw(Wx::Event);
 package Wx::FocusEvent;      @ISA = qw(Wx::Event);
 package Wx::KeyEvent;        @ISA = qw(Wx::Event);
+package Wx::HelpEvent;       @ISA = qw(Wx::CommandEvent);
 package Wx::IdleEvent;       @ISA = qw(Wx::Event);
 package Wx::InitDialogEvent; @ISA = qw(Wx::Event);
 package Wx::JoystickEvent;   @ISA = qw(Wx::Event);
