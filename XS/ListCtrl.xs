@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.31 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.32 2004/06/01 19:24:36 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -473,7 +473,7 @@ wxListCtrl::GetItemSpacing( isSmall )
 
 #else
 
-wxSize
+wxSize*
 wxListCtrl::GetItemSpacing()
   CODE:
     RETVAL = new wxSize( THIS->GetItemSpacing() );
