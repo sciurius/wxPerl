@@ -77,6 +77,12 @@ PRIORITY NORMAL:
     Better READLINE
     Support for $/, etc?
 
+* Wx::StyledTextCtrl
+    AddStyledText
+    GetStyledText
+    GetCurLine
+    SendMsg
+
 PRIORITY LOW:
 
 * Wx::HtmlHelpData ?
@@ -134,6 +140,8 @@ DOCUMENTATTION:
 * Document wxStatusBar::GetFieldRect
 
 * Document wxListBox::GetCount/Number is deprecated
+
+* Document wxDocTemplate::new
 
 * wxFontMapper
    GetAltForEncoding

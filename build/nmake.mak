@@ -22,7 +22,7 @@ wxdir:
     echo $(WXWIN)
 
 cxxflags:
-    echo $(CPPFLAGS)
+    echo $(CPPFLAGS) -D__WXMSW__
 
 linkflags:
     echo $(LINKFLAGS)

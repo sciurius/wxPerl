@@ -10,6 +10,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+## bug in 2.2
+#include <wx/bitmap.h> 
 #include <wx/wizard.h>
 #include "cpp/overload.h"
 #include "cpp/wizard.h"

@@ -24,7 +24,6 @@ if( is_platform( 'mac' ) ) {
 
 wxWriteMakefile( NAME => 'Wx::DocView',
                  VERSION_FROM => 'lib/Wx/DocView.pm',
-                 REQUIRE_WX => 2.003_000,
                );
 
 }

@@ -57,6 +57,7 @@ Wx_DocManager::GetDocuments()
     SV* doc_aref = newRV( (SV*)arrDocs  );
     PUSHs(doc_aref);
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 void
 Wx_DocManager::GetTemplates()
@@ -73,6 +74,8 @@ Wx_DocManager::GetTemplates()
            = wxPli_object_2_sv( aTHX_ sv_newmortal(), tmplnode->GetData() ); 
        PUSHs( pltmpl );
     } 
+
+#endif
 
 wxString
 Wx_DocManager::GetLastDirectory()
@@ -347,6 +350,7 @@ Wx_DocManager::SelectDocumentPath( templates, noTemplates, path, flags, save = F
       pltemplates[i] = thistemplate;
     }
     RETVAL = THIS->SelectDocumentPath(pltemplates, noTemplates, path, flags, save);
+    delete[] pltemplates;
   OUTPUT:
     RETVAL
 
@@ -370,7 +374,12 @@ Wx_DocManager::SelectDocumentType( templates, noTemplates, sort = FALSE)
                       wxPli_sv_2_object( aTHX_ *pltemplate, wxPlDocTemplateName );
       pltemplates[i] = thistemplate;
     }
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     RETVAL = THIS->SelectDocumentType(pltemplates, noTemplates, sort);
+#else
+    RETVAL = THIS->SelectDocumentType(pltemplates, noTemplates);
+#endif
+    delete[] pltemplates;
   OUTPUT:
     RETVAL
 
@@ -396,7 +405,12 @@ Wx_DocManager::SelectViewType( templates, noTemplates, sort = FALSE)
                       wxPli_sv_2_object( aTHX_ *pltemplate, wxPlDocTemplateName );
       pltemplates[i] = thistemplate;
     }
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     RETVAL = THIS->SelectViewType(pltemplates, noTemplates, sort);
+#else
+    RETVAL = THIS->SelectViewType(pltemplates, noTemplates);
+#endif
+    delete[] pltemplates;
   OUTPUT:
     RETVAL
 

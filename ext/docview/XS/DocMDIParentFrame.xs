@@ -28,5 +28,5 @@ Wx_DocMDIParentFrame::new( manager, frame = (Wx_Frame*) NULL, id, title, pos = w
     RETVAL
 
 Wx_DocManager*
-Wx_DocParentFrame::GetDocumentManager()
+Wx_DocMDIParentFrame::GetDocumentManager()
 

@@ -883,8 +883,10 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_CP1255 );         // font
     r( wxFONTENCODING_CP1256 );         // font
     r( wxFONTENCODING_CP1257 );         // font
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
     r( wxFONTENCODING_UTF7 );           // font
     r( wxFONTENCODING_UTF8 );           // font
+#endif
     r( wxFONTENCODING_UNICODE );        // font
 
     // !export: Type_Float

@@ -75,7 +75,8 @@ hijack( 'Wx::Mask::newBitmapColour' => sub { $newbmpcol = 1 },
         'Wx::Bitmap::newEmpty'      => sub { $newempty = 1 },
         'Wx::Bitmap::newFile'       => sub { $newfile = 1 },
         'Wx::Bitmap::newIcon'       => sub { $newicon = 1 },
-        'Wx::Bitmap::newImage'      => sub { $newimage = 1 } );
+        'Wx::Bitmap::newImage'      => sub { $newimage = 1 },
+      );
 
 my $bitmap = Wx::Bitmap->new( 1, 1, 1 );
 ok( $newempty, "Wx::Bitmap::newEmpty" );
@@ -197,7 +198,9 @@ ok( $cbsetselectionNN,"Wx::ComboBox::SetMark" );
 {
 my( $newid, $newimage, $newfile ) = ( 0, 0, 0 );
 hijack( 'Wx::Cursor::newId'    => sub { $newid = 1 },
-        'Wx::Cursor::newImage' => sub { $newimage = 1 },
+        ( Wx::wxVERSION() >= 2.003002
+          ? ( 'Wx::Cursor::newImage' => sub { $newimage = 1 } )
+          : () ),
         ( Wx::wxMSW()
           ? ( 'Wx::Cursor::newFile'  => sub { $newfile = 1 } )
           : () ) );
@@ -205,8 +208,12 @@ hijack( 'Wx::Cursor::newId'    => sub { $newid = 1 },
 Wx::Cursor->new( 1 );
 ok( $newid,    "Wx::Cursor::newId" );
 
-Wx::Cursor->new( Wx::Image->new( 1, 1 ) );
-ok( $newimage, "Wx::Cursor::newImage" );
+SKIP: {
+  skip "Only for wxWindows 2.3.x", 1 unless Wx::wxVERSION() >= 2.003002;
+
+  Wx::Cursor->new( Wx::Image->new( 1, 1 ) );
+  ok( $newimage, "Wx::Cursor::newImage" );
+}
 
 SKIP: {
   skip "Only for wxMSW", 1 unless Wx::wxMSW();

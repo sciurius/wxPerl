@@ -164,6 +164,16 @@ newImage( CLASS, image )
   OUTPUT:
     RETVAL
 
+#else
+
+wxBitmap*
+newImage( CLASS, image )
+    SV* CLASS
+    wxImage* image
+  CODE:
+    RETVAL = new wxBitmap( image->ConvertToBitmap() );
+  OUTPUT: RETVAL
+
 #endif
 
 ## XXX threads

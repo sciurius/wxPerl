@@ -12,6 +12,7 @@
 
 MODULE=Wx PACKAGE=Wx::StyledTextCtrl
 
+#undef FindText
 #include "wx/stc/stc.h"
 
 Wx_StyledTextCtrl*
@@ -126,6 +127,8 @@ Wx_StyledTextCtrl::StyleSetEOLFilled( style, filled )
 void
 Wx_StyledTextCtrl::StyleResetDefault()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 void
 Wx_StyledTextCtrl::StyleSetCase( style, caseForce )
     int style
@@ -135,6 +138,8 @@ void
 Wx_StyledTextCtrl::StyleSetCharacterSet( style, characterSet )
     int style
     int characterSet
+
+#endif
 
 void
 Wx_StyledTextCtrl::SetSelForeground( useSetting, fore )
@@ -213,6 +218,8 @@ Wx_StyledTextCtrl::IndicatorSetForeground( indic, fore )
   CODE:
     THIS->IndicatorSetForeground( indic, *fore );
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 void
 Wx_StyledTextCtrl::SetWhitespaceForeground( useSetting, fore )
     bool useSetting
@@ -226,6 +233,8 @@ Wx_StyledTextCtrl::SetWhitespaceBackground( useSetting, back )
     Wx_Colour* back
   CODE:
     THIS->SetWhitespaceBackground( useSetting, *back );
+
+#endif
 
 void
 Wx_StyledTextCtrl::SetStyleBits( bits )
@@ -246,6 +255,8 @@ Wx_StyledTextCtrl::GetLineState( line )
 int
 Wx_StyledTextCtrl::GetMaxLineState()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 bool
 Wx_StyledTextCtrl::GetCaretLineVisible()
 
@@ -263,6 +274,8 @@ void
 Wx_StyledTextCtrl::StyleSetChangeable( style, changeable )
     int style
     bool changeable
+
+#endif
 
 void
 Wx_StyledTextCtrl::AutoCompShow( lenEntered, itemList )
@@ -317,6 +330,8 @@ Wx_StyledTextCtrl::AutoCompGetChooseSingle()
 bool
 Wx_StyledTextCtrl::AutoCompGetIgnoreCase()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 void
 Wx_StyledTextCtrl::UserListShow( listType, itemList )
     int listType
@@ -335,6 +350,8 @@ Wx_StyledTextCtrl::AutoCompSetDropRestOfWord( dropRestOfWord )
 
 bool
 Wx_StyledTextCtrl::AutoCompGetDropRestOfWord()
+
+#endif
 
 void
 Wx_StyledTextCtrl::SetIndent( indentSize )
@@ -430,12 +447,26 @@ Wx_StyledTextCtrl::SetPrintColourMode( mode )
 int
 Wx_StyledTextCtrl::GetPrintColourMode()
 
-##int
-##Wx_StyledTextCtrl::FindText( minPos, maxPos, text, flags )
-##    int minPos
-##    int maxPos
-##    wxString text
-##    int flags
+#undef FindText
+#if 0
+
+int
+Wx_StyledTextCtrl::FindText( minPos, maxPos, text, flags = 0 )
+    int minPos
+    int maxPos
+    wxString text
+    int flags
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+    RETVAL = THIS->FindText( minPos, maxPos, text, flags );
+#else
+    RETVAL = THIS->FindText( minPos, maxPos, text,
+                             ( flags & wxSTC_FIND_MATCHCASE ? TRUE : FALSE ),
+                             ( flags & wxSTC_FIND_WHOLEWORD ? TRUE : FALSE ) );
+#endif
+  OUTPUT: RETVAL
+
+#endif
 
 int
 Wx_StyledTextCtrl::GetFirstVisibleLine()
@@ -527,6 +558,8 @@ Wx_StyledTextCtrl::SetOvertype( overtype )
 bool
 Wx_StyledTextCtrl::GetOvertype()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 void
 Wx_StyledTextCtrl::SetCaretWidth( pixelWidth )
     int pixelWidth
@@ -566,6 +599,8 @@ Wx_StyledTextCtrl::SetSearchFlags( flags )
 
 int
 Wx_StyledTextCtrl::GetSearchFlags()
+
+#endif
 
 void
 Wx_StyledTextCtrl::CallTipShow( pos, definition )
@@ -653,6 +688,8 @@ void
 Wx_StyledTextCtrl::SetFoldFlags( flags )
     int flags
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 void
 Wx_StyledTextCtrl::EnsureVisibleEnforcePolicy( line )
     int line
@@ -732,6 +769,8 @@ Wx_StyledTextCtrl::LineEndDisplayExtend()
 
 void
 Wx_StyledTextCtrl::MoveCaretInsideView()
+
+#endif
 
 int
 Wx_StyledTextCtrl::LineLength( line )
@@ -830,6 +869,8 @@ Wx_StyledTextCtrl::ReleaseDocument( docPointer )
 int
 Wx_StyledTextCtrl::GetModEventMask()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 void
 Wx_StyledTextCtrl::SetSTCFocus( focus )
     bool focus
@@ -851,9 +892,13 @@ Wx_StyledTextCtrl::SetMouseDownCaptures( captures )
 bool
 Wx_StyledTextCtrl::GetMouseDownCaptures()
 
+#endif
+
 void
 Wx_StyledTextCtrl::SetCursor( cursorType )
     int cursorType
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 int
 Wx_StyledTextCtrl::GetCursor()
@@ -905,6 +950,8 @@ Wx_StyledTextCtrl::SetYCaretPolicy( caretPolicy, caretSlop )
     int caretPolicy
     int caretSlop
 
+#endif
+
 void
 Wx_StyledTextCtrl::StartRecord()
 
@@ -926,9 +973,13 @@ Wx_StyledTextCtrl::SetKeyWords( keywordSet, keyWords )
     int keywordSet
     wxString keyWords
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 void
 Wx_StyledTextCtrl::SetLexerLanguage( language )
     wxString language
+
+#endif
 
 ## Retrieve the selected text
 wxString
@@ -1004,10 +1055,14 @@ int
 Wx_StyledTextCtrl::PositionFromPoint( pt )
     Wx_Point pt
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 int
 Wx_StyledTextCtrl::PositionFromPointClose( x, y )
     int x
     int y
+
+#endif
 
 ## Set caret to start of a line and ensure it is visible.
 void
@@ -1026,9 +1081,13 @@ Wx_StyledTextCtrl::SetAnchor( posAnchor )
 int
 Wx_StyledTextCtrl::GetEndStyled()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 void
 Wx_StyledTextCtrl::ConvertEOLs( eolMode )
     int eolMode
+
+#endif
 
 int
 Wx_StyledTextCtrl::GetEOLMode()
@@ -1088,10 +1147,21 @@ Wx_StyledTextCtrl::MarkerSetBackground( markerNumber, back )
   CODE:
     THIS->MarkerSetBackground( markerNumber, *back );
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 int
 Wx_StyledTextCtrl::MarkerAdd( line, markerNumber )
     int line
     int markerNumber
+
+#else
+
+void
+Wx_StyledTextCtrl::MarkerAdd( line, markerNumber )
+    int line
+    int markerNumber
+
+#endif
 
 void
 Wx_StyledTextCtrl::MarkerDelete( line, markerNumber )
@@ -1211,12 +1281,16 @@ wxStyledTextCtrl::IndicatorGetForeground( indic )
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
 wxColour*
 wxStyledTextCtrl::GetCaretLineBack()
   CODE:
     RETVAL = new wxColour( THIS->GetCaretLineBack() );
   OUTPUT:
     RETVAL
+
+#endif
 
 wxColour*
 wxStyledTextCtrl::GetCaretForeground()
@@ -1247,9 +1321,46 @@ wxStyledTextCtrl::GetEdgeColour()
   OUTPUT:
     RETVAL
 
-#################################################################################
-## Not implimented:
-##
-## AddStyledText( ... )
-## GetStyledText ( ... )
-## GetCurLine ( ... )
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+bool
+wxStyledTextCtrl::GetLastKeydownProcessed()
+
+void
+wxStyledTextCtrl::SetLastKeydownProcessed( val )
+    bool val
+
+#endif
+
+wxPoint*
+wxStyledTextCtrl::PointFromPosition( pos )
+    int pos
+  CODE:
+    RETVAL = new wxPoint( THIS->PointFromPosition( pos ) );
+  OUTPUT: RETVAL
+
+void
+wxStyledTextCtrl::ScrollToLine( line )
+    int line
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+void
+wxStyledTextCtrl::SetHScrollBar( bar )
+    wxScrollBar* bar
+
+void
+wxStyledTextCtrl::SetVScrollBar( bar )
+    wxScrollBar* bar
+
+#endif
+
+void
+wxStyledTextCtrl::GetSelection()
+  PREINIT:
+    int start, end;
+  PPCODE:
+    THIS->GetSelection( &start, &end );
+    XPUSHs( newSViv( start ) );
+    XPUSHs( newSViv( end ) );
+

@@ -318,8 +318,8 @@ Wx_Bitmap *             O_WXOBJECT
 wxBitmap *              O_WXOBJECT
 Wx_Cursor *             O_WXOBJECT
 wxCursor *              O_WXOBJECT
-Wx_ToolTip *            O_WXOBJECT
-wxToolTip *             O_WXOBJECT
+Wx_ToolTip *            O_NON_WXOBJECT
+wxToolTip *             O_NON_WXOBJECT
 Wx_Pen *                O_WXOBJECT
 wxPen *                 O_WXOBJECT
 Wx_Mask *               O_WXOBJECT

@@ -16,8 +16,8 @@
 #include <stddef.h>
 #include "cpp/compat.h"
 #if !WXPERL_W_VERSION_GE( 2, 3, 0 )
-#include <wx/defs.h>
-#include <wx/window.h>
+//#include <wx/defs.h>
+//#include <wx/window.h>
 #endif
 
 // THIS IS AN HACK!
