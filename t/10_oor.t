@@ -15,7 +15,7 @@ use base 'Wx::ListBox';
 package MyFrame;
 
 use base 'Wx::Frame';
-use Test::More 'tests' => 26;
+use Test::More 'tests' => 27;
 
 sub new {
 my $this = shift->SUPER::new( undef, -1, 'a' );
@@ -43,6 +43,7 @@ my @data = ( [ 'Wx::Button', [ 'a' ] ],
              [ 'Wx::StaticBox', [ 'a' ] ],
              [ 'Wx::StaticLine', [] ],
              [ 'Wx::StaticText', [ 'a' ] ],
+             [ 'Wx::StatusBar', [] ],
              [ 'Wx::TextCtrl', [ 'a' ] ],
              [ 'Wx::TreeCtrl', [] ],
            );
