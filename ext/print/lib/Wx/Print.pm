@@ -40,6 +40,7 @@ package Wx::WindowsPrintPreview; @ISA = qw(Wx::PrintPreview);
 package Wx::PostScriptPrintPreview; @ISA = qw(Wx::PrintPreview);
 package Wx::WindowsPrinter; @ISA = qw(Wx::Printer);
 package Wx::PostScriptPrinter; @ISA = qw(Wx::Printer);
+package Wx::PostScriptDC; @ISA = qw(Wx::DC);
 
 use strict;
 
