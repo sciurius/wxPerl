@@ -112,7 +112,7 @@ sub new {
 
   my( $idx );
 
-  foreach my $i ( 1 .. 100 ) {
+  foreach my $i ( 0 .. 100 ) {
     $idx = $this->{LISTCTRL}->InsertStringImageItem( $i, "Item $i", $i );
     $this->{LISTCTRL}->SetItemData( $idx, $i * $i );
   }
