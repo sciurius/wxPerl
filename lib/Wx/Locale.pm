@@ -15,12 +15,35 @@ package Wx::Locale;
 use strict;
 use Carp;
 
-push @Wx::EXPORT_OK, qw(_ _noop gettext_noop gettext);
-
-*Wx::_ = \&Wx::GetTranslation;
 *Wx::gettext = \&Wx::GetTranslation;
-*Wx::_noop = sub { $_[0] };
-*Wx::gettext_noop = \&Wx::_noop;
+*Wx::gettext_noop = sub { $_[0] };
+
+@Wx::Locale::T::ISA = qw(Exporter);
+
+sub import {
+  my $temp = shift;
+
+  require Exporter;
+
+  package Wx::Locale::T;
+  no strict;
+
+  my( $from, $to, @export );
+  if( @_ == 1 && $_[0] eq ':default' ) {
+    @_ = ( 'gettext', 'gettext', 'gettext_noop', 'gettext_noop' )
+  }
+
+  while( @_ ) {
+    $from = shift;
+    $to = shift;
+
+    *{"Wx::Locale::T::$to"} = *{"Wx::$from"};
+    push @export, $to;
+  }
+
+  push @Wx::Locale::T::EXPORT_OK, @export;
+  Wx::Locale::T->export_to_level( 1, $temp, @export );
+}
 
 sub new {
   shift;
