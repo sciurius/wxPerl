@@ -27,6 +27,57 @@ Wx_TextUrlEvent::GetURLStart()
 long
 Wx_TextUrlEvent::GetURLEnd()
 
+MODULE=Wx PACKAGE=Wx::TextAttr
+
+Wx_TextAttr*
+Wx_TextAttr::new( colText = wxNullColour, colBack = wxNullColour, font = (Wx_Font*)&wxNullFont )
+    Wx_Colour colText
+    Wx_Colour colBack
+    Wx_Font* font
+  CODE:
+    if( items == 1 )
+        RETVAL = new wxTextAttr();
+    else
+        RETVAL = new wxTextAttr( colText, colBack, *font );
+  OUTPUT:
+    RETVAL
+
+void
+Wx_TextAttr::DESTROY()
+
+Wx_Colour*
+Wx_TextAttr::GetBackgroundColour()
+  CODE:
+    RETVAL = new wxColour( THIS->GetBackgroundColour() );
+  OUTPUT:
+    RETVAL
+
+Wx_Font*
+Wx_TextAttr::GetFont()
+  CODE:
+    RETVAL = new wxFont( THIS->GetFont() );
+  OUTPUT:
+    RETVAL
+
+Wx_Colour*
+Wx_TextAttr::GetTextColour()
+  CODE:
+    RETVAL = new wxColour( THIS->GetTextColour() );
+  OUTPUT:
+    RETVAL
+
+bool
+Wx_TextAttr::HasBackgroundColour()
+
+bool
+Wx_TextAttr::HasFont()
+
+bool
+Wx_TextAttr::HasTextColour()
+
+bool
+Wx_TextAttr::IsDefault()
+
 #endif
 
 MODULE=Wx PACKAGE=Wx::TextCtrl
@@ -78,6 +129,17 @@ Wx_TextCtrl::Cut()
 void
 Wx_TextCtrl::DiscardEdits()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+Wx_TextAttr*
+Wx_TextCtrl::GetDefaultStyle()
+  CODE:
+    RETVAL = new wxTextAttr( THIS->GetDefaultStyle() );
+  OUTPUT:
+    RETVAL
+
+#endif
+
 long
 Wx_TextCtrl::GetInsertionPoint()
 
@@ -95,6 +157,13 @@ Wx_TextCtrl::GetLineText( lineno )
 int
 Wx_TextCtrl::GetNumberOfLines()
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+wxString
+Wx_TextCtrl::GetRange( from, to )
+    long from
+    long to
+
 void
 Wx_TextCtrl::GetSelection()
   PREINIT:
@@ -105,8 +174,6 @@ Wx_TextCtrl::GetSelection()
     EXTEND( SP, 2 );
     PUSHs( sv_2mortal( newSViv( from ) ) );
     PUSHs( sv_2mortal( newSViv( to ) ) );
-
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
 
 wxString
 Wx_TextCtrl::GetStringSelection()
@@ -156,6 +223,16 @@ bool
 Wx_TextCtrl::SaveFile( filename )
     wxString filename
 
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+void
+Wx_TextCtrl::SetDefaultStyle( style )
+    Wx_TextAttr* style
+  CODE:
+    THIS->SetDefaultStyle( *style );
+
+#endif
+
 void
 Wx_TextCtrl::SetEditable( editable )
     bool editable
@@ -179,6 +256,18 @@ void
 Wx_TextCtrl::SetSelection( from, to )
     long from
     long to
+
+#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+
+void
+Wx_TextCtrl::SetStyle( start, end, style )
+    long start
+    long end
+    Wx_TextAttr* style
+  CODE:
+    THIS->SetStyle( start, end, *style );
+
+#endif
 
 void
 Wx_TextCtrl::SetValue( value )
