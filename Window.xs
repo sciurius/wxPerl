@@ -174,6 +174,13 @@ Wx_Window::FindWindow( i )
 void
 Wx_Window::Fit()
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+void
+Wx_Window::Freeze()
+
+#endif
+
 Wx_Colour*
 Wx_Window::GetBackgroundColour()
   CODE:
@@ -691,6 +698,13 @@ Wx_Window::SetWindowStyleFlag( style )
 bool
 Wx_Window::Show( show )
     bool show
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+
+void
+Wx_Window::Thaw()
+
+#endif
 
 bool
 Wx_Window::TransferDataFromWindow()
