@@ -12,9 +12,14 @@
 
 bool wxPliVirtualCallback::FindCallback( const char* name ) const
 {
+    // it would be better to declare m_method & m_stash 'mutable'
+    // but of course some C++ compiler don't support it...
+    SV** pm_method = (SV**)&m_method;
+    HV** pm_stash  = (HV**)&m_stash;
+
     HV* pkg = 0;
 
-    (SV*)m_method = 0;
+    *pm_method = 0;
 
     pkg = SvSTASH( SvRV( m_self ) );
 
@@ -25,14 +30,14 @@ bool wxPliVirtualCallback::FindCallback( const char* name ) const
         GV* gv = gv_fetchmethod( pkg, CHAR_P name );
         if( gv && isGV( gv ) )
             // mortal, since CallCallback is called before we return to perl
-            (SV*)m_method = sv_2mortal( newRV_inc( (SV*) ( p_method = GvCV( gv ) ) ) );
+            *pm_method = sv_2mortal( newRV_inc( (SV*) ( p_method = GvCV( gv ) ) ) );
     }
 
     if( !m_method )
         return false;
 
     if( !m_stash )
-        (HV*)m_stash = gv_stashpv( CHAR_P m_package, FALSE );
+        *pm_stash = gv_stashpv( CHAR_P m_package, FALSE );
   
     if( !m_stash )
         return true;
