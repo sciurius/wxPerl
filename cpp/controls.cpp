@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      
-// Copyright:   (c) 2000 Mattia Barbon
+// Copyright:   (c) 2000-2001 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticBox, wxStaticBox );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticLine, wxStaticLine );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliStaticText, wxStaticText );
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliTextCtrl, wxTextCtrl );
-
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliToggleButton, wxToggleButton );
 
 #if defined( __WXMSW__ )
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliGauge, wxGauge95 );
@@ -125,6 +125,10 @@ double listctrl_constant( const char* name, int arg )
       r( wxLIST_NEXT_LEFT );            // listctrl
       r( wxLIST_NEXT_RIGHT );           // listctrl
 
+      r( wxLIST_RECT_BOUNDS );          // listctrl
+      r( wxLIST_RECT_ICON );            // listctrl
+      r( wxLIST_RECT_LABEL );           // listctrl
+
       r( wxLIST_STATE_DONTCARE );       // listctrl
       r( wxLIST_STATE_DROPHILITED );    // listctrl
       r( wxLIST_STATE_FOCUSED );        // listctrl
@@ -146,9 +150,13 @@ double listctrl_constant( const char* name, int arg )
       r( wxLC_USER_TEXT );              // listctrl
       r( wxLC_EDIT_LABELS );            // listctrl
       r( wxLC_NO_HEADER );              // listctrl
+      r( wxLC_NO_SORT_HEADER );         // listctrl
       r( wxLC_SINGLE_SEL );             // listctrl
       r( wxLC_SORT_ASCENDING );         // listctrl
       r( wxLC_SORT_DESCENDING );        // listctrl
+#if WXPERL_W_VERSION_GE( 2, 3 )
+      r( wxLC_VIRTUAL );                // listctrl
+#endif
       break;
   }
 #undef r

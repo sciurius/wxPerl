@@ -43,6 +43,10 @@
 #include "cpp/compat.h"
 #include "cpp/typedef.h"
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+#include <wx/tglbtn.h>
+#endif
+
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>
@@ -147,6 +151,7 @@ INCLUDE: XS/StaticBitmap.xs
 INCLUDE: XS/StaticBox.xs
 INCLUDE: XS/StaticLine.xs
 INCLUDE: XS/StaticText.xs
+INCLUDE: XS/ToggleButton.xs
 INCLUDE: XS/TextCtrl.xs
 INCLUDE: XS/TreeCtrl.xs
 

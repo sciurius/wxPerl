@@ -37,6 +37,12 @@
 #include <wx/settings.h>
 #include <wx/button.h>
 
+#include "cpp/compat.h"
+
+#if WXPERL_W_VERSION_GE( 2, 3 )
+#include <wx/tglbtn.h>
+#endif
+
 #include <wx/list.h>
 #include <stdarg.h>
 
@@ -137,6 +143,9 @@ static double constant( const char *name, int arg )
     r( wxBU_BOTTOM );                   // button
     r( wxBU_AUTODRAW );                 // button
     r( wxBU_RIGHT );                    // button
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxBU_EXACTFIT );                 // button
+#endif
 
     r( wxBDIAGONAL_HATCH );             // brush pen
 
@@ -239,6 +248,9 @@ static double constant( const char *name, int arg )
     r( wxEVT_COMMAND_SCROLLBAR_UPDATED );
     r( wxEVT_COMMAND_VLBOX_SELECTED );
     r( wxEVT_COMMAND_COMBOBOX_SELECTED );
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED );
+#endif
     r( wxEVT_COMMAND_TOOL_RCLICKED );
     r( wxEVT_COMMAND_TOOL_ENTER );
     r( wxEVT_COMMAND_SPINCTRL_UPDATED );
@@ -249,6 +261,9 @@ static double constant( const char *name, int arg )
 
     r( wxEVT_TIMER );
 
+#if WXPERL_W_VERSION_GE( 2, 3 )
+    r( wxEVT_MOUSEWHEEL )
+#endif
     r( wxEVT_LEFT_DOWN );
     r( wxEVT_LEFT_UP );
     r( wxEVT_MIDDLE_DOWN );
