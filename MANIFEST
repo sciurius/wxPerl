@@ -54,7 +54,6 @@ t/Tests_Helper.pm
 
 lib/Wx/App.pm
 lib/Wx/Event.pm
-lib/Wx/ImageList.pm
 lib/Wx/Locale.pm
 lib/Wx/Menu.pm
 lib/Wx/RadioBox.pm
@@ -274,6 +273,7 @@ ext/calendar/t/01_load.t
 ext/calendar/t/02_inheritance.t
 ext/calendar/typemap
 ext/calendar/XS/CalendarCtrl.xsp
+ext/calendar/XS/CalendarDateAttr.xsp
 
 ext/datetime/DateTime.pm
 ext/datetime/DateTime.xs
