@@ -120,6 +120,7 @@ samples/listctrl/listctrl.pl
 Wx.pm
 Wx.rc
 wxpl.ico
+wxpl.xpm
 
 Constant.xs
 Controls.xs

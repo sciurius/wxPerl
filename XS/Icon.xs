@@ -12,15 +12,22 @@
 
 MODULE=Wx_Func PACKAGE=Wx
 
+#if !defined( __WXMSW__ )
+#include "wxpl.xpm"
+#endif
+
 Wx_Icon*
-GetWxPerlIcon()
+GetWxPerlIcon( small = FALSE )
+    bool small
   CODE:
 #if defined( __WXMSW__ )
-    RETVAL = new wxIcon( wxICON( wxicon ) );
+    int sz = small ? 16 : 32;
+    RETVAL = new wxIcon( "wxplicon", wxBITMAP_TYPE_ICO_RESOURCE, -1, -1 );
     if( !RETVAL->Ok() )
         croak( "Unable to load icon" );
 #else
-    RETVAL = new wxIcon();
+    char** image = small ? wxpl16_xpm : wxpl32_xpm;
+    RETVAL = new wxIcon( image );
 #endif
   OUTPUT:
     RETVAL
