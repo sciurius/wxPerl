@@ -28,6 +28,7 @@
 #include <wx/intl.h>
 #include <wx/module.h>
 #include <wx/busyinfo.h>
+#include <wx/settings.h>
 
 #if __WXMSW__
 #include <wx/msw/private.h>
@@ -157,7 +158,7 @@ void
 _SetInstance( instance )
     int instance
   CODE:
-    int x = 0;
+    instance = instance;
 
 #endif
 
