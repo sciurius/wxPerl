@@ -87,7 +87,7 @@ Wx_Font::GetUnderlined()
 int
 Wx_Font::GetWeight()
 
-#if WXPERL_W_VERSION_GE( 2, 3, 2 )
+#if WXPERL_W_VERSION_GE( 2, 3, 3 )
 
 bool
 Wx_Font::IsFixedWidth()
