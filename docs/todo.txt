@@ -2,10 +2,17 @@ MISC:
 
 * tut & man in one file
 
+PRIORITY HIGH:
+
+For 0.12
+
+* Overload resolution
+  rewrite _match in C++ and move all overload resolution
+  routines to XS -> eliminate most lib/Wx/*.pm files
+
 PRIORITY NORMAL:
 
 * Threads
-  - add aTHX_, etc
   - cloning of objects with a DESTROY
 
 * wxGrid
