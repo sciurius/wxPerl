@@ -32,6 +32,7 @@ t/2_inheritance.t
 t/3_event.t
 t/4_userdata.t
 t/5_timer.t
+t/6_loadxpm.t
 
 lib/Wx/App.pm
 lib/Wx/Bitmap.pm
@@ -401,3 +402,7 @@ demo/wxLocale.pm
 demo/wxProcess.pm
 demo/wxSTC.pm
 demo/wxThread.pm
+demo/wxBoxSizer.pm
+demo/wxGridSizer.pm
+demo/wxFlexGridSizer.pm
+demo/wxNotebookSizer.pm
