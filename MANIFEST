@@ -43,7 +43,6 @@ lib/Wx/StaticBitmap.pm
 lib/Wx/ToolBar.pm
 lib/Wx/Window.pm
 lib/Wx/_Constants.pm
-lib/Wx/_Exp.pm
 lib/Wx/_Functions.pm
 lib/Wx/_Inheritance.pm
 
