@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: xsubppp.pl,v 1.5 2003/04/25 20:13:16 mbarbon Exp $
+## RCS-ID:      $Id: xsubppp.pl,v 1.6 2003/05/27 20:03:38 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -343,6 +343,7 @@ sub print {
 
   if( $this->code ) {
     $code = "  CODE:\n    " . join( "\n", @{$this->code} ) . "\n";
+    $output = "  OUTPUT: RETVAL\n" if $code =~ m/RETVAL/;
   }
 
   $out .= "$retstr\n";
