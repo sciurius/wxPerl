@@ -3,7 +3,7 @@
 ## Purpose:     XS++ for Wx::SockAddress and derived classes
 ## Author:      Mattia Barbon
 ## Created:     24/01/2004
-## RCS-ID:      $Id: SockAddress.xsp,v 1.2 2004/02/07 15:22:04 mbarbon Exp $
+## RCS-ID:      $Id: SockAddress.xsp,v 1.3 2004/02/14 14:25:32 mbarbon Exp $
 ## Copyright:   (c) 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -33,7 +33,7 @@
     %name{SetService} bool Service(const wxString& port);
     bool IsLocalHost();
 
-    %name{IsAnyAddress} bool AnyAddress();
+    %name{SetAnyAddress} bool AnyAddress();
 
     %name{GetIPAddress} wxString IPAddress();
 

@@ -4,7 +4,7 @@
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     27/02/2003
-## RCS-ID:      $Id: Socket.pm,v 1.8 2004/02/07 15:22:05 mbarbon Exp $
+## RCS-ID:      $Id: Socket.pm,v 1.9 2004/02/14 14:25:32 mbarbon Exp $
 ## Copyright:   (c) 2003-2004 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -23,6 +23,7 @@ Wx::load_dll( 'net' );
 Wx::wx_boot( 'Wx::Socket', $VERSION );
 
 no strict ;
+package Wx::DatagramSocket ; @ISA = qw(Wx::SocketBase) ;
 package Wx::SocketClient ; @ISA = qw(Wx::SocketBase) ;
 package Wx::SocketServer ; @ISA = qw(Wx::SocketBase) ;
 package Wx::SocketEvent ; @ISA = qw(Wx::Event) ;
