@@ -62,13 +62,13 @@ sub END {
 }
 
 my( $wbmp, $wico, $wmen, $wmit, $wrec, $wreg, $wszr,
-    $wtip, $wwin, $wcol, $wlci, $wsiz, $wpoi, $num, $str,
-    $bool ) = ( 1 .. 26 );
+    $wtip, $wwin, $wcol, $wlci, $wsiz, $wpoi, $wist, $wost,
+    $num, $str, $bool ) = ( 1 .. 26 );
 
 my( @tnames ) =
   ( undef, 'Wx::Bitmap', 'Wx::Icon', 'Wx::Menu', 'Wx::MenuItem',
     'Wx::Rect', 'Wx::Region', 'Wx::Sizer', 'Wx::ToolTip',
-    'Wx::Window', 'Wx::Colour', 'Wx::ListItem' );
+    'Wx::Window', 'Wx::Colour', 'Wx::ListItem', 'Wx::Size', 'Wx::Point' );
 
 $Wx::_b = [ $bool ];
 $Wx::_n = [ $num ];
@@ -106,6 +106,8 @@ $Wx::_wbmp_wcol = [ $wbmp, $wcol ];
 $Wx::_wcol = [ $wcol ];
 $Wx::_wcol_n = [ $wcol, $num ];
 $Wx::_wico = [ $wico ];
+$Wx::_wist_n = [ $wist, $num ];
+$Wx::_wist_s = [ $wist, $str ];
 $Wx::_wlci = [ $wlci ];
 $Wx::_wmit = [ $wmit ];
 $Wx::_wpoi = [ $wpoi ];
@@ -143,6 +145,7 @@ sub _match(\@$;$$) {
     next if $_ == $num && ( ( $a + 0 ) || $a =~ /^\s*-?0+\.?0*\s*$/ );
     next if !defined( $a ) || isa( $a, $tnames[$_] );
     next if $_ == $wpoi || $_ == $wsiz && ref( $a ) eq 'ARRAY';
+    next if $_ == $wist || $_ == $wost && ref( $a );
 
     # type clash: return false
     return;

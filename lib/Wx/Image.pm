@@ -22,9 +22,12 @@ sub new {
   @_ == 0                     && return Wx::Image::newNull();
   Wx::_match( @_, $Wx::_wico, 1 ) && return Wx::Image::newIcon( @_ );
   Wx::_match( @_, $Wx::_wbmp, 1 ) && return Wx::Image::newBitmap( @_ );
+  Wx::_match( @_, $Wx::_wist_n, 2 ) && return Wx::Image::newStreamType( @_ );
+  Wx::_match( @_, $Wx::_wist_s, 2 ) && return Wx::Image::newStreamMIME( @_ );
   Wx::_match( @_, $Wx::_n_n, 2 )  && return Wx::Image::newWH( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 )  && return Wx::Image::newNameType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 )  && return Wx::Image::newNameMIME( @_ );
+
   croak Wx::_ovl_error;
 }
 
@@ -37,6 +40,8 @@ sub new {
 sub LoadFile {
   my( $this ) = shift;
 
+  Wx::_match( @_, $Wx::_wist_n, 2 ) && return Wx::Image::LoadFileSType( @_ );
+  Wx::_match( @_, $Wx::_wist_s, 2 ) && return Wx::Image::LoadFileSMIME( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->LoadFileType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->LoadFileMIME( @_ );
 }
@@ -44,6 +49,8 @@ sub LoadFile {
 sub SaveFile {
   my( $this ) = shift;
 
+  Wx::_match( @_, $Wx::_wost_n, 2 ) && return Wx::Image::SaveFileSType( @_ );
+  Wx::_match( @_, $Wx::_wost_s, 2 ) && return Wx::Image::SaveFileSMIME( @_ );
   Wx::_match( @_, $Wx::_s_n, 2 ) && return $this->SaveFileType( @_ );
   Wx::_match( @_, $Wx::_s_s, 2 ) && return $this->SaveFileMIME( @_ );
 }

@@ -11,6 +11,7 @@
 #############################################################################
 
 #include <wx/image.h>
+#include "cpp/streams.h"
 
 MODULE=Wx PACKAGE=Wx::Image
 
@@ -66,6 +67,24 @@ newNameMIME( name, mimetype )
     wxString mimetype
   CODE:
     RETVAL = new wxImage( name, mimetype );
+  OUTPUT:
+    RETVAL
+
+Wx_Image*
+newStreamType( stream, type )
+    wxPliInputStream stream
+    long type
+  CODE:
+    RETVAL = new wxImage( stream, type );
+  OUTPUT:
+    RETVAL
+
+Wx_Image*
+newStreamMIME( stream, mime )
+    wxPliInputStream stream
+    wxString mime
+  CODE:
+    RETVAL = new wxImage( stream, mime );
   OUTPUT:
     RETVAL
 
@@ -229,6 +248,24 @@ Wx_Image::LoadFileMIME( name, type )
     RETVAL
 
 bool
+Wx_Image::LoadStreamType( stream, type )
+    wxPliInputStream stream
+    long type
+  CODE:
+    RETVAL = THIS->LoadFile( stream, type );
+  OUTPUT:
+    RETVAL
+
+bool
+Wx_Image::LoadStreamMIME( stream, type )
+    wxPliInputStream stream
+    wxString type
+  CODE:
+    RETVAL = THIS->LoadFile( stream, type );
+  OUTPUT:
+    RETVAL
+
+bool
 Wx_Image::Ok()
 
 bool
@@ -246,6 +283,24 @@ Wx_Image::SaveFileMIME( name, type )
     wxString type
   CODE:
     RETVAL = THIS->SaveFile( name, type );
+  OUTPUT:
+    RETVAL
+
+bool
+Wx_Image::SaveStreamType( stream, type )
+    wxPliOutputStream stream
+    long type
+  CODE:
+    RETVAL = THIS->SaveFile( stream, type );
+  OUTPUT:
+    RETVAL
+
+bool
+Wx_Image::SaveStreamMIME( stream, type )
+    wxPliOutputStream stream
+    wxString type
+  CODE:
+    RETVAL = THIS->SaveFile( stream, type );
   OUTPUT:
     RETVAL
 
@@ -351,6 +406,10 @@ Wx_ImageHandler::Destroy()
   CODE:
     delete THIS;
 
+int
+Wx_ImageHandler::GetImageCount( stream )
+    wxPliInputStream stream
+
 wxString
 Wx_ImageHandler::GetName()
 
@@ -362,6 +421,18 @@ Wx_ImageHandler::GetType()
 
 wxString
 Wx_ImageHandler::GetMimeType()
+
+bool
+Wx_ImageHandler::LoadFile( image, stream, verbose = TRUE, index = 0 )
+    Wx_Image* image
+    wxPliInputStream stream
+    bool verbose
+    int index
+
+bool
+Wx_ImageHandler::SaveFile( image, stream )
+    Wx_Image* image
+    wxPliOutputStream stream
 
 void
 Wx_ImageHandler::SetName( name )
