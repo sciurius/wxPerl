@@ -159,6 +159,7 @@ XS/Cursor.xs
 XS/DC.xs
 XS/Dialog.xs
 XS/EvtHandler.xs
+XS/FindReplaceDialog.xs
 XS/Font.xs
 XS/FontDialog.xs
 XS/Frame.xs
@@ -227,6 +228,7 @@ cpp/sizer.h
 cpp/splitterwindow.h
 cpp/streams.h
 cpp/timer.h
+cpp/tipprovider.h
 cpp/typedef.h
 cpp/validators.h
 cpp/v_cback.h

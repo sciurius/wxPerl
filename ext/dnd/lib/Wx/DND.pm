@@ -45,6 +45,7 @@ package Wx::Droptarget;
 package Wx::PlDropTarget;       @ISA = qw(Wx::DropTarget);
 package Wx::TextDropTarget;     @ISA = qw(Wx::DropTarget);
 package Wx::FileDropTarget;     @ISA = qw(Wx::DropTarget);
+package Wx::URLDataObject;      @ISA = qw(Wx::DataObject);
 
 use strict;
 
