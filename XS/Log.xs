@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.19 2004/08/04 20:13:55 mbarbon Exp $
+## RCS-ID:      $Id: Log.xs,v 1.20 2005/04/13 20:12:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -141,7 +141,7 @@ wxLogWindow::new( parent, title, show = true, passtoold = true )
 MODULE=Wx PACKAGE=Wx
 
 # this is a test for INTERFACE:
-# in thi specific case it saves around 256 bytes / function,
+# in this specific case it saves around 256 bytes / function,
 # more for more complex typemaps / longer parameter lists
 
 #if 0

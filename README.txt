@@ -26,15 +26,19 @@ TESTED PLATFORMS:
 
 Perl            | OS            | wxWidgets      | Compiler
 ----------------+---------------+----------------+-------------------
-ActivePerl 6xx  | Windows 2000  |                | MSVC 5
+ActivePerl 6xx  | Windows 2000  | wxMSW 2.5.5    | MSVC 5
            8xx  |               | wxMSW 2.4.2    | MSVC 6
-5.6.1           |               | wxMSW 2.5.3    | MinGW GCC
-5.8.0           |               |                |
+5.6.1           |               |                | MinGW GCC 3.4
+5.8.3           |               |                |
 ----------------+---------------+----------------+-------------------
-5.8.0           | RedHat 8.0    | wxGTK 2.4.2    | GCC 3.2
-5.6.1           | Debian 3.0    | wxMotif 2.5.3  | GCC 2.95.2
+5.8.3           | RedHat 8.0    | wxGTK 2.4.2    | GCC 3.2
+5.6.1           | Debian 3.0    |                | GCC 2.95.2
+                | FreeBSD       | wxGTK 2.5.5    |
+                | Gentoo        |                |
+----------------+---------------+----------------+-------------------
+5.6.1           | Solaris       | wxGTK 2.5.4    | GCC 3.3
 ----------------+---------------+----------------+-------------------  
-5.8.0           | Mac OS X 10.3 | wxMac 2.5.3    | GCC 3.3
+5.8.3           | Mac OS X 10.3 | wxMac 2.5.5    | GCC 3.3
 ----------------+---------------+----------------+-------------------
 
 wxPerl has also been reported to work on FreeBSD and IRIX.

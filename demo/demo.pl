@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/05/2001
-## RCS-ID:      $Id: demo.pl,v 1.21 2005/03/27 16:25:06 mbarbon Exp $
+## RCS-ID:      $Id: demo.pl,v 1.22 2005/04/13 20:12:49 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -324,7 +324,9 @@ sub new {
                                 wxDefaultPosition, wxDefaultSize,
                                 wxTE_READONLY|wxTE_MULTILINE
                                |wxNO_FULL_REPAINT_ON_RESIZE );
-  $this->{OLDLOG} = Wx::Log::SetActiveTarget( Wx::LogTextCtrl->new( $text ) );
+  my $log = Wx::LogTextCtrl->new( $text );
+  $log->SetTimestamp( 'foomoo %X' );
+  $this->{OLDLOG} = Wx::Log::SetActiveTarget( $log );
 
   # create main notebook
   my $nb = Wx::Notebook->new( $split2, -1, wxDefaultPosition, wxDefaultSize,

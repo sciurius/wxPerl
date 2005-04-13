@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.44 2005/04/03 09:12:45 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.45 2005/04/13 20:11:59 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -18,6 +18,7 @@
 #include <wx/event.h>
 #include <wx/window.h>
 #include <wx/dc.h>
+#include <wx/menu.h>
 #include <stdarg.h>
 
 #include <wx/clntdata.h>
@@ -421,6 +422,9 @@ wxMenuEvent::GetMenuId()
 
 bool
 wxMenuEvent::IsPopup()
+
+wxMenu*
+wxMenuEvent::GetMenu()
 
 MODULE=Wx_Evt PACKAGE=Wx::MouseEvent
 
