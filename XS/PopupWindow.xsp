@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/03/2005
-## RCS-ID:      $Id: PopupWindow.xsp,v 1.3 2005/04/23 14:28:54 mbarbon Exp $
+## RCS-ID:      $Id: PopupWindow.xsp,v 1.4 2005/04/23 17:48:38 mbarbon Exp $
 ## Copyright:   (c) 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -38,7 +38,7 @@
     {                                                                         \
         wxAutoSV evt( aTHX_ wxPli_object_2_sv( aTHX_ newSViv( 0 ), &param1 ));\
         wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,         \
-                                         "S", evt ) );                        \
+                                         "S", (SV*) evt ) );                  \
         sv_setiv( SvRV( evt ), 0 );                                           \
         return SvTRUE( ret );                                                 \
     } else                                                                    \
@@ -118,10 +118,10 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPopupTransientWindow,
 void
 new( ... )
   PPCODE:
-    BEGIN_OVERLOAD();
-        MATCH_VOIDM_REDISP( newDefault );
-        MATCH_ANY_REDISP( newFull );
-    END_OVERLOAD( "Wx::PopupWindow::new" );
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::PopupWindow::new" )
 %}
 
 %name{Wx::PopupTransientWindow} class wxPopupTransientWindow
@@ -146,10 +146,10 @@ new( ... )
 void
 new( ... )
   PPCODE:
-    BEGIN_OVERLOAD();
-        MATCH_VOIDM_REDISP( newDefault );
-        MATCH_ANY_REDISP( newFull );
-    END_OVERLOAD( "Wx::PopupTransientWindow::new" );
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::PopupTransientWindow::new" )
 
 #define Popup wxPopupTransientWindow::Popup
 #define Dismiss wxPopupTransientWindow::Dismiss
@@ -187,10 +187,10 @@ new( ... )
 void
 new( ... )
   PPCODE:
-    BEGIN_OVERLOAD();
-        MATCH_VOIDM_REDISP( newDefault );
-        MATCH_ANY_REDISP( newFull );
-    END_OVERLOAD( "Wx::PlPopupTransientWindow::new" );
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::PlPopupTransientWindow::new" )
 
 #endif // wxUSE_POPUPWIN
 %}
