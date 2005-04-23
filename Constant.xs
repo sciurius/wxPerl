@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.119 2005/04/03 09:09:06 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.120 2005/04/23 14:20:31 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -45,6 +45,7 @@
 #include <wx/sizer.h>
 #include <wx/toolbar.h>
 #include <wx/gauge.h>
+#include <wx/slider.h>
 #if defined(__WXMSW__) || defined(wxHAS_TASK_BAR_ICON)
 #include <wx/taskbar.h>
 #endif
@@ -1957,7 +1958,7 @@ void SetConstantsOnce()
 {
     dTHX;
 
-    wxPli_make_const_string( "wxVERSION_STRING" );
+    wxPli_make_const_string( wxVERSION_STRING );
 
     wxPli_make_const( "wxTheClipboard" );       // clipboard
     wxPli_make_const( "wxDefaultValidator" );   // misc
