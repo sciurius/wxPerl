@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      $Id: Print.pm,v 1.11 2005/03/14 20:59:28 mbarbon Exp $
+## RCS-ID:      $Id: Print.pm,v 1.12 2005/04/23 17:11:24 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -30,8 +30,6 @@ no strict;
 package Wx::GenericPageSetupDialog; @ISA = qw(Wx::Dialog);
 package Wx::GenericPrintDialog; @ISA = qw(Wx::Dialog);
 package Wx::PageSetupDialog;    @ISA = qw(Wx::Dialog);
-package Wx::PlPreviewControlBar; @ISA = qw(Wx::PreviewControlBar);
-package Wx::PlPreviewFrame; @ISA = qw(Wx::PreviewFrame);
 package Wx::PostScriptDC; @ISA = qw(Wx::DC);
 package Wx::PostScriptPrintPreview; @ISA = qw(Wx::PrintPreview);
 package Wx::PostScriptPrinter; @ISA = qw(Wx::Printer);
@@ -45,6 +43,8 @@ package Wx::PrintPreview; @ISA = qw(Wx::PrintPreviewBase);
 package Wx::PrinterDC;    @ISA = qw(Wx::DC);
 package Wx::WindowsPrintPreview; @ISA = qw(Wx::PrintPreview);
 package Wx::WindowsPrinter; @ISA = qw(Wx::Printer);
+package Wx::PlPreviewFrame; @ISA = qw(Wx::PreviewFrame);
+package Wx::PlPreviewControlBar; @ISA = qw(Wx::PreviewControlBar);
 
 use strict;
 
