@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.75 2005/01/05 14:46:06 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.76 2005/05/03 20:41:01 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -306,7 +306,7 @@ __END__
 
 =head1 NAME
 
-Wx - interface to the wxWidgets GUI toolkit
+Wx - interface to the wxWidgets cross-platform GUI toolkit
 
 =head1 SYNOPSIS
 
@@ -356,7 +356,7 @@ must be placed in the same directory as the executable file.
 
 =head1 AUTHOR
 
-Mattia Barbon <mbarbon@dsi.unive.it>
+Mattia Barbon <mbarbon@cpan.org>
 
 =cut
 

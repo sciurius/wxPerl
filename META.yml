@@ -1,4 +1,6 @@
 name: Wx
+abstract: Interface to the wxWidgets cross-platform GUI toolkit
+author: Mattia Barbon <mbarbon@cpan.org>
 version: 0.23
 license: perl
 distribution_type: module
@@ -9,7 +11,7 @@ build_requires:
   Data::Dumper: 0
   ExtUtils::MakeMaker: 6.17
 dynamic_config: 1
-private:
+no_index:
   directory:
     - demo
     - samples
