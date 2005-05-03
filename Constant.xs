@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.120 2005/04/23 14:20:31 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.121 2005/05/03 20:40:23 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -613,7 +613,6 @@ static double constant( const char *name, int arg )
     r( wxCAP_ROUND );                   // pen
     r( wxCAP_PROJECTING );              // pen
     r( wxCAP_BUTT );                    // pen
-    r( wxCAP_ROUND );                   // pen
 
     r( wxCB_SIMPLE );                   // combobox
     r( wxCB_DROPDOWN );                 // combobox
@@ -637,8 +636,8 @@ static double constant( const char *name, int arg )
 #endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
-    r( wxCHB_BOTTOM );
-    r( wxCHB_TOP );
+    r( wxCHB_BOTTOM );                  // choicebook
+    r( wxCHB_TOP );                     // choicebook
 #endif
 
     r( wxCLEAR );                       // dc
@@ -701,9 +700,9 @@ static double constant( const char *name, int arg )
     r( wxDIALOG_NO_PARENT );            // dialog
     r( wxDIALOG_EX_CONTEXTHELP );       // dialog
 
-    r( wxDD_NEW_DIR_BUTTON );
+    r( wxDD_NEW_DIR_BUTTON );           // dirdialog
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
-    r( wxDD_DEFAULT_STYLE );
+    r( wxDD_DEFAULT_STYLE );            // dirdialog
 #endif
 
     r( wxDOT );                         // pen
@@ -895,11 +894,11 @@ static double constant( const char *name, int arg )
 //    r( wxEVT_WIZARD_HELP );
 
     r( wxEXPAND );                      // sizer
-    r( wxEXEC_SYNC );
-    r( wxEXEC_ASYNC );
-    r( wxEXEC_NOHIDE );
+    r( wxEXEC_SYNC );                   // execute
+    r( wxEXEC_ASYNC );                  // execute
+    r( wxEXEC_NOHIDE );                 // execute
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
-    r( wxEXEC_NODISABLE );
+    r( wxEXEC_NODISABLE );              // execute
 #endif
     break;
   case 'F':
@@ -918,7 +917,7 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_DEFAULT );        // font
     r( wxFONTENCODING_SYSTEM );         // font
     r( wxFRAME_FLOAT_ON_PARENT );       // frame
-    r( wxFRAME_NO_WINDOW_MENU );
+    r( wxFRAME_NO_WINDOW_MENU );        // frame
     r( wxFRAME_NO_TASKBAR );            // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
     r( wxFRAME_EX_CONTEXTHELP );        // frame
@@ -1028,8 +1027,8 @@ static double constant( const char *name, int arg )
     r( wxID_HELP_PROCEDURES );          // id
     r( wxID_HELP_CONTEXT );             // id
     r( wxID_HELP );                     // id
-    r( wxID_HIGHEST );
-    r( wxID_LOWEST );
+    r( wxID_HIGHEST );                  // id
+    r( wxID_LOWEST );                   // id
 
     r( wxID_CUT );                      // id
     r( wxID_COPY );                     // id
@@ -1513,20 +1512,20 @@ static double constant( const char *name, int arg )
     r( wxNB_RIGHT );                    // notebook
     r( wxNB_BOTTOM );                   // notebook
     r( wxNB_MULTILINE );                // notebook
-    r( wxNO );
+    r( wxNO );                          // dialog
     r( wxNO_BORDER );                   // frame toolbar
     r( wxNO_3D );                       // dialog window
     r( wxNO_FULL_REPAINT_ON_RESIZE );   // window
     r( wxNORMAL );                      // font
     r( wxNOT_FOUND );             
-    r( wxNO_DEFAULT );
+    r( wxNO_DEFAULT );                  // dialog
 
     r( wxNAND );                        // dc
     r( wxNOR );                         // dc
     r( wxNO_OP );                       // dc
     break;
   case 'O':
-    r( wxOK );
+    r( wxOK );                          // dialog
     r( wxOPEN );                        // filedialog
     r( wxOVERWRITE_PROMPT );            // filedialog
     
@@ -1595,7 +1594,7 @@ static double constant( const char *name, int arg )
     r( wxSTATIC_BORDER );               // window
     r( wxSTAY_ON_TOP );                 // frame dialog
     r( wxST_NO_AUTORESIZE );            // statictext
-    r( wxST_SIZEGRIP );
+    r( wxST_SIZEGRIP );                 // statusbar
     r( wxSUNKEN_BORDER );               // window
     r( wxSYSTEM_MENU );                 // frame dialog
     r( wxSWISS );                       // font
@@ -1677,88 +1676,88 @@ static double constant( const char *name, int arg )
     r( wxSameAs );                      // layout constraints
 
     // fonts
-    r( wxSYS_OEM_FIXED_FONT );
-    r( wxSYS_ANSI_FIXED_FONT );
-    r( wxSYS_ANSI_VAR_FONT );
-    r( wxSYS_SYSTEM_FONT ); 
-    r( wxSYS_DEVICE_DEFAULT_FONT );
-    r( wxSYS_DEFAULT_GUI_FONT );
+    r( wxSYS_OEM_FIXED_FONT );          // systemsettings
+    r( wxSYS_ANSI_FIXED_FONT );         // systemsettings
+    r( wxSYS_ANSI_VAR_FONT );           // systemsettings
+    r( wxSYS_SYSTEM_FONT );             // systemsettings
+    r( wxSYS_DEVICE_DEFAULT_FONT );     // systemsettings
+    r( wxSYS_DEFAULT_GUI_FONT );        // systemsettings
 
     // colours
-    r( wxSYS_COLOUR_SCROLLBAR );
-    r( wxSYS_COLOUR_BACKGROUND );
-    r( wxSYS_COLOUR_ACTIVECAPTION );
-    r( wxSYS_COLOUR_INACTIVECAPTION );
-    r( wxSYS_COLOUR_MENU );
-    r( wxSYS_COLOUR_WINDOW );
-    r( wxSYS_COLOUR_WINDOWFRAME );
-    r( wxSYS_COLOUR_MENUTEXT );
-    r( wxSYS_COLOUR_WINDOWTEXT );
-    r( wxSYS_COLOUR_CAPTIONTEXT );
-    r( wxSYS_COLOUR_ACTIVEBORDER );
-    r( wxSYS_COLOUR_INACTIVEBORDER );
-    r( wxSYS_COLOUR_APPWORKSPACE );
-    r( wxSYS_COLOUR_HIGHLIGHT );
-    r( wxSYS_COLOUR_HIGHLIGHTTEXT );
-    r( wxSYS_COLOUR_BTNFACE );
-    r( wxSYS_COLOUR_BTNSHADOW );
-    r( wxSYS_COLOUR_GRAYTEXT );
-    r( wxSYS_COLOUR_BTNTEXT );
-    r( wxSYS_COLOUR_INACTIVECAPTIONTEXT );
-    r( wxSYS_COLOUR_BTNHIGHLIGHT );
+    r( wxSYS_COLOUR_SCROLLBAR );        // systemsettings
+    r( wxSYS_COLOUR_BACKGROUND );       // systemsettings
+    r( wxSYS_COLOUR_ACTIVECAPTION );    // systemsettings
+    r( wxSYS_COLOUR_INACTIVECAPTION );  // systemsettings
+    r( wxSYS_COLOUR_MENU );             // systemsettings
+    r( wxSYS_COLOUR_WINDOW );           // systemsettings
+    r( wxSYS_COLOUR_WINDOWFRAME );      // systemsettings
+    r( wxSYS_COLOUR_MENUTEXT );         // systemsettings
+    r( wxSYS_COLOUR_WINDOWTEXT );       // systemsettings
+    r( wxSYS_COLOUR_CAPTIONTEXT );      // systemsettings
+    r( wxSYS_COLOUR_ACTIVEBORDER );     // systemsettings
+    r( wxSYS_COLOUR_INACTIVEBORDER );   // systemsettings
+    r( wxSYS_COLOUR_APPWORKSPACE );     // systemsettings
+    r( wxSYS_COLOUR_HIGHLIGHT );        // systemsettings
+    r( wxSYS_COLOUR_HIGHLIGHTTEXT );    // systemsettings
+    r( wxSYS_COLOUR_BTNFACE );          // systemsettings
+    r( wxSYS_COLOUR_BTNSHADOW );        // systemsettings
+    r( wxSYS_COLOUR_GRAYTEXT );         // systemsettings
+    r( wxSYS_COLOUR_BTNTEXT );          // systemsettings
+    r( wxSYS_COLOUR_INACTIVECAPTIONTEXT ); // systemsettings
+    r( wxSYS_COLOUR_BTNHIGHLIGHT );     // systemsettings
 
-    r( wxSYS_COLOUR_3DDKSHADOW );
-    r( wxSYS_COLOUR_3DLIGHT );
-    r( wxSYS_COLOUR_INFOTEXT );
-    r( wxSYS_COLOUR_INFOBK );
+    r( wxSYS_COLOUR_3DDKSHADOW );       // systemsettings
+    r( wxSYS_COLOUR_3DLIGHT );          // systemsettings
+    r( wxSYS_COLOUR_INFOTEXT );         // systemsettings
+    r( wxSYS_COLOUR_INFOBK );           // systemsettings
 
-    r( wxSYS_COLOUR_LISTBOX );
+    r( wxSYS_COLOUR_LISTBOX );          // systemsettings
 
-    r( wxSYS_COLOUR_DESKTOP );
-    r( wxSYS_COLOUR_3DFACE );
-    r( wxSYS_COLOUR_3DSHADOW );
-    r( wxSYS_COLOUR_3DHIGHLIGHT );
-    r( wxSYS_COLOUR_3DHILIGHT );
-    r( wxSYS_COLOUR_BTNHILIGHT );
+    r( wxSYS_COLOUR_DESKTOP );          // systemsettings
+    r( wxSYS_COLOUR_3DFACE );           // systemsettings
+    r( wxSYS_COLOUR_3DSHADOW );         // systemsettings
+    r( wxSYS_COLOUR_3DHIGHLIGHT );      // systemsettings
+    r( wxSYS_COLOUR_3DHILIGHT );        // systemsettings
+    r( wxSYS_COLOUR_BTNHILIGHT );       // systemsettings
 
     // metrics
-    r( wxSYS_MOUSE_BUTTONS );
-    r( wxSYS_BORDER_X );
-    r( wxSYS_BORDER_Y );
-    r( wxSYS_CURSOR_X );
-    r( wxSYS_CURSOR_Y );
-    r( wxSYS_DCLICK_X );
-    r( wxSYS_DCLICK_Y );
-    r( wxSYS_DRAG_X );
-    r( wxSYS_DRAG_Y );
-    r( wxSYS_EDGE_X );
-    r( wxSYS_EDGE_Y );
-    r( wxSYS_HSCROLL_ARROW_X );
-    r( wxSYS_HSCROLL_ARROW_Y );
-    r( wxSYS_HTHUMB_X );
-    r( wxSYS_ICON_X );
-    r( wxSYS_ICON_Y );
-    r( wxSYS_ICONSPACING_X );
-    r( wxSYS_ICONSPACING_Y );
-    r( wxSYS_WINDOWMIN_X );
-    r( wxSYS_WINDOWMIN_Y );
-    r( wxSYS_SCREEN_X );
-    r( wxSYS_SCREEN_Y );
-    r( wxSYS_FRAMESIZE_X );
-    r( wxSYS_FRAMESIZE_Y );
-    r( wxSYS_SMALLICON_X );
-    r( wxSYS_SMALLICON_Y );
-    r( wxSYS_HSCROLL_Y );
-    r( wxSYS_VSCROLL_X );
-    r( wxSYS_VSCROLL_ARROW_X );
-    r( wxSYS_VSCROLL_ARROW_Y );
-    r( wxSYS_VTHUMB_Y );
-    r( wxSYS_CAPTION_Y );
-    r( wxSYS_MENU_Y );
-    r( wxSYS_NETWORK_PRESENT );
-    r( wxSYS_PENWINDOWS_PRESENT );
-    r( wxSYS_SHOW_SOUNDS );
-    r( wxSYS_SWAP_BUTTONS );
+    r( wxSYS_MOUSE_BUTTONS );           // systemsettings
+    r( wxSYS_BORDER_X );                // systemsettings
+    r( wxSYS_BORDER_Y );                // systemsettings
+    r( wxSYS_CURSOR_X );                // systemsettings
+    r( wxSYS_CURSOR_Y );                // systemsettings
+    r( wxSYS_DCLICK_X );                // systemsettings
+    r( wxSYS_DCLICK_Y );                // systemsettings
+    r( wxSYS_DRAG_X );                  // systemsettings
+    r( wxSYS_DRAG_Y );                  // systemsettings
+    r( wxSYS_EDGE_X );                  // systemsettings
+    r( wxSYS_EDGE_Y );                  // systemsettings
+    r( wxSYS_HSCROLL_ARROW_X );         // systemsettings
+    r( wxSYS_HSCROLL_ARROW_Y );         // systemsettings
+    r( wxSYS_HTHUMB_X );                // systemsettings
+    r( wxSYS_ICON_X );                  // systemsettings
+    r( wxSYS_ICON_Y );                  // systemsettings
+    r( wxSYS_ICONSPACING_X );           // systemsettings
+    r( wxSYS_ICONSPACING_Y );           // systemsettings
+    r( wxSYS_WINDOWMIN_X );             // systemsettings
+    r( wxSYS_WINDOWMIN_Y );             // systemsettings
+    r( wxSYS_SCREEN_X );                // systemsettings
+    r( wxSYS_SCREEN_Y );                // systemsettings
+    r( wxSYS_FRAMESIZE_X );             // systemsettings
+    r( wxSYS_FRAMESIZE_Y );             // systemsettings
+    r( wxSYS_SMALLICON_X );             // systemsettings
+    r( wxSYS_SMALLICON_Y );             // systemsettings
+    r( wxSYS_HSCROLL_Y );               // systemsettings
+    r( wxSYS_VSCROLL_X );               // systemsettings
+    r( wxSYS_VSCROLL_ARROW_X );         // systemsettings
+    r( wxSYS_VSCROLL_ARROW_Y );         // systemsettings
+    r( wxSYS_VTHUMB_Y );                // systemsettings
+    r( wxSYS_CAPTION_Y );               // systemsettings
+    r( wxSYS_MENU_Y );                  // systemsettings
+    r( wxSYS_NETWORK_PRESENT );         // systemsettings
+    r( wxSYS_PENWINDOWS_PRESENT );      // systemsettings
+    r( wxSYS_SHOW_SOUNDS );             // systemsettings
+    r( wxSYS_SWAP_BUTTONS );            // systemsettings
 
     // capabilities
     r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
@@ -1803,10 +1802,10 @@ static double constant( const char *name, int arg )
     r( wxTE_HT_BEYOND );                // textctrl
 #endif
     r( wxTHICK_FRAME );                 // frame dialog
-    r( wxTINY_CAPTION_HORIZ );
-    r( wxTINY_CAPTION_VERT );
-    r( wxTIMER_CONTINUOUS );
-    r( wxTIMER_ONE_SHOT );
+    r( wxTINY_CAPTION_HORIZ );          // miniframe
+    r( wxTINY_CAPTION_VERT );           // miniframe
+    r( wxTIMER_CONTINUOUS );            // timer
+    r( wxTIMER_ONE_SHOT );              // timer
     r( wxTOP );                         // sizer layout constraints
     r( wxTRANSPARENT_WINDOW );          // window
     r( wxTRANSPARENT );                 // dc brush pen
@@ -1834,8 +1833,8 @@ static double constant( const char *name, int arg )
     r( wxUnconstrained );               // layout constraints
     r( wxUSER_DASH );                   // pen
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
-    r( wxUSER_ATTENTION_INFO );
-    r( wxUSER_ATTENTION_ERROR );
+    r( wxUSER_ATTENTION_INFO );         // toplevelwindow
+    r( wxUSER_ATTENTION_ERROR );        // toplevelwindow
 #endif
     break;
   case 'V':
@@ -1844,22 +1843,22 @@ static double constant( const char *name, int arg )
     r( wxVSCROLL );                     // window
     break;
   case 'W':
-    r( wxWANTS_CHARS );
+    r( wxWANTS_CHARS );                 // window
     r( wxWINDING_RULE );                // dc
     r( wxWidth );                       // layout constraints
     r( wxWIZARD_EX_HELPBUTTON );
 
-    r( wxWS_EX_VALIDATE_RECURSIVELY );
-    r( wxWS_EX_BLOCK_EVENTS );
-    r( wxWS_EX_TRANSIENT );
+    r( wxWS_EX_VALIDATE_RECURSIVELY );  // window
+    r( wxWS_EX_BLOCK_EVENTS );          // window
+    r( wxWS_EX_TRANSIENT );             // window
     break;
   case 'X':
     r( wxXOR );                         // dc
     break;
   case 'Y':
-    r( wxYES );
-    r( wxYES_NO );
-    r( wxYES_DEFAULT );
+    r( wxYES );                         // dialog
+    r( wxYES_NO );                      // dialog
+    r( wxYES_DEFAULT );                 // dialog
     break;
   default:
     break;
@@ -1868,7 +1867,7 @@ static double constant( const char *name, int arg )
 #undef r
   // now search for modules...
   {
-    wxPlConstantFunctions::Node* node;
+    wxPlConstantFunctions::compatibility_iterator node;
     PL_CONST_FUNC* func;
     double ret;
 
@@ -1882,11 +1881,6 @@ static double constant( const char *name, int arg )
   }
 
   WX_PL_CONSTANT_CLEANUP();
-/*
- not_there:
-  errno = ENOENT;
-  return 0;
-*/
 }
 
 // XXX hacky
