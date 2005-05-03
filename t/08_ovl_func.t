@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 164;
+use Test::More 'tests' => 166;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -84,7 +84,7 @@ ok( $newempty, "Wx::Bitmap::newEmpty" );
 Wx::Bitmap->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
 ok( $newfile,  "Wx::Bitmap::newFile" );
 
-Wx::Bitmap->new( Wx::Icon->new() );
+Wx::Bitmap->new( $icook );
 ok( $newicon,  "Wx::Bitmap::newIcon" );
 
 Wx::Bitmap->new( Wx::Image->new( 1, 1 ) );
@@ -255,13 +255,15 @@ ok( $newfile, "Wx::Icon::newFile" );
 ##############################################################################
 {
 my( $addtoollong, $addtoolshort, $setmarginsxy, $setmarginssize,
-    $addnews, $addnewl ) =
-  ( 0, 0, 0, 0, 0, 0 );
+    $addnews, $addnewl, $instoollong, $insnewl ) =
+  ( 0, 0, 0, 0, 0, 0, 0, 0 );
 hijack( 'Wx::ToolBarBase::AddToolLong'    => sub { $addtoollong = 1 },
         'Wx::ToolBarBase::AddToolShort'   => sub { $addtoolshort = 1 },
+        'Wx::ToolBarBase::InsertToolLong'   => sub { $instoollong = 1 },
         ( Wx::wxVERSION >= 2.004 ?
-          ( 'Wx::ToolBarBase::AddToolNewShort'=> sub { $addnews = 1 },
-            'Wx::ToolBarBase::AddToolNewLong' => sub { $addnewl = 1 } ) :
+          ( 'Wx::ToolBarBase::AddToolNewShort'   => sub { $addnews = 1 },
+            'Wx::ToolBarBase::AddToolNewLong'    => sub { $addnewl = 1 },
+            'Wx::ToolBarBase::InsertToolNewLong' => sub { $insnewl = 1 } ) :
           () ),
         'Wx::ToolBarBase::SetMarginsXY'   => sub { $setmarginsxy = 1 },
         'Wx::ToolBarBase::SetMarginsSize' => sub { $setmarginssize = 1 } );
@@ -279,8 +281,12 @@ ok( $addtoollong, "Wx::ToolBar::AddToolLong" );
 $tbar->AddTool( -1, $bmpok, 'a', 'b' );
 ok( $addtoolshort, "Wx::ToolBar::AddToolShort" );
 
+$tbar->InsertTool( 1, Wx::wxID_NEW(), $bmpok, Wx::wxNullBitmap(), 0,
+                   undef, 'foo' );
+ok( $instoollong, "Wx::ToolBar::InsertToolLong" );
+
 SKIP: {
-  skip "Only for wxWidgets 2.4", 2 unless Wx::wxVERSION >= 2.004;
+  skip "Only for wxWidgets 2.5", 2 unless Wx::wxVERSION >= 2.004;
 
   $tbar->AddTool( -1, "boo", $bmpok, Wx::wxNullBitmap(), 0,
                   'str', 'foo', 'data' );
@@ -288,6 +294,10 @@ SKIP: {
 
   $tbar->AddTool( -1, "bar", $bmpok, 'a', 0 );
   ok( $addnews, "Wx::ToolBar::AddToolNewShort" );
+
+  $tbar->InsertTool( 1, Wx::wxID_NEW(), 'lbl', $bmpok, Wx::wxNullBitmap(), 0,
+                     undef, 'foo', 'moo' );
+  ok( $insnewl, "Wx::ToolBar::InsertToolNewLong" );
 }
 }
 

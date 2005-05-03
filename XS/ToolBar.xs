@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ToolBar.xs,v 1.22 2004/08/04 20:13:55 mbarbon Exp $
+## RCS-ID:      $Id: ToolBar.xs,v 1.23 2005/05/03 20:42:42 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -333,8 +333,18 @@ wxToolBarToolBase*
 wxToolBarBase::InsertSeparator( pos )
     size_t pos
 
+void
+wxToolBarBase::InsertTool( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_wbmp_wbmp_b_s_s_s,
+                                      InsertToolLong, 3 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_s_wbmp_wbmp_b_s_s_s,
+                                      InsertToolNewLong, 4 )
+    END_OVERLOAD( Wx::ToolBarBase::InsertTool )
+
 wxToolBarToolBase*
-wxToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = false, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+wxToolBarBase::InsertToolLong( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = false, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
     size_t pos
     int toolId
     wxBitmap* bitmap1
@@ -348,8 +358,29 @@ wxToolBarBase::InsertTool( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBit
         0, shortHelp, longHelp );
     if( clientData )
         THIS->SetClientData( clientData );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+wxToolBarToolBase*
+wxToolBarBase::InsertToolNewLong( pos, toolId, label, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = false, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+    size_t pos
+    int toolId
+    wxString label
+    wxBitmap* bitmap1
+    wxBitmap* bitmap2
+    bool isToggle
+    Wx_UserDataO* clientData
+    wxString shortHelp
+    wxString longHelp
+  CODE:
+    RETVAL = THIS->InsertTool( pos, toolId, *bitmap1, *bitmap2, isToggle,
+        0, shortHelp, longHelp );
+    if( clientData )
+        THIS->SetClientData( clientData );
+  OUTPUT: RETVAL
+
+#endif
 
 bool
 wxToolBarBase::Realize()
