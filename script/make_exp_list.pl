@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: make_exp_list.pl,v 1.16 2004/10/19 20:28:15 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: make_exp_list.pl,v 1.17 2005/05/03 20:41:49 mbarbon Exp $
+## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -70,6 +70,8 @@ close IN;
 # write export file
 #
 
+local $" = "\n";
+
 open OUT, '> '. $ext || die "unable to open file '$ext'";
 
 binmode OUT; # Perl 5.004 on Unix complains for CR
@@ -81,7 +83,6 @@ print OUT <<EOT;
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      
 ## Copyright:   (c) 2000-2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
