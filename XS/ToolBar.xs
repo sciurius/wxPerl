@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ToolBar.xs,v 1.23 2005/05/03 20:42:42 mbarbon Exp $
+## RCS-ID:      $Id: ToolBar.xs,v 1.24 2005/05/03 21:02:39 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -363,19 +363,19 @@ wxToolBarBase::InsertToolLong( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNul
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 wxToolBarToolBase*
-wxToolBarBase::InsertToolNewLong( pos, toolId, label, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, isToggle = false, clientData = 0, shortHelp = wxEmptyString, longHelp = wxEmptyString )
+wxToolBarBase::InsertToolNewLong( pos, toolId, label, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, kind = wxITEM_NORMAL, shortHelp = wxEmptyString, longHelp = wxEmptyString, clientData = 0 )
     size_t pos
     int toolId
     wxString label
     wxBitmap* bitmap1
     wxBitmap* bitmap2
-    bool isToggle
+    wxItemKind kind
     Wx_UserDataO* clientData
     wxString shortHelp
     wxString longHelp
   CODE:
-    RETVAL = THIS->InsertTool( pos, toolId, *bitmap1, *bitmap2, isToggle,
-        0, shortHelp, longHelp );
+    RETVAL = THIS->InsertTool( pos, toolId, label, *bitmap1,
+        *bitmap2, kind, shortHelp, longHelp, 0 );
     if( clientData )
         THIS->SetClientData( clientData );
   OUTPUT: RETVAL

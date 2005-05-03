@@ -296,7 +296,7 @@ SKIP: {
   ok( $addnews, "Wx::ToolBar::AddToolNewShort" );
 
   $tbar->InsertTool( 1, Wx::wxID_NEW(), 'lbl', $bmpok, Wx::wxNullBitmap(), 0,
-                     undef, 'foo', 'moo' );
+                     'foo', 'moo', undef );
   ok( $insnewl, "Wx::ToolBar::InsertToolNewLong" );
 }
 }
