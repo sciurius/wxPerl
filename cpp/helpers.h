@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.74 2005/04/03 09:10:06 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.75 2005/05/03 20:44:31 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -17,11 +17,17 @@
 #include <wx/list.h>
 #include <wx/gdicmn.h>
 
+#if wxUSE_STL
+#include <wx/dynarray.h>
+#include <wx/arrstr.h>
+#else
+class WXDLLEXPORT wxArrayInt;
+#endif
+
 // forward declare Wx_*Stream
 class WXDLLEXPORT wxInputStream;
 class WXDLLEXPORT wxOutputStream;
 class WXDLLEXPORT wxEvtHandler;
-class WXDLLEXPORT wxArrayInt;
 class WXDLLEXPORT wxClientDataContainer;
 typedef wxInputStream Wx_InputStream;
 typedef wxOutputStream Wx_OutputStream;

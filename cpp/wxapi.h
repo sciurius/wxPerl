@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/09/2002
-// RCS-ID:      $Id: wxapi.h,v 1.9 2004/10/19 20:28:05 mbarbon Exp $
+// RCS-ID:      $Id: wxapi.h,v 1.10 2005/05/03 20:44:31 mbarbon Exp $
 // Copyright:   (c) 2002-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -24,6 +24,10 @@
 
 #if !WXPERL_W_VERSION_GE( 2, 4, 0 )
 #error wxWindows 2.2.x and 2.3.x are no longer supported by wxPerl
+#endif
+
+#if WXPERL_W_VERSION_LE( 2, 5, 1 )
+#define compatibility_iterator Node*
 #endif
 
 #include "cpp/chkconfig.h"

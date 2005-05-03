@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.36 2005/03/30 20:08:50 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.37 2005/05/03 20:44:31 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -220,10 +220,10 @@ void
 wxSizer::GetChildren()
   PPCODE:
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
-    wxSizerItemList::Node* node;
+    wxSizerItemList::compatibility_iterator node;
     const wxSizerItemList& list
 #else
-    wxList::Node* node;
+    wxList::compatibility_iterator node;
     const wxList& list
 #endif
         = THIS->GetChildren();

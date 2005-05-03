@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.70 2005/03/27 16:22:23 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.71 2005/05/03 20:44:31 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -605,7 +605,7 @@ AV* wxPli_objlist_2_av( pTHX_ const wxList& objs )
 {
     AV* av = newAV();
     size_t i;
-    wxList::Node* node;
+    wxList::compatibility_iterator node;
 
     av_extend( av, objs.GetCount() );
     for( node = objs.GetFirst(), i = 0; node; ++i, node = node->GetNext() )

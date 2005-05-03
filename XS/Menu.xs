@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.21 2004/02/28 22:59:06 mbarbon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.22 2005/05/03 20:44:31 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -193,7 +193,7 @@ void
 wxMenu::GetMenuItems()
   PPCODE:
     wxMenuItemList& data = THIS->GetMenuItems();
-    wxMenuItemList::Node* node;
+    wxMenuItemList::compatibility_iterator node;
  
     EXTEND( SP, (IV) data.GetCount() );
     for( node = data.GetFirst(); node; node = node->GetNext() )
