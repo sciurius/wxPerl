@@ -3,11 +3,11 @@ Revision history for Perl extension Wx.
 0.23
 	- Added wxArtProvider and Wx::PlArtProvider
           (thanks to Matthew "Cheetah" Gabeler-Lee).
-        - Compatibility with wxWidgets 2.5.4.
+	- Compatibility with wxWidgets 2.5.4, 2.6.0 and 2.6.1.
 	- Added Wx::PlPreviewFrame, Wx::PlPreviewControlBar,
 	  Wx::PrintFactory.
 	- Added Wx::PopupWindow and Wx::PopupTransientWindow.
-	- Added Wx::DatePickerCtrl. (2.5)
+	- Added Wx::DatePickerCtrl. (2.5/2.6)
 	- Added Wx::MimeTypesManager.
 
 0.22  Tue Jan  4 23:07:56 CET 2005
