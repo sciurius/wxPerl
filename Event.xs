@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.45 2005/04/13 20:11:59 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.46 2005/06/11 06:41:45 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -719,5 +719,14 @@ wxNavigationKeyEvent::SetFromTab( fromTab )
     bool fromTab
 
 #endif
+
+MODULE=Wx_Evt PACKAGE=Wx::ChildFocusEvent
+
+wxChildFocusEvent*
+wxChildFocusEvent::new( win = NULL )
+    wxWindow* win
+
+wxWindow*
+wxChildFocusEvent::GetWindow() 
 
 MODULE=Wx_Evt
