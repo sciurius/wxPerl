@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/09/2001
-## RCS-ID:      $Id: MDI.pm,v 1.5 2004/10/19 20:28:06 mbarbon Exp $
-## Copyright:   (c) 2001 Mattia Barbon
+## RCS-ID:      $Id: MDI.pm,v 1.6 2005/06/11 06:43:57 mbarbon Exp $
+## Copyright:   (c) 2001, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,6 +18,7 @@ sub window {
   my( $this, $parent ) = @_;
 
   my $mdi = MDIDemoWindow->new( $parent, -1, 'wxPerl MDI demo' );
+  $mdi->SetSize( 500, 400 );
   $mdi->Show( 1 );
 
   return undef;
@@ -109,6 +110,8 @@ sub OnClose {
   $this->Show( 0 );
   # this is taken care by the demo
   #$this->Destroy;
+
+  $event->Skip;
 }
 
 sub OnSize {
@@ -119,6 +122,7 @@ sub OnSize {
   $client_window->SetSize( 200, 0, $x - 200, $y);
   $this->{'help'}->SetSize( 0, 0, 200, $y);
 
+  $event->Skip;
 }
 
 1;

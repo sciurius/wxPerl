@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/05/2001
-## RCS-ID:      $Id: demo.pl,v 1.22 2005/04/13 20:12:49 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: demo.pl,v 1.23 2005/06/11 06:43:57 mbarbon Exp $
+## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -249,7 +249,7 @@ my @demos =
        [ 'BoxSizer', demo( 'wxBoxSizer' ) ],
        [ 'GridSizer', demo( 'wxGridSizer' ) ],
        [ 'FrexGridSizer', demo( 'wxFlexGridSizer' ) ],
-       [ 'NotebookSizer', demo( 'wxNotebookSizer' ) ],
+#       [ 'NotebookSizer', demo( 'wxNotebookSizer' ) ],
       ],
     ],
     [ 'Contrib',
@@ -265,7 +265,9 @@ my @demos =
        [ 'Locale', demo( 'wxLocale' ) ],
        [ 'MDI', demo( 'MDI', 'MDIDemo' ) ],
        [ 'Printing', demo( 'Printing' ) ],
-       [ 'Unicode', demo( 'Unicode', 'UnicodeDemo' ), 3.0 ],
+       ( Wx::wxUNICODE() ?
+         [ 'Unicode', demo( 'Unicode', 'UnicodeDemo' ) ] :
+         () ),
        [ 'Clipboard', demo( 'wxClipboard' ) ],
        [ 'Drag&Drop', demo( 'DragDrop', 'DNDDemo' ) ],
        [ 'Process', demo( 'wxProcess' ) ],
@@ -325,7 +327,6 @@ sub new {
                                 wxTE_READONLY|wxTE_MULTILINE
                                |wxNO_FULL_REPAINT_ON_RESIZE );
   my $log = Wx::LogTextCtrl->new( $text );
-  $log->SetTimestamp( 'foomoo %X' );
   $this->{OLDLOG} = Wx::Log::SetActiveTarget( $log );
 
   # create main notebook
