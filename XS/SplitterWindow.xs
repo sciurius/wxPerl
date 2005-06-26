@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: SplitterWindow.xs,v 1.9 2003/06/04 20:38:43 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: SplitterWindow.xs,v 1.10 2005/06/26 13:56:22 mbarbon Exp $
+## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -76,6 +76,12 @@
     bool SplitVertically( wxWindow* window1, wxWindow* window2,
                           int sashPosition = 0 );
     bool Unsplit( wxWindow* toRemove = NULL );
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    void SetSashGravity( double gravity );
+    double GetSashGravity();
+    int GetSashSize();
+    void SetSashSize( int width );
+#endif
 };
 
 %{
