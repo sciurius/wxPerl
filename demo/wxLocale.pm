@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/09/2001
-## RCS-ID:      $Id: wxLocale.pm,v 1.6 2004/12/21 21:12:46 mbarbon Exp $
+## RCS-ID:      $Id: wxLocale.pm,v 1.7 2005/06/26 13:59:09 mbarbon Exp $
 ## Copyright:   (c) 2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -87,7 +87,6 @@ sub new {
   my $class = shift;
   my $this = $class->SUPER::new( @_, [0,0] );
 
-  $this->SetBackgroundColour( wxBLACK );
   my $subpanel = $this->{CHILD} = new Wx::Panel( $this, -1, [0,0], [600,500] );
   _create_windows( $this, $subpanel );
 
@@ -114,9 +113,9 @@ sub _create_windows {
   my $label = new Wx::StaticText( $panel, -1, gettext( "Some text" ),
                                   [ 20, 20 ], [ 150, 30 ] );
   my $button1 = new Wx::Button( $panel, -1, gettext( "A button" ),
-                               [ 20, 60 ], [ 150, 30 ] );
+                               [ 20, 60 ], [ 150, -1 ] );
   my $button2 = new Wx::Button( $panel, -1, gettext( "Change the language" ),
-                                [ 180, 60 ], [ 150, 30 ] );
+                                [ 180, 60 ], [ 150, -1 ] );
   my $text = gettext( "The message catalogs for this\nexample were translated\nusing poEdit ( http://www.volny.cz/vaclav.slavik/ )" );
   my $text2 = gettext( "When dealing with internationalization/localization,\nwhich involves variable width text,\nthe best choice is to use Sizers ( see documentation );\nthis example does not use them to\nkeep it as simple as possible" );
   my $description = new Wx::StaticText( $panel, -1, $text . "\n\n" . $text2,

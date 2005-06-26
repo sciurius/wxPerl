@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/05/2003
-## RCS-ID:      $Id: wxScrollBar.pm,v 1.2 2004/10/19 20:28:06 mbarbon Exp $
+## RCS-ID:      $Id: wxScrollBar.pm,v 1.3 2005/06/26 14:00:30 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -64,9 +64,9 @@ sub new {
   my $parent = shift;
   my $this = $class->SUPER::new( $parent, -1 );
 
-  my $horizontal = Wx::ScrollBar->new( $this, -1, [ 60, 20 ], wxDefaultSize,
+  my $horizontal = Wx::ScrollBar->new( $this, -1, [ 60, 20 ], [ 150, -1 ],
                                        wxSB_HORIZONTAL );
-  my $vertical   = Wx::ScrollBar->new( $this, -1, [ 20, 20 ], wxDefaultSize,
+  my $vertical   = Wx::ScrollBar->new( $this, -1, [ 20, 20 ], [ -1, 150 ],
                                        wxSB_VERTICAL );
 
   $horizontal->SetScrollbar( 0, 80, 100, 10 );
