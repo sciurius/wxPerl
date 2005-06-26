@@ -270,6 +270,7 @@ cpp/validators.h
 cpp/v_cback.h
 cpp/window.h
 cpp/wizard.h
+cpp/wxsizer.h
 
 cpp/controls.cpp
 cpp/e_cback.cpp
