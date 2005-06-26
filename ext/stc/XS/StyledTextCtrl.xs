@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.17 2005/03/27 16:23:37 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.18 2005/06/26 14:08:19 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Graciliano M. P., Marcus Friedlaender,
 ##                            Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -470,12 +470,16 @@ wxStyledTextCtrl::SetSelection( start, end )
     int start
     int end
 
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
 void
 wxStyledTextCtrl::SetSelectionMode( mode )
     int mode
 
 int
 wxStyledTextCtrl::GetSelectionMode()
+
+#endif
 
 void
 wxStyledTextCtrl::HideSelection( normal )

@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.19 2005/03/27 16:23:38 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.20 2005/06/26 14:08:19 mbarbon Exp $
 // Copyright:   (c) 2002-2005 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -726,9 +726,11 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_SCRIPTOL_OPERATOR );
         r( wxSTC_SCRIPTOL_IDENTIFIER );
         r( wxSTC_SCRIPTOL_STRINGEOL );
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
         r( wxSTC_SEL_STREAM );
         r( wxSTC_SEL_RECTANGLE );
         r( wxSTC_SEL_LINES );
+#endif
 
         r( wxEVT_STC_CHANGE );
         r( wxEVT_STC_STYLENEEDED );

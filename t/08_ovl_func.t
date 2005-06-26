@@ -262,8 +262,10 @@ hijack( 'Wx::ToolBarBase::AddToolLong'    => sub { $addtoollong = 1 },
         'Wx::ToolBarBase::InsertToolLong'   => sub { $instoollong = 1 },
         ( Wx::wxVERSION >= 2.004 ?
           ( 'Wx::ToolBarBase::AddToolNewShort'   => sub { $addnews = 1 },
-            'Wx::ToolBarBase::AddToolNewLong'    => sub { $addnewl = 1 },
-            'Wx::ToolBarBase::InsertToolNewLong' => sub { $insnewl = 1 } ) :
+            'Wx::ToolBarBase::AddToolNewLong'    => sub { $addnewl = 1 } ) :
+          () ),
+        ( Wx::wxVERSION >= 2.006 ?
+          ( 'Wx::ToolBarBase::InsertToolNewLong' => sub { $insnewl = 1 } ) :
           () ),
         'Wx::ToolBarBase::SetMarginsXY'   => sub { $setmarginsxy = 1 },
         'Wx::ToolBarBase::SetMarginsSize' => sub { $setmarginssize = 1 } );
