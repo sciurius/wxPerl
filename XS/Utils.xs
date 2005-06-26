@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.36 2005/01/09 22:35:54 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.37 2005/06/26 13:56:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -278,8 +278,16 @@ void
 wxExit()
 
 bool
-wxShell(command = wxEmptyString)
+wxShell( command = wxEmptyString )
     wxString command
+
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+bool
+wxGetKeyState( key )
+    wxKeyCode key
+
+#endif
 
 MODULE=Wx PACKAGE=Wx
 
