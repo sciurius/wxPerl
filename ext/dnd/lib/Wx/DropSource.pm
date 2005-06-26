@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/08/2001
-## RCS-ID:      $Id: DropSource.pm,v 1.8 2004/10/19 20:28:09 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: DropSource.pm,v 1.9 2005/06/26 14:05:11 mbarbon Exp $
+## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,7 +15,7 @@ package Wx::DropSource;
 sub new {
   my $this = shift;
 
-  if( !Wx::wxMSW() ) {
+  if( !Wx::wxMSW() || !Wx::wxMAC() ) {
     Wx::_match( @_, $Wx::_wwin_wico_wico_wico, 0, 1 ) && return $this->newIconEmpty( @_ );
     Wx::_match( @_, $Wx::_wdat_wwin_wico_wico_wico, 1, 1 ) && return $this->newIconData( @_ );
   } else {
