@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.23
+0.23  Sun Jun 26 20:33:17 CEST 2005
 	- Added wxArtProvider and Wx::PlArtProvider
           (thanks to Matthew "Cheetah" Gabeler-Lee).
 	- Compatibility with wxWidgets 2.5.4, 2.6.0 and 2.6.1.
