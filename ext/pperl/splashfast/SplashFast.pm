@@ -4,7 +4,7 @@
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     30/06/2002
-## RCS-ID:      $Id: SplashFast.pm,v 1.18 2005/01/05 14:47:58 mbarbon Exp $
+## RCS-ID:      $Id: SplashFast.pm,v 1.19 2005/07/05 19:56:12 mbarbon Exp $
 ## Copyright:   (c) 2002-2005 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -62,7 +62,7 @@ package Wx ;
 
 use vars qw($VERSION);
 
-$VERSION = '0.23'; # bootstrap will catch wrong versions
+$VERSION = '0.24'; # bootstrap will catch wrong versions
 
 sub wxPL_STATIC();
 sub _wx_boot($$) {
