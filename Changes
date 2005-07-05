@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.24  Tue Jul  5 21:42:28 CEST 2005
+	- Fix using wxPerl with PAR on Linux.
+
 0.23  Sun Jun 26 20:33:17 CEST 2005
 	- Added wxArtProvider and Wx::PlArtProvider
           (thanks to Matthew "Cheetah" Gabeler-Lee).
