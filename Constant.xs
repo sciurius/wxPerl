@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.123 2005/06/26 13:55:14 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.124 2005/07/05 19:54:50 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -621,6 +621,8 @@ static double constant( const char *name, int arg )
     r( wxCB_SORT );                     // combobox
     r( wxCENTER );                      // dialog sizer
     r( wxCENTRE );                      // dialog sizer
+    r( wxCENTER_ON_SCREEN );            // window
+    r( wxCENTRE_ON_SCREEN );            // window
     r( wxCLIP_CHILDREN );               // window
     r( wxCHOICEDLG_STYLE );
     r( wxCHANGE_DIR );                  // filedialog
