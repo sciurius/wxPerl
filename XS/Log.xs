@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.21 2005/06/11 06:47:43 mbarbon Exp $
+## RCS-ID:      $Id: Log.xs,v 1.22 2005/07/05 19:54:01 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -82,8 +82,13 @@ bool
 wxLog::GetVerbose()
 
 void
-wxLog::SetTimestamp( format )
+SetTimestamp( format, buffer )
     const wxChar* format
+    SV* buffer
+  CODE:
+    STRLEN size = wxStrlen( format ) * sizeof(wxChar);
+    SvUPGRADE( buffer, SVt_PV );
+    wxLog::SetTimestamp( wxStrcpy( (wxChar*)SvGROW( buffer, size ), format ) );
 
 const wxChar*
 wxLog::GetTimestamp()
