@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.37 2005/05/03 20:44:31 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.38 2005/07/10 18:57:22 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -298,8 +298,6 @@ wxStaticBoxSizer::GetStaticBox()
 
 MODULE=Wx PACKAGE=Wx::NotebookSizer
 
-#if WXPERL_W_VERSION_LE( 2, 5, 1 ) || WXWIN_COMPATIBILITY_2_4
-
 #include <wx/notebook.h>
 
 wxNotebookSizer*
@@ -308,8 +306,6 @@ wxNotebookSizer::new( notebook )
 
 wxNotebook*
 wxNotebookSizer::GetNotebook()
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::GridSizer
 

@@ -4,13 +4,13 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: sizer.h,v 1.13 2005/06/26 13:58:22 mbarbon Exp $
+// RCS-ID:      $Id: sizer.h,v 1.14 2005/07/10 18:57:22 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-#if !WXWIN_COMPATIBILITY_2_4
+#if !WXPERL_W_VERSION_GE( 2, 5, 1 ) || !WXWIN_COMPATIBILITY_2_4
 #include "cpp/wxsizer.h"
 #endif
 
