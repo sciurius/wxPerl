@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/07/2002
-## RCS-ID:      $Id: Makefile.PL,v 1.6 2004/10/19 20:28:10 mbarbon Exp $
+## RCS-ID:      $Id: Makefile.PL,v 1.7 2005/07/10 19:01:31 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -23,6 +23,7 @@ wxWriteMakefile( NAME            => 'Wx::Perl::SplashFast',
                  ABSTRACT_FROM   => 'SplashFast.pm',
                  AUTHOR          => 'Graciliano M. P. <gm@virtuasites.com.br>',
                  VERSION_FROM    => 'SplashFast.pm',
+                 WX_CORE_LIB     => ' ',
                 );
 
 }
