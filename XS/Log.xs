@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.22 2005/07/05 19:54:01 mbarbon Exp $
+## RCS-ID:      $Id: Log.xs,v 1.23 2005/07/10 19:00:37 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -86,7 +86,7 @@ SetTimestamp( format, buffer )
     const wxChar* format
     SV* buffer
   CODE:
-    STRLEN size = wxStrlen( format ) * sizeof(wxChar);
+    STRLEN size = wxStrlen( format ) * sizeof(wxChar) + sizeof(wxChar);
     SvUPGRADE( buffer, SVt_PV );
     wxLog::SetTimestamp( wxStrcpy( (wxChar*)SvGROW( buffer, size ), format ) );
 
