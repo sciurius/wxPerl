@@ -1,5 +1,11 @@
 Revision history for Perl extension Wx.
 
+0.25  Sun Jul 10 20:39:30 CEST 2005
+	- Added back Wx::NotebookSizer (removed by accident).
+	- Fixed off-by-one error in Wx::Log::SetTimestamp.
+	- Fixed crash with eval + use in event handler.
+	- Fixed test suite for wxWidgets 2.4.x.
+
 0.24  Tue Jul  5 21:42:28 CEST 2005
 	- Fix using wxPerl with PAR on Linux.
 

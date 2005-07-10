@@ -54,7 +54,10 @@ t/09_create_delete.t
 t/10_oor.t
 t/11_twostage.t
 t/12_pod.t
+t/13_nbksizer.t
+t/14_eh_die.t
 t/Tests_Helper.pm
+t/zz_distrib.t
 
 lib/Wx/Api.pod
 lib/Wx/App.pm
