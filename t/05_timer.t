@@ -7,8 +7,6 @@ use Test::More Wx::wxMAC() ? ( 'skip_all' => 'Hangs on wxMac' ) :
                              ( 'tests'    => 2 );
 use Tests_Helper qw(test_app);
 
-my $frame;
-
 # test with Notify
 
 package MyTimer;
@@ -39,6 +37,7 @@ sub new {
 
 sub OnTimer {
   main::ok( 1, "EVT_TIMER works" );
+  my $frame = Wx::wxTheApp()->GetTopWindow;
   $frame->{T1}->Destroy;
   $frame->{T2}->Destroy;
   $frame->Destroy;
@@ -67,12 +66,8 @@ sub new {
 
 package main;
 
-use Wx qw(wxTheApp);
-
 my $app = test_app( sub {
-                      $frame = MyFrame->new( undef, -1, 'boo' );
-                      $frame->Show( 1 );
-                      return 1;
+                      MyFrame->new( undef, -1, 'boo' )->Show( 1 );
                     } );
 
 $app->MainLoop;

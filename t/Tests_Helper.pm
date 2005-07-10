@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/06/2001
-## RCS-ID:      $Id: Tests_Helper.pm,v 1.5 2004/04/10 20:36:57 mbarbon Exp $
+## RCS-ID:      $Id: Tests_Helper.pm,v 1.6 2005/07/10 19:02:03 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -25,14 +25,13 @@ use vars qw(@ISA %EXPORT_TAGS @EXPORT_OK);
 
 @ISA = qw(Exporter);
 
-@EXPORT_OK = qw(test_inheritance test_inheritance_all
-                test_inheritance_start test_inheritance_end
-                test_app test_frame app_timeout in_frame);
-
 %EXPORT_TAGS =
   ( inheritance => [ qw(test_inheritance test_inheritance_all
                         test_inheritance_start test_inheritance_end) ],
   );
+
+@EXPORT_OK = ( qw(test_app app_timeout test_frame in_frame),
+               @{$EXPORT_TAGS{inheritance}} );
 
 sub in_frame($) {
   my $callback = shift;
@@ -66,7 +65,7 @@ sub app_timeout($) {
 sub test_app {
   my $function = shift;
 
-  my $app = Tests_Helper_App->new( $function );
+  return Tests_Helper_App->new( $function );
 }
 
 sub test_frame {
@@ -227,14 +226,20 @@ sub new {
   Wx::Event::EVT_TIMER( $self, -1, sub {
                             &$callback( $self, $_[1] );
                             $self->Destroy;
-                            Wx::wxTheApp()->ExitMainLoop;
-                            Wx::WakeUpIdle();
                         } );
 
   $timer->Start( 500, 1 );
   Wx::WakeUpIdle();
 
   return $self;
+}
+
+sub Destroy {
+    my $self = shift;
+
+    $self->SUPER::Destroy;
+    Wx::wxTheApp()->ExitMainLoop;
+    Wx::WakeUpIdle();
 }
 
 1;
