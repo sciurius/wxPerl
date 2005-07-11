@@ -27,7 +27,7 @@ sub onTimer0 {
 
 sub onTimer1 {
     ok( 1, 'Second timer fired' );
-    eval 'use ThisModuleDoesntExist;';
+    eval 'use ThisModuleDoesNotExist';
     ok( $@, 'Error was generated and trapped' );
 
     EVT_TIMER( $app, 123, undef ); # disconnect
