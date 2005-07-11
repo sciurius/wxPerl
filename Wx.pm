@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.78 2005/07/10 19:03:37 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.79 2005/07/11 22:27:29 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -298,6 +298,12 @@ sub LogSysError {
 
 sub LogDebug {
   my( $t ) = sprintf( shift, @_ ); $t =~ s/\%/\%\%/g; wxLogDebug( $t ); 
+}
+
+my $ts_buf;
+
+sub Wx::Log::SetTimestamp {
+    Wx::Log::_SetTimestamp( $_[0], $ts_buf );
 }
 
 1;
