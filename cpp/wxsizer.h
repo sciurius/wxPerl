@@ -4,7 +4,7 @@
 // Author:      Robert Roebling and Robin Dunn
 // Modified by: Ron Lee, Vadim Zeitlin (wxSizerFlags)
 // Created:
-// RCS-ID:      $Id: wxsizer.h,v 1.1 2005/06/26 13:58:22 mbarbon Exp $
+// RCS-ID:      $Id: wxsizer.h,v 1.2 2005/07/11 22:23:13 mbarbon Exp $
 // Copyright:   (c) Robin Dunn, Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ class wxNotebook;
 class wxNotebookSizer : public wxBookCtrlSizer
 {
 public:
-    wxDEPRECATED( wxNotebookSizer(wxNotebook *nb) );
+    wxNotebookSizer(wxNotebook *nb);
 
     wxNotebook *GetNotebook() const { return (wxNotebook *)m_bookctrl; }
 
