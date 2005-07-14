@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Geom.xs,v 1.16 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: Geom.xs,v 1.17 2005/07/14 21:01:51 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -295,9 +295,20 @@ newPolygon( CLASS, list, fillStyle = wxODDEVEN_RULE )
     n = wxPli_av_2_pointarray( aTHX_ list, &points );
     RETVAL = new wxRegion( n, points, fillStyle );
     delete [] points;
+  OUTPUT: RETVAL
 
 #endif
- 
+
+wxRegion*
+newBitmap( CLASS, bitmap, colour = wxNullColour, tolerance = 0 )
+    SV* CLASS
+    wxBitmap* bitmap
+    wxColour colour
+    int tolerance
+  CODE:
+    RETVAL = new wxRegion( *bitmap, colour, tolerance );
+  OUTPUT: RETVAL
+
 void
 wxRegion::DESTROY()
 
