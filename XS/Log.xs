@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.25 2005/07/14 20:48:06 mbarbon Exp $
+## RCS-ID:      $Id: Log.xs,v 1.26 2005/07/24 17:47:01 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -283,3 +283,9 @@ wxPlLogPassThrough::new()
     RETVAL = new wxPlLogPassThrough( CLASS );
   OUTPUT:
     RETVAL
+
+MODULE=Wx PACKAGE=Wx::LogStderr
+
+wxLogStderr*
+wxLogStderr::new( fp = NULL )
+    FILE* fp;

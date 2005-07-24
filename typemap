@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.75 2005/06/11 06:41:45 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.76 2005/07/24 17:46:58 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -199,6 +199,7 @@ wxLogGui *              O_NON_WXOBJECT
 wxLogWindow *           O_NON_WXOBJECT
 wxLogChain *            O_NON_WXOBJECT
 wxLogPassThrough *      O_NON_WXOBJECT
+wxLogStderr *           O_NON_WXOBJECT
 wxPlLog *               O_NON_WXOBJECT
 wxPlLogPassThrough *    O_NON_WXOBJECT
 
