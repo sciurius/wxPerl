@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/05/2003
-// RCS-ID:      $Id: editor.h,v 1.8 2005/07/24 17:47:37 mbarbon Exp $
+// RCS-ID:      $Id: editor.h,v 1.9 2005/07/26 19:48:41 mbarbon Exp $
 // Copyright:   (c) 2003-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -91,7 +91,8 @@
 class wxPlGridCellEditor : public wxGridCellEditor
 {
 public:
-    wxPliVirtualCallback m_callback;
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlGridCellEditor );
+    WXPLI_DECLARE_V_CBACK();
 public:
     wxPlGridCellEditor( const char* package )
         : m_callback( "Wx::PlGridCellEditor" )

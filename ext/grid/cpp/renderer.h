@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/05/2003
-// RCS-ID:      $Id: renderer.h,v 1.7 2004/12/21 21:12:52 mbarbon Exp $
+// RCS-ID:      $Id: renderer.h,v 1.8 2005/07/26 19:48:41 mbarbon Exp $
 // Copyright:   (c) 2003-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -16,7 +16,8 @@
 class wxPlGridCellRenderer : public wxGridCellRenderer
 {
 public:
-    wxPliVirtualCallback m_callback;
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlGridCellRenderer );
+    WXPLI_DECLARE_V_CBACK();
 public:
     wxPlGridCellRenderer( const char* package )
         : m_callback( "Wx::PlGridCellRenderer" )
