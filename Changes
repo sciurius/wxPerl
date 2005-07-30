@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
 0.26
+	- Fix Original Object Return for Wx::PlGridCellEditor and
+	  Wx::PlGridCellRenderer.
 
 0.25  Sun Jul 10 20:39:30 CEST 2005
 	- Added back Wx::NotebookSizer (removed by accident).

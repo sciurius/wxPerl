@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.76 2005/07/24 17:46:58 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.77 2005/07/30 10:23:51 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -378,6 +378,9 @@ O_WXOBJECT
 O_WXEVTHANDLER
     wxPli_evthandler_2_sv( aTHX_ $arg, $var );
 
+O_WXCLIENTDATACONTAINER
+    wxPli_clientdatacontainer_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
+
 O_NON_WXOBJECT
     wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
 
@@ -398,6 +401,9 @@ O_WXOBJECT
     $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
 O_WXEVTHANDLER
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
+
+O_WXCLIENTDATACONTAINER
     $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)Ptr$/$1/g;$ntt=q{\"Wx::}.$ntt.q{\"};\$ntt} );
 
 O_NON_WXOBJECT

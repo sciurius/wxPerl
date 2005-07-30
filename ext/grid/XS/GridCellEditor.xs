@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      $Id: GridCellEditor.xs,v 1.8 2004/12/21 21:12:52 mbarbon Exp $
+## RCS-ID:      $Id: GridCellEditor.xs,v 1.9 2005/07/30 10:23:54 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -136,6 +136,7 @@ SV*
 wxPlGridCellEditor::new()
   CODE:
     wxPlGridCellEditor* r = new wxPlGridCellEditor( CLASS );
+    r->SetClientObject( new wxPliUserDataCD( r->m_callback.GetSelf() ) );
     RETVAL = r->m_callback.GetSelf();
     SvREFCNT_inc( RETVAL );
   OUTPUT: RETVAL

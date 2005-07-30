@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.71 2005/05/03 20:44:31 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.72 2005/07/30 10:23:54 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -94,18 +94,6 @@ my_magic* wxPli_get_or_create_magic( pTHX_ SV* rv )
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
-
-wxPliUserDataCD::~wxPliUserDataCD()
-{
-    dTHX;
-    SvREFCNT_dec( m_data );
-}
-
-wxPliUserDataO::~wxPliUserDataO()
-{
-    dTHX;
-    SvREFCNT_dec( m_data );
-}
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn )
 {
@@ -381,6 +369,25 @@ SV* wxPli_non_object_2_sv( pTHX_ SV* var, void* data, const char* package )
     return var;
 }
 
+SV* wxPli_clientdatacontainer_2_sv( pTHX_ SV* var, wxClientDataContainer* cdc, const char* klass )
+{
+    if( cdc == NULL )
+    {
+        sv_setsv( var, &PL_sv_undef );
+        return var;
+    }
+
+    wxPliUserDataCD* clientData = (wxPliUserDataCD*) cdc->GetClientObject();
+
+    if( clientData != NULL )
+    {
+        SvSetSV_nosteal( var, clientData->GetData() );
+        return var;
+    }
+
+    return wxPli_non_object_2_sv( aTHX_ var, cdc, klass );
+}
+
 SV* wxPli_evthandler_2_sv( pTHX_ SV* var, wxEvtHandler* cdc )
 {
     if( cdc == NULL )
@@ -514,6 +521,19 @@ void* wxPli_detach_object( pTHX_ SV* object )
         return tmp;
     }
 }
+
+/*
+SV* wxPli_create_clientdatacontainer( pTHX_ wxClientDataContainer* object,
+                                      const char* classname )
+{
+    SV* sv = wxPli_make_object( object, classname );
+    wxPliUserDataCD* clientData = new wxPliUserDataCD( sv );
+
+    object->SetClientObject( clientData );
+
+    return sv;
+}
+*/
 
 SV* wxPli_create_evthandler( pTHX_ wxEvtHandler* object,
                              const char* classname )

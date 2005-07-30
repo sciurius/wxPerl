@@ -4,13 +4,15 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     28/05/2003
-// RCS-ID:      $Id: editor.h,v 1.9 2005/07/26 19:48:41 mbarbon Exp $
+// RCS-ID:      $Id: editor.h,v 1.10 2005/07/30 10:23:55 mbarbon Exp $
 // Copyright:   (c) 2003-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
 #include "cpp/v_cback.h"
+#include <wx/clntdata.h>
+#include "cpp/helpers.h"
 
 #define DEC_V_CBACK_VOID__INT_INT_WXGRID_pure( METHOD ) \
   void METHOD( int, int, wxGrid* )
@@ -91,8 +93,7 @@
 class wxPlGridCellEditor : public wxGridCellEditor
 {
 public:
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlGridCellEditor );
-    WXPLI_DECLARE_V_CBACK();
+    wxPliVirtualCallback m_callback;
 public:
     wxPlGridCellEditor( const char* package )
         : m_callback( "Wx::PlGridCellEditor" )
