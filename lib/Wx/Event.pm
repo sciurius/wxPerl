@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.43 2005/01/04 17:15:10 mbarbon Exp $
+## RCS-ID:      $Id: Event.pm,v 1.44 2005/08/07 21:21:27 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -396,6 +396,7 @@ sub EVT_TREE_DELETE_ITEM($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TR
 sub EVT_TREE_ITEM_ACTIVATED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TREE_ITEM_ACTIVATED, $_[2] ); }
 sub EVT_TREE_ITEM_RIGHT_CLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TREE_ITEM_RIGHT_CLICK, $_[2] ); }
 sub EVT_TREE_ITEM_MIDDLE_CLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TREE_ITEM_MIDDLE_CLICK, $_[2] ); }
+sub EVT_TREE_ITEM_MENU($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TREE_ITEM_MENU, $_[2] ); }
 
 #
 # UpdateUIEvent
