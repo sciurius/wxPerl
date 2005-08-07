@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.77 2005/07/30 10:23:51 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.78 2005/08/07 21:20:31 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -178,6 +178,10 @@ wxSizerItem *           O_WXOBJECT
 wxGridBagSizer *        O_WXOBJECT
 wxGBPosition *          O_NON_WXOBJECT
 wxGBSpan *              O_NON_WXOBJECT
+wxGBPosition            O_GBPOSITION
+wxGBSpan                O_GBSPAN
+wxGBPosition &          O_GBPOSITION
+wxGBSpan &              O_GBSPAN
 wxGBSizerItem *         O_WXOBJECT
 
 wxDC *                  O_WXOBJECT
@@ -387,6 +391,12 @@ O_NON_WXOBJECT
 O_SIZE
     wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
 
+O_GBPOSITION
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
+
+O_GBSPAN
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
+
 O_POINT
     wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*)(?:Ptr)?$/$1/g;$ntt=q{"Wx::}.$ntt.q{"};\$ntt} );
 
@@ -417,6 +427,12 @@ O_POINT
 
 O_SIZE
     $var = wxPli_sv_2_wxsize( aTHX_ $arg );
+
+O_GBPOSITION
+    $var = wxPli_sv_2_wxgbposition( aTHX_ $arg );
+
+O_GBSPAN
+    $var = wxPli_sv_2_wxgbspan( aTHX_ $arg );
 
 T_KEYCODE
     $var = wxPli_sv_2_keycode( aTHX_ $arg );

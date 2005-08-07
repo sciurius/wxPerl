@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     310/11/2003
-## RCS-ID:      $Id: GridBagSizer.xsp,v 1.2 2004/10/19 20:28:05 mbarbon Exp $
+## RCS-ID:      $Id: GridBagSizer.xsp,v 1.3 2005/08/07 21:20:31 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -152,6 +152,20 @@
     bool CheckForIntersection(const wxGBPosition& pos, const wxGBSpan& span,
                               wxGBSizerItem* excludeItem = NULL);
 };
+
+{%
+MODULE=Wx PACKAGE=Wx::GridBagSizer
+
+void
+wxGridBagSizer::Add( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wwin_wgbp_wgbs_n_n_s, AddWindow, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wszr_wgbp_wgbs_n_n_s, AddSizer, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_wgbp_wgbs_n_n_s, AddSpace, 2 )
+        MATCH_REDISP_COUNT( wxPliOvl_wgbi, AddItem, 1 )
+    END_OVERLOAD( Wx::GridBagSizer::Add )
+%}
 
 %{
 #endif

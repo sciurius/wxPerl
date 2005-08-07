@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.72 2005/07/30 10:23:54 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.73 2005/08/07 21:20:31 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -15,6 +15,9 @@
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     #include <wx/arrstr.h>
+#endif
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    #include <wx/sizer.h>
 #endif
 
 #define wxPL_USE_MAGIC 1
@@ -1065,37 +1068,49 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
     return dummy;
 }
 
-wxSize wxPli_sv_2_wxsize( pTHX_ SV* scalar )
+template<class T, const char* name>
+inline T wxPli_sv_2_wxthing( pTHX_ SV* scalar )
 {
     if( SvROK( scalar ) ) 
     {
         SV* ref = SvRV( scalar );
         
-        if( sv_derived_from( scalar, CHAR_P "Wx::Size" ) ) 
-        {
-            return *INT2PTR( wxSize*, SvIV( ref ) );
-        }
+        if( sv_derived_from( scalar, CHAR_P name ) ) 
+            return *INT2PTR( T*, SvIV( ref ) );
         else if( SvTYPE( ref ) == SVt_PVAV )
         {
             AV* av = (AV*) ref;
             
             if( av_len( av ) != 1 )
-            {
                 croak( "the array reference must have 2 elements" );
-            }
             else
-            {
-                int x = SvIV( *av_fetch( av, 0, 0 ) );
-                int y = SvIV( *av_fetch( av, 1, 0 ) );
-                
-                return wxSize( x, y );
-            }
+                return T( SvIV( *av_fetch( av, 0, 0 ) ),
+                          SvIV( *av_fetch( av, 1, 0 ) ) );
         }
     }
     
-    croak( "variable is not of type Wx::Size" );
-    return wxSize();
+    croak( "variable is not of type %s", name );
+    return T(); // to appease the compilers
 }
+
+wxSize wxPli_sv_2_wxsize( pTHX_ SV* scalar )
+{
+    return wxPli_2_wxthing<wxSize, "Wx::Size">( aTHX_ scalar );
+}
+
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+wxGBPosition wxPli_sv_2_wxgbposition( pTHX_ SV* scalar )
+{
+    return wxPli_2_wxthing<wxGBPosition, "Wx::Size">( aTHX_ scalar );
+}
+
+wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar )
+{
+    return wxPli_2_wxthing<wxGBSpan, "Wx::Size">( aTHX_ scalar );
+}
+
+#endif
 
 wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* sv )
 {

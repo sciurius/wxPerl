@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.76 2005/07/30 10:23:54 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.77 2005/08/07 21:20:31 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -215,6 +215,11 @@ void wxPli_get_args_objectarray( pTHX_ SV** sp, int items,
 wxPoint FUNCPTR( wxPli_sv_2_wxpoint_test )( pTHX_ SV* scalar, bool* ispoint );
 wxPoint FUNCPTR( wxPli_sv_2_wxpoint )( pTHX_ SV* scalar );
 wxSize FUNCPTR( wxPli_sv_2_wxsize )( pTHX_ SV* scalar );
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+class WXDLLEXPORT wxGBPosition; class WXDLLEXPORT wxGBSpan;
+wxGBPosition wxPli_sv_2_wxgbposition( pTHX_ SV* scalar );
+wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar );
+#endif
 wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 
 int wxPli_av_2_pointlist( pTHX_ SV* array, wxList *points, wxPoint** tmp );

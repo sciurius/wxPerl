@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/08/2001
-## RCS-ID:      $Id: make_ovl_list.pl,v 1.13 2004/10/19 20:28:15 mbarbon Exp $
+## RCS-ID:      $Id: make_ovl_list.pl,v 1.14 2005/08/07 21:20:31 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -84,6 +84,9 @@ my %name2type =
    wtid => 'Wx::TreeItemId',
    wfon => 'Wx::Font',
    wfrm => 'Wx::Frame',
+   wgbp => 'Wx::GBPosition',
+   wgbs => 'Wx::GBSpan',
+   wgbi => 'Wx::GBSizerItem',
    wist => 1,
    wost => 1,
    num  => 1,
