@@ -7,7 +7,8 @@ PRIORITY NORMAL:
 * Overload resolution
   finish it!
 
-* store events in a C++ file and autogenerate them
+* store events in a C++ file
+* autogenerate event definitons
 * try to have constants inlined where appropriate
 
 * wxCalendarCtrl
