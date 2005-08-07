@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/02/2001
-## RCS-ID:      $Id: listctrl.pl,v 1.6 2004/12/21 21:12:59 mbarbon Exp $
+## RCS-ID:      $Id: listctrl.pl,v 1.7 2005/08/07 21:17:01 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -393,7 +393,7 @@ use vars qw(@ISA);
 
 use Wx::Event qw{EVT_LIST_BEGIN_DRAG EVT_LIST_BEGIN_RDRAG
   EVT_LIST_BEGIN_LABEL_EDIT EVT_LIST_END_LABEL_EDIT EVT_LIST_DELETE_ITEM
-  EVT_LIST_DELETE_ALL_ITEMS EVT_LIST_GET_INFO EVT_LIST_SET_INFO
+  EVT_LIST_DELETE_ALL_ITEMS
   EVT_LIST_ITEM_SELECTED EVT_LIST_ITEM_DESELECTED EVT_LIST_KEY_DOWN
   EVT_LIST_ITEM_ACTIVATED EVT_LIST_COL_CLICK EVT_CHAR};
 
@@ -407,8 +407,6 @@ sub new {
   EVT_LIST_END_LABEL_EDIT( $this, $this, \&OnEndLabelEdit );
   EVT_LIST_DELETE_ITEM( $this, $this, \&OnDeleteItem );
   EVT_LIST_DELETE_ALL_ITEMS( $this, $this, \&OnDeleteAllItems );
-  EVT_LIST_GET_INFO( $this, $this, \&OnGetInfo );
-  EVT_LIST_SET_INFO( $this, $this, \&OnSetInfo );
   EVT_LIST_ITEM_SELECTED( $this, $this, \&OnSelected );
   EVT_LIST_ITEM_DESELECTED( $this, $this, \&OnDeselected );
   EVT_LIST_KEY_DOWN( $this, $this, \&OnListKeyDown );
@@ -469,28 +467,6 @@ sub OnDeleteAllItems {
 }
 
 use Wx qw(:listctrl);
-
-sub OnGetInfo {
-  my( $this, $event ) = @_;
-  my( $item ) = $event->GetItem;
-  my( $mask ) = $item->GetMask;
-  my( $msg );
-
-  $msg = sprintf "OnGetInfo( %d, %d )", $item->GetId, $item->GetColumn;
-  $mask & wxLIST_MASK_STATE and $msg .= " wxLIST_MASK_STATE";
-  $mask & wxLIST_MASK_TEXT  and $msg .= " wxLIST_MASK_TEXT";
-  $mask & wxLIST_MASK_IMAGE and $msg .= " wxLIST_MASK_IMAGE";
-  $mask & wxLIST_MASK_DATA  and $msg .= " wxLIST_MASK_DATA";
-  $mask & wxLIST_SET_ITEM   and $msg .= " wxLIST_SET_ITEM";
-  $mask & wxLIST_MASK_WIDTH and $msg .= " wxLIST_MASK_WIDTH";
-  $mask & wxLIST_MASK_FORMAT and $msg .= " wxLIST_MASK_FORMAT";
-
-  Wx::LogMessage( $msg );
-}
-
-sub OnSetInfo {
-  $_[0]->LogEvent( $_[1], "OnSetInfo" );
-}
 
 sub OnSelected {
   my( $this, $event ) = @_;
