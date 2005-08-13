@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.73 2005/08/07 21:20:31 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.74 2005/08/13 23:10:59 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -17,7 +17,7 @@
     #include <wx/arrstr.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
-    #include <wx/sizer.h>
+    #include <wx/gbsizer.h>
 #endif
 
 #define wxPL_USE_MAGIC 1
@@ -1068,8 +1068,8 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
     return dummy;
 }
 
-template<class T, const char* name>
-inline T wxPli_sv_2_wxthing( pTHX_ SV* scalar )
+template<class T>
+inline T wxPli_sv_2_wxthing( pTHX_ SV* scalar, const char* name )
 {
     if( SvROK( scalar ) ) 
     {
@@ -1095,19 +1095,19 @@ inline T wxPli_sv_2_wxthing( pTHX_ SV* scalar )
 
 wxSize wxPli_sv_2_wxsize( pTHX_ SV* scalar )
 {
-    return wxPli_2_wxthing<wxSize, "Wx::Size">( aTHX_ scalar );
+    return wxPli_sv_2_wxthing<wxSize>( aTHX_ scalar, "Wx::Size" );
 }
 
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
 
 wxGBPosition wxPli_sv_2_wxgbposition( pTHX_ SV* scalar )
 {
-    return wxPli_2_wxthing<wxGBPosition, "Wx::Size">( aTHX_ scalar );
+    return wxPli_sv_2_wxthing<wxGBPosition>( aTHX_ scalar, "Wx::GBPosition" );
 }
 
 wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar )
 {
-    return wxPli_2_wxthing<wxGBSpan, "Wx::Size">( aTHX_ scalar );
+    return wxPli_sv_2_wxthing<wxGBSpan>( aTHX_ scalar, "Wx::GBSpan" );
 }
 
 #endif
