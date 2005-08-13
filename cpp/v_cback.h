@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.29 2005/03/19 17:51:30 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.30 2005/08/13 23:12:54 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -73,6 +73,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 
 #define wxPli_NOCONST
 #define wxPli_CONST const
+#define wxPli_VOID
 
 #define DEC_V_CBACK_BOOL__BOOL( METHOD ) \
   bool METHOD( bool )
