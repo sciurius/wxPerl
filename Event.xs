@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.47 2005/06/26 14:08:17 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.48 2005/08/13 23:09:39 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -87,7 +87,7 @@ wxEvent::SetEventType( type )
 
 void
 wxEvent::SetId( id )
-    int id
+    wxWindowID id
 
 void
 wxEvent::SetTimestamp( timeStamp )
@@ -102,7 +102,7 @@ MODULE=Wx_Evt PACKAGE=Wx::CommandEvent
 wxCommandEvent*
 wxCommandEvent::new( type = 0, id = 0 )
     wxEventType type
-    int id
+    wxWindowID id
 
 Wx_UserDataCD*
 wxCommandEvent::GetClientData()
@@ -152,7 +152,7 @@ MODULE=Wx_Evt PACKAGE=Wx::ContextMenuEvent
 wxContextMenuEvent*
 wxContextMenuEvent::new( type = 0, id = 0, pos = wxDefaultPosition )
     wxEventType type
-    int id
+    wxWindowID id
     wxPoint pos
 
 wxPoint
@@ -165,34 +165,34 @@ wxContextMenuEvent::SetPosition( pos )
 MODULE=Wx_Evt PACKAGE=Wx::PlEvent
 
 wxEvent*
-wxPlEvent::new( id, type )
-    int id
+wxPlEvent::new( type, id )
     wxEventType type
+    wxWindowID id
   CODE:
-    RETVAL = new wxPlEvent( CLASS, id, type );
+    RETVAL = new wxPlEvent( CLASS, type, id );
   OUTPUT:
     RETVAL
 
 MODULE=Wx_Evt PACKAGE=Wx::PlCommandEvent
 
 wxEvent*
-wxPlCommandEvent::new( id, type )
-    int id
+wxPlCommandEvent::new( type, id )
     wxEventType type
+    wxWindowID id
   CODE:
-    RETVAL = new wxPlCommandEvent( CLASS, id, type );
+    RETVAL = new wxPlCommandEvent( CLASS, type, id );
   OUTPUT:
     RETVAL
 
 MODULE=Wx_Evt PACKAGE=Wx::PlThreadEvent
 
 wxEvent*
-wxPlThreadEvent::new( id, type, data )
-    int id
+wxPlThreadEvent::new( type, id, data )
     wxEventType type
+    wxWindowID id
     SV* data
   CODE:
-    RETVAL = new wxPlThreadEvent( CLASS, id, type, data );
+    RETVAL = new wxPlThreadEvent( CLASS, type, id, data );
   OUTPUT:
     RETVAL
 
@@ -213,7 +213,7 @@ wxActivateEvent*
 wxActivateEvent::new( type = 0, active = true, id = 0 )
     wxEventType type
     bool active
-    int id
+    wxWindowID id
 
 bool
 wxActivateEvent::GetActive()
@@ -223,7 +223,7 @@ MODULE=Wx_Evt PACKAGE=Wx::CloseEvent
 wxCloseEvent*
 wxCloseEvent::new( commandEventType = 0, id = 0 )
     wxEventType commandEventType
-    int id
+    wxWindowID id
 
 bool
 wxCloseEvent::CanVeto()
@@ -247,7 +247,7 @@ MODULE=Wx_Evt PACKAGE=Wx::EraseEvent
 
 wxEraseEvent*
 wxEraseEvent::new( id = 0, dc = 0 )
-    int id
+    wxWindowID id
     wxDC* dc
 
 wxDC*
@@ -262,7 +262,7 @@ MODULE=Wx_Evt PACKAGE=Wx::FocusEvent
 wxFocusEvent*
 wxFocusEvent::new( eventType = 0, id = 0 )
     wxEventType eventType
-    int id
+    wxWindowID id
 
 MODULE=Wx_Evt PACKAGE=Wx::IconizeEvent
 
@@ -359,7 +359,7 @@ MODULE=Wx_Evt PACKAGE=Wx::InitDialogEvent
 
 wxInitDialogEvent*
 wxInitDialogEvent::new( id = 0 )
-    int id
+    wxWindowID id
 
 MODULE=Wx_Evt PACKAGE=Wx::JoystickEvent
 
@@ -415,7 +415,7 @@ MODULE=Wx_Evt PACKAGE=Wx::MenuEvent
 wxMenuEvent*
 wxMenuEvent::new( eventType = 0, id = 0 )
     wxEventType eventType
-    int id
+    wxWindowID id
 
 int
 wxMenuEvent::GetMenuId()
@@ -568,7 +568,7 @@ MODULE=Wx_Evt PACKAGE=Wx::MoveEvent
 wxMoveEvent*
 wxMoveEvent::new( point, id = 0 )
     wxPoint point
-    int id
+    wxWindowID id
 
 wxPoint*
 wxMoveEvent::GetPosition()
@@ -592,7 +592,7 @@ MODULE=Wx_Evt PACKAGE=Wx::NotifyEvent
 wxNotifyEvent*
 wxNotifyEvent::new( eventType = wxEVT_NULL, id = 0 )
     wxEventType eventType
-    int id
+    wxWindowID id
 
 bool
 wxNotifyEvent::IsAllowed()
@@ -607,14 +607,14 @@ MODULE=Wx_Evt PACKAGE=Wx::PaintEvent
 
 wxPaintEvent*
 wxPaintEvent::new( id = 0 )
-    int id
+    wxWindowID id
 
 MODULE=Wx_Evt PACKAGE=Wx::SizeEvent
 
 wxSizeEvent*
 wxSizeEvent::new( size, id = 0 )
     wxSize size
-    int id
+    wxWindowID id
 
 wxSize*
 wxSizeEvent::GetSize()
