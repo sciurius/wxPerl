@@ -4,6 +4,8 @@ Revision history for Perl extension Wx.
 	- Fix Original Object Return for Wx::PlGridCellEditor and
 	  Wx::PlGridCellRenderer.
 	- Fix various Wx::GridBagSizer problems.
+	- Remove the requirement of deriving a class from Wx::App.
+	- Expanded Wx::PlWindow.
 
 0.25  Sun Jul 10 20:39:30 CEST 2005
 	- Added back Wx::NotebookSizer (removed by accident).
