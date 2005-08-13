@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/11/2000
-## RCS-ID:      $Id: App.pm,v 1.14 2004/10/19 20:28:11 mbarbon Exp $
+## RCS-ID:      $Id: App.pm,v 1.15 2005/08/13 23:11:40 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -31,9 +31,9 @@ sub new {
     $Wx::wxTheApp = $this;
   }
 
-  $this->SetAppName($_[0]); # reasonable default for Wx::ConfigBase::Get
+  $this->SetAppName( $_[0] ); # reasonable default for Wx::ConfigBase::Get
 
-  my $ret = Wx::_App::Start($this,$this->can('OnInit'));
+  my $ret = Wx::_App::Start( $this, $_[1] || $this->can( 'OnInit' ) );
   Wx::_croak( 'OnInit must return a true return value' )
     # why does OnInit always return 0 on Mac?
     unless $Wx::_platform == 4 || $ret;
