@@ -6,6 +6,7 @@ Revision history for Perl extension Wx.
 	- Fix various Wx::GridBagSizer problems.
 	- Remove the requirement of deriving a class from Wx::App.
 	- Expanded Wx::PlWindow.
+	- Added Wx::Perl::TextValidator (thanks to Johan Vromans).
 
 0.25  Sun Jul 10 20:39:30 CEST 2005
 	- Added back Wx::NotebookSizer (removed by accident).

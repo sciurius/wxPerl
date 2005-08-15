@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/05/2001
-## RCS-ID:      $Id: demo.pl,v 1.23 2005/06/11 06:43:57 mbarbon Exp $
+## RCS-ID:      $Id: demo.pl,v 1.24 2005/08/15 21:44:34 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -263,6 +263,7 @@ my @demos =
       [
        [ 'FileSystem', demo( 'wxFileSystem' ) ],
        [ 'Locale', demo( 'wxLocale' ) ],
+       [ 'Validators', demo( 'wxValidator' ) ],
        [ 'MDI', demo( 'MDI', 'MDIDemo' ) ],
        [ 'Printing', demo( 'Printing' ) ],
        ( Wx::wxUNICODE() ?
