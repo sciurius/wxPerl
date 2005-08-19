@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.127 2005/08/17 00:59:31 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.128 2005/08/19 22:33:53 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -923,6 +923,7 @@ static double constant( const char *name, int arg )
     r( wxFRAME_NO_TASKBAR );            // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
     r( wxFRAME_EX_CONTEXTHELP );        // frame
+    r( wxFRAME_EX_METAL );              // frame
 #if WXPERL_W_VERSION_GE( 2, 4, 1 )
     r( wxFRAME_SHAPED );                // frame
 #endif
