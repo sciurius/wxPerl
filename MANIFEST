@@ -318,6 +318,7 @@ ext/dnd/lib/Wx/DropSource.pm
 ext/dnd/lib/Wx/DND.pm
 ext/dnd/t/01_load.t
 ext/dnd/t/02_inheritance.t
+ext/dnd/t/03_pldatabject.t
 ext/dnd/typemap
 
 ext/filesys/FS.xs

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.30 2005/08/13 23:12:54 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.31 2005/08/19 22:35:54 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -156,17 +156,14 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
     dTHX;                                                                     \
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
     {                                                                         \
-        SV* buf = newSViv( 0 );                                               \
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,       \
-                                                     G_SCALAR,                \
-                                                     "s", buf );              \
+        wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback                 \
+                                ( aTHX_ &m_callback, G_SCALAR, NULL ) );      \
+        if( !SvOK( ret ) )                                                    \
+            return false;                                                     \
         STRLEN len;                                                           \
-        char* val = SvPV( buf, len );                                         \
+        char* val = SvPV( ret, len );                                         \
         memcpy( param1, val, len );                                           \
-        bool retv = SvTRUE( ret );                                            \
-        SvREFCNT_dec( buf );                                                  \
-        SvREFCNT_dec( ret );                                                  \
-        return retv;                                                          \
+        return true;                                                          \
     } else                                                                    \
         return BASE::METHOD( param1 );                                        \
   }
@@ -180,14 +177,10 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
     dTHX;                                                                     \
     if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
     {                                                                         \
-        SV* n = newSVpvn( CHAR_P (const char*)param2, param1 );               \
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,       \
-                                                     G_SCALAR,                \
-                               "s", n );                                      \
-        bool val = SvTRUE( ret );                                             \
-        SvREFCNT_dec( ret );                                                  \
-        SvREFCNT_dec( n );                                                    \
-        return val;                                                           \
+        wxAutoSV n( aTHX_ newSVpvn( CHAR_P (const char*)param2, param1 ) );   \
+        wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback                 \
+                                ( aTHX_ &m_callback, G_SCALAR, "s", n ) );    \
+        return SvTRUE( ret );                                                 \
     } else                                                                    \
         return BASE::METHOD( param1, param2 );                                \
   }
