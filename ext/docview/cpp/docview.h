@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.19 2005/03/08 18:59:07 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.20 2005/08/24 21:03:45 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -382,19 +382,7 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
         SvREFCNT_dec( obj );
     }
 
-    doc->SetFilename(path);
-    doc->SetDocumentTemplate(this);
-    GetDocumentManager()->AddDocument(doc);
-    doc->SetCommandProcessor(doc->OnCreateCommandProcessor());
-
-    if (doc->OnCreate(path, flags))
-        return doc;
-    else
-    {
-        if (GetDocumentManager()->GetDocuments().Member(doc))
-            doc->DeleteAllViews();
-        return 0;
-    }
+    return doc;
 }
 
 
@@ -421,16 +409,7 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
         SvREFCNT_dec( obj );
     }
 
-    view->SetDocument(doc);
-    if (view->OnCreate(doc, flags))
-    {
-        return view;
-    }
-    else
-    {
-        delete view;
-        return 0;
-    }
+    return view;
 }
 
 DEF_V_CBACK_WXSTRING__VOID_const( wxPliDocTemplate, wxDocTemplate,
