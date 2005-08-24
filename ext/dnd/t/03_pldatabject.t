@@ -8,6 +8,7 @@ use Tests_Helper qw(in_frame);
 use Test::More 'tests' => 9;
 
 my $FORMAT = 'Wx::Perl::MyCustomFormat';
+my $silent = 1;
 
 in_frame(
     sub {
@@ -24,6 +25,8 @@ in_frame(
         ok( wxTheClipboard->SetData( $copied ), "copying succeeds" );
 
         my $pasted = MyDataObject->new;
+
+        $silent = 0;
 
         ok( wxTheClipboard->IsSupported( Wx::DataFormat->newUser( $FORMAT ) ),
             "format supported" );
@@ -55,7 +58,7 @@ sub SetData {
     my( $self, $serialized ) = @_;
 
     $self->{data} = Storable::thaw $serialized;
-    ok( 1, "SetData called" );
+    ok( 1, "SetData called" ) unless $silent;
 
     return 1;
 }
@@ -63,7 +66,7 @@ sub SetData {
 sub GetDataHere {
     my( $self ) = @_;
 
-    ok( 1, "GetDataHere called" );
+    ok( 1, "GetDataHere called" ) unless $silent;
 
     return Storable::freeze $self->{data};
 }
@@ -71,7 +74,7 @@ sub GetDataHere {
 sub GetDataSize {
     my( $self ) = @_;
 
-    ok( 1, "GetDataSize called" );
+    ok( 1, "GetDataSize called" ) unless $silent;
 
     return length Storable::freeze $self->{data};
 }
