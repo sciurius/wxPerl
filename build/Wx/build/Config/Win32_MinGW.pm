@@ -25,7 +25,7 @@ sub _data {
 
   my $dir = Cwd::cwd;
   chdir $min_dir or die "chdir '$min_dir'";
-  my @t = qx(make -n -f makefile.gcc $final $unicode SHARED=1);
+  my @t = qx(mingw32-make -n -f makefile.gcc $final $unicode SHARED=1);
 
   my( $libdir, $digits );
   foreach ( @t ) {
