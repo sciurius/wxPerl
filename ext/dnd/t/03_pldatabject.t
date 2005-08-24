@@ -15,6 +15,7 @@ in_frame(
         my $complex = { x => [ qw(a b c), { 'c' => 'd' } ] };
         my $copied = MyDataObject->new( $complex );
 
+        wxTheClipboard->Open;
         wxTheClipboard->Clear;
 
         ok( !wxTheClipboard->IsSupported( Wx::DataFormat->newUser( $FORMAT ) ),
@@ -30,6 +31,8 @@ in_frame(
         isnt( $pasted->GetPerlData, $complex, "Check that identity is not the same" );
 
         is_deeply( $pasted->GetPerlData, $complex, "Correctly copied" );
+
+        wxTheClipboard->Close;
     } );
 
 package MyDataObject;
