@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.31 2005/08/19 22:35:54 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.32 2005/08/24 21:22:51 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -179,7 +179,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
     {                                                                         \
         wxAutoSV n( aTHX_ newSVpvn( CHAR_P (const char*)param2, param1 ) );   \
         wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback                 \
-                                ( aTHX_ &m_callback, G_SCALAR, "s", n ) );    \
+                                ( aTHX_ &m_callback, G_SCALAR, "s", (SV*)n ));\
         return SvTRUE( ret );                                                 \
     } else                                                                    \
         return BASE::METHOD( param1, param2 );                                \
