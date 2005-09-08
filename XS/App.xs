@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: App.xs,v 1.28 2005/07/05 19:55:39 mbarbon Exp $
+## RCS-ID:      $Id: App.xs,v 1.29 2005/09/08 21:15:53 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -49,15 +49,9 @@ Start( app, sub )
         wxEntryInitGui();
 #endif
 
-    SV* This = ST(0);
-    
-    PUSHMARK( SP );
-    XPUSHs( This );
     PUTBACK;
-    call_sv(sub, G_SCALAR);
+    RETVAL = call_oninit( aTHX_ ST(0), sub );
     SPAGAIN;
-    RETVAL = POPi;
-    PUTBACK;
   OUTPUT:
     RETVAL
 

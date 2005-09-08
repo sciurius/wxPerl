@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.69 2005/03/28 14:01:00 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.70 2005/09/08 21:15:52 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -102,6 +102,40 @@ extern "C" {
 
 extern void SetConstants();
 extern void SetConstantsOnce();
+
+static int call_oninit( pTHX_ SV* This, SV* sub )
+{
+    dSP;
+
+    ENTER;
+    SAVETMPS;
+
+    PUSHMARK( SP );
+    XPUSHs( This );
+    PUTBACK;
+
+    int count = call_sv( sub, G_SCALAR|G_EVAL );
+    int retval = 0;
+
+    SPAGAIN;
+
+    if( SvTRUE( ERRSV ) )
+    {
+        croak( Nullch );
+    }
+    else if( count == 1 )
+    {
+        retval = POPi;
+    }
+
+    PUTBACK;
+
+    FREETMPS;
+    LEAVE;
+
+    return retval;
+}
+
 
 #if defined(__WXMOTIF__) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
 
