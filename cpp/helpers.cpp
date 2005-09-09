@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.74 2005/08/13 23:10:59 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.75 2005/09/09 16:02:48 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -675,12 +675,21 @@ AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count )
     return av;
 }
 
-int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array )
+template<class A> class array_thingy
 {
-    SV** arr;
-    int n, i;
+public:
+    typedef A** lvalue;
+    typedef A* rvalue;
+
+    rvalue create( size_t n ) const { return new A[n]; }
+    void assign( lvalue lv, rvalue rv ) const { *lv = rv; }
+};
+
+template<class F, class C>
+int wxPli_av_2_thingarray( pTHX_ SV* avref, typename C::lvalue array,
+                           const F& convert, const C& thingy )
+{
     AV* av;
-    SV* t;
 
     if( !SvROK( avref ) || 
         ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
@@ -689,74 +698,75 @@ int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array )
         return 0;
     }
     
-    n = av_len( av ) + 1;
-    arr = new SV*[ n ];
+    int n = av_len( av ) + 1;
+    typename C::rvalue arr = thingy.create( n );
 
-    for( i = 0; i < n; ++i )
+    for( int i = 0; i < n; ++i )
     {
-        t = *av_fetch( av, i, 0 );
-        arr[i] = t;
+        SV* t = *av_fetch( av, i, 0 );
+        convert( aTHX_ arr[i], t );
     }
 
-    *array = arr;
+    thingy.assign( array, arr );
 
     return n;
 }
+
+class convert_sv
+{
+public:
+    void operator()( pTHX_ SV*& dest, SV* src ) const { dest = src; }
+};
+
+int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array )
+{
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_sv(),
+                                  array_thingy<SV*>() );
+}
+
+class convert_udatacd
+{
+public:
+    void operator()( pTHX_ wxPliUserDataCD*& dest, SV* src ) const
+    {
+        dest = SvOK( src ) ? new wxPliUserDataCD( src ) : NULL;
+    }
+};
+
+int wxPli_av_2_userdatacdarray( pTHX_ SV* avref, wxPliUserDataCD*** array )
+{
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_udatacd(),
+                                  array_thingy<wxPliUserDataCD*>() );
+}
+
+class convert_uchar
+{
+public:
+    void operator()( pTHX_ unsigned char& dest, SV* src ) const
+    {
+        dest = (unsigned char) SvUV( src );
+    }
+};
 
 int wxPli_av_2_uchararray( pTHX_ SV* avref, unsigned char** array )
 {
-    unsigned char* arr;
-    int n, i;
-    AV* av;
-    SV* t;
-
-    if( !SvROK( avref ) || 
-        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
-    {
-        croak( "the value is not an array reference" );
-        return 0;
-    }
-    
-    n = av_len( av ) + 1;
-    arr = new unsigned char[ n ];
-
-    for( i = 0; i < n; ++i )
-    {
-        t = *av_fetch( av, i, 0 );
-        arr[i] = (unsigned char)SvUV( t );
-    }
-
-    *array = arr;
-
-    return n;
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_uchar(),
+                                  array_thingy<unsigned char>() );
 }
+
+class convert_int
+{
+public:
+    void operator()( pTHX_ int& dest, SV* src ) const
+    {
+        dest = (int) SvIV( src );
+    }
+};
 
 int wxPli_av_2_intarray( pTHX_ SV* avref, int** array )
 {
-    int* arr;
-    int n, i;
-    AV* av;
-    SV* t;
-
-    if( !SvROK( avref ) || 
-        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
-    {
-        croak( "the value is not an array reference" );
-        return 0;
-    }
-    
-    n = av_len( av ) + 1;
-    arr = new int[ n ];
-
-    for( i = 0; i < n; ++i )
-    {
-        t = *av_fetch( av, i, 0 );
-        arr[i] = (int)SvIV( t );
-    }
-
-    *array = arr;
-
-    return n;
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_int(),
+                                  array_thingy<int>() );
 }
 
 #include <wx/menu.h>
@@ -783,32 +793,44 @@ wxWindowID wxPli_get_wxwindowid( pTHX_ SV* var )
     return SvIV( var );
 }
 
+class convert_wxstring
+{
+public:
+    void operator()( pTHX_ wxString& dest, SV* src ) const
+    {
+        WXSTRING_INPUT( dest, const char*, src );
+    }
+};
+
 int wxPli_av_2_stringarray( pTHX_ SV* avref, wxString** array )
 {
-    wxString* arr;
-    int n, i;
-    AV* av;
-    SV* t;
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxstring(),
+                                  array_thingy<wxString>() );
+}
 
-    if( !SvROK( avref ) || 
-        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
+class wxarraystring_thingy
+{
+public:
+    typedef wxArrayString* lvalue;
+    typedef wxArrayString& rvalue;
+
+    wxarraystring_thingy( lvalue lv ) : m_value( lv ) { }
+    rvalue create( size_t n ) const
     {
-        croak( "the value is not an array reference" );
-        return 0;
+        m_value->Alloc( n );
+        for( size_t i = 0; i < n; ++i )
+            m_value->Add( wxT("") );
+        return *m_value;
     }
-    
-    n = av_len( av ) + 1;
-    arr = new wxString[ n ];
+    void assign( lvalue, rvalue ) const { }
+private:
+    wxArrayString* m_value;
+};
 
-    for( i = 0; i < n; ++i )
-    {
-        t = *av_fetch( av, i, 0 );
-        WXSTRING_INPUT( arr[i], const char*, t );
-    }
-
-    *array = arr;
-
-    return n;
+int wxPli_av_2_arraystring( pTHX_ SV* avref, wxArrayString* array )
+{
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxstring(),
+                                  wxarraystring_thingy( array ) );
 }
 
 #if wxUSE_UNICODE
@@ -833,62 +855,38 @@ char* my_strdup( const char* s, size_t len )
     return t;
 }
 
+class convert_charp
+{
+public:
+    void operator()( pTHX_ char*& dest, SV* src ) const
+    {
+        STRLEN len;
+        char* t = SvPV( src, len );
+        dest = my_strdup( t, len );
+    }
+};
+
 int wxPli_av_2_charparray( pTHX_ SV* avref, char*** array )
 {
-    char** arr;
-    int n, i;
-    AV* av;
-
-    if( !SvROK( avref ) || 
-        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
-    {
-        croak( "the value is not an array reference" );
-        return 0;
-    }
-    
-    n = av_len( av ) + 1;
-    arr = new char*[ n ];
-
-    for( i = 0; i < n; ++i )
-    {
-        SV* tmp = *av_fetch( av, i, 0 );
-        STRLEN len;
-        char* t = SvPV( tmp, len );
-        arr[i] = my_strdup( t, len );
-    }
-
-    *array = arr;
-
-    return n;
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_charp(),
+                                  array_thingy<char*>() );
 }
+
+class convert_wxcharp
+{
+public:
+    void operator()( pTHX_ wxChar*& dest, SV* src ) const
+    {
+        wxString str;
+        WXSTRING_INPUT( str, wxString, src );
+        dest = my_strdup( str.c_str(), str.length() );
+    }
+};
 
 int wxPli_av_2_wxcharparray( pTHX_ SV* avref, wxChar*** array )
 {
-    wxChar** arr;
-    int n, i;
-    AV* av;
-
-    if( !SvROK( avref ) || 
-        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
-    {
-        croak( "the value is not an array reference" );
-        return 0;
-    }
-    
-    n = av_len( av ) + 1;
-    arr = new wxChar*[ n ];
-
-    for( i = 0; i < n; ++i )
-    {
-        SV* tmp = *av_fetch( av, i, 0 );
-        wxString str;
-        WXSTRING_INPUT( str, wxString, tmp );
-        arr[i] = my_strdup( str.c_str(), str.length() );
-    }
-
-    *array = arr;
-
-    return n;
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxcharp(),
+                                  array_thingy<wxChar*>() );
 }
 
 #if wxUSE_UNICODE

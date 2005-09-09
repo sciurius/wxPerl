@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.77 2005/08/07 21:20:31 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.78 2005/09/09 16:02:48 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -23,6 +23,9 @@
 #else
 class WXDLLEXPORT wxArrayInt;
 #endif
+
+class wxPliUserDataCD;
+class wxPliTreeItemData;
 
 // forward declare Wx_*Stream
 class WXDLLEXPORT wxInputStream;
@@ -180,6 +183,8 @@ int wxPli_av_2_wxcharparray( pTHX_ SV* avref, wxChar*** array );
 int wxPli_av_2_uchararray( pTHX_ SV* avref, unsigned char** array );
 int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array );
 int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
+int wxPli_av_2_userdatacdarray( pTHX_ SV* avref, wxPliUserDataCD*** array );
+int wxPli_av_2_arraystring( pTHX_ SV* avref, wxArrayString* array );
 
 // pushes the elements of the array into the stack
 // the caller _MUST_ call PUTBACK; before the function
@@ -394,9 +399,6 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
 #endif
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
-
-class wxPliUserDataCD;
-class wxPliTreeItemData;
 
 class wxPliUserDataO : public wxObject
 {
