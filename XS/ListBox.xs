@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: ListBox.xs,v 1.9 2004/08/04 20:13:54 mbarbon Exp $
+## RCS-ID:      $Id: ListBox.xs,v 1.10 2005/09/09 16:04:02 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -142,3 +142,17 @@ void
 wxListBox::SetStringSelection( string, select = true )
     wxString string
     bool select
+
+void
+wxListBox::SetFirstItem( n )
+    int n
+
+void
+wxListBox::SetFirstItemString( str )
+    wxString str
+  CODE:
+    THIS->SetFirstItem( str );
+
+void
+wxListBox::Set( choices )
+    wxArrayString choices

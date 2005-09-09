@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.78 2005/08/07 21:20:31 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.79 2005/09/09 16:04:02 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -36,6 +36,7 @@ wxItemKind              T_ENUM
 PlClassName             T_CLASSNAME
 wxUint32                T_IV
 wxTextCtrlHitTestResult T_ENUM
+wxArrayString           T_ARRAYSTRING
 
 wxFindReplaceDialogStyles T_ENUM
 wxFindReplaceFlags      T_ENUM
@@ -540,3 +541,7 @@ T_WINDOWID
 OUTPUT
 T_WINDOWID
     sv_setiv($arg, (IV)$var);
+
+INPUT
+T_ARRAYSTRING
+    wxPli_av_2_arraystring( aTHX_ $arg, & $var );

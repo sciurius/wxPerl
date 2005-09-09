@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: controls.pl,v 1.12 2004/10/19 20:28:13 mbarbon Exp $
+## RCS-ID:      $Id: controls.pl,v 1.13 2005/09/09 16:04:03 mbarbon Exp $
 ## Copyright:   (c) 2000, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -154,12 +154,14 @@ sub new {
     $panel->SetCursor( Wx::Cursor->new( wxCURSOR_HAND ) );
 
     $this->{LISTBOX} = Wx::ListBox->new( $panel, $ID_LISTBOX, [10, 10],
-                                         [120, 70], $choices, wxLB_ALWAYS_SB );
+                                         [120, 70], [], wxLB_ALWAYS_SB );
     $this->{LISTBOXSORTED} = Wx::ListBox->new( $panel, $ID_LISTBOX_SORTED,
                                                [10, 90], [120, 70],
                                                $choices, wxLB_SORT );
     $this->{LISTBOX}->SetCursor( wxCROSS_CURSOR );
     $this->{LISTBOX}->SetToolTip( "This is a list box" );
+
+    $this->{LISTBOX}->Set( $choices );
 
     SetControlClientData( 'listbox', $this->{LISTBOX} );
     SetControlClientData( 'listbox', $this->{LISTBOXSORTED} );
