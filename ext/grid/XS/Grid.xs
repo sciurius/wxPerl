@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.24 2005/04/13 20:12:49 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.25 2005/09/15 21:08:54 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -739,6 +739,19 @@ wxGrid::SetCellTextColour( row, col, colour )
     int row
     int col
     wxColour colour
+
+void
+wxGrid::SetCellSize( row, col, rows, cols )
+    int row
+    int col
+    int rows
+    int cols
+
+void
+wxGrid::SetCellOverflow( row, col, oflo )
+    int row
+    int col
+    bool oflo
 
 void
 wxGrid::SetCellValueXY( row, col, s )
