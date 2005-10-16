@@ -33,7 +33,7 @@ sub _data {
     $data{$item} = $this->_call_wx_config( $item );
   }
 
-  if( $data{version} !~ m/^2\.[56]/ ) {
+  if( $data{version} !~ m/^2\.[567]/ ) {
       $data{ldflags} = $this->_call_wx_config( 'ldflags' );
   }
 
