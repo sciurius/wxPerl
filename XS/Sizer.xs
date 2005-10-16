@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.39 2005/08/07 21:15:43 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.40 2005/10/16 21:03:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -21,6 +21,8 @@
 %typemap{wxFlexSizerGrowMode}{simple};
 %typemap{wxSizerItem*}{simple};
 %typemap{Wx_UserDataO*}{simple};
+%typemap{wxStdDialogButtonSizer*}{simple};
+%typemap{wxButton*}{simple};
 
 %name{Wx::Sizer} class wxSizer
 {
@@ -195,6 +197,29 @@
     %name{SetMinSizeSize} void SetMinSize( wxSize size );
 #endif
 };
+
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+
+%name{Wx::StdDialogButtonSizer} class wxStdDialogButtonSizer
+{
+    wxStdDialogButtonSizer();
+
+    void AddButton( wxButton* button );
+
+    void SetAffirmativeButton( wxButton* button );
+    void SetNegativeButton( wxButton* button );
+    void SetCancelButton( wxButton* button );
+
+    void Realize();
+
+    wxButton *GetAffirmativeButton() const;
+    wxButton *GetApplyButton() const;
+    wxButton *GetNegativeButton() const;
+    wxButton *GetCancelButton() const;
+    wxButton *GetHelpButton() const;
+};
+
+#endif
 
 %{
 MODULE=Wx PACKAGE=Wx::Sizer

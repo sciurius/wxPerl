@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.128 2005/08/19 22:33:53 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.129 2005/10/16 21:03:29 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -54,6 +54,7 @@
 #include <wx/filefn.h>
 #include <wx/dirdlg.h>
 #include <wx/statusbr.h>
+#include <wx/dcbuffer.h>
 
 #include "cpp/wxapi.h"
 #include "cpp/setup.h"
@@ -127,6 +128,7 @@ static wxPlEVT evts[] =
     SEVT( EVT_WIZARD_CANCEL, 3 )
     SEVT( EVT_WIZARD_HELP, 3 )
     SEVT( EVT_CHILD_FOCUS, 2 )
+    EVT( EVT_MENU_HIGHLIGHT_ALL, 2, wxEVT_MENU_HIGHLIGHT )
     { 0, 0, 0 }
 };
 
@@ -278,7 +280,11 @@ static wxPlINH inherit[] =
     I( ScrollBar,       Control )
     I( StatusBarGeneric,Window )
     I( GenericScrolledWindow, Panel )
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    I( GenericTreeCtrl, Control )
+#else
     I( GenericTreeCtrl, ScrolledWindow )
+#endif
     I( MiniFrame,       Frame )
     I( SplitterWindow,  Window )
     I( SplashScreen,    Frame )
@@ -321,6 +327,8 @@ static wxPlINH inherit[] =
 
     I( WindowDC,        DC )
     I( ClientDC,        WindowDC )
+    I( BufferedDC,      MemoryDC )
+    I( BufferedPaintDC, BufferedDC )
 
     I( BMPHandler,      ImageHandler )
     I( PNGHandler,      ImageHandler )
@@ -357,6 +365,7 @@ static wxPlINH inherit[] =
     I( BookCtrlSizer,   Sizer )
     I( PlSizer,         Sizer )
     I( GBSizerItem,     SizerItem )
+    I( StdDialogButtonSizer, BoxSizer )
 
     I( TaskBarIcon,     EvtHandler )
     I( Process,         EvtHandler )
@@ -600,6 +609,8 @@ static double constant( const char *name, int arg )
     r( wxBottom );                      // layout constraints 
     r( wxBelow );                       // layout constraints
 
+    r( wxBUFFER_VIRTUAL_AREA );         // dc
+    r( wxBUFFER_CLIENT_AREA );          // dc
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     r( wxBG_STYLE_SYSTEM );             // window
     r( wxBG_STYLE_COLOUR );             // window

@@ -8,6 +8,8 @@ Revision history for Perl extension Wx.
 	- Expanded Wx::PlWindow.
 	- Added Wx::Perl::TextValidator (thanks to Johan Vromans).
 	- Changed the interface for Wx::PlDataObjectSimple::GetDataHere.
+	- Added Wx::BufferedDC and Wx::BufferedPaintDC.
+	- Added wxStdButtonSizer.
 
 0.25  Sun Jul 10 20:39:30 CEST 2005
 	- Added back Wx::NotebookSizer (removed by accident).

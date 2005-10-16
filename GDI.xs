@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: GDI.xs,v 1.19 2005/04/03 09:14:29 mbarbon Exp $
+// RCS-ID:      $Id: GDI.xs,v 1.20 2005/10/16 21:03:40 mbarbon Exp $
 // Copyright:   (c) 2000-2003 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -29,7 +29,7 @@ INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/ImageList.xs |
 INCLUDE: XS/Bitmap.xs
 INCLUDE: XS/Icon.xs
 INCLUDE: XS/Cursor.xs
-INCLUDE: XS/DC.xs
+INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/DC.xs |
 INCLUDE: XS/Pen.xs
 INCLUDE: XS/Brush.xs
 INCLUDE: XS/Image.xs
