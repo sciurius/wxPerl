@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/08/2001
-## RCS-ID:      $Id: make_ovl_list.pl,v 1.14 2005/08/07 21:20:31 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: make_ovl_list.pl,v 1.15 2005/10/16 21:08:57 mbarbon Exp $
+## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -83,6 +83,7 @@ my %name2type =
    wehd => 'Wx::EvtHandler',
    wtid => 'Wx::TreeItemId',
    wfon => 'Wx::Font',
+   wdc  => 'Wx::DC',
    wfrm => 'Wx::Frame',
    wgbp => 'Wx::GBPosition',
    wgbs => 'Wx::GBSpan',

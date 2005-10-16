@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 166;
+use Test::More 'tests' => 171;
 use Tests_Helper qw(test_app);
 
 my $nolog = Wx::LogNull->new;
@@ -909,6 +909,46 @@ ok( $lfm, "Wx::Image::LoadFileMIME" );
 
 $frame->Destroy;
 } );
+
+##############################################################################
+# Wx::Buffered{Paint}DC
+##############################################################################
+{
+my( $newd, $newb, $news, $initb, $inits ) = ( 0, 0, 0, 0, 0, );
+hijack( 'Wx::BufferedDC::newDefault'     => sub { $newd = 1 },
+        'Wx::BufferedDC::newBitmap'      => sub { $newb = 1 },
+        'Wx::BufferedDC::newSize'        => sub { $news = 1 },
+        'Wx::BufferedDC::InitBitmap'     => sub { $initb = 1 },
+        'Wx::BufferedDC::InitSize'       => sub { $inits = 1 },
+        );
+my $frame = Wx::Frame->new( undef, -1, 'Frame' );
+my $cdc = Wx::ClientDC->new( $frame );
+my $dc;
+
+$dc = Wx::BufferedDC->new;
+ok( $newd, 'Wx::BufferedDC::newDefault' );
+
+$dc = Wx::BufferedDC->new( $cdc, Wx::Bitmap->new( 20, 20 ) );
+ok( $newb, 'Wx::BufferedDC::newBitmap' );
+
+$dc = Wx::BufferedDC->new( $cdc, [20, 20] );
+ok( $news, 'Wx::BufferedDC::newSize' );
+
+SKIP: {
+    skip 'Broken inheritance for 2.6.x', 2 if ref $dc eq 'Wx::MemoryDC';
+
+    $dc = Wx::BufferedDC->new;
+    $dc->Init( $cdc, Wx::Bitmap->new( 200, 100 ) );
+    ok( $initb, 'Wx::BufferedDC::InitBitmap' );
+
+    $dc = Wx::BufferedDC->new;
+    $dc->Init( $cdc, [200, 100] );
+    ok( $inits, 'Wx::BufferedDC::InitSize' );
+}
+
+undef $dc;
+undef $cdc;
+}
 
 ##############################################################################
 # Wx::Sizer/Wx::SizerItem
