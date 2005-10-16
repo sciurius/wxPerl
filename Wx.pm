@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.80 2005/07/14 20:41:13 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.81 2005/10/16 20:59:29 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -219,12 +219,16 @@ package Wx::TreeItemId;
 
 use overload '<=>'      => \&tiid_spaceship,
              'bool'     => sub { $_[0]->IsOk },
+             '""'       => sub { $_[0] },
+             '0+'       => sub { $_[0] },
              'fallback' => 1;
 
 package Wx::Font;
 
 use overload '<=>'      => \&font_spaceship,
              'bool'     => sub { $_[0]->Ok },
+             '""'       => sub { $_[0] },
+             '0+'       => sub { $_[0] },
              'fallback' => 1;
 
 #
