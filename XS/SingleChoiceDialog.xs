@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/02/2001
-## RCS-ID:      $Id: SingleChoiceDialog.xs,v 1.9 2004/08/04 20:13:55 mbarbon Exp $
+## RCS-ID:      $Id: SingleChoiceDialog.xs,v 1.10 2005/10/23 17:45:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -67,6 +67,7 @@ wxSingleChoiceDialog::GetSelectionClientData()
     {
         RETVAL = (SV*)t;
     }
+    SvREFCNT_inc( RETVAL );
   OUTPUT:
     RETVAL
 
@@ -157,6 +158,7 @@ wxGetSingleChoiceData( message, caption, chs, dt, parent = 0, x = -1, y = -1, ce
     rt = wxGetSingleChoiceData( message, caption, n, choices, (void**)data,
         parent, x, y, centre, width, height );
     RETVAL = rt ? (SV*)rt : &PL_sv_undef;
+    SvREFCNT_inc( RETVAL );
     delete[] choices;
     delete[] data;
   OUTPUT:
