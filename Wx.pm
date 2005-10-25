@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.81 2005/10/16 20:59:29 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.82 2005/10/25 20:59:02 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -110,6 +110,7 @@ sub load_dll {
     foreach ( @INC ) {
       if( -f "$_/auto/Wx/Wx.dll" ) {
         $wx_path = "$_/auto/Wx";
+        $wx_path =~ s/ /\\ /g ;
         my $lib = ( glob "$wx_path/wx*${suff}_html*.dll" )[0];
         next unless $lib;
         $lib =~ s{.*[/\\]([^/\\]+)$}{$1};
