@@ -23,6 +23,7 @@ sub configure_core {
   $config{clean} =
     { FILES => "$ovlc $ovlh .exists overload Opt copy_files files.lst" .
                " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" };
+  $config{LIBS} .= ' -lc_r ' if $^O =~ /freebsd/i;
 
   return %config;
 }
@@ -37,6 +38,7 @@ sub configure_ext {
                             core => 0,
                             get_saved_options => !$is_tree );
   my %config = $cfg->get_flags;
+  $config{LIBS} .= ' -lc_r ' if $^O =~ /freebsd/i;
 
   return %config;
 }
