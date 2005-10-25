@@ -1,5 +1,4 @@
-wxPerl is a wrapper built around the wxWidgets
-(formerly known as wxWindows) GUI toolkit
+wxPerl is a wrapper for the wxWidgets (formerly known as wxWindows) GUI toolkit
 
 Copyright (c) 2000-2005 Mattia Barbon.
 This package is free software; you can redistribute it and/or
