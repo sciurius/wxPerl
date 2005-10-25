@@ -43,7 +43,8 @@ sub _data {
         }eg;
       $data{libs} = $_;
     } elsif( s/^\s*g\+\+\s+// ) {
-      s/\s+\S+\.(cpp|o)/ /g;
+      s/\s+\S+\.(cpp|o|d)/ /g;
+      s/\s+-MD\s+/ /g;
       s/(?:\s|^)-[co]//g;
       s{[-/]I(\S+)}{'-I' . canonpath( rel2abs( $1 ) )}egi;
       s{[-/]I(\S+)[\\/]samples[\\/]minimal(\s|$)}{-I$1\\contrib\\include }i;
