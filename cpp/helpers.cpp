@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.75 2005/09/09 16:02:48 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.76 2005/11/01 22:36:45 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -687,7 +687,7 @@ public:
 
 template<class F, class C>
 int wxPli_av_2_thingarray( pTHX_ SV* avref, typename C::lvalue array,
-                           const F& convert, const C& thingy )
+                           const F& convertf, const C& thingy )
 {
     AV* av;
 
@@ -704,7 +704,7 @@ int wxPli_av_2_thingarray( pTHX_ SV* avref, typename C::lvalue array,
     for( int i = 0; i < n; ++i )
     {
         SV* t = *av_fetch( av, i, 0 );
-        convert( aTHX_ arr[i], t );
+        convertf( aTHX_ arr[i], t );
     }
 
     thingy.assign( array, arr );
