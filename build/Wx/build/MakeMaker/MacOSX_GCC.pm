@@ -14,6 +14,14 @@ sub configure_core {
   return %config;
 }
 
+sub const_config {
+    my $text = shift->SUPER::const_config( @_ );
+
+    $text =~ s{^(LD(?:DL)?FLAGS\s*=.*?)-L/usr/local/lib/?}{$1}mg;
+
+    return $text;
+}
+
 sub install_core {
   my $this = shift;
   my $text = $this->SUPER::install_core( @_ );

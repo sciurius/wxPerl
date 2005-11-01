@@ -11,7 +11,7 @@ sub wx_config {
   my $result = $this->SUPER::wx_config( @_ );
 
   # MakeMaker does not like the "-framework foo" options
-  $result =~ s/-framework\s+\w+//g
+  $result =~ s{-framework\s+\w+|-L/usr/local/lib}{}g
     if grep { $_ eq 'libs' } @_;
 
   $result = 'c++' if $_[0] eq 'ld';

@@ -205,6 +205,7 @@ _make_override( 'libscan' );
 _make_override( 'constants' );
 sub ppd { package MY; shift->SUPER::ppd( @_ ) }
 sub dynamic_lib { package MY; shift->SUPER::dynamic_lib( @_ ) }
+sub const_config { package MY; shift->SUPER::const_config( @_ ) }
 
 use vars '%args';
 sub _process_mm_arguments {
