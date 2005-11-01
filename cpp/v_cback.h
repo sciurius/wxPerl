@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.32 2005/08/24 21:22:51 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.33 2005/11/01 22:18:03 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -127,62 +127,6 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         return val;                                                           \
     }                                                                         \
     return false;                                                             \
-  }
-
-#define DEC_V_CBACK_SIZET__VOID_const( METHOD ) \
-  size_t METHOD() const
-
-#define DEF_V_CBACK_SIZET__VOID_const( CLASS, BASE, METHOD ) \
-  size_t CLASS::METHOD() const                                                \
-  {                                                                           \
-    dTHX;                                                                     \
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
-    {                                                                         \
-        SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,       \
-                                                     G_SCALAR, NULL );        \
-        size_t val = SvUV( ret );                                             \
-        SvREFCNT_dec( ret );                                                  \
-        return val;                                                           \
-    } else                                                                    \
-        return BASE::METHOD();                                                \
-  }
-
-#define DEC_V_CBACK_BOOL__VOIDP_const( METHOD ) \
-  bool METHOD( void* ) const
-
-#define DEF_V_CBACK_BOOL__VOIDP_const( CLASS, BASE, METHOD ) \
-  bool CLASS::METHOD( void* param1 ) const                                    \
-  {                                                                           \
-    dTHX;                                                                     \
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
-    {                                                                         \
-        wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback                 \
-                                ( aTHX_ &m_callback, G_SCALAR, NULL ) );      \
-        if( !SvOK( ret ) )                                                    \
-            return false;                                                     \
-        STRLEN len;                                                           \
-        char* val = SvPV( ret, len );                                         \
-        memcpy( param1, val, len );                                           \
-        return true;                                                          \
-    } else                                                                    \
-        return BASE::METHOD( param1 );                                        \
-  }
-
-#define DEC_V_CBACK_BOOL__SIZET_CVOIDP( METHOD ) \
-  bool METHOD( size_t, const void* )
-
-#define DEF_V_CBACK_BOOL__SIZET_CVOIDP( CLASS, BASE, METHOD ) \
-  bool CLASS::METHOD( size_t param1, const void* param2 )                     \
-  {                                                                           \
-    dTHX;                                                                     \
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
-    {                                                                         \
-        wxAutoSV n( aTHX_ newSVpvn( CHAR_P (const char*)param2, param1 ) );   \
-        wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback                 \
-                                ( aTHX_ &m_callback, G_SCALAR, "s", (SV*)n ));\
-        return SvTRUE( ret );                                                 \
-    } else                                                                    \
-        return BASE::METHOD( param1, param2 );                                \
   }
 
 #define DEC_V_CBACK_BOOL__WXDRAGRESULT( METHOD ) \
