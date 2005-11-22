@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.20 2005/06/26 14:08:19 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.21 2005/11/22 22:31:57 mbarbon Exp $
 // Copyright:   (c) 2002-2005 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -188,6 +188,10 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_CMD_PAGEUPEXTEND );
         r( wxSTC_CMD_PAGEDOWN );
         r( wxSTC_CMD_PAGEDOWNEXTEND );
+        r( wxSTC_CMD_PARADOWN );
+        r( wxSTC_CMD_PARADOWNEXTEND );
+        r( wxSTC_CMD_PARAUP );
+        r( wxSTC_CMD_PARAUPEXTEND );
         r( wxSTC_CMD_EDITTOGGLEOVERTYPE );
         r( wxSTC_CMD_CANCEL );
         r( wxSTC_CMD_DELETEBACK );

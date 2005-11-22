@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.59 2005/05/03 20:44:31 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.60 2005/11/22 22:31:57 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -523,8 +523,20 @@ wxWindow::GetTextExtent( string, font = 0 )
     PUSHs( sv_2mortal( newSViv( descent ) ) );
     PUSHs( sv_2mortal( newSViv( externalLeading ) ) );
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 wxString
 wxWindow::GetTitle()
+  CODE:
+    RETVAL = THIS->GetLabel();
+  OUTPUT: RETVAL
+
+#else
+
+wxString
+wxWindow::GetTitle()
+
+#endif
 
 #if wxPERL_USE_TOOLTIPS
 
@@ -986,9 +998,21 @@ wxWindow::SetSizerAndFit( sizer, deleteOld = true )
     wxSizer* sizer
     bool deleteOld
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 void
 wxWindow::SetTitle( title )
     wxString title
+  CODE:
+    THIS->SetLabel( title );
+
+#else
+
+void
+wxWindow::SetTitle( title )
+    wxString title
+
+#endif
 
 #if wxPERL_USE_TOOLTIPS
 

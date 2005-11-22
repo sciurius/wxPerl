@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.25 2004/11/01 16:30:16 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.26 2005/11/22 22:31:57 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -109,6 +109,9 @@ wxFrame::GetStatusBar()
 int
 wxFrame::GetStatusBarPane()
 
+wxString
+wxFrame::GetTitle()
+
 wxToolBar*
 wxFrame::GetToolBar()
 
@@ -181,6 +184,10 @@ wxFrame::SetShape( region )
 void
 wxFrame::SetStatusBar( statusBar )
     wxStatusBar* statusBar
+
+void
+wxFrame::SetTitle( title )
+    wxString title
 
 void
 wxFrame::SetToolBar( toolbar )

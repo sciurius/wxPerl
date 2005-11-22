@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/03/2001
-// RCS-ID:      $Id: ht_constants.cpp,v 1.11 2004/06/20 08:20:30 mbarbon Exp $
+// RCS-ID:      $Id: ht_constants.cpp,v 1.12 2005/11/22 22:31:57 mbarbon Exp $
 // Copyright:   (c) 2001, 2003-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -45,6 +45,7 @@ double html_constant( const char* name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
         r( wxHW_NO_SELECTION );
 #endif
+        r( wxHW_SCROLLBAR_NEVER );
 
         r( wxHTML_ALIGN_LEFT );
         r( wxHTML_ALIGN_CENTER );

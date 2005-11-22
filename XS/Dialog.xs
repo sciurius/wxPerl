@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Dialog.xs,v 1.12 2004/02/29 14:43:24 mbarbon Exp $
+## RCS-ID:      $Id: Dialog.xs,v 1.13 2005/11/22 22:31:57 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -65,6 +65,9 @@ wxDialog::EndModal( retCode )
 int
 wxDialog::GetReturnCode()
 
+wxString
+wxDialog::GetTitle()
+
 void
 wxDialog::Iconize( iconize )
     bool iconize
@@ -102,6 +105,10 @@ wxDialog::SetIcons( icons )
 void
 wxDialog::SetReturnCode( retCode )
     int retCode
+
+void
+wxDialog::SetTitle( title )
+    wxString title
 
 int
 wxDialog::ShowModal()

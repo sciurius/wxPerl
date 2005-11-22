@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.129 2005/10/16 21:03:29 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.130 2005/11/22 22:31:57 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -71,6 +71,26 @@
 #include <wx/splash.h>
 #include <wx/fdrepdlg.h>
 #include <wx/list.h>
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 ) && !WXWIN_COMPATIBILITY_2_6
+#define wxCHB_DEFAULT         wxBK_DEFAULT
+#define wxCHB_TOP             wxBK_TOP
+#define wxCHB_BOTTOM          wxBK_BOTTOM
+#define wxCHB_LEFT            wxBK_LEFT
+#define wxCHB_RIGHT           wxBK_RIGHT
+#define wxCHB_ALIGN_MASK      wxBK_ALIGN_MASK
+#define wxLB_DEFAULT          wxBK_DEFAULT
+#define wxLB_TOP              wxBK_TOP
+#define wxLB_BOTTOM           wxBK_BOTTOM
+#define wxLB_LEFT             wxBK_LEFT
+#define wxLB_RIGHT            wxBK_RIGHT
+#define wxLB_ALIGN_MASK       wxBK_ALIGN_MASK
+#define wxNB_DEFAULT          wxBK_DEFAULT
+#define wxNB_TOP              wxBK_TOP
+#define wxNB_BOTTOM           wxBK_BOTTOM
+#define wxNB_LEFT             wxBK_LEFT
+#define wxNB_RIGHT            wxBK_RIGHT
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // implementation for wxPlConstantsModule OnInit/OnExit
@@ -615,6 +635,13 @@ static double constant( const char *name, int arg )
     r( wxBG_STYLE_SYSTEM );             // window
     r( wxBG_STYLE_COLOUR );             // window
     r( wxBG_STYLE_CUSTOM );             // window
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxBK_DEFAULT );                  // bookctrl
+    r( wxBK_TOP );                      // bookctrl
+    r( wxBK_BOTTOM );                   // bookctrl
+    r( wxBK_LEFT );                     // bookctrl
+    r( wxBK_RIGHT );                    // bookctrl
 #endif
     break;
   case 'C':
@@ -1799,6 +1826,7 @@ static double constant( const char *name, int arg )
     r( wxTE_PROCESS_TAB );              // textctrl
     r( wxTE_MULTILINE );                // textctrl
     r( wxTE_NOHIDESEL );                // textctrl
+    r( wxTE_NO_VSCROLL );               // textctrl
     r( wxTE_PASSWORD );                 // textctrl
     r( wxTE_READONLY );                 // textctrl
     r( wxTE_RICH );                     // textctrl
@@ -1871,6 +1899,8 @@ static double constant( const char *name, int arg )
     r( wxWS_EX_VALIDATE_RECURSIVELY );  // window
     r( wxWS_EX_BLOCK_EVENTS );          // window
     r( wxWS_EX_TRANSIENT );             // window
+    r( wxWS_EX_PROCESS_IDLE );          // window
+    r( wxWS_EX_PROCESS_UI_UPDATES );    // window
     break;
   case 'X':
     r( wxXOR );                         // dc
