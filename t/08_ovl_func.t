@@ -288,7 +288,7 @@ $tbar->InsertTool( 1, Wx::wxID_NEW(), $bmpok, Wx::wxNullBitmap(), 0,
 ok( $instoollong, "Wx::ToolBar::InsertToolLong" );
 
 SKIP: {
-  skip "Only for wxWidgets 2.5+", 3 unless Wx::wxVERSION >= 2.005;
+  skip "Only for wxWidgets 2.5+", 2 unless Wx::wxVERSION >= 2.005;
 
   $tbar->AddTool( -1, "boo", $bmpok, Wx::wxNullBitmap(), 0,
                   'str', 'foo', 'data' );
@@ -296,6 +296,9 @@ SKIP: {
 
   $tbar->AddTool( -1, "bar", $bmpok, 'a', 0 );
   ok( $addnews, "Wx::ToolBar::AddToolNewShort" );
+}
+SKIP: {
+  skip "Only for wxWidgets 2.6+", 1 unless Wx::wxVERSION >= 2.006;
 
   $tbar->InsertTool( 1, Wx::wxID_NEW(), 'lbl', $bmpok, Wx::wxNullBitmap(), 0,
                      'foo', 'moo', undef );

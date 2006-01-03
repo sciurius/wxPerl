@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.130 2005/11/22 22:31:57 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.131 2006/01/03 18:27:12 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -629,8 +629,10 @@ static double constant( const char *name, int arg )
     r( wxBottom );                      // layout constraints 
     r( wxBelow );                       // layout constraints
 
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
     r( wxBUFFER_VIRTUAL_AREA );         // dc
     r( wxBUFFER_CLIENT_AREA );          // dc
+#endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     r( wxBG_STYLE_SYSTEM );             // window
     r( wxBG_STYLE_COLOUR );             // window
@@ -753,6 +755,10 @@ static double constant( const char *name, int arg )
   case 'E':
     r( wxEQUIV );                       // dc
 
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxEVENT_PROPAGATE_NONE );
+    r( wxEVENT_PROPAGATE_MAX );
+#endif
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     r( wxEVT_COMMAND_LISTBOOK_PAGE_CHANGED );
     r( wxEVT_COMMAND_LISTBOOK_PAGE_CHANGING );
@@ -937,7 +943,7 @@ static double constant( const char *name, int arg )
     r( wxEXEC_SYNC );                   // execute
     r( wxEXEC_ASYNC );                  // execute
     r( wxEXEC_NOHIDE );                 // execute
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
     r( wxEXEC_NODISABLE );              // execute
 #endif
     break;
@@ -961,13 +967,14 @@ static double constant( const char *name, int arg )
     r( wxFRAME_NO_TASKBAR );            // frame
     r( wxFRAME_TOOL_WINDOW );           // frame
     r( wxFRAME_EX_CONTEXTHELP );        // frame
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     r( wxFRAME_EX_METAL );              // frame
+#endif
 #if WXPERL_W_VERSION_GE( 2, 4, 1 )
     r( wxFRAME_SHAPED );                // frame
 #endif
 
     r( wxFILE );
-
     r( wxFR_DOWN );                     // findreplace
     r( wxFR_WHOLEWORD );                // findreplace
     r( wxFR_MATCHCASE );                // findreplace

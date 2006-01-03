@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.25 2005/10/16 21:03:41 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.26 2006/01/03 18:27:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,6 +15,7 @@
 #include <wx/dcmemory.h>
 #include <wx/dcclient.h>
 #include <wx/dcscreen.h>
+#include <wx/window.h>
 #include <wx/dcbuffer.h>
 
 #define wxNullBitmapPtr (wxBitmap*) &wxNullBitmap
@@ -598,31 +599,47 @@ wxClientDC::new( window )
 %name{Wx::BufferedDC} class wxBufferedDC
 {
     %name{newDefault} wxBufferedDC();
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     %name{newBitmap} wxBufferedDC( wxDC *dc,
                                    const wxBitmap &buffer = wxNullBitmapPtr,
                                    int style = wxBUFFER_CLIENT_AREA );
     %name{newSize} wxBufferedDC( wxDC *dc, const wxSize &area,
                                  int style = wxBUFFER_CLIENT_AREA );
-
     %name{InitBitmap} void Init( wxDC *dc,
                                  const wxBitmap &buffer = wxNullBitmapPtr,
                                  int style = wxBUFFER_CLIENT_AREA );
     %name{InitSize} void Init( wxDC *dc, const wxSize &area,
                                int style = wxBUFFER_CLIENT_AREA );
+#else
+    %name{newBitmap} wxBufferedDC( wxDC *dc,
+                                   const wxBitmap &buffer = wxNullBitmapPtr );
+    %name{newSize} wxBufferedDC( wxDC *dc, const wxSize &area );
+    %name{InitBitmap} void Init( wxDC *dc,
+                                 const wxBitmap &buffer = wxNullBitmapPtr );
+    %name{InitSize} void Init( wxDC *dc, const wxSize &area );
+#endif
 
     void UnMask();
 
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     void SetStyle( int style );
     int GetStyle();
+#endif
 };
 
 %name{Wx::BufferedPaintDC} class wxBufferedPaintDC
 {
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     %name{newBitmap} wxBufferedPaintDC( wxWindow* window,
                                         const wxBitmap& buffer,
                                         int style = wxBUFFER_CLIENT_AREA );
     %name{newWindow} wxBufferedPaintDC( wxWindow* window,
                                         int style = wxBUFFER_CLIENT_AREA );
+#else
+    %name{newBitmap} wxBufferedPaintDC( wxWindow* window,
+                                        const wxBitmap& buffer );
+    %name{newWindow} wxBufferedPaintDC( wxWindow* window );
+#endif
 };
 
 %{

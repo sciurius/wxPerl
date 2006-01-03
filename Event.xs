@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.48 2005/08/13 23:09:39 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.49 2006/01/03 18:27:12 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -96,6 +96,26 @@ wxEvent::SetTimestamp( timeStamp )
 void
 wxEvent::Skip( skip = true )
     bool skip
+
+bool
+wxEvent::ShouldPropagate()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+
+int
+wxEvent::StopPropagation()
+
+void
+wxEvent::ResumePropagation( propagationLevel )
+    int propagationLevel
+
+#else
+
+void
+wxEvent::SetPropagate( doIt )
+    bool doIt
+
+#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::CommandEvent
 

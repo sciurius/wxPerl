@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.40 2005/10/16 21:03:41 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.41 2006/01/03 18:27:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -97,13 +97,13 @@
                                     int flag = 0, int border = 0,
                                     Wx_UserDataO* data = NULL );
 #endif
-
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
     %name{GetItemWindow} wxSizerItem* GetItem( wxWindow* window,
                                                bool recursive = false );
     %name{GetItemSizer} wxSizerItem* GetItem( wxSizer* sizer,
                                               bool recursive = false );
     %name{GetItemNth} wxSizerItem* GetItem( size_t index );
-
+#endif
     void RecalcSizes();
     void Clear( bool deleteWindows = true );
     void DeleteWindows();
@@ -150,7 +150,7 @@
     %name{ShowSizer} void Show( wxSizer* sizer, bool show = true );
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
     wxSizerItem* AddSpacer( int size );
     wxSizerItem* AddStretchSpacer( int prop = 1 );
 
@@ -159,6 +159,17 @@
 
     wxSizerItem* PrependSpacer( int size );
     wxSizerItem* PrependStretchSpacer( int prop = 1 );
+#else // for xsubpp
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    void AddSpacer( int size );
+    void AddStretchSpacer( int prop = 1 );
+
+    void InsertSpacer( size_t index, int size );
+    void InsertStretchSpacer( size_t index, int prop = 1 );
+
+    void PrependSpacer( int size );
+    void PrependStretchSpacer( int prop = 1 );
+#endif
 #endif
 };
 
