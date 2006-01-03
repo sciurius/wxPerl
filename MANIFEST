@@ -282,6 +282,13 @@ cpp/streams.cpp
 cpp/v_cback.cpp
 cpp/wxapi.h
 
+cpp/wxPerl.osx/English.lproj/InfoPlist.strings
+cpp/wxPerl.osx/Info.plist
+cpp/wxPerl.osx/main.c
+cpp/wxPerl.osx/version.plist
+cpp/wxPerl.osx/wxPerl.xcode/project.pbxproj
+cpp/wxPerl.osx/wxPerl_Prefix.pch
+
 ext/Makefile.PL
 ext/pperl/Makefile.PL
 

@@ -2,6 +2,7 @@ package Wx::build::MakeMaker::MacOSX_GCC;
 
 use strict;
 use base 'Wx::build::MakeMaker::Any_wx_config';
+use Wx::build::Utils qw(write_string);
 
 sub configure_core {
   my $this = shift;
@@ -9,7 +10,7 @@ sub configure_core {
 
   $config{depend}{'$(INST_STATIC)'} .= ' wxPerl';
   $config{depend}{'$(INST_DYNAMIC)'} .= ' wxPerl';
-  $config{clean}{FILES} .= " wxPerl";
+  $config{clean}{FILES} .= " wxPerl cpp/wxPerl.osx/build cpp/wxPerl.osx/wxPerl.c";
 
   return %config;
 }
@@ -35,16 +36,47 @@ sub install_core {
 sub postamble_core {
   my $this = shift;
   my $text = $this->SUPER::postamble_core( @_ );
+  my $wx_config = $ENV{WX_CONFIG} || 'wx-config';
+  my $rfile;
 
-  $text .= sprintf <<'EOT', $ENV{WX_CONFIG} || 'wx-config';
+  if( $this->wx_config->get_wx_version < 2.006 ) {
+    my $rsrc = join ' ', grep { /wx/ } split ' ', `$wx_config --rezflags`;
+    $rfile = sprintf <<EOR, $rsrc;
+	echo '#include <Carbon.r>' > cpp/wxPerl.osx/wxPerl.r
+	cat %s >> cpp/wxPerl.osx/wxPerl.r
+EOR
+  } else {
+    $rfile = <<EOE;
+	echo '#include <Carbon.r>' > cpp/wxPerl.osx/wxPerl.r
+EOE
+  }
 
-wxPerl :
-	cp $(PERL) wxPerl
-	`%s --rezflags` wxPerl
+  write_string( 'cpp/wxPerl.osx/wxPerl.c', sprintf <<EOT, $this->{INSTALLSITEARCH} );
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int main( int argc, char **argv )
+{
+    argv[0] = "%s/auto/Wx/wxPerl.app/Contents/MacOS/wxPerl";
+    execv( argv[0], argv );
+    perror( "wxPerl: execv" );
+    exit( 1 );
+}
+EOT
+
+  $text .= sprintf <<'EOT', $rfile;
+
+wxPerl : Makefile
+%s	cd cpp/wxPerl.osx && xcodebuild -project wxPerl.xcode
+	cp -p $(PERL) cpp/wxPerl.osx/build/wxPerl.app/Contents/MacOS/wxPerl
+	mkdir -p $(INST_ARCHLIB)/auto/Wx
+	cp -rp cpp/wxPerl.osx/build/wxPerl.app $(INST_ARCHLIB)/auto/Wx
+	$(CC) cpp/wxPerl.osx/wxPerl.c -o wxPerl
 
 install_wxperl :
 	mkdir -p $(DESTINSTALLBIN)
-	ditto -rsrcFork wxPerl $(DESTINSTALLBIN)
+	cp -p wxPerl $(DESTINSTALLBIN)
 
 EOT
 
