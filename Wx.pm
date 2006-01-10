@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.83 2006/01/03 18:28:18 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.84 2006/01/10 18:41:54 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -101,8 +101,26 @@ sub _load_file {
                             Wx::_load_plugin( $_[0] );
 }
 
+my( $load_fun, $unload_fun ) = ( \&_load_dll, \&_unload_dll );
+
+sub set_load_function { $load_fun = shift }
+sub set_end_function { $unload_fun = shift }
+
 sub load_dll {
   return if $^O ne 'MSWin32' || Wx::wxVERSION() < 2.005;
+  goto &$load_fun;
+}
+
+sub unload_dll {
+  return if $^O ne 'MSWin32' || Wx::wxVERSION() < 2.005;
+  goto &$unload_fun;
+}
+
+END { unload_dll() }
+
+sub _unload_dll { }
+
+sub _load_dll {
   my $suff = ( Wx::wxUNICODE() ? 'u' : '' ) .
              ( Wx::wxDEBUG()   ? 'd' : '' );
 

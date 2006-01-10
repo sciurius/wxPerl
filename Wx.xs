@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.70 2005/09/08 21:15:52 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.71 2006/01/10 18:41:54 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -318,6 +318,14 @@ _load_plugin( string )
     delete new wxHtmlWindow();
 #endif
     RETVAL = wxPluginManager::LoadLibrary( string, wxDL_VERBATIM );
+  OUTPUT:
+    RETVAL
+
+bool
+_unload_plugin( string )
+    wxString string
+  CODE:
+    RETVAL = wxPluginManager::UnloadLibrary( string );
   OUTPUT:
     RETVAL
 
