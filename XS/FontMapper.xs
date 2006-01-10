@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/09/2002
-## RCS-ID:      $Id: FontMapper.xs,v 1.4 2004/08/04 20:13:54 mbarbon Exp $
+## RCS-ID:      $Id: FontMapper.xs,v 1.5 2006/01/10 18:39:47 mbarbon Exp $
 ## Copyright:   (c) 2002-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -70,9 +70,13 @@ void
 wxFontMapper::SetDialogTitle( title )
     wxString title
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 void
 wxFontMapper::SetConfig( config )
     wxConfigBase* config
+
+#endif
 
 void
 wxFontMapper::SetConfigPath( path )
