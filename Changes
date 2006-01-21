@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.28
+
 0.27  Sun Jan  1 21:13:27 CET 2006
 	- Restored compatibility with wxWidgets 2.5.3.
 	- Build a proper application bundle under Mac OS X.
