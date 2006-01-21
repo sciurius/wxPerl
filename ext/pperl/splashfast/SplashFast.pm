@@ -4,8 +4,8 @@
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     30/06/2002
-## RCS-ID:      $Id: SplashFast.pm,v 1.23 2006/01/21 14:40:32 mbarbon Exp $
-## Copyright:   (c) 2002-2005 Graciliano M. P.
+## RCS-ID:      $Id: SplashFast.pm,v 1.24 2006/01/21 14:52:46 mbarbon Exp $
+## Copyright:   (c) 2002-2006 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
