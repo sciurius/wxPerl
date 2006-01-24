@@ -1,0 +1,68 @@
+#############################################################################
+## Name:        ext/datetime/XS/TimeSpan.xsp
+## Purpose:     XS++ for Wx::TimeSpan
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     10/01/2005
+## RCS-ID:      $Id: TimeSpan.xsp,v 1.1 2006/01/24 07:05:11 netcon Exp $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/datetime.h>
+
+%module{Wx};
+
+%name{Wx::TimeSpan} class wxTimeSpan
+{
+	wxTimeSpan();
+    %name{newFromHMS} wxTimeSpan(
+		long hour = 0,
+        long minute = 0,
+		long second = 0,
+        long millisec = 0 );
+	#~wxTimeSpan();
+
+###	Accessors
+#	wxLongLong GetSeconds();
+#	wxLongLong GetMinutes();
+	int GetHours();
+	int GetDays();
+	int GetWeeks();
+#	wxLongLong GetValue();
+
+### Operations
+#	Add
+#	Subtract
+#	Multiply
+#	Negate
+#	Neg
+#	Abs
+
+###	Tests
+	bool IsNull();
+	bool IsPositive();
+	bool IsNegative();
+	bool IsEqualTo( wxTimeSpan& ts );
+	bool IsLongerThan( wxTimeSpan& ts );
+	bool IsShorterThan( wxTimeSpan& ts );
+
+#	Format
+#	wxString Format( const wxChar* format = wxDefaultTimeSpanFormat );
+};
+
+%{
+#	static functions
+
+#	Seconds
+#	Second
+#	Minutes
+#	Minute
+#	Hours
+#	Hour
+#	Days
+#	Day
+#	Weeks
+#	Week
+%}

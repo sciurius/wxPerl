@@ -1,0 +1,65 @@
+#############################################################################
+## Name:        ext/datetime/XS/DateSpan.xsp
+## Purpose:     XS++ for Wx::DateSpan
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     10/01/2005
+## RCS-ID:      $Id: DateSpan.xsp,v 1.1 2006/01/24 07:05:11 netcon Exp $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/datetime.h>
+
+%module{Wx};
+
+%name{Wx::DateSpan} class wxDateSpan
+{
+	#wxDateSpan();
+	#%name{newFromYMWD} wxDateSpan(
+	#~wxDateSpan();
+	wxDateSpan(
+		int year = 0,
+        int month = 0,
+		int week = 0,
+        int day = 0 );
+
+	# these statics return a DateSpan of according size
+	#Day();
+	#Days( int days );
+
+	int GetDays();
+	int GetMonths();
+	int GetTotalDays();
+	int GetWeeks();
+	int GetYears();
+
+	wxDateSpan& Add( wxDateSpan& ds );
+	wxDateSpan& Multiply( int factor );
+	#wxDateSpan Negate();
+	wxDateSpan& Neg();
+	wxDateSpan& SetDays( int n );
+	wxDateSpan& SetYears( int n );
+	wxDateSpan& SetMonths( int n );
+	wxDateSpan& SetWeeks( int n );
+	wxDateSpan& Subtract( wxDateSpan& ds );
+#	operator==
+#	operator!=
+
+##    bool operator==(const wxGBPosition& p) const; (sample)
+};
+
+#%{
+#	static functions
+
+#	wxDateSpan::Day
+#	wxDateSpan::Days
+#	wxDateSpan::Month
+#	wxDateSpan::Months
+#	wxDateSpan::Week
+#	wxDateSpan::Weeks
+#	wxDateSpan::Year
+#	wxDateSpan::Years
+
+#%}
