@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     22/09/2002
-## RCS-ID:      $Id: typemap,v 1.5 2004/12/21 21:12:47 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.6 2006/01/24 07:03:18 netcon Exp $
 ## Copyright:   (c) 2002-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,10 +13,15 @@
 TYPEMAP
 wxDateTime_t            T_ENUM
 Month                   T_ENUM
+Year                    T_ENUM
 WeekDay                 T_ENUM
 WeekFlags               T_ENUM
+NameFlags               T_ENUM
+Calendar                T_ENUM
 
 wxDateTime *            O_NON_WXOBJECT
+wxDateSpan *            O_NON_WXOBJECT
+wxTimeSpan *            O_NON_WXOBJECT
 wxDateTime::TimeZone    T_TIMEZONE
 
 INPUT
