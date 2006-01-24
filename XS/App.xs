@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: App.xs,v 1.29 2005/09/08 21:15:53 mbarbon Exp $
+## RCS-ID:      $Id: App.xs,v 1.30 2006/01/24 06:56:56 netcon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -182,6 +182,16 @@ void
 wxApp::Yield()
   CODE:
     THIS->wxApp::Yield();
+
+#if defined( __WXMSW__ ) && WXPERL_W_VERSION_GE( 2, 5, 0 )
+int
+GetComCtl32Version()
+  CODE:
+    RETVAL = wxApp::GetComCtl32Version();
+  OUTPUT:
+    RETVAL
+
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 2 )
 
