@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.37 2005/06/26 13:56:46 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.38 2006/02/06 18:44:38 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -200,6 +200,15 @@ IsMain()
 #endif
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
+
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+
+bool
+wxLaunchDefaultBrowser( url, flags = 0 )
+    wxString url
+    int flags
+
+#endif
 
 bool
 wxShowTip( parent, tipProvider, showAtStartup = true )
