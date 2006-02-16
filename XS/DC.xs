@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.26 2006/01/03 18:27:12 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.27 2006/02/16 05:35:35 netcon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -527,6 +527,19 @@ wxDC::StartDoc( message )
 
 void
 wxDC::StartPage()
+
+void
+wxDC::GetLogicalScale()
+  PREINIT:
+    double x, y;
+  PPCODE:
+    THIS->GetLogicalScale( &x, &y );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSVnv( x ) ) );
+    PUSHs( sv_2mortal( newSVnv( y ) ) );
+
+void
+wxDC::SetLogicalScale( double x, double y );
 
 MODULE=Wx PACKAGE=Wx::ScreenDC
 
