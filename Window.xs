@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.60 2005/11/22 22:31:57 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.61 2006/03/03 18:39:59 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -212,8 +212,11 @@ wxWindow::DragAcceptFiles( accept )
 #endif // __WXMSW__
 
 void
-wxWindow::Enable( enable )
+wxWindow::Enable( enable = true )
     bool enable
+
+void
+wxWindow::Disable()
 
 wxWindow*
 FindFocus()
