@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.61 2006/03/03 18:39:59 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.62 2006/03/10 19:25:32 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -106,9 +106,13 @@ void
 wxWindow::CentreOnParent( direction = wxBOTH )
     int direction
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 void
 wxWindow::CentreOnScreen( direction = wxBOTH )
     int direction
+
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
@@ -1067,8 +1071,11 @@ wxWindow::ShouldInheritColours()
 #endif
 
 bool
-wxWindow::Show( show )
+wxWindow::Show( show = true )
     bool show
+
+bool
+wxWindow::Hide()
 
 void
 wxWindow::Thaw()

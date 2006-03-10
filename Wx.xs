@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.71 2006/01/10 18:41:54 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.72 2006/03/10 19:25:32 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -30,6 +30,7 @@
     && (defined(__DARWIN__) || defined(__UNIX__))
 #define HACK
 #include <wx/html/htmlwin.h>
+#include <wx/mediactrl.h>
 #endif
 
 #if defined(__WXMSW__)
@@ -316,6 +317,7 @@ _load_plugin( string )
   CODE:
 #ifdef HACK
     delete new wxHtmlWindow();
+    delete new wxMediaCtrl();
 #endif
     RETVAL = wxPluginManager::LoadLibrary( string, wxDL_VERBATIM );
   OUTPUT:

@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/05/2001
-## RCS-ID:      $Id: demo.pl,v 1.25 2005/11/22 22:46:20 mbarbon Exp $
+## RCS-ID:      $Id: demo.pl,v 1.26 2006/03/10 19:25:33 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -242,6 +242,7 @@ my @demos =
          () ),
        [ 'ListCtrl', demo( 'wxListCtrl' ) ],
        [ 'ScrollBar', demo( 'wxScrollBar' ) ],
+       [ 'MediaCtrl', demo( 'wxMediaCtrl' ) ],
       ],
     ],
     [ 'Sizers',

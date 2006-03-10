@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/02/2001
-## RCS-ID:      $Id: SashWindow.xs,v 1.8 2003/06/04 20:38:43 mbarbon Exp $
+## RCS-ID:      $Id: SashWindow.xs,v 1.9 2006/03/10 19:25:33 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -90,9 +90,13 @@ wxSashWindow::GetMinimumSizeX()
 int
 wxSashWindow::GetMinimumSizeY()
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 bool
 wxSashWindow::HasBorder( edge )
     wxSashEdgePosition edge
+
+#endif
 
 void
 wxSashWindow::SetMaximumSizeX( max )
@@ -115,8 +119,11 @@ wxSashWindow::SetSashVisible( edge, visible )
     wxSashEdgePosition edge
     bool visible
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 void
 wxSashWindow::SetSashBorder( edge, border )
     wxSashEdgePosition edge
     bool border
 
+#endif

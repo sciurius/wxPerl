@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.27 2006/02/16 05:35:35 netcon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.28 2006/03/10 19:25:33 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,8 +29,12 @@ DESTROY( THIS )
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 void
 wxDC::BeginDrawing()
+
+#endif
 
 bool
 wxDC::Blit( xdest, ydest, width, height, source, xsrc, ysrc, logicalFunc = wxCOPY, useMask = false )
@@ -233,8 +237,12 @@ wxDC::DrawText( text, x, y )
 void
 wxDC::EndDoc()
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 void
 wxDC::EndDrawing()
+
+#endif
 
 void
 wxDC::EndPage()
