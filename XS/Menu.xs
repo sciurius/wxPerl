@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.22 2005/05/03 20:44:31 mbarbon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.23 2006/03/16 07:44:12 netcon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -520,6 +520,10 @@ void
 wxMenuBar::SetLabelTop( pos, label )
     int pos
     wxString label
+
+bool
+wxMenuBar::IsEnabledTop( id )
+    int id
 
 MODULE=Wx PACKAGE=Wx::MenuItem
 
