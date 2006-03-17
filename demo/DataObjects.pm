@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/09/2001
-## RCS-ID:      $Id: DataObjects.pm,v 1.5 2004/10/19 20:28:06 mbarbon Exp $
+## RCS-ID:      $Id: DataObjects.pm,v 1.6 2006/03/17 05:45:21 netcon Exp $
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -60,6 +60,39 @@ EOT
 
   return $data;
 }
+
+package MyPerlDataObject;
+
+use strict;
+use base qw( Wx::PlDataObjectSimple );
+
+use Storable qw( freeze thaw );
+
+sub new {
+    my( $class, $data ) = @_;
+    my $self = $class->SUPER::new( Wx::DataFormat->newUser( __PACKAGE__ ) );
+	$self->{Data} = $data;
+    return $self;
+}
+
+sub SetData {
+    my( $self, $data ) = @_;
+    $self->{Data} = thaw $data ;
+    return 1;
+}
+
+sub GetDataHere {
+    my ($self) = @_;
+    return freeze $self->{Data} if ref $self->{Data};
+}
+
+sub GetDataSize {
+    my( $self ) = @_;
+    return length freeze $self->{Data} if ref $self->{Data};
+}
+
+sub GetPerlData { $_[0]->{Data} }
+
 
 1;
 

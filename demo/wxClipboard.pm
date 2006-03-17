@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/09/2001
-## RCS-ID:      $Id: wxClipboard.pm,v 1.7 2004/10/19 20:28:06 mbarbon Exp $
+## RCS-ID:      $Id: wxClipboard.pm,v 1.8 2006/03/17 05:45:21 netcon Exp $
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -68,10 +68,15 @@ sub new {
   EVT_BUTTON( $this, $copy, \&OnCopyText );
   EVT_BUTTON( $this, $paste, \&OnPaste );
   EVT_BUTTON( $this, $copy_im, \&OnCopyImage );
+
   # unfortunately pasting a composite data object segfaults
   # on wx 2.2/wxGTK
   my $copy_both = Wx::Button->new( $this, -1, 'Copy Both', [ 20, 80 ] );
   EVT_BUTTON( $this, $copy_both, \&OnCopyBoth );
+
+  # this does NOT work on WinXP
+  my $copy_pd = Wx::Button->new( $this, -1, 'Copy Data', [ 20, 110 ] );
+  EVT_BUTTON( $this, $copy_pd, \&OnCopyData );
 
   # wxTheClipboard->UsePrimarySelection( 0 );
 
@@ -113,6 +118,14 @@ sub OnCopyBoth {
   Wx::LogMessage( "Copied both text and image" );
 }
 
+sub OnCopyData {
+  my( $this, $event ) = @_;
+  my $PerlData = { fruit => 'lemon', colour => 'yellow' };
+  my $data = MyPerlDataObject->new( $PerlData );
+  _Copy( $data );
+  Wx::LogMessage( "Copied perl data object: fruit=$PerlData->{fruit}, colour=$PerlData->{colour}" );
+}
+
 sub OnPaste {
   my( $this, $event ) = @_;
 
@@ -145,6 +158,25 @@ sub OnPaste {
     }
   }
   $this->image->SetBitmap( $bitmap );
+
+  # testing the perl data object
+  my $data = MyPerlDataObject->new();
+  Wx::LogMessage( "Testing if clipboard supports: " . $data->GetFormat->GetId() );
+  if( wxTheClipboard->IsSupported( $data->GetFormat ) ) {
+	Wx::LogMessage( "It does: get data from clipboard" );
+	my $ok = wxTheClipboard->GetData( $data );
+	if( $ok ) {
+	  Wx::LogMessage( "Pasted perl data object" );
+	  my $PerlData = $data->GetPerlData();
+	  foreach (keys %$PerlData) {
+		  $text .= "$_ = $PerlData->{$_} ";
+	  }
+	} else {
+	  Wx::LogMessage( "Error pasting perl data object" );
+	  $text = '';
+	}
+    $this->text->SetLabel( $text );
+  }
 
   wxTheClipboard->Close;
 }
