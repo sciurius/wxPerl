@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/03/2006
-## RCS-ID:      $Id: Media.pm,v 1.1 2006/03/10 19:25:34 mbarbon Exp $
+## RCS-ID:      $Id: Media.pm,v 1.2 2006/04/05 17:49:11 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,7 +29,22 @@ Wx::wx_boot( 'Wx::Media', $VERSION );
 no strict;
 
 package Wx::MediaCtrl; @ISA = qw(Wx::Control);
+package Wx::MediaEvent; @ISA = qw(Wx::NotifyEvent);
 
 use strict;
+
+package Wx::Event;
+
+use strict;
+
+# !parser: sub { $_[0] =~ m/sub (EVT_\w+)/ }
+# !package: Wx::Event
+
+sub EVT_MEDIA_LOADED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_MEDIA_LOADED, $_[2] ) };
+sub EVT_MEDIA_FINISHED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_MEDIA_FINISHED, $_[2] ) };
+sub EVT_MEDIA_STOP($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_MEDIA_STOP, $_[2] ) };
+sub EVT_MEDIA_PAUSE($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_MEDIA_PAUSE, $_[2] ) };
+sub EVT_MEDIA_PLAY($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_MEDIA_PLAY, $_[2] ) };
+sub EVT_MEDIA_STATECHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_MEDIA_STATECHANGED, $_[2] ) };
 
 1;

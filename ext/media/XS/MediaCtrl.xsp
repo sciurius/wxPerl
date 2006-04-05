@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/03/2006
-## RCS-ID:      $Id: MediaCtrl.xsp,v 1.1 2006/03/10 19:25:33 mbarbon Exp $
+## RCS-ID:      $Id: MediaCtrl.xsp,v 1.2 2006/04/05 17:49:11 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -23,6 +23,9 @@
 
 %typemap{wxMediaCtrl*}{simple};
 %typemap{wxMediaCtrlPlayerControls}{simple};
+%typemap{wxMediaState}{simple};
+%typemap{off_t}{simple};
+%typemap{wxSeekMode}{simple};
 
 %name{Wx::MediaCtrl} class wxMediaCtrl
 {
@@ -46,12 +49,21 @@
                  const wxValidator& validator = wxDefaultValidatorPtr,
                  const wxString& name = wxPanelNameStr );
 
+    off_t Tell();
+    off_t Length();
+    off_t Seek( off_t where, wxSeekMode whence );
+
+    wxMediaState GetState();
+
     bool Play();
     bool Pause();
     bool Stop();             
 
     double GetVolume();
     bool SetVolume( double volume );
+
+    double GetPlaybackRate();
+    bool SetPlaybackRate( double volume );
 
     bool ShowPlayerControls( wxMediaCtrlPlayerControls flags =
                                  wxMEDIACTRLPLAYERCONTROLS_DEFAULT );
