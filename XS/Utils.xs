@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.39 2006/04/16 15:11:07 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.40 2006/04/16 18:51:08 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -208,12 +208,14 @@ wxLaunchDefaultBrowser( url, flags = 0 )
     wxString url
     int flags
 
-#elif WXPERL_W_VERSION_GE( 2, 6, 1 )
+#else
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
 
 bool
 wxLaunchDefaultBrowser( url )
     wxString url
 
+#endif
 #endif
 
 bool

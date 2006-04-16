@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.49_02  Sun Apr 16 20:45:39 CEST 2006
+	- Added missing files to MANIFEST.
+
 0.49_01  Sun Apr 16 17:01:25 CEST 2006
 	- Added Wx::MediaCtrl.
 	- Refactored build system, now based upon Alien::wxWidgets.

@@ -300,7 +300,9 @@ ext/datetime/DateTime.xs
 ext/datetime/Makefile.PL
 ext/datetime/t/01_load.t
 ext/datetime/typemap
+ext/datetime/XS/DateSpan.xsp
 ext/datetime/XS/DateTime.xsp
+ext/datetime/XS/TimeSpan.xsp
 
 ext/dnd/DND.xs
 ext/dnd/Makefile.PL
@@ -388,6 +390,16 @@ ext/mdi/lib/Wx/MDI.pm
 ext/mdi/t/01_load.t
 ext/mdi/t/02_inheritance.t
 ext/mdi/typemap
+
+ext/media/cpp/me_constants.cpp
+ext/media/lib/Wx/Media.pm
+ext/media/Makefile.PL
+ext/media/Media.xs
+ext/media/t/01_load.t
+ext/media/t/02_inheritance.t
+ext/media/typemap
+ext/media/XS/MediaCtrl.xsp
+ext/media/XS/MediaEvent.xsp
 
 ext/print/Makefile.PL
 ext/print/Print.xs
@@ -519,6 +531,7 @@ demo/wxHtmlTag.pm
 demo/wxHtmlWindow.pm
 demo/wxListCtrl.pm
 demo/wxLocale.pm
+demo/wxMediaCtrl.pm
 demo/wxNotebookSizer.pm
 demo/wxProcess.pm
 demo/wxSTC.pm
