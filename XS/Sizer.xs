@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.41 2006/01/03 18:27:12 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.42 2006/04/16 15:11:07 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -311,6 +311,8 @@ wxSizer::Detach( ... )
         MATCH_REDISP( wxPliOvl_n, DetachNth )
     END_OVERLOAD( Wx::Sizer::Detach )
 
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
 void
 wxSizer::GetItem( ... )
   PPCODE:
@@ -319,6 +321,8 @@ wxSizer::GetItem( ... )
         MATCH_REDISP( wxPliOvl_wszr_s, GetItemSizer )
         MATCH_REDISP( wxPliOvl_n, GetItemNth )
     END_OVERLOAD( Wx::Sizer::GetItem )
+
+#endif
 
 void
 wxSizer::SetItemMinSize( ... )

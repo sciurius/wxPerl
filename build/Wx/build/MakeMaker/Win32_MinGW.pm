@@ -15,21 +15,6 @@ EOT
 }
 
 #
-# MinGW might require mingwm10.dll; since it's just 14k,
-# don't bother and just copy it
-#
-sub files_to_install {
-  my $this = shift;
-  my $dll = 'mingwm10.dll';
-  my $dll_from = path_search( $dll );
-
-  return ( $this->SUPER::files_to_install(),
-           ( defined $dll_from ?
-             ( $dll_from => Wx::build::Utils::arch_auto_file( "Wx/$dll" ) ) :
-             () ) );
-}
-
-#
 # fixes link command line to use g++ instead of dlltool
 #
 sub dynamic_lib {
@@ -38,7 +23,7 @@ sub dynamic_lib {
 
   return $text unless $text =~ m/dlltool/i;
 
-  my $strip = $this->wx_config->_debug ? '' : ' -s ';
+  my $strip = $this->_debug ? '' : ' -s ';
 
   $text =~ s{(?:^\s+(?:dlltool|\$\(LD\)).*\n)+}
     {\tg++ -shared $strip -o \$@ \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(BASEEXT).def\n}m;

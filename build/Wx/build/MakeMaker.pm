@@ -1,13 +1,13 @@
 package Wx::build::MakeMaker;
 
 use strict;
-use Wx::build::Config;
-use Wx::build::Options;
 use ExtUtils::MakeMaker;
+use Alien::wxWidgets 0.04 ();
 use base 'Exporter';
+use Config;
 use vars qw(@EXPORT $VERSION);
 
-$VERSION = '0.19';
+$VERSION = '0.28';
 @EXPORT = 'wxWriteMakefile';
 
 # sanitize File::Find on filesystems where nlink of directories is < 2
@@ -114,7 +114,36 @@ Package to be hooked into the MakeMaker inheritance chain.
 =cut
 
 # this is the default
-my $hook_package = 'Wx::build::MakeMaker::' . Wx::build::Config->get_package;
+my $hook_package;
+
+BEGIN {
+  my $package_to_use;
+ SWITCH: {
+    local $_ = $Config{osname};
+
+    # Win32
+    m/MSWin32/ and do {
+      local $_ = $Config{cc};
+
+      m/^cl/i  and $package_to_use = 'Win32_MSVC'  and last SWITCH;
+      m/^gcc/i and $package_to_use = 'Win32_MinGW' and last SWITCH;
+
+      # default
+      die "Your compiler is not currently supported on Win32"
+    };
+
+    # MacOS X is slightly different...
+    m/darwin/ and do {
+      $package_to_use = 'MacOSX_GCC';
+      last SWITCH;
+    };
+
+    # default
+    $package_to_use = 'Any_wx_config';
+    last SWITCH;
+  }
+  $hook_package = 'Wx::build::MakeMaker::' . $package_to_use;
+}
 
 sub set_hook_package {
   $hook_package = shift;
@@ -134,15 +163,54 @@ sub import {
 
 =head1 METHODS
 
-=head2 wx_config
+=head2 get_api_directory
 
-  my $cfg = $this->wx_config();
+  my $dir = $cfg->get_api_directory;
 
-Get the appropriate C<Wx::build::Config> object.
+=head2 get_arch_directory
+
+  my $dir = $cfg->get_arch_directory;
 
 =cut
 
-sub wx_config { $_[0]->{WX_CONFIG} }
+sub get_api_directory {
+  if( is_wxPerl_tree() ) {
+    return Wx::build::Utils::_top_dir();
+  } else {
+    my $path = $INC{'Wx/build/MakeMaker.pm'};
+    my( $vol, $dir, $file ) = File::Spec->splitpath( $path );
+    my @dirs = File::Spec->splitdir( $dir ); pop @dirs; pop @dirs;
+    return File::Spec->catpath( $vol, File::Spec->catdir( @dirs ) );
+  }
+}
+
+sub get_arch_directory {
+  if( is_wxPerl_tree() ) {
+    require Carp;
+    Carp::confess( "Should not be called!" );
+  } else {
+    my $path = $INC{'Wx/build/Opt.pm'};
+    my( $vol, $dir, $file ) = File::Spec->splitpath( $path );
+    my @dirs = File::Spec->splitdir( $dir ); pop @dirs; pop @dirs; pop @dirs;
+    return File::Spec->catpath( $vol, File::Spec->catdir( @dirs ) );
+  }
+}
+
+sub get_core_lib {
+  my( $this, @libs ) = @_;
+
+  return join ' ', Alien::wxWidgets->libraries( @libs );
+}
+
+our $is_core = 0;
+
+sub get_wx_platform { Alien::wxWidgets->config->{toolkit} }
+sub get_wx_version { Alien::wxWidgets->version }
+sub _unicode { Alien::wxWidgets->config->{unicode} }
+sub _mslu    { Alien::wxWidgets->config->{mslu} }
+sub _debug   { Alien::wxWidgets->config->{debug} }
+sub _core    { $is_core }
+sub _static  { Alien::wxWidgets->config->{static} }
 
 sub _make_hook {
   my $hook_sub = shift;
@@ -156,14 +224,6 @@ sub _make_hook {
     undef *{"${class}::${hook_sub}"};
     unshift @{"${class}::ISA"}, $hook_package;
 
-    $this->{WX_CONFIG} =
-      Wx::build::Config->new( Wx::build::Options->
-                              get_options( is_wxPerl_tree() ?
-                                           'command_line' :
-                                           'saved' ),
-                              core => is_core(),
-                              get_saved_options => !is_wxPerl_tree() );
-
     shift->$hook_sub( @_ );
   }
 }
@@ -171,6 +231,66 @@ sub _make_hook {
 # this method calls ->configure
 # in the appropriate Wx::build::MakeMaker::PACKAGE,
 # and merges the results with its inputs
+use vars qw(%cfg1 %cfg2);
+
+sub _libs($) { ref( $_[0] ) ? @{$_[0]} : ( $_[0] ) }
+
+# removes the -L/path from the imput and returns them and
+# the cleaned input
+sub _split_lib($) {
+  my $str = shift || '';
+  my @paths = $str =~ m/(-L[^ ]+)/g;
+  $str =~ s/-L[^ ]+ +//g;
+
+  return ( $str, @paths );
+}
+
+sub merge_config {
+  my( $cfg1, $cfg2 ) = @_;
+  local *cfg1 = $cfg1;
+  local *cfg2 = $cfg2;
+  my %cfg = %cfg1;
+
+  foreach my $i ( keys %cfg2 ) {
+    if( exists $cfg{$i} ) {
+      # merging libraries is always a mess; the hope is that
+      # this will work in all cases, but there are no guarantees...
+      if( $i eq 'LIBS' ) {
+        my @a = _libs(  $cfg{LIBS} );
+        my @b = _libs( $cfg2{LIBS} );
+
+        my @c;
+        foreach my $i ( @b ) {
+          my( $mi, @ipaths ) = _split_lib( $i );
+          foreach my $j ( @a ) {
+            my( $mj, @jpaths ) = _split_lib( $j );
+            push @c, " @ipaths @jpaths $mj $mi ";
+          }
+        }
+
+        $cfg{LIBS} = \@c;
+        next;
+      }
+
+      if( $i eq 'clean' || $i eq 'realclean' ) {
+        $cfg{$i}{FILES} .= ' ' . $cfg{$i}{FILES};
+        next;
+      }
+
+      if( ref($cfg{$i}) || ref($cfg2{$i}) ) {
+        die "non scalar key '$i' while merging configuration information";
+        $cfg{$i} = $cfg2{$i};
+      } else {
+        $cfg{$i} .= " $cfg2{$i}";
+      }
+    } else {
+      $cfg{$i} = $cfg2{$i};
+    }
+  }
+
+  return %cfg;
+}
+
 sub configure {
   ( my $file = $hook_package ) =~ s{::}{/}g;
   require "$file.pm";
@@ -178,7 +298,7 @@ sub configure {
   my $this = $_[0];
   my %cfg1 = %{$_[1]};
   my %cfg2 = _call_method( 'configure', $hook_package );
-  my %cfg = Wx::build::Config->merge_config( \%cfg1, \%cfg2 );
+  my %cfg = merge_config( \%cfg1, \%cfg2 );
 
   return \%cfg;
 }
@@ -210,20 +330,14 @@ sub const_config { package MY; shift->SUPER::const_config( @_ ) }
 use vars '%args';
 sub _process_mm_arguments {
   local *args = $_[0];
-  my $cfg =
-    Wx::build::Config->new( Wx::build::Options->get_options( is_wxPerl_tree() ?
-                                                             'command_line' :
-                                                             'saved' ),
-                            core => is_core(),
-                            get_saved_options => !is_wxPerl_tree() );
   my $build = 1;
-  my $platform = $cfg->get_wx_platform;
   my %options =
     Wx::build::Options->get_makemaker_options( is_wxPerl_tree()
                                                ? () : ( 'saved' ) );
+  my $platform = Alien::wxWidgets->config->{toolkit};
 
-  $args{CCFLAGS} .= ' ' . ( $options{extra_cflags} || '' );
-  $args{LIBS} .= ' ' . ( $options{extra_libs} || '' );
+  $args{CCFLAGS} .= $options{extra_cflags} ? ' ' . $options{extra_cflags} : '';
+  $args{LIBS} .=  $options{extra_libs} ? ' ' . $options{extra_libs} : '';
   $args{WX_CORE_LIB} ||= 'adv html core net base';
 
   foreach ( keys %args ) {
@@ -231,19 +345,16 @@ sub _process_mm_arguments {
 
     m/^WX_CORE_LIB$/ and do {
       my @libs = split ' ', $v;
-      $args{LIBS} .= join ' ', $cfg->get_core_lib( @libs );
+      $args{LIBS} .= ' ' . join ' ', __PACKAGE__->get_core_lib( @libs ) if $v=~/\S/;
       delete $args{$_};
     };
 
     m/^WX_LIB$/ and do {
-      $args{LIBS} .= join ' ',
-        map { $cfg->get_contrib_lib( $_ ) }
-          ( ref( $v ) ? ( @$v ) : ( $v ) );
-      delete $args{$_};
+      die "Please use WX_CORE_LIB instead of WX_LIB";
     };
 
     m/^REQUIRE_WX$/ and do {
-      $build &&= $cfg->get_wx_version() >= $v;
+      $build &&= __PACKAGE__->get_wx_version() >= $v;
       delete $args{$_};
     };
 
@@ -272,14 +383,14 @@ sub _process_mm_arguments {
 
 sub wxWriteMakefile {
   my %params = @_;
+  local $is_core = 0;
 
   $params{XSOPT}     = ' -noprototypes' .
     ( is_wxPerl_tree() ? ' -nolinenumbers ' : ' ' );
   $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;
   require Wx::build::MakeMaker::Any_OS;
   push @{$params{TYPEMAPS} ||= []},
-    # don't tell anyone this doesn't require a Wx::build::Config *object*
-    File::Spec->catfile( Wx::build::Config->get_api_directory, 'typemap' );
+    File::Spec->catfile( __PACKAGE__->get_api_directory, 'typemap' );
   ( $params{PREREQ_PM} ||= {} )->{Wx} ||= '0.19' unless is_wxPerl_tree();
 
   my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params );

@@ -3,10 +3,37 @@ package Wx::build::MakeMaker::Win32;
 use strict;
 use base 'Wx::build::MakeMaker::Any_OS';
 use Wx::build::Utils;
-use File::Basename ();
+use Config;
 
-# only used for core (to copy the file)
-my $wx_setup_dir = undef;
+sub is_mingw() { $Config{cc} =~ /gcc/ }
+
+sub get_flags {
+  my $this = shift;
+  my %config = $this->SUPER::get_flags;
+
+  $config{CC} = Alien::wxWidgets->compiler;
+  $config{LD} = Alien::wxWidgets->linker;
+  $config{CCFLAGS} .= Alien::wxWidgets->c_flags . ' ';
+#  $config{dynamic_lib}{OTHERLDFLAGS} = Alien::wxWidgets->link_flags;
+  $config{clean}{FILES} .= is_mingw ? ' dll.base dll.exp '
+                                    :' *.pdb *.pdb *_def.old ';
+  $config{DEFINE} .= Alien::wxWidgets->defines . ' ';
+  $config{INC} .= Alien::wxWidgets->include_path;
+
+  if( $this->_debug ) {
+    $config{OPTIMIZE} = ' ';
+  }
+
+  if( is_mingw() ) {
+      # add $MINGWDIR/lib to lib search path, to stop perl from complaining...
+      my $path = Wx::build::Utils::path_search( 'gcc.exe' )
+        or warn "Unable to find gcc";
+      $path =~ s{bin[\\/]gcc\.exe$}{}i;
+      $config{LIBS} = "-L${path}lib " . ( $config{LIBS} || '' );
+  }
+
+  return %config;
+}
 
 sub configure_core {
   my $this = shift;
@@ -18,36 +45,12 @@ sub configure_core {
   $config{dynamic_lib}{INST_DYNAMIC_DEP} .= " $res";
   $config{clean}{FILES} .= " $res Wx_def.old";
 
-  die "Unable to find setup.h directory"
-    unless $config{INC} =~ m{[/-]I(\S+lib[\\/][\w\\/]+)(?:\s|$)};
-  $wx_setup_dir = $1;
-
-  return %config;
-}
-
-sub configure_ext {
-  my $this = shift;
-  my $is_tree = Wx::build::MakeMaker::is_wxPerl_tree();
-  my %config = $this->SUPER::configure_ext( @_ );
-  return %config if $is_tree;
-  my $cfg =
-    Wx::build::Config->new( Wx::build::Options->get_options( $is_tree ?
-                                                             'command_line' :
-                                                             'saved' ),
-                            core => 0,
-                            get_saved_options => !$is_tree );
-
-  # installed setup.h
-  $config{INC} = '-I' . File::Spec->catdir( $cfg->get_arch_directory,
-                                            'Wx', 'build' )
-    . ' ' . $config{INC};
-
   return %config;
 }
 
 sub postamble_core {
   my $this = shift;
-  my $wxdir = $this->wx_config->wx_config( 'wxdir' );
+  my $wxdir = Alien::wxWidgets->wx_base_directory;
   my $text = $this->SUPER::postamble_core( @_ );
   my $command = $this->_res_command;
   my $res_file = $this->_res_file;
@@ -70,30 +73,6 @@ ppm : pure_all
 	perl script/make_ppm.pl
 
 EOT
-}
-
-sub files_to_install {
-  my $this = shift;
-  my %files = $this->SUPER::files_to_install();
-  my $dlls = $this->wx_config->wx_config( 'dlls' );
-  my $setup_h = File::Spec->catfile( $wx_setup_dir, 'wx', 'setup.h' );
-  my $build_cfg = File::Spec->catfile( $wx_setup_dir, 'build.cfg' );
-
-  $files{$build_cfg} = Wx::build::Utils::arch_file( "Wx/build/build.cfg" )
-    if -f $build_cfg;
-
-  $files{$setup_h} = Wx::build::Utils::arch_file( "Wx/build/wx/setup.h" );
-  foreach my $dll ( map { $_->{dll} } values %$dlls ) {
-    my $base = File::Basename::basename( $dll );
-    $files{$dll} = Wx::build::Utils::arch_auto_file( "Wx/$base" );
-  }
-  foreach my $lib ( map { $_->{lib} } values %$dlls ) {
-    next unless defined $lib;
-    my $base = File::Basename::basename( $lib );
-    $files{$lib} = Wx::build::Utils::arch_auto_file( "Wx/$base" );
-  }
-
-  return %files;
 }
 
 1;

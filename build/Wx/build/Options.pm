@@ -8,33 +8,34 @@ Wx::build::Options - retrieve wxWidgets/wxPerl build options
 
 =head1 METHODS
 
-=head2 get_options
-
-  my %options = Wx::build::Options->get_options( $from );
-
-Valid values for I<$from> are C<'command_line'> and C<'saved'>.
-
-  %options = ( unicode => 0,
-               static  => 0,
-               debug   => 0,
-              );
-
 =cut
 
 use Getopt::Long;
 Getopt::Long::Configure( 'pass_through' );
 
-my $debug        = 0;
-my $unicode      = 0;
-my $mslu         = 0;
 my $help         = 0;
-my $static       = 0;
 my $mksymlinks   = 0;
 my $extra_libs   = '';
 my $extra_cflags = '';
+my $alien_key    = '';
 my %subdirs      = ();
-
+my %wx           = ();
 my $options;
+
+sub _wx_version {
+    my( $o, $v ) = @_;
+
+    $v =~ m/(\d+)\.(\d+)(?:\.(\d+))?/
+      or die 'Invalid version specification: ', $v, "\n";
+
+    if( defined $3 ) {
+        $wx{version} = [ $1 + $2 / 1000 + $3 / 1000000,
+                         $1 + $2 / 1000 + ( $3 + 1 ) / 1000000 ];
+    } else {
+        $wx{version} = [ $1 + $2 / 1000,
+                         $1 + ( $2 + 1 ) / 1000 ];
+    }
+}
 
 sub _load_options {
   return if $options;
@@ -42,25 +43,10 @@ sub _load_options {
   $options = do 'Wx/build/Opt.pm';
   die "Unable to load options: $@" unless $options;
 
-  ( $debug, $unicode, $mslu, $static, $extra_cflags, $extra_libs )
-    = @{$options}{qw(debug unicode mslu static extra_cflags extra_libs)};
-}
+  ( $extra_cflags, $extra_libs, $alien_key )
+    = @{$options}{qw(extra_cflags extra_libs alien_key)};
 
-sub get_options {
-  my $ref = shift;
-  my $from = shift;
-
-  if( $from eq 'saved' ) {
-    _load_options();
-  } else {
-    _parse_options();
-  }
-
-  return ( unicode => $unicode,
-           mslu    => $mslu,
-           static  => $static,
-           debug   => $debug,
-         );
+  Alien::wxWidgets->load( key => $alien_key );
 }
 
 my $parsed = 0;
@@ -71,14 +57,16 @@ sub _parse_options {
 
   $parsed = 1;
 
-  my $result = GetOptions( 'debug'          => \$debug,
-                           'unicode'        => \$unicode,
-                           'mslu'           => \$mslu,
-                           'help'           => \$help,
-                           'static'         => \$static,
+  my $result = GetOptions( 'help'           => \$help,
                            'mksymlinks'     => \$mksymlinks,
                            'extra-libs=s'   => \$extra_libs,
                            'extra-cflags=s' => \$extra_cflags,
+                           # for Alien::wxWidgets
+                           'wx-debug!'      => \($wx{debug}),
+                           'wx-unicode!'    => \($wx{unicode}),
+                           'wx-mslu!'       => \($wx{mslu}),
+                           'wx-version=s'   => \&_wx_version,
+                           'wx-toolkit=s'   => \($wx{toolkit}),
                            '<>'             => \&_process_options,
                          );
 
@@ -90,17 +78,28 @@ Usage: perl Makefile.PL [options]
   --enable/disable-foo where foo is one of: dnd filesys grid help
                        html mdi print xrc stc docview calendar datetime 
   --help               you are reading it
-  --debug              enable debugging
-  --unicode            enable Unicode support (MSW/GTK2 only)
-  --mslu               use libunicows for Unicode
-  --static             link all extensions in a single big shared object
   --mksymlinks         create a symlink tree
   --extra-libs=libs    specify extra linking flags
   --extra-cflags=flags specify extra compilation flags
+
+  --[no-]wx-debug      [Non-] debugging wxWidgets
+  --[no-]wx-unicode    [Non-] Unicode wxWidgets
+  --[no-]wx-mslu       [Non-] MSLU wxWidgets (Windows only)
+  --wx-version=2.6[.1] 
+  --wx-toolkit=msw|gtk|gtk2|motif|mac|wce|...
 HELP
 
     exit !$result;
   }
+
+  if( $wx{toolkit} && $wx{toolkit} eq 'wce' ) {
+    $wx{compiler_kind} = 'evc';
+  }
+
+  Alien::wxWidgets->load( map  { $_ => $wx{$_} }
+                          grep { defined $wx{$_} }
+                               keys %wx );
+  $alien_key = Alien::wxWidgets->key;
 }
 
 sub _process_options {
@@ -162,12 +161,9 @@ sub write_config_file {
   my $file = shift;
 
   require Data::Dumper;
-  my $str = Data::Dumper->Dump( [ { debug        => $debug,
-                                    unicode      => $unicode,
-                                    mslu         => $mslu,
-                                    static       => $static,
-                                    extra_libs   => $extra_libs,
-                                    extra_cflags => $extra_cflags
+  my $str = Data::Dumper->Dump( [ { extra_libs   => $extra_libs,
+                                    extra_cflags => $extra_cflags,
+                                    alien_key    => $alien_key,
                                   } ] );
 
   Wx::build::Utils::write_string( $file, $str );

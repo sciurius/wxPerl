@@ -8,15 +8,6 @@ README.txt
 Changes
 run
 
-build/Wx/build/Config/Any_OS.pm
-build/Wx/build/Config/Any_wx_config.pm
-build/Wx/build/Config/gmake.mak
-build/Wx/build/Config/MacOSX_GCC.pm
-build/Wx/build/Config/nmake.mak
-build/Wx/build/Config/Win32.pm
-build/Wx/build/Config/Win32_MinGW.pm
-build/Wx/build/Config/Win32_MSVC.pm
-build/Wx/build/Config.pm
 build/Wx/build/MakeMaker/Any_OS.pm
 build/Wx/build/MakeMaker/Any_wx_config.pm
 build/Wx/build/MakeMaker/MacOSX_GCC.pm
@@ -36,6 +27,7 @@ script/XSpp.pod
 script/XSP.pm
 script/XSP.yp
 script/copy_files.pl
+script/fix_alien_path.pl
 script/make_exp_list.pl
 script/make_ovl_list.pl
 script/make_ppm.pl
@@ -65,6 +57,7 @@ lib/Wx/ArtProvider.pm
 lib/Wx/Event.pm
 lib/Wx/Locale.pm
 lib/Wx/Menu.pm
+lib/Wx/Mini.pm
 lib/Wx/RadioBox.pm
 lib/Wx/Region.pm
 lib/Wx/Timer.pm

@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/08/2003
-## RCS-ID:      $Id: make_ppm.pl,v 1.1 2003/08/26 16:43:42 mbarbon Exp $
-## Copyright:   (c) 2003 Mattia Barbon
+## RCS-ID:      $Id: make_ppm.pl,v 1.2 2006/04/16 15:11:07 mbarbon Exp $
+## Copyright:   (c) 2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -31,10 +31,8 @@ sub wanted {
 my( @dev, @bin );
 
 foreach ( @files ) {
-  if( m[\.(?:lib|a)$]i
-   || m[Wx/(?:cpp|build)]
-   || m[Api\.pod$]
-   || m[typemap$] ) {
+  if( m[\.(?:lib|a|h)$]i
+      ) {
     push @dev, $_;
     next;
   }
@@ -42,20 +40,20 @@ foreach ( @files ) {
   push @bin, $_;
 }
 
-my $auth   = 'Mattia Barbon <MBARBON@cpan.org>';
-my $wx_ver = Module::Info->new_from_file( 'Wx.pm' )->version;
+my $auth   = 'Mattia Barbon <mbarbon@cpan.org>';
+my $wx_ver = Module::Info->new_from_file( 'lib/Alien/wxWidgets.pm' )->version;
 
 my @ppms =
   ( { files    => [ @bin ],
-      package  => 'Wx',
+      package  => 'Alien-wxWidgets',
       version  => $wx_ver,
-      abstract => 'interface to the wxWindows GUI toolkit',
+      abstract => 'get information about a wxWidgets build',
       author   => $auth,
     },
     { files    => [ @dev ],
-      package  => 'Wx-dev',
+      package  => 'Alien-wxWidgets-dev',
       version  => $wx_ver,
-      abstract => 'developement files for wxPerl',
+      abstract => 'developement files for Alien-wxWidgets',
       author   => $auth,
     },
   );

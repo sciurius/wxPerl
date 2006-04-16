@@ -4,7 +4,7 @@
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     30/06/2002
-## RCS-ID:      $Id: SplashFast.pm,v 1.24 2006/01/21 14:52:46 mbarbon Exp $
+## RCS-ID:      $Id: SplashFast.pm,v 1.25 2006/04/16 15:11:07 mbarbon Exp $
 ## Copyright:   (c) 2002-2006 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -54,40 +54,9 @@ sub OnInit { return 1 }
 ## WX BASICS: #################################################################
 ###############################################################################
 
-######
-# WX #
-######
+use Wx::Mini;
 
-package Wx ;
-
-use vars qw($VERSION);
-
-$VERSION = '0.28'; # bootstrap will catch wrong versions
-
-sub wxPL_STATIC();
-sub _wx_boot($$) {
-  if( $_[0] eq 'Wx' ) {
-    if( $] < 5.006 ) {
-      require DynaLoader;
-      no strict 'refs';
-      push @{"$_[0]::ISA"}, 'DynaLoader';
-      $_[0]->bootstrap( $_[1] );
-    } else {
-      require XSLoader;
-      XSLoader::load( $_[0], $_[1] );
-    }
-  } else {
-    no strict 'refs';
-    my $t = $_[0]; $t =~ tr/:/_/;
-    &{"_boot_$t"}( $_[0], $_[1] );
-  }
-}
-
-_wx_boot( 'Wx', $VERSION );
-_boot_Constant( 'Wx', $VERSION );
-_boot_GDI( 'Wx', $VERSION );
-
-Load();
+Wx::_start();
 
 #######
 # END #

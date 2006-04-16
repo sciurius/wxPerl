@@ -23,7 +23,6 @@ my @top_level_xs = qw(Wx.xs Constant.xs Controls.xs Event.xs
 my %subdirs;
 
 Wx::build::MakeMaker::_set_is_wxPerl_tree( 1 );
-Wx::build::Config::_set_is_wxPerl_tree( 1 );
 my %options = Wx::build::Options->get_makemaker_options;
 
 {
@@ -82,7 +81,7 @@ if( $options{mksymlinks} ) {
 
 EOT
 
-  foreach my $o ( keys %subdirs ) {
+  foreach my $o ( sort keys %subdirs ) {
     print OUT "#define wxPERL_USE_", uc $o, " ", $subdirs{$o} ,"\n";
   }
 
@@ -101,6 +100,7 @@ Wx::build::Options->write_config_file( 'Opt' );
 #
 sub wxWriteMakefile {
   my %params = @_;
+  local $Wx::build::MakeMaker::is_core = 1;
 
   $params{XSOPT}     = ' -nolinenumbers -noprototypes ';
   $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;

@@ -12,41 +12,42 @@ my $ovl = lib_file( 'Wx/_Ovl.pm' );
 my $ovlc = File::Spec->catfile( qw(cpp ovl_const.cpp) );
 my $ovlh = File::Spec->catfile( qw(cpp ovl_const.h) );
 
+sub get_flags {
+  my $this = shift;
+  my %config;
+
+  $config{INC} .= '-I' . curdir . ' ';
+  $config{INC} .= '-I' . $this->get_api_directory . ' ';
+
+  unless( $this->_core ) {
+    $config{DEFINE} .= " -DWXPL_EXT ";
+  }
+
+  if( $this->_static ) {
+    $config{DEFINE} .= " -DWXPL_STATIC ";
+  }
+
+  return %config;
+}
+
 sub configure_core {
   my $this = shift;
-  my $cfg =
-    Wx::build::Config->new( Wx::build::Options->get_options( 'command_line' ),
-                            core => 1,
-                            get_saved_options => 0 );
-  my %config = $cfg->get_flags;
+  my %config = $this->get_flags;
 
   $config{clean} =
     { FILES => "$ovlc $ovlh .exists overload Opt copy_files files.lst" .
-               " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" };
-  $config{LIBS} .= ' -lc_r ' if $^O =~ /freebsd/i;
+               " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
+               " fix_alien" };
 
   return %config;
 }
 
-sub configure_ext {
-  my $this = shift;
-  my $is_tree = Wx::build::MakeMaker::is_wxPerl_tree();
-  my $cfg =
-    Wx::build::Config->new( Wx::build::Options->get_options( $is_tree ?
-                                                             'command_line' :
-                                                             'saved' ),
-                            core => 0,
-                            get_saved_options => !$is_tree );
-  my %config = $cfg->get_flags;
-  $config{LIBS} .= ' -lc_r ' if $^O =~ /freebsd/i;
-
-  return %config;
-}
+sub configure_ext { return $_[0]->get_flags }
 
 sub _depend_common {
   my $this = shift;
 
-  return xs_dependencies( $this, [ curdir, $this->wx_config->get_api_directory
+  return xs_dependencies( $this, [ curdir, $this->get_api_directory
                                  ] );
 }
 
@@ -65,8 +66,9 @@ sub depend_core {
                  $exp              => join( ' ', @files_with_constants ),
                  $ovlc             => 'overload',
                  $ovlh             => $ovlc,
-                 '$(INST_STATIC)'  => $exp,
-                 '$(INST_DYNAMIC)' => $exp,
+                 '$(INST_STATIC)'  => "fix_alien $exp",
+                 '$(INST_DYNAMIC)' => "fix_alien $exp",
+                 'fix_alien'       => 'pm_to_blib',
                  'pm_to_blib'      => 'copy_files',
                  'blibdirs'        => 'copy_files',
                  'blibdirs.ts'     => 'copy_files',
@@ -122,6 +124,10 @@ overload :
 copy_files :
 \t\$(PERL) script/copy_files.pl files.lst
 \t\$(TOUCH) copy_files
+
+fix_alien : lib/Wx/Mini.pm
+\t\$(PERL) script/fix_alien_path.pl lib/Wx/Mini.pm blib/lib/Wx/Mini.pm
+\t\$(TOUCH) fix_alien
 
 parser :
 	yapp -v -s -o script/XSP.pm script/XSP.yp

@@ -20,6 +20,24 @@ sub my_ext {
   return @libs;
 }
 
+sub get_flags {
+  my $this = shift;
+  my %config = $this->SUPER::get_flags;
+
+  $config{CC} = $ENV{CXX} || Alien::wxWidgets->compiler;
+  $config{LD} = $ENV{CXX} ||Alien::wxWidgets->linker;
+  $config{CCFLAGS} .= Alien::wxWidgets->c_flags . ' ';
+  $config{dynamic_lib}{OTHERLDFLAGS} .= Alien::wxWidgets->link_flags . ' ';
+  $config{DEFINE} .= Alien::wxWidgets->defines . ' ';
+  $config{INC} .= Alien::wxWidgets->include_path;
+
+  if( $this->_debug ) {
+    $config{OPTIMIZE} = ' ';
+  }
+
+  return %config;
+}
+
 1;
 
 # local variables:

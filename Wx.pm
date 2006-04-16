@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.86 2006/01/21 14:52:46 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.87 2006/04/16 15:11:07 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,13 +15,15 @@ package Wx;
 use strict;
 require Exporter;
 
-use vars qw(@ISA $VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
+use vars qw(@ISA $VERSION $XS_VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
   $_platform $_universal $_msw $_gtk $_motif $_mac $_x11 $_static);
 
 $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4; $_x11 = 5;
 
 @ISA = qw(Exporter);
-$VERSION = '0.28';
+$VERSION = '0.49_01';
+$XS_VERSION = $VERSION;
+$VERSION = eval $VERSION;
 
 sub BEGIN{
   @EXPORT_OK = qw(wxPOINT wxSIZE wxTheApp);
@@ -94,7 +96,11 @@ sub _croak {
 # so we explicitly load them (on Win32 and wxWidgets 2.5.x+) just before
 # calling Wx::wx_boot. Finding the library requires determining the path
 # and the correct name
-my( $wx_path, $wx_pre, $wx_post );
+use Wx::Mini;
+
+_start();
+
+our( $wx_path );
 
 sub _load_file {
   Wx::wxVERSION() < 2.005 ? DynaLoader::dl_load_file( $_[0], 0 ) :
@@ -107,12 +113,12 @@ sub set_load_function { $load_fun = shift }
 sub set_end_function { $unload_fun = shift }
 
 sub load_dll {
-  return if $^O ne 'MSWin32' || Wx::wxVERSION() < 2.005;
+  return if $^O eq 'darwin' || Wx::wxVERSION() < 2.005;
   goto &$load_fun;
 }
 
 sub unload_dll {
-  return if $^O ne 'MSWin32' || Wx::wxVERSION() < 2.005;
+  return if $^O eq 'darwin' || Wx::wxVERSION() < 2.005;
   goto &$unload_fun;
 }
 
@@ -121,63 +127,20 @@ END { unload_dll() }
 sub _unload_dll { }
 
 sub _load_dll {
-  my $suff = ( Wx::wxUNICODE() ? 'u' : '' ) .
-             ( Wx::wxDEBUG()   ? 'd' : '' );
-
-  unless( $wx_path ) {
-    foreach ( @INC ) {
-      if( -f "$_/auto/Wx/Wx.dll" ) {
-        $wx_path = "$_/auto/Wx";
-        $wx_path =~ s/ /\\ /g ;
-        my $lib = ( glob "$wx_path/wx*${suff}_html*.dll" )[0];
-        next unless $lib;
-        $lib =~ s{.*[/\\]([^/\\]+)$}{$1};
-        $lib =~ m/^wx(?:msw)([^_]+)_html_([^\.]+)\.dll/i
-          or die "PANIC: name scheme for '$lib' in '$_'";
-        $wx_pre = $1;
-        $wx_post = $2;
-        last;
-      }
-    }
-  }
-
-  foreach my $path ( "$wx_path/wxmsw${wx_pre}_$_[0]_${wx_post}.dll",
-                     "$wx_path/wxbase${wx_pre}_$_[0]_${wx_post}.dll" ) {
-      -f $path and Wx::_load_file( $path ) and last;
-  }
+  local $ENV{PATH} = $wx_path . ';' . $ENV{PATH} if $wx_path;
+  return unless exists $Wx::dlls->{$_[0]};
+  my $dll = $Wx::dlls->{$_[0]};
+  $dll = $wx_path . '/' . $dll if $wx_path;
+  Wx::_load_file( $dll );
 }
-
-#
-# XSLoader/DynaLoader wrapper
-#
-sub wxPL_STATIC();
-sub wx_boot($$) {
-  if( $_[0] eq 'Wx' || !wxPL_STATIC ) {
-    if( $] < 5.006 ) {
-      require DynaLoader;
-      no strict 'refs';
-      push @{"$_[0]::ISA"}, 'DynaLoader';
-      $_[0]->bootstrap( $_[1] );
-    } else {
-      require XSLoader;
-      XSLoader::load( $_[0], $_[1] );
-    }
-  } else {
-    no strict 'refs';
-    my $t = $_[0]; $t =~ tr/:/_/;
-    &{"_boot_$t"}( $_[0], $_[1] );
-  }
-}
-
-wx_boot( 'Wx', $VERSION );
 
 {
-  _boot_Constant( 'Wx', $VERSION );
-  _boot_Events( 'Wx', $VERSION );
-  _boot_Window( 'Wx', $VERSION );
-  _boot_Controls( 'Wx', $VERSION );
-  _boot_Frames( 'Wx', $VERSION );
-  _boot_GDI( 'Wx', $VERSION );
+  _boot_Constant( 'Wx', $XS_VERSION );
+  _boot_Events( 'Wx', $XS_VERSION );
+  _boot_Window( 'Wx', $XS_VERSION );
+  _boot_Controls( 'Wx', $XS_VERSION );
+  _boot_Frames( 'Wx', $XS_VERSION );
+  _boot_GDI( 'Wx', $XS_VERSION );
 }
 
 #
@@ -375,7 +338,7 @@ must be placed in the same directory as the executable file.
           <dependentAssembly>
               <assemblyIdentity
                   type="win32"
-                  name="Microsoft.Windows.Common-Controls"        
+                  name="Microsoft.Windows.Common-Controls"
                   version="6.0.0.0"
                   publicKeyToken="6595b64144ccf1df"
                   language="*"
