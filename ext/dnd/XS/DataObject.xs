@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.18 2004/12/21 21:12:48 mbarbon Exp $
+## RCS-ID:      $Id: DataObject.xs,v 1.19 2006/04/22 21:19:56 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -201,14 +201,15 @@ wxPlDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
     wxDataFormat* format
   CODE:
     wxPlDataObjectSimple* THIS = new wxPlDataObjectSimple( CLASS, *format );
-    RETVAL = newRV_noinc( SvRV( THIS->m_callback.GetSelf() ) );
+    RETVAL = newRV( SvRV( THIS->m_callback.GetSelf() ) );
   OUTPUT: RETVAL
 
 void
 wxPlDataObjectSimple::DESTROY()
   CODE:
     SvRV( THIS->m_callback.GetSelf() ) = NULL;
-    delete THIS;
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;
 
 MODULE=Wx PACKAGE=Wx::DataObjectComposite
 

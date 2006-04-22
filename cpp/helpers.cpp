@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.76 2005/11/01 22:36:45 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.77 2006/04/22 21:19:56 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -59,7 +59,7 @@ my_magic* wxPli_get_magic( pTHX_ SV* rv )
 
     // if it isn't a SvPVMG, then it can't have MAGIC
     // so it is deleteable
-    if( SvTYPE( ref ) < SVt_PVMG )
+    if( !ref || SvTYPE( ref ) < SVt_PVMG )
         return NULL;
 
     // search for '~' magic, and check the value
@@ -324,7 +324,7 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
         // rationale: if this is an hash-ish object, it always
         // has both mg and mg->object; if however this is a
         // scalar-ish object that has been marked/unmarked deletable
-        // it has mg, but not mg->objects
+        // it has mg, but not mg->object
         if( !mg || !mg->object )
             return INT2PTR( void*, SvIV( ref ) );
 
@@ -570,7 +570,9 @@ bool wxPli_object_is_deleteable( pTHX_ SV* object )
 {
     my_magic* mg = wxPli_get_magic( aTHX_ object );
 
-    return mg ? mg->deleteable : true;
+    return mg             ? mg->deleteable :
+           SvRV( object ) ? true           :
+                            false;
 }
 
 void wxPli_object_set_deleteable( pTHX_ SV* object, bool deleteable )
