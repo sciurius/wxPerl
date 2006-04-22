@@ -23,9 +23,11 @@ my @top_level_xs = qw(Wx.xs Constant.xs Controls.xs Event.xs
 my %subdirs;
 
 Wx::build::MakeMaker::_set_is_wxPerl_tree( 1 );
-my %options = Wx::build::Options->get_makemaker_options;
+eval { require Alien::wxWidgets };
+our $has_alien = $@ ? 0 : 1;
+my %options = Wx::build::Options->get_makemaker_options if $has_alien;
 
-{
+if( $has_alien ) {
   @subdirs{@subdirs} = (1) x @subdirs;
   my %opt = %{$options{subdirs}};
 
@@ -63,7 +65,7 @@ if( $options{mksymlinks} ) {
 #
 # write cpp/setup.h
 #
-{
+if( $has_alien ) {
   unless( -d 'cpp' ) {
     mkpath( 'cpp' ) or die "mkpath 'cpp': $!";
   }
@@ -93,7 +95,7 @@ EOT
   close OUT;
 }
 
-Wx::build::Options->write_config_file( 'Opt' );
+Wx::build::Options->write_config_file( 'Opt' ) if $has_alien;
 
 #
 # WriteMakefile wrapper
@@ -102,11 +104,14 @@ sub wxWriteMakefile {
   my %params = @_;
   local $Wx::build::MakeMaker::is_core = 1;
 
-  $params{XSOPT}     = ' -nolinenumbers -noprototypes ';
-  $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;
-  $params{OBJECT}    = join ' ', obj_from_src( @top_level_xs ), '';
+  if( $has_alien ) {
+      $params{XSOPT}     = ' -nolinenumbers -noprototypes ';
+      $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;
+      $params{OBJECT}    = join ' ', obj_from_src( @top_level_xs ), '';
+  }
 
-  my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params );
+  my $build = $has_alien ?
+    Wx::build::MakeMaker::_process_mm_arguments( \%params ) : 0;
 
   if( $build ) {
     WriteMakefile( %params );

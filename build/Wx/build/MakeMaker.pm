@@ -2,7 +2,6 @@ package Wx::build::MakeMaker;
 
 use strict;
 use ExtUtils::MakeMaker;
-use Alien::wxWidgets 0.04 ();
 use base 'Exporter';
 use Config;
 use vars qw(@EXPORT $VERSION);
@@ -295,6 +294,10 @@ sub configure {
   ( my $file = $hook_package ) =~ s{::}{/}g;
   require "$file.pm";
 
+  # do it at runtime
+  require Alien::wxWidgets;
+  Alien::wxWidgets->VERSION( 0.04 );
+
   my $this = $_[0];
   my %cfg1 = %{$_[1]};
   my %cfg2 = _call_method( 'configure', $hook_package );
@@ -385,15 +388,21 @@ sub wxWriteMakefile {
   my %params = @_;
   local $is_core = 0;
 
+  my $has_alien = $Wx::build::MakeMaker::Core::has_alien;
+  $has_alien = defined( $has_alien ) ? $has_alien : 1;
+
   $params{XSOPT}     = ' -noprototypes' .
     ( is_wxPerl_tree() ? ' -nolinenumbers ' : ' ' );
-  $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;
-  require Wx::build::MakeMaker::Any_OS;
-  push @{$params{TYPEMAPS} ||= []},
-    File::Spec->catfile( __PACKAGE__->get_api_directory, 'typemap' );
-  ( $params{PREREQ_PM} ||= {} )->{Wx} ||= '0.19' unless is_wxPerl_tree();
+  if( $has_alien ) {
+    $params{CONFIGURE} = \&Wx::build::MakeMaker::configure;
+    require Wx::build::MakeMaker::Any_OS;
+    push @{$params{TYPEMAPS} ||= []},
+      File::Spec->catfile( __PACKAGE__->get_api_directory, 'typemap' );
+    ( $params{PREREQ_PM} ||= {} )->{Wx} ||= '0.19' unless is_wxPerl_tree();
+  }
 
-  my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params );
+  my $build = $has_alien ?
+    Wx::build::MakeMaker::_process_mm_arguments( \%params ) : 0;
 
   if( $build ) {
     WriteMakefile( %params );
