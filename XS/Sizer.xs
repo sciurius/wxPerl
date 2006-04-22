@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.42 2006/04/16 15:11:07 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.43 2006/04/22 21:18:17 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -141,6 +141,11 @@
 
     void SetVirtualSizeHints( wxWindow* window );
 
+#if WXPERL_W_VERSION_GE( 2, 6, 2 )
+    %name{ShowWindow} bool Show( wxWindow* window, bool show = true, bool recursive = false );
+    %name{ShowSizer} bool Show( wxSizer* sizer, bool show = true, bool recursive = false );
+    %name{ShowIndex} bool Show( size_t index, bool show = true );
+#else
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     %name{ShowWindow} bool Show( wxWindow* window, bool show = true );
     %name{ShowSizer} bool Show( wxSizer* sizer, bool show = true );
@@ -148,6 +153,7 @@
 #else
     %name{ShowWindow} void Show( wxWindow* window, bool show = true );
     %name{ShowSizer} void Show( wxSizer* sizer, bool show = true );
+#endif
 #endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 4 )
