@@ -1,5 +1,11 @@
 Revision history for Perl extension Wx.
 
+0.49_04
+	- Fixed reference counting/ownership for Wx::PlDataObject.
+
+0.49_03  Thu Apr 20 22:40:37 CEST 2006
+	- Handle Alien::wxWidgets prerequisite correctly.
+
 0.49_02  Sun Apr 16 20:45:39 CEST 2006
 	- Added missing files to MANIFEST.
 
