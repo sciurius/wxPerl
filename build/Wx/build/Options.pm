@@ -96,10 +96,12 @@ HELP
     $wx{compiler_kind} = 'evc';
   }
 
-  Alien::wxWidgets->load( map  { $_ => $wx{$_} }
-                          grep { defined $wx{$_} }
-                               keys %wx );
-  $alien_key = Alien::wxWidgets->key;
+  if( Alien::wxWidgets->can( 'load' ) ) {
+      Alien::wxWidgets->load( map  { $_ => $wx{$_} }
+                              grep { defined $wx{$_} }
+                                   keys %wx );
+      $alien_key = Alien::wxWidgets->key;
+  }
 }
 
 sub _process_options {

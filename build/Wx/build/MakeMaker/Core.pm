@@ -110,11 +110,15 @@ sub wxWriteMakefile {
       $params{OBJECT}    = join ' ', obj_from_src( @top_level_xs ), '';
   }
 
-  my $build = $has_alien ?
-    Wx::build::MakeMaker::_process_mm_arguments( \%params ) : 0;
+  my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params );
 
   if( $build ) {
     WriteMakefile( %params );
+    unless( Alien::wxWidgets->can( 'load' ) ) {
+        sleep 3;
+        open my $fh, ">> you_better_rebuild_me";
+        print $fh "touched";
+    }
   } else {
     ExtUtils::MakeMaker::WriteEmptyMakefile( %params );
   }

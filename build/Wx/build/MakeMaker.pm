@@ -337,6 +337,11 @@ sub _process_mm_arguments {
   my %options =
     Wx::build::Options->get_makemaker_options( is_wxPerl_tree()
                                                ? () : ( 'saved' ) );
+  unless( Alien::wxWidgets->can( 'load' ) ) {
+      $args{depend} = { '$(FIRST_MAKEFILE)' => 'you_better_rebuild_me' };
+      delete $args{$_} foreach grep /^WX_/, keys %args;
+      return 1;
+  }
   my $platform = Alien::wxWidgets->config->{toolkit};
 
   $args{CCFLAGS} .= $options{extra_cflags} ? ' ' . $options{extra_cflags} : '';
