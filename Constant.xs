@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.134 2006/04/16 15:11:07 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.135 2006/05/02 18:25:22 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1567,6 +1567,10 @@ static double constant( const char *name, int arg )
     r( wxNB_RIGHT );                    // notebook
     r( wxNB_BOTTOM );                   // notebook
     r( wxNB_MULTILINE );                // notebook
+    r( wxNB_HITTEST_NOWHERE );          // notebook
+    r( wxNB_HITTEST_ONICON );           // notebook
+    r( wxNB_HITTEST_ONLABEL );          // notebook
+    r( wxNB_HITTEST_ONITEM );           // notebook
     r( wxNO );                          // dialog
     r( wxNO_BORDER );                   // frame toolbar
     r( wxNO_3D );                       // dialog window

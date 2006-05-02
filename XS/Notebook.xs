@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Notebook.xs,v 1.13 2004/08/04 20:13:55 mbarbon Exp $
+## RCS-ID:      $Id: Notebook.xs,v 1.14 2006/05/02 18:25:22 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -125,6 +125,22 @@ wxNotebook::GetPageText( page )
 
 int
 wxNotebook::GetSelection()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+
+void
+wxNotebook::HitTest( point )
+    wxPoint point
+  PREINIT:
+    long flags;
+    int item;
+  PPCODE:
+    item = THIS->HitTest( point, &flags );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSViv( item ) ) );
+    PUSHs( sv_2mortal( newSViv( flags ) ) );
+
+#endif
 
 bool
 wxNotebook::InsertPage( index, page, text, select = false, imageId = -1 )
