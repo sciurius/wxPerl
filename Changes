@@ -1,6 +1,13 @@
 Revision history for Perl extension Wx.
 
-0.49_04
+0.49_06
+	- Added wxNotebook::HitTest.
+
+0.49_05  Mon May  1 18:27:14 CEST 2006
+	- When Alien::wxWidgets is missing try to retrigger
+	  rebuilding of the Makefile using a dummy dependency.
+
+0.49_04  Sat Apr 22 23:36:15 CEST 2006
 	- Fixed reference counting/ownership for Wx::PlDataObject.
 
 0.49_03  Thu Apr 20 22:40:37 CEST 2006
