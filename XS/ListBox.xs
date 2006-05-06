@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: ListBox.xs,v 1.10 2005/09/09 16:04:02 mbarbon Exp $
+## RCS-ID:      $Id: ListBox.xs,v 1.11 2006/05/06 15:13:08 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -125,7 +125,7 @@ wxListBox::InsertItems( items, pos )
     delete[] its;
 
 bool
-wxListBox::Selected( n )
+wxListBox::IsSelected( n )
     int n
 
 void

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.35 2005/01/04 17:14:34 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.36 2006/05/06 15:13:08 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -58,18 +58,20 @@ wxControlWithItems::Append( ... )
         MATCH_REDISP( wxPliOvl_s, AppendString )
     END_OVERLOAD( Wx::ControlWithItems::Append )
 
-void
+int
 wxControlWithItems::AppendString( item )
     wxString item
   CODE:
-    THIS->Append( item );
+    RETVAL = THIS->Append( item );
+  OUTPUT: RETVAL
 
-void
+int
 wxControlWithItems::AppendData( item, data )
     wxString item
     wxPliUserDataCD* data
   CODE:
-    THIS->Append( item, data );
+    RETVAL = THIS->Append( item, data );
+  OUTPUT: RETVAL
 
 void
 wxControlWithItems::Delete( n )

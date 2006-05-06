@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.73 2006/04/16 15:11:07 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.74 2006/05/06 15:13:08 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -230,7 +230,7 @@ BOOT:
 void 
 Load()
   CODE:
-    wxPerlAppCreated = wxTheApp != NULL && wxTheApp->Initialized();
+    wxPerlAppCreated = wxTheApp != NULL;
     if( wxPerlInitialized ) { XSRETURN_EMPTY; }
     wxPerlInitialized = true;
 
@@ -300,7 +300,7 @@ SetOvlConstants()
 void
 UnLoad()
   CODE:
-    wxPerlAppCreated = wxTheApp != NULL && wxTheApp->Initialized();
+    wxPerlAppCreated = wxTheApp != NULL;
     Wx_booted = Wx_Const_booted = Wx_Ctrl_booted =
         Wx_Evt_booted = Wx_Wnd_booted = Wx_GDI_booted = Wx_Win_booted = false;
     if( wxPerlInitialized && !wxPerlAppCreated )
@@ -317,7 +317,9 @@ _load_plugin( string )
   CODE:
 #ifdef HACK
     delete new wxHtmlWindow();
+#if wxUSE_MEDIACTRL
     delete new wxMediaCtrl();
+#endif
 #endif
     RETVAL = wxPluginManager::LoadLibrary( string, wxDL_VERBATIM );
   OUTPUT:

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: App.xs,v 1.30 2006/01/24 06:56:56 netcon Exp $
+## RCS-ID:      $Id: App.xs,v 1.31 2006/05/06 15:13:08 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -129,8 +129,12 @@ wxApp::GetVendorName()
 void
 wxApp::ExitMainLoop()
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 bool
 wxApp::Initialized()
+
+#endif
 
 int
 wxApp::MainLoop()

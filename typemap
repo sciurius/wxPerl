@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.81 2006/04/05 17:49:10 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.82 2006/05/06 15:13:08 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -285,6 +285,7 @@ Wx_Bitmap *             O_WXOBJECT
 wxBitmap *              O_WXOBJECT
 Wx_Cursor *             O_WXOBJECT
 wxCursor *              O_WXOBJECT
+const wxCursor *        O_WXOBJECT
 wxToolTip *             O_WXOBJECT
 Wx_Pen *                O_WXOBJECT
 wxPen *                 O_WXOBJECT

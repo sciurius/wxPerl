@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.25 2005/02/26 11:31:01 mbarbon Exp $
+// RCS-ID:      $Id: app.h,v 1.26 2006/05/06 15:13:08 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -88,13 +88,10 @@ inline int wxPliApp::MainLoop() {
     m_initialized = wxTopLevelWindows.GetCount() != 0;
 #endif
 
-    if( Initialized() ) 
-    {
-        if( m_exitOnFrameDelete == Later )
-            m_exitOnFrameDelete = Yes;
-        retval = wxApp::MainLoop();
-        OnExit();
-    }
+    if( m_exitOnFrameDelete == Later )
+      m_exitOnFrameDelete = Yes;
+    retval = wxApp::MainLoop();
+    OnExit();
 
     return retval;
 }

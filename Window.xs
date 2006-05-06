@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.62 2006/03/10 19:25:32 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.63 2006/05/06 15:13:08 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -106,7 +106,15 @@ void
 wxWindow::CentreOnParent( direction = wxBOTH )
     int direction
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxWindow::CentreOnScreen( direction = wxBOTH )
+    int direction
+  CODE:
+    THIS->Centre( direction | wxCENTER_ON_SCREEN );
+
+#else
 
 void
 wxWindow::CentreOnScreen( direction = wxBOTH )
