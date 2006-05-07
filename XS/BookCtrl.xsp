@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/12/2003
-## RCS-ID:      $Id: BookCtrl.xsp,v 1.2 2004/08/04 20:13:54 mbarbon Exp $
+## RCS-ID:      $Id: BookCtrl.xsp,v 1.3 2006/05/07 16:37:51 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,6 +16,7 @@
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 #include <wx/bookctrl.h>
+#include <wx/sizer.h>
 %}
 
 %name{Wx::BookCtrl} class wxBookCtrl
@@ -32,6 +33,14 @@
     bool SetPageImage(size_t n, int imageId);
     void SetPageSize(const wxSize& size);
     wxSize CalcSizeFromPage(const wxSize& sizePage) const;
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    unsigned int GetInternalBorder();
+    void SetInternalBorder( unsigned int border );
+    bool IsVertical();
+    void SetFitToCurrentPage( bool fit );
+    bool GetFitToCurrentPage();
+    wxSizer* GetControlSizer();
+#endif
     bool DeletePage(size_t n);
     bool RemovePage(size_t n);
     bool DeleteAllPages();

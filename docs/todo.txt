@@ -1,8 +1,12 @@
 PRIORITY HIGH:
 
-* rewrite docs in POD (?)
+* rewrite docs/* in POD (?)
 
 PRIORITY NORMAL:
+
+* Treebook, Toolbook, Proprtysheet
+
+* Buttonbar
 
 * Overload resolution
   finish it!

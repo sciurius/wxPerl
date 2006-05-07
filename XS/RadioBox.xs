@@ -4,13 +4,14 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: RadioBox.xs,v 1.15 2003/06/04 20:38:42 mbarbon Exp $
+## RCS-ID:      $Id: RadioBox.xs,v 1.16 2006/05/07 16:37:51 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 #include <wx/radiobox.h>
+#include <wx/tooltip.h>
 
 MODULE=Wx PACKAGE=Wx::RadioBox
 
@@ -121,6 +122,16 @@ wxRadioBox::GetSelection()
 wxString
 wxRadioBox::GetStringSelection()
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+bool
+wxRadioBox::IsItemEnabled( unsigned int item )
+
+bool
+wxRadioBox::IsItemShown( unsigned int item )
+
+#endif
+
 void
 wxRadioBox::SetString( n, label )
     int n
@@ -132,6 +143,19 @@ wxRadioBox::SetItemLabel( n, label )
     wxString label
   CODE:
     THIS->SetString( n, label );
+
+#if wxPERL_USE_TOOLTIPS && WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxRadioBox::SetItemToolTip( item, text )
+    unsigned int item
+    wxString text
+
+wxToolTip*
+wxRadioBox::GetItemToolTip( item )
+    unsigned int item
+
+#endif
 
 void
 wxRadioBox::SetSelection( n )

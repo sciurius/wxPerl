@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.50 2006/03/03 18:39:59 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.51 2006/05/07 16:37:51 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -317,6 +317,13 @@ wxChar
 wxKeyEvent::GetUnicodeKey()
 
 #endif 
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+int
+wxKeyEvent::GetModifiers()
+
+#endif
 
 long
 wxKeyEvent::GetX()

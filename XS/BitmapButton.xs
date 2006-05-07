@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: BitmapButton.xs,v 1.5 2003/06/04 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: BitmapButton.xs,v 1.6 2006/05/07 16:37:51 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -73,6 +73,17 @@ wxBitmapButton::GetBitmapFocus()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+wxBitmap*
+wxBitmapButton::GetBitmapHover()
+  CODE:
+    RETVAL = new wxBitmap( THIS->GetBitmapHover() );
+  OUTPUT:
+    RETVAL
+
+#endif
+
 wxBitmap*
 wxBitmapButton::GetBitmapLabel()
   CODE:
@@ -106,3 +117,13 @@ void
 wxBitmapButton::SetBitmapFocus( bitmap )
     wxBitmap* bitmap
   C_ARGS: *bitmap
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxBitmapButton::SetBitmapHover( bitmap )
+    wxBitmap* bitmap
+  C_ARGS: *bitmap
+
+#endif
+

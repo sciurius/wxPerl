@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.44 2006/05/06 15:13:08 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.45 2006/05/07 16:37:51 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -547,6 +547,14 @@ wxSizerItem::GetUserData()
     RETVAL = (Wx_UserDataO*) THIS->GetUserData();
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 6, 3 )
+
+void
+wxSizerItem::SetUserData( data )
+    Wx_UserDataO* data
+
+#endif
 
 void
 wxSizerItem::SetMinSize( ... )

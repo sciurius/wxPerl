@@ -976,7 +976,9 @@ hijack( 'Wx::Sizer::ShowWindow'       => sub { $showw = 1 },
         'Wx::Sizer::PrependSizer'     => sub { $presiz = 1 },
         'Wx::Sizer::PrependWindow'    => sub { $prewin = 1 },
         'Wx::Sizer::PrependSpace'     => sub { $prespa = 1 },
-        'Wx::Sizer::RemoveWindow'     => sub { $remwin = 1 },
+        ( $Wx::wxVERSION < 2.007 ?
+          ( 'Wx::Sizer::RemoveWindow'     => sub { $remwin = 1 } ) :
+          () ),
         'Wx::Sizer::RemoveSizer'      => sub { $remsiz = 1 },
         'Wx::Sizer::RemoveNth'        => sub { $remnth = 1 },
         'Wx::Sizer::SetMinSizeXY'     => sub { $smsxy  = 1 },
@@ -1056,8 +1058,12 @@ ok( $remnth, 'Wx::Sizer::RemoveNth' );
 $siz->Remove( siz1 );
 ok( $remsiz, 'Wx::Sizer::RemoveSizer' );
 
-$siz->Remove( win1 );
-ok( $remwin, 'Wx::Sizer::RemoveWindow' );
+if( $Wx::wxVERSION < 2.007 ) {
+    $siz->Remove( win1 );
+    ok( $remwin, 'Wx::Sizer::RemoveWindow' );
+} else {
+    ok( 1, 'dummy' );
+}
 
 $siz->SetItemMinSize( win1, 100, 100 );
 ok( $siswin, 'Wx::Sizer::SetItemMinSizeWindow' );
