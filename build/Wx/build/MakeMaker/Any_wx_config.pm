@@ -25,7 +25,7 @@ sub get_flags {
   my %config = $this->SUPER::get_flags;
 
   $config{CC} = $ENV{CXX} || Alien::wxWidgets->compiler;
-  $config{LD} = $ENV{CXX} ||Alien::wxWidgets->linker;
+  $config{LD} = $ENV{CXX} || Alien::wxWidgets->linker;
   $config{CCFLAGS} .= Alien::wxWidgets->c_flags . ' ';
   $config{dynamic_lib}{OTHERLDFLAGS} .= Alien::wxWidgets->link_flags . ' ';
   $config{DEFINE} .= Alien::wxWidgets->defines . ' ';
