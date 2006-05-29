@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.44 2005/08/07 21:21:27 mbarbon Exp $
+## RCS-ID:      $Id: Event.pm,v 1.45 2006/05/29 19:05:40 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -65,6 +65,9 @@ sub EVT_COMMAND_KILL_FOCUS($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_
 sub EVT_COMMAND_ENTER($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_ENTER, $_[2] ); }
 sub EVT_TOGGLEBUTTON($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, $_[2] ); }
 sub EVT_CHECKLISTBOX($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_CHECKLISTBOX_TOGGLED, $_[2] ); }
+sub EVT_TEXT_CUT($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TEXT_CUT, $_[2] ); }
+sub EVT_TEXT_COPY($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TEXT_COPY, $_[2] ); }
+sub EVT_TEXT_PASTE($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_TEXT_PASTE, $_[2] ); }
 
 #
 # CloseEvent

@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
-0.49_06
+0.49_07
+
+0.49_06  Sun May 21 22:34:21 CEST 2006
 	- Compatibility with wxWidgets CVS HEAD.
 	- Added various missing functions for wxWidgets 2.6.x
 	  and 2.7.x.

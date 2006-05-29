@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: ListBox.xs,v 1.11 2006/05/06 15:13:08 mbarbon Exp $
+## RCS-ID:      $Id: ListBox.xs,v 1.12 2006/05/29 19:05:40 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -110,6 +110,10 @@ wxListBox::GetSelections()
     {
         PUSHs( sv_2mortal( newSViv( selections[i] ) ) );
     }
+
+int
+wxListBox::HitTest( point )
+    wxPoint point
 
 void
 wxListBox::InsertItems( items, pos )

@@ -10,7 +10,7 @@ sub configure_core {
 
   $config{depend}{'$(INST_STATIC)'} .= ' wxPerl';
   $config{depend}{'$(INST_DYNAMIC)'} .= ' wxPerl';
-  $config{clean}{FILES} .= " wxPerl cpp/wxPerl.osx/build cpp/wxPerl.osx/wxPerl.c";
+  $config{clean}{FILES} .= " wxPerl cpp/wxPerl.osx/build cpp/wxPerl.osx/wxPerl.c cpp/wxPerl.osx/wxPerl.r";
 
   return %config;
 }
@@ -39,7 +39,7 @@ sub postamble_core {
   my $wx_config = $ENV{WX_CONFIG} || 'wx-config';
   my $rfile;
 
-  if( $this->wx_config->get_wx_version < 2.006 ) {
+  if( Alien::wxWidgets->version < 2.006 ) {
     my $rsrc = join ' ', grep { /wx/ } split ' ', `$wx_config --rezflags`;
     $rfile = sprintf <<EOR, $rsrc;
 	echo '#include <Carbon.r>' > cpp/wxPerl.osx/wxPerl.r

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.137 2006/05/07 16:37:51 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.138 2006/05/29 19:05:40 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -529,10 +529,9 @@ static wxPlINH inherit[] =
     I( TreeEvent,       NotifyEvent )
     I( UpdateUIEvent,   CommandEvent )
     I( WizardEvent,     NotifyEvent )
-
     I( SplitterEvent,   NotifyEvent )
-
     I( NavigationKeyEvent, Event )
+    I( ClipboardTextEvent, CommandEvent )
 
     { 0, 0 }
 };
@@ -752,6 +751,9 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     r( wxDD_DEFAULT_STYLE );            // dirdialog
 #endif
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxDD_CHANGE_DIR );               // dirdialog
+#endif
 
     r( wxDOT );                         // pen
     r( wxDOT_DASH );                    // pen
@@ -796,6 +798,11 @@ static double constant( const char *name, int arg )
 #endif
     r( wxEVT_COMMAND_TEXT_MAXLEN );
     r( wxEVT_COMMAND_TEXT_URL );
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxEVT_COMMAND_TEXT_COPY );
+    r( wxEVT_COMMAND_TEXT_CUT );
+    r( wxEVT_COMMAND_TEXT_PASTE );
+#endif
     r( wxEVT_COMMAND_TOOL_RCLICKED );
     r( wxEVT_COMMAND_TOOL_ENTER );
     r( wxEVT_COMMAND_SPINCTRL_UPDATED );
