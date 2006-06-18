@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.45 2006/05/07 16:37:51 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.46 2006/06/18 11:13:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -115,7 +115,7 @@
     wxSize GetMinSize();
     void Layout();
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     %name{RemoveWindow} bool Remove( wxWindow* window );
 #endif
     %name{RemoveSizer} bool Remove( wxSizer* window );
@@ -305,7 +305,9 @@ void
 wxSizer::Remove( ... )
   PPCODE:
     BEGIN_OVERLOAD()
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )|| WXWIN_COMPATIBILITY_2_6
         MATCH_REDISP( wxPliOvl_wwin, RemoveWindow )
+#endif
         MATCH_REDISP( wxPliOvl_wszr, RemoveSizer )
         MATCH_REDISP( wxPliOvl_n, RemoveNth )
     END_OVERLOAD( Wx::Sizer::Remove )

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.138 2006/05/29 19:05:40 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.139 2006/06/18 11:13:14 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1159,6 +1159,8 @@ static double constant( const char *name, int arg )
     r( wxID_ZOOM_IN );                  // id
     r( wxID_ZOOM_OUT );                 // id
 #endif
+
+    r( wxID_SEPARATOR );                // id
 
     r( wxIMAGELIST_DRAW_NORMAL );       // imagelist
     r( wxIMAGELIST_DRAW_TRANSPARENT );  // imagelist
