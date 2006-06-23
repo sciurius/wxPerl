@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.50  Fri Jun 23 11:51:17 CEST 2006
+	- Fixed pod tests to work with older Test::Pod releases.
+
 0.49_07  Sun Jun 18 18:06:05 CEST 2006
 	- Compilation fixes for wxWidgets 2.5.3.
 	- More additions for wxWidgets 2.7.x.
