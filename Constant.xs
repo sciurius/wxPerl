@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.139 2006/06/18 11:13:14 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.140 2006/06/25 17:19:03 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -65,7 +65,9 @@
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 #include <wx/choicebk.h>
 #endif
-
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#include <wx/power.h>
+#endif
 #include <wx/tglbtn.h>
 #include <wx/timer.h>
 #include <wx/splash.h>
@@ -664,7 +666,9 @@ static double constant( const char *name, int arg )
     r( wxCENTRE_ON_SCREEN );            // window
     r( wxCLIP_CHILDREN );               // window
     r( wxCHOICEDLG_STYLE );
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxCHANGE_DIR );                  // filedialog
+#endif
     r( wxCLIP_SIBLINGS );               // window
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
@@ -892,7 +896,16 @@ static double constant( const char *name, int arg )
     r( wxEVT_END_SESSION );
     r( wxEVT_QUERY_END_SESSION );
     r( wxEVT_ACTIVATE_APP );
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if wxHAS_POWER_EVENTS
+    r( wxEVT_POWER_SUSPENDING );
+    r( wxEVT_POWER_SUSPENDED );
+    r( wxEVT_POWER_SUSPEND_CANCEL );
+    r( wxEVT_POWER_RESUME );
+#endif
+#else
     r( wxEVT_POWER );
+#endif
     r( wxEVT_ACTIVATE );
     r( wxEVT_CREATE );
     r( wxEVT_DESTROY );
@@ -967,7 +980,18 @@ static double constant( const char *name, int arg )
 
     r( wxFDIAGONAL_HATCH );             // brush pen
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxFD_OPEN );                     // filedialog
+    r( wxFD_SAVE );                     // filedialog
+    r( wxFD_OVERWRITE_PROMPT );         // filedialog
+    r( wxFD_FILE_MUST_EXIST );          // filedialog
+    r( wxFD_MULTIPLE );                 // filedialog
+    r( wxFD_CHANGE_DIR );               // filedialog
+#endif
+
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxFILE_MUST_EXIST );
+#endif
     r( wxFLOOD_SURFACE );               // dc
     r( wxFLOOD_BORDER );                // dc
 
@@ -1568,8 +1592,9 @@ static double constant( const char *name, int arg )
     r( wxMINIMIZE );                    // frame
     r( wxMINIMIZE_BOX );                // frame
     r( wxMODERN );                      // font
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxMULTIPLE );                    // filedialog
-    
+#endif    
     r( wxMAJOR_VERSION );
     r( wxMINOR_VERSION );
 
@@ -1605,9 +1630,10 @@ static double constant( const char *name, int arg )
     break;
   case 'O':
     r( wxOK );                          // dialog
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxOPEN );                        // filedialog
     r( wxOVERWRITE_PROMPT );            // filedialog
-    
+#endif
     r( wxODDEVEN_RULE );                // dc
     r( wxOR );                          // dc
     r( wxOR_INVERT );                   // dc
@@ -1660,7 +1686,9 @@ static double constant( const char *name, int arg )
     r( wxSPLASH_TIMEOUT );              // splashscreen
     r( wxSPLASH_NO_TIMEOUT );           // splashscreen
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxSAVE );                        // filedialog
+#endif
     //    r( wxSB_SIZEGRIP );
     r( wxSB_HORIZONTAL );               // scrollbar
     r( wxSB_VERTICAL );                 // scrollbar

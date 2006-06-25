@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: FileDialog.xs,v 1.6 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id: FileDialog.xs,v 1.7 2006/06/25 17:19:03 mbarbon Exp $
 ## Copyright:   (c) 2000-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -77,8 +77,12 @@ wxFileDialog::GetPaths()
 #endif
     }
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 long
 wxFileDialog::GetStyle()
+
+#endif
 
 wxString
 wxFileDialog::GetWildcard()
@@ -103,9 +107,13 @@ void
 wxFileDialog::SetPath( path )
     wxString path
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 void
 wxFileDialog::SetStyle( style )
     long style
+
+#endif
 
 void
 wxFileDialog::SetWildcard( wildcard )

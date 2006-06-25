@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/09/2002
-## RCS-ID:      $Id: FontEnumerator.xs,v 1.2 2004/08/04 20:13:54 mbarbon Exp $
+## RCS-ID:      $Id: FontEnumerator.xs,v 1.3 2006/06/25 17:19:03 mbarbon Exp $
 ## Copyright:   (c) 2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,25 +32,45 @@ wxFontEnumerator::EnumerateEncodings( font = wxEmptyString )
 void
 wxFontEnumerator::GetEncodings()
   PREINIT:
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    wxArrayString enc;
+#else
     wxArrayString* enc;
+#endif
   PPCODE:
     enc = THIS->GetEncodings();
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
     if( enc )
+#endif
     {
         PUTBACK;
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+        wxPli_stringarray_push( aTHX_ enc );
+#else
         wxPli_stringarray_push( aTHX_ *enc );
+#endif
         SPAGAIN;
     }
 
 void
 wxFontEnumerator::GetFacenames()
   PREINIT:
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    wxArrayString enc;
+#else
     wxArrayString* enc;
+#endif
   PPCODE:
     enc = THIS->GetFacenames();
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
     if( enc )
+#endif
     {
         PUTBACK;
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+        wxPli_stringarray_push( aTHX_ enc );
+#else
         wxPli_stringarray_push( aTHX_ *enc );
+#endif
         SPAGAIN;
     }
