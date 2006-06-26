@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.140 2006/06/25 17:19:03 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.141 2006/06/26 18:56:50 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -897,7 +897,7 @@ static double constant( const char *name, int arg )
     r( wxEVT_QUERY_END_SESSION );
     r( wxEVT_ACTIVATE_APP );
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
-#if wxHAS_POWER_EVENTS
+#if defined(wxHAS_POWER_EVENTS)
     r( wxEVT_POWER_SUSPENDING );
     r( wxEVT_POWER_SUSPENDED );
     r( wxEVT_POWER_SUSPEND_CANCEL );
