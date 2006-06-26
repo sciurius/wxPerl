@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.141 2006/06/26 18:56:50 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.142 2006/06/26 19:31:57 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -2327,10 +2327,12 @@ UnsetConstants()
     SV* tmp;
 
     tmp = get_sv( "Wx::wxTheClipboard", 1 );
-    sv_setiv( SvRV( tmp ), 0 );
+    if( tmp && SvROK( tmp ) )
+        sv_setiv( SvRV( tmp ), 0 );
 
     tmp = get_sv( "Wx::wxDefaultValidator", 1 );
-    sv_setiv( SvRV( tmp ), 0 );
+    if( tmp && SvROK( tmp ) )
+        sv_setiv( SvRV( tmp ), 0 );
 
 void
 SetEvents()

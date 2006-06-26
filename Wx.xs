@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.75 2006/06/18 15:42:46 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.76 2006/06/26 19:31:57 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -229,7 +229,7 @@ BOOT:
   SV* tmp = get_sv( "Wx::_exports", 1 );
   sv_setiv( tmp, (IV)(void*)&st_wxPliHelpers );
 
-void 
+bool 
 Load()
   CODE:
     wxPerlAppCreated = wxTheApp != NULL;
@@ -271,7 +271,7 @@ Load()
     wxChar** argv = 0;
 
     argc = wxPli_get_args_argc_argv( (void***) &argv, 1 );
-    wxEntryStart( argc, argv );
+    wxPerlInitialized = wxEntryStart( argc, argv );
 #if WXPERL_W_VERSION_LE( 2, 5, 2 )
     wxPli_delete_argv( (void***) &argv, 1 );
 #endif
@@ -279,11 +279,13 @@ Load()
     char** argv = 0;
 
     argc = wxPli_get_args_argc_argv( (void***) &argv, 0 );
-    wxEntryStart( argc, argv );
+    wxPerlInitialized = wxEntryStart( argc, argv );
 #if WXPERL_W_VERSION_LE( 2, 5, 2 )
     wxPli_delete_argv( (void***) &argv, 0 );
 #endif
 #endif
+    RETVAL = wxPerlInitialized;
+  OUTPUT: RETVAL
 
 void
 SetConstants()

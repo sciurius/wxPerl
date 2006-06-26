@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.93 2006/06/23 09:51:29 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.94 2006/06/26 19:31:57 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -41,6 +41,7 @@ sub AUTOLOAD {
   my( $constname );
 
   ($constname = $AUTOLOAD) =~ s<^.*::>{};
+  return 0 if $constname eq 'wxVERSION';
 
   my( $val ) = constant($constname, 0 );
 
@@ -160,12 +161,13 @@ use strict 'refs';
 
 *Wx::Window::GetClientSizeWH = \&Wx::Window::GetClientSizeXY;
 
-Load();
-SetConstants();
-SetConstantsOnce();
-SetOvlConstants();
-SetEvents();
-SetInheritance();
+if( Load() ) {
+    SetConstants();
+    SetConstantsOnce();
+    SetOvlConstants();
+    SetEvents();
+    SetInheritance();
+}
 
 sub END {
   UnsetConstants();
