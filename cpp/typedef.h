@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: typedef.h,v 1.50 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: typedef.h,v 1.51 2006/06/26 21:27:37 mbarbon Exp $
 // Copyright:   (c) 2000-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -144,7 +144,6 @@ FD_TD( MessageDialog );
 #endif
 
 FD_TD( MultiChoiceDialog );
-FD_TDS( NativeFontInfo );
 FD_TD( NotebookSizer );
 FD_TD( Object );
 FD_TD( PaintDC );
