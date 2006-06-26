@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.51
+
 0.50  Fri Jun 23 11:51:17 CEST 2006
 	- Fixed pod tests to work with older Test::Pod releases.
 
