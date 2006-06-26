@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.76 2006/06/26 19:31:57 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.77 2006/06/26 21:19:07 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -233,7 +233,7 @@ bool
 Load()
   CODE:
     wxPerlAppCreated = wxTheApp != NULL;
-    if( wxPerlInitialized ) { XSRETURN_EMPTY; }
+    if( wxPerlInitialized ) { XSRETURN( true ); }
     wxPerlInitialized = true;
 
     NV ver = wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 + 
