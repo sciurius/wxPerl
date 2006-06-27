@@ -1,0 +1,81 @@
+#############################################################################
+## Name:        XS/Sound.xsp
+## Purpose:     XS++ for wxSound class
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     27/06/2006
+## RCS-ID:      $Id: Sound.xsp,v 1.1 2006/06/27 20:59:00 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxSound*}{simple};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
+#include <wx/sound.h>
+%}
+
+%name{Wx::Sound} class wxSound
+{
+    %name{newDefault} wxSound();
+    %name{newFile} wxSound( const wxString& fileName );
+
+    ~wxSound();
+
+    %name{Create} bool Create( const wxString& fileName );
+
+    bool Play( unsigned flags = wxSOUND_ASYNC );
+    bool IsOk();
+};
+
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFile )
+    END_OVERLOAD( "Wx::Choicebook::new" )
+
+wxSound*
+wxSound::newData( data )
+    SV* data
+  CODE:
+    STRLEN len;
+    wxByte* buffer = (wxByte*) SvPV( data, len );
+    RETVAL = new wxSound( len, buffer );
+  OUTPUT: RETVAL
+
+bool
+wxSound::CreateData( data )
+    SV* data
+  CODE:
+    STRLEN len;
+    wxByte* buffer = (wxByte*) SvPV( data, len );
+    RETVAL = THIS->Create( len, buffer );
+  OUTPUT: RETVAL
+
+void
+Stop()
+  CODE:
+    wxSound::Stop();
+
+#if !defined( __WXMSW__ )
+
+bool
+IsPlaying()
+  CODE:
+    RETVAL = wxSound::IsPlaying();
+  OUTPUT: RETVAL
+
+#endif
+%}
+
+%{
+#endif
+%}

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.143 2006/06/26 21:19:07 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.144 2006/06/27 20:59:00 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -61,6 +61,7 @@
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 #include <wx/listbook.h>
+#include <wx/sound.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 #include <wx/choicebk.h>
@@ -1791,6 +1792,10 @@ static double constant( const char *name, int arg )
     r( wxSW_3DSASH );                   // sashwindow
     r( wxSW_3DBORDER );                 // sashwindow
     r( wxSW_BORDER );                   // sashwindow
+
+    r( wxSOUND_SYNC );                  // sound
+    r( wxSOUND_ASYNC );                 // sound
+    r( wxSOUND_LOOP );                  // sound
 
     r( wxSameAs );                      // layout constraints
 

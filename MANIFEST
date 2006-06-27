@@ -213,6 +213,7 @@ XS/ScrolledWindow.xs
 XS/SingleChoiceDialog.xs
 XS/Sizer.xs
 XS/Slider.xs
+XS/Sound.xsp
 XS/SpinButton.xs
 XS/SpinCtrl.xs
 XS/SplitterWindow.xs
