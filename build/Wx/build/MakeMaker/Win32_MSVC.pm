@@ -11,6 +11,26 @@ return <<'EOT';
 EOT
 }
 
+my $cl_version;
+
+{
+    my @head = qx{$^X script\\pipe.pl cl /help};
+    $head[0] =~ /Version (\d+\.\d+).0000/ and $cl_version = $1;
+}
+
+sub dynamic_lib {
+  my $this = shift;
+  my $text = $this->SUPER::dynamic_lib( @_ );
+
+  return $text unless $cl_version >= 14;
+
+  $text .= <<'EOT';
+	mt -manifest $@.manifest -outputresource:$@;2
+EOT
+
+  return $text;
+}
+
 1;
 
 # local variables:
