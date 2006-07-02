@@ -15,7 +15,7 @@ my $cl_version;
 
 {
     my @head = qx{$^X script\\pipe.pl cl /help};
-    $head[0] =~ /Version (\d+\.\d+).0000/ and $cl_version = $1;
+    $head[0] =~ /Version (\d+\.+).\d+/ and $cl_version = $1;
 }
 
 sub dynamic_lib {
@@ -24,8 +24,8 @@ sub dynamic_lib {
 
   return $text unless $cl_version >= 14;
 
-  $text .= <<'EOT';
-	mt -manifest $@.manifest -outputresource:$@;2
+  $text .= <<'EOT' if $text && $text =~ /\$\@/;
+	echo mt -manifest $@.manifest -outputresource:$@;2
 EOT
 
   return $text;
