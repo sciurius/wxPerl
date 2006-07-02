@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.144 2006/06/27 20:59:00 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.145 2006/07/02 14:03:28 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -65,6 +65,7 @@
 #endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 #include <wx/choicebk.h>
+#include <wx/mediactrl.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
 #include <wx/power.h>
@@ -2083,6 +2084,12 @@ void SetConstantsOnce()
     dTHX;
 
     wxPli_make_const_string( wxVERSION_STRING );
+#if WXPERL_W_VERSION_GE( 2, 5, 3 ) && wxUSE_MEDIACTRL
+    wxPli_make_const_string( wxMEDIABACKEND_DIRECTSHOW ); // media
+    wxPli_make_const_string( wxMEDIABACKEND_QUICKTIME ); // media
+    wxPli_make_const_string( wxMEDIABACKEND_MCI ); // media
+    wxPli_make_const_string( wxMEDIABACKEND_GSTREAMER ); // media
+#endif
 
     wxPli_make_const( "wxTheClipboard" );       // clipboard
     wxPli_make_const( "wxDefaultValidator" );   // misc
@@ -2386,6 +2393,9 @@ _get_packages()
 #endif
 #if wxPERL_USE_DATETIME
     "use Wx::DateTime;"
+#endif
+#if wxPERL_USE_MEDIA
+    "use Wx::Media;"
 #endif
     ;
 

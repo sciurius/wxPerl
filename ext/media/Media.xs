@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/03/2006
-// RCS-ID:      $Id: Media.xs,v 1.2 2006/04/05 17:49:11 mbarbon Exp $
+// RCS-ID:      $Id: Media.xs,v 1.3 2006/07/02 14:03:28 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -28,6 +28,7 @@ INCLUDE: perl ../../script/xsubppp.pl --typemap ../../typemap.xsp XS/MediaEvent.
 
 #include "cpp/overload.h"
 #include "cpp/ovl_const.cpp"
+#include "cpp/me_constants.cpp"
 
 #  //FIXME//tricky
 #if defined(__WXMSW__)
