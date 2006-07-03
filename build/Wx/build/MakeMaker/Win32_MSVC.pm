@@ -25,7 +25,7 @@ sub dynamic_lib {
   return $text unless $cl_version >= 14;
 
   $text .= <<'EOT' if $text && $text =~ /\$\@/;
-	echo mt -manifest $@.manifest -outputresource:$@;2
+	mt -manifest $@.manifest -outputresource:$@;2
 EOT
 
   return $text;
