@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Panel.xs,v 1.12 2004/05/15 21:26:10 mbarbon Exp $
+## RCS-ID:      $Id: Panel.xs,v 1.13 2006/07/04 18:06:02 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -51,6 +51,13 @@ wxPanel::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize,
     wxSize size
     long style
     wxString name
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+void
+wxPanel::SetFocusIgnoringChildren()
+
+#endif
 
 bool
 wxPanel::TransferDataFromWindow()

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Dialog.xs,v 1.13 2005/11/22 22:31:57 mbarbon Exp $
+## RCS-ID:      $Id: Dialog.xs,v 1.14 2006/07/04 18:06:02 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -112,6 +112,13 @@ wxDialog::SetTitle( title )
 
 int
 wxDialog::ShowModal()
+
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+
+void
+wxDialog::SetFocusIgnoringChildren()
+
+#endif
 
 bool
 wxDialog::TransferDataFromWindow()
