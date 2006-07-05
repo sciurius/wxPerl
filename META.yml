@@ -10,7 +10,7 @@ build_requires:
   Test::Harness: 2.26
   Data::Dumper: 0
   ExtUtils::MakeMaker: 6.17
-  Alien::wxWidgets: 0.04
+  Alien::wxWidgets: 0.15
 dynamic_config: 1
 no_index:
   directory:

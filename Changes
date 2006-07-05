@@ -1,8 +1,9 @@
 Revision history for Perl extension Wx.
 
-0.51
+0.51  Wed Jul  5 20:41:48 CEST 2006
 	- Added Wx::Sound.
 	- Compilation fixes for MSVC8 (thnaks to John Ralls).
+	- Bumped Alien::wxWidgets requirement to 0.15.
 
 0.50  Fri Jun 23 11:51:17 CEST 2006
 	- Fixed pod tests to work with older Test::Pod releases.
