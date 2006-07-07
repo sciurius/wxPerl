@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
-0.52
+0.52  Fri Jul  7 22:19:52 CEST 2006
+	- Compilation fixes for when wxMediaCtrl is disabled in
+	  wxWidgets.
 
 0.51  Wed Jul  5 20:41:48 CEST 2006
 	- Added Wx::Sound.
