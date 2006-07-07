@@ -9,3 +9,4 @@ use Tests_Helper qw(:inheritance);
 BEGIN { test_inheritance_start() }
 use Wx::Media;
 test_inheritance_end();
+ok( 1 ); # avoid failure
