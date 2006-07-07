@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Notebook.xs,v 1.14 2006/05/02 18:25:22 mbarbon Exp $
+## RCS-ID:      $Id: Notebook.xs,v 1.15 2006/07/07 20:02:59 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -126,22 +126,6 @@ wxNotebook::GetPageText( page )
 int
 wxNotebook::GetSelection()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 2 )
-
-void
-wxNotebook::HitTest( point )
-    wxPoint point
-  PREINIT:
-    long flags;
-    int item;
-  PPCODE:
-    item = THIS->HitTest( point, &flags );
-    EXTEND( SP, 2 );
-    PUSHs( sv_2mortal( newSViv( item ) ) );
-    PUSHs( sv_2mortal( newSViv( flags ) ) );
-
-#endif
-
 bool
 wxNotebook::InsertPage( index, page, text, select = false, imageId = -1 )
     int index
@@ -171,6 +155,22 @@ wxNotebook::SetPageText( page, text )
 int
 wxNotebook::SetSelection( page )
     int page
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 ) && !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxNotebook::HitTest( point )
+    wxPoint point
+  PREINIT:
+    long flags;
+    int item;
+  PPCODE:
+    item = THIS->HitTest( point, &flags );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSViv( item ) ) );
+    PUSHs( sv_2mortal( newSViv( flags ) ) );
 
 #endif
 
