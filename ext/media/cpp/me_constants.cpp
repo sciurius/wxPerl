@@ -4,13 +4,15 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/03/2006
-// RCS-ID:      $Id: me_constants.cpp,v 1.2 2006/07/02 14:03:29 mbarbon Exp $
+// RCS-ID:      $Id: me_constants.cpp,v 1.3 2006/07/07 20:02:12 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
 #include "cpp/constants.h"
+
+#if wxUSE_MEDIACTRL
 
 #include "wx/mediactrl.h"
 
@@ -44,4 +46,6 @@ double media_constant( const char* name, int arg )
 }
 
 wxPlConstants media_module( &media_constant );
+
+#endif
 
