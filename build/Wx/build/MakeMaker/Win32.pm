@@ -6,6 +6,7 @@ use Wx::build::Utils;
 use Config;
 
 sub is_mingw() { $Config{cc} =~ /gcc/ }
+sub is_msvc() { $Config{cc} =~ /cl/ }
 
 sub get_flags {
   my $this = shift;
@@ -30,6 +31,8 @@ sub get_flags {
         or warn "Unable to find gcc";
       $path =~ s{bin[\\/]gcc\.exe$}{}i;
       $config{LIBS} = "-L${path}lib " . ( $config{LIBS} || '' );
+  } else {
+      $config{DEFINE} .= '-D_CRT_SECURE_NO_DEPRECATE ';
   }
 
   return %config;
