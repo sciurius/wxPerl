@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.52 2006/05/29 19:05:40 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.53 2006/07/09 10:41:04 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -97,8 +97,12 @@ void
 wxEvent::Skip( skip = true )
     bool skip
 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+
 bool
 wxEvent::ShouldPropagate()
+
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
@@ -110,11 +114,13 @@ wxEvent::ResumePropagation( propagationLevel )
     int propagationLevel
 
 #else
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 void
 wxEvent::SetPropagate( doIt )
     bool doIt
 
+#endif
 #endif
 
 MODULE=Wx_Evt PACKAGE=Wx::CommandEvent

@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.53  Sun Jul  9 12:42:59 CEST 2006
+        - wxWidgets 2.4 and wxMac compilation fixes.
+
 0.52  Fri Jul  7 22:29:57 CEST 2006
 	- Compilation fixes when wxMediaCtrl is disabled in wxWidgets.
 

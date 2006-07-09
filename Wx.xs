@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.78 2006/06/27 20:59:00 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.79 2006/07/09 10:41:04 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -158,7 +158,9 @@ int wxEntryStart( int argc, char** argv )
 #endif
 
     if (!wxApp::Initialize())
-        return false;
+        return -1;
+
+    return 0;
 }
 
 int wxEntryInitGui()
@@ -229,6 +231,12 @@ BOOT:
   SV* tmp = get_sv( "Wx::_exports", 1 );
   sv_setiv( tmp, (IV)(void*)&st_wxPliHelpers );
 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+#define wxPliEntryStart( argc, argv ) wxEntryStart( (argc), (argv) )
+#else
+#define wxPliEntryStart( argc, argv ) ( wxEntryStart( (argc), (argv) ) == 0 )
+#endif
+
 bool 
 Load()
   CODE:
@@ -271,7 +279,7 @@ Load()
     wxChar** argv = 0;
 
     argc = wxPli_get_args_argc_argv( (void***) &argv, 1 );
-    wxPerlInitialized = wxEntryStart( argc, argv );
+    wxPerlInitialized = wxPliEntryStart( argc, argv );
 #if WXPERL_W_VERSION_LE( 2, 5, 2 )
     wxPli_delete_argv( (void***) &argv, 1 );
 #endif
@@ -279,7 +287,7 @@ Load()
     char** argv = 0;
 
     argc = wxPli_get_args_argc_argv( (void***) &argv, 0 );
-    wxPerlInitialized = wxEntryStart( argc, argv );
+    wxPerlInitialized = wxPliEntryStart( argc, argv );
 #if WXPERL_W_VERSION_LE( 2, 5, 2 )
     wxPli_delete_argv( (void***) &argv, 0 );
 #endif

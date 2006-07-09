@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/06/2006
-## RCS-ID:      $Id: Sound.xsp,v 1.1 2006/06/27 20:59:00 mbarbon Exp $
+## RCS-ID:      $Id: Sound.xsp,v 1.2 2006/07/09 10:41:04 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -47,18 +47,22 @@ wxSound::newData( data )
     SV* data
   CODE:
     STRLEN len;
-    wxByte* buffer = (wxByte*) SvPV( data, len );
+    const wxByte* buffer = (wxByte*) SvPV( data, len );
     RETVAL = new wxSound( len, buffer );
   OUTPUT: RETVAL
+
+#if !defined(__WXMAC__)
 
 bool
 wxSound::CreateData( data )
     SV* data
   CODE:
     STRLEN len;
-    wxByte* buffer = (wxByte*) SvPV( data, len );
+    const wxByte* buffer = (wxByte*) SvPV( data, len );
     RETVAL = THIS->Create( len, buffer );
   OUTPUT: RETVAL
+
+#endif
 
 void
 Stop()

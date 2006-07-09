@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.146 2006/07/03 19:34:24 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.147 2006/07/09 10:41:04 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1617,10 +1617,12 @@ static double constant( const char *name, int arg )
     r( wxNB_RIGHT );                    // notebook
     r( wxNB_BOTTOM );                   // notebook
     r( wxNB_MULTILINE );                // notebook
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
     r( wxNB_HITTEST_NOWHERE );          // notebook
     r( wxNB_HITTEST_ONICON );           // notebook
     r( wxNB_HITTEST_ONLABEL );          // notebook
     r( wxNB_HITTEST_ONITEM );           // notebook
+#endif
     r( wxNO );                          // dialog
     r( wxNO_BORDER );                   // frame toolbar
 #if !WXPERL_W_VERSION_GE( 2, 7, 0 )
@@ -1793,11 +1795,11 @@ static double constant( const char *name, int arg )
     r( wxSW_3DSASH );                   // sashwindow
     r( wxSW_3DBORDER );                 // sashwindow
     r( wxSW_BORDER );                   // sashwindow
-
+#if WXPERL_W_VERSION_GE( 2, 5 ,1 )
     r( wxSOUND_SYNC );                  // sound
     r( wxSOUND_ASYNC );                 // sound
     r( wxSOUND_LOOP );                  // sound
-
+#endif
     r( wxSameAs );                      // layout constraints
 
     // fonts
@@ -1985,8 +1987,10 @@ static double constant( const char *name, int arg )
     r( wxWS_EX_VALIDATE_RECURSIVELY );  // window
     r( wxWS_EX_BLOCK_EVENTS );          // window
     r( wxWS_EX_TRANSIENT );             // window
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     r( wxWS_EX_PROCESS_IDLE );          // window
     r( wxWS_EX_PROCESS_UI_UPDATES );    // window
+#endif
     break;
   case 'X':
     r( wxXOR );                         // dc
