@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/03/2006
-// RCS-ID:      $Id: me_constants.cpp,v 1.3 2006/07/07 20:02:12 mbarbon Exp $
+// RCS-ID:      $Id: me_constants.cpp,v 1.4 2006/07/13 17:49:39 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -29,6 +29,9 @@ double media_constant( const char* name, int arg )
 
     switch( fl )
     {
+    case 'E':
+        r( wxEVT_MEDIA_FINISHED );
+        r( wxEVT_MEDIA_STOP );
     case 'M':
         r( wxMEDIASTATE_STOPPED );
         r( wxMEDIASTATE_PAUSED );
