@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.147 2006/07/09 10:41:04 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.148 2006/07/14 20:21:10 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -639,6 +639,8 @@ static double constant( const char *name, int arg )
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxBROWSER_NEW_WINDOW );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 5, 5 )
     r( wxBUFFER_VIRTUAL_AREA );         // dc
     r( wxBUFFER_CLIENT_AREA );          // dc
 #endif
