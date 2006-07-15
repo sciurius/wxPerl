@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/09/2001
-## RCS-ID:      $Id: MDI.pm,v 1.6 2005/06/11 06:43:57 mbarbon Exp $
+## RCS-ID:      $Id: MDI.pm,v 1.7 2006/07/15 10:08:50 mbarbon Exp $
 ## Copyright:   (c) 2001, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -102,6 +102,7 @@ sub OnCreateChild {
   my( $this, $event ) = @_;
 
   my $child = Wx::MDIChildFrame->new( $this, -1, "I'm a child" );
+  $child->Show;
 }
 
 sub OnClose {
