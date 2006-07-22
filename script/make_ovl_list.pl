@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/08/2001
-## RCS-ID:      $Id: make_ovl_list.pl,v 1.15 2005/10/16 21:08:57 mbarbon Exp $
+## RCS-ID:      $Id: make_ovl_list.pl,v 1.16 2006/07/22 20:21:18 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -88,6 +88,7 @@ my %name2type =
    wgbp => 'Wx::GBPosition',
    wgbs => 'Wx::GBSpan',
    wgbi => 'Wx::GBSizerItem',
+   wilo => 'Wx::IconLocation',
    wist => 1,
    wost => 1,
    num  => 1,
@@ -139,7 +140,6 @@ print OUT <<EOT;
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/ 8/2001
-## RCS-ID:      
 ## Copyright:   (c) 2001 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

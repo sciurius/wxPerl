@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Icon.xs,v 1.25 2005/02/19 17:22:59 mbarbon Exp $
+## RCS-ID:      $Id: Icon.xs,v 1.26 2006/07/22 20:21:17 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -41,6 +41,7 @@ wxIcon::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_VOIDM_REDISP( newNull )
+        MATCH_REDISP( wxPliOvl_wilo, newLocation )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, newFile, 2 )
     END_OVERLOAD( Wx::Icon::new )
 
@@ -99,6 +100,18 @@ newFromXPM( CLASS, data )
         free( xpm_data[i] );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 5, 2 )
+
+wxIcon*
+newLocation( CLASS, location )
+    SV* CLASS
+    wxIconLocation* location
+  CODE:
+    RETVAL = new wxIcon( *location );
+  OUTPUT: RETVAL
+
+#endif
 
 ## XXX threads
 void
