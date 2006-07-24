@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.55
+
 0.54  Sun Jul 16 14:26:52 CEST 2006
         - Compatibility with GCC 4.0 and 4.1.
 	- Minor compatibility fixes for various wxWidgets releases.
