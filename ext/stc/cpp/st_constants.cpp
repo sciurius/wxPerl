@@ -3,7 +3,7 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.21 2005/11/22 22:31:57 mbarbon Exp $
+// RCS-ID:      $Id: st_constants.cpp,v 1.22 2006/07/24 19:28:50 mbarbon Exp $
 // Copyright:   (c) 2002-2005 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -465,7 +465,9 @@ double stc_constant( const char* name, int arg )
     case 'L':
         r( wxSTC_LEX_ADA );
         r( wxSTC_LEX_ASM );
+#ifdef wxSTC_LEX_ASP
         r( wxSTC_LEX_ASP );
+#endif
         r( wxSTC_LEX_AUTOMATIC );
         r( wxSTC_LEX_AVE );
         r( wxSTC_LEX_BAAN );
@@ -494,7 +496,12 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_LEX_NSIS );
         r( wxSTC_LEX_PASCAL );
         r( wxSTC_LEX_PERL );
+#ifdef wxSTC_LEX_PHP
         r( wxSTC_LEX_PHP );
+#endif
+#ifdef wxSTC_LEX_PHPSCRIPT
+        r( wxSTC_LEX_PHPSCRIPT );
+#endif
         r( wxSTC_LEX_PROPERTIES );
         r( wxSTC_LEX_PS );
         r( wxSTC_LEX_PYTHON );

@@ -69,9 +69,9 @@ EOT
 
 wxPerl : Makefile
 %s	cd cpp/wxPerl.osx && xcodebuild -project wxPerl.xcode
-	cp -p $(PERL) cpp/wxPerl.osx/build/wxPerl.app/Contents/MacOS/wxPerl
+	cp -p $(PERL) `find cpp -name wxPerl.app`/Contents/MacOS/wxPerl
 	mkdir -p $(INST_ARCHLIB)/auto/Wx
-	cp -rp cpp/wxPerl.osx/build/wxPerl.app $(INST_ARCHLIB)/auto/Wx
+	cp -rp `find cpp -name wxPerl.app` $(INST_ARCHLIB)/auto/Wx
 	$(CC) cpp/wxPerl.osx/wxPerl.c -o wxPerl
 
 install_wxperl :
