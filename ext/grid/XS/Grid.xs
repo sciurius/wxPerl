@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.25 2005/09/15 21:08:54 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.26 2006/07/25 20:12:30 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -170,6 +170,14 @@ void
 wxGrid::EnableCellEditControl( enable = true )
     bool enable
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxGrid::EnableDragColMove( enable = true )
+    bool enable
+
+#endif
+
 void
 wxGrid::EnableDragColSize( enable = true )
     bool enable
@@ -222,6 +230,11 @@ wxGrid::GetCellBackgroundColour( row, col )
 
 wxGridCellEditor*
 wxGrid::GetCellEditor( row, col )
+    int row
+    int col
+
+bool
+wxGrid::GetCellOverflow( row, col )
     int row
     int col
 
@@ -309,6 +322,9 @@ wxGrid::GetDefaultCellFont()
     RETVAL = new wxFont( THIS->GetDefaultCellFont() );
   OUTPUT:
     RETVAL
+
+bool
+wxGrid::GetDefaultCellOverflow( )
 
 wxColour*
 wxGrid::GetDefaultCellTextColour()
@@ -782,6 +798,10 @@ wxGrid::SetDefaultCellFont( font )
     wxFont* font
   CODE:
     THIS->SetDefaultCellFont( *font );
+
+void
+wxGrid::SetDefaultCellOverflow( oflo )
+    bool oflo
 
 void
 wxGrid::SetDefaultCellTextColour( colour )
