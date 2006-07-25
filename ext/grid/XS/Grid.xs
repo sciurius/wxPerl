@@ -4,13 +4,14 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.26 2006/07/25 20:12:30 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.27 2006/07/25 20:20:40 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 #include <wx/grid.h>
+#include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::GridCellCoords
 
@@ -44,8 +45,25 @@ wxGridCellCoords::Set( r, c )
 
 MODULE=Wx PACKAGE=Wx::Grid
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::Grid::new" )
+
 wxGrid*
-wxGrid::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxGrid();
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+  OUTPUT: RETVAL
+
+wxGrid*
+newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -57,6 +75,15 @@ wxGrid::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
+
+bool
+wxGrid::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxPoint pos
+    wxSize size
+    long style
+    wxString name
 
 bool
 wxGrid::AppendCols( numCols = 1, updateLabels = true )
