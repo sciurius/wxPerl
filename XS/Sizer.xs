@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.46 2006/06/18 11:13:14 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.47 2006/07/28 21:02:56 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -496,6 +496,9 @@ wxSizerItem::GetRatio()
 
 bool
 wxSizerItem::IsWindow()
+
+bool
+wxSizerItem::IsShown()
 
 bool
 wxSizerItem::IsSizer()
