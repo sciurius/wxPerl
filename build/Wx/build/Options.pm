@@ -46,6 +46,7 @@ sub _load_options {
   ( $extra_cflags, $extra_libs, $alien_key )
     = @{$options}{qw(extra_cflags extra_libs alien_key)};
 
+  require Alien::wxWidgets;
   Alien::wxWidgets->load( key => $alien_key );
 }
 
