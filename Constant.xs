@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.149 2006/07/15 10:08:50 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.150 2006/07/30 12:14:02 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -94,6 +94,10 @@
 #define wxNB_BOTTOM           wxBK_BOTTOM
 #define wxNB_LEFT             wxBK_LEFT
 #define wxNB_RIGHT            wxBK_RIGHT
+#define wxNB_HITTEST_NOWHERE  wxBK_HITTEST_NOWHERE
+#define wxNB_HITTEST_ONICON   wxBK_HITTEST_ONICON
+#define wxNB_HITTEST_ONLABEL  wxBK_HITTEST_ONLABEL
+#define wxNB_HITTEST_ONITEM   wxBK_HITTEST_ONITEM
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
