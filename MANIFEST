@@ -185,6 +185,7 @@ XS/Frame.xs
 XS/Gauge.xs
 XS/Geom.xs
 XS/GridBagSizer.xsp
+XS/HyperlinkCtrl.xsp
 XS/Icon.xs
 XS/IconBundle.xsp
 XS/Image.xs
@@ -203,6 +204,7 @@ XS/Panel.xs
 XS/Pen.xs
 XS/PlWindow.xsp
 XS/PopupWindow.xsp
+XS/Power.xsp
 XS/Process.xs
 XS/ProgressDialog.xs
 XS/RadioBox.xs
@@ -229,8 +231,10 @@ XS/Timer.xs
 XS/TreeCtrl.xs
 XS/ToggleButton.xs
 XS/ToolBar.xs
+XS/Toolbook.xsp
 XS/ToolTip.xs
 XS/TopLevelWindow.xsp
+XS/Treebook.xsp
 XS/Utils.xs
 XS/Validators.xs
 XS/Wave.xs

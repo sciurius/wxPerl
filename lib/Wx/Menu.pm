@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/11/2000
-## RCS-ID:      $Id: Menu.pm,v 1.11 2005/07/05 19:53:05 mbarbon Exp $
+## RCS-ID:      $Id: Menu.pm,v 1.12 2006/07/31 19:31:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -17,7 +17,7 @@ use strict;
 sub Append {
   my( $this ) = shift;
 
-  Wx::_match( @_, $Wx::_n_s_wmen, 3, 1 ) && ( return $this->AppendSubMenu( @_ ) );
+  Wx::_match( @_, $Wx::_n_s_wmen, 3, 1 ) && ( return $this->AppendSubMenu_( @_ ) );
   Wx::_match( @_, $Wx::_n_s, 2, 1 )      && ( return $this->AppendString( @_ ) );
   Wx::_match( @_, $Wx::_wmit, 1 )        && ( return $this->AppendItem( @_ ) );
   Wx::_croak Wx::_ovl_error;

@@ -1,0 +1,79 @@
+#############################################################################
+## Name:        XS/HyperlinkCtrl.xsp
+## Purpose:     XS++ for Wx::HyperlinkCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     30/07/2006
+## RCS-ID:      $Id: HyperlinkCtrl.xsp,v 1.1 2006/07/31 19:31:14 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxHyperlinkCtrl*}{simple};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+#include <wx/hyperlink.h>
+%}
+
+%name{Wx::HyperlinkCtrl} class wxHyperlinkCtrl
+{
+    %name{newDefault} wxHyperlinkCtrl()
+        %code{% RETVAL = new wxHyperlinkCtrl();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxHyperlinkCtrl( wxWindow *parent,
+                                    wxWindowID id,
+                                    const wxString& label, const wxString& url,
+                                    const wxPoint& pos = wxDefaultPosition,
+                                    const wxSize& size = wxDefaultSize,
+                                    long style = 0,
+                                    const wxString& name = wxHyperlinkCtrlNameStr )
+        %code{% RETVAL = new wxHyperlinkCtrl( parent, id, label, url,
+                                              pos, size, style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create( wxWindow *parent,
+                 wxWindowID id,
+                 const wxString& label, const wxString& url,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = 0,
+                 const wxString& name = wxHyperlinkCtrlNameStr );
+
+    wxColour GetHoverColour() const;
+    void SetHoverColour( const wxColour& colour );
+    wxColour GetNormalColour() const;
+    void SetNormalColour( const wxColour& colour );
+    wxColour GetVisitedColour() const;
+    void SetVisitedColour( const wxColour& colour );
+    wxString GetURL() const;
+    void SetURL ( const wxString& url );
+    void SetVisited( bool visited = true );
+    bool GetVisited();
+};
+
+%name{Wx::HyperlinkEvent} class wxHyperlinkEvent
+{
+    wxString GetURL();
+    void SetURL( const wxString& url );
+};
+
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::HyperlinkCtrl::new" )
+%}
+
+%{
+#endif
+%}

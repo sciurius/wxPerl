@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.26 2005/01/04 22:10:11 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.27 2006/07/31 19:31:14 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -250,6 +250,15 @@ void
 wxTreeCtrl::Expand( item )
     wxTreeItemId* item
   C_ARGS: *item
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxTreeCtrl::ExpandAllChildren( item )
+    wxTreeItemId* item
+  C_ARGS: *item
+
+#endif
 
 void
 wxTreeCtrl::GetBoundingRect( item, textOnly = false )

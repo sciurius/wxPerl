@@ -1,0 +1,41 @@
+#############################################################################
+## Name:        XS/Power.xsp
+## Purpose:     XS++ for power-related events/functions
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     04/01/2005
+## RCS-ID:      $Id: Power.xsp,v 1.1 2006/07/31 19:31:14 mbarbon Exp $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxPowerType}{simple};
+%typemap{wxBatteryState}{simple};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+#include <wx/power.h>
+
+#if wxHAS_POWER_EVENTS
+%}
+
+%name{Wx::PowerEvent} class wxPowerEvent
+{
+    void Veto();
+    bool IsVetoed();
+};
+
+%{
+#endif
+%}
+
+%name{Wx::GetPowerType} wxPowerType wxGetPowerType();
+%name{Wx::GetBatteryState} wxBatteryState wxGetBatteryState();
+
+%{
+#endif
+%}

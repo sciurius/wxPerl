@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.150 2006/07/30 12:14:02 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.151 2006/07/31 19:31:14 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -68,6 +68,10 @@
 #include <wx/mediactrl.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#include <wx/power.h>
+#include <wx/toolbook.h>
+#include <wx/treebook.h>
+#include <wx/hyperlink.h>
 #include <wx/power.h>
 #endif
 #include <wx/tglbtn.h>
@@ -290,6 +294,8 @@ static wxPlINH inherit[] =
     I( Notebook,        BookCtrl )
     I( Listbook,        BookCtrl )
     I( Choicebook,      BookCtrl )
+    I( Treebook,        BookCtrl )
+    I( Toolbook,        BookCtrl )
 #else
     I( Notebook,        Control )
 #endif
@@ -324,6 +330,7 @@ static wxPlINH inherit[] =
     I( Wizard,          Dialog )
     I( WizardPage,      Panel )
     I( WizardPageSimple, WizardPage )
+    I( HyperlinkCtrl,   Control )
 
     I( ColourDialog,    Dialog )
     I( GenericColourDialog, ColourDialog )
@@ -519,6 +526,8 @@ static wxPlINH inherit[] =
     I( NotebookEvent,   BookCtrlEvent )
     I( ListbookEvent,   BookCtrlEvent )
     I( ChoicebookEvent, BookCtrlEvent )
+    I( ToolbookEvent,   BookCtrlEvent )
+    I( TreebookEvent,   BookCtrlEvent )
 #else
     I( NotebookEvent,   NotifyEvent )
 #endif
@@ -546,6 +555,8 @@ static wxPlINH inherit[] =
     I( SplitterEvent,   NotifyEvent )
     I( NavigationKeyEvent, Event )
     I( ClipboardTextEvent, CommandEvent )
+    I( HyperlinkEvent,  CommandEvent )
+    I( PowerEvent,      Event )
 
     { 0, 0 }
 };
@@ -610,6 +621,14 @@ static double constant( const char *name, int arg )
     r( wxAsIs );                        // layout constraints
     break;
   case 'B':
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxBATTERY_NORMAL_STATE );        // power
+    r( wxBATTERY_LOW_STATE );           // power
+    r( wxBATTERY_CRITICAL_STATE );      // power
+    r( wxBATTERY_SHUTDOWN_STATE );      // power
+    r( wxBATTERY_UNKNOWN_STATE );       // power
+#endif
+
     r( wxBITMAP_TYPE_BMP );             // bitmap icon image
     r( wxBITMAP_TYPE_BMP_RESOURCE );    // bitmap icon image
     r( wxBITMAP_TYPE_CUR );             // bitmap icon image
@@ -660,6 +679,7 @@ static double constant( const char *name, int arg )
     r( wxBK_BOTTOM );                   // bookctrl
     r( wxBK_LEFT );                     // bookctrl
     r( wxBK_RIGHT );                    // bookctrl
+    r( wxBK_BUTTONBAR );                // toolbook
 #endif
     break;
   case 'C':
@@ -792,6 +812,15 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     r( wxEVT_COMMAND_CHOICEBOOK_PAGE_CHANGED );
     r( wxEVT_COMMAND_CHOICEBOOK_PAGE_CHANGING );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxEVT_COMMAND_TOOLBOOK_PAGE_CHANGED );
+    r( wxEVT_COMMAND_TOOLBOOK_PAGE_CHANGING );
+    r( wxEVT_COMMAND_TREEBOOK_PAGE_CHANGED );
+    r( wxEVT_COMMAND_TREEBOOK_PAGE_CHANGING );
+    r( wxEVT_COMMAND_TREEBOOK_NODE_COLLAPSED );
+    r( wxEVT_COMMAND_TREEBOOK_NODE_EXPANDED );
+    r( wxEVT_COMMAND_HYPERLINK );
 #endif
     r( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED );
     r( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGING );
@@ -1132,6 +1161,10 @@ static double constant( const char *name, int arg )
     r( wxID_HELP_COMMANDS );            // id
     r( wxID_HELP_PROCEDURES );          // id
     r( wxID_HELP_CONTEXT );             // id
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxID_HELP_SEARCH );              // id
+    r( wxID_HELP_INDEX );               // id
+#endif
     r( wxID_HELP );                     // id
     r( wxID_HIGHEST );                  // id
     r( wxID_LOWEST );                   // id
@@ -1670,6 +1703,12 @@ static double constant( const char *name, int arg )
     r( wxPD_REMAINING_TIME );           // progressdialog
     //    r( wxPD_SMOOTH );                   // progressdialog
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxPOWER_SOCKET  );               // power
+    r( wxPOWER_BATTERY );               // power
+    r( wxPOWER_UNKNOWN );               // power
+#endif
+
     r( wxPercentOf );                   // layout constraints
     r( wxPartRegion );                  // layout constraints
     break;
@@ -1909,6 +1948,9 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     r( wxTB_HORZ_LAYOUT );              // toolbar
     r( wxTB_HORZ_TEXT );                // toolbar
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxTB_NO_TOOLTIPS );              // toolbar
 #endif
     r( wxTE_PROCESS_ENTER );            // textctrl
     r( wxTE_PROCESS_TAB );              // textctrl

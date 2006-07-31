@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.84 2006/06/27 20:59:00 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.85 2006/07/31 19:31:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -36,6 +36,7 @@ wxSignal                T_ENUM
 wxItemKind              T_ENUM
 PlClassName             T_CLASSNAME
 wxUint32                T_IV
+wxByte                  T_U_CHAR
 wxTextCtrlHitTestResult T_ENUM
 wxArrayString           T_ARRAYSTRING
 
@@ -47,6 +48,8 @@ wxSystemColour          T_ENUM
 wxSystemFont            T_ENUM
 wxSystemMetric          T_ENUM
 wxOrientation           T_ENUM
+wxBatteryState          T_ENUM
+wxPowerType             T_ENUM
 
 wxLogTraceMask          T_UV 
 wxLogLevel              T_UV 
@@ -127,7 +130,9 @@ wxToggleButton *        O_WXEVTHANDLER
 wxSplashScreen *        O_WXOBJECT
 wxListbook *            O_WXEVTHANDLER
 wxChoicebook *          O_WXEVTHANDLER
+wxToolbook *            O_WXEVTHANDLER
 wxTreebook *            O_WXEVTHANDLER
+wxHyperlinkCtrl *       O_WXEVTHANDLER
 
 wxWizard *              O_WXOBJECT
 wxWizardPage *          O_WXOBJECT
@@ -372,6 +377,8 @@ wxWizardEvent *         O_WXOBJECT
 wxTreebookEvent *       O_WXOBJECT
 wxNavigationKeyEvent *  O_WXOBJECT
 wxChildFocusEvent *     O_WXOBJECT
+wxHyperlinkEvent *      O_WXOBJECT
+wxPowerEvent *          O_WXOBJECT
 
 wxPlEvent *             O_WXOBJECT
 wxPlCommandEvent *      O_WXOBJECT

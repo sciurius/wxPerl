@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: RadioBox.xs,v 1.16 2006/05/07 16:37:51 mbarbon Exp $
+## RCS-ID:      $Id: RadioBox.xs,v 1.17 2006/07/31 19:31:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -153,6 +153,19 @@ wxRadioBox::SetItemToolTip( item, text )
 
 wxToolTip*
 wxRadioBox::GetItemToolTip( item )
+    unsigned int item
+
+#endif
+
+#if wxPERL_USE_HELP && WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxRadioBox::SetItemHelpText( item, text )
+    unsigned int item
+    wxString text
+
+wxString
+wxRadioBox::GetItemHelpText( item )
     unsigned int item
 
 #endif

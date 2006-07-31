@@ -648,7 +648,7 @@ ok( $replico, "Wx::ImageList::ReplaceIcon" );
 my( $appmen, $appstr, $appite, $delite, $delid, $desite, $desid,
     $remite, $remid, $prepite, $prepstr, $insite, $insstr )
   = ( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-hijack( 'Wx::Menu::AppendSubMenu' => sub { $appmen = 1 },
+hijack( 'Wx::Menu::AppendSubMenu_'=> sub { $appmen = 1 },
         'Wx::Menu::AppendString'  => sub { $appstr = 1 },
         'Wx::Menu::AppendItem'    => sub { $appite = 1 },
         'Wx::Menu::DeleteItem'    => sub { $delite = 1 },
@@ -674,7 +674,7 @@ $me->Append( 11, 'My' );
 ok( $appstr, "Wx::Menu::AppendString" );
 
 $me->Append( 12, 'Sub', $me2 );
-ok( $appmen, "Wx::Menu::AppendSubMenu" );
+ok( $appmen, "Wx::Menu::AppendSubMenu_" );
 
 $me->Append( $i1 );
 ok( $appite, "Wx::Menu::AppendItem" );

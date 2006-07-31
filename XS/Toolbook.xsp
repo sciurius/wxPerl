@@ -3,37 +3,37 @@
 ## Purpose:     XS++ for Wx::Choicebook
 ## Author:      Mattia Barbon
 ## Modified by:
-## Created:     04/01/2005
-## RCS-ID:      $Id: Choicebook.xsp,v 1.2 2006/07/31 19:31:14 mbarbon Exp $
-## Copyright:   (c) 2005 Mattia Barbon
+## Created:     30/07/2006
+## RCS-ID:      $Id: Toolbook.xsp,v 1.1 2006/07/31 19:31:14 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 %module{Wx};
 
-%typemap{wxChoicebook*}{simple};
+%typemap{wxToolbook*}{simple};
 
 %{
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
 
-#include <wx/choice.h>
-#include <wx/choicebk.h>
+#include <wx/toolbar.h>
+#include <wx/toolbook.h>
 %}
 
-%name{Wx::Choicebook} class wxChoicebook
+%name{Wx::Toolbook} class wxToolbook
 {
-    %name{newDefault} wxChoicebook()
-        %code{% RETVAL = new wxChoicebook();
+    %name{newDefault} wxToolbook()
+        %code{% RETVAL = new wxToolbook();
                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
-    %name{newFull} wxChoicebook(wxWindow *parent,
+    %name{newFull} wxToolbook(wxWindow *parent,
                               wxWindowID id,
                               const wxPoint& pos = wxDefaultPosition,
                               const wxSize& size = wxDefaultSize,
                               long style = 0,
                               const wxString& name = wxEmptyString)
-        %code{% RETVAL = new wxChoicebook( parent, id, pos, size, style, name );
+        %code{% RETVAL = new wxToolbook( parent, id, pos, size, style, name );
                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
 
@@ -44,10 +44,8 @@
                 long style = 0,
                 const wxString& name = wxEmptyString);
 
-    bool IsVertical();
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
-    wxChoice* GetChoiceCtrl() const;
-#endif
+    wxToolBarBase* GetToolBar();
+    void Realize();
 };
 
 %{
@@ -57,7 +55,7 @@ new( ... )
     BEGIN_OVERLOAD()
         MATCH_VOIDM_REDISP( newDefault )
         MATCH_ANY_REDISP( newFull )
-    END_OVERLOAD( "Wx::Choicebook::new" )
+    END_OVERLOAD( "Wx::Toolbook::new" )
 %}
 
 %{

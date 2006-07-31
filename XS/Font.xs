@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Font.xs,v 1.22 2004/08/04 20:13:54 mbarbon Exp $
+## RCS-ID:      $Id: Font.xs,v 1.23 2006/07/31 19:31:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,6 +29,13 @@ wxNativeFontInfo::FromString( string )
 
 wxString
 wxNativeFontInfo::ToString()
+
+bool
+wxNativeFontInfo::FromUserString( string )
+    wxString string
+
+wxString
+wxNativeFontInfo::ToUserString()
 
 MODULE=Wx PACKAGE=Wx::Font
 
@@ -160,9 +167,19 @@ SetDefaultEncoding( encoding )
   CODE:
     wxFont::SetDefaultEncoding( encoding );
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+bool
+wxFont::SetFaceName( faceName )
+    wxString faceName
+
+#else
+
 void
 wxFont::SetFaceName( faceName )
     wxString faceName
+
+#endif
 
 void
 wxFont::SetFamily( family )

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.23 2006/03/16 07:44:12 netcon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.24 2006/07/31 19:31:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -18,6 +18,16 @@ wxMenu*
 wxMenu::new( title = wxEmptyString, style = 0)
     wxString title
     long style
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+wxMenuItem*
+wxMenu::AppendSubMenu( submenu, text, help = wxEmptyString )
+    wxMenu* submenu
+    wxString text
+    wxString help
+
+#endif
 
 void
 wxMenu::AppendString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
@@ -34,7 +44,7 @@ wxMenu::AppendString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
 #endif
 
 void
-wxMenu::AppendSubMenu( id, item, subMenu, helpString = wxEmptyString )
+wxMenu::AppendSubMenu_( id, item, subMenu, helpString = wxEmptyString )
     int id
     wxString item
     wxMenu* subMenu
