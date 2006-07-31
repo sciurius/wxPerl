@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: xsubppp.pl,v 1.8 2004/12/21 20:57:45 mbarbon Exp $
+## RCS-ID:      $Id: xsubppp.pl,v 1.9 2006/07/31 19:28:02 mbarbon Exp $
 ## Copyright:   (c) 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -274,6 +274,7 @@ sub code { $_[0]->{CODE} }
 #     RETVAL
 sub print {
   my $this = shift;
+  my $state = shift;
   my $out = '';
   my $fname = $this->perl_function_name;
   my $args = $this->arguments;
@@ -323,7 +324,7 @@ sub print {
 
   my $retstr = $ret_typemap ? $ret_typemap->cpp_type : 'void';
 
-  # specila case: constructors with name different from 'new'
+  # special case: constructors with name different from 'new'
   # need to be declared 'static' in XS
   if( $this->isa( 'XSP::Parser::Constructor' ) &&
       $this->perl_name ne $this->cpp_name ) {
@@ -350,6 +351,17 @@ sub print {
     $output = "  OUTPUT: RETVAL\n" if $code =~ m/RETVAL/;
   }
 
+  if( !$this->is_method && $fname =~ /^(.*)::(\w+)$/ ) {
+    my $pcname = $1;
+    $fname = $2;
+    my $cur_module = $state->{current_module}->to_string;
+    $out .= <<EOT;
+
+$cur_module PACKAGE=$pcname
+
+EOT
+  }
+
   $out .= "$retstr\n";
   $out .= "$fname($arg_list)\n";
   $out .= $init;
@@ -359,6 +371,7 @@ sub print {
 }
 
 sub perl_function_name { $_[0]->perl_name }
+sub is_method { 0 }
 
 =begin documentation
 
@@ -370,7 +383,7 @@ Return something like "foo( $argument_string )".
 
 =cut
 
-sub _call_code { die 'IMPLEMENT ME' }
+sub _call_code { return $_[0]->cpp_name . '(' . $_[1] . ')'; }
 
 package XSP::Parser::Method;
 
@@ -381,6 +394,7 @@ sub perl_function_name { $_[0]->class->cpp_name . '::' .
                          $_[0]->perl_name }
 sub _call_code { return "THIS->" . $_[0]->cpp_name .
                    '(' . $_[1] . ')'; }
+sub is_method { 1 }
 
 package XSP::Parser::Constructor;
 

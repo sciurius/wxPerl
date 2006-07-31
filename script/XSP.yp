@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: XSP.yp,v 1.9 2004/01/25 08:16:54 mbarbon Exp $
+## RCS-ID:      $Id: XSP.yp,v 1.10 2006/07/31 19:28:02 mbarbon Exp $
 ## Copyright:   (c) 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,9 +19,11 @@
 top:    raw             { [ $_[1] ] }
       | class           { [ $_[1] ] }
       | directive       { [ $_[1] ] }
+      | function        { [ $_[1] ] }
       | top raw         { push @{$_[1]}, $_[2]; $_[1] }
       | top class       { push @{$_[1]}, $_[2]; $_[1] }
       | top directive   { push @{$_[1]}, $_[2]; $_[1] }
+      | top function    { push @{$_[1]}, $_[2]; $_[1] }
         ;
 
 directive:      perc_module SEMICOLON
@@ -74,19 +76,9 @@ method:         function { my $f = $_[1];
                                ret_type  => $f->ret_type,
                                arguments => $f->arguments,
                                code      => $f->code );
+                           $m->{PERL_NAME} = $_[1]->{PERL_NAME};
                            $m
                          }
-              | perc_name function
-                    { my $f = $_[2];
-                      my $m = add_data_method
-                        ( $_[0],
-                          name      => $f->cpp_name,
-                          ret_type  => $f->ret_type,
-                          arguments => $f->arguments,
-                          code      => $f->code );
-                      $m->{PERL_NAME} = $_[1];
-                      $m
-                    }
               | ctor
               | perc_name ctor
                     { $_[2]->{PERL_NAME} = $_[1]; $_[2] }
@@ -95,7 +87,12 @@ method:         function { my $f = $_[1];
 const: 'const'
      | ;
 
-function:       type ID OPPAR arg_list CLPAR metadata const SEMICOLON
+function:       _func
+              | perc_name _func
+                    { $_[2]->{PERL_NAME} = $_[1]; $_[2] }
+              ;
+
+_func:          type ID OPPAR arg_list CLPAR metadata const SEMICOLON
                     { add_data_function( $_[0],
                                          name      => $_[2],
                                          ret_type  => $_[1],
