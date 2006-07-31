@@ -44,8 +44,8 @@ sub wx_boot($$) {
 sub _alien_path {
   return if defined $wx_path;
   foreach ( @INC ) {
-    if( -d "$_/Alien/wxWidgets/XXXALIENXXX" ) {
-      $wx_path = "$_/Alien/wxWidgets/XXXALIENXXX/lib";
+    if( -d "$_/Alien/wxWidgets/XXXALIENDXXX" ) {
+      $wx_path = "$_/Alien/wxWidgets/XXXALIENDXXX/lib";
       last;
     }
   }

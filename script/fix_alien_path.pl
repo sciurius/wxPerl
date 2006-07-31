@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     15/08/2005
-## RCS-ID:      $Id: fix_alien_path.pl,v 1.2 2006/04/16 15:11:07 mbarbon Exp $
+## RCS-ID:      $Id: fix_alien_path.pl,v 1.3 2006/07/31 20:13:44 mbarbon Exp $
 ## Copyright:   (c) 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -31,11 +31,15 @@ my @libs = Alien::wxWidgets->library_keys;
 my %libs; @libs{@libs} = Alien::wxWidgets->shared_libraries( @libs );
 my $libs = Data::Dumper::Dumper( \%libs );
 
+my( $vol, $dir, $file ) = File::Spec->splitpath( Alien::wxWidgets->prefix );
+my $keyd = $file ? $file : ( File::Spec->splitdir( $dir ) )[-1];
+
 unlink $to if -f $to;
 open my $in, "< $from"; binmode $in;
 open my $out, "> $to"; binmode $out;
 
 while( <$in> ) {
+    s/XXXALIENDXXX/$keyd/g;
     s/XXXALIENXXX/$key/g;
     s/Wx::wxVERSION\(\)/$version/g;
     s/XXXDLLSXXX/$libs/g;
