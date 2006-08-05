@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/11/2000
-## RCS-ID:      $Id: App.pm,v 1.16 2005/09/08 21:15:53 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: App.pm,v 1.17 2006/08/05 13:18:45 mbarbon Exp $
+## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -39,9 +39,13 @@ sub new {
   $this;
 }
 
-sub OnInit {
-  0;
-}
+sub OnInit { 0 }
+
+package Wx::SimpleApp;
+
+@Wx::SimpleApp::ISA = qw(Wx::App);
+
+sub OnInit { 1 }
 
 1;
 

@@ -4,6 +4,8 @@ Revision history for Perl extension Wx.
 	- Mac OS X 10.4 with latest Xcode compilation fixes.
 	- Added wxTreebook, wxChoicebook, wxHyperlinkCtrl,
 	  wxPowerEvent. (2.7)
+	- Added Wx::SimpleApp.
+	- Make the example in the SYNOPSIS actually show a window.
 
 0.54  Sun Jul 16 14:26:52 CEST 2006
         - Compatibility with GCC 4.0 and 4.1.

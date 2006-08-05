@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.99 2006/07/24 19:27:04 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.100 2006/08/05 13:18:46 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -308,6 +308,12 @@ Wx - interface to the wxWidgets cross-platform GUI toolkit
 =head1 SYNOPSIS
 
     use Wx;
+
+    my $app = Wx::SimpleApp->new;
+    my $frame = Wx::Frame->new( undef, -1, 'Hello, world!' );
+
+    $frame->Show;
+    $app->MainLoop;
 
 =head1 DESCRIPTION
 
