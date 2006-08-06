@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.55
+0.55  Sun Aug  6 19:48:31 CEST 2006
 	- Mac OS X 10.4 with latest Xcode compilation fixes.
 	- Added wxTreebook, wxChoicebook, wxHyperlinkCtrl,
 	  wxPowerEvent. (2.7)
