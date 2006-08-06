@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.53 2006/07/09 10:41:04 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.54 2006/08/06 17:43:17 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -45,7 +45,6 @@ MODULE=Wx_Evt PACKAGE=Wx::Event
 # unimplemented ( and probably will never be: problems with object
 #                 cloning/destruction )
 # GetObjectType
-# SetEventObject
 
 ## XXX threads
 void
@@ -84,6 +83,11 @@ wxEvent::GetTimestamp()
 void
 wxEvent::SetEventType( type )
     wxEventType type
+
+## will likely need to be restricted to wxWindow (for ownership problems)
+void
+wxEvent::SetEventObject( object )
+    wxObject* object
 
 void
 wxEvent::SetId( id )
