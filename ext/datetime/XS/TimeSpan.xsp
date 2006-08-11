@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     10/01/2005
-## RCS-ID:      $Id: TimeSpan.xsp,v 1.1 2006/01/24 07:05:11 netcon Exp $
-## Copyright:   (c) 2005 Mattia Barbon
+## RCS-ID:      $Id: TimeSpan.xsp,v 1.2 2006/08/11 19:54:58 mbarbon Exp $
+## Copyright:   (c) 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

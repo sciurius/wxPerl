@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.39 2006/08/11 19:38:44 mbarbon Exp $
-## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
+## RCS-ID:      $Id: Image.xs,v 1.40 2006/08/11 19:55:00 mbarbon Exp $
+## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

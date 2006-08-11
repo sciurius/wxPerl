@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        ext/xrc/XS/MediaCtrl.xsp
+## Name:        ext/media/XS/MediaEvent.xsp
 ## Purpose:     XS++ for Wx::MediaCtrl
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/03/2006
-## RCS-ID:      $Id: MediaEvent.xsp,v 1.1 2006/05/28 10:53:52 mbarbon Exp $
+## RCS-ID:      $Id: MediaEvent.xsp,v 1.2 2006/08/11 19:55:00 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

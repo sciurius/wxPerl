@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     22/09/2002
-// RCS-ID:      $Id: DateTime.xs,v 1.3 2006/01/24 07:02:14 netcon Exp $
-// Copyright:   (c) 2002 Mattia Barbon
+// RCS-ID:      $Id: DateTime.xs,v 1.4 2006/08/11 19:54:58 mbarbon Exp $
+// Copyright:   (c) 2002, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////

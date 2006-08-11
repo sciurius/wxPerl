@@ -3,8 +3,8 @@
 // Purpose:     constants for Wx::STC
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
-// RCS-ID:      $Id: st_constants.cpp,v 1.22 2006/07/24 19:28:50 mbarbon Exp $
-// Copyright:   (c) 2002-2005 Marcus Friedlaender and Mattia Barbon
+// RCS-ID:      $Id: st_constants.cpp,v 1.23 2006/08/11 19:54:59 mbarbon Exp $
+// Copyright:   (c) 2002-2006 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////

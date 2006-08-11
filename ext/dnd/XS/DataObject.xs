@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.21 2006/08/11 19:38:45 mbarbon Exp $
-## Copyright:   (c) 2001-2004 Mattia Barbon
+## RCS-ID:      $Id: DataObject.xs,v 1.22 2006/08/11 19:54:58 mbarbon Exp $
+## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

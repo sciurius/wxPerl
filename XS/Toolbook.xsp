@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        XS/Choicebook.xsp
-## Purpose:     XS++ for Wx::Choicebook
+## Name:        XS/Toolbook.xsp
+## Purpose:     XS++ for Wx::Toolbook
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/07/2006
-## RCS-ID:      $Id: Toolbook.xsp,v 1.1 2006/07/31 19:31:14 mbarbon Exp $
+## RCS-ID:      $Id: Toolbook.xsp,v 1.2 2006/08/11 19:55:00 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

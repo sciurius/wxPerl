@@ -3,9 +3,9 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.19 2006/02/06 18:43:47 mbarbon Exp $
-## Copyright:   (c) 2002-2004 Graciliano M. P., Marcus Friedlaender,
-##                            Mattia Barbon, Simon Flack
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.20 2006/08/11 19:54:59 mbarbon Exp $
+## Copyright:   (c) 2002-2004, 2006 Graciliano M. P., Marcus Friedlaender,
+##                  Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

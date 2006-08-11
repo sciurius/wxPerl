@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs,v 1.25 2006/08/11 19:38:44 mbarbon Exp $
-## Copyright:   (c) 2000-2005 Mattia Barbon
+## RCS-ID:      $Id: Locale.xs,v 1.26 2006/08/11 19:55:00 mbarbon Exp $
+## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

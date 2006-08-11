@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/02/2001
-## RCS-ID:      $Id: SashWindow.xs,v 1.9 2006/03/10 19:25:33 mbarbon Exp $
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## RCS-ID:      $Id: SashWindow.xs,v 1.10 2006/08/11 19:55:00 mbarbon Exp $
+## Copyright:   (c) 2001-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
