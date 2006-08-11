@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/09/2001
-## RCS-ID:      $Id: MDIParentFrame.xs,v 1.11 2006/07/15 10:08:50 mbarbon Exp $
+## RCS-ID:      $Id: MDIParentFrame.xs,v 1.12 2006/08/11 19:30:54 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -59,7 +59,7 @@ wxMDIParentFrame::GetClientWindow()
 
 #endif
 
-#if ( !defined(__WXGTK__) && !defined(__WXMAC__) ) \
+#if ( !defined(__WXGTK__) && !defined(__WXMAC__) && !defined(__WXMOTIF__) ) \
     || defined(__WXPERL_FORCE__)
 
 wxMenu*

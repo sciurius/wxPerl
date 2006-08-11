@@ -56,7 +56,7 @@ Link additional libraries from wxWidgets' contrib directory.
 Do not build this module if wxWidgets' version is lower than the version
 specified.
 
-=item * NO_WX_PLATFORMs
+=item * NO_WX_PLATFORMS
 
   NO_WX_PLATFORMS => [ 'x11', 'msw' ]
 
@@ -351,6 +351,26 @@ sub _process_mm_arguments {
   foreach ( keys %args ) {
     my $v = $args{$_};
 
+    m/^(NO|ON)_WX_PLATFORMS$/ and do {
+      my $on = $1 eq 'ON';
+
+      if( $on ) {
+        # build if platform is explicitly listed
+        $build &&= grep { $_ eq $platform } @$v;
+      } else {
+        # build unless platform is explicitly listed
+        $build &&= !grep { $_ eq $platform } @$v;
+      }
+
+      delete $args{$_};
+    };
+  }
+
+  return $build unless $build;
+
+  foreach ( keys %args ) {
+    my $v = $args{$_};
+
     m/^WX_CORE_LIB$/ and do {
       my @libs = split ' ', $v;
       $args{LIBS} .= ' ' . join ' ', __PACKAGE__->get_core_lib( @libs ) if $v=~/\S/;
@@ -363,20 +383,6 @@ sub _process_mm_arguments {
 
     m/^REQUIRE_WX$/ and do {
       $build &&= __PACKAGE__->get_wx_version() >= $v;
-      delete $args{$_};
-    };
-
-    m/^(NO|ON)_WX_PLATFORMS$/ and do {
-      my $on = $1 eq 'ON';
-
-      if( $on ) {
-        # build if platform is explicitly listed
-        $build &&= grep { $_ eq $platform } @$v;
-      } else {
-        # build unless platform is explicitly listed
-        $build &&= !grep { $_ eq $platform } @$v;
-      }
-
       delete $args{$_};
     };
 
