@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/05/2001
-## RCS-ID:      $Id: Printer.xs,v 1.10 2004/12/21 21:12:55 mbarbon Exp $
+## RCS-ID:      $Id: Printer.xs,v 1.11 2006/08/11 19:38:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,7 +19,7 @@ wxPrinter*
 wxPrinter::new( data = 0 )
     wxPrintDialogData* data
 
-## XXX threads
+## // thread KO
 void
 wxPrinter::DESTROY()
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.38 2006/07/24 19:27:55 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.39 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -162,9 +162,17 @@ newIcon( CLASS, icon )
     RETVAL = new wxImage( tmp.ConvertToImage() );
   OUTPUT: RETVAL
 
-## XXX threads
+static void
+wxImage::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxImage::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Image", THIS, ST(0) );
+    delete THIS;
 
 void
 AddHandler( handler )

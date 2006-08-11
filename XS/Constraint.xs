@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Constraint.xs,v 1.4 2004/10/19 20:28:05 mbarbon Exp $
-## Copyright:   (c) 2000-2001 Mattia Barbon
+## RCS-ID:      $Id: Constraint.xs,v 1.5 2006/08/11 19:38:44 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,111 +15,111 @@
 MODULE=Wx PACKAGE=Wx::IndividualLayoutConstraint
 
 void
-Wx_IndividualLayoutConstraint::Above( otherWin, margin = 0 )
-    Wx_Window* otherWin
+wxIndividualLayoutConstraint::Above( otherWin, margin = 0 )
+    wxWindow* otherWin
     int margin
 
 void
-Wx_IndividualLayoutConstraint::Absolute( value )
+wxIndividualLayoutConstraint::Absolute( value )
     int value
 
 void
-Wx_IndividualLayoutConstraint::AsIs()
+wxIndividualLayoutConstraint::AsIs()
 
 void
-Wx_IndividualLayoutConstraint::Below( otherWin, margin = 0 )
-    Wx_Window* otherWin
+wxIndividualLayoutConstraint::Below( otherWin, margin = 0 )
+    wxWindow* otherWin
     int margin
 
 void
-Wx_IndividualLayoutConstraint::Unconstrained()
+wxIndividualLayoutConstraint::Unconstrained()
 
 void
-Wx_IndividualLayoutConstraint::LeftOf( otherWin, margin = 0 )
-    Wx_Window* otherWin
+wxIndividualLayoutConstraint::LeftOf( otherWin, margin = 0 )
+    wxWindow* otherWin
     int margin
 
 void
-Wx_IndividualLayoutConstraint::PercentOf( otherWin, edge, per )
-    Wx_Window* otherWin
+wxIndividualLayoutConstraint::PercentOf( otherWin, edge, per )
+    wxWindow* otherWin
     wxEdge edge
     int per
 
 void
-Wx_IndividualLayoutConstraint::RightOf( otherWin, margin = 0 )
-    Wx_Window* otherWin
+wxIndividualLayoutConstraint::RightOf( otherWin, margin = 0 )
+    wxWindow* otherWin
     int margin
 
 void
-Wx_IndividualLayoutConstraint::SameAs( otherWin, edge, margin = 0 )
-    Wx_Window* otherWin
+wxIndividualLayoutConstraint::SameAs( otherWin, edge, margin = 0 )
+    wxWindow* otherWin
     wxEdge edge
     int margin
 
 void
-Wx_IndividualLayoutConstraint::Set( rel, otherWin, otherEdge, value = 0, margin = 0 )
+wxIndividualLayoutConstraint::Set( rel, otherWin, otherEdge, value = 0, margin = 0 )
     wxRelationship rel
-    Wx_Window* otherWin
+    wxWindow* otherWin
     wxEdge otherEdge
     int value
     int margin
 
 MODULE=Wx PACKAGE=Wx::LayoutConstraints
 
-Wx_LayoutConstraints*
-Wx_LayoutConstraints::new()
+wxLayoutConstraints*
+wxLayoutConstraints::new()
 
-Wx_IndividualLayoutConstraint*
-Wx_LayoutConstraints::bottom()
+wxIndividualLayoutConstraint*
+wxLayoutConstraints::bottom()
   CODE:
     RETVAL = &THIS->bottom;
   OUTPUT:
     RETVAL
 
-Wx_IndividualLayoutConstraint*
-Wx_LayoutConstraints::centreX()
+wxIndividualLayoutConstraint*
+wxLayoutConstraints::centreX()
   CODE:
     RETVAL = &THIS->centreX;
   OUTPUT:
     RETVAL
 
-Wx_IndividualLayoutConstraint*
-Wx_LayoutConstraints::centreY()
+wxIndividualLayoutConstraint*
+wxLayoutConstraints::centreY()
   CODE:
     RETVAL = &THIS->centreY;
   OUTPUT:
     RETVAL
 
-Wx_IndividualLayoutConstraint*
-Wx_LayoutConstraints::height()
+wxIndividualLayoutConstraint*
+wxLayoutConstraints::height()
   CODE:
     RETVAL = &THIS->height;
   OUTPUT:
     RETVAL
 
-Wx_IndividualLayoutConstraint*
-Wx_LayoutConstraints::left()
+wxIndividualLayoutConstraint*
+wxLayoutConstraints::left()
   CODE:
     RETVAL = &THIS->left;
   OUTPUT:
     RETVAL
 
-Wx_IndividualLayoutConstraint*
-Wx_LayoutConstraints::right()
+wxIndividualLayoutConstraint*
+wxLayoutConstraints::right()
   CODE:
     RETVAL = &THIS->right;
   OUTPUT:
     RETVAL
 
-Wx_IndividualLayoutConstraint*
-Wx_LayoutConstraints::top()
+wxIndividualLayoutConstraint*
+wxLayoutConstraints::top()
   CODE:
     RETVAL = &THIS->top;
   OUTPUT:
     RETVAL
 
-Wx_IndividualLayoutConstraint*
-Wx_LayoutConstraints::width()
+wxIndividualLayoutConstraint*
+wxLayoutConstraints::width()
   CODE:
     RETVAL = &THIS->width;
   OUTPUT:

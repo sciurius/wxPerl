@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/08/2001
-## RCS-ID:      $Id: Clipboard.xs,v 1.8 2004/12/21 21:12:48 mbarbon Exp $
+## RCS-ID:      $Id: Clipboard.xs,v 1.9 2006/08/11 19:38:45 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,6 +19,7 @@ wxClipboard::AddData( data )
     wxDataObject* data
   CODE:
     wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    SvREFCNT_inc( SvRV( ST(1) ) ); // at this point the scalar must not go away
     RETVAL = THIS->AddData( data );
   OUTPUT:
     RETVAL
@@ -59,6 +60,7 @@ wxClipboard::SetData( data )
     wxDataObject* data
   CODE:
     wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    SvREFCNT_inc( SvRV( ST(1) ) ); // at this point the scalar must not go away
     RETVAL = THIS->SetData( data );
   OUTPUT:
     RETVAL

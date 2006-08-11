@@ -24,6 +24,8 @@ in_frame(
 
         ok( wxTheClipboard->SetData( $copied ), "copying succeeds" );
 
+        undef $copied;
+
         my $pasted = MyDataObject->new;
 
         $silent = 0;

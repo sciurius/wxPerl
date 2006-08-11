@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.35 2005/03/23 22:09:38 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.36 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -76,6 +76,7 @@ MODULE=Wx PACKAGE=Wx::ListItem
 wxListItem*
 wxListItem::new()
 
+## // thread KO
 void
 wxListItem::DESTROY()
 
@@ -211,6 +212,7 @@ wxListItemAttr::new( ... )
     CODE:
       croak( "Usage: Wx::ListItemAttr::new(THIS [, text, back, font ] )" );
 
+## // thread KO
 void
 wxListItemAttr::DESTROY()
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     16/08/2001
-## RCS-ID:      $Id: DropTarget.xs,v 1.8 2004/12/21 21:12:48 mbarbon Exp $
+## RCS-ID:      $Id: DropTarget.xs,v 1.9 2006/08/11 19:38:45 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,16 +20,22 @@ wxDropTarget::new( data = 0 )
     wxDataObject* data
   CODE:
     wxPliDropTarget* retval = new wxPliDropTarget( CLASS, data );
-    RETVAL = retval->m_callback.GetSelf();
-    SvREFCNT_inc( RETVAL );
+    RETVAL = newRV_noinc( SvRV( retval->m_callback.GetSelf() ) );
+    wxPli_thread_sv_register( aTHX_ "Wx::DropTarget", retval, RETVAL );
   OUTPUT:
     RETVAL
 
-## XXX threads
+static void
+wxDropTarget::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 DESTROY( THIS )
     wxDropTarget* THIS
   CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::DropTarget", THIS, ST(0) );
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
   
@@ -41,6 +47,7 @@ wxDropTarget::SetDataObject( data )
     wxDataObject* data
   CODE:
     wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    SvREFCNT_inc( SvRV( ST(1) ) ); // at this point the scalar must not go away
     THIS->SetDataObject( data );
 
 # callbacks

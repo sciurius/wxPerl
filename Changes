@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.56
+	- Many thread-safety fixes.
 	- wxMotif compatibility.
 	- Build again under Windows.
 

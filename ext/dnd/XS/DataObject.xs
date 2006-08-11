@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.20 2006/05/07 16:37:51 mbarbon Exp $
+## RCS-ID:      $Id: DataObject.xs,v 1.21 2006/08/11 19:38:45 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -33,8 +33,7 @@ newNative( dummy, format = wxDF_INVALID )
     NativeFormat format
   CODE:
     RETVAL = new wxDataFormat( format );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 #endif
 
@@ -44,12 +43,19 @@ newUser( dummy, id )
     wxChar* id
   CODE:
     RETVAL = new wxDataFormat( id );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
-## XXX threads
+static void
+wxDataFormat::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxDataFormat::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::DataFormat", THIS, ST(0) );
+    delete THIS;
 
 wxString
 wxDataFormat::GetId()
@@ -84,17 +90,26 @@ wxDataFormat::SetType( type )
 
 MODULE=Wx PACKAGE=Wx::DataObject
 
-## XXX threads
+static void
+wxDataObject::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+# // thread OK
 void
 DESTROY( THIS )
     wxDataObject* THIS
   CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+    {
         delete THIS;
+    }
 
 void
 wxDataObject::Destroy()
   CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
     delete THIS;
 
 void
@@ -126,16 +141,14 @@ wxDataObject::GetDataHere( format, buf )
 
     SvCUR_set( buf, size );
     RETVAL = THIS->GetDataHere( *format, buffer );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 size_t
 wxDataObject::GetDataSize( format )
     wxDataFormat* format
   CODE:
     RETVAL = THIS->GetDataSize( *format );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 size_t
 wxDataObject::GetFormatCount( dir = wxDataObjectBase::Get )
@@ -146,8 +159,7 @@ wxDataObject::GetPreferredFormat( dir = wxDataObjectBase::Get )
     Direction dir
   CODE:
     RETVAL = new wxDataFormat( THIS->GetPreferredFormat( dir ) );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 bool
 wxDataObject::IsSupported( format, dir = wxDataObjectBase::Get )
@@ -155,8 +167,7 @@ wxDataObject::IsSupported( format, dir = wxDataObjectBase::Get )
     Direction dir
   CODE:
     RETVAL = THIS->IsSupported( *format, dir );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 bool
 wxDataObject::SetData( format, buf )
@@ -168,8 +179,7 @@ wxDataObject::SetData( format, buf )
   CODE:
     data = SvPV( buf, len );
     RETVAL = THIS->SetData( *format, len, data );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 MODULE=Wx PACKAGE=Wx::DataObjectSimple
 
@@ -178,15 +188,13 @@ wxDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
     wxDataFormat* format
   CODE:
     RETVAL = new wxDataObjectSimple( *format );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 wxDataFormat*
 wxDataObjectSimple::GetFormat()
   CODE:
     RETVAL = new wxDataFormat( THIS->GetFormat() );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 void
 wxDataObjectSimple::SetFormat( format )
@@ -201,15 +209,22 @@ wxPlDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
     wxDataFormat* format
   CODE:
     wxPlDataObjectSimple* THIS = new wxPlDataObjectSimple( CLASS, *format );
-    RETVAL = newRV( SvRV( THIS->m_callback.GetSelf() ) );
+    RETVAL = newRV_noinc( SvRV( THIS->m_callback.GetSelf() ) );
+    wxPli_thread_sv_register( aTHX_ "Wx::PlDataObjectSimple", THIS, RETVAL );
   OUTPUT: RETVAL
 
+## // thread OK
 void
 wxPlDataObjectSimple::DESTROY()
   CODE:
-    SvRV( THIS->m_callback.GetSelf() ) = NULL;
-    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+    wxPli_thread_sv_unregister( aTHX_ "Wx::PlDataObjectSimple", THIS, ST(0) );
+    if( THIS && wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+    {
+        SV* self = THIS->m_callback.GetSelf();
+        SvROK_off( self );
+        SvRV( self ) = NULL;
         delete THIS;
+    }
 
 MODULE=Wx PACKAGE=Wx::DataObjectComposite
 
@@ -260,15 +275,13 @@ wxBitmapDataObject::new( bitmap = (wxBitmap*)&wxNullBitmap )
     wxBitmap* bitmap
   CODE:
     RETVAL = new wxBitmapDataObject( *bitmap );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 wxBitmap*
 wxBitmapDataObject::GetBitmap()
   CODE:
     RETVAL = new wxBitmap( THIS->GetBitmap() );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 void
 wxBitmapDataObject::SetBitmap( bitmap )

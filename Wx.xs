@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.80 2006/07/31 19:31:14 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.81 2006/08/11 19:38:44 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -50,8 +50,6 @@ int  WXDLLEXPORT wxEntryStart( int argc, char** argv );
 int  WXDLLEXPORT wxEntryInitGui();
 void WXDLLEXPORT wxEntryCleanup();
 #endif
-
-#include "cpp/typedef.h"
 
 #include "cpp/v_cback.h"
 

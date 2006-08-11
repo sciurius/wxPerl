@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/01/2000
-## RCS-ID:      $Id: Palette.xs,v 1.10 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: Palette.xs,v 1.11 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -42,9 +42,17 @@ wxPalette::new( r, g, b )
   OUTPUT:
     RETVAL
 
-## XXX threads
+static void
+wxPalette::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxPalette::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Palette", THIS, ST(0) );
+    delete THIS;
 
 int
 wxPalette::GetPixel( red, green, blue )

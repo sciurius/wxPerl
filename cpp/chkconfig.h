@@ -5,8 +5,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     05/11/2001
-// RCS-ID:      $Id: chkconfig.h,v 1.12 2004/12/21 21:12:45 mbarbon Exp $
-// Copyright:   (c) 2001-2004 Mattia Barbon
+// RCS-ID:      $Id: chkconfig.h,v 1.13 2006/08/11 19:38:44 mbarbon Exp $
+// Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@
 #endif
 // missing
 // UNICODE, LOG, CMDLINE_PARSER, LOGWINDOW, LOGGUI, LOGDIALOG
-// WCHAR_T, THREADS, STREAMS, INTL, DATETIME, TIMER, STOPWATCH, CONFIG,
+// WCHAR_T, STREAMS, INTL, DATETIME, TIMER, STOPWATCH, CONFIG,
 // CONFIG_NATIVE, DIALUP_MANAGER, FILESYSTEM, FS_ZIP, FS_INET, JOYSTICK,
 // FONTMAP, MIMETYPE, SYSTEM_OPTIONS, POPUPWIN, BUTTON,
 // BMPBUTTON, CALENDARCTRL, CHECKBOX, CHECKLISTBOX, CHOICE,
@@ -143,4 +143,10 @@
 #   endif
 #else
 #   define wxPERL_USE_TOGGLEBTN wxUSE_TOGGLEBTN
+#endif
+
+#if wxUSE_THREADS && defined(USE_ITHREADS)
+#   define wxPERL_USE_THREADS 1
+#else
+#   define wxPERL_USE_THREADS 0
 #endif

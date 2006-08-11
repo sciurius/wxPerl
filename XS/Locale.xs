@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs,v 1.24 2005/01/09 22:35:54 mbarbon Exp $
+## RCS-ID:      $Id: Locale.xs,v 1.25 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,6 +32,7 @@ wxLanguageInfo::new( language, canonicalName, winLang, winSublang, descr )
     RETVAL->Description = descr;
   OUTPUT: RETVAL
 
+## // thread KO
 void
 DESTROY( THIS )
     wxLanguageInfo* THIS
@@ -80,9 +81,17 @@ newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
   OUTPUT:
     RETVAL
 
-## XXX threads
+static void
+wxLocale::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxLocale::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Locale", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxLocale::AddCatalog( domain )

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.79 2006/07/16 12:26:16 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.80 2006/08/11 19:38:44 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -226,6 +226,21 @@ wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 int wxPli_av_2_pointlist( pTHX_ SV* array, wxList *points, wxPoint** tmp );
 int wxPli_av_2_pointarray( pTHX_ SV* array, wxPoint** points );
 
+// thread helpers
+#if wxPERL_USE_THREADS
+typedef void (* wxPliCloneSV)( pTHX_ SV* scalar );
+void FUNCPTR( wxPli_thread_sv_register )( pTHX_ const char* package,
+                                          void* ptr, SV* sv );
+void FUNCPTR( wxPli_thread_sv_unregister )( pTHX_ const char* package,
+                                            void* ptr, SV* sv );
+void FUNCPTR( wxPli_thread_sv_clone )( pTHX_ const char* package,
+                                       wxPliCloneSV clonefn );
+#else // if !wxPERL_USE_THREADS
+#define wxPli_thread_sv_register( package, ptr, sv )
+#define wxPli_thread_sv_unregister( package, ptr, sv )
+#define wxPli_thread_sv_clone( package, clonefn )
+#endif // !wxPERL_USE_THREADS
+
 // stream wrappers
 class wxPliInputStream;
 class wxPliOutputStream;
@@ -334,7 +349,28 @@ struct wxPliHelpers
     SV* (* m_wxPli_clientdatacontainer_2_sv )( pTHX_ SV* var,
                                                wxClientDataContainer* cdc,
                                                const char* klass );
+#if wxPERL_USE_THREADS
+    void (* m_wxPli_thread_sv_register )( pTHX_ const char* package,
+                                          void* ptr, SV* sv );
+    void (* m_wxPli_thread_sv_unregister )( pTHX_ const char* package,
+                                            void* ptr, SV* sv );
+    void (* m_wxPli_thread_sv_clone )( pTHX_ const char* package,
+                                       wxPliCloneSV clonefn );
+#endif
 };
+
+#if wxPERL_USE_THREADS
+#   define wxDEFINE_PLI_HELPER_THREADS() \
+ &wxPli_thread_sv_register, \
+ &wxPli_thread_sv_unregister, &wxPli_thread_sv_clone,
+#   define wxINIT_PLI_HELPER_THREADS( name ) \
+  wxPli_thread_sv_register = name->m_wxPli_thread_sv_register; \
+  wxPli_thread_sv_unregister = name->m_wxPli_thread_sv_unregister; \
+  wxPli_thread_sv_clone = name->m_wxPli_thread_sv_clone
+#else
+#   define wxDEFINE_PLI_HELPER_THREADS()
+#   define wxINIT_PLI_HELPER_THREADS( name )
+#endif
 
 #define DEFINE_PLI_HELPERS( name ) \
 wxPliHelpers name = { &wxPli_sv_2_object, \
@@ -349,7 +385,9 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_cpp_class_2_perl, &wxPli_push_arguments, &wxPli_attach_object, \
  &wxPli_detach_object, &wxPli_create_evthandler, \
  &wxPli_match_arguments_skipfirst, &wxPli_objlist_2_av, &wxPli_intarray_push, \
- &wxPli_clientdatacontainer_2_sv }
+ &wxPli_clientdatacontainer_2_sv, \
+ wxDEFINE_PLI_HELPER_THREADS() \
+ }
 
 #if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
 
@@ -385,6 +423,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_objlist_2_av = name->m_wxPli_objlist_2_av; \
   wxPli_intarray_push = name->m_wxPli_intarray_push; \
   wxPli_clientdatacontainer_2_sv = name->m_wxPli_clientdatacontainer_2_sv; \
+  wxINIT_PLI_HELPER_THREADS( name ); \
   \
   WXPLI_INIT_CLASSINFO();
 
@@ -415,6 +454,7 @@ public:
 private:
     SV* m_data;
 };
+typedef wxPliUserDataO   Wx_UserDataO;
 
 class wxPliSelfRef
 {
@@ -695,6 +735,7 @@ public:
 private:
     SV* m_data;
 };
+typedef wxPliUserDataCD  Wx_UserDataCD;
 
 #endif // __CPP_HELPERS_H_UDCD
 #endif

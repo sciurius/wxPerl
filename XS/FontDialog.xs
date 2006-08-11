@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     14/02/2001
-## RCS-ID:      $Id: FontDialog.xs,v 1.8 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: FontDialog.xs,v 1.9 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,9 +19,17 @@ MODULE=Wx PACKAGE=Wx::FontData
 wxFontData*
 wxFontData::new()
 
-## XXX threads
+static void
+wxFontData::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxFontData::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::FontData", THIS, ST(0) );
+    delete THIS;
 
 void
 wxFontData::EnableEffects( enable )

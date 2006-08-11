@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.30 2006/07/14 20:21:10 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.31 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -22,6 +22,7 @@
 
 MODULE=Wx PACKAGE=Wx::DC
 
+## // thread KO
 void
 DESTROY( THIS )
     wxDC* THIS

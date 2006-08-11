@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ImageList.xs,v 1.11 2005/04/03 09:14:29 mbarbon Exp $
+## RCS-ID:      $Id: ImageList.xs,v 1.12 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -52,11 +52,17 @@
 
 MODULE=Wx PACKAGE=Wx::ImageList
 
-## XXX threads
+static void
+wxImageList::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 DESTROY( THIS )
     wxImageList* THIS
   CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::ImageList", THIS, ST(0) );
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 

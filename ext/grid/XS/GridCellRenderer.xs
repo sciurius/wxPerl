@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      $Id: GridCellRenderer.xs,v 1.8 2005/07/30 10:23:54 mbarbon Exp $
+## RCS-ID:      $Id: GridCellRenderer.xs,v 1.9 2006/08/11 19:38:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -36,7 +36,7 @@ wxGridCellRenderer::GetBestSize( grid, attr, dc, row, col )
   OUTPUT:
     RETVAL
 
-## XXX threads
+## // thread KO
 void
 wxGridCellRenderer::DESTROY()
   CODE:

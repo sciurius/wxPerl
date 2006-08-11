@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Colour.xs,v 1.13 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: Colour.xs,v 1.14 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -28,8 +28,7 @@ newRGB( CLASS, red, green, blue )
     unsigned char blue
   CODE:
     RETVAL = new wxColour( red, green, blue );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 wxColour*
 newName( CLASS, name )
@@ -37,12 +36,19 @@ newName( CLASS, name )
     wxString name
   CODE:
     RETVAL = new wxColour( name );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
-## XXX threads
+static void
+wxColour::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxColour::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Colour", THIS, ST(0) );
+    delete THIS;
 
 unsigned char
 wxColour::Blue()

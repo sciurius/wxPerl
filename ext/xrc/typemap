@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/07/2001
-## RCS-ID:      $Id: typemap,v 1.7 2006/03/10 19:25:34 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.8 2006/08/11 19:38:46 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,7 +13,7 @@
 TYPEMAP
 wxXmlNodeType           T_ENUM
 
-wxXmlResource *         O_NON_WXOBJECT
+wxXmlResource *         O_NON_WXOBJECT_THR
 wxXmlResourceHandler *  O_WXOBJECT
 wxXmlSubclassFactory *  O_NON_WXOBJECT
 wxPliXmlSubclassFactory * O_NON_WXOBJECT

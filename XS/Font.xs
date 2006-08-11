@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Font.xs,v 1.23 2006/07/31 19:31:14 mbarbon Exp $
+## RCS-ID:      $Id: Font.xs,v 1.24 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,9 +19,17 @@ MODULE=Wx PACKAGE=Wx::NativeFontInfo
 wxNativeFontInfo*
 wxNativeFontInfo::new()
 
-## XXX threads
+static void
+wxNativeFontInfo::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxNativeFontInfo::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::NativeFontInfo", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxNativeFontInfo::FromString( string )
@@ -85,9 +93,17 @@ newLong( CLASS, pointsize, family, style, weight, underline = false, faceName = 
                          faceName, encoding );
   OUTPUT: RETVAL
 
-## XXX threads
+static void
+wxFont::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxFont::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Font", THIS, ST(0) );
+    delete THIS;
 
 int
 font_spaceship( fnt1, fnt2, ... )

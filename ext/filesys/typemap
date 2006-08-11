@@ -4,18 +4,18 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/04/2001
-## RCS-ID:      $Id: typemap,v 1.8 2004/12/21 21:12:51 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.9 2006/08/11 19:38:45 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
-wxFileSystem *          O_WXOBJECT
+wxFileSystem *          O_WXOBJECT_THR
 wxFileSystemHandler *   O_WXOBJECT
 wxPlFileSystemHandler * O_WXOBJECT
-wxFSFile *              O_NON_WXOBJECT
-wxPlFSFile *            O_NON_WXOBJECT
+wxFSFile *              O_NON_WXOBJECT_THR
+wxPlFSFile *            O_NON_WXOBJECT_THR
 
 wxInternetFSHandler *   O_WXOBJECT
 wxZipFSHandler *        O_WXOBJECT

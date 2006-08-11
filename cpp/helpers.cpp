@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.77 2006/04/22 21:19:56 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.78 2006/08/11 19:38:44 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -274,7 +274,7 @@ static U32 calc_hash( const char* key, size_t klen )
 }
 
 // precalculate key and hash value for "_WXTHIS"
-class wxHashModule:public wxModule {
+class wxHashModule : public wxModule {
     DECLARE_DYNAMIC_CLASS( wxHashModule );
 public:
     wxHashModule() {};
@@ -326,7 +326,7 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
         // scalar-ish object that has been marked/unmarked deletable
         // it has mg, but not mg->object
         if( !mg || !mg->object )
-            return INT2PTR( void*, SvIV( ref ) );
+            return INT2PTR( void*, SvOK( ref ) ? SvIV( ref ) : NULL );
 
         return mg->object;
 #else // if !wxPL_USE_MAGIC
@@ -999,7 +999,7 @@ const char* wxPli_get_class( pTHX_ SV* ref )
 
     if( sv_isobject( ref ) )
     {
-        ret = HvNAME( SvSTASH( ref ) );
+        ret = HvNAME( SvSTASH( SvRV( ref ) ) );
     }
     else
     {
@@ -1274,6 +1274,69 @@ I32 my_looks_like_number( pTHX_ SV* sv )
     if( SvIOK( sv ) || SvNOK( sv ) ) return 1;
     return looks_like_number( sv );
 }
+
+#if wxPERL_USE_THREADS
+
+#define dwxHash( package, create )             \
+    char wxrbuffer[512];                       \
+    strcpy( wxrbuffer, (package) );            \
+    strcat( wxrbuffer, "::_thr_register" );    \
+    HV* wxhash = get_hv( wxrbuffer, (create) ) \
+
+#define dwxKey( ptr )              \
+    char wxkey[50];                \
+    sprintf( wxkey, "%x", (ptr) ); \
+
+void wxPli_thread_sv_register( pTHX_ const char* package, void* ptr, SV* sv )
+{
+    if( !SvROK( sv ) )
+        croak( "PANIC: no sense in registering a non-reference" );
+
+    dwxHash( package, 1 );
+    dwxKey( ptr );
+
+    SV* nsv = newRV( SvRV( sv ) );
+    hv_store( wxhash, wxkey, strlen(wxkey), nsv, 0 );
+
+    sv_rvweaken( nsv );
+}
+
+void wxPli_thread_sv_unregister( pTHX_ const char* package, void* ptr, SV* sv )
+{
+    if( !ptr )
+        return;
+
+    dwxHash( package, 0 );
+    if( !wxhash )
+      return;
+    dwxKey( ptr );
+
+    hv_delete( wxhash, wxkey, strlen(wxkey), 0 );   
+}
+
+void wxPli_thread_sv_clone( pTHX_ const char* package, wxPliCloneSV clonefn )
+{
+    dwxHash( package, 0 );
+    if( !wxhash )
+      return;
+
+    hv_iterinit( wxhash );
+    while( HE* he = hv_iternext( wxhash ) ) {
+        SV* val = hv_iterval( wxhash, he );
+        clonefn( aTHX_ val );
+
+        // hack around Scalar::Util::weaken() producing warnings
+        if( MAGIC* magic = mg_find( SvRV( val ), '<' ) )
+        {
+            SvREFCNT_inc( magic->mg_obj );
+            mg_free( SvRV( val ) );
+        }
+    }
+
+    hv_undef( wxhash );
+}
+
+#endif // wxPERL_USE_THREADS
 
 // Local variables: //
 // mode: c++ //

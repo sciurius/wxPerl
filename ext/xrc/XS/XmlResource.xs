@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/07/2001
-## RCS-ID:      $Id: XmlResource.xs,v 1.10 2004/02/29 14:30:40 mbarbon Exp $
+## RCS-ID:      $Id: XmlResource.xs,v 1.11 2006/08/11 19:38:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -24,9 +24,17 @@ wxXmlResource*
 wxXmlResource::new( flags = wxXRC_USE_LOCALE )
     int flags
 
-## XXX threads
+static void
+wxXmlResource::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxXmlResource::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::XmlResource", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxXmlResource::Load( filemask )

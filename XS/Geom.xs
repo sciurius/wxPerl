@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Geom.xs,v 1.18 2006/01/27 12:00:57 netcon Exp $
+## RCS-ID:      $Id: Geom.xs,v 1.19 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -17,8 +17,17 @@ wxSize::new( width = 0, height = 0 )
     int width
     int height
 
+static void
+wxSize::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxSize::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Size", THIS, ST(0) );
+    delete THIS;
 
 int
 wxSize::width( ... )
@@ -64,8 +73,17 @@ wxPoint::new( x = 0, y = 0 )
     int x
     int y
 
+static void
+wxPoint::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxPoint::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Point", THIS, ST(0) );
+    delete THIS;
 
 int
 wxPoint::x( ... )
@@ -128,8 +146,17 @@ newPS( CLASS, pos, size )
   OUTPUT:
     RETVAL
 
+static void
+wxRect::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxRect::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Rect", THIS, ST(0) );
+    delete THIS;
 
 int
 wxRect::x( ... )
@@ -332,8 +359,17 @@ newBitmap( CLASS, bitmap, colour = wxNullColour, tolerance = 0 )
     RETVAL = new wxRegion( *bitmap, colour, tolerance );
   OUTPUT: RETVAL
 
+static void
+wxRegion::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxRegion::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Region", THIS, ST(0) );
+    delete THIS;
 
 void
 wxRegion::Clear()

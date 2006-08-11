@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/04/2001
-## RCS-ID:      $Id: FSFile.xs,v 1.6 2004/12/21 21:12:51 mbarbon Exp $
+## RCS-ID:      $Id: FSFile.xs,v 1.7 2006/08/11 19:38:45 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,9 +14,17 @@
 
 MODULE=Wx PACKAGE=Wx::FSFile
 
-## XXX threads
+static void
+wxFSFile::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxFSFile::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+    delete THIS;
 
 wxString
 wxFSFile::GetAnchor()

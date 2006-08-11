@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: ColourDialog.xs,v 1.5 2003/11/23 07:45:53 mbarbon Exp $
+## RCS-ID:      $Id: ColourDialog.xs,v 1.6 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -33,6 +33,7 @@ MODULE=Wx PACKAGE=Wx::ColourData
 wxColourData*
 wxColourData::new()
 
+## // thread KO
 void
 wxColourData::DESTROY()
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.41 2006/05/06 15:13:08 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.42 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -26,8 +26,17 @@ wxCaretSuspend*
 wxCaretSuspend::new( window )
     wxWindow* window
 
+static void
+wxCaretSuspend::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxCaretSuspend::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::CaretSuspend", THIS, ST(0) );
+    delete THIS;
 
 MODULE=Wx PACKAGE=Wx::SplashScreen
 
@@ -61,8 +70,17 @@ wxWindowDisabler*
 wxWindowDisabler::new( skip = 0 )
     wxWindow* skip
 
+static void
+wxWindowDisabler::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxWindowDisabler::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::WindowDisabler", THIS, ST(0) );
+    delete THIS;
 
 MODULE=Wx PACKAGE=Wx::BusyCursor
 
@@ -80,8 +98,17 @@ wxBusyCursor::new( cursor = wxHOURGLASS_CURSOR )
 
 #endif
 
+static void
+wxBusyCursor::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxBusyCursor::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::BusyCursor", THIS, ST(0) );
+    delete THIS;
 
 MODULE=Wx PACKAGE=Wx::BusyInfo
 
@@ -89,8 +116,17 @@ wxBusyInfo*
 wxBusyInfo::new( message )
     wxString message
 
+static void
+wxBusyInfo::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxBusyInfo::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::BusyInfo", THIS, ST(0) );
+    delete THIS;
 
 MODULE=Wx PACKAGE=Wx::StopWatch
 
@@ -101,9 +137,17 @@ MODULE=Wx PACKAGE=Wx::StopWatch
 wxStopWatch*
 wxStopWatch::new()
 
-## XXX threads
+static void
+wxStopWatch::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxStopWatch::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::StopWatch", THIS, ST(0) );
+    delete THIS;
 
 void
 wxStopWatch::Pause()
@@ -125,7 +169,7 @@ MODULE=Wx PACKAGE=Wx::SingleInstanceChecker
 wxSingleInstanceChecker*
 wxSingleInstanceChecker::new()
 
-## XXX threads
+## // thread KO
 void
 wxSingleInstanceChecker::DESTROY()
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Bitmap.xs,v 1.26 2005/08/14 13:45:41 mbarbon Exp $
+## RCS-ID:      $Id: Bitmap.xs,v 1.27 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2002, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -166,9 +166,17 @@ newImage( CLASS, image )
   OUTPUT:
     RETVAL
 
-## XXX threads
+static void
+wxBitmap::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxBitmap::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Bitmap", THIS, ST(0) );
+    delete THIS;
 
 wxImage*
 wxBitmap::ConvertToImage()

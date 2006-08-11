@@ -48,6 +48,7 @@ t/11_twostage.t
 t/12_pod.t
 t/13_nbksizer.t
 t/14_eh_die.t
+t/15_threads.t
 t/Tests_Helper.pm
 t/zz_distrib.t
 
@@ -266,7 +267,6 @@ cpp/sizer.h
 cpp/streams.h
 cpp/timer.h
 cpp/tipprovider.h
-cpp/typedef.h
 cpp/validators.h
 cpp/v_cback.h
 cpp/window.h
@@ -318,7 +318,6 @@ ext/dnd/XS/DropSource.xs
 ext/dnd/XS/DropTarget.xs
 ext/dnd/cpp/dataobject.h
 ext/dnd/cpp/dn_constants.cpp
-ext/dnd/cpp/dn_typedef.h
 ext/dnd/cpp/dropsource.h
 ext/dnd/cpp/droptarget.h
 ext/dnd/lib/Wx/DropSource.pm
@@ -326,6 +325,7 @@ ext/dnd/lib/Wx/DND.pm
 ext/dnd/t/01_load.t
 ext/dnd/t/02_inheritance.t
 ext/dnd/t/03_pldatabject.t
+ext/dnd/t/04_threads.t
 ext/dnd/typemap
 
 ext/filesys/FS.xs
@@ -338,6 +338,7 @@ ext/filesys/lib/Wx/FS.pm
 ext/filesys/typemap
 ext/filesys/t/01_load.t
 ext/filesys/t/02_inheritance.t
+ext/filesys/t/03_threads.t
 
 ext/grid/Grid.xs
 ext/grid/Makefile.PL
@@ -363,7 +364,6 @@ ext/help/Makefile.PL
 ext/help/XS/ContextHelp.xs
 ext/help/XS/HelpController.xs
 ext/help/XS/HelpProvider.xs
-ext/help/cpp/he_typedef.h
 ext/help/lib/Wx/Help.pm
 ext/help/typemap
 ext/help/t/01_load.t
@@ -475,6 +475,7 @@ ext/xrc/XS/XmlSubclassFactory.xsp
 ext/xrc/cpp/xr_constants.cpp
 ext/xrc/lib/Wx/XRC.pm
 ext/xrc/t/01_load.t
+ext/xrc/t/03_threads.t
 ext/xrc/typemap
 
 ext/docview/Makefile.PL

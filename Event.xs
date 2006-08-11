@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.54 2006/08/06 17:43:17 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.55 2006/08/11 19:38:44 mbarbon Exp $
 // Copyright:   (c) 2000-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -13,7 +13,6 @@
 #define PERL_NO_GET_CONTEXT
 
 #include "cpp/wxapi.h"
-#include "cpp/typedef.h"
 
 #include <wx/event.h>
 #include <wx/window.h>
@@ -46,9 +45,17 @@ MODULE=Wx_Evt PACKAGE=Wx::Event
 #                 cloning/destruction )
 # GetObjectType
 
-## XXX threads
+static void
+wxEvent::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxEvent::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+    delete THIS;
 
 # void
 # wxEvent::Destroy()

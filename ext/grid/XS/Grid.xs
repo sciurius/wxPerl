@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.27 2006/07/25 20:20:40 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.28 2006/08/11 19:38:46 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,7 +20,7 @@ wxGridCellCoords::new( r, c )
     int r
     int c
 
-## XXX threads
+## // thread KO
 void
 wxGridCellCoords::DESTROY()
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/11/2000
-## RCS-ID:      $Id: Pen.xs,v 1.12 2004/07/10 21:49:46 mbarbon Exp $
+## RCS-ID:      $Id: Pen.xs,v 1.13 2006/08/11 19:38:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -58,9 +58,17 @@ newBitmap( CLASS, stipple, width )
 
 #endif
 
-## XXX threads
+static void
+wxPen::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxPen::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Pen", THIS, ST(0) );
+    delete THIS;
 
 int
 wxPen::GetCap()
