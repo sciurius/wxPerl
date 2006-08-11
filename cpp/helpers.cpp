@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.79 2006/08/11 19:54:58 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.80 2006/08/11 20:20:55 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1321,7 +1321,8 @@ void wxPli_thread_sv_clone( pTHX_ const char* package, wxPliCloneSV clonefn )
       return;
 
     hv_iterinit( wxhash );
-    while( HE* he = hv_iternext( wxhash ) ) {
+    HE* he;
+    while( ( he = hv_iternext( wxhash ) ) != NULL ) {
         SV* val = hv_iterval( wxhash, he );
         clonefn( aTHX_ val );
 
