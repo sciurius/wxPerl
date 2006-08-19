@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      $Id: Print.pm,v 1.12 2005/04/23 17:11:24 mbarbon Exp $
-## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
+## RCS-ID:      $Id: Print.pm,v 1.13 2006/08/19 18:48:03 mbarbon Exp $
+## Copyright:   (c) 2001-2002, 2004-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -41,6 +41,7 @@ package Wx::PrintDialog;  @ISA = qw(Wx::Dialog);
 package Wx::PrintPreviewBase;
 package Wx::PrintPreview; @ISA = qw(Wx::PrintPreviewBase);
 package Wx::PrinterDC;    @ISA = qw(Wx::DC);
+package Wx::GnomePrintDC; @ISA = qw(Wx::DC);
 package Wx::WindowsPrintPreview; @ISA = qw(Wx::PrintPreview);
 package Wx::WindowsPrinter; @ISA = qw(Wx::Printer);
 package Wx::PlPreviewFrame; @ISA = qw(Wx::PreviewFrame);
