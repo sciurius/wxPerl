@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.29 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.30 2006/08/19 18:24:33 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -420,6 +420,8 @@ wxTreeCtrl::GetNextVisible( item )
     RETVAL = new wxTreeItemId( THIS->GetNextVisible( *item ) );
   OUTPUT:
     RETVAL
+
+## DECLARE_OVERLOAD( wtid, Wx::TreeItemId )
 
 void
 wxTreeCtrl::GetParent( ... )

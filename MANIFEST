@@ -8,6 +8,15 @@ README.txt
 Changes
 run
 
+build/Wx/Overload/Driver.pm
+build/Wx/Overload/Handle.pm
+build/Wx/XSP/Driver.pm
+build/Wx/XSP/Grammar.pm
+build/Wx/XSP/Node.pm
+build/Wx/XSP/Parser.pm
+build/Wx/XSP/Typemap.pm
+build/Wx/XSP/XSP.yp
+build/Wx/XSP/XSpp.pod
 build/Wx/build/MakeMaker/Any_OS.pm
 build/Wx/build/MakeMaker/Any_wx_config.pm
 build/Wx/build/MakeMaker/MacOSX_GCC.pm
@@ -23,16 +32,13 @@ build/Wx/build/Utils.pm
 docs/INSTALL.pod
 docs/todo.txt
 
-script/XSpp.pod
-script/XSP.pm
-script/XSP.yp
 script/copy_files.pl
 script/fix_alien_path.pl
 script/make_exp_list.pl
-script/make_ovl_list.pl
 script/make_ppm.pl
 script/pipe.pl
-script/xsubppp.pl
+script/wx_overload.pl
+script/wx_xspp.pl
 
 t/01_load.t
 t/02_inheritance.t

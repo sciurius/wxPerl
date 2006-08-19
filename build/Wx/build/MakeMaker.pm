@@ -5,6 +5,7 @@ use ExtUtils::MakeMaker;
 use base 'Exporter';
 use Config;
 use vars qw(@EXPORT $VERSION);
+use FindBin;
 
 $VERSION = '0.28';
 @EXPORT = 'wxWriteMakefile';
@@ -174,7 +175,7 @@ sub import {
 
 sub get_api_directory {
   if( is_wxPerl_tree() ) {
-    return Wx::build::Utils::_top_dir();
+    return Wx::build::Utils::src_dir( 'Wx.pm' );
   } else {
     my $path = $INC{'Wx/build/MakeMaker.pm'};
     my( $vol, $dir, $file ) = File::Spec->splitpath( $path );
@@ -330,13 +331,15 @@ sub ppd { package MY; shift->SUPER::ppd( @_ ) }
 sub dynamic_lib { package MY; shift->SUPER::dynamic_lib( @_ ) }
 sub const_config { package MY; shift->SUPER::const_config( @_ ) }
 
-use vars '%args';
+use vars qw(%args %additional_arguments $wx_top_file);
 sub _process_mm_arguments {
   local *args = $_[0];
   my $build = 1;
   my %options =
     Wx::build::Options->get_makemaker_options( is_wxPerl_tree()
                                                ? () : ( 'saved' ) );
+
+  $additional_arguments{WX_TOP} = $wx_top_file if $wx_top_file;
   unless( Alien::wxWidgets->can( 'load' ) ) {
       $args{depend} = { '$(FIRST_MAKEFILE)' => 'you_better_rebuild_me' };
       delete $args{$_} foreach grep /^WX_/, keys %args;
@@ -389,6 +392,14 @@ sub _process_mm_arguments {
     m/^(?:ABSTRACT_FROM|AUTHOR)/ and do {
       # args not known prior to Perl 5.005_03 (the check is a bit conservative)
       delete $args{$_} if $ExtUtils::MakeMaker::VERSION < 5.43;
+    };
+
+    m/^WX_TOP$/ and do {
+      $wx_top_file = $args{$_};
+    };
+
+    m/^WX_/ and do {
+      $additional_arguments{$_} = delete $args{$_};
     };
   }
 

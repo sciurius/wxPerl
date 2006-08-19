@@ -95,19 +95,18 @@ for my $i ( [ \&Wx::_match, 'match' ],
   ok(  xx( [ Wx::Size->new( 1, 2 ) ], $Wx::_wsiz ),
        "$t: Wx::Size matches Wx::Size" );
 
-  my $wist = $Wx::_wist_n->[0];
   # test for Wx::Input/OutputStream
-  ok(  xx( [ [] ], [ $wist ] ),
+  ok(  xx( [ [], 1 ], $Wx::_wist_n ),
       "$t: Wx::InputStream matches references" );
-  ok(  xx( [ {} ], [ $wist ] ),
+  ok(  xx( [ {}, 1 ], $Wx::_wist_n ),
       "$t: Wx::InputStream matches references (again)" );
-  ok( !xx( [ 1 ], [ $wist ] ),
+  ok( !xx( [ 1, 1 ], $Wx::_wist_n ),
       "$t: Wx::InputStream does not match integer" );
-  ok( !xx( [ 'foo' ],[ $wist ] ),
+  ok( !xx( [ 'foo', 1 ], $Wx::_wist_n ),
       "$t: Wx::InputStream does not match string" );
-  ok(  xx( [ undef ], [ $wist ] ),
+  ok(  xx( [ undef, 1 ], $Wx::_wist_n ),
       "$t: Wx::InputStream matches undef" );
-  ok(  xx( [ *main::bar ], [ $wist ] ),
+  ok(  xx( [ *main::bar, 1 ], $Wx::_wist_n ),
       "$t: Wx::InputStream matches typeglobs" );
   *main::bar = *main::bar; # fool warning
 }

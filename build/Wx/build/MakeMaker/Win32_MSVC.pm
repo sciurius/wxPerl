@@ -3,6 +3,8 @@ package Wx::build::MakeMaker::Win32_MSVC;
 use strict;
 use base 'Wx::build::MakeMaker::Win32';
 
+use Wx::build::Utils qw(pipe_stderr);
+
 sub _res_file { 'Wx.res' }
 sub _res_command { 'rc -I%incdir %src' }
 sub _strip_command {
@@ -14,7 +16,7 @@ EOT
 my $cl_version;
 
 {
-    my @head = qx{$^X script\\pipe.pl cl /help};
+    my @head = pipe_stderr( "cl /help" );
     $head[0] =~ /Version (\d+\.+).\d+/ and $cl_version = $1;
 }
 

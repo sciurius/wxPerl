@@ -7,7 +7,7 @@
 #             ANY CHANGE MADE HERE WILL BE LOST !
 #
 ####################################################################
-package XSP;
+package Wx::XSP::Grammar;
 use vars qw ( @ISA );
 use strict;
 
@@ -1452,106 +1452,106 @@ sub new {
 	[#Rule 1
 		 'top', 1,
 sub
-#line 19 "script/XSP.yp"
+#line 19 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 2
 		 'top', 1,
 sub
-#line 20 "script/XSP.yp"
+#line 20 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 3
 		 'top', 1,
 sub
-#line 21 "script/XSP.yp"
+#line 21 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 4
 		 'top', 1,
 sub
-#line 22 "script/XSP.yp"
+#line 22 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 5
 		 'top', 2,
 sub
-#line 23 "script/XSP.yp"
+#line 23 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 6
 		 'top', 2,
 sub
-#line 24 "script/XSP.yp"
+#line 24 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 7
 		 'top', 2,
 sub
-#line 25 "script/XSP.yp"
+#line 25 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 8
 		 'top', 2,
 sub
-#line 26 "script/XSP.yp"
+#line 26 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 9
 		 'directive', 2,
 sub
-#line 30 "script/XSP.yp"
-{ XSP::Parser::Module->new( module => $_[1] ) }
+#line 30 "build/Wx/XSP/XSP.yp"
+{ Wx::XSP::Node::Module->new( module => $_[1] ) }
 	],
 	[#Rule 10
 		 'directive', 2,
 sub
-#line 32 "script/XSP.yp"
-{ XSP::Parser::File->new( file => $_[1] ) }
+#line 32 "build/Wx/XSP/XSP.yp"
+{ Wx::XSP::Node::File->new( file => $_[1] ) }
 	],
 	[#Rule 11
 		 'directive', 2,
 sub
-#line 33 "script/XSP.yp"
+#line 33 "build/Wx/XSP/XSP.yp"
 { add_data_raw( $_[0], [ "\n" ] ) }
 	],
 	[#Rule 12
 		 'typemap', 7,
 sub
-#line 36 "script/XSP.yp"
-{ my $package = "XSP::typemap::" . $_[6];
+#line 36 "build/Wx/XSP/XSP.yp"
+{ my $package = "Wx::XSP::Typemap::" . $_[6];
                       my $type = $_[3];
                       my $tm = $package->new( type => $type );
-                      XSP::typemap::add_typemap_for_type( $type, $tm );
+                      Wx::XSP::Typemap::add_typemap_for_type( $type, $tm );
                       undef }
 	],
 	[#Rule 13
 		 'typemap', 8,
 sub
-#line 43 "script/XSP.yp"
-{ my $package = "XSP::typemap::" . $_[6];
+#line 43 "build/Wx/XSP/XSP.yp"
+{ my $package = "Wx::XSP::Typemap::" . $_[6];
                       my( $type, $arg1 ) = ( $_[3], join( '', @{$_[8]} ) );
                       my $tm = $package->new( type => $type,
                                               arg1 => $arg1 );
-                      XSP::typemap::add_typemap_for_type( $type, $tm );
+                      Wx::XSP::Typemap::add_typemap_for_type( $type, $tm );
                       undef }
 	],
 	[#Rule 14
 		 'raw', 1,
 sub
-#line 50 "script/XSP.yp"
+#line 50 "build/Wx/XSP/XSP.yp"
 { add_data_raw( $_[0], [ $_[1] ] ) }
 	],
 	[#Rule 15
 		 'raw', 1,
 sub
-#line 51 "script/XSP.yp"
+#line 51 "build/Wx/XSP/XSP.yp"
 { add_data_raw( $_[0], $_[1] ) }
 	],
 	[#Rule 16
 		 'class', 7,
 sub
-#line 54 "script/XSP.yp"
+#line 54 "build/Wx/XSP/XSP.yp"
 { add_data_class( $_[0], class   => $_[3],
                                      perl    => $_[1],
                                      methods => $_[5] ) }
@@ -1559,51 +1559,51 @@ sub
 	[#Rule 17
 		 'class', 6,
 sub
-#line 58 "script/XSP.yp"
+#line 58 "build/Wx/XSP/XSP.yp"
 { add_data_class( $_[0], class   => $_[2],
                                      methods => $_[4] ) }
 	],
 	[#Rule 18
 		 'class', 6,
 sub
-#line 61 "script/XSP.yp"
+#line 61 "build/Wx/XSP/XSP.yp"
 { add_data_class( $_[0], class   => $_[3],
                                      perl    => $_[1] ) }
 	],
 	[#Rule 19
 		 'class', 5,
 sub
-#line 64 "script/XSP.yp"
+#line 64 "build/Wx/XSP/XSP.yp"
 { add_data_class( $_[0], class   => $_[2] ) }
 	],
 	[#Rule 20
 		 'methods', 1,
 sub
-#line 66 "script/XSP.yp"
+#line 66 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 21
 		 'methods', 2,
 sub
-#line 67 "script/XSP.yp"
+#line 67 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	],
 	[#Rule 22
 		 'methods', 1,
 sub
-#line 68 "script/XSP.yp"
+#line 68 "build/Wx/XSP/XSP.yp"
 { [ add_data_raw( $_[0], [ $_[1] ] ) ] }
 	],
 	[#Rule 23
 		 'methods', 2,
 sub
-#line 70 "script/XSP.yp"
+#line 70 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, add_data_raw( $_[0], [ $_[2] ] ); $_[1] }
 	],
 	[#Rule 24
 		 'method', 1,
 sub
-#line 72 "script/XSP.yp"
+#line 72 "build/Wx/XSP/XSP.yp"
 { my $f = $_[1];
                            my $m = add_data_method
                              ( $_[0],
@@ -1621,7 +1621,7 @@ sub
 	[#Rule 26
 		 'method', 2,
 sub
-#line 84 "script/XSP.yp"
+#line 84 "build/Wx/XSP/XSP.yp"
 { $_[2]->{PERL_NAME} = $_[1]; $_[2] }
 	],
 	[#Rule 27
@@ -1639,13 +1639,13 @@ sub
 	[#Rule 31
 		 'function', 2,
 sub
-#line 92 "script/XSP.yp"
+#line 92 "build/Wx/XSP/XSP.yp"
 { $_[2]->{PERL_NAME} = $_[1]; $_[2] }
 	],
 	[#Rule 32
 		 '_func', 8,
 sub
-#line 96 "script/XSP.yp"
+#line 96 "build/Wx/XSP/XSP.yp"
 { add_data_function( $_[0],
                                          name      => $_[2],
                                          ret_type  => $_[1],
@@ -1655,7 +1655,7 @@ sub
 	[#Rule 33
 		 '_func', 7,
 sub
-#line 102 "script/XSP.yp"
+#line 102 "build/Wx/XSP/XSP.yp"
 { add_data_function( $_[0],
                                          name     => $_[2],
                                          ret_type => $_[1],
@@ -1664,7 +1664,7 @@ sub
 	[#Rule 34
 		 'ctor', 6,
 sub
-#line 108 "script/XSP.yp"
+#line 108 "build/Wx/XSP/XSP.yp"
 { add_data_ctor( $_[0], name      => $_[1],
                                             arguments => $_[3],
                                             @{ $_[5] } ) }
@@ -1672,80 +1672,80 @@ sub
 	[#Rule 35
 		 'ctor', 5,
 sub
-#line 112 "script/XSP.yp"
+#line 112 "build/Wx/XSP/XSP.yp"
 { add_data_ctor( $_[0], name => $_[1],
                                             @{ $_[4] } ) }
 	],
 	[#Rule 36
 		 'dtor', 5,
 sub
-#line 116 "script/XSP.yp"
+#line 116 "build/Wx/XSP/XSP.yp"
 { add_data_dtor( $_[0], $_[2] ) }
 	],
 	[#Rule 37
 		 'metadata', 1,
 sub
-#line 118 "script/XSP.yp"
+#line 118 "build/Wx/XSP/XSP.yp"
 { $_[1] }
 	],
 	[#Rule 38
 		 'metadata', 0,
 sub
-#line 119 "script/XSP.yp"
+#line 119 "build/Wx/XSP/XSP.yp"
 { [] }
 	],
 	[#Rule 39
 		 'perc_name', 4,
 sub
-#line 121 "script/XSP.yp"
+#line 121 "build/Wx/XSP/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 40
 		 'perc_module', 4,
 sub
-#line 122 "script/XSP.yp"
+#line 122 "build/Wx/XSP/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 41
 		 'perc_file', 4,
 sub
-#line 123 "script/XSP.yp"
+#line 123 "build/Wx/XSP/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 42
 		 'perc_code', 2,
 sub
-#line 124 "script/XSP.yp"
+#line 124 "build/Wx/XSP/XSP.yp"
 { [ code => $_[2] ] }
 	],
 	[#Rule 43
 		 'type', 3,
 sub
-#line 126 "script/XSP.yp"
+#line 126 "build/Wx/XSP/XSP.yp"
 { make_cptr( $_[0], $_[2] ) }
 	],
 	[#Rule 44
 		 'type', 3,
 sub
-#line 127 "script/XSP.yp"
+#line 127 "build/Wx/XSP/XSP.yp"
 { make_cref( $_[0], $_[2] ) }
 	],
 	[#Rule 45
 		 'type', 2,
 sub
-#line 128 "script/XSP.yp"
+#line 128 "build/Wx/XSP/XSP.yp"
 { make_ptr( $_[0], $_[1] ) }
 	],
 	[#Rule 46
 		 'type', 2,
 sub
-#line 129 "script/XSP.yp"
+#line 129 "build/Wx/XSP/XSP.yp"
 { make_ref( $_[0], $_[1] ) }
 	],
 	[#Rule 47
 		 'type', 1,
 sub
-#line 130 "script/XSP.yp"
+#line 130 "build/Wx/XSP/XSP.yp"
 { make_type( $_[0], $_[1] ) }
 	],
 	[#Rule 48
@@ -1784,49 +1784,49 @@ sub
 	[#Rule 59
 		 'class_name', 3,
 sub
-#line 138 "script/XSP.yp"
+#line 138 "build/Wx/XSP/XSP.yp"
 { $_[1] . '::' . $_[3] }
 	],
 	[#Rule 60
 		 'file_name', 1,
 sub
-#line 140 "script/XSP.yp"
+#line 140 "build/Wx/XSP/XSP.yp"
 { '-' }
 	],
 	[#Rule 61
 		 'file_name', 3,
 sub
-#line 141 "script/XSP.yp"
+#line 141 "build/Wx/XSP/XSP.yp"
 { $_[1] . '.' . $_[3] }
 	],
 	[#Rule 62
 		 'file_name', 3,
 sub
-#line 142 "script/XSP.yp"
+#line 142 "build/Wx/XSP/XSP.yp"
 { $_[1] . '/' . $_[3] }
 	],
 	[#Rule 63
 		 'arg_list', 1,
 sub
-#line 144 "script/XSP.yp"
+#line 144 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 64
 		 'arg_list', 3,
 sub
-#line 145 "script/XSP.yp"
+#line 145 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[3]; $_[1] }
 	],
 	[#Rule 65
 		 'argument', 2,
 sub
-#line 147 "script/XSP.yp"
+#line 147 "build/Wx/XSP/XSP.yp"
 { make_argument( @_ ) }
 	],
 	[#Rule 66
 		 'argument', 4,
 sub
-#line 149 "script/XSP.yp"
+#line 149 "build/Wx/XSP/XSP.yp"
 { make_argument( @_[0, 1, 2, 4] ) }
 	],
 	[#Rule 67
@@ -1835,7 +1835,7 @@ sub
 	[#Rule 68
 		 'value', 2,
 sub
-#line 152 "script/XSP.yp"
+#line 152 "build/Wx/XSP/XSP.yp"
 { '-' . $_[2] }
 	],
 	[#Rule 69
@@ -1850,43 +1850,43 @@ sub
 	[#Rule 72
 		 'value', 3,
 sub
-#line 156 "script/XSP.yp"
+#line 156 "build/Wx/XSP/XSP.yp"
 { $_[1] . '::' . $_[3] }
 	],
 	[#Rule 73
 		 'value', 4,
 sub
-#line 157 "script/XSP.yp"
+#line 157 "build/Wx/XSP/XSP.yp"
 { "$_[1]($_[3])" }
 	],
 	[#Rule 74
 		 'special_block', 3,
 sub
-#line 162 "script/XSP.yp"
+#line 162 "build/Wx/XSP/XSP.yp"
 { $_[2] }
 	],
 	[#Rule 75
 		 'special_block_start', 1,
 sub
-#line 164 "script/XSP.yp"
+#line 164 "build/Wx/XSP/XSP.yp"
 { push_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 76
 		 'special_block_end', 1,
 sub
-#line 166 "script/XSP.yp"
+#line 166 "build/Wx/XSP/XSP.yp"
 { pop_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 77
 		 'lines', 1,
 sub
-#line 168 "script/XSP.yp"
+#line 168 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 78
 		 'lines', 2,
 sub
-#line 169 "script/XSP.yp"
+#line 169 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	]
 ],
@@ -1894,8 +1894,11 @@ sub
     bless($self,$class);
 }
 
-#line 171 "script/XSP.yp"
+#line 171 "build/Wx/XSP/XSP.yp"
 
+
+use Wx::XSP::Node;
+use Wx::XSP::Typemap;
 
 my %tokens = ( '::' => 'DCOLON',
                '%{' => 'OPSPECIAL',
@@ -2030,25 +2033,25 @@ sub yyerror {
         ")\n";
 }
 
-sub make_cptr { XSP::Parser::Type->new( base => $_[1],
+sub make_cptr { Wx::XSP::Node::Type->new( base => $_[1],
                                         const => 1, pointer => 1 ) }
-sub make_cref { XSP::Parser::Type->new( base => $_[1],
+sub make_cref { Wx::XSP::Node::Type->new( base => $_[1],
                                         const => 1, reference => 1 ) }
-sub make_ref  { XSP::Parser::Type->new( base => $_[1], reference => 1 ) }
-sub make_ptr  { XSP::Parser::Type->new( base => $_[1], pointer => 1 ) }
-sub make_type { XSP::Parser::Type->new( base => $_[1] ) }
+sub make_ref  { Wx::XSP::Node::Type->new( base => $_[1], reference => 1 ) }
+sub make_ptr  { Wx::XSP::Node::Type->new( base => $_[1], pointer => 1 ) }
+sub make_type { Wx::XSP::Node::Type->new( base => $_[1] ) }
 
 sub add_data_raw {
   my $p = shift;
   my $rows = shift;
 
-  XSP::Parser::Raw->new( rows => $rows );
+  Wx::XSP::Node::Raw->new( rows => $rows );
 }
 
 sub make_argument {
   my( $p, $type, $name, $default ) = @_;
 
-  XSP::Parser::Argument->new( type    => $type,
+  Wx::XSP::Node::Argument->new( type    => $type,
                               name    => $name,
                               default => $default );
 }
@@ -2056,7 +2059,7 @@ sub make_argument {
 sub add_data_class {
   my( $parser, %args ) = @_;
 
-  my $class = XSP::Parser::Class->new( perl_name => $args{perl},
+  my $class = Wx::XSP::Node::Class->new( perl_name => $args{perl},
                                        cpp_name => $args{class},
                                        methods => $args{methods} );
 
@@ -2068,7 +2071,7 @@ sub add_data_class {
 sub add_data_function {
   my( $parser, %args ) = @_;
 
-  XSP::Parser::Function->new( cpp_name  => $args{name},
+  Wx::XSP::Node::Function->new( cpp_name  => $args{name},
                               ret_type  => $args{ret_type},
                               arguments => $args{arguments},
                               code      => $args{code} );
@@ -2077,7 +2080,7 @@ sub add_data_function {
 sub add_data_method {
   my( $parser, %args ) = @_;
 
-  XSP::Parser::Method->new( cpp_name  => $args{name},
+  Wx::XSP::Node::Method->new( cpp_name  => $args{name},
                             ret_type  => $args{ret_type},
                             arguments => $args{arguments},
                             code      => $args{code} );
@@ -2086,7 +2089,7 @@ sub add_data_method {
 sub add_data_ctor {
   my( $parser, %args ) = @_;
 
-  XSP::Parser::Constructor->new( cpp_name  => $args{name},
+  Wx::XSP::Node::Constructor->new( cpp_name  => $args{name},
                                  arguments => $args{arguments},
                                  code      => $args{code} );
 }
@@ -2094,7 +2097,7 @@ sub add_data_ctor {
 sub add_data_dtor {
   my( $parser, $name ) = @_;
 
-  XSP::Parser::Destructor->new( cpp_name => $name ); 
+  Wx::XSP::Node::Destructor->new( cpp_name => $name ); 
 }
 
 sub is_directive {

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.81 2006/08/11 19:54:58 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.82 2006/08/19 18:24:34 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -268,11 +268,17 @@ SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
       const char* argtypes, ... );
 
 // defined in overload.cpp
-bool wxPli_match_arguments( pTHX_ const unsigned char prototype[],
-                            size_t nproto, int required = -1,
+struct wxPliPrototype
+{
+    const char** tnames;
+    const unsigned char* args;
+    const size_t count;
+};
+
+bool wxPli_match_arguments( pTHX_ const wxPliPrototype& prototype,
+                            int required = -1,
                             bool allow_more = false );
-bool FUNCPTR( wxPli_match_arguments_skipfirst )( pTHX_ const unsigned char p[],
-                                                 size_t nproto,
+bool FUNCPTR( wxPli_match_arguments_skipfirst )( pTHX_ const wxPliPrototype& p,
                                                  int required,
                                                  bool allow_more );
 
@@ -340,8 +346,7 @@ struct wxPliHelpers
     void* ( * m_wxPli_detach_object )( pTHX_ SV* object );
     SV* ( * m_wxPli_create_evthandler )( pTHX_ wxEvtHandler* object,
                                          const char* cln );
-    bool (* m_wxPli_match_arguments_skipfirst )( pTHX_ const unsigned char p[],
-                                                 size_t nproto,
+    bool (* m_wxPli_match_arguments_skipfirst )( pTHX_ const wxPliPrototype&,
                                                  int required,
                                                  bool allow_more );
     AV* (* m_wxPli_objlist_2_av )( pTHX_ const wxList& objs );

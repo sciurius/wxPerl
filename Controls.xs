@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.39 2006/08/11 19:54:58 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.40 2006/08/19 18:24:33 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -115,17 +115,17 @@ wxControlWithItems::SetClientData( n, data )
 
 INCLUDE: XS/BitmapButton.xs
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/BookCtrl.xsp |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/BookCtrl.xsp |
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/Listbook.xsp |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Listbook.xsp |
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/Choicebook.xsp |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Choicebook.xsp |
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/Toolbook.xsp |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Toolbook.xsp |
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/Treebook.xsp |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Treebook.xsp |
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/HyperlinkCtrl.xsp |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/HyperlinkCtrl.xsp |
 
 INCLUDE: XS/Button.xs
 INCLUDE: XS/CheckBox.xs

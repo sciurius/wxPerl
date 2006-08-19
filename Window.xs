@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.68 2006/08/11 19:54:58 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.69 2006/08/19 18:24:33 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1144,17 +1144,17 @@ wxWindow::WarpPointer( x, y )
 
 INCLUDE: XS/Accelerators.xs
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/PlWindow.xsp |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/PlWindow.xsp |
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/SplitterWindow.xs |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/SplitterWindow.xs |
 
 INCLUDE: XS/ScrolledWindow.xs
 INCLUDE: XS/Validators.xs
 INCLUDE: XS/Constraint.xs
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/Sizer.xs |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Sizer.xs |
 
-INCLUDE: perl script/xsubppp.pl --typemap typemap.xsp XS/GridBagSizer.xsp |
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/GridBagSizer.xsp |
 
 INCLUDE: XS/SashWindow.xs
 

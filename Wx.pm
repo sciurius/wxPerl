@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.101 2006/08/11 19:30:54 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.102 2006/08/19 18:24:33 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -21,7 +21,7 @@ use vars qw(@ISA $VERSION $XS_VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4; $_x11 = 5;
 
 @ISA = qw(Exporter);
-$VERSION = '0.56';
+$VERSION = '0.57';
 $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 
@@ -360,6 +360,11 @@ must be placed in the same directory as the executable file.
 =head1 AUTHOR
 
 Mattia Barbon <mbarbon@cpan.org>
+
+=head1 LICENSE
+
+This program is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
 
 =cut
 

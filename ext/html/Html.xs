@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     10/03/2001
-// RCS-ID:      $Id: Html.xs,v 1.16 2004/12/21 21:12:53 mbarbon Exp $
+// RCS-ID:      $Id: Html.xs,v 1.17 2006/08/19 18:24:34 mbarbon Exp $
 // Copyright:   (c) 2001-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -30,13 +30,13 @@ INCLUDE: XS/HtmlEasyPrinting.xs
 
 #endif
 
-INCLUDE: perl ../../script/xsubppp.pl --typemap=typemap.xsp --typemap=../../typemap.xsp XS/HtmlParser.xsp |
+INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/HtmlParser.xsp |
 
-INCLUDE: perl ../../script/xsubppp.pl --typemap=typemap.xsp --typemap=../../typemap.xsp XS/HtmlTagHandler.xsp |
+INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/HtmlTagHandler.xsp |
 
-INCLUDE: perl ../../script/xsubppp.pl --typemap=typemap.xsp --typemap=../../typemap.xsp XS/HtmlTag.xsp |
+INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/HtmlTag.xsp |
 
-INCLUDE: perl ../../script/xsubppp.pl --typemap=typemap.xsp --typemap=../../typemap.xsp XS/HtmlCell.xsp |
+INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/HtmlCell.xsp |
 
 #include "cpp/ht_constants.cpp"
 

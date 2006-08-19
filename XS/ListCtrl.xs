@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.37 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.38 2006/08/19 18:24:33 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -308,6 +308,14 @@ wxListCtrl::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSi
 bool
 wxListCtrl::Arrange( flag = wxLIST_ALIGN_DEFAULT )
     int flag
+
+void
+wxListCtrl::AssignImageList( imagelist, which )
+    wxImageList* imagelist
+    int which
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    THIS->AssignImageList( imagelist, which );
 
 void
 wxListCtrl::ClearAll()

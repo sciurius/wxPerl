@@ -4,17 +4,25 @@ use strict;
 use base 'Wx::build::MakeMaker';
 use File::Spec::Functions qw(curdir);
 use Wx::build::Options;
-use Wx::build::Utils qw(xs_dependencies lib_file
-                        files_with_overload files_with_constants);
+use Wx::build::Utils qw(xs_dependencies lib_file);
 
 my $exp = lib_file( 'Wx/Wx_Exp.pm' );
-my $ovl = lib_file( 'Wx/_Ovl.pm' );
-my $ovlc = File::Spec->catfile( qw(cpp ovl_const.cpp) );
-my $ovlh = File::Spec->catfile( qw(cpp ovl_const.h) );
 
 sub get_flags {
   my $this = shift;
   my %config;
+
+  if( %Wx::build::MakeMaker::additional_arguments ) {
+    $config{WX}{lc $_} = $Wx::build::MakeMaker::additional_arguments{$_}
+      foreach keys %Wx::build::MakeMaker::additional_arguments;
+    $ExtUtils::MakeMaker::Recognized_Att_Keys{WX} = 1;
+    %Wx::build::MakeMaker::additional_arguments = ();
+  }
+
+  if( $config{WX}{wx_overload} ) {
+      $_ = File::Spec->catfile( split /\//, $_ )
+        foreach values %{$config{WX}{wx_overload}};
+  }
 
   $config{INC} .= '-I' . curdir . ' ';
   $config{INC} .= '-I' . $this->get_api_directory . ' ';
@@ -35,37 +43,74 @@ sub configure_core {
   my %config = $this->get_flags;
 
   $config{clean} =
-    { FILES => "$ovlc $ovlh .exists overload Opt copy_files files.lst" .
+    { FILES => "$config{WX}{wx_overload}{source}" .
+               " $config{WX}{wx_overload}{header} exists overload Opt" .
+               " copy_files files.lst" .
                " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
                " fix_alien" };
 
   return %config;
 }
 
-sub configure_ext { return $_[0]->get_flags }
+sub configure_ext {
+  my $this = shift;
+  my %config = $this->get_flags;
+
+  my( $ovlc, $ovlh ) = $config{WX}{wx_overload} ?
+    @{$config{WX}{wx_overload}}{qw(source header)} : ();
+  if( $ovlc && $ovlh ) {
+    $config{clean} =
+      { FILES => "$config{WX}{wx_overload}{source}" .
+                 " $config{WX}{wx_overload}{header} overload" };
+  }
+
+  return %config;
+}
+
+sub files_with_constants {
+  my( $this ) = @_;
+  return @{$this->{wx_files_with_constants}}
+    if $this->{wx_files_with_constants};
+  return @{$this->{wx_files_with_constants} =
+             [ Wx::build::Utils::files_with_constants ]};
+}
+
+sub files_with_overload {
+  my( $this ) = @_;
+  return @{$this->{wx_files_with_overload}}
+    if $this->{wx_files_with_overload};
+  return @{$this->{wx_files_with_overload} =
+             [ Wx::build::Utils::files_with_overload ]};
+
+}
 
 sub _depend_common {
   my $this = shift;
 
-  return xs_dependencies( $this, [ curdir, $this->get_api_directory
-                                 ] );
-}
-
-my( @files_with_constants, @files_with_overload );
-
-if( Wx::build::MakeMaker::is_core ) {
-  @files_with_constants = files_with_constants();
-  @files_with_overload  = files_with_overload();
+  my $top_file =    $this->{WX}{wx_top}
+                 || $this->{ARGS}{VERSION_FROM}
+                 || $this->{ARGS}{ABSTRACT_FROM};
+  my( $ovlc, $ovlh ) = $this->{WX}{wx_overload} ?
+    @{$this->{WX}{wx_overload}}{qw(source header)} : ();
+  return ( xs_dependencies( $this, [ curdir, $this->get_api_directory
+                                     ],
+                            Wx::build::Utils::src_dir( $top_file ) ),
+           # overload
+           ( $ovlc && $ovlh ?
+             ( $ovlc             => 'overload',
+               $ovlh             => $ovlc,
+               ) :
+             ( ) ),
+           );
 }
 
 sub depend_core {
   my $this = shift;
 
+
   my %files = $this->files_to_install();
   my %depend = ( _depend_common( $this ),
-                 $exp              => join( ' ', @files_with_constants ),
-                 $ovlc             => 'overload',
-                 $ovlh             => $ovlc,
+                 $exp              => join( ' ', $this->files_with_constants ),
                  '$(INST_STATIC)'  => "fix_alien $exp",
                  '$(INST_DYNAMIC)' => "fix_alien $exp",
                  'fix_alien'       => 'pm_to_blib',
@@ -106,20 +151,41 @@ subdirs :: overload
 EOT
 }
 
+sub subdirs_ext {
+  my $this = shift;
+  my $text = $this->SUPER::subdirs_core( @_ );
+
+  return ( $this->{WX}{wx_overload} ? <<EOT : '' ) . $text;
+subdirs :: overload
+
+EOT
+}
+
+sub postamble_overload {
+  my( $this ) = @_;
+
+  my $ovl_script = Wx::build::MakeMaker::is_wxPerl_tree() ?
+      'script/wx_overload.pl' : "-S wx_overload.pl";
+  my( $ovlc, $ovlh ) = $this->{WX}{wx_overload} ?
+    @{$this->{WX}{wx_overload}}{qw(source header)} : ();
+  return ( $this->{WX}{wx_overload} ? <<EOT : '' );
+overload :
+\t\$(PERL) $ovl_script $ovlc $ovlh @{[$this->files_with_overload]}
+\t\$(TOUCH) overload
+
+EOT
+}
+
 sub postamble_core {
   my $this = shift;
   my %files = $this->files_to_install();
 
   Wx::build::Utils::write_string( 'files.lst',
                                   Data::Dumper->Dump( [ \%files ] ) );
-  my $text = <<EOT;
+  my $text = <<EOT . $this->postamble_overload;
 
 $exp :
-\t\$(PERL) script/make_exp_list.pl $exp @files_with_constants
-
-overload :
-\t\$(PERL) script/make_ovl_list.pl foo_unused $ovlc $ovlh @files_with_overload
-\t\$(TOUCH) overload
+\t\$(PERL) script/make_exp_list.pl $exp @{[$this->files_with_constants]}
 
 copy_files :
 \t\$(PERL) script/copy_files.pl files.lst
@@ -130,11 +196,17 @@ fix_alien : lib/Wx/Mini.pm
 \t\$(TOUCH) fix_alien
 
 parser :
-	yapp -v -s -o script/XSP.pm script/XSP.yp
+	yapp -v -s -m Wx::XSP::Grammar -o build/Wx/XSP/Grammar.pm build/Wx/XSP/XSP.yp
 
 EOT
 
   $text;
+}
+
+sub postamble_ext {
+    my( $this ) = @_;
+
+    return $this->postamble_overload;
 }
 
 # here because File::Find::find chdirs, and our is_core is,

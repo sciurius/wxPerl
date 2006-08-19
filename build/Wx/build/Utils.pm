@@ -5,11 +5,13 @@ use Config;
 use base 'Exporter';
 use File::Spec::Functions qw(curdir catdir catfile updir);
 use File::Find qw(find);
+use Carp;
 
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT_OK = qw(obj_from_src xs_dependencies write_string
                 lib_file arch_file arch_auto_file
-                path_search files_with_overload files_with_constants);
+                path_search files_with_overload files_with_constants
+                pipe_stderr read_file write_file);
 
 =head1 NAME
 
@@ -23,20 +25,26 @@ Wx::build::Utils - utility routines
 
 =cut
 
+sub _uniq {
+    my( %x );
+    $x{$_} = 1 foreach @_;
+    return sort keys %x;
+}
+
 sub xs_dependencies {
-  my( $this, $dirs ) = @_;
+  my( $this, $dirs, $top_dir ) = @_;
 
   my( %depend );
   my( $c, $o, $cinclude, $xsinclude );
 
   foreach ( keys %{ $this->{XS} } ) {
-    ( $cinclude, $xsinclude ) = scan_xs( $_, $dirs );
+    ( $cinclude, $xsinclude ) = scan_xs( $_, $dirs, $top_dir );
 
     $c = $this->{XS}{$_};
     $o = obj_from_src( $c );
 
-    $depend{ $c } = $_ . ' ' . join( ' ', @$xsinclude );
-    $depend{ $o } = $c . ' ' . join( ' ', @$cinclude );
+    $depend{$c} = $_ . ' ' . join( ' ', _uniq( @$xsinclude ) );
+    $depend{$o} = $c . ' ' . join( ' ', _uniq( @$cinclude ) );
   }
 
   return %depend;
@@ -60,15 +68,16 @@ sub obj_from_src {
   return wantarray ? @xs : $xs[0];
 }
 
-sub _top_dir {
+sub src_dir {
+  my( $file ) = @_;
   my $d = curdir;
 
   for ( 1 .. 5 ) {
-    return $d if -f catfile( $d, 'Wx.pm' );
+    return $d if -f catfile( $d, $file );
     $d = catdir( updir, $d );
   }
 
-  die "Unable to find top level directory";
+  confess "Unable to find top level directory ($file)";
 }
 
 #
@@ -76,10 +85,10 @@ sub _top_dir {
 # considers files included via #include "..." or INCLUDE: ...
 # (not #include <...>) and does not take into account preprocessor directives
 #
-sub scan_xs($$);
+sub scan_xs($$$);
 
-sub scan_xs($$) {
-  my( $xs, $incpath ) = @_;
+sub scan_xs($$$) {
+  my( $xs, $incpath, $top_dir ) = @_;
 
   local( *IN, $_ );
   my( @cinclude, @xsinclude );
@@ -104,15 +113,14 @@ sub scan_xs($$) {
         my $f = $dir eq curdir() ? $file : catfile( $dir, $file );
         if( -f $f ) {
           push @$arr, $f;
-          my( $cinclude, $xsinclude ) = scan_xs( $f, $incpath );
+          my( $cinclude, $xsinclude ) = scan_xs( $f, $incpath, $top_dir );
           push @cinclude, @$cinclude;
           push @xsinclude, @$xsinclude;
           last;
         } elsif( $file =~ m/ovl_const\.(?:cpp|h)/i ) {
-          my $top = _top_dir();
-          push @$arr, ( ( $top eq curdir() ) ?
+          push @$arr, ( ( $top_dir eq curdir() ) ?
                         $file :
-                        catfile( $top, $file ) );
+                        catfile( $top_dir, $file ) );
         }
       }
     }
@@ -123,21 +131,38 @@ sub scan_xs($$) {
   ( \@cinclude, \@xsinclude );
 }
 
-=head2 write_string
+=head2 write_string, write_file
 
   write_string( 'file', $scalar );
+  write_file( 'file', $scalar );
 
-Convenience function, simply creates a file containing the string.
+Like File::Slurp.
+
+=head2 read_file
+
+  my $string = read_file( 'file' );
 
 =cut
 
-sub write_string {
+*write_string = \&write_file;
+
+sub write_file {
   my( $file, $string ) = @_;
-  local *OUT;
-  open OUT, "> $file" or die "open '$file': $!";
-  binmode *OUT;
-  print OUT $string;
-  close OUT or die "close: $!";
+
+  open my $fh, ">", $file or die "open '$file': $!";
+  binmode $fh;
+  print $fh $string or die "print '$file': $!";
+  close $fh or die "close '$file': $!";
+}
+
+sub read_file {
+  my( $file ) = @_;
+
+  local $/ = wantarray ? $/ : undef;;
+  open my $fh, "<", $file or die "open '$file': $!";
+  binmode $fh;
+
+  return <$fh>;
 }
 
 =head2 lib_file, arch_file, arch_auto_file
@@ -274,6 +299,18 @@ sub files_with_overload {
   find( $wanted, curdir );
 
   return @files;
+}
+
+sub pipe_stderr {
+  my( $cmd ) = @_;
+  my $pipe = File::Spec->catfile( 'script', 'pipe.pl' );
+
+  if( -f $pipe ) {
+    return qx{$^X $pipe $cmd};
+  } else {
+    # fix quoting later if necessary
+    return qx[$^X -e "open STDERR, q{>&STDOUT}; exec q{$cmd}"];
+  }
 }
 
 1;

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.82 2006/08/11 19:54:58 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.83 2006/08/19 18:24:33 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -346,32 +346,30 @@ _unload_plugin( string )
 #endif
 
 bool
-_xsmatch( avref, proto, required = -1, allow_more = false )
+_xsmatch( avref, proto, required = -1, allowmore = false )
     SV* avref
     SV* proto
     int required
-    bool allow_more
+    bool allowmore
   PREINIT:
     AV* av;
-    unsigned char* prototype;
-    int i, n, len;
+    wxPliPrototype* prototype;
+    int n, len;
   PROTOTYPE: \@$;$$
   CODE:
     av = wxPli_avref_2_av( avref );
     if( !av ) croak( "first parameter must be an ARRAY reference" );
-    n = wxPli_av_2_uchararray( aTHX_ proto, &prototype );
+    prototype = INT2PTR( wxPliPrototype*, SvIV( proto ) );
     len = av_len( av ) + 1;
     EXTEND(SP, len);
     PUSHMARK(SP);
-    for( i = 0; i < len; ++i )
+    for( int i = 0; i < len; ++i )
         PUSHs( *av_fetch( av, i, 0 ) );
     PUTBACK;
-    RETVAL = wxPli_match_arguments( aTHX_ prototype, n, required, allow_more );
+    RETVAL = wxPli_match_arguments( aTHX_ *prototype, required, allowmore );
     SPAGAIN;
     POPMARK; // wxPli_match_* does a PUSHMARK
-    delete[] prototype;
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 I32
 looks_like_number( sval )
@@ -403,13 +401,13 @@ INCLUDE: XS/Process.xs
 INCLUDE: XS/FontMapper.xs
 INCLUDE: XS/FontEnumerator.xs
 INCLUDE: XS/Wave.xs
-INCLUDE: perl ./script/xsubppp.pl --typemap=typemap.xsp XS/ArtProvider.xsp |
+INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/ArtProvider.xsp |
 
-INCLUDE: perl ./script/xsubppp.pl --typemap=typemap.xsp XS/MimeTypes.xsp |
+INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/MimeTypes.xsp |
 
-INCLUDE: perl ./script/xsubppp.pl --typemap=typemap.xsp XS/Sound.xsp |
+INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Sound.xsp |
 
-INCLUDE: perl ./script/xsubppp.pl --typemap=typemap.xsp XS/Power.xsp |
+INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Power.xsp |
 
 # this is here for debugging purpouses
 INCLUDE: XS/ClassInfo.xs

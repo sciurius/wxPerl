@@ -5,7 +5,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     07/08/2002
-// RCS-ID:      $Id: overload.cpp,v 1.9 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: overload.cpp,v 1.10 2006/08/19 18:24:34 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -34,30 +34,30 @@ private:
 };
 #endif
 
-bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
-                                   size_t nproto, int required,
+bool wxPli_match_arguments_offset( pTHX_ const wxPliPrototype& prototype,
+                                   int required,
                                    bool allow_more, size_t offset );
 
-bool wxPli_match_arguments_skipfirst( pTHX_ const unsigned char prototype[],
-                                      size_t nproto, int required /* = -1 */,
+bool wxPli_match_arguments_skipfirst( pTHX_ const wxPliPrototype& prototype,
+                                      int required /* = -1 */,
                                       bool allow_more /* = false */ )
 {
-    return wxPli_match_arguments_offset( aTHX_ prototype, nproto, required,
+    return wxPli_match_arguments_offset( aTHX_ prototype, required,
                                          allow_more, 1 );
 }
 
-bool wxPli_match_arguments( pTHX_ const unsigned char prototype[],
-                            size_t nproto, int required /* = -1 */,
+bool wxPli_match_arguments( pTHX_ const wxPliPrototype& prototype,
+                            int required /* = -1 */,
                             bool allow_more /* = false */ )
 {
-    return wxPli_match_arguments_offset( aTHX_ prototype, nproto, required,
+    return wxPli_match_arguments_offset( aTHX_ prototype, required,
                                          allow_more, 0 );
 }
 
 static inline bool IsGV( SV* sv ) { return SvTYPE( sv ) == SVt_PVGV; }
 
-bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
-                                   size_t nproto, int required,
+bool wxPli_match_arguments_offset( pTHX_ const wxPliPrototype& prototype,
+                                   int required,
                                    bool allow_more, size_t offset )
 {
     dXSARGS; // restore the mark we implicitly popped in dMARK!
@@ -70,13 +70,13 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
         if( !allow_more && argc != required )
             { PUSHMARK(MARK); return false; }
     }
-    else if( argc < int(nproto) )
+    else if( argc < int(prototype.count) )
         { PUSHMARK(MARK); return false; }
 
-    size_t max = wxMin( nproto, size_t(argc) ) + offset;
+    size_t max = wxMin( prototype.count, size_t(argc) ) + offset;
     for( size_t i = offset; i < max; ++i )
     {
-        unsigned char p = prototype[i - offset];
+        unsigned char p = prototype.args[i - offset];
         // everything is a string or a boolean
         if( p == wxPliOvlstr ||
             p == wxPliOvlbool )
@@ -91,10 +91,19 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
             else { PUSHMARK(MARK); return false; }
         }
         // want an object/package name, accept undef, too
-        if( !IsGV( t ) && (
-            !SvOK( t ) || ( wxPliOvl_tnames[size_t(p)] != 0 &&
-            sv_isobject( t ) &&
-            sv_derived_from( t, CHAR_P wxPliOvl_tnames[size_t(p)] ) ) ) )
+        const char* cstr =
+          p > wxPliOvlzzz   ? prototype.tnames[p - wxPliOvlzzz] :
+          p == wxPliOvlwpoi ? "Wx::Point" :
+          p == wxPliOvlwsiz ? "Wx::Size"  :
+                              NULL;
+        if(    !IsGV( t )
+            && (    !SvOK( t )
+                 || (    cstr != NULL
+                      && sv_isobject( t )
+                      && sv_derived_from( t, CHAR_P cstr )
+                      )
+                 )
+            )
             continue;
         // want an array reference
         if( p == wxPliOvlarr && wxPli_avref_2_av( t ) ) continue;
@@ -114,8 +123,7 @@ bool wxPli_match_arguments_offset( pTHX_ const unsigned char prototype[],
     return true;
 }
 
-void wxPli_set_ovl_constant( const char* name, const unsigned char* value,
-                             int count )
+void wxPli_set_ovl_constant( const char* name, const wxPliPrototype* value )
 {
     dTHX;
     char buffer[1024];
@@ -123,8 +131,5 @@ void wxPli_set_ovl_constant( const char* name, const unsigned char* value,
     strcat( buffer, name );
 
     SV* sv = get_sv( buffer, 1 );
-    AV* av = wxPli_uchararray_2_av( aTHX_ value, count );
-    SV* rv = newRV_noinc( (SV*)av );
-    sv_setsv( sv, rv );
-    SvREFCNT_dec( rv );
+    sv_setiv( sv, PTR2IV( value ) );
 }

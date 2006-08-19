@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/12/2001
-// RCS-ID:      $Id: Grid.xs,v 1.14 2004/12/21 21:12:51 mbarbon Exp $
+// RCS-ID:      $Id: Grid.xs,v 1.15 2006/08/19 18:24:34 mbarbon Exp $
 // Copyright:   (c) 2001-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -31,9 +31,9 @@ INCLUDE: XS/GridEvent.xs
 INCLUDE: XS/GridCellRenderer.xs
 INCLUDE: XS/GridCellEditor.xs
 
-INCLUDE: perl ../../script/xsubppp.pl --typemap ../../typemap.xsp XS/GridTable.xsp |
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp XS/GridTable.xsp |
 
-INCLUDE: perl ../../script/xsubppp.pl --typemap ../../typemap.xsp XS/GridTableMessage.xsp |
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp XS/GridTableMessage.xsp |
 
 #include "cpp/gr_constants.cpp"
 

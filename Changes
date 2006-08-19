@@ -1,5 +1,9 @@
 Revision history for Perl extension Wx.
 
+0.57
+	- Made the XS++ and overload preprocessors installable,
+	  to be used by extensions.
+
 0.56  Fri Aug 11 22:29:33 CEST 2006
 	- Many thread-safety fixes.
 	- wxMotif compatibility.

@@ -5,7 +5,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     11/08/2002
-// RCS-ID:      $Id: overload.h,v 1.5 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: overload.h,v 1.6 2006/08/19 18:24:34 mbarbon Exp $
 // Copyright:   (c) 2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -40,19 +40,19 @@
     else
 
 #define MATCH_REDISP( PROTO, METHOD ) \
-    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count, \
+    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, \
                                          -1, false ) ) \
         { REDISPATCH( METHOD ); } \
     else
 
 #define MATCH_REDISP_COUNT( PROTO, METHOD, REQUIRED ) \
-    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count, \
+    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, \
                                          REQUIRED, false ) ) \
         { REDISPATCH( METHOD ); } \
     else
 
 #define MATCH_REDISP_COUNT_ALLOWMORE( PROTO, METHOD, REQUIRED ) \
-    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, PROTO##_count, \
+    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, \
                                          REQUIRED, true ) ) \
         { REDISPATCH( METHOD ); } \
     else

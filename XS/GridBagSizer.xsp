@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     310/11/2003
-## RCS-ID:      $Id: GridBagSizer.xsp,v 1.3 2005/08/07 21:20:31 mbarbon Exp $
-## Copyright:   (c) 2003 Mattia Barbon
+## RCS-ID:      $Id: GridBagSizer.xsp,v 1.4 2006/08/19 18:24:33 mbarbon Exp $
+## Copyright:   (c) 2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -155,6 +155,10 @@
 
 {%
 MODULE=Wx PACKAGE=Wx::GridBagSizer
+
+## DECLARE_OVERLOAD( wgbp, Wx::GBPosition )
+## DECLARE_OVERLOAD( wgbs, Wx::GBSpan )
+## DECLARE_OVERLOAD( wgbi, Wx::GBSizerItem )
 
 void
 wxGridBagSizer::Add( ... )
