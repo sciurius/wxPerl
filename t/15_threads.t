@@ -1,7 +1,8 @@
 #!/usr/bin/perl -w
 
 use strict;
-use warnings;
+use Config;
+use if !$Config{useithreads} => 'Test::More' => skip_all => 'no threads';
 use threads;
 
 use Wx qw(:everything);
