@@ -8,7 +8,7 @@ use Test::More ( $^O eq 'MSWin32' && $] == 5.008000 ) ?
 use Wx::Perl::SplashFast;
 
 BEGIN {
-  my $splash = Wx::Perl::SplashFast->new( '../../../demo/data/logo.jpg', 1200 );
+  my $splash = Wx::Perl::SplashFast->new( '../../../wxpl.xpm', 1200 );
   isa_ok( $splash, 'Wx::SplashScreen' );
 }
 

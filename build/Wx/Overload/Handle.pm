@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        script/make_ovl_list.pl
+## Name:        build/Wx/Overload/Handle.pm
 ## Purpose:     builds overload constants
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/08/2001
-## RCS-ID:      $Id: Handle.pm,v 1.1 2006/08/19 18:24:32 mbarbon Exp $
+## RCS-ID:      $Id: Handle.pm,v 1.2 2006/08/20 09:28:09 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

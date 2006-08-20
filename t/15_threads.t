@@ -9,6 +9,8 @@ use if !Wx::wxTHREADS(), 'Test::More' => skip_all => 'No thread support';
 use Test::More tests => 8;
 use Wx::Event qw(EVT_BUTTON);
 
+Wx::InitAllImageHandlers;
+
 my $app = Wx::App->new( sub { 1 } );
 
 EVT_BUTTON( $app, -1,
@@ -31,8 +33,8 @@ my $pen = Wx::Pen->new( $color2, 0, wxSOLID );
 my $pen2 = Wx::Pen->new( $color2, 0, wxSOLID );
 my $bitmap = Wx::Bitmap->new( 100, 100, -1 );
 my $bitmap2 = Wx::Bitmap->new( 100, 100, -1 );
-my $icon = Wx::Icon->new( 16, 16, -1 );
-my $icon2 = Wx::Icon->new( 16, 16, -1 );
+my $icon = Wx::Icon->new( 'wxpl.ico', Wx::wxBITMAP_TYPE_ICO() );
+my $icon2 = Wx::Icon->new( 'wxpl.ico', Wx::wxBITMAP_TYPE_ICO() );
 my $brush = Wx::Brush->new( $bitmap );
 my $brush2 = Wx::Brush->new( $bitmap );
 my $palette = Wx::Palette->new( ( [ 50 ] ) x 3 );

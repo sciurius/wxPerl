@@ -8,6 +8,7 @@ use Wx;
 use lib './t';
 use Test::More 'tests' => 172;
 use Tests_Helper qw(test_app);
+use Fatal qw(open);
 
 my $nolog = Wx::LogNull->new;
 Wx::InitAllImageHandlers;
@@ -25,9 +26,13 @@ sub hijack {
 
 test_app( sub {
 my $frame = Wx::Frame->new( undef, -1, 'a' );
-my $bmpok = Wx::Bitmap->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
-my $imgok = Wx::Image->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
+my $bmpok = Wx::Bitmap->new( 'wxpl.ico', Wx::wxBITMAP_TYPE_ICO() );
+my $imgok = Wx::Image->new( 'wxpl.ico', Wx::wxBITMAP_TYPE_ICO() );
 my $icook = Wx::GetWxPerlIcon();
+
+die unless $bmpok->Ok;
+die unless $imgok->Ok;
+die unless $icook->Ok;
 
 ##############################################################################
 # Wx::Brush
@@ -250,7 +255,7 @@ hijack( 'Wx::Icon::newNull' => sub { $newnull = 1 },
 Wx::Icon->new();
 ok( $newnull, "Wx::Icon::newNull" );
 
-Wx::Icon->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
+Wx::Icon->new( 'wxpl.xpm', Wx::wxBITMAP_TYPE_XPM() );
 ok( $newfile, "Wx::Icon::newFile" );
 
 SKIP: {
@@ -881,7 +886,7 @@ hijack( 'Wx::Image::newNull'        => sub { $newnull = 1 },
 #        Wx::Image::SaveFileOnly   => sub { $sfo = 1 }
       );
 
-my $op = '< demo/data/logo.jpg';
+my $op = '< wxpl.xpm';
 Wx::Image->new;
 ok( $newnull, "Wx::Image::newNull" );
 
@@ -892,11 +897,11 @@ Wx::Image->new( $bmpok );
 ok( $newbitmap, "Wx::Image::newBitmap" );
 
 open IN, $op; binmode IN;
-Wx::Image->new( *IN, Wx::wxBITMAP_TYPE_JPEG() );
+Wx::Image->new( *IN, Wx::wxBITMAP_TYPE_XPM() );
 ok( $newstreamt, "Wx::Image::newStreamType" );
 
 open IN, $op; binmode IN;
-Wx::Image->new( *IN, 'image/jpeg' );
+Wx::Image->new( *IN, 'image/xpm' );
 ok( $newstreamm, "Wx::Image::newStreamMIME" );
 
 Wx::Image->new( 1, 2 );
@@ -905,25 +910,25 @@ ok( $newwh, "Wx::Image::newWH" );
 Wx::Image->new( 3, 4, ' ' x 3 x 4 x 3 );
 ok( $newdata, "Wx::Image::newData" );
 
-Wx::Image->new( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
+Wx::Image->new( 'wxpl.ico', Wx::wxBITMAP_TYPE_ICO() );
 ok( $newnametype, "Wx::Image::newNameType" );
 
-Wx::Image->new( 'demo/data/logo.jpg', 'image/jpeg' );
+Wx::Image->new( 'wxpl.xpm', 'image/xpm' );
 ok( $newnametype, "Wx::Image::newNameMIME" );
 
 my $img = Wx::Image->new;
-open IN, $op; binmode IN;
-$img->LoadFile( \*IN, Wx::wxBITMAP_TYPE_JPEG() );
+open IN, "samples/toolbar/bitmaps/copy.bmp"; binmode IN;
+$img->LoadFile( \*IN, Wx::wxBITMAP_TYPE_BMP() );
 ok( $lst, "Wx::Image::LoadStreamType" );
 
 open IN, $op; binmode IN;
-$img->LoadFile( \*IN, 'image/jpeg' );
+$img->LoadFile( \*IN, 'image/xpm' );
 ok( $lsm, "Wx::Image::LoadStreamMIME" );
 
-$img->LoadFile( 'demo/data/logo.jpg', Wx::wxBITMAP_TYPE_JPEG() );
+$img->LoadFile( 'wxpl.xpm', Wx::wxBITMAP_TYPE_XPM() );
 ok( $lft, "Wx::Image::LoadFileType" );
 
-$img->LoadFile( 'demo/data/logo.jpg', 'image/jpeg' );
+$img->LoadFile( 'wxpl.xpm', 'image/xpm' );
 ok( $lfm, "Wx::Image::LoadFileMIME" );
 }
 
