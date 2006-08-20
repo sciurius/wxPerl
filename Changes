@@ -1,8 +1,11 @@
 Revision history for Perl extension Wx.
 
 0.57
+	- Added wxHtmlDCRenderer (thanks to Mark Dootson).
 	- Made the XS++ and overload preprocessors installable,
 	  to be used by extensions.
+	- Removed the demo and some samples, replaced by
+	  Wx::Demo (a separate CPAN distribution).
 
 0.56  Fri Aug 11 22:29:33 CEST 2006
 	- Many thread-safety fixes.

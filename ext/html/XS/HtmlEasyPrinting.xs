@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      $Id: HtmlEasyPrinting.xs,v 1.9 2006/08/11 19:54:59 mbarbon Exp $
+## RCS-ID:      $Id: HtmlEasyPrinting.xs,v 1.10 2006/08/20 09:25:20 mbarbon Exp $
 ## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -66,6 +66,23 @@ wxHtmlEasyPrinting::SetHeader( header, pg = wxPAGE_ALL )
     wxString header
     int pg
 
+void
+wxHtmlEasyPrinting::SetFonts( normal_face, fixed_face, sizes )
+    wxString normal_face
+    wxString fixed_face
+    SV* sizes
+  PREINIT:
+    int* array;
+    int n = wxPli_av_2_intarray( aTHX_ sizes, &array );
+  CODE:
+    if( n != 7 )
+    {
+       delete[] array;
+       croak( "Specified %d sizes, 7 wanted", n );
+    }
+    THIS->SetFonts( normal_face, fixed_face, array );
+    delete[] array;    
+    
 void
 wxHtmlEasyPrinting::SetFooter( header, pg = wxPAGE_ALL )
     wxString header

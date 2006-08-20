@@ -362,6 +362,7 @@ ext/help/t/02_inheritance.t
 ext/html/Html.xs
 ext/html/Makefile.PL
 ext/html/XS/HtmlCell.xsp
+ext/html/XS/HtmlDCRenderer.xs
 ext/html/XS/HtmlEasyPrinting.xs
 ext/html/XS/HtmlHelpController.xs
 ext/html/XS/HtmlParser.xsp

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.80 2006/08/11 20:20:55 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.81 2006/08/20 09:25:20 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -810,30 +810,41 @@ int wxPli_av_2_stringarray( pTHX_ SV* avref, wxString** array )
                                   array_thingy<wxString>() );
 }
 
-class wxarraystring_thingy
+template<class A, class B, B init>
+class wxarray_thingy
 {
 public:
-    typedef wxArrayString* lvalue;
-    typedef wxArrayString& rvalue;
+    typedef A* lvalue;
+    typedef A& rvalue;
 
-    wxarraystring_thingy( lvalue lv ) : m_value( lv ) { }
+    wxarray_thingy( lvalue lv ) : m_value( lv ) { }
     rvalue create( size_t n ) const
     {
         m_value->Alloc( n );
         for( size_t i = 0; i < n; ++i )
-            m_value->Add( wxT("") );
+            m_value->Add( init );
         return *m_value;
     }
     void assign( lvalue, rvalue ) const { }
 private:
-    wxArrayString* m_value;
+    A* m_value;
 };
+
+extern const wxChar wxPliEmptyString[];
 
 int wxPli_av_2_arraystring( pTHX_ SV* avref, wxArrayString* array )
 {
     return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxstring(),
-                                  wxarraystring_thingy( array ) );
+                                  wxarray_thingy<wxArrayString, const wxChar*, wxPliEmptyString>( array ) );
 }
+
+int wxPli_av_2_arrayint( pTHX_ SV* avref, wxArrayInt* array )
+{
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_int(),
+                                  wxarray_thingy<wxArrayInt, int, 0>( array ) );
+}
+
+const wxChar wxPliEmptyString[] = wxT("");
 
 #if wxUSE_UNICODE
 wxChar* my_strdup( const wxChar* s, size_t len )

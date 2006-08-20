@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: HtmlWindow.xs,v 1.15 2005/01/04 17:15:09 mbarbon Exp $
-## Copyright:   (c) 2001-2005 Mattia Barbon
+## RCS-ID:      $Id: HtmlWindow.xs,v 1.16 2006/08/20 09:25:20 mbarbon Exp $
+## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -84,6 +84,10 @@ wxHtmlWindow::HistoryClear()
 
 bool
 wxHtmlWindow::HistoryForward()
+
+bool
+wxHtmlWindow::LoadFile( filename  )
+    wxString filename
 
 bool
 wxHtmlWindow::LoadPage( location )

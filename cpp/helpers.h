@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.82 2006/08/19 18:24:34 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.83 2006/08/20 09:25:20 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -181,6 +181,7 @@ int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array );
 int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
 int wxPli_av_2_userdatacdarray( pTHX_ SV* avref, wxPliUserDataCD*** array );
 int wxPli_av_2_arraystring( pTHX_ SV* avref, wxArrayString* array );
+int FUNCPTR( wxPli_av_2_arrayint )( pTHX_ SV* avref, wxArrayInt* array );
 
 // pushes the elements of the array into the stack
 // the caller _MUST_ call PUTBACK; before the function
@@ -206,7 +207,6 @@ void wxPli_nonobjarray_push( pTHX_ const A& objs, const char* klass )
 
     PUTBACK;
 }
-
 
 void wxPli_delete_argv( void*** argv, bool unicode );
 int wxPli_get_args_argc_argv( void*** argv, bool unicode );
@@ -362,12 +362,13 @@ struct wxPliHelpers
     void (* m_wxPli_thread_sv_clone )( pTHX_ const char* package,
                                        wxPliCloneSV clonefn );
 #endif
+    int (* m_wxPli_av_2_arrayint )( pTHX_ SV* avref, wxArrayInt* array );
 };
 
 #if wxPERL_USE_THREADS
 #   define wxDEFINE_PLI_HELPER_THREADS() \
  &wxPli_thread_sv_register, \
- &wxPli_thread_sv_unregister, &wxPli_thread_sv_clone,
+ &wxPli_thread_sv_unregister, &wxPli_thread_sv_clone
 #   define wxINIT_PLI_HELPER_THREADS( name ) \
   wxPli_thread_sv_register = name->m_wxPli_thread_sv_register; \
   wxPli_thread_sv_unregister = name->m_wxPli_thread_sv_unregister; \
@@ -391,7 +392,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_detach_object, &wxPli_create_evthandler, \
  &wxPli_match_arguments_skipfirst, &wxPli_objlist_2_av, &wxPli_intarray_push, \
  &wxPli_clientdatacontainer_2_sv, \
- wxDEFINE_PLI_HELPER_THREADS() \
+ wxDEFINE_PLI_HELPER_THREADS(), \
+ &wxPli_av_2_arrayint \
  }
 
 #if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
@@ -429,7 +431,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_intarray_push = name->m_wxPli_intarray_push; \
   wxPli_clientdatacontainer_2_sv = name->m_wxPli_clientdatacontainer_2_sv; \
   wxINIT_PLI_HELPER_THREADS( name ); \
-  \
+  wxPli_av_2_arrayint = name->m_wxPli_av_2_arrayint; \
   WXPLI_INIT_CLASSINFO();
 
 #else
