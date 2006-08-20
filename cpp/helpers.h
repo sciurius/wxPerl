@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.83 2006/08/20 09:25:20 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.84 2006/08/20 11:45:35 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -270,8 +270,13 @@ SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
 // defined in overload.cpp
 struct wxPliPrototype
 {
-    const char** tnames;
-    const unsigned char* args;
+    wxPliPrototype( const char** const t,
+                    const unsigned char* const a,
+                    const size_t c )
+      : tnames( t ), args( a ), count( c ) { }
+
+    const char** const tnames;
+    const unsigned char* const args;
     const size_t count;
 };
 
