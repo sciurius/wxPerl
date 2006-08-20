@@ -5,8 +5,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2001
-// RCS-ID:      $Id: streams.h,v 1.6 2004/12/21 20:59:21 mbarbon Exp $
-// Copyright:   (c) 2001-2002, 2004 Mattia Barbon
+// RCS-ID:      $Id: streams.h,v 1.7 2006/08/20 09:29:46 mbarbon Exp $
+// Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ public:
 
     const wxPliInputStream& operator =( const wxPliInputStream& stream );
 protected:
-    size_t GetSize() const { return ~(size_t)0; }
+    wxFileOffset GetLength() const;
     size_t OnSysRead( void* buffer, size_t bufsize );
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
@@ -54,6 +54,7 @@ public:
 
     const wxPliOutputStream& operator = ( const wxPliOutputStream& stream );
 protected:
+    wxFileOffset GetLength() const;
     size_t OnSysWrite( const void* buffer, size_t size );
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
