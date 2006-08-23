@@ -80,7 +80,6 @@ samples/dialog/dialog.pl
 samples/dialogs/dialogs.pl
 samples/minimal/minimal.pl
 samples/hello/hello.pl
-samples/splitter/splitter.pl
 samples/treectrl/treectrl.pl
 
 samples/toolbar/bitmaps/copy.bmp
