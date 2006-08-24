@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.23 2006/08/24 19:46:04 mbarbon Exp $
+## RCS-ID:      $Id: DataObject.xs,v 1.24 2006/08/24 20:12:31 mbarbon Exp $
 ## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -209,7 +209,7 @@ wxPlDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
     wxDataFormat* format
   CODE:
     wxPlDataObjectSimple* THIS = new wxPlDataObjectSimple( CLASS, *format );
-    RETVAL = newRV( SvRV( THIS->m_callback.GetSelf() ) );
+    RETVAL = newRV_noinc( SvRV( THIS->m_callback.GetSelf() ) );
     wxPli_thread_sv_register( aTHX_ "Wx::PlDataObjectSimple", THIS, RETVAL );
   OUTPUT: RETVAL
 
@@ -238,6 +238,7 @@ wxDataObjectComposite::Add( dataObject, preferred = false )
   CODE:
     // at this point the data object is owned!
     wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    SvREFCNT_inc( SvRV( ST(1) ) ); // at this point the scalar must not go away
     THIS->Add( dataObject, preferred );
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
