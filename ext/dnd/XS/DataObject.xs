@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.22 2006/08/11 19:54:58 mbarbon Exp $
+## RCS-ID:      $Id: DataObject.xs,v 1.23 2006/08/24 19:46:04 mbarbon Exp $
 ## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -101,7 +101,7 @@ DESTROY( THIS )
     wxDataObject* THIS
   CODE:
     wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
-    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+    if( THIS && wxPli_object_is_deleteable( aTHX_ ST(0) ) )
     {
         delete THIS;
     }
@@ -209,7 +209,7 @@ wxPlDataObjectSimple::new( format = (wxDataFormat*)&wxFormatInvalid )
     wxDataFormat* format
   CODE:
     wxPlDataObjectSimple* THIS = new wxPlDataObjectSimple( CLASS, *format );
-    RETVAL = newRV_noinc( SvRV( THIS->m_callback.GetSelf() ) );
+    RETVAL = newRV( SvRV( THIS->m_callback.GetSelf() ) );
     wxPli_thread_sv_register( aTHX_ "Wx::PlDataObjectSimple", THIS, RETVAL );
   OUTPUT: RETVAL
 
