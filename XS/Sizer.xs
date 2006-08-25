@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.48 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.49 2006/08/25 21:17:53 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -215,6 +215,7 @@
     %name{SetMinSizeWH} void SetMinSize( int x, int y );
     %name{SetMinSizeSize} void SetMinSize( wxSize size );
 #endif
+    void DeleteWindows();
 };
 
 #if WXPERL_W_VERSION_GE( 2, 6, 1 )
