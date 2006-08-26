@@ -77,7 +77,6 @@ samples/artprov/question.xpm
 samples/artprov/warning.xpm
 
 samples/dialog/dialog.pl
-samples/dialogs/dialogs.pl
 samples/minimal/minimal.pl
 samples/hello/hello.pl
 samples/treectrl/treectrl.pl
