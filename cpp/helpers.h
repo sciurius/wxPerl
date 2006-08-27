@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.84 2006/08/20 11:45:35 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.85 2006/08/27 15:26:18 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -373,11 +373,11 @@ struct wxPliHelpers
 #if wxPERL_USE_THREADS
 #   define wxDEFINE_PLI_HELPER_THREADS() \
  &wxPli_thread_sv_register, \
- &wxPli_thread_sv_unregister, &wxPli_thread_sv_clone
+ &wxPli_thread_sv_unregister, &wxPli_thread_sv_clone,
 #   define wxINIT_PLI_HELPER_THREADS( name ) \
   wxPli_thread_sv_register = name->m_wxPli_thread_sv_register; \
   wxPli_thread_sv_unregister = name->m_wxPli_thread_sv_unregister; \
-  wxPli_thread_sv_clone = name->m_wxPli_thread_sv_clone
+  wxPli_thread_sv_clone = name->m_wxPli_thread_sv_clone;
 #else
 #   define wxDEFINE_PLI_HELPER_THREADS()
 #   define wxINIT_PLI_HELPER_THREADS( name )
@@ -397,7 +397,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_detach_object, &wxPli_create_evthandler, \
  &wxPli_match_arguments_skipfirst, &wxPli_objlist_2_av, &wxPli_intarray_push, \
  &wxPli_clientdatacontainer_2_sv, \
- wxDEFINE_PLI_HELPER_THREADS(), \
+ wxDEFINE_PLI_HELPER_THREADS() \
  &wxPli_av_2_arrayint \
  }
 
@@ -435,7 +435,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_objlist_2_av = name->m_wxPli_objlist_2_av; \
   wxPli_intarray_push = name->m_wxPli_intarray_push; \
   wxPli_clientdatacontainer_2_sv = name->m_wxPli_clientdatacontainer_2_sv; \
-  wxINIT_PLI_HELPER_THREADS( name ); \
+  wxINIT_PLI_HELPER_THREADS( name ) \
   wxPli_av_2_arrayint = name->m_wxPli_av_2_arrayint; \
   WXPLI_INIT_CLASSINFO();
 

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.153 2006/08/11 19:38:44 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.154 2006/08/27 15:26:18 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -65,6 +65,8 @@
 #endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 #include <wx/choicebk.h>
+#endif
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
 #include <wx/mediactrl.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
@@ -2464,7 +2466,7 @@ _get_packages()
 #if wxPERL_USE_DATETIME
     "use Wx::DateTime;"
 #endif
-#if wxPERL_USE_MEDIA
+#if wxPERL_USE_MEDIA && WXPERL_W_VERSION_GE( 2, 6, 0 )
     "use Wx::Media;"
 #endif
     ;

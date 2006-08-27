@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2001
-// RCS-ID:      $Id: streams.cpp,v 1.13 2006/08/20 09:29:46 mbarbon Exp $
+// RCS-ID:      $Id: streams.cpp,v 1.14 2006/08/27 15:26:18 mbarbon Exp $
 // Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -164,6 +164,15 @@ wxFileOffset wxPliInputStream::GetLength() const
     return stream_length( this, m_fh );
 }
 
+#if !WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+size_t wxPliInputStream::GetSize() const
+{
+    return stream_length( this, m_fh );
+}
+
+#endif
+
 // output stream
 
 wxPliOutputStream::wxPliOutputStream( SV* fh )
@@ -258,6 +267,15 @@ wxFileOffset wxPliOutputStream::GetLength() const
 {
     return stream_length( this, m_fh );
 }
+
+#if !WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+size_t wxPliOutputStream::GetSize() const
+{
+    return stream_length( this, m_fh );
+}
+
+#endif
 
 // helpers
 
