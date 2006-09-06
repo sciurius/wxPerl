@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Icon.xs,v 1.29 2006/08/19 18:24:33 mbarbon Exp $
+## RCS-ID:      $Id: Icon.xs,v 1.30 2006/09/06 11:41:36 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,16 +19,16 @@ MODULE=Wx PACKAGE=Wx
 #endif
 
 wxIcon*
-GetWxPerlIcon( small = false )
-    bool small
+GetWxPerlIcon( get_small = false )
+    bool get_small
   CODE:
 #if defined( __WXMSW__ )
-    int sz = small ? 16 : 32;
+    int sz = get_small ? 16 : 32;
     RETVAL = new wxIcon( wxT("wxplicon"), wxBITMAP_TYPE_ICO_RESOURCE, -1, -1 );
     if( !RETVAL->Ok() )
         croak( "Unable to load icon" );
 #else
-    char** image = small ? wxpl16_xpm : wxpl32_xpm;
+    char** image = get_small ? wxpl16_xpm : wxpl32_xpm;
     RETVAL = new wxIcon( image );
 #endif
   OUTPUT:

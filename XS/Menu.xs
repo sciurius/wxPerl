@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.25 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.26 2006/09/06 11:41:36 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -557,7 +557,7 @@ void
 wxMenuItem::Enable( enable )
     bool enable
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
 wxColour*
 wxMenuItem::GetBackgroundColour()
@@ -575,9 +575,8 @@ wxMenuItem::GetFont()
 
 #endif
 
-#if defined( __WXMSW__ ) || \
- defined( __WXGTK__ ) || \
- defined( __WXPERL_FORCE__ )
+#if ( defined( __WXMSW__ ) && !defined( __WXWINCE__ ) ) || \
+ defined( __WXGTK__ )
 
 wxBitmap*
 wxMenuItem::GetBitmap()
@@ -608,7 +607,7 @@ GetLabelFromText( text )
   OUTPUT:
     RETVAL
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
 int
 wxMenuItem::GetMarginWidth()
@@ -621,7 +620,7 @@ wxMenuItem::GetText()
 wxMenu*
 wxMenuItem::GetSubMenu()
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
 wxColour*
 wxMenuItem::GetTextColour()
@@ -644,7 +643,7 @@ wxMenuItem::IsEnabled()
 bool
 wxMenuItem::IsSeparator()
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
 void
 wxMenuItem::SetBackgroundColour( colour )
@@ -664,7 +663,7 @@ void
 wxMenuItem::SetHelp( helpString )
     wxString helpString
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
 void
 wxMenuItem::SetMarginWidth( width )
@@ -689,7 +688,7 @@ wxMenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
 
 #endif
 
-#if defined( __WXMSW__ ) || defined( __WXGTK__ )
+#if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
 void
 wxMenuItem::SetBitmap( bitmap )

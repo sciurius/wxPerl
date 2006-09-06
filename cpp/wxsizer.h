@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        cpp/wxsizer.h
-// Purpose:     provide wxBookCtrlSizer andwxNotebookSizer class
+// Purpose:     provide wxBookCtrlSizer and wxNotebookSizer class
 // Author:      Robert Roebling and Robin Dunn
 // Modified by: Ron Lee, Vadim Zeitlin (wxSizerFlags)
 // Created:
-// RCS-ID:      $Id: wxsizer.h,v 1.3 2005/10/16 21:06:20 mbarbon Exp $
+// RCS-ID:      $Id: wxsizer.h,v 1.4 2006/09/06 11:41:36 mbarbon Exp $
 // Copyright:   (c) Robin Dunn, Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -24,8 +24,6 @@
 
 // this sizer works with wxNotebook/wxListbook/... and sizes the control to
 // fit its pages
-class wxBookCtrlBase;
-
 class wxBookCtrlSizer : public wxSizer
 {
 public:
@@ -50,7 +48,7 @@ private:
 
 // before wxBookCtrlBase we only had wxNotebookSizer, keep it for backwards
 // compatibility
-class wxNotebook;
+#include <wx/notebook.h>
 
 class wxNotebookSizer : public wxBookCtrlSizer
 {

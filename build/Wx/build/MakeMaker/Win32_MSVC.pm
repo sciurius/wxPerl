@@ -33,6 +33,28 @@ EOT
   return $text;
 }
 
+=pod
+
+sub post_initialize {
+    my( $self ) = @_;
+
+    $self->{PERL_LIB} = 'C:\Programmi\Devel\Perl\ActivePerl\588.817\xlib\wince-arm-pocket-wce300';
+    $self->{PERL_ARCHLIB} = 'C:\Programmi\Devel\Perl\ActivePerl\588.817\xlib\wince-arm-pocket-wce300';
+    $self->{PERL_INC} = $self->catdir( $self->{PERL_LIB}, "CORE" );
+
+    return '';
+}
+
+sub tool_xsubpp {
+    my( $self ) = @_;
+
+    package MY;
+    local $self->{PERL_LIB} = 'C:\Programmi\Devel\Perl\ActivePerl\588.817\lib';
+    return $self->SUPER::tool_xsubpp;
+}
+
+=cut
+
 1;
 
 # local variables:

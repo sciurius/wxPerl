@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.40 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.41 2006/09/06 11:41:36 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -727,10 +727,14 @@ MODULE=Wx PACKAGE=Wx::JPEGHandler
 wxJPEGHandler*
 wxJPEGHandler::new()
 
+#if !defined( __WXWINCE__ )
+
 MODULE=Wx PACKAGE=Wx::TIFFHandler
 
 wxTIFFHandler*
 wxTIFFHandler::new()
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::XPMHandler
 

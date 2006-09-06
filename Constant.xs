@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.154 2006/08/27 15:26:18 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.155 2006/09/06 11:41:36 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -13,6 +13,10 @@
 #undef bool
 #define PERL_NO_GET_CONTEXT
 #define WXINTL_NO_GETTEXT_MACRO 1
+
+#ifdef __WXWINCE__
+#include <time.h> // must see struct tm early
+#endif
 
 #include <wx/defs.h>
 

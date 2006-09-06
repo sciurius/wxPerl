@@ -154,9 +154,7 @@ sub set_hook_package {
 # to customise it
 sub import {
   undef *MY::libscan;
-  # undef *MY::post_initialize;
   *MY::libscan = _make_hook( 'libscan' );
-  # *MY::post_initialize = _make_hook( 'post_initialize' );
 
   Wx::build::MakeMaker->export_to_level( 1, @_ );
 }
@@ -367,6 +365,11 @@ sub _process_mm_arguments {
 
       delete $args{$_};
     };
+
+    m/^REQUIRE_WX$/ and do {
+      $build &&= __PACKAGE__->get_wx_version() >= $v;
+      delete $args{$_};
+    };
   }
 
   return $build unless $build;
@@ -382,11 +385,6 @@ sub _process_mm_arguments {
 
     m/^WX_LIB$/ and do {
       die "Please use WX_CORE_LIB instead of WX_LIB";
-    };
-
-    m/^REQUIRE_WX$/ and do {
-      $build &&= __PACKAGE__->get_wx_version() >= $v;
-      delete $args{$_};
     };
 
     m/^(?:ABSTRACT_FROM|AUTHOR)/ and do {
