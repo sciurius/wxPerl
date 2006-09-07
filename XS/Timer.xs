@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     14/02/2001
-## RCS-ID:      $Id: Timer.xs,v 1.11 2006/09/07 20:33:13 mbarbon Exp $
-## Copyright:   (c) 2001-2004 Mattia Barbon
+## RCS-ID:      $Id: Timer.xs,v 1.12 2006/09/07 20:45:28 mbarbon Exp $
+## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

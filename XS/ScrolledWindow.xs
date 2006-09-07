@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: ScrolledWindow.xs,v 1.13 2006/09/07 20:33:12 mbarbon Exp $
-## Copyright:   (c) 2000-2003, 2005 Mattia Barbon
+## RCS-ID:      $Id: ScrolledWindow.xs,v 1.14 2006/09/07 20:45:28 mbarbon Exp $
+## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: ScrollBar.xs,v 1.7 2006/09/07 20:33:12 mbarbon Exp $
-## Copyright:   (c) 2000-2001, 2003-2004 Mattia Barbon
+## RCS-ID:      $Id: ScrollBar.xs,v 1.8 2006/09/07 20:45:28 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
