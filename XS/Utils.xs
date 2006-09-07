@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.43 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.44 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -49,7 +49,7 @@ MODULE=Wx PACKAGE=Wx::SplashScreen
 #endif
 
 wxSplashScreen*
-wxSplashScreen::new( bitmap, splashStyle, milliseconds, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSIMPLE_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP )
+wxSplashScreen::new( bitmap, splashStyle, milliseconds, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSIMPLE_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP )
     wxBitmap* bitmap
     long splashStyle
     int milliseconds

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: ToolBar.xs,v 1.24 2005/05/03 21:02:39 mbarbon Exp $
-## Copyright:   (c) 2000-2004 Mattia Barbon
+## RCS-ID:      $Id: ToolBar.xs,v 1.25 2006/09/07 20:33:13 mbarbon Exp $
+## Copyright:   (c) 2000-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -474,7 +474,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxToolBar*
-newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -488,7 +488,7 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style
   OUTPUT: RETVAL
 
 bool
-wxToolBar::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
+wxToolBar::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -496,32 +496,3 @@ wxToolBar::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, st
     long style
     wxString name
 
-MODULE=Wx PACKAGE=Wx::ToolBarSimple
-
-## deprecated: and who uses it, anyway?
-#if 0 && wxUSE_TOOLBAR_SIMPLE
-
-wxToolBar*
-wxToolBarSimple::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
-    wxWindow* parent
-    wxWindowID id
-    wxPoint pos
-    wxSize size
-    long style
-    wxString name
-  CODE:
-    RETVAL = (wxToolBar*)new wxToolBarSimple( parent, id, pos, size, style,
-        name );
-  OUTPUT:
-    RETVAL
-
-bool
-wxToolBarSimple::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTB_HORIZONTAL | wxNO_BORDER, name = wxPanelNameStr )
-    wxWindow* parent
-    wxWindowID id
-    wxPoint pos
-    wxSize size
-    long style
-    wxString name
-
-#endif

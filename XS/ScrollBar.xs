@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: ScrollBar.xs,v 1.6 2004/08/04 20:13:55 mbarbon Exp $
-## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
+## RCS-ID:      $Id: ScrollBar.xs,v 1.7 2006/09/07 20:33:12 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -31,7 +31,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxScrollBar*
-newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSB_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxScrollBarNameStr )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSB_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxScrollBarNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -48,7 +48,7 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style
     RETVAL
 
 bool
-wxScrollBar::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSB_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxScrollBarNameStr )
+wxScrollBar::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSB_HORIZONTAL, validator = (wxValidator*)&wxDefaultValidator, name = wxScrollBarNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

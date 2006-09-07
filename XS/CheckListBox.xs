@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: CheckListBox.xs,v 1.8 2004/08/04 20:13:54 mbarbon Exp $
-## Copyright:   (c) 2000-2003 Mattia Barbon
+## RCS-ID:      $Id: CheckListBox.xs,v 1.9 2006/09/07 20:33:12 mbarbon Exp $
+## Copyright:   (c) 2000-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -31,7 +31,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxCheckListBox*
-newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -62,7 +62,7 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choic
     RETVAL
 
 bool
-wxCheckListBox::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+wxCheckListBox::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

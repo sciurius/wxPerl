@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/10/2002
-## RCS-ID:      $Id: CalendarCtrl.xsp,v 1.8 2005/03/27 16:26:20 mbarbon Exp $
+## RCS-ID:      $Id: CalendarCtrl.xsp,v 1.9 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2002-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -106,7 +106,7 @@ wxPlConstants calendar_module( &calendar_constant );
                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
     %name{newFull} wxCalendarCtrl( wxWindow* parent,
-                                   wxWindowID id,
+                                   wxWindowID id = wxID_ANY,
                                    const wxDateTime& date =
                                        wxDefaultDateTimePtr,
                                    const wxPoint& pos = wxDefaultPosition,
@@ -118,7 +118,7 @@ wxPlConstants calendar_module( &calendar_constant );
                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
 
-    bool Create( wxWindow* parent, wxWindowID id,
+    bool Create( wxWindow* parent, wxWindowID id = wxID_ANY,
                  const wxDateTime& date = wxDefaultDateTimePtr,
                  const wxPoint& pos = wxDefaultPosition,
                  const wxSize& size = wxDefaultSize,

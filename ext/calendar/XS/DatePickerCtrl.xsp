@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        ext/calendar/XS/CalendarCtrl.xsp
+## Name:        ext/calendar/XS/DatePickerCtrl.xsp
 ## Purpose:     XS++ for Wx::DatePickerCtrl
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/03/2005
-## RCS-ID:      $Id: DatePickerCtrl.xsp,v 1.1 2005/03/19 18:06:56 mbarbon Exp $
+## RCS-ID:      $Id: DatePickerCtrl.xsp,v 1.2 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -63,7 +63,7 @@ wxPlConstants datepicker_module( &datepicker_constant );
                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
     %name{newFull} wxDatePickerCtrl(wxWindow *parent,
-                                    wxWindowID id,
+                                    wxWindowID id = wxID_ANY,
                                     const wxDateTime& date =
                                         wxDefaultDateTimePtr,
                                     const wxPoint& pos = wxDefaultPosition,
@@ -79,7 +79,7 @@ wxPlConstants datepicker_module( &datepicker_constant );
              %};
 
     bool Create(wxWindow *parent,
-                wxWindowID id,
+                wxWindowID id = wxID_ANY,
                 const wxDateTime& dt = wxDefaultDateTimePtr,
                 const wxPoint& pos = wxDefaultPosition,
                 const wxSize& size = wxDefaultSize,

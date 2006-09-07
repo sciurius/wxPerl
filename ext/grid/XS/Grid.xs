@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.29 2006/08/11 19:54:59 mbarbon Exp $
+## RCS-ID:      $Id: Grid.xs,v 1.30 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -62,7 +62,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxGrid*
-newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -77,7 +77,7 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style
     RETVAL
 
 bool
-wxGrid::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
+wxGrid::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxWANTS_CHARS, name = wxPanelNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

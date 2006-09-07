@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::SocketBase
 ## Author:      Graciliano M. P.
 ## Created:     27/02/2003
-## RCS-ID:      $Id: SocketBase.xs,v 1.4 2004/12/21 21:12:56 mbarbon Exp $
+## RCS-ID:      $Id: SocketBase.xs,v 1.5 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2003-2004 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -229,7 +229,7 @@ wxSocketBase::WriteMsg(buf , size = 0)
 
 
 void
-wxSocketBase::SetEventHandler( evthnd , id = -1)
+wxSocketBase::SetEventHandler( evthnd , id = wxID_ANY )
     wxEvtHandler* evthnd
     int id
   CODE:

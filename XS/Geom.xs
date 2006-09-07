@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Geom.xs,v 1.20 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Geom.xs,v 1.21 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -273,6 +273,7 @@ wxRect::Inside( ... )
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_n_n, InsizeXY )
         MATCH_REDISP( wxPliOvl_wpoi, InsidePoint )
+        MATCH_REDISP( wxPliOvl_wrec, InsideRect )
     END_OVERLOAD( Wx::Rect::Inside )
 
 bool
@@ -289,6 +290,15 @@ wxRect::InsidePoint( wxPoint pt )
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+bool
+wxRect::InsideRect( wxRect* rec )
+  CODE:
+    RETVAL = THIS->Inside( *rec );
+  OUTPUT: RETVAL
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::Region
 

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: SplitterWindow.xs,v 1.13 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: SplitterWindow.xs,v 1.14 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -40,7 +40,7 @@
                    wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
     %name{newFull}
-    wxSplitterWindow( wxWindow* parent, wxWindowID id = -1,
+    wxSplitterWindow( wxWindow* parent, wxWindowID id = wxID_ANY,
                       const wxPoint& pos = wxDefaultPosition,
                       const wxSize& size = wxDefaultSize,
                       long style = wxSP_3D,
@@ -49,7 +49,7 @@
                        style, name );
                    wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
-    bool Create( wxWindow* parent, wxWindowID id = -1,
+    bool Create( wxWindow* parent, wxWindowID id = wxID_ANY,
                  const wxPoint& pos = wxDefaultPosition,
                  const wxSize& size = wxDefaultSize,
                  long style = wxSP_3D,

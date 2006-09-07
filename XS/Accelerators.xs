@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/02/2001
-## RCS-ID:      $Id: Accelerators.xs,v 1.10 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Accelerators.xs,v 1.11 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -19,6 +19,17 @@ wxAcceleratorEntry::new( flags, code, cmd )
     int flags
     wxKeyCode code
     int cmd
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+wxAcceleratorEntry*
+Create( str )
+    wxString str;
+  CODE:
+    RETVAL = wxAcceleratorEntry::Create( str );
+  OUTPUT: RETVAL
+
+#endif
 
 ## // thread KO
 void

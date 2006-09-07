@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Colour.xs,v 1.15 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Colour.xs,v 1.16 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -16,9 +16,25 @@ void
 wxColour::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, newRGBA )
         MATCH_REDISP( wxPliOvl_n_n_n, newRGB )
         MATCH_REDISP( wxPliOvl_s, newName )
     END_OVERLOAD( Wx::Colour::new )
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+wxColour*
+newRGBA( CLASS, red, green, blue, alpha = wxALPHA_OPAQUE )
+    SV* CLASS
+    unsigned char red
+    unsigned char green
+    unsigned char blue
+    unsigned char alpha
+  CODE:
+    RETVAL = new wxColour( red, green, blue, alpha );
+  OUTPUT: RETVAL
+
+#endif
 
 wxColour*
 newRGB( CLASS, red, green, blue )
@@ -62,8 +78,24 @@ wxColour::Ok()
 unsigned char
 wxColour::Red()
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+unsigned char
+wxColour::Alpha()
+
+void
+wxColour::Set( red, green, blue, alpha )
+    unsigned char red
+    unsigned char green
+    unsigned char blue
+    unsigned char alpha
+
+#else
+
 void
 wxColour::Set( red, green, blue )
     unsigned char red
     unsigned char green
     unsigned char blue
+
+#endif

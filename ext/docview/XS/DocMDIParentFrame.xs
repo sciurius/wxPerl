@@ -4,7 +4,7 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: DocMDIParentFrame.xs,v 1.5 2004/12/21 21:12:49 mbarbon Exp $
+## RCS-ID:      $Id: DocMDIParentFrame.xs,v 1.6 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -13,7 +13,7 @@
 MODULE=Wx PACKAGE=Wx::DocMDIParentFrame
 
 wxDocMDIParentFrame *
-wxDocMDIParentFrame::new( manager, frame = (wxFrame*) NULL, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr)
+wxDocMDIParentFrame::new( manager, frame, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr)
     wxDocManager* manager
     wxFrame* frame
     wxWindowID id

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/07/2006
-## RCS-ID:      $Id: Treebook.xsp,v 1.1 2006/07/31 19:31:14 mbarbon Exp $
+## RCS-ID:      $Id: Treebook.xsp,v 1.2 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -27,7 +27,7 @@
                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
     %name{newFull} wxTreebook(wxWindow *parent,
-                              wxWindowID id,
+                              wxWindowID id = wxID_ANY,
                               const wxPoint& pos = wxDefaultPosition,
                               const wxSize& size = wxDefaultSize,
                               long style = 0,
@@ -37,7 +37,7 @@
              %};
 
     bool Create(wxWindow *parent,
-                wxWindowID id,
+                wxWindowID id = wxID_ANY,
                 const wxPoint& pos = wxDefaultPosition,
                 const wxSize& size = wxDefaultSize,
                 long style = 0,

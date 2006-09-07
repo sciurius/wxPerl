@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     10/11/2000
-## RCS-ID:      $Id: StaticLine.xs,v 1.7 2004/10/19 20:28:05 mbarbon Exp $
+## RCS-ID:      $Id: StaticLine.xs,v 1.8 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -15,7 +15,7 @@ MODULE=Wx PACKAGE=Wx::StaticLine
 #include <wx/statline.h>
 
 wxStaticLine*
-wxStaticLine::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLI_HORIZONTAL, name = wxT("staticLine") )
+wxStaticLine::new( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLI_HORIZONTAL, name = wxT("staticLine") )
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -29,7 +29,7 @@ wxStaticLine::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, st
     RETVAL
 
 bool
-wxStaticLine::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLI_HORIZONTAL, name = wxT("staticLine") )
+wxStaticLine::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxLI_HORIZONTAL, name = wxT("staticLine") )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

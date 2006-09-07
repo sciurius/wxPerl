@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/08/2002
-## RCS-ID:      $Id: Wizard.xs,v 1.15 2004/11/23 22:08:50 mbarbon Exp $
+## RCS-ID:      $Id: Wizard.xs,v 1.16 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -39,7 +39,7 @@ newEmpty( CLASS )
     RETVAL
 
 wxWizard*
-newFull( CLASS, parent, id = -1, title = wxEmptyString, bitmap = (wxBitmap*)&wxNullBitmap, pos = wxDefaultPosition )
+newFull( CLASS, parent, id = wxID_ANY, title = wxEmptyString, bitmap = (wxBitmap*)&wxNullBitmap, pos = wxDefaultPosition )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -52,7 +52,7 @@ newFull( CLASS, parent, id = -1, title = wxEmptyString, bitmap = (wxBitmap*)&wxN
     RETVAL
 
 bool
-wxWizard::Create( parent, id = -1, title = wxEmptyString, bitmap = (wxBitmap*)&wxNullBitmap, pos = wxDefaultPosition )
+wxWizard::Create( parent, id = wxID_ANY, title = wxEmptyString, bitmap = (wxBitmap*)&wxNullBitmap, pos = wxDefaultPosition )
     wxWindow* parent
     wxWindowID id
     wxString title

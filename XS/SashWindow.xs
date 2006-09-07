@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/02/2001
-## RCS-ID:      $Id: SashWindow.xs,v 1.10 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: SashWindow.xs,v 1.11 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -51,7 +51,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxSashWindow*
-newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxCLIP_CHILDREN|wxSW_3D, name = wxT("sashWindow") )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxCLIP_CHILDREN|wxSW_3D, name = wxT("sashWindow") )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -66,7 +66,7 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style
     RETVAL
 
 bool
-wxSashWindow::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = wxCLIP_CHILDREN|wxSW_3D, name = wxT("sashWindow") )
+wxSashWindow::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxCLIP_CHILDREN|wxSW_3D, name = wxT("sashWindow") )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

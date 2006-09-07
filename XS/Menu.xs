@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.26 2006/09/06 11:41:36 mbarbon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.27 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -538,7 +538,7 @@ wxMenuBar::IsEnabledTop( id )
 MODULE=Wx PACKAGE=Wx::MenuItem
 
 wxMenuItem*
-wxMenuItem::new( parentMenu = 0, id = -1, text = wxEmptyString, helpString = wxEmptyString, itemType = wxITEM_NORMAL, subMenu = 0 )
+wxMenuItem::new( parentMenu = 0, id = wxID_ANY, text = wxEmptyString, helpString = wxEmptyString, itemType = wxITEM_NORMAL, subMenu = 0 )
      wxMenu* parentMenu
      int id
      wxString text

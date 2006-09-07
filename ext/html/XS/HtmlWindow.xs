@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: HtmlWindow.xs,v 1.16 2006/08/20 09:25:20 mbarbon Exp $
+## RCS-ID:      $Id: HtmlWindow.xs,v 1.17 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -39,7 +39,7 @@ wxHtmlLinkInfo::GetTarget()
 MODULE=Wx PACKAGE=Wx::HtmlWindow
 
 wxHtmlWindow*
-wxHtmlWindow::new( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHW_SCROLLBAR_AUTO, name = wxT("htmlWindow") )
+wxHtmlWindow::new( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHW_SCROLLBAR_AUTO, name = wxT("htmlWindow") )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

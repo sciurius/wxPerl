@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.156 2006/09/07 17:06:10 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.157 2006/09/07 20:33:12 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -187,13 +187,14 @@ XS(Connect2)
 
     if( SvOK( func ) )
     {
-        THISo->Connect( -1, -1, evtID,
+
+        THISo->Connect( wxID_ANY, wxID_ANY, evtID,
                         wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
                         new wxPliEventCallback( func, THISs ) );
     }
     else
     {
-        THISo->Disconnect( -1, -1, evtID,
+        THISo->Disconnect( wxID_ANY, wxID_ANY, evtID,
                            wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
                            0 );
     }
@@ -214,13 +215,13 @@ XS(Connect3)
 
     if( SvOK( func ) )
     {
-        THISo->Connect( id, -1, evtID,
+        THISo->Connect( id, wxID_ANY, evtID,
                         wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
                         new wxPliEventCallback( func, THISs ) );
     }
     else
     {
-        THISo->Disconnect( id, -1, evtID,
+        THISo->Disconnect( id, wxID_ANY, evtID,
                            wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
                            0 );
     }
@@ -600,6 +601,11 @@ static double constant( const char *name, int arg )
 
   switch( fl ) {
   case 'A':
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxALPHA_OPAQUE );                // color colour
+    r( wxALPHA_TRANSPARENT );           // color colour
+#endif
+
     r( wxALIGN_LEFT );                  // sizer grid statictext
     r( wxALIGN_CENTRE );                // sizer grid statictext
     r( wxALIGN_CENTER );                // sizer grid statictext
@@ -1150,6 +1156,7 @@ static double constant( const char *name, int arg )
     r( wxICON_WARNING );                // icon
     r( wxICON_ERROR );                  // icon
 
+    r( wxID_ANY );                      // id
     r( wxID_OPEN );                     // id
     r( wxID_CLOSE );                    // id
     r( wxID_NEW );                      // id
@@ -1170,6 +1177,7 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxID_HELP_SEARCH );              // id
     r( wxID_HELP_INDEX );               // id
+    r( wxID_PAGE_SETUP );               // id
 #endif
     r( wxID_HELP );                     // id
     r( wxID_HIGHEST );                  // id

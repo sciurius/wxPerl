@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: ListBox.xs,v 1.13 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: ListBox.xs,v 1.14 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,7 +32,7 @@ newDefault( CLASS )
 
 
 wxListBox*
-newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -63,7 +63,7 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choic
     RETVAL
 
 bool
-wxListBox::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
+wxListBox::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

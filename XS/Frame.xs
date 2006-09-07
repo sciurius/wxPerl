@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.28 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.29 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -69,14 +69,14 @@ wxFrame::Command( id )
 #endif
 
 wxStatusBar*
-wxFrame::CreateStatusBar( number = 1, style = 0, id = -1, name = wxEmptyString )
+wxFrame::CreateStatusBar( number = 1, style = 0, id = wxID_ANY, name = wxEmptyString )
     int number
     long style
     wxWindowID id
     wxString name
 
 wxToolBar*
-wxFrame::CreateToolBar( style = wxNO_BORDER | wxTB_HORIZONTAL, id = -1, name = wxToolBarNameStr )
+wxFrame::CreateToolBar( style = wxNO_BORDER | wxTB_HORIZONTAL, id = wxID_ANY, name = wxToolBarNameStr )
     long style
     wxWindowID id
     wxString name

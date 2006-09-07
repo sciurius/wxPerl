@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Dialog.xs,v 1.15 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Dialog.xs,v 1.16 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -33,7 +33,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxDialog*
-newFull( CLASS, parent, id = -1, title = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_DIALOG_STYLE, name = wxDialogNameStr )
+newFull( CLASS, parent, id = wxID_ANY, title = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_DIALOG_STYLE, name = wxDialogNameStr )
       PlClassName CLASS
       wxWindow* parent
       wxWindowID id
@@ -49,7 +49,7 @@ newFull( CLASS, parent, id = -1, title = wxEmptyString, pos = wxDefaultPosition,
       RETVAL
 
 bool
-wxDialog::Create( parent, id = -1, title = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_DIALOG_STYLE, name = wxDialogNameStr )
+wxDialog::Create( parent, id = wxID_ANY, title = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_DIALOG_STYLE, name = wxDialogNameStr )
     wxWindow* parent
     wxWindowID id
     wxString title

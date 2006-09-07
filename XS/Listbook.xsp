@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/12/2003
-## RCS-ID:      $Id: Listbook.xsp,v 1.3 2005/03/14 20:54:11 mbarbon Exp $
-## Copyright:   (c) 2003 Mattia Barbon
+## RCS-ID:      $Id: Listbook.xsp,v 1.4 2006/09/07 20:33:12 mbarbon Exp $
+## Copyright:   (c) 2003, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -27,7 +27,7 @@
                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
     %name{newFull} wxListbook(wxWindow *parent,
-                              wxWindowID id,
+                              wxWindowID id = wxID_ANY,
                               const wxPoint& pos = wxDefaultPosition,
                               const wxSize& size = wxDefaultSize,
                               long style = 0,
@@ -37,7 +37,7 @@
              %};
 
     bool Create(wxWindow *parent,
-                wxWindowID id,
+                wxWindowID id = wxID_ANY,
                 const wxPoint& pos = wxDefaultPosition,
                 const wxSize& size = wxDefaultSize,
                 long style = 0,

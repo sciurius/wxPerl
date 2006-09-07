@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.40 2006/08/19 18:24:33 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.41 2006/09/07 20:33:12 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -87,6 +87,14 @@ wxControlWithItems::GetSelection()
 wxString
 wxControlWithItems::GetString( n )
     int n
+
+void
+wxControlWithItems::GetStrings()
+  PPCODE:
+    wxArrayString strings = THIS->GetStrings();
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ strings );
+    SPAGAIN;
 
 wxString
 wxControlWithItems::GetStringSelection()

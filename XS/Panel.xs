@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Panel.xs,v 1.14 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Panel.xs,v 1.15 2006/09/07 20:33:12 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -31,7 +31,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxPanel*
-newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTAB_TRAVERSAL, name = wxPanelNameStr )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTAB_TRAVERSAL, name = wxPanelNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -44,7 +44,7 @@ newFull( CLASS, parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, 
   OUTPUT: RETVAL
 
 bool
-wxPanel::Create( parent, id = -1, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTAB_TRAVERSAL, name = wxPanelNameStr )
+wxPanel::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxTAB_TRAVERSAL, name = wxPanelNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

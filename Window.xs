@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.70 2006/09/07 17:06:10 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.71 2006/09/07 20:33:12 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -73,7 +73,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxWindow*
-newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0 , name = wxPanelNameStr )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = 0 , name = wxPanelNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -86,7 +86,7 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style
   OUTPUT: RETVAL
 
 bool
-wxWindow::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0 , name = wxPanelNameStr)
+wxWindow::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = 0 , name = wxPanelNameStr)
     wxWindow* parent
     wxWindowID id
     wxPoint pos
@@ -1150,6 +1150,13 @@ wxWindow::GetLayoutDirection()
 void
 wxWindow::SetLayoutDirection( direction )
     wxLayoutDirection direction
+
+bool
+wxWindow::SetTransparent( alpha )
+    wxByte alpha
+
+bool
+wxWindow::CanSetTransparent()
 
 #endif
 

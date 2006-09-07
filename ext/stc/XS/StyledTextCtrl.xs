@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.21 2006/09/07 17:06:10 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.22 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2002-2004, 2006 Graciliano M. P., Marcus Friedlaender,
 ##                  Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -16,7 +16,7 @@ MODULE=Wx PACKAGE=Wx::StyledTextCtrl
 #include "wx/stc/stc.h"
 
 wxStyledTextCtrl*
-wxStyledTextCtrl::new( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxSTCNameStr )
+wxStyledTextCtrl::new( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxSTCNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

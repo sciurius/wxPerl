@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.81 2006/08/20 09:25:20 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.82 2006/09/07 20:33:13 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -772,6 +772,7 @@ int wxPli_av_2_intarray( pTHX_ SV* avref, int** array )
 }
 
 #include <wx/menu.h>
+#include <wx/timer.h>
 
 wxWindowID wxPli_get_wxwindowid( pTHX_ SV* var )
 {
@@ -789,6 +790,13 @@ wxWindowID wxPli_get_wxwindowid( pTHX_ SV* var )
                 wxPli_sv_2_object( aTHX_ var, "Wx::MenuItem" );
 
             return item->GetId();
+        }
+        else if( sv_derived_from( var, "Wx::Timer" ) )
+        {
+            wxTimer* timer = (wxTimer*)
+                wxPli_sv_2_object( aTHX_ var, "Wx::Timer" );
+
+            return timer->GetId();
         }
     }
 

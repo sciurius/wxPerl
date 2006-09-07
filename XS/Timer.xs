@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     14/02/2001
-## RCS-ID:      $Id: Timer.xs,v 1.10 2004/08/04 20:13:55 mbarbon Exp $
+## RCS-ID:      $Id: Timer.xs,v 1.11 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -31,7 +31,7 @@ newDefault( Class )
     RETVAL
 
 wxTimer*
-newEH( Class, owner, id = -1 )
+newEH( Class, owner, id = wxID_ANY )
     SV* Class
     wxEvtHandler* owner
     int id

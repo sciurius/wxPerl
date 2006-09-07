@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: SpinCtrl.xs,v 1.9 2003/06/04 20:38:43 mbarbon Exp $
+## RCS-ID:      $Id: SpinCtrl.xs,v 1.10 2006/09/07 20:33:13 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -31,7 +31,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxSpinCtrl*
-newFull( CLASS, parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_ARROW_KEYS, min = 0, max = 100, initial = 0, name = wxT("spinCtrl") )
+newFull( CLASS, parent, id = wxID_ANY, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_ARROW_KEYS, min = 0, max = 100, initial = 0, name = wxT("spinCtrl") )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -51,7 +51,7 @@ newFull( CLASS, parent, id, value = wxEmptyString, pos = wxDefaultPosition, size
     RETVAL
 
 bool
-wxSpinCtrl::Create( parent, id, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_ARROW_KEYS, min = 0, max = 100, initial = 0, name = wxT("spinCtrl") )
+wxSpinCtrl::Create( parent, id = wxID_ANY, value = wxEmptyString, pos = wxDefaultPosition, size = wxDefaultSize, style = wxSP_ARROW_KEYS, min = 0, max = 100, initial = 0, name = wxT("spinCtrl") )
     wxWindow* parent
     wxWindowID id
     wxString value
