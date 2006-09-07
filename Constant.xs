@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.155 2006/09/06 11:41:36 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.156 2006/09/07 17:06:10 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1393,6 +1393,12 @@ static double constant( const char *name, int arg )
 
     r( wxLOCALE_LOAD_DEFAULT );         // locale
     r( wxLOCALE_CONV_ENCODING );        // locale
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxLayout_Default );
+    r( wxLayout_LeftToRight );
+    r( wxLayout_RightToLeft );
+#endif
 
     if( strnEQ( name, "wxLANGUAGE_", 11 ) )
     {

@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.20 2006/08/11 19:54:59 mbarbon Exp $
+## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.21 2006/09/07 17:06:10 mbarbon Exp $
 ## Copyright:   (c) 2002-2004, 2006 Graciliano M. P., Marcus Friedlaender,
 ##                  Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
@@ -258,11 +258,15 @@ void
 wxStyledTextCtrl::SetCaretLineVisible( show )
     bool show
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 void
 wxStyledTextCtrl::SetCaretLineBack( back )
     wxColour* back
   CODE:
     THIS->SetCaretLineBack( *back );
+
+#endif
 
 void
 wxStyledTextCtrl::StyleSetChangeable( style, changeable )
@@ -1222,12 +1226,16 @@ wxStyledTextCtrl::IndicatorGetForeground( indic )
   OUTPUT:
     RETVAL
 
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 wxColour*
 wxStyledTextCtrl::GetCaretLineBack()
   CODE:
     RETVAL = new wxColour( THIS->GetCaretLineBack() );
   OUTPUT:
     RETVAL
+
+#endif
 
 wxColour*
 wxStyledTextCtrl::GetCaretForeground()
