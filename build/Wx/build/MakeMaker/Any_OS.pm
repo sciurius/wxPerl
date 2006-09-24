@@ -47,7 +47,7 @@ sub configure_core {
                " $config{WX}{wx_overload}{header} exists overload Opt" .
                " copy_files files.lst" .
                " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
-               " fix_alien" };
+               " fix_alien cpp/vlbox.h cpp/vscroll.h" };
 
   return %config;
 }

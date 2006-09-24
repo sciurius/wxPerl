@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.56 2006/08/11 19:54:58 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.57 2006/09/24 15:04:24 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -788,6 +788,11 @@ wxClipboardTextEvent*
 wxClipboardTextEvent::new( type = wxEVT_NULL, id = 0 )
     wxEventType type
     wxWindowID id
+
+MODULE=Wx:Evt PACKAGE=Wx::MouseCaptureChangedEvent
+
+wxWindow*
+wxMouseCaptureChangedEvent::GetCapturedWindow()
 
 #endif
 

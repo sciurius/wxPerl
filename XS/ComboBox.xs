@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: ComboBox.xs,v 1.22 2006/09/07 20:45:28 mbarbon Exp $
+## RCS-ID:      $Id: ComboBox.xs,v 1.23 2006/09/24 15:04:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -128,6 +128,13 @@ wxComboBox::GetCount()
 
 wxString
 wxComboBox::GetStringSelection()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxComboBox::SetEditable( bool editable );
+
+#endif
 
 void
 wxComboBox::SetStringSelection( string )

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: ScrolledWindow.xs,v 1.14 2006/09/07 20:45:28 mbarbon Exp $
+## RCS-ID:      $Id: ScrolledWindow.xs,v 1.15 2006/09/24 15:04:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -33,7 +33,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxScrolledWindow*
-newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxT("scrolledWindow") )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxPanelNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -48,7 +48,7 @@ newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefault
     RETVAL
 
 bool
-wxScrolledWindow::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxT("scrolledWindow") )
+wxScrolledWindow::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = wxHSCROLL|wxVSCROLL, name = wxPanelNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

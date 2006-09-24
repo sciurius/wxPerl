@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/09/2001
-## RCS-ID:      $Id: MDIChildFrame.xs,v 1.6 2004/12/21 21:12:54 mbarbon Exp $
+## RCS-ID:      $Id: MDIChildFrame.xs,v 1.7 2006/09/24 15:04:25 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -17,7 +17,7 @@
 MODULE=Wx PACKAGE=Wx::MDIChildFrame
 
 wxMDIChildFrame*
-wxMDIChildFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxT("frame") )
+wxMDIChildFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE, name = wxFrameNameStr )
     wxMDIParentFrame* parent
     wxWindowID id
     wxString title

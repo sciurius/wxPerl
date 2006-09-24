@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: Choice.xs,v 1.11 2003/06/04 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id: Choice.xs,v 1.12 2006/09/24 15:04:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -31,7 +31,7 @@ newDefault( CLASS )
   OUTPUT: RETVAL
 
 wxChoice*
-newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
+newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
     PlClassName CLASS
     wxWindow* parent
     wxWindowID id
@@ -57,7 +57,7 @@ newFull( CLASS, parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choic
     RETVAL
 
 bool
-wxChoice::Create( parent, id, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
+wxChoice::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxChoiceNameStr )
     wxWindow* parent
     wxWindowID id
     wxPoint pos

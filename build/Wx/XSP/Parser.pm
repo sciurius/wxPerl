@@ -2,6 +2,7 @@ package Wx::XSP::Parser;
 
 use strict;
 
+use IO::Handle;
 use Wx::XSP::Grammar;
 
 =head1 Wx::XSP::Parser METHODS

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: Gauge.xs,v 1.7 2003/12/13 17:16:56 mbarbon Exp $
-## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
+## RCS-ID:      $Id: Gauge.xs,v 1.8 2006/09/24 15:04:24 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -109,5 +109,12 @@ wxGauge::SetValue( pos )
 
 bool
 wxGauge::IsVertical()
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+void
+wxGauge::Pulse()
 
 #endif

@@ -1,0 +1,74 @@
+#############################################################################
+## Name:        XS/VScrolledWindow.xsp
+## Purpose:     XS++ for Wx::VScrolledWindow
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     18/09/2006
+## RCS-ID:      $Id: VScrolledWindow.xsp,v 1.1 2006/09/24 15:04:24 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxVScrolledWindow*}{simple};
+
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
+%{
+#include <wx/vscroll.h>
+%}
+
+%name{Wx::VScrolledWindow} class wxVScrolledWindow
+{
+##    %name{newDefault} wxVScrolledWindow()
+##        %code{% RETVAL = new wxVScrolledWindow();
+##                wxPli_create_evtahndler( aTHX_ RETVAL, CLASS );
+##             %};
+##    %name{newFull} wxVScrolledWindow( wxWindow *parent,
+##                                      wxWindowID id = wxID_ANY,
+##                                      const wxPoint& pos = wxDefaultPosition,
+##                                      const wxSize& size = wxDefaultSize,
+##                                      long style = 0,
+##                                      const wxString& name = wxPanelNameStr )
+##        %code{% RETVAL = new wxVScrolledWindow( parent, id, pos, size, style, name );
+##                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+##             %};
+
+    bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = 0,
+                 const wxString& name = wxPanelNameStr );
+
+    void SetLineCount( size_t count );
+    bool ScrollToLine( size_t line );
+    bool ScrollLines( int lines );
+    bool ScrollPages( int pages );
+    void RefreshLine( size_t line );
+    void RefreshLines( size_t from, size_t to );
+    int HitTest( const wxPoint& pt ) const;
+    void RefreshAll();
+    size_t GetLineCount() const;
+    size_t GetVisibleBegin() const;
+    size_t GetVisibleEnd() const;
+    bool IsVisible( size_t line ) const;
+    size_t GetFirstVisibleLine() const;
+    size_t GetLastVisibleLine() const;
+    bool Layout();
+};
+
+%{
+
+##void
+##new( ... )
+##  PPCODE:
+##    BEGIN_OVERLOAD()
+##        MATCH_VOIDM_REDISP( newDefault )
+##        MATCH_ANY_REDISP( newFull )
+##    END_OVERLOAD( "Wx::VScrolledWindow::new" )
+
+%}
+
+#endif

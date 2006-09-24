@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/06/2001
-## RCS-ID:      $Id: Preview.xs,v 1.10 2005/03/15 21:35:35 mbarbon Exp $
+## RCS-ID:      $Id: Preview.xs,v 1.11 2006/09/24 15:04:25 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -60,7 +60,7 @@ public:
                            const wxPoint& pos = wxDefaultPosition,
                            const wxSize& size = wxDefaultSize,
                            long style = wxTAB_TRAVERSAL,
-                           const wxString& name = wxT("panel") )
+                           const wxString& name = wxPanelNameStr )
         : wxPreviewControlBar( preview, buttons, parent, pos, size,
                                style, name ),
           m_callback( "Wx::PlPreviewControlBar" )
@@ -118,7 +118,7 @@ public:
                       const wxPoint& pos = wxDefaultPosition,
                       const wxSize& size = wxDefaultSize,
                       long style = wxDEFAULT_FRAME_STYLE,
-                      const wxString& name = wxT("frame") )
+                      const wxString& name = wxFrameNameStr )
         : wxPreviewFrame( preview, parent, title, pos, size, style, name ),
           m_callback( "Wx::PlPreviewFrame" )
     {
@@ -131,7 +131,7 @@ public:
                       const wxPoint& pos = wxDefaultPosition,
                       const wxSize& size = wxDefaultSize,
                       long style = wxDEFAULT_FRAME_STYLE,
-                      const wxString& name = wxT("frame") )
+                      const wxString& name = wxFrameNameStr )
         : wxPreviewFrame( preview, parent, title, pos, size, style, name ),
           m_callback( "Wx::PlPreviewFrame" )
     {
@@ -177,7 +177,7 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
                          wxWindow* parent, wxPoint pos = wxDefaultPosition,
                          wxSize size = wxDefaultSize,
                          long style = wxTAB_TRAVERSAL,
-                         wxString name = wxT("panel") );
+                         wxString name = wxPanelNameStr );
 
     void CreateButtons();
     wxPrintPreviewBase* GetPrintPreview();
@@ -205,7 +205,7 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
                            wxPoint pos = wxDefaultPosition,
                            wxSize size = wxDefaultSize,
                            long style = wxTAB_TRAVERSAL,
-                           wxString name = wxT("panel") )
+                           wxString name = wxPanelNameStr )
         %code{% RETVAL = new wxPlPreviewControlBar
                     ( CLASS, preview, buttons, parent, pos, size,
                       style, name );
@@ -225,13 +225,13 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
                     wxString title, wxPoint pos = wxDefaultPosition,
                     wxSize size = wxDefaultSize,
                     long style = wxDEFAULT_FRAME_STYLE,
-                    wxString name = wxT("frame") );
+                    wxString name = wxFrameNameStr );
 #else
     wxPreviewFrame( wxPrintPreview* preview, wxFrame* parent,
                     wxString title, wxPoint pos = wxDefaultPosition,
                     wxSize size = wxDefaultSize,
                     long style = wxDEFAULT_FRAME_STYLE,
-                    wxString name = wxT("frame") );
+                    wxString name = wxFrameNameStr );
 #endif
 
     void Initialize();
@@ -256,7 +256,7 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
                       wxString title, wxPoint pos = wxDefaultPosition,
                       wxSize size = wxDefaultSize,
                       long style = wxDEFAULT_FRAME_STYLE,
-                      wxString name = wxT("frame") )
+                      wxString name = wxFrameNameStr )
         %code{% RETVAL = new wxPlPreviewFrame
                     ( CLASS, preview, parent, title, pos, size, style, name );
              %};
@@ -265,7 +265,7 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
                       wxString title, wxPoint pos = wxDefaultPosition,
                       wxSize size = wxDefaultSize,
                       long style = wxDEFAULT_FRAME_STYLE,
-                      wxString name = wxT("frame") )
+                      wxString name = wxFrameNameStr )
         %code{% RETVAL = new wxPlPreviewFrame
                     ( CLASS, preview, parent, title, pos, size, style, name );
              %};

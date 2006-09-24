@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.41 2006/09/07 20:33:12 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.42 2006/09/24 15:04:24 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -134,6 +134,8 @@ INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Toolbook.xsp |
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Treebook.xsp |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/HyperlinkCtrl.xsp |
+
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/VListBox.xsp |
 
 INCLUDE: XS/Button.xs
 INCLUDE: XS/CheckBox.xs

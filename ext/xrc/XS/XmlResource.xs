@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/07/2001
-## RCS-ID:      $Id: XmlResource.xs,v 1.12 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: XmlResource.xs,v 1.13 2006/09/24 15:04:25 mbarbon Exp $
 ## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,9 +20,20 @@
 
 MODULE=Wx PACKAGE=Wx::XmlResource
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+wxXmlResource*
+wxXmlResource::new( flags = wxXRC_USE_LOCALE, domain = wxEmptyString )
+    int flags
+    wxString domain
+
+#else
+
 wxXmlResource*
 wxXmlResource::new( flags = wxXRC_USE_LOCALE )
     int flags
+
+#endif
 
 static void
 wxXmlResource::CLONE()
@@ -194,3 +205,13 @@ AddSubclassFactory( wxXmlSubclassFactory *factory )
   CODE:
     wxPli_detach_object( aTHX_ ST(0) ); // avoid destructor
     wxXmlResource::AddSubclassFactory( factory );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+const wxChar*
+wxXmlResource::GetDomain()
+
+void
+wxXmlResource::SetDomain( const wxChar* domain )
+
+#endif

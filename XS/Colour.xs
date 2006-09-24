@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Colour.xs,v 1.16 2006/09/07 20:33:12 mbarbon Exp $
+## RCS-ID:      $Id: Colour.xs,v 1.17 2006/09/24 15:04:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -21,7 +21,7 @@ wxColour::new( ... )
         MATCH_REDISP( wxPliOvl_s, newName )
     END_OVERLOAD( Wx::Colour::new )
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 wxColour*
 newRGBA( CLASS, red, green, blue, alpha = wxALPHA_OPAQUE )
@@ -78,7 +78,7 @@ wxColour::Ok()
 unsigned char
 wxColour::Red()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 unsigned char
 wxColour::Alpha()

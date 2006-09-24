@@ -4,8 +4,8 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.20 2005/08/24 21:03:45 mbarbon Exp $
-// Copyright:   (c) 2002-2004 Simon Flack
+// RCS-ID:      $Id: docview.h,v 1.21 2006/09/24 15:04:25 mbarbon Exp $
+// Copyright:   (c) 2002-2004, 2005 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -1067,7 +1067,7 @@ public:
     wxPliDocChildFrame(const char* package, wxDocument* doc, wxView* view,
       wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint&
       pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-      long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxT("frame"))
+      long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxFrameNameStr)
        : wxDocChildFrame(doc, view, parent, id, title, pos, size, style, name),
          m_callback( "Wx::DocChildFrame" )
     {
@@ -1097,7 +1097,7 @@ public:
       wxFrame *parent, wxWindowID id, const wxString& title,
       const wxPoint& pos = wxDefaultPosition,
       const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE,
-      const wxString& name = wxT("frame"))
+      const wxString& name = wxFrameNameStr)
        : wxDocParentFrame(manager, parent, id, title, pos, size, style, name),
          m_callback( "Wx::DocParentFrame" )
     {
@@ -1130,7 +1130,7 @@ public:
                           pos = wxDefaultPosition,
                           const wxSize& size = wxDefaultSize,
                           long style = wxDEFAULT_FRAME_STYLE,
-                          const wxString& name = wxT("frame"))
+                          const wxString& name = wxFrameNameStr)
        : wxDocMDIChildFrame(doc, view, frame, id, title, pos,
                             size, style, name),
          m_callback( "Wx::DocMDIChildFrame" )
@@ -1162,7 +1162,7 @@ public:
       wxFrame *parent, wxWindowID id, const wxString& title,
       const wxPoint& pos = wxDefaultPosition,
       const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE,
-      const wxString& name = wxT("frame"))
+      const wxString& name = wxFrameNameStr)
        : wxDocMDIParentFrame(manager, parent, id, title, pos, size,
                              style, name),
          m_callback( "Wx::DocMDIParentFrame" )

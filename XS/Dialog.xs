@@ -4,18 +4,34 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Dialog.xs,v 1.16 2006/09/07 20:33:12 mbarbon Exp $
+## RCS-ID:      $Id: Dialog.xs,v 1.17 2006/09/24 15:04:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+%module{Wx};
+
+%{
 #include <wx/dialog.h>
 #include <wx/button.h>
 #include "cpp/dialog.h"
+#include "cpp/overload.h"
+%}
 
-MODULE=Wx PACKAGE=Wx::Dialog
+%name{Wx::Dialog} class wxDialog {
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+    void SetAffirmativeId( int affirmativeId );
+    int GetAffirmativeId();
 
+    int GetEscapeId() const;
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    void SetEscapeId( int escapeId );
+#endif
+};
+
+%{
 void
 new( ... )
   PPCODE:
@@ -140,3 +156,5 @@ wxDialog::Validate()
     RETVAL = THIS->wxDialog::Validate();
   OUTPUT:
     RETVAL
+
+%}

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/04/2001
-## RCS-ID:      $Id: FileSystem.xs,v 1.8 2006/08/11 19:54:59 mbarbon Exp $
+## RCS-ID:      $Id: FileSystem.xs,v 1.9 2006/09/24 15:04:25 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -27,7 +27,8 @@ void
 wxFileSystem::DESTROY()
   CODE:
     wxPli_thread_sv_unregister( aTHX_ "Wx::FileSystem", THIS, ST(0) );
-    delete THIS;
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;
 
 void
 AddHandler( handler )

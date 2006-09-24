@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/09/2001
-## RCS-ID:      $Id: MDIParentFrame.xs,v 1.12 2006/08/11 19:30:54 mbarbon Exp $
+## RCS-ID:      $Id: MDIParentFrame.xs,v 1.13 2006/09/24 15:04:25 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -18,7 +18,7 @@
 MODULE=Wx PACKAGE=Wx::MDIParentFrame
 
 wxMDIParentFrame*
-wxMDIParentFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE|wxVSCROLL|wxHSCROLL, name = wxT("frame") )
+wxMDIParentFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE|wxVSCROLL|wxHSCROLL, name = wxFrameNameStr )
     wxWindow* parent
     wxWindowID id
     wxString title

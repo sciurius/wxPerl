@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.27 2006/09/07 20:33:12 mbarbon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.28 2006/09/24 15:04:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -30,7 +30,7 @@ wxMenu::AppendSubMenu( submenu, text, help = wxEmptyString )
 #endif
 
 void
-wxMenu::AppendString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
+wxMenu::AppendString( id, item = wxEmptyString, help = wxEmptyString, kind = wxITEM_NORMAL )
     int id
     wxString item
     wxString help
@@ -227,7 +227,7 @@ wxMenu::InsertItem( pos, item )
 #endif
 
 void
-wxMenu::InsertString( pos, id, item, helpString = wxEmptyString, kind = wxITEM_NORMAL )
+wxMenu::InsertString( pos, id, item = wxEmptyString, helpString = wxEmptyString, kind = wxITEM_NORMAL )
     int pos
     int id
     wxString item
@@ -304,7 +304,7 @@ wxMenu::IsEnabled( id )
     int id
 
 void
-wxMenu::PrependString( id, item, help = wxEmptyString, kind = wxITEM_NORMAL )
+wxMenu::PrependString( id, item = wxEmptyString, help = wxEmptyString, kind = wxITEM_NORMAL )
     int id
     wxString item
     wxString help

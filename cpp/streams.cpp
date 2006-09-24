@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2001
-// RCS-ID:      $Id: streams.cpp,v 1.14 2006/08/27 15:26:18 mbarbon Exp $
+// RCS-ID:      $Id: streams.cpp,v 1.15 2006/09/24 15:04:25 mbarbon Exp $
 // Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -17,10 +17,10 @@ typedef off_t wxPliFileOffset;
 #endif
 
 // thread KO
-const char sub_read[] = "sub { sysread $_[0], $_[1], $_[2] }";
-const char sub_seek[] = "sub { sysseek $_[0], $_[1], $_[2] }";
-const char sub_tell[] = "sub { sysseek $_[0], 0, 1 }";
-const char sub_write[] = "sub { syswrite $_[0], $_[1] }";
+const char sub_read[] = "sub { read $_[0], $_[1], $_[2] }";
+const char sub_seek[] = "sub { seek $_[0], $_[1], $_[2]; tell $_[0] }";
+const char sub_tell[] = "sub { tell $_[0] }";
+const char sub_write[] = "sub { print { $_[0] } $_[1] }";
 const char sub_length[] = "sub { ( stat $_[0] )[7] }";
 
 SV* sg_read;

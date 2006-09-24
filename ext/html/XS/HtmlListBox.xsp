@@ -1,0 +1,128 @@
+#############################################################################
+## Name:        ext/html/XS/HtmlListBox.xsp
+## Purpose:     XS++ for Wx::HtmlListBox
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     19/09/2006
+## RCS-ID:      $Id: HtmlListBox.xsp,v 1.1 2006/09/24 15:04:24 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxHtmlListBox*}{simple};
+%typemap{wxPlHtmlListBox*}{simple};
+%typemap{wxFileSystem*}{simple};
+
+#if WXPERL_W_VERSION_GE( 2, 5, 0 )
+
+%{
+#include <wx/htmllbox.h>
+#include "cpp/overload.h"
+#include "cpp/htmllbox.h"
+%}
+
+%file{cpp/htmllbox.h};
+%{
+
+#include "cpp/v_cback.h"
+
+// bool METH(size_t)
+#define DEC_V_CBACK_WXSTRING__SIZET_( METHOD, CONST ) \
+    wxString METHOD( size_t ) CONST
+
+#define DEF_V_CBACK_WXSTRING__SIZET_( CLASS, CALLBASE, METHOD, CONST )\
+    wxString CLASS::METHOD( size_t p1 ) CONST                                \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                      \
+        {                                                                    \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,    \
+                                             "L", p1 ) );                    \
+            wxString value;                                                  \
+            WXSTRING_INPUT( value, wxChar*, ret );                           \
+            return value;                                                    \
+        } else                                                               \
+            CALLBASE;                                                        \
+    }
+
+#define DEC_V_CBACK_WXSTRING__SIZET_const( METHOD ) \
+    DEC_V_CBACK_WXSTRING__SIZET_( METHOD, wxPli_CONST )
+
+#define DEF_V_CBACK_WXSTRING__SIZET_const_pure( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_WXSTRING__SIZET_( CLASS, return wxEmptyString, METHOD, wxPli_CONST )
+
+class wxPlHtmlListBox : public wxHtmlListBox {
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlHtmlListBox );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPlHtmlListBox, "Wx::HtmlListBox", true );
+    WXPLI_CONSTRUCTOR_6( wxPlHtmlListBox, "Wx::HtmlListBox", true,
+                         wxWindow*, wxWindowID, const wxPoint&,
+                         const wxSize&, long, const wxString& );
+
+    DEC_V_CBACK_WXCOORD__VOID_const( EstimateTotalHeight );
+    DEC_V_CBACK_WXSTRING__SIZET_const( OnGetItem );
+};
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlHtmlListBox, wxHtmlListBox );
+
+DEF_V_CBACK_WXCOORD__VOID_const( wxPlHtmlListBox, wxHtmlListBox,
+                                 EstimateTotalHeight );
+DEF_V_CBACK_WXSTRING__SIZET_const_pure( wxPlHtmlListBox, wxHtmlListBox,
+                                        OnGetItem );
+
+%}
+%file{-};
+
+%name{Wx::HtmlListBox} class wxHtmlListBox
+{
+    bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = 0,
+                 const wxString& name = wxVListBoxNameStr );
+};
+
+%{
+
+wxFileSystem*
+wxHtmlListBox::GetFileSystem()
+  CODE:
+    RETVAL = &THIS->GetFileSystem();
+  OUTPUT: RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+
+%}
+
+%name{Wx::PlHtmlListBox} class wxPlHtmlListBox
+{
+    %name{newDefault} wxPlHtmlListBox()
+        %code{% RETVAL = new wxPlHtmlListBox( CLASS ); %};
+    %name{newFull} wxPlHtmlListBox( wxWindow *parent,
+                                    wxWindowID id = wxID_ANY,
+                                    const wxPoint& pos = wxDefaultPosition,
+                                    const wxSize& size = wxDefaultSize,
+                                    long style = 0,
+                                    const wxString& name = wxEmptyString )
+        %code{% RETVAL = new wxPlHtmlListBox( CLASS, parent, id, pos, size,
+                                              style, name );
+             %};
+};
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::PlHtmlListBox::new" )
+
+%}
+
+#endif

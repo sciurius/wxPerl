@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.71 2006/09/07 20:33:12 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.72 2006/09/24 15:04:24 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1093,6 +1093,13 @@ bool
 wxWindow::Show( show = true )
     bool show
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+bool
+wxWindow::HasMultiplePages()
+
+#endif
+
 bool
 wxWindow::Hide()
 
@@ -1142,7 +1149,7 @@ wxWindow::WarpPointer( x, y )
     int x
     int y
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 wxLayoutDirection
 wxWindow::GetLayoutDirection()
@@ -1165,6 +1172,8 @@ INCLUDE: XS/Accelerators.xs
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/PlWindow.xsp |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/SplitterWindow.xs |
+
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/VScrolledWindow.xsp |
 
 INCLUDE: XS/ScrolledWindow.xs
 INCLUDE: XS/Validators.xs

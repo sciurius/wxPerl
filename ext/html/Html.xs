@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     10/03/2001
-// RCS-ID:      $Id: Html.xs,v 1.19 2006/08/20 09:25:20 mbarbon Exp $
+// RCS-ID:      $Id: Html.xs,v 1.20 2006/09/24 15:04:25 mbarbon Exp $
 // Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -38,6 +38,8 @@ INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/Htm
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/HtmlTag.xsp |
 
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/HtmlCell.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/HtmlListBox.xsp |
 
 #include "cpp/ht_constants.cpp"
 

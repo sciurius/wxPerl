@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Geom.xs,v 1.21 2006/09/07 20:33:12 mbarbon Exp $
+## RCS-ID:      $Id: Geom.xs,v 1.22 2006/09/24 15:04:24 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -268,34 +268,51 @@ wxRect::SetSize( size )
     wxSize size
 
 bool
+wxRect::Contains( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, ContainsXY )
+        MATCH_REDISP( wxPliOvl_wpoi, ContainsPoint )
+        MATCH_REDISP( wxPliOvl_wrec, ContainsRect )
+    END_OVERLOAD( Wx::Rect::Contains )
+
+bool
 wxRect::Inside( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_n_n, InsizeXY )
-        MATCH_REDISP( wxPliOvl_wpoi, InsidePoint )
-        MATCH_REDISP( wxPliOvl_wrec, InsideRect )
+        MATCH_REDISP( wxPliOvl_n_n, ContainsXY )
+        MATCH_REDISP( wxPliOvl_wpoi, ContainsPoint )
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+        MATCH_REDISP( wxPliOvl_wrec, ContainsRect )
+#endif
     END_OVERLOAD( Wx::Rect::Inside )
 
 bool
-wxRect::InsideXY( int x, int y )
+wxRect::ContainsXY( int x, int y )
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    RETVAL = THIS->Contains( x, y );
+#else
     RETVAL = THIS->Inside( x, y );
-  OUTPUT:
-    RETVAL
+#endif
+  OUTPUT: RETVAL
 
 bool
-wxRect::InsidePoint( wxPoint pt )
+wxRect::ContainsPoint( wxPoint pt )
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    RETVAL = THIS->Contains( pt );
+#else
     RETVAL = THIS->Inside( pt );
-  OUTPUT:
-    RETVAL
+#endif
+  OUTPUT: RETVAL
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
 
 bool
-wxRect::InsideRect( wxRect* rec )
+wxRect::ContainsRect( wxRect* rec )
   CODE:
-    RETVAL = THIS->Inside( *rec );
+    RETVAL = THIS->Contains( *rec );
   OUTPUT: RETVAL
 
 #endif
