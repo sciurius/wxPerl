@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Geom.xs,v 1.22 2006/09/24 15:04:24 mbarbon Exp $
+## RCS-ID:      $Id: Geom.xs,v 1.23 2006/09/24 17:15:58 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -300,14 +300,14 @@ wxRect::ContainsXY( int x, int y )
 bool
 wxRect::ContainsPoint( wxPoint pt )
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     RETVAL = THIS->Contains( pt );
 #else
     RETVAL = THIS->Inside( pt );
 #endif
   OUTPUT: RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 bool
 wxRect::ContainsRect( wxRect* rec )

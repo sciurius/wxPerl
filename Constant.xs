@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.158 2006/09/24 15:04:24 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.159 2006/09/24 17:15:58 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1975,7 +1975,7 @@ static double constant( const char *name, int arg )
     r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
     r( wxSYS_CAN_ICONIZE_FRAME );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     r( wxSTOCK_NOFLAGS );
     r( wxSTOCK_WITH_MNEMONIC );
     r( wxSTOCK_WITH_ACCELERATOR );

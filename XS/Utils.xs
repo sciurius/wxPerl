@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.45 2006/09/24 15:04:24 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.46 2006/09/24 17:15:58 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -275,7 +275,7 @@ wxIsStockLabel( wxWindowID id, wxString label )
 
 #if WXPERL_W_VERSION_GE( 2, 6, 3 )
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 wxString
 wxGetStockLabel( wxWindowID id, long flags = wxSTOCK_WITH_MNEMONIC )
@@ -296,7 +296,7 @@ wxGetStockLabel( wxWindowID id )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 wxAcceleratorEntry*
 wxGetStockAccelerator( wxWindowID id )

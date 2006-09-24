@@ -29,8 +29,8 @@ sub _wx_version {
       or die 'Invalid version specification: ', $v, "\n";
 
     if( defined $3 ) {
-        $wx{version} = [ $1 + $2 / 1000 + $3 / 1000000,
-                         $1 + $2 / 1000 + ( $3 + 1 ) / 1000000 ];
+        $wx{version} = [ $1 + ( $2 + $3 / 1000 ) / 1000,
+                         $1 + ( $2 + ( $3 + 1 ) / 1000 ) / 1000 ];
     } else {
         $wx{version} = [ $1 + $2 / 1000,
                          $1 + ( $2 + 1 ) / 1000 ];
