@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.82 2006/09/07 20:33:13 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.83 2006/10/01 13:03:56 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -164,6 +164,12 @@ void wxPli_push_arguments( pTHX_ SV*** psp, const char* argtypes, ... )
     va_end( arglist );
 }
 
+void wxPli_delayed_delete( pTHX_ SV* sv )
+{
+    wxPli_detach_object( aTHX_ sv );
+    SvREFCNT_dec( sv );
+}
+
 void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args ) 
 {
     SV** sp = *psp;
@@ -240,15 +246,31 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
             XPUSHs( svval );
             break;
         case 'O':
+        case 'Q':
+        {
             oval = va_arg( args, wxObject* );
-            XPUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), oval ) );
+            SV* sv = wxPli_object_2_sv( aTHX_ newSViv( 0 ), oval ); 
+            if( *argtypes == 'Q' ) {
+                SvREFCNT_inc( sv );
+                SAVEDESTRUCTOR_X( wxPli_delayed_delete, sv );
+            }
+            XPUSHs( sv_2mortal( sv ) );
             break;
+        }
         case 'o':
+        case 'q':
+        {
             pval = va_arg( args, void* );
             package = va_arg( args, const char* );
-            XPUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
-                                           pval, package ) );
+            SV * sv = wxPli_non_object_2_sv( aTHX_ newSViv( 0 ),
+                                             pval, package );
+            if( *argtypes == 'q' ) {
+                SvREFCNT_inc( sv );
+                SAVEDESTRUCTOR_X( wxPli_delayed_delete, sv );
+            }
+            XPUSHs( sv_2mortal( sv ) );
             break;
+        }
         default:
             croak( "Internal error: unrecognized type '%c'\n", *argtypes );
         }

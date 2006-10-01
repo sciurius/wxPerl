@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.85 2006/08/27 15:26:18 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.86 2006/10/01 13:03:57 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -145,6 +145,7 @@ const char* FUNCPTR( wxPli_cpp_class_2_perl )( const wxChar* className,
 // O - a wxObject*; this will use wxPli_object_2_sv and push the result
 // o - a void* followed by a char*; will use wxPli_non_object_2_sv
 //     and push the result
+// Q, q - same as O and o, but does not call delete() on the object
 void FUNCPTR( wxPli_push_arguments )( pTHX_ SV*** stack,
                                       const char* argtypes, ... );
 void wxPli_push_args( pTHX_ SV*** stack, const char* argtypes, va_list &list );
