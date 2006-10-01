@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2001
-// RCS-ID:      $Id: streams.cpp,v 1.15 2006/09/24 15:04:25 mbarbon Exp $
+// RCS-ID:      $Id: streams.cpp,v 1.16 2006/10/01 12:59:58 mbarbon Exp $
 // Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -21,7 +21,7 @@ const char sub_read[] = "sub { read $_[0], $_[1], $_[2] }";
 const char sub_seek[] = "sub { seek $_[0], $_[1], $_[2]; tell $_[0] }";
 const char sub_tell[] = "sub { tell $_[0] }";
 const char sub_write[] = "sub { print { $_[0] } $_[1] }";
-const char sub_length[] = "sub { ( stat $_[0] )[7] }";
+const char sub_length[] = "sub { eval { fileno( $_[0] ) } ? ( stat $_[0] )[7] : -1 }";
 
 SV* sg_read;
 SV* sg_seek;
@@ -164,14 +164,10 @@ wxFileOffset wxPliInputStream::GetLength() const
     return stream_length( this, m_fh );
 }
 
-#if !WXPERL_W_VERSION_GE( 2, 6, 0 )
-
 size_t wxPliInputStream::GetSize() const
 {
     return stream_length( this, m_fh );
 }
-
-#endif
 
 // output stream
 
@@ -268,14 +264,10 @@ wxFileOffset wxPliOutputStream::GetLength() const
     return stream_length( this, m_fh );
 }
 
-#if !WXPERL_W_VERSION_GE( 2, 6, 0 )
-
 size_t wxPliOutputStream::GetSize() const
 {
     return stream_length( this, m_fh );
 }
-
-#endif
 
 // helpers
 
@@ -367,5 +359,5 @@ wxPliFileOffset stream_length( const wxStreamBase* stream, SV* fh )
     FREETMPS;
     LEAVE;
 
-    return ret;
+    return ret == -1 ? ~0 : ret;
 }

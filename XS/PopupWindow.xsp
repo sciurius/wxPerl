@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/03/2005
-## RCS-ID:      $Id: PopupWindow.xsp,v 1.4 2005/04/23 17:48:38 mbarbon Exp $
+## RCS-ID:      $Id: PopupWindow.xsp,v 1.5 2006/10/01 12:59:58 mbarbon Exp $
 ## Copyright:   (c) 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -45,21 +45,6 @@
         return BASE::METHOD( param1 );                                        \
   }
 
-#define DEC_V_CBACK_VOID__WXPOINT_WXSIZE( METHOD ) \
-  void METHOD( const wxPoint&, const wxSize& )
-
-#define DEF_V_CBACK_VOID__WXPOINT_WXSIZE( CLASS, BASE, METHOD ) \
-  void CLASS::METHOD( const wxPoint& param1, const wxSize& param2 )          \
-  {                                                                          \
-      dTHX;                                                                  \
-      if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )  \
-      {                                                                      \
-          wxPliCCback( aTHX_ &m_callback, G_SCALAR|G_DISCARD, "oo",          \
-                       new wxPoint( param1 ), new wxSize( param2 ) );        \
-      } else                                                                 \
-          BASE::METHOD( param1, param2 );                                    \
-  }
-
 class wxPlPopupTransientWindow : public wxPopupTransientWindow
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPopupTransientWindow );
@@ -71,7 +56,6 @@ public:
                          "Wx::PlPopupTransientWindow", true,
                          wxWindow*, int );
 
-    DEC_V_CBACK_VOID__WXPOINT_WXSIZE( Position );
     DEC_V_CBACK_VOID__WXWINDOW( Popup );
     DEC_V_CBACK_VOID__VOID( Dismiss );
     DEC_V_CBACK_BOOL__VOID( CanDismiss );
@@ -79,8 +63,6 @@ public:
     DEC_V_CBACK_BOOL__BOOL( Show );
 };
 
-DEF_V_CBACK_VOID__WXPOINT_WXSIZE( wxPlPopupTransientWindow,
-                                  wxPopupTransientWindow, Position );
 DEF_V_CBACK_VOID__WXWINDOW( wxPlPopupTransientWindow,
                             wxPopupTransientWindow, Popup );
 DEF_V_CBACK_VOID__VOID( wxPlPopupTransientWindow,
@@ -155,7 +137,6 @@ new( ... )
 #define Dismiss wxPopupTransientWindow::Dismiss
 #define CanDismiss wxPopupTransientWindow::CanDismiss
 #define ProcessLeftDown wxPopupTransientWindow::ProcessLeftDown
-#define Position wxPopupTransientWindow::Position
 %}
 
 %name{Wx::PlPopupTransientWindow} class wxPlPopupTransientWindow
@@ -174,7 +155,6 @@ new( ... )
     void Dismiss();
     bool CanDismiss();
     bool ProcessLeftDown( wxMouseEvent& event );
-    void Position( const wxPoint& ptOrigin, const wxSize& size );
 };
 
 %{
@@ -182,7 +162,6 @@ new( ... )
 #undef Dismiss
 #undef CanDismiss
 #undef ProcessLeftDown
-#undef Position
 
 void
 new( ... )
