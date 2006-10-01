@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.159 2006/09/24 17:15:58 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.160 2006/10/01 12:58:01 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -116,6 +116,15 @@
 #define wxNB_HITTEST_ONICON   wxBK_HITTEST_ONICON
 #define wxNB_HITTEST_ONLABEL  wxBK_HITTEST_ONLABEL
 #define wxNB_HITTEST_ONITEM   wxBK_HITTEST_ONITEM
+#endif
+
+#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#define wxFD_OPEN wxOPEN
+#define wxFD_SAVE wxSAVE
+#define wxFD_OVERWRITE_PROMPT wxOVERWRITE_PROMPT
+#define wxFD_FILE_MUST_EXIST wxFILE_MUST_EXIST
+#define wxFD_MULTIPLE wxMULTIPLE
+#define wxFD_CHANGE_DIR wxCHANGE_DIR
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1052,14 +1061,12 @@ static double constant( const char *name, int arg )
 
     r( wxFDIAGONAL_HATCH );             // brush pen
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxFD_OPEN );                     // filedialog
     r( wxFD_SAVE );                     // filedialog
     r( wxFD_OVERWRITE_PROMPT );         // filedialog
     r( wxFD_FILE_MUST_EXIST );          // filedialog
     r( wxFD_MULTIPLE );                 // filedialog
     r( wxFD_CHANGE_DIR );               // filedialog
-#endif
 
 #if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxFILE_MUST_EXIST );
