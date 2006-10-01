@@ -5,6 +5,8 @@ use Config;
 use base 'Exporter';
 use File::Spec::Functions qw(curdir catdir catfile updir);
 use File::Find qw(find);
+use File::Path qw(mkpath);
+use File::Basename qw(dirname);
 use Carp;
 
 use vars qw(@EXPORT @EXPORT_OK);
@@ -149,6 +151,7 @@ Like File::Slurp.
 sub write_file {
   my( $file, $string ) = @_;
 
+  mkpath( dirname( $file ) ) if dirname( $file );
   open my $fh, ">", $file or die "open '$file': $!";
   binmode $fh;
   print $fh $string or die "print '$file': $!";
