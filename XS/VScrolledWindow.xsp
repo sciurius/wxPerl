@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/09/2006
-## RCS-ID:      $Id: VScrolledWindow.xsp,v 1.1 2006/09/24 15:04:24 mbarbon Exp $
+## RCS-ID:      $Id: VScrolledWindow.xsp,v 1.2 2006/10/19 20:00:13 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -51,8 +51,10 @@
     int HitTest( const wxPoint& pt ) const;
     void RefreshAll();
     size_t GetLineCount() const;
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     size_t GetVisibleBegin() const;
     size_t GetVisibleEnd() const;
+#endif
     bool IsVisible( size_t line ) const;
     size_t GetFirstVisibleLine() const;
     size_t GetLastVisibleLine() const;
