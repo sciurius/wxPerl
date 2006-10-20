@@ -1,7 +1,7 @@
 name: Wx
 abstract: Interface to the wxWidgets cross-platform GUI toolkit
 author: Mattia Barbon <mbarbon@cpan.org>
-version: 0.57
+version: 0.59
 license: perl
 distribution_type: module
 build_requires:
