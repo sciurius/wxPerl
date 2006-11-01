@@ -1,0 +1,76 @@
+#############################################################################
+## Name:        XS/FontPickerCtrl.xsp
+## Purpose:     XS+++ for Wx::FontPickerCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     01/11/2006
+## RCS-ID:      $Id: FontPickerCtrl.xsp,v 1.1 2006/11/01 18:00:44 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+#include <wx/fontpicker.h>
+%}
+
+%typemap{wxFontPickerCtrl*}{simple};
+%typemap{wxFontPickerEvent *}{simple};
+
+%name{Wx::FontPickerCtrl} class wxFontPickerCtrl
+{
+    %name{newDefault} wxFontPickerCtrl()
+        %code{% RETVAL = new wxFontPickerCtrl;
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxFontPickerCtrl( wxWindow *parent,
+                                      wxWindowID id = wxID_ANY,
+                                      const wxFont& font = wxNORMAL_FONTPtr,
+                                      const wxPoint& pos = wxDefaultPosition,
+                                      const wxSize& size = wxDefaultSize,
+                                      long style = wxCLRP_DEFAULT_STYLE,
+                                      const wxValidator& validator = wxDefaultValidatorPtr,
+                                      const wxString& name = wxButtonNameStr )
+        %code{% RETVAL = new wxFontPickerCtrl( parent, id, *font, pos, size,
+                                                style, *validator, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    bool Create( wxWindow *parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxFont& col = wxNORMAL_FONTPtr,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxCLRP_DEFAULT_STYLE,
+                 const wxValidator& validator = wxDefaultValidatorPtr,
+                 const wxString& name = wxButtonNameStr );
+
+    wxFont GetSelectedFont() const;
+    void SetSelectedFont( const wxFont& f );
+    void SetMaxPointSize( unsigned int max );
+    unsigned int GetMaxPointSize() const;
+};
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::FontPickerCtrl::new" )
+
+%}
+
+%name{Wx::FontPickerEvent} class wxFontPickerEvent {
+    wxFont GetFont() const;
+    void SetFont( const wxFont &c );
+};
+
+%{
+#endif
+%}

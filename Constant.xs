@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.160 2006/10/01 12:58:01 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.161 2006/11/01 18:00:45 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -86,6 +86,10 @@
 #ifdef __WXGTK20__DEFINED
   #define __WXGTK20__
 #endif
+#include <wx/pickerbase.h>
+#include <wx/clrpicker.h>
+#include <wx/filepicker.h>
+#include <wx/fontpicker.h>
 #endif
 #include <wx/progdlg.h>
 #include <wx/tglbtn.h>
@@ -189,6 +193,10 @@ static wxPlEVT evts[] =
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     SEVT( EVT_MOUSE_CAPTURE_LOST, 2 )
+    EVT( EVT_COLOURPICKER_CHANGED, 3, wxEVT_COMMAND_COLOURPICKER_CHANGED )
+    EVT( EVT_FILEPICKER_CHANGED, 3, wxEVT_COMMAND_FILEPICKER_CHANGED )
+    EVT( EVT_DIRPICKER_CHANGED, 3, wxEVT_COMMAND_DIRPICKER_CHANGED )
+    EVT( EVT_FONTPICKER_CHANGED, 3, wxEVT_COMMAND_FONTPICKER_CHANGED )
 #endif
     EVT( EVT_MENU_HIGHLIGHT_ALL, 2, wxEVT_MENU_HIGHLIGHT )
     { 0, 0, 0 }
@@ -440,6 +448,12 @@ static wxPlINH inherit[] =
     I( GBSizerItem,     SizerItem )
     I( StdDialogButtonSizer, BoxSizer )
 
+    I( PickerBase,      Control )
+    I( ColourPickerCtrl,PickerBase )
+    I( FilePickerCtrl,  PickerBase )
+    I( DirPickerCtrl,   PickerBase )
+    I( FontPickerCtrl,  PickerBase )
+
     I( TaskBarIcon,     EvtHandler )
     I( Process,         EvtHandler )
 
@@ -592,6 +606,9 @@ static wxPlINH inherit[] =
     I( PowerEvent,      Event )
     I( MouseCaptureChangedEvent, Event )
     I( MouseCaptureLostEvent, Event )
+    I( ColourPickerEvent, Event )
+    I( FileDirPickerEvent, Event )
+    I( FontPickerEvent, Event )
 
     { 0, 0 }
 };
@@ -764,6 +781,12 @@ static double constant( const char *name, int arg )
     r( wxCHB_TOP );                     // choicebook
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxCLRP_SHOW_LABEL );
+    r( wxCLRP_USE_TEXTCTRL );
+    r( wxCLRP_DEFAULT_STYLE );
+#endif
+
     r( wxCLEAR );                       // dc
     r( wxCOPY );                        // dc
 
@@ -841,6 +864,10 @@ static double constant( const char *name, int arg )
     r( wxDOT_DASH );                    // pen
 
     r( wxDIR );
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxDIRP_DIR_MUST_EXIST );
+    r( wxDIRP_CHANGE_DIR );
+#endif
     break;
   case 'E':
     r( wxEQUIV );                       // dc
@@ -1149,6 +1176,18 @@ static double constant( const char *name, int arg )
 #define wxFULL_REPAINT_ON_RESIZE 0
 #endif
     r( wxFULL_REPAINT_ON_RESIZE );      // window
+
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    r( wxFLP_OPEN );
+    r( wxFLP_SAVE );
+    r( wxFLP_OVERWRITE_PROMPT );
+    r( wxFLP_FILE_MUST_EXIST );
+    r( wxFLP_CHANGE_DIR );
+    r( wxFNTP_USE_TEXTCTRL );
+    r( wxFNTP_DEFAULT_STYLE );
+    r( wxFNTP_FONTDESC_AS_LABEL );
+    r( wxFNTP_USEFONT_FOR_LABEL );
+#endif
     break;
   case 'G':
     r( wxGA_HORIZONTAL );               // gauge
@@ -1170,6 +1209,10 @@ static double constant( const char *name, int arg )
     r( wxHSCROLL );                     // window textctrl
 
     r( wxHeight );                      // layout constraints
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxHLB_DEFAULT_STYLE );
+    r( wxHLB_MULTIPLE );
+#endif
     break;
   case 'I':
     r( wxICONIZE );                     // frame
@@ -1739,6 +1782,7 @@ static double constant( const char *name, int arg )
   case 'P':
 #if !WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxPROCESS_ENTER );
+    r( wxPB_USE_TEXTCTRL );
 #endif
 
     r( wxPD_APP_MODAL );                // progressdialog

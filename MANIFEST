@@ -159,6 +159,7 @@ XS/Choice.xs
 XS/Choicebook.xsp
 XS/ClassInfo.xs
 XS/Colour.xs
+XS/ColourPickerCtrl.xsp
 XS/ComboBox.xs
 XS/Config.xs
 XS/Constraint.xs
@@ -166,11 +167,13 @@ XS/Cursor.xs
 XS/DC.xs
 XS/Dialog.xs
 XS/EvtHandler.xs
+XS/FilePickerCtrl.xsp
 XS/FindReplaceDialog.xs
 XS/Font.xs
 XS/FontDialog.xs
 XS/FontEnumerator.xs
 XS/FontMapper.xs
+XS/FontPickerCtrl.xsp
 XS/Frame.xs
 XS/Gauge.xs
 XS/Geom.xs
@@ -192,6 +195,7 @@ XS/Notebook.xs
 XS/Palette.xs
 XS/Panel.xs
 XS/Pen.xs
+XS/PickerCtrl.xsp
 XS/PlWindow.xsp
 XS/PopupWindow.xsp
 XS/Power.xsp

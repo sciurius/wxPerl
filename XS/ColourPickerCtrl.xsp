@@ -1,0 +1,83 @@
+#############################################################################
+## Name:        XS/ColourPickerCtrl.xsp
+## Purpose:     XS+++ for Wx::ColourPickerCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     01/11/2006
+## RCS-ID:      $Id: ColourPickerCtrl.xsp,v 1.1 2006/11/01 18:00:44 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+#include <wx/clrpicker.h>
+%}
+
+%typemap{wxColourPickerCtrl*}{simple};
+%typemap{wxColourPickerEvent *}{simple};
+
+%name{Wx::ColourPickerCtrl} class wxColourPickerCtrl
+{
+    %name{newDefault} wxColourPickerCtrl()
+        %code{% RETVAL = new wxColourPickerCtrl;
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxColourPickerCtrl( wxWindow *parent,
+                                       wxWindowID id = wxID_ANY,
+                                       const wxColour& col = wxBLACKPtr,
+                                       const wxPoint& pos = wxDefaultPosition,
+                                       const wxSize& size = wxDefaultSize,
+                                       long style = wxCLRP_DEFAULT_STYLE,
+                                       const wxValidator& validator = wxDefaultValidatorPtr,
+                                       const wxString& name = wxButtonNameStr )
+        %code{% RETVAL = new wxColourPickerCtrl( parent, id, *col, pos, size,
+                                                 style, *validator, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    bool Create( wxWindow *parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxColour& col = wxBLACKPtr,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxCLRP_DEFAULT_STYLE,
+                 const wxValidator& validator = wxDefaultValidatorPtr,
+                 const wxString& name = wxButtonNameStr );
+
+    wxColour GetColour() const;
+    %name{SetColourColour} void SetColour( const wxColour& col );
+    %name{SetColourString} bool SetColour( const wxString& text );
+};
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::ColourPickerCtrl::new" )
+
+void
+SetColour( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wcol, SetColourColour )
+        MATCH_REDISP( wxPliOvl_s, SetColourString )
+    END_OVERLOAD( Wx::ColourPickerCtrl::SetColour )
+
+%}
+
+%name{Wx::ColourPickerEvent} class wxColourPickerEvent {
+    wxColour GetColour() const;
+    void SetColour( const wxColour& colour );
+};
+
+%{
+#endif
+%}

@@ -1,0 +1,126 @@
+#############################################################################
+## Name:        XS/FilePickerCtrl.xsp
+## Purpose:     XS+++ for Wx::File/DirPickerCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     01/11/2006
+## RCS-ID:      $Id: FilePickerCtrl.xsp,v 1.1 2006/11/01 18:00:44 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+#include <wx/filepicker.h>
+%}
+
+%typemap{wxFilePickerCtrl*}{simple};
+%typemap{wxDirPickerCtrl*}{simple};
+%typemap{wxFileDirPickerEvent *}{simple};
+
+%name{Wx::FilePickerCtrl} class wxFilePickerCtrl
+{
+    %name{newDefault} wxFilePickerCtrl()
+        %code{% RETVAL = new wxFilePickerCtrl;
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxFilePickerCtrl( wxWindow *parent,
+                                     wxWindowID id = wxID_ANY,
+                                     const wxString& path = wxEmptyString,
+                                     const wxString& message = wxFileSelectorPromptStr,
+                                     const wxString& wildcard = wxFileSelectorDefaultWildcardStr,
+                                     const wxPoint& pos = wxDefaultPosition,
+                                     const wxSize& size = wxDefaultSize,
+                                     long style = wxCLRP_DEFAULT_STYLE,
+                                     const wxValidator& validator = wxDefaultValidatorPtr,
+                                     const wxString& name = wxFilePickerCtrlNameStr )
+        %code{% RETVAL = new wxFilePickerCtrl( parent, id, path, message,
+                                               wildcard, pos, size,
+                                               style, *validator, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    bool Create( wxWindow *parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxString& path = wxEmptyString,
+                 const wxString& message = wxFileSelectorPromptStr,
+                 const wxString& wildcard = wxFileSelectorDefaultWildcardStr,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxCLRP_DEFAULT_STYLE,
+                 const wxValidator& validator = wxDefaultValidatorPtr,
+                 const wxString& name = wxFilePickerCtrlNameStr );
+
+    wxString GetPath() const;
+    void SetPath( const wxString &str );
+};
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::FilePickerCtrl::new" )
+
+%}
+
+%name{Wx::DirPickerCtrl} class wxDirPickerCtrl
+{
+    %name{newDefault} wxDirPickerCtrl()
+        %code{% RETVAL = new wxDirPickerCtrl;
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxDirPickerCtrl( wxWindow *parent,
+                                    wxWindowID id = wxID_ANY,
+                                    const wxString& path = wxEmptyString,
+                                    const wxString& message = wxDirSelectorPromptStr,
+                                    const wxPoint& pos = wxDefaultPosition,
+                                    const wxSize& size = wxDefaultSize,
+                                    long style = wxCLRP_DEFAULT_STYLE,
+                                    const wxValidator& validator = wxDefaultValidatorPtr,
+                                    const wxString& name = wxDirPickerCtrlNameStr )
+        %code{% RETVAL = new wxDirPickerCtrl( parent, id, path, message,
+                                              pos, size,
+                                              style, *validator, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    bool Create( wxWindow *parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxString& path = wxEmptyString,
+                 const wxString& message = wxDirSelectorPromptStr,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxCLRP_DEFAULT_STYLE,
+                 const wxValidator& validator = wxDefaultValidatorPtr,
+                 const wxString& name = wxDirPickerCtrlNameStr );
+
+    wxString GetPath() const;
+    void SetPath( const wxString &str );
+};
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::DirPickerCtrl::new" )
+
+%}
+
+%name{Wx::FileDirPickerEvent} class wxFileDirPickerEvent {
+    wxString GetPath() const;
+    void SetPath( const wxString &p );
+};
+
+%{
+#endif
+%}

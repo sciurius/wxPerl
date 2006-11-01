@@ -1,0 +1,42 @@
+#############################################################################
+## Name:        XS/PickerCtrl.xsp
+## Purpose:     XS+++ for Wx::PickerBase
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     01/11/2006
+## RCS-ID:      $Id: PickerCtrl.xsp,v 1.1 2006/11/01 18:00:44 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+#include <wx/pickerbase.h>
+%}
+
+%typemap{wxPickerBase*}{simple};
+
+%name{Wx::PickerBase} class wxPickerBase
+{
+    void SetInternalMargin( int newmargin );
+    int GetInternalMargin() const;
+    void SetTextCtrlProportion( int prop );
+    int GetTextCtrlProportion() const;
+    void SetPickerCtrlProportion( int prop );
+    int GetPickerCtrlProportion() const;
+    bool IsTextCtrlGrowable() const;
+    void SetTextCtrlGrowable( bool grow = true );
+    bool IsPickerCtrlGrowable() const;
+    void SetPickerCtrlGrowable( bool grow = true );
+    bool HasTextCtrl() const;
+    wxTextCtrl* GetTextCtrl();
+    wxControl* GetPickerCtrl();
+};
+
+%{
+#endif
+%}
