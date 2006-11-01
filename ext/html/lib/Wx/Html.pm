@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: Html.pm,v 1.10 2006/09/24 15:04:25 mbarbon Exp $
+## RCS-ID:      $Id: Html.pm,v 1.11 2006/11/01 18:07:54 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -47,6 +47,7 @@ package Wx::HtmlColourCell;     @ISA = qw(Wx::HtmlCell);
 package Wx::HtmlWidgetCell;     @ISA = qw(Wx::HtmlCell);
 package Wx::HtmlListBox;        @ISA = qw(Wx::VListBox);
 package Wx::PlHtmlListBox;      @ISA = qw(Wx::HtmlListBox);
+package Wx::SimpleHtmlListBox;  @ISA = qw(Wx::HtmlListBox);
 
 1;
 

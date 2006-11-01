@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     19/09/2006
-## RCS-ID:      $Id: HtmlListBox.xsp,v 1.1 2006/09/24 15:04:24 mbarbon Exp $
+## RCS-ID:      $Id: HtmlListBox.xsp,v 1.2 2006/11/01 18:07:54 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,6 +14,7 @@
 
 %typemap{wxHtmlListBox*}{simple};
 %typemap{wxPlHtmlListBox*}{simple};
+%typemap{wxSimpleHtmlListBox*}{simple};
 %typemap{wxFileSystem*}{simple};
 
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
@@ -124,5 +125,69 @@ new( ... )
     END_OVERLOAD( "Wx::PlHtmlListBox::new" )
 
 %}
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+%name{Wx::SimpleHtmlListBox} class wxSimpleHtmlListBox
+{
+    %name{newDefault} wxSimpleHtmlListBox()
+        %code{% RETVAL = new wxSimpleHtmlListBox;
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxSimpleHtmlListBox( wxWindow *parent,
+                                        wxWindowID id = wxID_ANY,
+                                        const wxPoint& pos = wxDefaultPosition,
+                                        const wxSize& size = wxDefaultSize,
+                                        wxArrayString choices,
+                                        long style = 0,
+                                        const wxString& name = wxSimpleHtmlListBoxNameStr )
+        %code{% RETVAL = new wxSimpleHtmlListBox( parent, id, pos, size,
+                                                  choices, style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    bool Create( wxWindow *parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 wxArrayString choices,
+                 long style = 0,
+                 const wxString& name = wxSimpleHtmlListBoxNameStr );
+
+    void SetSelection( int n );
+    int GetSelection() const;
+    unsigned int GetCount() const;
+    wxString GetString( unsigned int n ) const;
+##    wxArrayString GetStrings() const;
+    void SetString( unsigned int n, const wxString& s );
+    void Clear();
+    void Delete( unsigned int n );
+    %name{AppendStrings} void Append( const wxArrayString& strings );
+    %name{AppendString} void Append( const wxString& item );
+    %name{AppendData} void Append( const wxString& item,
+                                   wxPliUserDataCD* data );
+};
+
+%{
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::SimpleHtmlListBox::new" )
+
+void
+Append( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_arr, AppendStrings )
+        MATCH_REDISP( wxPliOvl_s_s, AppendData )
+        MATCH_REDISP( wxPliOvl_s, AppendString )
+    END_OVERLOAD( Wx::SimpleHtmlListBox::Append )
+
+%}
+
+#endif
 
 #endif
