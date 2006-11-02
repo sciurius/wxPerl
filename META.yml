@@ -17,4 +17,6 @@ no_index:
     - demo
     - samples
     - script
+  package:
+    - MY
 generated_by: Mattia Barbon, by hand
