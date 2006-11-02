@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.41 2006/09/06 11:41:36 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.42 2006/11/02 18:31:03 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -766,6 +766,15 @@ MODULE=Wx PACKAGE=Wx::ANIHandler
 
 wxANIHandler*
 wxANIHandler::new()
+
+#endif
+
+#if wxUSE_TGA
+
+MODULE=Wx PACKAGE=Wx::TGAHandler
+
+wxTGAHandler*
+wxTGAHandler::new()
 
 #endif
 

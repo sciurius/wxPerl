@@ -1,0 +1,89 @@
+#############################################################################
+## Name:        XS/AboutDialog.xsp
+## Purpose:     XS+++ for Wx::AboutBox
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     01/11/2006
+## RCS-ID:      $Id: AboutDialog.xsp,v 1.1 2006/11/02 18:31:03 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxAboutDialogInfo*}{simple};
+%typemap{const wxAboutDialogInfo&}{reference};
+
+%{
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+#include <wx/aboutdlg.h>
+%}
+
+%name{Wx::AboutDialogInfo} class wxAboutDialogInfo
+{
+    wxAboutDialogInfo();
+
+    void SetName( const wxString& name );
+    wxString GetName() const;
+
+    void SetVersion( const wxString& version );
+    bool HasVersion() const;
+    wxString GetVersion() const;
+
+    void SetDescription( const wxString& desc );
+    bool HasDescription() const;
+    wxString GetDescription() const;
+
+    void SetCopyright( const wxString& copyright );
+    bool HasCopyright() const;
+    wxString GetCopyright() const;
+
+    void SetLicence( const wxString& licence );
+    void SetLicense( const wxString& licence );
+    bool HasLicence() const;
+    wxString GetLicence() const;
+
+    void SetIcon( const wxIcon& icon );
+    bool HasIcon() const;
+    wxIcon GetIcon() const;
+
+    void SetWebSite( const wxString& url,
+                     const wxString& desc = wxEmptyString );
+
+    bool HasWebSite() const;
+
+    wxString GetWebSiteURL() const;
+    wxString GetWebSiteDescription() const;
+
+    void SetDevelopers( const wxArrayString& developers );
+    void AddDeveloper( const wxString& developer );
+
+    bool HasDevelopers() const;
+##    const wxArrayString& GetDevelopers() const;
+
+    void SetDocWriters( const wxArrayString& docwriters );
+    void AddDocWriter( const wxString& docwriter );
+
+    bool HasDocWriters() const;
+##    const wxArrayString& GetDocWriters() const;
+
+    void SetArtists( const wxArrayString& artists );
+    void AddArtist( const wxString& artist );
+
+    bool HasArtists() const;
+##    const wxArrayString& GetArtists() const;
+
+    void SetTranslators( const wxArrayString& translators );
+    void AddTranslator( const wxString& translator );
+
+    bool HasTranslators() const;
+##    const wxArrayString& GetTranslators() const;
+};
+
+%name{AboutBox} void wxAboutBox( const wxAboutDialogInfo& info );
+
+%{
+#endif
+%}

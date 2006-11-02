@@ -144,6 +144,7 @@ GDI.xs
 Window.xs
 Wx.xs
 
+XS/AboutDialog.xsp
 XS/Accelerators.xs
 XS/App.xs
 XS/ArtProvider.xsp

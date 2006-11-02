@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.91 2006/11/01 18:00:45 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.92 2006/11/02 18:31:03 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -215,6 +215,8 @@ wxLanguageInfo *        O_NON_WXOBJECT
 
 wxStopWatch *           O_NON_WXOBJECT_THR
 
+wxAboutDialogInfo *     O_NON_WXOBJECT
+
 wxPoint                 O_POINT
 wxSize                  O_SIZE
 wxColour                O_NON_WXOBJECT_VAL
@@ -283,6 +285,7 @@ wxIFFHandler *          O_WXOBJECT
 wxICOHandler *          O_WXOBJECT
 wxCURHandler *          O_WXOBJECT
 wxANIHandler *          O_WXOBJECT
+wxTGAHandler *          O_WXOBJECT
 
 wxImageList *           O_WXOBJECT_THR
 
