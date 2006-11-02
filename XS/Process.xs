@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/02/2002
-## RCS-ID:      $Id: Process.xs,v 1.11 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id: Process.xs,v 1.12 2006/11/02 18:38:13 mbarbon Exp $
 ## Copyright:   (c) 2002-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -103,6 +103,13 @@ Open( cmd, flags = wxEXEC_ASYNC )
     RETVAL = wxProcess::Open( cmd, flags );
   OUTPUT:
     RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+int
+wxProcess::GetPid()
+
+#endif
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 

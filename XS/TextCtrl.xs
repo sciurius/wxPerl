@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.21 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.22 2006/11/02 18:38:13 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -232,6 +232,13 @@ wxTextCtrl::GetStringSelection()
 wxString
 wxTextCtrl::GetValue()
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxTextCtrl::IsEmpty()
+
+#endif
+
 bool
 wxTextCtrl::IsModified()
 
@@ -319,6 +326,14 @@ wxTextCtrl::SetStyle( start, end, style )
     wxTextAttr* style
   CODE:
     THIS->SetStyle( start, end, *style );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+
+void
+wxTextCtrl::ChangeValue( value )
+    wxString value
+
+#endif
 
 void
 wxTextCtrl::SetValue( value )

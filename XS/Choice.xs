@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: Choice.xs,v 1.13 2006/09/24 17:15:58 mbarbon Exp $
+## RCS-ID:      $Id: Choice.xs,v 1.14 2006/11/02 18:38:13 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -94,6 +94,13 @@ wxChoice::GetColumns()
 void
 wxChoice::SetColumns( n = 1 )
     int n
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+int
+wxChoice::GetCurrentSelection()
 
 #endif
 

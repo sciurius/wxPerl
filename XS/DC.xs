@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.33 2006/10/19 20:00:13 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.34 2006/11/02 18:38:13 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -256,6 +256,16 @@ wxDC::FloodFill( x, y, colour, style =  wxFLOOD_SURFACE )
     int style
   CODE:
     THIS->FloodFill( x, y, *colour, style );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+wxBitmap*
+wxDC::GetAsBitmap( wxRect* subrect = NULL )
+  CODE:
+    RETVAL = new wxBitmap( THIS->GetAsBitmap( subrect ) );
+  OUTPUT: RETVAL
+
+#endif
 
 wxBrush*
 wxDC::GetBackground()

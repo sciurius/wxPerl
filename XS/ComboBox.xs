@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: ComboBox.xs,v 1.24 2006/11/01 18:03:54 mbarbon Exp $
+## RCS-ID:      $Id: ComboBox.xs,v 1.25 2006/11/02 18:38:13 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -115,6 +115,13 @@ wxComboBox::Delete( n )
 int
 wxComboBox::FindString( string )
     wxString string
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+int
+wxChoice::GetCurrentSelection()
+
+#endif
 
 int
 wxComboBox::GetSelection()
