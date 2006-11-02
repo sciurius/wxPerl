@@ -953,7 +953,8 @@ my $dc;
 $dc = Wx::BufferedDC->new;
 ok( $newd, 'Wx::BufferedDC::newDefault' );
 
-$dc = Wx::BufferedDC->new( $cdc, Wx::Bitmap->new( 20, 20 ) );
+my $backing = Wx::Bitmap->new( 20, 20 );
+$dc = Wx::BufferedDC->new( $cdc, $backing );
 ok( $newb, 'Wx::BufferedDC::newBitmap' );
 
 $dc = Wx::BufferedDC->new( $cdc, [20, 20] );
@@ -963,7 +964,8 @@ SKIP: {
     skip 'Broken inheritance for 2.6.x', 2 if ref $dc eq 'Wx::MemoryDC';
 
     $dc = Wx::BufferedDC->new;
-    $dc->Init( $cdc, Wx::Bitmap->new( 200, 100 ) );
+    my $backing = Wx::Bitmap->new( 200, 100 );
+    $dc->Init( $cdc, $backing );
     ok( $initb, 'Wx::BufferedDC::InitBitmap' );
 
     $dc = Wx::BufferedDC->new;

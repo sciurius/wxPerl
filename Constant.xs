@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.162 2006/11/02 18:35:29 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.163 2006/11/02 21:35:25 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -326,6 +326,7 @@ static wxPlINH inherit[] =
     I( ICOHandler,      BMPHandler )
     I( CURHandler,      ICOHandler )
     I( ANIHandler,      CURHandler )
+    I( TGAHandler,      ImageHandler )
 
     I( LogTextCtrl,     Log )
     I( LogWindow,       Log )
@@ -1685,7 +1686,6 @@ static double constant( const char *name, int arg )
   case 'P':
 #if !WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxPROCESS_ENTER );
-    r( wxPB_USE_TEXTCTRL );
 #endif
 
     r( wxPD_APP_MODAL );                // progressdialog
@@ -1700,6 +1700,7 @@ static double constant( const char *name, int arg )
     r( wxPOWER_SOCKET  );               // power
     r( wxPOWER_BATTERY );               // power
     r( wxPOWER_UNKNOWN );               // power
+    r( wxPB_USE_TEXTCTRL );
 #endif
 
     r( wxPercentOf );                   // layout constraints
@@ -2045,7 +2046,7 @@ static double constant( const char *name, int arg )
     r( wxWS_EX_PROCESS_IDLE );          // window
     r( wxWS_EX_PROCESS_UI_UPDATES );    // window
 #endif
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     r( wxWS_EX_CONTEXTHELP );           // window
 #endif
     break;
