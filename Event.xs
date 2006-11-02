@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.57 2006/09/24 15:04:24 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.58 2006/11/02 18:35:29 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -35,7 +35,7 @@
 WXPLI_BOOT_ONCE(Wx_Evt);
 #define boot_Wx_Evt wxPli_boot_Wx_Evt
 
-MODULE=Wx_Evt
+MODULE=Wx_Evt PACKAGE=Wx
 
 INCLUDE: XS/EvtHandler.xs
 

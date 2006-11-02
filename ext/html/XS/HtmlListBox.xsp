@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     19/09/2006
-## RCS-ID:      $Id: HtmlListBox.xsp,v 1.2 2006/11/01 18:07:54 mbarbon Exp $
+## RCS-ID:      $Id: HtmlListBox.xsp,v 1.3 2006/11/02 18:35:30 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,6 +20,8 @@
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
 
 %{
+#include <wx/clntdata.h>
+#include "cpp/helpers.h"
 #include <wx/htmllbox.h>
 #include "cpp/overload.h"
 #include "cpp/htmllbox.h"
@@ -140,9 +142,11 @@ new( ... )
                                         const wxSize& size = wxDefaultSize,
                                         wxArrayString choices,
                                         long style = 0,
+                                        const wxValidator& validator = wxDefaultValidatorPtr,
                                         const wxString& name = wxSimpleHtmlListBoxNameStr )
         %code{% RETVAL = new wxSimpleHtmlListBox( parent, id, pos, size,
-                                                  choices, style, name );
+                                                  choices, style, *validator,
+                                                  name );
                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
                 %};
     bool Create( wxWindow *parent,
@@ -151,6 +155,7 @@ new( ... )
                  const wxSize& size = wxDefaultSize,
                  wxArrayString choices,
                  long style = 0,
+                 const wxValidator& validator = wxDefaultValidatorPtr,
                  const wxString& name = wxSimpleHtmlListBoxNameStr );
 
     void SetSelection( int n );

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.83 2006/10/01 13:03:56 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.84 2006/11/02 18:35:29 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1379,6 +1379,95 @@ void wxPli_thread_sv_clone( pTHX_ const char* package, wxPliCloneSV clonefn )
 }
 
 #endif // wxPERL_USE_THREADS
+
+// helpers for declaring event macros
+#include "cpp/e_cback.h"
+
+// THIS, function
+XS(Connect2);
+XS(Connect2)
+{
+    dXSARGS;
+    assert( items == 2 );
+    SV* THISs = ST(0);
+    wxEvtHandler *THISo =
+        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
+    SV* func = ST(1);
+    I32 evtID = CvXSUBANY(cv).any_i32;
+
+    if( SvOK( func ) )
+    {
+
+        THISo->Connect( wxID_ANY, wxID_ANY, evtID,
+                        wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
+                        new wxPliEventCallback( func, THISs ) );
+    }
+    else
+    {
+        THISo->Disconnect( wxID_ANY, wxID_ANY, evtID,
+                           wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
+                           0 );
+    }
+}
+
+// THIS, ID, function
+XS(Connect3);
+XS(Connect3)
+{
+    dXSARGS;
+    assert( items == 3 );
+    SV* THISs = ST(0);
+    wxEvtHandler *THISo =
+        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
+    wxWindowID id = wxPli_get_wxwindowid( aTHX_ ST(1) );
+    SV* func = ST(2);
+    I32 evtID = CvXSUBANY(cv).any_i32;
+
+    if( SvOK( func ) )
+    {
+        THISo->Connect( id, wxID_ANY, evtID,
+                        wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
+                        new wxPliEventCallback( func, THISs ) );
+    }
+    else
+    {
+        THISo->Disconnect( id, wxID_ANY, evtID,
+                           wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
+                           0 );
+    }
+}
+
+void CreateEventMacro( const char* name, unsigned char args, int id )
+{
+    char buffer[1024];
+    CV* cv;
+    dTHX;
+
+    strcpy( buffer, "Wx::Event::" );
+    strcat( buffer, name );
+
+    switch( args )
+    {
+    case 2:
+        cv = (CV*)newXS( buffer, Connect2, "Constants.xs" );
+        sv_setpv((SV*)cv, "$$");
+        break;
+    case 3:
+        cv = (CV*)newXS( buffer, Connect3, "Constants.xs" );
+        sv_setpv((SV*)cv, "$$$");
+        break;
+    default:
+        return;
+    }
+
+    CvXSUBANY(cv).any_i32 = id;
+}
+
+void wxPli_set_events( const struct wxPliEventDescription* events )
+{
+    for( size_t i = 0; events[i].name != 0; ++i )
+        CreateEventMacro( events[i].name, events[i].args, events[i].evtID );
+}
 
 // Local variables: //
 // mode: c++ //

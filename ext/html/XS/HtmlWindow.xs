@@ -4,15 +4,38 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: HtmlWindow.xs,v 1.17 2006/09/07 20:33:13 mbarbon Exp $
+## RCS-ID:      $Id: HtmlWindow.xs,v 1.18 2006/11/02 18:35:30 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+%module{Wx};
+
+%typemap{wxMouseEvent&}{reference};
+
+%{
 #include <wx/html/htmlwin.h>
 #include <wx/frame.h>
 #include "cpp/htmlwindow.h"
+%}
+
+%name{Wx::HtmlCellEvent} class wxHtmlCellEvent
+{
+    wxHtmlCell* GetCell() const;
+    wxPoint GetPoint() const;
+    wxMouseEvent& GetMouseEvent() const;
+
+    void SetLinkClicked( bool linkclicked );
+    bool GetLinkClicked() const;
+};
+
+%name{Wx::HtmlLinkEvent} class wxHtmlLinkEvent
+{
+    const wxHtmlLinkInfo& GetLinkInfo() const;
+};
+
+%{
 
 MODULE=Wx PACKAGE=Wx::HtmlLinkInfo
 
@@ -169,3 +192,5 @@ void
 wxHtmlWindow::WriteCustomization( cfg, path = wxEmptyString )
     wxConfigBase* cfg
     wxString path
+
+%}

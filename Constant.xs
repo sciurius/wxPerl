@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.161 2006/11/01 18:00:45 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.162 2006/11/02 18:35:29 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -69,6 +69,7 @@
 #endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 #include <wx/choicebk.h>
+#include <wx/htmllbox.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 5, 4 )
 #include <wx/mediactrl.h>
@@ -162,25 +163,15 @@ void wxPli_remove_constant_function( double (**f)( const char*, int ) )
 // descriptor for all event macros
 //////////////////////////////////////////////////////////////////////////////
 
-struct wxPlEVT
-{
-    // 2 - only THIS and function
-    // 3 - THIS, function, one ID
-    // 4 - THIS, function, two ids
-    // 5 - THIS, function, two ids, event id
-    const char* name;
-    unsigned char args;
-    int evtID;    
-};
-
-#define SEVT( NAME, ARGS ) { #NAME, ARGS, wx##NAME },
-#define EVT( NAME, ARGS, ID ) { #NAME, ARGS, ID },
+// event macros
+#define SEVT( NAME, ARGS )    wxPli_StdEvent( NAME, ARGS )
+#define EVT( NAME, ARGS, ID ) wxPli_Event( NAME, ARGS, ID )
 
 // !package: Wx::Event
 // !tag:
 // !parser: sub { $_[0] =~ m<^\s*S?EVT\(\s*(\w+)\s*\,> }
 
-static wxPlEVT evts[] =
+static wxPliEventDescription evts[] =
 {
     SEVT( EVT_WIZARD_PAGE_CHANGED, 3 )
     SEVT( EVT_WIZARD_PAGE_CHANGING, 3 )
@@ -201,94 +192,6 @@ static wxPlEVT evts[] =
     EVT( EVT_MENU_HIGHLIGHT_ALL, 2, wxEVT_MENU_HIGHLIGHT )
     { 0, 0, 0 }
 };
-
-#include "cpp/e_cback.h"
-
-// THIS, function
-XS(Connect2);
-XS(Connect2)
-{
-    dXSARGS;
-    assert( items == 2 );
-    SV* THISs = ST(0);
-    wxEvtHandler *THISo =
-        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
-    SV* func = ST(1);
-    I32 evtID = CvXSUBANY(cv).any_i32;
-
-    if( SvOK( func ) )
-    {
-
-        THISo->Connect( wxID_ANY, wxID_ANY, evtID,
-                        wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
-                        new wxPliEventCallback( func, THISs ) );
-    }
-    else
-    {
-        THISo->Disconnect( wxID_ANY, wxID_ANY, evtID,
-                           wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
-                           0 );
-    }
-}
-
-// THIS, ID, function
-XS(Connect3);
-XS(Connect3)
-{
-    dXSARGS;
-    assert( items == 3 );
-    SV* THISs = ST(0);
-    wxEvtHandler *THISo =
-        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
-    wxWindowID id = wxPli_get_wxwindowid( aTHX_ ST(1) );
-    SV* func = ST(2);
-    I32 evtID = CvXSUBANY(cv).any_i32;
-
-    if( SvOK( func ) )
-    {
-        THISo->Connect( id, wxID_ANY, evtID,
-                        wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
-                        new wxPliEventCallback( func, THISs ) );
-    }
-    else
-    {
-        THISo->Disconnect( id, wxID_ANY, evtID,
-                           wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
-                           0 );
-    }
-}
-
-void CreateEventMacro( const char* name, unsigned char args, int id )
-{
-    char buffer[1024];
-    CV* cv;
-    dTHX;
-
-    strcpy( buffer, "Wx::Event::" );
-    strcat( buffer, name );
-
-    switch( args )
-    {
-    case 2:
-        cv = (CV*)newXS( buffer, Connect2, "Constants.xs" );
-        sv_setpv((SV*)cv, "$$");
-        break;
-    case 3:
-        cv = (CV*)newXS( buffer, Connect3, "Constants.xs" );
-        sv_setpv((SV*)cv, "$$$");
-        break;
-    default:
-        return;
-    }
-
-    CvXSUBANY(cv).any_i32 = id;
-}
-
-void SetEvents()
-{
-    for( size_t i = 0; evts[i].name != 0; ++i )
-        CreateEventMacro( evts[i].name, evts[i].args, evts[i].evtID );
-}
 
 //////////////////////////////////////////////////////////////////////////////
 // the inheritance tree
@@ -606,9 +509,9 @@ static wxPlINH inherit[] =
     I( PowerEvent,      Event )
     I( MouseCaptureChangedEvent, Event )
     I( MouseCaptureLostEvent, Event )
-    I( ColourPickerEvent, Event )
-    I( FileDirPickerEvent, Event )
-    I( FontPickerEvent, Event )
+    I( ColourPickerEvent, CommandEvent )
+    I( FileDirPickerEvent, CommandEvent )
+    I( FontPickerEvent, CommandEvent )
 
     { 0, 0 }
 };
@@ -1210,8 +1113,8 @@ static double constant( const char *name, int arg )
 
     r( wxHeight );                      // layout constraints
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
-    r( wxHLB_DEFAULT_STYLE );
-    r( wxHLB_MULTIPLE );
+    r( wxHLB_DEFAULT_STYLE );           // htmllistbox
+    r( wxHLB_MULTIPLE );                // htmllistbox
 #endif
     break;
   case 'I':
@@ -2049,6 +1952,10 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxTB_NO_TOOLTIPS );              // toolbar
 #endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxTB_RIGHT );                    // toolbar
+    r( wxTB_BOTTOM );                   // toolbar
+#endif
     r( wxTELETYPE );                    // font
     r( wxTE_PROCESS_ENTER );            // textctrl
     r( wxTE_PROCESS_TAB );              // textctrl
@@ -2523,6 +2430,8 @@ UnsetConstants()
 
 void
 SetEvents()
+  CODE:
+    wxPli_set_events( evts );
 
 void
 SetInheritance()
