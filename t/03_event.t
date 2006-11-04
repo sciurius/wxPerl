@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 3;
+use Test::More 'tests' => 7;
 use Tests_Helper qw(test_frame);
 
 test_frame( 'MyFrame' );
@@ -14,6 +14,13 @@ test_frame( 'MyFrame' );
 package MyEvent;
 
 use base 'Wx::PlCommandEvent';
+
+our $destroyed; BEGIN { $destroyed = 0 };
+
+sub DESTROY {
+    $destroyed++;
+    $_[0]->SUPER::DESTROY;
+}
 
 package MyFrame;
 
@@ -28,31 +35,56 @@ sub new {
 
   my $var = 0;
 
-  EVT_BUTTON( $this, $button, sub { $var = 1 } );
+  EVT_BUTTON( $this, $button,
+              sub {
+                  my( $this, $evt ) = @_;
 
-  my $event = Wx::CommandEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
-                                     $button->GetId() );
+                  $var = 1;
+              } );
 
-  $button->GetEventHandler->ProcessEvent( $event );
+  {
+      my $event = Wx::CommandEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
+                                         $button->GetId() );
+
+      $button->GetEventHandler->ProcessEvent( $event );
+  }
 
   main::ok( $var, "event succesfully received" );
+  main::is( $MyEvent::destroyed, 0 );
 
   $var = 0;
 
-  $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
-                         $button->GetId() );
+  {
+      my $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
+                                $button->GetId() );
 
-  $button->GetEventHandler->ProcessEvent( $event );
+      $button->GetEventHandler->ProcessEvent( $event );
+  }
 
   main::ok( $var, "event succesfully received (no crash)" );
+  main::is( $MyEvent::destroyed, 1 );
 
   $var = 0;
 
   EVT_BUTTON( $this, $button, undef );
 
-  $button->GetEventHandler->ProcessEvent( $event );
+  {
+      my $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
+                                $button->GetId() );
+
+  }
+
+  main::is( $MyEvent::destroyed, 2 );
+
+  {
+      my $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
+                                $button->GetId() );
+
+      $button->GetEventHandler->ProcessEvent( $event );
+  }
 
   main::ok( !$var, "event handler disconnected" );
+  main::is( $MyEvent::destroyed, 3 );
 
   $this->Destroy;
 }

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2002
-// RCS-ID:      $Id: event.h,v 1.9 2004/12/21 21:12:45 mbarbon Exp $
+// RCS-ID:      $Id: event.h,v 1.10 2006/11/04 22:53:26 mbarbon Exp $
 // Copyright:   (c) 2002-2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -36,11 +36,10 @@ wxEvent* wxPlEvent::Clone() const
 
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
-        SV* ret = wxPliVirtualCallback_CallCallback
-            ( aTHX_ &self->m_callback, G_SCALAR, NULL );
+        wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback
+            ( aTHX_ &self->m_callback, G_SCALAR, NULL ) );
         wxPlEvent* clone =
             (wxPlEvent*)wxPli_sv_2_object( aTHX_ ret, "Wx::PlEvent" );
-        SvREFCNT_dec( ret );
         
         return clone;
     }
@@ -72,11 +71,10 @@ wxEvent* wxPlCommandEvent::Clone() const
 
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
-        SV* ret = wxPliVirtualCallback_CallCallback
-            ( aTHX_ &self->m_callback, G_SCALAR, NULL );
+        wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback
+            ( aTHX_ &self->m_callback, G_SCALAR, NULL ) );
         wxPlCommandEvent* clone = (wxPlCommandEvent*)
             wxPli_sv_2_object( aTHX_ ret, "Wx::PlCommandEvent" );
-        SvREFCNT_dec( ret );
         
         return clone;
     }

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.58 2006/11/02 18:35:29 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.59 2006/11/04 22:53:26 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -201,37 +201,64 @@ wxContextMenuEvent::SetPosition( pos )
 
 MODULE=Wx_Evt PACKAGE=Wx::PlEvent
 
-wxEvent*
+SV*
 wxPlEvent::new( type, id )
     wxEventType type
     wxWindowID id
   CODE:
-    RETVAL = new wxPlEvent( CLASS, type, id );
-  OUTPUT:
-    RETVAL
+    wxPlEvent* THIS = new wxPlEvent( CLASS, type, id );
+    RETVAL = newRV_noinc( SvRV( THIS->m_callback.GetSelf() ) );
+    wxPli_thread_sv_register( aTHX_ "Wx::PlEvent", THIS, RETVAL );
+  OUTPUT: RETVAL
+
+## // thread OK
+void
+wxPlEvent::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::PlEvent", THIS, ST(0) );
+    if( THIS && wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+    {
+        SV* self = THIS->m_callback.GetSelf();
+        SvROK_off( self );
+        SvRV( self ) = NULL;
+        delete THIS;
+    }
 
 MODULE=Wx_Evt PACKAGE=Wx::PlCommandEvent
 
-wxEvent*
+SV*
 wxPlCommandEvent::new( type, id )
     wxEventType type
     wxWindowID id
   CODE:
-    RETVAL = new wxPlCommandEvent( CLASS, type, id );
-  OUTPUT:
-    RETVAL
+    wxPlCommandEvent* THIS = new wxPlCommandEvent( CLASS, type, id );
+    RETVAL = newRV_noinc( SvRV( THIS->m_callback.GetSelf() ) );
+    wxPli_thread_sv_register( aTHX_ "Wx::PlCommandEvent", THIS, RETVAL );
+  OUTPUT: RETVAL
+
+## // thread OK
+void
+wxPlCommandEvent::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::PlCommandEvent", THIS, ST(0) );
+    if( THIS && wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+    {
+        SV* self = THIS->m_callback.GetSelf();
+        SvROK_off( self );
+        SvRV( self ) = NULL;
+        delete THIS;
+    }
 
 MODULE=Wx_Evt PACKAGE=Wx::PlThreadEvent
 
-wxEvent*
+wxPlThreadEvent*
 wxPlThreadEvent::new( type, id, data )
     wxEventType type
     wxWindowID id
     SV* data
   CODE:
     RETVAL = new wxPlThreadEvent( CLASS, type, id, data );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 SV*
 wxPlThreadEvent::GetData()
