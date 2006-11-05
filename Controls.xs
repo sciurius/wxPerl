@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.43 2006/11/01 18:00:45 mbarbon Exp $
+// RCS-ID:      $Id: Controls.xs,v 1.44 2006/11/05 16:28:00 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -161,8 +161,9 @@ INCLUDE: XS/StaticBox.xs
 INCLUDE: XS/StaticLine.xs
 INCLUDE: XS/StaticText.xs
 INCLUDE: XS/ToggleButton.xs
-INCLUDE: XS/TextCtrl.xs
 INCLUDE: XS/TreeCtrl.xs
+
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/TextCtrl.xs |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/PickerCtrl.xsp |
 

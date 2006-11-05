@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.163 2006/11/02 21:35:25 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.164 2006/11/05 16:28:00 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -223,7 +223,8 @@ static wxPlINH inherit[] =
     I( Control,         Window )
     I( Button,          Control )
     I( BitmapButton,    Button )
-    I( TextCtrl,        Control )
+    I( TextCtrlBase,    Control )
+    I( TextCtrl,        TextCtrlBase )
     I( StaticText,      Control )
     I( CheckBox,        Control )
     I( CheckListBox,    ListBox )
@@ -2476,6 +2477,9 @@ _get_packages()
 #endif
 #if wxPERL_USE_MEDIA && WXPERL_W_VERSION_GE( 2, 6, 0 )
     "use Wx::Media;"
+#endif
+#if wxPERL_USE_RICHTEXT && WXPERL_W_VERSION_GE( 2, 7, 0 )
+    "use Wx::RichText;"
 #endif
     ;
 

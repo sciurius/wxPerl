@@ -463,6 +463,16 @@ ext/pperl/textval/Makefile.PL
 ext/pperl/textval/TextValidator.pm
 ext/pperl/textval/t/01_load.t
 
+ext/richtext/Makefile.PL
+ext/richtext/RichText.xs
+ext/richtext/XS/RichTextAttr.xsp
+ext/richtext/XS/RichTextCtrl.xsp
+ext/richtext/lib/Wx/RichText.pm
+ext/richtext/t/01_load.t
+ext/richtext/t/02_inheritance.t
+ext/richtext/typemap
+ext/richtext/typemap.xsp
+
 ext/xrc/Makefile.PL
 ext/xrc/XRC.xs
 ext/xrc/XS/XmlDocument.xsp

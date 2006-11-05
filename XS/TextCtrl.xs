@@ -4,30 +4,72 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.22 2006/11/02 18:38:13 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.23 2006/11/05 16:28:01 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+%module{Wx};
+
+%{
 #include <wx/textctrl.h>
+%}
 
-MODULE=Wx PACKAGE=Wx::TextUrlEvent
+%typemap{wxMouseEvent&}{reference};
+%typemap{wxTextAttr*}{simple};
+%typemap{const wxTextAttr&}{reference};
+%typemap{wxTextAttrAlignment}{simple};
+%typemap{const wxKeyEvent&}{reference};
+%typemap{wxTextPos}{parsed}{%wxTextPos%};
 
-wxMouseEvent*
-wxTextUrlEvent::GetMouseEvent()
-  CODE:
-    RETVAL = new wxMouseEvent( THIS->GetMouseEvent() );
-  OUTPUT:
-    RETVAL
+%name{Wx::TextUrlEvent} class wxTextUrlEvent
+{
+    wxMouseEvent& GetMouseEvent();
+    long GetURLStart();
+    long GetURLEnd();
+};
 
-long
-wxTextUrlEvent::GetURLStart()
+%name{Wx::TextAttr} class wxTextAttr
+{
+    ## ctor in plain XS
+    ## // thread KO
+    ~wxTextAttr();
 
-long
-wxTextUrlEvent::GetURLEnd()
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    void Merge( const wxTextAttr& overlay );
+#endif
+    void SetTextColour( const wxColour& colText );
+    void SetBackgroundColour( const wxColour& colBack );
+    void SetFont( const wxFont& font, long flags = wxTEXT_ATTR_FONT );
+    void SetAlignment( wxTextAttrAlignment alignment );
+##    void SetTabs( const wxArrayInt& tabs );
+    void SetLeftIndent( int indent, int subIndent = 0 );
+    void SetRightIndent( int indent );
+    void SetFlags( long flags );
 
-MODULE=Wx PACKAGE=Wx::TextAttr
+    bool HasTextColour() const;
+    bool HasBackgroundColour() const;
+    bool HasFont() const;
+    bool HasAlignment() const;
+    bool HasTabs() const;
+    bool HasLeftIndent() const;
+    bool HasRightIndent() const;
+    bool HasFlag( long flag ) const;
+
+    const wxColour& GetTextColour() const;
+    const wxColour& GetBackgroundColour() const;
+    const wxFont& GetFont() const;
+    wxTextAttrAlignment GetAlignment() const;
+##    const wxArrayInt& GetTabs() const;
+    long GetLeftIndent() const;
+    long GetLeftSubIndent() const;
+    long GetRightIndent() const;
+    long GetFlags() const;
+    bool IsDefault() const;
+};
+
+%{
 
 wxTextAttr*
 wxTextAttr::new( colText = wxNullColour, colBack = wxNullColour, font = (wxFont*)&wxNullFont )
@@ -42,44 +84,99 @@ wxTextAttr::new( colText = wxNullColour, colBack = wxNullColour, font = (wxFont*
   OUTPUT:
     RETVAL
 
-## // thread KO
+%}
+
+%name{Wx::TextCtrlBase} class wxTextCtrlBase
+{
+    wxString GetValue() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool IsEmpty();
+#endif
+    void SetValue( const wxString& value );
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    void ChangeValue( const wxString& value );
+#endif
+    wxString GetRange( long from, long to ) const;
+    int GetLineLength( long lineNo ) const;
+    wxString GetLineText( long lineNo ) const;
+    int GetNumberOfLines() const;
+    bool IsModified() const;
+    bool IsEditable() const;
+    bool IsSingleLine() const;
+    bool IsMultiLine() const;
+    wxString GetStringSelection() const;
+    void Clear();
+    void Replace( long from, long to, const wxString& value );
+    void Remove( long from, long to );
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    bool LoadFile( const wxString& file, int fileType = wxTEXT_TYPE_ANY );
+    bool SaveFile( const wxString& file = wxEmptyString,
+                   int fileType = wxTEXT_TYPE_ANY );
+#else
+    bool LoadFile( const wxString& file );
+    bool SaveFile( const wxString& file = wxEmptyString );
+#endif
+    void MarkDirty();
+    void DiscardEdits();
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    void SetModified( bool modified );
+#endif
+    void SetMaxLength( unsigned long len );
+    void WriteText( const wxString& text );
+    void AppendText( const wxString& text );
+    bool EmulateKeyPress( const wxKeyEvent& event );
+    bool SetStyle( long start, long end, const wxTextAttr& style );
+##    bool GetStyle( long position, wxTextAttr& style );
+    bool SetDefaultStyle( const wxTextAttr& style );
+    const wxTextAttr& GetDefaultStyle() const;
+    long XYToPosition( long x, long y ) const;
+    void ShowPosition(long pos);
+    void Copy();
+    void Cut();
+    void Paste();
+    bool CanCopy() const;
+    bool CanCut() const;
+    bool CanPaste() const;
+    void Undo();
+    void Redo();
+    bool CanUndo() const;
+    bool CanRedo() const;
+    void SetInsertionPoint( long pos );
+    void SetInsertionPointEnd();
+    long GetInsertionPoint() const;
+    wxTextPos GetLastPosition() const;
+    void SetSelection( long from, long to );
+    void SelectAll();
+    void SetEditable( bool editable );
+};
+
+%{
+
 void
-wxTextAttr::DESTROY()
-
-wxColour*
-wxTextAttr::GetBackgroundColour()
-  CODE:
-    RETVAL = new wxColour( THIS->GetBackgroundColour() );
-  OUTPUT:
-    RETVAL
-
-wxFont*
-wxTextAttr::GetFont()
-  CODE:
-    RETVAL = new wxFont( THIS->GetFont() );
-  OUTPUT:
-    RETVAL
-
-wxColour*
-wxTextAttr::GetTextColour()
-  CODE:
-    RETVAL = new wxColour( THIS->GetTextColour() );
-  OUTPUT:
-    RETVAL
-
-bool
-wxTextAttr::HasBackgroundColour()
-
-bool
-wxTextAttr::HasFont()
-
-bool
-wxTextAttr::HasTextColour()
-
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+wxTextCtrlBase::GetSelection()
+  PREINIT:
+    long from;
+    long to;
+  PPCODE:
+    THIS->GetSelection( &from, &to );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSViv( from ) ) );
+    PUSHs( sv_2mortal( newSViv( to ) ) );
 
 void
-wxTextCtrl::HitTest( pt )
+wxTextCtrlBase::PositionToXY( pos )
+    long pos
+  PREINIT:
+    long x;
+    long y;
+  PPCODE:
+    THIS->PositionToXY( pos, &x, &y );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSViv( x ) ) );
+    PUSHs( sv_2mortal( newSViv( y ) ) );
+
+void
+wxTextCtrlBase::HitTest( pt )
     wxPoint pt
   PPCODE:
     long col, row;
@@ -90,11 +187,9 @@ wxTextCtrl::HitTest( pt )
     PUSHs( sv_2mortal( newSViv( col ) ) );
     PUSHs( sv_2mortal( newSViv( row ) ) );
 
-#endif
+%}
 
-bool
-wxTextAttr::IsDefault()
-
+%{
 MODULE=Wx PACKAGE=Wx::TextCtrl
 
 void
@@ -143,214 +238,4 @@ wxTextCtrl::Create( parent, id, value, pos = wxDefaultPosition, size = wxDefault
     wxString name
   C_ARGS: parent, id, value, pos, size, style, *validator, name
 
-void
-wxTextCtrl::AppendText( text )
-    wxString text
-
-bool
-wxTextCtrl::CanCopy()
-
-bool
-wxTextCtrl::CanCut()
-
-bool
-wxTextCtrl::CanPaste()
-
-bool
-wxTextCtrl::CanRedo()
-
-bool
-wxTextCtrl::CanUndo()
-
-void
-wxTextCtrl::Clear()
-
-void
-wxTextCtrl::Copy()
-
-void
-wxTextCtrl::Cut()
-
-void
-wxTextCtrl::DiscardEdits()
-
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
-bool
-wxTextCtrl::EmulateKeyPress( event )
-    wxKeyEvent* event
-  C_ARGS: *event
-
-void
-wxTextCtrl::MarkDirty()
-
-#endif
-
-wxTextAttr*
-wxTextCtrl::GetDefaultStyle()
-  CODE:
-    RETVAL = new wxTextAttr( THIS->GetDefaultStyle() );
-  OUTPUT:
-    RETVAL
-
-long
-wxTextCtrl::GetInsertionPoint()
-
-long
-wxTextCtrl::GetLastPosition()
-
-int
-wxTextCtrl::GetLineLength( lineno )
-    int lineno
-
-wxString
-wxTextCtrl::GetLineText( lineno )
-    int lineno
-
-int
-wxTextCtrl::GetNumberOfLines()
-
-wxString
-wxTextCtrl::GetRange( from, to )
-    long from
-    long to
-
-void
-wxTextCtrl::GetSelection()
-  PREINIT:
-    long from;
-    long to;
-  PPCODE:
-    THIS->GetSelection( &from, &to );
-    EXTEND( SP, 2 );
-    PUSHs( sv_2mortal( newSViv( from ) ) );
-    PUSHs( sv_2mortal( newSViv( to ) ) );
-
-wxString
-wxTextCtrl::GetStringSelection()
-
-wxString
-wxTextCtrl::GetValue()
-
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
-bool
-wxTextCtrl::IsEmpty()
-
-#endif
-
-bool
-wxTextCtrl::IsModified()
-
-bool
-wxTextCtrl::IsSingleLine()
-
-bool
-wxTextCtrl::IsMultiLine()
-
-bool
-wxTextCtrl::LoadFile( filename )
-    wxString filename
-
-void
-wxTextCtrl::Paste()
-
-void
-wxTextCtrl::PositionToXY( pos )
-    long pos
-  PREINIT:
-    long x;
-    long y;
-  PPCODE:
-    THIS->PositionToXY( pos, &x, &y );
-    EXTEND( SP, 2 );
-    PUSHs( sv_2mortal( newSViv( x ) ) );
-    PUSHs( sv_2mortal( newSViv( y ) ) );
-
-void
-wxTextCtrl::Redo()
-
-void
-wxTextCtrl::Remove( from, to )
-    long from
-    long to
-
-void
-wxTextCtrl::Replace( from, to, value )
-    long from
-    long to
-    wxString value
-
-bool
-wxTextCtrl::SaveFile( filename )
-    wxString filename
-
-void
-wxTextCtrl::SetDefaultStyle( style )
-    wxTextAttr* style
-  CODE:
-    THIS->SetDefaultStyle( *style );
-
-void
-wxTextCtrl::SetEditable( editable )
-    bool editable
-
-void
-wxTextCtrl::SetInsertionPoint( pos )
-    long pos
-
-void
-wxTextCtrl::SetInsertionPointEnd()
-
-void
-wxTextCtrl::SetMaxLength( len )
-    unsigned long len
-
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
-void
-wxTextCtrl::SetModified( modified )
-    bool modified
-
-#endif
-
-void
-wxTextCtrl::SetSelection( from, to )
-    long from
-    long to
-
-void
-wxTextCtrl::SetStyle( start, end, style )
-    long start
-    long end
-    wxTextAttr* style
-  CODE:
-    THIS->SetStyle( start, end, *style );
-
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
-
-void
-wxTextCtrl::ChangeValue( value )
-    wxString value
-
-#endif
-
-void
-wxTextCtrl::SetValue( value )
-    wxString value
-
-void
-wxTextCtrl::ShowPosition( pos )
-    long pos
-
-void
-wxTextCtrl::Undo()
-
-void
-wxTextCtrl::WriteText( text )
-    wxString text
-
-long
-wxTextCtrl::XYToPosition( x, y )
-    long x
-    long y
+%}

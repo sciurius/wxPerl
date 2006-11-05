@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Makefile.PL,v 1.47 2006/08/19 18:24:33 mbarbon Exp $
+## RCS-ID:      $Id: Makefile.PL,v 1.48 2006/11/05 16:28:00 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -41,7 +41,7 @@ wxWriteMakefile( NAME          => 'Wx',
                                     'Test::Harness'          => 2.26,
                                     'Data::Dumper'           => 0,
                                     'ExtUtils::MakeMaker'    => 6.17,
-                                    'Alien::wxWidgets'       => 0.15,
+                                    'Alien::wxWidgets'       => 0.25,
                                    },
                  PMLIBDIRS     => [ 'lib', 'build' ],
                  EXE_FILES     => [ qw(script/wx_xspp.pl
