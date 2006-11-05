@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.87 2006/11/02 18:35:29 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.88 2006/11/05 18:04:47 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -22,6 +22,7 @@
 
 class wxPliUserDataCD;
 class wxPliTreeItemData;
+struct wxPliEventDescription;
 
 // forward declare Wx_*Stream
 class WXDLLEXPORT wxInputStream;
@@ -253,7 +254,7 @@ void FUNCPTR( wxPli_stream_2_sv )( pTHX_ SV* scalar, wxStreamBase* stream,
                                    const char* package );
 wxPliInputStream* FUNCPTR( wxPliInputStream_ctor )( SV* sv );
 
-void FUNCPTR( wxPli_set_events )( const struct wxPliEventDescription* events );
+void FUNCPTR( wxPli_set_events )( const wxPliEventDescription* events );
 
 // defined in Constants.xs
 void FUNCPTR( wxPli_add_constant_function )( double (**)( const char*, int ) );
@@ -371,7 +372,7 @@ struct wxPliHelpers
                                        wxPliCloneSV clonefn );
 #endif
     int (* m_wxPli_av_2_arrayint )( pTHX_ SV* avref, wxArrayInt* array );
-    void (* m_wxPli_set_events )( const struct wxPliEventDescription* events );
+    void (* m_wxPli_set_events )( const wxPliEventDescription* events );
     int (* m_wxPli_av_2_arraystring )( pTHX_ SV* avref, wxArrayString* array );
 };
 

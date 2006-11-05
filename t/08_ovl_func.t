@@ -962,6 +962,7 @@ ok( $news, 'Wx::BufferedDC::newSize' );
 
 SKIP: {
     skip 'Broken inheritance for 2.6.x', 2 if ref $dc eq 'Wx::MemoryDC';
+    skip 'Does not work with 2.7.1', 2 if Wx::wxVERSION < 2.007002;
 
     $dc = Wx::BufferedDC->new;
     my $backing = Wx::Bitmap->new( 200, 100 );
