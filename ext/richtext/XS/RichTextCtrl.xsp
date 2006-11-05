@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichTextCtrl.xsp,v 1.1 2006/11/05 16:28:01 mbarbon Exp $
+## RCS-ID:      $Id: RichTextCtrl.xsp,v 1.2 2006/11/05 17:40:30 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -14,6 +14,8 @@
 #include <wx/richtext/richtextctrl.h>
 #include <wx/richtext/richtextstyles.h>
 #include "cpp/richtextctrl.h"
+
+%typemap{wxChar}{simple};
 
 %module{Wx};
 %file{cpp/richtextctrl.h};
@@ -37,21 +39,27 @@ double richtextctrl_constant( const char* name, int arg )
     case 'R':
         r( wxRE_READONLY );
         r( wxRE_MULTILINE );
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
         r( wxRICHTEXT_SETSTYLE_NONE );
         r( wxRICHTEXT_SETSTYLE_WITH_UNDO );
         r( wxRICHTEXT_SETSTYLE_OPTIMIZE );
         r( wxRICHTEXT_SETSTYLE_PARAGRAPHS_ONLY );
         r( wxRICHTEXT_SETSTYLE_CHARACTERS_ONLY );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxRICHTEXT_SETSTYLE_RENUMBER );
         r( wxRICHTEXT_SETSTYLE_SPECIFY_LEVEL );
+#endif
         r( wxRICHTEXT_INSERT_NONE );
         r( wxRICHTEXT_INSERT_WITH_PREVIOUS_PARAGRAPH_STYLE );
+#endif
         r( wxRICHTEXT_FIXED_WIDTH );
         r( wxRICHTEXT_FIXED_HEIGHT );
         r( wxRICHTEXT_VARIABLE_WIDTH );
         r( wxRICHTEXT_VARIABLE_HEIGHT );
         r( wxRICHTEXT_LAYOUT_SPECIFIED_RECT );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxRICHTEXT_DRAW_IGNORE_CACHE );
+#endif
         r( wxRICHTEXT_HITTEST_NONE );
         r( wxRICHTEXT_HITTEST_BEFORE );
         r( wxRICHTEXT_HITTEST_AFTER );
@@ -71,13 +79,17 @@ double richtextctrl_constant( const char* name, int arg )
         r( wxTEXT_ATTR_LINE_SPACING );
         r( wxTEXT_ATTR_CHARACTER_STYLE_NAME );
         r( wxTEXT_ATTR_PARAGRAPH_STYLE_NAME );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxTEXT_ATTR_LIST_STYLE_NAME );
+#endif
         r( wxTEXT_ATTR_BULLET_STYLE );
         r( wxTEXT_ATTR_BULLET_NUMBER );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxTEXT_ATTR_BULLET_TEXT );
         r( wxTEXT_ATTR_BULLET_NAME );
         r( wxTEXT_ATTR_URL );
         r( wxTEXT_ATTR_PAGE_BREAK );
+#endif
         r( wxTEXT_ATTR_BULLET_STYLE_NONE );
         r( wxTEXT_ATTR_BULLET_STYLE_ARABIC );
         r( wxTEXT_ATTR_BULLET_STYLE_LETTERS_UPPER );
@@ -88,12 +100,14 @@ double richtextctrl_constant( const char* name, int arg )
         r( wxTEXT_ATTR_BULLET_STYLE_BITMAP );
         r( wxTEXT_ATTR_BULLET_STYLE_PARENTHESES );
         r( wxTEXT_ATTR_BULLET_STYLE_PERIOD );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxTEXT_ATTR_BULLET_STYLE_STANDARD );
         r( wxTEXT_ATTR_BULLET_STYLE_RIGHT_PARENTHESIS );
         r( wxTEXT_ATTR_BULLET_STYLE_OUTLINE );
         r( wxTEXT_ATTR_BULLET_STYLE_ALIGN_LEFT );
         r( wxTEXT_ATTR_BULLET_STYLE_ALIGN_RIGHT );
         r( wxTEXT_ATTR_BULLET_STYLE_ALIGN_CENTRE );
+#endif
         r( wxTEXT_ATTR_LINE_SPACING_NORMAL );
         r( wxTEXT_ATTR_LINE_SPACING_HALF );
         r( wxTEXT_ATTR_LINE_SPACING_TWICE );
@@ -118,10 +132,12 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     void SetIndex( int n );
     int GetFlags() const;
     void SetFlags( int flags );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     wxRichTextStyleSheet* GetOldStyleSheet() const;
     void SetOldStyleSheet( wxRichTextStyleSheet* sheet );
     wxRichTextStyleSheet* GetNewStyleSheet() const;
     void SetNewStyleSheet( wxRichTextStyleSheet* sheet );
+#endif
 };
 
 %name{Wx::RichTextCtrl} class wxRichTextCtrl
@@ -159,6 +175,7 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     %name{SetStyleRange} bool SetStyle( const wxRichTextRange& range,
                                         const wxRichTextAttr& style );
 
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     %name{SetStyleExExFromTo} bool SetStyleEx
         ( long start, long end, const wxTextAttrEx& style,
           int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
@@ -168,6 +185,7 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     %name{SetStyleExExRange} bool SetStyleEx
         ( const wxRichTextRange& range, const wxRichTextAttr& style,
           int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
+#endif
 
     bool Newline();
 
@@ -200,30 +218,43 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
                               int leftSubIndent,
                               int bulletStyle = wxTEXT_ATTR_DEFAULT_NUMBERED_BULLET );
     bool EndNumberedBullet();
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool BeginSymbolBullet( const wxString& symbol, int leftIndent,
                             int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_SYMBOL );
+#else
+    bool BeginSymbolBullet( wxChar symbol, int leftIndent,
+                            int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_SYMBOL );
+#endif
     bool EndSymbolBullet();
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool BeginStandardBullet( const wxString& bulletName, int leftIndent,
                               int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_STANDARD );
     bool EndStandardBullet();
+#endif
     bool BeginCharacterStyle( const wxString& characterStyle );
     bool EndCharacterStyle();
     bool BeginParagraphStyle( const wxString& paragraphStyle );
     bool EndParagraphStyle();
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool BeginListStyle( const wxString& listStyle, int level = 1,
                          int number = 1 );
     bool EndListStyle();
     bool BeginURL( const wxString& url,
                    const wxString& characterStyle = wxEmptyString );
     bool EndURL();
+#endif
     bool SetDefaultStyleToCursorStyle();
 
     void SelectNone();
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     bool SelectWord( long position );
+#endif
     wxRichTextRange GetSelectionRange() const;
     void SetSelectionRange( const wxRichTextRange& range );
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     const wxRichTextRange& GetInternalSelectionRange() const;
     void SetInternalSelectionRange( const wxRichTextRange& range );
+#endif
     wxRichTextRange AddParagraph( const wxString& text );
     wxRichTextRange AddImage( const wxImage& image );
 
@@ -268,12 +299,16 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     bool ApplyItalicToSelection();
     bool ApplyUnderlineToSelection();
     bool ApplyAlignmentToSelection(wxTextAttrAlignment alignment);
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     bool ApplyStyle(wxRichTextStyleDefinition* def);
     void SetStyleSheet( wxRichTextStyleSheet* styleSheet );
     wxRichTextStyleSheet* GetStyleSheet() const;
+    bool ApplyStyleSheet( wxRichTextStyleSheet* styleSheet = NULL );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool PushStyleSheet( wxRichTextStyleSheet* styleSheet );
     wxRichTextStyleSheet* PopStyleSheet();
-    bool ApplyStyleSheet( wxRichTextStyleSheet* styleSheet = NULL );
+#endif
 
     void PositionCaret();
     bool ExtendSelection( long oldPosition, long newPosition, int flags );
@@ -281,7 +316,9 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     void SetCaretPosition( long position, bool showAtLineStart = false );
     long GetCaretPosition() const;
 
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     long GetAdjustedCaretPosition( long caretPos ) const;
+#endif
     void MoveCaretForward( long oldPosition );
     void MoveCaretBack( long oldPosition );
 
@@ -294,12 +331,15 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     long FindNextWordPosition( int direction = 1 ) const;
     bool IsPositionVisible( long pos ) const;
     long GetFirstVisiblePosition() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     long GetCaretPositionForDefaultStyle() const;
-
     void SetCaretPositionForDefaultStyle( long pos );
     bool IsDefaultStyleShowing() const;
     void SetAndShowDefaultStyle( const wxRichTextAttr& attr );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     wxPoint GetFirstVisiblePoint() const;
+#endif
 };
 
 %{

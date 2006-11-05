@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichTextAttr.xsp,v 1.1 2006/11/05 16:28:01 mbarbon Exp $
+## RCS-ID:      $Id: RichTextAttr.xsp,v 1.2 2006/11/05 17:40:30 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -63,30 +63,38 @@ wxRichTextRange::new( ... )
 
     void SetCharacterStyleName( const wxString& name );
     void SetParagraphStyleName( const wxString& name );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void SetListStyleName( const wxString& name );
+#endif
     void SetParagraphSpacingAfter( int spacing );
     void SetParagraphSpacingBefore( int spacing );
     void SetLineSpacing( int spacing );
     void SetBulletStyle( int style );
     void SetBulletNumber( int n );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void SetBulletText( const wxString& text );
     void SetBulletName( const wxString& name );
     void SetBulletFont( const wxString& bulletFont );
     void SetURL( const wxString& url );
     void SetPageBreak( bool pageBreak = true );
+#endif
 
     const wxString& GetCharacterStyleName() const;
     const wxString& GetParagraphStyleName() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     const wxString& GetListStyleName() const;
+#endif
     int GetParagraphSpacingAfter() const;
     int GetParagraphSpacingBefore() const;
     int GetLineSpacing() const;
     int GetBulletStyle() const;
     int GetBulletNumber() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     const wxString& GetBulletText() const;
     const wxString& GetBulletName() const;
     const wxString& GetBulletFont() const;
     const wxString& GetURL() const;
+#endif
 
     bool HasWeight() const;
     bool HasSize() const;
@@ -99,13 +107,17 @@ wxRichTextRange::new( ... )
     bool HasLineSpacing() const;
     bool HasCharacterStyleName() const;
     bool HasParagraphStyleName() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool HasListStyleName() const;
+#endif
     bool HasBulletStyle() const;
     bool HasBulletNumber() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool HasBulletText() const;
     bool HasBulletName() const;
     bool HasURL() const;
     bool HasPageBreak() const;
+#endif
 
     bool IsCharacterStyle() const;
     bool IsParagraphStyle() const;
@@ -161,17 +173,21 @@ wxTextAttrEx::new( ... )
 
     void SetCharacterStyleName( const wxString& name );
     void SetParagraphStyleName( const wxString& name );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void SetListStyleName( const wxString& name );
+#endif
     void SetParagraphSpacingAfter( int spacing );
     void SetParagraphSpacingBefore( int spacing );
     void SetLineSpacing( int spacing );
     void SetBulletStyle( int style );
     void SetBulletNumber( int n );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void SetBulletText( const wxString& text );
     void SetBulletFont( const wxString& bulletFont );
     void SetBulletName( const wxString& name );
     void SetURL( const wxString& url );
     void SetPageBreak( bool pageBreak = true );
+#endif
 
     const wxColour& GetTextColour() const;
     const wxColour& GetBackgroundColour() const;
@@ -190,16 +206,20 @@ wxTextAttrEx::new( ... )
 
     const wxString& GetCharacterStyleName() const;
     const wxString& GetParagraphStyleName() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     const wxString& GetListStyleName() const;
+#endif
     int GetParagraphSpacingAfter() const;
     int GetParagraphSpacingBefore() const;
     int GetLineSpacing() const;
     int GetBulletStyle() const;
     int GetBulletNumber() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     const wxString& GetBulletText() const;
     const wxString& GetBulletFont() const;
     const wxString& GetBulletName() const;
     const wxString& GetURL() const;
+#endif
 
     bool HasTextColour() const;
     bool HasBackgroundColour() const;
@@ -219,13 +239,17 @@ wxTextAttrEx::new( ... )
     bool HasLineSpacing() const;
     bool HasCharacterStyleName() const;
     bool HasParagraphStyleName() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool HasListStyleName() const;
+#endif
     bool HasBulletStyle() const;
     bool HasBulletNumber() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool HasBulletText() const;
     bool HasBulletName() const;
     bool HasURL() const;
     bool HasPageBreak() const;
+#endif
 
     bool IsCharacterStyle() const;
     bool IsParagraphStyle() const;

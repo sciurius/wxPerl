@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     05/11/2006
-// RCS-ID:      $Id: RichText.xs,v 1.1 2006/11/05 16:28:01 mbarbon Exp $
+// RCS-ID:      $Id: RichText.xs,v 1.2 2006/11/05 17:40:30 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -39,10 +39,12 @@ static wxPliEventDescription evts[] =
     EVT( EVT_RICHTEXT_MIDDLE_CLICK, 3, wxEVT_COMMAND_RICHTEXT_MIDDLE_CLICK )
     EVT( EVT_RICHTEXT_LEFT_DCLICK, 3, wxEVT_COMMAND_RICHTEXT_LEFT_DCLICK )
     EVT( EVT_RICHTEXT_RETURN, 3, wxEVT_COMMAND_RICHTEXT_RETURN )
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     EVT( EVT_RICHTEXT_STYLESHEET_CHANGING, 3, wxEVT_COMMAND_RICHTEXT_STYLESHEET_CHANGING )
     EVT( EVT_RICHTEXT_STYLESHEET_CHANGED, 3, wxEVT_COMMAND_RICHTEXT_STYLESHEET_CHANGED )
     EVT( EVT_RICHTEXT_STYLESHEET_REPLACING, 3, wxEVT_COMMAND_RICHTEXT_STYLESHEET_REPLACING )
     EVT( EVT_RICHTEXT_STYLESHEET_REPLACED, 3, wxEVT_COMMAND_RICHTEXT_STYLESHEET_REPLACED )
+#endif
     { 0, 0, 0 }
 };
 
