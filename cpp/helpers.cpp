@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.84 2006/11/02 18:35:29 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.85 2006/11/06 23:50:42 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -97,6 +97,28 @@ my_magic* wxPli_get_or_create_magic( pTHX_ SV* rv )
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
+
+void wxPliSelfRef::DeleteSelf( bool fromDestroy )
+{
+    if( !m_self )
+        return;
+
+    dTHX;
+
+    SV* self = m_self;
+    m_self = NULL;
+    wxPli_detach_object( aTHX_ self );
+    if( SvROK( self ) )
+    {
+        if( fromDestroy )
+        {
+            SvROK_off( self );
+            SvRV( self ) = NULL;
+        }
+        if( SvREFCNT( self ) > 0 )
+            SvREFCNT_dec( self );
+    }
+}
 
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn )
 {

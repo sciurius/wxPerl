@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 7;
+use Test::More 'tests' => 17;
 use Tests_Helper qw(test_frame);
 
 test_frame( 'MyFrame' );
@@ -19,7 +19,15 @@ our $destroyed; BEGIN { $destroyed = 0 };
 
 sub DESTROY {
     $destroyed++;
+    # print "D: $_[0]\n";
     $_[0]->SUPER::DESTROY;
+}
+
+sub Clone {
+    my( $self ) = @_;
+    my $class = ref $self;
+    # my $c = $class->new( $self->GetEventType, $self->GetId ); print "C: $c\n"; return $c;
+    return $class->new( $self->GetEventType, $self->GetId );
 }
 
 package MyFrame;
@@ -48,33 +56,42 @@ sub new {
 
       $button->GetEventHandler->ProcessEvent( $event );
   }
-
   main::ok( $var, "event succesfully received" );
-  main::is( $MyEvent::destroyed, 0 );
+  main::is( $MyEvent::destroyed, 0, "no object destroyed" );
 
   $var = 0;
-
   {
       my $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
                                 $button->GetId() );
 
       $button->GetEventHandler->ProcessEvent( $event );
+      main::is( $MyEvent::destroyed, 0, "still no object destroyed" );
   }
-
-  main::ok( $var, "event succesfully received (no crash)" );
-  main::is( $MyEvent::destroyed, 1 );
+  main::ok( $var, "event succesfully received" );
+  main::is( $MyEvent::destroyed, 1, "one event destroyed" );
 
   $var = 0;
+  {
+      my $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
+                                $button->GetId() );
+      # print "E: $event\n";
+      $button->GetEventHandler->AddPendingEvent( $event );
+      main::is( $MyEvent::destroyed, 1, "still one event destroyed" );
+  }
+  main::is( $MyEvent::destroyed, 2, "original event destroyed" );
+  main::ok( !$var, "event not received before yield" );
+  Wx::wxTheApp->ProcessPendingEvents;
+  main::ok( $var, "event received after yield" );
+  main::is( $MyEvent::destroyed, 3, "cloned event destroyed" );
 
+  $var = 0;
   EVT_BUTTON( $this, $button, undef );
-
   {
       my $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
                                 $button->GetId() );
 
   }
-
-  main::is( $MyEvent::destroyed, 2 );
+  main::is( $MyEvent::destroyed, 4 );
 
   {
       my $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
@@ -82,9 +99,21 @@ sub new {
 
       $button->GetEventHandler->ProcessEvent( $event );
   }
-
   main::ok( !$var, "event handler disconnected" );
-  main::is( $MyEvent::destroyed, 3 );
+  main::is( $MyEvent::destroyed, 5 );
+
+  $var = 0;
+  {
+      my $event = MyEvent->new( &Wx::wxEVT_COMMAND_BUTTON_CLICKED,
+                                $button->GetId() );
+
+      $button->GetEventHandler->AddPendingEvent( $event );
+  }
+  main::is( $MyEvent::destroyed, 6, "original event destroyed" );
+  main::ok( !$var, "event not received before yield" );
+  Wx::wxTheApp->ProcessPendingEvents;
+  main::ok( !$var, "event not received after yield" );
+  main::is( $MyEvent::destroyed, 7, "cloned event destroyed" );
 
   $this->Destroy;
 }

@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2002
-// RCS-ID:      $Id: event.h,v 1.10 2006/11/04 22:53:26 mbarbon Exp $
-// Copyright:   (c) 2002-2004 Mattia Barbon
+// RCS-ID:      $Id: event.h,v 1.11 2006/11/06 23:50:42 mbarbon Exp $
+// Copyright:   (c) 2002-2004, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -14,7 +14,7 @@
 
 #include "cpp/v_cback.h"
 
-class wxPlEvent:public wxEvent
+class wxPlEvent : public wxEvent
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlEvent );
     WXPLI_DECLARE_V_CBACK();
@@ -24,6 +24,11 @@ public:
           m_callback( "Wx::PlEvent" )
     {
         m_callback.SetSelf( wxPli_make_object( this, package ), true );
+    }
+
+    virtual ~wxPlEvent()
+    {
+        m_callback.DeleteSelf( false );
     }
 
     virtual wxEvent* Clone() const;
@@ -36,8 +41,8 @@ wxEvent* wxPlEvent::Clone() const
 
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
-        wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback
-            ( aTHX_ &self->m_callback, G_SCALAR, NULL ) );
+        SV* ret = wxPliVirtualCallback_CallCallback
+            ( aTHX_ &self->m_callback, G_SCALAR, NULL );
         wxPlEvent* clone =
             (wxPlEvent*)wxPli_sv_2_object( aTHX_ ret, "Wx::PlEvent" );
         
@@ -49,7 +54,7 @@ wxEvent* wxPlEvent::Clone() const
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlEvent, wxEvent );
 
-class wxPlCommandEvent:public wxCommandEvent
+class wxPlCommandEvent : public wxCommandEvent
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlCommandEvent );
     WXPLI_DECLARE_V_CBACK();
@@ -59,6 +64,11 @@ public:
           m_callback( "Wx::PlCommandEvent" )
     {
         m_callback.SetSelf( wxPli_make_object( this, package ), true );
+    }
+
+    virtual ~wxPlCommandEvent()
+    {
+        m_callback.DeleteSelf( false );
     }
 
     virtual wxEvent* Clone() const;
@@ -71,11 +81,11 @@ wxEvent* wxPlCommandEvent::Clone() const
 
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
-        wxAutoSV ret( aTHX_ wxPliVirtualCallback_CallCallback
-            ( aTHX_ &self->m_callback, G_SCALAR, NULL ) );
+        SV* ret = wxPliVirtualCallback_CallCallback
+            ( aTHX_ &self->m_callback, G_SCALAR, NULL );
         wxPlCommandEvent* clone = (wxPlCommandEvent*)
             wxPli_sv_2_object( aTHX_ ret, "Wx::PlCommandEvent" );
-        
+
         return clone;
     }
 
@@ -84,7 +94,7 @@ wxEvent* wxPlCommandEvent::Clone() const
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlCommandEvent, wxCommandEvent );
 
-class wxPlThreadEvent:public wxEvent
+class wxPlThreadEvent : public wxEvent
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlThreadEvent );
 public:

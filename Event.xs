@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.59 2006/11/04 22:53:26 mbarbon Exp $
+// RCS-ID:      $Id: Event.xs,v 1.60 2006/11/06 23:50:42 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -218,9 +218,7 @@ wxPlEvent::DESTROY()
     wxPli_thread_sv_unregister( aTHX_ "Wx::PlEvent", THIS, ST(0) );
     if( THIS && wxPli_object_is_deleteable( aTHX_ ST(0) ) )
     {
-        SV* self = THIS->m_callback.GetSelf();
-        SvROK_off( self );
-        SvRV( self ) = NULL;
+        THIS->m_callback.DeleteSelf( true );
         delete THIS;
     }
 
@@ -243,9 +241,7 @@ wxPlCommandEvent::DESTROY()
     wxPli_thread_sv_unregister( aTHX_ "Wx::PlCommandEvent", THIS, ST(0) );
     if( THIS && wxPli_object_is_deleteable( aTHX_ ST(0) ) )
     {
-        SV* self = THIS->m_callback.GetSelf();
-        SvROK_off( self );
-        SvRV( self ) = NULL;
+        THIS->m_callback.DeleteSelf( true );
         delete THIS;
     }
 
