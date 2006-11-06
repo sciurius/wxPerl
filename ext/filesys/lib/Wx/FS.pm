@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/04/2001
-## RCS-ID:      $Id: FS.pm,v 1.8 2004/12/21 21:12:51 mbarbon Exp $
+## RCS-ID:      $Id: FS.pm,v 1.9 2006/11/06 23:47:34 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -30,9 +30,13 @@ no strict;
 
 package Wx::FileSystemHandler;
 package Wx::InternetFSHandler;  @ISA = qw(Wx::FileSystemHandler);
-package Wx::ZipFSHandler;       @ISA = qw(Wx::FileSystemHandler);
 package Wx::PlFileSystemHandler; @ISA = qw(Wx::FileSystemHandler);
 package Wx::PlFSFile;           @ISA = qw(Wx::FSFile);
+package Wx::ArchiveFSHandler;   @ISA = qw(Wx::FileSystemHandler);
+package Wx::ZipFSHandler;
+
+@ISA = Wx::wxVERSION() < 2.007002 ? qw(Wx::FileSystemHandler) :
+                                    qw(Wx::ArchiveFSHandler);
 
 use strict;
 

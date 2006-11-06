@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/04/2001
-## RCS-ID:      $Id: FileSystemHandler.xs,v 1.9 2005/01/04 22:10:13 mbarbon Exp $
+## RCS-ID:      $Id: FileSystemHandler.xs,v 1.10 2006/11/06 23:47:34 mbarbon Exp $
 ## Copyright:   (c) 2001-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -56,6 +56,15 @@ MODULE=Wx PACKAGE=Wx::ZipFSHandler
 
 wxZipFSHandler*
 wxZipFSHandler::new()
+
+MODULE=Wx PACKAGE=Wx::ArchiveFSHandler
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+wxArchiveFSHandler*
+wxArchiveFSHandler::new()
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::MemoryFSHandler
 
