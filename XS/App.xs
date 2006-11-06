@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: App.xs,v 1.34 2006/09/24 15:04:24 mbarbon Exp $
+## RCS-ID:      $Id: App.xs,v 1.35 2006/11/06 23:46:31 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -149,6 +149,9 @@ wxApp::MainLoop()
 
 bool
 wxApp::Pending()
+
+void
+wxApp::ProcessPendingEvents()
 
 void
 wxApp::SetAppName( name )
