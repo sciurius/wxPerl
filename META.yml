@@ -1,7 +1,7 @@
 name: Wx
 abstract: Interface to the wxWidgets cross-platform GUI toolkit
 author: Mattia Barbon <mbarbon@cpan.org>
-version: 0.60
+version: 0.61
 license: perl
 distribution_type: module
 build_requires:
@@ -19,4 +19,5 @@ no_index:
     - script
   package:
     - MY
+    - Parse::Yapp::Driver
 generated_by: Mattia Barbon, by hand

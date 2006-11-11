@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.61
+	- Added AUI.
+
 0.60  Sat Nov 11 16:48:57 CET 2006
 	- Added wxRichTextCtrl and some related classes.
 	- Removed support for wxWidgets 2.4. Supports 2.5.3 and above.
