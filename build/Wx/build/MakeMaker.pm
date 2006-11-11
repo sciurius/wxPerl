@@ -194,6 +194,12 @@ sub get_arch_directory {
   }
 }
 
+sub check_core_lib {
+  my( $this, @libs ) = @_;
+
+  return eval { Alien::wxWidgets->libraries( @libs ); 1 } ? 1 : 0;
+}
+
 sub get_core_lib {
   my( $this, @libs ) = @_;
 
@@ -368,6 +374,12 @@ sub _process_mm_arguments {
 
     m/^REQUIRE_WX$/ and do {
       $build &&= __PACKAGE__->get_wx_version() >= $v;
+      delete $args{$_};
+    };
+
+    m/^REQUIRE_WX_LIB$/ and do {
+      my @libs = split ' ', $v;
+      $build &&= __PACKAGE__->check_core_lib( @libs ) if $v=~/\S/;
       delete $args{$_};
     };
   }
