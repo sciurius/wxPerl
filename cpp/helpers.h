@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.89 2006/11/06 23:50:42 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.90 2006/11/11 21:32:09 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -188,6 +188,22 @@ int FUNCPTR( wxPli_av_2_arrayint )( pTHX_ SV* avref, wxArrayInt* array );
 // pushes the elements of the array into the stack
 // the caller _MUST_ call PUTBACK; before the function
 // and SPAGAIN; after the function
+template<class A>
+void wxPli_non_objarray_push( pTHX_ const A& things, const char* package )
+{
+    dSP;
+
+    size_t mx = things.GetCount();
+    EXTEND( SP, int(mx) );
+    for( size_t i = 0; i < mx; ++i )
+    {
+        PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                      &things[i], package ) );
+    }
+
+    PUTBACK;
+}
+
 void wxPli_stringarray_push( pTHX_ const wxArrayString& strings );
 void FUNCPTR( wxPli_intarray_push )( pTHX_ const wxArrayInt& ints );
 AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
