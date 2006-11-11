@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.72 2006/09/24 15:04:24 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.73 2006/11/11 09:35:02 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -288,6 +288,13 @@ wxWindow::FitInside()
 
 void
 wxWindow::Freeze()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+
+bool
+wxWindow::IsFrozen()
+
+#endif
 
 wxAcceleratorTable*
 wxWindow::GetAcceleratorTable()
