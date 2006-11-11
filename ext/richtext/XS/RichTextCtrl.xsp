@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichTextCtrl.xsp,v 1.2 2006/11/05 17:40:30 mbarbon Exp $
+## RCS-ID:      $Id: RichTextCtrl.xsp,v 1.3 2006/11/11 09:51:52 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -187,6 +187,9 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
           int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
 #endif
 
+    const wxTextAttrEx& GetBasicStyle() const;
+    const wxTextAttrEx& GetDefaultStyleEx() const;
+
     bool Newline();
 
     bool BeginStyle( const wxTextAttrEx& style );
@@ -244,7 +247,10 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     bool EndURL();
 #endif
     bool SetDefaultStyleToCursorStyle();
-
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool ClearListStyle( const wxRichTextRange& range,
+                         int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
+#endif
     void SelectNone();
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
     bool SelectWord( long position );
@@ -255,6 +261,7 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     const wxRichTextRange& GetInternalSelectionRange() const;
     void SetInternalSelectionRange( const wxRichTextRange& range );
 #endif
+    bool HasSelection() const;
     wxRichTextRange AddParagraph( const wxString& text );
     wxRichTextRange AddImage( const wxImage& image );
 
@@ -281,6 +288,9 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     bool BeginSuppressUndo();
     bool EndSuppressUndo();
     bool SuppressingUndo() const;
+
+    bool CanDeleteSelection() const;
+    void DeleteSelection();
 
     %name{HasCARich} bool HasCharacterAttributes
         ( const wxRichTextRange& range, const wxTextAttrEx& style ) const;
@@ -340,6 +350,16 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
     wxPoint GetFirstVisiblePoint() const;
 #endif
+
+    %name{WriteImageFile} bool WriteImage( const wxString& filename,
+                                           int bitmapType );
+    %name{WriteImageBitmap} bool WriteImage( const wxBitmap& bitmap,
+                                         int bitmapType = wxBITMAP_TYPE_PNG );
+    %name{WriteImageImage} bool WriteImage( const wxImage& image,
+                                        int bitmapType = wxBITMAP_TYPE_PNG );
+
+    %name{SetBasicStyleRich} void SetBasicStyle( const wxRichTextAttr& style );
+    %name{SetBasicStyleEx} void SetBasicStyle( const wxTextAttrEx& style );
 };
 
 %{
@@ -350,7 +370,7 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
 ## DECLARE_OVERLOAD( wtat, Wx::TextAttr )
 
 void
-new( ... )
+wxRichTextCtrl::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_VOIDM_REDISP( newDefault )
@@ -358,37 +378,158 @@ new( ... )
     END_OVERLOAD( "Wx::RichTextCtrl::new" )
 
 void
-SetStyle( ... )
+wxRichTextCtrl::SetStyle( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wrtr_wrta, SetStyleRange );
         MATCH_REDISP( wxPliOvl_n_n_wtae, SetStyleExFromTo );
         MATCH_REDISP( wxPliOvl_n_n_wtat, SetStyleFromTo );
-    END_OVERLOAD( "Wx::RichTextCtrl::new" )
+    END_OVERLOAD( "Wx::RichTextCtrl::SetStyle" )
 
 void
-SetStyleEx( ... )
+wxRichTextCtrl::SetBasicStyle( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wrta, SetBasicStyleRich );
+        MATCH_REDISP( wxPliOvl_wtae, SetBasicStyleEx );
+    END_OVERLOAD( "Wx::RichTextCtrl::SetBasicStyle" )
+
+void
+wxRichTextCtrl::SetStyleEx( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wrtr_wrta_n, SetStyleExExRange );
         MATCH_REDISP( wxPliOvl_wrtr_wtae_n, SetStyleExRange );
         MATCH_REDISP( wxPliOvl_n_n_wtae, SetStyleExExFromTo );
-    END_OVERLOAD( "Wx::RichTextCtrl::new" )
+    END_OVERLOAD( "Wx::RichTextCtrl::SetStyleEx" )
 
 void
-HasCharacterAttributes( ... )
+wxRichTextCtrl::HasCharacterAttributes( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wrtr_wrta, HasCARich );
         MATCH_REDISP( wxPliOvl_wrtr_wtae, HasCAEx );
-    END_OVERLOAD( "Wx::RichTextCtrl::new" )
+    END_OVERLOAD( "Wx::RichTextCtrl::HasCharacterAttributes" )
 
 void
-HasParagraphAttributes( ... )
+wxRichTextCtrl::HasParagraphAttributes( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wrtr_wrtr, HasPARich );
         MATCH_REDISP( wxPliOvl_wrtr_wtae, HasPAEx );
-    END_OVERLOAD( "Wx::RichTextCtrl::new" )
+    END_OVERLOAD( "Wx::RichTextCtrl::HasParagraphAttributes" )
+
+void
+wxRichTextCtrl::DeleteSelectedContent()
+  PPCODE:
+    long newPos;
+    bool retval = THIS->DeleteSelectedContent( &newPos );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( newSViv( retval ? newPos : -1 ) );
+
+void
+wxRichTextCtrl::GetCaretPositionForIndex( position )
+    long position
+  PPCODE:
+    wxRect rect;
+    bool retval = THIS->GetCaretPositionForIndex( position, rect );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxRect( rect ), "Wx::Rect" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetRichTextAttrStyle( position )
+    long position
+  PPCODE:
+    wxRichTextAttr attr;
+    bool retval = THIS->GetStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxRichTextAttr( attr ),
+                                           "Wx::RichTextAttr" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetTextAttrExStyle( position )
+    long position
+  PPCODE:
+    wxTextAttrEx attr;
+    bool retval = THIS->GetStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttrEx( attr ),
+                                           "Wx::TextAttrEx" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetTextAttrStyle( position )
+    long position
+  PPCODE:
+    wxTextAttr attr;
+    bool retval = THIS->GetStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttr( attr ),
+                                           "Wx::TextAttr" ) :
+                    &PL_sv_undef );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+
+void
+wxRichTextCtrl::GetRichTextAttrUncombinedStyle( position )
+    long position
+  PPCODE:
+    wxRichTextAttr attr;
+    bool retval = THIS->GetUncombinedStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxRichTextAttr( attr ),
+                                           "Wx::RichTextAttr" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetTextAttrExUncombinedStyle( position )
+    long position
+  PPCODE:
+    wxTextAttrEx attr;
+    bool retval = THIS->GetUncombinedStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttrEx( attr ),
+                                           "Wx::TextAttrEx" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetTextAttrUncombinedStyle( position )
+    long position
+  PPCODE:
+    wxTextAttr attr;
+    bool retval = THIS->GetUncombinedStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttr( attr ),
+                                           "Wx::TextAttr" ) :
+                    &PL_sv_undef );
+
+#endif
+
+void
+WriteImage( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wimg_n, WriteImageImage, 1 );
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n, WriteImageBitmap, 1 );
+        MATCH_REDISP( wxPliOvl_s_n, WriteImageFile );
+    END_OVERLOAD( "Wx::RichTextCtrl::WriteImage" )
+
 
 %}
