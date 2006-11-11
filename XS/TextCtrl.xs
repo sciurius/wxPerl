@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.24 2006/11/11 15:03:06 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.25 2006/11/11 21:22:48 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -61,7 +61,6 @@
     const wxColour& GetBackgroundColour() const;
     const wxFont& GetFont() const;
     wxTextAttrAlignment GetAlignment() const;
-##    const wxArrayInt& GetTabs() const;
     long GetLeftIndent() const;
     long GetLeftSubIndent() const;
     long GetRightIndent() const;
@@ -83,6 +82,14 @@ wxTextAttr::new( colText = wxNullColour, colBack = wxNullColour, font = (wxFont*
         RETVAL = new wxTextAttr( colText, colBack, *font );
   OUTPUT:
     RETVAL
+
+void
+wxTextAttr::GetTabs()
+  PPCODE:
+    const wxArrayInt& tabs = THIS->GetTabs();
+    PUTBACK;
+    wxPli_intarray_push( aTHX_ tabs );
+    SPAGAIN;
 
 %}
 
