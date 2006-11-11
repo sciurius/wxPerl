@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.23 2006/11/05 16:28:01 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.24 2006/11/11 15:03:06 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -43,7 +43,7 @@
     void SetBackgroundColour( const wxColour& colBack );
     void SetFont( const wxFont& font, long flags = wxTEXT_ATTR_FONT );
     void SetAlignment( wxTextAttrAlignment alignment );
-##    void SetTabs( const wxArrayInt& tabs );
+    void SetTabs( const wxArrayInt& tabs );
     void SetLeftIndent( int indent, int subIndent = 0 );
     void SetRightIndent( int indent );
     void SetFlags( long flags );

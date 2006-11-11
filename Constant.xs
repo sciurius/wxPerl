@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.164 2006/11/05 16:28:00 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.165 2006/11/11 15:03:06 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1988,6 +1988,26 @@ static double constant( const char *name, int arg )
 #endif
 #if !WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxTHICK_FRAME );                 // frame dialog
+#endif
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )
+    r( wxTEXT_ALIGNMENT_DEFAULT );      // textctrl
+    r( wxTEXT_ALIGNMENT_LEFT );         // textctrl
+    r( wxTEXT_ALIGNMENT_CENTRE );       // textctrl
+    r( wxTEXT_ALIGNMENT_CENTER );       // textctrl
+    r( wxTEXT_ALIGNMENT_RIGHT );        // textctrl
+    r( wxTEXT_ALIGNMENT_JUSTIFIED );    // textctrl
+    r( wxTEXT_ATTR_TEXT_COLOUR );       // textctrl
+    r( wxTEXT_ATTR_BACKGROUND_COLOUR ); // textctrl
+    r( wxTEXT_ATTR_FONT_FACE );         // textctrl
+    r( wxTEXT_ATTR_FONT_SIZE );         // textctrl
+    r( wxTEXT_ATTR_FONT_WEIGHT );       // textctrl
+    r( wxTEXT_ATTR_FONT_ITALIC );       // textctrl
+    r( wxTEXT_ATTR_FONT_UNDERLINE );    // textctrl
+    r( wxTEXT_ATTR_FONT );              // textctrl
+    r( wxTEXT_ATTR_ALIGNMENT );         // textctrl
+    r( wxTEXT_ATTR_LEFT_INDENT );       // textctrl
+    r( wxTEXT_ATTR_RIGHT_INDENT );      // textctrl
+    r( wxTEXT_ATTR_TABS );              // textctrl
 #endif
     r( wxTINY_CAPTION_HORIZ );          // miniframe
     r( wxTINY_CAPTION_VERT );           // miniframe
