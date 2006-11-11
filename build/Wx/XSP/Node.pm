@@ -6,6 +6,8 @@ Base class for the parser output.
 
 =cut
 
+use strict;
+
 sub new {
   my $ref = shift;
   my $class = ref $ref || $ref;
@@ -31,6 +33,7 @@ Contains data that should be output "as is" in the destination file.
 
 =cut
 
+use strict;
 use base 'Wx::XSP::Node';
 
 sub init {
@@ -57,6 +60,7 @@ A class.
 
 =cut
 
+use strict;
 use base 'Wx::XSP::Node';
 
 sub init {
@@ -112,6 +116,7 @@ EOT
 
 package Wx::XSP::Node::Function;
 
+use strict;
 use base 'Wx::XSP::Node';
 
 =head1 Wx::XSP::Node::Function
@@ -129,6 +134,15 @@ sub init {
   $this->{ARGUMENTS} = $args{arguments} || [];
   $this->{RET_TYPE} = $args{ret_type};
   $this->{CODE} = $args{code};
+  $this->{CLASS} = $args{class};
+  if( $this->ret_type ) {
+    $this->{TYPEMAPS}{RET_TYPE} =
+      Wx::XSP::Typemap::get_typemap_for_type( $this->ret_type );
+  }
+  foreach my $a ( @{$this->arguments} ) {
+    my $t = Wx::XSP::Typemap::get_typemap_for_type( $a->type );
+    push @{$this->{TYPEMAPS}{ARGUMENTS}}, $t;
+  }
 }
 
 =head2 Wx::XSP::Node::Function::cpp_name
@@ -167,9 +181,7 @@ sub print {
   my $fname = $this->perl_function_name;
   my $args = $this->arguments;
   my $ret_type = $this->ret_type;
-  my @typemaps;
-  my $ret_typemap = $ret_type ?
-    Wx::XSP::Typemap::get_typemap_for_type( $ret_type ) : undef;
+  my $ret_typemap = $this->{TYPEMAPS}{RET_TYPE};
   my $need_call_function = 0;
   my $init = '';
   my $arg_list = '';
@@ -178,18 +190,11 @@ sub print {
   my $output = '';
 
   if( $args ) {
-    # construct typemaps for arguments, and check if some of them require
-    # "complex" treatment
-    foreach my $a ( @$args ) {
-      my $t = Wx::XSP::Typemap::get_typemap_for_type( $a->type );
-      push @typemaps, $t;
-      $need_call_function ||= defined $t->call_parameter_code( '' );
-    }
-
     foreach my $i ( 0 .. $#$args ) {
       my $a = ${$args}[$i];
-      my $t = $typemaps[$i];
+      my $t = $this->{TYPEMAPS}{ARGUMENTS}[$i];
 
+      $need_call_function ||= defined $t->call_parameter_code( '' );
       $arg_list .= ', ' . $a->name;
       $arg_list .= ' = ' . $a->default if $a->has_default;
       $init .= '    ' . $t->cpp_type . ' ' . $a->name . "\n";
@@ -230,6 +235,10 @@ sub print {
 
     $code .= "  CODE:\n";
     $code .= '    ' . $ccode . ";\n";
+
+    if( $has_ret && defined $ret_typemap->output_code ) {
+      $code .= '    ' . $ret_typemap->output_code . ";\n";
+    }
 
     $output = "  OUTPUT: RETVAL\n" if $has_ret;
   }
@@ -275,6 +284,7 @@ sub _call_code { return $_[0]->cpp_name . '(' . $_[1] . ')'; }
 
 package Wx::XSP::Node::Method;
 
+use strict;
 use base 'Wx::XSP::Node::Function';
 
 sub class { $_[0]->{CLASS} }
@@ -286,6 +296,7 @@ sub is_method { 1 }
 
 package Wx::XSP::Node::Constructor;
 
+use strict;
 use base 'Wx::XSP::Node::Method';
 
 sub init {
@@ -299,7 +310,7 @@ sub ret_type {
   my $this = shift;
 
   Wx::XSP::Node::Type->new( base      => $this->class->cpp_name,
-                          pointer   => 1 );
+                            pointer   => 1 );
 }
 
 sub perl_function_name {
@@ -321,6 +332,7 @@ sub _call_code { return "new " . $_[0]->class->cpp_name .
 
 package Wx::XSP::Node::Destructor;
 
+use strict;
 use base 'Wx::XSP::Node::Method';
 
 sub init {
@@ -334,6 +346,7 @@ sub perl_function_name { $_[0]->class->cpp_name . '::' . 'DESTROY' }
 
 package Wx::XSP::Node::Argument;
 
+use strict;
 use base 'Wx::XSP::Node';
 
 sub init {
@@ -362,6 +375,7 @@ sub has_default { defined $_[0]->{DEFAULT} }
 
 package Wx::XSP::Node::Type;
 
+use strict;
 use base 'Wx::XSP::Node';
 
 sub init {
@@ -412,6 +426,7 @@ sub print {
 
 package Wx::XSP::Node::Module;
 
+use strict;
 use base 'Wx::XSP::Node';
 
 sub init {
@@ -427,6 +442,7 @@ sub print { "\n" }
 
 package Wx::XSP::Node::File;
 
+use strict;
 use base 'Wx::XSP::Node';
 
 sub init {

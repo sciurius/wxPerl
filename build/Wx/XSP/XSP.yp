@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: XSP.yp,v 1.2 2006/08/20 09:28:09 mbarbon Exp $
+## RCS-ID:      $Id: XSP.yp,v 1.3 2006/11/11 21:31:10 mbarbon Exp $
 ## Copyright:   (c) 2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -39,35 +39,39 @@ typemap:        p_typemap OPCURLY type CLCURLY OPCURLY ID CLCURLY
                       Wx::XSP::Typemap::add_typemap_for_type( $type, $tm );
                       undef }
               | p_typemap OPCURLY type CLCURLY OPCURLY ID CLCURLY
-                special_block
+                  special_blocks
                     { my $package = "Wx::XSP::Typemap::" . $_[6];
-                      my( $type, $arg1 ) = ( $_[3], join( '', @{$_[8]} ) );
-                      my $tm = $package->new( type => $type,
-                                              arg1 => $arg1 );
+                      my $type = $_[3]; my $c = 0;
+                      my %args = map { "arg" . ++$c => $_ }
+                                 map { join( '', @$_ ) }
+                                     @{$_[8]};
+                      my $tm = $package->new( type => $type, %args );
                       Wx::XSP::Typemap::add_typemap_for_type( $type, $tm );
                       undef };
 
 raw:    RAW_CODE        { add_data_raw( $_[0], [ $_[1] ] ) }
-      | special_block   { add_data_raw( $_[0], $_[1] ) };
+      | special_block   { add_data_raw( $_[0], [ @{$_[1]}, '' ] ) };
 
-class:  perc_name 'class' ID OPCURLY methods CLCURLY SEMICOLON
-            { add_data_class( $_[0], class   => $_[3],
-                                     perl    => $_[1],
-                                     methods => $_[5] ) }
-      | 'class' ID OPCURLY methods CLCURLY SEMICOLON
-            { add_data_class( $_[0], class   => $_[2],
-                                     methods => $_[4] ) }
-      | perc_name 'class' ID OPCURLY CLCURLY SEMICOLON
-            { add_data_class( $_[0], class   => $_[3],
-                                     perl    => $_[1] ) }
-      | 'class' ID OPCURLY CLCURLY SEMICOLON
-            { add_data_class( $_[0], class   => $_[2] ) };
+class: class_head class_body
+           { $_[2] ? set_data_class( $_[0],
+                                     class   => $_[1],
+                                     methods => $_[2] ) : $_[1] };
+
+class_head:  perc_name 'class' ID
+                 { $class = create_class( $_[0], $_[3], $_[1] ) }
+           | 'class' ID
+                 { $class = create_class( $_[0], $_[2] ) };
+
+class_body:  OPCURLY methods CLCURLY SEMICOLON { $_[2] }
+           | OPCURLY CLCURLY SEMICOLON { undef };
 
 methods:        method          { [ $_[1] ] }
               | methods method  { push @{$_[1]}, $_[2]; $_[1] }
-              | RAW_CODE        { [ add_data_raw( $_[0], [ $_[1] ] ) ] }
-              | methods RAW_CODE
-                    { push @{$_[1]}, add_data_raw( $_[0], [ $_[2] ] ); $_[1] };
+              | raw             { [ $_[1] ] }
+              | methods raw     { push @{$_[1]}, $_[2]; $_[1] }
+              | typemap SEMICOLON
+              | methods typemap SEMICOLON
+              ;
 
 method:         function { my $f = $_[1];
                            my $m = add_data_method
@@ -75,7 +79,9 @@ method:         function { my $f = $_[1];
                                name      => $f->cpp_name,
                                ret_type  => $f->ret_type,
                                arguments => $f->arguments,
-                               code      => $f->code );
+                               code      => $f->code,
+                               class     => $class,
+                               );
                            $m->{PERL_NAME} = $_[1]->{PERL_NAME};
                            $m
                          }
@@ -97,23 +103,27 @@ _func:          type ID OPPAR arg_list CLPAR metadata const SEMICOLON
                                          name      => $_[2],
                                          ret_type  => $_[1],
                                          arguments => $_[4],
+                                         class     => $class,
                                          @{ $_[6] } ) }
               | type ID OPPAR CLPAR metadata const SEMICOLON
                     { add_data_function( $_[0],
                                          name     => $_[2],
                                          ret_type => $_[1],
+                                         class     => $class,
                                          @{ $_[5] } ) };
 
 ctor:           ID OPPAR arg_list CLPAR metadata SEMICOLON
                     { add_data_ctor( $_[0], name      => $_[1],
                                             arguments => $_[3],
+                                            class     => $class,
                                             @{ $_[5] } ) }
               | ID OPPAR CLPAR metadata SEMICOLON
-                    { add_data_ctor( $_[0], name => $_[1],
+                    { add_data_ctor( $_[0], name  => $_[1],
+                                            class => $class,
                                             @{ $_[4] } ) };
 
 dtor:           TILDE ID OPPAR CLPAR SEMICOLON
-                    { add_data_dtor( $_[0], $_[2] ) };
+                    { add_data_dtor( $_[0], $_[2], $class ) };
 
 metadata:       perc_code       { $_[1] }
               |                 { [] };
@@ -158,8 +168,17 @@ value:          INTEGER
               ;
 
 
+special_blocks:  special_block
+                     { [ $_[1] ] }
+               | special_blocks special_block
+                     { [ @{$_[1]}, $_[2] ] }
+               ;
+
 special_block:          special_block_start lines special_block_end
-                            { $_[2] };
+                            { $_[2] }
+              |         special_block_start special_block_end
+                            { [] }
+              ;
 
 special_block_start:    OPSPECIAL       { push_lex_mode( $_[0], 'special' ) };
 
@@ -329,48 +348,60 @@ sub make_argument {
                               default => $default );
 }
 
-sub add_data_class {
+sub create_class {
+  my( $parser, $name, $perl ) = @_;
+  my $class = Wx::XSP::Node::Class->new( perl_name => $perl,
+                                         cpp_name  => $name,
+                                         );
+  return $class;
+}
+
+sub set_data_class {
   my( $parser, %args ) = @_;
+  $args{class}->{METHODS} = $args{methods};
 
-  my $class = Wx::XSP::Node::Class->new( perl_name => $args{perl},
-                                       cpp_name => $args{class},
-                                       methods => $args{methods} );
-
-  foreach my $m ( @{$class->methods} ) { $m->{CLASS} = $class }
-
-  $class;
+  return $args{class};
 }
 
 sub add_data_function {
   my( $parser, %args ) = @_;
 
   Wx::XSP::Node::Function->new( cpp_name  => $args{name},
-                              ret_type  => $args{ret_type},
-                              arguments => $args{arguments},
-                              code      => $args{code} );
+                                class     => $args{class},
+                                ret_type  => $args{ret_type},
+                                arguments => $args{arguments},
+                                code      => $args{code},
+                                );
 }
 
 sub add_data_method {
   my( $parser, %args ) = @_;
 
+  die "PANIC: method $args{name} without class" unless $args{class};
   Wx::XSP::Node::Method->new( cpp_name  => $args{name},
-                            ret_type  => $args{ret_type},
-                            arguments => $args{arguments},
-                            code      => $args{code} );
+                              class     => $args{class},
+                              ret_type  => $args{ret_type},
+                              arguments => $args{arguments},
+                              code      => $args{code},
+                              );
 }
 
 sub add_data_ctor {
   my( $parser, %args ) = @_;
 
+  die "PANIC: constructor $args{name} without class" unless $args{class};
   Wx::XSP::Node::Constructor->new( cpp_name  => $args{name},
-                                 arguments => $args{arguments},
-                                 code      => $args{code} );
+                                   class     => $args{class},
+                                   arguments => $args{arguments},
+                                   code      => $args{code},
+                                   );
 }
 
 sub add_data_dtor {
-  my( $parser, $name ) = @_;
+  my( $parser, $name, $class ) = @_;
 
-  Wx::XSP::Node::Destructor->new( cpp_name => $name ); 
+  die "PANIC: destructor $name without class" unless $class;
+  Wx::XSP::Node::Destructor->new( cpp_name => $name, class => $class ); 
 }
 
 sub is_directive {

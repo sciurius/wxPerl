@@ -43,16 +43,16 @@ sub init { }
 
 sub cpp_type { die; }
 sub input_code { die; }
-sub output_code { }
-sub call_parameter_code { }
-sub call_function_code { }
+sub output_code { undef }
+sub call_parameter_code { undef }
+sub call_function_code { undef }
 
 my @typemaps;
 
 sub add_typemap_for_type {
   my( $type, $typemap ) = @_;
 
-  push @typemaps, [ $type, $typemap ];
+  unshift @typemaps, [ $type, $typemap ];
 }
 
 sub get_typemap_for_type {
@@ -81,16 +81,18 @@ sub init {
   $this->{TYPE} = $args{type};
   $this->{CPP_TYPE} = $args{cpp_type} || $args{arg1};
   $this->{CALL_FUNCTION_CODE} = $args{call_function_code} || $args{arg2};
+  $this->{OUTPUT_CODE} = $args{output_code} || $args{arg3};
 }
 
 sub cpp_type { $_[0]->{CPP_TYPE} }
 sub input_code { undef }
-sub output_code { }
-sub call_parameter_code { }
+sub output_code { $_[0]->{OUTPUT_CODE} }
+sub call_parameter_code { undef }
 sub call_function_code {
   my $this = shift;
   my( $func, $var ) = @_;
-  return unless defined $this->{CALL_FUNCTION_CODE};
+  return unless    defined $this->{CALL_FUNCTION_CODE}
+                && length $this->{CALL_FUNCTION_CODE};
   my $code = $this->{CALL_FUNCTION_CODE};
 
   $code =~ s/\$1/$func/g;
@@ -128,8 +130,8 @@ sub init {
 }
 
 sub cpp_type { $_[0]->{TYPE}->base_type . '*' }
-sub input_code { "" }
-sub output_code { "" }
+sub input_code { undef }
+sub output_code { undef }
 sub call_parameter_code { "*( $_[1] )" }
 sub call_function_code {
   $_[2] . ' = new ' . $_[0]->type->base_type . '( ' . $_[1] . " )";
