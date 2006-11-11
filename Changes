@@ -1,11 +1,11 @@
 Revision history for Perl extension Wx.
 
-0.60
+0.60  Sat Nov 11 16:48:57 CET 2006
 	- Added wxRichTextCtrl and some related classes.
 	- Removed support for wxWidgets 2.4. Supports 2.5.3 and above.
 	- Added wxSimpleHtmlListBox, wxColourPickerCtrl, wxFontPickerCtrl,
 	  wxFilePickerCtrl, wxDirPickerCtrl, wxAboutDialog (2.7).
-	- Resolved memory leak with classes serived from Wx::PlEvent and
+	- Resolved memory leak with classes derived from Wx::PlEvent and
 	  Wx::PlCommandEvent.
 
 0.59  Fri Oct 20 22:05:45 CEST 2006
