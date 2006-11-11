@@ -1,0 +1,15 @@
+#############################################################################
+## Name:        ext/aui/typemap
+## Purpose:     typemap
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     11/11/2006
+## RCS-ID:      $Id: typemap,v 1.1 2006/11/11 21:34:07 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+wxAuiManager *          O_WXEVTHANDLER
+wxAuiPaneInfo *         O_NON_WXOBJECT

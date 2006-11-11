@@ -19,7 +19,7 @@ use vars qw(@EXPORT @subdirs);
 my @top_level_xs = qw(Wx.xs Constant.xs Controls.xs Event.xs
                       Frames.xs GDI.xs Window.xs);
 @subdirs = qw(socket dnd filesys grid help html mdi print xrc stc docview
-              calendar datetime media richtext);
+              calendar datetime media richtext aui);
 my %subdirs;
 
 Wx::build::MakeMaker::_set_is_wxPerl_tree( 1 );

@@ -1,0 +1,125 @@
+#############################################################################
+## Name:        ext/aui/XS/AuiManager.xsp
+## Purpose:     XS++ for Wx::AuiManager
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     11/11/2006
+## RCS-ID:      $Id: AuiManager.xsp,v 1.1 2006/11/11 21:34:07 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/aui/framemanager.h>
+#include "cpp/aui.h"
+
+%module{Wx};
+%file{cpp/aui.h};
+%{
+
+double aui_constant( const char* name, int arg )
+{
+    // !package: Wx
+    // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+    // !tag: aui
+#define r( n ) \
+    if( strEQ( name, #n ) ) \
+        return n;
+
+    WX_PL_CONSTANT_INIT();
+
+    switch( fl )
+    {
+    case 'R':
+        break;
+    }
+#undef r
+
+    WX_PL_CONSTANT_CLEANUP();
+}
+
+wxPlConstants aui_module( &aui_constant );
+
+%}
+%file{-};
+
+%name{Wx::AuiManager} class wxAuiManager
+{
+    wxAuiManager( wxWindow* managed_wnd = NULL,
+                  unsigned int flags = wxAUI_MGR_DEFAULT );
+    ~wxAuiManager();
+    void UnInit();
+
+    void SetFlags( unsigned int flags );
+    unsigned int GetFlags() const;
+
+    void SetManagedWindow( wxWindow* managed_wnd );
+    wxWindow* GetManagedWindow() const;
+
+##    void SetArtProvider(wxAuiDockArt* art_provider);
+##    wxAuiDockArt* GetArtProvider() const;
+
+    %name{GetPaneWindow} wxAuiPaneInfo& GetPane( wxWindow* window );
+    %name{GetPaneString} wxAuiPaneInfo& GetPane( const wxString& name );
+
+    %name{AddPaneDefault} bool AddPane( wxWindow* window,
+                                        const wxAuiPaneInfo& pane_info );
+    %name{AddPanePoint} bool AddPane( wxWindow* window,
+                                      const wxAuiPaneInfo& pane_info,
+                                      const wxPoint& drop_pos );
+    %name{AddPaneDirection} bool AddPane( wxWindow* window,
+                                          int direction = wxLEFT,
+                                          const wxString& caption = wxEmptyString );
+
+    bool InsertPane( wxWindow* window,
+                     const wxAuiPaneInfo& insert_location,
+                     int insert_level = wxAUI_INSERT_PANE );
+
+    bool DetachPane( wxWindow* window );
+    
+    void ClosePane( wxAuiPaneInfo& pane_info );
+    void MaximizePane( wxAuiPaneInfo& pane_info );
+    void RestorePane( wxAuiPaneInfo& pane_info );
+    void RestoreMaximizedPane();
+
+    wxString SavePaneInfo( wxAuiPaneInfo& pane );
+    void LoadPaneInfo( wxString pane_part, wxAuiPaneInfo &pane );
+
+    wxString SavePerspective();
+
+    bool LoadPerspective( const wxString& perspective,
+                          bool update = true );
+
+    void Update();
+};
+
+%{
+
+## DECLARE_OVERLOAD( wapi, Wx::AuiPaneInfo )
+
+void
+wxAuiManager::GetPane( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin, GetPaneWindow )
+        MATCH_REDISP( wxPliOvl_s, GetPaneString )
+    END_OVERLOAD( "Wx::AuiManager::GetPane" )
+
+void
+wxAuiManager::GetAllPanes()
+  PPCODE:
+    const wxAuiPaneInfoArray& panes = THIS->GetAllPanes();
+    PUTBACK;
+    wxPli_non_objarray_push( aTHX_ panes, "Wx::AuiPaneInfo" );
+    SPAGAIN;
+
+void
+wxAuiManager::AddPane( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin_wapi, AddPaneDefault )
+        MATCH_REDISP( wxPliOvl_wwin_wapi_wpoi, AddPanePoint )
+        MATCH_REDISP( wxPliOvl_wwin_n_s, AddPaneDirection )
+    END_OVERLOAD( "Wx::AuiManager::AddPane" )
+
+%}

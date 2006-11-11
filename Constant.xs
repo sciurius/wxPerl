@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.165 2006/11/11 15:03:06 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.166 2006/11/11 21:34:07 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -2500,6 +2500,9 @@ _get_packages()
 #endif
 #if wxPERL_USE_RICHTEXT && WXPERL_W_VERSION_GE( 2, 7, 0 )
     "use Wx::RichText;"
+#endif
+#if wxPERL_USE_AUI && WXPERL_W_VERSION_GE( 2, 7, 2 )
+    "use Wx::AUI;"
 #endif
     ;
 

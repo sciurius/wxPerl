@@ -1,0 +1,16 @@
+#############################################################################
+## Name:        ext/aui/typemap.xsp
+## Purpose:     typemap file for xsubppp.pl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     11/11/2006
+## RCS-ID:      $Id: typemap.xsp,v 1.1 2006/11/11 21:34:07 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%typemap{wxAuiManager *}{simple};
+%typemap{wxAuiPaneInfo *}{simple};
+%typemap{const wxAuiPaneInfo&}{reference};
+%typemap{wxAuiPaneInfo&}{reference};

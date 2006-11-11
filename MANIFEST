@@ -286,6 +286,15 @@ cpp/wxPerl.osx/wxPerl_Prefix.pch
 ext/Makefile.PL
 ext/pperl/Makefile.PL
 
+ext/aui/AUI.xs
+ext/aui/Makefile.PL
+ext/aui/XS/AuiManager.xsp
+ext/aui/XS/AuiPaneInfo.xsp
+ext/aui/lib/Wx/AUI.pm
+ext/aui/t/01_load.t
+ext/aui/typemap
+ext/aui/typemap.xsp
+
 ext/calendar/Calendar.pm
 ext/calendar/Calendar.xs
 ext/calendar/Makefile.PL
