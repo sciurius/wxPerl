@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     11/11/2006
-// RCS-ID:      $Id: AUI.xs,v 1.2 2006/11/12 17:27:17 mbarbon Exp $
+// RCS-ID:      $Id: AUI.xs,v 1.3 2006/11/12 17:35:25 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -59,6 +59,8 @@ INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/Aui
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/AuiPaneInfo.xsp |
 
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/AuiNotebook.xsp |
+
+MODULE=Wx__AUI PACKAGE=Wx::AUI
 
 void
 SetEvents()

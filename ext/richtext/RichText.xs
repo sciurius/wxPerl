@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     05/11/2006
-// RCS-ID:      $Id: RichText.xs,v 1.3 2006/11/12 17:27:00 mbarbon Exp $
+// RCS-ID:      $Id: RichText.xs,v 1.4 2006/11/12 17:35:25 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -62,6 +62,8 @@ INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/Ric
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyle.xsp |
 
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyleCtrl.xsp |
+
+MODULE=Wx__RichText PACKAGE=Wx::RichText
 
 void
 SetEvents()
