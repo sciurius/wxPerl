@@ -1283,7 +1283,12 @@ sub new {
 	},
 	{#State 122
 		ACTIONS => {
-			'SEMICOLON' => 132
+			'p_code' => 116
+		},
+		DEFAULT => -41,
+		GOTOS => {
+			'perc_code' => 115,
+			'metadata' => 132
 		}
 	},
 	{#State 123
@@ -1341,11 +1346,13 @@ sub new {
 		DEFAULT => -38
 	},
 	{#State 132
-		DEFAULT => -39
+		ACTIONS => {
+			'SEMICOLON' => 144
+		}
 	},
 	{#State 133
 		ACTIONS => {
-			'SEMICOLON' => 144
+			'SEMICOLON' => 145
 		}
 	},
 	{#State 134
@@ -1353,8 +1360,8 @@ sub new {
 	},
 	{#State 135
 		ACTIONS => {
-			'DCOLON' => 145,
-			'OPPAR' => 146
+			'DCOLON' => 146,
+			'OPPAR' => 147
 		},
 		DEFAULT => -74
 	},
@@ -1363,7 +1370,7 @@ sub new {
 	},
 	{#State 137
 		ACTIONS => {
-			'INTEGER' => 147
+			'INTEGER' => 148
 		}
 	},
 	{#State 138
@@ -1381,7 +1388,7 @@ sub new {
 		},
 		DEFAULT => -13,
 		GOTOS => {
-			'special_block' => 148,
+			'special_block' => 149,
 			'special_block_start' => 6
 		}
 	},
@@ -1392,14 +1399,17 @@ sub new {
 		DEFAULT => -37
 	},
 	{#State 144
-		DEFAULT => -35
+		DEFAULT => -39
 	},
 	{#State 145
-		ACTIONS => {
-			'ID' => 149
-		}
+		DEFAULT => -35
 	},
 	{#State 146
+		ACTIONS => {
+			'ID' => 150
+		}
+	},
+	{#State 147
 		ACTIONS => {
 			'INTEGER' => 138,
 			'ID' => 135,
@@ -1408,24 +1418,24 @@ sub new {
 			'FLOAT' => 136
 		},
 		GOTOS => {
-			'value' => 150
+			'value' => 151
 		}
-	},
-	{#State 147
-		DEFAULT => -71
 	},
 	{#State 148
-		DEFAULT => -78
+		DEFAULT => -71
 	},
 	{#State 149
-		DEFAULT => -75
+		DEFAULT => -78
 	},
 	{#State 150
-		ACTIONS => {
-			'CLPAR' => 151
-		}
+		DEFAULT => -75
 	},
 	{#State 151
+		ACTIONS => {
+			'CLPAR' => 152
+		}
+	},
+	{#State 152
 		DEFAULT => -76
 	}
 ],
@@ -1680,75 +1690,78 @@ sub
                                             @{ $_[4] } ) }
 	],
 	[#Rule 39
-		 'dtor', 5,
+		 'dtor', 6,
 sub
 #line 126 "build/Wx/XSP/XSP.yp"
-{ add_data_dtor( $_[0], $_[2], $class ) }
+{ add_data_dtor( $_[0], name  => $_[2],
+                                            class => $class,
+                                            @{ $_[5] },
+                                      ) }
 	],
 	[#Rule 40
 		 'metadata', 1,
 sub
-#line 128 "build/Wx/XSP/XSP.yp"
+#line 131 "build/Wx/XSP/XSP.yp"
 { $_[1] }
 	],
 	[#Rule 41
 		 'metadata', 0,
 sub
-#line 129 "build/Wx/XSP/XSP.yp"
+#line 132 "build/Wx/XSP/XSP.yp"
 { [] }
 	],
 	[#Rule 42
 		 'perc_name', 4,
 sub
-#line 131 "build/Wx/XSP/XSP.yp"
+#line 134 "build/Wx/XSP/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 43
 		 'perc_module', 4,
 sub
-#line 132 "build/Wx/XSP/XSP.yp"
+#line 135 "build/Wx/XSP/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 44
 		 'perc_file', 4,
 sub
-#line 133 "build/Wx/XSP/XSP.yp"
+#line 136 "build/Wx/XSP/XSP.yp"
 { $_[3] }
 	],
 	[#Rule 45
 		 'perc_code', 2,
 sub
-#line 134 "build/Wx/XSP/XSP.yp"
+#line 137 "build/Wx/XSP/XSP.yp"
 { [ code => $_[2] ] }
 	],
 	[#Rule 46
 		 'type', 3,
 sub
-#line 136 "build/Wx/XSP/XSP.yp"
+#line 139 "build/Wx/XSP/XSP.yp"
 { make_cptr( $_[0], $_[2] ) }
 	],
 	[#Rule 47
 		 'type', 3,
 sub
-#line 137 "build/Wx/XSP/XSP.yp"
+#line 140 "build/Wx/XSP/XSP.yp"
 { make_cref( $_[0], $_[2] ) }
 	],
 	[#Rule 48
 		 'type', 2,
 sub
-#line 138 "build/Wx/XSP/XSP.yp"
+#line 141 "build/Wx/XSP/XSP.yp"
 { make_ptr( $_[0], $_[1] ) }
 	],
 	[#Rule 49
 		 'type', 2,
 sub
-#line 139 "build/Wx/XSP/XSP.yp"
+#line 142 "build/Wx/XSP/XSP.yp"
 { make_ref( $_[0], $_[1] ) }
 	],
 	[#Rule 50
 		 'type', 1,
 sub
-#line 140 "build/Wx/XSP/XSP.yp"
+#line 143 "build/Wx/XSP/XSP.yp"
 { make_type( $_[0], $_[1] ) }
 	],
 	[#Rule 51
@@ -1787,49 +1800,49 @@ sub
 	[#Rule 62
 		 'class_name', 3,
 sub
-#line 148 "build/Wx/XSP/XSP.yp"
+#line 151 "build/Wx/XSP/XSP.yp"
 { $_[1] . '::' . $_[3] }
 	],
 	[#Rule 63
 		 'file_name', 1,
 sub
-#line 150 "build/Wx/XSP/XSP.yp"
+#line 153 "build/Wx/XSP/XSP.yp"
 { '-' }
 	],
 	[#Rule 64
 		 'file_name', 3,
 sub
-#line 151 "build/Wx/XSP/XSP.yp"
+#line 154 "build/Wx/XSP/XSP.yp"
 { $_[1] . '.' . $_[3] }
 	],
 	[#Rule 65
 		 'file_name', 3,
 sub
-#line 152 "build/Wx/XSP/XSP.yp"
+#line 155 "build/Wx/XSP/XSP.yp"
 { $_[1] . '/' . $_[3] }
 	],
 	[#Rule 66
 		 'arg_list', 1,
 sub
-#line 154 "build/Wx/XSP/XSP.yp"
+#line 157 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 67
 		 'arg_list', 3,
 sub
-#line 155 "build/Wx/XSP/XSP.yp"
+#line 158 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[3]; $_[1] }
 	],
 	[#Rule 68
 		 'argument', 2,
 sub
-#line 157 "build/Wx/XSP/XSP.yp"
+#line 160 "build/Wx/XSP/XSP.yp"
 { make_argument( @_ ) }
 	],
 	[#Rule 69
 		 'argument', 4,
 sub
-#line 159 "build/Wx/XSP/XSP.yp"
+#line 162 "build/Wx/XSP/XSP.yp"
 { make_argument( @_[0, 1, 2, 4] ) }
 	],
 	[#Rule 70
@@ -1838,7 +1851,7 @@ sub
 	[#Rule 71
 		 'value', 2,
 sub
-#line 162 "build/Wx/XSP/XSP.yp"
+#line 165 "build/Wx/XSP/XSP.yp"
 { '-' . $_[2] }
 	],
 	[#Rule 72
@@ -1853,61 +1866,61 @@ sub
 	[#Rule 75
 		 'value', 3,
 sub
-#line 166 "build/Wx/XSP/XSP.yp"
+#line 169 "build/Wx/XSP/XSP.yp"
 { $_[1] . '::' . $_[3] }
 	],
 	[#Rule 76
 		 'value', 4,
 sub
-#line 167 "build/Wx/XSP/XSP.yp"
+#line 170 "build/Wx/XSP/XSP.yp"
 { "$_[1]($_[3])" }
 	],
 	[#Rule 77
 		 'special_blocks', 1,
 sub
-#line 172 "build/Wx/XSP/XSP.yp"
+#line 175 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 78
 		 'special_blocks', 2,
 sub
-#line 174 "build/Wx/XSP/XSP.yp"
+#line 177 "build/Wx/XSP/XSP.yp"
 { [ @{$_[1]}, $_[2] ] }
 	],
 	[#Rule 79
 		 'special_block', 3,
 sub
-#line 178 "build/Wx/XSP/XSP.yp"
+#line 181 "build/Wx/XSP/XSP.yp"
 { $_[2] }
 	],
 	[#Rule 80
 		 'special_block', 2,
 sub
-#line 180 "build/Wx/XSP/XSP.yp"
+#line 183 "build/Wx/XSP/XSP.yp"
 { [] }
 	],
 	[#Rule 81
 		 'special_block_start', 1,
 sub
-#line 183 "build/Wx/XSP/XSP.yp"
+#line 186 "build/Wx/XSP/XSP.yp"
 { push_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 82
 		 'special_block_end', 1,
 sub
-#line 185 "build/Wx/XSP/XSP.yp"
+#line 188 "build/Wx/XSP/XSP.yp"
 { pop_lex_mode( $_[0], 'special' ) }
 	],
 	[#Rule 83
 		 'lines', 1,
 sub
-#line 187 "build/Wx/XSP/XSP.yp"
+#line 190 "build/Wx/XSP/XSP.yp"
 { [ $_[1] ] }
 	],
 	[#Rule 84
 		 'lines', 2,
 sub
-#line 188 "build/Wx/XSP/XSP.yp"
+#line 191 "build/Wx/XSP/XSP.yp"
 { push @{$_[1]}, $_[2]; $_[1] }
 	]
 ],
@@ -1915,7 +1928,7 @@ sub
     bless($self,$class);
 }
 
-#line 190 "build/Wx/XSP/XSP.yp"
+#line 193 "build/Wx/XSP/XSP.yp"
 
 
 use Wx::XSP::Node;
@@ -2127,10 +2140,13 @@ sub add_data_ctor {
 }
 
 sub add_data_dtor {
-  my( $parser, $name, $class ) = @_;
+  my( $parser, %args ) = @_;
 
-  die "PANIC: destructor $name without class" unless $class;
-  Wx::XSP::Node::Destructor->new( cpp_name => $name, class => $class ); 
+  die "PANIC: destructor $args{name} without class" unless $args{class};
+  Wx::XSP::Node::Destructor->new( cpp_name  => $args{name},
+                                  class     => $args{class},
+                                  code      => $args{code},
+                                  );
 }
 
 sub is_directive {
