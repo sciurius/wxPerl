@@ -183,18 +183,19 @@ sub print {
   my $ret_type = $this->ret_type;
   my $ret_typemap = $this->{TYPEMAPS}{RET_TYPE};
   my $need_call_function = 0;
-  my $init = '';
-  my $arg_list = '';
-  my $call_arg_list = '';
-  my $code = '';
-  my $output = '';
+  my( $init, $arg_list, $call_arg_list, $code, $output, $cleanup, $precall ) =
+    ( '', '', '', '', '', '', '' );
 
   if( $args ) {
+    my $has_self = $this->is_method ? 1 : 0;
     foreach my $i ( 0 .. $#$args ) {
       my $a = ${$args}[$i];
       my $t = $this->{TYPEMAPS}{ARGUMENTS}[$i];
+      my $pc = $t->precall_code( sprintf( 'ST(%d)', $i + $has_self ),
+                                 $a->name );
 
-      $need_call_function ||= defined $t->call_parameter_code( '' );
+      $need_call_function ||=    defined $t->call_parameter_code( '' )
+                              || defined $pc;
       $arg_list .= ', ' . $a->name;
       $arg_list .= ' = ' . $a->default if $a->has_default;
       $init .= '    ' . $t->cpp_type . ' ' . $a->name . "\n";
@@ -203,6 +204,7 @@ sub print {
       $call_arg_list .= ', ' . ( defined( $call_code ) ?
                                             $call_code :
                                             $a->name );
+      $precall .= $pc . ";\n" if $pc
     }
 
     $arg_list = substr( $arg_list, 1 ) . ' ' if length $arg_list;
@@ -211,7 +213,9 @@ sub print {
   }
   # same for return value
   $need_call_function ||= $ret_typemap &&
-    defined $ret_typemap->call_function_code( '', '' );
+    ( defined $ret_typemap->call_function_code( '', '' ) ||
+      defined $ret_typemap->output_code ||
+      defined $ret_typemap->cleanup_code );
   # is C++ name != Perl name?
   $need_call_function ||= $this->cpp_name ne $this->perl_name;
 
@@ -234,13 +238,18 @@ sub print {
     }
 
     $code .= "  CODE:\n";
+    $code .= '    ' . $precall if $precall;
     $code .= '    ' . $ccode . ";\n";
 
     if( $has_ret && defined $ret_typemap->output_code ) {
       $code .= '    ' . $ret_typemap->output_code . ";\n";
     }
-
     $output = "  OUTPUT: RETVAL\n" if $has_ret;
+
+    if( $has_ret && defined $ret_typemap->cleanup_code ) {
+      $cleanup .= "  CLEANUP:\n";
+      $cleanup .= '    ' . $ret_typemap->cleanup_code . ";\n";
+    }
   }
 
   if( $this->code ) {
@@ -264,6 +273,7 @@ EOT
   $out .= $init;
   $out .= $code;
   $out .= $output;
+  $out .= $cleanup;
   $out .= "\n";
 }
 

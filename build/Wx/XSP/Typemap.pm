@@ -33,6 +33,8 @@ the C++ variable(s).
 
 =head2 Wx::XSP::Typemap::output_code()
 
+=head2 Wx::XSP::Typemap::cleanup_code()
+
 =head2 Wx::XSP::Typemap::call_parameter_code( parameter_name )
 
 =head2 Wx::XSP::Typemap::call_function_code( function_call_code, return_variable )
@@ -43,7 +45,9 @@ sub init { }
 
 sub cpp_type { die; }
 sub input_code { die; }
+sub precall_code { undef }
 sub output_code { undef }
+sub cleanup_code { undef }
 sub call_parameter_code { undef }
 sub call_function_code { undef }
 
@@ -74,31 +78,49 @@ package Wx::XSP::Typemap::parsed;
 
 use base 'Wx::XSP::Typemap';
 
+sub _dl { return defined( $_[0] ) && length( $_[0] ) ? $_[0] : undef }
+
 sub init {
   my $this = shift;
   my %args = @_;
 
   $this->{TYPE} = $args{type};
   $this->{CPP_TYPE} = $args{cpp_type} || $args{arg1};
-  $this->{CALL_FUNCTION_CODE} = $args{call_function_code} || $args{arg2};
-  $this->{OUTPUT_CODE} = $args{output_code} || $args{arg3};
+  $this->{CALL_FUNCTION_CODE} = _dl( $args{call_function_code} || $args{arg2} );
+  $this->{OUTPUT_CODE} = _dl( $args{output_code} || $args{arg3} );
+  $this->{CLEANUP_CODE} = _dl( $args{cleanup_code} || $args{arg4} );
+  $this->{PRECALL_CODE} = _dl( $args{precall_code} || $args{arg5} );
 }
 
 sub cpp_type { $_[0]->{CPP_TYPE} }
-sub input_code { undef }
 sub output_code { $_[0]->{OUTPUT_CODE} }
+sub cleanup_code { $_[0]->{CLEANUP_CODE} }
 sub call_parameter_code { undef }
 sub call_function_code {
-  my $this = shift;
-  my( $func, $var ) = @_;
-  return unless    defined $this->{CALL_FUNCTION_CODE}
-                && length $this->{CALL_FUNCTION_CODE};
+  my( $this, $func, $var ) = @_;
+  return unless defined $this->{CALL_FUNCTION_CODE};
+  return _replace( $this->{CALL_FUNCTION_CODE}, '$1' => $func, '$$' => $var );
   my $code = $this->{CALL_FUNCTION_CODE};
 
   $code =~ s/\$1/$func/g;
   $code =~ s/\$\$/$var/g;
 
   $code;
+}
+
+sub precall_code {
+  my( $this, $pvar, $cvar ) = @_;
+  return unless defined $_[0]->{PRECALL_CODE};
+  return _replace( $this->{PRECALL_CODE}, '$1' => $pvar, '$2' => $cvar );
+}
+
+sub _replace {
+  my( $code ) = shift;
+  while( @_ ) {
+    my( $f, $t ) = ( shift, shift );
+    $code =~ s/\Q$f\E/$t/g;
+  }
+  return $code;
 }
 
 package Wx::XSP::Typemap::simple;
@@ -113,7 +135,6 @@ sub init {
 }
 
 sub cpp_type { $_[0]->{TYPE}->print_noconst }
-sub input_code { undef } # simple typemap: arguments are handled by XSUBPP
 sub output_code { undef } # likewise
 sub call_parameter_code { undef }
 sub call_function_code { undef }
@@ -130,7 +151,6 @@ sub init {
 }
 
 sub cpp_type { $_[0]->{TYPE}->base_type . '*' }
-sub input_code { undef }
 sub output_code { undef }
 sub call_parameter_code { "*( $_[1] )" }
 sub call_function_code {
