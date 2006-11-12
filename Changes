@@ -1,10 +1,11 @@
 Revision history for Perl extension Wx.
 
-0.61
-	- Added AUI.
+0.61  Sun Nov 12 18:33:41 CET 2006
+	- Added Advanced User Interface (AUI) (2.7).
+	- Wrapped more wxRichTextCtrl support classes (2.7).
 
 0.60  Sat Nov 11 16:48:57 CET 2006
-	- Added wxRichTextCtrl and some related classes.
+	- Added wxRichTextCtrl and some related classes (2.7).
 	- Removed support for wxWidgets 2.4. Supports 2.5.3 and above.
 	- Added wxSimpleHtmlListBox, wxColourPickerCtrl, wxFontPickerCtrl,
 	  wxFilePickerCtrl, wxDirPickerCtrl, wxAboutDialog (2.7).

@@ -289,9 +289,11 @@ ext/pperl/Makefile.PL
 ext/aui/AUI.xs
 ext/aui/Makefile.PL
 ext/aui/XS/AuiManager.xsp
+ext/aui/XS/AuiNotebook.xsp
 ext/aui/XS/AuiPaneInfo.xsp
 ext/aui/lib/Wx/AUI.pm
 ext/aui/t/01_load.t
+ext/aui/t/02_inheritance.t
 ext/aui/typemap
 ext/aui/typemap.xsp
 
@@ -476,6 +478,8 @@ ext/richtext/Makefile.PL
 ext/richtext/RichText.xs
 ext/richtext/XS/RichTextAttr.xsp
 ext/richtext/XS/RichTextCtrl.xsp
+ext/richtext/XS/RichTextStyle.xsp
+ext/richtext/XS/RichTextStyleCtrl.xsp
 ext/richtext/lib/Wx/RichText.pm
 ext/richtext/t/01_load.t
 ext/richtext/t/02_inheritance.t
