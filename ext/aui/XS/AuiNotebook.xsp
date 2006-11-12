@@ -1,0 +1,96 @@
+#############################################################################
+## Name:        ext/aui/XS/AuiNotebook.xsp
+## Purpose:     XS++ for Wx::AuiNotebook
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     12/11/2006
+## RCS-ID:      $Id: AuiNotebook.xsp,v 1.1 2006/11/12 17:27:17 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/aui/auibook.h>
+
+%module{Wx};
+
+%name{Wx::AuiNotebookEvent} class wxAuiNotebookEvent
+{
+    wxAuiNotebookEvent( wxEventType command_type = wxEVT_NULL,
+                        int win_id = 0 );
+
+    void SetSelection( int s );
+    int GetSelection() const;
+    
+    void SetOldSelection( int s );
+    int GetOldSelection() const;
+    
+    void SetDragSource( wxAuiNotebook* s );
+    wxAuiNotebook* GetDragSource() const;
+};
+
+%name{Wx::AuiNotebook} class wxAuiNotebook
+{
+    %name{newDefault} wxAuiNotebook()
+        %code{% RETVAL = new wxAuiNotebook();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    %name{newFull} wxAuiNotebook( wxWindow* parent,
+                                  wxWindowID id = wxID_ANY,
+                                  const wxPoint& pos = wxDefaultPosition,
+                                  const wxSize& size = wxDefaultSize,
+                                  long style = wxAUI_NB_DEFAULT_STYLE )
+        %code{% RETVAL = new wxAuiNotebook( parent, id,
+                                            pos, size, style );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+%{
+void
+wxAuiNotebook::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::AuiNotebook::new" )
+%}
+
+    bool Create( wxWindow* parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = 0 );
+
+    bool AddPage( wxWindow* page,
+                  const wxString& caption,
+                  bool select = false,
+                  const wxBitmap& bitmap = wxNullBitmapPtr );
+
+    bool InsertPage( size_t page_idx,
+                     wxWindow* page,
+                     const wxString& caption,
+                     bool select = false,
+                     const wxBitmap& bitmap = wxNullBitmapPtr );
+
+    bool DeletePage( size_t page );
+    bool RemovePage( size_t page );
+    
+    void SetWindowStyleFlag( long style );
+
+    bool SetPageText( size_t page, const wxString& text );
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    bool SetPageBitmap( size_t page, const wxBitmap& bitmap );
+#endif
+    size_t SetSelection( size_t new_page );
+    int GetSelection() const;
+    size_t GetPageCount() const;
+    wxWindow* GetPage( size_t page_idx ) const;
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    int GetPageIndex( wxWindow* page_wnd ) const;
+#endif
+
+##    void SetArtProvider( wxAuiTabArt* art );
+##    wxAuiTabArt* GetArtProvider() const;
+};

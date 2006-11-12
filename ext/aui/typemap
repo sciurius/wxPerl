@@ -4,12 +4,15 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/11/2006
-## RCS-ID:      $Id: typemap,v 1.1 2006/11/11 21:34:07 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.2 2006/11/12 17:27:17 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 TYPEMAP
-wxAuiManager *          O_WXEVTHANDLER
+wxAuiNotebookEvent *    O_WXOBJECT_THR
+wxAuiManagerEvent *     O_WXOBJECT_THR
+wxAuiManager *          O_NON_WXOBJECT
 wxAuiPaneInfo *         O_NON_WXOBJECT
+wxAuiNotebook *         O_WXEVTHANDLER

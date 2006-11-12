@@ -4,13 +4,14 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/11/2006
-## RCS-ID:      $Id: AuiManager.xsp,v 1.1 2006/11/11 21:34:07 mbarbon Exp $
+## RCS-ID:      $Id: AuiManager.xsp,v 1.2 2006/11/12 17:27:17 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 #include <wx/aui/framemanager.h>
+#include <wx/aui/auibook.h>
 #include "cpp/aui.h"
 
 %module{Wx};
@@ -30,7 +31,80 @@ double aui_constant( const char* name, int arg )
 
     switch( fl )
     {
-    case 'R':
+    case 'A':
+        r( wxAUI_DOCK_NONE );
+        r( wxAUI_DOCK_TOP );
+        r( wxAUI_DOCK_RIGHT );
+        r( wxAUI_DOCK_BOTTOM );
+        r( wxAUI_DOCK_LEFT );
+        r( wxAUI_DOCK_CENTER );
+        r( wxAUI_DOCK_CENTRE );
+        r( wxAUI_MGR_ALLOW_FLOATING );
+        r( wxAUI_MGR_ALLOW_ACTIVE_PANE );
+        r( wxAUI_MGR_TRANSPARENT_DRAG );
+        r( wxAUI_MGR_TRANSPARENT_HINT );
+        r( wxAUI_MGR_VENETIAN_BLINDS_HINT );
+        r( wxAUI_MGR_RECTANGLE_HINT );
+        r( wxAUI_MGR_HINT_FADE );
+        r( wxAUI_MGR_NO_VENETIAN_BLINDS_FADE );
+        r( wxAUI_MGR_DEFAULT );
+        r( wxAUI_ART_SASH_SIZE );
+        r( wxAUI_ART_CAPTION_SIZE );
+        r( wxAUI_ART_GRIPPER_SIZE );
+        r( wxAUI_ART_PANE_BORDER_SIZE );
+        r( wxAUI_ART_PANE_BUTTON_SIZE );
+        r( wxAUI_ART_BACKGROUND_COLOUR );
+        r( wxAUI_ART_SASH_COLOUR );
+        r( wxAUI_ART_ACTIVE_CAPTION_COLOUR );
+        r( wxAUI_ART_ACTIVE_CAPTION_GRADIENT_COLOUR );
+        r( wxAUI_ART_INACTIVE_CAPTION_COLOUR );
+        r( wxAUI_ART_INACTIVE_CAPTION_GRADIENT_COLOUR );
+        r( wxAUI_ART_ACTIVE_CAPTION_TEXT_COLOUR );
+        r( wxAUI_ART_INACTIVE_CAPTION_TEXT_COLOUR );
+        r( wxAUI_ART_BORDER_COLOUR );
+        r( wxAUI_ART_GRIPPER_COLOUR );
+        r( wxAUI_ART_CAPTION_FONT );
+        r( wxAUI_ART_GRADIENT_TYPE );
+        r( wxAUI_GRADIENT_NONE );
+        r( wxAUI_GRADIENT_VERTICAL );
+        r( wxAUI_GRADIENT_HORIZONTAL );
+        r( wxAUI_BUTTON_STATE_NORMAL );
+        r( wxAUI_BUTTON_STATE_HOVER );
+        r( wxAUI_BUTTON_STATE_PRESSED );
+        r( wxAUI_BUTTON_STATE_DISABLED );
+        r( wxAUI_BUTTON_STATE_HIDDEN );
+        r( wxAUI_BUTTON_CLOSE );
+        r( wxAUI_BUTTON_MAXIMIZE_RESTORE );
+        r( wxAUI_BUTTON_MINIMIZE );
+        r( wxAUI_BUTTON_PIN );
+        r( wxAUI_BUTTON_OPTIONS );
+        r( wxAUI_BUTTON_WINDOWLIST );
+        r( wxAUI_BUTTON_LEFT );
+        r( wxAUI_BUTTON_RIGHT );
+        r( wxAUI_BUTTON_UP );
+        r( wxAUI_BUTTON_DOWN );
+        r( wxAUI_BUTTON_CUSTOM1 );
+        r( wxAUI_BUTTON_CUSTOM2 );
+        r( wxAUI_BUTTON_CUSTOM3 );
+        r( wxAUI_INSERT_PANE );
+        r( wxAUI_INSERT_ROW );
+        r( wxAUI_INSERT_DOCK );
+        r( wxAUI_NB_TOP );
+        r( wxAUI_NB_LEFT );
+        r( wxAUI_NB_RIGHT );
+        r( wxAUI_NB_BOTTOM );
+        r( wxAUI_NB_TAB_SPLIT );
+        r( wxAUI_NB_TAB_MOVE );
+        r( wxAUI_NB_TAB_EXTERNAL_MOVE );
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+        r( wxAUI_NB_TAB_FIXED_WIDTH );
+#endif
+        r( wxAUI_NB_SCROLL_BUTTONS );
+        r( wxAUI_NB_WINDOWLIST_BUTTON );
+        r( wxAUI_NB_CLOSE_BUTTON );
+        r( wxAUI_NB_CLOSE_ON_ACTIVE_TAB );
+        r( wxAUI_NB_CLOSE_ON_ALL_TABS );
+        r( wxAUI_NB_DEFAULT_STYLE );
         break;
     }
 #undef r
@@ -42,6 +116,32 @@ wxPlConstants aui_module( &aui_constant );
 
 %}
 %file{-};
+
+%name{Wx::AuiManagerEvent} class wxAuiManagerEvent
+{
+    wxAuiManagerEvent( wxEventType type = wxEVT_NULL );
+
+##    void SetPane( wxAuiPaneInfo* p );
+    void SetButton( int b );
+##    danger! ownership
+##    void SetDC( wxDC* pdc );
+ 
+%{
+wxAuiPaneInfo*
+wxAuiManagerEvent::GetPane()
+  CODE:
+    RETVAL = new wxAuiPaneInfo( *THIS->GetPane() );
+  OUTPUT: RETVAL
+%}
+    int GetButton();
+##    danger! ownership
+##    wxDC* GetDC() { return dc; }
+    
+    void Veto( bool veto = true );
+    bool GetVeto() const;
+    void SetCanVeto( bool can_veto );
+    bool CanVeto() const;
+};
 
 %name{Wx::AuiManager} class wxAuiManager
 {
