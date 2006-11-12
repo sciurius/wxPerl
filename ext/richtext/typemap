@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: typemap,v 1.1 2006/11/05 16:28:01 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.2 2006/11/12 17:27:00 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,11 +12,18 @@
 
 TYPEMAP
 wxTextAttrAlignment     T_ENUM
+wxPliRichTextStyleType  T_ENUM
 
 wxRichTextStyleSheet *  O_WXOBJECT
 wxRichTextEvent *       O_WXOBJECT
-wxRichTextCtrl *        O_WXOBJECT
+wxRichTextCtrl *        O_WXEVTHANDLER
+wxRichTextStyleListBox * O_WXEVTHANDLER
+wxRichTextStyleListCtrl * O_WXEVTHANDLER
+wxRichTextStyleComboCtrl * O_WXEVTHANDLER
 wxRichTextAttr *        O_NON_WXOBJECT
 wxTextAttrEx *          O_NON_WXOBJECT
 wxRichTextRange *       O_NON_WXOBJECT
-wxRichTextStyleDefinition * O_NON_WXOBJECT
+wxRichTextStyleDefinition * O_WXOBJECT
+wxRichTextCharacterStyleDefinition * O_WXOBJECT
+wxRichTextParagraphStyleDefinition * O_WXOBJECT
+wxRichTextListStyleDefinition * O_WXOBJECT

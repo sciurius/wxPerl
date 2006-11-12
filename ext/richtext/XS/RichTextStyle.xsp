@@ -1,0 +1,148 @@
+#############################################################################
+## Name:        ext/richtext/XS/RichTextStyle.xsp
+## Purpose:     XS++ for Wx::RichText*Style*
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     12/11/2006
+## RCS-ID:      $Id: RichTextStyle.xsp,v 1.1 2006/11/12 17:27:00 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/richtext/richtextstyles.h>
+
+%module{Wx};
+
+%name{Wx::RichTextStyleDefinition} class wxRichTextStyleDefinition
+{
+    ~wxRichTextStyleDefinition()
+        %code%{  if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+                     delete THIS;
+               %};
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    void Copy( const wxRichTextStyleDefinition& def );
+    bool Eq( const wxRichTextStyleDefinition& def ) const;
+#endif
+    void SetName( const wxString& name );
+    const wxString& GetName() const;
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    void SetDescription( const wxString& descr );
+    const wxString& GetDescription() const;
+#endif
+    void SetBaseStyle( const wxString& name );
+    const wxString& GetBaseStyle() const;
+    void SetStyle( const wxRichTextAttr& style );
+    const wxRichTextAttr& GetStyle() const;
+};
+
+%name{Wx::RichTextCharacterStyleDefinition} class wxRichTextCharacterStyleDefinition
+{
+    wxRichTextCharacterStyleDefinition( const wxString& name = wxEmptyString );
+};
+
+%name{Wx::RichTextParagraphStyleDefinition} class wxRichTextParagraphStyleDefinition
+{
+    wxRichTextParagraphStyleDefinition( const wxString& name = wxEmptyString );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    void Copy( const wxRichTextParagraphStyleDefinition& def );
+#endif
+
+    void SetNextStyle( const wxString& name );
+    const wxString& GetNextStyle() const;
+};
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+%name{Wx::RichTextListStyleDefinition} class wxRichTextListStyleDefinition
+{
+    wxRichTextListStyleDefinition( const wxString& name = wxEmptyString );
+
+    void Copy( const wxRichTextListStyleDefinition& def );
+
+    void SetLevelAttributes( int i, const wxRichTextAttr& attr );
+    wxRichTextAttrDisown* GetLevelAttributes( int i ) const;
+
+    void SetAttributes( int i, int leftIndent, int leftSubIndent,
+                        int bulletStyle,
+                        const wxString& bulletSymbol = wxEmptyString );
+    int FindLevelForIndent( int indent ) const;
+    wxRichTextAttr& CombineWithParagraphStyle
+        ( int indent, const wxRichTextAttr& paraStyle );
+    wxRichTextAttr& GetCombinedStyle( int indent );
+    wxRichTextAttr& GetCombinedStyleForLevel( int level );
+    int GetLevelCount() const;
+    bool IsNumbered( int i ) const;
+};
+
+#endif
+
+%name{Wx::RichTextStyleSheet} class wxRichTextStyleSheet
+{
+    wxRichTextStyleSheet();
+    ~wxRichTextStyleSheet()
+        %code%{  if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+                     delete THIS;
+               %};
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    void Copy( const wxRichTextStyleSheet& sheet );
+#endif
+
+    bool AddCharacterStyle( wxRichTextCharacterStyleDefinitionDisown* def );
+    bool AddParagraphStyle( wxRichTextParagraphStyleDefinitionDisown* def );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool AddListStyle( wxRichTextListStyleDefinitionDisown* def );
+#endif
+
+    bool RemoveCharacterStyle( wxRichTextStyleDefinition* def,
+                               bool deleteStyle = false );
+    bool RemoveParagraphStyle( wxRichTextStyleDefinition* def,
+                               bool deleteStyle = false );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool RemoveListStyle( wxRichTextStyleDefinition* def,
+                          bool deleteStyle = false );
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    wxRichTextCharacterStyleDefinitionDisown* FindCharacterStyle
+        ( const wxString& name, bool recurse = true ) const;
+    wxRichTextParagraphStyleDefinitionDisown* FindParagraphStyle
+        ( const wxString& name, bool recurse = true ) const;
+    wxRichTextListStyleDefinitionDisown* FindListStyle( const wxString& name,
+                                                  bool recurse = true) const;
+#endif
+
+    size_t GetCharacterStyleCount() const;
+    size_t GetParagraphStyleCount() const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    size_t GetListStyleCount() const;
+#endif
+
+    wxRichTextCharacterStyleDefinitionDisown* GetCharacterStyle( size_t n ) const;
+    wxRichTextParagraphStyleDefinitionDisown* GetParagraphStyle( size_t n ) const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    wxRichTextListStyleDefinitionDisown* GetListStyle( size_t n ) const;
+#endif
+
+    void DeleteStyles();
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool InsertSheet( wxRichTextStyleSheet* before );
+    bool AppendSheet( wxRichTextStyleSheet* after );
+
+    void Unlink();
+    wxRichTextStyleSheetDisown* GetNextSheet() const;
+    void SetNextSheet( wxRichTextStyleSheet* sheet );
+
+    wxRichTextStyleSheetDisown* GetPreviousSheet() const;
+    void SetPreviousSheet( wxRichTextStyleSheet* sheet );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    void SetName( const wxString& name );
+    const wxString& GetName() const;
+    void SetDescription( const wxString& descr );
+    const wxString& GetDescription() const;
+#endif
+};

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     05/11/2006
-// RCS-ID:      $Id: RichText.xs,v 1.2 2006/11/05 17:40:30 mbarbon Exp $
+// RCS-ID:      $Id: RichText.xs,v 1.3 2006/11/12 17:27:00 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -48,6 +48,8 @@ static wxPliEventDescription evts[] =
     { 0, 0, 0 }
 };
 
+#define wxPliRichTextStyleType wxRichTextStyleListBox::wxRichTextStyleType
+
 MODULE=Wx__RichText
 
 BOOT:
@@ -56,6 +58,15 @@ BOOT:
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextCtrl.xsp |
 
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextAttr.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyle.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyleCtrl.xsp |
+
+void
+SetEvents()
+  CODE:
+    wxPli_set_events( evts );
 
 #include "cpp/ovl_const.cpp"
 

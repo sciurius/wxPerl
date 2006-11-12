@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichTextCtrl.xsp,v 1.4 2006/11/11 15:03:06 mbarbon Exp $
+## RCS-ID:      $Id: RichTextCtrl.xsp,v 1.5 2006/11/12 17:27:00 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -133,10 +133,10 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     int GetFlags() const;
     void SetFlags( int flags );
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
-    wxRichTextStyleSheet* GetOldStyleSheet() const;
-    void SetOldStyleSheet( wxRichTextStyleSheet* sheet );
-    wxRichTextStyleSheet* GetNewStyleSheet() const;
-    void SetNewStyleSheet( wxRichTextStyleSheet* sheet );
+    wxRichTextStyleSheetDisown* GetOldStyleSheet() const;
+    void SetOldStyleSheet( wxRichTextStyleSheetDisown* sheet );
+    wxRichTextStyleSheetDisown* GetNewStyleSheet() const;
+    void SetNewStyleSheet( wxRichTextStyleSheetDisown* sheet );
 #endif
 };
 
@@ -310,14 +310,14 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     bool ApplyUnderlineToSelection();
     bool ApplyAlignmentToSelection(wxTextAttrAlignment alignment);
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
-    bool ApplyStyle(wxRichTextStyleDefinition* def);
+    bool ApplyStyle( wxRichTextStyleDefinition* def );
     void SetStyleSheet( wxRichTextStyleSheet* styleSheet );
-    wxRichTextStyleSheet* GetStyleSheet() const;
+    wxRichTextStyleSheetDisown* GetStyleSheet() const;
     bool ApplyStyleSheet( wxRichTextStyleSheet* styleSheet = NULL );
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
-    bool PushStyleSheet( wxRichTextStyleSheet* styleSheet );
-    wxRichTextStyleSheet* PopStyleSheet();
+    bool PushStyleSheet( wxRichTextStyleSheetDisown* styleSheet );
+    wxRichTextStyleSheetDisown* PopStyleSheet();
 #endif
 
     void PositionCaret();

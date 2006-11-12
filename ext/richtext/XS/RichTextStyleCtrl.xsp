@@ -1,0 +1,132 @@
+#############################################################################
+## Name:        ext/richtext/XS/RichTextStyleCtrl.xsp
+## Purpose:     XS++ for Wx::RichText*Style* selection controls
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     12/11/2006
+## RCS-ID:      $Id: RichTextStyleCtrl.xsp,v 1.1 2006/11/12 17:27:00 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/richtext/richtextstyles.h>
+
+%module{Wx};
+
+%name{Wx::RichTextStyleListBox} class wxRichTextStyleListBox
+{
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    %name{newDefault} wxRichTextStyleListBox();
+#endif
+    %name{newFull} wxRichTextStyleListBox
+        ( wxWindow* parent, wxWindowID id = wxID_ANY,
+          const wxPoint& pos = wxDefaultPosition,
+          const wxSize& size = wxDefaultSize, long style = 0 );
+%{
+void
+wxRichTextStyleListBox::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::RichTextStyleListBox::new" )
+%}
+
+    bool Create( wxWindow* parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize, long style = 0 );
+
+    void SetStyleSheet( wxRichTextStyleSheet* styleSheet );
+    wxRichTextStyleSheetDisown* GetStyleSheet() const;
+    void SetRichTextCtrl( wxRichTextCtrl* ctrl );
+    wxRichTextCtrl* GetRichTextCtrl() const;
+    wxRichTextStyleDefinitionDisown* GetStyle( size_t i ) const;
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    int GetIndexForStyle( const wxString& name ) const;
+    int SetStyleSelection( const wxString& name );
+#endif
+    void UpdateStyles();
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    void ApplyStyle( int i );
+    void SetApplyOnSelection( bool applyOnSel );
+    bool GetApplyOnSelection() const;
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void SetStyleType( wxPliRichTextStyleType styleType );
+    wxPliRichTextStyleType GetStyleType() const;
+#endif
+};
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+%name{Wx::RichTextStyleListCtrl} class wxRichTextStyleListCtrl
+{
+    %name{newDefault} wxRichTextStyleListCtrl();
+    %name{newFull} wxRichTextStyleListCtrl
+        ( wxWindow* parent, wxWindowID id = wxID_ANY,
+          const wxPoint& pos = wxDefaultPosition,
+          const wxSize& size = wxDefaultSize, long style = 0 );
+%{
+void
+wxRichTextStyleListCtrl::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::RichTextStyleListCtrl::new" )
+%}
+
+    bool Create( wxWindow* parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize, long style = 0 );
+
+    void SetStyleSheet( wxRichTextStyleSheet* styleSheet );
+    wxRichTextStyleSheetDisown* GetStyleSheet() const;
+    void SetRichTextCtrl( wxRichTextCtrl* ctrl );
+    wxRichTextCtrl* GetRichTextCtrl() const;
+    void UpdateStyles();
+
+    void SetStyleType( wxPliRichTextStyleType styleType );
+    wxPliRichTextStyleType GetStyleType() const;
+    int StyleTypeToIndex( wxPliRichTextStyleType styleType );
+    wxPliRichTextStyleType StyleIndexToType( int i );
+
+    wxRichTextStyleListBox* GetStyleListBox() const;
+    wxChoice* GetStyleChoice() const;
+};
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+
+%name{Wx::RichTextStyleComboCtrl} class wxRichTextStyleComboCtrl
+{
+    %name{newDefault} wxRichTextStyleComboCtrl();
+    %name{newFull} wxRichTextStyleComboCtrl
+        ( wxWindow* parent, wxWindowID id = wxID_ANY,
+          const wxPoint& pos = wxDefaultPosition,
+          const wxSize& size = wxDefaultSize, long style = 0 );
+%{
+void
+wxRichTextStyleComboCtrl::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::RichTextStyleComboCtrl::new" )
+%}
+
+    bool Create( wxWindow* parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize, long style = 0 );
+
+    void UpdateStyles();
+
+    void SetStyleSheet( wxRichTextStyleSheet* styleSheet );
+    wxRichTextStyleSheetDisown* GetStyleSheet() const;
+    void SetRichTextCtrl( wxRichTextCtrl* ctrl );
+    wxRichTextCtrl* GetRichTextCtrl() const;
+};
+
+#endif

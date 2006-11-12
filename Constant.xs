@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.166 2006/11/11 21:34:07 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.167 2006/11/12 17:27:00 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -358,6 +358,15 @@ static wxPlINH inherit[] =
     I( FilePickerCtrl,  PickerBase )
     I( DirPickerCtrl,   PickerBase )
     I( FontPickerCtrl,  PickerBase )
+
+    I( ComboCtrlBase,   Control )
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    I( GenericComboCtrl,ComboCtrlBase )
+    I( ComboCtrl,       GenericComboCtrl )
+#else
+    I( GenericComboControl,ComboCtrlBase )
+    I( ComboCtrl,       GenericComboControl )
+#endif
 
     I( TaskBarIcon,     EvtHandler )
     I( Process,         EvtHandler )

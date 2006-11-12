@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichText.pm,v 1.1 2006/11/05 16:28:01 mbarbon Exp $
+## RCS-ID:      $Id: RichText.pm,v 1.2 2006/11/12 17:27:00 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -29,5 +29,13 @@ no strict;
 package Wx::RichTextCtrl;    @ISA = qw(Wx::TextCtrl);
 package Wx::TextAttrEx;      @ISA = qw(Wx::TextAttr);
 package Wx::RichTextEvent;   @ISA = qw(Wx::NotifyEvent);
+package Wx::RichTextStyleDefinition;
+package Wx::RichTextCharacterStyleDefinition; @ISA = qw(Wx::RichTextStyleDefinition);
+package Wx::RichTextParagraphStyleDefinition; @ISA = qw(Wx::RichTextStyleDefinition);
+package Wx::RichTextListStyleDefinition; @ISA = qw(Wx::RichTextParagraphStyleDefinition);
+package Wx::RichTextStyleListCtrl; @ISA = qw(Wx::Control);
+package Wx::HtmlListBox;     @ISA = qw(Wx::VListBox);
+package Wx::RichTextStyleListBox; @ISA = qw(Wx::HtmlListBox);
+package Wx::RichTextStyleComboCtrl; @ISA = qw(Wx::ComboCtrl);
 
 1;
