@@ -1,7 +1,8 @@
 Revision history for Perl extension Wx.
 
-0.62
+0.62  Mon Nov 13 23:16:41 CET 2006
 	- Fix Windows compilation.
+	- Fix Mac OS X build.
 
 0.61  Sun Nov 12 18:33:41 CET 2006
 	- Added Advanced User Interface (AUI) (2.7).
