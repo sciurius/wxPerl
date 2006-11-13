@@ -389,6 +389,15 @@ sub _process_mm_arguments {
   foreach ( keys %args ) {
     my $v = $args{$_};
 
+    m/^WX_CORE_LIB_MAYBE$/ and do {
+      my @libs = split ' ', $v;
+      $args{LIBS} .= ' ' . join ' ',
+                           map  { __PACKAGE__->get_core_lib( $_ ) }
+                           grep { __PACKAGE__->check_core_lib( $_ ) }
+                                ( $v=~/\S/ ? @libs : () );
+      delete $args{$_};
+    };
+
     m/^WX_CORE_LIB$/ and do {
       my @libs = split ' ', $v;
       $args{LIBS} .= ' ' . join ' ', __PACKAGE__->get_core_lib( @libs ) if $v=~/\S/;
