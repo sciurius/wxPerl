@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.63  Wed Nov 15 21:40:28 CET 2006
+	- Fix failing tests under Mac.
+
 0.62  Mon Nov 13 23:16:41 CET 2006
 	- Fix Windows compilation.
 	- Fix Mac OS X build.
