@@ -131,13 +131,19 @@ sub tests {
       $list->Append( 'An item', cdata sub { $ctrldelete = 1 } );
       $list->Append( 'An item', cdata sub { $deleting = 1 } );
 
-      $list->Delete( 4 );
-      ok( $deleting, "$name: deleting an item deletes the data" );
+      SKIP: {
+        skip "delayed on Mac", 1 if Wx::wxMAC && $list->isa( 'Wx::ListBox' );
+        $list->Delete( 4 );
+        ok( $deleting, "$name: deleting an item deletes the data" );
+      }
       $list->SetClientData( 2, 'foo' );
       ok( $setting, "$name: setting again item data deletes old data" );
-      # and hope the control is deleted NOW
-      $list->Destroy;
-      ok( $ctrldelete, "$name: deleting the control deletes the data" );
+      SKIP: {
+        skip "delayed on Mac", 1 if Wx::wxMAC && $list->isa( 'Wx::ListBox' );
+        # and hope the control is deleted NOW
+        $list->Destroy;
+        ok( $ctrldelete, "$name: deleting the control deletes the data" );
+    }
     }
   }
 
