@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     05/11/2006
-// RCS-ID:      $Id: RichText.xs,v 1.4 2006/11/12 17:35:25 mbarbon Exp $
+// RCS-ID:      $Id: RichText.xs,v 1.5 2006/11/17 21:41:58 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -32,8 +32,10 @@
 
 static wxPliEventDescription evts[] =
 {
+#if WXPERL_W_VERSION_LE( 2, 7, 2 )
     EVT( EVT_RICHTEXT_ITEM_SELECTED, 3, wxEVT_COMMAND_RICHTEXT_ITEM_SELECTED )
     EVT( EVT_RICHTEXT_ITEM_DESELECTED, 3, wxEVT_COMMAND_RICHTEXT_ITEM_DESELECTED )
+#endif
     EVT( EVT_RICHTEXT_LEFT_CLICK, 3, wxEVT_COMMAND_RICHTEXT_LEFT_CLICK )
     EVT( EVT_RICHTEXT_RIGHT_CLICK, 3, wxEVT_COMMAND_RICHTEXT_RIGHT_CLICK )
     EVT( EVT_RICHTEXT_MIDDLE_CLICK, 3, wxEVT_COMMAND_RICHTEXT_MIDDLE_CLICK )
