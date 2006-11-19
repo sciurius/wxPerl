@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/07/2001
-## RCS-ID:      $Id: XmlResource.xs,v 1.14 2006/09/24 17:15:58 mbarbon Exp $
+## RCS-ID:      $Id: XmlResource.xs,v 1.15 2006/11/19 16:11:26 mbarbon Exp $
 ## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -50,6 +50,14 @@ wxXmlResource::DESTROY()
 bool
 wxXmlResource::Load( filemask )
     wxString filemask
+
+#if WXPERL_W_VERSION_GE( 2, 6, 3 )
+
+bool
+wxXmlResource::Unload( filemask )
+    wxString filemask
+
+#endif
 
 void
 wxXmlResource::InitAllHandlers()
@@ -166,6 +174,19 @@ void
 wxXmlResource::SetFlags( flags )
     int flags
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+int
+GetXRCID( str_id, value_if_not_found = wxID_NONE )
+    wxChar* str_id
+    int value_if_not_found
+  CODE:
+    RETVAL = wxXmlResource::GetXRCID( str_id, value_if_not_found );
+  OUTPUT:
+    RETVAL
+
+#else
+
 int
 GetXRCID( str_id )
     wxChar* str_id
@@ -173,6 +194,8 @@ GetXRCID( str_id )
     RETVAL = wxXmlResource::GetXRCID( str_id );
   OUTPUT:
     RETVAL
+
+#endif
 
 long
 wxXmlResource::GetVersion()

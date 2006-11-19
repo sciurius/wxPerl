@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.53 2006/09/24 15:04:24 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.54 2006/11/19 16:11:26 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -103,6 +103,16 @@
     %name{GetItemSizer} wxSizerItem* GetItem( wxSizer* sizer,
                                               bool recursive = false );
     %name{GetItemNth} wxSizerItem* GetItem( size_t index );
+#else
+%{
+wxSizerItem*
+wxSizer::GetItemNth( index )
+    size_t index
+  CODE:
+    RETVAL = index >= THIS->GetChildren().GetCount() ? NULL :
+                 THIS->GetChildren().Item( index )->GetData();
+  OUTPUT: RETVAL    
+%}
 #endif
     void RecalcSizes();
     void Clear( bool deleteWindows = true );
@@ -115,7 +125,7 @@
     wxSize GetMinSize();
     void Layout();
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     %name{RemoveWindow} bool Remove( wxWindow* window );
 #endif
     %name{RemoveSizer} bool Remove( wxSizer* window );
@@ -313,7 +323,7 @@ void
 wxSizer::Remove( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )|| WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )|| WXWIN_COMPATIBILITY_2_6
         MATCH_REDISP( wxPliOvl_wwin, RemoveWindow )
 #endif
         MATCH_REDISP( wxPliOvl_wszr, RemoveSizer )
@@ -328,18 +338,6 @@ wxSizer::Detach( ... )
         MATCH_REDISP( wxPliOvl_wszr, DetachSizer )
         MATCH_REDISP( wxPliOvl_n, DetachNth )
     END_OVERLOAD( Wx::Sizer::Detach )
-
-#if WXPERL_W_VERSION_LE( 2, 5, 3 )
-
-wxSizerItem*
-wxSizer::GetItemNth( index )
-    size_t index
-  CODE:
-    RETVAL = index >= THIS->GetChildren().GetCount() ? NULL :
-                 THIS->GetChildren().Item( index )->GetData();
-  OUTPUT: RETVAL    
-
-#endif
 
 void
 wxSizer::GetItem( ... )

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.34 2006/11/02 18:38:13 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.35 2006/11/19 16:11:26 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -30,7 +30,7 @@ DESTROY( THIS )
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
 
 void
 wxDC::BeginDrawing()
@@ -238,7 +238,7 @@ wxDC::DrawText( text, x, y )
 void
 wxDC::EndDoc()
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
 
 void
 wxDC::EndDrawing()
@@ -622,8 +622,16 @@ wxMemoryDC::new()
 void
 wxMemoryDC::SelectObject( bitmap )
     wxBitmap* bitmap
-  CODE:
-    THIS->SelectObject( *bitmap );
+  C_ARGS: *bitmap
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+void
+wxMemoryDC::SelectObjectAsSource( bitmap )
+    wxBitmap* bitmap
+  C_ARGS: *bitmap
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::ClientDC
 

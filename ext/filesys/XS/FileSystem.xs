@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     28/04/2001
-## RCS-ID:      $Id: FileSystem.xs,v 1.9 2006/09/24 15:04:25 mbarbon Exp $
+## RCS-ID:      $Id: FileSystem.xs,v 1.10 2006/11/19 16:11:26 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -52,6 +52,31 @@ wxFileSystem::FindFirst( wildcard, flags = 0 )
 wxString
 wxFileSystem::FindNext()
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+wxString
+wxFileSystem::FindFileInPath( path, file )
+    wxString path
+    wxString file
+  CODE:
+    bool ret = THIS->FindFileInPath( &RETVAL, path, file );
+    if( !ret )
+        XSRETURN_UNDEF;
+  OUTPUT: RETVAL
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+wxFSFile*
+wxFileSystem::OpenFile( location, flags = wxFS_READ )
+    wxString location
+    int flags 
+
+#else
+
 wxFSFile*
 wxFileSystem::OpenFile( location )
     wxString location
+
+#endif

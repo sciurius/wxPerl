@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Font.xs,v 1.25 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Font.xs,v 1.26 2006/11/19 16:11:26 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -156,8 +156,15 @@ wxFont::GetNativeFontInfo()
 
 #endif
 
+void
+wxFont::SetNativeFontInfoUserDesc( info )
+    wxString info
+
 wxString
 wxFont::GetNativeFontInfoDesc()
+
+wxString
+wxFont::GetNativeFontInfoUserDesc()
 
 int
 wxFont::GetPointSize()
@@ -205,13 +212,7 @@ void
 wxFont::SetNativeFontInfo( info )
     wxString info
   CODE:
-    THIS->wxFontBase::SetNativeFontInfo( info );
-
-##void
-##wxFont::SetNativeFontInfo( info )
-##    wxString info
-##  CODE:
-##    THIS->SetNativeFontInfo( info );
+    THIS->SetNativeFontInfo( info );
 
 void
 wxFont::SetPointSize( pointsize )

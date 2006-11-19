@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichTextCtrl.xsp,v 1.6 2006/11/17 21:41:59 mbarbon Exp $
+## RCS-ID:      $Id: RichTextCtrl.xsp,v 1.7 2006/11/19 16:11:26 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -51,6 +51,9 @@ double richtextctrl_constant( const char* name, int arg )
 #endif
         r( wxRICHTEXT_INSERT_NONE );
         r( wxRICHTEXT_INSERT_WITH_PREVIOUS_PARAGRAPH_STYLE );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+        r( wxRICHTEXT_SETSTYLE_RESET );
 #endif
         r( wxRICHTEXT_FIXED_WIDTH );
         r( wxRICHTEXT_FIXED_HEIGHT );
@@ -520,6 +523,36 @@ wxRichTextCtrl::GetTextAttrUncombinedStyle( position )
     PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                            new wxTextAttr( attr ),
                                            "Wx::TextAttr" ) :
+                    &PL_sv_undef );
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+void
+wxRichTextCtrl::GetRichTextAttrStyleForRange( range )
+    wxRichTextRange* range
+  PPCODE:
+    wxRichTextAttr attr;
+    bool retval = THIS->GetStyleForRange( *range, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxRichTextAttr( attr ),
+                                           "Wx::RichTextAttr" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetTextAttrExStyleForRange( range )
+    wxRichTextRange* range
+  PPCODE:
+    wxTextAttrEx attr;
+    bool retval = THIS->GetStyleForRange( *range, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttrEx( attr ),
+                                           "Wx::TextAttrEx" ) :
                     &PL_sv_undef );
 
 #endif

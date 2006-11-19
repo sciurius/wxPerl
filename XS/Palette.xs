@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/01/2000
-## RCS-ID:      $Id: Palette.xs,v 1.12 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Palette.xs,v 1.13 2006/11/19 16:11:26 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -53,6 +53,13 @@ wxPalette::DESTROY()
   CODE:
     wxPli_thread_sv_unregister( aTHX_ "Wx::Palette", THIS, ST(0) );
     delete THIS;
+
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+
+int
+wxPalette::GetColoursCount()
+
+#endif
 
 int
 wxPalette::GetPixel( red, green, blue )

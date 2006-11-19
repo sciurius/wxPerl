@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.73 2006/11/11 09:35:02 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.74 2006/11/19 16:11:26 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -373,7 +373,7 @@ wxWindow::GetDropTarget()
 
 #endif
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
 
 wxWindow*
 wxWindow::GetDefaultItem()
@@ -814,6 +814,20 @@ wxWindow::SetBackgroundColour( colour )
 void
 wxWindow::SetBestFittingSize( size = wxDefaultSize )
     wxSize size
+  CODE:
+#if WXPERL_W_VERSION_LT( 2, 7, 2 )
+    THIS->SetBestFittingSize( size );
+#else
+    THIS->SetInitialSize( size );
+#endif
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+void
+wxWindow::SetInitialSize( size = wxDefaultSize )
+    wxSize size
 
 #endif
 
@@ -856,7 +870,7 @@ wxWindow::SetCursor( cursor )
   CODE:
     THIS->SetCursor( *cursor );
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
 
 wxWindow*
 wxWindow::SetDefaultItem( window )

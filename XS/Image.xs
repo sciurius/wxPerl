@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.42 2006/11/02 18:31:03 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.43 2006/11/19 16:11:26 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -371,6 +371,16 @@ wxImage::HasAlpha()
 
 void
 wxImage::InitAlpha()
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+
+bool
+wxImage::IsTransparent( x, y, threshold = wxIMAGE_ALPHA_THRESHOLD )
+    int x
+    int y
+    unsigned char threshold
 
 #endif
 
