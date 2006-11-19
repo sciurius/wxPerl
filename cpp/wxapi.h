@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/09/2002
-// RCS-ID:      $Id: wxapi.h,v 1.12 2006/09/07 20:45:27 mbarbon Exp $
+// RCS-ID:      $Id: wxapi.h,v 1.13 2006/11/19 16:02:40 mbarbon Exp $
 // Copyright:   (c) 2002-2003, 2005-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -22,8 +22,9 @@
 
 #include "cpp/compat.h"
 
-#if !WXPERL_W_VERSION_GE( 2, 4, 0 )
-#error wxWindows 2.2.x and 2.3.x are no longer supported by wxPerl
+#if WXPERL_W_VERSION_LT( 2, 5, 3 ) || WXPERL_W_VERSION_EQ( 2, 7, 0 ) || \
+    WXPERL_W_VERSION_EQ( 2, 7, 1 )
+#error wxWidgets 2.4.x, 2.5.0, 2.5.1, 2.5.2, 2.7.0, 2.7.1 are no longer supported by wxPerl
 #endif
 
 #if WXPERL_W_VERSION_LE( 2, 5, 1 )
