@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: DirDialog.xs,v 1.8 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: DirDialog.xs,v 1.9 2006/11/19 16:06:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2001, 2003-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -28,7 +28,7 @@ wxDirDialog::GetPath()
 wxString
 wxDirDialog::GetMessage()
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
 
 long
 wxDirDialog::GetStyle()
@@ -43,7 +43,7 @@ void
 wxDirDialog::SetPath( path )
     wxString path
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
 
 void
 wxDirDialog::SetStyle( style )

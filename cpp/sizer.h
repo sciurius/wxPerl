@@ -4,14 +4,14 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: sizer.h,v 1.16 2006/09/07 20:45:27 mbarbon Exp $
+// RCS-ID:      $Id: sizer.h,v 1.17 2006/11/19 16:06:45 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
-#if !WXPERL_W_VERSION_GE( 2, 5, 1 ) || !WXWIN_COMPATIBILITY_2_4
-#if !WXPERL_W_VERSION_GE( 2, 5, 4 )
+#if WXPERL_W_VERSION_LT( 2, 5, 1 ) || !WXWIN_COMPATIBILITY_2_4
+#if WXPERL_W_VERSION_LT( 2, 5, 4 )
 #define wxBookCtrlBase wxBookCtrl
 #endif
 #include "cpp/wxsizer.h"

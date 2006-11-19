@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/09/2002
-## RCS-ID:      $Id: FontEnumerator.xs,v 1.5 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: FontEnumerator.xs,v 1.6 2006/11/19 16:06:44 mbarbon Exp $
 ## Copyright:   (c) 2002, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -40,7 +40,7 @@ wxFontEnumerator::GetEncodings()
 #endif
   PPCODE:
     enc = THIS->GetEncodings();
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
     if( enc )
 #endif
     {
@@ -63,7 +63,7 @@ wxFontEnumerator::GetFacenames()
 #endif
   PPCODE:
     enc = THIS->GetFacenames();
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
     if( enc )
 #endif
     {

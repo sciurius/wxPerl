@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.167 2006/11/12 17:27:00 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.168 2006/11/19 16:06:44 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -123,7 +123,7 @@
 #define wxNB_HITTEST_ONITEM   wxBK_HITTEST_ONITEM
 #endif
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
 #define wxFD_OPEN wxOPEN
 #define wxFD_SAVE wxSAVE
 #define wxFD_OVERWRITE_PROMPT wxOVERWRITE_PROMPT
@@ -675,7 +675,7 @@ static double constant( const char *name, int arg )
     r( wxCENTRE_ON_SCREEN );            // window
     r( wxCLIP_CHILDREN );               // window
     r( wxCHOICEDLG_STYLE );
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxCHANGE_DIR );                  // filedialog
 #endif
     r( wxCLIP_SIBLINGS );               // window
@@ -741,7 +741,7 @@ static double constant( const char *name, int arg )
 #define wxCenterX wxCentreX
 #define wxCenterY wxCentreY
 
-#if !WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if WXPERL_W_VERSION_LT( 2, 5, 1 )
     #define wxCLOSE_BOX 0
 #endif
     r( wxCLOSE_BOX );                   // frame
@@ -756,7 +756,7 @@ static double constant( const char *name, int arg )
     r( wxDEFAULT );                     // font
     r( wxDEFAULT_DIALOG_STYLE );        // dialog
     r( wxDEFAULT_FRAME_STYLE );         // frame
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
     r( wxDIALOG_MODAL );                // dialog
 #endif
 #if WXPERL_W_VERSION_GE( 2, 6, 2 )
@@ -1009,7 +1009,7 @@ static double constant( const char *name, int arg )
     r( wxFD_MULTIPLE );                 // filedialog
     r( wxFD_CHANGE_DIR );               // filedialog
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxFILE_MUST_EXIST );
 #endif
     r( wxFLOOD_SURFACE );               // dc
@@ -1106,7 +1106,7 @@ static double constant( const char *name, int arg )
   case 'G':
     r( wxGA_HORIZONTAL );               // gauge
     r( wxGA_VERTICAL );                 // gauge
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
     r( wxGA_PROGRESSBAR );              // gauge
 #endif
     r( wxGA_SMOOTH );                   // gauge
@@ -1126,6 +1126,13 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
     r( wxHLB_DEFAULT_STYLE );           // htmllistbox
     r( wxHLB_MULTIPLE );                // htmllistbox
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxHL_CONTEXTMENU );              // hyperlink
+    r( wxHL_ALIGN_LEFT );               // hyperlink
+    r( wxHL_ALIGN_RIGHT );              // hyperlink
+    r( wxHL_ALIGN_CENTRE );             // hyperlink
+    r( wxHL_DEFAULT_STYLE );            // hyperlink
 #endif
     break;
   case 'I':
@@ -1286,7 +1293,7 @@ static double constant( const char *name, int arg )
         r( WXK_MENU );                  // keycode
         r( WXK_PAUSE );                 // keycode
         r( WXK_CAPITAL );               // keycode
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
         r( WXK_PRIOR );                 // keycode
         r( WXK_NEXT );                  // keycode
 #endif
@@ -1642,7 +1649,7 @@ static double constant( const char *name, int arg )
     r( wxMINIMIZE );                    // frame
     r( wxMINIMIZE_BOX );                // frame
     r( wxMODERN );                      // font
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxMULTIPLE );                    // filedialog
 #endif    
     r( wxMAJOR_VERSION );
@@ -1668,7 +1675,7 @@ static double constant( const char *name, int arg )
 #endif
     r( wxNO );                          // dialog
     r( wxNO_BORDER );                   // frame toolbar
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
     r( wxNO_3D );                       // dialog window
 #endif
     r( wxNO_FULL_REPAINT_ON_RESIZE );   // window
@@ -1682,7 +1689,7 @@ static double constant( const char *name, int arg )
     break;
   case 'O':
     r( wxOK );                          // dialog
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxOPEN );                        // filedialog
     r( wxOVERWRITE_PROMPT );            // filedialog
 #endif
@@ -1694,7 +1701,7 @@ static double constant( const char *name, int arg )
     r( wxOutRegion );                   // region
     break;
   case 'P':
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
     r( wxPROCESS_ENTER );
 #endif
 
@@ -1745,7 +1752,7 @@ static double constant( const char *name, int arg )
     r( wxSPLASH_TIMEOUT );              // splashscreen
     r( wxSPLASH_NO_TIMEOUT );           // splashscreen
 
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxSAVE );                        // filedialog
 #endif
     //    r( wxSB_SIZEGRIP );
@@ -1812,7 +1819,7 @@ static double constant( const char *name, int arg )
     r( wxSP_3D );                       // splitterwindow
     r( wxSP_3DSASH );                   // splitterwindow
     r( wxSP_3DBORDER );                 // splitterwindow
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
     r( wxSP_FULLSASH );                 // splitterwindow
 #endif
     r( wxSP_BORDER );                   // splitterwindow
@@ -1995,7 +2002,7 @@ static double constant( const char *name, int arg )
     r( wxTE_HT_BELOW );                 // textctrl
     r( wxTE_HT_BEYOND );                // textctrl
 #endif
-#if !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
     r( wxTHICK_FRAME );                 // frame dialog
 #endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )

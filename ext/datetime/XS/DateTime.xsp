@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     22/09/2002
-## RCS-ID:      $Id: DateTime.xsp,v 1.8 2006/08/11 19:54:58 mbarbon Exp $
+## RCS-ID:      $Id: DateTime.xsp,v 1.9 2006/11/19 16:06:45 mbarbon Exp $
 ## Copyright:   (c) 2002, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -30,7 +30,7 @@
 #define Inv_Month wxDateTime::Inv_Month
 #define wxDefaultDateTimePtr (wxDateTime*)&wxDefaultDateTime
 
-#if !WXPERL_W_VERSION_GE( 2, 5, 4 )
+#if WXPERL_W_VERSION_LT( 2, 5, 4 )
 #define wxDefaultDateTimeFormat _T("%c")
 #endif
 %}

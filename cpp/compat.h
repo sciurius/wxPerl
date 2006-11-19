@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: compat.h,v 1.26 2006/09/07 20:45:27 mbarbon Exp $
+// RCS-ID:      $Id: compat.h,v 1.27 2006/11/19 16:06:45 mbarbon Exp $
 // Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -43,6 +43,7 @@
  ( ( wxMAJOR_VERSION < (V) ) || \
    ( wxMAJOR_VERSION == (V) && wxMINOR_VERSION < (S) ) || \
    ( wxMAJOR_VERSION == (V) && wxMINOR_VERSION == (S) && wxRELEASE_NUMBER <= (P) ) )
+#define WXPERL_W_VERSION_LT( V, S, P ) !WXPERL_W_VERSION_GE( V, S, P )
 
 #if WXPERL_P_VERSION_GE( 5, 5, 0 ) && !WXPERL_P_VERSION_GE( 5, 6, 0 )
 

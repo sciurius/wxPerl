@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     01/10/2000
-// RCS-ID:      $Id: Wx.xs,v 1.83 2006/08/19 18:24:33 mbarbon Exp $
+// RCS-ID:      $Id: Wx.xs,v 1.84 2006/11/19 16:06:44 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -138,7 +138,7 @@ static int call_oninit( pTHX_ SV* This, SV* sub )
 }
 
 
-#if defined(__WXMOTIF__) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if defined(__WXMOTIF__) && WXPERL_W_VERSION_LT( 2, 5, 1 )
 
 #include <wx/app.h>
 #include <wx/log.h>

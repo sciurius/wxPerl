@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Notebook.xs,v 1.19 2006/10/19 20:00:13 mbarbon Exp $
+## RCS-ID:      $Id: Notebook.xs,v 1.20 2006/11/19 16:06:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -12,7 +12,7 @@
 
 #include <wx/notebook.h>
 
-#if !WXPERL_W_VERSION_GE( 2, 6, 0 )
+#if WXPERL_W_VERSION_LT( 2, 6, 0 )
 #define wxNotebookNameStr wxT("notebook")
 #endif
 
@@ -162,7 +162,7 @@ wxNotebook::SetSelection( page )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 5, 2 ) && !WXPERL_W_VERSION_GE( 2, 7, 0 )
+#if WXPERL_W_VERSION_GE( 2, 5, 2 ) && WXPERL_W_VERSION_LT( 2, 7, 0 )
 
 void
 wxNotebook::HitTest( point )

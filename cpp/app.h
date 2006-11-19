@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: app.h,v 1.27 2006/08/11 19:54:58 mbarbon Exp $
+// RCS-ID:      $Id: app.h,v 1.28 2006/11/19 16:06:45 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -26,7 +26,7 @@ public:
     int MainLoop();
     void CleanUp() { DeletePendingObjects( this ); wxApp::CleanUp(); }
 
-#if defined( __WXMSW__ ) && !WXPERL_W_VERSION_GE( 2, 5, 0 )
+#if defined( __WXMSW__ ) && WXPERL_W_VERSION_LT( 2, 5, 0 )
     static void SetKeepGoing(wxPliApp* app, bool value)
     {
         app->m_keepGoing = value;
@@ -84,7 +84,7 @@ inline int wxPliApp::MainLoop() {
     int retval = 0;
   
     DeletePendingObjects();
-#if defined( __WXGTK__ ) && !WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if defined( __WXGTK__ ) && WXPERL_W_VERSION_LT( 2, 5, 1 )
     m_initialized = wxTopLevelWindows.GetCount() != 0;
 #endif
 

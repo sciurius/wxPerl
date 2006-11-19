@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.33 2006/09/24 15:04:24 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.34 2006/11/19 16:06:44 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -324,7 +324,7 @@ wxTreeCtrl::GetFirstChild( item )
 #endif
   PPCODE:
     wxTreeItemId ret = THIS->GetFirstChild( *item, cookie );
-#if !WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if WXPERL_W_VERSION_LT( 2, 5, 1 )
     if( !ret.IsOk() ) cookie = -1;
 #endif
     EXTEND( SP, 2 );

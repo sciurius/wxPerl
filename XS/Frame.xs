@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Frame.xs,v 1.29 2006/09/07 20:33:12 mbarbon Exp $
+## RCS-ID:      $Id: Frame.xs,v 1.30 2006/11/19 16:06:44 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -139,7 +139,7 @@ wxFrame::Maximize( maximize )
     bool maximize
 
 #if defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 5, 2 ) \
-    && !WXPERL_W_VERSION_GE( 2, 7, 0 )
+    && WXPERL_W_VERSION_LT( 2, 7, 0 )
 
 void
 wxFrame::MacSetMetalAppearance( ismetal )
