@@ -3,7 +3,6 @@ typemap
 typemap.xsp
 MANIFEST
 MANIFEST.SKIP
-META.yml
 README.txt
 Changes
 run

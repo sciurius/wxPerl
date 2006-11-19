@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Makefile.PL,v 1.49 2006/11/13 22:22:34 mbarbon Exp $
+## RCS-ID:      $Id: Makefile.PL,v 1.50 2006/11/19 16:00:11 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,17 +32,35 @@ EOT
 # $ExtUtils::MakeMaker::Verbose = 2;
 # $wxConfig::Verbose = 10;
 
+my $build_requires =
+  { 'File::Spec::Functions'  => 0.82,
+    'Test::More'             => 0.45,
+    'Test::Harness'          => 2.26,
+    'Data::Dumper'           => 0,
+    'ExtUtils::MakeMaker'    => 6.17,
+    'Alien::wxWidgets'       => 0.25,
+    };
+
+eval {
+    require ExtUtils::MY_Metafile;
+    ExtUtils::MY_Metafile->import;
+
+    my_metafile
+      ( { license        => 'perl',
+          dynamic_config => 1,
+          requires       => {},
+          build_requires => $build_requires,
+          no_index       => { directory => [ qw(samples script) ],
+                              package   => [ qw(MY Parse::Yapp::Driver) ],
+                              },
+          } );
+};
+
 wxWriteMakefile( NAME          => 'Wx',
                  ABSTRACT_FROM => 'Wx.pm',
                  AUTHOR        => 'Mattia Barbon <mbarbon@cpan.org>',
                  VERSION_FROM  => 'Wx.pm',
-                 PREREQ_PM     => { 'File::Spec::Functions'  => 0.82,
-                                    'Test::More'             => 0.45,
-                                    'Test::Harness'          => 2.26,
-                                    'Data::Dumper'           => 0,
-                                    'ExtUtils::MakeMaker'    => 6.17,
-                                    'Alien::wxWidgets'       => 0.25,
-                                   },
+                 PREREQ_PM     => { %$build_requires },
                  PMLIBDIRS     => [ 'lib', 'build' ],
                  EXE_FILES     => [ qw(script/wx_xspp.pl
                                        script/wx_overload.pl) ],
@@ -52,7 +70,6 @@ wxWriteMakefile( NAME          => 'Wx',
                                     source  => 'cpp/ovl_const.cpp',
                                     },
                  WX_TOP        => 'Wx.pm',
-                 NO_META       => 1,
                );
 
 END {

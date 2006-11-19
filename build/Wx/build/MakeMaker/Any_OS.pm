@@ -38,6 +38,15 @@ sub get_flags {
   return %config;
 }
 
+sub metafile_target_ext {
+    return '' if Wx::build::MakeMaker::is_wxPerl_tree;
+    return shift->SUPER::metafile_target_ext( @_ );
+}
+
+sub metafile_target_core {
+    return shift->MM::metafile_target( @_ );
+}
+
 sub configure_core {
   my $this = shift;
   my %config = $this->get_flags;

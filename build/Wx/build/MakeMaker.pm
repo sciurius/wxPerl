@@ -331,6 +331,7 @@ _make_override( 'depend' );
 _make_override( 'install' );
 _make_override( 'libscan' );
 _make_override( 'constants' );
+_make_override( 'metafile_target' );
 sub ppd { package MY; shift->SUPER::ppd( @_ ) }
 sub dynamic_lib { package MY; shift->SUPER::dynamic_lib( @_ ) }
 sub const_config { package MY; shift->SUPER::const_config( @_ ) }
