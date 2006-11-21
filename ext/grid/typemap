@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: typemap,v 1.13 2005/07/30 10:23:54 mbarbon Exp $
-## Copyright:   (c) 2001, 2003-2004 Mattia Barbon
+## RCS-ID:      $Id: typemap,v 1.14 2006/11/21 21:00:25 mbarbon Exp $
+## Copyright:   (c) 2001, 2003-2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -30,6 +30,9 @@ wxGridCellStringRenderer *      O_NON_WXOBJECT
 wxGridCellNumberRenderer *      O_NON_WXOBJECT
 wxGridCellFloatRenderer *       O_NON_WXOBJECT
 wxGridCellBoolRenderer *        O_NON_WXOBJECT
+wxGridCellAutoWrapStringRenderer *	O_NON_WXOBJECT
+wxGridCellEnumRenderer *	O_NON_WXOBJECT
+wxGridCellDateTimeRenderer *	O_NON_WXOBJECT
 wxPlGridCellRenderer *          O_WXCLIENTDATACONTAINER
 
 wxGridCellEditor *              O_WXCLIENTDATACONTAINER
@@ -38,6 +41,8 @@ wxGridCellNumberEditor *        O_NON_WXOBJECT
 wxGridCellFloatEditor *         O_NON_WXOBJECT
 wxGridCellBoolEditor *          O_NON_WXOBJECT
 wxGridCellChoiceEditor *        O_NON_WXOBJECT
+wxGridCellAutoWrapStringEditor *	O_NON_WXOBJECT
+wxGridCellEnumEditor *		O_NON_WXOBJECT
 wxPlGridCellEditor *            O_WXCLIENTDATACONTAINER
 
 wxPlGridTable*                  O_WXOBJECT

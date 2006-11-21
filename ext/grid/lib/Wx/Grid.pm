@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.pm,v 1.16 2005/11/01 22:16:04 mbarbon Exp $
-## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
+## RCS-ID:      $Id: Grid.pm,v 1.17 2006/11/21 21:00:27 mbarbon Exp $
+## Copyright:   (c) 2001-2002, 2004-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -40,6 +40,9 @@ package Wx::GridCellStringRenderer; @ISA = qw(Wx::GridCellRenderer);
 package Wx::GridCellNumberRenderer; @ISA = qw(Wx::GridCellRenderer);
 package Wx::GridCellFloatRenderer; @ISA = qw(Wx::GridCellRenderer);
 package Wx::GridCellBoolRenderer; @ISA = qw(Wx::GridCellRenderer);
+package Wx::GridCellAutoWrapStringRenderer; @ISA = qw(Wx::GridCellStringRenderer);
+package Wx::GridCellEnumRenderer; @ISA = qw(Wx::GridCellStringRenderer);
+package Wx::GridCellDateTimeRenderer; @ISA = qw(Wx::GridCellStringRenderer);
 package Wx::PlGridCellRenderer; @ISA = qw(Wx::GridCellRenderer);
 
 package Wx::GridCellEditor;
@@ -49,6 +52,8 @@ package Wx::GridCellTextEditor; @ISA = qw(Wx::GridCellEditor);
 package Wx::GridCellFloatEditor; @ISA = qw(Wx::GridCellEditor);
 package Wx::GridCellNumberEditor; @ISA = qw(Wx::GridCellEditor);
 package Wx::GridCellChoiceEditor; @ISA = qw(Wx::GridCellEditor);
+package Wx::GridCellAutoWrapStringEditor; @ISA = qw(Wx::GridCellTextEditor);
+package Wx::GridCellEnumEditor; @ISA = qw(Wx::GridCellChoiceEditor);
 package Wx::PlGridCellEditor; @ISA = qw(Wx::GridCellEditor);
 
 package Wx::GridTableBase;

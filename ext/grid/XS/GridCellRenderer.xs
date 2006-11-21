@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/12/2001
-## RCS-ID:      $Id: GridCellRenderer.xs,v 1.10 2006/08/11 19:54:59 mbarbon Exp $
+## RCS-ID:      $Id: GridCellRenderer.xs,v 1.11 2006/11/21 21:00:27 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -82,6 +82,28 @@ MODULE=Wx PACKAGE=Wx::GridCellBoolRenderer
 
 wxGridCellBoolRenderer*
 wxGridCellBoolRenderer::new()
+
+MODULE=Wx PACKAGE=Wx::GridCellAutoWrapStringRenderer
+
+wxGridCellAutoWrapStringRenderer*
+wxGridCellAutoWrapStringRenderer::new()
+
+MODULE=Wx PACKAGE=Wx::GridCellEnumRenderer
+
+wxGridCellEnumRenderer*
+wxGridCellEnumRenderer::new( choices = wxEmptyString )
+    wxString choices
+    
+MODULE=Wx PACKAGE=Wx::GridCellDateTimeRenderer   
+
+#if WXPERL_W_VERSION_LT( 2, 6, 0 )
+#define wxDefaultDateTimeFormat wxT("%c")
+#endif
+
+wxGridCellDateTimeRenderer*
+wxGridCellDateTimeRenderer::new( outformat = wxDefaultDateTimeFormat, informat = wxDefaultDateTimeFormat )
+    wxString outformat
+    wxString informat    
 
 MODULE=Wx PACKAGE=Wx::PlGridCellRenderer
 
