@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/03/2001
-## RCS-ID:      $Id: HelpController.xs,v 1.4 2004/08/04 19:38:46 mbarbon Exp $
-## Copyright:   (c) 2001, 2003, 2004 Mattia Barbon
+## RCS-ID:      $Id: HelpController.xs,v 1.5 2006/11/21 21:08:21 mbarbon Exp $
+## Copyright:   (c) 2001, 2003, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -67,14 +67,14 @@ wxHelpControllerBase::SetViewer( viewer, flags )
 bool
 wxHelpControllerBase::Quit()
 
-MODULE=Wx PACKAGE=Wx::HelpControllerHtml
+#if WXPERL_W_VERSION_GE( 2, 6, 3 )
 
-#if wxUSE_HTML && 0
+wxWindow*
+wxHelpControllerBase::GetParentWindow()
 
-#include <wx/generic/helpwxht.h>
-
-wxHelpControllerHtml*
-wxHelpControllerHtml::new()
+void
+wxHelpControllerBase::SetParentWindow( parent )
+    wxWindow* parent
 
 #endif
 
@@ -84,8 +84,18 @@ MODULE=Wx PACKAGE=Wx::WinHelpController
 
 #include <wx/msw/helpwin.h>
 
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+
+wxWinHelpController*
+wxWinHelpController::new( parent = NULL )
+    wxWindow* parent
+
+#else
+
 wxWinHelpController*
 wxWinHelpController::new()
+
+#endif
 
 #endif
 
@@ -95,18 +105,17 @@ MODULE=Wx PACKAGE=Wx::CHMHelpController
 
 #include <wx/msw/helpchm.h>
 
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+
+wxCHMHelpController*
+wxCHMHelpController::new( parent = NULL )
+    wxWindow* parent
+
+#else
+
 wxCHMHelpController*
 wxCHMHelpController::new()
 
 #endif
-
-MODULE=Wx PACKAGE=Wx::ExtHelpController
-
-#if 0
-
-#include <wx/generic/helpext.h>
-
-wxExtHelpController*
-wxExtHelpController::new()
 
 #endif

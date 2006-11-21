@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/03/2001
-## RCS-ID:      $Id: HtmlHelpController.xs,v 1.7 2004/12/21 21:12:53 mbarbon Exp $
-## Copyright:   (c) 2001, 2003-2004 Mattia Barbon
+## RCS-ID:      $Id: HtmlHelpController.xs,v 1.8 2006/11/21 21:08:22 mbarbon Exp $
+## Copyright:   (c) 2001, 2003-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -20,12 +20,29 @@
 
 MODULE=Wx PACKAGE=Wx::BestHelpController
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
 wxBestHelpController*
-wxBestHelpController::new()
-  CODE:
-    RETVAL = new wxBestHelpController();
-  OUTPUT:
-    RETVAL
+wxBestHelpController::new( parent = NULL, style = wxHF_DEFAULT_STYLE )
+    wxWindow* parent
+    int style
+
+#else
+#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+
+wxBestHelpController*
+wxBestHelpController::new( parent = NULL )
+    wxWindow* parent
+    int style
+
+#else
+
+wxBestHelpController*
+wxBestHelpController::new( window )
+    wxWindow* window
+
+#endif
+#endif
 
 #endif
 #endif

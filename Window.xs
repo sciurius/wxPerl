@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.74 2006/11/19 16:11:26 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.75 2006/11/21 21:08:21 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -640,6 +640,16 @@ wxWindow::IsShown()
 
 bool
 wxWindow::IsTopLevel()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxWindow::IsDoubleBuffered()
+
+bool
+wxWindow::IsShownOnScreen()
+
+#endif
 
 void
 wxWindow::Layout()
