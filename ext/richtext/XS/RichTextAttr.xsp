@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichTextAttr.xsp,v 1.4 2006/11/11 21:22:48 mbarbon Exp $
+## RCS-ID:      $Id: RichTextAttr.xsp,v 1.5 2006/11/25 14:30:54 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -96,11 +96,13 @@ wxRichTextRange::new( ... )
     const wxString& GetURL() const;
 #endif
 
+#if WXPERL_W_VERSION_LT( 2, 8, 0 )
     bool HasWeight() const;
     bool HasSize() const;
     bool HasItalic() const;
     bool HasUnderlined() const;
     bool HasFaceName() const;
+#endif
 
     bool HasParagraphSpacingAfter() const;
     bool HasParagraphSpacingBefore() const;
@@ -226,11 +228,13 @@ wxTextAttrEx::new( ... )
     bool HasTabs() const;
     bool HasLeftIndent() const;
     bool HasRightIndent() const;
+#if WXPERL_W_VERSION_LT( 2, 8, 0 )
     bool HasWeight() const;
     bool HasSize() const;
     bool HasItalic() const;
     bool HasUnderlined() const;
     bool HasFaceName() const;
+#endif
     bool HasFont() const;
 
     bool HasParagraphSpacingAfter() const;

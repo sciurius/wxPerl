@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     11/11/2006
-// RCS-ID:      $Id: AUI.xs,v 1.3 2006/11/12 17:35:25 mbarbon Exp $
+// RCS-ID:      $Id: AUI.xs,v 1.4 2006/11/25 14:30:53 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -31,12 +31,19 @@
 // !tag:
 // !parser: sub { $_[0] =~ m<^\s*S?EVT\(\s*(\w+)\s*\,> }
 
+#if WXPERL_W_VERSION_LT( 2, 8, 0 )
+#define wxEVT_AUI_PANE_BUTTON   wxEVT_AUI_PANEBUTTON
+#define wxEVT_AUI_PANE_CLOSE    wxEVT_AUI_PANECLOSE
+#define wxEVT_AUI_PANE_MAXIMIZE wxEVT_AUI_PANEMAXIMIZE
+#define wxEVT_AUI_PANE_RESTORE  wxEVT_AUI_PANERESTORE
+#endif
+
 static wxPliEventDescription evts[] =
 {
-    SEVT( EVT_AUI_PANEBUTTON, 2 )
-    SEVT( EVT_AUI_PANECLOSE, 2 )
-    SEVT( EVT_AUI_PANEMAXIMIZE, 2 )
-    SEVT( EVT_AUI_PANERESTORE, 2 )
+    SEVT( EVT_AUI_PANE_BUTTON, 2 )
+    SEVT( EVT_AUI_PANE_CLOSE, 2 )
+    SEVT( EVT_AUI_PANE_MAXIMIZE, 2 )
+    SEVT( EVT_AUI_PANE_RESTORE, 2 )
     SEVT( EVT_AUI_RENDER, 2 )
     EVT( EVT_AUINOTEBOOK_PAGE_CLOSE, 3, wxEVT_COMMAND_AUINOTEBOOK_PAGE_CLOSE )
     EVT( EVT_AUINOTEBOOK_PAGE_CHANGED, 3, wxEVT_COMMAND_AUINOTEBOOK_PAGE_CHANGED )

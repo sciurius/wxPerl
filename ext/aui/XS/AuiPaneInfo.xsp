@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     11/11/2006
-## RCS-ID:      $Id: AuiPaneInfo.xsp,v 1.1 2006/11/11 21:34:07 mbarbon Exp $
+## RCS-ID:      $Id: AuiPaneInfo.xsp,v 1.2 2006/11/25 14:30:54 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -146,8 +146,10 @@ wxAuiPaneInfo::FloatingSize( ... )
     wxAuiPaneInfo& Floatable( bool b = true );
     wxAuiPaneInfo& Movable( bool b = true );
 
+#if WXPERL_W_VERSION_LT( 2, 8, 0 )
     wxAuiPaneInfo& SaveHidden();
     wxAuiPaneInfo& RestoreHidden();
+#endif
 
     wxAuiPaneInfo& Dockable( bool b = true );
 
