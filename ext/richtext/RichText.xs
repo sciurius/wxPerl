@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     05/11/2006
-// RCS-ID:      $Id: RichText.xs,v 1.5 2006/11/17 21:41:58 mbarbon Exp $
+// RCS-ID:      $Id: RichText.xs,v 1.6 2006/11/25 14:26:35 mbarbon Exp $
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -51,6 +51,10 @@ static wxPliEventDescription evts[] =
 };
 
 #define wxPliRichTextStyleType wxRichTextStyleListBox::wxRichTextStyleType
+#if WXPERL_W_VERSION_LT( 2, 8, 0 )
+#undef _
+#define _( s ) wxT( s )
+#endif
 
 MODULE=Wx__RichText
 
@@ -64,6 +68,8 @@ INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/Ric
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyle.xsp |
 
 INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyleCtrl.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t typemap.xsp -t ../../typemap.xsp XS/RichTextFormattingDialog.xsp |
 
 MODULE=Wx__RichText PACKAGE=Wx::RichText
 

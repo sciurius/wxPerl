@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.168 2006/11/19 16:06:44 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.169 2006/11/25 14:26:34 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -299,6 +299,7 @@ static wxPlINH inherit[] =
     I( ProgressDialog,  Dialog )
     I( SingleChoiceDialog, Dialog )
     I( MultiChoiceDialog, Dialog )
+    I( PropertySheetDialog, Dialog )
 
     I( Validator,       EvtHandler )
     I( PlValidator,     Validator )

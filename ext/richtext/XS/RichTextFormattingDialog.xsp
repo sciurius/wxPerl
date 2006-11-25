@@ -1,0 +1,85 @@
+#############################################################################
+## Name:        ext/richtext/XS/RichTextFormattingDialog.xsp
+## Purpose:     XS++ for Wx::RichTextFormattingDialog
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     25/11/2006
+## RCS-ID:      $Id: RichTextFormattingDialog.xsp,v 1.1 2006/11/25 14:26:34 mbarbon Exp $
+## Copyright:   (c) 2006 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/richtext/richtextformatdlg.h>
+#include <wx/imaglist.h>
+
+%module{Wx};
+
+#define wxRICHTEXT_FM_DEFAULT_APPLY_STYLE wxRICHTEXT_SETSTYLE_WITH_UNDO|wxRICHTEXT_SETSTYLE_OPTIMIZE
+
+%name{Wx::RichTextFormattingDialog} class wxRichTextFormattingDialog
+{
+    %name{newDefault} wxRichTextFormatingDialog();
+    %name{newFull} wxRichTextFormattingDialog
+        ( long flags, wxWindow* parent,
+          const wxString& title = wxT("Formatting"), wxWindowID id = wxID_ANY,
+          const wxPoint& pos = wxDefaultPosition,
+          const wxSize& sz = wxDefaultSize,
+          long style = wxDEFAULT_DIALOG_STYLE );
+%{
+void
+wxRichTextFormattingDialog::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::RichTextFormattingDialog::new" )
+%}
+
+    bool Create( long flags, wxWindow* parent,
+                 const wxString& title = wxT("Formatting"),
+                 wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& sz = wxDefaultSize,
+                 long style = wxDEFAULT_DIALOG_STYLE );
+
+    bool GetStyle( wxRichTextCtrl* ctrl, const wxRichTextRange& range );
+    bool SetStyle( const wxTextAttrEx& style, bool update = true );
+
+    bool SetStyleDefinition( const wxRichTextStyleDefinition& styleDef,
+                             wxRichTextStyleSheet* sheet,
+                             bool update = true );
+    wxRichTextStyleDefinitionDisown* GetStyleDefinition() const;
+    wxRichTextStyleSheetDisown* GetStyleSheet() const;
+
+    bool UpdateDisplay();
+    bool ApplyStyle( wxRichTextCtrl* ctrl, const wxRichTextRange& range,
+                     int flags = wxRICHTEXT_FM_DEFAULT_APPLY_STYLE );
+
+    const wxTextAttrEx& GetAttributes() const;
+    void SetAttributes( const wxTextAttrEx& attr );
+
+    void SetImageList( wxImageList* imageList );
+    wxImageList* GetImageList() const;
+
+##    static void SetFormattingDialogFactory(wxRichTextFormattingDialogFactory* factory);
+##    static wxRichTextFormattingDialogFactory* GetFormattingDialogFactory();
+
+##    static wxRichTextFormattingDialog* GetDialog( wxWindow* win );
+##    static wxTextAttrEx* GetDialogAttributes( wxWindow* win );
+##    static wxRichTextStyleDefinition* GetDialogStyleDefinition( wxWindow* win );
+%{
+bool
+ShowToolTips()
+  CODE:
+    RETVAL = wxRichTextFormattingDialog::ShowToolTips();
+  OUTPUT: RETVAL
+
+void
+SetShowToolTips( show )
+    bool show
+  CODE:
+    wxRichTextFormattingDialog::SetShowToolTips( show );
+%}
+    void AddPageId( int id );
+};

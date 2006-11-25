@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: typemap.xsp,v 1.2 2006/11/12 17:27:00 mbarbon Exp $
+## RCS-ID:      $Id: typemap.xsp,v 1.3 2006/11/25 14:26:35 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -57,3 +57,4 @@
              {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
              {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
 %typemap{const wxRichTextListStyleDefinition&}{reference};
+%typemap{wxRichTextFormattingDialog*}{simple};

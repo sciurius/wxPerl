@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.94 2006/11/21 21:08:21 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.95 2006/11/25 14:26:35 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -166,6 +166,7 @@ wxPrintDialog *         O_WXOBJECT
 wxMessageDialog *       O_WXOBJECT
 wxProgressDialog *      O_WXOBJECT
 wxFindReplaceDialog *   O_WXOBJECT
+wxPropertySheetDialog * O_WXOBJECT
 
 wxFindReplaceData *     O_NON_WXOBJECT
 wxColourData *          O_WXOBJECT

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichText.pm,v 1.4 2006/11/12 23:23:22 mbarbon Exp $
+## RCS-ID:      $Id: RichText.pm,v 1.5 2006/11/25 14:26:35 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -40,5 +40,6 @@ package Wx::RichTextStyleListCtrl; @ISA = qw(Wx::Control);
 package Wx::HtmlListBox;     @ISA = qw(Wx::VListBox);
 package Wx::RichTextStyleListBox; @ISA = qw(Wx::HtmlListBox);
 package Wx::RichTextStyleComboCtrl; @ISA = qw(Wx::ComboCtrl);
+package Wx::RichTextFormattingDialog; @ISA = qw(Wx::PropertySheetDialog);
 
 1;

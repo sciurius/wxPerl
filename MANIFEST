@@ -477,6 +477,7 @@ ext/richtext/Makefile.PL
 ext/richtext/RichText.xs
 ext/richtext/XS/RichTextAttr.xsp
 ext/richtext/XS/RichTextCtrl.xsp
+ext/richtext/XS/RichTextFormattingDialog.xsp
 ext/richtext/XS/RichTextStyle.xsp
 ext/richtext/XS/RichTextStyleCtrl.xsp
 ext/richtext/lib/Wx/RichText.pm
