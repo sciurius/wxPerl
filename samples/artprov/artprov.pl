@@ -1,12 +1,12 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 #############################################################################
 ## Name:        samples/artprov/artprov.pl
 ## Purpose:     Wx::ArtProvider sample, based on samples/artprov from wx
 ## Author:      Mattia Barbon, Matthew "Cheetah" Gabeler-Lee
 ## Modified by:
 ## Created:     11/01/2005
-## RCS-ID:      $Id: artprov.pl,v 1.1 2005/01/22 13:16:16 mbarbon Exp $
-## Copyright:   (c) 2000 Mattia Barbon, 2005 Matthew "Cheetah" Gabeler-Lee
+## RCS-ID:      $Id: artprov.pl,v 1.2 2006/11/26 17:05:43 mbarbon Exp $
+## Copyright:   (c) 2000 Mattia Barbon, 2005-2006 Matthew "Cheetah" Gabeler-Lee
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

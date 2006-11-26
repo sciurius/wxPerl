@@ -1,12 +1,12 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 #############################################################################
 ## Name:        samples/toolbar/toolbar.pl
 ## Purpose:     Toolbar wxPerl sample
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: toolbar.pl,v 1.8 2005/03/27 16:24:32 mbarbon Exp $
-## Copyright:   (c) 2000, 2003 Mattia Barbon
+## RCS-ID:      $Id: toolbar.pl,v 1.9 2006/11/26 17:05:43 mbarbon Exp $
+## Copyright:   (c) 2000, 2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
