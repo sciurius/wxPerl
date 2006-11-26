@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.34 2006/11/19 16:06:44 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.35 2006/11/26 17:07:26 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -618,6 +618,24 @@ wxTreeCtrl::SetImageList( list )
     wxImageList* list
 
 void
+wxTreeCtrl::SetStateImageList( list )
+    wxImageList* list
+
+void
+wxTreeCtrl::AssignImageList( list )
+    wxImageList* list
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    THIS->AssignImageList( list );
+
+void
+wxTreeCtrl::AssignStateImageList( list )
+    wxImageList* list
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    THIS->AssignStateImageList( list );
+
+void
 wxTreeCtrl::SetItemBackgroundColour( item, col )
     wxTreeItemId* item
     wxColour col
@@ -687,10 +705,6 @@ wxTreeCtrl::SetItemTextColour( item, col )
     wxTreeItemId* item
     wxColour col
   C_ARGS: *item, col
-
-void
-wxTreeCtrl::SetStateImageList( imagelist )
-    wxImageList* imagelist
 
 void
 wxTreeCtrl::SortChildren( item )
