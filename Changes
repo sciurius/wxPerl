@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.65
+	- Windows compilation fixes.
+
 0.64  Sun Nov 26 18:32:03 CET 2006
 	- Removed support for wxWidgets 2.7.0 and 2.7.1.
         - Added Wx::GridCellAutoWrapStringRenderer,
