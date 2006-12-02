@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/03/2001
-## RCS-ID:      $Id: HelpController.xs,v 1.5 2006/11/21 21:08:21 mbarbon Exp $
+## RCS-ID:      $Id: HelpController.xs,v 1.6 2006/12/02 13:08:51 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -84,7 +84,7 @@ MODULE=Wx PACKAGE=Wx::WinHelpController
 
 #include <wx/msw/helpwin.h>
 
-#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 wxWinHelpController*
 wxWinHelpController::new( parent = NULL )
@@ -105,7 +105,7 @@ MODULE=Wx PACKAGE=Wx::CHMHelpController
 
 #include <wx/msw/helpchm.h>
 
-#if WXPERL_W_VERSION_GE( 2, 6, 1 )
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 wxCHMHelpController*
 wxCHMHelpController::new( parent = NULL )

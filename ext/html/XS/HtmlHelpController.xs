@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/03/2001
-## RCS-ID:      $Id: HtmlHelpController.xs,v 1.8 2006/11/21 21:08:22 mbarbon Exp $
+## RCS-ID:      $Id: HtmlHelpController.xs,v 1.9 2006/12/02 13:08:51 mbarbon Exp $
 ## Copyright:   (c) 2001, 2003-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -28,20 +28,10 @@ wxBestHelpController::new( parent = NULL, style = wxHF_DEFAULT_STYLE )
     int style
 
 #else
-#if WXPERL_W_VERSION_GE( 2, 6, 1 )
 
 wxBestHelpController*
-wxBestHelpController::new( parent = NULL )
-    wxWindow* parent
-    int style
+wxBestHelpController::new()
 
-#else
-
-wxBestHelpController*
-wxBestHelpController::new( window )
-    wxWindow* window
-
-#endif
 #endif
 
 #endif
