@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.65
+0.65  Sun Dec  3 16:49:02 CET 2006
 	- Windows compilation fixes.
 
 0.64  Sun Nov 26 18:32:03 CET 2006
