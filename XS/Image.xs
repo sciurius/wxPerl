@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: Image.xs,v 1.43 2006/11/19 16:11:26 mbarbon Exp $
+## RCS-ID:      $Id: Image.xs,v 1.44 2006/12/03 14:56:38 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -548,6 +548,14 @@ wxImage::Rotate( angle, centre, interpolating = true )
       PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(), 
              new wxPoint( after ), "Wx::Point" ) );
     }
+
+#if WXPERL_W_VERSION_GE( 2, 6, 3 )
+
+void
+wxImage::RotateHue( angle )
+    double angle
+
+#endif
 
 wxImage*
 wxImage::Rotate90( clockwise = true )

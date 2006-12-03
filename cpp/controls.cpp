@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.cpp,v 1.37 2005/08/07 21:21:27 mbarbon Exp $
-// Copyright:   (c) 2000-2004 Mattia Barbon
+// RCS-ID:      $Id: controls.cpp,v 1.38 2006/12/03 14:56:38 mbarbon Exp $
+// Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -91,6 +91,10 @@ double listctrl_constant( const char* name, int arg )
       r( wxLIST_HITTEST_TOLEFT );       // listctrl
       r( wxLIST_HITTEST_TORIGHT );      // listctrl
       r( wxLIST_HITTEST_ONITEM );       // listctrl
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+      r( wxLIST_GETSUBITEMRECT_WHOLEITEM ); // listctrl
+#endif
 
       r( wxLIST_MASK_STATE );           // listctrl
       r( wxLIST_MASK_TEXT );            // listctrl
@@ -192,6 +196,10 @@ wxListItemAttr* wxPliListCtrl::OnGetItemAttr( long item ) const
 
     return wxListCtrl::OnGetItemAttr( item );
 }
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+DEF_V_CBACK_INT__LONG_LONG_const( wxPliListCtrl, wxListCtrl, OnGetItemColumnImage );
+#endif
 
 //
 // Wx::TreeCtrl implementation

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.42 2006/11/19 16:06:44 mbarbon Exp $
+## RCS-ID:      $Id: ListCtrl.xs,v 1.43 2006/12/03 14:56:38 mbarbon Exp $
 ## Copyright:   (c) 2001-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -461,21 +461,43 @@ wxListCtrl::GetItemPosition( item )
     RETVAL
 
 wxRect*
-wxListCtrl::GetItemRect( item )
+wxListCtrl::GetItemRect( item, code = wxLIST_RECT_BOUNDS )
     long item
+    int code
   PREINIT:
     wxRect rect;
   CODE:
-    if( THIS->GetItemRect( item, rect ) )
+    if( THIS->GetItemRect( item, rect, code ) )
     {
-      RETVAL = new wxRect( rect );
+        RETVAL = new wxRect( rect );
     }
     else
     {
-      RETVAL = 0;
+        RETVAL = 0;
     }
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 ) && defined(__WXMSW__)
+
+wxRect*
+wxListCtrl::GetSubItemRect( item, subItem, code = wxLIST_RECT_BOUNDS )
+    long item
+    long subItem
+    int code
+  PREINIT:
+    wxRect rect;
+  CODE:
+    if( THIS->GetSubItemRect( item, subItem, rect, code ) )
+    {
+        RETVAL = new wxRect( rect );
+    }
+    else
+    {
+        RETVAL = 0;
+    }
+  OUTPUT: RETVAL
+
+#endif
 
 int
 wxListCtrl::GetItemState( item, stateMask )
@@ -570,11 +592,21 @@ wxListCtrl::HitTest( point )
   PREINIT:
     int flags;
     long item;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    long subitem;
+#endif
   PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    item = THIS->HitTest( point, flags, &subitem );
+#else
     item = THIS->HitTest( point, flags );
-    EXTEND( SP, 2 );
+#endif
+    EXTEND( SP, 3 );
     PUSHs( sv_2mortal( newSViv( item ) ) );
     PUSHs( sv_2mortal( newSViv( flags ) ) );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    PUSHs( sv_2mortal( newSViv( subitem ) ) );
+#endif
 
 void
 wxListCtrl::InsertColumn( ... )
@@ -717,6 +749,16 @@ wxListCtrl::SetItemImage( item, image, selImage )
     long item
     int image
     int selImage
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxListCtrl::SetItemColumnImage( item, column, image )
+    long item
+    long column
+    int image
+
+#endif
 
 bool
 wxListCtrl::SetItemPosition( item, pos )

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: v_cback.h,v 1.35 2006/09/24 17:15:58 mbarbon Exp $
+// RCS-ID:      $Id: v_cback.h,v 1.36 2006/12/03 14:56:38 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -307,6 +307,23 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
             CALLBASE;                                                        \
     }
 
+// ANY METH(long, long)
+#define DEC_V_CBACK_ANY__LONG_LONG_( RET, METHOD, CONST ) \
+    RET METHOD( long, long ) CONST
+
+#define DEF_V_CBACK_ANY__LONG_LONG_( RET, CVT, CLASS, CALLBASE, METHOD, CONST )\
+    RET CLASS::METHOD( long param1, long param2 ) CONST                      \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )\
+        {                                                                    \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,    \
+                                        "ll", param1, param2 ) );            \
+            return CVT;                                                      \
+        } else                                                               \
+            CALLBASE;                                                        \
+    }
+
 // bool METH()
 #define DEC_V_CBACK_BOOL__VOID_( METHOD, CONST ) \
     bool METHOD() CONST
@@ -573,6 +590,22 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 #define DEF_V_CBACK_BOOL__mWXSTRING_const( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_BOOL__mWXSTRING_( CLASS, return BASE::METHOD(param1), METHOD, wxPli_CONST )
 
+// int METH(long, long)
+#define DEC_V_CBACK_INT__LONG_LONG( METHOD ) \
+    DEC_V_CBACK_ANY__LONG_LONG_( int, METHOD, wxPli_NOCONST )
+
+#define DEC_V_CBACK_INT__LONG_LONG_const( METHOD ) \
+    DEC_V_CBACK_ANY__LONG_LONG_( int, METHOD, wxPli_CONST )
+
+#define DEF_V_CBACK_INT__LONG_LONG( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__LONG_LONG_( int, SvIV( ret ), CLASS, return BASE::METHOD(param1, param2), METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_INT__LONG_LONG_pure( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__LONG_LONG_( int, SvIV( ret ), CLASS, return 0, METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_INT__LONG_LONG_const( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__LONG_LONG_( int, SvIV( ret ), CLASS, return BASE::METHOD(param1, param2), METHOD, wxPli_CONST )
+
 // double METH(int, int)
 #define DEC_V_CBACK_DOUBLE__INT_INT( METHOD ) \
     DEC_V_CBACK_ANY__INT_INT_( double, METHOD, wxPli_NOCONST )
@@ -584,7 +617,7 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
     DEF_V_CBACK_ANY__INT_INT_( double, SvNV( ret ), CLASS, return BASE::METHOD(param1, param2), METHOD, wxPli_NOCONST )
 
 #define DEF_V_CBACK_DOUBLE__INT_INT_pure( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_ANY__INT_INT_( double, SvNV( ret ), CLASS, return false, METHOD, wxPli_NOCONST )
+    DEF_V_CBACK_ANY__INT_INT_( double, SvNV( ret ), CLASS, return 0, METHOD, wxPli_NOCONST )
 
 #define DEF_V_CBACK_DOUBLE__INT_INT_const( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_ANY__INT_INT_( double, SvNV( ret ), CLASS, return BASE::METHOD(param1, param2), METHOD, wxPli_CONST )

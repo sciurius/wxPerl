@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Window.xs,v 1.75 2006/11/21 21:08:21 mbarbon Exp $
+// RCS-ID:      $Id: Window.xs,v 1.76 2006/12/03 14:56:37 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -582,6 +582,13 @@ wxWindow::GetValidator()
 
 long
 wxWindow::GetWindowStyleFlag()
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+wxSize
+wxWindow::GetWindowBorderSize()
+
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 

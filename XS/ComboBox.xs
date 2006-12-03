@@ -4,13 +4,14 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: ComboBox.xs,v 1.25 2006/11/02 18:38:13 mbarbon Exp $
+## RCS-ID:      $Id: ComboBox.xs,v 1.26 2006/12/03 14:56:38 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 #include <wx/combobox.h>
+#include <wx/textctrl.h>
 #include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::ComboBox
@@ -173,7 +174,7 @@ wxComboBox::Cut()
 long
 wxComboBox::GetInsertionPoint()
 
-long
+wxTextPos
 wxComboBox::GetLastPosition()
 
 wxString

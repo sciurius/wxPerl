@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.36 2006/11/21 21:08:21 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.37 2006/12/03 14:56:38 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -366,14 +366,11 @@ wxDC::GetTextBackground()
     RETVAL
 
 void
-wxDC::GetTextExtent( string, font = 0 )
+wxDC::GetTextExtent( string, font = NULL )
     wxString string
     wxFont* font
   PREINIT:
-    wxCoord x;
-    wxCoord y;
-    wxCoord descent;
-    wxCoord externalLeading;
+    wxCoord x, y, descent, externalLeading;
   PPCODE:
     THIS->GetTextExtent( string, &x, &y, &descent, &externalLeading,
         font );
@@ -382,6 +379,33 @@ wxDC::GetTextExtent( string, font = 0 )
     PUSHs( sv_2mortal( newSViv( y ) ) );
     PUSHs( sv_2mortal( newSViv( descent ) ) );
     PUSHs( sv_2mortal( newSViv( externalLeading ) ) );
+
+void
+wxDC::GetPartialTextExtents( string )
+    wxString string
+  PREINIT:
+    wxArrayInt widths;
+  PPCODE:
+    bool ok = THIS->GetPartialTextExtents( string, widths );
+    if( ok ) {
+        PUTBACK;
+        wxPli_intarray_push( aTHX_ widths );
+        SPAGAIN;
+    } else
+        XSRETURN_EMPTY;
+
+void
+wxDC::GetMultiLineTextExtent( string, font = NULL )
+    wxString string
+    wxFont* font
+  PREINIT:
+    wxCoord w, h, hLine;
+  PPCODE:
+    THIS->GetMultiLineTextExtent( string, &w, &h, &hLine, font );
+    EXTEND( SP, 3 );
+    PUSHs( sv_2mortal( newSViv( w ) ) );
+    PUSHs( sv_2mortal( newSViv( h ) ) );
+    PUSHs( sv_2mortal( newSViv( hLine ) ) );
 
 wxColour*
 wxDC::GetTextForeground()
