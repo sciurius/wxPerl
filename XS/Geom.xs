@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Geom.xs,v 1.23 2006/09/24 17:15:58 mbarbon Exp $
+## RCS-ID:      $Id: Geom.xs,v 1.24 2006/12/09 23:46:41 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -267,7 +267,7 @@ void
 wxRect::SetSize( size )
     wxSize size
 
-bool
+void
 wxRect::Contains( ... )
   PPCODE:
     BEGIN_OVERLOAD()
@@ -276,7 +276,7 @@ wxRect::Contains( ... )
         MATCH_REDISP( wxPliOvl_wrec, ContainsRect )
     END_OVERLOAD( Wx::Rect::Contains )
 
-bool
+void
 wxRect::Inside( ... )
   PPCODE:
     BEGIN_OVERLOAD()
@@ -377,14 +377,35 @@ newPolygon( CLASS, list, fillStyle = wxODDEVEN_RULE )
 #endif
 
 wxRegion*
-newBitmap( CLASS, bitmap, colour = wxNullColour, tolerance = 0 )
+newBitmap( CLASS, bitmap, colour, tolerance = 0 )
     SV* CLASS
     wxBitmap* bitmap
     wxColour colour
     int tolerance
-  CODE:
+  CODE: 
     RETVAL = new wxRegion( *bitmap, colour, tolerance );
   OUTPUT: RETVAL
+
+wxRegion*
+newBitmapOnly( CLASS, bitmap )
+    SV* CLASS
+    wxBitmap* bitmap
+  CODE:
+    RETVAL = new wxRegion( *bitmap );
+  OUTPUT: RETVAL
+
+void
+wxRegion::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newEmpty )
+        MATCH_REDISP( wxPliOvl_n_n_n_n, newXYWH )
+        MATCH_REDISP( wxPliOvl_wpoi_wpoi, newPP )
+        MATCH_REDISP( wxPliOvl_wrec, newRect )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_wcol_n, newBitmap, 2 )
+        MATCH_REDISP( wxPliOvl_wbmp, newBitmapOnly )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_arr, newPolygon, 1 )
+    END_OVERLOAD( Wx::Region::new )
 
 static void
 wxRegion::CLONE()
@@ -437,6 +458,16 @@ wxRegion::ContainsRect( rect )
   OUTPUT:
     RETVAL
 
+void
+wxRegion::Contains( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, ContainsXYWH )
+        MATCH_REDISP( wxPliOvl_n_n, ContainsXY )
+        MATCH_REDISP( wxPliOvl_wpoi, ContainsPoint )
+        MATCH_REDISP( wxPliOvl_wrec, ContainsRect )
+    END_OVERLOAD( Wx::Region::Contains )
+
 wxRect*
 wxRegion::GetBox()
   CODE:
@@ -486,6 +517,15 @@ wxRegion::IntersectRegion( region )
   OUTPUT:
     RETVAL
 
+void
+wxRegion::Intersect( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, IntersectXYWH )
+        MATCH_REDISP( wxPliOvl_wrec, IntersectRect )
+        MATCH_REDISP( wxPliOvl_wreg, IntersectRegion )
+    END_OVERLOAD( Wx::Region::Intersect )
+
 bool
 wxRegion::IsEmpty()
 
@@ -514,6 +554,14 @@ wxRegion::SubtractRegion( region )
   OUTPUT:
     RETVAL
 
+void
+wxRegion::Subtract( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wrec, SubtractRect )
+        MATCH_REDISP( wxPliOvl_wreg, SubtractRegion )
+    END_OVERLOAD( Wx::Region::Subtract )
+
 bool
 wxRegion::UnionXYWH( x, y, w, h )
     wxCoord x
@@ -522,24 +570,48 @@ wxRegion::UnionXYWH( x, y, w, h )
     wxCoord h
   CODE:
     RETVAL = THIS->Union( x, y, w, h );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 bool
 wxRegion::UnionRect( rect )
     wxRect* rect
   CODE:
     RETVAL = THIS->Union( *rect );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 bool
 wxRegion::UnionRegion( region )
     wxRegion* region
   CODE:
     RETVAL = THIS->Union( *region );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
+
+bool
+wxRegion::UnionBitmapOnly( bitmap )
+    wxBitmap* bitmap
+  CODE:
+    RETVAL = THIS->Union( *bitmap );
+  OUTPUT: RETVAL
+
+bool
+wxRegion::UnionBitmap( bitmap, colour, tolerance = 0 )
+    wxBitmap* bitmap
+    wxColour colour
+    int tolerance
+  CODE:
+    RETVAL = THIS->Union( *bitmap, colour, tolerance );
+  OUTPUT: RETVAL
+
+void
+wxRegion::Union( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, UnionXYWH )
+        MATCH_REDISP( wxPliOvl_wrec, UnionRect )
+        MATCH_REDISP( wxPliOvl_wreg, UnionRegion )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_wcol_n, UnionBitmap, 2 )
+        MATCH_REDISP( wxPliOvl_wbmp, UnionBitmapOnly )
+    END_OVERLOAD( Wx::Region::Union )
 
 bool
 wxRegion::XorXYWH( x, y, w, h )
@@ -567,3 +639,12 @@ wxRegion::XorRegion( region )
     RETVAL = THIS->Xor( *region );
   OUTPUT:
     RETVAL
+
+void
+wxRegion::Xor( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, XorXYWH )
+        MATCH_REDISP( wxPliOvl_wrec, XorRect )
+        MATCH_REDISP( wxPliOvl_wreg, XorRegion )
+    END_OVERLOAD( Wx::Region::Xor )
