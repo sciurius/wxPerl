@@ -68,19 +68,10 @@ lib/Wx/Mini.pm
 lib/Wx/RadioBox.pm
 lib/Wx/Timer.pm
 
-samples/artprov/artprov.pl
-samples/artprov/error.xpm
-samples/artprov/info.xpm
-samples/artprov/null.xpm
-samples/artprov/question.xpm
-samples/artprov/warning.xpm
-
 samples/dialog/dialog.pl
 samples/minimal/minimal.pl
 samples/hello/hello.pl
 samples/trivial/trivial.pl
-
-samples/caret/caret.pl
 
 samples/socket/wxSocketClient.pl
 samples/socket/wxSocketClientDatagram.pl
