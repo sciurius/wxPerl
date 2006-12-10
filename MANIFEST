@@ -68,6 +68,7 @@ lib/Wx/Mini.pm
 lib/Wx/RadioBox.pm
 lib/Wx/Timer.pm
 
+samples/README.txt
 samples/dialog/dialog.pl
 samples/minimal/minimal.pl
 samples/hello/hello.pl
