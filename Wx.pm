@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.111 2006/12/09 23:45:45 mbarbon Exp $
+## RCS-ID:      $Id: Wx.pm,v 1.112 2006/12/10 17:37:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -189,7 +189,6 @@ require Wx::Event;
 require Wx::Locale;
 require Wx::Menu;
 require Wx::RadioBox;
-require Wx::Region;
 require Wx::Timer;
 require Wx::Wx_Exp;
 # for Wx::Stream & co.
