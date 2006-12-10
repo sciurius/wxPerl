@@ -917,8 +917,8 @@ Wx::Image->new( 'wxpl.xpm', 'image/xpm' );
 ok( $newnametype, "Wx::Image::newNameMIME" );
 
 my $img = Wx::Image->new;
-open IN, "samples/toolbar/bitmaps/copy.bmp"; binmode IN;
-$img->LoadFile( \*IN, Wx::wxBITMAP_TYPE_BMP() );
+open IN, "wxpl.xpm"; binmode IN;
+$img->LoadFile( \*IN, Wx::wxBITMAP_TYPE_XPM() );
 ok( $lst, "Wx::Image::LoadStreamType" );
 
 open IN, $op; binmode IN;
