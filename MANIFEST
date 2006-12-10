@@ -80,26 +80,6 @@ samples/minimal/minimal.pl
 samples/hello/hello.pl
 samples/trivial/trivial.pl
 
-samples/toolbar/bitmaps/copy.bmp
-samples/toolbar/bitmaps/copy.xpm
-samples/toolbar/bitmaps/cut.bmp
-samples/toolbar/bitmaps/cut.xpm
-samples/toolbar/bitmaps/help.bmp
-samples/toolbar/bitmaps/help.xpm
-samples/toolbar/bitmaps/new.bmp
-samples/toolbar/bitmaps/new.xpm
-samples/toolbar/bitmaps/open.bmp
-samples/toolbar/bitmaps/open.xpm
-samples/toolbar/bitmaps/page.bmp
-samples/toolbar/bitmaps/paste.bmp
-samples/toolbar/bitmaps/preview.bmp
-samples/toolbar/bitmaps/preview.xpm
-samples/toolbar/bitmaps/print.bmp
-samples/toolbar/bitmaps/print.xpm
-samples/toolbar/bitmaps/save.bmp
-samples/toolbar/bitmaps/save.xpm
-samples/toolbar/toolbar.pl
-
 samples/caret/caret.pl
 
 samples/socket/wxSocketClient.pl
