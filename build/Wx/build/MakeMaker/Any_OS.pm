@@ -98,7 +98,8 @@ sub _depend_common {
 
   my $top_file =    $this->{WX}{wx_top}
                  || $this->{ARGS}{VERSION_FROM}
-                 || $this->{ARGS}{ABSTRACT_FROM};
+                 || $this->{ARGS}{ABSTRACT_FROM}
+                 || 'Wx.pm';
   my( $ovlc, $ovlh ) = $this->{WX}{wx_overload} ?
     @{$this->{WX}{wx_overload}}{qw(source header)} : ();
   return ( xs_dependencies( $this, [ curdir, $this->get_api_directory

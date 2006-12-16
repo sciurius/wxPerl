@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Makefile.PL,v 1.50 2006/11/19 16:00:11 mbarbon Exp $
+## RCS-ID:      $Id: Makefile.PL,v 1.51 2006/12/16 18:44:58 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -77,7 +77,7 @@ END {
 
 ======================================================================
 For installation instructions and further help please see
-docs/install.txt
+docs/INSTALL.pod
 
 For command line switches help use:
 perl Makefile.PL --help

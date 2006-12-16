@@ -110,7 +110,7 @@ sub wxWriteMakefile {
       $params{OBJECT}    = join ' ', obj_from_src( @top_level_xs ), '';
   }
 
-  my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params );
+  my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params, $has_alien );
 
   if( $build ) {
     WriteMakefile( %params );

@@ -338,16 +338,17 @@ sub const_config { package MY; shift->SUPER::const_config( @_ ) }
 
 use vars qw(%args %additional_arguments $wx_top_file);
 sub _process_mm_arguments {
-  local *args = $_[0];
+  my( $args, $has_alien ) = @_;
+  local *args = $args;
   my $build = 1;
   my %options =
     Wx::build::Options->get_makemaker_options( is_wxPerl_tree()
                                                ? () : ( 'saved' ) );
 
   $additional_arguments{WX_TOP} = $wx_top_file if $wx_top_file;
-  unless( Alien::wxWidgets->can( 'load' ) ) {
+  unless( $has_alien ) {
       $args{depend} = { '$(FIRST_MAKEFILE)' => 'you_better_rebuild_me' };
-      delete $args{$_} foreach grep /^WX_/, keys %args;
+      delete $args{$_} foreach grep /WX_|_WX/, keys %args;
       return 1;
   }
   my $platform = Alien::wxWidgets->config->{toolkit};
@@ -443,8 +444,7 @@ sub wxWriteMakefile {
     ( $params{PREREQ_PM} ||= {} )->{Wx} ||= '0.19' unless is_wxPerl_tree();
   }
 
-  my $build = $has_alien ?
-    Wx::build::MakeMaker::_process_mm_arguments( \%params ) : 0;
+  my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params, $has_alien );
 
   if( $build ) {
     WriteMakefile( %params );
