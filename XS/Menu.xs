@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Menu.xs,v 1.29 2006/11/09 05:31:18 netcon Exp $
+## RCS-ID:      $Id: Menu.xs,v 1.30 2007/02/18 18:16:20 mbarbon Exp $
 ## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -576,7 +576,7 @@ wxMenuItem::GetFont()
 #endif
 
 #if ( defined( __WXMSW__ ) && !defined( __WXWINCE__ ) ) || \
- defined( __WXGTK__ )
+    defined( __WXGTK__ )
 
 wxBitmap*
 wxMenuItem::GetBitmap()
@@ -688,7 +688,8 @@ wxMenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
 
 #endif
 
-#if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
+#if ( defined( __WXMSW__ ) && !defined( __WXWINCE__ ) ) || \
+    defined( __WXGTK__ )
 
 void
 wxMenuItem::SetBitmap( bitmap )
