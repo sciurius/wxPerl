@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.46 2006/09/24 17:15:58 mbarbon Exp $
-## Copyright:   (c) 2001-2003, 2005-2006 Mattia Barbon
+## RCS-ID:      $Id: Utils.xs,v 1.47 2007/02/18 18:35:03 mbarbon Exp $
+## Copyright:   (c) 2001-2003, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,6 +18,9 @@
 #include <wx/utils.h>
 #include <wx/debug.h>
 #include <wx/tipdlg.h>
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+#include <wx/sysopt.h>
+#endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 #ifdef __WXGTK20__
 #define __WXGTK20__DEFINED
@@ -190,6 +193,60 @@ wxSingleInstanceChecker::Create( name, path = wxEmptyString )
 
 bool
 wxSingleInstanceChecker::IsAnotherRunning()
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+MODULE=Wx PACKAGE=Wx::SystemOptions
+
+#define wxSystemOptions_SetOption wxSystemOptions::SetOption
+#define wxSystemOptions_GetOption wxSystemOptions::GetOption
+#define wxSystemOptions_GetOptionInt wxSystemOptions::GetOptionInt
+#define wxSystemOptions_HasOption wxSystemOptions::HasOption
+#define wxSystemOptions_IsFalse wxSystemOptions::IsFalse
+
+void
+SetOption( name, value )
+    wxString name
+    wxString value
+  CODE:
+    wxSystemOptions_SetOption( name, value);
+    
+void
+SetOptionInt( name, value )
+    wxString name
+    int value
+  CODE:
+    wxSystemOptions_SetOption( name, value);
+    
+wxString
+GetOption( name )
+    wxString name
+  CODE:
+    RETVAL = wxSystemOptions_GetOption( name );
+  OUTPUT: RETVAL
+    
+int
+GetOptionInt( name )
+    wxString name
+  CODE:
+    RETVAL = wxSystemOptions_GetOptionInt( name );
+  OUTPUT: RETVAL    
+
+bool
+HasOption( name )
+    wxString name
+  CODE:
+    RETVAL = wxSystemOptions_HasOption( name );
+  OUTPUT: RETVAL    
+    
+bool
+IsFalse( name )
+    wxString name
+  CODE:
+    RETVAL = wxSystemOptions_IsFalse( name );
+  OUTPUT: RETVAL    
 
 #endif
 
