@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.85 2006/11/06 23:50:42 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.86 2007/02/20 21:28:06 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -529,6 +529,8 @@ void wxPli_attach_object( pTHX_ SV* object, void* ptr )
 
 void* wxPli_detach_object( pTHX_ SV* object )
 {
+    if( !SvROK( object ) )
+        return NULL;
     SV* ref = SvRV( object );
 
     if( SvTYPE( ref ) >= SVt_PVHV )
