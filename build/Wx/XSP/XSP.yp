@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/03/2003
-## RCS-ID:      $Id: XSP.yp,v 1.4 2006/11/12 17:21:00 mbarbon Exp $
-## Copyright:   (c) 2003, 2006 Mattia Barbon
+## RCS-ID:      $Id: XSP.yp,v 1.5 2007/03/10 20:38:57 mbarbon Exp $
+## Copyright:   (c) 2003, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -80,6 +80,7 @@ method:         function { my $f = $_[1];
                                ret_type  => $f->ret_type,
                                arguments => $f->arguments,
                                code      => $f->code,
+                               cleanup   => $f->cleanup,
                                class     => $class,
                                );
                            $m->{PERL_NAME} = $_[1]->{PERL_NAME};
@@ -128,13 +129,20 @@ dtor:           TILDE ID OPPAR CLPAR metadata SEMICOLON
                                             @{ $_[5] },
                                       ) };
 
-metadata:       perc_code       { $_[1] }
-              |                 { [] };
+metadata:       _metadata          { $_[1] }
+              | metadata _metadata { [ @{$_[1]}, @{$_[2]} ] }
+              |                    { [] }
+              ;
 
-perc_name:      p_name OPCURLY class_name CLCURLY       { $_[3] };
-perc_module:    p_module OPCURLY class_name CLCURLY     { $_[3] };
-perc_file:      p_file OPCURLY file_name CLCURLY        { $_[3] };
-perc_code:      p_code special_block                    { [ code => $_[2] ] };
+_metadata:      perc_code       { $_[1] }
+              | perc_cleanup    { $_[1] }
+              ;
+
+perc_name:      p_name OPCURLY class_name CLCURLY     { $_[3] };
+perc_module:    p_module OPCURLY class_name CLCURLY   { $_[3] };
+perc_file:      p_file OPCURLY file_name CLCURLY      { $_[3] };
+perc_code:      p_code special_block                  { [ code => $_[2] ] };
+perc_cleanup:   p_cleanup special_block               { [ cleanup => $_[2] ] };
 
 type:           'const' type_name STAR { make_cptr( $_[0], $_[2] ) }
               | 'const' type_name AMP  { make_cref( $_[0], $_[2] ) }
@@ -219,6 +227,7 @@ my %tokens = ( '::' => 'DCOLON',
                '%file' => 'p_file',
                '%module' => 'p_module',
                '%code' => 'p_code',
+               '%cleanup' => 'p_cleanup',
              );
 
 my %keywords = ( const => 1,
@@ -291,7 +300,7 @@ sub yylex {
       } elsif( $$buf =~ s/^( \%}
                       | \%{ | {\%
                       | \%name | \%typemap | \%module | \%typemap | \%code
-                      | \%file
+                      | \%file | \%cleanup
                       | [{}();%~*&,=\/\.\-]
                       | ::
                        )//x ) {
@@ -374,6 +383,7 @@ sub add_data_function {
                                 ret_type  => $args{ret_type},
                                 arguments => $args{arguments},
                                 code      => $args{code},
+                                cleanup   => $args{cleanup},
                                 );
 }
 
@@ -386,6 +396,7 @@ sub add_data_method {
                               ret_type  => $args{ret_type},
                               arguments => $args{arguments},
                               code      => $args{code},
+                              cleanup   => $args{cleanup},
                               );
 }
 

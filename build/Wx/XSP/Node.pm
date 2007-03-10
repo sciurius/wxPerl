@@ -134,6 +134,7 @@ sub init {
   $this->{ARGUMENTS} = $args{arguments} || [];
   $this->{RET_TYPE} = $args{ret_type};
   $this->{CODE} = $args{code};
+  $this->{CLEANUP} = $args{cleanup};
   $this->{CLASS} = $args{class};
   if( $this->ret_type ) {
     $this->{TYPEMAPS}{RET_TYPE} =
@@ -155,6 +156,8 @@ sub init {
 
 =head2 Wx::XSP::Node::Function::code
 
+=head2 Wx::XSP::Node::Function::cleanup
+
 =cut
 
 sub cpp_name { $_[0]->{CPP_NAME} }
@@ -162,6 +165,7 @@ sub perl_name { $_[0]->{PERL_NAME} }
 sub arguments { $_[0]->{ARGUMENTS} }
 sub ret_type { $_[0]->{RET_TYPE} }
 sub code { $_[0]->{CODE} }
+sub cleanup { $_[0]->{CLEANUP} }
 
 #
 # return_type
@@ -174,6 +178,8 @@ sub code { $_[0]->{CODE} }
 #     RETVAL = new Foo( THIS->method( arg1, *arg2 ) );
 #   OUTPUT:
 #     RETVAL
+#   CLEANUP:
+#     /* anything */
 sub print {
   my $this = shift;
   my $state = shift;
@@ -255,6 +261,11 @@ sub print {
   if( $this->code ) {
     $code = "  CODE:\n    " . join( "\n", @{$this->code} ) . "\n";
     $output = "  OUTPUT: RETVAL\n" if $code =~ m/RETVAL/;
+  }
+  if( $this->cleanup ) {
+    $cleanup ||= "  CLEANUP:\n";
+    my $clcode = join( "\n", @{$this->cleanup} );
+    $cleanup .= "    $clcode\n";
   }
 
   if( !$this->is_method && $fname =~ /^(.*)::(\w+)$/ ) {

@@ -101,9 +101,10 @@ See B<TYPEMAPS> above.
 
       %name{SetString} void SetValue( const char* string = NULL );
 
-      // Supply a C<CODE:> block for the XS
+      // Supply a C<CODE:> or C<CLEANUP:> block for the XS
       int MyMethod( int a, int b )
-          %code{% RETVAL = a + b; %};
+          %code{% RETVAL = a + b; %}
+          %cleanup{% /* do something */ %};
   };
 
 =cut
