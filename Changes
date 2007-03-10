@@ -1,7 +1,8 @@
 Revision history for Perl extension Wx.
 
-0.68
+0.68  Sat Mar 10 21:45:26 CET 2007
 	- Added wxSystemOptions (thanks to Mark Dootson).
+	- Fix a thread-related crash.
 
 0.67  Sat Dec 16 19:36:37 CET 2006
 	- Try to handle gracefully the case when Alien::wxWidgets is missing,
