@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.169 2006/11/25 14:26:34 mbarbon Exp $
-// Copyright:   (c) 2000-2006 Mattia Barbon
+// RCS-ID:      $Id: Constant.xs,v 1.170 2007/03/10 20:36:20 mbarbon Exp $
+// Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -182,6 +182,8 @@ static wxPliEventDescription evts[] =
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
     SEVT( EVT_MOUSE_CAPTURE_CHANGED, 2 )
 #endif
+    SEVT( EVT_CREATE, 3 )
+    SEVT( EVT_DESTROY, 3 )
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     SEVT( EVT_MOUSE_CAPTURE_LOST, 2 )
     EVT( EVT_COLOURPICKER_CHANGED, 3, wxEVT_COMMAND_COLOURPICKER_CHANGED )
@@ -481,6 +483,8 @@ static wxPlINH inherit[] =
     I( JoystickEvent,   Event )
     I( ListEvent,       NotifyEvent )
     I( MenuEvent,       Event )
+    I( CreateEvent,     CommandEvent )
+    I( DestroyEvent,    CommandEvent )
     I( MouseEvent,      Event )
     I( MoveEvent,       Event )
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
