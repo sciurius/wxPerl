@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.170 2007/03/10 20:36:20 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.171 2007/03/11 19:08:18 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -591,7 +591,9 @@ static double constant( const char *name, int arg )
     r( wxAND_INVERT );                  // dc
     r( wxAND_REVERSE );                 // dc
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_6
     r( wxADJUST_MINSIZE );              // layout sizer
+#endif
     r( wxAbove );                       // layout constraints
     r( wxAbsolute );                    // layout constraints
     r( wxAsIs );                        // layout constraints
