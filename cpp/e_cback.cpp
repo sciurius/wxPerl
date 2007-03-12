@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: e_cback.cpp,v 1.18 2006/11/06 23:50:42 mbarbon Exp $
+// RCS-ID:      $Id: e_cback.cpp,v 1.19 2007/03/12 20:31:09 mbarbon Exp $
 // Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -61,53 +61,53 @@ void wxPliEventCallback::Handler( wxEvent& event )
     SAVETMPS;
 
     {
-    // similar to wxPli_object_2_sv
-    wxPliGuard guard;
-    SV* e = 0;
-    SV* rv = 0;
-    wxClassInfo *ci = event.GetClassInfo();
-    const wxChar* classname = ci->GetClassName();
+        // similar to wxPli_object_2_sv
+        wxPliGuard guard;
+        SV* e = 0;
+        SV* rv = 0;
+        wxClassInfo *ci = event.GetClassInfo();
+        const wxChar* classname = ci->GetClassName();
 
 #if wxUSE_UNICODE
-    if( wcsncmp( classname, wxT("wxPl"), 4 ) == 0 ) 
+        if( wcsncmp( classname, wxT("wxPl"), 4 ) == 0 ) 
 #else
-    if( strnEQ( classname, "wxPl", 4 ) ) 
+        if( strnEQ( classname, "wxPl", 4 ) ) 
 #endif
-    {
-        wxPliClassInfo* cci = (wxPliClassInfo*)ci;
-        wxPliSelfRef* sr = cci->m_func( &event );
-
-        if( sr )
         {
-            // this needs to have the refcount incremented, otherwise
-            // the refcount will be decremented one time too much when
-            // exiting from the handler
-            e = sv_2mortal( newRV_inc( SvRV( sr->m_self ) ) );
+            wxPliClassInfo* cci = (wxPliClassInfo*)ci;
+            wxPliSelfRef* sr = cci->m_func( &event );
+        
+            if( sr )
+            {
+                // this needs to have the refcount incremented, otherwise
+                // the refcount will be decremented one time too much when
+                // exiting from the handler
+                e = sv_2mortal( newRV_inc( SvRV( sr->m_self ) ) );
+            }
         }
-    }
 
-    if( !e )
-    {
-        char buffer[WXPL_BUF_SIZE];
-        const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
+        if( !e )
+        {
+            char buffer[WXPL_BUF_SIZE];
+            const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
+          
+            e = sv_newmortal();
+            sv_setref_pv( e, CHAR_P CLASS, &event );
+            rv = SvRV( e );
+            // corner case: prevent destruction if referrer is
+            // destroyed
+            SvREFCNT_inc( rv );
+            sv_2mortal( rv );
+            guard.SetSV( rv );
+            wxPli_thread_sv_register( aTHX_ CLASS, &event, e );
+        }
 
-        e = sv_newmortal();
-        sv_setref_pv( e, CHAR_P CLASS, &event );
-        rv = SvRV( e );
-        // corner case: prevent destruction if referrer is
-        // destroyed
-        SvREFCNT_inc( rv );
-        sv_2mortal( rv );
-        guard.SetSV( rv );
-        wxPli_thread_sv_register( aTHX_ CLASS, &event, e );
-    }
+        PUSHMARK( SP );
+        XPUSHs( This->m_self );
+        XPUSHs( e );
+        PUTBACK;
 
-    PUSHMARK( SP );
-    XPUSHs( This->m_self );
-    XPUSHs( e );
-    PUTBACK;
-
-    call_sv( This->m_method, G_DISCARD|G_EVAL );
+        call_sv( This->m_method, G_DISCARD|G_EVAL );
     }
 
     SPAGAIN;
