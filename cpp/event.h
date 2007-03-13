@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2002
-// RCS-ID:      $Id: event.h,v 1.11 2006/11/06 23:50:42 mbarbon Exp $
-// Copyright:   (c) 2002-2004, 2006 Mattia Barbon
+// RCS-ID:      $Id: event.h,v 1.12 2007/03/13 23:00:25 mbarbon Exp $
+// Copyright:   (c) 2002-2004, 2006-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -98,42 +98,99 @@ class wxPlThreadEvent : public wxEvent
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlThreadEvent );
 public:
-    wxPlThreadEvent() : m_data( 0 ) {}
-    wxPlThreadEvent( const char* package, int id, wxEventType eventType,
-                     SV* data )
-        : wxEvent( id, eventType ),
-          m_data( data )
+    static void SetStash( SV* hv_ref )
     {
-        dTHX;
-        SvREFCNT_inc( m_data );
+        m_hv = (HV*)SvRV( hv_ref );
+    }
+    static HV* GetStash() { return m_hv; }
+
+    wxPlThreadEvent() : m_data( 0 ) {}
+    wxPlThreadEvent( pTHX_ const char* package, int id, wxEventType eventType,
+                     SV* data )
+        : wxEvent( id, eventType )
+    {
+        PL_lockhook( aTHX_ (SV*)GetStash() );
+        PL_sharehook( aTHX_ data );
+        int data_id;
+        char buffer[30];
+        size_t length;
+        for(;;)
+        {
+            data_id = rand();
+            length = sprintf( buffer, "%d", data_id );
+            if( !hv_exists( GetStash(), buffer, length ) )
+                break;
+        }
+        SV** dst = hv_fetch( GetStash(), buffer, length, 1 );
+        sv_setsv( *dst, data );
+        mg_set( *dst );
+        m_data = data_id;    
     }
 
     wxPlThreadEvent( const wxPlThreadEvent& e )
         : wxEvent( e ),
-          m_data( e.GetData() )
-        { dTHX; SvREFCNT_inc( m_data ); }
+          m_data( e.m_data )
+    { }
 
-    ~wxPlThreadEvent() { dTHX; SvREFCNT_dec( m_data ); }
+    ~wxPlThreadEvent()
+    { 
+        if( !m_data )
+            return;
 
-    void SetData( SV* data )
-    {
         dTHX;
-        SvREFCNT_dec( m_data );
-        m_data = data;
-        SvREFCNT_inc( m_data );
+
+        ENTER;
+        SAVETMPS;
+
+        PL_lockhook( aTHX_ (SV*)m_hv );
+
+        char buffer[30];
+        size_t length = sprintf( buffer, "%d", m_data );
+
+        hv_delete( m_hv, buffer, length, G_DISCARD );
+
+        FREETMPS;
+        LEAVE;
     }
 
-    SV* GetData() const { return m_data; }
+    int _GetData() const { return m_data; }
+
+    SV* GetData() const
+    {
+        dTHX;
+
+        if( !m_data )
+            return &PL_sv_undef;
+
+        PL_lockhook( aTHX_ (SV*)m_hv );
+
+        char buffer[30];
+        size_t length = sprintf( buffer, "%d", m_data );
+
+        SV** value = hv_fetch( m_hv, buffer, length, 0 );
+        if( !value )
+            return NULL;
+        mg_get( *value );
+        SvREFCNT_inc( *value );
+
+        return *value;
+    }
 
     virtual wxEvent* Clone() const;
 private:
-    SV* m_data;
+    int m_data;
+    static HV* m_hv;
 };
 
 wxEvent* wxPlThreadEvent::Clone() const
 {
-    return new wxPlThreadEvent( *this );
+    wxEvent* clone = new wxPlThreadEvent( *this );
+    ((wxPlThreadEvent*)this)->m_data = 0;
+
+    return clone;
 }
+
+HV* wxPlThreadEvent::m_hv = NULL;
 
 wxPliSelfRef* wxPliGetSelfForwxPlThreadEvent( wxObject* object ) { return 0; }
 // XXX HACK!

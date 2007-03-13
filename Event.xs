@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Event.xs,v 1.60 2006/11/06 23:50:42 mbarbon Exp $
-// Copyright:   (c) 2000-2006 Mattia Barbon
+// RCS-ID:      $Id: Event.xs,v 1.61 2007/03/13 23:00:24 mbarbon Exp $
+// Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -253,19 +253,26 @@ wxPlThreadEvent::new( type, id, data )
     wxWindowID id
     SV* data
   CODE:
-    RETVAL = new wxPlThreadEvent( CLASS, type, id, data );
+    RETVAL = new wxPlThreadEvent( aTHX_ CLASS, type, id, data );
+  OUTPUT: RETVAL
+
+int
+wxPlThreadEvent::_GetData()
+  CODE:
+    RETVAL = THIS ? THIS->_GetData() : 0;
   OUTPUT: RETVAL
 
 SV*
 wxPlThreadEvent::GetData()
-  PPCODE:
-    SV* t = THIS->GetData();
-    SvREFCNT_inc( t );
-    XPUSHs( t );
+  CODE:
+    RETVAL = THIS ? THIS->GetData() : &PL_sv_undef;
+  OUTPUT: RETVAL
 
 void
-wxPlThreadEvent::SetData( data )
-    SV* data
+SetStash( hv_ref )
+    SV* hv_ref
+  CODE:
+    wxPlThreadEvent::SetStash( hv_ref );
 
 MODULE=Wx_Evt PACKAGE=Wx::ActivateEvent
 

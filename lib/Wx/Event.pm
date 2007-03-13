@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.47 2006/08/11 19:55:00 mbarbon Exp $
-## Copyright:   (c) 2000-2006 Mattia Barbon
+## RCS-ID:      $Id: Event.pm,v 1.48 2007/03/13 23:00:25 mbarbon Exp $
+## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -477,6 +477,11 @@ sub EVT_STC_ZOOM($$$);
 sub EVT_STC_HOTSPOT_CLICK($$$);
 sub EVT_STC_HOTSPOT_DCLICK($$$);
 sub EVT_STC_CALLTIP_CLICK($$$);
+
+package Wx::PlThreadEvent;
+
+our %stash : shared;
+SetStash( \%stash );
 
 1;
 
