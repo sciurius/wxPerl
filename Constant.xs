@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.171 2007/03/11 19:08:18 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.172 2007/03/15 22:42:55 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -173,6 +173,8 @@ void wxPli_remove_constant_function( double (**f)( const char*, int ) )
 
 static wxPliEventDescription evts[] =
 {
+    EVT( EVT_COMMAND, 4, -1 )
+    SEVT( EVT_TIMER, 3 )
     SEVT( EVT_WIZARD_PAGE_CHANGED, 3 )
     SEVT( EVT_WIZARD_PAGE_CHANGING, 3 )
     SEVT( EVT_WIZARD_CANCEL, 3 )

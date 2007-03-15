@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.48 2007/03/13 23:00:25 mbarbon Exp $
+## RCS-ID:      $Id: Event.pm,v 1.49 2007/03/15 22:42:55 mbarbon Exp $
 ## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -34,7 +34,6 @@ sub EVT_ACTIVATE_APP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ACTIVATE_APP, $_[1
 # CommandEvent
 #
 
-sub EVT_COMMAND($$$$) { $_[0]->Connect( $_[1], -1, $_[2], $_[3] ) }
 sub EVT_COMMAND_RANGE($$$$$) { $_[0]->Connect( $_[1], $_[2], $_[3], $_[4] ) }
 sub EVT_BUTTON($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_BUTTON_CLICKED, $_[2] ) }
 sub EVT_CHECKBOX($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_CHECKBOX_CLICKED, $_[2] ) }
@@ -370,12 +369,6 @@ sub EVT_SPLITTER_UNSPLIT($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SP
 sub EVT_SPLITTER_DOUBLECLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_DOUBLECLICKED, $_[2] ) }
 
 #
-# TimerEvent
-#
-
-sub EVT_TIMER($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_TIMER, $_[2] ) }
-
-#
 # SysColourChangedEvent
 #
 
@@ -477,11 +470,6 @@ sub EVT_STC_ZOOM($$$);
 sub EVT_STC_HOTSPOT_CLICK($$$);
 sub EVT_STC_HOTSPOT_DCLICK($$$);
 sub EVT_STC_CALLTIP_CLICK($$$);
-
-package Wx::PlThreadEvent;
-
-our %stash : shared;
-SetStash( \%stash );
 
 1;
 

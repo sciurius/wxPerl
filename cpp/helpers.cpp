@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.86 2007/02/20 21:28:06 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.87 2007/03/15 22:42:55 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1461,6 +1461,33 @@ XS(Connect3)
     }
 }
 
+// THIS, ID, wxEventId, function
+XS(Connect4);
+XS(Connect4)
+{
+    dXSARGS;
+    assert( items == 4 );
+    SV* THISs = ST(0);
+    wxEvtHandler *THISo =
+        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
+    wxWindowID id = wxPli_get_wxwindowid( aTHX_ ST(1) );
+    wxEventType evtID = SvIV( ST(2) );
+    SV* func = ST(3);
+
+    if( SvOK( func ) )
+    {
+        THISo->Connect( id, wxID_ANY, evtID,
+                        wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
+                        new wxPliEventCallback( func, THISs ) );
+    }
+    else
+    {
+        THISo->Disconnect( id, wxID_ANY, evtID,
+                           wxPliCastEvtHandler( &wxPliEventCallback::Handler ),
+                           0 );
+    }
+}
+
 void CreateEventMacro( const char* name, unsigned char args, int id )
 {
     char buffer[1024];
@@ -1479,6 +1506,10 @@ void CreateEventMacro( const char* name, unsigned char args, int id )
     case 3:
         cv = (CV*)newXS( buffer, Connect3, "Constants.xs" );
         sv_setpv((SV*)cv, "$$$");
+        break;
+    case 4:
+        cv = (CV*)newXS( buffer, Connect4, "Constants.xs" );
+        sv_setpv((SV*)cv, "$$$$");
         break;
     default:
         return;
