@@ -1,7 +1,8 @@
 Revision history for Perl extension Wx.
 
-0.69
+0.69  Fri Mar 16 20:54:50 CET 2007
 	- Fix crash caused by Wx::PlThreadEvent.
+	- Some documentation of using wxPerl with threads.
 
 0.68  Sat Mar 10 21:45:26 CET 2007
 	- Added wxSystemOptions (thanks to Mark Dootson).
