@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.172 2007/03/15 22:42:55 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.173 2007/03/16 19:24:12 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1360,6 +1360,69 @@ static double constant( const char *name, int arg )
         r( WXK_F24 );                   // keycode
         r( WXK_NUMLOCK );               // keycode
         r( WXK_SCROLL  );               // keycode
+#if WXPERL_W_VERSION_GE( 2, 6, 3 )
+        r( WXK_NUMPAD_SPACE  );         // keycode
+        r( WXK_NUMPAD_TAB  );           // keycode
+        r( WXK_NUMPAD_ENTER  );         // keycode
+        r( WXK_NUMPAD_F1  );            // keycode
+        r( WXK_NUMPAD_F2  );            // keycode
+        r( WXK_NUMPAD_F3  );            // keycode
+        r( WXK_NUMPAD_F4  );            // keycode
+        r( WXK_NUMPAD_HOME  );          // keycode
+        r( WXK_NUMPAD_LEFT  );          // keycode
+        r( WXK_NUMPAD_UP  );            // keycode
+        r( WXK_NUMPAD_RIGHT  );         // keycode
+        r( WXK_NUMPAD_DOWN  );          // keycode
+        r( WXK_NUMPAD_PAGEUP  );        // keycode
+        r( WXK_NUMPAD_PAGEDOWN  );      // keycode
+        r( WXK_NUMPAD_END  );           // keycode
+        r( WXK_NUMPAD_BEGIN  );         // keycode
+        r( WXK_NUMPAD_INSERT  );        // keycode
+        r( WXK_NUMPAD_DELETE  );        // keycode
+        r( WXK_NUMPAD_EQUAL  );         // keycode
+        r( WXK_NUMPAD_MULTIPLY  );      // keycode
+        r( WXK_NUMPAD_ADD  );           // keycode
+        r( WXK_NUMPAD_SEPARATOR  );     // keycode
+        r( WXK_NUMPAD_SUBTRACT  );      // keycode
+        r( WXK_NUMPAD_DECIMAL  );       // keycode
+        r( WXK_NUMPAD_DIVIDE  );        // keycode
+#if defined(__WXMSW__)        
+        r( WXK_WINDOWS_LEFT  );         // keycode
+        r( WXK_WINDOWS_RIGHT  );        // keycode
+        r( WXK_WINDOWS_MENU  );         // keycode
+        r( WXK_COMMAND  );              // keycode
+#endif      
+        r( WXK_SPECIAL1  );             // keycode
+        r( WXK_SPECIAL2  );             // keycode
+        r( WXK_SPECIAL3  );             // keycode
+        r( WXK_SPECIAL4  );             // keycode
+        r( WXK_SPECIAL5  );             // keycode
+        r( WXK_SPECIAL6  );             // keycode
+        r( WXK_SPECIAL7  );             // keycode
+        r( WXK_SPECIAL8  );             // keycode
+        r( WXK_SPECIAL9  );             // keycode
+        r( WXK_SPECIAL10  );            // keycode
+        r( WXK_SPECIAL11  );            // keycode
+        r( WXK_SPECIAL12  );            // keycode
+        r( WXK_SPECIAL13  );            // keycode
+        r( WXK_SPECIAL14  );            // keycode
+        r( WXK_SPECIAL15  );            // keycode
+        r( WXK_SPECIAL16  );            // keycode
+        r( WXK_SPECIAL17  );            // keycode
+        r( WXK_SPECIAL18  );            // keycode
+        r( WXK_SPECIAL19  );            // keycode
+        r( WXK_SPECIAL20  );            // keycode 
+#endif        
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )            
+        r( WXK_PAGEUP );                // keycode
+        r( WXK_PAGEDOWN );              // keycode
+#if WXWIN_COMPATIBILITY_2_6 
+        r( WXK_PRIOR );                 // keycode
+        r( WXK_NEXT );                  // keycode
+        r( WXK_NUMPAD_PRIOR );          // keycode
+        r( WXK_NUMPAD_NEXT );           // keycode
+#endif
+#endif        
     }
 
     r( wxKILL_OK );                     // process
