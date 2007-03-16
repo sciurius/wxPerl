@@ -67,6 +67,7 @@ lib/Wx/Locale.pm
 lib/Wx/Menu.pm
 lib/Wx/Mini.pm
 lib/Wx/RadioBox.pm
+lib/Wx/Thread.pod
 lib/Wx/Timer.pm
 
 samples/README.txt

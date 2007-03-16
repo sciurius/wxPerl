@@ -1,6 +1,6 @@
 =head1 NAME
 
-wxPerl extension API documentation
+API - wxPerl extension API documentation
 
 =head1 DESCRIPTION
 
@@ -157,6 +157,6 @@ I<Introduced before wxPerl 0.14>
 
 =head1 AUTHOR
 
-Mattia Barbon <MBARBON at cpan dot org>
+Mattia Barbon <mbarbon at cpan dot org>
 
 =cut
