@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Wx.pm,v 1.117 2007/03/18 17:17:16 mbarbon Exp $
-## Copyright:   (c) 2000-2006 Mattia Barbon
+## RCS-ID:      $Id: Wx.pm,v 1.118 2007/03/18 17:31:27 mbarbon Exp $
+## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
