@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.95 2006/11/25 14:26:35 mbarbon Exp $
-## Copyright:   (c) 2000-2006 Mattia Barbon
+## RCS-ID:      $Id: typemap,v 1.96 2007/03/18 17:24:07 mbarbon Exp $
+## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -54,6 +54,7 @@ wxSystemMetric          T_ENUM
 wxOrientation           T_ENUM
 wxBatteryState          T_ENUM
 wxPowerType             T_ENUM
+wxDirection             T_ENUM
 
 wxLogTraceMask          T_UV 
 wxLogLevel              T_UV 
