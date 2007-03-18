@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.174 2007/03/18 17:24:06 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.175 2007/03/18 17:29:05 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -2021,6 +2021,14 @@ static double constant( const char *name, int arg )
     // capabilities
     r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
     r( wxSYS_CAN_ICONIZE_FRAME );
+
+#if WXPERL_W_VERSION_GE( 2, 6, 2 )
+    r( wxSYS_COLOUR_HOTLIGHT );         // systemsettings
+    r( wxSYS_COLOUR_GRADIENTACTIVECAPTION ); // systemsettings
+    r( wxSYS_COLOUR_GRADIENTINACTIVECAPTION ); // systemsettings
+    r( wxSYS_COLOUR_MENUHILIGHT );      // systemsettings
+    r( wxSYS_COLOUR_MENUBAR );          // systemsettings
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
     r( wxSTOCK_NOFLAGS );
