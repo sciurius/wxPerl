@@ -3,8 +3,8 @@
 ## Purpose:     XS for Wx::SocketBase
 ## Author:      Graciliano M. P.
 ## Created:     27/02/2003
-## RCS-ID:      $Id: SocketBase.xs,v 1.7 2007/03/20 20:10:16 mbarbon Exp $
-## Copyright:   (c) 2003-2004, 2006 Graciliano M. P.
+## RCS-ID:      $Id: SocketBase.xs,v 1.8 2007/03/20 20:12:17 mbarbon Exp $
+## Copyright:   (c) 2003-2004, 2006-2007 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
