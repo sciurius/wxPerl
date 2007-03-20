@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.28 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id: Log.xs,v 1.29 2007/03/20 20:10:15 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -90,7 +90,7 @@ _SetTimestamp( format, buffer )
         const wxString format_tmp = ( SvUTF8( format ) ) ?
                   ( wxString( SvPVutf8_nolen( format ), wxConvUTF8 ) )
                 : ( wxString( SvPV_nolen( format ), wxConvLibc ) );
-        wxChar* fmt = (wxChar*)format_tmp.c_str();
+        const wxChar* fmt = (const wxChar*)format_tmp.c_str();
         STRLEN size = wxStrlen( fmt ) * sizeof(wxChar) + sizeof(wxChar);
         SvUPGRADE( buffer, SVt_PV );
         wxLog::SetTimestamp( wxStrcpy( (wxChar*)SvGROW( buffer, size ),

@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::SocketBase
 ## Author:      Graciliano M. P.
 ## Created:     27/02/2003
-## RCS-ID:      $Id: SocketBase.xs,v 1.6 2006/09/07 20:45:28 mbarbon Exp $
+## RCS-ID:      $Id: SocketBase.xs,v 1.7 2007/03/20 20:10:16 mbarbon Exp $
 ## Copyright:   (c) 2003-2004, 2006 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -112,7 +112,7 @@ wxSocketBase::GetLocal()
   PPCODE:
     wxIPV4address addr ;
     THIS->GetLocal( addr ) ;
-    XPUSHs( sv_2mortal( newSVpvf("%s", (addr.Hostname()).c_str() ) ) );
+    XPUSHs( sv_2mortal( newSVpvf("%s", addr.Hostname().mb_str().data() ) ) );
     XPUSHs( sv_2mortal( newSVpvf("%d", addr.Service() ) ) );
 
 
@@ -121,7 +121,7 @@ wxSocketBase::GetPeer()
   PPCODE:
     wxIPV4address addr ;
     THIS->GetPeer( addr ) ;
-    XPUSHs( sv_2mortal( newSVpvf("%s", (addr.Hostname()).c_str() ) ) );
+    XPUSHs( sv_2mortal( newSVpvf("%s", addr.Hostname().mb_str().data() ) ) );
     XPUSHs( sv_2mortal( newSVpvf("%d", addr.Service() ) ) );
 
 

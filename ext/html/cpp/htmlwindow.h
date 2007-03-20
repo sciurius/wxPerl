@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     18/03/2001
-// RCS-ID:      $Id: htmlwindow.h,v 1.9 2004/12/21 21:12:53 mbarbon Exp $
+// RCS-ID:      $Id: htmlwindow.h,v 1.10 2007/03/20 20:10:16 mbarbon Exp $
 // Copyright:   (c) 2001-2002, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -53,7 +53,7 @@ void wxPliHtmlWindow::OnSetTitle( const wxString& title )
     {
         wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
                                            G_SCALAR|G_DISCARD,
-                                           "p", title.c_str() );
+                                           "P", &title );
     } else
         wxHtmlWindow::OnSetTitle( title );
 }
