@@ -1,6 +1,9 @@
 Revision history for Perl extension Wx.
 
 0.70
+	- wxWidgets 2.9.0 compatibility.
+	- Improved creation of wxDocument/wxView subclasses
+	  in Wx::DocTemplate.
 
 0.69  Fri Mar 16 20:54:50 CET 2007
 	- Fix crash caused by Wx::PlThreadEvent.

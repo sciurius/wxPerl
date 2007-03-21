@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.23 2007/03/21 22:05:35 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.24 2007/03/21 22:15:03 mbarbon Exp $
 // Copyright:   (c) 2002-2004, 2005-2007 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -434,14 +434,38 @@ public:
                         viewTypeName, docClassInfo, viewClassInfo, flags ),
          m_callback( "Wx::DocTemplate" ),
          m_docClassName( docClassName ),
-         m_viewClassName( viewClassName )
+         m_viewClassName( viewClassName ),
+         m_plDocClassInfo( NULL ),
+         m_plViewClassInfo( NULL )
     {
-        m_hasDocClassInfo = docClassInfo != 0;
-        m_hasViewClassInfo = viewClassInfo != 0;
+        m_hasDocClassInfo = docClassInfo != 0 || !docClassName.empty();
+        m_hasViewClassInfo = viewClassInfo != 0 || !viewClassName.empty();
         m_callback.SetSelf( wxPli_make_object( this, package ), true);
+        if( !docClassName.empty() )
+        {
+            m_plDocClassInfo = new wxClassInfo( docClassName,
+                                            &wxDocument::ms_classInfo, NULL,
+                                            sizeof(wxPliDocument),
+                                            &fake_constructor
+                                            );
+            m_docClassInfo = m_plDocClassInfo;
+        }
+        if( !viewClassName.empty() )
+        {
+            m_plViewClassInfo = new wxClassInfo( viewClassName,
+                                             &wxView::ms_classInfo, NULL,
+                                             sizeof(wxPliView),
+                                             &fake_constructor
+                                             );
+            m_viewClassInfo = m_plViewClassInfo;
+        }
     }
 
-    ~wxPliDocTemplate() {}
+    ~wxPliDocTemplate()
+    {
+        delete m_plViewClassInfo;
+        delete m_plDocClassInfo;
+    }
 
     wxDocument *CreateDocument( const wxString& path, long flags = 0);
     wxView *CreateView( wxDocument*, long );
@@ -450,14 +474,31 @@ public:
     DEC_V_CBACK_WXSTRING__VOID_const( GetDocumentName );
 
 private:
+    static wxString m_className;
+    static wxObject* fake_constructor();
     static SV* CallConstructor( const wxString& className );
 private:
     wxString m_docClassName,
              m_viewClassName;
+    wxClassInfo *m_plDocClassInfo,
+                *m_plViewClassInfo;
     bool m_hasDocClassInfo, m_hasViewClassInfo;
 
     DEC_V_CBACK_BOOL__WXSTRING( FileMatchesTemplate );
 };
+
+wxString wxPliDocTemplate::m_className;
+
+wxObject* wxPliDocTemplate::fake_constructor()
+{
+    dTHX;
+
+    SV* obj = CallConstructor( m_className );
+    wxObject* doc = (wxDocument*)wxPli_sv_2_object( aTHX_ obj, "Wx::Object" );
+    SvREFCNT_dec( obj );
+
+    return doc;
+}
 
 SV* wxPliDocTemplate::CallConstructor( const wxString& className )
 {
@@ -513,11 +554,9 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
     }
     else
     {
+        m_className = m_docClassName;
         if( m_hasDocClassInfo )
             return wxDocTemplate::CreateDocument( path, flags );
-        SV* obj = CallConstructor( m_docClassName );
-        doc = (wxDocument*)wxPli_sv_2_object( aTHX_ obj, "Wx::Document" );
-        SvREFCNT_dec( obj );
     }
 
     return doc;
@@ -540,11 +579,9 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
     }
     else
     {
+        m_className = m_viewClassName;
         if( m_hasViewClassInfo )
             return wxDocTemplate::CreateView( doc, flags );
-        SV* obj = CallConstructor( m_viewClassName );
-        view = (wxView*)wxPli_sv_2_object( aTHX_ obj, "Wx::View" );
-        SvREFCNT_dec( obj );
     }
 
     return view;
