@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.175 2007/03/18 17:29:05 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.176 2007/03/21 22:27:25 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1237,6 +1237,7 @@ static double constant( const char *name, int arg )
     r( wxID_REMOVE );                   // id
     r( wxID_REVERT_TO_SAVED );          // id
     r( wxID_STOP );                     // id
+    r( wxID_SYSTEM_MENU );              // id
     r( wxID_UNDELETE );                 // id
     r( wxID_UNDERLINE );                // id
     r( wxID_UNINDENT );                 // id
