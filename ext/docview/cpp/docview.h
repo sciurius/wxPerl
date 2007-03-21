@@ -4,8 +4,8 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.22 2006/09/24 17:15:59 mbarbon Exp $
-// Copyright:   (c) 2002-2004, 2005-2006 Simon Flack
+// RCS-ID:      $Id: docview.h,v 1.23 2007/03/21 22:05:35 mbarbon Exp $
+// Copyright:   (c) 2002-2004, 2005-2007 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -274,6 +274,144 @@ wxWindow *wxPliDocument::GetDocumentWindow() const
 }
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliDocument, wxDocument );
+
+
+// --- Wx::View -------------------------------------------------
+
+
+class wxPliView : public wxView
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliView );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPliView( const char* package )
+       : wxView(),
+         m_callback( "Wx::View" )
+    {
+       m_callback.SetSelf( wxPli_make_object( this, package ), true);
+    }
+    ~wxPliView();
+
+    void OnActivateView( bool, wxView*, wxView* );
+    void OnPrint( wxDC*, wxObject* );
+    void OnUpdate( wxView* sender, wxObject* hint=(wxObject*) NULL );
+
+    DEC_V_CBACK_VOID__VOID( OnClosingDocument );
+    DEC_V_CBACK_VOID__VOID( OnChangeFilename );
+    bool OnCreate( wxDocument*, long );
+    bool Close( bool deleteWindow = true );
+    bool OnClose( bool );
+
+    // bool ProcessEvent(wxEvent&);
+    void Activate( bool );
+
+    virtual void OnDraw(wxDC* dc);
+
+#if wxUSE_PRINTING_ARCHITECTURE
+    wxPrintout* OnCreatePrintout();
+#endif
+};
+
+wxPliView::~wxPliView() {}
+
+void wxPliView::OnDraw( wxDC* dc )
+{
+}
+
+void wxPliView::OnActivateView( bool activate, wxView* activeView,
+                                wxView* deactiveView)
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+                                           "OnActivateView" ) )
+    {
+      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
+                                         "bOO", activate, activeView,
+                                         deactiveView);
+      return;
+    }
+  wxView::OnActivateView( activate, activeView, deactiveView);
+}
+
+
+void wxPliView::OnPrint( wxDC* dc, wxObject* info)
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnPrint" ) )
+    {
+      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
+                                         "OO", dc, info );
+      return;
+    }
+  wxView::OnPrint( dc, info);
+}
+
+void wxPliView::OnUpdate( wxView* sender, wxObject* hint )
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnUpdate" ) )
+    {
+      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
+                                         "OO", sender, hint );
+      return;
+    }
+  wxView::OnUpdate( sender, hint );
+}
+
+DEF_V_CBACK_VOID__VOID( wxPliView, wxView, OnClosingDocument );
+DEF_V_CBACK_VOID__VOID( wxPliView, wxView, OnChangeFilename );
+
+bool wxPliView::OnCreate( wxDocument* doc, long flags )
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnCreate" ) )
+    {
+      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                                   G_SCALAR,"Ol", doc, flags );
+      bool val = SvTRUE( ret );
+      SvREFCNT_dec( ret );
+      return val;
+    }
+  return wxView::OnCreate( doc, flags );
+}
+
+DEF_V_CBACK_BOOL__BOOL( wxPliView, wxView, Close );
+DEF_V_CBACK_BOOL__BOOL( wxPliView, wxView, OnClose );
+
+void wxPliView::Activate( bool activate )
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "Activate" ) )
+    {
+      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
+                                         "b", activate );
+      return;
+    }
+  wxView::Activate( activate );
+}
+
+
+#if wxUSE_PRINTING_ARCHITECTURE
+wxPrintout* wxPliView::OnCreatePrintout()
+{
+    dTHX;
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
+                                           "OnCreatePrintout" ) )
+    {
+      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                                   G_SCALAR, NULL);
+      wxPrintout* retval =
+        (wxPrintout*)wxPli_sv_2_object( aTHX_ ret, "Wx::Printout" );
+      SvREFCNT_dec( ret );
+      return retval;
+    }
+  return wxView::OnCreatePrintout( );
+}
+#endif
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliView, wxView );
+
+
 
 
 // --- Wx::DocTemplate -------------------------------------------------
@@ -914,144 +1052,6 @@ void wxPliDocManager::FileHistoryAddFilesToMenu( wxMenu* menu )
 
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliDocManager, wxDocManager );
 
-
-
-
-
-// --- Wx::View -------------------------------------------------
-
-
-class wxPliView : public wxView
-{
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPliView );
-    WXPLI_DECLARE_V_CBACK();
-public:
-    wxPliView( const char* package )
-       : wxView(),
-         m_callback( "Wx::View" )
-    {
-       m_callback.SetSelf( wxPli_make_object( this, package ), true);
-    }
-    ~wxPliView();
-
-    void OnActivateView( bool, wxView*, wxView* );
-    void OnPrint( wxDC*, wxObject* );
-    void OnUpdate( wxView* sender, wxObject* hint=(wxObject*) NULL );
-
-    DEC_V_CBACK_VOID__VOID( OnClosingDocument );
-    DEC_V_CBACK_VOID__VOID( OnChangeFilename );
-    bool OnCreate( wxDocument*, long );
-    bool Close( bool deleteWindow = true );
-    bool OnClose( bool );
-
-    // bool ProcessEvent(wxEvent&);
-    void Activate( bool );
-
-    virtual void OnDraw(wxDC* dc);
-
-#if wxUSE_PRINTING_ARCHITECTURE
-    wxPrintout* OnCreatePrintout();
-#endif
-};
-
-wxPliView::~wxPliView() {}
-
-void wxPliView::OnDraw( wxDC* dc )
-{
-}
-
-void wxPliView::OnActivateView( bool activate, wxView* activeView,
-                                wxView* deactiveView)
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "OnActivateView" ) )
-    {
-      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
-                                         "bOO", activate, activeView,
-                                         deactiveView);
-      return;
-    }
-  wxView::OnActivateView( activate, activeView, deactiveView);
-}
-
-
-void wxPliView::OnPrint( wxDC* dc, wxObject* info)
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnPrint" ) )
-    {
-      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
-                                         "OO", dc, info );
-      return;
-    }
-  wxView::OnPrint( dc, info);
-}
-
-void wxPliView::OnUpdate( wxView* sender, wxObject* hint )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnUpdate" ) )
-    {
-      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
-                                         "OO", sender, hint );
-      return;
-    }
-  wxView::OnUpdate( sender, hint );
-}
-
-DEF_V_CBACK_VOID__VOID( wxPliView, wxView, OnClosingDocument );
-DEF_V_CBACK_VOID__VOID( wxPliView, wxView, OnChangeFilename );
-
-bool wxPliView::OnCreate( wxDocument* doc, long flags )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnCreate" ) )
-    {
-      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR,"Ol", doc, flags );
-      bool val = SvTRUE( ret );
-      SvREFCNT_dec( ret );
-      return val;
-    }
-  return wxView::OnCreate( doc, flags );
-}
-
-DEF_V_CBACK_BOOL__BOOL( wxPliView, wxView, Close );
-DEF_V_CBACK_BOOL__BOOL( wxPliView, wxView, OnClose );
-
-void wxPliView::Activate( bool activate )
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "Activate" ) )
-    {
-      wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,
-                                         "b", activate );
-      return;
-    }
-  wxView::Activate( activate );
-}
-
-
-#if wxUSE_PRINTING_ARCHITECTURE
-wxPrintout* wxPliView::OnCreatePrintout()
-{
-    dTHX;
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,
-                                           "OnCreatePrintout" ) )
-    {
-      SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
-                                                   G_SCALAR, NULL);
-      wxPrintout* retval =
-        (wxPrintout*)wxPli_sv_2_object( aTHX_ ret, "Wx::Printout" );
-      SvREFCNT_dec( ret );
-      return retval;
-    }
-  return wxView::OnCreatePrintout( );
-}
-#endif
-
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPliView, wxView );
 
 
 
