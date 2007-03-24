@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.35 2006/11/26 17:07:26 mbarbon Exp $
-## Copyright:   (c) 2001-2006 Mattia Barbon
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.36 2007/03/24 22:10:49 mbarbon Exp $
+## Copyright:   (c) 2001-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -55,9 +55,17 @@ wxTreeItemData::SetId( id )
 
 MODULE=Wx PACKAGE=Wx::TreeItemId
 
-## // thread KO
+static void
+wxTreeItemId::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxTreeItemId::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::TreeItemId", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxTreeItemId::IsOk()

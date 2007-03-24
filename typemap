@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.96 2007/03/18 17:24:07 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.97 2007/03/24 22:10:49 mbarbon Exp $
 ## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -254,7 +254,7 @@ wxListItem *            O_NON_WXOBJECT
 wxListItemAttr *        O_NON_WXOBJECT
 wxPliTreeItemData *     O_NON_WXOBJECT
 wxTreeItemData *        O_NON_WXOBJECT
-wxTreeItemId *          O_NON_WXOBJECT
+wxTreeItemId *          O_NON_WXOBJECT_THR
 
 wxFontMapper *          O_NON_WXOBJECT
 wxFontEnumerator *      O_NON_WXOBJECT
