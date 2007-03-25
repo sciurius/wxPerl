@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id: Grid.xs,v 1.30 2006/09/07 20:33:13 mbarbon Exp $
-## Copyright:   (c) 2001-2006 Mattia Barbon
+## RCS-ID:      $Id: Grid.xs,v 1.31 2007/03/25 16:07:54 mbarbon Exp $
+## Copyright:   (c) 2001-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -20,9 +20,17 @@ wxGridCellCoords::new( r, c )
     int r
     int c
 
-## // thread KO
+static void
+wxGridCellCoords::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxGridCellCoords::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::GridCellCoords", THIS, ST(0) );
+    delete THIS;
 
 int
 wxGridCellCoords::GetRow()

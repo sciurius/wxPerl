@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/03/2001
-## RCS-ID:      $Id: ContextHelp.xs,v 1.8 2006/08/11 19:54:59 mbarbon Exp $
-## Copyright:   (c) 2001, 2003, 2004, 2006 Mattia Barbon
+## RCS-ID:      $Id: ContextHelp.xs,v 1.9 2007/03/25 16:07:54 mbarbon Exp $
+## Copyright:   (c) 2001, 2003, 2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -20,14 +20,18 @@ wxContextHelp*
 wxContextHelp::new( window = NULL, beginHelp = true )
     wxWindow* window
     bool beginHelp
-  CODE:
-    RETVAL = new wxContextHelp( window, beginHelp );
-  OUTPUT:
-    RETVAL
 
-## // thread KO
+static void
+wxTreeItemId::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxContextHelp::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::ContextHelp", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxContextHelp::BeginContextHelp( window )

@@ -314,6 +314,7 @@ ext/grid/t/01_load.t
 ext/grid/t/02_inheritance.t
 ext/grid/t/03_attr.t
 ext/grid/t/04_api.t
+ext/grid/t/05_threads.t
 ext/grid/typemap
 
 ext/help/Help.xs
@@ -325,6 +326,7 @@ ext/help/lib/Wx/Help.pm
 ext/help/typemap
 ext/help/t/01_load.t
 ext/help/t/02_inheritance.t
+ext/help/t/03_threads.t
 
 ext/html/Html.xs
 ext/html/Makefile.PL
@@ -384,6 +386,7 @@ ext/print/lib/Wx/Print.pm
 ext/print/typemap
 ext/print/t/01_load.t
 ext/print/t/02_inheritance.t
+ext/print/t/03_threads.t
 
 ext/socket/Makefile.PL
 ext/socket/Socket.xs

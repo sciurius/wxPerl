@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/03/2001
-## RCS-ID:      $Id: typemap,v 1.2 2004/08/04 19:38:29 mbarbon Exp $
-## Copyright:   (c) 2001, 2004 Mattia Barbon
+## RCS-ID:      $Id: typemap,v 1.3 2007/03/25 16:07:54 mbarbon Exp $
+## Copyright:   (c) 2001, 2004, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,7 +18,7 @@ wxExtHelpController *   O_WXOBJECT
 wxWinHelpController *   O_WXOBJECT
 wxCHMHelpController *   O_WXOBJECT
 
-wxContextHelp *         O_WXOBJECT
+wxContextHelp *         O_WXOBJECT_THR
 wxContextHelpButton *   O_WXOBJECT
 
 wxHelpProvider *        O_NON_WXOBJECT
