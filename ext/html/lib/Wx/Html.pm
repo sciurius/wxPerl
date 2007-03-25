@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/03/2001
-## RCS-ID:      $Id: Html.pm,v 1.12 2006/11/02 18:35:30 mbarbon Exp $
-## Copyright:   (c) 2001-2006 Mattia Barbon
+## RCS-ID:      $Id: Html.pm,v 1.13 2007/03/25 16:22:58 mbarbon Exp $
+## Copyright:   (c) 2001-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -29,6 +29,7 @@ Wx::wx_boot( 'Wx::Html', $VERSION );
 
 no strict;
 
+package Wx::HelpControllerBase; # warning fix
 package Wx::HtmlWindow;         @ISA = qw(Wx::ScrolledWindow);
 package Wx::HtmlHelpController; @ISA = qw(Wx::HelpControllerBase);
 package Wx::HtmlParser;
