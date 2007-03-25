@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.92 2007/03/20 20:12:17 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.93 2007/03/25 20:39:00 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -65,7 +65,7 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
   const wxString var##_tmp = ( SvUTF8( arg ) ) ? \
             ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ) \
           : ( wxString( SvPV_nolen( arg ), wxConvLibc ) ); \
-  var = (type)var##_tmp.wc_str();
+  var = const_cast<type>( static_cast<const type>( var##_tmp.wc_str() ) );
 
 #define WXCHAR_OUTPUT( var, arg ) \
   wxPli_wxChar_2_sv( aTHX_ var, arg )
@@ -96,7 +96,7 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
   const wxString var##_tmp = ( SvUTF8( arg ) ) ? \
             ( wxString( wxConvUTF8.cMB2WC( SvPVutf8_nolen( arg ) ), wxConvLocal ) ) \
           : ( wxString( SvPV_nolen( arg ) ) ); \
-  var = (type)var##_tmp.c_str();
+  var = const_cast<type>( static_cast<const type>( var##_tmp.c_str() ) );
 
 #define WXCHAR_OUTPUT( var, arg ) \
   wxPli_wxChar_2_sv( aTHX_ var, arg )
