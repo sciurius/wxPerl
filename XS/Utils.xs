@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/02/2001
-## RCS-ID:      $Id: Utils.xs,v 1.47 2007/02/18 18:35:03 mbarbon Exp $
+## RCS-ID:      $Id: Utils.xs,v 1.48 2007/03/25 10:22:33 mbarbon Exp $
 ## Copyright:   (c) 2001-2003, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -182,9 +182,17 @@ MODULE=Wx PACKAGE=Wx::SingleInstanceChecker
 wxSingleInstanceChecker*
 wxSingleInstanceChecker::new()
 
-## // thread KO
+static void
+wxSingleInstanceChecker::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxSingleInstanceChecker::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::SingleInstanceChecker", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxSingleInstanceChecker::Create( name, path = wxEmptyString )

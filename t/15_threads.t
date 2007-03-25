@@ -80,6 +80,8 @@ my $attr = Wx::TextAttr->new;
 my $attr2 = Wx::TextAttr->new;
 my $linfo = Wx::LanguageInfo->new( 12345, 'Dummy', 2, 3, 'Dummy' );
 my $linfo2 = Wx::LanguageInfo->new( 12345, 'Dummy', 2, 3, 'Dummy' );
+my $sinst = Wx::SingleInstanceChecker->new;
+my $sinst2 = Wx::SingleInstanceChecker->new;
 
 undef $fontinfo2; # check the ref hash is safe!
 undef $color2;
@@ -106,6 +108,7 @@ undef $sw2;
 undef $tid2;
 undef $attr2;
 undef $linfo2;
+undef $sinst2;
 my $t = threads->create
   ( sub {
         ok( 1, 'In thread' );
