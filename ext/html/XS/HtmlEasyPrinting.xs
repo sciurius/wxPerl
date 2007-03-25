@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      $Id: HtmlEasyPrinting.xs,v 1.10 2006/08/20 09:25:20 mbarbon Exp $
-## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
+## RCS-ID:      $Id: HtmlEasyPrinting.xs,v 1.11 2007/03/25 15:43:50 mbarbon Exp $
+## Copyright:   (c) 2001-2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -29,9 +29,17 @@ wxHtmlEasyPrinting::new( name = wxT("Printing"), parent_frame = 0 )
 
 #endif
 
-## // thread KO
+static void
+wxHtmlEasyPrinting::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxHtmlEasyPrinting::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::HtmlEasyPrinting", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxHtmlEasyPrinting::PreviewFile( htmlFile )

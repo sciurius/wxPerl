@@ -344,6 +344,7 @@ ext/html/typemap
 ext/html/typemap.xsp
 ext/html/t/01_load.t
 ext/html/t/02_inheritance.t
+ext/html/t/03_threads.t
 
 ext/mdi/MDI.xs
 ext/mdi/Makefile.PL

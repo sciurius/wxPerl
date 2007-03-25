@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/02/2001
-## RCS-ID:      $Id: Accelerators.xs,v 1.12 2006/09/24 15:04:24 mbarbon Exp $
-## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
+## RCS-ID:      $Id: Accelerators.xs,v 1.13 2007/03/25 15:43:50 mbarbon Exp $
+## Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -31,9 +31,17 @@ Create( str )
 
 #endif
 
-## // thread KO
+static void
+wxAcceleratorEntry::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxAcceleratorEntry::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::AcceleratorEntry", THIS, ST(0) );
+    delete THIS;
 
 int
 wxAcceleratorEntry::GetCommand()
@@ -115,9 +123,17 @@ wxAcceleratorTable::new( ... )
   OUTPUT:
     RETVAL
 
-## // thread KO
+static void
+wxAcceleratorTable::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxAcceleratorTable::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::AcceleratorTable", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxAcceleratorTable::Ok()

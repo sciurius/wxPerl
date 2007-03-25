@@ -84,6 +84,9 @@ check_init { Wx::ClientDC->new( $frame ) };
 check_init { Wx::ScreenDC->new };
 check_init { Wx::ColourData->new };
 check_init { Wx::FontEnumerator->new };
+check_init { Wx::AcceleratorEntry->new( 0, 1, 1 ) };
+check_init { Wx::AcceleratorTable->new };
+check_init { Wx::PlValidator->new };
 
 # check the ref hash is safe!
 undef $color2;
