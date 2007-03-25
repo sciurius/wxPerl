@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs,v 1.27 2006/11/19 16:11:26 mbarbon Exp $
+## RCS-ID:      $Id: Locale.xs,v 1.28 2007/03/25 10:14:15 mbarbon Exp $
 ## Copyright:   (c) 2000-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -32,10 +32,14 @@ wxLanguageInfo::new( language, canonicalName, winLang, winSublang, descr )
     RETVAL->Description = descr;
   OUTPUT: RETVAL
 
-## // thread KO
+static void
+wxLanguageInfo::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
-DESTROY( THIS )
-    wxLanguageInfo* THIS
+wxLanguageInfo::DESTROY()
   CODE:
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;

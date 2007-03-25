@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: TextCtrl.xs,v 1.25 2006/11/11 21:22:48 mbarbon Exp $
+## RCS-ID:      $Id: TextCtrl.xs,v 1.26 2007/03/25 10:14:15 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -33,8 +33,19 @@
 %name{Wx::TextAttr} class wxTextAttr
 {
     ## ctor in plain XS
-    ## // thread KO
-    ~wxTextAttr();
+    ## // thread OK
+%{
+void
+wxTextAttr::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::TextAttr", THIS, ST(0) );
+    delete THIS;
+
+static void
+wxTextAttr::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     void Merge( const wxTextAttr& overlay );

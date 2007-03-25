@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.97 2007/03/24 22:10:49 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.98 2007/03/25 10:14:15 mbarbon Exp $
 ## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -203,7 +203,7 @@ wxAutoBufferedPaintDC * O_WXOBJECT
 
 wxTaskBarIcon *         O_WXOBJECT
 
-wxTextAttr *            O_NON_WXOBJECT
+wxTextAttr *            O_NON_WXOBJECT_THR
 
 wxLog *                 O_NON_WXOBJECT
 wxLogTextCtrl *         O_NON_WXOBJECT
@@ -217,7 +217,7 @@ wxPlLog *               O_NON_WXOBJECT
 wxPlLogPassThrough *    O_NON_WXOBJECT
 
 wxLocale *              O_NON_WXOBJECT_THR
-wxLanguageInfo *        O_NON_WXOBJECT
+wxLanguageInfo *        O_NON_WXOBJECT_THR
 
 wxStopWatch *           O_NON_WXOBJECT_THR
 

@@ -13,6 +13,10 @@ use Wx::Event qw(EVT_BUTTON);
 Wx::InitAllImageHandlers;
 
 my $app = Wx::App->new( sub { 1 } );
+# ancillary
+my $frame = Wx::Frame->new( undef, -1, 'Test frame' );
+my $treectrl = Wx::TreeCtrl->new( $frame, -1 );
+my $textctrl = Wx::TextCtrl->new( $frame, -1, 'Some text' );
 
 EVT_BUTTON( $app, -1,
             sub {
@@ -70,6 +74,12 @@ my $bi = Wx::BusyInfo->new( 'x' );
 my $bi2 = Wx::BusyInfo->new( 'y' );
 my $sw = Wx::StopWatch->new;
 my $sw2 = Wx::StopWatch->new;
+my $tid = $treectrl->AddRoot( 'Test root' );
+my $tid2 = $treectrl->AppendItem( $tid, 'Test child' );
+my $attr = Wx::TextAttr->new;
+my $attr2 = Wx::TextAttr->new;
+my $linfo = Wx::LanguageInfo->new( 12345, 'Dummy', 2, 3, 'Dummy' );
+my $linfo2 = Wx::LanguageInfo->new( 12345, 'Dummy', 2, 3, 'Dummy' );
 
 undef $fontinfo2; # check the ref hash is safe!
 undef $color2;
@@ -93,6 +103,9 @@ undef $wd2;
 undef $bc2;
 undef $bi2;
 undef $sw2;
+undef $tid2;
+undef $attr2;
+undef $linfo2;
 my $t = threads->create
   ( sub {
         ok( 1, 'In thread' );
