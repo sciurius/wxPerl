@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: ListCtrl.xs,v 1.43 2006/12/03 14:56:38 mbarbon Exp $
-## Copyright:   (c) 2001-2006 Mattia Barbon
+## RCS-ID:      $Id: ListCtrl.xs,v 1.44 2007/03/25 10:31:23 mbarbon Exp $
+## Copyright:   (c) 2001-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -80,9 +80,17 @@ MODULE=Wx PACKAGE=Wx::ListItem
 wxListItem*
 wxListItem::new()
 
-## // thread KO
+static void
+wxListItem::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxListItem::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::ListItem", THIS, ST(0) );
+    delete THIS;
 
 void
 wxListItem::Clear()
@@ -216,9 +224,17 @@ wxListItemAttr::new( ... )
     CODE:
       croak( "Usage: Wx::ListItemAttr::new(THIS [, text, back, font ] )" );
 
-## // thread KO
+static void
+wxListItemAttr::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxListItemAttr::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::ListItemAttr", THIS, ST(0) );
+    delete THIS;
 
 void
 wxListItemAttr::SetTextColour( text )

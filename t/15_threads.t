@@ -12,6 +12,17 @@ use Wx::Event qw(EVT_BUTTON);
 
 Wx::InitAllImageHandlers;
 
+my @tocheck;
+sub check_init(&) {
+    my( $code ) = @_;
+
+    push @tocheck, [ $code->(), $code->() ];
+}
+
+sub check_undef {
+    $_->[1] = undef foreach @tocheck;
+}
+
 my $app = Wx::App->new( sub { 1 } );
 # ancillary
 my $frame = Wx::Frame->new( undef, -1, 'Test frame' );
@@ -82,6 +93,8 @@ my $linfo = Wx::LanguageInfo->new( 12345, 'Dummy', 2, 3, 'Dummy' );
 my $linfo2 = Wx::LanguageInfo->new( 12345, 'Dummy', 2, 3, 'Dummy' );
 my $sinst = Wx::SingleInstanceChecker->new;
 my $sinst2 = Wx::SingleInstanceChecker->new;
+check_init { Wx::ListItem->new };
+check_init { Wx::ListItemAttr->new };
 
 undef $fontinfo2; # check the ref hash is safe!
 undef $color2;
@@ -109,6 +122,7 @@ undef $tid2;
 undef $attr2;
 undef $linfo2;
 undef $sinst2;
+check_undef;
 my $t = threads->create
   ( sub {
         ok( 1, 'In thread' );
