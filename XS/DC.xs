@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: DC.xs,v 1.38 2007/03/18 17:24:07 mbarbon Exp $
+## RCS-ID:      $Id: DC.xs,v 1.39 2007/03/25 14:57:58 mbarbon Exp $
 ## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -22,11 +22,17 @@
 
 MODULE=Wx PACKAGE=Wx::DC
 
-## // thread KO
-void
-DESTROY( THIS )
-    wxDC* THIS
+static void
+wxDC::CLONE()
   CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
+void
+wxDC::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ),
+                                THIS, ST(0) );
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 

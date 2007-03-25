@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.100 2007/03/25 10:31:20 mbarbon Exp $
+## RCS-ID:      $Id: typemap,v 1.101 2007/03/25 14:57:57 mbarbon Exp $
 ## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -170,7 +170,7 @@ wxFindReplaceDialog *   O_WXOBJECT
 wxPropertySheetDialog * O_WXOBJECT
 
 wxFindReplaceData *     O_NON_WXOBJECT
-wxColourData *          O_WXOBJECT
+wxColourData *          O_WXOBJECT_THR
 wxFontData *            O_WXOBJECT_THR
 
 wxSizer *               O_WXOBJECT
@@ -191,15 +191,15 @@ wxGBSpan &              O_GBSPAN
 wxGBSizerItem *         O_WXOBJECT
 wxStdDialogButtonSizer * O_WXOBJECT
 
-wxDC *                  O_WXOBJECT
-wxMemoryDC *            O_WXOBJECT
-wxWindowDC *            O_WXOBJECT
-wxClientDC *            O_WXOBJECT
-wxPaintDC *             O_WXOBJECT
-wxScreenDC *            O_WXOBJECT
-wxBufferedDC *          O_WXOBJECT
-wxBufferedPaintDC *     O_WXOBJECT
-wxAutoBufferedPaintDC * O_WXOBJECT
+wxDC *                  O_WXOBJECT_THR
+wxMemoryDC *            O_WXOBJECT_THR
+wxWindowDC *            O_WXOBJECT_THR
+wxClientDC *            O_WXOBJECT_THR
+wxPaintDC *             O_WXOBJECT_THR
+wxScreenDC *            O_WXOBJECT_THR
+wxBufferedDC *          O_WXOBJECT_THR
+wxBufferedPaintDC *     O_WXOBJECT_THR
+wxAutoBufferedPaintDC * O_WXOBJECT_THR
 
 wxTaskBarIcon *         O_WXOBJECT
 
@@ -207,7 +207,7 @@ wxTextAttr *            O_NON_WXOBJECT_THR
 
 wxLog *                 O_NON_WXOBJECT
 wxLogTextCtrl *         O_NON_WXOBJECT
-wxLogNull *             O_NON_WXOBJECT
+wxLogNull *             O_NON_WXOBJECT_THR
 wxLogGui *              O_NON_WXOBJECT
 wxLogWindow *           O_NON_WXOBJECT
 wxLogChain *            O_NON_WXOBJECT
@@ -257,7 +257,7 @@ wxTreeItemData *        O_NON_WXOBJECT
 wxTreeItemId *          O_NON_WXOBJECT_THR
 
 wxFontMapper *          O_NON_WXOBJECT
-wxFontEnumerator *      O_NON_WXOBJECT
+wxFontEnumerator *      O_NON_WXOBJECT_THR
 wxNativeFontInfo *      O_NON_WXOBJECT_THR
 wxFont *                O_WXOBJECT_THR
 wxRegion *              O_WXOBJECT_THR

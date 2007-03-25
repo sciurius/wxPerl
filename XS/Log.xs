@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.30 2007/03/20 20:12:17 mbarbon Exp $
+## RCS-ID:      $Id: Log.xs,v 1.31 2007/03/25 14:57:58 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -135,9 +135,17 @@ MODULE=Wx PACKAGE=Wx::LogNull
 wxLogNull*
 wxLogNull::new()
 
-## // thread KO
+static void
+wxLogNull::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxLogNull::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::LogNull", THIS, ST(0) );
+    delete THIS;
 
 MODULE=Wx PACKAGE=Wx::LogGui
 

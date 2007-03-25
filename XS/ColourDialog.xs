@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: ColourDialog.xs,v 1.7 2006/08/11 19:55:00 mbarbon Exp $
-## Copyright:   (c) 2000-2001, 2003, 2006 Mattia Barbon
+## RCS-ID:      $Id: ColourDialog.xs,v 1.8 2007/03/25 14:57:58 mbarbon Exp $
+## Copyright:   (c) 2000-2001, 2003, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -33,9 +33,17 @@ MODULE=Wx PACKAGE=Wx::ColourData
 wxColourData*
 wxColourData::new()
 
-## // thread KO
+static void
+wxColourData::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxColourData::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::ColourData", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxColourData::GetChooseFull()

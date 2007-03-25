@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/09/2002
-## RCS-ID:      $Id: FontEnumerator.xs,v 1.6 2006/11/19 16:06:44 mbarbon Exp $
-## Copyright:   (c) 2002, 2006 Mattia Barbon
+## RCS-ID:      $Id: FontEnumerator.xs,v 1.7 2007/03/25 14:57:58 mbarbon Exp $
+## Copyright:   (c) 2002, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -17,9 +17,17 @@ MODULE=Wx PACKAGE=Wx::FontEnumerator
 wxFontEnumerator*
 wxFontEnumerator::new()
 
-## // thread KO
+static void
+wxFontEnumerator::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxFontEnumerator::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::FontEnumerator", THIS, ST(0) );
+    delete THIS;
 
 bool
 wxFontEnumerator::EnumerateFacenames( encoding = wxFONTENCODING_SYSTEM, fixedWidth = false )
