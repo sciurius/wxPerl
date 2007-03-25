@@ -24,8 +24,8 @@ my $dobitmap2 = Wx::BitmapDataObject->new;
 my $domy = MyDataObject->new( $datafrmt );
 my $domy2 = MyDataObject->new( $datafrmt );
 my $domy3 = MyDataObject->new( $datafrmt );
-my $dropt = Wx::DropTarget->new;
-my $dropt2 = Wx::DropTarget->new;
+my $dropt = Wx::wxMOTIF ? undef : Wx::DropTarget->new;
+my $dropt2 = Wx::wxMOTIF ? undef : Wx::DropTarget->new;
 
 $docomposite->Add( $dotext );
 $docomposite->Add( $domy3 );

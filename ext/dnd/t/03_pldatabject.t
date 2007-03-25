@@ -22,13 +22,13 @@ in_frame(
         ok( !wxTheClipboard->IsSupported( Wx::DataFormat->newUser( $FORMAT ) ),
             "clipboard empty" );
 
+        $silent = 0;
+
         ok( wxTheClipboard->SetData( $copied ), "copying succeeds" );
 
         undef $copied;
 
         my $pasted = MyDataObject->new;
-
-        $silent = 0;
 
         ok( wxTheClipboard->IsSupported( Wx::DataFormat->newUser( $FORMAT ) ),
             "format supported" );

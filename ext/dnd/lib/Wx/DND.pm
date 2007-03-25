@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DND.pm,v 1.10 2004/12/21 21:12:48 mbarbon Exp $
-## Copyright:   (c) 2001-2004 Mattia Barbon
+## RCS-ID:      $Id: DND.pm,v 1.11 2007/03/25 20:44:52 mbarbon Exp $
+## Copyright:   (c) 2001-2004, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -29,6 +29,7 @@ use Wx::DropSource;
 
 no strict;
 
+package Wx::DropTarget;
 package Wx::DropFilesEvent;     @ISA = qw(Wx::Event);
 package Wx::DataObject;
 package Wx::DataObjectSimple;   @ISA = qw(Wx::DataObject);

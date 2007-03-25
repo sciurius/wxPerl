@@ -260,6 +260,7 @@ ok( $newfile, "Wx::Icon::newFile" );
 
 SKIP: {
   skip "Only for wxWidgets 2.5.2+", 1 unless Wx::wxVERSION >= 2.005002;
+  skip "Hangs under wxMotif", 1 if Wx::wxMOTIF;
 
   my $mtm = Wx::MimeTypesManager->new;
   my $filet = $mtm->GetFileTypeFromExtension( 'jpg' );
