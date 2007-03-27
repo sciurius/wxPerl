@@ -1,10 +1,10 @@
 #############################################################################
-## Name:        typemap
+## Name:        typemap.tmpl
 ## Purpose:     typemap template
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: typemap,v 1.103 2007/03/27 19:32:08 mbarbon Exp $
+## RCS-ID:      $Id: typemap.tmpl,v 1.1 2007/03/27 19:32:08 mbarbon Exp $
 ## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -372,40 +372,40 @@ O_WXOBJECT
 
 O_WXOBJECT_THR
     wxPli_object_2_sv( aTHX_ $arg, $var );
-    wxPli_thread_sv_register( aTHX_ ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}, $var, $arg );
+    wxPli_thread_sv_register( aTHX_ PERL_CLASS, $var, $arg );
 
 O_WXEVTHANDLER
     wxPli_evthandler_2_sv( aTHX_ $arg, $var );
 
 O_WXCLIENTDATACONTAINER
-    wxPli_clientdatacontainer_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    wxPli_clientdatacontainer_2_sv( aTHX_ $arg, $var, PERL_CLASS );
 
 O_WXCLIENTDATACONTAINER_THR_SV
-    wxPli_clientdatacontainer_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
-    wxPli_thread_sv_register( aTHX_ ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}, SvRV( $arg ), $arg );
+    wxPli_clientdatacontainer_2_sv( aTHX_ $arg, $var, PERL_CLASS );
+    wxPli_thread_sv_register( aTHX_ PERL_CLASS, SvRV( $arg ), $arg );
 
 O_NON_WXOBJECT
-    wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    wxPli_non_object_2_sv( aTHX_ $arg, $var, PERL_CLASS );
 
 O_NON_WXOBJECT_THR
-    wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
-    wxPli_thread_sv_register( aTHX_ ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}, $var, $arg );
+    wxPli_non_object_2_sv( aTHX_ $arg, $var, PERL_CLASS );
+    wxPli_thread_sv_register( aTHX_ PERL_CLASS, $var, $arg );
 
 O_NON_WXOBJECT_THR_SV
-    wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
-    wxPli_thread_sv_register( aTHX_ ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}, SvRV( $arg ), $arg );
+    wxPli_non_object_2_sv( aTHX_ $arg, $var, PERL_CLASS );
+    wxPli_thread_sv_register( aTHX_ PERL_CLASS, SvRV( $arg ), $arg );
 
 O_SIZE
-    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), PERL_CLASS );
 
 O_GBPOSITION
-    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), PERL_CLASS );
 
 O_GBSPAN
-    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), PERL_CLASS );
 
 O_POINT
-    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), PERL_CLASS );
 
 T_KEYCODE
     sv_setiv( $arg, $var );
@@ -415,31 +415,31 @@ T_UV
 
 INPUT
 O_WXOBJECT
-    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_WXOBJECT_THR
-    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_WXEVTHANDLER
-    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_WXCLIENTDATACONTAINER
-    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_WXCLIENTDATACONTAINER_THR_SV
-    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_NON_WXOBJECT
-    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_NON_WXOBJECT_VAL
-    $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = *($type *) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_NON_WXOBJECT_THR
-    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_NON_WXOBJECT_THR_SV
-    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_POINT
     $var = wxPli_sv_2_wxpoint( aTHX_ $arg );

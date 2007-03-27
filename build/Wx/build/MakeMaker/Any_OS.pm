@@ -208,6 +208,9 @@ fix_alien : lib/Wx/Mini.pm
 parser :
 	yapp -v -s -m Wx::XSP::Grammar -o build/Wx/XSP/Grammar.pm build/Wx/XSP/XSP.yp
 
+typemap : typemap.tmpl script/make_typemap.pl
+	perl script/make_typemap.pl typemap.tmpl typemap
+
 EOT
 
   $text;

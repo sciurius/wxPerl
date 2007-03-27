@@ -1,5 +1,6 @@
 Makefile.PL
 typemap
+typemap.tmpl
 typemap.xsp
 MANIFEST
 MANIFEST.SKIP
@@ -35,6 +36,7 @@ script/copy_files.pl
 script/fix_alien_path.pl
 script/make_exp_list.pl
 script/make_ppm.pl
+script/make_typemap.pl
 script/pipe.pl
 script/wx_overload.pl
 script/wx_xspp.pl
