@@ -13,8 +13,17 @@ use Wx::Grid;
 my $app = Wx::App->new( sub { 1 } );
 my $cc = Wx::GridCellCoords->new( 1, 1 );
 my $cc2 = Wx::GridCellCoords->new( 1, 1 );
+my $ce = Wx::GridCellNumberEditor->new;
+my $ce2 = Wx::GridCellNumberEditor->new;
+my $cr = Wx::GridCellStringRenderer->new;
+my $cr2 = Wx::GridCellStringRenderer->new;
+my $attr = Wx::GridCellAttr->new;
+my $attr2 = Wx::GridCellAttr->new;
 
 undef $cc2;
+undef $ce2;
+undef $cr2;
+undef $attr2;
 
 my $t = threads->create
   ( sub {

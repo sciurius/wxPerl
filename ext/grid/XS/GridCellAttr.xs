@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/12/2001
-## RCS-ID:      $Id: GridCellAttr.xs,v 1.10 2006/08/11 19:54:59 mbarbon Exp $
-## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
+## RCS-ID:      $Id: GridCellAttr.xs,v 1.11 2007/03/27 19:33:33 mbarbon Exp $
+## Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,10 +15,17 @@ MODULE=Wx PACKAGE=Wx::GridCellAttr
 wxGridCellAttr*
 wxGridCellAttr::new()
 
-## // thread KO
+static void
+wxGridCellAttr::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxGridCellAttr::DESTROY()
   CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ),
+                                SvRV( ST(0) ), ST(0) );
     if( THIS )
         THIS->DecRef();
 
