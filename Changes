@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.71
+0.71  Thu Mar 29 21:53:11 CEST 2007
 	- Fix all remaining known thread issues.
 
 0.70  Thu Mar 22 00:08:20 CET 2007
