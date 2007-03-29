@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/09/2006
-## RCS-ID:      $Id: VListBox.xsp,v 1.2 2006/10/01 13:03:56 mbarbon Exp $
-## Copyright:   (c) 2006 Mattia Barbon
+## RCS-ID:      $Id: VListBox.xsp,v 1.3 2007/03/29 19:53:57 mbarbon Exp $
+## Copyright:   (c) 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -69,6 +69,10 @@
 ##        MATCH_VOIDM_REDISP( newDefault )
 ##        MATCH_ANY_REDISP( newFull )
 ##    END_OVERLOAD( "Wx::VListBox::new" )
+
+#! wxVListBox
+#! OnDrawItem
+#! OnMeasureItem
 
 void
 wxVListBox::GetFirstSelected()

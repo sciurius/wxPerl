@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/12/2000
-## RCS-ID:      $Id: Caret.xs,v 1.7 2004/08/04 20:13:54 mbarbon Exp $
-## Copyright:   (c) 2000-2002 Mattia Barbon
+## RCS-ID:      $Id: Caret.xs,v 1.8 2007/03/29 19:53:57 mbarbon Exp $
+## Copyright:   (c) 2000-2002, 2004, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -20,7 +20,15 @@ wxCaret::new( ... )
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wwin_n_n, newWH )
         MATCH_REDISP( wxPliOvl_wwin_wsiz, newSize )
+        MATCH_VOIDM_REDISP( newDefault )
     END_OVERLOAD( Wx::Caret::new )
+
+wxCaret*
+newDefault( CLASS, window, width, height )
+    SV* CLASS
+  CODE:
+    RETVAL = new wxCaret();
+  OUTPUT: RETVAL
 
 wxCaret*
 newSize( CLASS, window, size )
@@ -29,8 +37,7 @@ newSize( CLASS, window, size )
     wxSize size
   CODE:
     RETVAL = new wxCaret( window, size );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
 
 wxCaret*
 newWH( CLASS, window, width, height )
@@ -40,8 +47,32 @@ newWH( CLASS, window, width, height )
     int height
   CODE:
     RETVAL = new wxCaret( window, width, height );
-  OUTPUT:
-    RETVAL
+  OUTPUT: RETVAL
+
+void
+wxCaret::Create( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin_n_n, CreateWH )
+        MATCH_REDISP( wxPliOvl_wwin_wsiz, CreateSize )
+    END_OVERLOAD( Wx::Caret::Create )
+
+bool
+wxCaret::CreateSize( window, size )
+    wxWindow* window
+    wxSize size
+  CODE:
+    RETVAL = THIS->Create( window, size );
+  OUTPUT: RETVAL
+
+bool
+wxCaret::CreateWH( window, width, height )
+    wxWindow* window
+    int width
+    int height
+  CODE:
+    RETVAL = THIS->Create( window, width, height );
+  OUTPUT: RETVAL
 
 void
 wxCaret::Destroy()
