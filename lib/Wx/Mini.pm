@@ -12,7 +12,7 @@ our $alien_key = 'XXXALIENXXX';
     $Wx::dlls = XXXDLLSXXX;
 }
 
-$VERSION = '0.71'; # bootstrap will catch wrong versions
+$VERSION = '0.72'; # bootstrap will catch wrong versions
 $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 
@@ -43,6 +43,7 @@ sub wx_boot($$) {
 
 sub _alien_path {
   return if defined $wx_path;
+  return unless length 'XXXALIENDXXX';
   foreach ( @INC ) {
     if( -d "$_/Alien/wxWidgets/XXXALIENDXXX" ) {
       $wx_path = "$_/Alien/wxWidgets/XXXALIENDXXX/lib";
