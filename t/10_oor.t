@@ -61,6 +61,9 @@ foreach my $d ( @data ) {
         or Wx::wxMOTIF() && $class eq 'Wx::SpinCtrl'
         or Wx::wxGTK() && $class =~ m/^Wx::(MiniFrame|StatusBar)/
         or Wx::wxMAC() && $class eq 'Wx::SpinCtrl';
+      skip "Segfaults under wxMotif 2.6.x", 2
+        if Wx::wxMOTIF() && $class eq 'Wx::StaticBitmap'
+           && Wx::wxVERSION < 2.008;
 
       my $lb = $class->new( $this, -1, @$args );
       my $lb2 = ($this->GetChildren)[-1];

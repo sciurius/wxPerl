@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/02/2001
-## RCS-ID:      $Id: Accelerators.xs,v 1.14 2007/03/29 19:53:57 mbarbon Exp $
+## RCS-ID:      $Id: Accelerators.xs,v 1.15 2007/03/31 15:27:11 mbarbon Exp $
 ## Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -138,5 +138,9 @@ wxAcceleratorTable::DESTROY()
 bool
 wxAcceleratorTable::Ok()
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
 bool
 wxAcceleratorTable::IsOk()
+
+#endif

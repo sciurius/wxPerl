@@ -332,7 +332,8 @@ SKIP: {
 ##############################################################################
 # Wx::StaticBitmap
 ##############################################################################
-{
+SKIP: {
+skip "Segfaults under wxMotif 2.6.x", 2 if Wx::wxMOTIF && Wx::wxVERSION < 2.008;
 my( $newicon, $newbitmap ) = ( 0, 0 );
 hijack( 'Wx::StaticBitmap::newIcon'   => sub { $newicon = 1 },
         'Wx::StaticBitmap::newBitmap' => sub { $newbitmap =1 } );
