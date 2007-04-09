@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/09/2006
-## RCS-ID:      $Id: VScrolledWindow.xsp,v 1.2 2006/10/19 20:00:13 mbarbon Exp $
+## RCS-ID:      $Id: VScrolledWindow.xsp,v 1.3 2007/04/09 16:59:17 mbarbon Exp $
 ## Copyright:   (c) 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -42,22 +42,33 @@
                  long style = 0,
                  const wxString& name = wxPanelNameStr );
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    %name{SetLineCount} void SetRowCount( size_t count );
+    %name{ScrollToLine} bool ScrollToRow( size_t line );
+    %name{RefreshLine} void RefreshRow( size_t line );
+    %name{RefreshLines} void RefreshRows( size_t from, size_t to );
+    %name{GetLineCount} size_t GetRowCount() const;
+    %name{GetFirstVisibleLine} size_t GetVisibleRowsBegin() const;
+    %name{GetLastVisibleLine} size_t GetVisibleRowsEnd() const;
+#else
     void SetLineCount( size_t count );
     bool ScrollToLine( size_t line );
-    bool ScrollLines( int lines );
-    bool ScrollPages( int pages );
     void RefreshLine( size_t line );
     void RefreshLines( size_t from, size_t to );
+    size_t GetLineCount() const;
+    size_t GetFirstVisibleLine() const;
+    size_t GetLastVisibleLine() const;
+#endif
+
+    bool ScrollLines( int lines );
+    bool ScrollPages( int pages );
     int HitTest( const wxPoint& pt ) const;
     void RefreshAll();
-    size_t GetLineCount() const;
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
     size_t GetVisibleBegin() const;
     size_t GetVisibleEnd() const;
 #endif
     bool IsVisible( size_t line ) const;
-    size_t GetFirstVisibleLine() const;
-    size_t GetLastVisibleLine() const;
     bool Layout();
 };
 

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.cpp,v 1.38 2006/12/03 14:56:38 mbarbon Exp $
+// RCS-ID:      $Id: controls.cpp,v 1.39 2007/04/09 16:59:17 mbarbon Exp $
 // Copyright:   (c) 2000-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -246,7 +246,9 @@ double treectrl_constant( const char* name, int arg )
   case 'T':
     r( wxTR_DEFAULT_STYLE );            // treectrl
     r( wxTR_EDIT_LABELS );              // treectrl
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
     r( wxTR_EXTENDED );                 // treectrl
+#endif
     r( wxTR_FULL_ROW_HIGHLIGHT );       // treectrl
     r( wxTR_HAS_BUTTONS );              // treectrl
     r( wxTR_HAS_VARIABLE_ROW_HEIGHT );  // treectrl

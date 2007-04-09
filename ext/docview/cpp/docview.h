@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.24 2007/03/21 22:15:03 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.25 2007/04/09 16:59:18 mbarbon Exp $
 // Copyright:   (c) 2002-2004, 2005-2007 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -443,20 +443,36 @@ public:
         m_callback.SetSelf( wxPli_make_object( this, package ), true);
         if( !docClassName.empty() )
         {
+#if wxUSE_EXTENDED_RTTI
+            m_plDocClassInfo = new wxPliClassInfo( sm_docParents,
+                                                   docClassName,
+                                                   sizeof(wxPliDocument),
+                                                   &fake_constructor, NULL
+                                                   );
+#else
             m_plDocClassInfo = new wxClassInfo( docClassName,
                                             &wxDocument::ms_classInfo, NULL,
                                             sizeof(wxPliDocument),
                                             &fake_constructor
                                             );
+#endif
             m_docClassInfo = m_plDocClassInfo;
         }
         if( !viewClassName.empty() )
         {
+#if wxUSE_EXTENDED_RTTI
+            m_plViewClassInfo = new wxPliClassInfo( sm_viewParents,
+                                                    viewClassName,
+                                                    sizeof(wxPliView),
+                                                    &fake_constructor, NULL
+                                                    );
+#else
             m_plViewClassInfo = new wxClassInfo( viewClassName,
                                              &wxView::ms_classInfo, NULL,
                                              sizeof(wxPliView),
                                              &fake_constructor
                                              );
+#endif
             m_viewClassInfo = m_plViewClassInfo;
         }
     }
@@ -474,9 +490,13 @@ public:
     DEC_V_CBACK_WXSTRING__VOID_const( GetDocumentName );
 
 private:
-    static wxString m_className;
+    static wxString sm_className;
     static wxObject* fake_constructor();
     static SV* CallConstructor( const wxString& className );
+#if wxUSE_EXTENDED_RTTI
+    static const wxClassInfo* sm_docParents[];
+    static const wxClassInfo* sm_viewParents[];
+#endif
 private:
     wxString m_docClassName,
              m_viewClassName;
@@ -487,13 +507,17 @@ private:
     DEC_V_CBACK_BOOL__WXSTRING( FileMatchesTemplate );
 };
 
-wxString wxPliDocTemplate::m_className;
+wxString wxPliDocTemplate::sm_className;
+const wxClassInfo* wxPliDocTemplate::sm_docParents[] =
+    { &wxDocument::ms_classInfo, NULL };
+const wxClassInfo* wxPliDocTemplate::sm_viewParents[] =
+    { &wxView::ms_classInfo, NULL };
 
 wxObject* wxPliDocTemplate::fake_constructor()
 {
     dTHX;
 
-    SV* obj = CallConstructor( m_className );
+    SV* obj = CallConstructor( sm_className );
     wxObject* doc = (wxDocument*)wxPli_sv_2_object( aTHX_ obj, "Wx::Object" );
     SvREFCNT_dec( obj );
 
@@ -554,7 +578,7 @@ wxDocument *wxPliDocTemplate::CreateDocument( const wxString& path,
     }
     else
     {
-        m_className = m_docClassName;
+        sm_className = m_docClassName;
         if( m_hasDocClassInfo )
             return wxDocTemplate::CreateDocument( path, flags );
     }
@@ -579,7 +603,7 @@ wxView *wxPliDocTemplate::CreateView( wxDocument* doc, long flags )
     }
     else
     {
-        m_className = m_viewClassName;
+        sm_className = m_viewClassName;
         if( m_hasViewClassInfo )
             return wxDocTemplate::CreateView( doc, flags );
     }

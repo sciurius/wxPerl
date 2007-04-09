@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.176 2007/03/21 22:27:25 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.177 2007/04/09 16:59:16 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -98,6 +98,7 @@
 #include <wx/splash.h>
 #include <wx/fdrepdlg.h>
 #include <wx/list.h>
+#include <wx/stattext.h>
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 ) && !WXWIN_COMPATIBILITY_2_6
 #define wxCHB_DEFAULT         wxBK_DEFAULT
@@ -445,6 +446,10 @@ static wxPlINH inherit[] =
     I( Cursor,          Bitmap )
 #elif !defined(__WXGTK__)
     I( Cursor,          GDIObject )
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    I( IconBundle,      GDIObject )
 #endif
 
 #if defined(__WXGTK__) || defined(__WXMOTIF__) || defined(__WXMAC__)

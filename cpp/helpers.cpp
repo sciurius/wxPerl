@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.88 2007/03/18 17:31:27 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.89 2007/04/09 16:59:17 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -946,7 +946,7 @@ public:
     {
         wxString str;
         WXSTRING_INPUT( str, wxString, src );
-        dest = my_strdup( str.c_str(), str.length() );
+        dest = my_strdup( (const wxChar*)str.c_str(), str.length() );
     }
 };
 

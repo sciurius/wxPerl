@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2002
-// RCS-ID:      $Id: event.h,v 1.12 2007/03/13 23:00:25 mbarbon Exp $
+// RCS-ID:      $Id: event.h,v 1.13 2007/04/09 16:59:17 mbarbon Exp $
 // Copyright:   (c) 2002-2004, 2006-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -194,7 +194,14 @@ HV* wxPlThreadEvent::m_hv = NULL;
 
 wxPliSelfRef* wxPliGetSelfForwxPlThreadEvent( wxObject* object ) { return 0; }
 // XXX HACK!
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if wxUSE_EXTENDED_RTTI
+const wxClassInfo* wxPlThreadEvent::ms_classParents[] =
+    { &wxEvent::ms_classInfo , NULL };
+wxPliClassInfo wxPlThreadEvent::ms_classInfo(
+    ms_classParents, (wxChar*)wxT( "wxPlPlThreadEvent"),
+    (int)sizeof(wxPlThreadEvent), NULL,
+    (wxPliGetCallbackObjectFn) wxPliGetSelfForwxPlThreadEvent );
+#elif WXPERL_W_VERSION_GE( 2, 5, 1 )
 wxPliClassInfo wxPlThreadEvent::ms_classInfo(
     (wxChar*)wxT( "wxPlPlThreadEvent"), &wxEvent::ms_classInfo,
     NULL, (int)sizeof(wxPlThreadEvent),

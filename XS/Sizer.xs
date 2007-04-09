@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     31/10/2000
-## RCS-ID:      $Id: Sizer.xs,v 1.54 2006/11/19 16:11:26 mbarbon Exp $
+## RCS-ID:      $Id: Sizer.xs,v 1.55 2007/04/09 16:59:17 mbarbon Exp $
 ## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -538,16 +538,36 @@ wxSizerItem::SetBorder( border )
 wxWindow*
 wxSizerItem::GetWindow()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxSizerItem::AssignWindow( window )
+    wxWindow* window
+
+#else
+
 void
 wxSizerItem::SetWindow( window )
     wxWindow* window
 
+#endif
+
 wxSizer*
 wxSizerItem::GetSizer()
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxSizerItem::AssignSizer( sizer )
+    wxSizer* sizer
+
+#else
 
 void
 wxSizerItem::SetSizer( sizer )
     wxSizer* sizer
+
+#endif
 
 int
 wxSizerItem::GetFlag()
