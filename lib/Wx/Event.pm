@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Event.pm,v 1.49 2007/03/15 22:42:55 mbarbon Exp $
+## RCS-ID:      $Id: Event.pm,v 1.50 2007/04/11 17:20:14 mbarbon Exp $
 ## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -143,12 +143,6 @@ sub EVT_HELP($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_HELP, $_[2] ) }
 sub EVT_HELP_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_HELP, $_[3] ) }
 sub EVT_DETAILED_HELP($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_DETAILED_HELP, $_[2] ) }
 sub EVT_DETAILED_HELP_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_DETAILED_HELP, $_[3] ) }
-
-#
-# IconizeEvent
-#
-
-sub EVT_ICONIZE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ICONIZE, $_[1] ) }
 
 #
 # IdleEvent

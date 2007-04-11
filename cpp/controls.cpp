@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: controls.cpp,v 1.40 2007/04/09 17:04:22 mbarbon Exp $
+// RCS-ID:      $Id: controls.cpp,v 1.41 2007/04/11 17:20:09 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -241,6 +241,10 @@ double treectrl_constant( const char* name, int arg )
       r( wxEVT_COMMAND_TREE_ITEM_RIGHT_CLICK );
       r( wxEVT_COMMAND_TREE_ITEM_MIDDLE_CLICK );
       r( wxEVT_COMMAND_TREE_END_DRAG );
+#if defined(__WXMSW__)
+      r( wxEVT_COMMAND_TREE_STATE_IMAGE_CLICK );
+      r( wxEVT_COMMAND_TREE_ITEM_GETTOOLTIP );
+#endif
 
       break;
   case 'T':

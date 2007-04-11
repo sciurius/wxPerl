@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/02/2001
-## RCS-ID:      $Id: TreeCtrl.xs,v 1.36 2007/03/24 22:10:49 mbarbon Exp $
+## RCS-ID:      $Id: TreeCtrl.xs,v 1.37 2007/04/11 17:20:15 mbarbon Exp $
 ## Copyright:   (c) 2001-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -130,6 +130,10 @@ wxTreeEvent::IsEditCancelled()
 
 wxString
 wxTreeEvent::GetLabel()
+
+void
+wxTreeEvent::SetToolTip( tooltip )
+    wxString tooltip
 
 MODULE=Wx PACKAGE=Wx::TreeCtrl
 

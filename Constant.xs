@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.177 2007/04/09 16:59:16 mbarbon Exp $
+// RCS-ID:      $Id: Constant.xs,v 1.178 2007/04/11 17:20:08 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -182,6 +182,8 @@ static wxPliEventDescription evts[] =
     SEVT( EVT_WIZARD_HELP, 3 )
     SEVT( EVT_CHILD_FOCUS, 2 )
     SEVT( EVT_WIZARD_FINISHED, 3 )
+    SEVT( EVT_ICONIZE, 2 )
+    SEVT( EVT_MAXIMIZE, 2 )
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
     SEVT( EVT_MOUSE_CAPTURE_CHANGED, 2 )
 #endif
@@ -195,6 +197,10 @@ static wxPliEventDescription evts[] =
     EVT( EVT_FONTPICKER_CHANGED, 3, wxEVT_COMMAND_FONTPICKER_CHANGED )
 #endif
     EVT( EVT_MENU_HIGHLIGHT_ALL, 2, wxEVT_MENU_HIGHLIGHT )
+#if defined(__WXMSW__)
+    EVT( EVT_TREE_STATE_IMAGE_CLICK, 3, wxEVT_COMMAND_TREE_STATE_IMAGE_CLICK )
+    EVT( EVT_TREE_ITEM_GETTOOLTIP, 3, wxEVT_COMMAND_TREE_ITEM_GETTOOLTIP )
+#endif
     { 0, 0, 0 }
 };
 
@@ -484,6 +490,7 @@ static wxPlINH inherit[] =
     I( FocusEvent,      Event )
     I( KeyEvent,        Event )
     I( HelpEvent,       CommandEvent )
+    I( MaximizeEvent,   Event )
     I( IconizeEvent,    Event )
     I( IdleEvent,       Event )
     I( InitDialogEvent, Event )
