@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.25 2007/04/09 16:59:18 mbarbon Exp $
+// RCS-ID:      $Id: docview.h,v 1.26 2007/04/14 12:49:33 mbarbon Exp $
 // Copyright:   (c) 2002-2004, 2005-2007 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -508,10 +508,12 @@ private:
 };
 
 wxString wxPliDocTemplate::sm_className;
+#if wxUSE_EXTENDED_RTTI
 const wxClassInfo* wxPliDocTemplate::sm_docParents[] =
     { &wxDocument::ms_classInfo, NULL };
 const wxClassInfo* wxPliDocTemplate::sm_viewParents[] =
     { &wxView::ms_classInfo, NULL };
+#endif
 
 wxObject* wxPliDocTemplate::fake_constructor()
 {
