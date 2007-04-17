@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.73
+
 0.72  Sun Apr  1 00:33:54 CEST 2007
 	- Compilation fixes for GCC 3.4.
 	- Compilation fixes for wxMotif/wxWidgets 2.6.3.
