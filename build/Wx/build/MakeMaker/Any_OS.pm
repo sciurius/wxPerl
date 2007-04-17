@@ -40,7 +40,7 @@ sub get_flags {
 
 sub metafile_target_ext {
     return '' if Wx::build::MakeMaker::is_wxPerl_tree;
-    return shift->SUPER::metafile_target_ext( @_ );
+    return shift->MM::metafile_target( @_ );
 }
 
 sub metafile_target_core {

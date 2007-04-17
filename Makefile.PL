@@ -5,8 +5,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     01/10/2000
-## RCS-ID:      $Id: Makefile.PL,v 1.51 2006/12/16 18:44:58 mbarbon Exp $
-## Copyright:   (c) 2000-2006 Mattia Barbon
+## RCS-ID:      $Id: Makefile.PL,v 1.52 2007/04/17 20:44:32 mbarbon Exp $
+## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -70,7 +70,8 @@ wxWriteMakefile( NAME          => 'Wx',
                                     source  => 'cpp/ovl_const.cpp',
                                     },
                  WX_TOP        => 'Wx.pm',
-               );
+                 LICENSE       => 'perl',
+                 );
 
 END {
     print <<EOT;

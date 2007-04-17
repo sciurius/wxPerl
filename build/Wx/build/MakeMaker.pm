@@ -415,6 +415,11 @@ sub _process_mm_arguments {
       delete $args{$_} if $ExtUtils::MakeMaker::VERSION < 5.43;
     };
 
+    m/^(?:LICENSE)/ and do {
+      # args not known prior to MakeMaker 6.32
+      delete $args{$_} if $ExtUtils::MakeMaker::VERSION < 6.32;
+    };
+
     m/^WX_TOP$/ and do {
       $wx_top_file = $args{$_};
     };
