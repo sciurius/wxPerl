@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.74  Sun Apr 29 00:53:23 CEST 2007
+	- Minor compilation and runtime fixes.
+
 0.73  Tue Apr 17 22:49:32 CEST 2007
 	- wxWidgets 2.9.x compatibility.
 
