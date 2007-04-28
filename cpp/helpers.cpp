@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.cpp,v 1.89 2007/04/09 16:59:17 mbarbon Exp $
+// RCS-ID:      $Id: helpers.cpp,v 1.90 2007/04/28 18:43:27 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -402,7 +402,7 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
     }
 }
 
-SV* wxPli_non_object_2_sv( pTHX_ SV* var, void* data, const char* package )
+SV* wxPli_non_object_2_sv( pTHX_ SV* var, const void* data, const char* package )
 {
     if( data == NULL )
     {
@@ -410,7 +410,7 @@ SV* wxPli_non_object_2_sv( pTHX_ SV* var, void* data, const char* package )
     }
     else
     {
-        sv_setref_pv( var, CHAR_P package, data );
+        sv_setref_pv( var, CHAR_P package, const_cast<void*>(data) );
     }
 
     return var;
@@ -463,7 +463,7 @@ SV* wxPli_evthandler_2_sv( pTHX_ SV* var, wxEvtHandler* cdc )
     return var;
 }
 
-SV* wxPli_object_2_sv( pTHX_ SV* var, wxObject* object ) 
+SV* wxPli_object_2_sv( pTHX_ SV* var, const wxObject* object ) 
 {
     if( object == NULL )
     {
@@ -485,7 +485,7 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, wxObject* object )
 #endif
     {
         wxPliClassInfo* cci = (wxPliClassInfo*)ci;
-        wxPliSelfRef* sr = cci->m_func( object );
+        wxPliSelfRef* sr = cci->m_func( const_cast<wxObject*>(object) );
 
         if( sr && sr->m_self )
         {
@@ -497,7 +497,7 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, wxObject* object )
     char buffer[WXPL_BUF_SIZE];
     const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
 
-    sv_setref_pv( var, CHAR_P CLASS, object );
+    sv_setref_pv( var, CHAR_P CLASS, const_cast<wxObject*>(object) );
 
     return var;
 }
@@ -1183,7 +1183,7 @@ wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* sv )
     {
         return (wxKeyCode) SvIV( sv );
     }
-    else if( SvPOK( sv ) && SvLEN( sv ) == 2 )
+    else if( SvPOK( sv ) && SvCUR( sv ) == 1 )
     {
         return (wxKeyCode) ( SvPV_nolen( sv ) )[0];
     }

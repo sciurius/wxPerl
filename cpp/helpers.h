@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: helpers.h,v 1.94 2007/04/09 16:59:18 mbarbon Exp $
+// RCS-ID:      $Id: helpers.h,v 1.95 2007/04/28 18:43:27 mbarbon Exp $
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -152,12 +152,12 @@ void FUNCPTR( wxPli_push_arguments )( pTHX_ SV*** stack,
 void wxPli_push_args( pTHX_ SV*** stack, const char* argtypes, va_list &list );
 
 void* FUNCPTR( wxPli_sv_2_object )( pTHX_ SV* scalar, const char* classname );
-SV* FUNCPTR( wxPli_object_2_sv )( pTHX_ SV* var, wxObject* object );
+SV* FUNCPTR( wxPli_object_2_sv )( pTHX_ SV* var, const wxObject* object );
 SV* FUNCPTR( wxPli_clientdatacontainer_2_sv )( pTHX_ SV* var,
                                                wxClientDataContainer* cdc,
                                                const char* klass );
 SV* FUNCPTR( wxPli_evthandler_2_sv )( pTHX_ SV* var, wxEvtHandler* evth );
-SV* FUNCPTR( wxPli_non_object_2_sv )( pTHX_ SV* var, void* data,
+SV* FUNCPTR( wxPli_non_object_2_sv )( pTHX_ SV* var, const void* data,
                                       const char* package );
 
 SV* FUNCPTR( wxPli_make_object )( void* object, const char* cname );
@@ -337,8 +337,8 @@ struct wxPliHelpers
 {
     void* ( * m_wxPli_sv_2_object )( pTHX_ SV*, const char* );
     SV* ( * m_wxPli_evthandler_2_sv )( pTHX_ SV* var, wxEvtHandler* evth );
-    SV* ( * m_wxPli_object_2_sv )( pTHX_ SV*, wxObject* );
-    SV* ( * m_wxPli_non_object_2_sv )( pTHX_ SV* , void*, const char* );
+    SV* ( * m_wxPli_object_2_sv )( pTHX_ SV*, const wxObject* );
+    SV* ( * m_wxPli_non_object_2_sv )( pTHX_ SV* , const void*, const char* );
     SV* ( * m_wxPli_make_object )( void*, const char* );
     wxPoint ( * m_wxPli_sv_2_wxpoint_test )( pTHX_ SV*, bool* );
     wxPoint ( * m_wxPli_sv_2_wxpoint )( pTHX_ SV* );
