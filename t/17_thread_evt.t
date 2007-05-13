@@ -8,7 +8,7 @@ use threads::shared;
 
 use Wx;
 use if !Wx::wxTHREADS(), 'Test::More' => skip_all => 'No thread support';
-
+use if Wx::wxVERSION < 2.006, 'Test::More' => skip_all => 'Hangs under 2.5';
 use Test::More tests => 2;
 
 {

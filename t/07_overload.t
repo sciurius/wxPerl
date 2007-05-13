@@ -65,7 +65,7 @@ for my $i ( [ \&Wx::_match, 'match' ],
   ok(  xx( [ $undef ], $Wx::_wszr ),
        "$t: Wx::Sizer matches undefined variable" );
   ok( !xx( [ 'foo' ], $Wx::_wszr ), "$t: Wx::Sizer does not match string" );
-  ok(  xx( [ Wx::BoxSizer->new( 1 ) ], $Wx::_wszr ),
+  ok(  xx( [ Wx::BoxSizer->new( Wx::wxVERTICAL() ) ], $Wx::_wszr ),
        "$t: Wx::Sizer matches Wx::Sizer" );
 
   # test Wx::Image

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     02/12/2000
-## RCS-ID:      $Id: ScrolledWindow.xs,v 1.15 2006/09/24 15:04:24 mbarbon Exp $
-## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
+## RCS-ID:      $Id$
+## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -117,6 +117,11 @@ wxScrolledWindow::PrepareDC( dc )
     wxDC* dc
   CODE:
     THIS->PrepareDC( *dc );
+
+void
+wxScrolledWindow::DoPrepareDC( dc )
+    wxDC* dc
+  C_ARGS: *dc
 
 void
 wxScrolledWindow::Scroll( x, y )

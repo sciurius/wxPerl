@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     05/11/2006
-## RCS-ID:      $Id: RichText.pm,v 1.5 2006/11/25 14:26:35 mbarbon Exp $
-## Copyright:   (c) 2006 Mattia Barbon
+## RCS-ID:      $Id$
+## Copyright:   (c) 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,6 +18,7 @@ our $VERSION = '0.01';
 
 Wx::load_dll( 'adv' );
 Wx::load_dll( 'html' );
+Wx::load_dll( 'xml' );
 Wx::load_dll( 'richtext' );
 Wx::wx_boot( 'Wx::RichText', $VERSION );
 

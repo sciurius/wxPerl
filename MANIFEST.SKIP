@@ -1,6 +1,7 @@
 (?:^|/)[Mm]akefile$
 (?:^|/)pm_to_blib$
 [Cc][Vv][Ss]/
+\.svn/
 \.([Rr][Es][Ss]|bs|def)$
 \.c$
 \.o$

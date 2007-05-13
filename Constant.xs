@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs,v 1.178 2007/04/11 17:20:08 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -1066,6 +1066,35 @@ static double constant( const char *name, int arg )
     r( wxFR_NOUPDOWN );                 // findreplace
     r( wxFR_NOMATCHCASE );              // findreplace
     r( wxFR_NOWHOLEWORD );              // findreplace
+#if WXPERL_W_VERSION_GE( 2, 5, 3 )    
+    r( wxFONTFAMILY_DEFAULT );          // font
+    r( wxFONTFAMILY_DECORATIVE );       // font
+    r( wxFONTFAMILY_ROMAN );            // font
+    r( wxFONTFAMILY_SCRIPT );           // font
+    r( wxFONTFAMILY_SWISS );            // font
+    r( wxFONTFAMILY_MODERN );           // font
+    r( wxFONTFAMILY_TELETYPE );         // font
+    r( wxFONTFAMILY_MAX );              // font
+    r( wxFONTFAMILY_UNKNOWN );          // font
+    r( wxFONTSTYLE_NORMAL );            // font
+    r( wxFONTSTYLE_ITALIC );            // font
+    r( wxFONTSTYLE_SLANT );             // font
+    r( wxFONTSTYLE_MAX );               // font
+    r( wxFONTWEIGHT_NORMAL );           // font
+    r( wxFONTWEIGHT_LIGHT );            // font
+    r( wxFONTWEIGHT_BOLD );             // font
+    r( wxFONTWEIGHT_MAX );              // font
+    r( wxFONTFLAG_DEFAULT );            // font
+    r( wxFONTFLAG_ITALIC );             // font
+    r( wxFONTFLAG_SLANT );              // font
+    r( wxFONTFLAG_LIGHT );              // font
+    r( wxFONTFLAG_BOLD );               // font
+    r( wxFONTFLAG_ANTIALIASED );        // font
+    r( wxFONTFLAG_NOT_ANTIALIASED );    // font
+    r( wxFONTFLAG_UNDERLINED );         // font
+    r( wxFONTFLAG_STRIKETHROUGH );      // font
+    r( wxFONTFLAG_MASK );               // font
+#endif    
     r( wxFONTENCODING_ISO8859_1 );      // font
     r( wxFONTENCODING_ISO8859_2 );      // font
     r( wxFONTENCODING_ISO8859_3 );      // font
@@ -1810,6 +1839,12 @@ static double constant( const char *name, int arg )
 
     r( wxPercentOf );                   // layout constraints
     r( wxPartRegion );                  // layout constraints
+#if wxUSE_EXTENDED_RTTI
+    r( wxPROP_DEPRECATED );
+    r( wxPROP_OBJECT_GRAPH );
+    r( wxPROP_ENUM_STORE_LONG );
+    r( wxPROP_DONT_STREAM );
+#endif
     break;
   case 'R':
     r( wxRAISED_BORDER );               // window
@@ -2148,6 +2183,27 @@ static double constant( const char *name, int arg )
     if( strEQ( name, "Type_String" ) )
         return wxConfigBase::Type_String;
 
+#if wxUSE_EXTENDED_RTTI
+    r( wxT_VOID );
+    r( wxT_BOOL );
+    r( wxT_CHAR );
+    r( wxT_UCHAR );
+    r( wxT_INT );
+    r( wxT_UINT );
+    r( wxT_LONG );
+    r( wxT_ULONG );
+    r( wxT_FLOAT );
+    r( wxT_DOUBLE );
+    r( wxT_STRING );
+    r( wxT_SET );
+    r( wxT_ENUM );
+    r( wxT_CUSTOM );
+    r( wxT_LAST_SIMPLE_TYPE_KIND );
+    r( wxT_OBJECT_PTR );
+    r( wxT_OBJECT );
+    r( wxT_COLLECTION );
+    r( wxT_DELEGATE );
+#endif
     break;
   case 'U':
     r( wxUnconstrained );               // layout constraints

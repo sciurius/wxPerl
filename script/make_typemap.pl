@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/03/2007
-## RCS-ID:      $Id: make_typemap.pl,v 1.1 2007/03/27 19:32:08 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -20,7 +20,7 @@ $_ = <$in>;
 close $in;
 
 s{typemap\.tmpl}{typemap};
-s{PERL_CLASS}'${(my $ntt=$ntype)=~s/^(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}'g;
+s{PERL_CLASS}'${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}'g;
 s{CPP_CLASS}'${(my $t=$type)=~s/^Wx_/wx/;\$t}'g;
 
 open my $out, '>', $ARGV[1];
