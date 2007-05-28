@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Controls.xs,v 1.44 2006/11/05 16:28:00 mbarbon Exp $
-// Copyright:   (c) 2000-2006 Mattia Barbon
+// RCS-ID:      $Id$
+// Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -79,8 +79,27 @@ wxControlWithItems::Delete( n )
     int n
 
 int
-wxControlWithItems::FindString( string )
+wxControlWithItems::FindString( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_b, FindStringCase )
+        MATCH_REDISP( wxPliOvl_s, FindStringNoCase )
+    END_OVERLOAD( Wx::ControlWithItems::FindString )
+
+int
+wxControlWithItems::FindStringNoCase( string )
     wxString string
+  CODE:
+    RETVAL = THIS->FindString( string );
+  OUTPUT: RETVAL
+
+int
+wxControlWithItems::FindStringCase( string, sensitiv )
+    wxString string
+    bool sensitiv
+  CODE:
+    RETVAL = THIS->FindString( string, sensitiv );
+  OUTPUT: RETVAL
 
 int
 wxControlWithItems::GetCount()
