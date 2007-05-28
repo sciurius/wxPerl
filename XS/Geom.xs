@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Geom.xs,v 1.24 2006/12/09 23:46:41 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -209,6 +209,48 @@ wxRect::GetPosition()
     RETVAL = new wxPoint( THIS->GetPosition() );
   OUTPUT:
     RETVAL
+    
+wxPoint*
+wxRect::GetTopLeft()
+  CODE:
+    RETVAL = new wxPoint( THIS->GetTopLeft() );
+  OUTPUT:
+    RETVAL
+    
+wxPoint*
+wxRect::GetBottomRight()
+  CODE:
+    RETVAL = new wxPoint( THIS->GetBottomRight() );
+  OUTPUT:
+    RETVAL
+    
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+wxPoint*
+wxRect::GetBottomLeft()
+  CODE:
+    RETVAL = new wxPoint( THIS->GetBottomLeft() );
+  OUTPUT:
+    RETVAL
+    
+wxPoint*
+wxRect::GetTopRight()
+  CODE:
+    RETVAL = new wxPoint( THIS->GetTopRight() );
+  OUTPUT:
+    RETVAL
+
+bool
+wxRect::IsEmpty()
+
+wxRect*
+wxRect::Union( wxRect* rec )
+  CODE:
+    RETVAL = new wxRect( THIS->Union( *rec ) );
+  OUTPUT:
+    RETVAL
+
+#endif    
 
 int
 wxRect::GetRight()
@@ -233,6 +275,17 @@ int
 wxRect::GetY()
 
 void
+wxRect::Deflate( x, y )
+    wxCoord x 
+    wxCoord y = NO_INIT
+  CODE:
+    if( items == 2 )
+      y = x;
+    else
+      y = SvIV( ST(2) );
+    THIS->Deflate( x, y );
+
+void
 wxRect::Inflate( x, y )
     wxCoord x 
     wxCoord y = NO_INIT
@@ -242,6 +295,12 @@ wxRect::Inflate( x, y )
     else
       y = SvIV( ST(2) );
     THIS->Inflate( x, y );
+
+bool
+wxRect::Intersects( wxRect* rec )
+  CODE:
+    RETVAL = THIS->Intersects( *rec );
+  OUTPUT: RETVAL
 
 void
 wxRect::SetHeight( height )
@@ -266,6 +325,13 @@ wxRect::SetPosition( pos )
 void
 wxRect::SetSize( size )
     wxSize size
+    
+void
+wxRect::Offset( x, y )
+    wxCoord x
+    wxCoord y
+ CODE:
+   THIS->Offset( x, y);
 
 void
 wxRect::Contains( ... )
@@ -315,6 +381,13 @@ wxRect::ContainsRect( wxRect* rec )
     RETVAL = THIS->Contains( *rec );
   OUTPUT: RETVAL
 
+wxRect*
+wxRect::CentreIn ( wxRect* rec, int dir = wxBOTH )
+  CODE:
+    RETVAL = new wxRect( THIS->CentreIn( *rec, dir ) );
+  OUTPUT:
+    RETVAL
+    
 #endif
 
 MODULE=Wx PACKAGE=Wx::Region
