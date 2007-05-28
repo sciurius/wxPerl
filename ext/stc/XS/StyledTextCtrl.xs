@@ -3,8 +3,8 @@
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
-## RCS-ID:      $Id: StyledTextCtrl.xs,v 1.23 2006/11/19 16:06:45 mbarbon Exp $
-## Copyright:   (c) 2002-2004, 2006 Graciliano M. P., Marcus Friedlaender,
+## RCS-ID:      $Id$
+## Copyright:   (c) 2002-2004, 2006-2007 Graciliano M. P., Marcus Friedlaender,
 ##                  Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -265,6 +265,20 @@ wxStyledTextCtrl::SetCaretLineBack( back )
     wxColour* back
   CODE:
     THIS->SetCaretLineBack( *back );
+
+#else
+
+void
+wxStyledTextCtrl::SetCaretLineBack( back )
+    wxColour* back
+  CODE:
+    THIS->SetCaretLineBackground( *back );
+
+void
+wxStyledTextCtrl::SetCaretLineBackground( back )
+    wxColour* back
+  CODE:
+    THIS->SetCaretLineBackground( *back );
 
 #endif
 
