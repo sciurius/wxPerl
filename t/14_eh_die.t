@@ -4,7 +4,8 @@ use strict;
 use Wx;
 use lib './t';
 use Tests_Helper qw(test_app);
-use Test::More 'tests' => 6;
+use Test::More Wx::wxMAC() ? ( 'skip_all' => 'Hangs on wxMac' ) :
+                             ( 'tests'    => 6 );
 
 use Wx::Event qw(EVT_TIMER);
 

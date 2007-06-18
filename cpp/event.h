@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     30/03/2002
-// RCS-ID:      $Id: event.h,v 1.13 2007/04/09 16:59:17 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2002-2004, 2006-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

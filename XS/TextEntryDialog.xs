@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     27/11/2000
-## RCS-ID:      $Id: TextEntryDialog.xs,v 1.6 2004/08/04 20:13:55 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2001, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

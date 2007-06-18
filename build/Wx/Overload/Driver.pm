@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     17/08/2001
-## RCS-ID:      $Id: Driver.pm,v 1.3 2006/08/20 11:45:35 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2003, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

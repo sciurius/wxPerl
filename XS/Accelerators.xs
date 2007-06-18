@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/02/2001
-## RCS-ID:      $Id: Accelerators.xs,v 1.15 2007/03/31 15:27:11 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

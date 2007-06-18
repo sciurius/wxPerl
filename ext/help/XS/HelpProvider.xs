@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     21/03/2001
-## RCS-ID:      $Id: HelpProvider.xs,v 1.4 2004/08/04 19:38:46 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001, 2003, 2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

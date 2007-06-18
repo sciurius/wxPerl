@@ -4,7 +4,7 @@
 ## Author:      Mark Dootson
 ## Modified by:
 ## Created:     20/00/2006
-## RCS-ID:      $Id: HtmlDCRenderer.xs,v 1.1 2006/08/20 09:25:20 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2006 Mark Dootson
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

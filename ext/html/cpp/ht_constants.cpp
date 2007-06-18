@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/03/2001
-// RCS-ID:      $Id: ht_constants.cpp,v 1.14 2006/11/19 16:06:45 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2001, 2003-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

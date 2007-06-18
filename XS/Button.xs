@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/11/2000
-## RCS-ID:      $Id: Button.xs,v 1.6 2003/06/04 20:38:41 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

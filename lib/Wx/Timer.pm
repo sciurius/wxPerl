@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     14/02/2001
-## RCS-ID:      $Id: Timer.pm,v 1.4 2004/10/19 20:28:12 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2002 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

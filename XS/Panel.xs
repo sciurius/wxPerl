@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Panel.xs,v 1.16 2006/09/24 15:04:24 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2001, 2003-2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

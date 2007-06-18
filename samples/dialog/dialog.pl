@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/11/2000
-## RCS-ID:      $Id: dialog.pl,v 1.5 2006/11/26 17:05:43 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

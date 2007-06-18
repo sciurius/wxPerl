@@ -5,7 +5,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     25/08/2003
-## RCS-ID:      $Id: make_ppm.pl,v 1.2 2006/04/16 15:11:07 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/03/2006
-// RCS-ID:      $Id: me_constants.cpp,v 1.5 2006/07/13 18:27:21 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

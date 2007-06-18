@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     09/01/2000
-## RCS-ID:      $Id: Palette.xs,v 1.13 2006/11/19 16:11:26 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

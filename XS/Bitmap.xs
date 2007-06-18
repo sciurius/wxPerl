@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Bitmap.xs,v 1.28 2006/08/11 19:55:00 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2002, 2005-2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

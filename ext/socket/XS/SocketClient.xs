@@ -3,7 +3,7 @@
 ## Purpose:     XS for Wx::SocketClient
 ## Author:      Graciliano M. P.
 ## Created:     27/02/2003
-## RCS-ID:      $Id: SocketClient.xs,v 1.2 2004/10/19 20:28:11 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2003 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

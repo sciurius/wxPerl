@@ -5,7 +5,7 @@
 ## Author:      D.H. aka PodMaster
 ## Modified by:
 ## Created:     12/24/2002
-## RCS-ID:      $Id: Carp.pm,v 1.2 2004/10/19 20:28:10 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2002 D.H.
 ## Licence:     This program is free software; you can redistribute itand/or
 ##              modify it under the same terms as Perl itself

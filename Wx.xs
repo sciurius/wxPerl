@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     01/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2002, 2004-2006 Mattia Barbon
+// Copyright:   (c) 2000-2002, 2004-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////

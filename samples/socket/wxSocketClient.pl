@@ -3,8 +3,8 @@
 ## Purpose:     wxSocketClient minimal demo
 ## Author:      Graciliano M. P.
 ## Created:     06/02/2003
-## RCS-ID:      $Id: wxSocketClient.pl,v 1.2 2004/02/28 22:59:08 mbarbon Exp $
-## Copyright:   (c) 2003 Graciliano M. P.
+## RCS-ID:      $Id$
+## Copyright:   (c) 2003-2004 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

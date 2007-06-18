@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/09/2002
-## RCS-ID:      $Id: FontMapper.xs,v 1.7 2006/11/19 16:06:44 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2002-2003, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

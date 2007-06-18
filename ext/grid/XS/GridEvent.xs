@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     08/12/2001
-## RCS-ID:      $Id: GridEvent.xs,v 1.8 2004/12/21 21:12:52 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -4,7 +4,7 @@
 ## Author:      Matthew "Cheetah" Gabeler-Lee
 ## Modified by:
 ## Created:     11/01/2005
-## RCS-ID:      $Id: ArtProvider.pm,v 1.1 2005/01/22 13:16:16 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2005 Matthew Gabeler-Lee
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     13/09/2002
-## RCS-ID:      $Id: FontEnumerator.xs,v 1.7 2007/03/25 14:57:58 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2002, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

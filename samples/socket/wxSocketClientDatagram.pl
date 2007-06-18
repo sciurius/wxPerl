@@ -3,7 +3,7 @@
 ## Purpose:     wxDatagramSocket minimal demo
 ## Author:      Graciliano M. P., Mattia Barbon
 ## Created:     07/02/2003
-## RCS-ID:      $Id: wxSocketClientDatagram.pl,v 1.1 2004/03/01 21:46:24 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2004 Graciliano M. P., Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

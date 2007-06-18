@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     16/08/2001
-// RCS-ID:      $Id: dropsource.h,v 1.5 2004/12/21 21:12:48 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2001, 2004 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

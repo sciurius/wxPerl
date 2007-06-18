@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     23/05/2002
-// RCS-ID:      $Id: STC.xs,v 1.8 2006/08/19 18:53:46 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2002-2004, 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

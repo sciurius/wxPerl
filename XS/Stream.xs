@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/03/2001
-## RCS-ID:      $Id: Stream.xs,v 1.12 2004/10/19 20:28:05 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

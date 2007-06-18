@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     06/09/2001
-## RCS-ID:      $Id: MDIParentFrame.xs,v 1.13 2006/09/24 15:04:25 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

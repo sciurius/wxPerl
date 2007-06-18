@@ -4,7 +4,7 @@
 ## Author:      Graciliano M. P.
 ## Modified by:
 ## Created:     27/02/2003
-## RCS-ID:      $Id: Socket.pm,v 1.10 2004/02/28 22:59:07 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2003-2004 Graciliano M. P.
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/12/2000
-## RCS-ID:      $Id: Caret.xs,v 1.8 2007/03/29 19:53:57 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2002, 2004, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

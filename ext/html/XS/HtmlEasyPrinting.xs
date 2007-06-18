@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/05/2001
-## RCS-ID:      $Id: HtmlEasyPrinting.xs,v 1.11 2007/03/25 15:43:50 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/04/2002
-// RCS-ID:      $Id: xr_constants.cpp,v 1.8 2005/01/04 17:15:09 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2002-2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     07/09/2001
-## RCS-ID:      $Id: FindReplaceDialog.xs,v 1.5 2004/07/10 13:16:46 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001-2004 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

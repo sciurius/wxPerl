@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     21/09/2002
-// RCS-ID:      $Id: wxapi.h,v 1.13 2006/11/19 16:02:40 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2002-2003, 2005-2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

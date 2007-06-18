@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     20/07/2001
-## RCS-ID:      $Id: ToggleButton.xs,v 1.7 2003/06/04 20:38:43 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2001, 2003 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself

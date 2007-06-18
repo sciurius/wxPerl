@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     13/08/2001
-// RCS-ID:      $Id: dataobject.h,v 1.7 2005/11/01 22:18:03 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2001-2002, 2005 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself

@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     03/02/2001
-## RCS-ID:      $Id: SingleChoiceDialog.xs,v 1.10 2005/10/23 17:45:44 mbarbon Exp $
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## RCS-ID:      $Id$
+## Copyright:   (c) 2001-2002, 2005 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################

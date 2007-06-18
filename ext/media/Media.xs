@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/03/2006
-// RCS-ID:      $Id: Media.xs,v 1.4 2006/08/19 18:24:34 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2006 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
