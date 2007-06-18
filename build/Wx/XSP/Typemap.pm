@@ -134,7 +134,7 @@ sub init {
   $this->{TYPE} = $args{type};
 }
 
-sub cpp_type { $_[0]->{TYPE}->print_noconst }
+sub cpp_type { $_[0]->{TYPE}->print }
 sub output_code { undef } # likewise
 sub call_parameter_code { undef }
 sub call_function_code { undef }
