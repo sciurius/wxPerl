@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     29/10/2000
-## RCS-ID:      $Id: Log.xs,v 1.31 2007/03/25 14:57:58 mbarbon Exp $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -39,7 +39,7 @@ RemoveTraceMask( mask )
 
 bool
 IsAllowedTraceMask( mask )
-    const wxChar* mask
+    wxString mask
   CODE:
     RETVAL = wxLog::IsAllowedTraceMask( mask );
   OUTPUT:
@@ -169,29 +169,55 @@ MODULE=Wx PACKAGE=Wx
 
 #if 0
 
-#define XSINTERFACE__ccharp( _ret, _cv, _f ) \
-  ( ( void (*)( const wxChar * ) ) _f)
+#define XSINTERFACE__wxstring( _ret, _cv, _f ) \
+  ( ( void (*)( const wxString& ) ) _f)
 
-#define XSINTERFACE__ccharp_SET( _cv, _f ) \
+#define XSINTERFACE__wxstring_SET( _cv, _f ) \
   ( CvXSUBANY( _cv ).any_ptr = (void*) _f ) 
 
 #undef dXSFUNCTION
 #define dXSFUNCTION( a ) \
-  void (*XSFUNCTION)( const wxChar* )
+  void (*XSFUNCTION)( const wxString& )
 
-# xsubpp from Perl 5.004_04 does not like this at all.
-
-# void
-# interface__ccharp( string )
-#     const wxChar* string
-#   INTERFACE_MACRO:
-#     XSINTERFACE__ccharp
-#     XSINTERFACE__ccharp_SET
-#   INTERFACE:
-#     wxLogError wxLogFatalError wxLogWarning
-#     wxLogVerbose wxLogDebug
-#     wxLogMessage
+void
+interface__wxstring( string )
+    wxString string
+  INTERFACE_MACRO:
+    XSINTERFACE__wxstring
+    XSINTERFACE__wxstring_SET
+  INTERFACE:
+    wxLogError wxLogFatalError wxLogWarning
+    wxLogVerbose wxLogDebug
+    wxLogMessage
     
+#else
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxLogError( string )
+    wxString string
+
+void
+wxLogFatalError( string )
+    wxString string
+
+void
+wxLogWarning( string )
+    wxString string
+
+void
+wxLogMessage( string )
+    wxString string
+
+void
+wxLogVerbose( string )
+    wxString string
+
+void
+wxLogDebug( string )
+    wxString string
+
 #else
 
 void
@@ -217,6 +243,8 @@ wxLogVerbose( string )
 void
 wxLogDebug( string )
     const wxChar* string
+
+#endif
 
 #endif
 

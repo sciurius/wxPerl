@@ -4,8 +4,8 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: Document.xs,v 1.6 2004/12/21 21:12:49 mbarbon Exp $
-## Copyright:   (c) 2001, 2004 Mattia Barbon
+## RCS-ID:      $Id$
+## Copyright:   (c) 2001, 2004, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -81,9 +81,18 @@ wxDocument::SetDocumentSaved( saved )
 bool
 wxDocument::Revert()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxString
+wxDocument::GetUserReadableName()
+
+#else
+
 bool
 wxDocument::GetPrintableName( buf )
 	wxString buf
+
+#endif
 
 wxWindow*
 wxDocument::GetDocumentWindow()

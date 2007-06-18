@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     12/08/2001
-## RCS-ID:      $Id: DataObject.xs,v 1.24 2006/08/24 20:12:31 mbarbon Exp $
-## Copyright:   (c) 2001-2004, 2006 Mattia Barbon
+## RCS-ID:      $Id$
+## Copyright:   (c) 2001-2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -37,6 +37,18 @@ newNative( dummy, format = wxDF_INVALID )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxDataFormat*
+newUser( dummy, id )
+    SV* dummy
+    wxString id
+  CODE:
+    RETVAL = new wxDataFormat( id );
+  OUTPUT: RETVAL
+
+#else
+
 wxDataFormat*
 newUser( dummy, id )
     SV* dummy
@@ -44,6 +56,8 @@ newUser( dummy, id )
   CODE:
     RETVAL = new wxDataFormat( id );
   OUTPUT: RETVAL
+
+#endif
 
 static void
 wxDataFormat::CLONE()

@@ -4,7 +4,7 @@
 // Author:      Simon Flack
 // Modified by:
 // Created:     28/08/2002
-// RCS-ID:      $Id: docview.h,v 1.26 2007/04/14 12:49:33 mbarbon Exp $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2002-2004, 2005-2007 Simon Flack
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -69,7 +69,11 @@ public:
     wxDocTemplate *GetDocumentTemplate() const;
     void SetDocumentTemplate( wxDocTemplate* );
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    DEC_V_CBACK_WXSTRING__VOID_const( GetUserReadableName );
+#else
     DEC_V_CBACK_BOOL__mWXSTRING_const( GetPrintableName );
+#endif
 
     wxWindow *GetDocumentWindow() const;
 };
@@ -253,8 +257,13 @@ void wxPliDocument::SetDocumentTemplate( wxDocTemplate *temp )
     wxDocument::SetDocumentTemplate( temp );
 }
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+DEF_V_CBACK_WXSTRING__VOID_const( wxPliDocument, wxDocument,
+                                  GetUserReadableName );
+#else
 DEF_V_CBACK_BOOL__mWXSTRING_const( wxPliDocument, wxDocument,
                                    GetPrintableName );
+#endif
 
 wxWindow *wxPliDocument::GetDocumentWindow() const
 {
@@ -668,7 +677,11 @@ public:
 #endif
     // wxView* GetCurrentView() const;
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    DEC_V_CBACK_WXSTRING__VOID( MakeNewDocumentName );
+#else
     bool MakeDefaultName( wxString& );
+#endif
 
     wxString MakeFrameTitle( wxDocument* );
 
@@ -931,7 +944,12 @@ void wxPliDocManager::ActivateView( wxView* view, bool activate, bool deleting)
 }
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+DEF_V_CBACK_WXSTRING__VOID( wxPliDocManager, wxDocManager,
+                            MakeNewDocumentName );
+#else
 DEF_V_CBACK_BOOL__mWXSTRING( wxPliDocManager, wxDocManager, MakeDefaultName );
+#endif
 
 wxString wxPliDocManager::MakeFrameTitle( wxDocument* doc )
 {

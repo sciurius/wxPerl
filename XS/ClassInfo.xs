@@ -27,7 +27,7 @@ MODULE=Wx PACKAGE=Wx::ClassInfo
 
 wxClassInfo*
 FindClass( name )
-    wxChar* name
+    wxString name
   CODE:
     RETVAL = wxClassInfo::FindClass( name );
   OUTPUT: RETVAL

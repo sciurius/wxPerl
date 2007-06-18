@@ -4,8 +4,8 @@
 ## Author:      Simon Flack
 ## Modified by:
 ## Created:     11/09/2002
-## RCS-ID:      $Id: DocManager.xs,v 1.16 2006/08/11 19:54:59 mbarbon Exp $
-## Copyright:   (c) 2002-2006 Mattia Barbon
+## RCS-ID:      $Id$
+## Copyright:   (c) 2002-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -235,9 +235,18 @@ wxDocManager::FlushDoc( doc )
 wxDocument *
 wxDocManager::GetCurrentDocument()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxString
+wxDocManager::MakeNewDocumentName()
+
+#else
+
 bool
 wxDocManager::MakeDefaultName( name )
     wxString name
+
+#endif
 
 wxString
 wxDocManager::MakeFrameTitle( doc )
