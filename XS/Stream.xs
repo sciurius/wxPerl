@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     30/03/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2003 Mattia Barbon
+## Copyright:   (c) 2001-2003, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -91,16 +91,24 @@ SV*
 Wx_InputStream::READLINE()
   PREINIT:
     char c;
-    wxString val;
+    size_t off = 0;
+    char* buff;
   CODE:
     if( THIS->Eof() ) { XSRETURN_UNDEF; }
-
-    while( THIS->CanRead() && THIS->Read( &c, 1 ).LastRead() != 0 ) {
-        val.Append( c );
-        if( c == '\n' ) break;
-    }
     RETVAL = newSViv( 0 );
-    WXSTRING_OUTPUT( val, RETVAL );
+    buff = SvPV_nolen( RETVAL );
+
+    while( THIS->CanRead() && THIS->Read( &c, 1 ).LastRead() != 0 )
+    {
+        if( SvLEN( RETVAL ) <= off )
+        {
+            buff = SvGROW( RETVAL, off + 15 );
+        }
+        buff[off] = c;
+        if( c == '\n' ) break;
+        ++off;
+    }
+    SvCUR_set( RETVAL, off );
   OUTPUT: RETVAL
 
 MODULE=Wx PACKAGE=Wx::OutputStream
