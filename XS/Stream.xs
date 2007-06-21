@@ -105,8 +105,8 @@ Wx_InputStream::READLINE()
             buff = SvGROW( RETVAL, off + 15 );
         }
         buff[off] = c;
-        if( c == '\n' ) break;
         ++off;
+        if( c == '\n' ) break;
     }
     SvCUR_set( RETVAL, off );
   OUTPUT: RETVAL
