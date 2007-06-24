@@ -81,6 +81,20 @@ wxLog::SetVerbose( verbose = true )
 bool
 wxLog::GetVerbose()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+_SetTimestamp( format, buffer )
+    wxString format
+    SV* buffer
+  CODE:
+    wxLog::SetTimestamp( format );
+
+wxString
+wxLog::GetTimestamp();
+
+#else
+
 void
 _SetTimestamp( format, buffer )
     SV* format
@@ -101,6 +115,8 @@ _SetTimestamp( format, buffer )
 
 const wxChar*
 wxLog::GetTimestamp()
+
+#endif
 
 void
 SetTraceMask( mask )
