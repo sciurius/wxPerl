@@ -82,7 +82,9 @@ int
 wxControlWithItems::FindString( ... )
   PPCODE:
     BEGIN_OVERLOAD()
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
         MATCH_REDISP( wxPliOvl_s_b, FindStringCase )
+#endif
         MATCH_REDISP( wxPliOvl_s, FindStringNoCase )
     END_OVERLOAD( Wx::ControlWithItems::FindString )
 
@@ -93,6 +95,8 @@ wxControlWithItems::FindStringNoCase( string )
     RETVAL = THIS->FindString( string );
   OUTPUT: RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
 int
 wxControlWithItems::FindStringCase( string, sensitiv )
     wxString string
@@ -100,6 +104,8 @@ wxControlWithItems::FindStringCase( string, sensitiv )
   CODE:
     RETVAL = THIS->FindString( string, sensitiv );
   OUTPUT: RETVAL
+
+#endif
 
 int
 wxControlWithItems::GetCount()
