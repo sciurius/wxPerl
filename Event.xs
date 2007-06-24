@@ -331,6 +331,9 @@ wxFocusEvent::new( eventType = 0, id = 0 )
     wxEventType eventType
     wxWindowID id
 
+wxWindow*
+wxFocusEvent::GetWindow()
+
 MODULE=Wx_Evt PACKAGE=Wx::IconizeEvent
 
 bool
