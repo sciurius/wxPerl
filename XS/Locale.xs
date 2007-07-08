@@ -44,6 +44,39 @@ wxLanguageInfo::DESTROY()
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 
+int
+wxLanguageInfo::GetLanguage()
+  CODE:
+    RETVAL = THIS->Language;
+
+wxString
+wxLanguageInfo::GetCanonicalName()
+  CODE:
+    RETVAL = THIS->CanonicalName;
+
+unsigned int
+wxLanguageInfo::GetWinLang()
+  CODE:
+#if defined( __WXMSW__ )
+    RETVAL = THIS->WinLang;
+#else
+    RETVAL = 0;
+#endif
+
+unsigned int
+wxLanguageInfo::GetWinSubLang()
+  CODE:
+#if defined( __WXMSW__ )
+    RETVAL = THIS->WinSubLang;
+#else
+    RETVAL = 0;
+#endif
+
+wxString
+wxLanguageInfo::GetDescription()
+  CODE:
+    RETVAL = THIS->Description;
+
 MODULE=Wx PACKAGE=Wx::Locale
 
 wxLocale*
@@ -186,6 +219,27 @@ wxLocale::IsLoaded( domain )
 
 bool
 wxLocale::IsOk()
+
+const wxLanguageInfo*
+FindLanguageInfo( name )
+    wxString name
+  CODE:
+    RETVAL = wxLocale::FindLanguageInfo( name );
+  OUTPUT:
+    RETVAL
+
+bool
+wxLocale::Init( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
+    int language
+    int flags
+
+const wxLanguageInfo*
+GetLanguageInfo( language )
+    int language
+  CODE:
+    RETVAL = wxLocale::GetLanguageInfo( language );
+  OUTPUT:
+    RETVAL
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
