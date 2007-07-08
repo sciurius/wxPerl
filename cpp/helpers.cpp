@@ -1352,7 +1352,8 @@ I32 my_looks_like_number( pTHX_ SV* sv )
     char wxkey[50];                \
     sprintf( wxkey, "%x", (ptr) ); \
 
-void wxPli_thread_sv_register( pTHX_ const char* package, void* ptr, SV* sv )
+void wxPli_thread_sv_register( pTHX_ const char* package,
+                               const void* ptr, SV* sv )
 {
     if( !SvROK( sv ) )
         croak( "PANIC: no sense in registering a non-reference" );
@@ -1366,7 +1367,8 @@ void wxPli_thread_sv_register( pTHX_ const char* package, void* ptr, SV* sv )
     sv_rvweaken( nsv );
 }
 
-void wxPli_thread_sv_unregister( pTHX_ const char* package, void* ptr, SV* sv )
+void wxPli_thread_sv_unregister( pTHX_ const char* package,
+                                 const void* ptr, SV* sv )
 {
     if( !ptr )
         return;

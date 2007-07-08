@@ -58,6 +58,7 @@ t/14_eh_die.t
 t/15_threads.t
 t/16_stream.t
 t/17_thread_evt.t
+t/18_unicode.t
 t/Tests_Helper.pm
 t/zz_distrib.t
 

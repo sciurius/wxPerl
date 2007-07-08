@@ -43,7 +43,42 @@ I32 my_looks_like_number( pTHX_ SV* sv );
 SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out );
 SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out );
 
-#if wxUSE_UNICODE
+#if defined(wxUSE_UNICODE_UTF8) && wxUSE_UNICODE_UTF8
+
+inline SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out )
+{
+    sv_setpv( out, wxString( str ).wx_str() );
+    SvUTF8_on( out );
+
+    return out;
+}
+
+inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
+{
+    sv_setpv( out, str.wx_str() );
+    SvUTF8_on( out );
+
+    return out;
+}
+
+#define WXCHAR_INPUT( var, type, arg ) \
+  const wxString var##_tmp = ( SvUTF8( arg ) ) ? \
+            ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ) \
+          : ( wxString( SvPV_nolen( arg ), wxConvLibc ) ); \
+  var = const_cast<type>( static_cast<const type>( var##_tmp.wc_str() ) );
+
+#define WXCHAR_OUTPUT( var, arg ) \
+  wxPli_wxChar_2_sv( aTHX_ var, arg )
+
+#define WXSTRING_INPUT( var, type, arg ) \
+  var =  ( SvUTF8( arg ) ) ? \
+           wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) \
+         : wxString( SvPV_nolen( arg ), wxConvLibc );
+
+#define WXSTRING_OUTPUT( var, arg ) \
+  wxPli_wxString_2_sv( aTHX_ var, arg )
+
+#elif wxUSE_UNICODE
 
 inline SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out )
 {
@@ -248,9 +283,9 @@ int wxPli_av_2_pointarray( pTHX_ SV* array, wxPoint** points );
 #if wxPERL_USE_THREADS
 typedef void (* wxPliCloneSV)( pTHX_ SV* scalar );
 void FUNCPTR( wxPli_thread_sv_register )( pTHX_ const char* package,
-                                          void* ptr, SV* sv );
+                                          const void* ptr, SV* sv );
 void FUNCPTR( wxPli_thread_sv_unregister )( pTHX_ const char* package,
-                                            void* ptr, SV* sv );
+                                            const void* ptr, SV* sv );
 void FUNCPTR( wxPli_thread_sv_clone )( pTHX_ const char* package,
                                        wxPliCloneSV clonefn );
 #else // if !wxPERL_USE_THREADS
@@ -381,9 +416,9 @@ struct wxPliHelpers
                                                const char* klass );
 #if wxPERL_USE_THREADS
     void (* m_wxPli_thread_sv_register )( pTHX_ const char* package,
-                                          void* ptr, SV* sv );
+                                          const void* ptr, SV* sv );
     void (* m_wxPli_thread_sv_unregister )( pTHX_ const char* package,
-                                            void* ptr, SV* sv );
+                                            const void* ptr, SV* sv );
     void (* m_wxPli_thread_sv_clone )( pTHX_ const char* package,
                                        wxPliCloneSV clonefn );
 #endif
