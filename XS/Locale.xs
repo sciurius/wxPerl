@@ -67,10 +67,10 @@ wxLanguageInfo::GetWinLang()
   OUTPUT: RETVAL
 
 unsigned int
-wxLanguageInfo::GetWinSubLang()
+wxLanguageInfo::GetWinSublang()
   CODE:
 #if defined( __WXMSW__ )
-    RETVAL = THIS->WinSubLang;
+    RETVAL = THIS->WinSublang;
 #else
     RETVAL = 0;
 #endif

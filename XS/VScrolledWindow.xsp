@@ -50,6 +50,8 @@
     %name{GetLineCount} size_t GetRowCount() const;
     %name{GetFirstVisibleLine} size_t GetVisibleRowsBegin() const;
     %name{GetLastVisibleLine} size_t GetVisibleRowsEnd() const;
+    %name{ScrollLines} bool ScrollRows( int lines );
+    %name{ScrollPages} bool ScrollRowPages( int pages );
 #else
     void SetLineCount( size_t count );
     bool ScrollToLine( size_t line );
@@ -58,10 +60,10 @@
     size_t GetLineCount() const;
     size_t GetFirstVisibleLine() const;
     size_t GetLastVisibleLine() const;
-#endif
-
     bool ScrollLines( int lines );
     bool ScrollPages( int pages );
+#endif
+
     int HitTest( const wxPoint& pt ) const;
     void RefreshAll();
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )

@@ -370,7 +370,7 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
         // scalar-ish object that has been marked/unmarked deletable
         // it has mg, but not mg->object
         if( !mg || !mg->object )
-            return INT2PTR( void*, SvOK( ref ) ? SvIV( ref ) : NULL );
+            return INT2PTR( void*, SvOK( ref ) ? SvIV( ref ) : 0 );
 
         return mg->object;
 #else // if !wxPL_USE_MAGIC

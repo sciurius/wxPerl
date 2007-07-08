@@ -5,7 +5,14 @@ use Wx qw(wxTheClipboard);
 use Wx::DND;
 use lib '../../t';
 use Tests_Helper qw(in_frame);
-use Test::More 'tests' => 9;
+use Test::More;
+BEGIN {
+    if( !Wx::wxMAC ) {
+        plan 'tests' => 9;
+    } else {
+        plan 'tests' => 11;
+    }
+}
 
 my $FORMAT = 'Wx::Perl::MyCustomFormat';
 my $silent = 1;
