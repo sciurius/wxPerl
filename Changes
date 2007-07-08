@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.76
+
 0.75  Sun Jul  8 22:43:41 CEST 2007
 	- wxWidgets 2.9.x compatibility.
 	- Changed wxInputStream::READLINE to always return bytes.
