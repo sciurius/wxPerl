@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     02/12/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2005-2006 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -452,6 +452,13 @@ wxImage::LoadStreamMIME( stream, type, index = -1 )
 
 bool
 wxImage::Ok()
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+bool
+wxImage::IsOk()
+
+#endif
 
 void
 wxImage::SaveFile( ... )

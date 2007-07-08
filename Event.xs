@@ -432,6 +432,29 @@ void
 wxIdleEvent::RequestMore( needMore = true )
     bool needMore
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
+bool
+CanSend( window )
+    wxWindow* window
+  CODE:
+    RETVAL = wxIdleEvent::CanSend( window );
+  OUTPUT: RETVAL
+
+#endif
+
+void
+SetMode( mode )
+    wxIdleMode mode
+  CODE:
+    wxIdleEvent::SetMode( mode );
+
+wxIdleMode
+GetMode()
+  CODE:
+    RETVAL = wxIdleEvent::GetMode();
+  OUTPUT: RETVAL
+
 MODULE=Wx_Evt PACKAGE=Wx::InitDialogEvent
 
 wxInitDialogEvent*
@@ -643,6 +666,9 @@ wxMouseEvent::RightUp()
 bool
 wxMouseEvent::ShiftDown()
 
+int
+wxMouseEvent::GetButton()
+
 MODULE=Wx_Evt PACKAGE=Wx::MoveEvent
 
 wxMoveEvent*
@@ -823,6 +849,11 @@ wxClipboardTextEvent::new( type = wxEVT_NULL, id = 0 )
     wxWindowID id
 
 MODULE=Wx:Evt PACKAGE=Wx::MouseCaptureChangedEvent
+
+wxMouseCaptureChangedEvent*
+wxMouseCaptureChangedEvent::new( id = 0, capturedWindow = NULL )
+    wxWindowID id
+    wxWindow* capturedWindow
 
 wxWindow*
 wxMouseCaptureChangedEvent::GetCapturedWindow()

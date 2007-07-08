@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2002, 2005-2006 Mattia Barbon
+## Copyright:   (c) 2000-2002, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -321,6 +321,13 @@ wxBitmap::LoadFile( name, type )
 
 bool
 wxBitmap::Ok()
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+bool
+wxBitmap::IsOk()
+
+#endif
 
 #if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 

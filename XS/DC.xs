@@ -473,6 +473,13 @@ wxDC::MinY()
 bool
 wxDC::Ok()
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+bool
+wxDC::IsOk()
+
+#endif
+
 void
 wxDC::ResetBoundingBox()
 

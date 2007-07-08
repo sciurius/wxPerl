@@ -1300,6 +1300,9 @@ static double constant( const char *name, int arg )
     r( wxIMAGE_RESOLUTION_CM );         // image
 #endif
 
+    r( wxIDLE_PROCESS_ALL );
+    r( wxIDLE_PROCESS_SPECIFIED );
+
     r( wxINVERT );                      // dc
 
     r( wxITALIC );                      // font
