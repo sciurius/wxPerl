@@ -48,11 +48,13 @@ int
 wxLanguageInfo::GetLanguage()
   CODE:
     RETVAL = THIS->Language;
+  OUTPUT: RETVAL
 
 wxString
 wxLanguageInfo::GetCanonicalName()
   CODE:
     RETVAL = THIS->CanonicalName;
+  OUTPUT: RETVAL
 
 unsigned int
 wxLanguageInfo::GetWinLang()
@@ -62,6 +64,7 @@ wxLanguageInfo::GetWinLang()
 #else
     RETVAL = 0;
 #endif
+  OUTPUT: RETVAL
 
 unsigned int
 wxLanguageInfo::GetWinSubLang()
@@ -76,6 +79,7 @@ wxString
 wxLanguageInfo::GetDescription()
   CODE:
     RETVAL = THIS->Description;
+  OUTPUT: RETVAL
 
 MODULE=Wx PACKAGE=Wx::Locale
 
