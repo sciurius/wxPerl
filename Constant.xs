@@ -793,6 +793,7 @@ static double constant( const char *name, int arg )
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxDD_CHANGE_DIR );               // dirdialog
+    r( wxDD_DIR_MUST_EXIST );           // dirdialog
 #endif
 
     r( wxDOT );                         // pen
