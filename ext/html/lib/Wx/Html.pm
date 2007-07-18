@@ -52,6 +52,14 @@ package Wx::SimpleHtmlListBox;  @ISA = qw(Wx::HtmlListBox);
 package Wx::HtmlCellEvent;      @ISA = qw(Wx::CommandEvent);
 package Wx::HtmlLinkEvent;      @ISA = qw(Wx::CommandEvent);
 
+package Wx::Event;
+
+use strict;
+
+sub EVT_HTML_CELL_CLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_HTML_CELL_CLICKED, $_[2] ) }
+sub EVT_HTML_CELL_HOVER($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_HTML_CELL_HOVER, $_[2] ) }
+sub EVT_HTML_LINK_CLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_HTML_LINK_CLICKED, $_[2] ) }
+
 1;
 
 # Local variables:

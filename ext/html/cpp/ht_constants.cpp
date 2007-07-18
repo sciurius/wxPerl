@@ -25,6 +25,12 @@ double html_constant( const char* name, int arg )
 
     switch( fl )
     {
+    case 'E':
+        r( wxEVT_COMMAND_HTML_CELL_CLICKED );
+        r( wxEVT_COMMAND_HTML_CELL_HOVER );
+        r( wxEVT_COMMAND_HTML_LINK_CLICKED );
+        break;
+
     case 'H':
         r( wxHF_TOOLBAR );
         r( wxHF_FLATTOOLBAR );
