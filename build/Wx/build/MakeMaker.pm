@@ -10,6 +10,11 @@ use FindBin;
 $VERSION = '0.28';
 @EXPORT = 'wxWriteMakefile';
 
+# get rid of suffix in MakeMaker version to be able treat it like a number in
+# comparisons
+my $MAKEMAKER_VERSION = $ExtUtils::MakeMaker::VERSION;
+$MAKEMAKER_VERSION =~ s/_\d+$//;
+
 # sanitize File::Find on filesystems where nlink of directories is < 2
 use File::Find;
 $File::Find::dont_use_nlink = 1 if ( stat('.') )[3] < 2;
@@ -412,12 +417,12 @@ sub _process_mm_arguments {
 
     m/^(?:ABSTRACT_FROM|AUTHOR)/ and do {
       # args not known prior to Perl 5.005_03 (the check is a bit conservative)
-      delete $args{$_} if $ExtUtils::MakeMaker::VERSION < 5.43;
+      delete $args{$_} if $MAKEMAKER_VERSION < 5.43;
     };
 
     m/^(?:LICENSE)/ and do {
       # args not known prior to MakeMaker 6.32
-      delete $args{$_} if $ExtUtils::MakeMaker::VERSION < 6.32;
+      delete $args{$_} if $MAKEMAKER_VERSION < 6.32;
     };
 
     m/^WX_TOP$/ and do {
