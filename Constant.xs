@@ -2670,7 +2670,7 @@ _get_packages()
 #if wxPERL_USE_DATETIME
     "use Wx::DateTime;"
 #endif
-#if wxPERL_USE_MEDIA && WXPERL_W_VERSION_GE( 2, 6, 0 )
+#if wxPERL_USE_MEDIA && wxUSE_MEDIACTRL && WXPERL_W_VERSION_GE( 2, 6, 0 )
     "use Wx::Media;"
 #endif
 #if wxPERL_USE_RICHTEXT && WXPERL_W_VERSION_GE( 2, 7, 0 )
