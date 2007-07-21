@@ -14,7 +14,7 @@ TYPEMAP
 wxHtmlURLType           T_ENUM
 
 wxHtmlWindow *          O_WXOBJECT
-wxHtmlLinkInfo *        O_WXOBJECT
+wxHtmlLinkInfo *        O_NON_WXOBJECT
 wxHtmlSelection *       O_WXOBJECT
 
 wxHtmlHelpController *  O_WXOBJECT

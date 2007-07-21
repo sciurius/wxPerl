@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     21/03/2001
 // RCS-ID:      $Id$
-// Copyright:   (c) 2001, 2003-2006 Mattia Barbon
+// Copyright:   (c) 2001, 2003-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -26,9 +26,11 @@ double html_constant( const char* name, int arg )
     switch( fl )
     {
     case 'E':
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxEVT_COMMAND_HTML_CELL_CLICKED );
         r( wxEVT_COMMAND_HTML_CELL_HOVER );
         r( wxEVT_COMMAND_HTML_LINK_CLICKED );
+#endif
         break;
 
     case 'H':
