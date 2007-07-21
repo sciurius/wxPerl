@@ -115,7 +115,7 @@ wxSizer::GetItemNth( index )
 %}
 #endif
     void RecalcSizes();
-    void Clear( bool deleteWindows = true );
+    void Clear( bool deleteWindows = false );
     void DeleteWindows();
     wxSize CalcMin();
     wxSize Fit( wxWindow* window );
