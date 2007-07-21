@@ -497,6 +497,10 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, const wxObject* object )
     char buffer[WXPL_BUF_SIZE];
     const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
 
+    if( strcmp( CLASS, "Wx::Object" ) == 0 ) {
+        warn( "Missing wxRTTI information, using Wx::Object as class" );
+    }
+
     sv_setref_pv( var, CHAR_P CLASS, const_cast<wxObject*>(object) );
 
     return var;
