@@ -20,4 +20,5 @@ wxPliXmlSubclassFactory * O_NON_WXOBJECT
 wxXmlNode*              O_NON_WXOBJECT
 wxXmlDocument*          O_WXOBJECT
 wxXmlProperty*          O_NON_WXOBJECT
+wxXmlAttribute*         O_NON_WXOBJECT
 wxPlXmlResourceHandler* O_WXOBJECT
