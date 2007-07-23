@@ -13,7 +13,9 @@ my $ascii2  = 'XXX';
 my $latin1  = 'Àbcdë';
 my $unicode = "\x{1234}";
 
-utf8::downgrade( $latin1 ); # safe beacuse it's latin1
+# needs to be upgraded to characters because wxPerl converts
+# based upon the current locale, which might not be Latin-1
+utf8::upgrade( $latin1 ); # safe beacuse it's latin1
 
 in_frame(
     sub {
@@ -28,15 +30,14 @@ in_frame(
         SKIP: {
             skip "Unicode support needed for the tests", 6
                 unless Wx::wxUNICODE;
+            skip "wrongly asserts under 2.5.x", 6
+                if Wx::wxVERSION < 2.006;
 
             $label->SetLabel( $latin1 );
             is( $label->GetLabel, $latin1 );
 
-            ok( !is_utf8( $latin1 ) );
+            ok( is_utf8( $latin1 ) );
             ok( is_utf8( $label->GetLabel ) );
-
-            skip "wrongly asserts under 2.5.x", 3
-                if Wx::wxVERSION < 2.006;
 
             $label->SetLabel( $unicode );
             is( $label->GetLabel, $unicode );
