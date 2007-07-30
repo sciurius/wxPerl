@@ -322,6 +322,18 @@ sub EVT_SCROLL_PAGEDOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_PAGEDOWN
 sub EVT_SCROLL_THUMBTRACK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_THUMBTRACK, $_[1] ) }
 sub EVT_SCROLL_THUMBRELEASE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLL_THUMBRELEASE, $_[1] ) }
 
+sub EVT_SCROLL($$) {
+  my( $x, $y ) = @_;
+  EVT_SCROLL_TOP( $x, $y );
+  EVT_SCROLL_BOTTOM( $x, $y );
+  EVT_SCROLL_LINEUP( $x, $y );
+  EVT_SCROLL_LINEDOWN( $x, $y );
+  EVT_SCROLL_PAGEUP( $x, $y );
+  EVT_SCROLL_PAGEDOWN( $x, $y );
+  EVT_SCROLL_THUMBTRACK( $x, $y );
+  EVT_SCROLL_THUMBRELEASE( $x, $y );
+}
+
 sub EVT_COMMAND_SCROLL_TOP($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_SCROLL_TOP, $_[2] ) }
 sub EVT_COMMAND_SCROLL_BOTTOM($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_SCROLL_BOTTOM, $_[2] ) }
 sub EVT_COMMAND_SCROLL_LINEUP($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_SCROLL_LINEUP, $_[2] ) }
@@ -330,6 +342,18 @@ sub EVT_COMMAND_SCROLL_PAGEUP($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_SCROL
 sub EVT_COMMAND_SCROLL_PAGEDOWN($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_SCROLL_PAGEDOWN, $_[2] ) }
 sub EVT_COMMAND_SCROLL_THUMBTRACK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_SCROLL_THUMBTRACK, $_[2] ) }
 sub EVT_COMMAND_SCROLL_THUMBRELEASE($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_SCROLL_THUMBRELEASE, $_[2] ) }
+
+sub EVT_COMMAND_SCROLL($$$) {
+  my( $x, $y, $z ) = @_;
+  EVT_COMMAND_SCROLL_TOP( $x, $y, $z );
+  EVT_COMMAND_SCROLL_BOTTOM( $x, $y, $z );
+  EVT_COMMAND_SCROLL_LINEUP( $x, $y, $z );
+  EVT_COMMAND_SCROLL_LINEDOWN( $x, $y, $z );
+  EVT_COMMAND_SCROLL_PAGEUP( $x, $y, $z );
+  EVT_COMMAND_SCROLL_PAGEDOWN( $x, $y, $z );
+  EVT_COMMAND_SCROLL_THUMBTRACK( $x, $y, $z );
+  EVT_COMMAND_SCROLL_THUMBRELEASE( $x, $y, $z );
+}
 
 #
 # ScrollWinEvent
