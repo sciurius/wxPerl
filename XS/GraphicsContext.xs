@@ -4,7 +4,7 @@
 ## Author:      Klaas Hartmann
 ## Modified by:
 ## Created:     29/06/2007
-## RCS-ID:      $Id: $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2007 Klaas Hartmann
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -31,30 +31,29 @@ Create ( window )
     RETVAL = wxGraphicsContext::Create( window );
   OUTPUT: RETVAL
 
- # void
- # Create ( ... )
- #     PPCODE:
- #         BEGIN_OVERLOAD()
- #         MATCH_REDISP(wxPliOvl_wwin, createWindow)
- #         MATCH_REDISP(wxPliOvl_wdc, createDC)
- #         END_OVERLOAD( "Wx::GraphicsContext::Create" )
-        
- # wxGraphicsContext* 
- # createWindow ( parent )
- #     wxWindow* &parent
- #     CODE:
- #         printf("A!\n");
- #         RETVAL = wxGraphicsContext::Create( parent );
- #     OUTPUT: RETVAL
-        
- # wxGraphicsContext* 
- # createDC (dc )
- #     wxWindowDC* dc
- #     CODE:
- #         printf("B!\n");
- #         RETVAL = wxGraphicsContext::Create(*dc);
- #     OUTPUT: RETVAL
-        
+##void
+##Create ( ... )
+##  PPCODE:
+##    BEGIN_OVERLOAD()
+##      MATCH_REDISP(wxPliOvl_wwin, CreateWindow)
+##      MATCH_REDISP(wxPliOvl_wdc, CreateDC)
+##    END_OVERLOAD( "Wx::GraphicsContext::Create" )
+##      
+##wxGraphicsContext* 
+##CreateWindow ( parent )
+##    wxWindow* parent
+##  CODE:
+##    printf("A!\n");
+##    RETVAL = wxGraphicsContext::Create( parent );
+##  OUTPUT: RETVAL
+##      
+##wxGraphicsContext* 
+##CreateDC (dc )
+##    wxWindowDC* dc
+##  CODE:
+##    printf("B!\n");
+##    RETVAL = wxGraphicsContext::Create(*dc);
+##  OUTPUT: RETVAL
         
 wxGraphicsPen*  
 wxGraphicsContext::CreatePen ( pen )
