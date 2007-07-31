@@ -34,6 +34,10 @@ INCLUDE: XS/Brush.xs
 INCLUDE: XS/Image.xs
 INCLUDE: XS/Palette.xs
 
+INCLUDE: XS/GraphicsContext.xs
+INCLUDE: XS/GraphicsPath.xs
+INCLUDE: XS/GraphicsMatrix.xs
+
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 wxRect*

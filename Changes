@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
 0.76
+	- Added wxGraphicsContext and some related classes
+	  (patch by Klaas Hartmann).
 	- Added EVT_HTML_XXX event handlers.
 
 0.75  Sun Jul  8 22:43:41 CEST 2007
