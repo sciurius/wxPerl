@@ -164,7 +164,15 @@ new( ... )
     wxString GetString( unsigned int n ) const;
 ##    wxArrayString GetStrings() const;
     void SetString( unsigned int n, const wxString& s );
-    void Clear();
+##    void Clear();
+
+%{
+void
+wxSimpleHtmlListBox::Clear()
+  CODE:
+    THIS->wxVListBox::Clear();
+%}
+
     void Delete( unsigned int n );
     %name{AppendStrings} void Append( const wxArrayString& strings );
     %name{AppendString} void Append( const wxString& item );
