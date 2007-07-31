@@ -10,9 +10,9 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-#include <wx/graphics.h>
-
 #if wxUSE_GRAPHICS_CONTEXT
+
+#include <wx/graphics.h>
 
 MODULE=Wx PACKAGE=Wx::GraphicsPath
 
