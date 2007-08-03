@@ -607,6 +607,9 @@ GetLabelFromText( text )
   OUTPUT:
     RETVAL
 
+wxMenu*
+wxMenuItem::GetMenu()
+
 #if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
 int
@@ -643,6 +646,9 @@ wxMenuItem::IsEnabled()
 bool
 wxMenuItem::IsSeparator()
 
+bool 
+wxMenuItem::IsSubMenu()
+
 #if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
 void
@@ -662,6 +668,18 @@ wxMenuItem::SetFont( font )
 void
 wxMenuItem::SetHelp( helpString )
     wxString helpString
+
+void 
+wxMenuItem::SetMenu( menu )
+    wxMenu* menu
+
+void 
+wxMenuItem::SetSubMenu( menu )
+    wxMenu* menu
+
+void
+wxMenuItem::SetText( text )
+    wxString text
 
 #if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
