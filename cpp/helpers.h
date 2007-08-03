@@ -243,7 +243,9 @@ void wxPli_non_objarray_push( pTHX_ const A& things, const char* package )
 
 void wxPli_stringarray_push( pTHX_ const wxArrayString& strings );
 void FUNCPTR( wxPli_intarray_push )( pTHX_ const wxArrayInt& ints );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
 void wxPli_doublearray_push( pTHX_ const wxArrayDouble& doubles );
+#endif
 AV* wxPli_stringarray_2_av( pTHX_ const wxArrayString& strings );
 AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count );
 AV* FUNCPTR( wxPli_objlist_2_av )( pTHX_ const wxList& objs );

@@ -678,6 +678,8 @@ void wxPli_intarray_push( pTHX_ const wxArrayInt& ints )
     PUTBACK;
 }
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
 void wxPli_doublearray_push( pTHX_ const wxArrayDouble& doubles )
 {
     dSP;
@@ -691,6 +693,8 @@ void wxPli_doublearray_push( pTHX_ const wxArrayDouble& doubles )
 
     PUTBACK;
 }
+
+#endif
 
 AV* wxPli_objlist_2_av( pTHX_ const wxList& objs )
 {
