@@ -6,7 +6,7 @@
 // Modified by:
 // Created:     11/08/2002
 // RCS-ID:      $Id$
-// Copyright:   (c) 2002, 2004, 2006 Mattia Barbon
+// Copyright:   (c) 2002, 2004, 2006-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -28,6 +28,9 @@
 
 #define REDISPATCH( NEW_METHOD_NAME ) \
     count = call_method( #NEW_METHOD_NAME, GIMME_V ); SPAGAIN
+
+#define REDISPATCH_FUNCTION( NEW_METHOD_NAME ) \
+    count = call_pv( #NEW_METHOD_NAME, GIMME_V ); SPAGAIN
 
 #define MATCH_VOIDM_REDISP( METHOD ) \
     if( items == 1 ) \
@@ -55,4 +58,24 @@
     if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, \
                                          REQUIRED, true ) ) \
         { REDISPATCH( METHOD ); } \
+    else
+
+/* used for overloading static functions, see GraphicsContext.xs for an example */
+#define MATCH_REDISP_FUNCTION( PROTO, METHOD ) \
+    if( wxPli_match_arguments( aTHX_ PROTO, \
+                                         -1, false ) ) \
+        { REDISPATCH_FUNCTION( METHOD );  } \
+    else
+
+
+#define MATCH_REDISP_COUNT_FUNCTION( PROTO, METHOD, REQUIRED ) \
+    if( wxPli_match_arguments( aTHX_ PROTO, \
+                                         REQUIRED, false ) ) \
+        { REDISPATCH_FUNCTION( METHOD ); } \
+    else
+
+#define MATCH_REDISP_COUNT_ALLOWMORE_FUNCTION( PROTO, METHOD, REQUIRED ) \
+    if( wxPli_match_arguments( aTHX_ PROTO, \
+                                         REQUIRED, true ) ) \
+        { REDISPATCH_FUNCTION( METHOD ); } \
     else

@@ -19,45 +19,35 @@
 
 MODULE=Wx PACKAGE=Wx::GraphicsContext
 
+void
+Create ( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_FUNCTION(wxPliOvl_wwin, Wx::GraphicsContext::createFromWindow)
+        MATCH_REDISP_FUNCTION(wxPliOvl_wdc, Wx::GraphicsContext::createFromDC)
+    END_OVERLOAD( "Wx::GraphicsContext::Create" )
 
 wxGraphicsContext* 
-Create ( window )
+createFromWindow ( window )
     wxWindow* window
   CODE:
     RETVAL = wxGraphicsContext::Create( window );
   OUTPUT: RETVAL
 
-##void
-##Create ( ... )
-##  PPCODE:
-##    BEGIN_OVERLOAD()
-##      MATCH_REDISP(wxPliOvl_wwin, CreateWindow)
-##      MATCH_REDISP(wxPliOvl_wdc, CreateDC)
-##    END_OVERLOAD( "Wx::GraphicsContext::Create" )
-##      
-##wxGraphicsContext* 
-##CreateWindow ( parent )
-##    wxWindow* parent
-##  CODE:
-##    printf("A!\n");
-##    RETVAL = wxGraphicsContext::Create( parent );
-##  OUTPUT: RETVAL
-##      
-##wxGraphicsContext* 
-##CreateDC (dc )
-##    wxWindowDC* dc
-##  CODE:
-##    printf("B!\n");
-##    RETVAL = wxGraphicsContext::Create(*dc);
-##  OUTPUT: RETVAL
-        
+wxGraphicsContext* 
+createFromDC (dc )
+    wxWindowDC* dc
+  CODE:
+    RETVAL = wxGraphicsContext::Create(*dc);
+  OUTPUT: RETVAL
+
 wxGraphicsPen*  
 wxGraphicsContext::CreatePen ( pen )
     wxPen* pen
   CODE:
     RETVAL = new wxGraphicsPen( THIS->CreatePen(*pen) );
   OUTPUT: RETVAL
- 
+
 wxGraphicsBrush*
 wxGraphicsContext::CreateBrush ( brush )
     wxGraphicsBrush* brush
@@ -77,7 +67,7 @@ wxGraphicsContext::CreateRadialGradientBrush (xo,yo,xc,yc,radius,oColor, cColor)
   CODE:
     RETVAL = new wxGraphicsBrush( THIS->CreateRadialGradientBrush(xo,yo,xc,yc,radius,*oColor,*cColor) );
   OUTPUT: RETVAL
- 
+
 wxGraphicsBrush*
 wxGraphicsContext::CreateLinearGradientBrush (x1,y1,x2,y2,c1,c2)
     wxDouble x1
@@ -89,8 +79,7 @@ wxGraphicsContext::CreateLinearGradientBrush (x1,y1,x2,y2,c1,c2)
   CODE:
     RETVAL = new wxGraphicsBrush( THIS->CreateLinearGradientBrush(x1,y1,x2,y2,*c1,*c2) );
   OUTPUT: RETVAL
- 
- 
+
 wxGraphicsFont* 
 wxGraphicsContext::CreateFont (font, col = new wxColour(*wxBLACK) )
     wxFont* font
@@ -98,7 +87,7 @@ wxGraphicsContext::CreateFont (font, col = new wxColour(*wxBLACK) )
   CODE:
     RETVAL = new wxGraphicsFont( THIS->CreateFont(*font, *col) );
   OUTPUT: RETVAL
- 
+
 wxGraphicsMatrix* 
 wxGraphicsContext::CreateMatrix ( a = 1.0, b = 0.0, c = 0.0, d = 1.0, tx = 0.0, ty = 0.0)
     wxDouble a
@@ -110,13 +99,13 @@ wxGraphicsContext::CreateMatrix ( a = 1.0, b = 0.0, c = 0.0, d = 1.0, tx = 0.0, 
   CODE:
     RETVAL = new wxGraphicsMatrix( THIS->CreateMatrix(a,b,c,d,tx,ty) );
   OUTPUT: RETVAL
-    
+
 wxGraphicsPath* 
 wxGraphicsContext::CreatePath ()
   CODE:
       RETVAL = new wxGraphicsPath( THIS->CreatePath() );
   OUTPUT: RETVAL
-        
+
 void
 wxGraphicsContext::Clip (x, y, w, h)
     wxDouble x
@@ -136,14 +125,14 @@ wxGraphicsContext::DrawBitmap (bitmap, x, y, w, h)
     wxDouble h
   CODE:
     THIS->DrawBitmap( *bitmap, x, y, w, h );
-    
+
 void 
 wxGraphicsContext::DrawEllipse(x, y, w, h)
     wxDouble x
     wxDouble y
     wxDouble w
     wxDouble h
-    
+
 void 
 wxGraphicsContext::DrawIcon(icon, x, y, w, h)
     wxIcon* icon
@@ -154,16 +143,23 @@ wxGraphicsContext::DrawIcon(icon, x, y, w, h)
   CODE:
     THIS->DrawIcon( *icon, x, y, w, h );
 
- # wxGraphicsContext::DrawLines
- # void DrawLines(size_t n, const wxPoint2DDouble* points, int fillStyle = wxODDEVEN_RULE)
- 
+void
+wxGraphicsContext::DrawLines ( points, fillStyle = wxODDEVEN_RULE )
+    SV* points
+    int fillStyle
+  CODE:
+    wxPoint2DDouble* newPoints;
+    int n;
+    n = wxPli_av_2_wxPoint2DDouble(aTHX_ points, &newPoints);
+    THIS->DrawLines(n,newPoints);
+
 void 
 wxGraphicsContext::DrawPath (path, fillStyle = wxODDEVEN_RULE)
     wxGraphicsPath *path
     int fillStyle
   CODE:
     THIS->DrawPath( *path, fillStyle );
-        
+
 void 
 wxGraphicsContext::DrawRectangle (x, y, w, h)
     wxDouble x
@@ -178,7 +174,7 @@ wxGraphicsContext::DrawRoundedRectangle (x, y, w, h, radius)
     wxDouble w
     wxDouble h
     wxDouble radius
-    
+
 void
 wxGraphicsContext::DrawText ( ... )
   PPCODE:
@@ -186,7 +182,7 @@ wxGraphicsContext::DrawText ( ... )
       MATCH_REDISP(wxPliOvl_s_n_n_n, DrawTextAngle)
       MATCH_REDISP(wxPliOvl_s_n_n, DrawTextNoAngle)
     END_OVERLOAD( "Wx::GraphicsContext::DrawText" )
-        
+
 void
 wxGraphicsContext::DrawTextAngle ( string, x, y, angle )
     wxString string
@@ -210,49 +206,45 @@ wxGraphicsContext::FillPath (path, fillStyle = wxODDEVEN_RULE)
     int fillStyle
   CODE:
     THIS->FillPath ( *path, fillStyle );
- 
+
 void
 wxGraphicsContext::StrokePath ( path )
     wxGraphicsPath *path;
   CODE:
     THIS->StrokePath ( *path );
- 
- # Not to be implemented
- # wxGraphicsContext::GetNativeContext
- # void * GetNativeContext()
- 
- # Pinched from wxDC
 
- # void
- # wxGraphicsContext::GetTextExtent( string )
- #     wxString string
- #   PREINIT:
- #     wxDouble x, y, descent, externalLeading;
- #   PPCODE:
- #     THIS->GetTextExtent( string, &x, &y, &descent, &externalLeading);
- #     EXTEND( SP, 4 );
- #     PUSHs( sv_2mortal( newSViv( x ) ) );
- #     PUSHs( sv_2mortal( newSViv( y ) ) );
- #     PUSHs( sv_2mortal( newSViv( descent ) ) );
- #     PUSHs( sv_2mortal( newSViv( externalLeading ) ) );
+## Adapted from wxDC
 
- # Pinched from wxDC
+void
+wxGraphicsContext::GetTextExtent( string )
+    wxString string
+  PREINIT:
+    wxDouble x, y, descent, externalLeading;
+  PPCODE:
+    THIS->GetTextExtent( string, &x, &y, &descent, &externalLeading);
+    EXTEND( SP, 4 );
+    PUSHs( sv_2mortal( newSVnv( x ) ) );
+    PUSHs( sv_2mortal( newSVnv( y ) ) );
+    PUSHs( sv_2mortal( newSVnv( descent ) ) );
+    PUSHs( sv_2mortal( newSVnv( externalLeading ) ) );
 
- # void
- # wxGraphicsContext::GetPartialTextExtents( string )
- #     wxString string
- #   PREINIT:
- #     wxArrayDouble widths;
- #   PPCODE:
- #     THIS->GetPartialTextExtents( string, widths );
- #     PUTBACK;
- #     wxPli_intarray_push( aTHX_ widths );
- #     SPAGAIN;
+ # Adapted from wxDC
+
+void
+wxGraphicsContext::GetPartialTextExtents( string )
+    wxString string
+  PREINIT:
+    wxArrayDouble widths;
+  PPCODE:
+    THIS->GetPartialTextExtents( string, widths );
+    PUTBACK;
+    wxPli_doublearray_push( aTHX_ widths );
+    SPAGAIN;
 
 void
 wxGraphicsContext::Rotate ( angle )
     wxDouble angle
-    
+
 void
 wxGraphicsContext::Scale ( x, y )
     wxDouble x
@@ -262,38 +254,38 @@ void
 wxGraphicsContext::Translate ( x, y )
     wxDouble x
     wxDouble y
-    
+
 wxGraphicsMatrix*
 wxGraphicsContext::GetTransform ()
   CODE:
     RETVAL = new wxGraphicsMatrix( THIS->GetTransform() );
   OUTPUT: RETVAL
- 
+
 void 
 wxGraphicsContext::SetTransform (matrix)
     wxGraphicsMatrix* matrix
   CODE:
     THIS->SetTransform(*matrix);
-        
+
 void
 wxGraphicsContext::ConcatTransform (matrix)
     wxGraphicsMatrix* matrix
   CODE:
     THIS->ConcatTransform(*matrix);
-    
+
 void
 wxGraphicsContext::SetBrush (brush)
     wxBrush* brush
   CODE:
     THIS->SetBrush( *brush );
-    
+
 void 
 wxGraphicsContext::SetFont (font, colour)    
     wxFont* font
     wxColour* colour
   CODE:
     THIS->SetFont(*font, *colour);
-     
+
 void
 wxGraphicsContext::SetPen (pen)
     wxPen* pen
@@ -306,10 +298,40 @@ wxGraphicsContext::StrokeLine (x1,y1,x2,y2)
     wxDouble y1
     wxDouble x2
     wxDouble y2
-    
- # Todo!
- # wxGraphicsContext::StrokeLines
- # void StrokeLines(size_t n, const wxPoint2DDouble* beginPoints, const wxPoint2DDouble* endPoints)
- # void StrokeLines(size_t n, const wxPoint2DDouble* points)     
-    
+
+##Used wpoi's for overload checking as opposed to arr's 
+##We want array references (which wpoi matches) but arr
+##causes some problems...
+
+void
+wxGraphicsContext::StrokeLines ( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP(wxPliOvl_wpoi_wpoi, StrokeLinesTwo)
+        MATCH_REDISP(wxPliOvl_wpoi, StrokeLinesOne)
+    END_OVERLOAD( "Wx::GraphicsContext::StrokeLines" )
+
+
+void
+wxGraphicsContext::StrokeLinesOne ( points )
+    SV* points
+  CODE:
+    wxPoint2DDouble* points2d;
+    int n;
+    n = wxPli_av_2_wxPoint2DDouble(aTHX_ points, &points2d);
+    THIS->StrokeLines(n,points2d);
+
+
+void
+wxGraphicsContext::StrokeLinesTwo ( beginPoints, endPoints )
+    SV* beginPoints
+    SV* endPoints
+  CODE:
+    wxPoint2DDouble* endPoints2d;
+    wxPoint2DDouble* beginPoints2d;
+    int n;
+    n = wxPli_av_2_wxPoint2DDouble(aTHX_ beginPoints, &beginPoints2d);
+    n = MIN(n,wxPli_av_2_wxPoint2DDouble(aTHX_ endPoints, &endPoints2d));
+    THIS->StrokeLines(n, beginPoints2d, endPoints2d);
+
 #endif

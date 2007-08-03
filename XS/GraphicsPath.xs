@@ -10,6 +10,17 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+## There are several overloaded functions (see below) where one variant takes a 
+## wxPoint2DDouble and the other takes x and y values individually. In these
+## cases the former variant has not been implemented.  Feel free to do so!
+##
+## Unimplemented overloaded functions
+## void MoveToPoint(const wxPoint2DDouble& p)
+## void AddArc(const wxPoint2DDouble& c, wxDouble r, wxDouble startAngle, wxDouble endAngle, bool clockwise)
+## void AddCurveToPoint(const wxPoint2DDouble& c1, const wxPoint2DDouble& c2, const wxPoint2DDouble& e)
+## void AddLineToPoint(const wxPoint2DDouble& p)
+## bool Contains(const wxPoint2DDouble& c, int fillStyle = wxODDEVEN_RULE) const
+
 #if wxUSE_GRAPHICS_CONTEXT
 
 #include <wx/graphics.h>
@@ -20,10 +31,7 @@ void
 wxGraphicsPath::MoveToPoint (x, y)
     wxDouble x
     wxDouble y
-    
- # To overload    
- # void MoveToPoint(const wxPoint2DDouble& p)
- 
+
 void
 wxGraphicsPath::AddArc(x,y,r,startAngle,endAngle,clockwise )
     wxDouble x
@@ -33,9 +41,6 @@ wxGraphicsPath::AddArc(x,y,r,startAngle,endAngle,clockwise )
     wxDouble endAngle
     bool clockwise
 
- # To overload
- # void AddArc(const wxPoint2DDouble& c, wxDouble r, wxDouble startAngle, wxDouble endAngle, bool clockwise)
- 
 void
 wxGraphicsPath::AddArcToPoint ( x1, y1, x2, y2, r)
     wxDouble x1
@@ -43,13 +48,13 @@ wxGraphicsPath::AddArcToPoint ( x1, y1, x2, y2, r)
     wxDouble x2
     wxDouble y2
     wxDouble r 
- 
+
 void 
 wxGraphicsPath::AddCircle ( x, y, r)
     wxDouble x
     wxDouble y
     wxDouble r
- 
+
 void 
 wxGraphicsPath::AddCurveToPoint (cx1, cy1, cx2, cy2, x, y)
     wxDouble cx1
@@ -58,39 +63,33 @@ wxGraphicsPath::AddCurveToPoint (cx1, cy1, cx2, cy2, x, y)
     wxDouble cy2
     wxDouble x
     wxDouble y
- 
- # To overload
- # void AddCurveToPoint(const wxPoint2DDouble& c1, const wxPoint2DDouble& c2, const wxPoint2DDouble& e)
- 
+
 void 
 wxGraphicsPath::AddEllipse ( x, y, w, h)
     wxDouble x
     wxDouble y
     wxDouble w
     wxDouble h
- 
+
 void 
 wxGraphicsPath::AddLineToPoint ( x, y)
     wxDouble x
     wxDouble y
-    
- # To overload
- # void AddLineToPoint(const wxPoint2DDouble& p)
- 
+
 void 
 wxGraphicsPath::AddPath (path)
     wxGraphicsPath* path
   CODE:
     THIS->AddPath(*path);
- 
+
 void 
 wxGraphicsPath::AddQuadCurveToPoint (cx, cy, x, y)
     wxDouble cx
     wxDouble cy
     wxDouble x
     wxDouble y
-     
-void     
+
+void
 wxGraphicsPath::AddRectangle (x, y, w, h)
     wxDouble x
     wxDouble y
@@ -104,45 +103,42 @@ wxGraphicsPath::AddRoundedRectangle (x, y, w, h, radius)
     wxDouble w
     wxDouble h
     wxDouble radius
- 
+
 void 
 wxGraphicsPath::CloseSubpath ( )
- 
+
 bool
 wxGraphicsPath::Contains (x, y, fillStyle = wxODDEVEN_RULE)
     wxDouble x
     wxDouble y
     int fillStyle
-    
- # To overload
- # bool Contains(const wxPoint2DDouble& c, int fillStyle = wxODDEVEN_RULE) const
- # bool Contains(wxDouble x, wxDouble y, int fillStyle = wxODDEVEN_RULE) const
- 
- # To implement 
- # wxGraphicsPath::GetBox
- # wxRect2DDouble GetBox() const
- # void GetBox(wxDouble* x, wxDouble* y, wxDouble* w, wxDouble* h) const
- # Gets the bounding box enclosing all points (possibly including control points).
- 
- # To implement 
- # wxGraphicsPath::GetCurrentPoint
- # void GetCurrentPoint(wxDouble* x, wxDouble* y) const
- # wxPoint2DDouble GetCurrentPoint() const
- # Gets the last point of the current path, (0,0) if not yet set.
- 
- # To implement 
- # wxGraphicsPath::Transform
- # void Transform(const wxGraphicsMatrix& matrix)
- #  Transforms each point of this path by the matrix.
- 
- # Omit?
- # wxGraphicsPath::GetNativePath
- # void * GetNativePath() const
- # Returns the native path (CGPathRef for Core Graphics, Path pointer for GDIPlus and a cairo_path_t pointer for cairo).
- 
- # Omit?
- # wxGraphicsPath::UnGetNativePath
- # void UnGetNativePath(void* p) const
- # Gives back the native path returned by GetNativePath() because there might be some deallocations necessary (eg on cairo the native path returned by GetNativePath is newly allocated each time).
+
+void
+wxGraphicsPath::GetBox ( )
+  PREINIT:
+    wxDouble x, y, w, h;
+  PPCODE:
+    THIS->GetBox( &x, &y, &w, &h );
+    EXTEND( SP, 4 );
+    PUSHs( sv_2mortal( newSVnv( x ) ) );
+    PUSHs( sv_2mortal( newSVnv( y ) ) );
+    PUSHs( sv_2mortal( newSVnv( w ) ) );
+    PUSHs( sv_2mortal( newSVnv( h ) ) );
+
+void
+wxGraphicsPath::GetCurrentPoint ( )
+  PREINIT:
+    wxDouble x, y;
+  PPCODE:
+    THIS->GetCurrentPoint( &x, &y );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSVnv( x ) ) );
+    PUSHs( sv_2mortal( newSVnv( y ) ) );
+
+void
+wxGraphicsPath::Transform (matrix)
+    wxGraphicsMatrix* matrix
+  CODE:
+    THIS->Transform( *matrix );
 
 #endif

@@ -20,16 +20,20 @@ void
 wxGraphicsMatrix::Concat ( t )
     wxGraphicsMatrix* t
 
- # to implement
- # wxGraphicsMatrix::Get
- # void  Get(wxDouble* a=NULL, wxDouble* b=NULL, wxDouble* c=NULL, wxDouble* d=NULL, wxDouble* tx=NULL, wxDouble* ty=NULL) const
- #  Returns the component values of the matrix via the argument pointers.
- 
- # omit
- # wxGraphicsMatrix::GetNativeMatrix
- # void * GetNativeMatrix() const
- #  Returns the native representation of the matrix. For CoreGraphics this is a CFAffineMatrix pointer. For GDIPlus a Matrix Pointer and for Cairo a cairo_matrix_t pointer.
- 
+void
+wxGraphicsMatrix::Get ( )
+  PREINIT:
+    wxDouble a, b, c, d, tx, ty;
+  PPCODE:
+    THIS->Get( &a, &b, &c, &d, &tx, &ty );
+    EXTEND( SP, 6 );
+    PUSHs( sv_2mortal( newSVnv( a ) ) );
+    PUSHs( sv_2mortal( newSVnv( b ) ) );
+    PUSHs( sv_2mortal( newSVnv( c ) ) );
+    PUSHs( sv_2mortal( newSVnv( d ) ) );
+    PUSHs( sv_2mortal( newSVnv( tx ) ) );
+    PUSHs( sv_2mortal( newSVnv( ty ) ) );
+
 void
 wxGraphicsMatrix::Invert ()
 
@@ -37,7 +41,7 @@ bool
 wxGraphicsMatrix::IsEqual ( t )
     wxGraphicsMatrix* t
   C_ARGS: *t
- 
+
 bool
 wxGraphicsMatrix::IsIdentity ()
 
@@ -63,15 +67,33 @@ wxGraphicsMatrix::Set (a, b, c, d, tx, ty)
     wxDouble d
     wxDouble tx
     wxDouble ty
- 
- # TODO
- # wxGraphicsMatrix::TransformPoint
- # void TransformPoint(wxDouble* x, wxDouble* y) const
- # Applies this matrix to a point.
- 
- # TODO 
- # wxGraphicsMatrix::TransformDistance
- # void TransformDistance(wxDouble* dx, wxDouble* dy) const
- # Applies this matrix to a distance (ie. performs all transforms except translations)
+
+void
+wxGraphicsMatrix::TransformPoint ( x, y )
+    wxDouble x
+    wxDouble y
+  PREINIT:
+    wxDouble x_out, y_out;
+  PPCODE:
+    x_out = x;
+    y_out = y;
+    THIS->TransformPoint( &x, &y );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSVnv( x ) ) );
+    PUSHs( sv_2mortal( newSVnv( y ) ) );
+
+void
+wxGraphicsMatrix::TransformDistance ( dx, dy )
+    wxDouble dx
+    wxDouble dy
+  PREINIT:
+    wxDouble dx_out, dy_out;
+  PPCODE:
+    dx_out = dx;
+    dy_out = dy;
+    THIS->TransformDistance( &dx, &dy );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSVnv( dx ) ) );
+    PUSHs( sv_2mortal( newSVnv( dy ) ) );
 
 #endif

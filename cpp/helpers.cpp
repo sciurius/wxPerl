@@ -10,6 +10,8 @@
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
 
+#include <wx/geometry.h>
+
 #include "cpp/streams.h"
 #include "cpp/streams.cpp"
 
@@ -676,6 +678,20 @@ void wxPli_intarray_push( pTHX_ const wxArrayInt& ints )
     PUTBACK;
 }
 
+void wxPli_doublearray_push( pTHX_ const wxArrayDouble& doubles )
+{
+    dSP;
+
+    size_t mx = doubles.GetCount();
+    EXTEND( SP, int(mx) );
+    for( size_t i = 0; i < mx; ++i )
+    {
+        PUSHs( sv_2mortal( newSVnv( doubles[i] ) ) );
+    }
+
+    PUTBACK;
+}
+
 AV* wxPli_objlist_2_av( pTHX_ const wxList& objs )
 {
     AV* av = newAV();
@@ -900,6 +916,42 @@ int wxPli_av_2_arrayint( pTHX_ SV* avref, wxArrayInt* array )
 {
     return wxPli_av_2_thingarray( aTHX_ avref, array, convert_int(),
                                   wxarray_thingy<wxArrayInt, int, 0>( array ) );
+}
+
+//Klaas Hartmann: takes an array reference with an even number of numbers
+//and puts the appropriate number of points in points
+int wxPli_av_2_wxPoint2DDouble( pTHX_ SV* avref, wxPoint2DDouble** points)
+{
+    AV* av;
+
+    if( !SvROK( avref ) || 
+        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
+    {
+        croak( "the value is not an array reference" );
+        return 0;
+    }
+    
+    int n = av_len( av ) + 1;
+
+    if (n % 2 != 0) 
+    {
+        croak( "the array must contain an even number of points" );
+    }
+
+    n = n / 2;
+
+    *points = new wxPoint2DDouble[n];
+
+    for( int i = 0; i < n; i++ )
+    {
+        double x = SvNV(*av_fetch( av, 2*i, 0 ));
+        double y = SvNV(*av_fetch( av, 2*i+1, 0 ));
+        (*points)[i].m_x = x;
+        (*points)[i].m_y = y;
+
+    }
+
+    return n;
 }
 
 const wxChar wxPliEmptyString[] = wxT("");
