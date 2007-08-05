@@ -133,6 +133,10 @@
 #define wxFD_CHANGE_DIR wxCHANGE_DIR
 #endif
 
+#if WXPERL_W_VERSION_LT( 2, 6, 0 )
+#define wxDEFAULT_CONTROL_BORDER wxBORDER_SUNKEN
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // implementation for wxPlConstantsModule OnInit/OnExit
 //////////////////////////////////////////////////////////////////////////////
@@ -615,6 +619,8 @@ static double constant( const char *name, int arg )
     r( wxAbove );                       // layout constraints
     r( wxAbsolute );                    // layout constraints
     r( wxAsIs );                        // layout constraints
+
+    r( wxALWAYS_SHOW_SB );              // window
     break;
   case 'B':
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
@@ -681,6 +687,15 @@ static double constant( const char *name, int arg )
     r( wxBK_HITTEST_ONLABEL );          // bookctrl
     r( wxBK_HITTEST_ONITEM );           // bookctrl
 #endif
+    r( wxBORDER_DEFAULT );              // window
+    r( wxBORDER_DOUBLE );               // window
+    r( wxBORDER_MASK );                 // window
+    r( wxBORDER_RAISED );               // window
+    r( wxBORDER_SIMPLE );               // window
+    r( wxBORDER_STATIC );               // window
+    r( wxBORDER_SUNKEN );               // window
+
+    r( wxBACKWARD );                    // sizer
     break;
   case 'C':
     r( wxCANCEL );                      // dialog
@@ -781,6 +796,7 @@ static double constant( const char *name, int arg )
     r( wxDEFAULT );                     // font
     r( wxDEFAULT_DIALOG_STYLE );        // dialog
     r( wxDEFAULT_FRAME_STYLE );         // frame
+    r( wxDEFAULT_CONTROL_BORDER );      // control
 #if WXPERL_W_VERSION_LT( 2, 7, 0 )
     r( wxDIALOG_MODAL );                // dialog
 #endif
@@ -1159,6 +1175,7 @@ static double constant( const char *name, int arg )
     r( wxFNTP_FONTDESC_AS_LABEL );
     r( wxFNTP_USEFONT_FOR_LABEL );
 #endif
+    r( wxFORWARD );                     // sizer
     break;
   case 'G':
     r( wxGA_HORIZONTAL );               // gauge
@@ -1292,6 +1309,34 @@ static double constant( const char *name, int arg )
     r( wxID_ZOOM_IN );                  // id
     r( wxID_ZOOM_OUT );                 // id
 #endif
+
+    r( wxID_CLOSE_ALL );                // id
+    r( wxID_CLOSE_FRAME );              // id
+    r( wxID_DEFAULT );                  // id
+    r( wxID_DELETE );                   // id
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxID_EDIT );                     // id
+    r( wxID_FILE );                     // id
+#endif
+    r( wxID_FILEDLGG );                 // id
+    r( wxID_ICONIZE_FRAME );            // id
+    r( wxID_MAXIMIZE_FRAME );           // id
+    r( wxID_MORE );                     // id
+    r( wxID_MOVE_FRAME );               // id
+    r( wxID_REPLACE );                  // id
+    r( wxID_REPLACE_ALL );              // id
+    r( wxID_RESET );                    // id
+    r( wxID_RESIZE_FRAME );             // id
+    r( wxID_RESTORE_FRAME );            // id
+    r( wxID_SETUP );                    // id
+    r( wxID_VIEW_DETAILS );             // id
+    r( wxID_VIEW_LARGEICONS );          // id
+    r( wxID_VIEW_LIST );                // id
+    r( wxID_VIEW_SMALLICONS );          // id
+    r( wxID_VIEW_SORTDATE );            // id
+    r( wxID_VIEW_SORTNAME );            // id
+    r( wxID_VIEW_SORTSIZE );            // id
+    r( wxID_VIEW_SORTTYPE );            // id 
 
     r( wxID_SEPARATOR );                // id
 
@@ -1784,6 +1829,10 @@ static double constant( const char *name, int arg )
     r( wxMM_METRIC );                   // dc
     r( wxMM_LOMETRIC );                 // dc
     r( wxMM_TEXT );                     // dc
+
+    r( wxMORE );                        // sizer
+
+    r( wxMB_DOCKABLE );                 // menu
     break;
   case 'N':
     r( wxNB_FIXEDWIDTH );               // notebook
@@ -1867,6 +1916,8 @@ static double constant( const char *name, int arg )
 
     r( wxRight );                       // layout constraints
     r( wxRightOf );                     // layout constraints
+
+    r( wxRESET );                       // sizer
     break;
   case 'S':
 
@@ -2093,6 +2144,8 @@ static double constant( const char *name, int arg )
     r( wxSTOCK_MENU );
 #endif
     r( wxSOUTH );
+
+    r( wxSETUP );                       // sizer
     break;
   case 'T':
     r( wxTAB_TRAVERSAL );               // panel
