@@ -1,0 +1,46 @@
+#############################################################################
+## Name:        XS/MessageDialog.xsp
+## Purpose:     XS for Wx::MessageDialog
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     27/11/2000
+## RCS-ID:      $Id$
+## Copyright:   (c) 2000-2004, 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxMessageDialog*}{simple};
+
+#include <wx/msgdlg.h>
+
+#define wxPL_MSGDLG_STYLE wxOK|wxCENTRE
+
+%name{Wx::MessageDialog} class wxMessageDialog {
+    wxMessageDialog( wxWindow* parent, wxString message, 
+                     wxString caption = wxMessageBoxCaptionStr,
+                     long style = wxPL_MSGDLG_STYLE, 
+                     wxPoint pos = wxDefaultPosition );
+
+    int ShowModal();
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    bool SetYesNoLabels( const wxString& yes,
+                         const wxString& no );
+    bool SetYesNoCancelLabels( const wxString& yes,
+                               const wxString& no,
+                               const wxString& cancel );
+    bool SetOKLabel( const wxString& ok );
+    bool SetOKCancelLabels( const wxString& ok,
+                            const wxString& cancel );
+    void SetMessage( const wxString& message );
+    void SetExtendedMessage( const wxString& extendedMessage );
+#endif
+};
+
+%name{Wx::MessageBox}
+int wxMessageBox( wxString message, wxString caption = wxT("Message"),
+                  int style = wxPL_MSGDLG_STYLE, wxWindow* parent = NULL,
+                  int x = -1, int y = -1 );

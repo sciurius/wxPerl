@@ -41,7 +41,9 @@ INCLUDE: XS/ColourDialog.xs
 INCLUDE: XS/DirDialog.xs
 INCLUDE: XS/FileDialog.xs
 INCLUDE: XS/TextEntryDialog.xs
-INCLUDE: XS/MessageDialog.xs
+
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/MessageDialog.xsp |
+
 INCLUDE: XS/ProgressDialog.xs
 INCLUDE: XS/SingleChoiceDialog.xs
 INCLUDE: XS/MultiChoiceDialog.xs

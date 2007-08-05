@@ -149,7 +149,7 @@ XS/Listbook.xsp
 XS/Locale.xs
 XS/Log.xs
 XS/Menu.xs
-XS/MessageDialog.xs
+XS/MessageDialog.xsp
 XS/MimeTypes.xsp
 XS/MultiChoiceDialog.xs
 XS/Notebook.xs
