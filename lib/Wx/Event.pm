@@ -393,18 +393,6 @@ sub EVT_SPLITTER_DOUBLECLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMM
 sub EVT_SYS_COLOUR_CHANGED($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SYS_COLOUR_CHANGED, $_[1] ) }
 
 #
-# Taskbar
-#
-
-sub EVT_TASKBAR_MOVE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_TASKBAR_MOVE, $_[1] ) }
-sub EVT_TASKBAR_LEFT_DOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_TASKBAR_LEFT_DOWN, $_[1] ) }
-sub EVT_TASKBAR_LEFT_UP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_TASKBAR_LEFT_UP, $_[1] ) }
-sub EVT_TASKBAR_RIGHT_DOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_TASKBAR_RIGHT_DOWN, $_[1] ) }
-sub EVT_TASKBAR_RIGHT_UP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_TASKBAR_RIGHT_UP, $_[1] ) }
-sub EVT_TASKBAR_LEFT_DCLICK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_TASKBAR_LEFT_DCLICK, $_[1] ) }
-sub EVT_TASKBAR_RIGHT_DCLICK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_TASKBAR_RIGHT_DCLICK, $_[1] ) }
-
-#
 # TreeEvent
 #
 

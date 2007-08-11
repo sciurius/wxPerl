@@ -137,6 +137,10 @@
 #define wxDEFAULT_CONTROL_BORDER wxBORDER_SUNKEN
 #endif
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+#define wxBORDER_THEME wxBORDER_DEFAULT
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // implementation for wxPlConstantsModule OnInit/OnExit
 //////////////////////////////////////////////////////////////////////////////
@@ -204,6 +208,16 @@ static wxPliEventDescription evts[] =
 #if defined(__WXMSW__)
     EVT( EVT_TREE_STATE_IMAGE_CLICK, 3, wxEVT_COMMAND_TREE_STATE_IMAGE_CLICK )
     EVT( EVT_TREE_ITEM_GETTOOLTIP, 3, wxEVT_COMMAND_TREE_ITEM_GETTOOLTIP )
+#endif
+    SEVT( EVT_TASKBAR_MOVE, 2 )
+    SEVT( EVT_TASKBAR_LEFT_DOWN, 2 )
+    SEVT( EVT_TASKBAR_LEFT_UP, 2 )
+    SEVT( EVT_TASKBAR_RIGHT_DOWN, 2 )
+    SEVT( EVT_TASKBAR_RIGHT_UP, 2 )
+    SEVT( EVT_TASKBAR_LEFT_DCLICK, 2 )
+    SEVT( EVT_TASKBAR_RIGHT_DCLICK, 2 )
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    SEVT( EVT_TASKBAR_CLICK, 2 )
 #endif
     { 0, 0, 0 }
 };
@@ -694,6 +708,7 @@ static double constant( const char *name, int arg )
     r( wxBORDER_SIMPLE );               // window
     r( wxBORDER_STATIC );               // window
     r( wxBORDER_SUNKEN );               // window
+    r( wxBORDER_THEME );                // window
 
     r( wxBACKWARD );                    // sizer
     break;
@@ -1037,6 +1052,9 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 5, 4 )
     r( wxEXEC_NODISABLE );              // execute
 #endif
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxEXEC_BLOCK );                  // execute
+#endif
     r( wxEAST );
     break;
   case 'F':
@@ -1359,11 +1377,13 @@ static double constant( const char *name, int arg )
 
     r( wxInRegion );                    // region
 
-    r( wxITEM_SEPARATOR );              // menu
-    r( wxITEM_NORMAL );                 // menu
-    r( wxITEM_CHECK );                  // menu
-    r( wxITEM_RADIO );                  // menu
-
+    r( wxITEM_SEPARATOR );              // menu toolbar
+    r( wxITEM_NORMAL );                 // menu toolbar
+    r( wxITEM_CHECK );                  // menu toolbar
+    r( wxITEM_RADIO );                  // menu toolbar
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxITEM_DROPDOWN );               // toolbar
+#endif
     break;
   case 'J':
     r( wxJOIN_BEVEL );                  // pen

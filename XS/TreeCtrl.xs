@@ -210,6 +210,18 @@ wxTreeCtrl::Collapse( item )
   CODE:
     THIS->Collapse( *item );
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+void
+wxTreeCtrl::CollapseAll()
+
+void
+wxTreeCtrl::CollapseAllChildren( item )
+    wxTreeItemId* item
+  C_ARGS: *item
+
+#endif
+
 void
 wxTreeCtrl::CollapseAndReset( item )
     wxTreeItemId* item
@@ -572,6 +584,13 @@ bool
 wxTreeCtrl::IsVisible( item )
     wxTreeItemId* item
   C_ARGS: *item
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+bool
+wxTreeCtrl::IsEmpty()
+
+#endif
 
 bool
 wxTreeCtrl::ItemHasChildren( item )
