@@ -238,6 +238,7 @@ cpp/wxPerl.osx/main.c
 cpp/wxPerl.osx/version.plist
 cpp/wxPerl.osx/wxPerl.xcode/project.pbxproj
 cpp/wxPerl.osx/wxPerl_Prefix.pch
+cpp/wxPerl.osx/Makefile
 
 ext/Makefile.PL
 ext/pperl/Makefile.PL

@@ -65,14 +65,18 @@ int main( int argc, char **argv )
 }
 EOT
 
-  $text .= sprintf <<'EOT', $rfile;
+  my $arch_flags = join ' ',
+                        ( Alien::wxWidgets->c_flags =~ /(^|\s)(-arch\s+\w+)/g );
+
+  $text .= sprintf <<'EOT', $rfile, $arch_flags, $arch_flags;
 
 wxPerl : Makefile
-%s	cd cpp/wxPerl.osx && xcodebuild -project wxPerl.xcode
+%s	# cd cpp/wxPerl.osx && xcodebuild -project wxPerl.xcode
+	cd cpp/wxPerl.osx && make ARCH_FLAGS='%s'
 	cp -p $(PERL) `find cpp -name wxPerl.app`/Contents/MacOS/wxPerl
 	mkdir -p $(INST_ARCHLIB)/auto/Wx
 	cp -rp `find cpp -name wxPerl.app` $(INST_ARCHLIB)/auto/Wx
-	$(CC) cpp/wxPerl.osx/wxPerl.c -o wxPerl
+	$(CC) %s cpp/wxPerl.osx/wxPerl.c -o wxPerl
 
 install_wxperl :
 	mkdir -p $(DESTINSTALLBIN)
