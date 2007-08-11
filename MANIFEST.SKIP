@@ -1,4 +1,5 @@
 (?:^|/)[Mm]akefile$
+(?:^|/)[Mm]akefile.old$
 (?:^|/)pm_to_blib$
 [Cc][Vv][Ss]/
 \.svn/
