@@ -101,3 +101,14 @@ wxHtmlEasyPrinting::GetPrintData()
 
 wxPageSetupDialogData*
 wxHtmlEasyPrinting::GetPageSetupData()
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxWindow*
+wxHtmlEasyPrinting::GetParentWindow()
+
+void
+wxHtmlEasyPrinting::SetParentWindow( window )
+    wxWindow* window
+
+#endif
