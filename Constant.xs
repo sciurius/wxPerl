@@ -175,6 +175,7 @@ void wxPli_remove_constant_function( double (**f)( const char*, int ) )
 // event macros
 #define SEVT( NAME, ARGS )    wxPli_StdEvent( NAME, ARGS )
 #define EVT( NAME, ARGS, ID ) wxPli_Event( NAME, ARGS, ID )
+#define DEVT( NAME )          wxPli_Event( NAME, 0, 0 )
 
 // !package: Wx::Event
 // !tag:
@@ -218,6 +219,32 @@ static wxPliEventDescription evts[] =
     SEVT( EVT_TASKBAR_RIGHT_DCLICK, 2 )
 #if WXPERL_W_VERSION_GE( 2, 8, 3 )
     SEVT( EVT_TASKBAR_CLICK, 2 )
+#endif
+    SEVT( EVT_LEFT_DOWN, 2 )
+    SEVT( EVT_LEFT_UP, 2 )
+    SEVT( EVT_LEFT_DCLICK, 2 )
+    SEVT( EVT_MIDDLE_DOWN, 2 )
+    SEVT( EVT_MIDDLE_UP, 2 )
+    SEVT( EVT_MIDDLE_DCLICK, 2 )
+    SEVT( EVT_RIGHT_DOWN, 2 )
+    SEVT( EVT_RIGHT_UP, 2 )
+    SEVT( EVT_RIGHT_DCLICK, 2 )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    SEVT( EVT_MOVE_START, 2 )
+    SEVT( EVT_MOVE_END, 2 )
+    SEVT( EVT_AUX1_DOWN, 2 )
+    SEVT( EVT_AUX1_UP, 2 )
+    SEVT( EVT_AUX1_DCLICK, 2 )
+    SEVT( EVT_AUX2_DOWN, 2 )
+    SEVT( EVT_AUX2_UP, 2 )
+    SEVT( EVT_AUX2_DCLICK, 2 )
+#else
+    DEVT( EVT_AUX1_DOWN )
+    DEVT( EVT_AUX1_UP )
+    DEVT( EVT_AUX1_DCLICK )
+    DEVT( EVT_AUX2_DOWN )
+    DEVT( EVT_AUX2_UP )
+    DEVT( EVT_AUX2_DCLICK )
 #endif
     { 0, 0, 0 }
 };
@@ -921,16 +948,16 @@ static double constant( const char *name, int arg )
     r( wxEVT_MOUSEWHEEL )
     r( wxEVT_LEFT_DOWN );
     r( wxEVT_LEFT_UP );
+    r( wxEVT_LEFT_DCLICK );
     r( wxEVT_MIDDLE_DOWN );
     r( wxEVT_MIDDLE_UP );
+    r( wxEVT_MIDDLE_DCLICK );
     r( wxEVT_RIGHT_DOWN );
     r( wxEVT_RIGHT_UP );
+    r( wxEVT_RIGHT_DCLICK );
     r( wxEVT_MOTION );
     r( wxEVT_ENTER_WINDOW );
     r( wxEVT_LEAVE_WINDOW );
-    r( wxEVT_LEFT_DCLICK );
-    r( wxEVT_MIDDLE_DCLICK );
-    r( wxEVT_RIGHT_DCLICK );
     r( wxEVT_SET_FOCUS );
     r( wxEVT_KILL_FOCUS );
 
@@ -1853,6 +1880,16 @@ static double constant( const char *name, int arg )
     r( wxMORE );                        // sizer
 
     r( wxMB_DOCKABLE );                 // menu
+
+    r( wxMOUSE_BTN_ANY );
+    r( wxMOUSE_BTN_NONE );
+    r( wxMOUSE_BTN_LEFT );
+    r( wxMOUSE_BTN_MIDDLE );
+    r( wxMOUSE_BTN_RIGHT );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxMOUSE_BTN_AUX1 );
+    r( wxMOUSE_BTN_AUX2 );
+#endif
     break;
   case 'N':
     r( wxNB_FIXEDWIDTH );               // notebook
@@ -1971,6 +2008,12 @@ static double constant( const char *name, int arg )
     r( wxSTATIC_BORDER );               // window
     r( wxSTAY_ON_TOP );                 // frame dialog
     r( wxST_NO_AUTORESIZE );            // statictext
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxST_ELLIPSIZE_START );          // statictext
+    r( wxST_ELLIPSIZE_MIDDLE );         // statictext
+    r( wxST_ELLIPSIZE_END );            // statictext
+    r( wxST_MARKUP );                   // statictext
+#endif
     r( wxST_SIZEGRIP );                 // statusbar
     r( wxSUNKEN_BORDER );               // window
     r( wxSYSTEM_MENU );                 // frame dialog

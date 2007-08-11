@@ -612,6 +612,13 @@ wxMouseEvent::GetWheelDelta()
 int
 wxMouseEvent::GetLinesPerAction()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+int
+wxMouseEvent::GetWheelAxis()
+
+#endif
+
 bool
 wxMouseEvent::IsButton()
 
@@ -662,6 +669,34 @@ wxMouseEvent::RightIsDown()
 
 bool
 wxMouseEvent::RightUp()
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+bool
+wxMouseEvent::Aux1DClick()
+
+bool
+wxMouseEvent::Aux1Down()
+
+bool
+wxMouseEvent::Aux1IsDown()
+
+bool
+wxMouseEvent::Aux1Up()
+
+bool
+wxMouseEvent::Aux2DClick()
+
+bool
+wxMouseEvent::Aux2Down()
+
+bool
+wxMouseEvent::Aux2IsDown()
+
+bool
+wxMouseEvent::Aux2Up()
+
+#endif
 
 bool
 wxMouseEvent::ShiftDown()

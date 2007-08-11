@@ -239,15 +239,6 @@ sub EVT_MENU_CLOSE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MENU_CLOSE, $_[1] ) 
 # MouseEvent
 #
 
-sub EVT_LEFT_DOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_LEFT_DOWN, $_[1] ) }
-sub EVT_LEFT_UP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_LEFT_UP, $_[1] ) }
-sub EVT_LEFT_DCLICK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_LEFT_DCLICK, $_[1] ) }
-sub EVT_MIDDLE_DOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MIDDLE_DOWN, $_[1] ) }
-sub EVT_MIDDLE_UP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MIDDLE_UP, $_[1] ) }
-sub EVT_MIDDLE_DCLICK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MIDDLE_DCLICK, $_[1] ) }
-sub EVT_RIGHT_DOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_RIGHT_DOWN, $_[1] ) }
-sub EVT_RIGHT_UP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_RIGHT_UP, $_[1] ) }
-sub EVT_RIGHT_DCLICK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_RIGHT_DCLICK, $_[1] ) }
 sub EVT_MOTION($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_MOTION, $_[1] ) }
 sub EVT_ENTER_WINDOW($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_ENTER_WINDOW, $_[1] ) }
 sub EVT_LEAVE_WINDOW($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_LEAVE_WINDOW, $_[1] ) }
@@ -263,6 +254,12 @@ sub EVT_MOUSE_EVENTS($$) {
   EVT_RIGHT_DOWN( $x, $y );
   EVT_RIGHT_UP( $x, $y );
   EVT_RIGHT_DCLICK( $x, $y );
+  EVT_AUX1_DOWN( $x, $y );
+  EVT_AUX1_UP( $x, $y );
+  EVT_AUX1_DCLICK( $x, $y );
+  EVT_AUX2_DOWN( $x, $y );
+  EVT_AUX2_UP( $x, $y );
+  EVT_AUX2_DCLICK( $x, $y );
   EVT_MOTION( $x, $y );
   EVT_ENTER_WINDOW( $x, $y );
   EVT_LEAVE_WINDOW( $x, $y );

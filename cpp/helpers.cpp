@@ -1469,6 +1469,16 @@ void wxPli_thread_sv_clone( pTHX_ const char* package, wxPliCloneSV clonefn )
 // helpers for declaring event macros
 #include "cpp/e_cback.h"
 
+// THIS, (any)
+XS(ConnectDummy);
+XS(ConnectDummy)
+{
+    dXSARGS;
+    SV* THISs = ST(0);
+    wxEvtHandler *THISo = // not needed, but sanity check
+        (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
+}
+
 // THIS, function
 XS(Connect2);
 XS(Connect2)
@@ -1561,6 +1571,9 @@ void CreateEventMacro( const char* name, unsigned char args, int id )
 
     switch( args )
     {
+    case 0:
+        cv = (CV*)newXS( buffer, ConnectDummy, "Constants.xs" );
+        break;
     case 2:
         cv = (CV*)newXS( buffer, Connect2, "Constants.xs" );
         sv_setpv((SV*)cv, "$$");
