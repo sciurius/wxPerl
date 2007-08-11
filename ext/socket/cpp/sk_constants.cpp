@@ -4,7 +4,7 @@
 // Author:      Graciliano M. P.
 // Created:     27/02/2003
 // RCS-ID:      $Id$
-// Copyright:   (c) 2003 Graciliano M. P.
+// Copyright:   (c) 2003, 2007 Graciliano M. P.
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -31,6 +31,11 @@ double socket_constant( const char* name, int arg )
         r( wxSOCKET_NONE );
         r( wxSOCKET_NOWAIT );
         r( wxSOCKET_WAITALL );
+        r( wxSOCKET_REUSEADDR );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+        r( wxSOCKET_NOBIND );
+        r( wxSOCKET_BROADCAST );
+#endif
         
         r( wxSOCKET_CONNECTION_FLAG );
         r( wxSOCKET_INPUT_FLAG );
