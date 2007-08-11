@@ -1,5 +1,0 @@
-//
-// Prefix header for all source files of the 'wxPerl' target in the 'wxPerl' project.
-//
-
-#include <Carbon/Carbon.h>
