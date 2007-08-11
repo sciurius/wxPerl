@@ -216,7 +216,7 @@ static wxPliEventDescription evts[] =
     SEVT( EVT_TASKBAR_RIGHT_UP, 2 )
     SEVT( EVT_TASKBAR_LEFT_DCLICK, 2 )
     SEVT( EVT_TASKBAR_RIGHT_DCLICK, 2 )
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+#if WXPERL_W_VERSION_GE( 2, 8, 3 )
     SEVT( EVT_TASKBAR_CLICK, 2 )
 #endif
     { 0, 0, 0 }
