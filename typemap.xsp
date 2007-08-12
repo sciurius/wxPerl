@@ -42,6 +42,7 @@
 %typemap{wxString}{simple};
 %typemap{wxString&}{parsed}{%wxString%};
 %typemap{const wxString&}{parsed}{%wxString%};
+%typemap{const wxRect&}{reference};
 %typemap{const wxPoint&}{parsed}{%wxPoint%};
 %typemap{const wxSize&}{parsed}{%wxSize%};
 %typemap{wxSize}{parsed}{%wxSize%};
@@ -57,6 +58,7 @@
 %typemap{wxFont}{reference};
 %typemap{wxFont*}{simple};
 %typemap{wxDC*}{simple};
+%typemap{wxDC&}{reference};
 %typemap{const wxDC&}{reference};
 %typemap{const wxValidator&}{reference};
 
@@ -86,6 +88,8 @@
 %typemap{wxTextCtrl*}{simple};
 %typemap{wxControl*}{simple};
 %typemap{wxMenu*}{simple};
+
+%typemap{wxKeyEvent&}{reference};
 
 %typemap{wxColour}{reference};
 %typemap{const wxColour&}{reference};

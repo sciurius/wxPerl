@@ -29,6 +29,7 @@
 #define wxDefaultValidatorPtr (wxValidator*)&wxDefaultValidator
 #define wxBLACKPtr (wxColour*)wxBLACK
 #define wxNORMAL_FONTPtr (wxFont*)wxNORMAL_FONT
+#define wxNullBitmapPtr (wxBitmap*) &wxNullBitmap
 
 #undef THIS
 
@@ -169,6 +170,10 @@ INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/HyperlinkCtrl.xsp |
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/VListBox.xsp |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/SearchCtrl.xsp |
+
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ComboPopup.xsp |
+
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ComboCtrl.xsp |
 
 INCLUDE: XS/Button.xs
 INCLUDE: XS/CheckBox.xs

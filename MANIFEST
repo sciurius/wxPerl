@@ -116,6 +116,8 @@ XS/Colour.xs
 XS/ColourDialog.xs
 XS/ColourPickerCtrl.xsp
 XS/ComboBox.xs
+XS/ComboCtrl.xsp
+XS/ComboPopup.xsp
 XS/Config.xs
 XS/Constraint.xs
 XS/Cursor.xs

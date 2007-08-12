@@ -1,0 +1,117 @@
+#############################################################################
+## Name:        XS/ComboCtrl.xsp
+## Purpose:     XS++ for Wx::ComboCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     12/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+#include <wx/combo.h>
+
+%typemap{wxComboPopup*}{simple};
+%typemap{wxComboCtrl*}{simple};
+
+%name{Wx::ComboCtrl} class wxComboCtrl
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::ComboCtrl::new" )
+%}
+
+    %name{newDefault} wxComboCtrl()
+        %code{% RETVAL = new wxComboCtrl();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxComboCtrl( wxWindow *parent,
+                                wxWindowID id = wxID_ANY,
+                                const wxString& value = wxEmptyString,
+                                const wxPoint& pos = wxDefaultPosition,
+                                const wxSize& size = wxDefaultSize,
+                                long style = 0,
+                                const wxValidator& validator = wxDefaultValidatorPtr,
+                                const wxString& name = wxEmptyString)
+        %code{% RETVAL = new wxComboCtrl( parent, id, value, pos, size,
+                                          style, *validator, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+
+    bool Create( wxWindow *parent,
+                 wxWindowID id,
+                 const wxString& value = wxEmptyString,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = 0,
+                 const wxValidator& validator = wxDefaultValidatorPtr,
+                 const wxString& name = wxEmptyString );
+
+    void ShowPopup();
+    void HidePopup();
+
+##    virtual void OnButtonClick();
+
+    bool IsPopupShown() const;
+
+    void SetPopupControl( wxComboPopup* popup );
+    wxComboPopup* GetPopupControl();
+
+    wxWindow *GetPopupWindow() const;
+    wxTextCtrl *GetTextCtrl() const;
+    wxWindow *GetButton() const;
+
+    wxString GetValue() const;
+    void SetValue( const wxString& value );
+    void Copy();
+    void Cut();
+    void Paste();
+    void SetInsertionPoint( long pos );
+    void SetInsertionPointEnd();
+    long GetInsertionPoint() const;
+    long GetLastPosition() const;
+    void Replace( long from, long to, const wxString& value );
+    void Remove( long from, long to );
+    void SetSelection( long from, long to );
+    void Undo();
+
+    void SetText( const wxString& value );
+    void SetPopupMinWidth( int width );
+    void SetPopupMaxHeight( int height );
+    void SetPopupExtents( int extLeft, int extRight );
+    void SetCustomPaintWidth( int width );
+    int GetCustomPaintWidth() const;
+    void SetPopupAnchor( int anchorSide );
+    void SetButtonPosition( int width = -1,
+                            int height = -1,
+                            int side = wxRIGHT,
+                            int spacingX = 0 );
+    wxSize GetButtonSize();
+    void SetButtonBitmaps( const wxBitmap& bmpNormal,
+                           bool pushButtonBg = false,
+                           const wxBitmap& bmpPressed = wxNullBitmapPtr,
+                           const wxBitmap& bmpHover = wxNullBitmapPtr,
+                           const wxBitmap& bmpDisabled = wxNullBitmapPtr );
+    void SetTextIndent( int indent );
+    wxCoord GetTextIndent() const;
+    const wxRect& GetTextRect() const;
+
+    void UseAltPopupWindow( bool enable = true );
+    void EnablePopupAnimation( bool enable = true );
+    const wxBitmap& GetBitmapNormal() const;
+    const wxBitmap& GetBitmapPressed() const;
+    const wxBitmap& GetBitmapHover() const;
+    const wxBitmap& GetBitmapDisabled() const;
+};
+
+#endif

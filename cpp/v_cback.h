@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2006 Mattia Barbon
+// Copyright:   (c) 2000-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -307,6 +307,23 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
             CALLBASE;                                                        \
     }
 
+// ANY METH(int, int, int)
+#define DEC_V_CBACK_ANY__INT_INT_INT_( RET, METHOD, CONST ) \
+    RET METHOD( int, int, int ) CONST
+
+#define DEF_V_CBACK_ANY__INT_INT_INT_( RET, CVT, CLASS, CALLBASE, METHOD, CONST )\
+    RET CLASS::METHOD( int param1, int param2, int param3 ) CONST            \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )\
+        {                                                                    \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,    \
+                                        "iii", param1, param2, param3 ) );   \
+            return CVT;                                                      \
+        } else                                                               \
+            CALLBASE;                                                        \
+    }
+
 // ANY METH(long, long)
 #define DEC_V_CBACK_ANY__LONG_LONG_( RET, METHOD, CONST ) \
     RET METHOD( long, long ) CONST
@@ -484,42 +501,55 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 #define DEF_V_CBACK_BOOL__SIZET_SIZET_pure( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_BOOL__SIZET_SIZET_( CLASS, return false, METHOD, wxPli_NOCONST )
 
-// bool METH(const wxString&)
-#define DEC_V_CBACK_BOOL__WXSTRING_( METHOD, CONST )                          \
-    bool METHOD(const wxString&) CONST
+// ANY METH(const wxString&)
+#define DEC_V_CBACK_ANY__WXSTRING_( RET, METHOD, CONST )                      \
+    RET METHOD(const wxString&) CONST
 
-#define DEF_V_CBACK_BOOL__WXSTRING_( CLASS, CALLBASE, METHOD, CONST )         \
-    bool CLASS::METHOD(const wxString& param1) CONST                          \
+#define DEF_V_CBACK_ANY__WXSTRING_( RET, CVT, CLASS, CALLBASE, METHOD, CONST )\
+    RET CLASS::METHOD(const wxString& param1) CONST                           \
     {                                                                         \
         dTHX;                                                                 \
-        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback,             \
-                                               #METHOD ) )                    \
+        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) ) \
         {                                                                     \
-            SV* ret = wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,   \
-                                                         G_SCALAR, "P",       \
-                                                         &param1 );           \
-            bool val = SvTRUE( ret );                                         \
-            SvREFCNT_dec( ret );                                              \
-            return val;                                                       \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,     \
+                                             "P", &param1 ) );                \
+            return CVT;                                                       \
         }                                                                     \
         else                                                                  \
             CALLBASE;                                                         \
     }
 
-#define DEC_V_CBACK_BOOL__WXSTRING( METHOD ) \
-    DEC_V_CBACK_BOOL__WXSTRING_( METHOD, wxPli_NOCONST )
+// void METH(const wxString&)
+#define DEC_V_CBACK_VOID__WXSTRING( METHOD )                                  \
+    DEC_V_CBACK_ANY__WXSTRING_( void, METHOD, wxPli_NOCONST )
+
+#define DEC_V_CBACK_VOID__WXSTRING_const( METHOD ) \
+    DEC_V_CBACK_ANY__WXSTRING_( void, METHOD, wxPli_CONST )
+
+#define DEF_V_CBACK_VOID__WXSTRING( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__WXSTRING_( void, ;, CLASS, BASE::METHOD(param1), METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_VOID__WXSTRING_pure( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__WXSTRING_( void, ;, CLASS, return, METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_VOID__WXSTRING_const( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__WXSTRING_( void, ;, CLASS, BASE::METHOD(param1), METHOD, wxPli_CONST )
+
+// bool METH(const wxString&)
+#define DEC_V_CBACK_BOOL__WXSTRING( METHOD )                                  \
+    DEC_V_CBACK_ANY__WXSTRING_( bool, METHOD, wxPli_NOCONST )
 
 #define DEC_V_CBACK_BOOL__WXSTRING_const( METHOD ) \
-    DEC_V_CBACK_BOOL__WXSTRING_( METHOD, wxPli_CONST )
+    DEC_V_CBACK_ANY__WXSTRING_( bool, METHOD, wxPli_CONST )
 
 #define DEF_V_CBACK_BOOL__WXSTRING( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_BOOL__WXSTRING_( CLASS, return BASE::METHOD(param1), METHOD, wxPli_NOCONST )
+    DEF_V_CBACK_ANY__WXSTRING_( bool, SvTRUE( ret ), CLASS, return BASE::METHOD(param1), METHOD, wxPli_NOCONST )
 
 #define DEF_V_CBACK_BOOL__WXSTRING_pure( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_BOOL__WXSTRING_( CLASS, return false, METHOD, wxPli_NOCONST )
+    DEF_V_CBACK_ANY__WXSTRING_( bool, SvTRUE( ret ), CLASS, return false, METHOD, wxPli_NOCONST )
 
 #define DEF_V_CBACK_BOOL__WXSTRING_const( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_BOOL__WXSTRING_( CLASS, return BASE::METHOD(param1), METHOD, wxPli_CONST )
+    DEF_V_CBACK_ANY__WXSTRING_( bool, SvTRUE( ret ), CLASS, return BASE::METHOD(param1), METHOD, wxPli_CONST )
 
 // bool METH(wxObject*)
 #define DEF_V_CBACK_BOOL__WXOBJECTs_( T1, CLASS, CALLBASE, METHOD, CONST )   \
@@ -859,6 +889,22 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 #define DEF_V_CBACK_VOID__WXWINDOW_pure( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_VOID__WXOBJECTsP_( wxWindow*, CLASS, return, METHOD, wxPli_NOCONST )
 
+// bool METH(wxWindow*)
+#define DEC_V_CBACK_BOOL__WXWINDOW_( METHOD, CONST ) \
+    bool METHOD( wxWindow* ) CONST
+
+#define DEF_V_CBACK_BOOL__WXWINDOW_( CLASS, CALLBASE, METHOD, CONST ) \
+    DEF_V_CBACK_BOOL__WXOBJECTsP_( wxWindow*, CLASS, CALLBASE, METHOD, CONST )
+
+#define DEC_V_CBACK_BOOL__WXWINDOW( METHOD ) \
+    DEC_V_CBACK_BOOL__WXWINDOW_( METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_BOOL__WXWINDOW( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_BOOL__WXOBJECTsP_( wxWindow*, CLASS, BASE::METHOD(p1), METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_BOOL__WXWINDOW_pure( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_BOOL__WXOBJECTsP_( wxWindow*, CLASS, return false, METHOD, wxPli_NOCONST )
+
 // void METH(wxObject*)
 #define DEF_V_CBACK_VOID__WXOBJECTsP_( T1, CLASS, CALLBASE, METHOD, CONST )  \
     void CLASS::METHOD( T1 p1 ) CONST                                        \
@@ -883,6 +929,25 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 
 #define DEF_V_CBACK_WXGRID__VOID_const( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_WXGRID__VOID_( CLASS, return BASE::METHOD(), METHOD, wxPli_CONST )
+
+// wxWindow* METH()
+#define DEC_V_CBACK_WXWINDOW__VOID_( METHOD, CONST ) \
+    wxWindow* METHOD() CONST
+
+#define DEF_V_CBACK_WXWINDOW__VOID_( CLASS, CALLBASE, METHOD, CONST ) \
+    DEF_V_CBACK_WXOBJECTsP__VOID_( wxWindow*, Wx::Window, CLASS, CALLBASE, METHOD, CONST )
+
+#define DEC_V_CBACK_WXWINDOW__VOID( METHOD ) \
+    DEC_V_CBACK_WXWINDOW__VOID_( METHOD, wxPli_NOCONST )
+
+#define DEC_V_CBACK_WXWINDOW__VOID_const( METHOD ) \
+    DEC_V_CBACK_WXWINDOW__VOID_( METHOD, wxPli_CONST )
+
+#define DEF_V_CBACK_WXWINDOW__VOID_const( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_WXWINDOW__VOID_( CLASS, return BASE::METHOD(), METHOD, wxPli_CONST )
+
+#define DEF_V_CBACK_WXWINDOW__VOID_pure( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_WXWINDOW__VOID_( CLASS, return NULL, METHOD, wxPli_NOCONST )
 
 // wxObject* METH()
 #define DEF_V_CBACK_WXOBJECTsP__VOID_( TR, TRC, CLASS, CALLBASE, METHOD, CONST )\
@@ -933,6 +998,9 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 
 #define DEF_V_CBACK_WXSTRING__VOID_pure( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_WXSTRING__VOID_( CLASS, return wxEmptyString, METHOD, wxPli_NOCONST )
+
+#define DEF_V_CBACK_WXSTRING__VOID_const_pure( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_WXSTRING__VOID_( CLASS, return wxEmptyString, METHOD, wxPli_CONST )
 
 // wxString METH(int)
 #define DEC_V_CBACK_WXSTRING__INT_( METHOD, CONST ) \
@@ -993,6 +1061,27 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 
 #define DEF_V_CBACK_WXSTRING__INT_INT_pure( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_WXSTRING__INT_INT_( CLASS, return wxEmptyString, METHOD, wxPli_NOCONST )
+
+// ANY METH( wxKeyEvent& )
+#define DEC_V_CBACK_ANY__WXKEYEVENT_( RET, METHOD, CONST ) \
+  RET METHOD( wxKeyEvent& event ) CONST
+
+#define DEF_V_CBACK_ANY__WXKEYEVENT_( RET, CVT, CLASS, CALLBASE, METHOD, CONST )\
+    RET CLASS::METHOD( wxKeyEvent& param1 ) CONST                             \
+    {                                                                         \
+        dTHX;                                                                 \
+        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) ) \
+        {                                                                     \
+            SV* evt = wxPli_object_2_sv( aTHX_ newSViv( 0 ), &param1 );       \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,     \
+                                             "S", evt ) );                    \
+            sv_setiv( SvRV( evt ), 0 );                                       \
+            SvREFCNT_dec( evt );                                              \
+            return CVT;                                                       \
+        } else                                                                \
+            CALLBASE;                                                         \
+    }
+
 
 #endif // _WXPERL_V_CBACK_H
 

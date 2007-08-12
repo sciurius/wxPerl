@@ -99,6 +99,9 @@
 #include <wx/filepicker.h>
 #include <wx/fontpicker.h>
 #endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+#include <wx/combo.h>
+#endif
 #if WXPERL_W_VERSION_GE( 2, 8, 3 )
 #include <wx/srchctrl.h>
 #endif
@@ -438,6 +441,7 @@ static wxPlINH inherit[] =
     I( FontPickerCtrl,  PickerBase )
 
     I( ComboCtrlBase,   Control )
+    I( PlComboPopup,    ComboPopup )
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
     I( GenericComboCtrl,ComboCtrlBase )
     I( ComboCtrl,       GenericComboCtrl )
@@ -768,6 +772,10 @@ static double constant( const char *name, int arg )
     r( wxCB_DROPDOWN );                 // combobox
     r( wxCB_READONLY );                 // combobox
     r( wxCB_SORT );                     // combobox
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxCC_SPECIAL_DCLICK );           // comboctrl
+    r( wxCC_STD_BUTTON );               // comboctrl
+#endif
     r( wxCENTER );                      // dialog sizer
     r( wxCENTRE );                      // dialog sizer
     r( wxCENTER_ON_SCREEN );            // window
