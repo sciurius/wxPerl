@@ -147,6 +147,7 @@ wxVScrolledWindow *     O_WXEVTHANDLER
 wxVListBox *            O_WXEVTHANDLER
 wxPlVListBox *          O_WXEVTHANDLER
 wxSplitterWindow *      O_WXEVTHANDLER
+wxSearchCtrl *          O_WXEVTHANDLER
 wxSashWindow *          O_WXEVTHANDLER
 wxToggleButton *        O_WXEVTHANDLER
 wxSplashScreen *        O_WXOBJECT

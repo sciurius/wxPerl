@@ -59,6 +59,13 @@
 #include <wx/dirdlg.h>
 #include <wx/statusbr.h>
 #include <wx/dcbuffer.h>
+#include <wx/progdlg.h>
+#include <wx/tglbtn.h>
+#include <wx/timer.h>
+#include <wx/splash.h>
+#include <wx/fdrepdlg.h>
+#include <wx/list.h>
+#include <wx/stattext.h>
 
 #include "cpp/wxapi.h"
 #include "cpp/setup.h"
@@ -92,13 +99,9 @@
 #include <wx/filepicker.h>
 #include <wx/fontpicker.h>
 #endif
-#include <wx/progdlg.h>
-#include <wx/tglbtn.h>
-#include <wx/timer.h>
-#include <wx/splash.h>
-#include <wx/fdrepdlg.h>
-#include <wx/list.h>
-#include <wx/stattext.h>
+#if WXPERL_W_VERSION_GE( 2, 8, 3 )
+#include <wx/srchctrl.h>
+#endif
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 #include <wx/editlbox.h>
 #endif
@@ -143,6 +146,11 @@
 #if WXPERL_W_VERSION_LT( 2, 9, 0 )
 #define wxBORDER_THEME wxBORDER_DEFAULT
 #endif
+
+#define wxNavigateBackward  wxNavigationKeyEvent::IsBackward
+#define wxNavigateForward   wxNavigationKeyEvent::IsForward
+#define wxNavigateWinChange wxNavigationKeyEvent::WinChange
+#define wxNavigateFromTab   wxNavigationKeyEvent::FromTab
 
 //////////////////////////////////////////////////////////////////////////////
 // implementation for wxPlConstantsModule OnInit/OnExit
@@ -249,6 +257,10 @@ static wxPliEventDescription evts[] =
     DEVT( EVT_AUX2_UP )
     DEVT( EVT_AUX2_DCLICK )
 #endif
+#if WXPERL_W_VERSION_GE( 2, 8, 3 )
+    EVT( EVT_SEARCHCTRL_CANCEL_BTN, 3, wxEVT_COMMAND_SEARCHCTRL_CANCEL_BTN )
+    EVT( EVT_SEARCHCTRL_SEARCH_BTN, 3, wxEVT_COMMAND_SEARCHCTRL_SEARCH_BTN )
+#endif
     { 0, 0, 0 }
 };
 
@@ -312,6 +324,7 @@ static wxPlINH inherit[] =
     I( Slider,          Control )
     I( SpinCtrl,        Control )
     I( SpinButton,      Control )
+    I( SearchCtrl,      TextCtrl )
     I( RadioBox,        Control )
     I( RadioButton,     Control )
     I( StaticLine,      Control )
@@ -1929,6 +1942,13 @@ static double constant( const char *name, int arg )
     r( wxNOR );                         // dc
     r( wxNO_OP );                       // dc
     r( wxNORTH );
+
+    r( wxNavigateBackward );
+    r( wxNavigateForward );
+    r( wxNavigateWinChange );
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    r( wxNavigateFromTab );
+#endif
     break;
   case 'O':
     r( wxOK );                          // dialog

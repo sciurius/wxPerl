@@ -168,6 +168,8 @@ INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/HyperlinkCtrl.xsp |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/VListBox.xsp |
 
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/SearchCtrl.xsp |
+
 INCLUDE: XS/Button.xs
 INCLUDE: XS/CheckBox.xs
 INCLUDE: XS/CheckListBox.xs
