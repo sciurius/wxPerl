@@ -99,6 +99,9 @@
 #include <wx/fdrepdlg.h>
 #include <wx/list.h>
 #include <wx/stattext.h>
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#include <wx/editlbox.h>
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 ) && !WXWIN_COMPATIBILITY_2_6
 #define wxCHB_DEFAULT         wxBK_DEFAULT
@@ -286,6 +289,7 @@ static wxPlINH inherit[] =
     I( CheckListBox,    ListBox )
     I( ControlWithItems,Control )
     I( Choice,          ControlWithItems )
+    I( EditableListBox, Panel )
     I( ListBox,         ControlWithItems )
     I( VListBox,        VScrolledWindow )
     I( PlVListBox,      VListBox )
@@ -1083,6 +1087,14 @@ static double constant( const char *name, int arg )
     r( wxEXEC_BLOCK );                  // execute
 #endif
     r( wxEAST );
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxEL_ALLOW_NEW );                // editablelistbox
+    r( wxEL_ALLOW_EDIT );               // editablelistbox
+    r( wxEL_ALLOW_DELETE );             // editablelistbox
+    r( wxEL_NO_REORDER );               // editablelistbox
+    r( wxEL_DEFAULT_STYLE );            // editablelistbox
+#endif
     break;
   case 'F':
     r( wxFromStart );

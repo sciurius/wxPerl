@@ -152,6 +152,8 @@ wxControlWithItems::SetClientData( n, data )
 
 INCLUDE: XS/BitmapButton.xs
 
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/EditableListBox.xsp |
+
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/BookCtrl.xsp |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Listbook.xsp |

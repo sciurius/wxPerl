@@ -1,0 +1,79 @@
+#############################################################################
+## Name:        XS/EditableListBox.xsp
+## Purpose:     XS++ for Wx::EditableListBox
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     12/08/2007
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+#include <wx/editlbox.h>
+
+%typemap{wxEditableListBox*}{simple};
+%typemap{wxListCtrl*}{simple};
+%typemap{wxBitmapButton*}{simple};
+
+%name{Wx::EditableListBox} class wxEditableListBox
+{
+
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::EditableListBox::new" )
+%}
+
+    %name{newDefault} wxEditableListBox()
+        %code{% RETVAL = new wxEditableListBox();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxEditableListBox( wxWindow *parent,
+                                      wxWindowID id, const wxString& label,
+                                      const wxPoint& pos = wxDefaultPosition,
+                                      const wxSize& size = wxDefaultSize,
+                                      long style = wxEL_DEFAULT_STYLE,
+                                      const wxString& name = wxEditableListBoxNameStr )
+        %code{% RETVAL = new wxEditableListBox( parent, id, label, pos, size,
+                                                style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+
+    bool Create( wxWindow *parent,
+                 wxWindowID id, const wxString& label,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxEL_DEFAULT_STYLE,
+                 const wxString& name = wxEmptyString );
+
+    void SetStrings( const wxArrayString& strings );
+
+%{
+void
+wxEditableListBox::GetStrings()
+  PPCODE:
+    wxArrayString strings;
+    THIS->GetStrings( strings );
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ strings );
+    SPAGAIN;
+%} 
+
+    wxListCtrl* GetListCtrl();
+    wxBitmapButton* GetDelButton();
+    wxBitmapButton* GetNewButton();
+    wxBitmapButton* GetUpButton();
+    wxBitmapButton* GetDownButton();
+    wxBitmapButton* GetEditButton();
+};
+
+#endif
