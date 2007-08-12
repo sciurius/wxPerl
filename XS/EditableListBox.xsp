@@ -53,7 +53,7 @@ new( ... )
                  const wxPoint& pos = wxDefaultPosition,
                  const wxSize& size = wxDefaultSize,
                  long style = wxEL_DEFAULT_STYLE,
-                 const wxString& name = wxEmptyString );
+                 const wxString& name = wxEditableListBoxNameStr );
 
     void SetStrings( const wxArrayString& strings );
 

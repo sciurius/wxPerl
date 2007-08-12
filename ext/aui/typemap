@@ -14,5 +14,6 @@ TYPEMAP
 wxAuiNotebookEvent *    O_WXOBJECT_THR
 wxAuiManagerEvent *     O_WXOBJECT_THR
 wxAuiManager *          O_NON_WXOBJECT
+const wxAuiManager *    O_NON_WXOBJECT
 wxAuiPaneInfo *         O_NON_WXOBJECT
 wxAuiNotebook *         O_WXEVTHANDLER

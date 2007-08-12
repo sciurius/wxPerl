@@ -14,6 +14,7 @@
 %typemap{wxAuiNotebookEvent *}{simple};
 %typemap{wxAuiNotebook *}{simple};
 %typemap{wxAuiManager *}{simple};
+%typemap{const wxAuiManager *}{simple};
 %typemap{wxAuiPaneInfo *}{simple};
 %typemap{const wxAuiPaneInfo&}{reference};
 %typemap{wxAuiPaneInfo&}{reference};
