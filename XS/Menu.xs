@@ -478,9 +478,21 @@ wxString
 wxMenuBar::GetLabel( id )
     int id
 
+#if !WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+
 wxString
 wxMenuBar::GetLabelTop( id )
     int id
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxString
+wxMenuBar::GetMenuLabel( id )
+    int id
+
+#endif
 
 wxMenu*
 wxMenuBar::GetMenu( index )
@@ -526,10 +538,23 @@ wxMenuBar::SetLabel( id, label )
     int id
     wxString label
 
+#if !WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+
 void
 wxMenuBar::SetLabelTop( pos, label )
     int pos
     wxString label
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxMenuBar::SetMenuLabel( pos, label )
+    int pos
+    wxString label
+
+#endif
 
 bool
 wxMenuBar::IsEnabledTop( id )
@@ -596,6 +621,8 @@ wxMenuItem::GetId()
 wxItemKind
 wxMenuItem::GetKind()
 
+#if !WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+
 wxString
 wxMenuItem::GetLabel()
 
@@ -607,6 +634,26 @@ GetLabelFromText( text )
   OUTPUT:
     RETVAL
 
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxString
+wxMenuItem::GetItemLabel()
+
+wxString
+wxMenuItem::GetItemLabelText()
+
+wxString
+GetLabelText( text )
+    wxString text
+  CODE:
+    RETVAL = wxMenuItem::GetLabelText( text );
+  OUTPUT:
+    RETVAL
+
+#endif
+
 wxMenu*
 wxMenuItem::GetMenu()
 
@@ -617,8 +664,12 @@ wxMenuItem::GetMarginWidth()
 
 #endif
 
+#if !WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+
 wxString
 wxMenuItem::GetText()
+
+#endif
 
 wxMenu*
 wxMenuItem::GetSubMenu()
@@ -677,9 +728,21 @@ void
 wxMenuItem::SetSubMenu( menu )
     wxMenu* menu
 
+#if !WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+
 void
 wxMenuItem::SetText( text )
     wxString text
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxMenuItem::SetItemLabel( label )
+    wxString label
+
+#endif
 
 #if defined( __WXMSW__ ) && !defined( __WXWINCE__ )
 
