@@ -54,7 +54,7 @@ sub configure_core {
   $config{clean} =
     { FILES => "$config{WX}{wx_overload}{source}" .
                " $config{WX}{wx_overload}{header} exists overload Opt" .
-               " copy_files files.lst cpp/combopopup.h" .
+               " copy_files files.lst cpp/combopopup.h cpp/odcombo.h" .
                " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
                " fix_alien cpp/vlbox.h cpp/vscroll.h" };
 

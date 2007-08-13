@@ -156,6 +156,7 @@ XS/MessageDialog.xsp
 XS/MimeTypes.xsp
 XS/MultiChoiceDialog.xs
 XS/Notebook.xs
+XS/OwnerDrawnComboBox.xsp
 XS/Palette.xs
 XS/Panel.xs
 XS/Pen.xs

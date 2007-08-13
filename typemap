@@ -127,6 +127,8 @@ wxComboCtrl *           O_WXEVTHANDLER
 wxComboCtrlBase *       O_WXEVTHANDLER
 wxComboPopup *          O_NON_WXOBJECT
 wxPlComboPopup *        O_NON_WXOBJECT
+wxOwnerDrawnComboBox *  O_WXEVTHANDLER
+wxPlOwnerDrawnComboBox * O_WXEVTHANDLER
 wxControlWithItems *    O_WXOBJECT
 wxEditableListBox *     O_WXOBJECT
 wxListBox *             O_WXEVTHANDLER

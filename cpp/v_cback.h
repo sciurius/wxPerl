@@ -469,6 +469,9 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 #define DEF_V_CBACK_WXCOORD__SIZET( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_ANY__SIZET_( wxCoord, SvIV( ret ), CLASS, return BASE::METHOD(p1), METHOD, wxPli_NOCONST )
 
+#define DEF_V_CBACK_WXCOORD__SIZET_const( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_ANY__SIZET_( wxCoord, SvIV( ret ), CLASS, return BASE::METHOD(p1), METHOD, wxPli_CONST )
+
 #define DEF_V_CBACK_WXCOORD__SIZET_pure( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_ANY__SIZET_( wxCoord, SvIV( ret ), CLASS, return 0, METHOD, wxPli_NOCONST )
 

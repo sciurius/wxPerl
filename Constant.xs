@@ -101,6 +101,7 @@
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
 #include <wx/combo.h>
+#include <wx/odcombo.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 8, 3 )
 #include <wx/srchctrl.h>
@@ -449,6 +450,8 @@ static wxPlINH inherit[] =
     I( GenericComboControl,ComboCtrlBase )
     I( ComboCtrl,       GenericComboControl )
 #endif
+    I( OwnerDrawnComboBox, ComboCtrl )
+    I( PlOwnerDrawnComboBox, OwnerDrawnComboBox )
 
     I( TaskBarIcon,     EvtHandler )
     I( Process,         EvtHandler )
@@ -1970,6 +1973,13 @@ static double constant( const char *name, int arg )
     r( wxOR_REVERSE );                  // dc
 
     r( wxOutRegion );                   // region
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxODCB_DCLICK_CYCLES );          // ownerdrawncombobox
+    r( wxODCB_STD_CONTROL_PAINT );      // ownerdrawncombobox
+    r( wxODCB_PAINTING_CONTROL );       // ownerdrawncombobox
+    r( wxODCB_PAINTING_SELECTED );      // ownerdrawncombobox
+#endif
     break;
   case 'P':
 #if WXPERL_W_VERSION_LT( 2, 7, 0 )
