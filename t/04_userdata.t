@@ -22,7 +22,7 @@ sub DESTROY { &{$_[0][0]} }
 
 package main;
 
-use Test::More 'tests' => 45;
+use Test::More 'tests' => 53;
 
 use strict;
 #use base 'Wx::Frame';
@@ -89,16 +89,26 @@ sub tests {
   my $combo = Wx::ComboBox->new( $this, -1, 'foo' );
   my $choice = Wx::Choice->new( $this, -1 );
   my $checklist = Wx::CheckListBox->new( $this, -1 );
+  my $odncombo = undef;
+
+  if( defined &Wx::PlOwnerDrawnComboBox::new ) {
+      $odncombo = Wx::PlOwnerDrawnComboBox->new( $this, -1, 'foo', [-1, -1],
+                                                 [-1, -1], [] );
+  }
 
   # test deleting and setting again
   for my $x ( [ $list, 'Wx::ListBox' ],
               [ $choice, 'Wx::Choice' ],
               [ $combo, 'Wx::ComboBox' ],
-              [ $checklist, 'Wx::CheckListBox' ], ) {
+              [ $checklist, 'Wx::CheckListBox' ],
+              [ $odncombo, 'Wx::OwnerDrawnComboBox' ],
+              ) {
   SKIP: {
       my( $list, $name ) = @$x;
       ( $deleting, $setting, $ctrldelete ) = ( 0, 0, 0 );
 
+      skip( $x->[1] . ": not available", 8 )
+        if !defined $x->[0];
       skip( "wxMSW wxCheckListBox can't store client data yet", 8 )
         if Wx::wxMSW && $name eq 'Wx::CheckListBox';
       skip( "wxGTK has bugs in versions <= 2.3.3", 8 )

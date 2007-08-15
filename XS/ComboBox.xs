@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     31/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
+## Copyright:   (c) 2000-2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -82,40 +82,15 @@ wxComboBox::Create( parent, id = wxID_ANY, value = wxEmptyString, pos = wxDefaul
     delete[] chs;
   OUTPUT: RETVAL
 
-void
-wxComboBox::Clear()
-
 #if defined( __WXGTK__ ) || \
     ( defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 5, 1 ) )
 
-void
-wxComboBox::Append( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_s_s, AppendData )
-        MATCH_REDISP( wxPliOvl_s, AppendString )
-    END_OVERLOAD( Wx::ComboBox::Append )
+#define WXPERL_IN_COMBOBOX
 
-void
-wxComboBox::AppendString( item )
-    wxString item
-  CODE:
-    THIS->Append( item );
+INCLUDE: perl -pe "s/ItemContainerImmutable/ComboBox/g" XS/ItemContainerImmutable.xs |
+INCLUDE: perl -pe "s/ItemContainer/ComboBox/g" XS/ItemContainer.xs |
 
-void
-wxComboBox::AppendData( item, data )
-    wxString item
-    wxPliUserDataCD* data
-  CODE:
-    THIS->Append( item, data );
-
-void
-wxComboBox::Delete( n )
-    int n
-
-int
-wxComboBox::FindString( string )
-    wxString string
+#undef WXPERL_IN_COMBOBOX
 
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
@@ -124,44 +99,12 @@ wxChoice::GetCurrentSelection()
 
 #endif
 
-int
-wxComboBox::GetSelection()
-
-wxString
-wxComboBox::GetString( n )
-    int n
-
-int
-wxComboBox::GetCount()
-
-wxString
-wxComboBox::GetStringSelection()
-
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
 
 void
 wxComboBox::SetEditable( bool editable );
 
 #endif
-
-void
-wxComboBox::SetStringSelection( string )
-    wxString string
-
-wxPliUserDataCD*
-wxComboBox::GetClientData( n )
-    int n
-  CODE:
-    RETVAL = (wxPliUserDataCD*) THIS->GetClientObject( n );
-  OUTPUT:
-    RETVAL
-
-void
-wxComboBox::SetClientData( n, data )
-    int n
-    wxPliUserDataCD* data
-  CODE:
-    THIS->SetClientObject( n, data );
 
 #endif
 

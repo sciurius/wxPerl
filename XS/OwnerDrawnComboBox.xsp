@@ -25,6 +25,9 @@
     int GetWidestItem();
 };
 
+INCLUDE: perl -pe "s/ItemContainerImmutable/OwnerDrawnComboBox/g" XS/ItemContainerImmutable.xs |
+INCLUDE: perl -pe "s/ItemContainer/OwnerDrawnComboBox/g" XS/ItemContainer.xs |
+
 %file{cpp/odcombo.h};
 %{
 

@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     08/11/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2006 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -29,7 +29,6 @@ newDefault( CLASS )
     RETVAL = new wxListBox();
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT: RETVAL
-
 
 wxListBox*
 newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, choices = 0, style = 0, validator = (wxValidator*)&wxDefaultValidator, name = wxListBoxNameStr )
@@ -92,9 +91,6 @@ wxListBox::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefa
     RETVAL
 
 void
-wxListBox::Clear()
-
-void
 wxListBox::Deselect( n )
     int n
 
@@ -102,14 +98,11 @@ void
 wxListBox::GetSelections()
   PREINIT:
     wxArrayInt selections;
-    int i, n;
   PPCODE:
-    n = THIS->GetSelections( selections );
-    EXTEND( SP, n );
-    for( i = 0; i < n; ++i )
-    {
-        PUSHs( sv_2mortal( newSViv( selections[i] ) ) );
-    }
+    THIS->GetSelections( selections );
+    PUTBACK;
+    wxPli_intarray_push( aTHX_ selections );
+    SPAGAIN;
 
 int
 wxListBox::HitTest( point )
@@ -131,11 +124,6 @@ wxListBox::InsertItems( items, pos )
 bool
 wxListBox::IsSelected( n )
     int n
-
-void
-wxListBox::SetString( n, string )
-    int n
-    wxString string
 
 void
 wxListBox::SetSelection( n, select = true )
