@@ -2128,6 +2128,8 @@ sub yylex {
                       | ::
                        )//x ) {
         return ( $tokens{$1}, $1 );
+      } elsif( $$buf =~ s/^(INCLUDE:.*)(?:\r\n|\r|\n)// ) {
+        return ( 'RAW_CODE', $1 );
       } elsif( $$buf =~ m/^([a-zA-Z_]\w*)\W/ ) {
         $$buf =~ s/^(\w+)//;
 
@@ -2141,7 +2143,7 @@ sub yylex {
       } elsif( $$buf =~ s/^(#.*)(?:\r\n|\r|\n)// ) {
         return ( 'RAW_CODE', $1 );
       } else {
-        warn $$buf;
+        die $$buf;
       }
     }
   }
