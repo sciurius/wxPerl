@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.76
+0.76  Thu Aug 16 00:21:00 CEST 2007
 	- Added wxEditableListBox (2.9).
 	- Added wxSearchCtrl (2.8).
 	- Added wxComboCtrl and wxOwnerDrawnComboBox (2.7).
