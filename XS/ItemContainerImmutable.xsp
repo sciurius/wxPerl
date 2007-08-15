@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/ItemContainerImmutable.xs
+## Name:        XS/ItemContainerImmutable.xsp
 ## Purpose:     XS for Wx::ItemContainerImmutable
 ## Author:      Mattia Barbon
 ## Modified by:

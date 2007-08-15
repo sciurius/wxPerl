@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/ItemContainer.xs
+## Name:        XS/ItemContainer.xsp
 ## Purpose:     XS for Wx::ItemContainer
 ## Author:      Mattia Barbon
 ## Modified by:

@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/ControlWithItems.xs
+## Name:        XS/ControlWithItems.xsp
 ## Purpose:     XS for Wx::ControlWithItems
 ## Author:      Mattia Barbon
 ## Modified by:
