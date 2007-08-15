@@ -213,8 +213,11 @@ static wxPliEventDescription evts[] =
 #endif
     SEVT( EVT_CREATE, 3 )
     SEVT( EVT_DESTROY, 3 )
+    EVT( EVT_WINDOW_CREATE, 3, wxEVT_CREATE )
+    EVT( EVT_WINDOW_DESTROY, 3, wxEVT_DESTROY )
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     SEVT( EVT_MOUSE_CAPTURE_LOST, 2 )
+    SEVT( EVT_SET_CURSOR, 2 )
     EVT( EVT_COLOURPICKER_CHANGED, 3, wxEVT_COMMAND_COLOURPICKER_CHANGED )
     EVT( EVT_FILEPICKER_CHANGED, 3, wxEVT_COMMAND_FILEPICKER_CHANGED )
     EVT( EVT_DIRPICKER_CHANGED, 3, wxEVT_COMMAND_DIRPICKER_CHANGED )
@@ -570,8 +573,8 @@ static wxPlINH inherit[] =
     I( JoystickEvent,   Event )
     I( ListEvent,       NotifyEvent )
     I( MenuEvent,       Event )
-    I( CreateEvent,     CommandEvent )
-    I( DestroyEvent,    CommandEvent )
+    I( WindowCreateEvent, CommandEvent )
+    I( WindowDestroyEvent, CommandEvent )
     I( MouseEvent,      Event )
     I( MoveEvent,       Event )
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
@@ -615,6 +618,7 @@ static wxPlINH inherit[] =
     I( ColourPickerEvent, CommandEvent )
     I( FileDirPickerEvent, CommandEvent )
     I( FontPickerEvent, CommandEvent )
+    I( SetCursorEvent,  Event )
 
     { 0, 0 }
 };

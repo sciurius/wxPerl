@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     18/03/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2002 Mattia Barbon
+## Copyright:   (c) 2001-2002, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -27,6 +27,7 @@ Wx::wx_boot( 'Wx::Help', $VERSION );
 
 no strict;
 
+package Wx::HelpController;     @ISA = qw(Wx::HelpControllerBase);
 package Wx::WinHelpController;  @ISA = qw(Wx::HelpControllerBase);
 package Wx::HelpControllerHtml; @ISA = qw(Wx::HelpControllerBase);
 package Wx::CHMHelpController;  @ISA = qw(Wx::HelpControllerBase);

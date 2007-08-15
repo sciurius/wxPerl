@@ -530,6 +530,12 @@ wxMenuEvent::GetMenu()
 
 #endif
 
+MODULE=Wx_Evt PACKAGE=Wx::MaximizeEvent
+
+wxMouseEvent*
+wxMouseEvent::new( id = 0 )
+    wxWindowID id
+
 MODULE=Wx_Evt PACKAGE=Wx::MouseEvent
 
 wxMouseEvent*
@@ -796,6 +802,33 @@ wxScrollWinEvent::GetOrientation()
 int
 wxScrollWinEvent::GetPosition()
 
+MODULE=Wx_Evt PACKAGE=Wx::SetCursorEvent
+
+wxSetCursorEvent*
+wxSetCursorEvent::new( x = 0, y = 0 )
+    wxCoord x
+    wxCoord y
+
+wxCoord
+wxSetCursorEvent::GetX()
+
+wxCoord
+wxSetCursorEvent::GetY()
+
+void
+wxSetCursorEvent::SetCursor( cursor )
+    wxCursor* cursor
+  C_ARGS: *cursor
+
+wxCursor*
+wxSetCursorEvent::GetCursor()
+  CODE:
+    RETVAL = new wxCursor( THIS->GetCursor() );
+  OUTPUT: RETVAL
+
+bool
+wxSetCursorEvent::HasCursor()
+
 MODULE=Wx_Evt PACKAGE=Wx::SysColourChangedEvent
 
 wxSysColourChangedEvent*
@@ -893,6 +926,30 @@ wxMouseCaptureChangedEvent::new( id = 0, capturedWindow = NULL )
 wxWindow*
 wxMouseCaptureChangedEvent::GetCapturedWindow()
 
+MODULE=Wx_Evt PACKAGE=Wx::MouseCaptureLostEvent
+
+wxMouseCaptureLostEvent*
+wxMouseCaptureLostEvent::new( eventType = 0 )
+    wxEventType eventType
+
 #endif
+
+MODULE=Wx:Evt PACKAGE=Wx::WindowCreateEvent
+
+wxWindowCreateEvent*
+wxWindowCreateEvent::new( window = NULL )
+    wxWindow* window
+
+wxWindow*
+wxWindowCreateEvent::GetWindow()
+
+MODULE=Wx:Evt PACKAGE=Wx::WindowDestroyEvent
+
+wxWindowDestroyEvent*
+wxWindowDestroyEvent::new( window = NULL )
+    wxWindow* window
+
+wxWindow*
+wxWindowDestroyEvent::GetWindow()
 
 MODULE=Wx_Evt
