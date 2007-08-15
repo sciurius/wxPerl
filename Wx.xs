@@ -459,7 +459,7 @@ MODULE=Wx PACKAGE=Wx
 #!irrelevant class wxSemaphore
 #!irrelevant class wxString
 #!irrelevant class wxStringBuffer
-#!irrelevant class wxStringBufferLenght
+#!irrelevant class wxStringBufferLength
 #!irrelevant class wxStringClientData
 #!irrelevant class wxStringTokenizer
 #!irrelevant class wxThreadHelper
@@ -482,7 +482,7 @@ MODULE=Wx PACKAGE=Wx
 
 #!equivalent class wxDb to Perl module DBI
 #!equivalent class wxDbColDataPtr to Perl module DBI
-#!equivalent class wxDbColDel to Perl module DBI
+#!equivalent class wxDbColDef to Perl module DBI
 #!equivalent class wxDbColFor to Perl module DBI
 #!equivalent class wxDbColInf to Perl module DBI
 #!equivalent class wxDbConnectInf to Perl module DBI
@@ -493,6 +493,7 @@ MODULE=Wx PACKAGE=Wx
 
 #!equivalent class wxDir to opendir/readdir and to Perl modules File::Find, File::Find::Rule
 #!equivalent class wxDirTraverser to Perl modules File::Find, File::Find::Rule
+#!equivalent class wxFileName to File::Spec, Path::Class
 
 #!equivalent class wxFTP to Perl modules Net::FTP, LWP::UserAgent
 #!equivalent class wxHTTP to Perl modules Net::HTTP, LWP::UserAgent
@@ -534,6 +535,7 @@ MODULE=Wx PACKAGE=Wx
 #!equivalent class wxSocketOutputStream to Perl modules IO::Socket::*
 #!equivalent class wxStreamBase to Perl input/output
 #!equivalent class wxStreamBase to Perl input/output
+#!equivalent class wxStreamBuffer to Perl input/output
 #!equivalent class wxStringInputStream to Perl module PerlIO::scalar
 #!equivalent class wxStringOutputStream to Perl module PerlIO::scalar
 #!equivalent class wxTextFile to Perl input/output
