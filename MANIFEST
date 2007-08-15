@@ -120,6 +120,7 @@ XS/ComboCtrl.xsp
 XS/ComboPopup.xsp
 XS/Config.xs
 XS/Constraint.xs
+XS/ControlWithItems.xsp
 XS/Cursor.xs
 XS/DC.xs
 XS/Dialog.xs
@@ -146,6 +147,8 @@ XS/Icon.xs
 XS/IconBundle.xsp
 XS/Image.xs
 XS/ImageList.xs
+XS/ItemContainer.xsp
+XS/ItemContainerImmutable.xsp
 XS/ListBox.xs
 XS/ListCtrl.xs
 XS/Listbook.xsp

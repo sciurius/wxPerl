@@ -56,7 +56,8 @@ sub configure_core {
                " $config{WX}{wx_overload}{header} exists overload Opt" .
                " copy_files files.lst cpp/combopopup.h cpp/odcombo.h" .
                " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
-               " fix_alien cpp/vlbox.h cpp/vscroll.h" };
+               " fix_alien cpp/vlbox.h cpp/vscroll.h" .
+               " XS/ItemContainer.xs XS/ItemContainerImmutable.xs" };
 
   return %config;
 }
@@ -210,6 +211,12 @@ parser :
 
 typemap : typemap.tmpl script/make_typemap.pl
 	perl script/make_typemap.pl typemap.tmpl typemap
+
+XS/ItemContainerImmutable.xs : XS/ItemContainerImmutable.xsp typemap.xsp
+	perl script/wx_xspp.pl -t typemap.xsp XS/ItemContainerImmutable.xsp > XS/ItemContainerImmutable.xs
+
+XS/ItemContainer.xs : XS/ItemContainer.xsp typemap.xsp
+	perl script/wx_xspp.pl -t typemap.xsp XS/ItemContainer.xsp > XS/ItemContainer.xs
 
 EOT
 

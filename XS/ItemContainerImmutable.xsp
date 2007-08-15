@@ -1,0 +1,59 @@
+#############################################################################
+## Name:        XS/ItemContainerImmutable.xs
+## Purpose:     XS for Wx::ItemContainerImmutable
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     14/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxItemContainerImmutable*}{simple};
+
+%name{Wx::ItemContainerImmutable} class wxItemContainerImmutable {
+    unsigned int GetCount() const;
+    bool IsEmpty() const;
+    wxString GetString( unsigned int n );
+
+%{
+void
+wxItemContainerImmutable::GetStrings()
+  PPCODE:
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ THIS->GetStrings() );
+    SPAGAIN;
+%}
+
+    void SetString( unsigned int n, const wxString& s );
+
+%{
+int
+wxItemContainerImmutable::FindString( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+        MATCH_REDISP( wxPliOvl_s_b, FindStringCase )
+#endif
+        MATCH_REDISP( wxPliOvl_s, FindStringNoCase )
+    END_OVERLOAD( Wx::ItemContainerImmutable::FindString )
+%}
+
+    %name{FindStringNoCase} int FindString( const wxString& s ) const;
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    %name{FindStringCase} int FindString( const wxString& s, bool bCase = false ) const;
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 6, 0 ) && !defined(WXPERL_IN_COMBOBOX)
+    void SetSelection( int n );
+#endif
+    int GetSelection() const;
+#if WXPERL_W_VERSION_GE( 2, 6, 0 ) || defined(WXPERL_IN_COMBOBOX)
+    bool SetStringSelection( const wxString& s );
+#endif
+    wxString GetStringSelection() const;
+    void Select( int n );
+};

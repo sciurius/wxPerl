@@ -1,0 +1,67 @@
+#############################################################################
+## Name:        XS/ItemContainer.xs
+## Purpose:     XS for Wx::ItemContainer
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     14/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxItemContainer*}{simple};
+
+%name{Wx::ItemContainer} class wxItemContainer {
+%{
+void
+wxItemContainer::Append( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_s, AppendData )
+        MATCH_REDISP( wxPliOvl_s, AppendString )
+    END_OVERLOAD( Wx::ItemContainer::Append )
+%}
+
+    %name{AppendString} void Append( const wxString& item );
+    %name{AppendData} void Append( const wxString& item,
+                                   wxPliUserDataCD* data );
+##  Append( [items] );
+##  Append( [items], [data] );
+##  Append( n, [items] );
+##  Append( n, [items], [data] );
+
+%{
+void
+wxItemContainer::Insert( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_n_s, InsertData )
+        MATCH_REDISP( wxPliOvl_s_n, InsertString )
+    END_OVERLOAD( Wx::ItemContainer::Insert )
+%}
+
+    %name{InsertString} void Insert( const wxString& item, unsigned int pos );
+    %name{InsertData} void Insert( const wxString& item, unsigned int pos,
+                                   wxPliUserDataCD* data );
+##  Insert( [items], pos );
+##  Insert( [items], pos, [data] );
+##  Insert( n, [items], pos );
+##  Insert( n, [items], pos, [data] );
+
+##  Set( n, [items] );
+##  Set( n, [items], [data] );
+##  Set( n, [items] );
+##  Set( n, [items], [data] );
+
+    void Clear();
+    void Delete( int n );
+    wxPliUserDataCD* GetClientData( int n )
+        %code%{ RETVAL = (wxPliUserDataCD*) THIS->GetClientObject( n ); %};
+    %name{SetClientData} void SetClientObject( int n, wxPliUserDataCD* data );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+##    bool IsSorted() const;
+#endif
+};
