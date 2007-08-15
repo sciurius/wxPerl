@@ -73,7 +73,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlArtProvider, wxObject );
 
 MODULE=Wx PACKAGE=Wx::ArtProvider
 
-#! CreateBitmap
+#!sub CreateBitmap
 
 wxBitmap*
 GetBitmap( id, client = wxART_OTHER, size = wxDefaultSize )

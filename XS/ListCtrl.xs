@@ -282,10 +282,10 @@ wxListItemAttr::GetFont()
 
 MODULE=Wx PACKAGE=Wx::ListCtrl
 
-#! OnGetItemText
-#! OnGetItemImage
-#! OnGetItemAttr
-#! OnGetItemColumnImage
+#!sub OnGetItemText
+#!sub OnGetItemImage
+#!sub OnGetItemAttr
+#!sub OnGetItemColumnImage
 
 void
 new( ... )

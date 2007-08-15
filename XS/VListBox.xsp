@@ -70,9 +70,9 @@
 ##        MATCH_ANY_REDISP( newFull )
 ##    END_OVERLOAD( "Wx::VListBox::new" )
 
-#! wxVListBox
-#! OnDrawItem
-#! OnMeasureItem
+#!sub wxVListBox
+#!sub OnDrawItem
+#!sub OnMeasureItem
 
 void
 wxVListBox::GetFirstSelected()

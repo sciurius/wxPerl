@@ -418,3 +418,125 @@ INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/ClassInfo.xs |
 ##endif
 
 MODULE=Wx PACKAGE=Wx
+
+#!irrelevant class wxArray
+#!irrelevant class wxArrayString
+#!irrelevant class wxClientData
+#!irrelevant class wxClientDataContainer
+#!irrelevant class wxCondition
+#!irrelevant class wxCriticalSection
+#!irrelevant class wxCriticalSectionLocker
+#!irrelevant class wxDebugContext
+#!irrelevant class wxDebugStreamBuf
+#!irrelevant class wxDynamicLibrary
+#!irrelevant class wxDynamicLibraryDetails
+#!irrelevant class wxFFile
+#!irrelevant class wxFFileInputStream
+#!irrelevant class wxFFileOutputStream
+#!irrelevant class wxFFileStream
+#!irrelevant class wxFile
+#!irrelevant class wxFileInputStream
+#!irrelevant class wxFileOutputStream
+#!irrelevant class wxFileStream
+#!irrelevant class wxFilterClassFactory
+#!irrelevant class wxHashMap
+#!irrelevant class wxHashSet
+#!irrelevant class wxHashTable
+#!irrelevant class wxList
+#!irrelevant class wxLongLong
+#!irrelevant class wxMemoryBuffer
+#!irrelevant class wxModule
+#!irrelevant class wxMutex
+#!irrelevant class wxMutexLocker
+#!irrelevant class wxNode
+#!irrelevant class wxObjectRefData
+#!irrelevant class wxProtocol
+#!irrelevant class wxRecursionGuard
+#!irrelevant class wxRecursionGuardFlag
+#!irrelevant class wxScopedArray
+#!irrelevant class wxScopedPtr
+#!irrelevant class wxScopedTiedPtr
+#!irrelevant class wxSemaphore
+#!irrelevant class wxString
+#!irrelevant class wxStringBuffer
+#!irrelevant class wxStringBufferLenght
+#!irrelevant class wxStringClientData
+#!irrelevant class wxStringTokenizer
+#!irrelevant class wxThreadHelper
+
+#!equivalent class wxArchiveClassFactory to Perl modules Archive::Any, Archive::Zip, Archive::Tar
+#!equivalent class wxArchiveEntry to Perl modules Archive::Any, Archive::Zip, Archive::Tar
+#!equivalent class wxArchiveInputStream to Perl modules Archive::Any, Archive::Zip, Archive::Tar
+#!equivalent class wxArchiveIterator to Perl modules Archive::Any, Archive::Zip, Archive::Tar
+#!equivalent class wxArchiveNotifier to Perl modules Archive::Any, Archive::Zip, Archive::Tar
+#!equivalent class wxArchiveOutputStream to Perl modules Archive::Any, Archive::Zip, Archive::Tar
+
+#!equivalent class wxCSConv to Perl module Encode
+#!equivalent class wxEncodingConverter to Perl module Encode
+#!equivalent class wxMBConv to Perl module Encode
+#!equivalent class wxMBConvFile to Perl module Encode
+#!equivalent class wxMBConvUTF16 to Perl module Encode
+#!equivalent class wxMBConvUTF32 to Perl module Encode
+#!equivalent class wxMBConvUTF7 to Perl module Encode
+#!equivalent class wxMBConvUTF8 to Perl module Encode
+
+#!equivalent class wxDb to Perl module DBI
+#!equivalent class wxDbColDataPtr to Perl module DBI
+#!equivalent class wxDbColDel to Perl module DBI
+#!equivalent class wxDbColFor to Perl module DBI
+#!equivalent class wxDbColInf to Perl module DBI
+#!equivalent class wxDbConnectInf to Perl module DBI
+#!equivalent class wxDbIdxDef to Perl module DBI
+#!equivalent class wxDbInf to Perl module DBI
+#!equivalent class wxDbTable to Perl module DBI
+#!equivalent class wxDbTableInf to Perl module DBI
+
+#!equivalent class wxDir to opendir/readdir and to Perl modules File::Find, File::Find::Rule
+#!equivalent class wxDirTraverser to Perl modules File::Find, File::Find::Rule
+
+#!equivalent class wxFTP to Perl modules Net::FTP, LWP::UserAgent
+#!equivalent class wxHTTP to Perl modules Net::HTTP, LWP::UserAgent
+
+#!equivalent class wxRegEx to a Perl regular expression
+#!equivalent class wxRegKey to Perl module Win32::Registry
+
+#!equivalent class wxTarClassFactory to Perl module Archive::Tar
+#!equivalent class wxTarEntry to Perl module Archive::Tar
+#!equivalent class wxTarInputStream to Perl module Archive::Tar
+#!equivalent class wxTarOutputStream to Perl module Archive::Tar
+
+#!equivalent class wxTempFile to Perl module File::Temp
+#!equivalent class wxTempFileOutputStream to Perl module File::Temp
+
+#!equivalent class wxURI to Perl module URI
+#!equivalent class wxURL to Perl module URI::URL
+
+#!equivalent class wxZipClassFactory to Perl module Archive::Zip
+#!equivalent class wxZipEntry to Perl module Archive::Zip
+#!equivalent class wxZipInputStream to Perl module Archive::Zip
+#!equivalent class wxZipNotifier to Perl module Archive::Zip
+#!equivalent class wxZipOutputStream to Perl module Archive::Zip
+
+#!equivalent class wxZlibInputStream to Perl module Compress::Zlib, IO::Zlib
+#!equivalent class wxZlibOutputStream to Perl module Compress::Zlib, IO::Zlib
+
+#!equivalent class wxBufferedInputStream to Perl input/output
+#!equivalent class wxBufferedOutputStream to Perl input/output
+#!equivalent class wxCountingOutputStream to Perl input/output
+#!equivalent class wxCountingOutputStream to Perl input/output
+#!equivalent class wxDataInputStream to Perl module Storable
+#!equivalent class wxDataOutputStream to Perl module Storable
+#!equivalent class wxFilterInputStream to Perl module PerlIO::via
+#!equivalent class wxFilterOutputStream to Perl module PerlIO::via
+#!equivalent class wxMemoryInputStream to Perl module PerlIO::scalar
+#!equivalent class wxMemoryOutputStream to Perl module PerlIO::scalar
+#!equivalent class wxSocketInputStream to Perl modules IO::Socket::*
+#!equivalent class wxSocketOutputStream to Perl modules IO::Socket::*
+#!equivalent class wxStreamBase to Perl input/output
+#!equivalent class wxStreamBase to Perl input/output
+#!equivalent class wxStringInputStream to Perl module PerlIO::scalar
+#!equivalent class wxStringOutputStream to Perl module PerlIO::scalar
+#!equivalent class wxTextFile to Perl input/output
+#!equivalent class wxTextInputStream to Perl input/output
+#!equivalent class wxTextOutputStream to Perl input/output
+
