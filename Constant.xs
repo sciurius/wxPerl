@@ -1435,6 +1435,11 @@ static double constant( const char *name, int arg )
     r( wxIMAGE_RESOLUTION_CM );         // image
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    r( wxIMAGE_QUALITY_NORMAL );        // image
+    r( wxIMAGE_QUALITY_HIGH );          // image
+#endif
+
     r( wxIDLE_PROCESS_ALL );
     r( wxIDLE_PROCESS_SPECIFIED );
 

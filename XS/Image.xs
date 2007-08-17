@@ -531,6 +531,20 @@ wxImage::Replace( r1, g1, b1, r2, g2, b2 )
     unsigned char g2
     unsigned char b2
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+wxImage*
+wxImage::Rescale( width, height, quality = wxIMAGE_QUALITY_NORMAL )
+    int width
+    int height
+    int quality
+  CODE:
+    RETVAL = new wxImage( THIS->Rescale( width, height, quality ) );
+  OUTPUT:
+    RETVAL
+
+#else
+
 wxImage*
 wxImage::Rescale( width, height )
     int width
@@ -539,6 +553,8 @@ wxImage::Rescale( width, height )
     RETVAL = new wxImage( THIS->Rescale( width, height ) );
   OUTPUT:
     RETVAL
+
+#endif
 
 void
 wxImage::Rotate( angle, centre, interpolating = true )
@@ -584,6 +600,20 @@ wxImage::ShrinkBy( xfactor, yfactor )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+wxImage*
+wxImage::Scale( width, height, quality = wxIMAGE_QUALITY_NORMAL )
+    int width
+    int height
+    int quality
+  CODE:
+    RETVAL = new wxImage( THIS->Scale( width, height, quality ) );
+  OUTPUT:
+    RETVAL
+
+#else
+
 wxImage*
 wxImage::Scale( width, height )
     int width
@@ -592,6 +622,8 @@ wxImage::Scale( width, height )
     RETVAL = new wxImage( THIS->Scale( width, height ) );
   OUTPUT:
     RETVAL
+    
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
@@ -663,6 +695,37 @@ wxImage::SetPalette( palette )
   CODE:
     THIS->SetPalette( *palette );
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+void
+wxImage::SetRGB( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n_n, SetRGBpixel )
+        MATCH_REDISP( wxPliOvl_wrec_n_n_n, SetRGBrect )
+    END_OVERLOAD( Wx::Image::SetRGB )
+    
+void
+wxImage::SetRGBpixel( x, y, red, green, blue )
+    int x
+    int y
+    unsigned char red
+    unsigned char green
+    unsigned char blue
+  CODE:
+    THIS->SetRGB( x, y, red, green, blue  );
+    
+void
+wxImage::SetRGBrect( rect, red, green, blue )
+    wxRect* rect
+    unsigned char red
+    unsigned char green
+    unsigned char blue
+  CODE:
+    THIS->SetRGB( *rect, red, green, blue  );    
+
+#else
+
 void
 wxImage::SetRGB( x, y, red, green, blue )
     int x
@@ -670,6 +733,42 @@ wxImage::SetRGB( x, y, red, green, blue )
     unsigned char red
     unsigned char green
     unsigned char blue
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+wxImage*
+wxImage::Blur( blurradius )
+    int blurradius
+  CODE:
+    RETVAL = new wxImage( THIS->Blur( blurradius ) );
+  OUTPUT:
+    RETVAL
+
+wxImage*
+wxImage::BlurHorizontal( blurradius )
+    int blurradius
+  CODE:
+    RETVAL = new wxImage( THIS->BlurHorizontal( blurradius ) );
+  OUTPUT:
+    RETVAL
+    
+wxImage*
+wxImage::BlurVertical( blurradius )
+    int blurradius
+  CODE:
+    RETVAL = new wxImage( THIS->BlurVertical( blurradius ) );
+  OUTPUT:
+    RETVAL
+    
+bool
+wxImage::GetOrFindMaskColour(  red, green, blue  )
+    unsigned char* red
+    unsigned char* green
+    unsigned char* blue
+    
+#endif
 
 MODULE=Wx PACKAGE=Wx::ImageHandler
 
