@@ -4,6 +4,9 @@ use strict;
 use base 'Wx::build::MakeMaker::Any_wx_config';
 use Wx::build::Utils qw(write_string);
 
+die "Please set MACOSX_DEPLOYMENT_TARGET to 10.3 or above"
+    if $ENV{MACOSX_DEPLOYMENT_TARGET} < 10.3;
+
 sub configure_core {
   my $this = shift;
   my %config = $this->SUPER::configure_core( @_ );
