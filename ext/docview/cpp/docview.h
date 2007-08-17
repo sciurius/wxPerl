@@ -680,7 +680,7 @@ public:
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
     DEC_V_CBACK_WXSTRING__VOID( MakeNewDocumentName );
 #else
-    bool MakeDefaultName( wxString& );
+    DEC_V_CBACK_BOOL__mWXSTRING( MakeDefaultName );
 #endif
 
     wxString MakeFrameTitle( wxDocument* );

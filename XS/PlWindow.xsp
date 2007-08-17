@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     23/05/2004
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2004-2006 Mattia Barbon
+## Copyright:   (c) 2004-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -110,6 +110,10 @@ public:
 
     DEC_V_CBACK_WXSIZE__VOID_const( DoGetBestSize );
     DEC_V_CBACK_BOOL__VOID_const( AcceptsFocus );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    DEC_V_CBACK_BOOL__VOID_const( AcceptsFocusRecursively );
+#endif
+    DEC_V_CBACK_BOOL__VOID_const( AcceptsFocusFromKeyboard );
     DEC_V_CBACK_VOID__INT_INT_INT_INT( DoMoveWindow );
     DEC_V_CBACK_BOOL__BOOL( Enable );
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
@@ -120,6 +124,10 @@ public:
 
 DEF_V_CBACK_WXSIZE__VOID_const( wxPlWindow, wxWindow, DoGetBestSize );
 DEF_V_CBACK_BOOL__VOID_const( wxPlWindow, wxWindow, AcceptsFocus );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+DEF_V_CBACK_BOOL__VOID_const( wxPlWindow, wxWindow, AcceptsFocusRecursively );
+#endif
+DEF_V_CBACK_BOOL__VOID_const( wxPlWindow, wxWindow, AcceptsFocusFromKeyboard );
 DEF_V_CBACK_VOID__INT_INT_INT_INT( wxPlWindow, wxWindow, DoMoveWindow );
 DEF_V_CBACK_BOOL__BOOL( wxPlWindow, wxWindow, Enable );
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
@@ -148,6 +156,8 @@ wxPlWindow::~wxPlWindow()
 #define GetMaxSize wxWindow::GetMaxSize
 #define GetMinSize wxWindow::GetMinSize
 #define AcceptsFocus wxWindow::AcceptsFocus
+#define AcceptsFocusRecursively wxWindow::AcceptsFocusRecursively
+#define AcceptsFocusFromKeyboard wxWindow::AcceptsFocusFromKeyboard
 %}
 
 %name{Wx::PlWindow} class wxPlWindow {
@@ -177,6 +187,10 @@ wxPlWindow::~wxPlWindow()
     %name{DoMoveWindow} void base_DoMoveWindow( int x, int y, int w, int h );
     %name{Enable} bool base_Enable( bool enable );
     bool AcceptsFocus() const;
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    bool AcceptsFocusRecursively() const;
+#endif
+    bool AcceptsFocusFromKeyboard() const;
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     wxSize GetMaxSize() const;
@@ -198,4 +212,6 @@ new( ... )
 #undef GetMaxSize
 #undef GetMinSize
 #undef AcceptsFocus
+#undef AcceptsFocusRecursively
+#undef AcceptsFocusFromKeyboard
 %}

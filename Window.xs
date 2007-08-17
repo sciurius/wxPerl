@@ -603,6 +603,13 @@ wxWindow::InheritAttributes()
 bool
 wxWindow::IsEnabled()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+bool
+wxWindow::IsThisEnabled()
+
+#endif
+
 void
 wxWindow::IsExposed( ... )
   PPCODE:
