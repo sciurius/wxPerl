@@ -102,6 +102,7 @@
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
 #include <wx/combo.h>
 #include <wx/odcombo.h>
+#include <wx/collpane.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 8, 3 )
 #include <wx/srchctrl.h>
@@ -267,6 +268,9 @@ static wxPliEventDescription evts[] =
 #if WXPERL_W_VERSION_GE( 2, 8, 3 )
     EVT( EVT_SEARCHCTRL_CANCEL_BTN, 3, wxEVT_COMMAND_SEARCHCTRL_CANCEL_BTN )
     EVT( EVT_SEARCHCTRL_SEARCH_BTN, 3, wxEVT_COMMAND_SEARCHCTRL_SEARCH_BTN )
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    EVT( EVT_COLLAPSIBLEPANE_CHANGED, 3, wxEVT_COMMAND_COLLPANE_CHANGED )
 #endif
     { 0, 0, 0 }
 };
@@ -455,6 +459,8 @@ static wxPlINH inherit[] =
 #endif
     I( OwnerDrawnComboBox, ComboCtrl )
     I( PlOwnerDrawnComboBox, OwnerDrawnComboBox )
+    I( GenericCollapsiblePane, Control )
+    I( CollapsiblePane, GenericCollapsiblePane )
 
     I( TaskBarIcon,     EvtHandler )
     I( Process,         EvtHandler )
@@ -619,6 +625,7 @@ static wxPlINH inherit[] =
     I( FileDirPickerEvent, CommandEvent )
     I( FontPickerEvent, CommandEvent )
     I( SetCursorEvent,  Event )
+    I( CollapsiblePaneEvent, CommandEvent )
 
     { 0, 0 }
 };
@@ -782,6 +789,8 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
     r( wxCC_SPECIAL_DCLICK );           // comboctrl
     r( wxCC_STD_BUTTON );               // comboctrl
+    r( wxCP_DEFAULT_STYLE );            // collpasiblepane
+    r( wxCP_NO_TLW_RESIZE );            // collpasiblepane
 #endif
     r( wxCENTER );                      // dialog sizer
     r( wxCENTRE );                      // dialog sizer

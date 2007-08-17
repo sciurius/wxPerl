@@ -1,0 +1,77 @@
+#############################################################################
+## Name:        XS/CollapsiblePane.xsp
+## Purpose:     XS++ for Wx::CollapsiblePane
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     17/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+#include <wx/collpane.h>
+
+%typemap{wxCollapsiblePane*}{simple};
+%typemap{wxCollapsiblePaneEvent*}{simple};
+
+%name{Wx::CollapsiblePaneEvent} class wxCollapsiblePaneEvent
+{
+    wxCollapsiblePaneEvent( wxObject *generator, int id, bool collapsed );
+
+    bool GetCollapsed() const;
+    void SetCollapsed( bool c );
+};
+
+%name{Wx::CollapsiblePane} class wxCollapsiblePane
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::CollapsiblePane::new" )
+%}
+
+    %name{newDefault} wxCollapsiblePane()
+        %code{% RETVAL = new wxCollapsiblePane();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxCollapsiblePane( wxWindow *parent,
+                                      wxWindowID id,
+                                      const wxString& label,
+                                      const wxPoint& pos = wxDefaultPosition,
+                                      const wxSize& size = wxDefaultSize,
+                                      long style = wxCP_DEFAULT_STYLE,
+                                      const wxValidator& val = wxDefaultValidatorPtr,
+                                      const wxString& name = wxCollapsiblePaneNameStr )
+        %code{% RETVAL = new wxCollapsiblePane( parent, id, label, pos, size,
+                                                style, *val, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create( wxWindow *parent,
+                 wxWindowID id,
+                 const wxString& label,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxCP_DEFAULT_STYLE,
+                 const wxValidator& val = wxDefaultValidatorPtr,
+                 const wxString& name = wxCollapsiblePaneNameStr );
+
+    void Collapse( bool collapse = true );
+    void Expand();
+
+    bool IsCollapsed() const;
+    bool IsExpanded() const;
+
+    wxWindow* GetPane() const;
+};
+
+#endif
