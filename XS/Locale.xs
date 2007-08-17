@@ -231,6 +231,8 @@ FindLanguageInfo( name )
     RETVAL = wxLocale::FindLanguageInfo( name );
   OUTPUT:
     RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 bool
 wxLocale::Init( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
@@ -244,6 +246,8 @@ GetLanguageInfo( language )
     RETVAL = wxLocale::GetLanguageInfo( language );
   OUTPUT:
     RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
