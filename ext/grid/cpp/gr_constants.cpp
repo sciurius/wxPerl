@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     04/12/2001
 // RCS-ID:      $Id$
-// Copyright:   (c) 2001-2004 Mattia Barbon
+// Copyright:   (c) 2001-2004, 2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -25,24 +25,6 @@ double grid_constant( const char* name, int arg )
 
     switch( fl )
     {
-    case 'E':
-        r( wxEVT_GRID_CELL_LEFT_CLICK );
-        r( wxEVT_GRID_CELL_RIGHT_CLICK );
-        r( wxEVT_GRID_CELL_LEFT_DCLICK );
-        r( wxEVT_GRID_CELL_RIGHT_DCLICK );
-        r( wxEVT_GRID_LABEL_LEFT_CLICK );
-        r( wxEVT_GRID_LABEL_RIGHT_CLICK );
-        r( wxEVT_GRID_LABEL_LEFT_DCLICK );
-        r( wxEVT_GRID_LABEL_RIGHT_DCLICK );
-        r( wxEVT_GRID_ROW_SIZE );
-        r( wxEVT_GRID_COL_SIZE );
-        r( wxEVT_GRID_RANGE_SELECT );
-        r( wxEVT_GRID_CELL_CHANGE );
-        r( wxEVT_GRID_SELECT_CELL );
-        r( wxEVT_GRID_EDITOR_SHOWN );
-        r( wxEVT_GRID_EDITOR_HIDDEN );
-        r( wxEVT_GRID_EDITOR_CREATED );
-        break;
     case 'G':
         r( wxGRIDTABLE_REQUEST_VIEW_GET_VALUES );
         r( wxGRIDTABLE_REQUEST_VIEW_SEND_VALUES );
