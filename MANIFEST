@@ -103,6 +103,7 @@ XS/App.xs
 XS/ArtProvider.xsp
 XS/Bitmap.xs
 XS/BitmapButton.xs
+XS/BitmapComboBox.xsp
 XS/BookCtrl.xsp
 XS/Brush.xs
 XS/Button.xs

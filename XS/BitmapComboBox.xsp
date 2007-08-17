@@ -1,0 +1,103 @@
+#############################################################################
+## Name:        XS/BitmapComboBox.xsp
+## Purpose:     XS++ for Wx::BitmapComboBox
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     18/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+#include <wx/bmpcbox.h>
+
+#if !wxGENERIC_BITMAPCOMBOBOX
+#error Must check the code below applies to non-generic version
+#endif
+
+%typemap{wxBitmapComboBox*}{simple};
+
+%name{Wx::BitmapComboBox} class wxBitmapComboBox
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::BitmapComboBox::new" )
+%}
+
+    %name{newDefault} wxBitmapComboBox()
+        %code{% RETVAL = new wxBitmapComboBox();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxBitmapComboBox( wxWindow *parent,
+                                     wxWindowID id,
+                                     const wxString& value,
+                                     const wxPoint& pos = wxDefaultPosition,
+                                     const wxSize& size = wxDefaultSize,
+                                     const wxArrayString& choices,
+                                     long style = 0,
+                                     const wxValidator& val = wxDefaultValidatorPtr,
+                                     const wxString& name = wxBitmapComboBoxNameStr )
+        %code{% RETVAL = new wxBitmapComboBox( parent, id, value, pos, size,
+                                                choices, style, *val, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create( wxWindow *parent,
+                 wxWindowID id,
+                 const wxString& value,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 const wxArrayString& choices,
+                 long style = 0,
+                 const wxValidator& val = wxDefaultValidatorPtr,
+                 const wxString& name = wxBitmapComboBoxNameStr );
+
+%{
+void
+wxBitmapComboBox::Append( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_wbmp_s, AppendData )
+        MATCH_REDISP( wxPliOvl_s_wbmp, AppendString )
+    END_OVERLOAD( Wx::BitmapComboBox::Append )
+%}
+
+    %name{AppendString} void Append( const wxString& item,
+                                     const wxBitmap& bitmap = wxNullBitmapPtr );
+    %name{AppendData} void Append( const wxString& item,
+                                   const wxBitmap& bitmap,
+                                   wxPliUserDataCD* data );
+%{
+void
+wxBitmapComboBox::Insert( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_wbmp_n_s, InsertData )
+        MATCH_REDISP( wxPliOvl_s_wbmp_n, InsertString )
+    END_OVERLOAD( Wx::BitmapComboBox::Insert )
+%}
+
+    %name{InsertString} void Insert( const wxString& item,
+                                     const wxBitmap& bitmap,
+                                     unsigned int pos );
+    %name{InsertData} void Insert( const wxString& item,
+                                   const wxBitmap& bitmap,
+                                   unsigned int pos,
+                                   wxPliUserDataCD* data );
+
+    wxBitmap GetItemBitmap( unsigned int n ) const;
+    void SetItemBitmap( unsigned int n, const wxBitmap& bitmap );
+    wxSize GetBitmapSize() const;
+};
+
+#endif

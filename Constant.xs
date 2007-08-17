@@ -449,7 +449,9 @@ static wxPlINH inherit[] =
     I( FontPickerCtrl,  PickerBase )
 
     I( ComboCtrlBase,   Control )
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     I( PlComboPopup,    ComboPopup )
+#endif
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
     I( GenericComboCtrl,ComboCtrlBase )
     I( ComboCtrl,       GenericComboCtrl )
@@ -459,6 +461,7 @@ static wxPlINH inherit[] =
 #endif
     I( OwnerDrawnComboBox, ComboCtrl )
     I( PlOwnerDrawnComboBox, OwnerDrawnComboBox )
+    I( BitmapComboBox,  OwnerDrawnComboBox )
     I( GenericCollapsiblePane, Control )
     I( CollapsiblePane, GenericCollapsiblePane )
 
