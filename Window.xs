@@ -44,6 +44,16 @@ wxGetMousePosition()
   OUTPUT:
     RETVAL
 
+void
+wxGetMousePositionXY()
+  PREINIT:
+    int x, y;
+  PPCODE:
+    ::wxGetMousePosition( &x, &y );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( x ) );
+    PUSHs( newSViv( y ) );
+
 wxWindow*
 wxGetTopLevelParent( window )
     wxWindow* window
