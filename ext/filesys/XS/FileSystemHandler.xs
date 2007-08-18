@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     28/04/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2006 Mattia Barbon
+## Copyright:   (c) 2001-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -103,6 +103,29 @@ AddBinaryFile( name, scalar )
     char* data = SvPV( scalar, len );
   CODE:
     wxMemoryFSHandler::AddFile( name, data, len );
+
+#if WXPERL_W_VERSION_GE( 2, 8, 5 )
+
+void
+AddTextFileWithMimeType( name, string, mimetype )
+    wxString name
+    wxString string
+    wxString mimetype
+  CODE:
+    wxMemoryFSHandler::AddFileWithMimeType( name, string, mimetype );
+
+void
+AddBinaryFileWithMimeType( name, scalar, mimetype )
+    wxString name
+    SV* scalar
+    wxString mimetype
+  PREINIT:
+    STRLEN len;
+    char* data = SvPV( scalar, len );
+  CODE:
+    wxMemoryFSHandler::AddFileWithMimeType( name, data, len, mimetype );
+
+#endif
 
 void
 RemoveFile( name )
