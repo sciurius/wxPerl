@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     06/09/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
+## Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,11 +14,28 @@
 
 #include <wx/menu.h>
 #include "cpp/mdi.h"
+#include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::MDIParentFrame
 
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::MDIParentFrame::new" )
+
 wxMDIParentFrame*
-wxMDIParentFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE|wxVSCROLL|wxHSCROLL, name = wxFrameNameStr )
+newDefault( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxPliMDIParentFrame( CLASS );
+  OUTPUT: RETVAL
+
+wxMDIParentFrame*
+newFull( CLASS, parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE|wxVSCROLL|wxHSCROLL, name = wxFrameNameStr )
+    PlClassName CLASS
     wxWindow* parent
     wxWindowID id
     wxString title
@@ -31,6 +48,16 @@ wxMDIParentFrame::new( parent, id, title, pos = wxDefaultPosition, size = wxDefa
     RETVAL->Create( parent, id, title, pos, size, style, name );
   OUTPUT:
     RETVAL
+
+bool
+wxMDIParentFrame::Create( parent, id, title, pos = wxDefaultPosition, size = wxDefaultSize, style = wxDEFAULT_FRAME_STYLE|wxVSCROLL|wxHSCROLL, name = wxFrameNameStr )
+    wxWindow* parent
+    wxWindowID id
+    wxString title
+    wxPoint pos
+    wxSize size
+    long style
+    wxString name
 
 void
 wxMDIParentFrame::ActivateNext()
