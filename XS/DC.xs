@@ -172,11 +172,10 @@ wxDC::DrawLines( list, xoffset = 0, yoffset = 0 )
     wxCoord yoffset
   PREINIT:
     wxList points;
-    wxPoint* pts;
+    wxPliArrayGuard<wxPoint> pts;
   CODE:
-    wxPli_av_2_pointlist( aTHX_ list, &points, &pts );
+    wxPli_av_2_pointlist( aTHX_ list, &points, pts.lvalue() );
     THIS->DrawLines( &points, xoffset, yoffset );
-    delete [] pts;
 
 void
 wxDC::DrawObject( object )
@@ -195,12 +194,10 @@ wxDC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
     int fill_style
   PREINIT:
     wxList points;
-    wxPoint* pts;
+    wxPliArrayGuard<wxPoint> pts;
   CODE:
-    wxPli_av_2_pointlist( aTHX_ list, &points, &pts );
+    wxPli_av_2_pointlist( aTHX_ list, &points, pts.lvalue() );
     THIS->DrawPolygon( &points, xoffset, yoffset, fill_style );
-    delete [] pts;
-
 
 void
 wxDC::DrawRectangle( x, y, width, height )
@@ -229,11 +226,10 @@ wxDC::DrawSpline( list )
     SV* list
   PREINIT:
     wxList points;
-    wxPoint* pts;
+    wxPliArrayGuard<wxPoint> pts;
   CODE:
-    wxPli_av_2_pointlist( aTHX_ list, &points, &pts );
+    wxPli_av_2_pointlist( aTHX_ list, &points, pts.lvalue() );
     THIS->DrawSpline( &points );
-    delete [] pts;
 
 void
 wxDC::DrawText( text, x, y )
