@@ -57,6 +57,11 @@
 %typemap{wxIcon}{reference};
 %typemap{wxFont}{reference};
 %typemap{wxFont*}{simple};
+%typemap{wxAnimation*}{simple};
+%typemap{wxAnimation&}{reference};
+%typemap{const wxAnimation&}{reference};
+%typemap{wxAnimationType}{simple};
+
 %typemap{wxDC*}{simple};
 %typemap{wxDC&}{reference};
 %typemap{const wxDC&}{reference};
@@ -97,3 +102,7 @@
 %typemap{const wxFont&}{reference};
 
 %typemap{wxImageList*}{simple};
+%typemap{wxImage*}{simple};
+%typemap{wxImage&}{reference};
+
+%typemap{wxPliInputStream}{simple};

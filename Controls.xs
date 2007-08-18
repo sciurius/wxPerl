@@ -30,6 +30,7 @@
 #define wxBLACKPtr (wxColour*)wxBLACK
 #define wxNORMAL_FONTPtr (wxFont*)wxNORMAL_FONT
 #define wxNullBitmapPtr (wxBitmap*) &wxNullBitmap
+#define wxNullAnimationPtr (wxAnimation*) &wxNullAnimation
 
 #undef THIS
 
@@ -53,6 +54,7 @@ wxControl::Command( event )
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ControlWithItems.xsp |
 
 INCLUDE: XS/BitmapButton.xs
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/AnimationCtrl.xsp |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/EditableListBox.xsp |
 

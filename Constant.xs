@@ -103,6 +103,7 @@
 #include <wx/combo.h>
 #include <wx/odcombo.h>
 #include <wx/collpane.h>
+#include <wx/animate.h>
 #endif
 #if WXPERL_W_VERSION_GE( 2, 8, 3 )
 #include <wx/srchctrl.h>
@@ -384,10 +385,14 @@ static wxPlINH inherit[] =
     I( SingleChoiceDialog, Dialog )
     I( MultiChoiceDialog, Dialog )
     I( PropertySheetDialog, Dialog )
+    I( AnimationCtrl,   Control )
 
     I( Validator,       EvtHandler )
     I( PlValidator,     Validator )
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    I( Animation,       GDIObject )
+#endif
     I( Font,            GDIObject )
     I( Region,          GDIObject )
     I( Bitmap,          GDIObject )
@@ -700,6 +705,14 @@ static double constant( const char *name, int arg )
     r( wxAsIs );                        // layout constraints
 
     r( wxALWAYS_SHOW_SB );              // window
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxANIMATION_TYPE_ANI );          // animation
+    r( wxANIMATION_TYPE_ANY );          // animation
+    r( wxANIMATION_TYPE_GIF );          // animation
+    r( wxAC_DEFAULT_STYLE );            // animationctrl
+    r( wxAC_NO_AUTORESIZE );            // animationctrl
+#endif
     break;
   case 'B':
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
@@ -2551,6 +2564,9 @@ void SetConstantsOnce()
     wxPli_make_const( "wxDefaultPosition" );    // misc
     wxPli_make_const( "wxDefaultSize" );        // misc
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    wxPli_make_const( "wxNullAnimation" );      // animation
+#endif
     wxPli_make_const( "wxNullBitmap" );         // bitmap
     wxPli_make_const( "wxNullIcon" );           // icon
     wxPli_make_const( "wxNullColour" );         // color colour
@@ -2699,6 +2715,9 @@ void SetConstants()
         wxPli_set_const( "wxNull" #name, "Wx::" #name, \
                          new wx##name( wxNull##name ) )
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    DEFINE_NULL( Animation );
+#endif
     DEFINE_NULL( Bitmap );
     DEFINE_NULL( Icon );
     DEFINE_NULL( Colour );

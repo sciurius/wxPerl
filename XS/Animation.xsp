@@ -1,0 +1,49 @@
+#############################################################################
+## Name:        XS/Animation.xsp
+## Purpose:     XS+++ for Wx::Animation
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     18/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+#include <wx/animate.h>
+
+%name{Wx::Animation} class wxAnimation
+{
+    wxAnimation();
+##    wxAnimation( const wxString& name,
+##                 wxAnimationType type = wxANIMATION_TYPE_ANY );
+
+%{
+static void
+wxAnimation::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+## // thread OK
+    ~wxAnimation()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::Bitmap", THIS, ST(0) );
+                delete THIS;
+                %};
+
+    bool IsOk() const;
+    int GetDelay( unsigned int frame );
+    unsigned int GetFrameCount();
+    wxImage& GetFrame( unsigned int frame );
+    wxSize GetSize() const;
+
+    bool LoadFile( const wxString& name,
+                   wxAnimationType type = wxANIMATION_TYPE_ANY );
+    bool Load( wxPliInputStream stream,
+               wxAnimationType type = wxANIMATION_TYPE_ANY );
+};
+
+#endif

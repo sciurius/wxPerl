@@ -99,6 +99,8 @@ Wx.xs
 
 XS/AboutDialog.xsp
 XS/Accelerators.xs
+XS/Animation.xsp
+XS/AnimationCtrl.xsp
 XS/App.xs
 XS/ArtProvider.xsp
 XS/Bitmap.xs

@@ -22,6 +22,7 @@ WXPLI_BOOT_ONCE(Wx_GDI);
 
 MODULE=Wx_GDI
 
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Animation.xsp |
 INCLUDE: XS/Colour.xs
 INCLUDE: XS/Font.xs
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ImageList.xs |
