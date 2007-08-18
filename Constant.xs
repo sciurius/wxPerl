@@ -379,6 +379,7 @@ static wxPlINH inherit[] =
     I( FileDialog,      Dialog )
 #endif
     I( TextEntryDialog, Dialog )
+    I( PasswordEntryDialog, TextEntryDialog )
     I( MessageDialog,   Dialog )
     I( GenericMessageDialog, MessageDialog )
     I( ProgressDialog,  Dialog )
