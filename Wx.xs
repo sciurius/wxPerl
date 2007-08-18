@@ -421,6 +421,7 @@ MODULE=Wx PACKAGE=Wx
 
 #!irrelevant class wxArray
 #!irrelevant class wxArrayString
+#!irrelevant class wxBrushList
 #!irrelevant class wxClientData
 #!irrelevant class wxClientDataContainer
 #!irrelevant class wxCondition
@@ -439,6 +440,7 @@ MODULE=Wx PACKAGE=Wx
 #!irrelevant class wxFileOutputStream
 #!irrelevant class wxFileStream
 #!irrelevant class wxFilterClassFactory
+#!irrelevant class wxFontList
 #!irrelevant class wxHashMap
 #!irrelevant class wxHashSet
 #!irrelevant class wxHashTable
@@ -450,6 +452,8 @@ MODULE=Wx PACKAGE=Wx
 #!irrelevant class wxMutexLocker
 #!irrelevant class wxNode
 #!irrelevant class wxObjectRefData
+#!irrelevant class wxPathList
+#!irrelevant class wxPenList
 #!irrelevant class wxProtocol
 #!irrelevant class wxRecursionGuard
 #!irrelevant class wxRecursionGuardFlag
@@ -470,6 +474,7 @@ MODULE=Wx PACKAGE=Wx
 #!equivalent class wxArchiveIterator to Perl modules Archive::Any, Archive::Zip, Archive::Tar
 #!equivalent class wxArchiveNotifier to Perl modules Archive::Any, Archive::Zip, Archive::Tar
 #!equivalent class wxArchiveOutputStream to Perl modules Archive::Any, Archive::Zip, Archive::Tar
+#!equivalent class wxAutomationObject to perl module Win32::OLE
 
 #!equivalent class wxCSConv to Perl module Encode
 #!equivalent class wxEncodingConverter to Perl module Encode
@@ -486,6 +491,7 @@ MODULE=Wx PACKAGE=Wx
 #!equivalent class wxDbColFor to Perl module DBI
 #!equivalent class wxDbColInf to Perl module DBI
 #!equivalent class wxDbConnectInf to Perl module DBI
+#!irrelevant class wxDbGridColInfo
 #!equivalent class wxDbIdxDef to Perl module DBI
 #!equivalent class wxDbInf to Perl module DBI
 #!equivalent class wxDbTable to Perl module DBI
@@ -508,6 +514,8 @@ MODULE=Wx PACKAGE=Wx
 
 #!equivalent class wxTempFile to Perl module File::Temp
 #!equivalent class wxTempFileOutputStream to Perl module File::Temp
+
+#!equivalent class wxTextValidator to Perl module Wx::Perl::TextValidator
 
 #!equivalent class wxURI to Perl module URI
 #!equivalent class wxURL to Perl module URI::URL
@@ -542,3 +550,10 @@ MODULE=Wx PACKAGE=Wx
 #!equivalent class wxTextInputStream to Perl input/output
 #!equivalent class wxTextOutputStream to Perl input/output
 
+#!equivalent class wxMetafile to Perl module Wx::Metafile
+
+#!equivalent class wxDialUpEvent to Perl module Wx::DialUpEvent
+#!equivalent class wxDialUpManager to Perl module Wx::DialUpManager      
+
+#!equivalent class wxGLCanvas to Perl module Wx::GLCanvas
+#!equivalent class wxGLContext to Perl module Wx::GLCanvas
