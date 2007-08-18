@@ -200,20 +200,25 @@ package Wx::Object;    # likewise
 #
 # overloading for Wx::TreeItemId
 #
+package Wx;
+
+sub _string { overload::StrVal( $_[0] ) }
+sub _number { require Scalar::Util; Scalar::Util::refaddr( $_[0] ) }
+
 package Wx::TreeItemId;
 
 use overload '<=>'      => \&tiid_spaceship,
              'bool'     => sub { $_[0]->IsOk },
-             '""'       => sub { $_[0] },
-             '0+'       => sub { $_[0] },
+             '""'       => \&Wx::_string,
+             '0+'       => \&Wx::_number,
              'fallback' => 1;
 
 package Wx::Font;
 
 use overload '<=>'      => \&font_spaceship,
-             'bool'     => sub { $_[0]->Ok },
-             '""'       => sub { $_[0] },
-             '0+'       => sub { $_[0] },
+             'bool'     => sub { $_[0]->IsOk },
+             '""'       => \&Wx::_string,
+             '0+'       => \&Wx::_number,
              'fallback' => 1;
 
 #
