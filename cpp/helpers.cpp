@@ -755,6 +755,7 @@ public:
 
     rvalue create( size_t n ) const { return new A[n]; }
     void assign( lvalue lv, rvalue rv ) const { *lv = rv; }
+    void free( rvalue rv ) const { delete[] rv; }
 };
 
 template<class F, class C>
@@ -776,7 +777,12 @@ int wxPli_av_2_thingarray( pTHX_ SV* avref, typename C::lvalue array,
     for( int i = 0; i < n; ++i )
     {
         SV* t = *av_fetch( av, i, 0 );
-        convertf( aTHX_ arr[i], t );
+        if( !convertf( aTHX_ arr[i], t ) )
+        {
+            thingy.free( arr );
+            croak( "invalid conversion for array element" );
+            return 0;
+        }
     }
 
     thingy.assign( array, arr );
@@ -787,7 +793,11 @@ int wxPli_av_2_thingarray( pTHX_ SV* avref, typename C::lvalue array,
 class convert_sv
 {
 public:
-    void operator()( pTHX_ SV*& dest, SV* src ) const { dest = src; }
+    bool operator()( pTHX_ SV*& dest, SV* src ) const
+    {
+        dest = src;
+        return true;
+    }
 };
 
 int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array )
@@ -799,9 +809,10 @@ int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array )
 class convert_udatacd
 {
 public:
-    void operator()( pTHX_ wxPliUserDataCD*& dest, SV* src ) const
+    bool operator()( pTHX_ wxPliUserDataCD*& dest, SV* src ) const
     {
         dest = SvOK( src ) ? new wxPliUserDataCD( src ) : NULL;
+        return true;
     }
 };
 
@@ -814,9 +825,10 @@ int wxPli_av_2_userdatacdarray( pTHX_ SV* avref, wxPliUserDataCD*** array )
 class convert_uchar
 {
 public:
-    void operator()( pTHX_ unsigned char& dest, SV* src ) const
+    bool operator()( pTHX_ unsigned char& dest, SV* src ) const
     {
         dest = (unsigned char) SvUV( src );
+        return true;
     }
 };
 
@@ -829,9 +841,10 @@ int wxPli_av_2_uchararray( pTHX_ SV* avref, unsigned char** array )
 class convert_int
 {
 public:
-    void operator()( pTHX_ int& dest, SV* src ) const
+    bool operator()( pTHX_ int& dest, SV* src ) const
     {
         dest = (int) SvIV( src );
+        return true;
     }
 };
 
@@ -876,9 +889,10 @@ wxWindowID wxPli_get_wxwindowid( pTHX_ SV* var )
 class convert_wxstring
 {
 public:
-    void operator()( pTHX_ wxString& dest, SV* src ) const
+    bool operator()( pTHX_ wxString& dest, SV* src ) const
     {
         WXSTRING_INPUT( dest, const char*, src );
+        return true;
     }
 };
 
@@ -904,6 +918,7 @@ public:
         return *m_value;
     }
     void assign( lvalue, rvalue ) const { }
+    void free( rvalue ) const {}
 private:
     A* m_value;
 };
@@ -920,42 +935,6 @@ int wxPli_av_2_arrayint( pTHX_ SV* avref, wxArrayInt* array )
 {
     return wxPli_av_2_thingarray( aTHX_ avref, array, convert_int(),
                                   wxarray_thingy<wxArrayInt, int, 0>( array ) );
-}
-
-//Klaas Hartmann: takes an array reference with an even number of numbers
-//and puts the appropriate number of points in points
-int wxPli_av_2_wxPoint2DDouble( pTHX_ SV* avref, wxPoint2DDouble** points)
-{
-    AV* av;
-
-    if( !SvROK( avref ) || 
-        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
-    {
-        croak( "the value is not an array reference" );
-        return 0;
-    }
-    
-    int n = av_len( av ) + 1;
-
-    if (n % 2 != 0) 
-    {
-        croak( "the array must contain an even number of points" );
-    }
-
-    n = n / 2;
-
-    *points = new wxPoint2DDouble[n];
-
-    for( int i = 0; i < n; i++ )
-    {
-        double x = SvNV(*av_fetch( av, 2*i, 0 ));
-        double y = SvNV(*av_fetch( av, 2*i+1, 0 ));
-        (*points)[i].m_x = x;
-        (*points)[i].m_y = y;
-
-    }
-
-    return n;
 }
 
 const wxChar wxPliEmptyString[] = wxT("");
@@ -985,11 +964,12 @@ char* my_strdup( const char* s, size_t len )
 class convert_charp
 {
 public:
-    void operator()( pTHX_ char*& dest, SV* src ) const
+    bool operator()( pTHX_ char*& dest, SV* src ) const
     {
         STRLEN len;
         char* t = SvPV( src, len );
         dest = my_strdup( t, len );
+        return true;
     }
 };
 
@@ -1002,11 +982,12 @@ int wxPli_av_2_charparray( pTHX_ SV* avref, char*** array )
 class convert_wxcharp
 {
 public:
-    void operator()( pTHX_ wxChar*& dest, SV* src ) const
+    bool operator()( pTHX_ wxChar*& dest, SV* src ) const
     {
         wxString str;
         WXSTRING_INPUT( str, wxString, src );
         dest = my_strdup( (const wxChar*)str.c_str(), str.length() );
+        return true;
     }
 };
 
@@ -1134,14 +1115,11 @@ const char* wxPli_get_class( pTHX_ SV* ref )
     return ret;
 }
 
-wxPoint wxPli_sv_2_wxpoint( pTHX_ SV* scalar )
+template<class R, class E, class F>
+R wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, const F& convertf,
+                           const char* klass, bool* ispoint )
 {
-    return wxPli_sv_2_wxpoint_test( aTHX_ scalar, 0 );
-}
-
-wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
-{
-    static wxPoint dummy;
+    static R dummy;
 
     if( ispoint )
         *ispoint = true;
@@ -1150,9 +1128,9 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
     {
         SV* ref = SvRV( scalar );
         
-        if( sv_derived_from( scalar, CHAR_P "Wx::Point" ) ) 
+        if( sv_derived_from( scalar, CHAR_P klass ) ) 
         {
-            return *INT2PTR( wxPoint*, SvIV( ref ) );
+            return *INT2PTR( R*, SvIV( ref ) );
         }
         else if( SvTYPE( ref ) == SVt_PVAV )
         {
@@ -1172,10 +1150,11 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
             }
             else
             {
-                int x = SvIV( *av_fetch( av, 0, 0 ) );
-                int y = SvIV( *av_fetch( av, 1, 0 ) );
+                E x, y;
+                convertf( aTHX_ x, *av_fetch( av, 0, 0 ) );
+                convertf( aTHX_ y, *av_fetch( av, 1, 0 ) );
                 
-                return wxPoint( x, y );
+                return R( x, y );
             }
         }
     }
@@ -1191,6 +1170,18 @@ wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
     }
 
     return dummy;
+}
+
+wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
+{
+    return wxPli_sv_2_wxpoint_test<wxPoint, int, convert_int>
+               ( aTHX_ scalar, convert_int(), "Wx::Point", ispoint );
+}
+
+wxPoint wxPli_sv_2_wxpoint( pTHX_ SV* scalar )
+{
+    return wxPli_sv_2_wxpoint_test<wxPoint, int, convert_int>
+               ( aTHX_ scalar, convert_int(), "Wx::Point", 0 );
 }
 
 template<class T>
@@ -1252,45 +1243,56 @@ wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* sv )
         croak( "You must supply either a number or a 1-character string" );
     }
 
-    return wxKeyCode( 0 ); // yust to silence a possible warning
+    return wxKeyCode( 0 ); // just to silence a possible warning
 }
 
-int wxPli_av_2_pointarray( pTHX_ SV* arr, wxPoint** points )
+class convert_wxpoint
 {
-    *points = 0;
-
-    if( !SvROK( arr ) || SvTYPE( SvRV( arr ) ) != SVt_PVAV )
+public:
+    bool operator()( pTHX_ wxPoint& dest, SV* src ) const
     {
-        croak( "variable is not an array reference" );
+        bool ispoint;
+        dest = wxPli_sv_2_wxpoint_test<wxPoint, int, convert_int>
+                   ( aTHX_ src, convert_int(), "Wx::Point", &ispoint );
+        return ispoint;
     }
+};
 
-    AV* array = (AV*) SvRV( arr );
-    size_t items = av_len( array ) + 1, i;
+int wxPli_av_2_pointarray( pTHX_ SV* avref, wxPoint** array )
+{
+    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxpoint(),
+                                  array_thingy<wxPoint>() );
+}
 
-    if( items == 0 )
-        return 0;
-
-    wxPoint* tmp = new wxPoint[ items ];
-    for( i = 0; i < items; ++i )
+class convert_double
+{
+public:
+    bool operator()( pTHX_ double& dest, SV* src ) const
     {
-        SV* scalar = *av_fetch( array, i, 0 );
-
-        if( SvROK( scalar ) ) 
-        {
-            bool isPoint;
-
-            tmp[ i ] = wxPli_sv_2_wxpoint_test( aTHX_ scalar, &isPoint );
-            if( !isPoint )
-            {
-                delete [] tmp;
-                croak( "variable is not of type Wx::Point" );
-                return 0;
-            }
-        }
+        dest = (double) SvNV( src );
+        return true;
     }
+};
 
-    *points = tmp;
-    return items;
+class convert_wxpoint2ddouble
+{
+public:
+    bool operator()( pTHX_ wxPoint2DDouble& dest, SV* src ) const
+    {
+        bool ispoint;
+        dest = wxPli_sv_2_wxpoint_test<wxPoint2DDouble, double,
+                                       convert_double>
+                   ( aTHX_ src, convert_double(), "Wx::Point2DDouble",
+                     &ispoint );
+        return ispoint;
+    }
+};
+
+int wxPli_av_2_point2ddoublearray( pTHX_ SV* avref, wxPoint2DDouble** array )
+{
+    return wxPli_av_2_thingarray( aTHX_ avref, array,
+                                  convert_wxpoint2ddouble(),
+                                  array_thingy<wxPoint2DDouble>() );
 }
 
 int wxPli_av_2_pointlist( pTHX_ SV* arr, wxList *points, wxPoint** tmp )
@@ -1339,8 +1341,8 @@ int wxPli_av_2_pointlist( pTHX_ SV* arr, wxList *points, wxPoint** tmp )
                     int x = SvIV( *av_fetch( av, 0, 0 ) );
                     int y = SvIV( *av_fetch( av, 1, 0 ) );
 
-                    (*tmp)[ used ] = wxPoint( x, y );
-                    points->Append( (wxObject*)(*tmp) + used );
+                    (*tmp)[used] = wxPoint( x, y );
+                    points->Append( reinterpret_cast<wxObject*>( *tmp + used ) );
                     ++used;
                     continue;
                 }

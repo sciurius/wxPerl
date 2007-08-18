@@ -220,7 +220,6 @@ int FUNCPTR( wxPli_av_2_intarray )( pTHX_ SV* avref, int** array );
 int wxPli_av_2_userdatacdarray( pTHX_ SV* avref, wxPliUserDataCD*** array );
 int FUNCPTR( wxPli_av_2_arraystring )( pTHX_ SV* avref, wxArrayString* array );
 int FUNCPTR( wxPli_av_2_arrayint )( pTHX_ SV* avref, wxArrayInt* array );
-int wxPli_av_2_wxPoint2DDouble( pTHX_ SV* avref, wxPoint2DDouble** points);
 
 // pushes the elements of the array into the stack
 // the caller _MUST_ call PUTBACK; before the function
@@ -283,6 +282,33 @@ wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 
 int wxPli_av_2_pointlist( pTHX_ SV* array, wxList *points, wxPoint** tmp );
 int wxPli_av_2_pointarray( pTHX_ SV* array, wxPoint** points );
+int wxPli_av_2_point2ddoublearray( pTHX_ SV* array, wxPoint2DDouble** points );
+
+template<class E>
+class wxPliArrayGuard
+{
+private:
+    E* m_array;
+public:
+    wxPliArrayGuard( E* els = NULL ) : m_array( els ) {}
+
+    ~wxPliArrayGuard()
+    {
+        delete[] m_array;
+    }
+
+    E** lvalue() { return &m_array; }
+    E* rvalue() { return m_array; }
+    operator E*() { return m_array; }
+
+    E* disarm()
+    {
+        E* oldvalue = m_array;
+        m_array = NULL;
+
+        return oldvalue;
+    }
+};
 
 // thread helpers
 #if wxPERL_USE_THREADS
