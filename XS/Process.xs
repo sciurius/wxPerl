@@ -68,12 +68,21 @@ wxProcess::IsInputAvailable()
 bool
 wxProcess::IsInputOpened()
 
+#if WXPERL_W_VERSION_LT( 2, 5, 4 )
+#define wxKILL_NOCHILDREN 0
+#endif
+
 wxKillError
-Kill( pid, signal = wxSIGNONE )
+Kill( pid, signal = wxSIGNONE, flags = wxKILL_NOCHILDREN )
     int pid
     wxSignal signal
+    int flags
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+    RETVAL = wxProcess::Kill( pid, signal, flags );
+#else
     RETVAL = wxProcess::Kill( pid, signal );
+#endif
   OUTPUT:
     RETVAL
 

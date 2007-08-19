@@ -88,7 +88,7 @@ sub tests {
   my $list = Wx::ListBox->new( $this, -1 );
   my $combo = Wx::ComboBox->new( $this, -1, 'foo' );
   my $choice = Wx::Choice->new( $this, -1 );
-  my $checklist = Wx::CheckListBox->new( $this, -1 );
+  my $checklist = Wx::CheckListBox->new( $this, -1, [-1, -1], [-1, -1], [1] );
   my $odncombo = undef;
 
   if( defined &Wx::PlOwnerDrawnComboBox::new ) {
@@ -114,6 +114,8 @@ sub tests {
       skip( "wxGTK has bugs in versions <= 2.3.3", 8 )
         if Wx::wxGTK && Wx::wxVERSION < 2.003003 &&
            ( $name->isa( 'Wx::ListBox' ) || $name->isa( 'Wx::Choice' ) );
+
+      $list->Clear;
 
       # diag "starting tests for $name";
       my $data = 'Foo';
@@ -149,9 +151,9 @@ sub tests {
       $list->SetClientData( 2, 'foo' );
       ok( $setting, "$name: setting again item data deletes old data" );
       SKIP: {
-        skip "delayed on Mac", 1 if Wx::wxMAC && $list->isa( 'Wx::ListBox' );
         # and hope the control is deleted NOW
         $list->Destroy;
+        skip "delayed on Mac", 1 if Wx::wxMAC && $list->isa( 'Wx::ListBox' );
         ok( $ctrldelete, "$name: deleting the control deletes the data" );
     }
     }

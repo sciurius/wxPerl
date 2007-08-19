@@ -226,7 +226,7 @@ static wxPliEventDescription evts[] =
     EVT( EVT_FONTPICKER_CHANGED, 3, wxEVT_COMMAND_FONTPICKER_CHANGED )
 #endif
     EVT( EVT_MENU_HIGHLIGHT_ALL, 2, wxEVT_MENU_HIGHLIGHT )
-#if defined(__WXMSW__)
+#if defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 8, 0 )
     EVT( EVT_TREE_STATE_IMAGE_CLICK, 3, wxEVT_COMMAND_TREE_STATE_IMAGE_CLICK )
     EVT( EVT_TREE_ITEM_GETTOOLTIP, 3, wxEVT_COMMAND_TREE_ITEM_GETTOOLTIP )
 #endif
@@ -844,6 +844,9 @@ static double constant( const char *name, int arg )
     r( wxCLEAR );                       // dc
     r( wxCOPY );                        // dc
 
+#if WXPERL_W_VERSION_GE( 2, 8, 2 )
+    r( wxCONFIG_USE_SUBDIR );           // config
+#endif
     r( wxCONFIG_USE_LOCAL_FILE );       // config
     r( wxCONFIG_USE_GLOBAL_FILE );      // config
     r( wxCONFIG_USE_RELATIVE_PATH );    // config
@@ -1645,6 +1648,10 @@ static double constant( const char *name, int arg )
     r( wxKILL_ACCESS_DENIED );          // process
     r( wxKILL_NO_PROCESS );             // process
     r( wxKILL_ERROR );                  // process
+#if WXPERL_W_VERSION_GE( 2, 5, 4 )
+    r( wxKILL_NOCHILDREN );             // process
+    r( wxKILL_CHILDREN );               // process
+#endif
     break;
   case 'L':
     r( wxLB_SINGLE );                   // listbox
@@ -2027,7 +2034,10 @@ static double constant( const char *name, int arg )
     r( wxPD_ELAPSED_TIME );             // progressdialog
     r( wxPD_ESTIMATED_TIME );           // progressdialog
     r( wxPD_REMAINING_TIME );           // progressdialog
-    //    r( wxPD_SMOOTH );                   // progressdialog
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    r( wxPD_SMOOTH );                   // progressdialog
+    r( wxPD_CAN_SKIP );                 // progressdialog
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxPOWER_SOCKET  );               // power

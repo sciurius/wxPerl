@@ -24,7 +24,7 @@ my $this = shift->SUPER::new( undef, -1, 'a' );
 my @data = ( [ 'Wx::Button', [ 'a' ] ],
              [ 'Wx::BitmapButton', [ Wx::Bitmap->new( 10, 10 ) ] ],
              [ 'Wx::CheckBox', [ 'foo' ] ],
-             [ 'Wx::CheckListBox', [] ],
+             [ 'Wx::CheckListBox', [ [-1, -1], [-1, -1], [1] ] ],
              [ 'Wx::Choice', [] ],
              [ 'Wx::ComboBox', [ 'a' ] ],
              [ 'Wx::Gauge', [ 1 ] ],
