@@ -685,13 +685,13 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 
 // wxCoord METH()
 #define DEC_V_CBACK_WXCOORD__VOID_const( METHOD ) \
-    DEC_V_CBACK_ANY__VOID_( wxCoord, METHOD, wxPli_NOCONST )
+    DEC_V_CBACK_ANY__VOID_( wxCoord, METHOD, wxPli_CONST )
 
 #define DEF_V_CBACK_WXCOORD__VOID_const( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_ANY__VOID_( wxCoord, SvIV( ret ), CLASS, return BASE::METHOD(), METHOD, wxPli_NOCONST )
+    DEF_V_CBACK_ANY__VOID_( wxCoord, SvIV( ret ), CLASS, return BASE::METHOD(), METHOD, wxPli_CONST )
 
 #define DEF_V_CBACK_WXCOORD__VOID_const_pure( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_ANY__VOID_( wxCoord, SvIV( ret ), CLASS, return 0, METHOD, wxPli_NOCONST )
+    DEF_V_CBACK_ANY__VOID_( wxCoord, SvIV( ret ), CLASS, return 0, METHOD, wxPli_CONST )
 
 // long METH(int, int)
 #define DEC_V_CBACK_LONG__INT_INT( METHOD ) \
