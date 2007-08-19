@@ -33,13 +33,13 @@
     DEC_V_CBACK_ANY__INT_INT_INT_( wxSize, METHOD, wxPli_CONST )
 
 #define DEF_V_CBACK_WXSIZE__INT_INT_INT( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_ANY__INT_INT_INT_( wxSize, wxPli_sv_2_wxsize( aTHX_ ret ), CLASS, return BASE::METHOD(param1,param2,param3), METHOD, wxPli_NOCONST )
+    DEF_V_CBACK_ANY__INT_INT_INT_( wxSize, wxPli_sv_2_wxsize( aTHX_ ret ), CLASS, return BASE::METHOD(p1,p2,p3), METHOD, wxPli_NOCONST )
 
 #define DEF_V_CBACK_WXSIZE__INT_INT_INT_pure( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_ANY__INT_INT_INT_( wxSize, wxPli_sv_2_wxsize( aTHX_ ret ), CLASS, return wxSize(), METHOD, wxPli_NOCONST )
 
 #define DEF_V_CBACK_WXSIZE__INT_INT_INT_const( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_ANY__INT_INT_INT_( wxSize, wxPli_sv_2_wxsize( aTHX_ ret ), CLASS, return BASE::METHOD(param1,param2,param3), METHOD, wxPli_CONST )
+    DEF_V_CBACK_ANY__INT_INT_INT_( wxSize, wxPli_sv_2_wxsize( aTHX_ ret ), CLASS, return BASE::METHOD(p1,p2,p3), METHOD, wxPli_CONST )
 
 // void METH(wxDC&, const wxRect&)
 #define DEC_V_CBACK_VOID__WXDC_WXRECT( METHOD ) \
@@ -64,7 +64,7 @@
     DEC_V_CBACK_ANY__WXKEYEVENT_( void, METHOD, wxPli_NOCONST )
 
 #define DEF_V_CBACK_VOID__WXKEYEVENT( CLASS, BASE, METHOD ) \
-    DEF_V_CBACK_ANY__WXKEYEVENT_( void, ;, CLASS, return BASE::METHOD(param1), METHOD, wxPli_NOCONST )
+    DEF_V_CBACK_ANY__WXKEYEVENT_( void, ;, CLASS, return BASE::METHOD(p1), METHOD, wxPli_NOCONST )
 
 class wxPlComboPopup : public wxComboPopup {
 //    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlComboPopup );

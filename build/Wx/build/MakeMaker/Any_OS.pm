@@ -56,7 +56,7 @@ sub configure_core {
                " $config{WX}{wx_overload}{header} exists overload Opt" .
                " copy_files files.lst cpp/combopopup.h cpp/odcombo.h" .
                " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
-               " fix_alien cpp/vlbox.h cpp/vscroll.h" .
+               " fix_alien cpp/vlbox.h cpp/vscroll.h cpp/v_cback_def.h" .
                " XS/ItemContainer.xs XS/ItemContainerImmutable.xs" };
 
   return %config;
@@ -210,13 +210,16 @@ parser :
 	yapp -v -s -m Wx::XSP::Grammar -o build/Wx/XSP/Grammar.pm build/Wx/XSP/XSP.yp
 
 typemap : typemap.tmpl script/make_typemap.pl
-	perl script/make_typemap.pl typemap.tmpl typemap
+	\$(PERL) script/make_typemap.pl typemap.tmpl typemap
 
 XS/ItemContainerImmutable.xs : XS/ItemContainerImmutable.xsp typemap.xsp
-	perl script/wx_xspp.pl -t typemap.xsp XS/ItemContainerImmutable.xsp > XS/ItemContainerImmutable.xs
+	\$(PERL) script/wx_xspp.pl -t typemap.xsp XS/ItemContainerImmutable.xsp > XS/ItemContainerImmutable.xs
 
 XS/ItemContainer.xs : XS/ItemContainer.xsp typemap.xsp
-	perl script/wx_xspp.pl -t typemap.xsp XS/ItemContainer.xsp > XS/ItemContainer.xs
+	\$(PERL) script/wx_xspp.pl -t typemap.xsp XS/ItemContainer.xsp > XS/ItemContainer.xs
+
+cpp/v_cback_def.h : script/make_v_cback.pl
+	\$(PERL) script/make_v_cback.pl > cpp/v_cback_def.h
 
 EOT
 
@@ -261,6 +264,7 @@ sub files_to_install {
                cpp/setup.h
                cpp/streams.h
                cpp/v_cback.h
+               cpp/v_cback_def.h
                cpp/wxapi.h
                typemap
               );

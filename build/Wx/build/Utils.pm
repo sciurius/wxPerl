@@ -120,6 +120,7 @@ sub scan_xs($$$) {
           push @xsinclude, @$xsinclude;
           last;
         } elsif(    $file =~ m/ovl_const\.(?:cpp|h)/i
+                 || $file =~ m/v_cback_def\.h/i
                  || $file =~ m/ItemContainer(?:Immutable)?\.xs/i ) {
           push @$arr, ( ( $top_dir eq curdir() ) ?
                         $file :
