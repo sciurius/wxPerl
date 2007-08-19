@@ -1,0 +1,76 @@
+#############################################################################
+## Name:        XS/PropertySheetDialog.xsp
+## Purpose:     XS++ for Wx::PropertySheetDialog
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     19/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+%typemap{wxPropertySheetDialog*}{simple};
+%typemap{wxBookCtrlBase*}{simple};
+
+#include <wx/bookctrl.h>
+#include <wx/propdlg.h>
+
+%name{Wx::PropertySheetDialog} class wxPropertySheetDialog
+{
+    %name{newDefault} wxPropertySheetDialog()
+        %code{% RETVAL = new wxPropertySheetDialog();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxPropertySheetDialog( wxWindow *parent,
+                                          wxWindowID id,
+                                          const wxString& title,
+                                          const wxPoint& pos = wxDefaultPosition,
+                                          const wxSize& size = wxDefaultSize,
+                                          long style = wxDEFAULT_DIALOG_STYLE,
+                                          const wxString& name = wxDialogNameStr )
+        %code{% RETVAL = new wxPropertySheetDialog( parent, id, title, pos,
+                                                    size, style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create( wxWindow *parent,
+                 wxWindowID id,
+                 const wxString& title,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxDEFAULT_DIALOG_STYLE,
+                 const wxString& name = wxDialogNameStr );
+
+    void SetBookCtrl( wxBookCtrlBase* book );
+    wxBookCtrlBase* GetBookCtrl() const;
+
+    void SetInnerSize( wxSizer* sizer );
+    wxSizer* GetInnerSizer() const;
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void SetSheetStyle( long sheetStyle );
+    long GetSheetStyle() const;
+
+    void SetSheetOuterBorder( int border );
+    int GetSheetOuterBorder() const;
+
+    void SetSheetInnerBorder( int border );
+    int GetSheetInnerBorder() const;
+#endif
+
+#define wxPLI_OK_CANCEL wxOK|wxCANCEL
+
+    void CreateButtons( int flags = wxPLI_OK_CANCEL );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void LayoutDialog( int centreFlags = wxBOTH );
+#else
+    void LayoutDialog();
+#endif
+};
+
+#endif

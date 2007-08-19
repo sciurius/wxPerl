@@ -173,6 +173,7 @@ XS/PopupWindow.xsp
 XS/Power.xsp
 XS/Process.xs
 XS/ProgressDialog.xs
+XS/PropertySheetDialog.xsp
 XS/RadioBox.xs
 XS/RadioButton.xs
 XS/SashWindow.xs

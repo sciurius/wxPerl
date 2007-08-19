@@ -3,8 +3,10 @@ Revision history for Perl extension Wx.
 0.77
 	- Added wxGraphicsContext (2.7) and some related classes
 	  (patch by Klaas Hartmann).
-	- Added wxCollapsiblePane and wxBitmapComboBox (2.7).
+	- Added wxCollapsiblePane (2.7).
+	- Added wxBitmapComboBox (2.7).
 	- Added wxAnimation and wxAnimationCtrl (2.7).
+	- Added wxPropertySheetDialog (2.6).
 	- Added wxPasswordEntryDialog (2.6).
 
 0.76  Thu Aug 16 00:21:00 CEST 2007

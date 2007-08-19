@@ -81,6 +81,9 @@
 #if WXPERL_W_VERSION_GE( 2, 5, 4 )
 #include <wx/mediactrl.h>
 #endif
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+#include <wx/propdlg.h>
+#endif
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
 #include <wx/power.h>
 #include <wx/toolbook.h>
@@ -2054,6 +2057,17 @@ static double constant( const char *name, int arg )
     r( wxPROP_ENUM_STORE_LONG );
     r( wxPROP_DONT_STREAM );
 #endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxPROPSHEET_DEFAULT );           // propertysheet
+    r( wxPROPSHEET_NOTEBOOK );          // propertysheet
+    r( wxPROPSHEET_TOOLBOOK );          // propertysheet
+    r( wxPROPSHEET_CHOICEBOOK );        // propertysheet
+    r( wxPROPSHEET_LISTBOOK );          // propertysheet
+    r( wxPROPSHEET_BUTTONTOOLBOOK );    // propertysheet
+    r( wxPROPSHEET_TREEBOOK );          // propertysheet
+    r( wxPROPSHEET_SHRINKTOFIT );       // propertysheet
+#endif
+
     break;
   case 'R':
     r( wxRAISED_BORDER );               // window

@@ -52,4 +52,6 @@ INCLUDE: XS/FindReplaceDialog.xs
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/AboutDialog.xsp |
 
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/PropertySheetDialog.xsp |
+
 MODULE=Wx_Wnd
