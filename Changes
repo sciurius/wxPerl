@@ -8,6 +8,7 @@ Revision history for Perl extension Wx.
 	- Added wxAnimation and wxAnimationCtrl (2.7).
 	- Added wxPropertySheetDialog (2.6).
 	- Added wxPasswordEntryDialog (2.6).
+	- Added wxCommand and wxCommandProcessor.
 
 0.76  Thu Aug 16 00:21:00 CEST 2007
 	- Added wxEditableListBox (2.9).

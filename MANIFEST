@@ -473,6 +473,7 @@ ext/xrc/typemap
 
 ext/docview/Makefile.PL
 ext/docview/DocView.xs
+ext/docview/XS/CommandProcessor.xsp
 ext/docview/XS/DocManager.xs
 ext/docview/XS/DocTemplate.xs
 ext/docview/XS/Document.xs
@@ -488,3 +489,5 @@ ext/docview/lib/Wx/DocView.pm
 ext/docview/typemap
 ext/docview/t/01_load.t
 ext/docview/t/02_inheritance.t
+ext/docview/t/03_threads.t
+ext/docview/t/04_cmdproc.t

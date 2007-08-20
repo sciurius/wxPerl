@@ -10,6 +10,7 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/cmdproc.h>
 
 MODULE=Wx PACKAGE=Wx::Document
 
@@ -103,6 +104,9 @@ wxDocument::OnCreateCommandProcessor()
 void
 wxDocument::SetCommandProcessor( processor )
     wxCommandProcessor* processor
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    THIS->SetCommandProcessor( processor );
 
 bool
 wxDocument::OnSaveModified()

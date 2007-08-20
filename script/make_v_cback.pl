@@ -34,6 +34,7 @@ my @macros =
      DEC_V_CBACK_BOOL__VOID_const
      DEF_V_CBACK_BOOL__VOID
      DEF_V_CBACK_BOOL__VOID_const
+     DEF_V_CBACK_BOOL__VOID_pure
 
      DEC_V_CBACK_BOOL__INT_INT
      DEC_V_CBACK_BOOL__INT_INT_const

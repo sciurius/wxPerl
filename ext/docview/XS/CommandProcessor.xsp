@@ -1,0 +1,168 @@
+#############################################################################
+## Name:        ext/docview/XS/CommandProcessor.xsp
+## Purpose:     XS++ for wxCommand and wxCommandProcessor
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     20/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#include <wx/cmdproc.h>
+#include <wx/menu.h>
+
+#include "cpp/v_cback.h"
+
+%typemap{wxCommand*}{simple};
+%typemap{wxPlCommand*}{simple};
+%typemap{wxCommandProcessor*}{simple};
+
+%file{cpp/cmdproc.h};
+%{
+
+class wxPlCommand : public wxCommand
+{
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlCommand );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPlCommand( const char* package, bool canUndoIt, const wxString& name );
+
+    bool base_CanUndo() const
+        { return wxCommand::CanUndo(); }
+
+    DEC_V_CBACK_BOOL__VOID( Do );
+    DEC_V_CBACK_BOOL__VOID( Undo );
+    DEC_V_CBACK_BOOL__VOID_const( CanUndo );
+};
+
+inline wxPlCommand::wxPlCommand( const char* package,
+                                 bool canUndoIt, const wxString& name )
+    : wxCommand( canUndoIt, name ),
+      m_callback( "Wx::Command" )
+{
+    m_callback.SetSelf( wxPli_make_object( this, package ), true );
+}
+
+DEF_V_CBACK_BOOL__VOID_pure( wxPlCommand, wxCommand, Do );
+DEF_V_CBACK_BOOL__VOID_pure( wxPlCommand, wxCommand, Undo );
+DEF_V_CBACK_BOOL__VOID_const( wxPlCommand, wxCommand, CanUndo );
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlCommand, wxCommand );
+
+%}
+%file{-};
+
+#include "cpp/cmdproc.h"
+
+%name{Wx::Command} class wxCommand
+{
+%{
+static void
+wxCommand::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
+void
+wxCommand::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ),
+                                THIS, ST(0) );
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;
+%}
+
+    void Destroy()
+        %code{% wxPli_detach_object( aTHX_ ST(0) );
+                delete THIS;
+                %};
+
+    bool Do();
+    bool Undo();
+    bool CanUndo() const;
+    wxString GetName() const;
+};
+
+%name{Wx::PlCommand} class wxPlCommand
+{
+    wxCommand( bool canUndoIt = false, const wxString& name = wxEmptyString )
+        %code{% RETVAL = new wxPlCommand( CLASS, canUndoIt, name );
+                %};
+
+    %name{CanUndo} bool base_CanUndo();
+};
+
+%name{Wx::CommandProcessor} class wxCommandProcessor
+{
+    wxCommandProcessor( int maxCommands = -1 );
+
+%{
+static void
+wxCommandProcessor::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
+void
+wxCommandProcessor::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ),
+                                THIS, ST(0) );
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;
+%}
+
+    bool Submit( wxCommand *command, bool storeIt = true )
+        %code{% wxPli_object_set_deleteable( aTHX_ ST(1), false );
+                RETVAL = THIS->Submit( command, storeIt ); 
+                %};
+
+    void Store( wxCommand *command )
+        %code{% wxPli_object_set_deleteable( aTHX_ ST(1), false );
+                THIS->Store( command ); 
+                %};
+
+    bool Undo();
+    bool Redo();
+    bool CanUndo() const;
+    bool CanRedo() const;
+    void Initialize();
+    void SetMenuStrings();
+    wxString GetUndoMenuLabel() const;
+    wxString GetRedoMenuLabel() const;
+
+#if wxUSE_MENUS
+    void SetEditMenu( wxMenu* menu );
+    wxMenu* GetEditMenu() const;
+#endif // wxUSE_MENUS
+
+%{
+void
+wxCommandProcessor::GetCommands()
+  PPCODE:
+    const wxList& cmds = THIS->GetCommands();
+    PUTBACK;
+    wxPli_objlist_push( aTHX_ cmds );
+    SPAGAIN;
+    for( int i = cmds.GetCount() - 0; i >= 0; --i )
+        wxPli_object_set_deleteable( aTHX_ SP[-i], false );
+%}
+    wxCommand* GetCurrentCommand() const;
+    int GetMaxCommands() const;
+    void ClearCommands();
+
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    bool IsDirty() const;
+    void MarkAsSaved();
+#endif
+
+    const wxString& GetUndoAccelerator() const;
+    const wxString& GetRedoAccelerator() const;
+
+    void SetUndoAccelerator( const wxString& accel );
+    void SetRedoAccelerator( const wxString& accel );
+};

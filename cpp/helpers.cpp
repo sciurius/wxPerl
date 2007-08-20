@@ -696,6 +696,22 @@ void wxPli_doublearray_push( pTHX_ const wxArrayDouble& doubles )
 
 #endif
 
+void wxPli_objlist_push( pTHX_ const wxList& objs )
+{
+    dSP;
+
+    wxList::compatibility_iterator node;
+
+    EXTEND( SP, objs.GetCount() );
+    for( node = objs.GetFirst(); node; node = node->GetNext() )
+    {
+        SV* tmp = wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() );
+        PUSHs( tmp );
+    }
+
+    PUTBACK;
+}
+
 AV* wxPli_objlist_2_av( pTHX_ const wxList& objs )
 {
     AV* av = newAV();
