@@ -17,26 +17,10 @@
 
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
 
-%{
 #include <wx/vlbox.h>
-%}
 
 %name{Wx::VListBox} class wxVListBox
 {
-##    %name{newDefault} wxVListBox()
-##        %code{% RETVAL = new wxVListBox();
-##                wxPli_create_evtahndler( aTHX_ RETVAL, CLASS );
-##             %};
-##    %name{newFull} wxVListBox( wxWindow *parent,
-##                               wxWindowID id = wxID_ANY,
-##                               const wxPoint& pos = wxDefaultPosition,
-##                               const wxSize& size = wxDefaultSize,
-##                               long style = 0,
-##                               const wxString& name = wxVListBoxNameStr )
-##        %code{% RETVAL = new wxListBox( parent, id, pos, size, style, name );
-##                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
-##             %};
-
     bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
                  const wxPoint& pos = wxDefaultPosition,
                  const wxSize& size = wxDefaultSize,
@@ -61,14 +45,6 @@
 };
 
 %{
-
-##void
-##new( ... )
-##  PPCODE:
-##    BEGIN_OVERLOAD()
-##        MATCH_VOIDM_REDISP( newDefault )
-##        MATCH_ANY_REDISP( newFull )
-##    END_OVERLOAD( "Wx::VListBox::new" )
 
 #!sub wxVListBox
 #!sub OnDrawItem
@@ -144,13 +120,21 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlVListBox, wxVListBox );
 %}
 %file{-};
 
-%{
 #include "cpp/overload.h"
 #include "cpp/vlbox.h"
-%}
 
 %name{Wx::PlVListBox} class wxPlVListBox
 {
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::PlVListBox::new" )
+%}
+
     %name{newDefault} wxPlVListBox()
         %code{% RETVAL = new wxPlVListBox( CLASS ); %};
     %name{newFull} wxPlVListBox( wxWindow *parent,
@@ -163,19 +147,5 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlVListBox, wxVListBox );
                                            style, name );
              %};
 };
-
-
-
-%{
-
-void
-new( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_VOIDM_REDISP( newDefault )
-        MATCH_ANY_REDISP( newFull )
-    END_OVERLOAD( "Wx::PlVListBox::new" )
-
-%}
 
 #endif
