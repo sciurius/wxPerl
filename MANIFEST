@@ -207,6 +207,9 @@ XS/TreeCtrl.xs
 XS/Treebook.xsp
 XS/Utils.xs
 XS/VarScrollHelperBase.xsp
+XS/VarHScrollHelper.xsp
+XS/VarHVScrollHelper.xsp
+XS/VarVScrollHelper.xsp
 XS/VListBox.xsp
 XS/VScrolledWindow.xsp
 XS/Validators.xs

@@ -1,0 +1,29 @@
+#############################################################################
+## Name:        XS/VarVScrollHelper.xsp
+## Purpose:     XS for Wx::VarVScrollHelper
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     20/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxVarVScrollHelper*}{simple};
+
+%name{Wx::VarVScrollHelper} class wxVarVScrollHelper
+{
+    void SetRowCount( size_t count );
+    bool ScrollToRow( size_t line );
+    void RefreshRow( size_t line );
+    void RefreshRows( size_t from, size_t to );
+    size_t GetRowCount() const;
+    size_t GetVisibleRowsBegin() const;
+    size_t GetVisibleRowsEnd() const;
+    bool ScrollRows( int lines );
+    bool ScrollRowPages( int pages );
+    bool IsRowVisible( size_t line ) const;
+};

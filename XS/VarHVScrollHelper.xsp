@@ -1,0 +1,100 @@
+#############################################################################
+## Name:        XS/VarHVScrollHelper.xsp
+## Purpose:     XS for Wx::VarHVScrollHelper
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     20/08/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxVarHVScrollHelper*}{simple};
+
+%name{Wx::VarHVScrollHelper} class wxVarHVScrollHelper
+{
+    void SetRowColumnCount( size_t rowCount, size_t columnCount );
+
+    void EnablePhysicalScrolling( bool vscrolling = true,
+                                  bool hscrolling = true );
+
+%{
+void
+wxVarHVScrollHelper::ScrollToRowColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, ScrollToRowColumnRC )
+        MATCH_REDISP( wxPliOvl_wpos, ScrollToRowColumnPosition )
+    END_OVERLOAD( Wx::VarHVScrollHelper::ScrollToRowColumn )
+%}
+    %name{ScrollToRowColumnRC}
+    bool ScrollToRowColumn( size_t row, size_t column );
+    %name{ScrollToRowColumnPosition}
+    bool ScrollToRowColumn( const wxPosition &pos );
+
+%{
+void
+wxVarHVScrollHelper::RefreshRowColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, RefreshRowColumnRC )
+        MATCH_REDISP( wxPliOvl_wpos, RefreshRowColumnPosition )
+    END_OVERLOAD( Wx::VarHVScrollHelper::RefreshRowColumn )
+%}
+    %name{RefreshRowColumnRC}
+    void RefreshRowColumn( size_t row, size_t column );
+    %name{RefreshRowColumnPosition}
+    void RefreshRowColumn( const wxPosition &pos );
+
+%{
+void
+wxVarHVScrollHelper::RefreshRowsColumns( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, RefreshRowsColumnsRC )
+        MATCH_REDISP( wxPliOvl_wpos_wpos, RefreshRowsColumnsPosition )
+    END_OVERLOAD( Wx::VarHVScrollHelper::RefreshRowsColumns )
+%}
+    %name{RefreshRowsColumnsRC}
+    void RefreshRowsColumns( size_t fromRow, size_t toRow,
+                             size_t fromColumn, size_t toColumn );
+    %name{RefreshRowsColumnsPosition}
+    void RefreshRowsColumns( const wxPosition& from,
+                             const wxPosition& to );
+
+%{
+void
+wxVarHVScrollHelper::VirtualHitTest( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, VirtualHitTestXY )
+        MATCH_REDISP( wxPliOvl_wpoi, VirtualHitTestPoint )
+    END_OVERLOAD( Wx::VarHVScrollHelper::VirtualHitTest )
+%}
+    %name{VirtualHitTestXY}
+    wxPosition VirtualHitTest( wxCoord x, wxCoord y ) const;
+    %name{VirtualHitTestPoint}
+    wxPosition VirtualHitTest( const wxPoint &pos ) const;
+
+    wxSize GetRowColumnCount() const;
+
+    wxPosition GetVisibleBegin() const;
+    wxPosition GetVisibleEnd() const;
+
+%{
+void
+wxVarHVScrollHelper::IsVisible( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, IsVisibleRC )
+        MATCH_REDISP( wxPliOvl_wpos, IsVisiblePosition )
+    END_OVERLOAD( Wx::VarHVScrollHelper::IsVisible )
+%}
+    %name{IsVisibleRC}
+    bool IsVisible( size_t row, size_t column ) const;
+    %name{IsVisiblePosition}
+    bool IsVisible( const wxPosition &pos ) const;
+};

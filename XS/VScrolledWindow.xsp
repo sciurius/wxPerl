@@ -37,16 +37,8 @@
     INCLUDE: perl -pe "s/VarScrollHelperBase/HScrolledWindow/g" XS/VarScrollHelperBase.xs |
 
     ## wxVarHScrollHelper
-    void SetColumnCount( size_t columnCount );
-    bool ScrollToColumn( size_t column );
-    bool ScrollColumns( int columns );
-    bool ScrollColumnPages( int pages );
-    void RefreshColumn( size_t column );
-    void RefreshColumns( size_t from, size_t to );
-    size_t GetColumnCount() const;
-    size_t GetVisibleColumnsBegin() const;
-    size_t GetVisibleColumnsEnd() const;
-    bool IsColumnVisible( size_t column ) const;
+    INCLUDE: perl -pe "s/VarHScrollHelper/HScrolledWindow/g" XS/VarHScrollHelper.xs |
+
 };
 
 #endif
@@ -75,16 +67,8 @@
     INCLUDE: perl -pe "s/VarScrollHelperBase/VScrolledWindow/g" XS/VarScrollHelperBase.xs |
 
     ## wxVarVScrollHelper
-    void SetRowCount( size_t count );
-    bool ScrollToRow( size_t line );
-    void RefreshRow( size_t line );
-    void RefreshRows( size_t from, size_t to );
-    size_t GetRowCount() const;
-    size_t GetVisibleRowsBegin() const;
-    size_t GetVisibleRowsEnd() const;
-    bool ScrollRows( int lines );
-    bool ScrollRowPages( int pages );
-    bool IsRowVisible( size_t line ) const;
+    INCLUDE: perl -pe "s/VarVScrollHelper/VScrolledWindow/g" XS/VarVScrollHelper.xs |
+
 #else
     ## old interface
     void SetLineCount( size_t count );
@@ -135,110 +119,14 @@
     ## poor man's MI support; should use dynamic_cast<> in typemap
 
     ## wxVarHScrollHelper
-    void SetColumnCount( size_t columnCount );
-    bool ScrollToColumn( size_t column );
-    bool ScrollColumns( int columns );
-    bool ScrollColumnPages( int pages );
-    void RefreshColumn( size_t column );
-    void RefreshColumns( size_t from, size_t to );
-    size_t GetColumnCount() const;
-    size_t GetVisibleColumnsBegin() const;
-    size_t GetVisibleColumnsEnd() const;
-    bool IsColumnVisible( size_t column ) const;
+    INCLUDE: perl -pe "s/VarHScrollHelper/HVScrolledWindow/g" XS/VarHScrollHelper.xs |
 
     ## wxVarVScrollHelper
-    void SetRowCount( size_t count );
-    bool ScrollToRow( size_t line );
-    void RefreshRow( size_t line );
-    void RefreshRows( size_t from, size_t to );
-    size_t GetRowCount() const;
-    size_t GetVisibleRowsBegin() const;
-    size_t GetVisibleRowsEnd() const;
-    bool ScrollRows( int lines );
-    bool ScrollRowPages( int pages );
-    bool IsRowVisible( size_t line ) const;
+    INCLUDE: perl -pe "s/VarVScrollHelper/HVScrolledWindow/g" XS/VarVScrollHelper.xs |
 
-    void SetRowColumnCount( size_t rowCount, size_t columnCount );
+    ## wxVarHVScrollHelper
+    INCLUDE: perl -pe "s/VarHVScrollHelper/HVScrolledWindow/g" XS/VarHVScrollHelper.xs |
 
-    void EnablePhysicalScrolling( bool vscrolling = true,
-                                  bool hscrolling = true );
-
-%{
-void
-wxHVScrolledWindow::ScrollToRowColumn( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_n_n, ScrollToRowColumnRC )
-        MATCH_REDISP( wxPliOvl_wpos, ScrollToRowColumnPosition )
-    END_OVERLOAD( Wx::HVScrolledWindow::ScrollToRowColumn )
-%}
-    %name{ScrollToRowColumnRC}
-    bool ScrollToRowColumn( size_t row, size_t column );
-    %name{ScrollToRowColumnPosition}
-    bool ScrollToRowColumn( const wxPosition &pos );
-
-%{
-void
-wxHVScrolledWindow::RefreshRowColumn( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_n_n, RefreshRowColumnRC )
-        MATCH_REDISP( wxPliOvl_wpos, RefreshRowColumnPosition )
-    END_OVERLOAD( Wx::HVScrolledWindow::RefreshRowColumn )
-%}
-    %name{RefreshRowColumnRC}
-    void RefreshRowColumn( size_t row, size_t column );
-    %name{RefreshRowColumnPosition}
-    void RefreshRowColumn( const wxPosition &pos );
-
-%{
-void
-wxHVScrolledWindow::RefreshRowsColumns( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_n_n_n_n, RefreshRowsColumnsRC )
-        MATCH_REDISP( wxPliOvl_wpos_wpos, RefreshRowsColumnsPosition )
-    END_OVERLOAD( Wx::HVScrolledWindow::RefreshRowsColumns )
-%}
-    %name{RefreshRowsColumnsRC}
-    void RefreshRowsColumns( size_t fromRow, size_t toRow,
-                             size_t fromColumn, size_t toColumn );
-    %name{RefreshRowsColumnsPosition}
-    void RefreshRowsColumns( const wxPosition& from,
-                             const wxPosition& to );
-
-%{
-void
-wxHVScrolledWindow::VirtualHitTest( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_n_n, VirtualHitTestXY )
-        MATCH_REDISP( wxPliOvl_wpoi, VirtualHitTestPoint )
-    END_OVERLOAD( Wx::HVScrolledWindow::VirtualHitTest )
-%}
-    %name{VirtualHitTestXY}
-    wxPosition VirtualHitTest( wxCoord x, wxCoord y ) const;
-    %name{VirtualHitTestPoint}
-    wxPosition VirtualHitTest( const wxPoint &pos ) const;
-
-    wxSize GetRowColumnCount() const;
-
-    wxPosition GetVisibleBegin() const;
-    wxPosition GetVisibleEnd() const;
-
-%{
-void
-wxHVScrolledWindow::IsVisible( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_n_n, IsVisibleRC )
-        MATCH_REDISP( wxPliOvl_wpos, IsVisiblePosition )
-    END_OVERLOAD( Wx::HVScrolledWindow::IsVisible )
-%}
-    %name{IsVisibleRC}
-    bool IsVisible( size_t row, size_t column ) const;
-    %name{IsVisiblePosition}
-    bool IsVisible( const wxPosition &pos ) const;
 };
 
 #endif

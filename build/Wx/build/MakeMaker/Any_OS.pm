@@ -8,7 +8,8 @@ use Wx::build::Utils qw(xs_dependencies lib_file);
 
 my $exp = lib_file( 'Wx/Wx_Exp.pm' );
 my @generated_xs = qw(XS/ItemContainer.xs XS/ItemContainerImmutable.xs
-                      XS/VarScrollHelperBase.xs);
+                      XS/VarScrollHelperBase.xs XS/VarVScrollHelper.xs
+                      XS/VarHScrollHelper.xs XS/VarHVScrollHelper.xs);
 sub get_flags {
   my $this = shift;
   my %config;
@@ -226,6 +227,11 @@ EOT
 
 EOT
   }
+
+  $text .= sprintf <<EOT, join( ' ', @generated_xs );
+generated : cpp/v_cback_def.h typemap %s overload
+
+EOT
 
   $text;
 }
