@@ -43,10 +43,14 @@
 %typemap{wxString&}{parsed}{%wxString%};
 %typemap{const wxString&}{parsed}{%wxString%};
 %typemap{const wxRect&}{reference};
-%typemap{const wxPoint&}{parsed}{%wxPoint%};
 %typemap{const wxSize&}{parsed}{%wxSize%};
+%typemap{const wxPoint&}{parsed}{%wxPoint%};
+%typemap{const wxPosition&}{parsed}{%wxPosition%};
 %typemap{wxSize}{parsed}{%wxSize%};
 %typemap{wxPoint}{parsed}{%wxPoint%};
+%typemap{wxPosition}{parsed}{%wxPosition%};
+%typemap{wxPosition*}{simple};
+
 %typemap{const wxArtID&}{parsed}{%wxString%};
 %typemap{const wxArtClient&}{parsed}{%wxString%};
 %typemap{wxArtProvider*}{simple};

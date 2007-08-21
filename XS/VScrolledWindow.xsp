@@ -1,6 +1,6 @@
 #############################################################################
 ## Name:        XS/VScrolledWindow.xsp
-## Purpose:     XS++ for Wx::VScrolledWindow
+## Purpose:     XS++ for Wx::[HV]ScrolledWindow
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/09/2006
@@ -13,29 +13,46 @@
 %module{Wx};
 
 %typemap{wxVScrolledWindow*}{simple};
+%typemap{wxHScrolledWindow*}{simple};
+%typemap{wxHVScrolledWindow*}{simple};
+%typemap{wxPlVScrolledWindow*}{simple};
+%typemap{wxPlHScrolledWindow*}{simple};
+%typemap{wxPlHVScrolledWindow*}{simple};
 
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
 
-%{
 #include <wx/vscroll.h>
-%}
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+%name{Wx::HScrolledWindow} class wxHScrolledWindow
+{
+    bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = 0,
+                 const wxString& name = wxPanelNameStr );
+
+    ## wxVarScrollHelperBase
+    INCLUDE: perl -pe "s/VarScrollHelperBase/HScrolledWindow/g" XS/VarScrollHelperBase.xs |
+
+    ## wxVarHScrollHelper
+    void SetColumnCount( size_t columnCount );
+    bool ScrollToColumn( size_t column );
+    bool ScrollColumns( int columns );
+    bool ScrollColumnPages( int pages );
+    void RefreshColumn( size_t column );
+    void RefreshColumns( size_t from, size_t to );
+    size_t GetColumnCount() const;
+    size_t GetVisibleColumnsBegin() const;
+    size_t GetVisibleColumnsEnd() const;
+    bool IsColumnVisible( size_t column ) const;
+};
+
+#endif
 
 %name{Wx::VScrolledWindow} class wxVScrolledWindow
 {
-##    %name{newDefault} wxVScrolledWindow()
-##        %code{% RETVAL = new wxVScrolledWindow();
-##                wxPli_create_evtahndler( aTHX_ RETVAL, CLASS );
-##             %};
-##    %name{newFull} wxVScrolledWindow( wxWindow *parent,
-##                                      wxWindowID id = wxID_ANY,
-##                                      const wxPoint& pos = wxDefaultPosition,
-##                                      const wxSize& size = wxDefaultSize,
-##                                      long style = 0,
-##                                      const wxString& name = wxPanelNameStr )
-##        %code{% RETVAL = new wxVScrolledWindow( parent, id, pos, size, style, name );
-##                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
-##             %};
-
     bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
                  const wxPoint& pos = wxDefaultPosition,
                  const wxSize& size = wxDefaultSize,
@@ -43,6 +60,7 @@
                  const wxString& name = wxPanelNameStr );
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    ## compatibility with < 2.9
     %name{SetLineCount} void SetRowCount( size_t count );
     %name{ScrollToLine} bool ScrollToRow( size_t line );
     %name{RefreshLine} void RefreshRow( size_t line );
@@ -52,7 +70,23 @@
     %name{GetLastVisibleLine} size_t GetVisibleRowsEnd() const;
     %name{ScrollLines} bool ScrollRows( int lines );
     %name{ScrollPages} bool ScrollRowPages( int pages );
+
+    ## wxVarScrollHelperBase
+    INCLUDE: perl -pe "s/VarScrollHelperBase/VScrolledWindow/g" XS/VarScrollHelperBase.xs |
+
+    ## wxVarVScrollHelper
+    void SetRowCount( size_t count );
+    bool ScrollToRow( size_t line );
+    void RefreshRow( size_t line );
+    void RefreshRows( size_t from, size_t to );
+    size_t GetRowCount() const;
+    size_t GetVisibleRowsBegin() const;
+    size_t GetVisibleRowsEnd() const;
+    bool ScrollRows( int lines );
+    bool ScrollRowPages( int pages );
+    bool IsRowVisible( size_t line ) const;
 #else
+    ## old interface
     void SetLineCount( size_t count );
     bool ScrollToLine( size_t line );
     void RefreshLine( size_t line );
@@ -62,28 +96,360 @@
     size_t GetLastVisibleLine() const;
     bool ScrollLines( int lines );
     bool ScrollPages( int pages );
-#endif
 
-    int HitTest( const wxPoint& pt ) const;
+    ## forward compatibilty with 2.9
+    %name{SetRowCount} void SetLineCount( size_t count );
+    %name{ScrollToRow} bool ScrollToLine( size_t line );
+    %name{RefreshRow} void RefreshLine( size_t line );
+    %name{RefreshRows} void RefreshLines( size_t from, size_t to );
+    %name{GetRowCount} size_t GetLineCount() const;
+    %name{GetVisibleRowsBegin} size_t GetFirstVisibleLine() const;
+    %name{GetVisibleRowsEnd} size_t GetLastVisibleLine() const;
+    %name{ScrollRows} bool ScrollLines( int lines );
+    %name{ScrollRowPages} bool ScrollPages( int pages );
+
+    ## already in wxVarScrollHelperBase
     void RefreshAll();
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
     size_t GetVisibleBegin() const;
     size_t GetVisibleEnd() const;
 #endif
     bool IsVisible( size_t line ) const;
+    %name{IsRowVisible} bool IsVisible( size_t line ) const;
+#endif
+
+    int HitTest( const wxPoint& pt ) const;
     bool Layout();
 };
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+%name{Wx::HVScrolledWindow} class wxHVScrolledWindow
+{
+    bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = 0,
+                 const wxString& name = wxPanelNameStr );
+
+    ## poor man's MI support; should use dynamic_cast<> in typemap
+
+    ## wxVarHScrollHelper
+    void SetColumnCount( size_t columnCount );
+    bool ScrollToColumn( size_t column );
+    bool ScrollColumns( int columns );
+    bool ScrollColumnPages( int pages );
+    void RefreshColumn( size_t column );
+    void RefreshColumns( size_t from, size_t to );
+    size_t GetColumnCount() const;
+    size_t GetVisibleColumnsBegin() const;
+    size_t GetVisibleColumnsEnd() const;
+    bool IsColumnVisible( size_t column ) const;
+
+    ## wxVarVScrollHelper
+    void SetRowCount( size_t count );
+    bool ScrollToRow( size_t line );
+    void RefreshRow( size_t line );
+    void RefreshRows( size_t from, size_t to );
+    size_t GetRowCount() const;
+    size_t GetVisibleRowsBegin() const;
+    size_t GetVisibleRowsEnd() const;
+    bool ScrollRows( int lines );
+    bool ScrollRowPages( int pages );
+    bool IsRowVisible( size_t line ) const;
+
+    void SetRowColumnCount( size_t rowCount, size_t columnCount );
+
+    void EnablePhysicalScrolling( bool vscrolling = true,
+                                  bool hscrolling = true );
+
+%{
+void
+wxHVScrolledWindow::ScrollToRowColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, ScrollToRowColumnRC )
+        MATCH_REDISP( wxPliOvl_wpos, ScrollToRowColumnPosition )
+    END_OVERLOAD( Wx::HVScrolledWindow::ScrollToRowColumn )
+%}
+    %name{ScrollToRowColumnRC}
+    bool ScrollToRowColumn( size_t row, size_t column );
+    %name{ScrollToRowColumnPosition}
+    bool ScrollToRowColumn( const wxPosition &pos );
+
+%{
+void
+wxHVScrolledWindow::RefreshRowColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, RefreshRowColumnRC )
+        MATCH_REDISP( wxPliOvl_wpos, RefreshRowColumnPosition )
+    END_OVERLOAD( Wx::HVScrolledWindow::RefreshRowColumn )
+%}
+    %name{RefreshRowColumnRC}
+    void RefreshRowColumn( size_t row, size_t column );
+    %name{RefreshRowColumnPosition}
+    void RefreshRowColumn( const wxPosition &pos );
+
+%{
+void
+wxHVScrolledWindow::RefreshRowsColumns( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n_n_n, RefreshRowsColumnsRC )
+        MATCH_REDISP( wxPliOvl_wpos_wpos, RefreshRowsColumnsPosition )
+    END_OVERLOAD( Wx::HVScrolledWindow::RefreshRowsColumns )
+%}
+    %name{RefreshRowsColumnsRC}
+    void RefreshRowsColumns( size_t fromRow, size_t toRow,
+                             size_t fromColumn, size_t toColumn );
+    %name{RefreshRowsColumnsPosition}
+    void RefreshRowsColumns( const wxPosition& from,
+                             const wxPosition& to );
+
+%{
+void
+wxHVScrolledWindow::VirtualHitTest( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, VirtualHitTestXY )
+        MATCH_REDISP( wxPliOvl_wpoi, VirtualHitTestPoint )
+    END_OVERLOAD( Wx::HVScrolledWindow::VirtualHitTest )
+%}
+    %name{VirtualHitTestXY}
+    wxPosition VirtualHitTest( wxCoord x, wxCoord y ) const;
+    %name{VirtualHitTestPoint}
+    wxPosition VirtualHitTest( const wxPoint &pos ) const;
+
+    wxSize GetRowColumnCount() const;
+
+    wxPosition GetVisibleBegin() const;
+    wxPosition GetVisibleEnd() const;
+
+%{
+void
+wxHVScrolledWindow::IsVisible( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_n_n, IsVisibleRC )
+        MATCH_REDISP( wxPliOvl_wpos, IsVisiblePosition )
+    END_OVERLOAD( Wx::HVScrolledWindow::IsVisible )
+%}
+    %name{IsVisibleRC}
+    bool IsVisible( size_t row, size_t column ) const;
+    %name{IsVisiblePosition}
+    bool IsVisible( const wxPosition &pos ) const;
+};
+
+#endif
+
+%file{cpp/vscrl.h};
 %{
 
-##void
-##new( ... )
-##  PPCODE:
-##    BEGIN_OVERLOAD()
-##        MATCH_VOIDM_REDISP( newDefault )
-##        MATCH_ANY_REDISP( newFull )
-##    END_OVERLOAD( "Wx::VScrolledWindow::new" )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+class wxPlHScrolledWindow : public wxHScrolledWindow {
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlHScrolledWindow );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPlHScrolledWindow, "Wx::HScrolledWindow",
+                               true );
+    WXPLI_CONSTRUCTOR_6( wxPlHScrolledWindow, "Wx::HScrolledWindow", true,
+                         wxWindow*, wxWindowID, const wxPoint&,
+                         const wxSize&, long, const wxString& );
+
+    // wxVarHScrollHelper
+    DEC_V_CBACK_WXCOORD__SIZET_const( OnGetColumnWidth );
+    DEC_V_CBACK_VOID__SIZET_SIZET_const( OnGetColumnsWidthHint );
+    DEC_V_CBACK_WXCOORD__VOID_const( EstimateTotalWidth );
+};
+
+// wxVarHScrollHelper
+DEF_V_CBACK_WXCOORD__SIZET_const_pure( wxPlHScrolledWindow, wxHScrolledWindow,
+                                       OnGetColumnWidth );
+DEF_V_CBACK_VOID__SIZET_SIZET_const( wxPlHScrolledWindow, wxHScrolledWindow,
+                                     OnGetColumnsWidthHint );
+DEF_V_CBACK_WXCOORD__VOID_const( wxPlHScrolledWindow, wxHScrolledWindow,
+                                 EstimateTotalWidth );
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlHScrolledWindow, wxHScrolledWindow );
+
+#endif
+
+class wxPlVScrolledWindow : public wxVScrolledWindow {
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlVScrolledWindow );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPlVScrolledWindow, "Wx::VScrolledWindow",
+                               true );
+    WXPLI_CONSTRUCTOR_6( wxPlVScrolledWindow, "Wx::VScrolledWindow", true,
+                         wxWindow*, wxWindowID, const wxPoint&,
+                         const wxSize&, long, const wxString& );
+
+    // < 2.9
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+    DEC_V_CBACK_WXCOORD__SIZET_const( OnGetLineHeight );
+    DEC_V_CBACK_VOID__SIZET_SIZET_const( OnGetLinesHint );
+#endif
+
+    // wxVarVScrollHelper
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    DEC_V_CBACK_WXCOORD__SIZET_const( OnGetRowHeight );
+    DEC_V_CBACK_VOID__SIZET_SIZET_const( OnGetRowsHeightHint );
+#endif
+    DEC_V_CBACK_WXCOORD__VOID_const( EstimateTotalHeight );
+};
+
+// < 2.9
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+DEF_V_CBACK_WXCOORD__SIZET_const_pure( wxPlVScrolledWindow, wxVScrolledWindow,
+                                       OnGetLineHeight );
+DEF_V_CBACK_VOID__SIZET_SIZET_const( wxPlVScrolledWindow, wxVScrolledWindow,
+                                     OnGetLinesHint );
+#endif
+
+// wxVarVScrollHelper
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+DEF_V_CBACK_WXCOORD__SIZET_const_pure( wxPlVScrolledWindow, wxVScrolledWindow,
+                                       OnGetRowHeight );
+DEF_V_CBACK_VOID__SIZET_SIZET_const( wxPlVScrolledWindow, wxVScrolledWindow,
+                                     OnGetRowsHeightHint );
+#endif
+DEF_V_CBACK_WXCOORD__VOID_const( wxPlVScrolledWindow, wxVScrolledWindow,
+                                 EstimateTotalHeight );
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlVScrolledWindow, wxVScrolledWindow );
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+class wxPlHVScrolledWindow : public wxHVScrolledWindow {
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlHVScrolledWindow );
+    WXPLI_DECLARE_V_CBACK();
+public:
+    WXPLI_DEFAULT_CONSTRUCTOR( wxPlHVScrolledWindow, "Wx::HVScrolledWindow",
+                               true );
+    WXPLI_CONSTRUCTOR_6( wxPlHVScrolledWindow, "Wx::HVScrolledWindow", true,
+                         wxWindow*, wxWindowID, const wxPoint&,
+                         const wxSize&, long, const wxString& );
+
+    // wxVarHScrollHelper
+    DEC_V_CBACK_WXCOORD__SIZET_const( OnGetColumnWidth );
+    DEC_V_CBACK_VOID__SIZET_SIZET_const( OnGetColumnsWidthHint );
+    DEC_V_CBACK_WXCOORD__VOID_const( EstimateTotalWidth );
+
+    // wxVarVScrollHelper
+    DEC_V_CBACK_WXCOORD__SIZET_const( OnGetRowHeight );
+    DEC_V_CBACK_VOID__SIZET_SIZET_const( OnGetRowsHeightHint );
+    DEC_V_CBACK_WXCOORD__VOID_const( EstimateTotalHeight );
+};
+
+// wxVarHScrollHelper
+DEF_V_CBACK_WXCOORD__SIZET_const_pure( wxPlHVScrolledWindow, wxHVScrolledWindow,
+                                       OnGetColumnWidth );
+DEF_V_CBACK_VOID__SIZET_SIZET_const( wxPlHVScrolledWindow, wxHVScrolledWindow,
+                                     OnGetColumnsWidthHint );
+DEF_V_CBACK_WXCOORD__VOID_const( wxPlHVScrolledWindow, wxHVScrolledWindow,
+                                 EstimateTotalWidth );
+
+// wxVarVScrollHelper
+DEF_V_CBACK_WXCOORD__SIZET_const_pure( wxPlHVScrolledWindow, wxHVScrolledWindow,
+                                       OnGetRowHeight );
+DEF_V_CBACK_VOID__SIZET_SIZET_const( wxPlHVScrolledWindow, wxHVScrolledWindow,
+                                     OnGetRowsHeightHint );
+DEF_V_CBACK_WXCOORD__VOID_const( wxPlHVScrolledWindow, wxHVScrolledWindow,
+                                 EstimateTotalHeight );
+
+WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlHVScrolledWindow, wxHVScrolledWindow );
+
+#endif
 
 %}
+%file{-};
+
+#include "cpp/overload.h"
+#include "cpp/vscrl.h"
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+%name{Wx::PlHScrolledWindow} class wxPlHScrolledWindow
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::PlHScrolledWindow::new" )
+%}
+
+    %name{newDefault} wxPlHScrolledWindow()
+        %code{% RETVAL = new wxPlHScrolledWindow( CLASS ); %};
+    %name{newFull} wxPlHScrolledWindow( wxWindow *parent,
+                                        wxWindowID id = wxID_ANY,
+                                        const wxPoint& pos = wxDefaultPosition,
+                                        const wxSize& size = wxDefaultSize,
+                                        long style = 0,
+                                        const wxString& name = wxPanelNameStr )
+        %code{% RETVAL = new wxPlHScrolledWindow( CLASS, parent, id, pos, size,
+                                                  style, name );
+                %};
+};
+
+#endif
+
+%name{Wx::PlVScrolledWindow} class wxPlVScrolledWindow
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::PlVScrolledWindow::new" )
+%}
+
+    %name{newDefault} wxPlVScrolledWindow()
+        %code{% RETVAL = new wxPlVScrolledWindow( CLASS ); %};
+    %name{newFull} wxPlVScrolledWindow( wxWindow *parent,
+                                        wxWindowID id = wxID_ANY,
+                                        const wxPoint& pos = wxDefaultPosition,
+                                        const wxSize& size = wxDefaultSize,
+                                        long style = 0,
+                                        const wxString& name = wxPanelNameStr )
+        %code{% RETVAL = new wxPlVScrolledWindow( CLASS, parent, id, pos, size,
+                                                  style, name );
+                %};
+};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+%name{Wx::PlHVScrolledWindow} class wxPlHVScrolledWindow
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::PlHVScrolledWindow::new" )
+%}
+
+    %name{newDefault} wxPlHVScrolledWindow()
+        %code{% RETVAL = new wxPlHVScrolledWindow( CLASS ); %};
+    %name{newFull} wxPlHVScrolledWindow( wxWindow *parent,
+                                         wxWindowID id = wxID_ANY,
+                                         const wxPoint& pos = wxDefaultPosition,
+                                         const wxSize& size = wxDefaultSize,
+                                         long style = 0,
+                                         const wxString& name = wxPanelNameStr )
+        %code{% RETVAL = new wxPlHVScrolledWindow( CLASS, parent, id, pos,
+                                                   size, style, name );
+                %};
+};
+
+#endif
 
 #endif

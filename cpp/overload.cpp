@@ -6,7 +6,7 @@
 // Modified by:
 // Created:     07/08/2002
 // RCS-ID:      $Id$
-// Copyright:   (c) 2002-2004, 2006 Mattia Barbon
+// Copyright:   (c) 2002-2004, 2006-2007 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -93,6 +93,7 @@ bool wxPli_match_arguments_offset( pTHX_ const wxPliPrototype& prototype,
         // want an object/package name, accept undef, too
         const char* cstr =
           p > wxPliOvlzzz   ? prototype.tnames[p - wxPliOvlzzz] :
+          p == wxPliOvlwpos ? "Wx::Position" :
           p == wxPliOvlwpoi ? "Wx::Point" :
           p == wxPliOvlwsiz ? "Wx::Size"  :
                               NULL;
@@ -108,7 +109,7 @@ bool wxPli_match_arguments_offset( pTHX_ const wxPliPrototype& prototype,
         // want an array reference
         if( p == wxPliOvlarr && wxPli_avref_2_av( t ) ) continue;
         // want a wxPoint/wxSize, accept an array reference, too
-        if( ( p == wxPliOvlwpoi || p == wxPliOvlwsiz )
+        if( ( p == wxPliOvlwpoi || p == wxPliOvlwsiz || p == wxPliOvlwpos )
             && wxPli_avref_2_av( t ) ) continue;
         // want an input/output stream, accept any reference
         if( ( p == wxPliOvlwist || p == wxPliOvlwost ) &&

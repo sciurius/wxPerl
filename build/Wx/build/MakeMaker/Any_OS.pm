@@ -7,7 +7,8 @@ use Wx::build::Options;
 use Wx::build::Utils qw(xs_dependencies lib_file);
 
 my $exp = lib_file( 'Wx/Wx_Exp.pm' );
-
+my @generated_xs = qw(XS/ItemContainer.xs XS/ItemContainerImmutable.xs
+                      XS/VarScrollHelperBase.xs);
 sub get_flags {
   my $this = shift;
   my %config;
@@ -57,7 +58,8 @@ sub configure_core {
                " copy_files files.lst cpp/combopopup.h cpp/odcombo.h" .
                " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
                " fix_alien cpp/vlbox.h cpp/vscroll.h cpp/v_cback_def.h" .
-               " XS/ItemContainer.xs XS/ItemContainerImmutable.xs" };
+               " " . join( " ", @generated_xs ) .
+               " cpp/vscrl.h" };
 
   return %config;
 }
@@ -212,16 +214,18 @@ parser :
 typemap : typemap.tmpl script/make_typemap.pl
 	\$(PERL) script/make_typemap.pl typemap.tmpl typemap
 
-XS/ItemContainerImmutable.xs : XS/ItemContainerImmutable.xsp typemap.xsp
-	\$(PERL) script/wx_xspp.pl -t typemap.xsp XS/ItemContainerImmutable.xsp > XS/ItemContainerImmutable.xs
-
-XS/ItemContainer.xs : XS/ItemContainer.xsp typemap.xsp
-	\$(PERL) script/wx_xspp.pl -t typemap.xsp XS/ItemContainer.xsp > XS/ItemContainer.xs
-
 cpp/v_cback_def.h : script/make_v_cback.pl
 	\$(PERL) script/make_v_cback.pl > cpp/v_cback_def.h
 
 EOT
+
+  foreach my $file ( @generated_xs ) {
+      $text .= sprintf <<EOT, $file, $file, $file, $file;
+%s : %sp typemap.xsp
+	\$(PERL) script/wx_xspp.pl -t typemap.xsp %sp > %s
+
+EOT
+  }
 
   $text;
 }

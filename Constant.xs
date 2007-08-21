@@ -533,6 +533,15 @@ static wxPlINH inherit[] =
 
     I( ScrolledWindow,  GenericScrolledWindow )
     I( VScrolledWindow, Panel )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    I( HScrolledWindow, Panel )
+    I( HVScrolledWindow,Panel )
+#endif
+    I( PlVScrolledWindow,  VScrolledWindow )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    I( PlHScrolledWindow,  HScrolledWindow )
+    I( PlHVScrolledWindow, HVScrolledWindow )
+#endif
 
 #if defined(__WXGTK__)
     I( StatusBar,       StatusBarGeneric )

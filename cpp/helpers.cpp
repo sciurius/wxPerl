@@ -21,6 +21,9 @@
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
     #include <wx/gbsizer.h>
 #endif
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    #include <wx/position.h>
+#endif
 
 #define wxPL_USE_MAGIC 1
 
@@ -1240,6 +1243,15 @@ wxGBPosition wxPli_sv_2_wxgbposition( pTHX_ SV* scalar )
 wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar )
 {
     return wxPli_sv_2_wxthing<wxGBSpan>( aTHX_ scalar, "Wx::GBSpan" );
+}
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxPosition wxPli_sv_2_wxposition( pTHX_ SV* scalar )
+{
+    return wxPli_sv_2_wxthing<wxPosition>( aTHX_ scalar, "Wx::Position" );
 }
 
 #endif

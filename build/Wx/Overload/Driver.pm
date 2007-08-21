@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     17/08/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2003, 2005-2006 Mattia Barbon
+## Copyright:   (c) 2001-2003, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -47,8 +47,9 @@ my %name2type =
    str  => 1,
    bool => 1,
    arr  => 1,
+   wpos => 1,
    zzz  => 1,
-  );
+   );
 
 my %constants;
 

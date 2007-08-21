@@ -154,6 +154,11 @@ wxSpinCtrl *            O_WXEVTHANDLER
 wxSlider *              O_WXEVTHANDLER
 wxScrolledWindow *      O_WXOBJECT
 wxVScrolledWindow *     O_WXEVTHANDLER
+wxHScrolledWindow *     O_WXEVTHANDLER
+wxHVScrolledWindow *    O_WXEVTHANDLER
+wxPlVScrolledWindow *   O_WXEVTHANDLER
+wxPlHScrolledWindow *   O_WXEVTHANDLER
+wxPlHVScrolledWindow *  O_WXEVTHANDLER
 wxVListBox *            O_WXEVTHANDLER
 wxPlVListBox *          O_WXEVTHANDLER
 wxSplitterWindow *      O_WXEVTHANDLER
@@ -252,9 +257,11 @@ wxAboutDialogInfo *     O_NON_WXOBJECT
 
 wxPoint                 O_POINT
 wxSize                  O_SIZE
+wxPosition              O_POSITION
 wxColour                O_NON_WXOBJECT_VAL
 wxPoint &               O_POINT
 wxSize &                O_SIZE
+wxPosition &            O_POSITION
 wxColour &              O_NON_WXOBJECT_VAL
 
 wxProcess *             O_WXOBJECT
@@ -266,6 +273,7 @@ wxDrawObject *          O_NON_WXOBJECT
 wxSize *                O_NON_WXOBJECT_THR
 wxPoint *               O_NON_WXOBJECT_THR
 wxRect *                O_NON_WXOBJECT_THR
+wxPosition *            O_NON_WXOBJECT_THR
 wxColour *              O_NON_WXOBJECT_THR
 wxCaret *               O_NON_WXOBJECT
 wxCaretSuspend *        O_NON_WXOBJECT_THR
@@ -449,6 +457,9 @@ O_GBSPAN
 O_POINT
     wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), PERL_CLASS );
 
+O_POSITION
+    wxPli_non_object_2_sv( aTHX_ $arg, new $type($var), PERL_CLASS );
+
 T_KEYCODE
     sv_setiv( $arg, $var );
 
@@ -488,6 +499,9 @@ O_POINT
 
 O_SIZE
     $var = wxPli_sv_2_wxsize( aTHX_ $arg );
+
+O_POSITION
+    $var = wxPli_sv_2_wxposition( aTHX_ $arg );
 
 O_GBPOSITION
     $var = wxPli_sv_2_wxgbposition( aTHX_ $arg );

@@ -279,6 +279,9 @@ class WXDLLEXPORT wxGBPosition; class WXDLLEXPORT wxGBSpan;
 wxGBPosition wxPli_sv_2_wxgbposition( pTHX_ SV* scalar );
 wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar );
 #endif
+class WXDLLEXPORT wxPosition;
+wxPosition wxPli_sv_2_wxposition( pTHX_ SV* scalar );
+
 wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 
 int wxPli_av_2_pointlist( pTHX_ SV* array, wxList *points, wxPoint** tmp );

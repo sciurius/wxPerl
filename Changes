@@ -9,6 +9,8 @@ Revision history for Perl extension Wx.
 	- Added wxPropertySheetDialog (2.6).
 	- Added wxPasswordEntryDialog (2.6).
 	- Added wxCommand and wxCommandProcessor.
+	- Added wxHScrolledWindow and wxHVScrolledWindow and
+	  made wx[HV]ScrolledWindow subclassable from Perl.
 
 0.76  Thu Aug 16 00:21:00 CEST 2007
 	- Added wxEditableListBox (2.9).
