@@ -71,6 +71,9 @@ my @macros =
      DEF_V_CBACK_VOID__INT_INT_LONG
      DEF_V_CBACK_VOID__INT_INT_LONG_pure
 
+     DEC_V_CBACK_VOID__SIZET_SIZET_const
+     DEF_V_CBACK_VOID__SIZET_SIZET_const
+
      DEC_V_CBACK_WXCOORD__VOID_const
      DEF_V_CBACK_WXCOORD__VOID_const
      DEF_V_CBACK_WXCOORD__VOID_const_pure
@@ -117,7 +120,18 @@ foreach my $todo ( @todo ) {
     my $args = join '_', @{$todo->[2]};
     my( $c_args, $p_args, $tymap ) = macro_call_args( $todo );
 
-    if( $todo->[0] eq 'DEC' ) {
+    if( $todo->[0] eq 'DEC' && $todo->[1] eq 'VOID' ) {
+        my $name = sprintf 'DEC_V_CBACK_VOID__%s_', $args;
+        next if $emitted{$name};
+        $emitted{$name} = 1;
+
+        printf <<'EOT',
+#define %s( RET, METHOD, CONST ) \
+    void METHOD(%s) CONST
+
+EOT
+        $name, $c_args;
+    } elsif( $todo->[0] eq 'DEC' ) {
         my $name = sprintf 'DEC_V_CBACK_ANY__%s_', $args;
         next if $emitted{$name};
         $emitted{$name} = 1;
@@ -128,6 +142,27 @@ foreach my $todo ( @todo ) {
 
 EOT
         $name, $c_args;
+    } elsif( $todo->[0] eq 'DEF' && $todo->[1] eq 'VOID' ) {
+        my $name = sprintf 'DEF_V_CBACK_VOID__%s_', $args;
+        next if $emitted{$name};
+        $emitted{$name} = 1;
+
+        printf <<'EOT',
+#define %s( RET, CVT, CLASS, CALLBASE, METHOD, CONST ) \
+    void CLASS::METHOD(%s) CONST \
+    {                                                                         \
+        dTHX;                                                                 \
+        if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                       \
+        {                                                                     \
+            wxPliCCback( aTHX_ &m_callback, G_SCALAR|G_DISCARD,               \
+                         %s%s );                              \
+        }                                                                     \
+        else                                                                  \
+            CALLBASE;                                                         \
+    }
+
+EOT
+            $name, $c_args, $tymap, ( $p_args ? ", $p_args" : '' );
     } elsif( $todo->[0] eq 'DEF' ) {
         my $name = sprintf 'DEF_V_CBACK_ANY__%s_', $args;
         next if $emitted{$name};
@@ -165,7 +200,15 @@ foreach my $todo ( @todo ) {
     die 'No type conversion for ', $todo->[1]
         unless $type_map{$todo->[1]}[1];
 
-    if( $todo->[0] eq 'DEC' ) {
+    if( $todo->[0] eq 'DEC' && $todo->[1] eq 'VOID' ) {
+        printf <<'EOT',
+#define DEC_V_CBACK_VOID__%s%s( METHOD ) \
+    DEC_V_CBACK_VOID__%s_( %s, METHOD, %s )
+
+EOT
+            $args, $const, $args, $type_map{$todo->[1]}[0],
+            $const_map{$todo->[3]->{const}};
+    } elsif( $todo->[0] eq 'DEC' ) {
         printf <<'EOT',
 #define DEC_V_CBACK_%s__%s%s( METHOD ) \
     DEC_V_CBACK_ANY__%s_( %s, METHOD, %s )
@@ -173,10 +216,22 @@ foreach my $todo ( @todo ) {
 EOT
             $todo->[1], $args, $const, $args, $type_map{$todo->[1]}[0],
             $const_map{$todo->[3]->{const}};
+    } elsif( $todo->[0] eq 'DEF' && $todo->[1] eq 'VOID' ) {
+        my $callbase = sprintf 'BASE::METHOD(%s)', $p_args;
+        die 'No default value for pure function ', $todo->[1]
+            if $todo->[3]{pure} && !$type_map{$todo->[1]}[2];
+
+        printf <<'EOT',
+#define DEF_V_CBACK_VOID__%s%s%s( CLASS, BASE, METHOD ) \
+    DEF_V_CBACK_VOID__%s_( %s, %s, CLASS, %s, METHOD, %s )
+
+EOT
+            $args, $const, $pure, $args, $type_map{$todo->[1]}[0],
+            $type_map{$todo->[1]}[1],
+            ( $todo->[3]{pure} ? $type_map{$todo->[1]}[2] : $callbase ),
+            $const_map{$todo->[3]->{const}};
     } elsif( $todo->[0] eq 'DEF' ) {
-        my $void = $todo->[1] eq 'VOID';
-        my $callbase = sprintf '%sBASE::METHOD(%s)',
-                               ( $void ? '' : 'return ' ), $p_args;
+        my $callbase = sprintf 'return BASE::METHOD(%s)', $p_args;
         die 'No default value for pure function ', $todo->[1]
             if $todo->[3]{pure} && !$type_map{$todo->[1]}[2];
 
