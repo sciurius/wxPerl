@@ -813,8 +813,8 @@ static double constant( const char *name, int arg )
 
     r( wxCB_SIMPLE );                   // combobox
     r( wxCB_DROPDOWN );                 // combobox
-    r( wxCB_READONLY );                 // combobox
-    r( wxCB_SORT );                     // combobox
+    r( wxCB_READONLY );                 // combobox comboctrl
+    r( wxCB_SORT );                     // combobox comboctrl
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
     r( wxCC_SPECIAL_DCLICK );           // comboctrl
     r( wxCC_STD_BUTTON );               // comboctrl
@@ -2349,7 +2349,7 @@ static double constant( const char *name, int arg )
     r( wxTB_BOTTOM );                   // toolbar
 #endif
     r( wxTELETYPE );                    // font
-    r( wxTE_PROCESS_ENTER );            // textctrl
+    r( wxTE_PROCESS_ENTER );            // textctrl combobox comboctrl
     r( wxTE_PROCESS_TAB );              // textctrl
     r( wxTE_MULTILINE );                // textctrl
     r( wxTE_NOHIDESEL );                // textctrl
