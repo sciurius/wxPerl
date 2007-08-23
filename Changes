@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.77
+0.77  Thu Aug 23 21:59:25 CEST 2007
 	- Added wxGraphicsContext (2.7) and some related classes
 	  (patch by Klaas Hartmann).
 	- Added wxCollapsiblePane (2.7).
