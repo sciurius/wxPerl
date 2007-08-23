@@ -28,7 +28,7 @@ wxPageSetupDialogData * O_WXOBJECT
 
 wxHtmlParser *          O_WXOBJECT
 wxHtmlWinParser *       O_WXOBJECT
-wxHtmlTag *             O_WXOBJECT
+wxHtmlTag *             O_NON_WXOBJECT
 wxHtmlTagHandler*       O_WXOBJECT
 wxPlHtmlTagHandler*     O_WXOBJECT
 wxHtmlWinTagHandler*    O_WXOBJECT
