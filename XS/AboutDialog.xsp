@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     01/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006 Mattia Barbon
+## Copyright:   (c) 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,11 +15,9 @@
 %typemap{wxAboutDialogInfo*}{simple};
 %typemap{const wxAboutDialogInfo&}{reference};
 
-%{
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 #include <wx/aboutdlg.h>
-%}
 
 %name{Wx::AboutDialogInfo} class wxAboutDialogInfo
 {
@@ -82,8 +80,6 @@
 ##    const wxArrayString& GetTranslators() const;
 };
 
-%name{AboutBox} void wxAboutBox( const wxAboutDialogInfo& info );
+%name{Wx::AboutBox} void wxAboutBox( const wxAboutDialogInfo& info );
 
-%{
 #endif
-%}
