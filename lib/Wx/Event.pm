@@ -400,12 +400,6 @@ sub EVT_UPDATE_UI($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_UPDATE_UI, $_[2] 
 sub EVT_UPDATE_UI_RANGE($$$$) { $_[0]->Connect( $_[1], $_[2], &Wx::wxEVT_UPDATE_UI, $_[3] ) }
 
 #
-# HyperlinkEvent
-#
-
-sub EVT_HYPERLINK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_HYPERLINK, $_[2] ) }
-
-#
 # Socket
 #
 

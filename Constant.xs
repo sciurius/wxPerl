@@ -275,6 +275,7 @@ static wxPliEventDescription evts[] =
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
     EVT( EVT_COLLAPSIBLEPANE_CHANGED, 3, wxEVT_COMMAND_COLLPANE_CHANGED )
+    EVT( EVT_HYPERLINK, 3, wxEVT_COMMAND_HYPERLINK )
 #endif
     { 0, 0, 0 }
 };
