@@ -42,5 +42,12 @@ package Wx::HtmlListBox;     @ISA = qw(Wx::VListBox);
 package Wx::RichTextStyleListBox; @ISA = qw(Wx::HtmlListBox);
 package Wx::RichTextStyleComboCtrl; @ISA = qw(Wx::ComboCtrl);
 package Wx::RichTextFormattingDialog; @ISA = qw(Wx::PropertySheetDialog);
+package Wx::RichTextXMLHandler; @ISA = qw(Wx::RichTextFileHandler);
+package Wx::RichTextHTMLHandler; @ISA = qw(Wx::RichTextFileHandler);
+package Wx::RichTextObject;
+package Wx::RichTextCompositeObject; @ISA = qw(Wx::RichTextObject);
+package Wx::RichTextBox;     @ISA = qw(Wx::RichTextCompositeObject);
+package Wx::RichTextParagraphLayoutBox; @ISA = qw(Wx::RichTextBox);
+package Wx::RichTextBuffer;  @ISA = qw(Wx::RichTextParagraphLayoutBox);
 
 1;

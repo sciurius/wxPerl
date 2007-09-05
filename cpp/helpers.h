@@ -240,7 +240,7 @@ void wxPli_non_objarray_push( pTHX_ const A& things, const char* package )
     PUTBACK;
 }
 
-void wxPli_stringarray_push( pTHX_ const wxArrayString& strings );
+void FUNCPTR( wxPli_stringarray_push )( pTHX_ const wxArrayString& strings );
 void FUNCPTR( wxPli_intarray_push )( pTHX_ const wxArrayInt& ints );
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
 void wxPli_doublearray_push( pTHX_ const wxArrayDouble& doubles );
@@ -463,6 +463,7 @@ struct wxPliHelpers
     int (* m_wxPli_av_2_arraystring )( pTHX_ SV* avref, wxArrayString* array );
     void (* m_wxPli_objlist_push )( pTHX_ const wxList& objs );
     wxPliOutputStream* ( * m_wxPliOutputStream_ctor )( SV* );
+    void (* m_wxPli_stringarray_push )( pTHX_ const wxArrayString& );
 };
 
 #if wxPERL_USE_THREADS
@@ -494,7 +495,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_clientdatacontainer_2_sv, \
  wxDEFINE_PLI_HELPER_THREADS() \
  &wxPli_av_2_arrayint, &wxPli_set_events, &wxPli_av_2_arraystring, \
- &wxPli_objlist_push, &wxPliOutputStream_ctor \
+ &wxPli_objlist_push, &wxPliOutputStream_ctor, &wxPli_stringarray_push \
  }
 
 #if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
@@ -537,6 +538,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_av_2_arraystring = name->m_wxPli_av_2_arraystring; \
   wxPli_objlist_push = name->m_wxPli_objlist_push; \
   wxPliOutputStream_ctor = name->m_wxPliOutputStream_ctor; \
+  wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray; \
   WXPLI_INIT_CLASSINFO();
 
 #else

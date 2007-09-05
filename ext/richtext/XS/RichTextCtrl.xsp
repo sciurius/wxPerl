@@ -72,6 +72,13 @@ double richtextctrl_constant( const char* name, int arg )
         r( wxRICHTEXT_HITTEST_BEFORE );
         r( wxRICHTEXT_HITTEST_AFTER );
         r( wxRICHTEXT_HITTEST_ON );
+        r( wxRICHTEXT_HANDLER_INCLUDE_STYLESHEET );
+        r( wxRICHTEXT_HANDLER_SAVE_IMAGES_TO_MEMORY );
+        r( wxRICHTEXT_HANDLER_SAVE_IMAGES_TO_FILES );
+        r( wxRICHTEXT_HANDLER_SAVE_IMAGES_TO_BASE64 );
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+        r( wxRICHTEXT_HANDLER_NO_HEADER_FOOTER );
+#endif
         r( wxRICHTEXT_FORMATTED );
         r( wxRICHTEXT_UNFORMATTED );
         r( wxRICHTEXT_TYPE_ANY );
