@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006 Mattia Barbon
+## Copyright:   (c) 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,6 +19,7 @@
 %typemap{wxRichTextAttr*}{simple};
 %typemap{wxRichTextAttrDisown*}{parsed}{%wxRichTextAttr*%}
              {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%};
+%typemap{wxRichTextBuffer*}{simple};
 %typemap{wxRichTextCtrl*}{simple};
 %typemap{wxRichTextStyleListBox*}{simple};
 %typemap{wxRichTextStyleListCtrl*}{simple};
@@ -58,3 +59,5 @@
              {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
 %typemap{const wxRichTextListStyleDefinition&}{reference};
 %typemap{wxRichTextFormattingDialog*}{simple};
+%typemap{wxRichTextFileHandler*}{simple};
+%typemap{wxPlRichTextFileHandler*}{simple};

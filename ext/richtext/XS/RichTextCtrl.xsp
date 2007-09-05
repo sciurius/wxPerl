@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006 Mattia Barbon
+## Copyright:   (c) 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,9 +16,13 @@
 #include <wx/richtext/richtextformatdlg.h>
 #include "cpp/richtextctrl.h"
 
-%typemap{wxChar}{simple};
-
 %module{Wx};
+
+## DECLARE_OVERLOAD( wrtr, Wx::RichTextRange )
+## DECLARE_OVERLOAD( wrta, Wx::RichTextAttr )
+## DECLARE_OVERLOAD( wtae, Wx::TextAttrEx )
+## DECLARE_OVERLOAD( wtat, Wx::TextAttr )
+
 %file{cpp/richtextctrl.h};
 %{
 
@@ -371,14 +375,22 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
 
     %name{SetBasicStyleRich} void SetBasicStyle( const wxRichTextAttr& style );
     %name{SetBasicStyleEx} void SetBasicStyle( const wxTextAttrEx& style );
+%{
+void
+wxRichTextCtrl::SetBasicStyle( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wrta, SetBasicStyleRich );
+        MATCH_REDISP( wxPliOvl_wtae, SetBasicStyleEx );
+    END_OVERLOAD( "Wx::RichTextCtrl::SetBasicStyle" )
+
+%}
+
+    wxRichTextBuffer* GetBuffer()
+        %code{% RETVAL = &THIS->GetBuffer(); %};
 };
 
 %{
-
-## DECLARE_OVERLOAD( wrtr, Wx::RichTextRange )
-## DECLARE_OVERLOAD( wrta, Wx::RichTextAttr )
-## DECLARE_OVERLOAD( wtae, Wx::TextAttrEx )
-## DECLARE_OVERLOAD( wtat, Wx::TextAttr )
 
 void
 wxRichTextCtrl::new( ... )
@@ -396,14 +408,6 @@ wxRichTextCtrl::SetStyle( ... )
         MATCH_REDISP( wxPliOvl_n_n_wtae, SetStyleExFromTo );
         MATCH_REDISP( wxPliOvl_n_n_wtat, SetStyleFromTo );
     END_OVERLOAD( "Wx::RichTextCtrl::SetStyle" )
-
-void
-wxRichTextCtrl::SetBasicStyle( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrta, SetBasicStyleRich );
-        MATCH_REDISP( wxPliOvl_wtae, SetBasicStyleEx );
-    END_OVERLOAD( "Wx::RichTextCtrl::SetBasicStyle" )
 
 void
 wxRichTextCtrl::SetStyleEx( ... )

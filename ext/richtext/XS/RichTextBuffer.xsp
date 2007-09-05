@@ -1,0 +1,231 @@
+#############################################################################
+## Name:        ext/richtext/XS/RichTextBuffer.xsp
+## Purpose:     XS++ for Wx::RichTextBuffer
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     03/09/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/event.h>
+#include <wx/richtext/richtextbuffer.h>
+
+%module{Wx};
+
+## DECLARE_OVERLOAD( wrta, Wx::RichTextAttr )
+
+%name{Wx::RichTextBuffer} class wxRichTextBuffer
+{
+    bool AddEventHandler( wxEvtHandler* handler );
+    void AddHandler( wxRichTextFileHandler* handler );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+    %name{SetStyleRange} bool SetStyle
+        ( const wxRichTextRange& range, const wxTextAttrEx& style,
+          int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
+    %name{SetStyleExRange} bool SetStyle
+        ( const wxRichTextRange& range, const wxRichTextAttr& style,
+          int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
+%{
+void
+wxRichTextBuffer::SetStyle( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wrtr_wrta_n, SetStyleRange );
+        MATCH_REDISP( wxPliOvl_wrtr_wtae_n, SetStyleExRange );
+    END_OVERLOAD( "Wx::RichTextBuffer::SetStyle" )
+
+%}
+#endif
+
+    bool InsertTextWithUndo( long pos, const wxString& text,
+                             wxRichTextCtrl* ctrl, int flags = 0 );
+    bool InsertNewlineWithUndo( long pos, wxRichTextCtrl* ctrl,
+                                int flags = 0 );
+
+    const wxTextAttrEx& GetBasicStyle() const;
+    const wxTextAttrEx& GetDefaultStyle() const;
+
+    bool BeginStyle( const wxTextAttrEx& style );
+    bool EndStyle();
+    bool EndAllStyles();
+    bool BeginBold();
+    bool EndBold();
+    bool BeginItalic();
+    bool EndItalic();
+    bool BeginUnderline();
+    bool EndUnderline();
+    bool BeginFontSize( int pointSize );
+    bool EndFontSize();
+    bool BeginFont( const wxFont& font );
+    bool EndFont();
+    bool BeginTextColour( const wxColour& colour );
+    bool EndTextColour();
+    bool BeginAlignment( wxTextAttrAlignment alignment );
+    bool EndAlignment();
+    bool BeginLeftIndent( int leftIndent, int leftSubIndent = 0 );
+    bool EndLeftIndent();
+    bool BeginRightIndent( int rightIndent );
+    bool EndRightIndent();
+    bool BeginParagraphSpacing( int before, int after );
+    bool EndParagraphSpacing();
+    bool BeginLineSpacing( int lineSpacing );
+    bool EndLineSpacing();
+    bool BeginNumberedBullet( int bulletNumber, int leftIndent, 
+                              int leftSubIndent,
+                              int bulletStyle = wxTEXT_ATTR_DEFAULT_NUMBERED_BULLET );
+    bool EndNumberedBullet();
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool BeginSymbolBullet( const wxString& symbol, int leftIndent,
+                            int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_SYMBOL );
+#else
+    bool BeginSymbolBullet( wxChar symbol, int leftIndent,
+                            int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_SYMBOL );
+#endif
+    bool EndSymbolBullet();
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool BeginStandardBullet( const wxString& bulletName, int leftIndent,
+                              int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_STANDARD );
+    bool EndStandardBullet();
+#endif
+    bool BeginCharacterStyle( const wxString& characterStyle );
+    bool EndCharacterStyle();
+    bool BeginParagraphStyle( const wxString& paragraphStyle );
+    bool EndParagraphStyle();
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool BeginListStyle( const wxString& listStyle, int level = 1,
+                         int number = 1 );
+    bool EndListStyle();
+    bool BeginURL( const wxString& url,
+                   const wxString& characterStyle = wxEmptyString );
+    bool EndURL();
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool ClearListStyle( const wxRichTextRange& range,
+                         int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
+#endif
+
+    wxRichTextRange AddParagraph( const wxString& text );
+    wxRichTextRange AddImage( const wxImage& image );
+
+    bool BeginBatchUndo( const wxString& cmdName );
+    bool EndBatchUndo();
+    bool BatchingUndo() const;
+    bool BeginSuppressUndo();
+    bool EndSuppressUndo();
+    bool SuppressingUndo() const;
+
+    void SetStyleSheet( wxRichTextStyleSheet* styleSheet );
+    wxRichTextStyleSheetDisown* GetStyleSheet() const;
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    bool PushStyleSheet( wxRichTextStyleSheetDisown* styleSheet );
+    wxRichTextStyleSheetDisown* PopStyleSheet();
+#endif
+
+    %name{SetBasicStyleRich} void SetBasicStyle( const wxRichTextAttr& style );
+    %name{SetBasicStyleEx} void SetBasicStyle( const wxTextAttrEx& style );
+%{
+void
+wxRichTextBuffer::SetBasicStyle( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wrta, SetBasicStyleRich );
+        MATCH_REDISP( wxPliOvl_wtae, SetBasicStyleEx );
+    END_OVERLOAD( "Wx::RichTextBuffer::SetBasicStyle" )
+
+%}
+
+};
+
+%{
+void
+wxRichTextCtrl::GetRichTextAttrStyle( position )
+    long position
+  PPCODE:
+    wxRichTextAttr attr;
+    bool retval = THIS->GetStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxRichTextAttr( attr ),
+                                           "Wx::RichTextAttr" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetTextAttrExStyle( position )
+    long position
+  PPCODE:
+    wxTextAttrEx attr;
+    bool retval = THIS->GetStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttrEx( attr ),
+                                           "Wx::TextAttrEx" ) :
+                    &PL_sv_undef );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+
+void
+wxRichTextCtrl::GetRichTextAttrUncombinedStyle( position )
+    long position
+  PPCODE:
+    wxRichTextAttr attr;
+    bool retval = THIS->GetUncombinedStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxRichTextAttr( attr ),
+                                           "Wx::RichTextAttr" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetTextAttrExUncombinedStyle( position )
+    long position
+  PPCODE:
+    wxTextAttrEx attr;
+    bool retval = THIS->GetUncombinedStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttrEx( attr ),
+                                           "Wx::TextAttrEx" ) :
+                    &PL_sv_undef );
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+void
+wxRichTextCtrl::GetRichTextAttrStyleForRange( range )
+    wxRichTextRange* range
+  PPCODE:
+    wxRichTextAttr attr;
+    bool retval = THIS->GetStyleForRange( *range, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxRichTextAttr( attr ),
+                                           "Wx::RichTextAttr" ) :
+                    &PL_sv_undef );
+
+void
+wxRichTextCtrl::GetTextAttrExStyleForRange( range )
+    wxRichTextRange* range
+  PPCODE:
+    wxTextAttrEx attr;
+    bool retval = THIS->GetStyleForRange( *range, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttrEx( attr ),
+                                           "Wx::TextAttrEx" ) :
+                    &PL_sv_undef );
+
+#endif
+
+%}

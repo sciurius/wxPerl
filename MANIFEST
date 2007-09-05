@@ -452,7 +452,9 @@ ext/pperl/textval/t/01_load.t
 ext/richtext/Makefile.PL
 ext/richtext/RichText.xs
 ext/richtext/XS/RichTextAttr.xsp
+ext/richtext/XS/RichTextBuffer.xsp
 ext/richtext/XS/RichTextCtrl.xsp
+ext/richtext/XS/RichTextFileHandler.xsp
 ext/richtext/XS/RichTextFormattingDialog.xsp
 ext/richtext/XS/RichTextStyle.xsp
 ext/richtext/XS/RichTextStyleCtrl.xsp

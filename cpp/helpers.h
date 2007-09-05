@@ -339,6 +339,7 @@ void wxPli_sv_2_ostream( pTHX_ SV* scalar, wxPliOutputStream& stream );
 void FUNCPTR( wxPli_stream_2_sv )( pTHX_ SV* scalar, wxStreamBase* stream,
                                    const char* package );
 wxPliInputStream* FUNCPTR( wxPliInputStream_ctor )( SV* sv );
+wxPliOutputStream* FUNCPTR( wxPliOutputStream_ctor )( SV* sv );
 
 void FUNCPTR( wxPli_set_events )( const wxPliEventDescription* events );
 
@@ -461,6 +462,7 @@ struct wxPliHelpers
     void (* m_wxPli_set_events )( const wxPliEventDescription* events );
     int (* m_wxPli_av_2_arraystring )( pTHX_ SV* avref, wxArrayString* array );
     void (* m_wxPli_objlist_push )( pTHX_ const wxList& objs );
+    wxPliOutputStream* ( * m_wxPliOutputStream_ctor )( SV* );
 };
 
 #if wxPERL_USE_THREADS
@@ -492,7 +494,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_clientdatacontainer_2_sv, \
  wxDEFINE_PLI_HELPER_THREADS() \
  &wxPli_av_2_arrayint, &wxPli_set_events, &wxPli_av_2_arraystring, \
- &wxPli_objlist_push \
+ &wxPli_objlist_push, &wxPliOutputStream_ctor \
  }
 
 #if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
@@ -534,6 +536,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_set_events = name->m_wxPli_set_events; \
   wxPli_av_2_arraystring = name->m_wxPli_av_2_arraystring; \
   wxPli_objlist_push = name->m_wxPli_objlist_push; \
+  wxPliOutputStream_ctor = name->m_wxPliOutputStream_ctor; \
   WXPLI_INIT_CLASSINFO();
 
 #else

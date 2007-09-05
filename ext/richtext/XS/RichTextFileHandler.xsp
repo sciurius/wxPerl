@@ -1,0 +1,203 @@
+#############################################################################
+## Name:        ext/richtext/XS/RichTextFileHandler.xsp
+## Purpose:     XS++ for Wx::RichTextFileHandler
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     03/09/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/event.h>
+#include <wx/richtext/richtextbuffer.h>
+
+%module{Wx};
+
+%file{cpp/filehandler.h};
+%{
+
+#include "cpp/v_cback.h"
+#include "cpp/streams.h"
+
+#define DEF_V_CBACK_BOOL__WXRICHTEXTBUFFER_WXINPUTSTREAM( CLASS, BASE, METHOD )\
+    bool CLASS::METHOD( wxRichTextBuffer* p1, wxInputStream& p2 )            \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                      \
+        {                                                                    \
+            wxAutoSV stream( aTHX_ sv_newmortal() );                         \
+            wxPli_stream_2_sv( aTHX_ stream, &p2, "Wx::InputStream" );       \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback,              \
+                                             G_SCALAR,                       \
+                                             "Qs", p1, (SV*)stream ) );      \
+            return SvTRUE( ret );                                            \
+        } else                                                               \
+            return false;                                                    \
+    }
+
+#define DEF_V_CBACK_BOOL__WXRICHTEXTBUFFER_WXOUTPUTSTREAM( CLASS, BASE, METHOD )\
+    bool CLASS::METHOD( wxRichTextBuffer* p1, wxOutputStream& p2 )           \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                      \
+        {                                                                    \
+            wxAutoSV stream( aTHX_ sv_newmortal() );                         \
+            wxPli_stream_2_sv( aTHX_ stream, &p2, "Wx::OutputStream" );      \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback,              \
+                                             G_SCALAR,                       \
+                                             "Qs", p1, (SV*)stream ) );      \
+            return SvTRUE( ret );                                            \
+        } else                                                               \
+            return false;                                                    \
+    }
+
+class wxPlRichTextFileHandler : public wxRichTextFileHandler
+{
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPlRichTextFileHandler( const char* package,
+                             const wxString& name = wxEmptyString,
+                             const wxString& ext = wxEmptyString,
+                             int type = 0 )
+      : wxRichTextFileHandler( name, ext, type ),
+        m_callback( "Wx::RichTextFileHandler" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
+    }
+
+    bool base_CanHandle( const wxString& filename )
+        { return wxRichTextFileHandler::CanHandle( filename ); }
+    bool base_CanLoad()
+        { return wxRichTextFileHandler::CanLoad(); }
+    bool base_CanSave()
+        { return wxRichTextFileHandler::CanSave(); }
+
+    DEC_V_CBACK_BOOL__WXSTRING( CanHandle );
+    DEC_V_CBACK_BOOL__VOID( CanLoad );
+    DEC_V_CBACK_BOOL__VOID( CanSave );
+
+    bool DoLoadFile( wxRichTextBuffer *buffer, wxInputStream& stream );
+    bool DoSaveFile( wxRichTextBuffer *buffer, wxOutputStream& stream );
+};
+
+DEF_V_CBACK_BOOL__WXSTRING( wxPlRichTextFileHandler,
+                            wxRichTextFileHandler, CanHandle );
+DEF_V_CBACK_BOOL__VOID( wxPlRichTextFileHandler,
+                        wxRichTextFileHandler, CanLoad );
+DEF_V_CBACK_BOOL__VOID( wxPlRichTextFileHandler,
+                        wxRichTextFileHandler, CanSave );
+DEF_V_CBACK_BOOL__WXRICHTEXTBUFFER_WXINPUTSTREAM( wxPlRichTextFileHandler,
+                                                  wxRichTextFileHandler,
+                                                  DoLoadFile );
+DEF_V_CBACK_BOOL__WXRICHTEXTBUFFER_WXOUTPUTSTREAM( wxPlRichTextFileHandler,
+                                                   wxRichTextFileHandler,
+                                                   DoSaveFile );
+%}
+%file{-};
+
+#include "cpp/filehandler.h"
+
+%name{Wx::RichTextFileHandler} class wxRichTextFileHandler
+{
+    bool CanHandle( const wxString& filename ) const;
+    bool CanLoad() const;
+    bool CanSave() const;
+
+    bool LoadFile( wxRichTextBuffer* buffer, SV* fh )
+        %code{% wxInputStream* stream = wxPliInputStream_ctor( fh );
+                RETVAL = THIS->LoadFile( buffer, *stream );
+                delete stream;
+                %};
+    bool SaveFile( wxRichTextBuffer* buffer, SV* fh )
+        %code{% wxOutputStream* stream = wxPliOutputStream_ctor( fh );
+                RETVAL = THIS->SaveFile( buffer, *stream );
+                delete stream;
+                %};
+
+    void SetName( const wxString& name );
+    wxString GetName() const;
+    void SetExtension( const wxString& ext );
+    wxString GetExtension() const;
+    void SetType( int type );
+    int GetType();
+    void SetEncoding( const wxString& encoding );
+    wxString GetEncoding() const;
+    bool IsVisible() const;
+    void SetVisible( bool visible );
+};
+
+%name{Wx::PlRichTextFileHandler} class wxPlRichTextFileHandler
+{
+    wxPlRichTextFilehandler( const wxString& name = wxEmptyString,
+                             const wxString& ext = wxEmptyString,
+                             int type = 0 )
+        %code{% RETVAL = new wxPlRichTextFileHandler( CLASS, name, ext, type );
+                %};
+
+    %name{CanHandle} bool base_CanHandle( const wxString& filename ) const;
+    %name{CanLoad} bool base_CanLoad() const;
+    %name{CanSave} bool base_CanSave() const;
+};
+
+#include <wx/richtext/richtextxml.h>
+
+%typemap{wxRichTextXMLHandler*}{simple};
+
+%name{Wx::RichTextXMLHandler} class wxRichTextXMLHandler
+{
+    wxRichTextXMLHandler( const wxString& name = wxT("XML"),
+                          const wxString& ext = wxT("xml"),
+                          int type = wxRICHTEXT_TYPE_XML );
+};
+
+#include <wx/richtext/richtexthtml.h>
+
+%typemap{wxRichTextHTMLHandler*}{simple};
+
+%name{Wx::RichTextHTMLHandler} class wxRichTextHTMLHandler
+{
+    wxRichTextHTMLHandler( const wxString& name = wxT("HTML"),
+                           const wxString& ext = wxT("html"),
+                           int type = wxRICHTEXT_TYPE_HTML );
+
+    void ClearTemporaryImageLocations();
+%{
+bool
+wxRichTextHTMLHandler::DeleteTemporaryImages( ... )
+  CASE: items == 2
+    INPUT:
+    CODE:
+      int flags = SvIV( ST(1) );
+      wxArrayString imageLocations;
+      wxPli_av_2_arraystring( aTHX_ ST(2), &imageLocations );
+      RETVAL = THIS->DeleteTemporaryImages( flags, imageLocations );
+    OUTPUT: RETVAL
+  CASE:
+    CODE:
+      RETVAL = THIS->DeleteTemporaryImages();
+    OUTPUT:RETVAL
+
+void
+wxRichTextHTMLHandler::GetFontSizeMapping()
+  PPCODE:
+    PUTBACK;
+    wxPli_intarray_push( aTHX_ THIS->GetFontSizeMapping() );
+    SPAGAIN;
+
+void
+wxRichTextHTMLHandler::GetTemporaryImageLocations()
+  PPCODE:
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ THIS->GetTemporaryImageLocations() );
+    SPAGAIN;
+
+%}
+
+    const wxString& GetTempDir() const;
+    void SetFileCounter( int counter );
+    void SetFontSizeMapping( const wxArrayInt& fontSizeMapping );
+    void SetTempDir( const wxString& tempDir );
+    void SetTemporaryImageLocations( const wxArrayString& locations );
+};
