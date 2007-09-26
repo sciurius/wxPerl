@@ -49,5 +49,6 @@ package Wx::RichTextCompositeObject; @ISA = qw(Wx::RichTextObject);
 package Wx::RichTextBox;     @ISA = qw(Wx::RichTextCompositeObject);
 package Wx::RichTextParagraphLayoutBox; @ISA = qw(Wx::RichTextBox);
 package Wx::RichTextBuffer;  @ISA = qw(Wx::RichTextParagraphLayoutBox);
+package Wx::SymbolPickerDialog; @ISA = qw(Wx::Dialog);
 
 1;

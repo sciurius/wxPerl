@@ -1,0 +1,73 @@
+#############################################################################
+## Name:        ext/richtext/XS/SymbolPickerDialog.xsp
+## Purpose:     XS++ for Wx::SymbolPickerDialog
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     26/09/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#undef _
+#define _(x) wxGetTranslation(wxT(x))
+
+#include <wx/richtext/richtextsymboldlg.h>
+
+%typemap{wxSymbolPickerDialog*}{simple};
+
+%name{Wx::SymbolPickerDialog} class wxSymbolPickerDialog
+{
+%{
+void
+wxSymbolPickerDialog::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::SymbolPickerDialog::new" )
+%}
+
+    %name{newDefault} wxSymbolPickerDialog()
+        %code{% RETVAL = new wxSymbolPickerDialog();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxSymbolPickerDialog( const wxString& symbol,
+                                         const wxString& fontName,
+                                         const wxString& normalTextFont,
+                                         wxWindow* parent,
+                                         wxWindowID id = wxID_ANY,
+                                         const wxString& caption = SYMBOL_WXSYMBOLPICKERDIALOG_TITLE,
+                                         const wxPoint& pos = wxDefaultPosition,
+                                         const wxSize& size = wxDefaultSize,
+                                         long style = SYMBOL_WXSYMBOLPICKERDIALOG_STYLE )
+        %code{% RETVAL = new wxSymbolPickerDialog( symbol, fontName,
+                                                   normalTextFont, parent, id,
+                                                   caption, pos, size, style );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+
+    bool Create( const wxString& symbol, const wxString& fontName,
+                 const wxString& normalTextFont, wxWindow* parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxString& caption = SYMBOL_WXSYMBOLPICKERDIALOG_TITLE,
+                 const wxPoint& pos = SYMBOL_WXSYMBOLPICKERDIALOG_POSITION,
+                 const wxSize& size = SYMBOL_WXSYMBOLPICKERDIALOG_SIZE,
+                 long style = SYMBOL_WXSYMBOLPICKERDIALOG_STYLE );
+
+    void SetUnicodeMode( bool unicodeMode );
+    int GetSymbolChar() const;
+    bool HasSelection() const;
+    bool UseNormalFont() const;
+    wxString GetFontName() const;
+    void SetFontName( wxString value );
+    wxString GetSymbol() const;
+    void SetSymbol( wxString value );
+    bool GetFromUnicode() const;
+    void SetFromUnicode( bool value );
+    wxString GetNormalTextFontName() const;
+    void SetNormalTextFontName( wxString value );
+};
