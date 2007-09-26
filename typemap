@@ -102,6 +102,8 @@ wxMiniFrame *           O_WXOBJECT
 wxPopupWindow *         O_WXOBJECT
 wxPopupTransientWindow * O_WXOBJECT
 wxPlPopupTransientWindow * O_WXOBJECT
+wxDisplay *             O_NON_WXOBJECT
+wxVideoMode *           O_NON_WXOBJECT
 
 wxMenuBar *             O_WXOBJECT
 wxMenu *                O_WXOBJECT

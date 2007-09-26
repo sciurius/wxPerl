@@ -411,6 +411,8 @@ INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Power.xsp |
 
 INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/ClassInfo.xs |
 
+INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Display.xsp |
+
 ##  //FIXME// tricky
 ##if defined(__WXMSW__)
 ##undef XS

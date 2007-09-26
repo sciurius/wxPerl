@@ -130,6 +130,7 @@ XS/Cursor.xs
 XS/DC.xs
 XS/Dialog.xs
 XS/DirDialog.xs
+XS/Display.xsp
 XS/EditableListBox.xsp
 XS/EvtHandler.xs
 XS/FileDialog.xs
