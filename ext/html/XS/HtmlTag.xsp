@@ -39,9 +39,11 @@
 
     bool HasEnding() const;
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
     int GetBeginPos() const;
     int GetEndPos1() const;
     int GetEndPos2() const;
+#endif
 };
 
 %{
