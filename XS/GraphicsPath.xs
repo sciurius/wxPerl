@@ -1,6 +1,6 @@
 #############################################################################
 ## Name:        XS/GraphicsPath.xs
-## Purpose:     XS for Wx::GraphicsObject
+## Purpose:     XS for Wx::GraphicsPath
 ## Author:      Klaas Hartmann
 ## Modified by:
 ## Created:     29/06/2007

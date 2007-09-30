@@ -23,8 +23,8 @@ void
 Create ( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_FUNCTION(wxPliOvl_wwin, Wx::GraphicsContext::createFromWindow)
-        MATCH_REDISP_FUNCTION(wxPliOvl_wdc, Wx::GraphicsContext::createFromDC)
+        MATCH_REDISP_FUNCTION(wxPliOvl_wwin, createFromWindow)
+        MATCH_REDISP_FUNCTION(wxPliOvl_wdc, createFromDC)
     END_OVERLOAD( "Wx::GraphicsContext::Create" )
 
 wxGraphicsContext* 

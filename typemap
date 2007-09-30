@@ -344,13 +344,14 @@ wxSingleInstanceChecker * O_NON_WXOBJECT_THR
 
 wxWave *                O_NON_WXOBJECT
 
-wxGraphicsBrush *       O_WXOBJECT
-wxGraphicsContext *     O_WXOBJECT
-wxGraphicsFont *        O_WXOBJECT
-wxGraphicsMatrix *      O_WXOBJECT
-wxGraphicsObject *      O_WXOBJECT
-wxGraphicsPath *        O_WXOBJECT
-wxGraphicsPen *         O_WXOBJECT
+wxGraphicsRenderer *    O_WXOBJECT
+wxGraphicsBrush *       O_WXOBJECT_THR
+wxGraphicsContext *     O_WXOBJECT_THR
+wxGraphicsFont *        O_WXOBJECT_THR
+wxGraphicsMatrix *      O_WXOBJECT_THR
+wxGraphicsObject *      O_WXOBJECT_THR
+wxGraphicsPath *        O_WXOBJECT_THR
+wxGraphicsPen *         O_WXOBJECT_THR
 
 # events
 wxEvent *               O_WXOBJECT_THR

@@ -424,9 +424,13 @@ static wxPlINH inherit[] =
     I( ANIHandler,      CURHandler )
     I( TGAHandler,      ImageHandler )
 
+    I( GraphicsRenderer, Object )
     I( GraphicsObject,  Object )
     I( GraphicsPath,    GraphicsObject )
     I( GraphicsMatrix,  GraphicsObject )
+    I( GraphicsPen,     GraphicsObject )
+    I( GraphicsBrush,   GraphicsObject )
+    I( GraphicsFont,    GraphicsObject )
 
     I( LogTextCtrl,     Log )
     I( LogWindow,       Log )

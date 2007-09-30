@@ -146,7 +146,9 @@ XS/Gauge.xs
 XS/Geom.xs
 XS/GraphicsContext.xs
 XS/GraphicsMatrix.xs
+XS/GraphicsObject.xs
 XS/GraphicsPath.xs
+XS/GraphicsRenderer.xsp
 XS/GridBagSizer.xsp
 XS/HyperlinkCtrl.xsp
 XS/Icon.xs

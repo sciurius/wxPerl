@@ -1,0 +1,56 @@
+#############################################################################
+## Name:        XS/GraphicsRenderer.xsp
+## Purpose:     XS for Wx::GraphicsRenderer
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     30/09/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Klaas Hartmann
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if wxUSE_GRAPHICS_CONTEXT
+
+%name{Wx::GraphicsRenderer} class wxGraphicsRenderer
+{
+%{
+wxGraphicsRenderer*
+GetDefaultRenderer()
+  CODE:
+    RETVAL = wxGraphicsRenderer::GetDefaultRenderer();
+  OUTPUT: RETVAL
+
+void
+CreateContext( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_FUNCTION( wxPliOvl_wwin, CreateFromWindow )
+        MATCH_REDISP_FUNCTION( wxPliOvl_wdc, CreateFromDC )
+    END_OVERLOAD( "Wx::GraphicsRenderer::CreateContext" )
+%}
+
+    %name{CreateFromDC} wxGraphicsContext* CreateContext( const wxWindowDC& dc );
+    %name{CreateFromWindow} wxGraphicsContext* CreateContext( wxWindow* window );
+    wxGraphicsContext* CreateMeasuringContext();
+    const wxGraphicsPath& CreatePath();
+    const wxGraphicsMatrix& CreateMatrix( wxDouble a=1.0, wxDouble b=0.0,
+                                          wxDouble c=0.0, wxDouble d=1.0,
+                                          wxDouble tx=0.0, wxDouble ty=0.0 );
+    const wxGraphicsPen& CreatePen( const wxPen& pen );
+    const wxGraphicsBrush& CreateBrush( const wxBrush& brush );
+    const wxGraphicsBrush& CreateLinearGradientBrush( wxDouble x1, wxDouble y1,
+                                                      wxDouble x2, wxDouble y2,
+                                                      const wxColour&c1, const wxColour&c2 );
+    const wxGraphicsBrush& CreateRadialGradientBrush( wxDouble xo, wxDouble yo,
+                                                      wxDouble xc, wxDouble yc,
+                                                      wxDouble radius,
+                                                      const wxColour &oColor, const wxColour &cColor );
+#define wxBLACKPtr (wxColour*)wxBLACK
+    const wxGraphicsFont& CreateFont( const wxFont& font,
+                                      const wxColour& col = wxBLACKPtr );
+};
+
+#endif

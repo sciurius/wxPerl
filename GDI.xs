@@ -38,6 +38,8 @@ INCLUDE: XS/Palette.xs
 INCLUDE: XS/GraphicsContext.xs
 INCLUDE: XS/GraphicsPath.xs
 INCLUDE: XS/GraphicsMatrix.xs
+INCLUDE: XS/GraphicsObject.xs
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/GraphicsRenderer.xsp |
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 

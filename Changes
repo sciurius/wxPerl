@@ -5,6 +5,7 @@ Revision history for Perl extension Wx.
 	  wxRichTextHTMLHandler, wxRichTextXMLHandler (2.7).
 	- Added wxSymbolPickerDialog (2.7).
 	- Added wxDisplay.
+	- Wrapped the remaining wxGraphics* classes (2.7).
 
 0.77  Thu Aug 23 21:59:25 CEST 2007
 	- Added wxGraphicsContext (2.7) and some related classes

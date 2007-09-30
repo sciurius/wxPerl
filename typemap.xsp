@@ -21,6 +21,7 @@
 %typemap{double}{simple};
 %typemap{wxChar}{simple};
 %typemap{SV*}{simple};
+%typemap{wxDouble}{simple};
 
 %typemap{size_t}{simple};
 %typemap{time_t}{simple};
@@ -71,7 +72,12 @@
 %typemap{wxDC*}{simple};
 %typemap{wxDC&}{reference};
 %typemap{const wxDC&}{reference};
+%typemap{const wxWindowDC&}{reference};
 %typemap{const wxValidator&}{reference};
+
+%typemap{const wxPen&}{reference};
+%typemap{const wxBrush&}{reference};
+%typemap{const wxFont&}{reference};
 
 %typemap{wxDateTime*}{simple};
 %typemap{wxDateTime&}{reference};
@@ -114,3 +120,10 @@
 
 %typemap{wxPliInputStream}{simple};
 %typemap{wxPliOutputStream}{simple};
+
+%typemap{wxGraphicsContext*}{simple};
+%typemap{const wxGraphicsPath&}{reference};
+%typemap{const wxGraphicsMatrix&}{reference};
+%typemap{const wxGraphicsPen&}{reference};
+%typemap{const wxGraphicsBrush&}{reference};
+%typemap{const wxGraphicsFont&}{reference};
