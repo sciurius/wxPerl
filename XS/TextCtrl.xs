@@ -166,6 +166,9 @@ wxTextAttr::GetTabs()
     void SetSelection( long from, long to );
     void SelectAll();
     void SetEditable( bool editable );
+#ifdef __WXMAC__
+    void MacCheckSpelling( bool check );
+#endif
 };
 
 %{
