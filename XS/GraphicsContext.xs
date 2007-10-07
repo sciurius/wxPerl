@@ -23,8 +23,8 @@ void
 Create ( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_FUNCTION(wxPliOvl_wwin, createFromWindow)
-        MATCH_REDISP_FUNCTION(wxPliOvl_wdc, createFromDC)
+        MATCH_REDISP_FUNCTION(wxPliOvl_wwin, Wx::GraphicsContext::createFromWindow)
+        MATCH_REDISP_FUNCTION(wxPliOvl_wdc, Wx::GraphicsContext::createFromDC)
     END_OVERLOAD( "Wx::GraphicsContext::Create" )
 
 wxGraphicsContext* 
@@ -50,9 +50,9 @@ wxGraphicsContext::CreatePen ( pen )
 
 wxGraphicsBrush*
 wxGraphicsContext::CreateBrush ( brush )
-    wxGraphicsBrush* brush
+    wxBrush* brush
   CODE:
-    RETVAL = new wxGraphicsBrush( *brush );
+    RETVAL = new wxGraphicsBrush( THIS->CreateBrush(*brush) );
   OUTPUT: RETVAL
 
 wxGraphicsBrush*
@@ -81,7 +81,7 @@ wxGraphicsContext::CreateLinearGradientBrush (x1,y1,x2,y2,c1,c2)
   OUTPUT: RETVAL
 
 wxGraphicsFont* 
-wxGraphicsContext::CreateFont (font, col = new wxColour(*wxBLACK) )
+wxGraphicsContext::CreateFont (font, col = (wxColour*)wxBLACK )
     wxFont* font
     wxColour* col
   CODE:
@@ -106,12 +106,30 @@ wxGraphicsContext::CreatePath ()
       RETVAL = new wxGraphicsPath( THIS->CreatePath() );
   OUTPUT: RETVAL
 
+# DECLARE_OVERLOAD( wrgn, Wx::Region )
+
 void
-wxGraphicsContext::Clip (x, y, w, h)
+Clip ( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP(wxPliOvl_n_n_n_n, ClipXYWH)
+        MATCH_REDISP(wxPliOvl_wrgn, ClipRegion)
+    END_OVERLOAD( "Wx::GraphicsContext::Clip" )
+
+void
+wxGraphicsContext::ClipXYWH (x, y, w, h)
     wxDouble x
     wxDouble y
     wxDouble w
     wxDouble h
+  CODE:
+    THIS->Clip (x, y, w, h);
+
+void
+wxGraphicsContext::ClipRegion (region)
+    wxRegion* region
+  CODE:
+    THIS->Clip (*region);
 
 void
 wxGraphicsContext::ResetClip ()
@@ -272,22 +290,72 @@ wxGraphicsContext::ConcatTransform (matrix)
   CODE:
     THIS->ConcatTransform(*matrix);
 
+# DECLARE_OVERLOAD( wbru, Wx::Brush )
+# DECLARE_OVERLOAD( wgbr, Wx::GraphicsBrush )
+# DECLARE_OVERLOAD( wfon, Wx::Font )
+# DECLARE_OVERLOAD( wgfo, Wx::GraphicsFont )
+# DECLARE_OVERLOAD( wpen, Wx::Pen )
+# DECLARE_OVERLOAD( wgpe, Wx::GraphicsPen )
+# DECLARE_OVERLOAD( wcol, Wx::Colour )
+
 void
-wxGraphicsContext::SetBrush (brush)
+SetBrush ( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP(wxPliOvl_wbru, SetBrushBrush)
+        MATCH_REDISP(wxPliOvl_wgbr, SetBrushGraphics)
+    END_OVERLOAD( "Wx::GraphicsContext::SetBrush" )
+
+void
+wxGraphicsContext::SetBrushBrush (brush)
     wxBrush* brush
   CODE:
     THIS->SetBrush( *brush );
 
+void
+wxGraphicsContext::SetBrushGraphics (brush)
+    wxGraphicsBrush* brush
+  CODE:
+    THIS->SetBrush( *brush );
+
+void
+SetFont ( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP(wxPliOvl_wfon_wcol, SetFontFont)
+        MATCH_REDISP(wxPliOvl_wgfo, SetFontGraphics)
+    END_OVERLOAD( "Wx::GraphicsContext::SetFont" )
+
 void 
-wxGraphicsContext::SetFont (font, colour)    
+wxGraphicsContext::SetFontFont (font, colour)
     wxFont* font
     wxColour* colour
   CODE:
     THIS->SetFont(*font, *colour);
 
+void 
+wxGraphicsContext::SetFontGraphics (font)
+    wxGraphicsFont* font
+  CODE:
+    THIS->SetFont(*font);
+
 void
-wxGraphicsContext::SetPen (pen)
+SetPen ( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP(wxPliOvl_wpen, SetPenPen)
+        MATCH_REDISP(wxPliOvl_wgpe, SetPenGraphics)
+    END_OVERLOAD( "Wx::GraphicsContext::SetPen" )
+
+void
+wxGraphicsContext::SetPenPen (pen)
     wxPen* pen
+  CODE:
+    THIS->SetPen( *pen );
+
+void
+wxGraphicsContext::SetPenGraphics (pen)
+    wxGraphicsPen* pen
   CODE:
     THIS->SetPen( *pen );
 
