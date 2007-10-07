@@ -147,6 +147,14 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 
 #endif
 
+inline wxString wxPli_sv_2_wxString( pTHX_ SV* sv )
+{
+    wxString ret;
+    WXSTRING_INPUT( ret, wxString , sv );
+
+    return ret;
+}
+
 // some utility functions
 
 inline AV* wxPli_avref_2_av( SV* sv )

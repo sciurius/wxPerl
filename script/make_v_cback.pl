@@ -84,21 +84,26 @@ my @macros =
      DEF_V_CBACK_WXCOORD__SIZET_const
      DEF_V_CBACK_WXCOORD__SIZET_pure
      DEF_V_CBACK_WXCOORD__SIZET_const_pure
+
+     DEC_V_CBACK_WXSTRING__WXSTRING
+     DEF_V_CBACK_WXSTRING__WXSTRING
      );
 my %type_map =
   ( BOOL    => [ 'bool',    'SvTRUE( ret )', 'return false',
-                 'bool p%d', 'b', 'p%d', ],
+                 'bool p%d', 'b', 'p%d', 'p%d' ],
     SIZET   => [ 'size_t',  'SvIV( ret )', 'return 0',
-                 'size_t p%d', 'L', 'p%d', ],
+                 'size_t p%d', 'L', 'p%d', 'p%d' ],
     LONG    => [ 'long',    'SvIV( ret )', 'return 0',
-                 'long p%d', 'l', 'p%d', ],
+                 'long p%d', 'l', 'p%d', 'p%d' ],
     INT     => [ 'int',     'SvIV( ret )', 'return 0',
-                 'int p%d', 'i', 'p%d', ],
+                 'int p%d', 'i', 'p%d', 'p%d' ],
     WXCOORD => [ 'wxCoord', 'SvIV( ret )', 'return 0',
-                 'wxCoord p%d', 'l', 'p%d', ],
+                 'wxCoord p%d', 'l', 'p%d', 'p%d' ],
     DOUBLE  => [ 'double',  'SvNV( ret )', 'return 0.0', ],
     VOID    => [ 'void',    ';',         , 'return',
                  ],
+    WXSTRING=> [ 'wxString','wxPli_sv_2_wxString( aTHX_ ret )', 'return wxEmptyString',
+                 'const wxString& p%d', 'P', '&p%d', 'p%d' ],
     );
 my %const_map =
   ( 0       => 'wxPli_NOCONST',
@@ -118,7 +123,7 @@ EOT
 
 foreach my $todo ( @todo ) {
     my $args = join '_', @{$todo->[2]};
-    my( $c_args, $p_args, $tymap ) = macro_call_args( $todo );
+    my( $c_args, $p_args, $b_args, $tymap ) = macro_call_args( $todo );
 
     if( $todo->[0] eq 'DEC' && $todo->[1] eq 'VOID' ) {
         my $name = sprintf 'DEC_V_CBACK_VOID__%s_', $args;
@@ -190,7 +195,7 @@ EOT
 
 foreach my $todo ( @todo ) {
     my $args = join '_', @{$todo->[2]};
-    my( $c_args, $p_args, $tymap ) = macro_call_args( $todo );
+    my( $c_args, $p_args, $b_args, $tymap ) = macro_call_args( $todo );
 
     my $const = $todo->[3]->{const} ? '_const' : '';
     my $pure = $todo->[3]->{pure} ? '_pure' : '';
@@ -217,7 +222,7 @@ EOT
             $todo->[1], $args, $const, $args, $type_map{$todo->[1]}[0],
             $const_map{$todo->[3]->{const}};
     } elsif( $todo->[0] eq 'DEF' && $todo->[1] eq 'VOID' ) {
-        my $callbase = sprintf 'BASE::METHOD(%s)', $p_args;
+        my $callbase = sprintf 'BASE::METHOD(%s)', $b_args;
         die 'No default value for pure function ', $todo->[1]
             if $todo->[3]{pure} && !$type_map{$todo->[1]}[2];
 
@@ -231,7 +236,7 @@ EOT
             ( $todo->[3]{pure} ? $type_map{$todo->[1]}[2] : $callbase ),
             $const_map{$todo->[3]->{const}};
     } elsif( $todo->[0] eq 'DEF' ) {
-        my $callbase = sprintf 'return BASE::METHOD(%s)', $p_args;
+        my $callbase = sprintf 'return BASE::METHOD(%s)', $b_args;
         die 'No default value for pure function ', $todo->[1]
             if $todo->[3]{pure} && !$type_map{$todo->[1]}[2];
 
@@ -277,13 +282,13 @@ sub parse_macro {
 sub macro_call_args {
     my( $todo ) = @_;
 
-    my( $c_args, $p_args, $tymap );
+    my( $c_args, $p_args, $b_args, $tymap );
     if( $todo->[2][0] eq 'VOID' ) {
-        $c_args = $p_args = '';
+        $c_args = $p_args = $b_args = '';
         $tymap = 'NULL';
     } else {
         my $c = 0;
-        my( @cargs, @pargs );
+        my( @cargs, @pargs, @bargs );
         foreach my $idx ( 0 .. $#{$todo->[2]} ) {
             my $type = $todo->[2][$idx];
             die 'Incomplete type definition for ', $type
@@ -293,11 +298,13 @@ sub macro_call_args {
             $cargs[$idx] = sprintf $type_map{$type}[3], $idx + 1;
             $tymap .= $type_map{$type}[4];
             $pargs[$idx] = sprintf $type_map{$type}[5], $idx + 1;
+            $bargs[$idx] = sprintf $type_map{$type}[6], $idx + 1;
         }
         $c_args = ' ' . join( ', ', @cargs ) . ' ';
         $p_args = join( ', ', @pargs );
+        $b_args = join( ', ', @bargs );
         $tymap  = qq{"$tymap"};
     }
 
-    return ( $c_args, $p_args, $tymap );
+    return ( $c_args, $p_args, $b_args, $tymap );
 }

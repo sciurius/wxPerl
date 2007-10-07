@@ -277,24 +277,6 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 #define DEF_V_CBACK_BOOL__INT_INT_WXSTRING_pure( CLASS, BASE, METHOD ) \
     DEF_V_CBACK_BOOL__INT_INT_WXSTRING_( CLASS, return false, METHOD, wxPli_NOCONST )
 
-// ANY METH(const wxString&)
-#define DEC_V_CBACK_ANY__WXSTRING_( RET, METHOD, CONST )                      \
-    RET METHOD(const wxString&) CONST
-
-#define DEF_V_CBACK_ANY__WXSTRING_( RET, CVT, CLASS, CALLBASE, METHOD, CONST )\
-    RET CLASS::METHOD(const wxString& p1) CONST                               \
-    {                                                                         \
-        dTHX;                                                                 \
-        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) ) \
-        {                                                                     \
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,     \
-                                             "P", &p1 ) );                    \
-            return CVT;                                                       \
-        }                                                                     \
-        else                                                                  \
-            CALLBASE;                                                         \
-    }
-
 // void METH(const wxString&)
 #define DEC_V_CBACK_VOID__WXSTRING( METHOD )                                  \
     DEC_V_CBACK_ANY__WXSTRING_( void, METHOD, wxPli_NOCONST )
