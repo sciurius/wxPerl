@@ -63,7 +63,9 @@ new( ... )
                  const wxString& name = wxTreeCtrlNameStr );
 
     bool ExpandPath( const wxString& path );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     bool CollapsePath( const wxString& path );
+#endif
     wxString GetDefaultPath() const;
     void SetDefaultPath( const wxString& path );
     wxString GetPath() const;
@@ -79,5 +81,7 @@ new( ... )
     wxTreeCtrl* GetTreeCtrl() const;
     wxDirFilterListCtrl* GetFilterListCtrl() const;
     void ReCreateTree();
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     void CollapseTree();
+#endif
 };

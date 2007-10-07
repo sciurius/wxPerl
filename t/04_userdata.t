@@ -121,6 +121,7 @@ sub tests {
       my $data = 'Foo';
 
       $list->Append( 'An item', $data );
+      $list->SetClientData( 0, $data ); # workaround bug in HEAD
       $list->Append( 'An item' );
 
       $data = 'Frobnication';

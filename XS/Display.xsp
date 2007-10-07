@@ -51,12 +51,17 @@ GetFromPoint( point )
     RETVAL = wxDisplay::GetFromPoint( point );
   OUTPUT: RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
 int
 GetFromWindow( window )
     wxWindow* window
   CODE:
     RETVAL = wxDisplay::GetFromWindow( window );
   OUTPUT: RETVAL
+
+#endif
+
 %}
 
     bool IsOk() const;
