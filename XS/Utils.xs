@@ -309,6 +309,13 @@ wxTipProvider::Destroy()
 size_t
 wxTipProvider::GetCurrentTip()
 
+wxString
+wxTipProvider::GetTip()
+
+wxString
+wxTipProvider::PreprocessTip( tip )
+    wxString tip
+
 void
 wxTipProvider::SetCurrentTip( number )
     size_t number
