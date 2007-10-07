@@ -84,6 +84,10 @@ INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/CollapsiblePane.xsp |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/BitmapComboBox.xsp |
 
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/DirCtrl.xsp |
+
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/FileCtrl.xsp |
+
 INCLUDE: XS/Button.xs
 INCLUDE: XS/CheckBox.xs
 INCLUDE: XS/CheckListBox.xs

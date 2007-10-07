@@ -4,7 +4,8 @@ Revision history for Perl extension Wx.
 	- Added wxRichTextBuffer and wxRichTextFileHandler,
 	  wxRichTextHTMLHandler, wxRichTextXMLHandler (2.7).
 	- Added wxSymbolPickerDialog (2.7).
-	- Added wxDisplay.
+	- Added wxDisplay, wxGenericDirCtrl.
+	- Added wxFileCtrl (2.9).
 	- Wrapped the remaining wxGraphics* classes (2.7).
 
 0.77  Thu Aug 23 21:59:25 CEST 2007

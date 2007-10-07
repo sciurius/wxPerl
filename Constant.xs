@@ -66,6 +66,7 @@
 #include <wx/fdrepdlg.h>
 #include <wx/list.h>
 #include <wx/stattext.h>
+#include <wx/dirctrl.h>
 
 #include "cpp/wxapi.h"
 #include "cpp/setup.h"
@@ -113,6 +114,7 @@
 #endif
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 #include <wx/editlbox.h>
+#include <wx/filectrl.h>
 #endif
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 ) && !WXWIN_COMPATIBILITY_2_6
@@ -277,6 +279,11 @@ static wxPliEventDescription evts[] =
     EVT( EVT_COLLAPSIBLEPANE_CHANGED, 3, wxEVT_COMMAND_COLLPANE_CHANGED )
     EVT( EVT_HYPERLINK, 3, wxEVT_COMMAND_HYPERLINK )
 #endif
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    SEVT( EVT_FILECTRL_FILEACTIVATED, 3 )
+    SEVT( EVT_FILECTRL_SELECTIONCHANGED, 3 )
+    SEVT( EVT_FILECTRL_FOLDERCHANGED, 3 )
+#endif
     { 0, 0, 0 }
 };
 
@@ -339,6 +346,10 @@ static wxPlINH inherit[] =
     I( Gauge95,         Gauge )
     I( Slider,          Control )
     I( SpinCtrl,        Control )
+    I( GenericDirCtrl,  Control )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    I( FileCtrl,        Control )
+#endif
     I( SpinButton,      Control )
     I( SearchCtrl,      TextCtrl )
     I( RadioBox,        Control )
@@ -620,6 +631,7 @@ static wxPlINH inherit[] =
     I( NotebookEvent,   NotifyEvent )
 #endif
     I( NotifyEvent,     CommandEvent )
+    I( FileCtrlEvent,   CommandEvent )
     I( PaintEvent,      Event )
     I( ProcessEvent,    Event )
     I( QueryLayoutInfoEvent, Event )
@@ -945,6 +957,15 @@ static double constant( const char *name, int arg )
     r( wxDIRP_CHANGE_DIR );
 #endif
     r( wxDOWN );
+
+    r( wxDIRCTRL_DIR_ONLY );            // dirctrl
+    r( wxDIRCTRL_SELECT_FIRST );        // dirctrl
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+    r( wxDIRCTRL_SHOW_FILTERS );        // dirctrl
+#endif
+    r( wxDIRCTRL_3D_INTERNAL );         // dirctrl
+    r( wxDIRCTRL_EDIT_LABELS );         // dirctrl
+
     break;
   case 'E':
     r( wxEQUIV );                       // dc
@@ -1307,6 +1328,12 @@ static double constant( const char *name, int arg )
     r( wxFNTP_USEFONT_FOR_LABEL );
 #endif
     r( wxFORWARD );                     // sizer
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxFC_OPEN );                     // filectrl
+    r( wxFC_SAVE );                     // filectrl
+    r( wxFC_MULTIPLE );                 // filectrl
+    r( wxFC_NOSHOWHIDDEN );             // filectrl
+#endif
     break;
   case 'G':
     r( wxGA_HORIZONTAL );               // gauge

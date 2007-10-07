@@ -109,6 +109,10 @@ wxMenuBar *             O_WXOBJECT
 wxMenu *                O_WXOBJECT
 wxMenuItem *            O_WXOBJECT
 
+wxDirFilterListCtrl *   O_WXEVTHANDLER
+wxDirCtrl *             O_WXEVTHANDLER
+wxFileCtrl *            O_WXEVTHANDLER
+wxGenericDirCtrl *      O_WXEVTHANDLER
 wxAnimationCtrl *       O_WXEVTHANDLER
 wxStatusBar *           O_WXEVTHANDLER
 wxToolBar *             O_WXEVTHANDLER
@@ -364,6 +368,7 @@ wxContextMenuEvent *    O_WXOBJECT_THR
 wxEraseEvent *          O_WXOBJECT_THR
 wxFindDialogEvent *     O_WXOBJECT_THR
 wxFocusEvent *          O_WXOBJECT_THR
+wxFileCtrlEvent *       O_WXOBJECT_THR
 wxKeyEvent *            O_WXOBJECT_THR
 wxHelpEvent *           O_WXOBJECT_THR
 wxIconizeEvent *        O_WXOBJECT_THR

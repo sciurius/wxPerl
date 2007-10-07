@@ -129,10 +129,12 @@ XS/ControlWithItems.xsp
 XS/Cursor.xs
 XS/DC.xs
 XS/Dialog.xs
+XS/DirCtrl.xsp
 XS/DirDialog.xs
 XS/Display.xsp
 XS/EditableListBox.xsp
 XS/EvtHandler.xs
+XS/FileCtrl.xsp
 XS/FileDialog.xs
 XS/FilePickerCtrl.xsp
 XS/FindReplaceDialog.xs

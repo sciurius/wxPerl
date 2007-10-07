@@ -1,0 +1,121 @@
+#############################################################################
+## Name:        XS/FileCtrl.xsp
+## Purpose:     XS+++ for Wx::FileCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     07/10/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+%typemap{wxFileCtrl*}{simple};
+%typemap{wxFileCtrlEvent*}{simple};
+
+#include <wx/filectrl.h>
+
+%name{Wx::FileCtrl} class wxFileCtrl
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::FileCtrl::new" )
+%}
+
+    %name{newDefault} wxFileCtrl()
+        %code{% RETVAL = new wxFileCtrl();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+
+    %name{newFull} wxFileCtrl( wxWindow *parent,
+                               wxWindowID id = wxID_ANY,
+                               const wxString& defaultDirectory = wxEmptyString,
+                               const wxString& defaultFilename = wxEmptyString,
+                               const wxString& wildCard = wxFileSelectorDefaultWildcardStr,
+                               long style = wxFC_DEFAULT_STYLE,
+                               const wxPoint& pos = wxDefaultPosition,
+                               const wxSize& size = wxDefaultSize,
+                               const wxString& name = wxFileCtrlNameStr )
+        %code{% RETVAL = new wxFileCtrl( parent, id, defaultDirectory,
+                                         defaultFilename, wildCard, style,
+                                         pos, size, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+
+    bool Create( wxWindow *parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxString& defaultDirectory = wxEmptyString,
+                 const wxString& defaultFilename = wxEmptyString,
+                 const wxString& wildCard = wxFileSelectorDefaultWildcardStr,
+                 long style = wxFC_DEFAULT_STYLE,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 const wxString& name = wxFileCtrlNameStr );
+
+    void SetWildcard( const wxString& wildCard );
+    void SetFilterIndex( int filterindex );
+    bool SetDirectory( const wxString& dir );
+
+    bool SetFilename( const wxString& name );
+
+    bool SetPath( const wxString& path );
+
+    wxString GetFilename() const;
+    wxString GetDirectory() const;
+    wxString GetWildcard() const;
+    wxString GetPath() const;
+
+%{
+void
+wxFileCtrl::GetPaths()
+  PPCODE:
+    PUTBACK;
+    wxArrayString ret;
+    THIS->GetPaths( ret );
+    wxPli_stringarray_push( aTHX_ ret );
+    SPAGAIN;
+
+void
+wxFileCtrl::GetFilenames()
+  PPCODE:
+    PUTBACK;
+    wxArrayString ret;
+    THIS->GetFilenames( ret );
+    wxPli_stringarray_push( aTHX_ ret );
+    SPAGAIN;
+
+%}
+    int GetFilterIndex() const;
+
+    bool HasMultipleFileSelection() const;
+    void ShowHidden(bool show);
+};
+
+%name{Wx::FileCtrlEvent} class wxFileCtrlEvent
+{
+    void SetFiles( const wxArrayString &files );
+    void SetDirectory( const wxString &directory );
+
+%{
+void
+wxFileCtrlEvent::GetFiles()
+  PPCODE:
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ THIS->GetFiles() );
+    SPAGAIN;
+%}
+
+    wxString GetDirectory() const;
+    wxString GetFile() const;
+};
+
+#endif

@@ -1,0 +1,83 @@
+#############################################################################
+## Name:        XS/DirCtrl.xsp
+## Purpose:     XS+++ for Wx::[Generic]DirCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     07/10/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxGenericDirCtrl*}{simple};
+%typemap{const wxTreeItemId&}{reference};
+%typemap{wxDirFilterListCtrl*}{simple};
+
+#include <wx/dirctrl.h>
+
+#define wxPLI_DEFAULT_DIRCTRL_STYLE wxDIRCTRL_3D_INTERNAL|wxSUNKEN_BORDER
+
+%name{Wx::GenericDirCtrl} class wxGenericDirCtrl
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::GenericDirCtrl::new" )
+%}
+
+    %name{newDefault} wxGenericDirCtrl()
+        %code{% RETVAL = new wxGenericDirCtrl();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+
+    %name{newFull} wxGenericDirCtrl( wxWindow *parent,
+                                     wxWindowID id = wxID_ANY,
+                                     const wxString &dir = wxDirDialogDefaultFolderStr,
+                                     const wxPoint& pos = wxDefaultPosition,
+                                     const wxSize& size = wxDefaultSize,
+                                     long style = wxPLI_DEFAULT_DIRCTRL_STYLE,
+                                     const wxString& filter = wxEmptyString,
+                                     int defaultFilter = 0,
+                                     const wxString& name = wxTreeCtrlNameStr )
+        %code{% RETVAL = new wxGenericDirCtrl( parent, id, dir, pos, size,
+                                               style, filter, defaultFilter,
+                                               name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+
+    bool Create( wxWindow *parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxString &dir = wxDirDialogDefaultFolderStr,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxPLI_DEFAULT_DIRCTRL_STYLE,
+                 const wxString& filter = wxEmptyString,
+                 int defaultFilter = 0,
+                 const wxString& name = wxTreeCtrlNameStr );
+
+    bool ExpandPath( const wxString& path );
+    bool CollapsePath( const wxString& path );
+    wxString GetDefaultPath() const;
+    void SetDefaultPath( const wxString& path );
+    wxString GetPath() const;
+    wxString GetFilePath() const;
+    void SetPath( const wxString& path );
+    void ShowHidden( bool show );
+    bool GetShowHidden();
+    wxString GetFilter() const;
+    void SetFilter( const wxString& filter );
+    int GetFilterIndex() const;
+    void SetFilterIndex( int n );
+    const wxTreeItemId& GetRootId();
+    wxTreeCtrl* GetTreeCtrl() const;
+    wxDirFilterListCtrl* GetFilterListCtrl() const;
+    void ReCreateTree();
+    void CollapseTree();
+};
