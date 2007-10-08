@@ -29,6 +29,7 @@ wxSashEdgePosition      T_ENUM
 wxSashDragStatus        T_ENUM
 wxListColumnFormat      T_ENUM
 off_t                   T_IV
+ResourceCat             T_ENUM
 wxSeekMode              T_ENUM
 WXCOLORREF              T_IV
 EntryType               T_ENUM
@@ -92,6 +93,7 @@ wxPropertyInfoFlags     T_ENUM
 wxObject *              O_WXOBJECT
 
 wxApp *                 O_WXOBJECT
+wxStandardPaths *       O_NON_WXOBJECT
 wxWindow *              O_WXOBJECT
 wxPlWindow *            O_WXOBJECT
 wxPlControl *           O_WXOBJECT

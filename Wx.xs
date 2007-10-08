@@ -413,6 +413,8 @@ INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/ClassInfo.xs |
 
 INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Display.xsp |
 
+INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/StandardPaths.xsp |
+
 ##  //FIXME// tricky
 ##if defined(__WXMSW__)
 ##undef XS
