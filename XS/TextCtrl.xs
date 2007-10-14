@@ -166,9 +166,6 @@ wxTextAttr::GetTabs()
     void SetSelection( long from, long to );
     void SelectAll();
     void SetEditable( bool editable );
-#ifdef __WXMAC__
-    void MacCheckSpelling( bool check );
-#endif
 };
 
 %{
@@ -210,9 +207,14 @@ wxTextCtrlBase::HitTest( pt )
 
 %}
 
-%{
-MODULE=Wx PACKAGE=Wx::TextCtrl
+%name{Wx::TextCtrl} class wxTextCtrl
+{
+#if defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 8, 0 )
+    void MacCheckSpelling( bool check );
+#endif
+};
 
+%{
 void
 new( ... )
   PPCODE:
