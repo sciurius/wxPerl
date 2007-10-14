@@ -17,6 +17,7 @@
 #include "cpp/overload.h"
 
 #define wxNullColourPtr (wxColour*)&wxNullColour
+#define wxNullFontPtr (wxFont*)&wxNullFont
 
 #undef THIS
 

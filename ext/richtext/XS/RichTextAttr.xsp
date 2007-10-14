@@ -149,9 +149,16 @@ wxTextAttrEx::new( ... )
     %name{newCopy} wxRichTextAttr( const wxRichTextAttr& attr );
     %name{newAttrEx} wxRichTextAttr( const wxTextAttrEx& attr );
     %name{newAttr} wxRichTextAttr( const wxTextAttr& attr );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    %name{newFull} wxRichTextAttr
+        ( const wxColour& colText, const wxColour& colBack = wxNullColourPtr,
+          const wxFont& font = wxNullFontPtr,
+          wxTextAttrAlignment alignment = wxTEXT_ALIGNMENT_DEFAULT );
+#else
     %name{newFull} wxRichTextAttr
         ( const wxColour& colText, const wxColour& colBack = wxNullColourPtr,
           wxTextAttrAlignment alignment = wxTEXT_ALIGNMENT_DEFAULT );
+#endif
     ## // thread KO
     ~wxRichTextAttr();
 

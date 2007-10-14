@@ -198,9 +198,11 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
                                         const wxRichTextAttr& style );
 
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
     %name{SetStyleExExFromTo} bool SetStyleEx
         ( long start, long end, const wxTextAttrEx& style,
           int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
+#endif
     %name{SetStyleExRange} bool SetStyleEx
         ( const wxRichTextRange& range, const wxTextAttrEx& style,
           int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
