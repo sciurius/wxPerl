@@ -851,7 +851,7 @@ MODULE=Wx PACKAGE=Wx::JPEGHandler
 wxJPEGHandler*
 wxJPEGHandler::new()
 
-#if !defined( __WXWINCE__ )
+#if wxPERL_USE_LIBTIFF && !defined( __WXWINCE__ )
 
 MODULE=Wx PACKAGE=Wx::TIFFHandler
 
