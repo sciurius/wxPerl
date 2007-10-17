@@ -53,6 +53,8 @@ eval {
           no_index       => { directory => [ qw(samples script) ],
                               package   => [ qw(MY Parse::Yapp::Driver) ],
                               },
+          configure_requires => { 'Alien::wxWidgets' => 0.25,
+                                  },
           } );
 };
 
