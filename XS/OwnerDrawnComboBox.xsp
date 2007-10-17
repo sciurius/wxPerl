@@ -35,7 +35,7 @@ INCLUDE: perl -pe "s/ItemContainer/OwnerDrawnComboBox/g" XS/ItemContainer.xs |
 
 // void METH(wxDC&, const wxRect&, int, int)
 #define DEC_V_CBACK_VOID__WXDC_WXRECT_INT_INT_const( METHOD ) \
-    void METHOD( wxDC& p1, const wxRect& p2, int p3, int p3 ) const
+    void METHOD( wxDC& p1, const wxRect& p2, int p3, int p4 ) const
 
 #define DEF_V_CBACK_VOID__WXDC_WXRECT_INT_INT_const( CLASS, BASE, METHOD )\
     void CLASS::METHOD( wxDC& p1, const wxRect& p2, int p3, int p4 ) const   \

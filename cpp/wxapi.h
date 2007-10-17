@@ -37,11 +37,19 @@
 #undef __WINDOWS__
 #endif
 
+#if defined(__VISUALC__) || defined(__DIGITALMARS__)
+#define mode_t mode_avoid_redefinition_t
+#endif
+
 WXPL_EXTERN_C_START
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>
 WXPL_EXTERN_C_END
+
+#if defined(__VISUALC__) || defined(__DIGITALMARS__)
+#undef mode_t
+#endif
 
 #if WXPERL_P_VERSION_GE( 5, 9, 0 ) || WXPERL_P_VERSION_GE( 5, 8, 1 )
 
