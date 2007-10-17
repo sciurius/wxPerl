@@ -42,7 +42,8 @@ sub postamble_core {
   my $wx_config = $ENV{WX_CONFIG} || 'wx-config';
   my $rfile;
 
-  if( Alien::wxWidgets->version < 2.006 ) {
+  if(    $Wx::build::MakeMaker::Core::has_alien
+      && Alien::wxWidgets->version < 2.006 ) {
     my $rsrc = join ' ', grep { /wx/ } split ' ', `$wx_config --rezflags`;
     $rfile = sprintf <<EOR, $rsrc;
 	echo '#include <Carbon.r>' > cpp/wxPerl.osx/wxPerl.r
