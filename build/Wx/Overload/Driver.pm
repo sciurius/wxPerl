@@ -18,7 +18,7 @@ use Symbol qw(gensym);
 
 use Wx::Overload::Handle;
 
-my %name2type =
+my %_name2type =
   (
    wimg => 'Wx::Image',
    wbmp => 'Wx::Bitmap',
@@ -51,6 +51,7 @@ my %name2type =
    zzz  => 1,
    );
 
+my %name2type = %_name2type;
 my %constants;
 
 sub new {
@@ -71,10 +72,12 @@ sub _parse {
   my( $self ) = @_;
 
   foreach my $i ( $self->files ) {
+    my %namedecl = %_name2type;
     open my $fh, '<', $i or die "open '$i': $!";
 
     while( <$fh> ) {
       if( m/DECLARE_OVERLOAD\(\s*(\w+)\s*,\s*(\S+)\s*\)/ ) {
+        $namedecl{$1} = $2;
         next if exists $name2type{$1} && $name2type{$1} eq $2;
         die "Clashing type: '$1' was '$name2type{$1}', redeclared as '$2'"
           if exists $name2type{$1};
@@ -90,7 +93,7 @@ sub _parse {
           $j = 'bool' if $j eq 'b';
 
           die "unrecognized type '$j' in file '$i'"
-            unless $name2type{$j};
+            unless $namedecl{$j};
           $constants{$const} = \@const;
         }
       }

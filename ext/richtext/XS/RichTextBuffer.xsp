@@ -16,6 +16,8 @@
 %module{Wx};
 
 ## DECLARE_OVERLOAD( wrta, Wx::RichTextAttr )
+## DECLARE_OVERLOAD( wrtr, Wx::RichTextRange )
+## DECLARE_OVERLOAD( wtae, Wx::TextAttrEx )
 
 %name{Wx::RichTextBuffer} class wxRichTextBuffer
 {
