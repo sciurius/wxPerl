@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.80
+
 0.79  Thu Oct 18 00:52:35 CEST 2007
 	- Windows compilation fixes (thanks to John Kizlyk for the report).
 	- Try to handle gracefully the absence of Alien::wxWidgets under
