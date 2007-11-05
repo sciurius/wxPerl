@@ -1,0 +1,20 @@
+#############################################################################
+## Name:        ext/dataview/typemap.xsp
+## Purpose:     typemap file for xsubppp.pl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     05/11/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%typemap{wxDataViewCellMode}{simple};
+%typemap{wxDataViewCtrl*}{simple};
+%typemap{wxDataViewModel*}{simple};
+%typemap{wxDataViewColumn*}{simple};
+%typemap{const wxDataViewItem &}{reference};
+%typemap{wxDataViewIndexListModel*}{simple};
+%typemap{wxDataViewItem&}{reference};
+%typemap{wxPlDataViewIndexListModel*}{simple};

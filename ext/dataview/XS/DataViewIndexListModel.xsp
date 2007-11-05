@@ -1,0 +1,84 @@
+#############################################################################
+## Name:        ext/dataview/XS/DataViewIndexListModel.xsp
+## Purpose:     XS++ for Wx::DataViewIndexListModel
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     05/11/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#if wxUSE_DATAVIEWCTRL
+
+%module{Wx};
+
+#include <wx/dataview.h>
+#include "cpp/dataviewindexmodel.h"
+
+%file{cpp/dataviewindexmodel.h};
+%{
+#include "cpp/v_cback.h"
+
+class wxPlDataViewIndexListModel : public wxDataViewIndexListModel
+{
+    WXPLI_DECLARE_V_CBACK();
+public:
+    wxPlDataViewIndexListModel( const char* package, unsigned int initial_size )
+        : wxDataViewIndexListModel( initial_size ),
+          m_callback( "Wx::PlDataViewIndexListModel" )
+    {
+        m_callback.SetSelf( wxPli_make_object( this, package ), true );
+    }
+
+    DEC_V_CBACK_UINT__VOID( GetRowCount );
+    DEC_V_CBACK_UINT__VOID_const( GetColumnCount );
+    DEC_V_CBACK_WXSTRING__UINT_const( GetColumnType );
+    DEC_V_CBACK_VOID__mWXVARIANT_UINT_UINT_const( GetValue );
+    DEC_V_CBACK_BOOL__WXVARIANT_UINT_UINT( SetValue );
+};
+
+DEF_V_CBACK_UINT__VOID_const_pure( wxPlDataViewIndexListModel,
+                                   wxDataViewIndexListModel, GetColumnCount );
+DEF_V_CBACK_WXSTRING__UINT_const_pure( wxPlDataViewIndexListModel,
+                                       wxDataViewIndexListModel, GetColumnType );
+DEF_V_CBACK_UINT__VOID_pure( wxPlDataViewIndexListModel,
+                             wxDataViewIndexListModel, GetRowCount );
+DEF_V_CBACK_VOID__mWXVARIANT_UINT_UINT_const_pure( wxPlDataViewIndexListModel,
+                                                   wxDataViewIndexListModel,
+                                                   GetValue );
+DEF_V_CBACK_BOOL__WXVARIANT_UINT_UINT_pure( wxPlDataViewIndexListModel,
+                                            wxDataViewIndexListModel,
+                                            SetValue );
+%}
+%file{-};
+
+%name{Wx::DataViewIndexListModel} class wxDataViewIndexListModel
+{
+    unsigned int GetRowCount();
+
+    void GetValue( wxVariant &variant,
+                   unsigned int row, unsigned int col ) const;
+
+    bool SetValue( const wxVariant &variant,
+                   unsigned int row, unsigned int col );
+
+    void RowPrepended();
+    void RowInserted( unsigned int before );
+    void RowAppended();
+    void RowDeleted( unsigned int row );
+    void RowChanged( unsigned int row );
+    void RowValueChanged( unsigned int row, unsigned int col );
+
+    unsigned int GetRow( const wxDataViewItem &item ) const;
+    wxDataViewItem& GetItem( unsigned int row ) const;
+};
+
+%name{Wx::PlDataViewIndexListModel} class wxPlDataViewIndexListModel
+{
+    wxPlDataViewIndexListModel( unsigned int initial_size = 0 )
+        %code{% RETVAL = new wxPlDataViewIndexListModel( CLASS, initial_size ); %};
+};
+
+#endif

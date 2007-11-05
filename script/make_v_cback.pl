@@ -22,6 +22,9 @@ my @macros =
      DEF_V_CBACK_BOOL__INT
      DEF_V_CBACK_BOOL__INT_pure
 
+     DEC_V_CBACK_BOOL__WXVARIANT_UINT_UINT
+     DEF_V_CBACK_BOOL__WXVARIANT_UINT_UINT_pure
+
      DEC_V_CBACK_BOOL__SIZET
      DEF_V_CBACK_BOOL__SIZET
      DEF_V_CBACK_BOOL__SIZET_pure
@@ -67,9 +70,19 @@ my @macros =
      DEF_V_CBACK_LONG__INT_INT_const
      DEF_V_CBACK_LONG__INT_INT_const_pure
 
+     DEC_V_CBACK_UINT__VOID
+     DEC_V_CBACK_UINT__VOID_const
+     DEF_V_CBACK_UINT__VOID
+     DEF_V_CBACK_UINT__VOID_const
+     DEF_V_CBACK_UINT__VOID_pure
+     DEF_V_CBACK_UINT__VOID_const_pure
+
      DEC_V_CBACK_VOID__INT_INT_LONG
      DEF_V_CBACK_VOID__INT_INT_LONG
      DEF_V_CBACK_VOID__INT_INT_LONG_pure
+
+     DEC_V_CBACK_VOID__mWXVARIANT_UINT_UINT_const
+     DEF_V_CBACK_VOID__mWXVARIANT_UINT_UINT_const_pure
 
      DEC_V_CBACK_VOID__SIZET_SIZET_const
      DEF_V_CBACK_VOID__SIZET_SIZET_const
@@ -87,6 +100,11 @@ my @macros =
 
      DEC_V_CBACK_WXSTRING__WXSTRING
      DEF_V_CBACK_WXSTRING__WXSTRING
+
+     DEC_V_CBACK_WXSTRING__UINT
+     DEC_V_CBACK_WXSTRING__UINT_const
+     DEF_V_CBACK_WXSTRING__UINT
+     DEF_V_CBACK_WXSTRING__UINT_const_pure
      );
 my %type_map =
   ( BOOL    => [ 'bool',    'SvTRUE( ret )', 'return false',
@@ -97,6 +115,8 @@ my %type_map =
                  'long p%d', 'l', 'p%d', 'p%d' ],
     INT     => [ 'int',     'SvIV( ret )', 'return 0',
                  'int p%d', 'i', 'p%d', 'p%d' ],
+    UINT    => [ 'unsigned int', 'SvUV( ret )', 'return 0',
+                 'unsigned int p%d', 'I', 'p%d', 'p%d' ],
     WXCOORD => [ 'wxCoord', 'SvIV( ret )', 'return 0',
                  'wxCoord p%d', 'l', 'p%d', 'p%d' ],
     DOUBLE  => [ 'double',  'SvNV( ret )', 'return 0.0', ],
@@ -104,6 +124,10 @@ my %type_map =
                  ],
     WXSTRING=> [ 'wxString','wxPli_sv_2_wxString( aTHX_ ret )', 'return wxEmptyString',
                  'const wxString& p%d', 'P', '&p%d', 'p%d' ],
+    WXVARIANT=> [ 'wxVariant','wxPli_sv_2_wxvariant( aTHX_ ret )', 'return wxVariant()',
+                 'const wxVariant& p%d', 'q', '&p%d, "Wx::Variant"', 'p%d' ],
+    mWXVARIANT=> [ 'wxVariant','wxPli_sv_2_wxvariant( aTHX_ ret )', 'return wxVariant()',
+                 'wxVariant& p%d', 'q', '&p%d, "Wx::Variant"', 'p%d' ],
     );
 my %const_map =
   ( 0       => 'wxPli_NOCONST',

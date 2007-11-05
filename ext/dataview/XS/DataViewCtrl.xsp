@@ -1,0 +1,106 @@
+#############################################################################
+## Name:        ext/dataview/XS/DataViewCtrl.xsp
+## Purpose:     XS++ for Wx::DataViewCtrl
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     05/11/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#if wxUSE_DATAVIEWCTRL
+
+#include <wx/dataview.h>
+#include "cpp/dataview.h"
+
+%module{Wx};
+%file{cpp/dataview.h};
+%{
+
+double dataview_constant( const char* name, int arg )
+{
+    // !package: Wx
+    // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+    // !tag: dataview
+#define r( n ) \
+    if( strEQ( name, #n ) ) \
+        return n;
+
+    WX_PL_CONSTANT_INIT();
+
+    switch( fl )
+    {
+    case 'D':
+        break;
+    }
+#undef r
+
+    WX_PL_CONSTANT_CLEANUP();
+}
+
+wxPlConstants dataview_module( &dataview_constant );
+
+%}
+%file{-};
+
+%name{Wx::DataViewCtrl} class wxDataViewCtrl
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::DataViewCtrl::new" )
+%}
+
+    %name{newDefault} wxDataViewCtrl()
+        %code{% RETVAL = new wxDataViewCtrl();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+    %name{newFull} wxDataViewCtrl( wxWindow* parent,
+                                   wxWindowID id = wxID_ANY,
+                                   const wxPoint& pos = wxDefaultPosition,
+                                   const wxSize& size = wxDefaultSize,
+                                   long style = 0,
+                                   const wxValidator& validator = wxDefaultValidatorPtr )
+        %code{% RETVAL = new wxDataViewCtrl( parent, id, pos, size,
+                                             style, *validator );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
+
+    bool Create( wxWindow* parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = 0,
+                 const wxValidator& validator = wxDefaultValidatorPtr );
+
+%{
+void
+AppendTextColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendTextColumnLabel, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendTextColumnBitmap, 2 )
+    END_OVERLOAD( "Wx::DataViewCtrl::AppendTextColumn" )
+%}
+
+    bool AssociateModel( wxDataViewModel* model );
+
+    %name{AppendTextColumnLabel}
+    wxDataViewColumn* AppendTextColumn( const wxString& label,
+                                        unsigned int model_column,
+                                        wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                        int width = -1 );
+    %name{AppendTextColumnBitmap}
+    wxDataViewColumn* AppendTextColumn( const wxBitmap& label,
+                                        unsigned int model_column,
+                                        wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                        int width = -1 );
+
+};
+
+#endif

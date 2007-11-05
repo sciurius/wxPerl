@@ -285,6 +285,17 @@ ext/calendar/XS/CalendarCtrl.xsp
 ext/calendar/XS/CalendarDateAttr.xsp
 ext/calendar/XS/DatePickerCtrl.xsp
 
+ext/dataview/DataView.pm
+ext/dataview/DataView.xs
+ext/dataview/Makefile.PL
+ext/dataview/XS/DataViewCtrl.xsp
+ext/dataview/XS/DataViewIndexListModel.xsp
+ext/dataview/XS/DataViewModel.xsp
+ext/dataview/t/01_load.t
+ext/dataview/t/02_inheritance.t
+ext/dataview/typemap
+ext/dataview/typemap.xsp
+
 ext/datetime/DateTime.pm
 ext/datetime/DateTime.xs
 ext/datetime/Makefile.PL

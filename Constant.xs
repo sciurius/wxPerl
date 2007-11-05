@@ -2949,6 +2949,9 @@ _get_packages()
 #if wxPERL_USE_DATETIME
     "use Wx::DateTime;"
 #endif
+#if wxPERL_USE_DATAVIEW && wxUSE_DATAVIEW && WXPERL_W_VERSION_GE( 2, 9, 0 )
+    "use Wx::DataView;"
+#endif
 #if wxPERL_USE_MEDIA && wxUSE_MEDIACTRL && WXPERL_W_VERSION_GE( 2, 6, 0 )
     "use Wx::Media;"
 #endif
