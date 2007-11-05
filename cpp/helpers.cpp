@@ -209,6 +209,7 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
 
     bool bval;
     IV ival;
+    UV uval;
     long lval;
     unsigned long ulval;
     char* stval;
@@ -231,6 +232,10 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
         case 'i':
             ival = va_arg( args, int );
             XPUSHs( sv_2mortal( newSViv( ival ) ) );
+            break;
+        case 'I':
+            uval = va_arg( args, unsigned int );
+            XPUSHs( sv_2mortal( newSVuv( uval ) ) );
             break;
         case 'l':
             lval = va_arg( args, long );

@@ -179,6 +179,7 @@ const char* FUNCPTR( wxPli_cpp_class_2_perl )( const wxChar* className,
 // you pass two integers as additional parameters
 // b - a boolean value
 // i - an 'int' value
+// I - an 'unsigned int' value
 // l - a 'long' value
 // L - an 'unsigned long' value
 // d - a 'double' value
