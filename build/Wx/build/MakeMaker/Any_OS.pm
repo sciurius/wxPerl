@@ -220,7 +220,8 @@ cpp/v_cback_def.h : script/make_v_cback.pl
 
 EOT
 
-  foreach my $file ( @generated_xs ) {
+  foreach my $f ( @generated_xs ) {
+      my $file = File::Spec->canonpath( $f );
       $text .= sprintf <<EOT, $file, $file, $file, $file;
 %s : %sp typemap.xsp
 	\$(PERL) script/wx_xspp.pl -t typemap.xsp %sp > %s
