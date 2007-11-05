@@ -29,6 +29,7 @@ wxSashEdgePosition      T_ENUM
 wxSashDragStatus        T_ENUM
 wxListColumnFormat      T_ENUM
 off_t                   T_IV
+ResourceCat             T_ENUM
 wxSeekMode              T_ENUM
 WXCOLORREF              T_IV
 EntryType               T_ENUM
@@ -92,6 +93,7 @@ wxPropertyInfoFlags     T_ENUM
 wxObject *              O_WXOBJECT
 
 wxApp *                 O_WXOBJECT
+wxStandardPaths *       O_NON_WXOBJECT
 wxWindow *              O_WXOBJECT
 wxPlWindow *            O_WXOBJECT
 wxPlControl *           O_WXOBJECT
@@ -102,11 +104,17 @@ wxMiniFrame *           O_WXOBJECT
 wxPopupWindow *         O_WXOBJECT
 wxPopupTransientWindow * O_WXOBJECT
 wxPlPopupTransientWindow * O_WXOBJECT
+wxDisplay *             O_NON_WXOBJECT
+wxVideoMode *           O_NON_WXOBJECT
 
 wxMenuBar *             O_WXOBJECT
 wxMenu *                O_WXOBJECT
 wxMenuItem *            O_WXOBJECT
 
+wxDirFilterListCtrl *   O_WXEVTHANDLER
+wxDirCtrl *             O_WXEVTHANDLER
+wxFileCtrl *            O_WXEVTHANDLER
+wxGenericDirCtrl *      O_WXEVTHANDLER
 wxAnimationCtrl *       O_WXEVTHANDLER
 wxStatusBar *           O_WXEVTHANDLER
 wxToolBar *             O_WXEVTHANDLER
@@ -342,13 +350,14 @@ wxSingleInstanceChecker * O_NON_WXOBJECT_THR
 
 wxWave *                O_NON_WXOBJECT
 
-wxGraphicsBrush *       O_WXOBJECT
-wxGraphicsContext *     O_WXOBJECT
-wxGraphicsFont *        O_WXOBJECT
-wxGraphicsMatrix *      O_WXOBJECT
-wxGraphicsObject *      O_WXOBJECT
-wxGraphicsPath *        O_WXOBJECT
-wxGraphicsPen *         O_WXOBJECT
+wxGraphicsRenderer *    O_WXOBJECT
+wxGraphicsBrush *       O_WXOBJECT_THR
+wxGraphicsContext *     O_WXOBJECT_THR
+wxGraphicsFont *        O_WXOBJECT_THR
+wxGraphicsMatrix *      O_WXOBJECT_THR
+wxGraphicsObject *      O_WXOBJECT_THR
+wxGraphicsPath *        O_WXOBJECT_THR
+wxGraphicsPen *         O_WXOBJECT_THR
 
 # events
 wxEvent *               O_WXOBJECT_THR
@@ -361,6 +370,7 @@ wxContextMenuEvent *    O_WXOBJECT_THR
 wxEraseEvent *          O_WXOBJECT_THR
 wxFindDialogEvent *     O_WXOBJECT_THR
 wxFocusEvent *          O_WXOBJECT_THR
+wxFileCtrlEvent *       O_WXOBJECT_THR
 wxKeyEvent *            O_WXOBJECT_THR
 wxHelpEvent *           O_WXOBJECT_THR
 wxIconizeEvent *        O_WXOBJECT_THR
