@@ -127,3 +127,7 @@
 %typemap{const wxGraphicsPen&}{reference};
 %typemap{const wxGraphicsBrush&}{reference};
 %typemap{const wxGraphicsFont&}{reference};
+
+%typemap{wxVariant*}{simple};
+%typemap{wxVariant&}{reference};
+%typemap{const wxVariant&}{reference};

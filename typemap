@@ -272,6 +272,9 @@ wxSize &                O_SIZE
 wxPosition &            O_POSITION
 wxColour &              O_NON_WXOBJECT_VAL
 
+wxVariant*              O_NON_WXOBJECT
+wxVariant               O_VARIANT
+
 wxProcess *             O_WXOBJECT
 wxSound *               O_NON_WXOBJECT
 
@@ -527,6 +530,9 @@ T_UV
 
 T_CLASSNAME
     $var = wxPli_get_class( aTHX_ $arg );
+
+O_VARIANT
+    $var = wxPli_sv_2_wxvariant( aTHX_ $arg );
 
 #
 # Wx_UserData*

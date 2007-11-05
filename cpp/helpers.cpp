@@ -1274,6 +1274,22 @@ wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* sv )
     return wxKeyCode( 0 ); // just to silence a possible warning
 }
 
+wxVariant wxPli_sv_2_wxvariant( pTHX_ SV* sv )
+{
+    if( !SvOK( sv ) ) {
+        return wxVariant();
+    } else if( SvROK( sv ) ) {
+        // TODO
+        return wxVariant();
+    } else if( SvNOK( sv ) ) {
+        return wxVariant( SvNV( sv ) );
+    } else if( SvIOK( sv ) ) {
+        return wxVariant( SvIV( sv ) );
+    }
+
+    return wxVariant();
+}
+
 class convert_wxpoint
 {
 public:

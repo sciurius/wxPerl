@@ -16,6 +16,7 @@
 #include <wx/object.h>
 #include <wx/list.h>
 #include <wx/gdicmn.h>
+#include <wx/variant.h>
 
 #include <wx/dynarray.h>
 #include <wx/arrstr.h>
@@ -289,6 +290,7 @@ wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar );
 #endif
 class WXDLLEXPORT wxPosition;
 wxPosition wxPli_sv_2_wxposition( pTHX_ SV* scalar );
+wxVariant wxPli_sv_2_wxvariant( pTHX_ SV* scalar );
 
 wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 

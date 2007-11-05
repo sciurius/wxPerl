@@ -1,0 +1,34 @@
+#############################################################################
+## Name:        XS/Variant.xsp
+## Purpose:     XS for Wx::variant
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     05/11/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#include <wx/variant.h>
+
+%name{Wx::Variant} class wxVariant {
+    wxVariant( SV* sv )
+        %code%{ RETVAL = new wxVariant( wxPli_sv_2_wxvariant( aTHX_ sv ) );
+                %};
+    ~wxVariant();
+
+    wxString GetString();
+    wxString GetType();
+    long GetLong();
+    double GetDouble();
+
+    void SetString( const wxString& string )
+        %code{% *THIS = string; %};
+    void SetLong( long value )
+        %code{% *THIS = value; %};
+    void SetDouble( double value )
+        %code{% *THIS = value; %};
+};

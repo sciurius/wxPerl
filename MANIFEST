@@ -219,6 +219,7 @@ XS/VarVScrollHelper.xsp
 XS/VListBox.xsp
 XS/VScrolledWindow.xsp
 XS/Validators.xs
+XS/Variant.xsp
 XS/Wave.xs
 XS/Wizard.xs
 
