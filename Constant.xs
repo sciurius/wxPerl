@@ -442,6 +442,9 @@ static wxPlINH inherit[] =
     I( GraphicsPen,     GraphicsObject )
     I( GraphicsBrush,   GraphicsObject )
     I( GraphicsFont,    GraphicsObject )
+#ifdef __WXMSW__
+    I( GDIPlusContext,  GraphicsContext )
+#endif
 
     I( LogTextCtrl,     Log )
     I( LogWindow,       Log )

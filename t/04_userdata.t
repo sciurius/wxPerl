@@ -154,7 +154,7 @@ sub tests {
       SKIP: {
         # and hope the control is deleted NOW
         $list->Destroy;
-        skip "delayed on Mac", 1 if Wx::wxMAC && $list->isa( 'Wx::ListBox' );
+        skip "delayed on Mac/MSW", 1 if ( Wx::wxMAC || Wx::wxMSW ) && $list->isa( 'Wx::ListBox' );
         ok( $ctrldelete, "$name: deleting the control deletes the data" );
     }
     }
