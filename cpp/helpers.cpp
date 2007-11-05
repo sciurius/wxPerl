@@ -1323,7 +1323,11 @@ int wxPli_av_2_point2ddoublearray( pTHX_ SV* avref, wxPoint2DDouble** array )
                                   array_thingy<wxPoint2DDouble>() );
 }
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+int wxPli_av_2_pointlist( pTHX_ SV* arr, wxPointList *points, wxPoint** tmp )
+#else
 int wxPli_av_2_pointlist( pTHX_ SV* arr, wxList *points, wxPoint** tmp )
+#endif
 {
     *tmp = 0;
 
@@ -1351,7 +1355,11 @@ int wxPli_av_2_pointlist( pTHX_ SV* arr, wxList *points, wxPoint** tmp )
         
             if( sv_derived_from( scalar, CHAR_P "Wx::Point" ) ) 
             {
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+                points->Append( INT2PTR( wxPoint*, SvIV( ref ) ) );
+#else
                 points->Append( INT2PTR( wxObject*, SvIV( ref ) ) );
+#endif
                 continue;
             }
             else if( SvTYPE( ref ) == SVt_PVAV )
@@ -1370,7 +1378,11 @@ int wxPli_av_2_pointlist( pTHX_ SV* arr, wxList *points, wxPoint** tmp )
                     int y = SvIV( *av_fetch( av, 1, 0 ) );
 
                     (*tmp)[used] = wxPoint( x, y );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+                    points->Append( reinterpret_cast<wxPoint*>( *tmp + used ) );
+#else
                     points->Append( reinterpret_cast<wxObject*>( *tmp + used ) );
+#endif
                     ++used;
                     continue;
                 }

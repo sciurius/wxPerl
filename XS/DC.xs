@@ -171,7 +171,11 @@ wxDC::DrawLines( list, xoffset = 0, yoffset = 0 )
     wxCoord xoffset
     wxCoord yoffset
   PREINIT:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    wxPointList points;
+#else
     wxList points;
+#endif
     wxPliArrayGuard<wxPoint> pts;
   CODE:
     wxPli_av_2_pointlist( aTHX_ list, &points, pts.lvalue() );
@@ -193,7 +197,11 @@ wxDC::DrawPolygon( list, xoffset, yoffset, fill_style = wxODDEVEN_RULE )
     wxCoord yoffset
     int fill_style
   PREINIT:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    wxPointList points;
+#else
     wxList points;
+#endif
     wxPliArrayGuard<wxPoint> pts;
   CODE:
     wxPli_av_2_pointlist( aTHX_ list, &points, pts.lvalue() );
@@ -225,7 +233,11 @@ void
 wxDC::DrawSpline( list )
     SV* list
   PREINIT:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    wxPointList points;
+#else
     wxList points;
+#endif
     wxPliArrayGuard<wxPoint> pts;
   CODE:
     wxPli_av_2_pointlist( aTHX_ list, &points, pts.lvalue() );

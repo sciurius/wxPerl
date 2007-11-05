@@ -292,7 +292,11 @@ wxPosition wxPli_sv_2_wxposition( pTHX_ SV* scalar );
 
 wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+int wxPli_av_2_pointlist( pTHX_ SV* array, wxPointList *points, wxPoint** tmp );
+#else
 int wxPli_av_2_pointlist( pTHX_ SV* array, wxList *points, wxPoint** tmp );
+#endif
 int wxPli_av_2_pointarray( pTHX_ SV* array, wxPoint** points );
 int wxPli_av_2_point2ddoublearray( pTHX_ SV* array, wxPoint2DDouble** points );
 
