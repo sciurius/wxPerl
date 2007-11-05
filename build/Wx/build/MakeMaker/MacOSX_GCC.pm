@@ -55,7 +55,9 @@ EOR
 EOE
   }
 
-  write_string( 'cpp/wxPerl.osx/wxPerl.c', sprintf <<EOT, $this->{INSTALLSITEARCH} );
+  my $arch = $this->{INSTALLSITEARCH};
+  $arch =~ s/\$\(SITEPREFIX\)/$this->{PREFIX}/e;
+  write_string( 'cpp/wxPerl.osx/wxPerl.c', sprintf <<EOT, $arch );
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
