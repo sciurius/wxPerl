@@ -20,6 +20,11 @@ use Wx::Overload::Driver;
 
 my( $ovlc, $ovlh ) = ( shift, shift );
 
+if( $ARGV[0] && $ARGV[0] =~ /\.lst$/ ) { # lame hack to read list from file
+    open my $fh, "<", $ARGV[0] or die "$!";
+    @ARGV = map { chomp; $_ } <$fh>;
+}
+
 my $driver = Wx::Overload::Driver->new
   ( files  => \@ARGV,
     header => $ovlh,

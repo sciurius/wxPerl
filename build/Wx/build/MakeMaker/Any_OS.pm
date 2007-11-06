@@ -60,7 +60,7 @@ sub configure_core {
                " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
                " fix_alien cpp/vlbox.h cpp/vscroll.h cpp/v_cback_def.h" .
                " " . join( " ", @generated_xs ) .
-               " cpp/vscrl.h" };
+               " cpp/vscrl.h overload.lst" };
 
   return %config;
 }
@@ -178,13 +178,19 @@ EOT
 sub postamble_overload {
   my( $this ) = @_;
 
+  # command line length workaround
+  if(    !Wx::build::MakeMaker::is_wxPerl_tree
+      || Wx::build::MakeMaker::is_core ) {
+    Wx::build::Utils::write_string( 'overload.lst',
+                                    join "\n", $this->files_with_overload );
+  }
   my $ovl_script = Wx::build::MakeMaker::is_wxPerl_tree() ?
       'script/wx_overload.pl' : "-S wx_overload.pl";
   my( $ovlc, $ovlh ) = $this->{WX}{wx_overload} ?
     @{$this->{WX}{wx_overload}}{qw(source header)} : ();
   return ( $this->{WX}{wx_overload} ? <<EOT : '' );
 overload :
-\t\$(PERL) $ovl_script $ovlc $ovlh @{[$this->files_with_overload]}
+\t\$(PERL) $ovl_script $ovlc $ovlh overload.lst
 \t\$(TOUCH) overload
 
 EOT
