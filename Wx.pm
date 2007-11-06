@@ -129,7 +129,7 @@ sub _unload_dll { }
 
 sub _load_dll {
   local $ENV{PATH} = $wx_path . ';' . $ENV{PATH} if $wx_path;
-  return unless exists $Wx::dlls->{$_[0]};
+  return unless exists $Wx::dlls->{$_[0]} && $Wx::dlls->{$_[0]};
   my $dll = $Wx::dlls->{$_[0]};
   $dll = $wx_path . '/' . $dll if $wx_path;
   Wx::_load_file( $dll );
