@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.81
+
 0.80  Tue Nov  6 23:12:53 CET 2007
 	- Build fixes for Windows (both dmake and nmake).
 	- Prototype implementation of wxVariant and wxDataViewCtrl (2.9).
