@@ -48,6 +48,7 @@ wxTextAttrAlignment     T_ENUM
 wxIdleMode              T_ENUM
 wxDouble                T_DOUBLE
 wxAnimationType         T_ENUM
+wxUpdateUIMode          T_ENUM
 
 wxFindReplaceDialogStyles T_ENUM
 wxFindReplaceFlags      T_ENUM

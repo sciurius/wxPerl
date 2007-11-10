@@ -94,6 +94,13 @@ wxBrush::IsOk()
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+bool
+wxBrush::IsHatch()
+
+#endif
+
 void
 wxBrush::SetColour( ... )
   PPCODE:

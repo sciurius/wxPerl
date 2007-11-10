@@ -100,10 +100,14 @@ MODULE=Wx PACKAGE=Wx::GridCellTextEditor
 wxGridCellTextEditor*
 wxGridCellTextEditor::new()
 
+void
+wxGridCellTextEditor::SetParameters( params )
+    wxString params
+
 MODULE=Wx PACKAGE=Wx::GridCellAutoWrapStringEditor
+
 wxGridCellAutoWrapStringEditor*
 wxGridCellAutoWrapStringEditor::new()
-
 
 MODULE=Wx PACKAGE=Wx::GridCellNumberEditor
 
@@ -112,6 +116,10 @@ wxGridCellNumberEditor::new( min = -1, max = -1 )
     int min
     int max
 
+void
+wxGridCellNumberEditor::SetParameters( params )
+    wxString params
+
 MODULE=Wx PACKAGE=Wx::GridCellFloatEditor
 
 wxGridCellFloatEditor*
@@ -119,10 +127,32 @@ wxGridCellFloatEditor::new( width = -1, precision = -1 )
     int width
     int precision
 
+void
+wxGridCellChoiceEditor::SetParameters( params )
+    wxString params
+
 MODULE=Wx PACKAGE=Wx::GridCellBoolEditor
 
 wxGridCellBoolEditor*
 wxGridCellBoolEditor::new()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+IsTrueValue( value )
+    wxString value
+  CODE:
+    RETVAL = wxGridCellBoolEditor::IsTrueValue( value );
+  OUTPUT: RETVAL
+
+void
+UseStringValues( trueValue = wxT("1"), falseValue = wxT("") )
+    wxString trueValue
+    wxString falseValue
+  CODE:
+    wxGridCellBoolEditor::UseStringValues( trueValue, falseValue );
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::GridCellChoiceEditor
 
@@ -139,7 +169,11 @@ wxGridCellChoiceEditor::new( choices, allowOthers = false )
     delete[] chs;
   OUTPUT:
     RETVAL
-    
+
+void
+wxGridCellChoiceEditor::SetParameters( params )
+    wxString params
+
 MODULE=Wx PACKAGE=Wx::GridCellEnumEditor
 
 wxGridCellEnumEditor*

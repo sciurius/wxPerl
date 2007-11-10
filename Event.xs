@@ -710,6 +710,13 @@ wxMouseEvent::ShiftDown()
 int
 wxMouseEvent::GetButton()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+int
+wxMouseEvent::GetClickCount()
+
+#endif
+
 MODULE=Wx_Evt PACKAGE=Wx::MoveEvent
 
 wxMoveEvent*
@@ -836,6 +843,42 @@ wxSysColourChangedEvent::new()
 
 MODULE=Wx_Evt PACKAGE=Wx::UpdateUIEvent
 
+bool
+CanUpdate( window )
+    wxWindow* window
+  CODE:
+    RETVAL = wxUpdateUIEvent::CanUpdate( window );
+  OUTPUT: RETVAL
+
+wxUpdateUIMode
+GetMode()
+  CODE:
+    RETVAL = wxUpdateUIEvent::GetMode();
+  OUTPUT: RETVAL
+
+void
+SetMode( mode )
+    wxUpdateUIMode mode
+  CODE:
+    wxUpdateUIEvent::SetMode( mode );
+
+long
+GetUpdateInterval()
+  CODE:
+    RETVAL = wxUpdateUIEvent::GetUpdateInterval();
+  OUTPUT: RETVAL
+
+void
+ResetUpdateTime()
+  CODE:
+    wxUpdateUIEvent::ResetUpdateTime();
+
+void
+SetUpdateInterval( interval )
+    long interval
+  CODE:
+    wxUpdateUIEvent::SetUpdateInterval( interval );
+
 wxUpdateUIEvent*
 wxUpdateUIEvent::new( commandId = 0 )
     wxWindowID commandId
@@ -844,12 +887,40 @@ void
 wxUpdateUIEvent::Check( check )
     bool check
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+void
+wxUpdateUIEvent::Show( show )
+    bool show
+
+#endif
+
 void
 wxUpdateUIEvent::Enable( enable )
     bool enable
 
 bool
 wxUpdateUIEvent::GetChecked()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxUpdateUIEvent::GetShown()
+
+#endif
+
+bool
+wxUpdateUIEvent::GetSetEnabled()
+
+bool
+wxUpdateUIEvent::GetSetChecked()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxUpdateUIEvent::GetSetShown()
+
+#endif
 
 bool
 wxUpdateUIEvent::GetEnabled()
@@ -860,6 +931,9 @@ wxUpdateUIEvent::GetText()
 void
 wxUpdateUIEvent::SetText( text )
     wxString text
+
+bool
+wxUpdateUIEvent::GetSetText()
 
 MODULE=Wx_Evt PACKAGE=Wx::NavigationKeyEvent
 

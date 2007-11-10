@@ -83,3 +83,14 @@ wxFontEnumerator::GetFacenames()
 #endif
         SPAGAIN;
     }
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+IsValidFacename( facename )
+    wxString facename
+  CODE:
+    RETVAL = wxFontEnumerator::IsValidFacename( facename );
+  OUTPUT: RETVAL
+
+#endif

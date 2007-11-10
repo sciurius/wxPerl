@@ -64,6 +64,9 @@
     wxAuiPaneInfo& Layer( int layer );
     wxAuiPaneInfo& Row( int row );
     wxAuiPaneInfo& Position( int pos );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    wxAuiPaneInfo& DockFixed( bool b = true );
+#endif
 
     %name{BestSizeSize} wxAuiPaneInfo& BestSize( const wxSize& size );
     %name{BestSizeWH} wxAuiPaneInfo& BestSize( int x, int y );

@@ -114,6 +114,25 @@ wxComboBox::Copy()
 void
 wxComboBox::Cut()
 
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+bool
+wxComboBox::CanCopy()
+
+bool
+wxComboBox::CanCut()
+
+bool
+wxComboBox::CanPaste()
+
+void
+wxComboBox::Undo()
+
+void
+wxComboBox::Redo()
+
+#endif
+
 long
 wxComboBox::GetInsertionPoint()
 

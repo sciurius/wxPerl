@@ -106,3 +106,13 @@ wxColour::Set( red, green, blue )
     unsigned char blue
 
 #endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+wxString
+wxColour::GetAsString( long flags )
+
+#endif
+
+long
+wxColour::GetPixel()

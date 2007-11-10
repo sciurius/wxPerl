@@ -103,5 +103,18 @@ wxAuiNotebook::new( ... )
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
     const wxAuiManager* GetAuiManager()
         %code{% RETVAL = &THIS->GetAuiManager(); %};
+
+    void AdvanceSelection( bool advance = true );
+    int GetHeightForPageHeight( int pageHeight );
+    int GetTabCtrlHeight() const;
+
+    void SetNormalFont( const wxFont& font );
+    void SetSelectedFont( const wxFont& font );
+    void SetMeasuringFont( const wxFont& font );
+
+    void SetTabCtrlHeight( int height );
+    void SetUniformBitmapSize( const wxSize& size );
+
+    bool ShowWindowMenu();
 #endif
 };

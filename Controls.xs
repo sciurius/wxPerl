@@ -51,6 +51,13 @@ wxControl::Command( event )
   CODE:
     THIS->Command( *event );
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+wxString
+wxControl::GetLabelText()
+
+#endif
+
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ControlWithItems.xsp |
 
 INCLUDE: XS/BitmapButton.xs

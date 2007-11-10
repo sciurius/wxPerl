@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     13/08/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
+## Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -68,3 +68,10 @@ wxClipboard::SetData( data )
 void
 wxClipboard::UsePrimarySelection( primary = true )
     bool primary
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+bool
+wxClipboard::IsUsingPrimarySelection()
+
+#endif

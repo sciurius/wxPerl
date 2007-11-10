@@ -172,14 +172,24 @@ wxConfigBase::ReadInt( key, def = 0 )
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+long
+wxConfigBase::ReadLong( key, def = 0 )
+    wxString key
+    long def
+
 double
-wxConfigBase::ReadFloat( key, def = 0.0 )
+wxConfigBase::ReadDouble( key, def = 0.0 )
     wxString key
     double def
-  CODE:
-    THIS->Read( key, &RETVAL, def );
-  OUTPUT:
-    RETVAL
+
+bool
+wxConfigBase::ReadBool( key, def = false )
+    wxString key
+    bool def
+
+#else
 
 bool
 wxConfigBase::ReadBool( key, def = false )
@@ -189,6 +199,8 @@ wxConfigBase::ReadBool( key, def = false )
     THIS->Read( key, &RETVAL, def );
   OUTPUT:
     RETVAL
+
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 ) && wxUSE_BASE64
 

@@ -252,6 +252,9 @@ wxPlConstants aui_module( &aui_constant );
                           bool update = true );
 
     void Update();
+
+    void ShowHint( const wxRect& rect );
+    void HideHint();
 };
 
 %{

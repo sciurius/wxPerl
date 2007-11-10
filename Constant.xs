@@ -926,6 +926,11 @@ static double constant( const char *name, int arg )
     r( wxCentreY );                     // layout constraints
     r( wxCenterX );                     // layout constraints
     r( wxCenterY );                     // layout constraints
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxC2S_NAME );                    // color colour
+    r( wxC2S_CSS_SYNTAX );              // color colour
+    r( wxC2S_HTML_SYNTAX );             // color colour
+#endif
     break;
   case 'D':
     r( wxDECORATIVE );                  // font
@@ -2495,6 +2500,8 @@ static double constant( const char *name, int arg )
     r( wxUPDATE_UI_RECURSE );           // window
     r( wxUPDATE_UI_FROMIDLE );          // window
 #endif
+    r( wxUPDATE_UI_PROCESS_ALL );
+    r( wxUPDATE_UI_PROCESS_SPECIFIED );
     r( wxUP );
     break;
   case 'V':

@@ -55,6 +55,26 @@ wxDC::Blit( xdest, ydest, width, height, source, xsrc, ysrc, logicalFunc = wxCOP
     int logicalFunc
     bool useMask
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+bool
+wxDC::StretchBlit( xdest, ydest, wdest, hdest, source, xsrc, ysrc, wsrc, hsrc, logicalFunc = wxCOPY, useMask = false, xsrcmask = -1, ysrcmask = -1 )
+    wxCoord xdest
+    wxCoord ydest
+    wxCoord wdest
+    wxCoord hdest
+    wxDC* source
+    wxCoord xsrc
+    wxCoord ysrc
+    wxCoord wsrc
+    wxCoord hsrc
+    int logicalFunc
+    bool useMask
+    wxCoord xsrcmask
+    wxCoord ysrcmask
+
+#endif
+
 void
 wxDC::CalcBoundingBox( x, y )
     wxCoord x
@@ -372,6 +392,30 @@ wxDC::GetSizeWH()
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
 
+wxSize*
+wxDC::GetSizeMM()
+  CODE:
+    RETVAL = new wxSize( THIS->GetSizeMM() );
+  OUTPUT:
+    RETVAL
+
+void
+wxDC::GetSizeMMWH()
+  PREINIT:
+    wxCoord x, y;
+  PPCODE:
+    THIS->GetSizeMM( &x, &y );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSViv( x ) ) );
+    PUSHs( sv_2mortal( newSViv( y ) ) );
+
+wxSize*
+wxDC::GetPPI()
+  CODE:
+    RETVAL = new wxSize( THIS->GetPPI() );
+  OUTPUT:
+    RETVAL
+
 wxColour*
 wxDC::GetTextBackground()
   CODE:
@@ -495,6 +539,9 @@ void
 wxDC::SetAxisOrientation( xLeftRight, yBottomUp )
     bool xLeftRight
     bool yBottomUp
+
+int
+wxDC::GetDepth()
 
 wxPoint*
 wxDC::GetDeviceOrigin()
