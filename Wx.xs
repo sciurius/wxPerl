@@ -426,7 +426,9 @@ INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Variant.xsp |
 MODULE=Wx PACKAGE=Wx
 
 #!irrelevant class wxArray
+#!irrelevant class wxArray<T>
 #!irrelevant class wxArrayString
+#!irrelevant class wxObjArray
 #!irrelevant class wxBrushList
 #!irrelevant class wxClientData
 #!irrelevant class wxClientDataContainer
@@ -473,6 +475,8 @@ MODULE=Wx PACKAGE=Wx
 #!irrelevant class wxStringClientData
 #!irrelevant class wxStringTokenizer
 #!irrelevant class wxThreadHelper
+
+#!equivalent class wxThread to Perl modules thread, thread::shared
 
 #!equivalent class wxArchiveClassFactory to Perl modules Archive::Any, Archive::Zip, Archive::Tar
 #!equivalent class wxArchiveEntry to Perl modules Archive::Any, Archive::Zip, Archive::Tar
