@@ -24,6 +24,7 @@ MODULE=Wx_GDI
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Animation.xsp |
 INCLUDE: XS/Colour.xs
+INCLUDE: XS/ColourDatabase.xs
 INCLUDE: XS/Font.xs
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ImageList.xs |
 INCLUDE: XS/Bitmap.xs
