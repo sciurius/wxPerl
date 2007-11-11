@@ -51,6 +51,7 @@
 %typemap{const wxPosition&}{parsed}{%wxPosition%};
 %typemap{wxSize}{parsed}{%wxSize%};
 %typemap{wxPoint}{parsed}{%wxPoint%};
+%typemap{wxPoint*}{simple};
 %typemap{wxPosition}{parsed}{%wxPosition%};
 %typemap{wxPosition*}{simple};
 

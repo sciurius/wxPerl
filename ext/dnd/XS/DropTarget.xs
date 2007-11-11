@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     16/08/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2002, 2004, 2006 Mattia Barbon
+## Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -106,6 +106,8 @@ wxTextDropTarget::new()
     SvREFCNT_inc( RETVAL );
   OUTPUT:
     RETVAL
+
+#!sub OnDropText
 
 MODULE=Wx PACKAGE=Wx::FileDropTarget
 

@@ -223,6 +223,7 @@ XS/Validators.xs
 XS/Variant.xsp
 XS/Wave.xs
 XS/Wizard.xs
+XS/Window.xsp
 
 cpp/app.h
 cpp/chkconfig.h

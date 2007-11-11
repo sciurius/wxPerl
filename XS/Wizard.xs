@@ -100,6 +100,22 @@ wxWizard::SetBitmap( bitmap )
 
 #endif
 
+void
+wxWizard::FitToPage( firstPage )
+    wxWizardPage* firstPage
+
+void
+wxWizard::SetBorder( border )
+    int border
+
+bool
+wxWizard::HasNextPage( page )
+    wxWizardPage* page
+
+bool
+wxWizard::HasPrevPage( page )
+    wxWizardPage* page
+
 MODULE=Wx PACKAGE=Wx::WizardPage
 
 void

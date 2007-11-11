@@ -1,0 +1,88 @@
+#############################################################################
+## Name:        XS/Window.xsp
+## Purpose:     XS++ for Wx::PlWindow
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     23/05/2004
+## RCS-ID:      $Id$
+## Copyright:   (c) 2000-2002, 2004-2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxWindowVariant}{simple};
+%typemap{wxMenu&}{reference};
+
+%name{Wx::Window} class wxWindow {
+    bool AcceptsFocus() const;
+    bool AcceptsFocusFromKeyboard() const;
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+%{
+void
+wxWindow::GetPopupMenuSelectionFromUser( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wmen_wpoi, GetPopupMenuSelectionFromUserPoint )
+        MATCH_REDISP( wxPliOvl_wmen_n_n, GetPopupMenuSelectionFromUserXY )
+    END_OVERLOAD( Wx::Window::GetPopupMenuSelectionFromUser )
+%}
+
+    %name{GetPopupMenuSelectionFromUserPoint}
+    int GetPopupMenuSelectionFromUser( wxMenu& menu, wxPoint point );
+
+    %name{GetPopupMenuSelectionFromUserXY}
+    int GetPopupMenuSelectionFromUser( wxMenu& menu, int x, int y );
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    wxPoint* GetScreenPosition() const
+        %code{% RETVAL = new wxPoint( THIS->GetScreenPosition() ); %};
+
+%{
+void
+wxWindow::GetScreenPositionXY()
+  PPCODE:
+    int x, y;
+    THIS->GetPosition( &x, &y );
+    EXTEND( SP, 2 );
+    PUSHs( sv_2mortal( newSViv( (IV) x ) ) );
+    PUSHs( sv_2mortal( newSViv( (IV) y ) ) );
+%}
+    const wxRect& GetScreenRect() const;
+#endif
+
+    bool HasFlag( int flag ) const;
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    bool HasExtraStyle( int exFlag ) const;
+#endif
+    bool HasCapture() const;
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    bool HasTransparentBackground();
+#endif
+    bool HasScrollbar( int orient ) const;
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    bool IsScrollbarAlwaysShown( int orient );
+#endif
+    bool LineUp();
+    bool LineDown();
+    bool PageUp();
+    bool PageDown();
+    void SetBackgroundColour( const wxColour& colour );
+    void SetOwnBackgroundColour( const wxColour& colour );
+## protected void SetInitialBestSize( wxSize size = wxDefaultSize );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    void SetCanFocus( bool canFocus );
+#endif
+    void SetForegroundColour( const wxColour& colour );
+    void SetOwnForegroundColour( const wxColour& colour );
+    void SetFont( const wxFont& font );
+    void SetOwnFont( const wxFont& font );
+    wxWindowVariant GetWindowVariant() const;
+    void SetWindowVariant( wxWindowVariant variant );
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    bool ToggleWindowStyle( int flag );
+#endif
+};

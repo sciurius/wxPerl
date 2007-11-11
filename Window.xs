@@ -67,6 +67,27 @@ wxGetActiveWindow()
 
 MODULE=Wx_Win PACKAGE=Wx::Window
 
+int
+NewControlId( winid )
+    int winid
+  CODE:
+    RETVAL = wxWindowBase::NewControlId();
+  OUTPUT: RETVAL
+
+int
+NextControlId( winid )
+    int winid
+  CODE:
+    RETVAL = wxWindowBase::NextControlId( winid );
+  OUTPUT: RETVAL
+
+int
+PrevControlId( winid )
+    int winid
+  CODE:
+    RETVAL = wxWindowBase::PrevControlId( winid );
+  OUTPUT: RETVAL
+
 void
 new( ... )
   PPCODE:
@@ -850,12 +871,6 @@ wxWindow::SetBackgroundStyle( style )
 
 #endif
 
-void
-wxWindow::SetBackgroundColour( colour )
-    wxColour* colour
-  CODE:
-    THIS->SetBackgroundColour( *colour );
-
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 void
@@ -949,12 +964,6 @@ void
 wxWindow::SetFocus()
 
 void
-wxWindow::SetForegroundColour( colour )
-    wxColour* colour
-  CODE:
-    THIS->SetForegroundColour( *colour );
-
-void
 wxWindow::SetHelpText( text )
     wxString text
 
@@ -987,12 +996,6 @@ wxWindow::SetScrollPos( orientation, position, refresh = true )
     int orientation
     int position
     bool refresh
-
-void
-wxWindow::SetFont( font )
-    wxFont* font
-  CODE:
-    THIS->SetFont( *font );
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
@@ -1234,6 +1237,8 @@ bool
 wxWindow::CanSetTransparent()
 
 #endif
+
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Window.xsp |
 
 INCLUDE: XS/Accelerators.xs
 

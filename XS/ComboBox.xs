@@ -131,6 +131,12 @@ wxComboBox::Undo()
 void
 wxComboBox::Redo()
 
+bool
+wxComboBox::CanUndo()
+
+bool
+wxComboBox::CanRedo()
+
 #endif
 
 long

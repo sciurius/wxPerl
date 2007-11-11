@@ -2526,6 +2526,10 @@ static double constant( const char *name, int arg )
     r( wxWS_EX_CONTEXTHELP );           // window
 #endif
     r( wxWEST );
+    r( wxWINDOW_VARIANT_NORMAL );       // window
+    r( wxWINDOW_VARIANT_SMALL );        // window
+    r( wxWINDOW_VARIANT_MINI );         // window
+    r( wxWINDOW_VARIANT_LARGE );        // window
     break;
   case 'X':
     r( wxXOR );                         // dc

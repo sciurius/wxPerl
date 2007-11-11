@@ -141,6 +141,11 @@ DEF_V_CBACK_BOOL__VOID( wxPlComboPopup, wxComboPopup, LazyCreate );
     bool IsCreated() const;
 
     wxComboCtrlBase* GetComboCtrl();
+
+#!sub Create
+#!sub GetControl
+#!sub GetStringValue
+#!sub Init
 };
 
 #endif
