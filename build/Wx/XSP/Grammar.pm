@@ -1155,44 +1155,40 @@ sub new {
 	},
 	{#State 103
 		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117
+			"const" => 115
 		},
-		DEFAULT => -42,
+		DEFAULT => -32,
 		GOTOS => {
-			'_metadata' => 119,
-			'perc_code' => 115,
-			'perc_cleanup' => 120,
-			'metadata' => 118
+			'const' => 116
 		}
 	},
 	{#State 104
 		ACTIONS => {
-			'ID' => 121
+			'ID' => 117
 		}
 	},
 	{#State 105
 		ACTIONS => {
-			'ID' => 122
+			'ID' => 118
 		}
 	},
 	{#State 106
 		ACTIONS => {
-			'CLPAR' => 123,
+			'CLPAR' => 119,
 			'COMMA' => 113
 		}
 	},
 	{#State 107
 		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117
+			'p_code' => 121,
+			'p_cleanup' => 122
 		},
 		DEFAULT => -42,
 		GOTOS => {
-			'_metadata' => 119,
-			'perc_code' => 115,
-			'perc_cleanup' => 120,
-			'metadata' => 124
+			'_metadata' => 124,
+			'perc_code' => 120,
+			'perc_cleanup' => 125,
+			'metadata' => 123
 		}
 	},
 	{#State 108
@@ -1203,7 +1199,7 @@ sub new {
 	},
 	{#State 110
 		ACTIONS => {
-			'CLPAR' => 125
+			'CLPAR' => 126
 		}
 	},
 	{#State 111
@@ -1224,7 +1220,7 @@ sub new {
 		},
 		GOTOS => {
 			'type_name' => 15,
-			'argument' => 126,
+			'argument' => 127,
 			'class_name' => 2,
 			'basic_type' => 16,
 			'type' => 104
@@ -1232,142 +1228,134 @@ sub new {
 	},
 	{#State 114
 		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117
+			"const" => 115
 		},
-		DEFAULT => -42,
+		DEFAULT => -32,
 		GOTOS => {
-			'_metadata' => 119,
-			'perc_code' => 115,
-			'perc_cleanup' => 120,
-			'metadata' => 127
+			'const' => 128
 		}
 	},
 	{#State 115
-		DEFAULT => -43
+		DEFAULT => -31
 	},
 	{#State 116
 		ACTIONS => {
-			'OPSPECIAL' => 5
+			'p_code' => 121,
+			'p_cleanup' => 122
 		},
+		DEFAULT => -42,
 		GOTOS => {
-			'special_block' => 128,
-			'special_block_start' => 6
+			'_metadata' => 124,
+			'perc_code' => 120,
+			'perc_cleanup' => 125,
+			'metadata' => 129
 		}
 	},
 	{#State 117
 		ACTIONS => {
-			'OPSPECIAL' => 5
-		},
-		GOTOS => {
-			'special_block' => 129,
-			'special_block_start' => 6
-		}
-	},
-	{#State 118
-		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117,
-			"const" => 130
-		},
-		DEFAULT => -32,
-		GOTOS => {
-			'_metadata' => 131,
-			'perc_code' => 115,
-			'const' => 132,
-			'perc_cleanup' => 120
-		}
-	},
-	{#State 119
-		DEFAULT => -40
-	},
-	{#State 120
-		DEFAULT => -44
-	},
-	{#State 121
-		ACTIONS => {
-			'EQUAL' => 133
+			'EQUAL' => 130
 		},
 		DEFAULT => -72
 	},
+	{#State 118
+		ACTIONS => {
+			'CLCURLY' => 131
+		}
+	},
+	{#State 119
+		ACTIONS => {
+			'p_code' => 121,
+			'p_cleanup' => 122
+		},
+		DEFAULT => -42,
+		GOTOS => {
+			'_metadata' => 124,
+			'perc_code' => 120,
+			'perc_cleanup' => 125,
+			'metadata' => 132
+		}
+	},
+	{#State 120
+		DEFAULT => -43
+	},
+	{#State 121
+		ACTIONS => {
+			'OPSPECIAL' => 5
+		},
+		GOTOS => {
+			'special_block' => 133,
+			'special_block_start' => 6
+		}
+	},
 	{#State 122
 		ACTIONS => {
-			'CLCURLY' => 134
+			'OPSPECIAL' => 5
+		},
+		GOTOS => {
+			'special_block' => 134,
+			'special_block_start' => 6
 		}
 	},
 	{#State 123
 		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117
+			'p_code' => 121,
+			'p_cleanup' => 122,
+			'SEMICOLON' => 135
 		},
-		DEFAULT => -42,
 		GOTOS => {
-			'_metadata' => 119,
-			'perc_code' => 115,
-			'perc_cleanup' => 120,
-			'metadata' => 135
+			'_metadata' => 136,
+			'perc_code' => 120,
+			'perc_cleanup' => 125
 		}
 	},
 	{#State 124
-		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117,
-			'SEMICOLON' => 136
-		},
-		GOTOS => {
-			'_metadata' => 131,
-			'perc_code' => 115,
-			'perc_cleanup' => 120
-		}
+		DEFAULT => -40
 	},
 	{#State 125
+		DEFAULT => -44
+	},
+	{#State 126
 		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117
+			'p_code' => 121,
+			'p_cleanup' => 122
 		},
 		DEFAULT => -42,
 		GOTOS => {
-			'_metadata' => 119,
-			'perc_code' => 115,
-			'perc_cleanup' => 120,
+			'_metadata' => 124,
+			'perc_code' => 120,
+			'perc_cleanup' => 125,
 			'metadata' => 137
 		}
 	},
-	{#State 126
+	{#State 127
 		DEFAULT => -71
 	},
-	{#State 127
-		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117,
-			"const" => 130
-		},
-		DEFAULT => -32,
-		GOTOS => {
-			'_metadata' => 131,
-			'perc_code' => 115,
-			'const' => 138,
-			'perc_cleanup' => 120
-		}
-	},
 	{#State 128
-		DEFAULT => -48
+		ACTIONS => {
+			'p_code' => 121,
+			'p_cleanup' => 122
+		},
+		DEFAULT => -42,
+		GOTOS => {
+			'_metadata' => 124,
+			'perc_code' => 120,
+			'perc_cleanup' => 125,
+			'metadata' => 138
+		}
 	},
 	{#State 129
-		DEFAULT => -49
-	},
-	{#State 130
-		DEFAULT => -31
-	},
-	{#State 131
-		DEFAULT => -41
-	},
-	{#State 132
 		ACTIONS => {
+			'p_code' => 121,
+			'p_cleanup' => 122,
 			'SEMICOLON' => 139
+		},
+		GOTOS => {
+			'_metadata' => 136,
+			'perc_code' => 120,
+			'perc_cleanup' => 125
 		}
 	},
-	{#State 133
+	{#State 130
 		ACTIONS => {
 			'INTEGER' => 143,
 			'ID' => 140,
@@ -1379,7 +1367,7 @@ sub new {
 			'value' => 144
 		}
 	},
-	{#State 134
+	{#State 131
 		ACTIONS => {
 			'OPSPECIAL' => 5
 		},
@@ -1390,36 +1378,52 @@ sub new {
 			'special_block_start' => 6
 		}
 	},
-	{#State 135
+	{#State 132
 		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117,
+			'p_code' => 121,
+			'p_cleanup' => 122,
 			'SEMICOLON' => 148
 		},
 		GOTOS => {
-			'_metadata' => 131,
-			'perc_code' => 115,
-			'perc_cleanup' => 120
+			'_metadata' => 136,
+			'perc_code' => 120,
+			'perc_cleanup' => 125
 		}
 	},
-	{#State 136
+	{#State 133
+		DEFAULT => -48
+	},
+	{#State 134
+		DEFAULT => -49
+	},
+	{#State 135
 		DEFAULT => -38
+	},
+	{#State 136
+		DEFAULT => -41
 	},
 	{#State 137
 		ACTIONS => {
-			'p_code' => 116,
-			'p_cleanup' => 117,
+			'p_code' => 121,
+			'p_cleanup' => 122,
 			'SEMICOLON' => 149
 		},
 		GOTOS => {
-			'_metadata' => 131,
-			'perc_code' => 115,
-			'perc_cleanup' => 120
+			'_metadata' => 136,
+			'perc_code' => 120,
+			'perc_cleanup' => 125
 		}
 	},
 	{#State 138
 		ACTIONS => {
+			'p_code' => 121,
+			'p_cleanup' => 122,
 			'SEMICOLON' => 150
+		},
+		GOTOS => {
+			'_metadata' => 136,
+			'perc_code' => 120,
+			'perc_cleanup' => 125
 		}
 	},
 	{#State 139
@@ -1728,7 +1732,7 @@ sub
                                          ret_type  => $_[1],
                                          arguments => $_[4],
                                          class     => $class,
-                                         @{ $_[6] } ) }
+                                         @{ $_[7] } ) }
 	],
 	[#Rule 36
 		 '_func', 7,
@@ -1738,7 +1742,7 @@ sub
                                          name     => $_[2],
                                          ret_type => $_[1],
                                          class     => $class,
-                                         @{ $_[5] } ) }
+                                         @{ $_[6] } ) }
 	],
 	[#Rule 37
 		 'ctor', 6,

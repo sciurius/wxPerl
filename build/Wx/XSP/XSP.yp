@@ -99,19 +99,19 @@ function:       _func
                     { $_[2]->{PERL_NAME} = $_[1]; $_[2] }
               ;
 
-_func:          type ID OPPAR arg_list CLPAR metadata const SEMICOLON
+_func:          type ID OPPAR arg_list CLPAR const metadata SEMICOLON
                     { add_data_function( $_[0],
                                          name      => $_[2],
                                          ret_type  => $_[1],
                                          arguments => $_[4],
                                          class     => $class,
-                                         @{ $_[6] } ) }
-              | type ID OPPAR CLPAR metadata const SEMICOLON
+                                         @{ $_[7] } ) }
+              | type ID OPPAR CLPAR const metadata SEMICOLON
                     { add_data_function( $_[0],
                                          name     => $_[2],
                                          ret_type => $_[1],
                                          class     => $class,
-                                         @{ $_[5] } ) };
+                                         @{ $_[6] } ) };
 
 ctor:           ID OPPAR arg_list CLPAR metadata SEMICOLON
                     { add_data_ctor( $_[0], name      => $_[1],
