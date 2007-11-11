@@ -42,6 +42,16 @@ wxFileHistory::RemoveMenu( menu )
 ## Work out the config stuff
 
 void
+wxFileHistory::Load( config )
+    wxConfigBase* config
+  C_ARGS: *config
+
+void
+wxFileHistory::Save( config )
+    wxConfigBase* config
+  C_ARGS: *config
+
+void
 wxFileHistory::AddFilesToMenu( ... )
   CASE: items == 1
     CODE:

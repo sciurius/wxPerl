@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     03/12/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001, 2004-2005 Mattia Barbon
+## Copyright:   (c) 2001, 2004-2005, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -24,6 +24,9 @@ void
 wxTaskBarIcon::Destroy()
   CODE:
     delete THIS;
+
+bool
+wxTaskBarIcon::IsOk()
 
 bool
 wxTaskBarIcon::IsIconInstalled()

@@ -541,6 +541,12 @@ wxRegion::Contains( ... )
         MATCH_REDISP( wxPliOvl_wrec, ContainsRect )
     END_OVERLOAD( Wx::Region::Contains )
 
+wxBitmap*
+wxRegion::ConvertToBitmap()
+  CODE:
+    RETVAL = new wxBitmap( THIS->ConvertToBitmap() );
+  OUTPUT: RETVAL
+
 wxRect*
 wxRegion::GetBox()
   CODE:
@@ -601,6 +607,15 @@ wxRegion::Intersect( ... )
 
 bool
 wxRegion::IsEmpty()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxRegion::IsEqual( region )
+    wxRegion* region
+  C_ARGS: *region
+
+#endif
 
 bool
 wxRegion::SubtractRect( rect )

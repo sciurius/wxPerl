@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     16/08/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2004 Mattia Barbon
+## Copyright:   (c) 2001-2004, 2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,6 +14,8 @@
 #include "cpp/dropsource.h"
 
 MODULE=Wx PACKAGE=Wx::DropSource
+
+#!sub GiveFeedback
 
 #if defined( __WXMSW__ ) || defined( __WXMAC__ )
 

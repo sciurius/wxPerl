@@ -157,3 +157,5 @@ wxScrolledWindow::GetViewStart()
     EXTEND( SP, 2 );
     PUSHs( sv_2mortal( newSViv( x ) ) );
     PUSHs( sv_2mortal( newSViv( y ) ) );
+
+#!sub OnDraw

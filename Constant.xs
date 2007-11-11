@@ -705,6 +705,9 @@ static double constant( const char *name, int arg )
 
   switch( fl ) {
   case 'A':
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxAPPLY );                       // dialog
+#endif
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
     r( wxALPHA_OPAQUE );                // color colour
     r( wxALPHA_TRANSPARENT );           // color colour
@@ -921,6 +924,9 @@ static double constant( const char *name, int arg )
     #define wxCLOSE_BOX 0
 #endif
     r( wxCLOSE_BOX );                   // frame
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxCLOSE );                       // dialog
+#endif
 
     r( wxCentreX );                     // layout constraints
     r( wxCentreY );                     // layout constraints
@@ -1354,6 +1360,7 @@ static double constant( const char *name, int arg )
     r( wxGROW );                        // sizer
     break;
   case 'H':
+    r( wxHELP );                        // dialog
 #if !defined(__WXMAC__) && !defined(__WXGTK__) && !defined(__WXMOTIF__) \
     && WXPERL_W_VERSION_LE( 2, 5, 2 )
     r( wxHIDE_READONLY );               // filedialog

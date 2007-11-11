@@ -250,6 +250,28 @@ wxToolBarBase::AddToolNewShort( toolId, label, bitmap, shortHelp = wxEmptyString
     RETVAL = THIS->AddTool( toolId, label, *bitmap, shortHelp, kind );
   OUTPUT: RETVAL
 
+wxToolBarToolBase*
+wxToolBarBase::AddCheckTool( toolId, label, bitmap1, bitmap2, shortHelpString = wxEmptyString, longHelpString = wxEmptyString, clientData = NULL )
+    int toolId
+    wxString label
+    wxBitmap* bitmap1
+    wxBitmap* bitmap2
+    wxString shortHelpString
+    wxString longHelpString
+    wxPliUserDataO* clientData
+  C_ARGS: toolId, label, *bitmap1, *bitmap2, shortHelpString, longHelpString, clientData
+
+wxToolBarToolBase*
+wxToolBarBase::AddRadioTool( toolId, label, bitmap1, bitmap2, shortHelpString = wxEmptyString, longHelpString = wxEmptyString, clientData = NULL )
+    int toolId
+    wxString label
+    wxBitmap* bitmap1
+    wxBitmap* bitmap2
+    wxString shortHelpString
+    wxString longHelpString
+    wxPliUserDataO* clientData
+  C_ARGS: toolId, label, *bitmap1, *bitmap2, shortHelpString, longHelpString, clientData
+
 bool
 wxToolBarBase::DeleteTool( toolId )
     int toolId
@@ -390,6 +412,16 @@ wxToolBarBase::InsertToolNewLong( pos, toolId, label, bitmap1, bitmap2 = (wxBitm
   OUTPUT: RETVAL
 
 #endif
+
+void
+wxToolBarBase::ClearTools()
+
+int
+wxToolBarBase::GetToolsCount()
+
+int
+wxToolBarBase::GetToolPos( toolId )
+    int toolId
 
 bool
 wxToolBarBase::Realize()

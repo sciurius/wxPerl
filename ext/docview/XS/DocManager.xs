@@ -282,17 +282,15 @@ wxDocManager::FileHistoryRemoveMenu( menu )
 
 ## Need wxConfigBase& in typemap
 
-##void
-##wxDocManager::FileHistoryLoad( config )
-##    wxConfigBase config
-##  CODE:
-##    THIS->FileHistoryLoad( config )
-##
-##void
-##wxDocManager::FileHistorySave( config )
-##    wxConfigBase config
-##  CODE:
-##    THIS->FileHistoryLoad( config )
+void
+wxDocManager::FileHistoryLoad( config )
+    wxConfigBase* config
+  C_ARGS: *config
+
+void
+wxDocManager::FileHistorySave( config )
+    wxConfigBase* config
+  C_ARGS: *config
 
 #endif
 

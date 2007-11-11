@@ -5,19 +5,18 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2001, 2003-2004, 2006 Mattia Barbon
+## Copyright:   (c) 2000-2001, 2003-2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 %module{Wx};
 
-%{
 #include <wx/dialog.h>
+#include <wx/sizer.h>
 #include <wx/button.h>
 #include "cpp/dialog.h"
 #include "cpp/overload.h"
-%}
 
 %name{Wx::Dialog} class wxDialog {
 #if WXPERL_W_VERSION_GE( 2, 6, 3 )
@@ -28,6 +27,14 @@
 #endif
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     void SetEscapeId( int escapeId );
+#endif
+    wxSizer* CreateTextSizer( const wxString &message );
+    wxSizer* CreateButtonSizer( long flags );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    wxSizer* CreateSeparatedButtonSizer( long flags );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    wxSizer* CreateStdDialogButtonSizer( long flags );
 #endif
 };
 

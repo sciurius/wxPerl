@@ -15,6 +15,8 @@
 
 MODULE=Wx PACKAGE=Wx::DropTarget
 
+#!sub OnData
+
 SV*
 wxDropTarget::new( data = 0 )
     wxDataObject* data
@@ -119,3 +121,5 @@ wxFileDropTarget::new()
     SvREFCNT_inc( RETVAL );
   OUTPUT:
     RETVAL
+
+#!sub OnDropFiles

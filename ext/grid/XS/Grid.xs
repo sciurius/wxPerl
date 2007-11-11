@@ -107,6 +107,14 @@ void
 wxGrid::AutoSize()
 
 void
+wxGrid::AutoSizeColLabelSize( col )
+    int col
+
+void
+wxGrid::AutoSizeRowLabelSize( col )
+    int col
+
+void
 wxGrid::AutoSizeColumn( col, setAsMin = true )
     int col
     bool setAsMin
@@ -138,6 +146,13 @@ wxGrid::BlockToDeviceRect( topLeft, bottomRight )
 
 bool
 wxGrid::CanDragColSize()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxGrid::CanDragColMove()
+
+#endif
 
 bool
 wxGrid::CanDragRowSize()
@@ -200,6 +215,13 @@ wxGrid::DisableDragRowSize()
 
 void
 wxGrid::DisableDragColSize()
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+void
+wxGrid::DisableDragColMove()
+
+#endif
 
 void
 wxGrid::EnableCellEditControl( enable = true )
@@ -330,9 +352,25 @@ wxString
 wxGrid::GetColLabelValue( col )
     int col
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+int
+wxGrid::GetColPos( colId )
+    int colId
+
+#endif
+
 int
 wxGrid::GetColSize( col )
     int col
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+int
+wxGrid::GetColAt( colPos )
+    int colPos
+
+#endif
 
 void
 wxGrid::GetDefaultCellAlignment()
@@ -466,6 +504,30 @@ wxGrid::GetGridLineColour()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+wxPen*
+wxGrid::GetDefaultGridLinePen()
+  CODE:
+    RETVAL = new wxPen( THIS->GetDefaultGridLinePen() );
+  OUTPUT: RETVAL
+
+wxPen*
+wxGrid::GetColGridLinePen( col )
+    int col
+  CODE:
+    RETVAL = new wxPen( THIS->GetColGridLinePen( col ) );
+  OUTPUT: RETVAL
+
+wxPen*
+wxGrid::GetRowGridLinePen( row )
+    int row
+  CODE:
+    RETVAL = new wxPen( THIS->GetRowGridLinePen( row ) );
+  OUTPUT: RETVAL
+
+#endif
+
 wxGridTableBase*
 wxGrid::GetTable()
 
@@ -509,6 +571,24 @@ wxGrid::GetRowLabelValue( row )
 int
 wxGrid::GetRowSize( row )
     int row
+
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+int
+wxGrid::GetScrollLineX()
+
+int
+wxGrid::GetScrollLineY()
+
+void
+wxGrid::SetScrollLineX( x )
+    int x
+
+void
+wxGrid::SetScrollLineY( y )
+    int y
+
+#endif
 
 void
 wxGrid::GetSelectedCells()
@@ -561,6 +641,9 @@ wxGrid::GetSelectionForeground()
     RETVAL = new wxColour( THIS->GetSelectionForeground() );
   OUTPUT:
     RETVAL
+
+wxGridSelectionModes
+wxGrid::GetSelectionMode()
 
 int
 wxGrid::GetViewWidth()
@@ -922,6 +1005,15 @@ void
 wxGrid::SetColSize( col, height )
     int col
     int height
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+void
+wxGrid::SetColPos( col, pos )
+    int col
+    int pos
+
+#endif
 
 void
 wxGrid::SetGridCursor( row, col )

@@ -196,6 +196,14 @@ wxString
 wxMenu::GetLabel( id )
     int id
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+wxString
+wxMenu::GetLabelText( id )
+    int id
+
+#endif
+
 int
 wxMenu::GetMenuItemCount()
 
@@ -494,6 +502,14 @@ wxMenuBar::GetMenuLabel( id )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+wxString
+wxMenuBar::GetMenuLabelText( id )
+    int id
+
+#endif
+
 wxMenu*
 wxMenuBar::GetMenu( index )
     int index
@@ -614,6 +630,13 @@ wxMenuItem::GetBitmap()
 
 wxString
 wxMenuItem::GetHelp()
+
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
+wxString
+wxMenuItem::GetName()
+
+#endif
 
 int
 wxMenuItem::GetId()

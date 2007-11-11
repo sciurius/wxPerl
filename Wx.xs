@@ -567,3 +567,7 @@ MODULE=Wx PACKAGE=Wx
 
 #!equivalent class wxGLCanvas to Perl module Wx::GLCanvas
 #!equivalent class wxGLContext to Perl module Wx::GLCanvas
+
+#!equivalent class wxDateTime to perl module DateTime, Date::Calc, Date::Manip, Time::Piece
+#!equivalent class wxDateSpan to perl module DateTime, Date::Calc, Date::Manip, Time::Piece
+#!equivalent class wxTimeSpan to perl module DateTime, Date::Calc, Date::Manip, Time::Piece

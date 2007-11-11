@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2006 Mattia Barbon
+## Copyright:   (c) 2000-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -78,6 +78,13 @@ wxApp::Dispatch()
 
 wxString
 wxApp::GetAppName()
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxString
+wxApp::GetAppDisplayName()
+
+#endif
 
 #if defined( __WXMSW__ ) && WXPERL_W_VERSION_LT( 2, 5, 1 )
 
@@ -157,6 +164,14 @@ void
 wxApp::SetAppName( name )
     wxString name
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxApp::SetAppDisplayName( name )
+    wxString name
+
+#endif
+
 #if defined( __WXMSW__ ) && WXPERL_W_VERSION_LT( 2, 5, 0 )
 
 void
@@ -225,3 +240,18 @@ wxLayoutDirection
 wxApp::GetLayoutDirection()
 
 #endif
+
+wxApp*
+GetInstance()
+  CODE:
+    RETVAL = (wxApp*)wxApp::GetInstance();
+  OUTPUT: RETVAL
+
+void
+SetInstance( app )
+    wxApp* app
+  CODE:
+    wxApp::SetInstance( app );
+
+bool
+wxApp::IsMainLoopRunning()

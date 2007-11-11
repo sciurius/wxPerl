@@ -37,6 +37,22 @@
           return wxNullBitmap;                                               \
   }
 
+#define DEC_V_CBACK_WXICONBUNDLE__WXARTID_WXARTCLIENT_pure( METHOD ) \
+  wxIconBundle METHOD( const wxArtID& id, const wxArtClient& client )
+
+#define DEF_V_CBACK_WXICONBUNDLE__WXARTID_WXARTCLIENT_pure( CLASS, BASE, METHOD ) \
+  wxIconBundle CLASS::METHOD( const wxArtID& id, const wxArtClient& client )     \
+  {                                                                          \
+      dTHX;                                                                  \
+      if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )  \
+      {                                                                      \
+          wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback,                \
+                        G_SCALAR, "PP", &id, &client ) );                    \
+          return *(wxIconBundle*)wxPli_sv_2_object( aTHX_ ret, "Wx::IconBundle" );   \
+      } else                                                                 \
+          return wxNullIconBundle;                                           \
+  }
+
 class wxPlArtProvider : public wxArtProvider
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlArtProvider );
@@ -49,10 +65,17 @@ public:
     }
 
     DEC_V_CBACK_WXBITMAP__WXARTID_WXARTCLIENT_WXSIZE_pure( CreateBitmap );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    DEC_V_CBACK_WXICONBUNDLE__WXARTID_WXARTCLIENT_pure( CreateIconBundle );
+#endif
 };
 
 DEF_V_CBACK_WXBITMAP__WXARTID_WXARTCLIENT_WXSIZE_pure( wxPlArtProvider,
   wxArtProvider, CreateBitmap );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+DEF_V_CBACK_WXICONBUNDLE__WXARTID_WXARTCLIENT_pure( wxPlArtProvider,
+  wxArtProvider, CreateIconBundle );
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlArtProvider, wxArtProvider );
@@ -74,6 +97,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlArtProvider, wxObject );
 MODULE=Wx PACKAGE=Wx::ArtProvider
 
 #!sub CreateBitmap
+#!sub CreateIconBundle
 
 wxBitmap*
 GetBitmap( id, client = wxART_OTHER, size = wxDefaultSize )
@@ -92,6 +116,18 @@ GetIcon( id, client = wxART_OTHER, size = wxDefaultSize )
   CODE:
     RETVAL = new wxIcon( wxArtProvider::GetIcon( id, client, size ) );
   OUTPUT: RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxIconBundle*
+GetIconBundle( id, client = wxART_OTHER )
+    wxString id
+    wxString client
+  CODE:
+    RETVAL = new wxIconBundle( wxArtProvider::GetIconBundle( id, client ) );
+  OUTPUT: RETVAL
+
+#endif
 
 bool
 PopProvider()
