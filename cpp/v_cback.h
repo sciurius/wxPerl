@@ -35,10 +35,7 @@ public:
 private:
     SV* m_sv;
 #ifdef MULTIPLICITY
-    #undef register
-    #define register
-    pTHX;
-    #undef register
+    pTHXx;
 #endif
 };
 
