@@ -118,6 +118,7 @@ XS/Choicebook.xsp
 XS/ClassInfo.xs
 XS/CollapsiblePane.xsp
 XS/Colour.xs
+XS/ColourDatabase.xs
 XS/ColourDialog.xs
 XS/ColourPickerCtrl.xsp
 XS/ComboBox.xs
