@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2004, 2006 Mattia Barbon
+## Copyright:   (c) 2000-2004, 2006-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -88,18 +88,6 @@ wxFrame::GetClientAreaOrigin()
   OUTPUT:
     RETVAL
 
-wxIcon*
-wxFrame::GetIcon()
-  CODE:
-    RETVAL = new wxIcon( THIS->GetIcon() );
-  OUTPUT: RETVAL
-
-wxIconBundle*
-wxFrame::GetIcons()
-  CODE:
-    RETVAL = new wxIconBundle( THIS->GetIcons() );
-  OUTPUT: RETVAL
-
 wxMenuBar*
 wxFrame::GetMenuBar()
 
@@ -114,29 +102,6 @@ wxFrame::GetTitle()
 
 wxToolBar*
 wxFrame::GetToolBar()
-
-void
-wxFrame::Iconize( iconize )
-    bool iconize
-
-bool
-wxFrame::IsIconized()
-
-bool
-wxFrame::IsMaximized()
-
-#if defined( __WXMSW__ ) || \
- ( defined( __WXGTK__ ) ) \
- || defined( __WXPERL_FORCE__ )
-
-bool
-wxFrame::IsFullScreen()
-
-#endif
-
-void
-wxFrame::Maximize( maximize )
-    bool maximize
 
 #if defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 5, 2 ) \
     && WXPERL_W_VERSION_LT( 2, 7, 0 )
@@ -172,16 +137,6 @@ void
 wxFrame::SetMenuBar( menubar )
     wxMenuBar* menubar
 
-#if (WXPERL_W_VERSION_GE( 2, 4, 1 ) && !defined(__WXMOTIF__)) \
-    || WXPERL_W_VERSION_GE( 2, 5, 1 )
-
-void
-wxFrame::SetShape( region )
-  wxRegion* region
-  C_ARGS: *region
-
-#endif
-
 void
 wxFrame::SetStatusBar( statusBar )
     wxStatusBar* statusBar
@@ -216,17 +171,6 @@ wxFrame::SetStatusWidths( ... )
     }
     THIS->SetStatusWidths( items - 1, w );
     delete [] w;
-
-#if defined( __WXMSW__ ) || \
- ( defined( __WXGTK__ ) ) \
- || defined( __WXPERL_FORCE__ )
-
-bool
-wxFrame::ShowFullScreen( show, style = wxFULLSCREEN_ALL )
-    bool show
-    long style
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::MiniFrame
 

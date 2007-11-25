@@ -62,6 +62,7 @@
 %typemap{wxBitmap}{reference};
 %typemap{const wxBitmap&}{reference};
 %typemap{wxCursor}{reference};
+%typemap{const wxCursor&}{reference};
 %typemap{wxIcon}{reference};
 %typemap{wxFont}{reference};
 %typemap{wxFont*}{simple};
@@ -113,7 +114,9 @@
 %typemap{wxColour}{reference};
 %typemap{const wxColour&}{reference};
 %typemap{const wxIcon&}{reference};
+%typemap{const wxIconBundle&}{reference};
 %typemap{const wxFont&}{reference};
+%typemap{const wxRegion&}{reference};
 
 %typemap{wxImageList*}{simple};
 %typemap{wxImage*}{simple};

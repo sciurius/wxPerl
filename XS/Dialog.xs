@@ -91,29 +91,12 @@ wxDialog::GetReturnCode()
 wxString
 wxDialog::GetTitle()
 
-void
-wxDialog::Iconize( iconize )
-    bool iconize
-
-bool
-wxDialog::IsIconized()
-
 bool
 wxDialog::IsModal()
 
 # void
 # wxDialog::SetModal( flag )
 #    bool flag
-
-#if (WXPERL_W_VERSION_GE( 2, 4, 1 ) && !defined(__WXMOTIF__)) \
-    || WXPERL_W_VERSION_GE( 2, 5, 1 )
-
-void
-wxDialog::SetShape( region )
-  wxRegion* region
-  C_ARGS: *region
-
-#endif
 
 void
 wxDialog::SetIcon( icon )
