@@ -74,6 +74,8 @@ NewControlId( winid )
     RETVAL = wxWindowBase::NewControlId();
   OUTPUT: RETVAL
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
 int
 NextControlId( winid )
     int winid
@@ -87,6 +89,8 @@ PrevControlId( winid )
   CODE:
     RETVAL = wxWindowBase::PrevControlId( winid );
   OUTPUT: RETVAL
+
+#endif
 
 void
 new( ... )
@@ -128,15 +132,21 @@ wxWindow::Create( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefau
 void
 wxWindow::CaptureMouse()
 
+#!sub Center
+
 void
 wxWindow::Centre( direction = wxBOTH )
     int direction
+
+#!sub CenterOnparent
 
 void
 wxWindow::CentreOnParent( direction = wxBOTH )
     int direction
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
+
+#!sub CenterOnScreen
 
 void
 wxWindow::CentreOnScreen( direction = wxBOTH )
@@ -925,12 +935,6 @@ wxWindow::SetConstraints( constraints )
 void
 wxWindow::SetContainingSizer( sizer )
     wxSizer* sizer
-
-void
-wxWindow::SetCursor( cursor )
-    wxCursor* cursor
-  CODE:
-    THIS->SetCursor( *cursor );
 
 #if WXPERL_W_VERSION_LT( 2, 7, 0 )
 

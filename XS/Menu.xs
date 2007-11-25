@@ -196,7 +196,7 @@ wxString
 wxMenu::GetLabel( id )
     int id
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+#if WXPERL_W_VERSION_GE( 2, 8, 5 )
 
 wxString
 wxMenu::GetLabelText( id )
@@ -494,15 +494,11 @@ wxMenuBar::GetLabelTop( id )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#if WXPERL_W_VERSION_GE( 2, 8, 5 )
 
 wxString
 wxMenuBar::GetMenuLabel( id )
     int id
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
 
 wxString
 wxMenuBar::GetMenuLabelText( id )
@@ -563,7 +559,7 @@ wxMenuBar::SetLabelTop( pos, label )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#if WXPERL_W_VERSION_GE( 2, 8, 5 )
 
 void
 wxMenuBar::SetMenuLabel( pos, label )

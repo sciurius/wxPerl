@@ -2597,6 +2597,8 @@ static void wxPli_make_const( const char* name )
     newCONSTSUB( stash, (char*)name, sv );
 }
 
+#if wxUSE_UNICODE
+
 static void wxPli_make_const_str( const char* name, const wxChar* value )
 {
     dTHX;
@@ -2610,6 +2612,28 @@ static void wxPli_make_const_str( const char* name, const wxChar* value )
 
     tmp = get_sv( buffer, 0 );
     wxPli_wxChar_2_sv( aTHX_ value, tmp );
+}
+
+#endif
+
+static void wxPli_make_const_str( const char* name, const char* value )
+{
+    dTHX;
+    char buffer[256];
+    SV* tmp;
+
+    wxPli_make_const( name );
+
+    strcpy( buffer, "Wx::" );
+    strcpy( buffer + 4, name );
+
+    tmp = get_sv( buffer, 0 );
+    sv_setpv( tmp, value );
+}
+
+static void wxPli_make_const_str( const char* name, const wxString& value )
+{
+    wxPli_make_const_str( name, (const wxChar*)value.c_str() );
 }
 
 #define wxPli_make_const_string( v ) \
