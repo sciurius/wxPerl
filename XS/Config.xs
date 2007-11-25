@@ -316,4 +316,6 @@ wxFileConfig::new( appName = wxEmptyString, vendorName = wxEmptyString, localFil
     wxString globalFilename
     long style
 
-
+void
+wxFileConfig::SetUmask( mode )
+    int mode

@@ -84,6 +84,19 @@ wxFileType::GetMimeTypes()
         XSRETURN_EMPTY;
 
 void
+wxFileType::GetMimeType()
+  PREINIT:
+    wxString mimeType;
+  PPCODE:
+    bool ok = THIS->GetMimeType( &mimeType );
+    if( ok )
+    {
+        XPUSHs( wxPli_wxString_2_sv( aTHX_ mimeType, sv_newmortal() ) );
+    }
+    else
+        XSRETURN_EMPTY;
+
+void
 wxFileType::GetExtensions()
   PREINIT:
     wxArrayString extensions;

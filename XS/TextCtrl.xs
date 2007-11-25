@@ -90,6 +90,10 @@
     void SetSelection( long from, long to );
     void SelectAll();
     void SetEditable( bool editable );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    bool AutoComplete( const wxArrayString& choices );
+    bool AutoCompleteFileNames();
+#endif
 };
 
 %{
