@@ -169,6 +169,11 @@ inline AV* wxPli_avref_2_av( SV* sv )
     return NULL;
 }
 
+#define wxPli_push_2ints( i1, i2 ) \
+    EXTEND( SP, 2 );                                                         \
+    PUSHs( sv_2mortal( newSViv( (IV) (i1) ) ) );                             \
+    PUSHs( sv_2mortal( newSViv( (IV) (i2) ) ) );                             \
+
 //
 
 const int WXPL_BUF_SIZE = 120;
