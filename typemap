@@ -74,6 +74,8 @@ wxChar                  T_IV
 
 wxStockHelpStringClient T_ENUM
 
+wxDateTime *            O_NON_WXOBJECT
+
 Wx_UserDataCD *         O_USERDATACD
 wxPliUserDataCD *       O_USERDATACD
 

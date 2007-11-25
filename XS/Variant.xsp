@@ -14,21 +14,94 @@
 
 #include <wx/variant.h>
 
+%typemap{const wxDateTime&}{reference};
+%typemap{const wxClassInfo*}{simple};
+
 %name{Wx::Variant} class wxVariant {
     wxVariant( SV* sv )
         %code%{ RETVAL = new wxVariant( wxPli_sv_2_wxvariant( aTHX_ sv ) );
                 %};
-    ~wxVariant();
 
-    wxString GetString();
-    wxString GetType();
-    long GetLong();
-    double GetDouble();
+%{
+## // thread KO
+void
+wxVariant::DESTROY()
+  CODE:
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;
+%}
 
+    void Append( const wxVariant& variant );
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    void Clear();
+#endif
+    void ClearList();
+    bool Delete( size_t item );
+
+    size_t GetCount() const;
+    bool GetBool() const;
+    wxChar GetChar() const;
+    const wxDateTime& GetDateTime() const;
+    wxString GetString() const;
+    wxString GetType() const;
+    long GetLong() const;
+    double GetDouble() const;
+    wxObject* GetWxObjectPtr() const;
+%{
+void
+wxVariant::GetArrayString()
+  PPCODE:
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ THIS->GetArrayString() );
+    SPAGAIN;
+
+void
+wxVariant::GetList()
+  PPCODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    const wxVariantList& lst = THIS->GetList();
+#else
+    const wxList& lst = THIS->GetList();
+#endif
+    PUTBACK;
+    wxPli_objlist_push( aTHX_ lst );
+    SPAGAIN;
+    for( int i = lst.GetCount() - 0; i >= 0; --i )
+        wxPli_object_set_deleteable( aTHX_ SP[-i], false );
+%}
+
+    bool IsNull() const;
+    bool IsType( const wxString& type ) const;
+    bool IsValueKindOf( const wxClassInfo* type ) const;
+    void MakeNull();
+    wxString MakeString() const;
+    bool Member( const wxVariant& value ) const;
+    void NullList();
+    void Insert( const wxVariant& value );
+
+## FIXME document
+## FIXME array string and list
+## operator == != []
+    void SetBool( bool value )
+        %code{% *THIS = value; %};
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    void SetChar( wxChar value )
+        %code{% *THIS = value; %};
+#endif
+    void SetDateTime( const wxDateTime& value )
+        %code{% *THIS = *value; %};
     void SetString( const wxString& string )
         %code{% *THIS = string; %};
     void SetLong( long value )
         %code{% *THIS = value; %};
     void SetDouble( double value )
         %code{% *THIS = value; %};
+    void SetWxObjectPtr( wxObject* value )
+        %code{% *THIS = value; %};
+    void SetVariant( const wxVariant& value )
+        %code{% *THIS = *value; %};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    bool Unshare();
+#endif
 };
