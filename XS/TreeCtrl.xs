@@ -393,12 +393,16 @@ wxTreeCtrl::GetImageList()
   CLEANUP:
     wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
+#if !defined( __WXMSW__ )
+
 wxImageList*
 wxTreeCtrl::GetButtonsImageList()
   OUTPUT:
     RETVAL
   CLEANUP:
     wxPli_object_set_deleteable( aTHX_ ST(0), false );
+    
+#endif    
 
 int
 wxTreeCtrl::GetIndent()
@@ -694,9 +698,13 @@ void
 wxTreeCtrl::SetImageList( list )
     wxImageList* list
 
+#if !defined( __WXMSW__ )
+
 void
 wxTreeCtrl::SetButtonsImageList( list )
     wxImageList* list
+    
+#endif    
 
 void
 wxTreeCtrl::SetStateImageList( list )
