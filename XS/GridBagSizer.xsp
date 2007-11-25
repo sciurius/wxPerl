@@ -5,20 +5,22 @@
 ## Modified by:
 ## Created:     310/11/2003
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2003, 2005-2006 Mattia Barbon
+## Copyright:   (c) 2003, 2005-2007 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 %module{Wx};
 
-%{
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 
 #define wxPlDefaultSpan (wxGBSpan*)&wxDefaultSpan
 
 #include <wx/gbsizer.h>
-%}
+
+## DECLARE_OVERLOAD( wgbp, Wx::GBPosition )
+## DECLARE_OVERLOAD( wgbs, Wx::GBSpan )
+## DECLARE_OVERLOAD( wgbi, Wx::GBSizerItem )
 
 %typemap{wxGridBagSizer *}{simple};
 %typemap{wxGBPosition *}{simple};
@@ -59,10 +61,24 @@
 %name{Wx::GBSizerItem} class wxGBSizerItem
 {
     wxGBPosition GetPos() const;
-##    void GetPos(int& row, int& col) const;
+%{
+void
+wxGBSizerItem::GetPosXY()
+  PPCODE:
+    int x, y;
+    THIS->GetPos( x, y );
+    wxPli_push_2ints( x, y );
+%}
 
     wxGBSpan GetSpan() const;
-##    void GetSpan(int& rowspan, int& colspan) const;
+%{
+void
+wxGBSizerItem::GetSpanWH()
+  PPCODE:
+    int x, y;
+    THIS->GetSpan( x, y );
+    wxPli_push_2ints( x, y );
+%}
 
     bool SetPos( const wxGBPosition& pos );
     bool SetSpan( const wxGBSpan& span );
@@ -70,7 +86,24 @@
     bool Intersects(const wxGBSizerItem& other);
     %name{IntersectsPosition}
     bool Intersects(const wxGBPosition& pos, const wxGBSpan& span);
-##    void GetEndPos(int& row, int& col);
+%{
+void
+wxGBSizerItem::Intersects( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wgbi, IntersectsItem )
+        MATCH_REDISP( wxPliOvl_wgbp_wgbs, IntersectsPosition )
+    END_OVERLOAD( Wx::GridBagSizer::Add )
+%}
+
+%{
+void
+wxGBSizerItem::GetEndPos()
+  PPCODE:
+    int x, y;
+    THIS->GetEndPos( x, y );
+    wxPli_push_2ints( x, y );
+%}
     wxGridBagSizer* GetGBSizer() const;
     void SetGBSizer(wxGridBagSizer* sizer);
 };
@@ -114,6 +147,16 @@
     wxGBPosition GetItemPosition(wxSizer *sizer);
     %name{GetItemPositionIndex}
     wxGBPosition GetItemPosition(size_t index);
+%{
+void
+wxGridBagSizer::GetItemPosition( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin, GetItemPositionWindow )
+        MATCH_REDISP( wxPliOvl_wszr, GetItemPositionSizer )
+        MATCH_REDISP( wxPliOvl_n, GetItemPositionIndex )
+    END_OVERLOAD( Wx::GridBagSizer::GetItemPosition )
+%}
 
     %name{SetItemPositionWindow}
     bool SetItemPosition(wxWindow *window, const wxGBPosition& pos);
@@ -121,6 +164,16 @@
     bool SetItemPosition(wxSizer *sizer, const wxGBPosition& pos);
     %name{SetItemPositionIndex}
     bool SetItemPosition(size_t index, const wxGBPosition& pos);
+%{
+void
+wxGridBagSizer::SetItemPosition( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin_wgbp, SetItemPositionWindow )
+        MATCH_REDISP( wxPliOvl_wszr_wgbp, SetItemPositionSizer )
+        MATCH_REDISP( wxPliOvl_n_wgbp, SetItemPositionIndex )
+    END_OVERLOAD( Wx::GridBagSizer::SetItemPosition )
+%}
 
     %name{GetItemSpanWindow}
     wxGBSpan GetItemSpan(wxWindow *window);
@@ -128,6 +181,16 @@
     wxGBSpan GetItemSpan(wxSizer *sizer);
     %name{GetItemSpanIndex}
     wxGBSpan GetItemSpan(size_t index);
+%{
+void
+wxGridBagSizer::GetItemSpan( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin, GetItemSpanWindow )
+        MATCH_REDISP( wxPliOvl_wszr, GetItemSpanSizer )
+        MATCH_REDISP( wxPliOvl_n, GetItemSpanIndex )
+    END_OVERLOAD( Wx::GridBagSizer::GetItemSpan )
+%}
 
     %name{SetItemSpanWindow}
     bool SetItemSpan(wxWindow *window, const wxGBSpan& span);
@@ -135,11 +198,30 @@
     bool SetItemSpan(wxSizer *sizer, const wxGBSpan& span);
     %name{SetItemSpanIndex}
     bool SetItemSpan(size_t index, const wxGBSpan& span);
+%{
+void
+wxGridBagSizer::SetItemSpan( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin_wgbp, SetItemSpanWindow )
+        MATCH_REDISP( wxPliOvl_wszr_wgbp, SetItemSpanSizer )
+        MATCH_REDISP( wxPliOvl_n_wgbp, SetItemSpanIndex )
+    END_OVERLOAD( Wx::GridBagSizer::SetItemSpan )
+%}
 
     %name{FindItemWindow}
     wxGBSizerItem* FindItem(wxWindow* window);
     %name{FindItemSizer}
     wxGBSizerItem* FindItem(wxSizer* sizer);
+%{
+void
+wxGridBagSizer::FindItem( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wwin, FindItemWindow )
+        MATCH_REDISP( wxPliOvl_wszr, FindItemSizer )
+    END_OVERLOAD( Wx::GridBagSizer::FindItem )
+%}
 
     wxGBSizerItem* FindItemAtPosition(const wxGBPosition& pos);
     wxGBSizerItem* FindItemAtPoint(const wxPoint& pt);
@@ -151,14 +233,20 @@
     %name{CheckForIntersectionPos}
     bool CheckForIntersection(const wxGBPosition& pos, const wxGBSpan& span,
                               wxGBSizerItem* excludeItem = NULL);
+%{
+void
+wxGridBagSizer::CheckForIntersection( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wgbi_wgbi, CheckForIntersectionItem, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wgbp_wgbs_wgbi, CheckForIntersectionPos, 2 )
+    END_OVERLOAD( Wx::GridBagSizer::CheckForIntersection )
+%}
+
 };
 
 {%
 MODULE=Wx PACKAGE=Wx::GridBagSizer
-
-## DECLARE_OVERLOAD( wgbp, Wx::GBPosition )
-## DECLARE_OVERLOAD( wgbs, Wx::GBSpan )
-## DECLARE_OVERLOAD( wgbi, Wx::GBSizerItem )
 
 void
 wxGridBagSizer::Add( ... )
@@ -171,6 +259,4 @@ wxGridBagSizer::Add( ... )
     END_OVERLOAD( Wx::GridBagSizer::Add )
 %}
 
-%{
 #endif
-%}

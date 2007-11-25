@@ -31,6 +31,8 @@
     %name{GetIconCoord} const wxIcon& GetIcon( wxCoord size = -1 );
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    bool IsEmpty();
+
     %name{GetIconOfExactSizeSize}
     const wxIcon& GetIconOfExactSize( const wxSize& size );
     %name{GetIconOfExactSizeCoord}

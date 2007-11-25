@@ -108,6 +108,17 @@ wxTreeEvent::GetItem()
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+void
+wxTreeCtrl::SetQuickBestSize( q )
+    bool q
+
+bool
+wxTreeCtrl::GetQuickBestSize()
+
+#endif
+
 int
 wxTreeEvent::GetKeyCode()
 
@@ -271,6 +282,13 @@ wxTreeCtrl::EnsureVisible( item )
     wxTreeItemId* item
   C_ARGS: *item
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+void
+wxTreeCtrl::ExpandAll()
+
+#endif
+
 void
 wxTreeCtrl::Expand( item )
     wxTreeItemId* item
@@ -375,6 +393,13 @@ wxTreeCtrl::GetImageList()
   CLEANUP:
     wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
+wxImageList*
+wxTreeCtrl::GetButtonsImageList()
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+
 int
 wxTreeCtrl::GetIndent()
 
@@ -388,6 +413,27 @@ wxString
 wxTreeCtrl::GetItemText( item )
     wxTreeItemId* item
   C_ARGS: *item
+
+wxColour*
+wxTreeCtrl::GetItemBackgroundColour( item )
+    wxTreeItemId* item
+  CODE:
+    RETVAL = new wxColour( THIS->GetItemBackgroundColour( *item ) );
+  OUTPUT: RETVAL
+
+wxColour*
+wxTreeCtrl::GetItemTextColour( item )
+    wxTreeItemId* item
+  CODE:
+    RETVAL = new wxColour( THIS->GetItemTextColour( *item ) );
+  OUTPUT: RETVAL
+
+wxFont*
+wxTreeCtrl::GetItemFont( item )
+    wxTreeItemId* item
+  CODE:
+    RETVAL = new wxFont( THIS->GetItemFont( *item ) );
+  OUTPUT: RETVAL
 
 wxTreeItemId*
 wxTreeCtrl::GetLastChild( item )
@@ -649,6 +695,10 @@ wxTreeCtrl::SetImageList( list )
     wxImageList* list
 
 void
+wxTreeCtrl::SetButtonsImageList( list )
+    wxImageList* list
+
+void
 wxTreeCtrl::SetStateImageList( list )
     wxImageList* list
 
@@ -658,6 +708,13 @@ wxTreeCtrl::AssignImageList( list )
   CODE:
     wxPli_object_set_deleteable( aTHX_ ST(1), false );
     THIS->AssignImageList( list );
+
+void
+wxTreeCtrl::AssignButtonsImageList( list )
+    wxImageList* list
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    THIS->AssignStateImageList( list );
 
 void
 wxTreeCtrl::AssignStateImageList( list )

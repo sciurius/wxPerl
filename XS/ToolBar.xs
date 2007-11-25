@@ -293,6 +293,10 @@ wxToolBarBase::FindById( toolid )
 
 #endif
 
+wxControl*
+wxToolBarBase::FindControl( toolid )
+    int toolid
+
 wxToolBarToolBase*
 wxToolBarBase::FindToolForPosition( x, y )
     int x

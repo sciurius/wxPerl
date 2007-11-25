@@ -66,6 +66,34 @@ void
 wxSize::SetWidth( width )
     int width
 
+void
+wxSize::IncTo( size )
+    wxSize size
+
+void
+wxSize::DecTo( size )
+    wxSize size
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+SV*
+wxSize::Scale( xscale, yscale )
+    float xscale
+    float yscale
+  CODE:
+    THIS->Scale( xscale, yscale );
+    RETVAL = ST(0);
+  OUTPUT: RETVAL
+
+#endif
+
+bool
+wxSize::IsFullySpecified()
+
+void
+wxSize::SetDefaults( size )
+    wxSize size
+
 MODULE=Wx PACKAGE=Wx::Point
 
 wxPoint*

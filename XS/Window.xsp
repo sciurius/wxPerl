@@ -16,8 +16,15 @@
 %typemap{wxMenu&}{reference};
 
 %name{Wx::Window} class wxWindow {
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    void AlwaysShowScrollbars( bool horz = true, bool vert = true );
+#endif
+
     bool AcceptsFocus() const;
     bool AcceptsFocusFromKeyboard() const;
+
+    bool DestroyChildren();
+    bool IsBeingDeleted();
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 %{
@@ -36,6 +43,28 @@ wxWindow::GetPopupMenuSelectionFromUser( ... )
     %name{GetPopupMenuSelectionFromUserXY}
     int GetPopupMenuSelectionFromUser( wxMenu& menu, int x, int y );
 #endif
+
+#if WXPERL_W_VERSION_LT( 2, 7, 0 )
+    wxSize GetAdjustedBestSize() const;
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    wxSize GetEffectiveMinSize() const;
+#endif
+    const wxCursor& GetCursor() const;
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    wxWindow* GetPrevSibling() const;
+    wxWindow* GetNextSibling() const;
+#endif
+
+    wxSize GetVirtualSize() const;
+%{
+void
+wxWindow::GetVirtualSizeWH()
+  PPCODE:
+    int x, y;
+    THIS->GetVirtualSize( &x, &y );
+    wxPli_push_2ints( x, y );
+%}
 
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
     wxPoint* GetScreenPosition() const
@@ -79,6 +108,7 @@ wxWindow::GetScreenPositionXY()
     void SetForegroundColour( const wxColour& colour );
     void SetOwnForegroundColour( const wxColour& colour );
     void SetFont( const wxFont& font );
+    void SetCursor( const wxCursor& cursor );
     void SetOwnFont( const wxFont& font );
     wxWindowVariant GetWindowVariant() const;
     void SetWindowVariant( wxWindowVariant variant );
