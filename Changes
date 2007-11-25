@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.81
+	- Almost completed the interface of wxStyledTextCtrl.
 
 0.80  Tue Nov  6 23:12:53 CET 2007
 	- Build fixes for Windows (both dmake and nmake).

@@ -10,11 +10,16 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-MODULE=Wx PACKAGE=Wx::StyledTextCtrl
+%module{Wx};
 
 #undef FindText
 #include "wx/stc/stc.h"
 
+%typemap{wxDragResult}{simple};
+%typemap{wxFontEncoding}{simple};
+
+%name{Wx::StyledTextCtrl} class wxStyledTextCtrl {
+%{
 wxStyledTextCtrl*
 wxStyledTextCtrl::new( parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefaultSize, style = 0, name = wxSTCNameStr )
     wxWindow* parent
@@ -1320,3 +1325,241 @@ wxStyledTextCtrl::SaveFile(wxString filename)
 
 bool
 wxStyledTextCtrl::LoadFile(wxString filename)
+
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+
+void
+wxStyledTextCtrl::AddTextRaw( text )
+    const char* text = wxUSE_UNICODE ? SvPVutf8( $arg, PL_na ) : SvPV( $arg, PL_na );
+
+void
+wxStyledTextCtrl::InsertTextRaw( pos, text )
+    int pos
+    const char* text = wxUSE_UNICODE ? SvPVutf8( $arg, PL_na ) : SvPV( $arg, PL_na );
+
+void
+wxStyledTextCtrl::AppendTextRaw( text )
+    const char* text = wxUSE_UNICODE ? SvPVutf8( $arg, PL_na ) : SvPV( $arg, PL_na );
+
+#endif
+%}
+
+    void Allocate( int bytes );
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    void AppendText( const wxString& text );
+#endif
+    int AutoCompGetCurrent();
+    int AutoCompGetTypeSeparator();
+    void AutoCompSetTypeSeparator( int separatorCharacter );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void AutoCompSetMaxWidth( int characterCount );
+    int AutoCompGetMaxWidth();
+    void AutoCompSetMaxHeight( int rowCount );
+    int AutoCompGetMaxHeight();
+#endif
+    void AutoCompSetIgnoreCase( bool ignoreCase );
+
+    void BackTab();
+
+    void CallTipSetForeground( const wxColour& fore );
+    void CallTipSetForegroundHighlight( const wxColour& fore );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void CallTipUseStyle( int tabSize );
+#endif
+
+    void Cancel();
+
+    void CharLeft();
+    void CharLeftExtend();
+    void CharRight();
+    void CharRightExtend();
+    void CharLeftRectExtend();
+    void CharRightRectExtend();
+
+    void ChooseCaretX();
+
+    void ClearRegisteredImages();
+
+    void CopyRange( int start, int end );
+    void CopyText( int length, const wxString& text );
+
+    void DelWordLeft();
+    void DelWordRight();
+    void DeleteBack();
+    void DeleteBackNotLine();
+
+    wxDragResult DoDragOver( wxCoord x, wxCoord y, wxDragResult def );
+    bool DoDropText( long x, long y, const wxString& data );
+
+    void DocumentStart();
+    void DocumentStartExtend();
+    void DocumentEnd();
+    void DocumentEndExtend();
+
+    void EditToggleOvertype();
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    int FindColumn( int line, int column );
+#endif
+    void FormFeed();
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void SetCaretLineBackAlpha( int alpha );
+    int GetCaretLineBackAlpha();
+    wxColour GetCaretLineBackground();
+
+    bool GetCaretSticky();
+    void SetCaretSticky( bool useCaretStickyBehaviour );
+    void ToggleCaretSticky();
+#endif
+
+    int GetLineSelStartPosition( int line );
+    int GetLineSelEndPosition( int line );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void SetPasteConvertEndings( bool convert );
+    bool GetPasteConvertEndings();
+#endif
+
+    void SetPrintWrapMode( int mode );
+    int GetPrintWrapMode();
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    wxString GetProperty( const wxString& key );
+    wxString GetPropertyExpanded( const wxString& key );
+    int GetPropertyInt( const wxString& key );
+#endif
+
+    int GetSTCCursor();
+    void SetSTCCursor( int cursorType );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    int GetSelAlpha();
+    void SetSelAlpha( int alpha );
+
+    int GetStyleBitsNeeded();
+#endif
+
+    bool GetTwoPhaseDraw();
+    void SetTwoPhaseDraw( bool twoPhase );
+
+    void SetUseAntiAliasing( bool useAA );
+    bool GetUseAntiAliasing();
+
+    void SetUseVerticalScrollBar( bool show );
+    bool GetUseVerticalScrollBar();
+
+    void SetWrapVisualFlags( int wrapVisualFlags );
+    int GetWrapVisualFlags();
+    void SetWrapVisualFlagsLocation( int wrapVisualFlagsLocation );
+    int GetWrapVisualFlagsLocation();
+    void SetWrapStartIndent( int indent );
+    int GetWrapStartIndent();
+
+    void Home();
+    void HomeExtend();
+    void HomeRectExtend();
+    void HomeWrap();
+    void HomeWrapExtend();
+
+    void LineCopy();
+    void LineCut();
+    void LineDelete();
+    void LineDownExtend();
+    void LineDownRectExtend();
+    void LineDuplicate();
+
+    void LineEnd();
+    void LineEndExtend();
+    void LineEndRectExtend();
+    void LineEndWrap();
+    void LineEndWrapExtend();
+
+    void LineScrollDown();
+    void LineScrollUp();
+
+    void LineTranspose();
+
+    void LineUpExtend();
+    void LineUpRectExtend();
+
+    void LinesJoin();
+    void LinesSplit( int pixelWidth );
+
+    void LowerCase();
+    void UpperCase();
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void MarkerAddSet( int line, int set );
+    void MarkerSetAlpha( int markerNumber, int alpha );
+#endif
+
+    void NewLine();
+
+    void PageDown();
+    void PageDownExtend();
+    void PageDownRectExtend();
+    void PageUp();
+    void PageUpExtend();
+    void PageUpRectExtend();
+
+    void ParaDown();
+    void ParaDownExtend();
+    void ParaUp();
+    void ParaUpExtend();
+
+    int PositionBefore( int pos );
+    int PositionAfter( int pos );
+
+    void RegisterImage( int type, const wxBitmap& bmp );
+
+    void ScrollToColumn( int column );
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    void SelectionDuplicate();
+#endif
+
+    void SetCharsDefault();
+    void SetFoldMarginColour( bool useSetting, const wxColour& back );
+    void SetFoldMarginHiColour( bool useSetting, const wxColour& fore );
+    void SetHotspotActiveForeground( bool useSetting, const wxColour& fore );
+    void SetHotspotActiveBackground( bool useSetting, const wxColour& back );
+    void SetHotspotActiveUnderline( bool underline );
+    void SetHotspotSingleLine( bool singleLine );
+    void SetWhitespaceChars( const wxString& characters );
+
+    void StutteredPageUp();
+    void StutteredPageUpExtend();
+    void StutteredPageDown();
+    void StutteredPageDownExtend();
+
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    void StyleSetFontEncoding( int style, wxFontEncoding encoding );
+#endif
+    void StyleSetHotSpot( int style, bool hotspot );
+
+    void Tab();
+
+    void TargetFromSelection();
+
+    void VCHome();
+    void VCHomeExtend();
+    void VCHomeRectExtend();
+    void VCHomeWrap();
+    void VCHomeWrapExtend();
+
+    void WordLeft();
+    void WordLeftEnd();
+    void WordLeftEndExtend();
+    void WordLeftExtend();
+    void WordRight();
+    void WordRightEnd();
+    void WordRightEndExtend();
+    void WordRightExtend();
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    int WrapCount( int line );
+#endif
+
+    void ZoomIn();
+    void ZoomOut();
+};
