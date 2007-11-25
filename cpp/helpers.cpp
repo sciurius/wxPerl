@@ -1289,7 +1289,11 @@ wxVariant wxPli_sv_2_wxvariant( pTHX_ SV* sv )
     } else if( SvNOK( sv ) ) {
         return wxVariant( SvNV( sv ) );
     } else if( SvIOK( sv ) ) {
-        return wxVariant( SvIV( sv ) );
+#if INTSIZE > LONGSIZE
+        return wxVariant( (int)SvIV( sv ) );
+#else
+        return wxVariant( (long)SvIV( sv ) );
+#endif
     }
 
     return wxVariant();
