@@ -117,6 +117,8 @@ INCLUDE: XS/StaticText.xs
 INCLUDE: XS/ToggleButton.xs
 INCLUDE: XS/TreeCtrl.xs
 
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/TextAttr.xsp |
+
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/TextCtrl.xs |
 
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/PickerCtrl.xsp |

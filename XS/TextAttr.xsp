@@ -1,0 +1,182 @@
+#############################################################################
+## Name:        XS/TextAttr.xsp
+## Purpose:     XS for Wx::TextAttr
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     24/11/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#include <wx/textctrl.h>
+
+%typemap{wxTextAttr*}{simple};
+%typemap{const wxTextAttr&}{reference};
+%typemap{wxTextAttrAlignment}{simple};
+%typemap{wxFontEncoding}{simple};
+
+%name{Wx::TextAttr} class wxTextAttr
+{
+%{
+wxTextAttr*
+wxTextAttr::new( colText = wxNullColour, colBack = wxNullColour, font = (wxFont*)&wxNullFont )
+    wxColour colText
+    wxColour colBack
+    wxFont* font
+  CODE:
+    if( items == 1 )
+        RETVAL = new wxTextAttr();
+    else
+        RETVAL = new wxTextAttr( colText, colBack, *font );
+  OUTPUT:
+    RETVAL
+%}
+    ## // thread OK
+%{
+void
+wxTextAttr::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::TextAttr", THIS, ST(0) );
+    delete THIS;
+
+static void
+wxTextAttr::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    bool Apply(const wxTextAttr& style, wxTextAttr* compareWith = NULL );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 7, 0 )
+    void Merge( const wxTextAttr& overlay );
+#endif
+    void SetTextColour( const wxColour& colText );
+    void SetBackgroundColour( const wxColour& colBack );
+    void SetFont( const wxFont& font, long flags = wxTEXT_ATTR_FONT );
+    void SetAlignment( wxTextAttrAlignment alignment );
+    void SetTabs( const wxArrayInt& tabs );
+    void SetLeftIndent( int indent, int subIndent = 0 );
+    void SetRightIndent( int indent );
+    void SetFlags( long flags );
+
+    bool HasTextColour() const;
+    bool HasBackgroundColour() const;
+    bool HasFont() const;
+    bool HasAlignment() const;
+    bool HasTabs() const;
+    bool HasLeftIndent() const;
+    bool HasRightIndent() const;
+    bool HasFlag( long flag ) const;
+
+    const wxColour& GetTextColour() const;
+    const wxColour& GetBackgroundColour() const;
+    const wxFont& GetFont() const;
+    wxTextAttrAlignment GetAlignment() const;
+    long GetLeftIndent() const;
+    long GetLeftSubIndent() const;
+    long GetRightIndent() const;
+    long GetFlags() const;
+    bool IsDefault() const;
+
+%{
+void
+wxTextAttr::GetTabs()
+  PPCODE:
+    const wxArrayInt& tabs = THIS->GetTabs();
+    PUTBACK;
+    wxPli_intarray_push( aTHX_ tabs );
+    SPAGAIN;
+%}
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    wxFontEncoding GetFontEncoding() const;
+    bool HasFontEncoding() const;
+    void SetFontEncoding( wxFontEncoding encoding );
+
+    int GetOutlineLevel() const;
+    bool HasOutlineLevel() const;
+    void SetOutlineLevel( int level );
+
+    int GetTextEffects() const;
+    bool HasTextEffects() const;
+    void SetTextEffects( int effects );
+
+    int GetTextEffectFlags() const;
+    bool HasTextEffect( int effect ) const;
+    void SetTextEffectFlags( int effects );
+#endif
+
+    ## in 2.9, from wxTextAttrEx and wxRichTextAttr
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    ## wxTextAttrEx
+    void SetCharacterStyleName( const wxString& name );
+    void SetParagraphStyleName( const wxString& name );
+    void SetListStyleName( const wxString& name );
+    void SetParagraphSpacingAfter( int spacing );
+    void SetParagraphSpacingBefore( int spacing );
+    void SetLineSpacing( int spacing );
+    void SetBulletStyle( int style );
+    void SetBulletNumber( int n );
+    void SetBulletText( const wxString& text );
+    void SetBulletName( const wxString& name );
+    void SetBulletFont( const wxString& bulletFont );
+    void SetURL( const wxString& url );
+    void SetPageBreak( bool pageBreak = true );
+
+    const wxString& GetCharacterStyleName() const;
+    const wxString& GetParagraphStyleName() const;
+    const wxString& GetListStyleName() const;
+    int GetParagraphSpacingAfter() const;
+    int GetParagraphSpacingBefore() const;
+    int GetLineSpacing() const;
+    int GetBulletStyle() const;
+    int GetBulletNumber() const;
+    const wxString& GetBulletText() const;
+    const wxString& GetBulletName() const;
+    const wxString& GetBulletFont() const;
+    const wxString& GetURL() const;
+
+    bool HasParagraphSpacingAfter() const;
+    bool HasParagraphSpacingBefore() const;
+    bool HasLineSpacing() const;
+    bool HasCharacterStyleName() const;
+    bool HasParagraphStyleName() const;
+    bool HasListStyleName() const;
+    bool HasBulletStyle() const;
+    bool HasBulletNumber() const;
+    bool HasBulletText() const;
+    bool HasBulletName() const;
+    bool HasURL() const;
+    bool HasPageBreak() const;
+
+    bool IsCharacterStyle() const;
+    bool IsParagraphStyle() const;
+
+    ## wxRichTextAttr
+    wxFont CreateFont() const;
+    bool GetFontAttributes( const wxFont& font );
+
+    void SetFontSize( int pointSize );
+    void SetFontStyle( int fontStyle );
+    void SetFontWeight( int fontWeight );
+    void SetFontFaceName( const wxString& faceName );
+    void SetFontUnderlined( bool underlined );
+
+    int GetFontSize() const;
+    int GetFontStyle() const;
+    int GetFontWeight() const;
+    bool GetFontUnderlined() const;
+    const wxString& GetFontFaceName() const;
+
+    bool HasFontWeight() const;
+    bool HasFontSize() const;
+    bool HasFontItalic() const;
+    bool HasFontUnderlined() const;
+    bool HasFontFaceName() const;
+#endif
+};

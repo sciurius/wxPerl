@@ -202,6 +202,7 @@ XS/StaticText.xs
 XS/StatusBar.xs
 XS/Stream.xs
 XS/TaskBarIcon.xs
+XS/TextAttr.xsp
 XS/TextCtrl.xs
 XS/TextEntryDialog.xs
 XS/Timer.xs
