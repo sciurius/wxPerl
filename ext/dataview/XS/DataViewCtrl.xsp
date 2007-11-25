@@ -33,6 +33,10 @@ double dataview_constant( const char* name, int arg )
     switch( fl )
     {
     case 'D':
+        r( wxDVR_DEFAULT_ALIGNMENT );
+        r( wxDATAVIEW_CELL_INERT );
+        r( wxDATAVIEW_CELL_ACTIVATABLE );
+        r( wxDATAVIEW_CELL_EDITABLE );
         break;
     }
 #undef r

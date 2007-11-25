@@ -1,0 +1,48 @@
+#############################################################################
+## Name:        ext/dataview/XS/DataViewItem.xsp
+## Purpose:     XS++ for Wx::DataViewItem
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     25/11/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#if wxUSE_DATAVIEWCTRL
+
+#include <wx/dataview.h>
+
+%module{Wx};
+
+%typemap{IV}{simple};
+
+%name{Wx::DataViewItem} class wxDataViewItem {
+##    wxDataViewItem( IV id )
+##        %code{% RETVAL = new wxDataViewItem( INT2PTR( void*, id ) ); %};
+
+## FIXME dtor?
+
+    IV GetID() const
+        %code{% RETVAL = PTR2IV( THIS->GetID() ); %};
+    bool IsOk() const;
+};
+
+%name{Wx::DataViewItemAttr} class wxDataViewItemAttr {
+    wxDataViewItemAttr();
+
+## FIXME dtor?
+
+    void SetColour( const wxColour& colour );
+    void SetBold( bool set );
+    void SetItalic( bool set );
+
+    bool HasColour() const;
+    const wxColour& GetColour() const;
+
+    bool GetBold() const;
+    bool GetItalic() const;
+};
+
+#endif

@@ -1,0 +1,86 @@
+#############################################################################
+## Name:        ext/dataview/XS/DataViewRenderer.xsp
+## Purpose:     XS++ for Wx::DataView*Renderer
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     25/11/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#if wxUSE_DATAVIEWCTRL
+
+#include <wx/dataview.h>
+
+%module{Wx};
+
+%name{Wx::DataViewRenderer} class wxDataViewRenderer {
+##    wxDataViewRenderer( const wxString& varianttype,
+##                        wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT );
+
+%{
+## // thread KO
+void
+wxDataViewRenderer::DESTROY()
+  CODE:
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;
+%}
+};
+
+%name{Wx::DataViewTextRenderer} class wxDataViewTextRenderer {
+    wxDataViewRenderer( const wxString& varianttype = wxT("string"),
+                        wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT );
+};
+
+%name{Wx::DataViewTextRendererAttr} class wxDataViewTextRendererAttr {
+    wxDataViewTextRendererAttr( const wxString &varianttype = wxT("string"),
+                                wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                int align = wxDVR_DEFAULT_ALIGNMENT );
+};
+
+%name{Wx::DataViewProgressRenderer} class wxDataViewProgressRenderer {
+    wxDataViewProgressRenderer( const wxString& label = wxEmptyString,
+                                const wxString& varianttype = wxT("long"),
+                                wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT );
+};
+
+%name{Wx::DataViewIconText} class wxDataViewIconText {
+    wxDataViewIconText( const wxString& text = wxEmptyString,
+                        const wxIcon& icon = wxNullIconPtr );
+
+    const wxIcon& GetIcon() const;
+    wxString GetText() const;
+    void SetIcon( const wxIcon& icon );
+    void SetText( const wxString& text );
+};
+
+%name{Wx::DataViewIconTextRenderer} class wxDataViewIconTextRenderer {
+    wxDataViewIconTextRenderer( const wxString& varianttype = wxT("wxDataViewIconText"),
+                                wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT );
+};
+
+%name{Wx::DataViewToggleRenderer} class wxDataViewToggleRenderer {
+    wxDataViewToggleRenderer( const wxString& varianttype = wxT("bool"),
+                              wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT );
+};
+
+%name{Wx::DataViewBitmapRenderer} class wxDataViewBitmapRenderer {
+    wxDataViewBitmapRenderer( const wxString& varianttype = wxT("wxBitmap"),
+                              wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT );
+};
+
+%name{Wx::DataViewDateRenderer} class wxDataViewDateRenderer {
+    wxDataViewDateRenderer( const wxString& varianttype = wxT("datetime"),
+                            wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE );
+};
+
+%name{Wx::DataViewSpinRenderer} class wxDataViewSpinRenderer {
+    wxDataViewSpinRenderer( int min, int max,
+                            wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE,
+                            int alignment = wxDVR_DEFAULT_ALIGNMENT );
+};
+
+#endif

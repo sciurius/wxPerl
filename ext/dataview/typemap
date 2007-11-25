@@ -12,10 +12,24 @@
 
 TYPEMAP
 wxDataViewCellMode      T_ENUM
+wxAlignment             T_ENUM
 
 wxDataViewCtrl *        O_WXOBJECT
 wxDataViewColumn *      O_WXOBJECT
 wxDataViewModel *       O_NON_WXOBJECT
 wxDataViewItem *        O_NON_WXOBJECT
+wxDataViewItemAttr *    O_NON_WXOBJECT
 wxDataViewIndexListModel* O_NON_WXOBJECT
 wxPlDataViewIndexListModel* O_NON_WXOBJECT
+wxDataViewRenderer *    O_WXOBJECT
+wxDataViewEvent *       O_WXOBJECT_THR
+wxDataViewModelNotifier * O_NON_WXOBJECT
+wxDataViewTextRenderer * O_WXOBJECT
+wxDataViewTextRendererAttr * O_WXOBJECT
+wxDataViewProgressRenderer * O_WXOBJECT
+wxDataViewIconTextRenderer * O_WXOBJECT
+wxDataViewToggleRenderer * O_WXOBJECT
+wxDataViewBitmapRenderer * O_WXOBJECT
+wxDataViewDateRenderer * O_WXOBJECT
+wxDataViewSpinRenderer * O_WXOBJECT
+wxDataViewIconText*      O_NON_WXOBJECT

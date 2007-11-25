@@ -18,3 +18,17 @@
 %typemap{wxDataViewIndexListModel*}{simple};
 %typemap{wxDataViewItem&}{reference};
 %typemap{wxPlDataViewIndexListModel*}{simple};
+%typemap{wxDataViewRenderer*}{simple};
+%typemap{wxAlignment}{simple};
+%typemap{wxDataViewEvent*}{simple};
+%typemap{wxDataViewItemAttr*}{simple};
+%typemap{wxDataViewModelNotifier*}{simple};
+%typemap{wxDataViewTextRenderer*}{simple};
+%typemap{wxDataViewTextRendererAttr*}{simple};
+%typemap{wxDataViewProgressRenderer*}{simple};
+%typemap{wxDataViewIconTextRenderer*}{simple};
+%typemap{wxDataViewToggleRenderer*}{simple};
+%typemap{wxDataViewBitmapRenderer*}{simple};
+%typemap{wxDataViewDateRenderer*}{simple};
+%typemap{wxDataViewSpinRenderer*}{simple};
+%typemap{wxDataViewIconText*}{simple};

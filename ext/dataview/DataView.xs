@@ -22,6 +22,8 @@
 #include "cpp/constants.h"
 #include "cpp/overload.h"
 
+#define wxNullIconPtr (wxIcon*) &wxNullIcon
+
 // event macros
 #define SEVT( NAME, ARGS )    wxPli_StdEvent( NAME, ARGS )
 #define EVT( NAME, ARGS, ID ) wxPli_Event( NAME, ARGS, ID )
@@ -45,6 +47,16 @@ INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/Dat
 INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewModel.xsp |
 
 INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewIndexListModel.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewColumn.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewEvent.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewItem.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewModelNotifier.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewRenderer.xsp |
 
 MODULE=Wx__DataView PACKAGE=Wx::DataView
 

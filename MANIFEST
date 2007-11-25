@@ -291,9 +291,14 @@ ext/calendar/XS/DatePickerCtrl.xsp
 ext/dataview/DataView.pm
 ext/dataview/DataView.xs
 ext/dataview/Makefile.PL
+ext/dataview/XS/DataViewColumn.xsp
 ext/dataview/XS/DataViewCtrl.xsp
+ext/dataview/XS/DataViewEvent.xsp
 ext/dataview/XS/DataViewIndexListModel.xsp
+ext/dataview/XS/DataViewItem.xsp
 ext/dataview/XS/DataViewModel.xsp
+ext/dataview/XS/DataViewModelNotifier.xsp
+ext/dataview/XS/DataViewRenderer.xsp
 ext/dataview/t/01_load.t
 ext/dataview/t/02_inheritance.t
 ext/dataview/typemap

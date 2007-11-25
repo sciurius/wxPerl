@@ -33,5 +33,15 @@ package Wx::DataViewCtrl;    @ISA = qw(Wx::Control);
 package Wx::DataViewModel;
 package Wx::DataViewIndexListModel; @ISA = qw(Wx::DataViewModel);
 package Wx::PlDataViewIndexListModel; @ISA = qw(Wx::DataViewIndexListModel);
+package Wx::DataViewRenderer;
+package Wx::DataViewTextRenderer; @ISA = qw(Wx::DataViewRenderer);
+package Wx::DataViewDateRenderer; @ISA = qw(Wx::DataViewCustomRenderer);
+package Wx::DataViewCustomRenderer; @ISA = qw(Wx::DataViewRenderer);
+package Wx::DataViewToggleRenderer; @ISA = qw(Wx::DataViewRenderer);
+package Wx::DataViewIconTextRenderer; @ISA = qw(Wx::DataViewCustomRenderer);
+package Wx::DataViewBitmapRenderer; @ISA = qw(Wx::DataViewRenderer);
+package Wx::DataViewTextRendererAttr; @ISA = qw(Wx::DataViewTextRenderer);
+package Wx::DataViewProgressRenderer; @ISA = qw(Wx::DataViewCustomRenderer);
+package Wx::DataViewEvent; @ISA = qw(Wx::NotifyEvent);
 
 1;
