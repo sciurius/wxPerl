@@ -116,3 +116,33 @@ wxWindow::GetScreenPositionXY()
     bool ToggleWindowStyle( int flag );
 #endif
 };
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+%typemap{wxEventBlocker*}{simple};
+
+%name{Wx::EventBlocker} class wxEventBlocker
+{
+    wxEventBlocker( wxWindow* win, wxEventType type = wxEVT_ANY );
+    ## // thread KO
+    ~wxEventBlocker();
+
+    void Block( wxEventType eventType );
+};
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+#include <wx/wupdlock.h>
+
+%typemap{wxWindowUpdateLocker*}{simple};
+
+%name{Wx::WindowUpdateLocker} class wxWindowUpdateLocker
+{
+    wxWindowUpdateLocker( wxWindow* win );
+    ## // thread KO
+    ~wxWindowUpdateLocker();
+};
+
+#endif

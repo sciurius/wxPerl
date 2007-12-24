@@ -376,6 +376,7 @@ static wxPlINH inherit[] =
     I( WizardPage,      Panel )
     I( WizardPageSimple, WizardPage )
     I( HyperlinkCtrl,   Control )
+    I( NotificationMessage, EvtHandler )
 
     I( ColourDialog,    Dialog )
     I( GenericColourDialog, ColourDialog )

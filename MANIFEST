@@ -170,6 +170,7 @@ XS/MessageDialog.xsp
 XS/MimeTypes.xsp
 XS/MultiChoiceDialog.xs
 XS/Notebook.xs
+XS/NotificationMessage.xsp
 XS/OwnerDrawnComboBox.xsp
 XS/Palette.xs
 XS/Panel.xs

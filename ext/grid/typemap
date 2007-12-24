@@ -20,6 +20,8 @@ wxGridSizeEvent *      O_WXOBJECT
 wxGridRangeSelectEvent * O_WXOBJECT
 wxGridEditorCreatedEvent * O_WXOBJECT
 
+wxGridUpdateLocker *   O_NON_WXOBJECT
+
 wxGridCellCoords *      O_NON_WXOBJECT_THR
 wxGridCellAttr *        O_NON_WXOBJECT_THR_SV
 wxGridCellAttr::wxAttrKind      T_ENUM

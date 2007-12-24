@@ -13,6 +13,24 @@
 #include <wx/grid.h>
 #include "cpp/overload.h"
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+MODULE=Wx PACKAGE=Wx::GridUpdateLocker
+
+wxGridUpdateLocker*
+wxGridUpdateLocker::new( grid = NULL )
+    wxGrid* grid
+
+## // thread KO
+void
+wxGridUpdateLocker::DESTROY()
+
+void
+wxGridUpdateLocker::Create( grid )
+    wxGrid* grid
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::GridCellCoords
 
 wxGridCellCoords*

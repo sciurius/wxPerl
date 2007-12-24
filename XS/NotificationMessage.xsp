@@ -1,0 +1,73 @@
+#############################################################################
+## Name:        XS/NotificationMessage.xsp
+## Purpose:     XS++ for Wx::NotificationMessage
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     25/12/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+#include <wx/notifmsg.h>
+
+%typemap{wxNotificationMessage*}{simple};
+
+%name{Wx::NotificationMessage} class wxNotificationMessage
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::NotificationMessage::new" )
+%}
+    %name{newDefault}
+    wxNotificationMessage();
+
+    %name{newFull}
+    wxNotificationMessage( const wxString& title,
+                           const wxString& message = wxEmptyString,
+                           wxWindow *parent = NULL,
+                           int flags = wxICON_INFORMATION );
+
+    ## // thread KO
+    ~wxNotificationMessage();
+
+    bool Show( int timeout = -1 );
+    bool Close();
+
+    void SetFlags( int flags );
+    void SetTitle( const wxString& title );
+    void SetMessage( const wxString& message );
+    void SetParent( wxWindow *parent );
+
+#ifdef __WXMSW__
+
+%{
+wxTaskBarIcon*
+UseTaskBarIcon( icon )
+    wxTaskBarIcon* icon
+  CODE:
+    RETVAL = wxNotificationMessage::UseTaskBarIcon( icon );
+  OUTPUT: RETVAL
+
+void
+AlwaysUseGeneric( alwaysUseGeneric )
+    bool alwaysUseGeneric
+  CODE:
+    wxNotificationMessage::AlwaysUseGeneric( alwaysUseGeneric );
+%}
+
+#endif
+
+};
+
+#endif
