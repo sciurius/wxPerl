@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/SVGFileDC.xs
+## Name:        XS/SVGFileDC.xsp
 ## Purpose:     XS for Wx::SVGFileDC
 ## Author:      Mattia Barbon
 ## Modified by:
