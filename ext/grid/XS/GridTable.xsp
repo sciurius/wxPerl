@@ -99,9 +99,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlGridTable, wxGridTableBase );
 %}
 %file{-};
 
-%{
 #include "cpp/gridtable.h"
-%}
 
 #define wxGridCellAttr__wxAttrKind wxGridCellAttr::wxAttrKind
 
@@ -174,7 +172,14 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlGridTable, wxGridTableBase );
         %code{% THIS->wxGridTableBase::SetColAttr( attr, col ); %};
 };
 
-#!sub wxGridTable
+## Mark methods as implemented
+%{
+MODULE=Wx PACKAGE=Wx::GridTableBase
+%}
+
+#!sub wxGridTableBase
+#!sub GetNumberRows
+#!sub SetNumberRows
 #!sub GetTypeName
 #!sub CanGetValueAs
 #!sub CanSetValueAs
@@ -187,6 +192,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlGridTable, wxGridTableBase );
 #!sub SetView
 #!sub GetView
 #!sub Clear
+#!sub IsEmptyCell
 #!sub InsertRows
 #!sub AppendRows
 #!sub DeleteRows
@@ -202,4 +208,5 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlGridTable, wxGridTableBase );
 #!sub SetAttr
 #!sub SetRowAttr
 #!sub SetColAttr
-
+#!sub GetValue
+#!sub SetValue
