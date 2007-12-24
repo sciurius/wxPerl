@@ -12,6 +12,7 @@
 
 %module{Wx};
 
+#include <wx/vidmode.h>
 #include <wx/display.h>
 
 #define wxDefaultVideoModePtr (wxVideoMode*)&wxDefaultVideoMode
