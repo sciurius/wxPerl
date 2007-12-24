@@ -371,6 +371,7 @@ static wxPlINH inherit[] =
     I( ListView,        ListCtrl )
     I( SashWindow,      Window )
     I( ToggleButton,    Control )
+    I( BitmapToggleButton, Control )
     I( Wizard,          Dialog )
     I( WizardPage,      Panel )
     I( WizardPageSimple, WizardPage )
@@ -420,6 +421,8 @@ static wxPlINH inherit[] =
     I( ClientDC,        WindowDC )
     I( BufferedDC,      MemoryDC )
     I( BufferedPaintDC, BufferedDC )
+    I( SVGFileDC,       DC )
+    I( MirrorDC,        DC )
 
     I( BMPHandler,      ImageHandler )
     I( PNGHandler,      ImageHandler )
@@ -470,6 +473,7 @@ static wxPlINH inherit[] =
     I( PlSizer,         Sizer )
     I( GBSizerItem,     SizerItem )
     I( StdDialogButtonSizer, BoxSizer )
+    I( WrapSizer,       BoxSizer )
 
     I( PickerBase,      Control )
     I( ColourPickerCtrl,PickerBase )
@@ -1204,6 +1208,9 @@ static double constant( const char *name, int arg )
     r( wxEL_ALLOW_DELETE );             // editablelistbox
     r( wxEL_NO_REORDER );               // editablelistbox
     r( wxEL_DEFAULT_STYLE );            // editablelistbox
+#endif
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxEXTEND_LAST_ON_EACH_LINE );    // sizer
 #endif
     break;
   case 'F':

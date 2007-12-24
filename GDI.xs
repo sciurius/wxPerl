@@ -42,6 +42,8 @@ INCLUDE: XS/GraphicsMatrix.xs
 INCLUDE: XS/GraphicsObject.xs
 INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/GraphicsRenderer.xsp |
 
+INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/SVGFileDC.xsp |
+
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
 wxRect*

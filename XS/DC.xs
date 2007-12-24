@@ -758,6 +758,8 @@ wxClientDC::new( window )
 %typemap{wxBufferedDC*}{simple};
 %typemap{wxBufferedPaintDC*}{simple};
 %typemap{wxAutoBufferedPaintDC*}{simple};
+%typemap{wxMirrorDC*}{simple};
+%typemap{wxDCClipper*}{simple};
 
 %name{Wx::BufferedDC} class wxBufferedDC
 {
@@ -844,5 +846,35 @@ MODULE=Wx PACKAGE=Wx PREFIX=wx
 %}
 
 wxDC* wxAutoBufferedPaintDCFactory( wxWindow* window );
+
+#include <wx/dcmirror.h>
+
+%name{Wx::MirrorDC} class wxMirrorDC
+{
+    wxMirrorDCC( wxDC& dc, bool mirror );
+};
+
+# DECLARE_OVERLOAD( wrgn, Wx::Region )
+
+%name{Wx::DCClipper} class wxDCClipper
+{
+%{
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wdc_wrgn, newRegion )
+        MATCH_REDISP( wxPliOvl_wdc_wrec, newRect )
+        MATCH_REDISP( wxPliOvl_wdc_n_n_n_, newXYWH )
+    END_OVERLOAD( Wx::DCClipper::new )
+%}
+
+    %name{newRegion} wxDCClipper( wxDC& dc, const wxRegion& region );
+    %name{newRect} wxDCClipper( wxDC& dc, const wxRect& rect );
+    %name{newXYWH} wxDCClipper( wxDC& dc, int x, int y, int w, int h );
+
+    ## // thread KO
+    ~wxDCClipper();
+};
 
 #endif

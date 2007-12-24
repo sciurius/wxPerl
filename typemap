@@ -177,6 +177,7 @@ wxSplitterWindow *      O_WXEVTHANDLER
 wxSearchCtrl *          O_WXEVTHANDLER
 wxSashWindow *          O_WXEVTHANDLER
 wxToggleButton *        O_WXEVTHANDLER
+wxBitmapToggleButton *  O_WXEVTHANDLER
 wxSplashScreen *        O_WXOBJECT
 wxListbook *            O_WXEVTHANDLER
 wxChoicebook *          O_WXEVTHANDLER
@@ -233,6 +234,7 @@ wxGBPosition &          O_GBPOSITION
 wxGBSpan &              O_GBSPAN
 wxGBSizerItem *         O_WXOBJECT
 wxStdDialogButtonSizer * O_WXOBJECT
+wxWrapSizer *           O_WXOBJECT
 
 wxDC *                  O_WXOBJECT_THR
 wxMemoryDC *            O_WXOBJECT_THR
@@ -243,6 +245,9 @@ wxScreenDC *            O_WXOBJECT_THR
 wxBufferedDC *          O_WXOBJECT_THR
 wxBufferedPaintDC *     O_WXOBJECT_THR
 wxAutoBufferedPaintDC * O_WXOBJECT_THR
+wxMirrorDC *            O_WXOBJECT_THR
+wxSVGFileDC *           O_WXOBJECT_THR
+wxDCClipper *           O_NON_WXOBJECT
 
 wxTaskBarIcon *         O_WXOBJECT
 

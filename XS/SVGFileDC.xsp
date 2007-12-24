@@ -1,0 +1,28 @@
+#############################################################################
+## Name:        XS/SVGFileDC.xs
+## Purpose:     XS for Wx::SVGFileDC
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     24/12/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+#include <wx/dcsvg.h>
+
+%typemap{wxSVGFileDC*}{simple};
+
+%name{Wx::SVGFileDC} class wxSVGFileDC {
+    wxSVGFileDC( const wxString& filename, 
+                 int width = 320,
+                 int height = 240,
+                 double dpi = 72.0 );
+};
+
+#endif

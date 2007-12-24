@@ -22,6 +22,7 @@
 %typemap{wxSizerItem*}{simple};
 %typemap{Wx_UserDataO*}{simple};
 %typemap{wxStdDialogButtonSizer*}{simple};
+%typemap{wxWrapSizer*}{simple};
 %typemap{wxButton*}{simple};
 
 %name{Wx::Sizer} class wxSizer
@@ -327,6 +328,19 @@ wxSizer::Replace( ... )
     wxButton *GetNegativeButton() const;
     wxButton *GetCancelButton() const;
     wxButton *GetHelpButton() const;
+};
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+%name{Wx::WrapSizer} class wxWrapSizer
+{
+    wxWrapSizer( int orient = wxHORIZONTAL,
+                 int flags = wxEXTEND_LAST_ON_EACH_LINE );
+
+    bool InformFirstDirection( int direction, int size,
+                               int availableOtherDir );
 };
 
 #endif
