@@ -1061,12 +1061,16 @@ wxWindow::SetSizeHints( minW, minH, maxW = -1, maxH = -1, incW = -1, incH = -1 )
     int incW
     int incH
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
 void
 wxWindow::SetVirtualSizeHints( minW, minH, maxW = -1, maxH = -1 )
     int minW
     int minH
     int maxW
     int maxH
+
+#endif
 
 void
 wxWindow::SetVirtualSize( ... )

@@ -326,6 +326,8 @@ MODULE=Wx PACKAGE=Wx::Thread
 
 #if wxUSE_THREADS
 
+#include <wx/thread.h>
+
 bool
 IsMain()
   CODE:

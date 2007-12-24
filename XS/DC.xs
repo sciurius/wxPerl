@@ -522,13 +522,21 @@ wxDC::MinX()
 wxCoord
 wxDC::MinY()
 
-bool
-wxDC::Ok()
-
 #if WXPERL_W_VERSION_GE( 2, 8, 0 )
 
 bool
 wxDC::IsOk()
+
+bool
+wxDC::Ok()
+  CODE:
+    RETVAL = THIS->IsOk();
+  OUTPUT: RETVAL
+
+#else
+
+bool
+wxDC::Ok()
 
 #endif
 

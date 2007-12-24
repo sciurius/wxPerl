@@ -210,7 +210,9 @@ wxSizer::Replace( ... )
 
     void SetSizeHints( wxWindow* window );
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
     void SetVirtualSizeHints( wxWindow* window );
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 6, 2 )
     %name{ShowWindow} bool Show( wxWindow* window, bool show = true, bool recursive = false );

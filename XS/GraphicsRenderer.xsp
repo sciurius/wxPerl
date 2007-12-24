@@ -14,6 +14,8 @@
 
 #if wxUSE_GRAPHICS_CONTEXT
 
+#include <wx/graphics.h>
+
 %name{Wx::GraphicsRenderer} class wxGraphicsRenderer
 {
 %{
