@@ -201,6 +201,7 @@ XS/StaticLine.xs
 XS/StaticText.xs
 XS/StatusBar.xs
 XS/Stream.xs
+XS/SVGFileDC.xsp
 XS/TaskBarIcon.xs
 XS/TextAttr.xsp
 XS/TextCtrl.xs
@@ -299,6 +300,8 @@ ext/dataview/XS/DataViewItem.xsp
 ext/dataview/XS/DataViewModel.xsp
 ext/dataview/XS/DataViewModelNotifier.xsp
 ext/dataview/XS/DataViewRenderer.xsp
+ext/dataview/XS/DataViewTreeCtrl.xsp
+ext/dataview/XS/DataViewTreeStore.xsp
 ext/dataview/t/01_load.t
 ext/dataview/t/02_inheritance.t
 ext/dataview/typemap

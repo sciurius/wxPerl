@@ -15,8 +15,10 @@ wxDataViewCellMode      T_ENUM
 wxAlignment             T_ENUM
 
 wxDataViewCtrl *        O_WXOBJECT
+wxDataViewTreeCtrl *    O_WXOBJECT
 wxDataViewColumn *      O_WXOBJECT
 wxDataViewModel *       O_NON_WXOBJECT
+wxDataViewTreeStore *   O_NON_WXOBJECT
 wxDataViewItem *        O_NON_WXOBJECT
 wxDataViewItemAttr *    O_NON_WXOBJECT
 wxDataViewIndexListModel* O_NON_WXOBJECT

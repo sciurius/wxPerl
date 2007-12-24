@@ -32,3 +32,5 @@
 %typemap{wxDataViewDateRenderer*}{simple};
 %typemap{wxDataViewSpinRenderer*}{simple};
 %typemap{wxDataViewIconText*}{simple};
+%typemap{wxDataViewTreeStore*}{simple};
+%typemap{wxDataViewTreeCtrl*}{simple};

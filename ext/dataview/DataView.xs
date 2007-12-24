@@ -58,6 +58,10 @@ INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/Dat
 
 INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewRenderer.xsp |
 
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewTreeStore.xsp |
+
+INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp -t typemap.xsp XS/DataViewTreeCtrl.xsp |
+
 MODULE=Wx__DataView PACKAGE=Wx::DataView
 
 void

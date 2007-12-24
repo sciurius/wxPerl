@@ -30,9 +30,11 @@ SetEvents();
 no strict;
 
 package Wx::DataViewCtrl;    @ISA = qw(Wx::Control);
+package Wx::DataViewTreeCtrl; @ISA = qw(Wx::DataViewCtrl);
 package Wx::DataViewModel;
 package Wx::DataViewIndexListModel; @ISA = qw(Wx::DataViewModel);
 package Wx::PlDataViewIndexListModel; @ISA = qw(Wx::DataViewIndexListModel);
+package Wx::DataViewTreeStore; @ISA = qw(Wx::DataViewModel);
 package Wx::DataViewRenderer;
 package Wx::DataViewTextRenderer; @ISA = qw(Wx::DataViewRenderer);
 package Wx::DataViewDateRenderer; @ISA = qw(Wx::DataViewCustomRenderer);
