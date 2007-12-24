@@ -133,6 +133,13 @@ wxApp::GetUseBestVisual()
 wxString
 wxApp::GetVendorName()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxString
+wxApp::GetVendorDisplayName()
+
+#endif
+
 void
 wxApp::ExitMainLoop()
 
@@ -196,6 +203,14 @@ void
 wxApp::SetVendorName( name )
     wxString name
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxApp::SetVendorDisplayName( name )
+    wxString name
+
+#endif
+
 void
 wxApp::SetUseBestVisual( flag )
     bool flag
@@ -206,6 +221,7 @@ wxApp::Yield()
     THIS->wxApp::Yield();
 
 #if defined( __WXMSW__ ) && WXPERL_W_VERSION_GE( 2, 5, 0 )
+
 int
 GetComCtl32Version()
   CODE:
