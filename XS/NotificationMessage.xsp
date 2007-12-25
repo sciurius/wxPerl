@@ -32,11 +32,21 @@ new( ... )
     %name{newDefault}
     wxNotificationMessage();
 
+#ifdef __WXMSW__
+    %name{newFull}
+    wxNotificationMessage( const wxString& title,
+                           const wxString& message = wxEmptyString,
+                           wxWindow *parent = NULL,
+                           int flags = wxICON_INFORMATION )
+        %code{% RETVAL = new wxNotificationMessage( title, message, parent );
+                %};
+#else
     %name{newFull}
     wxNotificationMessage( const wxString& title,
                            const wxString& message = wxEmptyString,
                            wxWindow *parent = NULL,
                            int flags = wxICON_INFORMATION );
+#endif
 
     ## // thread KO
     ~wxNotificationMessage();

@@ -69,7 +69,7 @@ void
 wxToggleButton::SetValue( value )
     bool value
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) && !defined(__WXMSW__)
 
 MODULE=Wx PACKAGE=Wx::BitmapToggleButton
 
