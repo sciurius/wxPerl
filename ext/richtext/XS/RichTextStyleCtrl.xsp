@@ -10,6 +10,7 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#include <wx/checkbox.h>
 #include <wx/richtext/richtextstyles.h>
 
 %module{Wx};

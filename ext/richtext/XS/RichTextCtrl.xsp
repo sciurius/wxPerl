@@ -10,10 +10,16 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+#undef _
+#define _(x) wxGetTranslation(wxT(x))
+
 #include <wx/event.h>
+#include <wx/button.h>
+#include <wx/checkbox.h>
 #include <wx/richtext/richtextctrl.h>
 #include <wx/richtext/richtextstyles.h>
 #include <wx/richtext/richtextformatdlg.h>
+#include <wx/richtext/richtextstyledlg.h>
 #include "cpp/richtextctrl.h"
 
 %module{Wx};
@@ -92,6 +98,21 @@ double richtextctrl_constant( const char* name, int arg )
         r( wxRICHTEXT_FORMAT_TABS );
         r( wxRICHTEXT_FORMAT_BULLETS );
         r( wxRICHTEXT_FORMAT_INDENTS_SPACING );
+
+        r( wxRICHTEXT_ORGANISER_DELETE_STYLES );
+        r( wxRICHTEXT_ORGANISER_CREATE_STYLES );
+        r( wxRICHTEXT_ORGANISER_APPLY_STYLES );
+        r( wxRICHTEXT_ORGANISER_EDIT_STYLES );
+        r( wxRICHTEXT_ORGANISER_RENAME_STYLES );
+        r( wxRICHTEXT_ORGANISER_OK_CANCEL );
+        r( wxRICHTEXT_ORGANISER_RENUMBER );
+        r( wxRICHTEXT_ORGANISER_SHOW_CHARACTER );
+        r( wxRICHTEXT_ORGANISER_SHOW_PARAGRAPH );
+        r( wxRICHTEXT_ORGANISER_SHOW_LIST );
+        r( wxRICHTEXT_ORGANISER_SHOW_ALL );
+        r( wxRICHTEXT_ORGANISER_ORGANISE );
+        r( wxRICHTEXT_ORGANISER_BROWSE );
+        r( wxRICHTEXT_ORGANISER_BROWSE_NUMBERING );
         break;
     case 'T':
         r( wxTEXT_ATTR_PARA_SPACING_AFTER );

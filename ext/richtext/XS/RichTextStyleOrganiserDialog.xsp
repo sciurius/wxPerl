@@ -1,0 +1,80 @@
+#############################################################################
+## Name:        ext/richtext/XS/RichTextStyleOrganiserDialog.xsp
+## Purpose:     XS++ for Wx::RichTextStyleOrganiserDialog
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     30/12/2007
+## RCS-ID:      $Id$
+## Copyright:   (c) 2007 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#undef _
+#define _(x) wxGetTranslation(wxT(x))
+
+#include <wx/button.h>
+#include <wx/checkbox.h>
+#include <wx/richtext/richtextstyledlg.h>
+
+%typemap{wxRichTextStyleOrganiserDialog*}{simple};
+
+%name{Wx::RichTextStyleOrganiserDialog} class wxRichTextStyleOrganiserDialog
+{
+%{
+void
+wxRichTextStyleOrganiserDialog::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newFull )
+    END_OVERLOAD( "Wx::RichTextStyleOrganiserDialog::new" )
+%}
+
+    %name{newDefault} wxRichTextStyleOrganiserDialog()
+        %code{% RETVAL = new wxRichTextStyleOrganiserDialog();
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+    %name{newFull} wxRichTextStyleOrganiserDialog
+                       ( int flags, wxRichTextStyleSheet* sheet,
+                         wxRichTextCtrl* ctrl, wxWindow* parent,
+                         wxWindowID id = wxID_ANY,
+                         const wxString& caption = SYMBOL_WXRICHTEXTSTYLEORGANISERDIALOG_TITLE,
+                         const wxPoint& pos = SYMBOL_WXRICHTEXTSTYLEORGANISERDIALOG_POSITION,
+                         const wxSize& size = SYMBOL_WXRICHTEXTSTYLEORGANISERDIALOG_SIZE,
+                         long style = SYMBOL_WXRICHTEXTSTYLEORGANISERDIALOG_STYLE
+                         )
+        %code{% RETVAL = new wxRichTextStyleOrganiserDialog
+                                 ( flags, sheet, ctrl, parent, id,
+                                   caption, pos, size, style );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                %};
+
+    bool Create( int flags, wxRichTextStyleSheet* sheet,
+                 wxRichTextCtrl* ctrl, wxWindow* parent,
+                 wxWindowID id = wxID_ANY,
+                 const wxString& caption = SYMBOL_WXRICHTEXTSTYLEORGANISERDIALOG_TITLE,
+                 const wxPoint& pos = SYMBOL_WXRICHTEXTSTYLEORGANISERDIALOG_POSITION,
+                 const wxSize& size = SYMBOL_WXRICHTEXTSTYLEORGANISERDIALOG_SIZE,
+                 long style = SYMBOL_WXRICHTEXTSTYLEORGANISERDIALOG_STYLE );
+
+    void SetStyleSheet( wxRichTextStyleSheet* sheet );
+    wxRichTextStyleSheet* GetStyleSheet() const;
+
+    void SetRichTextCtrl( wxRichTextCtrl* ctrl );
+    wxRichTextCtrl* GetRichTextCtrl() const;
+    void SetFlags( int flags );
+    int GetFlags() const;
+
+    bool GetRestartNumbering() const;
+    void SetRestartNumbering( bool restartNumbering );
+
+    wxString GetSelectedStyle() const;
+    wxRichTextStyleDefinition* GetSelectedStyleDefinition() const;
+    bool ApplyStyle( wxRichTextCtrl* ctrl = NULL );
+
+    package_static bool ShowToolTips();
+    package_static void SetShowToolTips( bool show );
+};

@@ -34,3 +34,4 @@ wxPlRichTextFileHandler * O_WXOBJECT
 wxRichTextXMLHandler *  O_WXOBJECT
 wxRichTextHTMLHandler * O_WXOBJECT
 wxSymbolPickerDialog *  O_WXOBJECT
+wxRichTextStyleOrganiserDialog * O_WXOBJECT

@@ -488,6 +488,7 @@ ext/richtext/XS/RichTextFileHandler.xsp
 ext/richtext/XS/RichTextFormattingDialog.xsp
 ext/richtext/XS/RichTextStyle.xsp
 ext/richtext/XS/RichTextStyleCtrl.xsp
+ext/richtext/XS/RichTextStyleOrganiserDialog.xsp
 ext/richtext/XS/SymbolPickerDialog.xsp
 ext/richtext/lib/Wx/RichText.pm
 ext/richtext/t/01_load.t
