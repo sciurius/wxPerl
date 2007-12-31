@@ -83,6 +83,7 @@ method:         function { my $f = $_[1];
                                cleanup   => $f->cleanup,
                                class     => $class,
                                );
+                           $m->{STATIC} = $_[1]->{STATIC};
                            $m->{PERL_NAME} = $_[1]->{PERL_NAME};
                            $m
                          }
@@ -94,9 +95,20 @@ method:         function { my $f = $_[1];
 const: 'const'
      | ;
 
+static: 'package_static'
+      | 'class_static'
+      ;
+
 function:       _func
+              | static _func
+                    { $_[2]->{STATIC} = $_[1]; $_[2] }
               | perc_name _func
-                    { $_[2]->{PERL_NAME} = $_[1]; $_[2] }
+                    { $_[2]->{PERL_NAME} = $_[1];
+                      $_[2] }
+              | perc_name static _func
+                    { $_[3]->{PERL_NAME} = $_[1];
+                      $_[3]->{STATIC} = $_[2];
+                      $_[3] }
               ;
 
 _func:          type ID OPPAR arg_list CLPAR const metadata SEMICOLON
@@ -237,7 +249,9 @@ my %keywords = ( const => 1,
                  long => 1,
                  int => 1,
                  char => 1,
-               );
+                 package_static => 1,
+                 class_static => 1,
+                 );
 
 sub get_lex_mode { return $_[0]->YYData->{LEX}{MODES}[0] || '' }
 

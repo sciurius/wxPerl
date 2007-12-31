@@ -166,6 +166,8 @@ sub arguments { $_[0]->{ARGUMENTS} }
 sub ret_type { $_[0]->{RET_TYPE} }
 sub code { $_[0]->{CODE} }
 sub cleanup { $_[0]->{CLEANUP} }
+sub package_static { ( $_[0]->{STATIC} || '' ) eq 'package_static' }
+sub class_static { ( $_[0]->{STATIC} || '' ) eq 'class_static' }
 
 #
 # return_type
@@ -224,6 +226,8 @@ sub print {
       defined $ret_typemap->cleanup_code );
   # is C++ name != Perl name?
   $need_call_function ||= $this->cpp_name ne $this->perl_name;
+  # package-static function
+  $need_call_function ||= $this->package_static;
 
   my $retstr = $ret_typemap ? $ret_typemap->cpp_type : 'void';
 
@@ -311,8 +315,18 @@ use base 'Wx::XSP::Node::Function';
 sub class { $_[0]->{CLASS} }
 sub perl_function_name { $_[0]->class->cpp_name . '::' .
                          $_[0]->perl_name }
-sub _call_code { return "THIS->" . $_[0]->cpp_name .
-                   '(' . $_[1] . ')'; }
+sub _call_code {
+    my( $self ) = @_;
+
+    if( $self->package_static ) {
+        return $_[0]->class->cpp_name . '::' .
+               $_[0]->cpp_name . '(' . $_[1] . ')';
+    } else {
+        return "THIS->" .
+               $_[0]->cpp_name . '(' . $_[1] . ')';
+    }
+}
+
 sub is_method { 1 }
 
 package Wx::XSP::Node::Constructor;
