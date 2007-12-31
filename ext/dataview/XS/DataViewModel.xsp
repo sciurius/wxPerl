@@ -22,6 +22,24 @@
        %code%{ THIS->DecRef(); %};
 
     void Resort();
+
+    unsigned int GetColumnCount() const;
+    wxString GetColumnType( unsigned int col );
+
+    bool SetValue( const wxVariant &variant,
+                   const wxDataViewItem &item, unsigned int col );
+
+    wxDataViewItem& GetParent( const wxDataViewItem &item ) const;
+    bool IsContainer( const wxDataViewItem &item ) const;
+    bool HasContainerColumns( const wxDataViewItem& item ) const;
+
+    bool ItemAdded( const wxDataViewItem &parent, const wxDataViewItem &item );
+    bool ItemDeleted( const wxDataViewItem &parent, const wxDataViewItem &item );
+    bool ItemChanged( const wxDataViewItem &item );
+    bool ValueChanged( const wxDataViewItem &item, unsigned int col );
+    bool Cleared();
+
+    bool HasDefaultCompare() const;
 };
 
 #endif

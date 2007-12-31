@@ -14,11 +14,18 @@
 %typemap{wxDataViewCtrl*}{simple};
 %typemap{wxDataViewModel*}{simple};
 %typemap{wxDataViewColumn*}{simple};
+%typemap{const wxDataViewColumn*}{simple};
+%typemap{wxDataViewColumnDisown*}{parsed}{%wxDataViewColumn*%}
+             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
+             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
 %typemap{const wxDataViewItem &}{reference};
 %typemap{wxDataViewIndexListModel*}{simple};
 %typemap{wxDataViewItem&}{reference};
 %typemap{wxPlDataViewIndexListModel*}{simple};
 %typemap{wxDataViewRenderer*}{simple};
+%typemap{wxDataViewRendererDisown*}{parsed}{%wxDataViewRenderer*%}
+             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
+             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
 %typemap{wxAlignment}{simple};
 %typemap{wxDataViewEvent*}{simple};
 %typemap{wxDataViewItemAttr*}{simple};
@@ -33,4 +40,5 @@
 %typemap{wxDataViewSpinRenderer*}{simple};
 %typemap{wxDataViewIconText*}{simple};
 %typemap{wxDataViewTreeStore*}{simple};
+%typemap{const wxDataViewTreeStore*}{simple};
 %typemap{wxDataViewTreeCtrl*}{simple};

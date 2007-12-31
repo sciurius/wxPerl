@@ -52,6 +52,33 @@ wxDataViewColumn::DESTROY()
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 %}
+
+    void SetTitle( const wxString &title );
+    void SetAlignment( wxAlignment align );
+    void SetSortable( bool sortable );
+    void SetReorderable(bool reorderable);
+    void SetResizeable( bool resizeable );
+    void SetHidden( bool hidden );
+    void SetSortOrder( bool ascending );
+    void SetFlags( int flags );
+    void SetOwner( wxDataViewCtrl* owner );
+    void SetBitmap( const wxBitmap &bitmap );
+    void SetMinWidth( int minWidth );
+    void SetWidth( int width );
+    wxString GetTitle() const;
+    wxAlignment GetAlignment() const;
+    int GetWidth() const;
+    int GetMinWidth() const;
+    int GetFlags() const;
+    bool IsHidden() const;
+    bool IsReorderable() const;
+    bool IsResizeable() const;
+    bool IsSortable() const;
+    bool IsSortOrderAscending() const;
+    const wxBitmap& GetBitmap() const;
+    unsigned int GetModelColumn() const;
+    wxDataViewCtrl* GetOwner() const;
+    wxDataViewRendererDisown* GetRenderer() const;
 };
 
 #endif

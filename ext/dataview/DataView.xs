@@ -15,6 +15,10 @@
 #include "cpp/wxapi.h"
 #include "cpp/overload.h"
 
+// re-include for client data
+#include <wx/clntdata.h>
+#include "cpp/helpers.h"
+
 #define wxDefaultValidatorPtr (wxValidator*)&wxDefaultValidator
 
 #undef THIS

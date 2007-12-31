@@ -15,6 +15,8 @@
 #include <wx/dataview.h>
 #include "cpp/dataview.h"
 
+%typemap{wxRect&}{reference};
+
 %module{Wx};
 %file{cpp/dataview.h};
 %{
@@ -82,6 +84,104 @@ new( ... )
                  long style = 0,
                  const wxValidator& validator = wxDefaultValidatorPtr );
 
+    bool AssociateModel( wxDataViewModel* model );
+    wxDataViewModel* GetModel()
+        %code{% RETVAL = THIS->GetModel();
+                if( RETVAL )
+                    RETVAL->IncRef();
+                %};
+
+    bool PrependColumn( wxDataViewColumnDisown* col );
+    bool AppendColumn( wxDataViewColumnDisown* col );
+
+    ## Bitmap
+%{
+void
+AppendBitmapColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendBitmapColumnLabel, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendBitmapColumnBitmap, 2 )
+    END_OVERLOAD( "Wx::DataViewCtrl::AppendBitmapColumn" )
+%}
+
+    %name{AppendBitmapColumnLabel}
+    wxDataViewColumn* AppendBitmapColumn( const wxString& label,
+                                          unsigned int model_column,
+                                          wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                          int width = -1 );
+    %name{AppendBitmapColumnBitmap}
+    wxDataViewColumn* AppendBitmapColumn( const wxBitmap& label,
+                                          unsigned int model_column,
+                                          wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                          int width = -1 );
+    ## Date
+%{
+void
+AppendDateColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendDateColumnLabel, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendDateColumnBitmap, 2 )
+    END_OVERLOAD( "Wx::DataViewCtrl::AppendDateColumn" )
+%}
+
+    %name{AppendDateColumnLabel}
+    wxDataViewColumn* AppendDateColumn( const wxString& label,
+                                        unsigned int model_column,
+                                        wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                        int width = -1 );
+    %name{AppendDateColumnBitmap}
+    wxDataViewColumn* AppendDateColumn( const wxBitmap& label,
+                                        unsigned int model_column,
+                                        wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                        int width = -1 );
+
+    ## Progress
+%{
+void
+AppendProgressColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendProgressColumnLabel, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendProgressColumnBitmap, 2 )
+    END_OVERLOAD( "Wx::DataViewCtrl::AppendProgressColumn" )
+%}
+
+    %name{AppendProgressColumnLabel}
+    wxDataViewColumn* AppendProgressColumn( const wxString& label,
+                                            unsigned int model_column,
+                                            wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                            int width = 80 );
+    %name{AppendProgressColumnBitmap}
+    wxDataViewColumn* AppendProgressColumn( const wxBitmap& label,
+                                            unsigned int model_column,
+                                            wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                            int width = 80 );
+
+    ## IconText
+%{
+void
+AppendIconTextColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendIconTextColumnLabel, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendIconTextColumnBitmap, 2 )
+    END_OVERLOAD( "Wx::DataViewCtrl::AppendIconTextColumn" )
+%}
+
+    %name{AppendIconTextColumnLabel}
+    wxDataViewColumn* AppendIconTextColumn( const wxString& label,
+                                            unsigned int model_column,
+                                            wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                            int width = -1 );
+    %name{AppendIconTextColumnBitmap}
+    wxDataViewColumn* AppendIconTextColumn( const wxBitmap& label,
+                                            unsigned int model_column,
+                                            wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                            int width = -1 );
+
+    ## Text
 %{
 void
 AppendTextColumn( ... )
@@ -91,8 +191,6 @@ AppendTextColumn( ... )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendTextColumnBitmap, 2 )
     END_OVERLOAD( "Wx::DataViewCtrl::AppendTextColumn" )
 %}
-
-    bool AssociateModel( wxDataViewModel* model );
 
     %name{AppendTextColumnLabel}
     wxDataViewColumn* AppendTextColumn( const wxString& label,
@@ -105,6 +203,54 @@ AppendTextColumn( ... )
                                         wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
                                         int width = -1 );
 
+    ## Toggle
+%{
+void
+AppendToggleColumn( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendToggleColumnLabel, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendToggleColumnBitmap, 2 )
+    END_OVERLOAD( "Wx::DataViewCtrl::AppendToggleColumn" )
+%}
+
+    %name{AppendToggleColumnLabel}
+    wxDataViewColumn* AppendToggleColumn( const wxString& label,
+                                          unsigned int model_column,
+                                          wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                          int width = 30 );
+    %name{AppendToggleColumnBitmap}
+    wxDataViewColumn* AppendToggleColumn( const wxBitmap& label,
+                                          unsigned int model_column,
+                                          wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT,
+                                          int width = 30 );
+
+    unsigned int GetColumnCount() const;
+    wxDataViewColumnDisown* GetColumn( unsigned int pos ) const;
+    int GetColumnPosition( const wxDataViewColumn* column ) const;
+    bool DeleteColumn( wxDataViewColumn* column );
+    bool ClearColumns();
+    void SetExpanderColumn( wxDataViewColumn* col );
+    wxDataViewColumnDisown* GetExpanderColumn() const;
+    wxDataViewColumnDisown* GetSortingColumn() const;
+
+    void SetIndent( int indent );
+    int GetIndent() const;
+
+    wxDataViewItem& GetSelection() const;
+    void Select( const wxDataViewItem& item );
+    void Unselect( const wxDataViewItem& item );
+    bool IsSelected( const wxDataViewItem& item ) const;
+
+    void SelectAll();
+    void UnselectAll();
+
+    void Expand( const wxDataViewItem& item );
+    void Collapse( const wxDataViewItem& item );
+    void EnsureVisible( const wxDataViewItem& item,
+                        const wxDataViewColumn* column = NULL );
+    wxRect& GetItemRect( const wxDataViewItem& item,
+                         const wxDataViewColumn* column = NULL ) const;
 };
 
 #endif

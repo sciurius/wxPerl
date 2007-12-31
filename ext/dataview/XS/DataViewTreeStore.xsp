@@ -19,6 +19,56 @@
 %name{Wx::DataViewTreeStore} class wxDataViewTreeStore
 {
     wxDataViewTreeStore();
+
+    wxDataViewItem& AppendItem( const wxDataViewItem& parent,
+                                const wxString& text,
+                                const wxIcon& icon = wxNullIconPtr,
+                                wxPliUserDataCD* data = NULL );
+    wxDataViewItem& PrependItem( const wxDataViewItem& parent,
+                                 const wxString& text,
+                                 const wxIcon& icon = wxNullIconPtr,
+                                 wxPliUserDataCD* data = NULL );
+    wxDataViewItem& InsertItem( const wxDataViewItem& parent,
+                                      const wxDataViewItem& previous,
+                                      const wxString &text,
+                                      const wxIcon &icon = wxNullIconPtr,
+                                      wxPliUserDataCD *data = NULL );
+
+    wxDataViewItem& PrependContainer( const wxDataViewItem& parent,
+                                      const wxString &text,
+                                      const wxIcon &icon = wxNullIconPtr,
+                                      const wxIcon &expanded = wxNullIconPtr,
+                                      wxPliUserDataCD *data = NULL );
+    wxDataViewItem& AppendContainer( const wxDataViewItem& parent,
+                                     const wxString &text,
+                                     const wxIcon &icon = wxNullIconPtr,
+                                     const wxIcon &expanded = wxNullIconPtr,
+                                     wxPliUserDataCD *data = NULL );
+    wxDataViewItem& InsertContainer( const wxDataViewItem& parent,
+                                     const wxDataViewItem& previous,
+                                     const wxString &text,
+                                     const wxIcon& icon = wxNullIconPtr,
+                                     const wxIcon& expanded = wxNullIconPtr,
+                                     wxPliUserDataCD* data = NULL );
+
+    wxDataViewItem& GetNthChild( const wxDataViewItem& parent,
+                                 unsigned int pos ) const;
+    int GetChildCount( const wxDataViewItem& parent ) const;
+
+    void SetItemText( const wxDataViewItem& item, const wxString& text );
+    wxString GetItemText( const wxDataViewItem& item ) const;
+    void SetItemIcon( const wxDataViewItem& item, const wxIcon& icon );
+    const wxIcon& GetItemIcon( const wxDataViewItem& item ) const;
+    void SetItemExpandedIcon( const wxDataViewItem& item, const wxIcon &icon );
+    const wxIcon& GetItemExpandedIcon( const wxDataViewItem& item ) const;
+    void SetItemData( const wxDataViewItem& item, wxPliUserDataCD* data );
+    wxPliUserDataCD* GetItemData( const wxDataViewItem& item ) const
+      %code{% RETVAL = (wxPliUserDataCD*) THIS->GetItemData( *item );
+              %}; 
+
+    void DeleteItem( const wxDataViewItem& item );
+    void DeleteChildren( const wxDataViewItem& item );
+    void DeleteAllItems();
 };
 
 #endif

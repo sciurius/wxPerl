@@ -18,6 +18,24 @@
 
 %name{Wx::DataViewEvent} class wxDataViewEvent {
     wxDataViewEvent( wxEventType type, wxWindowID id );
+
+    wxDataViewItem& GetItem() const;
+    void SetItem( const wxDataViewItem& item );
+
+    int GetColumn() const;
+    void SetColumn( int col );
+
+    wxDataViewModel* GetModel() const;
+    void SetModel( wxDataViewModel *model );
+
+    const wxVariant &GetValue() const;
+    void SetValue( const wxVariant &value );
+
+    void SetDataViewColumn( wxDataViewColumn* col );
+    wxDataViewColumnDisown* GetDataViewColumn() const;
+    
+    ## wxPoint GetPosition() const;
+    void SetPosition( int x, int y );
 };
 
 #endif
