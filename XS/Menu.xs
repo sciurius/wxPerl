@@ -627,7 +627,7 @@ wxMenuItem::GetBitmap()
 wxString
 wxMenuItem::GetHelp()
 
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) && !defined(__WXMSW__)
 
 wxString
 wxMenuItem::GetName()
