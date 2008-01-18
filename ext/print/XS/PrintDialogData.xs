@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     02/06/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001, 2004-2005 Mattia Barbon
+## Copyright:   (c) 2001, 2004-2005, 2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -21,6 +21,13 @@ void
 wxPrintDialogData::Destroy()
   CODE:
     delete THIS;
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxPrintDialogData::IsOk()
+
+#endif
 
 void
 wxPrintDialogData::EnableHelp( enable )

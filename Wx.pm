@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     01/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2007 Mattia Barbon
+## Copyright:   (c) 2000-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -147,9 +147,6 @@ sub _load_dll {
 #
 # British vs. American spelling aliases
 #
-*Wx::SystemSettings::GetColour = \&Wx::SystemSettings::GetSystemColour;
-*Wx::SystemSettings::GetFont   = \&Wx::SystemSettings::GetSystemFont;
-*Wx::SystemSettings::GetMetric = \&Wx::SystemSettings::GetSystemMetric;
 *Wx::Window::Center = \&Wx::Window::Centre;
 *Wx::Window::CenterOnParent = \&Wx::Window::CentreOnParent;
 *Wx::Window::CenterOnScreen = \&Wx::Window::CentreOnScreen;

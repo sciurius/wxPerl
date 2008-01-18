@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     28/08/2002
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2002-2004, 2006-2007 Mattia Barbon
+## Copyright:   (c) 2002-2004, 2006-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -115,6 +115,34 @@ wxWizard::HasNextPage( page )
 bool
 wxWizard::HasPrevPage( page )
     wxWizardPage* page
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxWizard::SetBitmapBackgroundColour( colour )
+    wxColour colour
+
+wxColour*
+wxWizard::GetBitmapBackgroundColour()
+  CODE:
+    RETVAL = new wxColour( THIS->GetBitmapBackgroundColour() );
+  OUTPUT: RETVAL
+
+void
+wxWizard::SetBitmapPlacement( placement )
+    int placement
+
+int
+wxWizard::GetBitmapPlacement()
+
+void
+wxWizard::SetMinimumBitmapWidth( w )
+    int w
+
+int
+wxWizard::GetMinimumBitmapWidth()
+
+#endif
 
 MODULE=Wx PACKAGE=Wx::WizardPage
 

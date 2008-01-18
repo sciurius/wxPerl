@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2006-2007 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2006-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -323,6 +323,13 @@ wxRect::Inflate( x, y )
     else
       y = SvIV( ST(2) );
     THIS->Inflate( x, y );
+
+wxRect*
+wxRect::Intersect( rect )
+    wxRect* rect
+  CODE:
+    RETVAL = new wxRect( THIS->Intersect( *rect ) );
+  OUTPUT: RETVAL
 
 bool
 wxRect::Intersects( wxRect* rec )

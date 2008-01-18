@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2007 Mattia Barbon
+// Copyright:   (c) 2000-2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -578,7 +578,7 @@ static wxPlINH inherit[] =
     // wxCursor inherits from wxObject
 #elif defined(__WXMOTIF__) || defined(__WXMAC__)
     I( Cursor,          Bitmap )
-#elif !defined(__WXGTK__)
+#elif !defined(__WXGTK__) || WXPERL_W_VERSION_GE( 2, 9, 0 )
     I( Cursor,          GDIObject )
 #endif
 
@@ -815,7 +815,9 @@ static double constant( const char *name, int arg )
     r( wxBK_BOTTOM );                   // bookctrl
     r( wxBK_LEFT );                     // bookctrl
     r( wxBK_RIGHT );                    // bookctrl
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
     r( wxBK_BUTTONBAR );                // toolbook
+#endif
     r( wxBK_HITTEST_NOWHERE );          // bookctrl
     r( wxBK_HITTEST_ONICON );           // bookctrl
     r( wxBK_HITTEST_ONLABEL );          // bookctrl
@@ -2362,6 +2364,12 @@ static double constant( const char *name, int arg )
     r( wxSYS_SHOW_SOUNDS );             // systemsettings
     r( wxSYS_SWAP_BUTTONS );            // systemsettings
 
+    r( wxSYS_SCREEN_NONE );             // systemsettings
+    r( wxSYS_SCREEN_TINY );             // systemsettings
+    r( wxSYS_SCREEN_PDA );              // systemsettings
+    r( wxSYS_SCREEN_SMALL );            // systemsettings
+    r( wxSYS_SCREEN_DESKTOP );          // systemsettings
+
     // capabilities
     r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
     r( wxSYS_CAN_ICONIZE_FRAME );
@@ -2464,6 +2472,11 @@ static double constant( const char *name, int arg )
     r( wxTRANSPARENT );                 // dc brush pen
 
     r( wxTop );                         // layout constraints
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxTBK_HORZ_LAYOUT );             // toolbook
+    r( wxTBK_BUTTONBAR );               // toolbook
+#endif
 
     // !export: Type_Boolean
     // !export: Type_Float

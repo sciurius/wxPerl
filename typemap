@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id: typemap.tmpl,v 1.3 2007/04/11 17:20:09 mbarbon Exp $
-## Copyright:   (c) 2000-2007 Mattia Barbon
+## Copyright:   (c) 2000-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -58,10 +58,13 @@ wxBackgroundStyle       T_ENUM
 wxSystemColour          T_ENUM
 wxSystemFont            T_ENUM
 wxSystemMetric          T_ENUM
+wxSystemScreenType      T_ENUM
 wxOrientation           T_ENUM
 wxBatteryState          T_ENUM
 wxPowerType             T_ENUM
 wxDirection             T_ENUM
+
+wxDialogLayoutAdaptationMode T_ENUM
 
 wxLogTraceMask          T_UV 
 wxLogLevel              T_UV 
@@ -181,6 +184,7 @@ wxSashWindow *          O_WXEVTHANDLER
 wxToggleButton *        O_WXEVTHANDLER
 wxBitmapToggleButton *  O_WXEVTHANDLER
 wxSplashScreen *        O_WXOBJECT
+wxSplashScreenWindow *  O_WXOBJECT
 wxListbook *            O_WXEVTHANDLER
 wxChoicebook *          O_WXEVTHANDLER
 wxToolbook *            O_WXEVTHANDLER

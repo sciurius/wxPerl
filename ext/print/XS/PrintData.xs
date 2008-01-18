@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     04/05/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001, 2004-2005 Mattia Barbon
+## Copyright:   (c) 2001, 2004-2005, 2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -30,6 +30,13 @@ wxPrintData::Destroy()
 
 wxPrintBin
 wxPrintData::GetBin()
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+bool
+wxPrintData::IsOk()
 
 #endif
 

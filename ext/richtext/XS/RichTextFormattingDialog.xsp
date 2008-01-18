@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     25/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006 Mattia Barbon
+## Copyright:   (c) 2006, 2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -39,7 +39,7 @@ wxRichTextFormattingDialog::new( ... )
     bool Create( long flags, wxWindow* parent,
                  const wxString& title = wxT("Formatting"),
                  wxWindowID id = wxID_ANY,
-                 const wxPoint& pos = wxDefaultPosition,
+                 const wxPoint& pos = wxDefaultPosition,            
                  const wxSize& sz = wxDefaultSize,
                  long style = wxDEFAULT_DIALOG_STYLE );
 
@@ -50,6 +50,7 @@ wxRichTextFormattingDialog::new( ... )
                              wxRichTextStyleSheet* sheet,
                              bool update = true );
     wxRichTextStyleDefinitionDisown* GetStyleDefinition() const;
+    wxRichTextStyleDefinitionDisown* GetDialogStyleDefinition( wxWindow* win );
     wxRichTextStyleSheetDisown* GetStyleSheet() const;
 
     bool UpdateDisplay();

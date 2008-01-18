@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2001, 2003-2004, 2006-2007 Mattia Barbon
+## Copyright:   (c) 2000-2001, 2003-2004, 2006-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -17,6 +17,8 @@
 #include <wx/button.h>
 #include "cpp/dialog.h"
 #include "cpp/overload.h"
+
+%typemap{wxDialogLayoutAdaptationMode}{simple};
 
 %name{Wx::Dialog} class wxDialog {
 #if WXPERL_W_VERSION_GE( 2, 6, 3 )
@@ -35,6 +37,38 @@
 #endif
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
     wxSizer* CreateStdDialogButtonSizer( long flags );
+#endif
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    void AddMainButtonId( wxWindowID id );
+    bool IsMainButtonId( wxWindowID id ) const;
+%{
+void
+wxDialog::GetMainButtonIds()
+  PPCODE:
+    PUTBACK;
+    wxPli_intarray_push( aTHX_ THIS->GetMainButtonIds() );
+    SPAGAIN;
+%}
+
+    bool CanDoLayoutAdaptation();
+
+    package_static bool IsLayoutAdaptationEnabled();
+    package_static void EnableLayoutAdaptation( bool enable );
+
+    wxWindow* GetContentWindow();
+
+    void SetLayoutAdaptationLevel( int level );
+    int GetLayoutAdaptationLevel() const;
+
+    void SetLayoutAdaptationMode( wxDialogLayoutAdaptationMode mode );
+    wxDialogLayoutAdaptationMode GetLayoutAdaptationMode() const;
+
+    void SetLayoutAdaptationDone( bool adaptationDone );
+    bool GetLayoutAdaptationDone() const;
+
+#ifdef __WXMSW__
+    wxToolBar* GetToolBar() const;
+#endif
 #endif
 };
 

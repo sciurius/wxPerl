@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     04/12/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2007 Mattia Barbon
+## Copyright:   (c) 2001-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -669,6 +669,16 @@ wxGrid::GetViewWidth()
 void
 wxGrid::HideCellEditControl()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxGrid::HideRowLabels()
+
+void
+wxGrid::HideColLabels()
+
+#endif
+
 bool
 wxGrid::InsertCols( pos = 0, numCols = 1, updateLabels = true )
     int pos
@@ -833,6 +843,14 @@ void
 wxGrid::SelectRow( row, addToSelected = false )
     int row
     bool addToSelected
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxGrid::SetUseNativeColLabels( native = true )
+    bool native
+
+#endif
 
 void
 wxGrid::SetCellAlignment( row, col, horiz, vert )

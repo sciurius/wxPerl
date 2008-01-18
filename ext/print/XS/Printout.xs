@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     02/06/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2002, 2004 Mattia Barbon
+## Copyright:   (c) 2001-2002, 2004, 2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -14,9 +14,9 @@
 #include <wx/dcprint.h>
 #include "cpp/printout.h"
 
-#if defined( __WXMSW__ )
-
 MODULE=Wx PACKAGE=Wx::PrinterDC
+
+#if defined( __WXMSW__ )
 
 wxPrinterDC*
 wxPrinterDC::new( data )
@@ -25,6 +25,12 @@ wxPrinterDC::new( data )
     RETVAL = new wxPrinterDC( *data );
   OUTPUT:
     RETVAL
+
+wxRect*
+wxPrinterDC::GetPaperRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetPaperRect() );
+  OUTPUT: RETVAL
 
 #endif
 
@@ -102,6 +108,19 @@ wxPrintout::GetPPIScreen()
     PUSHs( sv_2mortal( newSViv( w ) ) );
     PUSHs( sv_2mortal( newSViv( h ) ) );
 
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+wxRect*
+wxPrintout::GetPaperRectPixels()
+  CODE:
+    RETVAL = new wxRect( THIS->GetPaperRectPixels() );
+  OUTPUT: RETVAL
+
+#endif
+
+wxString
+wxPrintout::GetTitle()
+
 bool
 wxPrintout::HasPage( pageNum )
     int pageNum
@@ -149,3 +168,64 @@ wxPrintout::OnPreparePrinting()
 #    RETVAL = THIS->wxPrintout::OnPrintPage( pageNum );
 #  OUTPUT:
 #    RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+
+void
+wxPrintout::FitThisSizeToPaper( imageSize )
+    wxSize imageSize
+
+void
+wxPrintout::FitThisSizeToPage( imageSize )
+    wxSize imageSize
+
+void
+wxPrintout::FitThisSizeToPageMargins( imageSize, pageSetupData )
+    wxSize imageSize
+    wxPageSetupDialogData* pageSetupData
+  C_ARGS: imageSize, *pageSetupData
+
+void
+wxPrintout::MapScreenSizeToPaper()
+
+void
+wxPrintout::MapScreenSizeToPage()
+
+void
+wxPrintout::MapScreenSizeToPageMargins( pageSetupData )
+    wxPageSetupDialogData* pageSetupData
+  C_ARGS: *pageSetupData
+
+void
+wxPrintout::MapScreenSizeToDevice()
+
+wxRect*
+wxPrintout::GetLogicalPaperRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetLogicalPaperRect() );
+  OUTPUT: RETVAL
+
+wxRect*
+wxPrintout::GetLogicalPageRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetLogicalPageRect() );
+  OUTPUT: RETVAL
+
+wxRect*
+wxPrintout::GetLogicalPageMarginsRect( pageSetupData )
+    wxPageSetupDialogData* pageSetupData
+  CODE:
+    RETVAL = new wxRect( THIS->GetLogicalPageMarginsRect( *pageSetupData ) );
+  OUTPUT: RETVAL
+
+void
+wxPrintout::SetLogicalOrigin( x, y )
+    wxCoord x
+    wxCoord y
+
+void
+wxPrintout::OffsetLogicalOrigin( xoff, yoff )
+    wxCoord xoff
+    wxCoord yoff
+
+#endif
