@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     25/11/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007 Mattia Barbon
+## Copyright:   (c) 2007-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -27,6 +27,8 @@ wxDataViewModelNotifier::DESTROY()
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 %}
+
+    wxDataViewModelDisown* GetOwner();
 };
 
 #endif
