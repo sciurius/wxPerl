@@ -6,6 +6,7 @@ Revision history for Perl extension Wx.
 	- Added wxWrapSizer (2.9).
 	- Added wxNotificationMessage (2.9).
 	- Added wxMirrorDC and wxDCClipper.
+	- Partially completed interface to wxDataViewCtrl (2.9).
 
 0.80  Tue Nov  6 23:12:53 CET 2007
 	- Build fixes for Windows (both dmake and nmake).
