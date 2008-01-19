@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.81
+0.81  Sat Jan 19 17:36:33 CET 2008
 	- Almost completed the interface of wxStyledTextCtrl.
 	- Added wxBitmapToggleButton and wxSVGFileDC (2.9).
 	- Added wxWrapSizer (2.9).
