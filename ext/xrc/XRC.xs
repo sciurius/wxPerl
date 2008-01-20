@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     27/07/2001
 // RCS-ID:      $Id$
-// Copyright:   (c) 2001-2004, 2006 Mattia Barbon
+// Copyright:   (c) 2001-2004, 2006, 2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -24,13 +24,13 @@ BOOT:
 
 INCLUDE: XS/XmlResource.xs
 
-INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp XS/XmlSubclassFactory.xsp |
+INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/XmlSubclassFactory.xsp |
 
-INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp XS/XmlDocument.xsp |
+INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/XmlDocument.xsp |
 
-INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp XS/XmlNode.xsp |
+INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/XmlNode.xsp |
 
-INCLUDE: perl ../../script/wx_xspp.pl -t ../../typemap.xsp XS/XmlResourceHandler.xsp |
+INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/XmlResourceHandler.xsp |
 
 MODULE=Wx__XRC PACKAGE=Wx PREFIX=wx
 

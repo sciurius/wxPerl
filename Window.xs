@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2002, 2004-2007 Mattia Barbon
+// Copyright:   (c) 2000-2002, 2004-2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -1246,23 +1246,23 @@ wxWindow::CanSetTransparent()
 
 #endif
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Window.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/Window.xsp |
 
 INCLUDE: XS/Accelerators.xs
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/PlWindow.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/PlWindow.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/SplitterWindow.xs |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/SplitterWindow.xs |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/VScrolledWindow.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/VScrolledWindow.xsp |
 
 INCLUDE: XS/ScrolledWindow.xs
 INCLUDE: XS/Validators.xs
 INCLUDE: XS/Constraint.xs
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Sizer.xs |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/Sizer.xs |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/GridBagSizer.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/GridBagSizer.xsp |
 
 INCLUDE: XS/SashWindow.xs
 

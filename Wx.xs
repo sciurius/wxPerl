@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     01/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2002, 2004-2007 Mattia Barbon
+// Copyright:   (c) 2000-2002, 2004-2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -401,23 +401,23 @@ INCLUDE: XS/Process.xs
 INCLUDE: XS/FontMapper.xs
 INCLUDE: XS/FontEnumerator.xs
 INCLUDE: XS/Wave.xs
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/ArtProvider.xsp |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/ArtProvider.xsp |
 
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/MimeTypes.xsp |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/MimeTypes.xsp |
 
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Sound.xsp |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/Sound.xsp |
 
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Power.xsp |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/Power.xsp |
 
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/ClassInfo.xs |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/ClassInfo.xs |
 
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Display.xsp |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/Display.xsp |
 
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/StandardPaths.xsp |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/StandardPaths.xsp |
 
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/Variant.xsp |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/Variant.xsp |
 
-INCLUDE: perl ./script/wx_xspp.pl -t typemap.xsp XS/NotificationMessage.xsp |
+INCLUDE: perl ./script/wxperl_xspp -t typemap.xsp XS/NotificationMessage.xsp |
 
 ##  //FIXME// tricky
 ##if defined(__WXMSW__)

@@ -185,7 +185,7 @@ sub postamble_overload {
                                     join "\n", $this->files_with_overload );
   }
   my $ovl_script = Wx::build::MakeMaker::is_wxPerl_tree() ?
-      'script/wx_overload.pl' : "-S wx_overload.pl";
+      'script/wxperl_overload' : "-S wxperl_overload";
   my( $ovlc, $ovlh ) = $this->{WX}{wx_overload} ?
     @{$this->{WX}{wx_overload}}{qw(source header)} : ();
   return ( $this->{WX}{wx_overload} ? <<EOT : '' );
@@ -230,7 +230,7 @@ EOT
       my $file = File::Spec->canonpath( $f );
       $text .= sprintf <<EOT, $file, $file, $file, $file;
 %s : %sp typemap.xsp
-	\$(PERL) script/wx_xspp.pl -t typemap.xsp %sp > %s
+	\$(PERL) script/wxperl_xspp -t typemap.xsp %sp > %s
 
 EOT
   }

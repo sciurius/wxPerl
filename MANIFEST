@@ -39,8 +39,8 @@ script/make_ppm.pl
 script/make_typemap.pl
 script/make_v_cback.pl
 script/pipe.pl
-script/wx_overload.pl
-script/wx_xspp.pl
+script/wxperl_overload
+script/wxperl_xspp
 
 t/01_load.t
 t/02_inheritance.t

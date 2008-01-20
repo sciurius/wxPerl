@@ -1,6 +1,9 @@
 Revision history for Perl extension Wx.
 
 0.82
+	- Renamed wx_xspp.pl and wx_overload.pl to
+	  wxperl_xspp and wxperl_overload, to comply
+	  with Debian policy.
 
 0.81  Sat Jan 19 17:36:33 CET 2008
 	- Almost completed the interface of wxStyledTextCtrl.

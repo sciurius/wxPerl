@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2007 Mattia Barbon
+// Copyright:   (c) 2000-2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -58,42 +58,42 @@ wxControl::GetLabelText()
 
 #endif
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ControlWithItems.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/ControlWithItems.xsp |
 
 INCLUDE: XS/BitmapButton.xs
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/AnimationCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/AnimationCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/EditableListBox.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/EditableListBox.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/BookCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/BookCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Listbook.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/Listbook.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Choicebook.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/Choicebook.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Toolbook.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/Toolbook.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/Treebook.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/Treebook.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/HyperlinkCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/HyperlinkCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/VListBox.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/VListBox.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/SearchCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/SearchCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ComboPopup.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/ComboPopup.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ComboCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/ComboCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/OwnerDrawnComboBox.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/OwnerDrawnComboBox.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/CollapsiblePane.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/CollapsiblePane.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/BitmapComboBox.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/BitmapComboBox.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/DirCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/DirCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/FileCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/FileCtrl.xsp |
 
 INCLUDE: XS/Button.xs
 INCLUDE: XS/CheckBox.xs
@@ -117,16 +117,16 @@ INCLUDE: XS/StaticText.xs
 INCLUDE: XS/ToggleButton.xs
 INCLUDE: XS/TreeCtrl.xs
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/TextAttr.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/TextAttr.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/TextCtrl.xs |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/TextCtrl.xs |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/PickerCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/PickerCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/ColourPickerCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/ColourPickerCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/FilePickerCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/FilePickerCtrl.xsp |
 
-INCLUDE: perl script/wx_xspp.pl -t typemap.xsp XS/FontPickerCtrl.xsp |
+INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/FontPickerCtrl.xsp |
 
 MODULE=Wx_Ctrl PACKAGE=Wx::Control

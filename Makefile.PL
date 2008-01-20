@@ -6,7 +6,7 @@
 ## Modified by:
 ## Created:     01/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2007 Mattia Barbon
+## Copyright:   (c) 2000-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -64,8 +64,8 @@ wxWriteMakefile( NAME          => 'Wx',
                  VERSION_FROM  => 'Wx.pm',
                  PREREQ_PM     => { %$build_requires },
                  PMLIBDIRS     => [ 'lib', 'build' ],
-                 EXE_FILES     => [ qw(script/wx_xspp.pl
-                                       script/wx_overload.pl) ],
+                 EXE_FILES     => [ qw(script/wxperl_xspp
+                                       script/wxperl_overload) ],
                  WX_CORE_LIB_MAYBE => $^O eq 'darwin' ? 'media html' : '',
                  WX_CORE_LIB   => 'adv core base',
                  WX_OVERLOAD   => { header  => 'cpp/ovl_const.h',
