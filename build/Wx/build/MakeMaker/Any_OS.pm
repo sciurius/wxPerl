@@ -291,6 +291,14 @@ sub files_to_install {
          );
 }
 
+sub manifypods_core {
+    my( $self ) = @_;
+
+    s{([\\/])build::}{$1} foreach values %{$self->{MAN3PODS}};
+
+    return $self->SUPER::manifypods_core;
+}
+
 1;
 
 # local variables:
