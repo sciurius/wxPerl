@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2007 Mattia Barbon
+// Copyright:   (c) 2000-2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -1639,18 +1639,18 @@ void CreateEventMacro( const char* name, unsigned char args, int id )
     switch( args )
     {
     case 0:
-        cv = (CV*)newXS( buffer, ConnectDummy, "Constants.xs" );
+        cv = (CV*)newXS( buffer, ConnectDummy, (char*)"Constants.xs" );
         break;
     case 2:
-        cv = (CV*)newXS( buffer, Connect2, "Constants.xs" );
+        cv = (CV*)newXS( buffer, Connect2, (char*)"Constants.xs" );
         sv_setpv((SV*)cv, "$$");
         break;
     case 3:
-        cv = (CV*)newXS( buffer, Connect3, "Constants.xs" );
+        cv = (CV*)newXS( buffer, Connect3, (char*)"Constants.xs" );
         sv_setpv((SV*)cv, "$$$");
         break;
     case 4:
-        cv = (CV*)newXS( buffer, Connect4, "Constants.xs" );
+        cv = (CV*)newXS( buffer, Connect4, (char*)"Constants.xs" );
         sv_setpv((SV*)cv, "$$$$");
         break;
     default:
