@@ -1,6 +1,8 @@
 package Wx::XSP::Typemap;
 
-=head1 Wx::XSP::Typemap
+=head1 NAME
+
+Wx::XSP::Typemap - map types
 
 =cut
 

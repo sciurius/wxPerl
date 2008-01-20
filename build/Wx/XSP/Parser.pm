@@ -5,7 +5,9 @@ use strict;
 use IO::Handle;
 use Wx::XSP::Grammar;
 
-=head1 Wx::XSP::Parser METHODS
+=head1 NAME
+
+Wx::XSP::Parser - an XS++ parser
 
 =cut
 

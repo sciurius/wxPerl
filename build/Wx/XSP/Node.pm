@@ -1,8 +1,8 @@
 package Wx::XSP::Node;
 
-=head1 Wx::XSP::Node
+=head1 NAME
 
-Base class for the parser output.
+Wx::XSP::Node - Base class for the parser output.
 
 =cut
 
