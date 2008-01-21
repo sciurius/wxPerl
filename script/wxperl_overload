@@ -29,8 +29,9 @@ wxperl_overload - create overload declarations for wxPerl extensions
 
 =head1 DOCUMENTATION
 
-This script if usually invoked from an C<ExtUtils::MakeMaker>-generated
-file by using C<WX_OVERLOAD> in F<Makefile.PL>.
+This script if usually invoked from an
+C<ExtUtils::MakeMaker>-generated file by using C<WX_OVERLOAD> in
+F<Makefile.PL>.
 
 Scans the files given on the command line or listed in the F<.lst>
 file searching for wxPerl overload declarations.  Writes a F<.h> file
