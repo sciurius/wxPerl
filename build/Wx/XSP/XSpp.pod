@@ -6,7 +6,7 @@ XSpp - XS for C++
 
 In Foo.xs (all in one line):
 
-  INCLUDE: perl xsubppp.pl --typemap=typemap.xsp
+  INCLUDE: perl -S wxperl_xspp --typemap=typemap.xsp
            Foo.xsp |
 
 =head1 OVERVIEW

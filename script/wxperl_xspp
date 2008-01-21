@@ -18,7 +18,11 @@ use lib "$FindBin::RealBin/../build";
 
 =head1 NAME
 
-XSP - XS++ preprocessor
+wxperl_xspp - XS++ preprocessor
+
+=head1 SYNOPSIS
+
+    wxperl_xspp [--typemap=typemap.xsp [--typemap=typemap2.xsp]] Foo.xsp
 
 =head1 DOCUMENTATION
 

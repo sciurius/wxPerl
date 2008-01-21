@@ -16,6 +16,29 @@ use FindBin;
 use strict;
 use lib "$FindBin::RealBin/../build";
 
+=head1 NAME
+
+wxperl_overload - create overload declarations for wxPerl extensions
+
+=head1 SYNOPSIS
+
+    # usually invoked from Makefile
+    wxperl_overload <.cpp file> <.h file> files...
+
+    wxperl_overload <.cpp file> <.h file> file.lst
+
+=head1 DOCUMENTATION
+
+This script if usually invoked from an C<ExtUtils::MakeMaker>-generated
+file by using C<WX_OVERLOAD> in F<Makefile.PL>.
+
+Scans the files given on the command line or listed in the F<.lst>
+file searching for wxPerl overload declarations.  Writes a F<.h> file
+with matching F<.cpp> file containing the definition for wxPerl
+overload constants.
+
+=cut
+
 use Wx::Overload::Driver;
 
 my( $ovlc, $ovlh ) = ( shift, shift );
