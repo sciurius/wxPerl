@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2007 Mattia Barbon
+// Copyright:   (c) 2000-2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -64,10 +64,10 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 }
 
 #define WXCHAR_INPUT( var, type, arg ) \
-  const wxString var##_tmp = ( SvUTF8( arg ) ) ? \
-            ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ) \
-          : ( wxString( SvPV_nolen( arg ), wxConvLibc ) ); \
-  var = const_cast<type>( static_cast<const type>( var##_tmp.wc_str() ) );
+  const wxWCharBuffer var##_tmp = ( SvUTF8( arg ) ) ? \
+            ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ).wc_str() \
+          : ( wxString( SvPV_nolen( arg ), wxConvLibc ) ).wc_str(); \
+  var = const_cast<type>( var##_tmp.data() );
 
 #define WXCHAR_OUTPUT( var, arg ) \
   wxPli_wxChar_2_sv( aTHX_ var, arg )
