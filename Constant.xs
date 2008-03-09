@@ -531,7 +531,8 @@ static wxPlINH inherit[] =
     I( MemoryDC,        WindowDC )
 #endif
 
-#if defined(__WXMSW__) || defined(__WXGTK__)
+#if defined(__WXMSW__) || defined(__WXGTK__) \
+    || ( defined(__WXMAC__) && WXPERL_W_VERSION_GE( 2, 9, 0 ) )
     I( PaintDC,         ClientDC )
 #else
     I( PaintDC,         WindowDC )
