@@ -971,9 +971,13 @@ void
 wxWindow::SetHelpText( text )
     wxString text
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+
 void
 wxWindow::SetHelpTextForId( text )
     wxString text
+
+#endif
 
 void
 wxWindow::SetId( id )

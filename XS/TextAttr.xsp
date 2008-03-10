@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     24/11/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2005-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -158,7 +158,9 @@ wxTextAttr::GetTabs()
     bool IsParagraphStyle() const;
 
     ## wxRichTextAttr
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
     wxFont CreateFont() const;
+#endif
     bool GetFontAttributes( const wxFont& font );
 
     void SetFontSize( int pointSize );
