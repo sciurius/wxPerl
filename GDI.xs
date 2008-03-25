@@ -20,6 +20,13 @@
 WXPLI_BOOT_ONCE(Wx_GDI);
 #define boot_Wx_GDI wxPli_boot_Wx_GDI
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+typedef int wxBrushStyle;
+typedef int wxPenStyle;
+typedef int wxPenJoin;
+typedef int wxPenCap;
+#endif
+
 MODULE=Wx_GDI
 
 INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/Animation.xsp |

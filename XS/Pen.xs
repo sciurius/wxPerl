@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     21/11/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2004, 2006-2007 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2004, 2006-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -70,7 +70,7 @@ wxPen::DESTROY()
     wxPli_thread_sv_unregister( aTHX_ "Wx::Pen", THIS, ST(0) );
     delete THIS;
 
-int
+wxPenCap
 wxPen::GetCap()
 
 wxColour*
@@ -93,7 +93,7 @@ wxPen::GetDashes()
       PUSHs( sv_2mortal( newSViv( array[i] ) ) );
     }
 
-int
+wxPenJoin
 wxPen::GetJoin()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
@@ -107,7 +107,7 @@ wxPen::GetStipple()
 
 #endif
 
-int
+wxPenStyle
 wxPen::GetStyle()
 
 int
@@ -125,7 +125,7 @@ wxPen::IsOk()
 
 void
 wxPen::SetCap( capStyle )
-    int capStyle
+    wxPenCap capStyle
 
 void
 wxPen::SetColour( ... )
@@ -192,7 +192,7 @@ wxPen::SetDashes( ds )
 
 void
 wxPen::SetJoin( join_style )
-    int join_style
+    wxPenJoin join_style
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
@@ -206,7 +206,7 @@ wxPen::SetStipple( stipple )
 
 void
 wxPen::SetStyle( style )
-    int style
+    wxPenStyle style
 
 void
 wxPen::SetWidth( width )

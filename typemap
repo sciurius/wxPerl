@@ -63,6 +63,10 @@ wxOrientation           T_ENUM
 wxBatteryState          T_ENUM
 wxPowerType             T_ENUM
 wxDirection             T_ENUM
+wxPenStyle              T_ENUM
+wxPenCap                T_ENUM
+wxPenJoin               T_ENUM
+wxBrushStyle            T_ENUM
 
 wxDialogLayoutAdaptationMode T_ENUM
 

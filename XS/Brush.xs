@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     08/11/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2004, 2006-2007 Mattia Barbon
+## Copyright:   (c) 2000-2004, 2006-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -30,7 +30,7 @@ wxBrush*
 newColour( CLASS, colour, style )
     SV* CLASS
     wxColour* colour
-    int style
+    wxBrushStyle style
   CODE:
     RETVAL = new wxBrush( *colour, style );
   OUTPUT:
@@ -40,7 +40,7 @@ wxBrush*
 newName( CLASS, name, style )
     SV* CLASS
     wxString name
-    int style
+    wxBrushStyle style
   CODE:
     RETVAL = new wxBrush( name, style );
   OUTPUT:
@@ -81,7 +81,7 @@ wxBrush::GetStipple()
   OUTPUT:
     RETVAL
 
-int
+wxBrushStyle
 wxBrush::GetStyle()
 
 bool
@@ -138,4 +138,4 @@ wxBrush::SetStipple( stipple )
 
 void
 wxBrush::SetStyle( style )
-    int style
+    wxBrushStyle style
