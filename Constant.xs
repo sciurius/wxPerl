@@ -2464,6 +2464,19 @@ static double constant( const char *name, int arg )
     r( wxTEXT_ATTR_RIGHT_INDENT );      // textctrl
     r( wxTEXT_ATTR_TABS );              // textctrl
 #endif
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxTEXT_ATTR_EFFECT_NONE );
+    r( wxTEXT_ATTR_EFFECT_CAPITALS );
+    r( wxTEXT_ATTR_EFFECT_SMALL_CAPITALS );
+    r( wxTEXT_ATTR_EFFECT_STRIKETHROUGH );
+    r( wxTEXT_ATTR_EFFECT_DOUBLE_STRIKETHROUGH );
+    r( wxTEXT_ATTR_EFFECT_SHADOW );
+    r( wxTEXT_ATTR_EFFECT_EMBOSS );
+    r( wxTEXT_ATTR_EFFECT_OUTLINE );
+    r( wxTEXT_ATTR_EFFECT_ENGRAVE );
+    r( wxTEXT_ATTR_EFFECT_SUPERSCRIPT );
+    r( wxTEXT_ATTR_EFFECT_SUBSCRIPT );
+#endif
     r( wxTINY_CAPTION_HORIZ );          // miniframe
     r( wxTINY_CAPTION_VERT );           // miniframe
     r( wxTIMER_CONTINUOUS );            // timer

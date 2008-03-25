@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2007 Mattia Barbon
+## Copyright:   (c) 2006-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -155,6 +155,20 @@ double richtextctrl_constant( const char* name, int arg )
         r( wxTEXT_ATTR_CHARACTER );
         r( wxTEXT_ATTR_PARAGRAPH );
         r( wxTEXT_ATTR_ALL );
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+        r( wxTEXT_ATTR_EFFECT_NONE );
+        r( wxTEXT_ATTR_EFFECT_CAPITALS );
+        r( wxTEXT_ATTR_EFFECT_SMALL_CAPITALS );
+        r( wxTEXT_ATTR_EFFECT_STRIKETHROUGH );
+        r( wxTEXT_ATTR_EFFECT_DOUBLE_STRIKETHROUGH );
+        r( wxTEXT_ATTR_EFFECT_SHADOW );
+        r( wxTEXT_ATTR_EFFECT_EMBOSS );
+        r( wxTEXT_ATTR_EFFECT_OUTLINE );
+        r( wxTEXT_ATTR_EFFECT_ENGRAVE );
+        r( wxTEXT_ATTR_EFFECT_SUPERSCRIPT );
+        r( wxTEXT_ATTR_EFFECT_SUBSCRIPT );
+#endif
         break;
     }
 #undef r

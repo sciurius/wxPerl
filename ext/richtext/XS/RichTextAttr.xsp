@@ -125,6 +125,20 @@ wxRichTextRange::new( ... )
     bool IsParagraphStyle() const;
 
     bool IsDefault() const;
+
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) && WXPERL_W_VERSION_GE( 2, 8, 0 )
+    int GetOutlineLevel() const;
+    bool HasOutlineLevel() const;
+    void SetOutlineLevel( int level );
+
+    int GetTextEffects() const;
+    bool HasTextEffects() const;
+    void SetTextEffects( int effects );
+
+    int GetTextEffectFlags() const;
+    bool HasTextEffect( int effect ) const;
+    void SetTextEffectFlags( int effects );
+#endif
 };
 
 ## DECLARE_OVERLOAD( wtae, Wx::TextAttrEx )
