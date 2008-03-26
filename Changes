@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.82
+	- Fixed running Makefile.PL in absence of Alien::wxWidgets.
 	- Renamed wx_xspp.pl and wx_overload.pl to
 	  wxperl_xspp and wxperl_overload, to comply
 	  with Debian policy.

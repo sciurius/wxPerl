@@ -42,6 +42,8 @@ sub postamble_core {
   my $wx_config = $ENV{WX_CONFIG} || 'wx-config';
   my $rfile;
 
+  return '' unless $Wx::build::MakeMaker::Core::has_alien;
+
   if(    $Wx::build::MakeMaker::Core::has_alien
       && Alien::wxWidgets->version < 2.006 ) {
     my $rsrc = join ' ', grep { /wx/ } split ' ', `$wx_config --rezflags`;

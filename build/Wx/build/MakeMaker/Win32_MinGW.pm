@@ -22,6 +22,7 @@ sub dynamic_lib {
   my $text = $this->SUPER::dynamic_lib( @_ );
 
   return $text unless $text =~ m/dlltool/i;
+  return $text unless $Wx::build::MakeMaker::Core::has_alien;
 
   my $strip = $this->_debug ? '' : ' -s ';
 

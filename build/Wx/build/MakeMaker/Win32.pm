@@ -53,8 +53,11 @@ sub configure_core {
 
 sub postamble_core {
   my $this = shift;
-  my $wxdir = Alien::wxWidgets->wx_base_directory;
   my $text = $this->SUPER::postamble_core( @_ );
+
+  return $text unless $Wx::build::MakeMaker::Core::has_alien;
+
+  my $wxdir = Alien::wxWidgets->wx_base_directory;
   my $command = $this->_res_command;
   my $res_file = $this->_res_file;
 
