@@ -147,3 +147,11 @@ wxGridCellAttr::SetRenderer( renderer )
   CODE:
     renderer->IncRef();
     THIS->SetRenderer( renderer );
+    
+bool
+wxGridCellAttr::GetOverflow()
+
+void
+wxGridCellAttr::SetOverflow( allow = true )
+    bool allow
+
