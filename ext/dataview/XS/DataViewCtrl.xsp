@@ -250,7 +250,7 @@ AppendToggleColumn( ... )
     bool ClearColumns();
     void SetExpanderColumn( wxDataViewColumn* col );
     wxDataViewColumnDisown* GetExpanderColumn() const;
-    wxDataViewColumnDisown* GetSortingColumn() const;
+##    wxDataViewColumnDisown* GetSortingColumn() const;
 
     void SetIndent( int indent );
     int GetIndent() const;

@@ -74,6 +74,7 @@ WXPL_EXTERN_C_END
 #undef eof
 #undef form
 #undef vform
+#undef setbuf
 #endif
 #undef do_open
 #undef do_close

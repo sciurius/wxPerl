@@ -63,8 +63,8 @@ newFile( CLASS, name, type, desW = -1, desH = -1 )
     int desW
     int desH
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && \
-    ( defined( __WXMOTIF__ ) || defined( __WXX11__ ) || defined( __WXGTK__ ) )
+#if defined( __WXMOTIF__ ) || defined( __WXX11__ ) || defined( __WXGTK__ ) \
+    || ( defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 9, 0 ) )
     RETVAL = new wxIcon( name, wxBitmapType(type), desW, desH );
 #else
     RETVAL = new wxIcon( name, type, desW, desH );
@@ -139,8 +139,8 @@ wxIcon::LoadFile( name, type )
         RETVAL = THIS->LoadFile( name, type, -1, -1 );
 #endif
 #else
-#if ( defined( __WXX11__ ) || defined( __WXMAC__ ) || defined( __WXGTK__ ) ) \
-    && WXPERL_W_VERSION_GE( 2, 5, 1 )
+#if defined( __WXX11__ ) || defined( __WXMAC__ ) || defined( __WXGTK__ ) \
+    || ( defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 9, 0 ) )
     RETVAL = THIS->LoadFile( name, wxBitmapType(type) );
 #else
     RETVAL = THIS->LoadFile( name, type );

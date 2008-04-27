@@ -66,7 +66,7 @@ wxDialog::GetMainButtonIds()
     void SetLayoutAdaptationDone( bool adaptationDone );
     bool GetLayoutAdaptationDone() const;
 
-#ifdef __WXMSW__
+#if defined(__WXMSW__) && defined(__POCKETPC__)
     wxToolBar* GetToolBar() const;
 #endif
 #endif

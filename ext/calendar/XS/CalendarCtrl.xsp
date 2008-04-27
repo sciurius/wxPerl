@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/10/2002
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2002-2006 Mattia Barbon
+## Copyright:   (c) 2002-2006, 2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -128,15 +128,19 @@ wxPlConstants calendar_module( &calendar_constant );
     void SetDate( const wxDateTime& date );
     const wxDateTime& GetDate();
 
+#if !defined(__WXMSW__) || !defined(wxHAS_NATIVE_CALENDARCTRL)
     void EnableYearChange( bool enable = true );
+#endif
     void EnableMonthChange( bool enable = true );
     void EnableHolidayDisplay( bool display = true );
     void SetHoliday( size_t day );
 
+#if !defined(__WXMSW__) || !defined(wxHAS_NATIVE_CALENDARCTRL)
     bool SetLowerDateLimit( const wxDateTime& date = wxDefaultDateTimePtr );
     const wxDateTime& GetLowerDateLimit();
     bool SetUpperDateLimit( const wxDateTime& date = wxDefaultDateTimePtr );
     const wxDateTime& GetUpperDateLimit();
+#endif
 
     bool SetDateRange ( const wxDateTime& lowerdate = wxDefaultDateTimePtr,
                         const wxDateTime& upperdate = wxDefaultDateTimePtr );
