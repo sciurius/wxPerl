@@ -832,6 +832,7 @@ static double constant( const char *name, int arg )
     r( wxBORDER_STATIC );               // window
     r( wxBORDER_SUNKEN );               // window
     r( wxBORDER_THEME );                // window
+    r( wxBORDER_NONE );                 // window
 
     r( wxBACKWARD );                    // sizer
     break;
@@ -850,8 +851,8 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
     r( wxCC_SPECIAL_DCLICK );           // comboctrl
     r( wxCC_STD_BUTTON );               // comboctrl
-    r( wxCP_DEFAULT_STYLE );            // collpasiblepane
-    r( wxCP_NO_TLW_RESIZE );            // collpasiblepane
+    r( wxCP_DEFAULT_STYLE );            // collapsiblepane
+    r( wxCP_NO_TLW_RESIZE );            // collapsiblepane
 #endif
     r( wxCENTER );                      // dialog sizer
     r( wxCENTRE );                      // dialog sizer
