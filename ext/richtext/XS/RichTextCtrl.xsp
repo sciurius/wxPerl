@@ -411,11 +411,11 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
 #endif
 
     %name{WriteImageFile} bool WriteImage( const wxString& filename,
-                                           int bitmapType );
+                                           wxBitmapType bitmapType );
     %name{WriteImageBitmap} bool WriteImage( const wxBitmap& bitmap,
-                                         int bitmapType = wxBITMAP_TYPE_PNG );
+                                  wxBitmapType bitmapType = wxBITMAP_TYPE_PNG );
     %name{WriteImageImage} bool WriteImage( const wxImage& image,
-                                        int bitmapType = wxBITMAP_TYPE_PNG );
+                                  wxBitmapType bitmapType = wxBITMAP_TYPE_PNG );
 
     %name{SetBasicStyleRich} void SetBasicStyle( const wxRichTextAttr& style );
     %name{SetBasicStyleEx} void SetBasicStyle( const wxTextAttrEx& style );

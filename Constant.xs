@@ -115,6 +115,7 @@
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 #include <wx/editlbox.h>
 #include <wx/filectrl.h>
+#include <wx/wrapsizer.h>
 #endif
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 ) && !WXWIN_COMPATIBILITY_2_6

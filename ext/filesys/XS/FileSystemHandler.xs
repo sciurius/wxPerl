@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     28/04/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2007 Mattia Barbon
+## Copyright:   (c) 2001-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -75,7 +75,7 @@ void
 AddImageFile( name, image, type )
     wxString name
     wxImage* image
-    long type
+    wxBitmapType type
   CODE:
     wxMemoryFSHandler::AddFile( name, *image, type );
 
@@ -83,7 +83,7 @@ void
 AddBitmapFile( name, bitmap, type )
     wxString name
     wxBitmap* bitmap
-    long type
+    wxBitmapType type
   CODE:
     wxMemoryFSHandler::AddFile( name, *bitmap, type );
 
