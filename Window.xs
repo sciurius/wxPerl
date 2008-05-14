@@ -255,13 +255,14 @@ wxWindow::ConvertPixelsSizeToDialog( size )
 bool
 wxWindow::Destroy()
 
-#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if    defined( __MSW__ ) \
+    || ( WXPERL_W_VERSION_GE( 2, 9, 0 ) && !defined( __WXGTK__ ) )
 
 void
 wxWindow::DragAcceptFiles( accept )
     bool accept
 
-#endif // __WXMSW__
+#endif
 
 void
 wxWindow::Enable( enable = true )
