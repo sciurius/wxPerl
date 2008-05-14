@@ -77,7 +77,7 @@ sub import {
 }
 
 sub END {
-  UnLoad();
+  UnLoad() if defined &UnLoad;
 }
 
 sub _match(\@$;$$) { &_xsmatch( [@{shift()}],@_ ) }
@@ -167,7 +167,7 @@ if( Load() ) {
 }
 
 sub END {
-  UnsetConstants();
+  UnsetConstants() if defined &UnsetConstants;
 }
 
 #
