@@ -128,14 +128,14 @@ wxPlConstants calendar_module( &calendar_constant );
     void SetDate( const wxDateTime& date );
     const wxDateTime& GetDate();
 
-#if !defined(__WXMSW__) || !defined(wxHAS_NATIVE_CALENDARCTRL)
+#if !defined(wxHAS_NATIVE_CALENDARCTRL)
     void EnableYearChange( bool enable = true );
 #endif
     void EnableMonthChange( bool enable = true );
     void EnableHolidayDisplay( bool display = true );
     void SetHoliday( size_t day );
 
-#if !defined(__WXMSW__) || !defined(wxHAS_NATIVE_CALENDARCTRL)
+#if !defined(wxHAS_NATIVE_CALENDARCTRL)
     bool SetLowerDateLimit( const wxDateTime& date = wxDefaultDateTimePtr );
     const wxDateTime& GetLowerDateLimit();
     bool SetUpperDateLimit( const wxDateTime& date = wxDefaultDateTimePtr );
