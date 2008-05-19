@@ -1,8 +1,9 @@
 Revision history for Perl extension Wx.
 
-0.83
+0.83  Mon May 19 22:37:36 CEST 2008
 	- Avoid 'deep recursion' errors and eating all available
 	  memory when loading wxPerl fails.
+	- Handle INSTALL_BASE under Mac OS X.
 
 0.82  Thu Mar 27 00:45:59 CET 2008
 	- Fixed running Makefile.PL in absence of Alien::wxWidgets.
