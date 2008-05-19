@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.84
+
 0.83  Mon May 19 22:37:36 CEST 2008
 	- Avoid 'deep recursion' errors and eating all available
 	  memory when loading wxPerl fails.
