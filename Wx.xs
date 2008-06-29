@@ -272,6 +272,11 @@ Load()
     if( wxPerlAppCreated || wxTopLevelWindows.GetCount() > 0 )
         return;
 
+#ifdef DEBUGGING
+    // avoid crash on exit in Fedora (and other DEBUGGING Perls)
+    PL_use_safe_putenv = 1;
+#endif
+
     int argc = 0;
 #if wxUSE_UNICODE && WXPERL_W_VERSION_GE( 2, 5, 3 )
     wxChar** argv = 0;

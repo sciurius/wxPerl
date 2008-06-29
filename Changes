@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
 0.84
+	- Workaround for crash on exit on DEBUGGING Perls
+	  (mostly affects Fedora users)
 
 0.83  Mon May 19 22:37:36 CEST 2008
 	- Avoid 'deep recursion' errors and eating all available
