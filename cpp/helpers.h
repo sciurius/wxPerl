@@ -294,9 +294,11 @@ class WXDLLEXPORT wxGBPosition; class WXDLLEXPORT wxGBSpan;
 wxGBPosition wxPli_sv_2_wxgbposition( pTHX_ SV* scalar );
 wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar );
 #endif
-class WXDLLEXPORT wxPosition;
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+class wxPosition;
 wxPosition wxPli_sv_2_wxposition( pTHX_ SV* scalar );
 wxVariant wxPli_sv_2_wxvariant( pTHX_ SV* scalar );
+#endif
 
 wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 
