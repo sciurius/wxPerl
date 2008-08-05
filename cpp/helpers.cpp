@@ -366,7 +366,7 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
     }
 
     if( !SvROK( scalar ) )
-        croak( "the invocant must be a reference" );
+        croak( "variable is not an object: it must have type %s", classname );
 
     if( !classname || sv_derived_from( scalar, CHAR_P classname ) ) 
     {
