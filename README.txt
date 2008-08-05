@@ -1,6 +1,6 @@
 wxPerl is a wrapper for the wxWidgets (formerly known as wxWindows) GUI toolkit
 
-Copyright (c) 2000-2006 Mattia Barbon.
+Copyright (c) 2000-2008 Mattia Barbon.
 This package is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
@@ -11,7 +11,7 @@ Please read the DEPRECATIONS section at the bottom!
 
 INSTALLATION:
 
-Build and install wxWidgets
+Build and install wxWidgets, version 2.5.3 or above
 
 perl Makefile.PL
 make
