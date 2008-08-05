@@ -4,7 +4,7 @@
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2002-2004, 2006-2007 Graciliano M. P., Marcus Friedlaender,
+## Copyright:   (c) 2002-2004, 2006-2008 Graciliano M. P., Marcus Friedlaender,
 ##                  Mattia Barbon, Simon Flack
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -1388,8 +1388,10 @@ wxStyledTextCtrl::AppendTextRaw( text )
     void DeleteBack();
     void DeleteBackNotLine();
 
+#if wxUSE_DRAG_AND_DROP
     wxDragResult DoDragOver( wxCoord x, wxCoord y, wxDragResult def );
     bool DoDropText( long x, long y, const wxString& data );
+#endif
 
     void DocumentStart();
     void DocumentStartExtend();
