@@ -353,7 +353,7 @@ sub _process_mm_arguments {
 
   $additional_arguments{WX_TOP} = $wx_top_file if $wx_top_file;
   unless( $has_alien ) {
-      $args{depend} = { '$(FIRST_MAKEFILE)' => 'you_better_rebuild_me' };
+      $args{depend} = { '$(FIRST_MAKEFILE)' => 'alien_wxwidgets_missing' };
       delete $args{$_} foreach grep /WX_|_WX/, keys %args;
       return 1;
   }

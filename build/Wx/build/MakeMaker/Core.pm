@@ -115,8 +115,14 @@ sub wxWriteMakefile {
   if( $build ) {
     WriteMakefile( %params );
     unless( Alien::wxWidgets->can( 'load' ) ) {
+        print <<EOT;
+======================================================================
+Alien::wxWidgets is missing, you will need to re-run Makefile.PL after
+it is installed.
+======================================================================
+EOT
         sleep 3;
-        open my $fh, ">> you_better_rebuild_me";
+        open my $fh, ">> alien_wxwidgets_missing";
         print $fh "touched";
     }
   } else {
