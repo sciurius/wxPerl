@@ -2041,6 +2041,18 @@ static double constant( const char *name, int arg )
     r( wxMOUSE_BTN_AUX1 );
     r( wxMOUSE_BTN_AUX2 );
 #endif
+
+    r( wxMOD_NONE );
+    r( wxMOD_ALT );
+    r( wxMOD_CONTROL );
+    r( wxMOD_SHIFT );
+    r( wxMOD_WIN );
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    r( wxMOD_ALTGR );
+    r( wxMOD_META );
+    r( wxMOD_CMD );
+    r( wxMOD_ALL );
+#endif
     break;
   case 'N':
     r( wxNB_FIXEDWIDTH );               // notebook
