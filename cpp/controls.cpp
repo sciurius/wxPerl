@@ -137,12 +137,6 @@ double listctrl_constant( const char* name, int arg )
       r( wxLC_SORT_ASCENDING );         // listctrl
       r( wxLC_SORT_DESCENDING );        // listctrl
       r( wxLC_VIRTUAL );                // listctrl
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-      r( wxLC_NO_LABEL_WRAP );          // listctrl
-      r( wxLC_NO_SCROLL );              // listctrl
-      r( wxLC_OWNERDRAW_FIXED );        // listctrl
-      r( wxLC_SHOW_SEL_ALWAYS );        // listctrl
-#endif
       break;
   }
 #undef r

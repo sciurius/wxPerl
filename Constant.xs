@@ -1028,11 +1028,15 @@ static double constant( const char *name, int arg )
     r( wxCURSOR_BLANK );                // cursor
     r( wxCURSOR_DEFAULT );              // cursor
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#ifdef __WXMAC__
+    r( wxCURSOR_COPY_ARROW );           // cursor
+#endif
+#ifdef __X__
     r( wxCURSOR_BASED_ARROW_DOWN );     // cursor
     r( wxCURSOR_BASED_ARROW_UP );       // cursor
-    r( wxCURSOR_COPY_ARROW );           // cursor
     r( wxCURSOR_CROSS_REVERSE );        // cursor
     r( wxCURSOR_DOUBLE_ARROW );         // cursor
+#endif
 #endif
 
     r( wxCROSSDIAG_HATCH );             // brush pen
@@ -1506,9 +1510,6 @@ static double constant( const char *name, int arg )
     r( wxFONTENCODING_MACVIATNAMESE );  // font
     r( wxFONTENCODING_MAX );            // font
     r( wxFONTENCODING_SHIFT_JIS );      // font
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-    r( wxFONTENCODING_UNKNOWN );        // font
-#endif
     r( wxFONTENCODING_UTF16 );          // font
     r( wxFONTENCODING_UTF16BE );        // font
     r( wxFONTENCODING_UTF16LE );        // font
