@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     04/05/2001
 // RCS-ID:      $Id$
-// Copyright:   (c) 2001, 2004-2005 Mattia Barbon
+// Copyright:   (c) 2001, 2004-2005, 2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -103,6 +103,58 @@ double print_constant( const char* name, int arg )
         r( wxPAPER_A2 );
         r( wxPAPER_A3_TRANSVERSE );
         r( wxPAPER_A3_EXTRA_TRANSVERSE );
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+        r( wxPAPER_12X11 );
+        r( wxPAPER_A3_ROTATED );
+        r( wxPAPER_A4_ROTATED );
+        r( wxPAPER_A5_ROTATED );
+        r( wxPAPER_A6 );
+        r( wxPAPER_A6_ROTATED );
+        r( wxPAPER_B4_JIS_ROTATED );
+        r( wxPAPER_B5_JIS_ROTATED );
+        r( wxPAPER_B6_JIS );
+        r( wxPAPER_B6_JIS_ROTATED );
+        r( wxPAPER_DBL_JAPANESE_POSTCARD );
+        r( wxPAPER_DBL_JAPANESE_POSTCARD_ROTATED );
+        r( wxPAPER_JAPANESE_POSTCARD_ROTATED );
+        r( wxPAPER_JENV_CHOU3 );
+        r( wxPAPER_JENV_CHOU3_ROTATED );
+        r( wxPAPER_JENV_CHOU4 );
+        r( wxPAPER_JENV_CHOU4_ROTATED );
+        r( wxPAPER_JENV_KAKU2 );
+        r( wxPAPER_JENV_KAKU2_ROTATED );
+        r( wxPAPER_JENV_KAKU3 );
+        r( wxPAPER_JENV_KAKU3_ROTATED );
+        r( wxPAPER_JENV_YOU4 );
+        r( wxPAPER_JENV_YOU4_ROTATED );
+        r( wxPAPER_LETTER_ROTATED );
+        r( wxPAPER_P16K );
+        r( wxPAPER_P16K_ROTATED );
+        r( wxPAPER_P32K );
+        r( wxPAPER_P32KBIG );
+        r( wxPAPER_P32KBIG_ROTATED );
+        r( wxPAPER_P32K_ROTATED );
+        r( wxPAPER_PENV_1 );
+        r( wxPAPER_PENV_10 );
+        r( wxPAPER_PENV_10_ROTATED );
+        r( wxPAPER_PENV_1_ROTATED );
+        r( wxPAPER_PENV_2 );
+        r( wxPAPER_PENV_2_ROTATED );
+        r( wxPAPER_PENV_3 );
+        r( wxPAPER_PENV_3_ROTATED );
+        r( wxPAPER_PENV_4 );
+        r( wxPAPER_PENV_4_ROTATED );
+        r( wxPAPER_PENV_5 );
+        r( wxPAPER_PENV_5_ROTATED );
+        r( wxPAPER_PENV_6 );
+        r( wxPAPER_PENV_6_ROTATED );
+        r( wxPAPER_PENV_7 );
+        r( wxPAPER_PENV_7_ROTATED );
+        r( wxPAPER_PENV_8 );
+        r( wxPAPER_PENV_8_ROTATED );
+        r( wxPAPER_PENV_9 );
+        r( wxPAPER_PENV_9_ROTATED );
+#endif
 
         r( wxPORTRAIT );
 
@@ -116,6 +168,12 @@ double print_constant( const char* name, int arg )
         r( wxPRINT_QUALITY_MEDIUM );
         r( wxPRINT_QUALITY_LOW );
         r( wxPRINT_QUALITY_DRAFT );
+
+        r( wxPRINT_MODE_FILE );
+        r( wxPRINT_MODE_NONE );
+        r( wxPRINT_MODE_PREVIEW );
+        r( wxPRINT_MODE_PRINTER );
+        r( wxPRINT_MODE_STREAM );
 
         r( wxPRINTER_NO_ERROR );
         r( wxPRINTER_CANCELLED );

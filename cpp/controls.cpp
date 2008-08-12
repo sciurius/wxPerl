@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2007 Mattia Barbon
+// Copyright:   (c) 2000-2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -137,6 +137,12 @@ double listctrl_constant( const char* name, int arg )
       r( wxLC_SORT_ASCENDING );         // listctrl
       r( wxLC_SORT_DESCENDING );        // listctrl
       r( wxLC_VIRTUAL );                // listctrl
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+      r( wxLC_NO_LABEL_WRAP );          // listctrl
+      r( wxLC_NO_SCROLL );              // listctrl
+      r( wxLC_OWNERDRAW_FIXED );        // listctrl
+      r( wxLC_SHOW_SEL_ALWAYS );        // listctrl
+#endif
       break;
   }
 #undef r

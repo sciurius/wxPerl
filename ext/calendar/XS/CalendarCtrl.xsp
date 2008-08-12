@@ -38,11 +38,17 @@ double calendar_constant( const char* name, int arg )
         r( wxCAL_NO_YEAR_CHANGE );
         r( wxCAL_NO_MONTH_CHANGE );
         r( wxCAL_SHOW_SURROUNDING_WEEKS );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+        r( wxCAL_SHOW_WEEK_NUMBERS );
+#endif
         r( wxCAL_SEQUENTIAL_MONTH_SELECTION );
 
         r( wxCAL_HITTEST_NOWHERE );
         r( wxCAL_HITTEST_HEADER );
         r( wxCAL_HITTEST_DAY );
+        r( wxCAL_HITTEST_DECMONTH );
+        r( wxCAL_HITTEST_INCMONTH );
+        r( wxCAL_HITTEST_SURROUNDING_WEEK );
 
         r( wxCAL_BORDER_NONE );
         r( wxCAL_BORDER_SQUARE );

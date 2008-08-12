@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     21/03/2001
 // RCS-ID:      $Id$
-// Copyright:   (c) 2001, 2003-2007 Mattia Barbon
+// Copyright:   (c) 2001, 2003-2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -49,11 +49,20 @@ double html_constant( const char* name, int arg )
         r( wxHF_ICONS_BOOK );
         r( wxHF_ICONS_BOOK_CHAPTER );
         r( wxHF_ICONS_FOLDER );
+        r( wxHF_DEFAULT_STYLE );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+        r( wxHF_DIALOG );
+        r( wxHF_EMBEDDED );
+        r( wxHF_FRAME );
+        r( wxHF_MODAL );
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
         r( wxHW_NO_SELECTION );
 #endif
         r( wxHW_SCROLLBAR_NEVER );
+        r( wxHW_DEFAULT_STYLE );
+        r( wxHW_SCROLLBAR_AUTO );
 
         r( wxHTML_ALIGN_LEFT );
         r( wxHTML_ALIGN_CENTER );
@@ -95,6 +104,25 @@ double html_constant( const char* name, int arg )
         r( wxHTML_FONT_SIZE_6 );
         r( wxHTML_FONT_SIZE_7 );
 #endif
+
+        r( wxHTML_ALIGN_JUSTIFY );
+        r( wxHTML_BLOCK );
+        r( wxHTML_BUFLEN );
+        r( wxHTML_OPEN );
+        r( wxHTML_PRINT_MAX_PAGES );
+        r( wxHTML_REDIRECT );
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+        r( wxHTML_SCRIPT_NORMAL );
+        r( wxHTML_SCRIPT_SUB );
+        r( wxHTML_SCRIPT_SUP );
+#endif
+        r( wxHTML_SCROLL_STEP );
+        r( wxHTML_SEL_CHANGING );
+        r( wxHTML_SEL_IN );
+        r( wxHTML_SEL_OUT );
+        r( wxHTML_URL_IMAGE );
+        r( wxHTML_URL_OTHER );
+        r( wxHTML_URL_PAGE );
         break;
     case 'P':
 #if wxPERL_USE_PRINTING_ARCHITECTURE
