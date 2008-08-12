@@ -78,6 +78,7 @@ WXPL_EXTERN_C_END
 #endif
 #undef do_open
 #undef do_close
+#undef utf8_length
 
 #if __VISUALC__
 #pragma warning ( disable: 4800 )

@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     28/03/2005
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2005-2007 Mattia Barbon
+## Copyright:   (c) 2005-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -190,8 +190,10 @@ wxFileType::GetPrintCommand( file, mimeType = wxEmptyString )
     wxFileType* GetFileTypeFromExtension( const wxString& extension );
     wxFileType* GetFileTypeFromMimeType( const wxString& mimeType );
     bool IsOfType( const wxString& mimeType, const wxString& wildcard );
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
     bool ReadMailcap( const wxString& filename, bool fallback = false );
     bool ReadMimeTypes( const wxString& filename );
+#endif
 };
 
 %{
