@@ -2266,6 +2266,7 @@ static double constant( const char *name, int arg )
     r( wxNB_LEFT );                     // notebook
     r( wxNB_RIGHT );                    // notebook
     r( wxNB_BOTTOM );                   // notebook
+    r( wxNB_TOP );                      // notebook
     r( wxNB_MULTILINE );                // notebook
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
     r( wxNB_HITTEST_NOWHERE );          // notebook
@@ -2273,6 +2274,15 @@ static double constant( const char *name, int arg )
     r( wxNB_HITTEST_ONLABEL );          // notebook
     r( wxNB_HITTEST_ONITEM );           // notebook
 #endif
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxNB_HITTEST_ONPAGE );           // notebook
+#endif
+    r( wxNB_DEFAULT );                  // notebook
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    r( wxNB_FLAT );                     // notebook
+    r( wxNB_NOPAGETHEME );              // notebook
+#endif
+
     r( wxNO );                          // dialog
     r( wxNO_BORDER );                   // frame toolbar
 #if WXPERL_W_VERSION_LT( 2, 7, 0 )
@@ -2474,6 +2484,9 @@ static double constant( const char *name, int arg )
     r( wxSL_RIGHT );                    // slider
     r( wxSL_TOP );                      // slider
     r( wxSL_SELRANGE );                 // slider
+    r( wxSL_BOTH );                     // slider
+    r( wxSL_BOTTOM );                   // slider
+    r( wxSL_TICKS );                    // slider
 #if WXPERL_W_VERSION_GE( 2, 5, 4 )
     r( wxSL_INVERSE );                  // slider
 #endif
@@ -2519,6 +2532,9 @@ static double constant( const char *name, int arg )
     r( wxSP_NOBORDER );                 // splitterwindow
     r( wxSP_PERMIT_UNSPLIT );           // splitterwindow
     r( wxSP_LIVE_UPDATE );              // splitterwindow
+    r( wxSP_NOSASH );                   // splitterwindow
+    r( wxSP_NO_XP_THEME );              // splitterwindow
+
     r( wxSPLIT_HORIZONTAL );            // splitterwindow
     r( wxSPLIT_VERTICAL );              // splitterwindow
 
@@ -2559,6 +2575,8 @@ static double constant( const char *name, int arg )
     r( wxSYS_SYSTEM_FONT );             // systemsettings
     r( wxSYS_DEVICE_DEFAULT_FONT );     // systemsettings
     r( wxSYS_DEFAULT_GUI_FONT );        // systemsettings
+    r( wxSYS_ICONTITLE_FONT );          // systemsettings
+    r( wxSYS_SYSTEM_FIXED_FONT );       // systemsettings
 
     // colours
     r( wxSYS_COLOUR_SCROLLBAR );        // systemsettings
@@ -2596,6 +2614,8 @@ static double constant( const char *name, int arg )
     r( wxSYS_COLOUR_3DHIGHLIGHT );      // systemsettings
     r( wxSYS_COLOUR_3DHILIGHT );        // systemsettings
     r( wxSYS_COLOUR_BTNHILIGHT );       // systemsettings
+
+    r( wxSYS_COLOUR_MAX );              // systemsettings
 
     // metrics
     r( wxSYS_MOUSE_BUTTONS );           // systemsettings
@@ -2642,6 +2662,14 @@ static double constant( const char *name, int arg )
     r( wxSYS_SCREEN_SMALL );            // systemsettings
     r( wxSYS_SCREEN_DESKTOP );          // systemsettings
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxSYS_DCLICK_MSEC );             // systemsettings
+#endif
+    r( wxSYS_DEFAULT_PALETTE );         // systemsettings
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxSYS_TABLET_PRESENT );          // systemsettings
+#endif
+
     // capabilities
     r( wxSYS_CAN_DRAW_FRAME_DECORATIONS );
     r( wxSYS_CAN_ICONIZE_FRAME );
@@ -2683,7 +2711,16 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
     r( wxTB_RIGHT );                    // toolbar
     r( wxTB_BOTTOM );                   // toolbar
+    r( wxTB_LEFT );                     // toolbar
+    r( wxTB_TOP );                      // toolbar
 #endif
+    r( wxTB_NOALIGN );                  // toolbar
+    r( wxTB_NODIVIDER );                // toolbar
+
+    r( wxTOOL_STYLE_BUTTON );           // toolbar
+    r( wxTOOL_STYLE_CONTROL );          // toolbar
+    r( wxTOOL_STYLE_SEPARATOR );        // toolbar
+
     r( wxTELETYPE );                    // font
     r( wxTE_PROCESS_ENTER );            // textctrl combobox comboctrl
     r( wxTE_PROCESS_TAB );              // textctrl
@@ -2712,6 +2749,10 @@ static double constant( const char *name, int arg )
     r( wxTE_HT_BELOW );                 // textctrl
     r( wxTE_HT_BEYOND );                // textctrl
 #endif
+    r( wxTE_AUTO_SCROLL );              // textctrl
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    r( wxTE_CAPITALIZE );               // textctrl
+#endif
 #if WXPERL_W_VERSION_LT( 2, 7, 0 )
     r( wxTHICK_FRAME );                 // frame dialog
 #endif
@@ -2736,18 +2777,26 @@ static double constant( const char *name, int arg )
     r( wxTEXT_ATTR_TABS );              // textctrl
 #endif
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
-    r( wxTEXT_ATTR_EFFECT_NONE );
-    r( wxTEXT_ATTR_EFFECT_CAPITALS );
-    r( wxTEXT_ATTR_EFFECT_SMALL_CAPITALS );
-    r( wxTEXT_ATTR_EFFECT_STRIKETHROUGH );
-    r( wxTEXT_ATTR_EFFECT_DOUBLE_STRIKETHROUGH );
-    r( wxTEXT_ATTR_EFFECT_SHADOW );
-    r( wxTEXT_ATTR_EFFECT_EMBOSS );
-    r( wxTEXT_ATTR_EFFECT_OUTLINE );
-    r( wxTEXT_ATTR_EFFECT_ENGRAVE );
-    r( wxTEXT_ATTR_EFFECT_SUPERSCRIPT );
-    r( wxTEXT_ATTR_EFFECT_SUBSCRIPT );
+    r( wxTEXT_ATTR_EFFECT_NONE );       // textctrl
+    r( wxTEXT_ATTR_EFFECT_CAPITALS );   // textctrl
+    r( wxTEXT_ATTR_EFFECT_SMALL_CAPITALS ); // textctrl
+    r( wxTEXT_ATTR_EFFECT_STRIKETHROUGH ); // textctrl
+    r( wxTEXT_ATTR_EFFECT_DOUBLE_STRIKETHROUGH ); // textctrl
+    r( wxTEXT_ATTR_EFFECT_SHADOW );     // textctrl
+    r( wxTEXT_ATTR_EFFECT_EMBOSS );     // textctrl
+    r( wxTEXT_ATTR_EFFECT_OUTLINE );    // textctrl
+    r( wxTEXT_ATTR_EFFECT_ENGRAVE );    // textctrl
+    r( wxTEXT_ATTR_EFFECT_SUPERSCRIPT );// textctrl
+    r( wxTEXT_ATTR_EFFECT_SUBSCRIPT );  // textctrl
+    r( wxTEXT_ATTR_EFFECTS );           // textctrl
+    r( wxTEXT_ATTR_FONT_ENCODING );     // textctrl
+    r( wxTEXT_ATTR_OUTLINE_LEVEL );     // textctrl
 #endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 2 )
+    r( wxTEXT_TYPE_ANY );               // textctrl
+#endif
+
     r( wxTINY_CAPTION_HORIZ );          // miniframe
     r( wxTINY_CAPTION_VERT );           // miniframe
     r( wxTIMER_CONTINUOUS );            // timer
@@ -2826,7 +2875,16 @@ static double constant( const char *name, int arg )
     r( wxWANTS_CHARS );                 // window
     r( wxWINDING_RULE );                // dc
     r( wxWidth );                       // layout constraints
-    r( wxWIZARD_EX_HELPBUTTON );
+    r( wxWIZARD_EX_HELPBUTTON );        // wizard
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxWIZARD_HALIGN_CENTRE );        // wizard
+    r( wxWIZARD_HALIGN_LEFT );          // wizard
+    r( wxWIZARD_HALIGN_RIGHT );         // wizard
+    r( wxWIZARD_TILE );                 // wizard
+    r( wxWIZARD_VALIGN_BOTTOM );        // wizard
+    r( wxWIZARD_VALIGN_CENTRE );        // wizard
+    r( wxWIZARD_VALIGN_TOP );           // wizard
+#endif
 
     r( wxWS_EX_VALIDATE_RECURSIVELY );  // window
     r( wxWS_EX_BLOCK_EVENTS );          // window
@@ -2974,6 +3032,8 @@ void SetConstantsOnce()
     wxPli_make_const_string( wxMEDIABACKEND_QUICKTIME ); // media
     wxPli_make_const_string( wxMEDIABACKEND_MCI ); // media
     wxPli_make_const_string( wxMEDIABACKEND_GSTREAMER ); // media
+    wxPli_make_const_string( wxMEDIABACKEND_REALPLAYER ); //media
+    wxPli_make_const_string( wxMEDIABACKEND_WMP10 ); // media
 #endif
 
     wxPli_make_const( "wxTheClipboard" );       // clipboard
@@ -3044,6 +3104,14 @@ void SetConstantsOnce()
     wxPli_make_const_string( wxIMAGE_OPTION_RESOLUTIONX );     // image
     wxPli_make_const_string( wxIMAGE_OPTION_RESOLUTIONY );     // image
     wxPli_make_const_string( wxIMAGE_OPTION_RESOLUTIONUNIT );  // image
+#endif
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    wxPli_make_const_string( wxIMAGE_OPTION_BITSPERSAMPLE );    // image
+    wxPli_make_const_string( wxIMAGE_OPTION_COMPRESSION );      // image
+    wxPli_make_const_string( wxIMAGE_OPTION_IMAGEDESCRIPTOR );  // image
+    wxPli_make_const_string( wxIMAGE_OPTION_PNG_BITDEPTH );     // image
+    wxPli_make_const_string( wxIMAGE_OPTION_PNG_FORMAT );       // image
+    wxPli_make_const_string( wxIMAGE_OPTION_SAMPLESPERPIXEL );  // image
 #endif
 
     wxPli_make_const_string( wxFileSelectorDefaultWildcardStr ); // filedialog
