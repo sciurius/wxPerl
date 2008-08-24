@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.85
+0.85  Sun Aug 24 11:26:38 CEST 2008
 	- Compilation fixes for wxMotif (patch by Marek Rouchal).
 	- On Mac OS X warn the user if it is not running the program
 	  using wxPerl.
