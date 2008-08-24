@@ -2,6 +2,8 @@ Revision history for Perl extension Wx.
 
 0.85
 	- Compilation fixes for wxMotif (patch by Marek Rouchal).
+	- On Mac OS X warn the user if it is not running the program
+	  using wxPerl.
 
 0.84  Sun Jun 29 21:43:31 CEST 2008
 	- Workaround for crash on exit on DEBUGGING Perls
