@@ -273,7 +273,7 @@ Load()
         return;
 
     // not on first column to avoid tripping up xsubpp
-  #ifdef DEBUGGING
+  #if defined(DEBUGGING) && !defined(PERL_USE_SAFE_PUTENV)
     // avoid crash on exit in Fedora (and other DEBUGGING Perls)
     PL_use_safe_putenv = 1;
   #endif
