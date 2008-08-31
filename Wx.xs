@@ -69,6 +69,9 @@ void WXDLLEXPORT wxEntryCleanup();
 IMPLEMENT_APP_NO_MAIN(wxPliApp);
 static bool wxPerlAppCreated = false;
 static bool wxPerlInitialized = false;
+#if !wxUSE_UNICODE
+bool wxPli_always_utf8;
+#endif
 
 #undef THIS
 
@@ -322,6 +325,14 @@ UnLoad()
     if( wxPerlInitialized && !wxPerlAppCreated )
         wxEntryCleanup();
     wxPerlInitialized = false;
+
+void
+SetAlwaysUTF8( always_utf8 = true )
+    bool always_utf8
+  CODE:
+#if !wxUSE_UNICODE
+    wxPli_always_utf8 = always_utf8;
+#endif
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
 

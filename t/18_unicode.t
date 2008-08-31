@@ -4,7 +4,7 @@ use strict;
 use Wx;
 use lib './t';
 use Tests_Helper qw(in_frame);
-use Test::More 'tests' => 8;
+use Test::More 'tests' => 12;
 use encoding qw(iso-8859-1);
 use Encode qw(is_utf8);
 
@@ -26,6 +26,23 @@ in_frame(
 
         $label->SetLabel( $ascii2 );
         is( $label->GetLabel, $ascii2 );
+
+        SKIP: {
+            skip "Only meaningful in ANSI mode", 4
+                if Wx::wxUNICODE;
+
+            # it would be better to use the latin1 label, but it might
+            # not round trip if the GUI locale is not latin1
+            $label->SetLabel( $ascii );
+
+            Wx::SetAlwaysUTF8( 1 );
+            is( $label->GetLabel, $ascii );
+            ok( is_utf8( $label->GetLabel ) );
+
+            Wx::SetAlwaysUTF8( 0 );
+            is( $label->GetLabel, $ascii );
+            ok( !is_utf8( $label->GetLabel ) );
+        };
 
         SKIP: {
             skip "Unicode support needed for the tests", 6

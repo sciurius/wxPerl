@@ -117,15 +117,47 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 
 #else
 
+#ifdef WXPL_EXT
+bool* wxPli_always_utf8;
+#else
+extern bool wxPli_always_utf8;
+#endif
+
 inline SV* wxPli_wxChar_2_sv( pTHX_ const wxChar* str, SV* out )
 {
-    sv_setpv( out, str );
+#ifdef WXPL_EXT
+    if( *wxPli_always_utf8 )
+#else
+    if( wxPli_always_utf8 )
+#endif
+    {
+        sv_setpv( out, wxConvUTF8.cWC2MB( wxConvLibc.cWX2WC( str ? str : wxEmptyString ) ) );
+        SvUTF8_on( out );
+    }
+    else
+    {
+        sv_setpv( out, str );
+    }
+
     return out;
 }
 
 inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 {
-    sv_setpvn( out, str.c_str(), str.size() );
+#ifdef WXPL_EXT
+    if( *wxPli_always_utf8 )
+#else
+    if( wxPli_always_utf8 )
+#endif
+    {
+        sv_setpv( out, wxConvUTF8.cWC2MB( wxConvLibc.cWX2WC( str.c_str() ) ) );
+        SvUTF8_on( out );
+    }
+    else
+    {
+        sv_setpvn( out, str.c_str(), str.size() );
+    }
+
     return out;
 }
 
@@ -480,6 +512,9 @@ struct wxPliHelpers
     void (* m_wxPli_thread_sv_clone )( pTHX_ const char* package,
                                        wxPliCloneSV clonefn );
 #endif
+#if !wxUSE_UNICODE
+    bool *m_wxPli_always_utf8;
+#endif
     int (* m_wxPli_av_2_arrayint )( pTHX_ SV* avref, wxArrayInt* array );
     void (* m_wxPli_set_events )( const wxPliEventDescription* events );
     int (* m_wxPli_av_2_arraystring )( pTHX_ SV* avref, wxArrayString* array );
@@ -501,6 +536,16 @@ struct wxPliHelpers
 #   define wxINIT_PLI_HELPER_THREADS( name )
 #endif
 
+#if !wxUSE_UNICODE
+#   define wxDEFINE_PLI_HELPER_UNICODE() \
+ &wxPli_always_utf8,
+#   define wxINIT_PLI_HELPER_UNICODE( name ) \
+  wxPli_always_utf8 = name->m_wxPli_always_utf8;
+#else
+#   define wxDEFINE_PLI_HELPER_UNICODE()
+#   define wxINIT_PLI_HELPER_UNICODE( name )
+#endif
+
 #define DEFINE_PLI_HELPERS( name ) \
 wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_evthandler_2_sv, &wxPli_object_2_sv, \
@@ -516,6 +561,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_match_arguments_skipfirst, &wxPli_objlist_2_av, &wxPli_intarray_push, \
  &wxPli_clientdatacontainer_2_sv, \
  wxDEFINE_PLI_HELPER_THREADS() \
+ wxDEFINE_PLI_HELPER_UNICODE() \
  &wxPli_av_2_arrayint, &wxPli_set_events, &wxPli_av_2_arraystring, \
  &wxPli_objlist_push, &wxPliOutputStream_ctor, &wxPli_stringarray_push \
  }
@@ -555,6 +601,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_intarray_push = name->m_wxPli_intarray_push; \
   wxPli_clientdatacontainer_2_sv = name->m_wxPli_clientdatacontainer_2_sv; \
   wxINIT_PLI_HELPER_THREADS( name ) \
+  wxINIT_PLI_HELPER_UNICODE( name ) \
   wxPli_av_2_arrayint = name->m_wxPli_av_2_arrayint; \
   wxPli_set_events = name->m_wxPli_set_events; \
   wxPli_av_2_arraystring = name->m_wxPli_av_2_arraystring; \

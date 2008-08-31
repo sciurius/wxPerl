@@ -2,6 +2,9 @@ Revision history for Perl extension Wx.
 
 0.86
 	- Allow binding a method to an event, not just a sub reference.
+	- Add Wx::SetAlwaysUTF8() to always return character strings from
+	  wxWidgets methods, even in ANSI mode (does nothing if wxWidgets
+	  is compiled with Unicode enabled).
 
 0.85  Sun Aug 24 11:26:38 CEST 2008
 	- Compilation fixes for wxMotif (patch by Marek Rouchal).
