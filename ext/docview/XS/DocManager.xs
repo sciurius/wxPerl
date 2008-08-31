@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     11/09/2002
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2002-2007 Mattia Barbon
+## Copyright:   (c) 2002-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -145,6 +145,8 @@ wxDocManager::OnUpdateFileOpen( event )
   CODE:
     THIS->OnUpdateFileOpen( *event );
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
 void
 wxDocManager::OnUpdateFileClose( event )
     wxUpdateUIEvent* event
@@ -156,6 +158,8 @@ wxDocManager::OnUpdateFileRevert( event )
     wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateFileRevert( *event );
+
+#endif
 
 void
 wxDocManager::OnUpdateFileNew( event )
@@ -169,11 +173,15 @@ wxDocManager::OnUpdateFileSave( event )
   CODE:
     THIS->OnUpdateFileSave( *event );
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
 void
 wxDocManager::OnUpdateFileSaveAs( event )
     wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateFileSaveAs( *event );
+
+#endif
 
 void
 wxDocManager::OnUpdateUndo( event )
@@ -187,11 +195,15 @@ wxDocManager::OnUpdateRedo( event )
   CODE:
     THIS->OnUpdateRedo( *event );
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
 void
 wxDocManager::OnUpdatePrint( event )
     wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdatePrint( *event );
+
+#endif
 
 #if WXPERL_W_VERSION_LE( 2, 5, 2 )
 
@@ -203,11 +215,15 @@ wxDocManager::OnUpdatePrintSetup( event )
 
 #endif
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
 void
 wxDocManager::OnUpdatePreview( event )
     wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdatePreview( *event );
+
+#endif
 
 wxView *
 wxDocManager::GetCurrentView()
