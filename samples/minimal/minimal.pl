@@ -6,7 +6,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000, 2004, 2005, 2006 Mattia Barbon
+## Copyright:   (c) 2000, 2004-2006, 2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -45,8 +45,8 @@ sub new {
 
   # declare that events coming from menu items with the given
   # id will be handled by these routines
-  EVT_MENU( $this, $ID_EXIT, \&OnQuit );
-  EVT_MENU( $this, $ID_ABOUT, \&OnAbout );
+  EVT_MENU( $this, $ID_EXIT, 'OnQuit' );
+  EVT_MENU( $this, $ID_ABOUT, 'OnAbout' );
 
   $this;
 }
