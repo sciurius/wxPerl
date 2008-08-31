@@ -97,7 +97,7 @@ double richtextctrl_constant( const char* name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 8, 0 )
         r( wxRICHTEXT_HANDLER_NO_HEADER_FOOTER );
 #endif
-#if WXPERL_W_VERSION_GE( 2, 8, 7 )
+#if WXPERL_W_VERSION_GE( 2, 8, 8 )
         r( wxRICHTEXT_HANDLER_CONVERT_FACENAMES );
 #endif
 
@@ -209,7 +209,7 @@ double richtextctrl_constant( const char* name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
         r( wxTEXT_ATTR_FONT_ENCODING );
 #endif
-#if WXPERL_W_VERSION_GE( 2, 8, 7 )
+#if WXPERL_W_VERSION_GE( 2, 8, 8 )
         r( wxTEXT_ATTR_KEEP_FIRST_PARA_STYLE );
 #endif
 #if WXPERL_W_VERSION_GE( 2, 8, 0 )
