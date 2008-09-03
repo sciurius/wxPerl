@@ -87,6 +87,16 @@ perl Makefile.PL --help
 ======================================================================
 
 EOT
+
+    if( grep /\b(?:INC|LIB)=/, @ARGV ) {
+        print <<EOT;
+======================================================================
+It seems that LIB and/or INC was passed to Makefile.PL invocation;
+this might cause the build to fail.  Please retry without passing
+INC/LIB to Makefile.PL
+======================================================================
+EOT
+    }
 }
 
 # local variables:
