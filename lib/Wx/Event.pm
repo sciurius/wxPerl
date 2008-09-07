@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2007 Mattia Barbon
+## Copyright:   (c) 2000-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -361,6 +361,7 @@ sub EVT_SPLITTER_SASH_POS_CHANGING($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_
 sub EVT_SPLITTER_SASH_POS_CHANGED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_SASH_POS_CHANGED, $_[2] ) }
 sub EVT_SPLITTER_UNSPLIT($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_UNSPLIT, $_[2] ) }
 sub EVT_SPLITTER_DOUBLECLICKED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_DOUBLECLICKED, $_[2] ) }
+sub EVT_SPLITTER_DCLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_COMMAND_SPLITTER_DOUBLECLICKED, $_[2] ) }
 
 #
 # SysColourChangedEvent
