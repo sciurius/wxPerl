@@ -274,12 +274,10 @@ Load()
 
     if( wxPerlAppCreated || wxTopLevelWindows.GetCount() > 0 )
         return;
-
-    // not on first column to avoid tripping up xsubpp
-  #if defined(DEBUGGING) && !defined(PERL_USE_SAFE_PUTENV)
+#if defined(DEBUGGING) && !defined(PERL_USE_SAFE_PUTENV)
     // avoid crash on exit in Fedora (and other DEBUGGING Perls)
     PL_use_safe_putenv = 1;
-  #endif
+#endif
 
     int argc = 0;
 #if wxUSE_UNICODE && WXPERL_W_VERSION_GE( 2, 5, 3 )
