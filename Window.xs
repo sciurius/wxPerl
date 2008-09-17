@@ -255,7 +255,7 @@ wxWindow::ConvertPixelsSizeToDialog( size )
 bool
 wxWindow::Destroy()
 
-#if    defined( __MSW__ ) \
+#if    defined( __WXMSW__ ) \
     || ( WXPERL_W_VERSION_GE( 2, 9, 0 ) && !defined( __WXGTK__ ) )
 
 void
