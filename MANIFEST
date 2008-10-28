@@ -6,7 +6,6 @@ MANIFEST
 MANIFEST.SKIP
 README.txt
 Changes
-run
 
 build/Wx/Overload/Driver.pm
 build/Wx/Overload/Handle.pm
