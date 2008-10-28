@@ -2749,7 +2749,9 @@ static double constant( const char *name, int arg )
     r( wxTE_HT_BELOW );                 // textctrl
     r( wxTE_HT_BEYOND );                // textctrl
 #endif
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
     r( wxTE_AUTO_SCROLL );              // textctrl
+#endif
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
     r( wxTE_CAPITALIZE );               // textctrl
 #endif

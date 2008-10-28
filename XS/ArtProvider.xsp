@@ -155,7 +155,11 @@ void
 InsertProvider( provider )
     wxArtProvider* provider
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    wxArtProvider::PushBack( provider);
+#else
     wxArtProvider::Insert( provider);
+#endif
 
 #endif
 

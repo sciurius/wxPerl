@@ -338,6 +338,23 @@ MODULE=Wx_Evt PACKAGE=Wx::IconizeEvent
 
 bool
 wxIconizeEvent::Iconized()
+  CODE:
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+    RETVAL = THIS->Iconized();
+#else
+    RETVAL = THIS->IsIconized();
+#endif
+  OUTPUT: RETVAL
+
+bool
+wxIconizeEvent::IsIconized()
+  CODE:
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+    RETVAL = THIS->Iconized();
+#else
+    RETVAL = THIS->IsIconized();
+#endif
+  OUTPUT: RETVAL
 
 MODULE=Wx_Evt PACKAGE=Wx::KeyEvent
 
