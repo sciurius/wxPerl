@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     17/08/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2003, 2005-2007 Mattia Barbon
+## Copyright:   (c) 2001-2003, 2005-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -189,12 +189,12 @@ EOT
 
     foreach my $i ( sort keys %constants ) {
       my $count = scalar @{$constants{$i}};
-      print $out "const unsigned char wxPliOvl_${i}_arr\[\] = { ";
+      print $out "const unsigned char wxPliOvl_${i}_datadef\[\] = { ";
       print $out join ", ", map { "wxPliOvl$_" } @{$constants{$i}};
       print $out " };\n";
       print $out <<EOT;
 const wxPliPrototype wxPliOvl_${i}
-    ( wxPliOvl\_tnames, wxPliOvl_${i}_arr, $count );
+    ( wxPliOvl\_tnames, wxPliOvl_${i}_datadef, $count );
 EOT
     }
 
