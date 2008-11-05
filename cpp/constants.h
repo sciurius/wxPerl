@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     17/03/2001
 // RCS-ID:      $Id$
-// Copyright:   (c) 2001-2002, 2005 Mattia Barbon
+// Copyright:   (c) 2001-2002, 2005, 2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ extern void FUNCPTR( wxPli_remove_constant_function )
 inline wxPlConstants::wxPlConstants( PL_CONST_FUNC function )
     :m_function( function )
 {
-#if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
+#if NEEDS_PLI_HELPERS_STRUCT()
     dTHX;
     // GRR! init helpers...
     SV* wxpli_tmp = get_sv( "Wx::_exports", 1 );

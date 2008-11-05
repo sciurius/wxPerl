@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2003, 2006 Mattia Barbon
+// Copyright:   (c) 2000-2003, 2006, 2008 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,9 @@
 #endif
 
 #define WXPLDLL
-#if defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
+#define NEEDS_PLI_HELPERS_STRUCT() \
+  defined( WXPL_EXT ) && !defined( WXPL_STATIC ) && !defined(__WXMAC__)
+#if NEEDS_PLI_HELPERS_STRUCT()
 #  define FUNCPTR( name ) ( * name )
 #else
 #  define FUNCPTR( name ) name
