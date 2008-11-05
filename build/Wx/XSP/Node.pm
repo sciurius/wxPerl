@@ -445,7 +445,7 @@ sub print_noconst {
 
   return join( '',
                $this->base_type,
-               ( $this->is_pointer ? '*' :
+               ( $this->is_pointer ? ( '*' x $this->is_pointer ) :
                  $this->is_reference ? '&' : '' ) );
 }
 
@@ -455,7 +455,7 @@ sub print {
   return join( '',
                ( $this->is_const ? 'const ' : '' ),
                $this->base_type,
-               ( $this->is_pointer ? '*' :
+               ( $this->is_pointer ? ( '*' x $this->is_pointer ) :
                  $this->is_reference ? '&' : '' ) );
 }
 
