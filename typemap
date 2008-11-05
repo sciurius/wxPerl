@@ -42,6 +42,7 @@ wxUint32                T_IV
 wxByte                  T_U_CHAR
 wxTextCtrlHitTestResult T_ENUM
 wxArrayString           T_ARRAYSTRING
+wxPliUserDataCD **      T_ARRAYUSERDATA
 wxArrayInt              T_ARRAYINT
 wxTextPos               T_IV
 wxTextAttrAlignment     T_ENUM
@@ -666,3 +667,8 @@ T_ARRAYSTRING
 INPUT
 T_ARRAYINT
     wxPli_av_2_arrayint( aTHX_ $arg, & $var );
+
+INPUT
+T_ARRAYUSERDATA
+    wxPli_av_2_userdatacdarray( aTHX_ $arg, & $var );
+    wxPliArrayGuard<wxPliUserDataCD*> guard_$var = $var;
