@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.87
+	- Fix segmentation fault when building under Mac in ANSI mode.
 
 0.86  Wed Sep  3 22:57:17 CEST 2008
 	- Allow binding a method to an event, not just a sub reference.
