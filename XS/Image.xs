@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     02/12/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2005-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -107,7 +107,7 @@ wxImage*
 newNameType( CLASS, name, type, index = -1 )
     SV* CLASS
     wxString name
-    long type
+    wxBitmapType type
     int index
   CODE:
     RETVAL = new wxImage( name, type, index );
@@ -129,7 +129,7 @@ wxImage*
 newStreamType( CLASS, stream, type, index = -1 )
     SV* CLASS
     wxPliInputStream stream
-    long type
+    wxBitmapType type
     int index
   CODE:
     RETVAL = new wxImage( stream, type, index );
@@ -245,7 +245,7 @@ FindHandlerName( name )
 wxImageHandler*
 FindHandlerExtType( extension, type )
     wxString extension
-    long type
+    wxBitmapType type
   CODE:
     RETVAL = wxImage::FindHandler( extension, type );
   OUTPUT:
@@ -253,7 +253,7 @@ FindHandlerExtType( extension, type )
 
 wxImageHandler*
 FindHandlerType( type )
-    long type
+    wxBitmapType type
   CODE:
     RETVAL = wxImage::FindHandler( type );
   OUTPUT:
@@ -413,7 +413,7 @@ wxImage::LoadFile( ... )
 bool
 wxImage::LoadFileType( name, type, index = -1 )
     wxString name
-    long type
+    wxBitmapType type
     int index
   CODE:
     RETVAL = THIS->LoadFile( name, type, index );
@@ -433,7 +433,7 @@ wxImage::LoadFileMIME( name, type, index = -1 )
 bool
 wxImage::LoadStreamType( stream, type, index = -1 )
     wxPliInputStream stream
-    long type
+    wxBitmapType type
     int index
   CODE:
     RETVAL = THIS->LoadFile( stream, type, index );
@@ -482,7 +482,7 @@ wxImage::SaveFileOnly( name )
 bool
 wxImage::SaveFileType( name, type )
     wxString name
-    long type
+    wxBitmapType type
   CODE:
     RETVAL = THIS->SaveFile( name, type );
   OUTPUT:
@@ -500,7 +500,7 @@ wxImage::SaveFileMIME( name, type )
 bool
 wxImage::SaveStreamType( stream, type )
     wxPliOutputStream stream
-    long type
+    wxBitmapType type
   CODE:
     RETVAL = THIS->SaveFile( stream, type );
   OUTPUT:
@@ -787,8 +787,17 @@ wxImageHandler::GetName()
 wxString
 wxImageHandler::GetExtension()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxBitmapType
+wxImageHandler::GetType()
+
+#else
+
 long
 wxImageHandler::GetType()
+
+#endif
 
 wxString
 wxImageHandler::GetMimeType()
@@ -819,7 +828,7 @@ wxImageHandler::SetMimeType( type )
 
 void
 wxImageHandler::SetType( type )
-    long type
+    wxBitmapType type
 
 MODULE=Wx PACKAGE=Wx::GIFHandler
 

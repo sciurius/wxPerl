@@ -5,12 +5,14 @@
 ## Modified by:
 ## Created:     08/12/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2004 Mattia Barbon
+## Copyright:   (c) 2001-2004, 2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 MODULE=Wx PACKAGE=Wx::GridEvent
+
+#if 0
 
 wxGridEvent*
 wxGridEvent::new( id, type, obj, row = -1, col = -1, x = -1, y = -1, sel = true, control = true, shift = true, alt = true, meta = true )
@@ -26,6 +28,8 @@ wxGridEvent::new( id, type, obj, row = -1, col = -1, x = -1, y = -1, sel = true,
     bool shift
     bool alt
     bool meta
+
+#endif
 
 int
 wxGridEvent::GetRow()
@@ -57,6 +61,8 @@ wxGridEvent::ShiftDown()
 
 MODULE=Wx PACKAGE=Wx::GridSizeEvent
 
+#if 0
+
 wxGridSizeEvent*
 wxGridSizeEvent::new( id, type, obj, rowOrCol = -1, x = -1, y = -1, control = true, shift = true, alt = true, meta = true )
     int id
@@ -69,6 +75,8 @@ wxGridSizeEvent::new( id, type, obj, rowOrCol = -1, x = -1, y = -1, control = tr
     bool shift
     bool alt
     bool meta
+
+#endif
 
 int
 wxGridSizeEvent::GetRowOrCol()
@@ -94,6 +102,8 @@ wxGridSizeEvent::ShiftDown()
 
 MODULE=Wx PACKAGE=Wx::GridRangeSelectEvent
 
+#if 0
+
 wxGridRangeSelectEvent*
 wxGridRangeSelectEvent::new( id, type, obj, topLeft, bottomRight, sel = true, control = false, shift = false, alt = false, meta = false )
     int id
@@ -111,6 +121,8 @@ wxGridRangeSelectEvent::new( id, type, obj, topLeft, bottomRight, sel = true, co
         *bottomRight, sel, control, shift, alt, meta );
   OUTPUT:
     RETVAL
+
+#endif
 
 wxGridCellCoords*
 wxGridRangeSelectEvent::GetTopLeftCoords()

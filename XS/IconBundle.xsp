@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     25/03/2003
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2003, 2005, 2007 Mattia Barbon
+## Copyright:   (c) 2003, 2005, 2007-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,15 +16,17 @@
 #include <wx/iconbndl.h>
 #include "cpp/overload.h"
 
+%typemap{wxBitmapType}{simple};
+
 %name{Wx::IconBundle} class wxIconBundle
 {
     %name{newEmpty} wxIconBundle();
     %name{newFile} wxIconBundle( const wxString& file,
-                                 long type = wxBITMAP_TYPE_ANY );
+                                 wxBitmapType type = wxBITMAP_TYPE_ANY );
     %name{newIcon} wxIconBundle( const wxIcon& icon );
 
     %name{AddIconFile} void AddIcon( const wxString& filr,
-                                     long type = wxBITMAP_TYPE_ANY );
+                                     wxBitmapType type = wxBITMAP_TYPE_ANY );
     %name{AddIconIcon} void AddIcon( const wxIcon& icon );
 
     %name{GetIconSize} const wxIcon& GetIcon( const wxSize& size );

@@ -529,7 +529,11 @@ static wxPlINH inherit[] =
 #endif
     I( OwnerDrawnComboBox, ComboCtrl )
     I( PlOwnerDrawnComboBox, OwnerDrawnComboBox )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) && defined( __WXGTK__ )
+    I( BitmapComboBox,  ComboBox )
+#else
     I( BitmapComboBox,  OwnerDrawnComboBox )
+#endif
     I( GenericCollapsiblePane, Control )
     I( CollapsiblePane, GenericCollapsiblePane )
 
@@ -584,7 +588,7 @@ static wxPlINH inherit[] =
     I( TreeCtrl,        GenericTreeCtrl )
 #endif
 
-#if defined(__WXGTK__) || \
+#if ( defined( __WXGTK__ ) && WXPERL_W_VERSION_LT( 2, 9, 0 ) ) || \
     ( defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 5, 1 ) )
     I( ComboBox,        Control )
 #else

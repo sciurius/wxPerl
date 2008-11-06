@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2007 Mattia Barbon
+## Copyright:   (c) 2000-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -201,7 +201,12 @@ wxToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHel
     wxString shortHelp
     wxString longHelp
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = THIS->AddTool( toolId, wxEmptyString, *bitmap1, wxNullBitmap,
+                            wxITEM_NORMAL, shortHelp, longHelp );
+#else
     RETVAL = THIS->AddTool( toolId, *bitmap1, shortHelp, longHelp );
+#endif
   OUTPUT:
     RETVAL
 
@@ -215,10 +220,18 @@ wxToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap,
     wxString shortHelp
     wxString longHelp
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = THIS->AddTool( toolId, wxEmptyString, *bitmap1, *bitmap2,
+                            isToggle ? wxITEM_CHECK : wxITEM_NORMAL,
+                            shortHelp, longHelp );
+    if( clientData )
+      RETVAL->SetClientData( clientData );
+#else
     RETVAL = THIS->AddTool( toolId, *bitmap1, *bitmap2, isToggle,
         0, shortHelp, longHelp );
     if( clientData )
       RETVAL->SetClientData( clientData );
+#endif
   OUTPUT:
     RETVAL
 
@@ -389,10 +402,18 @@ wxToolBarBase::InsertToolLong( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNul
     wxString shortHelp
     wxString longHelp
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = THIS->InsertTool( pos, toolId, wxEmptyString, *bitmap1, *bitmap2,
+                               isToggle ? wxITEM_CHECK : wxITEM_NORMAL,
+                               shortHelp, longHelp );
+    if( clientData )
+        THIS->SetClientData( clientData );
+#else
     RETVAL = THIS->InsertTool( pos, toolId, *bitmap1, *bitmap2, isToggle,
         0, shortHelp, longHelp );
     if( clientData )
         THIS->SetClientData( clientData );
+#endif
   OUTPUT: RETVAL
 
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
