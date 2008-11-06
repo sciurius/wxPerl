@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     14/08/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007 Mattia Barbon
+## Copyright:   (c) 2007-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -20,6 +20,8 @@ void
 wxItemContainer::Append( ... )
   PPCODE:
     BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_arr_arr, AppendItemsData )
+        MATCH_REDISP( wxPliOvl_arr, AppendItems )
         MATCH_REDISP( wxPliOvl_s_s, AppendData )
         MATCH_REDISP( wxPliOvl_s, AppendString )
     END_OVERLOAD( Wx::ItemContainer::Append )
@@ -28,16 +30,20 @@ wxItemContainer::Append( ... )
     %name{AppendString} void Append( const wxString& item );
     %name{AppendData} void Append( const wxString& item,
                                    wxPliUserDataCD* data );
-##  Append( [items] );
-##  Append( [items], [data] );
-##  Append( n, [items] );
-##  Append( n, [items], [data] );
+    %name{AppendItems} void Append( const wxArrayString& items );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    %name{AppendItemsData} void Append( const wxArrayString& items,
+                                        wxPliUserDataCD** data )
+        %code%{ THIS->Append( items, (wxClientData**)data ); %};
+#endif
 
 %{
 void
 wxItemContainer::Insert( ... )
   PPCODE:
     BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_arr_n_arr, InsertItemsData )
+        MATCH_REDISP( wxPliOvl_arr_n, InsertItems )
         MATCH_REDISP( wxPliOvl_s_n_s, InsertData )
         MATCH_REDISP( wxPliOvl_s_n, InsertString )
     END_OVERLOAD( Wx::ItemContainer::Insert )
@@ -46,15 +52,33 @@ wxItemContainer::Insert( ... )
     %name{InsertString} void Insert( const wxString& item, unsigned int pos );
     %name{InsertData} void Insert( const wxString& item, unsigned int pos,
                                    wxPliUserDataCD* data );
-##  Insert( [items], pos );
-##  Insert( [items], pos, [data] );
-##  Insert( n, [items], pos );
-##  Insert( n, [items], pos, [data] );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    %name{InsertItems} void Insert( const wxArrayString& items,
+                                    unsigned int pos );
+    %name{InsertItemsData} void Insert( const wxArrayString& items,
+                                        unsigned int pos,
+                                        wxPliUserDataCD** data )
+        %code%{ THIS->Insert( items, pos, (wxClientData**)data ); %};
+#endif
 
-##  Set( n, [items] );
-##  Set( n, [items], [data] );
-##  Set( n, [items] );
-##  Set( n, [items], [data] );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+%{
+void
+wxItemContainer::Set( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_arr_arr, SetItemsData )
+        MATCH_REDISP( wxPliOvl_arr, SetItems )
+    END_OVERLOAD( Wx::ItemContainer::Set )
+%}
+
+    %name{SetItems} void Set( const wxArrayString& items );
+    %name{SetItemsData} void Set( const wxArrayString& items,
+                                  wxPliUserDataCD** data )
+        %code%{ THIS->Set( items, (wxClientData**)data ); %};
+
+#endif
 
     void Clear();
     void Delete( int n );

@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 172;
+use Test::More 'tests' => 180;
 use Tests_Helper qw(test_app);
 use Fatal qw(open);
 
@@ -162,12 +162,22 @@ ok( $setsizewh,   "Wx::Caret::SetSizeWH" );
 # Wx::ControlWithItems/Wx::ComboBox
 ##############################################################################
 {
-my( $cwiappendstr, $cwiappenddata,
-    $cbappendstr, $cbappenddata,
-    $cbsetselectionN, $cbsetselectionNN ) = ( 0, 0, 0, 0, 0, 0 );
+my( $cwiappendstr, $cwiappenddata, $cwiappenditems,
+    $cbappendstr, $cbappenddata, $cbsetselectionN, $cbsetselectionNN,
+    $cwiappenditemsdata, $cwiinsertitemsdata, $cwiinsertitems,
+    $cwiinsertdata, $cwiinsertstr, $cwisetitemsdata, $cwisetitems );
 my $good_combo = 'Wx::ComboBox'->isa( 'Wx::Choice' );
 hijack( 'Wx::ControlWithItems::AppendString' => sub { $cwiappendstr = 1 },
         'Wx::ControlWithItems::AppendData'   => sub { $cwiappenddata = 1 },
+        'Wx::ControlWithItems::AppendItems'  => sub { $cwiappenditems = 1 },
+        ( Wx::wxVERSION() >= 2.009
+          ? ( 'Wx::ControlWithItems::AppendItemsData' => sub { $cwiappenditemsdata = 1 },
+              'Wx::ControlWithItems::InsertItemsData' => sub { $cwiinsertitemsdata = 1 },
+              'Wx::ControlWithItems::InsertItems' => sub { $cwiinsertitems = 1 },
+              'Wx::ControlWithItems::InsertData' => sub { $cwiinsertdata = 1 },
+              'Wx::ControlWithItems::InsertString' => sub { $cwiinsertstr = 1 },
+              'Wx::ControlWithItems::SetItemsData' => sub { $cwisetitemsdata = 1 },
+              'Wx::ControlWithItems::SetItems' => sub { $cwisetitems = 1 } ) : () ),
         ( $good_combo ? () :
           ( 'Wx::ComboBox::AppendString'     => sub { $cbappendstr = 1 },
             'Wx::ComboBox::AppendData'       => sub { $cbappenddata = 1 } )
@@ -186,6 +196,33 @@ ok( $cwiappendstr,    "Wx::ControlWithItems::AppendString" );
 
 $cwi->Append( 'a', {} );
 ok( $cwiappenddata,   "Wx::ControlWithItems::AppendData" );
+
+$cwi->Append( [ 'c', 'd', 'e' ] );
+ok( $cwiappenditems,  "Wx::ControlWithItems::AppendItems" );
+
+if( Wx::wxVERSION() >= 2.009 ) {
+    $cwi->Append( [ 'c', 'd', 'e' ], [ 1, 2, 3 ] );
+    $cwi->Insert( [ 'c', 'd', 'e' ], 2, [ 1, 2, 3 ] );
+    $cwi->Insert( [ 'c', 'd', 'e' ], 3 );
+    $cwi->Insert( 'w', 4, 7 );
+    $cwi->Insert( 'w', 5 );
+    $cwi->Set( [ 'c', 'd', 'e' ], [ 1, 2, 3 ] );
+    $cwi->Set( [ 'w', 'x', 'y' ] );
+} else {
+    ( $cwiappenditems, $cwiappenditemsdata, $cwiinsertitemsdata,
+      $cwiinsertitems, $cwiinsertdata, $cwiinsertstr, $cwisetitemsdata,
+      $cwisetitems ) = ( 1, 1, 1, 1, 1, 1, 1, 1 );
+
+    # just to check it is there
+    $cwi->Set( [ 'w', 'x', 'y' ] );
+}
+ok( $cwiappenditemsdata, 'Wx::ControlWithItems::AppendItemsData' );
+ok( $cwiinsertitemsdata, 'Wx::ControlWithItems::InsertItemsData' );
+ok( $cwiinsertitems, 'Wx::ControlWithItems::InsertItems' );
+ok( $cwiinsertdata, 'Wx::ControlWithItems::InsertData' );
+ok( $cwiinsertstr, 'Wx::ControlWithItems::InsertString' );
+ok( $cwisetitemsdata, 'Wx::ControlWithItems::SetItemsData' );
+ok( $cwisetitems, 'Wx::ControlWithItems::SetItems' );
 
 if( !$good_combo  ) {
   $cb->Append( 'a' );
