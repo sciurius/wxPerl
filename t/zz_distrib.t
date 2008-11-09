@@ -1,6 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
+use if !$ENV{AUTHOR_TESTS}, 'Test::More' => skip_all => 'Author tests';
 use Test::More;
 eval "use YAML 0.35";
 plan skip_all => "YAML 0.35 required for testing META.yml" if $@;

@@ -39,6 +39,7 @@ my $build_requires =
     'Data::Dumper'           => 0,
     'ExtUtils::MakeMaker'    => 6.17,
     'Alien::wxWidgets'       => 0.25,
+    'if'                     => 0.03,
     };
 
 eval {

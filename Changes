@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.88  Sun Nov  9 18:03:25 CET 2008
+	- Skip author tests unless $ENV{AUTHOR_TESTS} is set.
+
 0.87  Fri Nov  7 20:31:09 CET 2008
 	- Fix segmentation fault when building under Mac in ANSI mode.
 
