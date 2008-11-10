@@ -121,7 +121,6 @@ sub _depend_common {
 sub depend_core {
   my $this = shift;
 
-
   my %files = $this->files_to_install();
   my %depend = ( _depend_common( $this ),
                  $exp              => join( ' ', $this->files_with_constants ),
@@ -132,6 +131,7 @@ sub depend_core {
                  'blibdirs'        => 'copy_files',
                  'blibdirs.ts'     => 'copy_files',
                  'copy_files'      => join( ' ', keys %files ),
+                 'distmeta'        => 'check_my_metafile',
                );
   my %this_depend = @_;
 
@@ -223,6 +223,9 @@ typemap : typemap.tmpl script/make_typemap.pl
 
 cpp/v_cback_def.h : script/make_v_cback.pl
 	\$(PERL) script/make_v_cback.pl > cpp/v_cback_def.h
+
+check_my_metafile :
+	\$(PERL) -e "eval 'require ExtUtils::MY_Metafile; 1' || die 'Install ExtUtils::MY_Metafile'"
 
 EOT
 
