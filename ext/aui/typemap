@@ -13,7 +13,7 @@
 TYPEMAP
 wxAuiNotebookEvent *    O_WXOBJECT_THR
 wxAuiManagerEvent *     O_WXOBJECT_THR
-wxAuiManager *          O_NON_WXOBJECT
-const wxAuiManager *    O_NON_WXOBJECT
-wxAuiPaneInfo *         O_NON_WXOBJECT
+wxAuiManager *          O_NON_WXOBJECT_THR
+const wxAuiManager *    O_NON_WXOBJECT_THR
+wxAuiPaneInfo *         O_NON_WXOBJECT_THR
 wxAuiNotebook *         O_WXEVTHANDLER

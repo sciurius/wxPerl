@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     11/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2007 Mattia Barbon
+## Copyright:   (c) 2006-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -199,7 +199,19 @@ wxPlConstants aui_module( &aui_constant );
 {
     wxAuiManager( wxWindow* managed_wnd = NULL,
                   unsigned int flags = wxAUI_MGR_DEFAULT );
-    ~wxAuiManager();
+
+%{
+static void
+wxAuiManager::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+    ~wxAuiManager()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::AuiManager", THIS, ST(0) );
+                 delete THIS;
+               %}
+
     void UnInit();
 
     void SetFlags( unsigned int flags );

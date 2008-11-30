@@ -276,6 +276,7 @@ ext/aui/XS/AuiPaneInfo.xsp
 ext/aui/lib/Wx/AUI.pm
 ext/aui/t/01_load.t
 ext/aui/t/02_inheritance.t
+ext/aui/t/03_threads.t
 ext/aui/typemap
 ext/aui/typemap.xsp
 
