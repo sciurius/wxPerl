@@ -210,7 +210,7 @@ wxAuiManager::CLONE()
     ~wxAuiManager()
         %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::AuiManager", THIS, ST(0) );
                  delete THIS;
-               %}
+               %};
 
     void UnInit();
 
