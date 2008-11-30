@@ -64,7 +64,7 @@ newFile( CLASS, name, type, desW = -1, desH = -1 )
     int desH
   CODE:
 #if defined( __WXMOTIF__ ) || defined( __WXX11__ ) || defined( __WXGTK__ ) \
-    || ( defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 9, 0 ) )
+    || WXPERL_W_VERSION_GE( 2, 9, 0 )
     RETVAL = new wxIcon( name, wxBitmapType(type), desW, desH );
 #else
     RETVAL = new wxIcon( name, type, desW, desH );

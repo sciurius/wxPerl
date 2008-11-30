@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     06/09/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
+## Copyright:   (c) 2001-2002, 2004, 2006-2008 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -80,10 +80,17 @@ wxGenericMDIClientWindow*
 wxMDIParentFrame::GetClientWindow()
 
 #else
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+wxMDIClientWindowBase*
+wxMDIParentFrame::GetClientWindow()
+
+#else
 
 wxMDIClientWindow*
 wxMDIParentFrame::GetClientWindow()
 
+#endif
 #endif
 
 #if ( !defined(__WXGTK__) && !defined(__WXMAC__) && !defined(__WXMOTIF__) ) \

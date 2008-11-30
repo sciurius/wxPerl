@@ -14,6 +14,7 @@ TYPEMAP
 wxMDIParentFrame *      O_WXOBJECT
 wxMDIChildFrame *       O_WXOBJECT
 wxMDIClientWindow *     O_WXOBJECT
+wxMDIClientWindowBase * O_WXOBJECT
 
 wxGenericMDIParentFrame *      O_WXOBJECT
 wxGenericMDIChildFrame *       O_WXOBJECT

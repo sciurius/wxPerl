@@ -66,7 +66,6 @@ double socket_constant( const char* name, int arg )
         r( wxSOCKET_WOULDBLOCK );
         r( wxSOCKET_TIMEDOUT );
         r( wxSOCKET_MEMERR );
-        r( wxSOCKET_DUMMY );
     break;
     }
 #undef r

@@ -111,9 +111,6 @@ sub tests {
         if !defined $x->[0];
       skip( "wxMSW wxCheckListBox can't store client data yet", 8 )
         if Wx::wxMSW && $name eq 'Wx::CheckListBox';
-      skip( "wxGTK has bugs in versions <= 2.3.3", 8 )
-        if Wx::wxGTK && Wx::wxVERSION < 2.003003 &&
-           ( $name->isa( 'Wx::ListBox' ) || $name->isa( 'Wx::Choice' ) );
 
       $list->Clear;
 
