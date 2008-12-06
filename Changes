@@ -1,7 +1,7 @@
 Revision history for Perl extension Wx.
 
-0.89
-	- Fix thread crash caused by AUI.
+0.89  Sat Dec  6 11:39:54 CET 2008
+	- Fix crash when using AUI and threads.
 
 0.88  Sun Nov  9 18:03:25 CET 2008
 	- Skip author tests unless $ENV{AUTHOR_TESTS} is set.
