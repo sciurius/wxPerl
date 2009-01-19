@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.90
+
 0.89  Sat Dec  6 11:39:54 CET 2008
 	- Fix crash when using AUI and threads.
 
