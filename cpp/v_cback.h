@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2007 Mattia Barbon
+// Copyright:   (c) 2000-2007, 2009 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -194,6 +194,23 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         bool val = SvTRUE( ret );                                             \
         SvREFCNT_dec( ret );                                                  \
         return val;                                                           \
+    } else                                                                    \
+        return false;                                                         \
+  }
+
+#define DEC_V_CBACK_BOOL__WXSTRING_WXSTRINGp( METHOD ) \
+  bool METHOD( const wxString&, wxString* )
+
+#define DEF_V_CBACK_BOOL__WXSTRING_WXSTRINGp_pure( CLASS, BASE, METHOD )\
+  bool CLASS::METHOD( const wxString& p1, wxString* p2 ) \
+  {                                                                           \
+    dTHX;                                                                     \
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
+    {                                                                         \
+        wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,         \
+                                         "P", &p1 ) );                        \
+        WXSTRING_INPUT( *p2, const char *, ret );                             \
+        return SvOK( ret );                                                   \
     } else                                                                    \
         return false;                                                         \
   }

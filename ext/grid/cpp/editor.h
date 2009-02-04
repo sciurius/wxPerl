@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     28/05/2003
 // RCS-ID:      $Id$
-// Copyright:   (c) 2003-2005 Mattia Barbon
+// Copyright:   (c) 2003-2005, 2009 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -198,7 +198,12 @@ public:
     virtual wxString GetValue() const { return wxEmptyString; }
 
     DEC_V_CBACK_VOID__INT_INT_WXGRID_pure( BeginEdit );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    DEC_V_CBACK_VOID__INT_INT_WXGRID_pure( ApplyEdit );
+    DEC_V_CBACK_BOOL__WXSTRING_WXSTRINGp( EndEdit );
+#else
     DEC_V_CBACK_BOOL__INT_INT_WXGRID_pure( EndEdit );
+#endif
     DEC_V_CBACK_VOID__VOID( Reset );
     DEC_V_CBACK_VOID__VOID( Destroy );
     DEC_V_CBACK_VOID__VOID( StartingClick );
@@ -208,7 +213,12 @@ public:
 };
 
 DEF_V_CBACK_VOID__INT_INT_WXGRID_pure( wxPlGridCellEditor, wxGridCellEditor, BeginEdit );
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+DEF_V_CBACK_VOID__INT_INT_WXGRID_pure( wxPlGridCellEditor, wxGridCellEditor, ApplyEdit );
+DEF_V_CBACK_BOOL__WXSTRING_WXSTRINGp_pure( wxPlGridCellEditor, wxGridCellEditor, EndEdit );
+#else
 DEF_V_CBACK_BOOL__INT_INT_WXGRID_pure( wxPlGridCellEditor, wxGridCellEditor, EndEdit );
+#endif
 DEF_V_CBACK_VOID__VOID_pure( wxPlGridCellEditor, wxGridCellEditor, Reset );
 DEF_V_CBACK_VOID__VOID( wxPlGridCellEditor, wxGridCellEditor, Destroy );
 DEF_V_CBACK_VOID__VOID( wxPlGridCellEditor, wxGridCellEditor, StartingClick );

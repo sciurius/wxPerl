@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Created:     24/01/2004
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2004, 2007 Mattia Barbon
+## Copyright:   (c) 2004, 2007, 2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -34,10 +34,6 @@
     bool IsLocalHost();
 
     %name{SetAnyAddress} bool AnyAddress();
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-    %name{SetBroadcastAddress} bool BroadcastAddress();
-#endif
-
     %name{GetIPAddress} wxString IPAddress();
 
     %name{GetHostname} wxString Hostname();
@@ -51,6 +47,10 @@
     wxIPV4address();
 
     %name{GetOrigHostname} wxString OrigHostname();
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    %name{SetBroadcastAddress} bool BroadcastAddress();
+#endif
 };
 
 #if wxUSE_IPV6

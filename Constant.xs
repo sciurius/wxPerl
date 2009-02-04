@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2008 Mattia Barbon
+// Copyright:   (c) 2000-2009 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -67,6 +67,7 @@
 #include <wx/list.h>
 #include <wx/stattext.h>
 #include <wx/dirctrl.h>
+#include <wx/spinctrl.h>
 
 #include "cpp/wxapi.h"
 #include "cpp/setup.h"
@@ -1206,6 +1207,7 @@ static double constant( const char *name, int arg )
 
     r( wxEVT_SASH_DRAGGED );
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
     r( wxEVT_NC_LEFT_DOWN );
     r( wxEVT_NC_LEFT_UP );
     r( wxEVT_NC_MIDDLE_DOWN );
@@ -1218,6 +1220,7 @@ static double constant( const char *name, int arg )
     r( wxEVT_NC_LEFT_DCLICK );
     r( wxEVT_NC_MIDDLE_DCLICK );
     r( wxEVT_NC_RIGHT_DCLICK );
+#endif
 
     r( wxEVT_CHAR );
     r( wxEVT_CHAR_HOOK );
@@ -1271,7 +1274,7 @@ static double constant( const char *name, int arg )
     r( wxEVT_PAINT );
     r( wxEVT_ERASE_BACKGROUND );
     r( wxEVT_NC_PAINT );
-    r( wxEVT_PAINT_ICON );
+    // r( wxEVT_PAINT_ICON );
     // r( wxEVT_MENU_CHAR );
     // r( wxEVT_MENU_INIT );
     r( wxEVT_MENU_HIGHLIGHT );
@@ -1280,7 +1283,7 @@ static double constant( const char *name, int arg )
     // r( wxEVT_POPUP_MENU_INIT );
     r( wxEVT_CONTEXT_MENU );
     r( wxEVT_SYS_COLOUR_CHANGED );
-    r( wxEVT_SETTING_CHANGED );
+    // r( wxEVT_SETTING_CHANGED );
     r( wxEVT_QUERY_NEW_PALETTE );
     r( wxEVT_PALETTE_CHANGED );
     r( wxEVT_JOY_BUTTON_DOWN );
@@ -1288,9 +1291,9 @@ static double constant( const char *name, int arg )
     r( wxEVT_JOY_MOVE );
     r( wxEVT_JOY_ZMOVE );
     r( wxEVT_DROP_FILES );
-    r( wxEVT_DRAW_ITEM );
-    r( wxEVT_MEASURE_ITEM );
-    r( wxEVT_COMPARE_ITEM );
+    // r( wxEVT_DRAW_ITEM );
+    // r( wxEVT_MEASURE_ITEM );
+    // r( wxEVT_COMPARE_ITEM );
     r( wxEVT_INIT_DIALOG );
     r( wxEVT_IDLE );
     r( wxEVT_UPDATE_UI );

@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2008 Mattia Barbon
+## Copyright:   (c) 2006-2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -189,8 +189,8 @@ wxTextAttrEx::new( ... )
     void SetRightIndent( int indent );
 
     void SetFontSize( int pointSize );
-    void SetFontStyle( int fontStyle );
-    void SetFontWeight( int fontWeight );
+    void SetFontStyle( wxFontStyle fontStyle );
+    void SetFontWeight( wxFontWeight fontWeight );
     void SetFontFaceName( const wxString& faceName );
     void SetFontUnderlined( bool underlined );
 
@@ -223,8 +223,8 @@ wxTextAttrEx::new( ... )
     long GetFlags() const;
 
     int GetFontSize() const;
-    int GetFontStyle() const;
-    int GetFontWeight() const;
+    wxFontStyle GetFontStyle() const;
+    wxFontWeight GetFontWeight() const;
     bool GetFontUnderlined() const;
     const wxString& GetFontFaceName() const;
 

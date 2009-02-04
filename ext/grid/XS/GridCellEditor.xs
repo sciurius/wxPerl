@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     13/12/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2007 Mattia Barbon
+## Copyright:   (c) 2001-2007, 2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -60,11 +60,29 @@ wxGridCellEditor::BeginEdit( row, col, grid )
     int col
     wxGrid* grid
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+bool
+wxGridCellEditor::EndEdit( oldval, newval )
+    wxString oldval
+    wxString newval
+  C_ARGS: oldval, &newval
+
+void
+wxGridCellEditor::ApplyEdit( row, col, grid )
+    int row
+    int col
+    wxGrid* grid
+
+#else
+
 bool
 wxGridCellEditor::EndEdit( row, col, grid )
     int row
     int col
     wxGrid* grid
+
+#endif
 
 void
 wxGridCellEditor::Reset()

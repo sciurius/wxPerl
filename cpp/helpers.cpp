@@ -1556,7 +1556,7 @@ XS(Connect2)
     wxEvtHandler *THISo =
         (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
     SV* func = ST(1);
-    I32 evtID = CvXSUBANY(cv).any_i32;
+    wxEventType evtID = CvXSUBANY(cv).any_i32;
 
     if( SvOK( func ) )
     {
@@ -1584,7 +1584,7 @@ XS(Connect3)
         (wxEvtHandler*)wxPli_sv_2_object( aTHX_ THISs, "Wx::EvtHandler" );
     wxWindowID id = wxPli_get_wxwindowid( aTHX_ ST(1) );
     SV* func = ST(2);
-    I32 evtID = CvXSUBANY(cv).any_i32;
+    wxEventType evtID = CvXSUBANY(cv).any_i32;
 
     if( SvOK( func ) )
     {

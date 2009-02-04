@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007-2008 Mattia Barbon
+## Copyright:   (c) 2007-2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -35,8 +35,8 @@ public:
 //     DEC_V_CBACK_UINT__VOID( GetRowCount );
     DEC_V_CBACK_UINT__VOID_const( GetColumnCount );
     DEC_V_CBACK_WXSTRING__UINT_const( GetColumnType );
-    DEC_V_CBACK_VOID__mWXVARIANT_UINT_UINT_const( GetValue );
-    DEC_V_CBACK_BOOL__WXVARIANT_UINT_UINT( SetValue );
+    DEC_V_CBACK_VOID__mWXVARIANT_UINT_UINT_const( GetValueByRow );
+    DEC_V_CBACK_BOOL__WXVARIANT_UINT_UINT( SetValueByRow );
 };
 
 DEF_V_CBACK_UINT__VOID_const_pure( wxPlDataViewIndexListModel,
@@ -47,10 +47,10 @@ DEF_V_CBACK_WXSTRING__UINT_const_pure( wxPlDataViewIndexListModel,
 //                              wxDataViewIndexListModel, GetRowCount );
 DEF_V_CBACK_VOID__mWXVARIANT_UINT_UINT_const_pure( wxPlDataViewIndexListModel,
                                                    wxDataViewIndexListModel,
-                                                   GetValue );
+                                                   GetValueByRow );
 DEF_V_CBACK_BOOL__WXVARIANT_UINT_UINT_pure( wxPlDataViewIndexListModel,
                                             wxDataViewIndexListModel,
-                                            SetValue );
+                                            SetValueByRow );
 %}
 %file{-};
 
@@ -58,11 +58,11 @@ DEF_V_CBACK_BOOL__WXVARIANT_UINT_UINT_pure( wxPlDataViewIndexListModel,
 {
 ##    unsigned int GetRowCount();
 
-    void GetValue( wxVariant &variant,
-                   unsigned int row, unsigned int col ) const;
+    void GetValueByRow( wxVariant &variant,
+                        unsigned int row, unsigned int col ) const;
 
-    bool SetValue( const wxVariant &variant,
-                   unsigned int row, unsigned int col );
+    bool SetValueByRow( const wxVariant &variant,
+                        unsigned int row, unsigned int col );
 
     void RowPrepended();
     void RowInserted( unsigned int before );
