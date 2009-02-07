@@ -223,8 +223,13 @@ wxTextAttrEx::new( ... )
     long GetFlags() const;
 
     int GetFontSize() const;
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     wxFontStyle GetFontStyle() const;
     wxFontWeight GetFontWeight() const;
+#else
+    int GetFontStyle() const;
+    int GetFontWeight() const;
+#endif
     bool GetFontUnderlined() const;
     const wxString& GetFontFaceName() const;
 

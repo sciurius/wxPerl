@@ -202,10 +202,6 @@ wxDC::DrawLines( list, xoffset = 0, yoffset = 0 )
     THIS->DrawLines( &points, xoffset, yoffset );
 
 void
-wxDC::DrawObject( object )
-    wxDrawObject* object
-
-void
 wxDC::DrawPoint( x, y )
     wxCoord x
     wxCoord y

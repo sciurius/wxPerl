@@ -25,6 +25,10 @@ typedef int wxBrushStyle;
 typedef int wxPenStyle;
 typedef int wxPenJoin;
 typedef int wxPenCap;
+typedef int wxRasterOperationMode;
+typedef int wxMappingMode;
+typedef int wxPolygonFillMode;
+typedef int wxFloodFillStyle;
 #endif
 
 MODULE=Wx_GDI

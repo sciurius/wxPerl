@@ -472,7 +472,7 @@ wxRegion*
 newPolygon( CLASS, list, fillStyle = wxODDEVEN_RULE )
     SV* CLASS
     SV* list
-    int fillStyle
+    wxPolygonFillMode fillStyle
   PREINIT:
     wxPoint* points;
     size_t n;

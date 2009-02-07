@@ -903,7 +903,7 @@ static double constant( const char *name, int arg )
     r( wxBORDER_NONE );                 // window
 
     r( wxBACKWARD );                    // sizer
-
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
     r( wxBLIT_00220326 );               // dc
     r( wxBLIT_007700E6 );               // dc
     r( wxBLIT_00990066 );               // dc
@@ -920,7 +920,7 @@ static double constant( const char *name, int arg )
     r( wxBLIT_SRCINVERT );              // dc
     r( wxBLIT_SRCPAINT );               // dc
     r( wxBLIT_WHITENESS );              // dc
-
+#endif
     r( wxBRUSHSTYLE_BDIAGONAL_HATCH );  // brush
     r( wxBRUSHSTYLE_CROSSDIAG_HATCH );  // brush
     r( wxBRUSHSTYLE_CROSS_HATCH );      // brush
@@ -2423,7 +2423,7 @@ static double constant( const char *name, int arg )
     r( wxRightOf );                     // layout constraints
 
     r( wxRESET );                       // sizer
-
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
     r( wxROP_BLACK );                   // dc
     r( wxROP_COPYPEN );                 // dc
     r( wxROP_MASKNOTPEN );              // dc
@@ -2440,6 +2440,7 @@ static double constant( const char *name, int arg )
     r( wxROP_NOTXORPEN );               // dc
     r( wxROP_WHITE );                   // dc
     r( wxROP_XORPEN );                  // dc
+#endif
     break;
   case 'S':
 
