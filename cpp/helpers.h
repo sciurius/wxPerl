@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2008 Mattia Barbon
+// Copyright:   (c) 2000-2009 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -25,12 +25,16 @@ class wxPliUserDataCD;
 class wxPliTreeItemData;
 struct wxPliEventDescription;
 
+#ifndef WXDLLIMPEXP_FWD_CORE
+#define WXDLLIMPEXP_FWD_CORE WXDLLEXPORT
+#endif
+
 // forward declare Wx_*Stream
-class WXDLLEXPORT wxInputStream;
-class WXDLLEXPORT wxOutputStream;
-class WXDLLEXPORT wxEvtHandler;
-class WXDLLEXPORT wxClientDataContainer;
-class WXDLLEXPORT wxPoint2DDouble;
+class WXDLLIMPEXP_FWD_CORE wxInputStream;
+class WXDLLIMPEXP_FWD_CORE wxOutputStream;
+class WXDLLIMPEXP_FWD_CORE wxEvtHandler;
+class WXDLLIMPEXP_FWD_CORE wxClientDataContainer;
+class WXDLLIMPEXP_FWD_CORE wxPoint2DDouble;
 typedef wxInputStream Wx_InputStream;
 typedef wxOutputStream Wx_OutputStream;
 typedef const char* PlClassName; // for typemap
@@ -322,7 +326,7 @@ wxPoint FUNCPTR( wxPli_sv_2_wxpoint_test )( pTHX_ SV* scalar, bool* ispoint );
 wxPoint FUNCPTR( wxPli_sv_2_wxpoint )( pTHX_ SV* scalar );
 wxSize FUNCPTR( wxPli_sv_2_wxsize )( pTHX_ SV* scalar );
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
-class WXDLLEXPORT wxGBPosition; class WXDLLEXPORT wxGBSpan;
+class WXDLLIMPEXP_FWD_CORE wxGBPosition; class WXDLLIMPEXP_FWD_CORE wxGBSpan;
 wxGBPosition wxPli_sv_2_wxgbposition( pTHX_ SV* scalar );
 wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar );
 #endif
@@ -654,7 +658,7 @@ public:
             SvREFCNT_inc( m_self );
     }
 
-    SV* GetSelf() { return m_self; }
+    SV* GetSelf() const { return m_self; }
     void DeleteSelf( bool fromDestroy );
 public:
     SV* m_self;
@@ -675,28 +679,15 @@ public:
     {
         m_func = fn;
     }
-#elif WXPERL_W_VERSION_GE( 2, 5, 1 )
+#else
     wxPliClassInfo( wxChar *cName, const wxClassInfo *baseInfo1,
                     const wxClassInfo *baseInfo2, 
-                    int sz, wxPliGetCallbackObjectFn fn )
-        :wxClassInfo( cName, baseInfo1, baseInfo2, sz, 0)
+                    int sz, wxObjectConstructorFn ctor,
+                    wxPliGetCallbackObjectFn fn )
+        :wxClassInfo( cName, baseInfo1, baseInfo2, sz, ctor)
     {
         m_func = fn;
     }
-#else
-    wxPliClassInfo( wxChar *cName, wxChar *baseName1, wxChar *baseName2, 
-                    int sz, wxPliGetCallbackObjectFn fn )
-        :wxClassInfo( cName, baseName1, baseName2, sz, 0)
-        {
-            m_func = fn;
-            //FIXME//
-            m_baseInfo1 = wxClassInfo::FindClass( baseName1 );
-            //FIXME// this is an ugly hack!
-#if 0 && !defined( __WXMAC__ )
-            if( m_baseInfo1 == 0 )
-                croak( "ClassInfo initialization failed '%s'", baseName1 );
-#endif
-        }
 #endif
 public:
     wxPliGetCallbackObjectFn m_func;
@@ -709,19 +700,16 @@ public:\
   static const wxClassInfo* ms_classParents[] ;\
   virtual wxClassInfo *GetClassInfo() const \
    { return &ms_classInfo; }
-#elif WXPERL_W_VERSION_GE( 2, 5, 1 )
+#else
 #define WXPLI_DECLARE_DYNAMIC_CLASS(name) \
 public:\
   static wxPliClassInfo ms_classInfo;\
   virtual wxClassInfo *GetClassInfo() const \
    { return &ms_classInfo; }
-#else
-#define WXPLI_DECLARE_DYNAMIC_CLASS(name) \
-public:\
-  static wxPliClassInfo sm_class##name;\
-  virtual wxClassInfo *GetClassInfo() const \
-   { return &sm_class##name; }
 #endif
+#define WXPLI_DECLARE_DYNAMIC_CLASS_CTOR(name) \
+  WXPLI_DECLARE_DYNAMIC_CLASS(name) \
+  static wxObject* wxCreateObject()
 
 #define WXPLI_DECLARE_SELFREF() \
 public:\
@@ -732,29 +720,27 @@ public:\
   wxPliVirtualCallback m_callback
 
 #if wxUSE_EXTENDED_RTTI
-#define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename)                        \
+#define WXPLI_IMPLEMENT_DYNAMIC_CLASS_(name, basename, fn)                   \
     wxPliSelfRef* wxPliGetSelfFor##name(wxObject* object)                    \
         { return &((name *)object)->m_callback; }                            \
     const wxClassInfo* name::ms_classParents[] =                             \
         { &basename::ms_classInfo , NULL };                                  \
     wxPliClassInfo name::ms_classInfo( ms_classParents,                      \
-        (wxChar *) wxT(#name), (int) sizeof(name), NULL,                     \
+        (wxChar *) wxT(#name), (int) sizeof(name), fn,                       \
         (wxPliGetCallbackObjectFn) wxPliGetSelfFor##name);
-#elif WXPERL_W_VERSION_GE( 2, 5, 1 )
-#define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename)                        \
+#else
+#define WXPLI_IMPLEMENT_DYNAMIC_CLASS_(name, basename, fn)                   \
     wxPliSelfRef* wxPliGetSelfFor##name(wxObject* object)                    \
         { return &((name *)object)->m_callback; }                            \
     wxPliClassInfo name::ms_classInfo((wxChar *) wxT(#name),                 \
-        &basename::ms_classInfo, NULL, (int) sizeof(name),                   \
+        &basename::ms_classInfo, NULL, (int) sizeof(name), fn,               \
         (wxPliGetCallbackObjectFn) wxPliGetSelfFor##name);
-#else
-#define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename) \
-wxPliSelfRef* wxPliGetSelfFor##name(wxObject* object) \
-  { return &((name *)object)->m_callback; }\
-wxPliClassInfo name::sm_class##name((wxChar *) wxT(#name), \
-  (wxChar *) wxT(#basename), (wxChar *) NULL, (int) sizeof(name), \
-  (wxPliGetCallbackObjectFn) wxPliGetSelfFor##name);
 #endif
+#define WXPLI_IMPLEMENT_DYNAMIC_CLASS(name, basename)                        \
+    WXPLI_IMPLEMENT_DYNAMIC_CLASS_(name, basename, NULL)
+#define WXPLI_IMPLEMENT_DYNAMIC_CLASS_CTOR(name, basename)                   \
+    WXPLI_IMPLEMENT_DYNAMIC_CLASS_(name, basename, name::wxCreateObject)     \
+    wxObject* name::wxCreateObject() { return new name(); }
 
 #define WXPLI_DEFAULT_CONSTRUCTOR_NC( name, packagename, incref ) \
     name( const char* package )                                   \

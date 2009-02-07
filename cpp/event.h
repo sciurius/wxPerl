@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     30/03/2002
 // RCS-ID:      $Id$
-// Copyright:   (c) 2002-2004, 2006-2007 Mattia Barbon
+// Copyright:   (c) 2002-2004, 2006-2007, 2009 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -16,8 +16,11 @@
 
 class wxPlEvent : public wxEvent
 {
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlEvent );
+    WXPLI_DECLARE_DYNAMIC_CLASS_CTOR( wxPlEvent );
     WXPLI_DECLARE_V_CBACK();
+
+    // only to appease wxWidgets' RTTI
+    wxPlEvent() : m_callback( NULL ) {}
 public:
     wxPlEvent( const char* package, int id, wxEventType eventType )
         : wxEvent( id, eventType ),
@@ -39,6 +42,10 @@ wxEvent* wxPlEvent::Clone() const
     dTHX;
     wxPlEvent* self = (wxPlEvent*)this;
 
+    // only to appease wxWidgets' RTTI
+    if( !self->m_callback.IsOk() )
+        return new wxPlEvent();
+
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
@@ -52,12 +59,15 @@ wxEvent* wxPlEvent::Clone() const
     return 0;
 }
 
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlEvent, wxEvent );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS_CTOR( wxPlEvent, wxEvent );
 
 class wxPlCommandEvent : public wxCommandEvent
 {
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlCommandEvent );
+    WXPLI_DECLARE_DYNAMIC_CLASS_CTOR( wxPlCommandEvent );
     WXPLI_DECLARE_V_CBACK();
+
+    // only to appease wxWidgets' RTTI
+    wxPlCommandEvent() : m_callback( NULL ) {}
 public:
     wxPlCommandEvent( const char* package, int id, wxEventType eventType )
         : wxCommandEvent( id, eventType ),
@@ -79,6 +89,10 @@ wxEvent* wxPlCommandEvent::Clone() const
     dTHX;
     wxPlCommandEvent* self = (wxPlCommandEvent*)this;
 
+    // only to appease wxWidgets' RTTI
+    if( !self->m_callback.IsOk() )
+        return new wxPlCommandEvent();
+
     if( wxPliVirtualCallback_FindCallback( aTHX_ &self->m_callback, "Clone" ) )
     {
         SV* ret = wxPliVirtualCallback_CallCallback
@@ -92,11 +106,11 @@ wxEvent* wxPlCommandEvent::Clone() const
     return 0;
 }
 
-WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlCommandEvent, wxCommandEvent );
+WXPLI_IMPLEMENT_DYNAMIC_CLASS_CTOR( wxPlCommandEvent, wxCommandEvent );
 
 class wxPlThreadEvent : public wxEvent
 {
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlThreadEvent );
+    WXPLI_DECLARE_DYNAMIC_CLASS_CTOR( wxPlThreadEvent );
 public:
     static void SetStash( SV* hv_ref )
     {
@@ -199,19 +213,15 @@ const wxClassInfo* wxPlThreadEvent::ms_classParents[] =
     { &wxEvent::ms_classInfo , NULL };
 wxPliClassInfo wxPlThreadEvent::ms_classInfo(
     ms_classParents, (wxChar*)wxT( "wxPlPlThreadEvent"),
-    (int)sizeof(wxPlThreadEvent), NULL,
-    (wxPliGetCallbackObjectFn) wxPliGetSelfForwxPlThreadEvent );
-#elif WXPERL_W_VERSION_GE( 2, 5, 1 )
-wxPliClassInfo wxPlThreadEvent::ms_classInfo(
-    (wxChar*)wxT( "wxPlPlThreadEvent"), &wxEvent::ms_classInfo,
-    NULL, (int)sizeof(wxPlThreadEvent),
+    (int)sizeof(wxPlThreadEvent), wxPlThreadEvent::wxCreateObject,
     (wxPliGetCallbackObjectFn) wxPliGetSelfForwxPlThreadEvent );
 #else
-wxPliClassInfo wxPlThreadEvent::sm_classwxPlThreadEvent(
-    (wxChar*)wxT( "wxPlPlThreadEvent"), (wxChar*)wxT("wxEvent"),
-    (wxChar*)NULL, (int)sizeof(wxPlThreadEvent),
+wxPliClassInfo wxPlThreadEvent::ms_classInfo(
+    (wxChar*)wxT( "wxPlPlThreadEvent"), &wxEvent::ms_classInfo,
+    NULL, (int)sizeof(wxPlThreadEvent), wxPlThreadEvent::wxCreateObject,
     (wxPliGetCallbackObjectFn) wxPliGetSelfForwxPlThreadEvent );
 #endif
+wxObject* wxPlThreadEvent::wxCreateObject() { return new wxPlThreadEvent(); }
 
 // local variables: //
 // mode: c++ //

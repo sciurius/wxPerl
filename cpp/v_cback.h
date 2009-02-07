@@ -56,6 +56,8 @@ public:
     SV* CallCallback( pTHX_ I32 flags, const char* argtypes,
                       va_list& arglist ) const;
     CV* GetMethod() const { return m_method; }
+
+    bool IsOk() const { return GetSelf() && m_package; }
 public:
     const char* m_package;
     HV* m_stash;
