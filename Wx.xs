@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     01/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2002, 2004-2008 Mattia Barbon
+// Copyright:   (c) 2000-2002, 2004-2009 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -203,6 +203,10 @@ WXPLI_BOOT_ONCE_EXP(Wx);
 
 extern bool Wx_booted, Wx_Const_booted, Wx_Ctrl_booted,
     Wx_Evt_booted, Wx_Wnd_booted, Wx_GDI_booted, Wx_Win_booted;
+
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+typedef int wxPolygonFillMode;
+#endif
 
 MODULE=Wx PACKAGE=Wx
 
