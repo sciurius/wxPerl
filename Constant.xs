@@ -1100,6 +1100,8 @@ static double constant( const char *name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
     r( wxDIRP_DIR_MUST_EXIST );
     r( wxDIRP_CHANGE_DIR );
+    r( wxDIRP_USE_TEXTCTRL );
+    r( wxDIRP_DEFAULT_STYLE );
 #endif
     r( wxDOWN );
 
