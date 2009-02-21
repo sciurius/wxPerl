@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     21/09/2002
 // RCS-ID:      $Id$
-// Copyright:   (c) 2002-2003, 2005-2008 Mattia Barbon
+// Copyright:   (c) 2002-2003, 2005-2009 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -46,6 +46,20 @@ WXPL_EXTERN_C_START
 #include <perl.h>
 #include <XSUB.h>
 WXPL_EXTERN_C_END
+
+#if WXPERL_P_VERSION_LT( 5, 10, 0 )
+
+// fix newXS type for perl 5.8
+inline CV* wxPli_newXS(pTHX_ const char* name, XSUBADDR_t addr,
+                       const char* file)
+{
+    return newXS( (char*)name, addr, (char*)file );
+}
+
+#undef newXS
+#define newXS( a, b, c ) wxPli_newXS( aTHX_ a, b, c )
+
+#endif
 
 #if defined(__VISUALC__) || defined(__DIGITALMARS__)
 #undef mode_t
