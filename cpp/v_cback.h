@@ -200,23 +200,6 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
         return false;                                                         \
   }
 
-#define DEC_V_CBACK_BOOL__WXSTRING_WXSTRINGp( METHOD ) \
-  bool METHOD( const wxString&, wxString* )
-
-#define DEF_V_CBACK_BOOL__WXSTRING_WXSTRINGp_pure( CLASS, BASE, METHOD )\
-  bool CLASS::METHOD( const wxString& p1, wxString* p2 ) \
-  {                                                                           \
-    dTHX;                                                                     \
-    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
-    {                                                                         \
-        wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,         \
-                                         "P", &p1 ) );                        \
-        WXSTRING_INPUT( *p2, const char *, ret );                             \
-        return SvOK( ret );                                                   \
-    } else                                                                    \
-        return false;                                                         \
-  }
-
 #define DEC_V_CBACK_WXSTRING__WXSTRING_INT( METHOD ) \
   wxString METHOD( const wxString&, int )
 

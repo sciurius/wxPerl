@@ -14,6 +14,23 @@
 #include <wx/clntdata.h>
 #include "cpp/helpers.h"
 
+#define DEC_V_CBACK_BOOL__INT_INT_cWXGRID_WXSTRING_WXSTRINGp( METHOD ) \
+    bool METHOD( int, int, const wxGrid*, const wxString&, wxString* )
+
+#define DEF_V_CBACK_BOOL__INT_INT_cWXGRID_WXSTRING_WXSTRINGp_pure( CLASS, BASE, METHOD )\
+  bool CLASS::METHOD( int p1, int p2, const wxGrid* p3, const wxString& p4, wxString* p5 ) \
+  {                                                                           \
+    dTHX;                                                                     \
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
+    {                                                                         \
+        wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,         \
+                                         "iiOP", p1, p2, p3, &p4 ) );         \
+        WXSTRING_INPUT( *p5, const char *, ret );                             \
+        return SvOK( ret );                                                   \
+    } else                                                                    \
+        return false;                                                         \
+  }
+
 #define DEC_V_CBACK_VOID__INT_INT_WXGRID_pure( METHOD ) \
   void METHOD( int, int, wxGrid* )
 
@@ -200,7 +217,7 @@ public:
     DEC_V_CBACK_VOID__INT_INT_WXGRID_pure( BeginEdit );
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
     DEC_V_CBACK_VOID__INT_INT_WXGRID_pure( ApplyEdit );
-    DEC_V_CBACK_BOOL__WXSTRING_WXSTRINGp( EndEdit );
+    DEC_V_CBACK_BOOL__INT_INT_cWXGRID_WXSTRING_WXSTRINGp( EndEdit );
 #else
     DEC_V_CBACK_BOOL__INT_INT_WXGRID_pure( EndEdit );
 #endif
@@ -215,7 +232,7 @@ public:
 DEF_V_CBACK_VOID__INT_INT_WXGRID_pure( wxPlGridCellEditor, wxGridCellEditor, BeginEdit );
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 DEF_V_CBACK_VOID__INT_INT_WXGRID_pure( wxPlGridCellEditor, wxGridCellEditor, ApplyEdit );
-DEF_V_CBACK_BOOL__WXSTRING_WXSTRINGp_pure( wxPlGridCellEditor, wxGridCellEditor, EndEdit );
+DEF_V_CBACK_BOOL__INT_INT_cWXGRID_WXSTRING_WXSTRINGp_pure( wxPlGridCellEditor, wxGridCellEditor, EndEdit );
 #else
 DEF_V_CBACK_BOOL__INT_INT_WXGRID_pure( wxPlGridCellEditor, wxGridCellEditor, EndEdit );
 #endif

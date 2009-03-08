@@ -63,10 +63,13 @@ wxGridCellEditor::BeginEdit( row, col, grid )
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 
 bool
-wxGridCellEditor::EndEdit( oldval, newval )
+wxGridCellEditor::EndEdit( row, col, grid, oldval, newval )
+    int row
+    int col
+    wxGrid* grid
     wxString oldval
     wxString newval
-  C_ARGS: oldval, &newval
+  C_ARGS: row, col, grid, oldval, &newval
 
 void
 wxGridCellEditor::ApplyEdit( row, col, grid )
