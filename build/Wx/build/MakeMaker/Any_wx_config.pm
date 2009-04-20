@@ -26,7 +26,8 @@ sub get_flags {
 
   $config{CC} = $ENV{CXX} || Alien::wxWidgets->compiler;
   $config{LD} = $ENV{CXX} || Alien::wxWidgets->linker;
-  $config{CCFLAGS} .= Alien::wxWidgets->c_flags . ' ';
+  # used to be CCFLAGS, but overrode CCFLAGS from MakeMaker
+  $config{CC} .= ' ' . Alien::wxWidgets->c_flags . ' ';
   $config{dynamic_lib}{OTHERLDFLAGS} .= Alien::wxWidgets->link_flags . ' ';
   $config{DEFINE} .= Alien::wxWidgets->defines . ' ';
   $config{INC} .= Alien::wxWidgets->include_path;

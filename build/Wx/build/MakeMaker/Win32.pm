@@ -14,7 +14,8 @@ sub get_flags {
 
   $config{CC} = Alien::wxWidgets->compiler;
   $config{LD} = Alien::wxWidgets->linker;
-  $config{CCFLAGS} .= Alien::wxWidgets->c_flags . ' ';
+  # used to be CCFLAGS, but overrode CCFLAGS from MakeMaker
+  $config{CC} .= ' ' . Alien::wxWidgets->c_flags . ' ';
 #  $config{dynamic_lib}{OTHERLDFLAGS} = Alien::wxWidgets->link_flags;
   $config{clean}{FILES} .= is_mingw ? ' dll.base dll.exp '
                                     :' *.pdb *.pdb *_def.old ';
