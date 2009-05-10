@@ -124,8 +124,8 @@ wxPopupTransientWindow * O_WXOBJECT
 wxPlPopupTransientWindow * O_WXOBJECT
 wxDisplay *             O_NON_WXOBJECT
 wxVideoMode *           O_NON_WXOBJECT
-wxEventBlocker *        O_NON_WXOBJECT
-wxWindowUpdateLocker *  O_NON_WXOBJECT
+wxEventBlocker *        O_NON_WXOBJECT_THR
+wxWindowUpdateLocker *  O_NON_WXOBJECT_THR
 
 wxMenuBar *             O_WXOBJECT
 wxMenu *                O_WXOBJECT

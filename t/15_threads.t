@@ -33,6 +33,8 @@ my $size = Wx::Size->new( 100, 100 );
 my $rect = Wx::Rect->new( $point, $size );
 my $bitmap = Wx::Bitmap->new( 100, 100, -1 );
 my $image = Wx::Image->new( 16, 16 );
+my $locker = Wx::WindowUpdateLocker->new( $frame );
+my $blocker = Wx::EventBlocker->new( $frame );
 
 EVT_BUTTON( $app, -1,
             sub {
