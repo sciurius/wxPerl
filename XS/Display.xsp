@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     26/09/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007 Mattia Barbon
+## Copyright:   (c) 2007, 2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -24,6 +24,7 @@
 %name{Wx::VideoMode} class wxVideoMode
 {
     wxVideoMode( int width = 0, int height = 0, int depth = 0, int freq = 0 );
+    ## // thread KO
     ~wxVideoMode();
 
     bool Matches( const wxVideoMode& other ) const;
@@ -36,6 +37,7 @@
 %name{Wx::Display} class wxDisplay
 {
     wxDisplay( unsigned n = 0 );
+    ## // thread KO
     ~wxDisplay();
 
 %{

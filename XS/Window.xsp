@@ -132,6 +132,7 @@ wxEventBlocker::CLONE()
     wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
 %}
 
+    ## // thread OK
     ~wxEventBlocker()
         %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::EventBlocker", THIS, ST(0) );
                  delete THIS;
@@ -159,6 +160,7 @@ wxWindowUpdateLocker::CLONE()
     wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
 %}
 
+    ## // thread OK
     ~wxWindowUpdateLocker()
         %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::WindowUpdateLocker", THIS, ST(0) );
                  delete THIS;

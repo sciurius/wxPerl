@@ -19,6 +19,7 @@
 
 %name{Wx::SockAddress} class wxSockAddress
 {
+    ## // thread KO
     ~wxSockAddress();
 
     void Clear();

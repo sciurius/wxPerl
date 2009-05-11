@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     20/00/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006 Mark Dootson
+## Copyright:   (c) 2006, 2009 Mark Dootson
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,6 +18,7 @@ MODULE=Wx PACKAGE=Wx::HtmlDCRenderer
 wxHtmlDCRenderer*
 wxHtmlDCRenderer::new()
 
+## // thread KO
 void
 wxHtmlDCRenderer::DESTROY()
 
