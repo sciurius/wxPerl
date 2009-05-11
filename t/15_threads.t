@@ -35,6 +35,8 @@ my $bitmap = Wx::Bitmap->new( 100, 100, -1 );
 my $image = Wx::Image->new( 16, 16 );
 my $locker = Wx::WindowUpdateLocker->new( $frame );
 my $blocker = Wx::EventBlocker->new( $frame );
+my $display = Wx::Display->new;
+my $vidmode = Wx::VideoMode->new;
 
 EVT_BUTTON( $app, -1,
             sub {

@@ -24,8 +24,18 @@
 %name{Wx::VideoMode} class wxVideoMode
 {
     wxVideoMode( int width = 0, int height = 0, int depth = 0, int freq = 0 );
-    ## // thread KO
-    ~wxVideoMode();
+
+%{
+static void
+wxVideoMode::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxVideoMode()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::VideoMode", THIS, ST(0) );
+                 delete THIS;
+               %};
 
     bool Matches( const wxVideoMode& other ) const;
     int GetWidth() const;
@@ -37,8 +47,18 @@
 %name{Wx::Display} class wxDisplay
 {
     wxDisplay( unsigned n = 0 );
-    ## // thread KO
-    ~wxDisplay();
+
+%{
+static void
+wxDisplay::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxDisplay()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::Display", THIS, ST(0) );
+                 delete THIS;
+               %};
 
 %{
 int
