@@ -89,6 +89,9 @@ inline CV* wxPli_newXS(pTHX_ const char* name, XSUBADDR_t addr,
 #undef form
 #undef vform
 #undef setbuf
+#undef malloc
+#undef realloc
+#undef free
 #endif
 #undef do_open
 #undef do_close

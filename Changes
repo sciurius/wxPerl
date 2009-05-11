@@ -3,6 +3,7 @@ Revision history for Perl extension Wx.
 0.91
 	- Fix crash when using wxEventBlocker or wxWindowUpdateLocker
 	  and threads.
+	- Fixed Windows build (patch by Ahmad Zawawi).
 
 0.90  Sun May 10 09:24:25 CEST 2009
 	- Miscellaneous build/compilation fixes.
