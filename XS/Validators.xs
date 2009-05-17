@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2002, 2004, 2006-2007 Mattia Barbon
+## Copyright:   (c) 2000-2002, 2004, 2006-2007, 2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -50,7 +50,7 @@ wxPlValidator::new()
   OUTPUT:
     RETVAL
 
-## // thread KO
+## // thread OK
 void
 wxPlValidator::DESTROY()
   PREINIT:
