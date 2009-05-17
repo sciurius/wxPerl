@@ -40,6 +40,8 @@ my $vidmode = Wx::VideoMode->new;
 my $variant = Wx::Variant->new( 1 );
 my $sound = Wx::Sound->new;
 my $animation = Wx::Animation->new;
+my $dc = Wx::ScreenDC->new;
+my $dcclipper = Wx::DCClipper->new( $dc, 20, 20, 40, 40 );
 
 EVT_BUTTON( $app, -1,
             sub {
