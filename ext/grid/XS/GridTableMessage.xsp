@@ -22,8 +22,18 @@
 %name{Wx::GridTableMessage} class wxGridTableMessage
 {
     wxGridTableMessage( wxGridTableBase* table, int id, int int1 = 0, int int2 = 0 );
-    ## // thread KO
-    ~wxGridTableMessage();
+
+%{
+static void
+wxGridTableMessage::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxGridTableMessage()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::GridTableMessage", THIS, ST(0) );
+                delete THIS;
+                %};
 
     void SetTableObject( wxGridTableBase* table );
     wxGridTableBase* GetTableObject();

@@ -49,4 +49,4 @@ wxPlGridCellEditor *            O_WXCLIENTDATACONTAINER_THR_SV
 wxPlGridTable*                  O_WXOBJECT
 wxGridTableBase*                O_WXOBJECT
 
-wxGridTableMessage*             O_NON_WXOBJECT
+wxGridTableMessage*             O_NON_WXOBJECT_THR
