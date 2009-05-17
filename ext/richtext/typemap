@@ -16,19 +16,19 @@ wxFontWeight            T_ENUM
 wxTextAttrAlignment     T_ENUM
 wxPliRichTextStyleType  T_ENUM
 
-wxRichTextStyleSheet *  O_WXOBJECT
+wxRichTextStyleSheet *  O_WXOBJECT_THR
 wxRichTextEvent *       O_WXOBJECT
 wxRichTextCtrl *        O_WXEVTHANDLER
 wxRichTextStyleListBox * O_WXEVTHANDLER
 wxRichTextStyleListCtrl * O_WXEVTHANDLER
 wxRichTextStyleComboCtrl * O_WXEVTHANDLER
-wxRichTextAttr *        O_NON_WXOBJECT
-wxTextAttrEx *          O_NON_WXOBJECT
-wxRichTextRange *       O_NON_WXOBJECT
-wxRichTextStyleDefinition * O_WXOBJECT
-wxRichTextCharacterStyleDefinition * O_WXOBJECT
-wxRichTextParagraphStyleDefinition * O_WXOBJECT
-wxRichTextListStyleDefinition * O_WXOBJECT
+wxRichTextAttr *        O_NON_WXOBJECT_THR
+wxTextAttrEx *          O_NON_WXOBJECT_THR
+wxRichTextRange *       O_NON_WXOBJECT_THR
+wxRichTextStyleDefinition * O_WXOBJECT_THR
+wxRichTextCharacterStyleDefinition * O_WXOBJECT_THR
+wxRichTextParagraphStyleDefinition * O_WXOBJECT_THR
+wxRichTextListStyleDefinition * O_WXOBJECT_THR
 wxRichTextFormattingDialog * O_WXOBJECT
 wxRichTextBuffer *      O_WXOBJECT
 wxRichTextFileHandler * O_WXOBJECT

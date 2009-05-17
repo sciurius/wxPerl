@@ -496,6 +496,7 @@ ext/richtext/XS/SymbolPickerDialog.xsp
 ext/richtext/lib/Wx/RichText.pm
 ext/richtext/t/01_load.t
 ext/richtext/t/02_inheritance.t
+ext/richtext/t/03_threads.t
 ext/richtext/typemap
 ext/richtext/typemap.xsp
 

@@ -20,8 +20,18 @@
     %name{newDefault} wxRichTextRange();
     %name{newFromTo} wxRichTextRange( long start, long end );
     %name{newCopy} wxRichTextRange( const wxRichTextRange& range );
-    ## // thread KO
-    ~wxRichTextRange();
+
+%{
+static void
+wxRichTextRange::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxRichTextRange()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::RichTextRange", THIS, ST(0) );
+                delete THIS;
+                %};
 
     void SetRange( long start, long end );
     void SetStart( long start );
@@ -58,8 +68,18 @@ wxRichTextRange::new( ... )
     %name{newDefault} wxTextAttrEx();
     %name{newCopy} wxTextAttrEx( const wxTextAttrEx& attr );
     %name{newAttr} wxTextAttrEx( const wxTextAttr& attr );
-    ## // thread KO
-    ~wxTextAttrEx();
+
+%{
+static void
+wxTextAttrEx::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxTextAttrEx()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::TextAttrEx", THIS, ST(0) );
+                delete THIS;
+                %};
 
     void SetCharacterStyleName( const wxString& name );
     void SetParagraphStyleName( const wxString& name );
@@ -173,8 +193,17 @@ wxTextAttrEx::new( ... )
         ( const wxColour& colText, const wxColour& colBack = wxNullColourPtr,
           wxTextAttrAlignment alignment = wxTEXT_ALIGNMENT_DEFAULT );
 #endif
-    ## // thread KO
-    ~wxRichTextAttr();
+%{
+static void
+wxRichTextAttr::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxRichTextAttr()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::RichTextAttr", THIS, ST(0) );
+                delete THIS;
+                %};
 
 #if WXPERL_W_VERSION_LT( 2, 9, 0 )
     wxFont CreateFont() const;
