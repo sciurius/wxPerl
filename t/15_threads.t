@@ -34,7 +34,10 @@ my $rect = Wx::Rect->new( $point, $size );
 my $bitmap = Wx::Bitmap->new( 100, 100, -1 );
 my $image = Wx::Image->new( 16, 16 );
 my $locker = Wx::WindowUpdateLocker->new( $frame );
-my $blocker = Wx::EventBlocker->new( $frame );
+my $blocker;
+if( Wx::wxVERSION >= 2.009 ) {
+    $blocker = Wx::EventBlocker->new( $frame );
+}
 my $display = Wx::Display->new;
 my $vidmode = Wx::VideoMode->new;
 my $variant = Wx::Variant->new( 1 );
@@ -42,8 +45,11 @@ my $sound = Wx::Sound->new;
 my $animation = Wx::Animation->new;
 my $dc = Wx::ScreenDC->new;
 my $dcclipper = Wx::DCClipper->new( $dc, 20, 20, 40, 40 );
-my $notification = Wx::NotificationMessage->new( 'Test' );
-$notification->Show(1); # avoid crash with current version
+my $notification;
+if( Wx::wxVERSION >= 2.009 ) {
+    $notification = Wx::NotificationMessage->new( 'Test' );
+    $notification->Show(1); # avoid crash with current version
+}
 my $mimetypes = Wx::MimeTypesManager->new;
 
 EVT_BUTTON( $app, -1,

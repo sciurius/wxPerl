@@ -19,8 +19,12 @@ my $cr = Wx::GridCellStringRenderer->new;
 my $cr2 = Wx::GridCellStringRenderer->new;
 my $attr = Wx::GridCellAttr->new;
 my $attr2 = Wx::GridCellAttr->new;
-my $gud = Wx::GridUpdateLocker->new;
-my $gud2 = Wx::GridUpdateLocker->new;
+my $gud;
+my $gud2;
+if( Wx::wxVERSION >= 2.009 ) {
+    $gud = Wx::GridUpdateLocker->new;
+    $gud2 = Wx::GridUpdateLocker->new;
+}
 
 undef $cc2;
 undef $ce2;
