@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     22/09/2002
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2002-2004, 2006, 2008 Mattia Barbon
+## Copyright:   (c) 2002-2004, 2006, 2008-2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,7 +19,7 @@ WeekFlags               T_ENUM
 NameFlags               T_ENUM
 Calendar                T_ENUM
 
-wxDateTime *            O_NON_WXOBJECT
+wxDateTime *            O_NON_WXOBJECT_THR
 wxDateSpan *            O_NON_WXOBJECT
 wxTimeSpan *            O_NON_WXOBJECT
 wxDateTime::TimeZone    T_TIMEZONE
