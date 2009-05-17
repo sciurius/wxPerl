@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/10/2002
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2002-2003, 2005, 2008 Mattia Barbon
+## Copyright:   (c) 2002-2003, 2005, 2008-2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,5 +18,5 @@ wxDateEvent *           O_WXOBJECT
 wxCalendarEvent *	O_WXOBJECT
 wxCalendarCtrl *        O_WXOBJECT
 wxDatePickerCtrl *      O_WXOBJECT
-wxDateTime *            O_NON_WXOBJECT
-wxCalendarDateAttr *    O_NON_WXOBJECT
+wxDateTime *            O_NON_WXOBJECT_THR
+wxCalendarDateAttr *    O_NON_WXOBJECT_THR

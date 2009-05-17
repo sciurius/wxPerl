@@ -285,6 +285,7 @@ ext/calendar/Calendar.xs
 ext/calendar/Makefile.PL
 ext/calendar/t/01_load.t
 ext/calendar/t/02_inheritance.t
+ext/calendar/t/03_threads.t
 ext/calendar/typemap
 ext/calendar/XS/CalendarCtrl.xsp
 ext/calendar/XS/CalendarDateAttr.xsp

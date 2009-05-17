@@ -21,8 +21,18 @@
 %name{Wx::CalendarDateAttr} class wxCalendarDateAttr
 {
     wxCalendarDateAttr();
-    ## // thread KO
-    ~wxCalendarDateAttr();
+
+%{
+static void
+wxCalendarDateAttr::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxCalendarDateAttr()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::CalendarDateAttr", THIS, ST(0) );
+                delete THIS;
+                %};
 
     void SetTextColour( const wxColour& colText );
     void SetBackgroundColour( const wxColour& colBack );
