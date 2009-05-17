@@ -38,6 +38,8 @@ my $blocker = Wx::EventBlocker->new( $frame );
 my $display = Wx::Display->new;
 my $vidmode = Wx::VideoMode->new;
 my $variant = Wx::Variant->new( 1 );
+my $sound = Wx::Sound->new;
+my $animation = Wx::Animation->new;
 
 EVT_BUTTON( $app, -1,
             sub {

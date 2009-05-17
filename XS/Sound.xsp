@@ -25,8 +25,17 @@
     %name{newDefault} wxSound();
     %name{newFile} wxSound( const wxString& fileName );
 
-    ## // thread KO
-    ~wxSound();
+%{
+static void
+wxSound::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxSound()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::Sound", THIS, ST(0) );
+                delete THIS;
+                %};
 
     %name{Create} bool Create( const wxString& fileName );
 
