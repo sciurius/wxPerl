@@ -19,11 +19,14 @@ my $cr = Wx::GridCellStringRenderer->new;
 my $cr2 = Wx::GridCellStringRenderer->new;
 my $attr = Wx::GridCellAttr->new;
 my $attr2 = Wx::GridCellAttr->new;
+my $gud = Wx::GridUpdateLocker->new;
+my $gud2 = Wx::GridUpdateLocker->new;
 
 undef $cc2;
 undef $ce2;
 undef $cr2;
 undef $attr2;
+undef $gud2;
 
 my $t = threads->create
   ( sub {
