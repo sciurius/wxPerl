@@ -184,8 +184,18 @@ wxFileType::GetPrintCommand( file, mimeType = wxEmptyString )
 %name{Wx::MimeTypesManager} class wxMimeTypesManager
 {
     wxMimeTypesManager();
-    ## // thread KO
-    ~wxMimeTypesManager();
+
+%{
+static void
+wxMimeTypesManager::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxMimeTypesManager()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::MimeTypesManager", THIS, ST(0) );
+                delete THIS;
+                %};
 
     void AddFallbacks( const wxFileTypeInfo *fallbacks );
     wxFileType* GetFileTypeFromExtension( const wxString& extension );

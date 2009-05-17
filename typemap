@@ -347,7 +347,7 @@ wxMask *                O_WXOBJECT
 wxBrush *               O_WXOBJECT_THR
 wxBitmapHandler *       O_WXOBJECT
 wxPalette *             O_WXOBJECT_THR
-wxMimeTypesManager *    O_NON_WXOBJECT
+wxMimeTypesManager *    O_NON_WXOBJECT_THR
 wxFileType *            O_NON_WXOBJECT
 wxFileTypeInfo *        O_NON_WXOBJECT
 
