@@ -13,8 +13,11 @@ use Wx::Html;
 my $app = Wx::App->new( sub { 1 } );
 my $easyprint = Wx::HtmlEasyPrinting->new;
 my $easyprint2 = Wx::HtmlEasyPrinting->new;
+my $htmldcrenderer = Wx::HtmlDCRenderer->new;
+my $htmldcrenderer2 = Wx::HtmlDCRenderer->new;
 
 undef $easyprint2;
+undef $htmldcrenderer2;
 
 my $t = threads->create
   ( sub {

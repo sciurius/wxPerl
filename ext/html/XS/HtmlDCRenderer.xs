@@ -18,9 +18,17 @@ MODULE=Wx PACKAGE=Wx::HtmlDCRenderer
 wxHtmlDCRenderer*
 wxHtmlDCRenderer::new()
 
-## // thread KO
+static void
+wxHtmlDCRenderer::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxHtmlDCRenderer::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::HtmlDCRenderer", THIS, ST(0) );
+    delete THIS;
 
 void
 wxHtmlDCRenderer::SetDC( dc, pixel_scale = 1.0 )
