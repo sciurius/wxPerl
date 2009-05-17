@@ -21,10 +21,16 @@
 ##                        wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT );
 
 %{
-## // thread KO
+static void
+wxDataViewRenderer::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxDataViewRenderer::DESTROY()
   CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 %}

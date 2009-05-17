@@ -31,24 +31,30 @@ new( ... )
 
     %name{new1}
     wxDataViewColumn( const wxString& title,
-                      wxDataViewRenderer* renderer,
+                      wxDataViewRendererDisown* renderer,
                       unsigned int model_column,
                       int width = wxDVC_DEFAULT_WIDTH,
                       wxAlignment align = wxALIGN_CENTRE,
                       int flags = wxDATAVIEW_COL_RESIZABLE );
     %name{new2}
     wxDataViewColumn( const wxBitmap& bitmap,
-                      wxDataViewRenderer* renderer,
+                      wxDataViewRendererDisown* renderer,
                       unsigned int model_column,
                       int width = wxDVC_DEFAULT_WIDTH,
                       wxAlignment align = wxALIGN_CENTRE,
                       int flags = wxDATAVIEW_COL_RESIZABLE );
 
 %{
-## // thread KO
+static void
+wxDataViewColumn::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
 void
 wxDataViewColumn::DESTROY()
   CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::DataViewColumn", THIS, ST(0) );
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 %}

@@ -16,7 +16,7 @@ wxAlignment             T_ENUM
 
 wxDataViewCtrl *        O_WXOBJECT
 wxDataViewTreeCtrl *    O_WXOBJECT
-wxDataViewColumn *      O_NON_WXOBJECT
+wxDataViewColumn *      O_NON_WXOBJECT_THR
 const wxDataViewColumn * O_NON_WXOBJECT
 wxDataViewModel *       O_NON_WXOBJECT
 wxDataViewTreeStore *   O_NON_WXOBJECT
@@ -25,15 +25,15 @@ wxDataViewItem *        O_NON_WXOBJECT
 wxDataViewItemAttr *    O_NON_WXOBJECT
 wxDataViewIndexListModel* O_NON_WXOBJECT
 wxPlDataViewIndexListModel* O_NON_WXOBJECT
-wxDataViewRenderer *    O_WXOBJECT
+wxDataViewRenderer *    O_WXOBJECT_THR
 wxDataViewEvent *       O_WXOBJECT_THR
 wxDataViewModelNotifier * O_NON_WXOBJECT
-wxDataViewTextRenderer * O_WXOBJECT
+wxDataViewTextRenderer * O_WXOBJECT_THR
 wxDataViewTextRendererAttr * O_WXOBJECT
-wxDataViewProgressRenderer * O_WXOBJECT
-wxDataViewIconTextRenderer * O_WXOBJECT
-wxDataViewToggleRenderer * O_WXOBJECT
-wxDataViewBitmapRenderer * O_WXOBJECT
-wxDataViewDateRenderer * O_WXOBJECT
-wxDataViewSpinRenderer * O_WXOBJECT
+wxDataViewProgressRenderer * O_WXOBJECT_THR
+wxDataViewIconTextRenderer * O_WXOBJECT_THR
+wxDataViewToggleRenderer * O_WXOBJECT_THR
+wxDataViewBitmapRenderer * O_WXOBJECT_THR
+wxDataViewDateRenderer * O_WXOBJECT_THR
+wxDataViewSpinRenderer * O_WXOBJECT_THR
 wxDataViewIconText*      O_NON_WXOBJECT
