@@ -19,8 +19,17 @@
 
 %name{Wx::SockAddress} class wxSockAddress
 {
-    ## // thread KO
-    ~wxSockAddress();
+%{
+static void
+wxSockAddress::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxSockAddress()
+        %code{% wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+                delete THIS;
+                %};
 
     void Clear();
     int Type();

@@ -453,6 +453,7 @@ ext/socket/cpp/socket.h
 ext/socket/lib/Wx/Socket.pm
 ext/socket/t/01_load.t
 ext/socket/t/02_inheritance.t
+ext/socket/t/03_threads.t
 ext/socket/typemap
 
 ext/stc/Makefile.PL
