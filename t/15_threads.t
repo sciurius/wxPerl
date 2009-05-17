@@ -42,6 +42,8 @@ my $sound = Wx::Sound->new;
 my $animation = Wx::Animation->new;
 my $dc = Wx::ScreenDC->new;
 my $dcclipper = Wx::DCClipper->new( $dc, 20, 20, 40, 40 );
+my $notification = Wx::NotificationMessage->new( 'Test' );
+$notification->Show(1); # avoid crash with current version
 
 EVT_BUTTON( $app, -1,
             sub {

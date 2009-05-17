@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     25/12/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007 Mattia Barbon
+## Copyright:   (c) 2007, 2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -48,8 +48,17 @@ new( ... )
                            int flags = wxICON_INFORMATION );
 #endif
 
-    ## // thread KO
-    ~wxNotificationMessage();
+%{
+static void
+wxNotificationMessage::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    ## // thread OK
+    ~wxNotificationMessage()
+        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::NotificationMessage", THIS, ST(0) );
+                delete THIS;
+                %};
 
     bool Show( int timeout = -1 );
     bool Close();

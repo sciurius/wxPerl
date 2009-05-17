@@ -267,7 +267,7 @@ wxSVGFileDC *           O_WXOBJECT_THR
 wxDCClipper *           O_NON_WXOBJECT_THR
 
 wxTaskBarIcon *         O_WXOBJECT
-wxNotificationMessage * O_WXOBJECT
+wxNotificationMessage * O_NON_WXOBJECT_THR
 
 wxTextAttr *            O_NON_WXOBJECT_THR
 
