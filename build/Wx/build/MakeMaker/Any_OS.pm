@@ -233,7 +233,7 @@ EOT
       my $file = File::Spec->canonpath( $f );
       $text .= sprintf <<EOT, $file, $file, $file, $file;
 %s : %sp typemap.xsp
-	\$(PERL) script/wxperl_xspp -t typemap.xsp %sp > %s
+	xspp -t typemap.xsp %sp > %s
 
 EOT
   }
