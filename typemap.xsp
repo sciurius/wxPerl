@@ -15,8 +15,10 @@
 %typemap{char}{simple};
 %typemap{short}{simple};
 %typemap{int}{simple};
-%typemap{unsigned}{simple};
 %typemap{long}{simple};
+%typemap{unsigned short}{simple};
+%typemap{unsigned int}{simple};
+%typemap{unsigned long}{simple};
 %typemap{float}{simple};
 %typemap{double}{simple};
 %typemap{wxChar}{simple};
