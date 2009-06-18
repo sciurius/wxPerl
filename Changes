@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+	- xspp is no longer part of Wx (See ExtUtils::XSpp)
+
 0.91  Sun May 17 18:55:45 CEST 2009
 	- Threading fixes for 25 classes.
 	- Fixed Windows build (patch by Ahmad Zawawi).
