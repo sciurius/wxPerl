@@ -33,15 +33,15 @@ typedef int wxFloodFillStyle;
 
 MODULE=Wx_GDI
 
-INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/Animation.xsp |
+INCLUDE: xspp -t typemap.xsp XS/Animation.xsp |
 INCLUDE: XS/Colour.xs
 INCLUDE: XS/ColourDatabase.xs
 INCLUDE: XS/Font.xs
-INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/ImageList.xs |
+INCLUDE: xspp -t typemap.xsp XS/ImageList.xs |
 INCLUDE: XS/Bitmap.xs
 INCLUDE: XS/Icon.xs
 INCLUDE: XS/Cursor.xs
-INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/DC.xs |
+INCLUDE: xspp -t typemap.xsp XS/DC.xs |
 INCLUDE: XS/Pen.xs
 INCLUDE: XS/Brush.xs
 INCLUDE: XS/Image.xs
@@ -51,9 +51,9 @@ INCLUDE: XS/GraphicsContext.xs
 INCLUDE: XS/GraphicsPath.xs
 INCLUDE: XS/GraphicsMatrix.xs
 INCLUDE: XS/GraphicsObject.xs
-INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/GraphicsRenderer.xsp |
+INCLUDE: xspp -t typemap.xsp XS/GraphicsRenderer.xsp |
 
-INCLUDE: perl script/wxperl_xspp -t typemap.xsp XS/SVGFileDC.xsp |
+INCLUDE: xspp -t typemap.xsp XS/SVGFileDC.xsp |
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 

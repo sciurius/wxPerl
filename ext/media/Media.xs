@@ -22,9 +22,9 @@ MODULE=Wx__Media
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/MediaCtrl.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/MediaCtrl.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/MediaEvent.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/MediaEvent.xsp |
 
 #include "cpp/overload.h"
 #include "cpp/ovl_const.cpp"

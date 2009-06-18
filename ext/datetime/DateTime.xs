@@ -21,11 +21,11 @@ MODULE=Wx__DateTime
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/DateTime.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/DateTime.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/DateSpan.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/DateSpan.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/TimeSpan.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/TimeSpan.xsp |
 
 #  //FIXME//tricky
 #if defined(__WXMSW__)

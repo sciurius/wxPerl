@@ -30,9 +30,9 @@ INCLUDE: XS/SocketClient.xs
 INCLUDE: XS/SocketServer.xs
 INCLUDE: XS/SocketEvent.xs
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/SockAddress.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/SockAddress.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/DatagramSocket.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/DatagramSocket.xsp |
 
 #  //FIXME//tricky
 #if defined(__WXMSW__)

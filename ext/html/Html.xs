@@ -42,7 +42,7 @@ MODULE=Wx__Html
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE: perl ../../script/wxperl_xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlWindow.xs |
+INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlWindow.xs |
 
 INCLUDE: XS/HtmlHelpController.xs
 
@@ -53,15 +53,15 @@ INCLUDE: XS/HtmlDCRenderer.xs
 
 #endif
 
-INCLUDE: perl ../../script/wxperl_xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlParser.xsp |
+INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlParser.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlTagHandler.xsp |
+INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlTagHandler.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlTag.xsp |
+INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlTag.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlCell.xsp |
+INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlCell.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlListBox.xsp |
+INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/HtmlListBox.xsp |
 
 #include "cpp/ht_constants.cpp"
 #include "cpp/ovl_const.cpp"

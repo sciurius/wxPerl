@@ -32,9 +32,9 @@ INCLUDE: XS/PrintPreview.xs
 INCLUDE: XS/Printout.xs
 INCLUDE: XS/PrintDialog.xs
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/Preview.xs |
+INCLUDE: xspp -t ../../typemap.xsp XS/Preview.xs |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/PrintFactory.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/PrintFactory.xsp |
 
 #include "cpp/pr_constants.cpp"
 

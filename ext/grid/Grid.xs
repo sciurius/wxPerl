@@ -85,9 +85,9 @@ INCLUDE: XS/GridEvent.xs
 INCLUDE: XS/GridCellRenderer.xs
 INCLUDE: XS/GridCellEditor.xs
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/GridTable.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/GridTable.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/GridTableMessage.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/GridTableMessage.xsp |
 
 MODULE=Wx__Grid PACKAGE=Wx::Grid
 

@@ -21,9 +21,9 @@ MODULE=Wx__STC
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/StyledTextCtrl.xs |
+INCLUDE: xspp -t ../../typemap.xsp XS/StyledTextCtrl.xs |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/StyledTextEvent.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/StyledTextEvent.xsp |
 
 #include "cpp/st_constants.cpp"
 

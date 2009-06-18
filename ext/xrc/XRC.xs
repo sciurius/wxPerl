@@ -24,13 +24,13 @@ BOOT:
 
 INCLUDE: XS/XmlResource.xs
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/XmlSubclassFactory.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/XmlSubclassFactory.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/XmlDocument.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/XmlDocument.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/XmlNode.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/XmlNode.xsp |
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/XmlResourceHandler.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/XmlResourceHandler.xsp |
 
 MODULE=Wx__XRC PACKAGE=Wx PREFIX=wx
 

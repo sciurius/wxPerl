@@ -32,7 +32,7 @@ INCLUDE: XS/FileHistory.xs
 INCLUDE: XS/DocParentFrame.xs
 INCLUDE: XS/DocChildFrame.xs
 
-INCLUDE: perl ../../script/wxperl_xspp -t ../../typemap.xsp XS/CommandProcessor.xsp |
+INCLUDE: xspp -t ../../typemap.xsp XS/CommandProcessor.xsp |
 
 #if wxUSE_MDI_ARCHITECTURE && wxUSE_DOC_VIEW_ARCHITECTURE
 

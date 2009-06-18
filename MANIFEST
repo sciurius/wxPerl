@@ -9,13 +9,6 @@ Changes
 
 build/Wx/Overload/Driver.pm
 build/Wx/Overload/Handle.pm
-build/Wx/XSP/Driver.pm
-build/Wx/XSP/Grammar.pm
-build/Wx/XSP/Node.pm
-build/Wx/XSP/Parser.pm
-build/Wx/XSP/Typemap.pm
-build/Wx/XSP/XSP.yp
-build/Wx/XSP/XSpp.pod
 build/Wx/build/MakeMaker/Any_OS.pm
 build/Wx/build/MakeMaker/Any_wx_config.pm
 build/Wx/build/MakeMaker/MacOSX_GCC.pm
@@ -39,7 +32,6 @@ script/make_typemap.pl
 script/make_v_cback.pl
 script/pipe.pl
 script/wxperl_overload
-script/wxperl_xspp
 
 t/01_load.t
 t/02_inheritance.t

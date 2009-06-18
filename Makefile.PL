@@ -40,6 +40,7 @@ my $build_requires =
     'ExtUtils::MakeMaker'    => 6.17,
     'Alien::wxWidgets'       => 0.25,
     'if'                     => 0.03,
+    'ExtUtils::XSpp'         => 0.04,
     };
 
 eval {
@@ -65,8 +66,7 @@ wxWriteMakefile( NAME          => 'Wx',
                  VERSION_FROM  => 'Wx.pm',
                  PREREQ_PM     => { %$build_requires },
                  PMLIBDIRS     => [ 'lib', 'build' ],
-                 EXE_FILES     => [ qw(script/wxperl_xspp
-                                       script/wxperl_overload) ],
+                 EXE_FILES     => [ qw(script/wxperl_overload) ],
                  WX_CORE_LIB_MAYBE => $^O eq 'darwin' ? 'media html' : '',
                  WX_CORE_LIB   => 'adv core base',
                  WX_OVERLOAD   => { header  => 'cpp/ovl_const.h',
