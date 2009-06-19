@@ -17,6 +17,7 @@
 %typemap{int}{simple};
 %typemap{long}{simple};
 %typemap{unsigned short}{simple};
+%typemap{unsigned}{simple};
 %typemap{unsigned int}{simple};
 %typemap{unsigned long}{simple};
 %typemap{float}{simple};
