@@ -18,6 +18,10 @@
 
 #undef bool
 
+#if defined( __WXMSW__ )
+#define STRICT
+#endif
+
 #include <wx/defs.h>
 
 #include "cpp/compat.h"
