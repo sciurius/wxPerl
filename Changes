@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
-0.91_02
+0.92  Thu Aug  6 21:04:59 CEST 2009
+	- Compilation fix for ActivePerl.
+	- First public release to use ExtUtils::XSpp.
 
 0.91_01  Thu Jun 25 00:30:17 CEST 2009
 	- xspp is no longer part of Wx (See ExtUtils::XSpp)
