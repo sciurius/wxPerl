@@ -100,10 +100,12 @@ wxAuiNotebook::new( ... )
     void Split( size_t page, int direction );
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXPERL_W_VERSION_GE( 2, 8, 1 ) 
     const wxAuiManager* GetAuiManager()
         %code{% RETVAL = &THIS->GetAuiManager(); %};
+#endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXPERL_W_VERSION_GE( 2, 8, 5 ) 
     void AdvanceSelection( bool advance = true );
     int GetHeightForPageHeight( int pageHeight );
     int GetTabCtrlHeight() const;
@@ -113,8 +115,9 @@ wxAuiNotebook::new( ... )
     void SetMeasuringFont( const wxFont& font );
 
     void SetTabCtrlHeight( int height );
-    void SetUniformBitmapSize( const wxSize& size );
 
     bool ShowWindowMenu();
 #endif
+
+    void SetUniformBitmapSize( const wxSize& size );
 };
