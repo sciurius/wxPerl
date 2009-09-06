@@ -378,6 +378,13 @@ wxKeyEvent::ControlDown()
 int
 wxKeyEvent::GetKeyCode()
 
+#ifdef wxHAS_RAW_KEY_CODES
+
+int
+wxKeyEvent::GetRawKeyCode()
+
+#endif
+
 #if wxUSE_UNICODE && WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 wxChar
