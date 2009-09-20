@@ -40,7 +40,7 @@ my $build_requires =
     'ExtUtils::MakeMaker'    => 6.17,
     'Alien::wxWidgets'       => 0.25,
     'if'                     => 0.03,
-    'ExtUtils::XSpp'         => 0.04,
+    'ExtUtils::XSpp'         => 0.05,
     };
 
 eval {
