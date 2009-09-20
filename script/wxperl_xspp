@@ -11,10 +11,8 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-use FindBin;
-
 use strict;
-use lib "$FindBin::RealBin/../build";
+use ExtUtils::XSpp::Cmd;
 
 =head1 NAME
 
@@ -26,21 +24,8 @@ wxperl_xspp - XS++ preprocessor
 
 =head1 DOCUMENTATION
 
-See C<XSpp.pod> in the wxPerl distribution.
+See L<ExtUtils::XSpp>.
 
 =cut
 
-use Getopt::Long;
-
-use Wx::XSP::Driver;
-
-my @typemap_files;
-GetOptions( 'typemap=s' => \@typemap_files );
-
-my $driver = Wx::XSP::Driver->new
-  ( typemaps   => \@typemap_files,
-    file       => shift @ARGV,
-    );
-$driver->process;
-
-exit 0;
+exit xspp;
