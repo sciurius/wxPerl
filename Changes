@@ -1,6 +1,8 @@
 Revision history for Perl extension Wx.
 
 0.93
+	- Use ExtUtils::XSpp::Cmd instead of the xspp command
+	  line script.
 
 0.92  Thu Aug  6 21:04:59 CEST 2009
 	- Compilation fix for ActivePerl.

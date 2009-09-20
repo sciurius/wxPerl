@@ -62,23 +62,23 @@ MODULE=Wx__RichText
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/RichTextCtrl.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RichTextCtrl.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/RichTextAttr.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RichTextAttr.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyle.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyle.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyleCtrl.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyleCtrl.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/RichTextFormattingDialog.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RichTextFormattingDialog.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/RichTextFileHandler.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RichTextFileHandler.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/RichTextBuffer.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RichTextBuffer.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/SymbolPickerDialog.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/SymbolPickerDialog.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyleOrganiserDialog.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RichTextStyleOrganiserDialog.xsp |
 
 MODULE=Wx__RichText PACKAGE=Wx::RichText
 

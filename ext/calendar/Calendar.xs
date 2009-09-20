@@ -27,11 +27,11 @@ MODULE=Wx__Calendar
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE: xspp -t ../../typemap.xsp XS/DatePickerCtrl.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/DatePickerCtrl.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp XS/CalendarCtrl.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/CalendarCtrl.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp XS/CalendarDateAttr.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/CalendarDateAttr.xsp |
 
 #  //FIXME//tricky
 #if defined(__WXMSW__)

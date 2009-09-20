@@ -24,25 +24,25 @@ MODULE=Wx_Wnd
 
 INCLUDE: XS/Panel.xs
 
-INCLUDE: xspp -t typemap.xsp XS/Dialog.xs |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Dialog.xs |
 
 INCLUDE: XS/Frame.xs
 INCLUDE: XS/StatusBar.xs
 INCLUDE: XS/ToolBar.xs
 INCLUDE: XS/Wizard.xs
 
-INCLUDE: xspp -t typemap.xsp XS/IconBundle.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/IconBundle.xsp |
 
-INCLUDE: xspp -t typemap.xsp XS/TopLevelWindow.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/TopLevelWindow.xsp |
 
-INCLUDE: xspp -t typemap.xsp XS/PopupWindow.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/PopupWindow.xsp |
 
 INCLUDE: XS/ColourDialog.xs
 INCLUDE: XS/DirDialog.xs
 INCLUDE: XS/FileDialog.xs
 INCLUDE: XS/TextEntryDialog.xs
 
-INCLUDE: xspp -t typemap.xsp XS/MessageDialog.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/MessageDialog.xsp |
 
 INCLUDE: XS/ProgressDialog.xs
 INCLUDE: XS/SingleChoiceDialog.xs
@@ -50,8 +50,8 @@ INCLUDE: XS/MultiChoiceDialog.xs
 INCLUDE: XS/FontDialog.xs
 INCLUDE: XS/FindReplaceDialog.xs
 
-INCLUDE: xspp -t typemap.xsp XS/AboutDialog.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/AboutDialog.xsp |
 
-INCLUDE: xspp -t typemap.xsp XS/PropertySheetDialog.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/PropertySheetDialog.xsp |
 
 MODULE=Wx_Wnd

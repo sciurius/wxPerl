@@ -61,11 +61,11 @@ MODULE=Wx__AUI
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/AuiManager.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/AuiManager.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/AuiPaneInfo.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/AuiPaneInfo.xsp |
 
-INCLUDE: xspp -t typemap.xsp -t ../../typemap.xsp XS/AuiNotebook.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/AuiNotebook.xsp |
 
 MODULE=Wx__AUI PACKAGE=Wx::AUI
 

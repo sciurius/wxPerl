@@ -1251,23 +1251,23 @@ wxWindow::CanSetTransparent()
 
 #endif
 
-INCLUDE: xspp -t typemap.xsp XS/Window.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Window.xsp |
 
 INCLUDE: XS/Accelerators.xs
 
-INCLUDE: xspp -t typemap.xsp XS/PlWindow.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/PlWindow.xsp |
 
-INCLUDE: xspp -t typemap.xsp XS/SplitterWindow.xs |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/SplitterWindow.xs |
 
-INCLUDE: xspp -t typemap.xsp XS/VScrolledWindow.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/VScrolledWindow.xsp |
 
 INCLUDE: XS/ScrolledWindow.xs
 INCLUDE: XS/Validators.xs
 INCLUDE: XS/Constraint.xs
 
-INCLUDE: xspp -t typemap.xsp XS/Sizer.xs |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Sizer.xs |
 
-INCLUDE: xspp -t typemap.xsp XS/GridBagSizer.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/GridBagSizer.xsp |
 
 INCLUDE: XS/SashWindow.xs
 

@@ -46,25 +46,25 @@ MODULE=Wx__DataView
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewCtrl.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewCtrl.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewModel.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewModel.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewIndexListModel.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewIndexListModel.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewColumn.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewColumn.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewEvent.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewEvent.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewItem.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewItem.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewModelNotifier.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewModelNotifier.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewRenderer.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewRenderer.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewTreeStore.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewTreeStore.xsp |
 
-INCLUDE: xspp -t ../../typemap.xsp -t typemap.xsp XS/DataViewTreeCtrl.xsp |
+INCLUDE: perl -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp -t typemap.xsp XS/DataViewTreeCtrl.xsp |
 
 MODULE=Wx__DataView PACKAGE=Wx::DataView
 
