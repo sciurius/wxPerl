@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     02/12/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2005-2008 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2005-2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -537,7 +537,7 @@ wxImage*
 wxImage::Rescale( width, height, quality = wxIMAGE_QUALITY_NORMAL )
     int width
     int height
-    int quality
+    wxImageResizeQuality quality
   CODE:
     RETVAL = new wxImage( THIS->Rescale( width, height, quality ) );
   OUTPUT:
@@ -606,7 +606,7 @@ wxImage*
 wxImage::Scale( width, height, quality = wxIMAGE_QUALITY_NORMAL )
     int width
     int height
-    int quality
+    wxImageResizeQuality quality
   CODE:
     RETVAL = new wxImage( THIS->Scale( width, height, quality ) );
   OUTPUT:

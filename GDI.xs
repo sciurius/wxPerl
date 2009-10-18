@@ -30,6 +30,9 @@ typedef int wxMappingMode;
 typedef int wxPolygonFillMode;
 typedef int wxFloodFillStyle;
 #endif
+#if WXPERL_W_VERSION_LT( 2, 9, 1 )
+typedef int wxImageResizeQuality;
+#endif
 
 MODULE=Wx_GDI
 

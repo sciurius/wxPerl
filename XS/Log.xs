@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2005-2007, 2009 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -288,7 +288,7 @@ wxLogTraceMask( mask, string )
     const wxChar* mask
     const wxChar* string
   CODE:
-    ::wxLogTrace( mask, string );
+    wxLogTrace( mask, string );
 
 void
 wxLogSysError( string )
