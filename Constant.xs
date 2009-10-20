@@ -410,7 +410,12 @@ static wxPlINH inherit[] =
     I( Wizard,          Dialog )
     I( WizardPage,      Panel )
     I( WizardPageSimple, WizardPage )
+#if defined(__WXGTK__) && WXPERL_W_VERSION_GE( 2, 9, 0 )
+    I( GenericHyperlinkCtrl, Control )
+    I( HyperlinkCtrl,   GenericHyperlinkCtrl )
+#else
     I( HyperlinkCtrl,   Control )
+#endif
     I( NotificationMessage, EvtHandler )
 
     I( ColourDialog,    Dialog )
@@ -530,7 +535,8 @@ static wxPlINH inherit[] =
 #endif
     I( OwnerDrawnComboBox, ComboCtrl )
     I( PlOwnerDrawnComboBox, OwnerDrawnComboBox )
-#if WXPERL_W_VERSION_GE( 2, 9, 0 ) && defined( __WXGTK__ )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) \
+    && ( defined( __WXGTK__ ) || defined( __WXMSW__ ) )
     I( BitmapComboBox,  ComboBox )
 #else
     I( BitmapComboBox,  OwnerDrawnComboBox )
