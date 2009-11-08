@@ -1,6 +1,10 @@
 Revision history for Perl extension Wx.
 
 0.94
+	- Remove the last use of the xspp command line script.
+	- Compilation fix for Strawberry Perl 5.10 (probably needed for all
+	  Perl 5.10 builds on Windows).
+	- wxWidgets 2.9.0 compatibility.
 
 0.93  Gio 24 Set 2009 21:34:10 CEST
 	- Use ExtUtils::XSpp::Cmd instead of the xspp command
