@@ -6,6 +6,7 @@ use base 'Exporter';
 use Config;
 use vars qw(@EXPORT $VERSION);
 use FindBin;
+use File::Basename qw();
 
 $VERSION = '0.28';
 @EXPORT = 'wxWriteMakefile';
@@ -128,7 +129,7 @@ BEGIN {
 
     # Win32
     m/MSWin32/ and do {
-      local $_ = $Config{cc};
+      local $_ = File::Basename::basename( $Config{cc} );
 
       m/^cl/i  and $package_to_use = 'Win32_MSVC'  and last SWITCH;
       m/^gcc/i and $package_to_use = 'Win32_MinGW' and last SWITCH;
