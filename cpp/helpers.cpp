@@ -1476,8 +1476,8 @@ I32 my_looks_like_number( pTHX_ SV* sv )
     HV* wxhash = get_hv( wxrbuffer, (create) ) \
 
 #define dwxKey( ptr )              \
-    char wxkey[50];                \
-    sprintf( wxkey, "%x", (ptr) ); \
+    char wxkey[40];                \
+    sprintf( wxkey, "%p", (ptr) ); \
 
 void wxPli_thread_sv_register( pTHX_ const char* package,
                                const void* ptr, SV* sv )
