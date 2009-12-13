@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     30/03/2001
 // RCS-ID:      $Id$
-// Copyright:   (c) 2001-2002, 2004, 2006-2007 Mattia Barbon
+// Copyright:   (c) 2001-2002, 2004, 2006-2007, 2009 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ const char sub_read[] = "sub { read $_[0], $_[1], $_[2] }";
 const char sub_seek[] = "sub { seek $_[0], $_[1], $_[2]; tell $_[0] }";
 const char sub_tell[] = "sub { tell $_[0] }";
 const char sub_write[] = "sub { print { $_[0] } $_[1] }";
-const char sub_length[] = "sub { eval { fileno( $_[0] ) } ? ( stat $_[0] )[7] : -1 }";
+const char sub_length[] = "sub { eval { fileno( $_[0] ) && fileno( $_[0] ) >= 0 } ? ( stat $_[0] )[7] : -1 }";
 
 SV* sg_read;
 SV* sg_seek;
