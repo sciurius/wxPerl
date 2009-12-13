@@ -114,12 +114,12 @@ sub set_load_function { $load_fun = shift }
 sub set_end_function { $unload_fun = shift }
 
 sub load_dll {
-  return if $^O eq 'darwin' || Wx::wxVERSION() < 2.005;
+  return if $^O ne 'MSWin32';
   goto &$load_fun;
 }
 
 sub unload_dll {
-  return if $^O eq 'darwin' || Wx::wxVERSION() < 2.005;
+  return if $^O ne 'MSWin32';
   goto &$unload_fun;
 }
 

@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.95
+	- Only preload wxWidgets' DLL under Windows.
 
 0.94  Sun Nov  8 14:10:32 CET 2009
 	- Remove the last use of the xspp command line script.
