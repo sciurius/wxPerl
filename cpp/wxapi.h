@@ -86,25 +86,48 @@ inline CV* wxPli_newXS(pTHX_ const char* name, XSUBADDR_t addr,
 #undef Seek
 #undef Stat
 #undef Error
-#if defined( __WXMSW__ )
-#undef read
-#undef write
-#undef eof
-#undef form
-#undef vform
-#undef setbuf
-#undef malloc
-#undef realloc
-#undef free
-#undef open
-#undef seekdir
-#undef close
-#undef feof
-#undef ferror
-#endif
 #undef do_open
 #undef do_close
 #undef utf8_length
+#if defined( PERL_IMPLICIT_SYS )
+#undef abort
+#undef clearerr
+#undef close
+#undef eof
+#undef exit
+#undef fclose
+#undef feof
+#undef ferror
+#undef fflush
+#undef fgetpos
+#undef fopen
+#undef form
+#undef fputc
+#undef fputs
+#undef fread
+#undef free
+#undef freopen
+#undef fseek
+#undef fsetpos
+#undef ftell
+#undef fwrite
+#undef getc
+#undef getenv
+#undef malloc
+#undef open
+#undef read
+#undef realloc
+#undef rename
+#undef seekdir
+#undef setbuf
+#undef setvbuf
+#undef tmpfile
+#undef tmpnam
+#undef ungetc
+#undef vform
+#undef vfprintf
+#undef write
+#endif
 
 #if __VISUALC__
 #pragma warning ( disable: 4800 )
