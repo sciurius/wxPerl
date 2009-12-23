@@ -24,7 +24,7 @@ sub dynamic_lib {
   my $this = shift;
   my $text = $this->SUPER::dynamic_lib( @_ );
 
-  return $text unless $cl_version >= 14;
+  return $text if $cl_version < 14 || eval ExtUtils::MakeMaker->VERSION >= 6.33;
 
   $text .= <<'EOT' if $text && $text =~ /\$\@/;
 	mt -manifest $@.manifest -outputresource:$@;2
