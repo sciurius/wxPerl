@@ -745,7 +745,7 @@ void SetInheritance()
 // !package: Wx
 // !tag:
 
-static double constant( const char *name, int arg ) 
+static double constant( const char* name, int arg ) 
 {
   WX_PL_CONSTANT_INIT();
 
@@ -3322,9 +3322,16 @@ WXPLI_BOOT_ONCE(Wx_Const);
 MODULE=Wx_Const PACKAGE=Wx
 
 double
-constant(name,arg)
+constant( name, arg, error )
     const char* name
     int arg
+    int error = NO_INIT
+  CODE:
+    RETVAL = constant( name, arg );
+    error = errno;
+  OUTPUT:
+    RETVAL
+    error
 
 void
 UnsetConstants()

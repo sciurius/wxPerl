@@ -27,9 +27,10 @@ sub new {
   Wx::Perl::SplashFast::App->new() ;
   Wx::InitAllImageHandlers() ;
 
-  my $any = Wx::constant( 'wxBITMAP_TYPE_ANY', 0 );
-  my $spl_c = Wx::constant( 'wxSPLASH_CENTRE_ON_SCREEN', 0 );
-  my $spl_ti = Wx::constant( 'wxSPLASH_TIMEOUT', 0 );
+  my $dummy;
+  my $any = Wx::constant( 'wxBITMAP_TYPE_ANY', 0, $dummy );
+  my $spl_c = Wx::constant( 'wxSPLASH_CENTRE_ON_SCREEN', 0, $dummy );
+  my $spl_ti = Wx::constant( 'wxSPLASH_TIMEOUT', 0, $dummy );
   my $bitmap = Wx::Bitmap->new( $_[0], $any );
 
   my $splash = Wx::SplashScreen->new( $bitmap , $spl_c|$spl_ti ,

@@ -38,14 +38,14 @@ sub wxSIZE   { Wx::Size->new( $_[0], $_[1] )  }
 sub wxTheApp { $Wx::wxTheApp }
 
 sub AUTOLOAD {
-  my( $constname );
+  my( $constname, $error );
 
   ($constname = $AUTOLOAD) =~ s<^.*::>{};
   return 0 if $constname eq 'wxVERSION';
 
-  my( $val ) = constant($constname, 0 );
+  my( $val ) = constant( $constname, 0, $error );
 
-  if ($! != 0) {
+  if( $error != 0 ) {
 # re-add this if need support for autosplitted subroutines
 #    $AutoLoader::AUTOLOAD = $AUTOLOAD;
 #    goto &AutoLoader::AUTOLOAD;
