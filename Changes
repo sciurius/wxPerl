@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.95
+0.95  Fri Dec 25 18:24:44 CET 2009
 	- Only preload wxWidgets' DLL under Windows.
 	- Some Windows build fixes.
 
