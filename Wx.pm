@@ -243,6 +243,7 @@ sub GetMultipleChoices {
     return @s;
   }
 
+  $dialog->Destroy;
   return;
 }
 
