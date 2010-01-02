@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2008 Mattia Barbon
+## Copyright:   (c) 2006-2008, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -584,6 +584,23 @@ wxRichTextCtrl::GetTextAttrStyle( position )
                                            "Wx::TextAttr" ) :
                     &PL_sv_undef );
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxRichTextCtrl::GetStyle( position )
+    long position
+  PPCODE:
+    wxTextAttr attr;
+    bool retval = THIS->GetStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttr( attr ),
+                                           "Wx::TextAttr" ) :
+                    &PL_sv_undef );
+
+#endif
+
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 void
@@ -627,6 +644,23 @@ wxRichTextCtrl::GetTextAttrUncombinedStyle( position )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxRichTextCtrl::GetUncombinedStyle( position )
+    long position
+  PPCODE:
+    wxTextAttr attr;
+    bool retval = THIS->GetUncombinedStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttr( attr ),
+                                           "Wx::TextAttr" ) :
+                    &PL_sv_undef );
+
+#endif
+
 #if WXPERL_W_VERSION_GE( 2, 8, 0 )
 
 void
@@ -647,6 +681,23 @@ wxRichTextCtrl::GetTextAttrExStyleForRange( range )
     wxRichTextRange* range
   PPCODE:
     wxTextAttrEx attr;
+    bool retval = THIS->GetStyleForRange( *range, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttrEx( attr ),
+                                           "Wx::TextAttrEx" ) :
+                    &PL_sv_undef );
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxRichTextCtrl::GetStyleForRange( range )
+    wxRichTextRange* range
+  PPCODE:
+    wxTextAttr attr;
     bool retval = THIS->GetStyleForRange( *range, attr );
     EXTEND( SP, 2 );
     PUSHs( newSViv( retval ) );
