@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2003, 2005-2007 Mattia Barbon
+## Copyright:   (c) 2000-2003, 2005-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -188,5 +188,33 @@ wxTextCtrl::Create( parent, id, value, pos = wxDefaultPosition, size = wxDefault
     wxValidator* validator
     wxString name
   C_ARGS: parent, id, value, pos, size, style, *validator, name
+
+void
+wxTextCtrl::GetStyle( position )
+    long position
+  PPCODE:
+    wxTextAttr attr;
+    bool retval = THIS->GetStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttr( attr ),
+                                           "Wx::TextAttr" ) :
+                    &PL_sv_undef );
+
+## to be consistent with RichTextCtrl
+
+void
+wxTextCtrl::GetTextAttrStyle( position )
+    long position
+  PPCODE:
+    wxTextAttr attr;
+    bool retval = THIS->GetStyle( position, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxTextAttr( attr ),
+                                           "Wx::TextAttr" ) :
+                    &PL_sv_undef );
 
 %}
