@@ -470,8 +470,8 @@ void
 wxRichTextCtrl::SetBasicStyle( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrta, SetBasicStyleRich );
-        MATCH_REDISP( wxPliOvl_wtae, SetBasicStyleEx );
+        MATCH_REDISP( wxPliOvl_wrta, SetBasicStyleRich )
+        MATCH_REDISP( wxPliOvl_wtae, SetBasicStyleEx )
     END_OVERLOAD( "Wx::RichTextCtrl::SetBasicStyle" )
 
 %}
@@ -494,34 +494,34 @@ void
 wxRichTextCtrl::SetStyle( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrtr_wrta, SetStyleRange );
-        MATCH_REDISP( wxPliOvl_n_n_wtae, SetStyleExFromTo );
-        MATCH_REDISP( wxPliOvl_n_n_wtat, SetStyleFromTo );
+        MATCH_REDISP( wxPliOvl_wrtr_wrta, SetStyleRange )
+        MATCH_REDISP( wxPliOvl_n_n_wtae, SetStyleExFromTo )
+        MATCH_REDISP( wxPliOvl_n_n_wtat, SetStyleFromTo )
     END_OVERLOAD( "Wx::RichTextCtrl::SetStyle" )
 
 void
 wxRichTextCtrl::SetStyleEx( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrtr_wrta_n, SetStyleExExRange );
-        MATCH_REDISP( wxPliOvl_wrtr_wtae_n, SetStyleExRange );
-        MATCH_REDISP( wxPliOvl_n_n_wtae, SetStyleExExFromTo );
+        MATCH_REDISP( wxPliOvl_wrtr_wrta_n, SetStyleExExRange )
+        MATCH_REDISP( wxPliOvl_wrtr_wtae_n, SetStyleExRange )
+        MATCH_REDISP( wxPliOvl_n_n_wtae, SetStyleExExFromTo )
     END_OVERLOAD( "Wx::RichTextCtrl::SetStyleEx" )
 
 void
 wxRichTextCtrl::HasCharacterAttributes( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrtr_wrta, HasCARich );
-        MATCH_REDISP( wxPliOvl_wrtr_wtae, HasCAEx );
+        MATCH_REDISP( wxPliOvl_wrtr_wrta, HasCARich )
+        MATCH_REDISP( wxPliOvl_wrtr_wtae, HasCAEx )
     END_OVERLOAD( "Wx::RichTextCtrl::HasCharacterAttributes" )
 
 void
 wxRichTextCtrl::HasParagraphAttributes( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrtr_wrtr, HasPARich );
-        MATCH_REDISP( wxPliOvl_wrtr_wtae, HasPAEx );
+        MATCH_REDISP( wxPliOvl_wrtr_wrtr, HasPARich )
+        MATCH_REDISP( wxPliOvl_wrtr_wtae, HasPAEx )
     END_OVERLOAD( "Wx::RichTextCtrl::HasParagraphAttributes" )
 
 void
@@ -712,9 +712,9 @@ void
 WriteImage( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wimg_n, WriteImageImage, 1 );
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n, WriteImageBitmap, 1 );
-        MATCH_REDISP( wxPliOvl_s_n, WriteImageFile );
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wimg_n, WriteImageImage, 1 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n, WriteImageBitmap, 1 )
+        MATCH_REDISP( wxPliOvl_s_n, WriteImageFile )
     END_OVERLOAD( "Wx::RichTextCtrl::WriteImage" )
 
 
