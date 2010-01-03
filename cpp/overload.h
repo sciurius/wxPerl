@@ -6,7 +6,7 @@
 // Modified by:
 // Created:     11/08/2002
 // RCS-ID:      $Id$
-// Copyright:   (c) 2002, 2004, 2006-2007 Mattia Barbon
+// Copyright:   (c) 2002, 2004, 2006-2007, 2010 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -15,9 +15,11 @@
 
 #define BEGIN_OVERLOAD() \
     PUSHMARK(MARK); \
-    int count;
+    int count; \
+    if( false );
 
 #define END_OVERLOAD( FUNCTION ) \
+    else \
     { \
         static const char msg[] = "unable to resolve overloaded method for "; \
         require_pv( "Carp" ); \
@@ -33,49 +35,40 @@
     count = call_pv( #NEW_METHOD_NAME, GIMME_V ); SPAGAIN
 
 #define MATCH_VOIDM_REDISP( METHOD ) \
-    if( items == 1 ) \
-        { REDISPATCH( METHOD ); } \
-    else
+    else if( items == 1 )           \
+        { REDISPATCH( METHOD ); }
 
 #define MATCH_ANY_REDISP( METHOD ) \
-    if( true ) \
-        { REDISPATCH( METHOD ); } \
-    else
+    else if( true )               \
+        { REDISPATCH( METHOD ); }
 
 #define MATCH_REDISP( PROTO, METHOD ) \
-    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, \
-                                         -1, false ) ) \
-        { REDISPATCH( METHOD ); } \
-    else
+    else if( wxPli_match_arguments_skipfirst( aTHX_ PROTO,  \
+                                              -1, false ) ) \
+        { REDISPATCH( METHOD ); }
 
 #define MATCH_REDISP_COUNT( PROTO, METHOD, REQUIRED ) \
-    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, \
-                                         REQUIRED, false ) ) \
-        { REDISPATCH( METHOD ); } \
-    else
+    else if( wxPli_match_arguments_skipfirst( aTHX_ PROTO,       \
+                                              REQUIRED, false ) ) \
+        { REDISPATCH( METHOD ); }
 
 #define MATCH_REDISP_COUNT_ALLOWMORE( PROTO, METHOD, REQUIRED ) \
-    if( wxPli_match_arguments_skipfirst( aTHX_ PROTO, \
-                                         REQUIRED, true ) ) \
-        { REDISPATCH( METHOD ); } \
-    else
+    else if( wxPli_match_arguments_skipfirst( aTHX_ PROTO,       \
+                                              REQUIRED, true ) ) \
+        { REDISPATCH( METHOD ); }
 
 /* used for overloading static functions, see GraphicsContext.xs for an example */
 #define MATCH_REDISP_FUNCTION( PROTO, METHOD ) \
-    if( wxPli_match_arguments( aTHX_ PROTO, \
-                                         -1, false ) ) \
-        { REDISPATCH_FUNCTION( METHOD );  } \
-    else
-
+    else if( wxPli_match_arguments( aTHX_ PROTO,  \
+                                    -1, false ) ) \
+        { REDISPATCH_FUNCTION( METHOD );  }
 
 #define MATCH_REDISP_COUNT_FUNCTION( PROTO, METHOD, REQUIRED ) \
-    if( wxPli_match_arguments( aTHX_ PROTO, \
-                                         REQUIRED, false ) ) \
-        { REDISPATCH_FUNCTION( METHOD ); } \
-    else
+    else if( wxPli_match_arguments( aTHX_ PROTO,        \
+                                    REQUIRED, false ) ) \
+        { REDISPATCH_FUNCTION( METHOD ); }
 
 #define MATCH_REDISP_COUNT_ALLOWMORE_FUNCTION( PROTO, METHOD, REQUIRED ) \
-    if( wxPli_match_arguments( aTHX_ PROTO, \
-                                         REQUIRED, true ) ) \
-        { REDISPATCH_FUNCTION( METHOD ); } \
-    else
+    else if( wxPli_match_arguments( aTHX_ PROTO,       \
+                                    REQUIRED, true ) ) \
+        { REDISPATCH_FUNCTION( METHOD ); }
