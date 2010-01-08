@@ -57,6 +57,12 @@ eval {
                               },
           configure_requires => { 'Alien::wxWidgets' => 0.25,
                                   },
+          resources       => { 'license'       => 'http://dev.perl.org/licenses/',
+                               'homepage'      => 'http://wxperl.eu/',
+                               'bugtracker'    => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Wx',
+                               'repository'    => 'https://wxperl.svn.sourceforge.net/svnroot/wxperl/wxPerl',
+                               'MailingList'   => 'http://lists.perl.org/list/wxperl-users.html',
+                               },
           } );
 };
 
