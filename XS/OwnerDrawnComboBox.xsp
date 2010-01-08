@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     13/08/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007 Mattia Barbon
+## Copyright:   (c) 2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -50,7 +50,7 @@ INCLUDE: perl -pe "s/ItemContainer/OwnerDrawnComboBox/g" XS/ItemContainer.xs |
                                              p3, p4 ) );                     \
             return;                                                          \
         } else                                                               \
-            return BASE::METHOD( p1, p2, p3, p4 );                           \
+            BASE::METHOD( p1, p2, p3, p4 );                                  \
     }
 
 class wxPlOwnerDrawnComboBox : public wxOwnerDrawnComboBox {
