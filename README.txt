@@ -1,6 +1,6 @@
 wxPerl is a wrapper for the wxWidgets (formerly known as wxWindows) GUI toolkit
 
-Copyright (c) 2000-2008 Mattia Barbon.
+Copyright (c) 2000-2010 Mattia Barbon.
 This package is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
@@ -25,18 +25,19 @@ TESTED PLATFORMS:
 
 Perl            | OS            | wxWidgets      | Compiler
 ----------------+---------------+----------------+-------------------
-ActivePerl 8xx  | Windows 2000  | wxMSW 2.8.x    | MSVC 5
-Strawberry Perl | Windows XP    |                | MSVC 6
-5.10.x          |               |                | MinGW GCC 3.4
+ActivePerl 8xx  | Windows 2000  | wxMSW 2.8.x    | MSVC 6
+Strawberry Perl | Windows XP    |                | MSVC 7
+5.10.x          | Windows Vista |                | MinGW GCC 3.4
+                |               |                | MinGW GCC 4.x
 ----------------+---------------+----------------+-------------------
 5.8.x           | Fedora 9      | wxGTK 2.8.x    | GCC 3.x
-5.6.1           | Debian 4.0    |                | GCC 4.x
+5.6.1           | Debian 4.0    | wxGTK 2.9.x    | GCC 4.x
                 | FreeBSD       |                |
                 | Gentoo        |                |
 ----------------+---------------+----------------+-------------------  
-5.8.x           | Mac OS X 10.3 | wxMac 2.5.3    | GCC 3.3
-5.10.0          | Mac OS X 10.4 | wxMac 2.8.x    | GCC 4.0
-                | Mac OS X 10.5 |                |
+5.8.x           | Mac OS X 10.4 | wxMac 2.5.3    | GCC 3.3
+5.10.0          | Mac OS X 10.5 | wxMac 2.8.x    | GCC 4.x
+                | Mac OS X 10.6 | wxMac 2.9.x    |
 ----------------+---------------+----------------+-------------------
 
 wxPerl has also been reported to work on FreeBSD and IRIX.
