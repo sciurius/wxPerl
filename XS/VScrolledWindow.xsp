@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     18/09/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2007 Mattia Barbon
+## Copyright:   (c) 2006-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -34,10 +34,10 @@
                  const wxString& name = wxPanelNameStr );
 
     ## wxVarScrollHelperBase
-    INCLUDE: perl -pe "s/VarScrollHelperBase/HScrolledWindow/g" XS/VarScrollHelperBase.xs |
+    INCLUDE_COMMAND: $^X -pe "s/VarScrollHelperBase/HScrolledWindow/g" XS/VarScrollHelperBase.xs
 
     ## wxVarHScrollHelper
-    INCLUDE: perl -pe "s/VarHScrollHelper/HScrolledWindow/g" XS/VarHScrollHelper.xs |
+    INCLUDE_COMMAND: $^X -pe "s/VarHScrollHelper/HScrolledWindow/g" XS/VarHScrollHelper.xs
 
 };
 
@@ -64,10 +64,10 @@
     %name{ScrollPages} bool ScrollRowPages( int pages );
 
     ## wxVarScrollHelperBase
-    INCLUDE: perl -pe "s/VarScrollHelperBase/VScrolledWindow/g" XS/VarScrollHelperBase.xs |
+    INCLUDE_COMMAND: $^X -pe "s/VarScrollHelperBase/VScrolledWindow/g" XS/VarScrollHelperBase.xs
 
     ## wxVarVScrollHelper
-    INCLUDE: perl -pe "s/VarVScrollHelper/VScrolledWindow/g" XS/VarVScrollHelper.xs |
+    INCLUDE_COMMAND: $^X -pe "s/VarVScrollHelper/VScrolledWindow/g" XS/VarVScrollHelper.xs
 
 #else
     ## old interface
@@ -119,13 +119,13 @@
     ## poor man's MI support; should use dynamic_cast<> in typemap
 
     ## wxVarHScrollHelper
-    INCLUDE: perl -pe "s/VarHScrollHelper/HVScrolledWindow/g" XS/VarHScrollHelper.xs |
+    INCLUDE_COMMAND: $^X -pe "s/VarHScrollHelper/HVScrolledWindow/g" XS/VarHScrollHelper.xs
 
     ## wxVarVScrollHelper
-    INCLUDE: perl -pe "s/VarVScrollHelper/HVScrolledWindow/g" XS/VarVScrollHelper.xs |
+    INCLUDE_COMMAND: $^X -pe "s/VarVScrollHelper/HVScrolledWindow/g" XS/VarVScrollHelper.xs
 
     ## wxVarHVScrollHelper
-    INCLUDE: perl -pe "s/VarHVScrollHelper/HVScrolledWindow/g" XS/VarHVScrollHelper.xs |
+    INCLUDE_COMMAND: $^X -pe "s/VarHVScrollHelper/HVScrolledWindow/g" XS/VarHVScrollHelper.xs
 
 };
 
