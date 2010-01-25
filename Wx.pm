@@ -114,12 +114,10 @@ sub set_load_function { $load_fun = shift }
 sub set_end_function { $unload_fun = shift }
 
 sub load_dll {
-  return if $^O ne 'MSWin32';
   goto &$load_fun;
 }
 
 sub unload_dll {
-  return if $^O ne 'MSWin32';
   goto &$unload_fun;
 }
 
@@ -128,6 +126,7 @@ END { unload_dll() }
 sub _unload_dll { }
 
 sub _load_dll {
+  return if $^O ne 'MSWin32';
   local $ENV{PATH} = $wx_path . ';' . $ENV{PATH} if $wx_path;
   return unless exists $Wx::dlls->{$_[0]} && $Wx::dlls->{$_[0]};
   my $dll = $Wx::dlls->{$_[0]};
