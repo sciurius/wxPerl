@@ -200,6 +200,7 @@ sub postamble_core {
   my $this = shift;
   my %files = $this->files_to_install();
 
+  require Data::Dumper;
   Wx::build::Utils::write_string( 'files.lst',
                                   Data::Dumper->Dump( [ \%files ] ) );
   my $text = <<EOT . $this->postamble_overload;
