@@ -340,8 +340,8 @@ SetAlwaysUTF8( always_utf8 = true )
 
 #include <wx/dynload.h>
 
-bool
-_load_plugin( string )
+IV
+_load_plugin( string, int flags = 0 /* to be compatible with dl_load_file */ )
     wxString string
   CODE:
 #ifdef HACK
@@ -350,7 +350,8 @@ _load_plugin( string )
     delete new wxMediaCtrl();
 #endif
 #endif
-    RETVAL = wxPluginManager::LoadLibrary( string, wxDL_VERBATIM );
+    wxDynamicLibrary *lib = wxPluginManager::LoadLibrary( string, wxDL_VERBATIM );
+    RETVAL = PTR2IV( lib->GetLibHandle() );
   OUTPUT:
     RETVAL
 

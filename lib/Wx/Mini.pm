@@ -21,17 +21,21 @@ $VERSION = eval $VERSION;
 #
 our( $wx_path );
 
+# see the comment in Wx.xs:_load_plugin for why this is necessary
 sub wxPL_STATIC();
 sub wx_boot($$) {
   local $ENV{PATH} = $wx_path . ';' . $ENV{PATH} if $wx_path;
   if( $_[0] eq 'Wx' || !wxPL_STATIC ) {
+    no warnings 'redefine';
     if( $] < 5.006 ) {
       require DynaLoader;
+      local *DynaLoader::dl_load_file = \&Wx::_load_plugin if $_[0] ne 'Wx';
       no strict 'refs';
       push @{"$_[0]::ISA"}, 'DynaLoader';
       $_[0]->bootstrap( $_[1] );
     } else {
       require XSLoader;
+      local *DynaLoader::dl_load_file = \&Wx::_load_plugin if $_[0] ne 'Wx';
       XSLoader::load( $_[0], $_[1] );
     }
   } else {
