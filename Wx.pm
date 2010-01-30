@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     01/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2009 Mattia Barbon
+## Copyright:   (c) 2000-2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -103,9 +103,9 @@ _start();
 
 our( $wx_path );
 
+# back compat only
 sub _load_file {
-  Wx::wxVERSION() < 2.005 ? DynaLoader::dl_load_file( $_[0], 0 ) :
-                            Wx::_load_plugin( $_[0] );
+  Wx::_load_plugin( $_[0] );
 }
 
 my( $load_fun, $unload_fun ) = ( \&_load_dll, \&_unload_dll );
@@ -131,7 +131,7 @@ sub _load_dll {
   return unless exists $Wx::dlls->{$_[0]} && $Wx::dlls->{$_[0]};
   my $dll = $Wx::dlls->{$_[0]};
   $dll = $wx_path . '/' . $dll if $wx_path;
-  Wx::_load_file( $dll );
+  Wx::_load_plugin( $dll );
 }
 
 {
