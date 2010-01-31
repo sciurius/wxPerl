@@ -102,37 +102,22 @@ use Wx::Mini;
 _start();
 
 our( $wx_path );
+our( $wx_binary_loader );
 
 # back compat only
 sub _load_file {
   Wx::_load_plugin( $_[0] );
 }
 
-my( $load_fun, $unload_fun ) = ( \&_load_dll, \&_unload_dll );
-
-sub set_load_function { $load_fun = shift }
-sub set_end_function { $unload_fun = shift }
-
 sub load_dll {
-  goto &$load_fun;
+  $wx_binary_loader->load_dll(@_);
 }
 
 sub unload_dll {
-  goto &$unload_fun;
+  $wx_binary_loader->unload_dll(@_);
 }
 
 END { unload_dll() }
-
-sub _unload_dll { }
-
-sub _load_dll {
-  return if $^O ne 'MSWin32';
-  local $ENV{PATH} = $wx_path . ';' . $ENV{PATH} if $wx_path;
-  return unless exists $Wx::dlls->{$_[0]} && $Wx::dlls->{$_[0]};
-  my $dll = $Wx::dlls->{$_[0]};
-  $dll = $wx_path . '/' . $dll if $wx_path;
-  Wx::_load_plugin( $dll );
-}
 
 {
   _boot_Constant( 'Wx', $XS_VERSION );
