@@ -490,7 +490,10 @@ static wxPlINH inherit[] =
 #ifdef __WXMSW__
     I( GDIPlusContext,  GraphicsContext )
 #endif
-
+#ifdef __WXMAC__
+    I( MacCoreGraphicsContext,  GraphicsContext )
+    I( MacCoreGraphicsRenderer, GraphicsRenderer )
+#endif
     I( LogTextCtrl,     Log )
     I( LogWindow,       Log )
     I( LogGui,          Log )
