@@ -106,6 +106,18 @@ check_init { Wx::AcceleratorEntry->new( 0, 1, 1 ) };
 check_init { Wx::AcceleratorTable->new };
 check_init { Wx::PlValidator->new };
 
+# Wx::Overlay / Wx::DCOverlay thread tests
+# creation / destruction order is important
+my $overlay1 = Wx::Overlay->new;
+my $overlay2 = Wx::Overlay->new;
+my $checkdc1 = Wx::ClientDC->new( $frame );
+my $checkdc2 = Wx::ClientDC->new( $frame );
+my $dcoverlay1 =  Wx::DCOverlay->new($overlay1,  $checkdc1);
+my $dcoverlay2 =  Wx::DCOverlay->new($overlay2,  $checkdc2);
+undef $dcoverlay1;
+undef $checkdc1;
+undef $overlay1;
+
 # check the ref hash is safe!
 undef $color2;
 undef $pen2;

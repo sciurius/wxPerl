@@ -52,6 +52,7 @@ t/15_threads.t
 t/16_stream.t
 t/17_thread_evt.t
 t/18_unicode.t
+t/19_overlay.t
 t/Tests_Helper.pm
 t/zz_distrib.t
 
@@ -59,6 +60,7 @@ lib/Wx/Api.pod
 lib/Wx/App.pm
 lib/Wx/ArtProvider.pm
 lib/Wx/Event.pm
+lib/Wx/Loader.pod
 lib/Wx/Locale.pm
 lib/Wx/Menu.pm
 lib/Wx/Mini.pm
@@ -164,6 +166,7 @@ XS/MultiChoiceDialog.xs
 XS/Notebook.xs
 XS/NotificationMessage.xsp
 XS/OwnerDrawnComboBox.xsp
+XS/Overlay.xs
 XS/Palette.xs
 XS/Panel.xs
 XS/Pen.xs
