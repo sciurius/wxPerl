@@ -1,11 +1,11 @@
 #############################################################################
-## Name:        XS/DC.xs
+## Name:        XS/Overlay.xs
 ## Purpose:     XS for Wx::Overlay
 ## Author:      Mark Dootson
 ## Modified by:
 ## Created:     31/01/2010
 ## RCS-ID:      $Id: Overlay.xs 2561 2009-05-17 08:49:49Z mbarbon $
-## Copyright:   (c) 2000-2007, 2010 Mattia Barbon
+## Copyright:   (c) 2010 Mark Dootson
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
