@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.97
+	- Added wxOverlay and wxDCOverlay (2.8) (thanks to Mark Dootson).
 
 0.96  Sat Jan  9 10:40:00 CET 2010
 	- Fixed Windows MSVC 6 build.
