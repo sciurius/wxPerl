@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2008 Mattia Barbon
+## Copyright:   (c) 2000-2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -343,6 +343,18 @@ sub EVT_SCROLLWIN_PAGEUP($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLLWIN_PAGE
 sub EVT_SCROLLWIN_PAGEDOWN($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLLWIN_PAGEDOWN, $_[1] ) }
 sub EVT_SCROLLWIN_THUMBTRACK($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLLWIN_THUMBTRACK, $_[1] ) }
 sub EVT_SCROLLWIN_THUMBRELEASE($$) { $_[0]->Connect( -1, -1, &Wx::wxEVT_SCROLLWIN_THUMBRELEASE, $_[1] ) }
+
+sub EVT_SCROLLWIN {
+  my( $x, $y ) = @_;
+  EVT_SCROLLWIN_TOP( $x, $y );
+  EVT_SCROLLWIN_BOTTOM( $x, $y );
+  EVT_SCROLLWIN_LINEUP( $x, $y );
+  EVT_SCROLLWIN_LINEDOWN( $x, $y );
+  EVT_SCROLLWIN_PAGEUP( $x, $y );
+  EVT_SCROLLWIN_PAGEDOWN( $x, $y );
+  EVT_SCROLLWIN_THUMBTRACK( $x, $y );
+  EVT_SCROLLWIN_THUMBRELEASE( $x, $y );
+}
 
 #
 # SpinEvent
