@@ -340,6 +340,9 @@ SetAlwaysUTF8( always_utf8 = true )
 
 #include <wx/dynload.h>
 
+## this has the same interface as DynaLoader::dl_load_files, but since
+## internally it uses wxPluginModule, it ensures proper initialization for
+## wxModule, wxRTTI and (hopefully) any other internal wxWidgets' data structure
 IV
 _load_plugin( string, int flags = 0 /* to be compatible with dl_load_file */ )
     wxString string
