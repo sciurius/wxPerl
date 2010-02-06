@@ -275,4 +275,54 @@ Wx::Loader::Custom module in the distribution
     #---------------------------------
 }
 
+=head1 Full Custom Loader Example
+
+  ################################################
+  # Custom loader for Wx distribution from
+  # http://www.wxperl.co.uk/repository
+  #
+  ################################################
+  
+  package Wx::Loader::Custom;
+  use strict;
+  use warnings;
+  
+  our @ISA = qw( Wx::Loader::Standard );
+  
+  $Wx::wx_binary_loader = __PACKAGE__ if !$Wx::wx_binary_loader;
+  
+  sub loader_info { 'Linux PPM Distribution from http://www.wxperl.co.uk/repository'; }
+  
+  sub boot_overload {
+      shift; 
+      require DynaLoader;
+      for my $dll ( qw( base core adv ) ) {
+        next unless exists $Wx::dlls->{$dll} && $Wx::dlls->{$dll};
+        my $file = ( $Wx::wx_path ) ? $Wx::wx_path . '/' . $Wx::dlls->{$dll} : $Wx::dlls->{$dll};
+        my $libref = DynaLoader::dl_load_file($file, 0);
+        push(@DynaLoader::dl_librefs,$libref) if $libref;
+        
+        # Dynaloader should take care of unloading
+      }
+     return 0;
+  }
+  
+  # Allow legacy packaging call to override our load method
+  
+  my( $load_fun ) = ( \&_load_dll );
+  
+  sub _load_dll {
+      return unless exists $Wx::dlls->{$_[0]} && $Wx::dlls->{$_[0]};
+      my $dll = $Wx::dlls->{$_[0]};
+      $dll = $Wx::wx_path . '/' . $dll if $Wx::wx_path;
+      return Wx::_load_plugin( $dll );  
+  }
+  
+  sub external_set_load { $load_fun = $_[1] }
+  
+  sub load_dll {
+    shift;
+    goto &$load_fun;
+  }
+
 =cut
