@@ -4,7 +4,7 @@
 ## Author:      Mark Dootson
 ## Modified by:
 ## Created:     31/01/2010
-## RCS-ID:      $Id: Overlay.xs 2561 2009-05-17 08:49:49Z mbarbon $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
