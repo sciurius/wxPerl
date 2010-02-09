@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.97
+0.97  Tue Feb  9 22:57:14 CET 2010
 	- Added wxOverlay and wxDCOverlay (2.8) (thanks to Mark Dootson).
         - Added Wx::Loader - allows PPM distributions and packagers to
           override wx dll loading (see Wx::Loader pod)
