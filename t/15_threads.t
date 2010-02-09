@@ -26,6 +26,7 @@ sub check_undef {
 my $app = Wx::App->new( sub { 1 } );
 # ancillary
 my $frame = Wx::Frame->new( undef, -1, 'Test frame' );
+$frame->Show; # otherwise overlay tests fail
 my $treectrl = Wx::TreeCtrl->new( $frame, -1 );
 my $textctrl = Wx::TextCtrl->new( $frame, -1, 'Some text' );
 my $point = Wx::Point->new( 100, 100 );
