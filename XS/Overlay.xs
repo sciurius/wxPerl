@@ -15,6 +15,7 @@
 #include <wx/dc.h>
 #include <wx/window.h>
 #include <wx/overlay.h>
+#include <wx/dcclient.h>
 
 MODULE=Wx PACKAGE=Wx::Overlay
 
