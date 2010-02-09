@@ -17,6 +17,9 @@
 #include <wx/dcscreen.h>
 #include <wx/window.h>
 #include <wx/dcbuffer.h>
+#if wxUSE_GRAPHICS_CONTEXT && WXPERL_W_VERSION_GE( 2, 8, 8 )
+#include <wx/dcgraph.h>
+#endif
 
 #define wxNullBitmapPtr (wxBitmap*) &wxNullBitmap
 
@@ -677,6 +680,45 @@ void
 wxDC::SetLayoutDirection( wxLayoutDirection dir )
 
 #endif
+
+#if wxUSE_GRAPHICS_CONTEXT && WXPERL_W_VERSION_GE( 2, 8, 8 )
+    
+# DECLARE_OVERLOAD( wmdc, Wx::MemoryDC )
+# DECLARE_OVERLOAD( wwdc, Wx::WindowDC )
+
+MODULE=Wx PACKAGE=Wx::GCDC
+
+void
+wxGCDC::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+#if defined( __WXMSW__ )    
+        MATCH_REDISP( wxPliOvl_wmdc, newMemoryDC )
+#endif        
+        MATCH_REDISP( wxPliOvl_wwdc, newWindowDC )
+    END_OVERLOAD( "Wx::GCDC::new" )
+
+#if defined( __WXMSW__ )   
+
+wxGCDC*
+newMemoryDC( CLASS, dc )
+    SV* CLASS
+    wxMemoryDC* dc
+  CODE:
+    RETVAL = new wxGCDC( *dc );
+  OUTPUT: RETVAL
+
+#endif
+
+wxGCDC*
+newWindowDC( CLASS, dc )
+    SV* CLASS
+    wxWindowDC* dc
+  CODE:
+    RETVAL = new wxGCDC( *dc );
+  OUTPUT: RETVAL
+
+#endif    
 
 MODULE=Wx PACKAGE=Wx::ScreenDC
 

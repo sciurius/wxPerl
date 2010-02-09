@@ -79,6 +79,8 @@
 %typemap{wxDC&}{reference};
 %typemap{const wxDC&}{reference};
 %typemap{const wxWindowDC&}{reference};
+%typemap{const wxMemoryDC&}{reference};
+%typemap{const wxPrinterDC&}{reference};
 %typemap{const wxValidator&}{reference};
 
 %typemap{const wxPen&}{reference};

@@ -72,3 +72,7 @@
     else if( wxPli_match_arguments( aTHX_ PROTO,       \
                                     REQUIRED, true ) ) \
         { REDISPATCH_FUNCTION( METHOD ); }
+
+#define MATCH_VOIDM_REDISP_FUNCTION( METHOD ) \
+    else if( items == 0 ) \
+        { REDISPATCH_FUNCTION( METHOD ); }

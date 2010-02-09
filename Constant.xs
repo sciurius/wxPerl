@@ -464,7 +464,8 @@ static wxPlINH inherit[] =
     I( BufferedPaintDC, BufferedDC )
     I( SVGFileDC,       DC )
     I( MirrorDC,        DC )
-
+    I( GCDC,            DC )
+    
     I( BMPHandler,      ImageHandler )
     I( PNGHandler,      ImageHandler )
     I( JPEGHandler,     ImageHandler )
