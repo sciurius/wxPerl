@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2009 Mattia Barbon
+// Copyright:   (c) 2000-2010 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -1482,6 +1482,8 @@ I32 my_looks_like_number( pTHX_ SV* sv )
 void wxPli_thread_sv_register( pTHX_ const char* package,
                                const void* ptr, SV* sv )
 {
+    if( !SvOK( sv ) )
+        return;
     if( !SvROK( sv ) )
         croak( "PANIC: no sense in registering a non-reference" );
 
