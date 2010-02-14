@@ -3325,17 +3325,18 @@ WXPLI_BOOT_ONCE(Wx_Const);
 
 MODULE=Wx_Const PACKAGE=Wx
 
+## this used to be written using a CODE: section, but it seems to tickle
+## an optimizer bug with g++ 4.2, -O2, no threads, on Mac OS X
 double
 constant( name, arg, error )
     const char* name
     int arg
     int error = NO_INIT
-  CODE:
+  PPCODE:
     RETVAL = constant( name, arg );
-    error = errno;
-  OUTPUT:
-    RETVAL
-    error
+    XPUSHs( sv_2mortal( newSViv( RETVAL ) ) );
+    sv_setiv_mg( ST(2), errno );
+    XSRETURN( 1 );
 
 void
 UnsetConstants()
