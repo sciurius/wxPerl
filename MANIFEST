@@ -53,6 +53,7 @@ t/16_stream.t
 t/17_thread_evt.t
 t/18_unicode.t
 t/19_overlay.t
+t/20_ctx_threads.t
 t/Tests_Helper.pm
 t/zz_distrib.t
 

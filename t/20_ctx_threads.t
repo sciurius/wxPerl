@@ -39,32 +39,33 @@ sub on_draw {
 
   ok(1, 'on draw called');
   # persistent items
+  my $usegcdc;
+  # Cannot use graphics context outside paint event on wxMAC
+  if (!Wx::wxMAC()) {
 
-  # Mac doesn't like drawing text in this situation
-  # it fails before we get to threads at all.
-  # But, we can create the objects to test at least
-
-  my $usegcdc = (Wx::wxVERSION > 2.0080075) ? 1 : 0;
-  $clientdc = Wx::ClientDC->new($self);
-  $context = Wx::GraphicsContext::Create( $clientdc );
-  $contextdc = Wx::GCDC->new($clientdc) if $usegcdc;
-  
-  $context->SetFont( Wx::SystemSettings::GetFont( wxSYS_SYSTEM_FONT ), wxBLACK );
-  $context->DrawText('Test',20,20) if !Wx::wxMAC();
-  if($usegcdc) {
-    $contextdc->SetFont( Wx::SystemSettings::GetFont( wxSYS_SYSTEM_FONT ) );
-    $contextdc->DrawText('Test',20,50) if !Wx::wxMAC();
+    $usegcdc = (Wx::wxVERSION > 2.0080075) ? 1 : 0;
+    $clientdc = Wx::ClientDC->new($self);
+    $context = Wx::GraphicsContext::Create( $clientdc );
+    $contextdc = Wx::GCDC->new($clientdc) if $usegcdc;
+    
+    $context->SetFont( Wx::SystemSettings::GetFont( wxSYS_SYSTEM_FONT ), wxBLACK );
+    $context->DrawText('Test',20,20); 
+    if($usegcdc) {
+      $contextdc->SetFont( Wx::SystemSettings::GetFont( wxSYS_SYSTEM_FONT ) );
+      $contextdc->DrawText('Test',20,50) if !Wx::wxMAC();
+    }
+    
   }
   
   ok($eventpaintcalled, 'event paint called before on_draw'); # ensure we fail if EVT_PAINT was not called
 
   TODO: {
-        local $TODO = "No CLONE or DESTROY for GraphicsContext ?";
+    local $TODO = "No CLONE or DESTROY for GraphicsContext ?";
     can_ok('Wx::GraphicsContext', (qw( CLONE DESTROY) ));  
   }
   
   SKIP: {
-        skip "No wxGCDC", 1 if !$usegcdc;
+    skip "No wxGCDC", 1 if !$usegcdc;
     can_ok('Wx::GCDC', (qw( CLONE DESTROY) ));
   }
 
