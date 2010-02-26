@@ -216,9 +216,10 @@ wxApp::SetUseBestVisual( flag )
     bool flag
 
 void
-wxApp::Yield()
+wxApp::Yield( onlyifneeded = false )
+    bool onlyifneeded
   CODE:
-    THIS->wxApp::Yield();
+    THIS->wxApp::Yield( onlyifneeded );
 
 #if defined( __WXMSW__ ) && WXPERL_W_VERSION_GE( 2, 5, 0 )
 
