@@ -40,7 +40,7 @@ Wx_InputStream::READ( buf, len, offset = 0 )
 
     if( offset < 0 )
     {
-        if( abs( offset ) > maxlen )
+        if( ( (offset) >= 0 ? (offset) : -(offset) ) > maxlen )
         {
             XSRETURN_IV( 0 );
         }
@@ -122,7 +122,7 @@ Wx_OutputStream::WRITE( buf, len = -1, offset = 0 )
     IV maxlen = sv_len( buf );
     const char* buffer = SvPV_nolen( buf );
   CODE:
-    if( abs( offset ) > maxlen )
+    if( ( (offset) >= 0 ? (offset) : -(offset) ) > maxlen )
         RETVAL = 0;
     else
     {
