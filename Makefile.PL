@@ -41,7 +41,7 @@ my $build_requires =
     'Alien::wxWidgets'       => 0.25,
     'if'                     => 0.03,
     'ExtUtils::XSpp'         => 0.09,
-    'ExtUtils::ParseXS'      => 2.2202,
+    'ExtUtils::ParseXS'      => 2.2203,
     };
 
 eval {
