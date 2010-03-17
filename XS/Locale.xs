@@ -5,12 +5,13 @@
 ## Modified by:
 ## Created:     30/11/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2007 Mattia Barbon
+## Copyright:   (c) 2000-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 #include <wx/intl.h>
+#include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::LanguageInfo
 
@@ -251,10 +252,28 @@ GetLanguageInfo( language )
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
+void
+wxGetTranslation( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_FUNCTION( wxPliOvl_s, Wx::GetTranslationNormal )   
+        MATCH_REDISP_FUNCTION( wxPliOvl_s_s_n, Wx::GetTranslationPlural )
+    END_OVERLOAD( "Wx::GetTranslation" )
+
 const wxChar*
-wxGetTranslation( string )
+wxGetTranslationNormal( string )
     const wxChar* string
   CODE:
     RETVAL = wxGetTranslation( string );
+  OUTPUT:
+    RETVAL
+
+const wxChar*
+wxGetTranslationPlural( string, plural, n )
+    const wxChar* string
+    const wxChar* plural
+    size_t n
+  CODE:
+    RETVAL = wxGetTranslation( string, plural, n );
   OUTPUT:
     RETVAL
