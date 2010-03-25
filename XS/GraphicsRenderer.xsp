@@ -33,15 +33,16 @@ void
 CreateContext( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_FUNCTION( wxPliOvl_wwin, CreateFromWindow )   
-        MATCH_REDISP_FUNCTION( wxPliOvl_wwdc, CreateFromWindowDC )
+        MATCH_REDISP( wxPliOvl_wwin, CreateFromWindow )   
 #if defined(__WXMSW__) || WXPERL_W_VERSION_GE( 2, 9, 0 )       
-        MATCH_REDISP_FUNCTION( wxPliOvl_wmdc, CreateFromMemoryDC)
+        MATCH_REDISP( wxPliOvl_wmdc, CreateFromMemoryDC)
 #endif     
 #if wxPERL_USE_PRINTING_ARCHITECTURE && WXPERL_W_VERSION_GE( 2, 9, 0 )     
-        MATCH_REDISP_FUNCTION( wxPliOvl_wpdc, CreateFromPrinterDC)
+        MATCH_REDISP( wxPliOvl_wpdc, CreateFromPrinterDC)
 #endif                  
+        MATCH_REDISP( wxPliOvl_wwdc, CreateFromWindowDC )
     END_OVERLOAD( "Wx::GraphicsRenderer::CreateContext" )
+
 %}
 
     %name{CreateFromWindowDC} wxGraphicsContext* CreateContext( const wxWindowDC& dc );
