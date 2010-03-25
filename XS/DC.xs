@@ -681,6 +681,20 @@ wxDC::SetLayoutDirection( wxLayoutDirection dir )
 
 #endif
 
+#if wxUSE_GRAPHICS_CONTEXT && WXPERL_W_VERSION_GE( 2, 8, 8 ) && defined( __WXMAC__ )
+
+wxGraphicsContext*
+wxDC::GetGraphicsContext()
+  CODE:
+    RETVAL = THIS->GetGraphicsContext();
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+
+#endif
+
+
 #if wxUSE_GRAPHICS_CONTEXT && WXPERL_W_VERSION_GE( 2, 8, 8 )
     
 # DECLARE_OVERLOAD( wmdc, Wx::MemoryDC )
@@ -717,6 +731,27 @@ newWindowDC( CLASS, dc )
   CODE:
     RETVAL = new wxGCDC( *dc );
   OUTPUT: RETVAL
+
+#if !defined( __WXMAC__ )
+
+wxGraphicsContext*
+wxGCDC::GetGraphicsContext()
+  CODE:
+    RETVAL = THIS->GetGraphicsContext();
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+    
+
+void
+wxGCDC::SetGraphicsContext( ctx )
+    wxGraphicsContext* ctx
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    THIS->SetGraphicsContext( ctx );
+
+#endif
 
 #endif    
 

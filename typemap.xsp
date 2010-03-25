@@ -78,8 +78,14 @@
 %typemap{wxDC*}{simple};
 %typemap{wxDC&}{reference};
 %typemap{const wxDC&}{reference};
+%typemap{wxWindowDC*}{simple};
+%typemap{wxWindowDC&}{reference};
 %typemap{const wxWindowDC&}{reference};
+%typemap{wxMemoryDC*}{simple};
+%typemap{wxMemoryDC&}{reference};
 %typemap{const wxMemoryDC&}{reference};
+%typemap{wxPrinterDC*}{simple};
+%typemap{wxPrinterDC&}{reference};
 %typemap{const wxPrinterDC&}{reference};
 %typemap{const wxValidator&}{reference};
 
@@ -132,6 +138,8 @@
 %typemap{wxPliOutputStream}{simple};
 
 %typemap{wxGraphicsContext*}{simple};
+%typemap{wxGraphicsContext&}{reference};
+%typemap{const wxGraphicsContext&}{reference};
 %typemap{const wxGraphicsPath&}{reference};
 %typemap{const wxGraphicsMatrix&}{reference};
 %typemap{const wxGraphicsPen&}{reference};

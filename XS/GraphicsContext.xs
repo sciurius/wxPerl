@@ -19,6 +19,25 @@
 
 MODULE=Wx PACKAGE=Wx::GraphicsContext
 
+## // not deleteable if created from wxGCDC::GetGraphicsContext
+## // override wxGraphicsObject CLONE and DESTROY methods
+## // default return for wxPli_object_is_deleteable should be true
+
+static void
+wxGraphicsContext::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+
+## // thread OK
+
+void
+wxGraphicsContext::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+       delete THIS;
+
 # DECLARE_OVERLOAD( wmdc, Wx::MemoryDC )
 # DECLARE_OVERLOAD( wwdc, Wx::WindowDC )
 # DECLARE_OVERLOAD( wpdc, Wx::PrinterDC )
