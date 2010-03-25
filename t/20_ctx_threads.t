@@ -72,7 +72,7 @@ sub on_draw {
   }
 
   SKIP: {
-    skip "No SetGraphicsContext on wxMAC", 1 if Wx::wxMAC();
+    skip "No SetGraphicsContext on wxMAC or No wxGCDC", 1 if( Wx::wxMAC() || (!$usegcdc));
     can_ok('Wx::GCDC', (qw( SetGraphicsContext) ));
   }
 
