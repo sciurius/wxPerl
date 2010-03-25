@@ -572,6 +572,33 @@ bool
 wxMenuBar::IsEnabledTop( id )
     int id
 
+#if defined( __WXMAC__ )
+
+void 
+wxMenuBar::MacInstallMenuBar()
+
+wxMenuBar* 
+MacGetInstalledMenuBar()
+  CODE:
+    RETVAL = wxMenuBar::MacGetInstalledMenuBar();
+  OUTPUT: RETVAL
+
+void
+MacSetCommonMenuBar( menubar )
+    wxMenuBar* menubar
+  CODE:
+    wxMenuBar::MacSetCommonMenuBar( menubar );
+
+wxMenuBar* 
+MacGetCommonMenuBar()
+  CODE:
+    RETVAL = wxMenuBar::MacGetCommonMenuBar();
+  OUTPUT: RETVAL
+	  
+
+#endif
+
+
 MODULE=Wx PACKAGE=Wx::MenuItem
 
 wxMenuItem*
