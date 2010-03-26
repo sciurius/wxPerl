@@ -456,4 +456,11 @@ wxGraphicsContext::StrokeLinesTwo ( beginPoints, endPoints )
     int n2 = wxPli_av_2_point2ddoublearray(aTHX_ endPoints, endPoints2d.lvalue());
     THIS->StrokeLines(wxMin(n1, n2), beginPoints2d, endPoints2d);
 
+void
+wxGraphicsContext::PopState()
+
+void
+wxGraphicsContext::PushState()
+
+
 #endif
