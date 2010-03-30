@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2007, 2009 Mattia Barbon
+## Copyright:   (c) 2000-2007, 2009-2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -681,7 +681,7 @@ wxDC::SetLayoutDirection( wxLayoutDirection dir )
 
 #endif
 
-#if wxUSE_GRAPHICS_CONTEXT && WXPERL_W_VERSION_GE( 2, 8, 8 ) && defined( __WXMAC__ )
+#if wxUSE_GRAPHICS_CONTEXT && WXPERL_W_VERSION_GE( 2, 8, 8 ) && WXPERL_W_VERSION_LT( 2, 9, 0 ) && defined( __WXMAC__ )
 
 wxGraphicsContext*
 wxDC::GetGraphicsContext()
@@ -732,7 +732,7 @@ newWindowDC( CLASS, dc )
     RETVAL = new wxGCDC( *dc );
   OUTPUT: RETVAL
 
-#if !defined( __WXMAC__ )
+#if !defined( __WXMAC__ ) || WXPERL_W_VERSION_GE( 2, 9, 0 )
 
 wxGraphicsContext*
 wxGCDC::GetGraphicsContext()
