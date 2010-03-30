@@ -4,6 +4,7 @@ use strict;
 use Wx;
 use lib './t';
 use Tests_Helper qw(in_frame);
+use if !defined(&Wx::Overlay::new) => 'Test::More' => skip_all => 'no Overlay';
 use Test::More 'tests' => 1;
 
 # test will crash if creation / destruction does not happen as
