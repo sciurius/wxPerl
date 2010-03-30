@@ -1,470 +1,472 @@
 Revision history for Perl extension Wx.
 
-    - wrapped wxMenuBar::MacSetCommonMenuBar, MacInstallMenuBar
-    - wrapped wxGCDC::GetGraphicsContext
+0.9701_01  Tue Mar 30 22:46:33 CEST 2010
+	- 64 Bit build fixes.
+	- Wrapped wxMenuBar::MacSetCommonMenuBar, MacInstallMenuBar
+	- Wrapped wxGCDC::GetGraphicsContext
 
 0.9701 Thu Feb 11 16:03:42 CET 2010
-    - Bump the required version of ExtUtils::XSpp and ExtUtils::ParseXS.
+	- Bump the required version of ExtUtils::XSpp and ExtUtils::ParseXS.
 
 0.97  Tue Feb  9 22:57:14 CET 2010
-    - Added wxOverlay and wxDCOverlay (2.8) (thanks to Mark Dootson).
-        - Added Wx::Loader - allows PPM distributions and packagers to
-          override wx dll loading (see Wx::Loader pod)
-    - Loading plugins - local override of dl_load_file now uses
-      Wx::_load_plugin during XSLoader::load
+	- Added wxOverlay and wxDCOverlay (2.8) (thanks to Mark Dootson).
+	- Added Wx::Loader - allows PPM distributions and packagers to
+	  override wx dll loading (see Wx::Loader pod)
+	- Loading plugins - local override of dl_load_file now uses
+	  Wx::_load_plugin during XSLoader::load
 
 0.96  Sat Jan  9 10:40:00 CET 2010
-    - Fixed Windows MSVC 6 build.
+	- Fixed Windows MSVC 6 build.
 
 0.95  Fri Dec 25 18:24:44 CET 2009
-    - Only preload wxWidgets' DLL under Windows.
-    - Some Windows build fixes.
+	- Only preload wxWidgets' DLL under Windows.
+	- Some Windows build fixes.
 
 0.94  Sun Nov  8 14:10:32 CET 2009
-    - Remove the last use of the xspp command line script.
-    - Compilation fix for Strawberry Perl 5.10 (probably needed for all
-      Perl 5.10 builds on Windows).
-    - wxWidgets 2.9.0 compatibility.
+	- Remove the last use of the xspp command line script.
+	- Compilation fix for Strawberry Perl 5.10 (probably needed for all
+	  Perl 5.10 builds on Windows).
+	- wxWidgets 2.9.0 compatibility.
 
 0.93  Gio 24 Set 2009 21:34:10 CEST
-    - Use ExtUtils::XSpp::Cmd instead of the xspp command
-      line script.
+	- Use ExtUtils::XSpp::Cmd instead of the xspp command
+	  line script.
 
 0.92  Thu Aug  6 21:04:59 CEST 2009
-    - Compilation fix for ActivePerl.
-    - First public release to use ExtUtils::XSpp.
+	- Compilation fix for ActivePerl.
+	- First public release to use ExtUtils::XSpp.
 
 0.91_01  Thu Jun 25 00:30:17 CEST 2009
-    - xspp is no longer part of Wx (See ExtUtils::XSpp)
+	- xspp is no longer part of Wx (See ExtUtils::XSpp)
 
 0.91  Sun May 17 18:55:45 CEST 2009
-    - Threading fixes for 25 classes.
-    - Fixed Windows build (patch by Ahmad Zawawi).
+	- Threading fixes for 25 classes.
+	- Fixed Windows build (patch by Ahmad Zawawi).
 
 0.90  Sun May 10 09:24:25 CEST 2009
-    - Miscellaneous build/compilation fixes.
+	- Miscellaneous build/compilation fixes.
 
 0.89  Sat Dec  6 11:39:54 CET 2008
-    - Fix crash when using AUI and threads.
+	- Fix crash when using AUI and threads.
 
 0.88  Sun Nov  9 18:03:25 CET 2008
-    - Skip author tests unless $ENV{AUTHOR_TESTS} is set.
+	- Skip author tests unless $ENV{AUTHOR_TESTS} is set.
 
 0.87  Fri Nov  7 20:31:09 CET 2008
-    - Fix segmentation fault when building under Mac in ANSI mode.
+	- Fix segmentation fault when building under Mac in ANSI mode.
 
 0.86  Wed Sep  3 22:57:17 CEST 2008
-    - Allow binding a method to an event, not just a sub reference.
-    - Add Wx::SetAlwaysUTF8() to always return character strings from
-      wxWidgets methods, even in ANSI mode (does nothing if wxWidgets
-      is compiled with Unicode enabled).
-    - Warn if INC/LIB are passed to Makefile.PL, since this might
-      cause the build to fail.
+	- Allow binding a method to an event, not just a sub reference.
+	- Add Wx::SetAlwaysUTF8() to always return character strings from
+	  wxWidgets methods, even in ANSI mode (does nothing if wxWidgets
+	  is compiled with Unicode enabled).
+	- Warn if INC/LIB are passed to Makefile.PL, since this might
+	  cause the build to fail.
 
 0.85  Sun Aug 24 11:26:38 CEST 2008
-    - Compilation fixes for wxMotif (patch by Marek Rouchal).
-    - On Mac OS X warn the user if it is not running the program
-      using wxPerl.
+	- Compilation fixes for wxMotif (patch by Marek Rouchal).
+	- On Mac OS X warn the user if it is not running the program
+	  using wxPerl.
 
 0.84  Sun Jun 29 21:43:31 CEST 2008
-    - Workaround for crash on exit on DEBUGGING Perls
-      (mostly affects Fedora users)
+	- Workaround for crash on exit on DEBUGGING Perls
+	  (mostly affects Fedora users)
 
 0.83  Mon May 19 22:37:36 CEST 2008
-    - Avoid 'deep recursion' errors and eating all available
-      memory when loading wxPerl fails.
-    - Handle INSTALL_BASE under Mac OS X.
+	- Avoid 'deep recursion' errors and eating all available
+	  memory when loading wxPerl fails.
+	- Handle INSTALL_BASE under Mac OS X.
 
 0.82  Thu Mar 27 00:45:59 CET 2008
-    - Fixed running Makefile.PL in absence of Alien::wxWidgets.
-    - Renamed wx_xspp.pl and wx_overload.pl to
-      wxperl_xspp and wxperl_overload, to comply
-      with Debian policy.
+	- Fixed running Makefile.PL in absence of Alien::wxWidgets.
+	- Renamed wx_xspp.pl and wx_overload.pl to
+	  wxperl_xspp and wxperl_overload, to comply
+	  with Debian policy.
 
 0.81  Sat Jan 19 17:36:33 CET 2008
-    - Almost completed the interface of wxStyledTextCtrl.
-    - Added wxBitmapToggleButton and wxSVGFileDC (2.9).
-    - Added wxWrapSizer (2.9).
-    - Added wxNotificationMessage (2.9).
-    - Added wxMirrorDC and wxDCClipper.
-    - Partially completed interface to wxDataViewCtrl (2.9).
+	- Almost completed the interface of wxStyledTextCtrl.
+	- Added wxBitmapToggleButton and wxSVGFileDC (2.9).
+	- Added wxWrapSizer (2.9).
+	- Added wxNotificationMessage (2.9).
+	- Added wxMirrorDC and wxDCClipper.
+	- Partially completed interface to wxDataViewCtrl (2.9).
 
 0.80  Tue Nov  6 23:12:53 CET 2007
-    - Build fixes for Windows (both dmake and nmake).
-    - Prototype implementation of wxVariant and wxDataViewCtrl (2.9).
+	- Build fixes for Windows (both dmake and nmake).
+	- Prototype implementation of wxVariant and wxDataViewCtrl (2.9).
 
 0.79  Thu Oct 18 00:52:35 CEST 2007
-    - Windows compilation fixes (thanks to John Kizlyk for the report).
-    - Try to handle gracefully the absence of Alien::wxWidgets under
-      Mac OS X.
-    - Added Alien::wxWidgets to configure_requires.
+	- Windows compilation fixes (thanks to John Kizlyk for the report).
+	- Try to handle gracefully the absence of Alien::wxWidgets under
+	  Mac OS X.
+	- Added Alien::wxWidgets to configure_requires.
 
 0.78  Mon Oct 15 23:54:13 CEST 2007
-    - Added wxRichTextBuffer and wxRichTextFileHandler,
-      wxRichTextHTMLHandler, wxRichTextXMLHandler (2.7).
-    - Added wxSymbolPickerDialog (2.7).
-    - Added wxDisplay, wxGenericDirCtrl.
-    - Added wxFileCtrl (2.9).
-    - Added wxStandardPaths (2.6).
-    - Wrapped the remaining wxGraphics* classes (2.7).
+	- Added wxRichTextBuffer and wxRichTextFileHandler,
+	  wxRichTextHTMLHandler, wxRichTextXMLHandler (2.7).
+	- Added wxSymbolPickerDialog (2.7).
+	- Added wxDisplay, wxGenericDirCtrl.
+	- Added wxFileCtrl (2.9).
+	- Added wxStandardPaths (2.6).
+	- Wrapped the remaining wxGraphics* classes (2.7).
 
 0.77  Thu Aug 23 21:59:25 CEST 2007
-    - Added wxGraphicsContext (2.7) and some related classes
-      (patch by Klaas Hartmann).
-    - Added wxCollapsiblePane (2.7).
-    - Added wxBitmapComboBox (2.7).
-    - Added wxAnimation and wxAnimationCtrl (2.7).
-    - Added wxPropertySheetDialog (2.6).
-    - Added wxPasswordEntryDialog (2.6).
-    - Added wxCommand and wxCommandProcessor.
-    - Added wxHScrolledWindow and wxHVScrolledWindow and
-      made wx[HV]ScrolledWindow subclassable from Perl.
+	- Added wxGraphicsContext (2.7) and some related classes
+	  (patch by Klaas Hartmann).
+	- Added wxCollapsiblePane (2.7).
+	- Added wxBitmapComboBox (2.7).
+	- Added wxAnimation and wxAnimationCtrl (2.7).
+	- Added wxPropertySheetDialog (2.6).
+	- Added wxPasswordEntryDialog (2.6).
+	- Added wxCommand and wxCommandProcessor.
+	- Added wxHScrolledWindow and wxHVScrolledWindow and
+	  made wx[HV]ScrolledWindow subclassable from Perl.
 
 0.76  Thu Aug 16 00:21:00 CEST 2007
-    - Added wxEditableListBox (2.9).
-    - Added wxSearchCtrl (2.8).
-    - Added wxComboCtrl and wxOwnerDrawnComboBox (2.7).
-    - Added EVT_HTML_XXX event handlers.
+	- Added wxEditableListBox (2.9).
+	- Added wxSearchCtrl (2.8).
+	- Added wxComboCtrl and wxOwnerDrawnComboBox (2.7).
+	- Added EVT_HTML_XXX event handlers.
 
 0.75  Sun Jul  8 22:43:41 CEST 2007
-    - wxWidgets 2.9.x compatibility.
-    - Changed wxInputStream::READLINE to always return bytes.
+	- wxWidgets 2.9.x compatibility.
+	- Changed wxInputStream::READLINE to always return bytes.
 
 0.74  Sun Apr 29 00:53:23 CEST 2007
-    - Minor compilation and runtime fixes.
+	- Minor compilation and runtime fixes.
 
 0.73  Tue Apr 17 22:49:32 CEST 2007
-    - wxWidgets 2.9.x compatibility.
+	- wxWidgets 2.9.x compatibility.
 
 0.72  Sun Apr  1 00:33:54 CEST 2007
-    - Compilation fixes for GCC 3.4.
-    - Compilation fixes for wxMotif/wxWidgets 2.6.3.
+	- Compilation fixes for GCC 3.4.
+	- Compilation fixes for wxMotif/wxWidgets 2.6.3.
 
 0.71  Thu Mar 29 21:53:11 CEST 2007
-    - Fix all remaining known thread issues.
+	- Fix all remaining known thread issues.
 
 0.70  Thu Mar 22 00:08:20 CET 2007
-    - wxWidgets 2.9.x compatibility.
-    - Improved creation of wxDocument/wxView subclasses
-      in Wx::DocTemplate.
+	- wxWidgets 2.9.x compatibility.
+	- Improved creation of wxDocument/wxView subclasses
+	  in Wx::DocTemplate.
 
 0.69  Fri Mar 16 20:54:50 CET 2007
-    - Fix crash caused by Wx::PlThreadEvent.
-    - Some documentation of using wxPerl with threads.
+	- Fix crash caused by Wx::PlThreadEvent.
+	- Some documentation of using wxPerl with threads.
 
 0.68  Sat Mar 10 21:45:26 CET 2007
-    - Added wxSystemOptions (thanks to Mark Dootson).
-    - Fix a thread-related crash.
+	- Added wxSystemOptions (thanks to Mark Dootson).
+	- Fix a thread-related crash.
 
 0.67  Sat Dec 16 19:36:37 CET 2006
-    - Try to handle gracefully the case when Alien::wxWidgets is missing,
-      restoring the 0.49_05 behaviour.
+	- Try to handle gracefully the case when Alien::wxWidgets is missing,
+	  restoring the 0.49_05 behaviour.
 
 0.66  Fri Dec 15 22:47:54 CET 2006
-    - wxWidgets 2.8.0 compatibility.
+	- wxWidgets 2.8.0 compatibility.
 
 0.65  Sun Dec  3 16:49:02 CET 2006
-    - Windows compilation fixes.
+	- Windows compilation fixes.
 
 0.64  Sun Nov 26 18:32:03 CET 2006
-    - Removed support for wxWidgets 2.7.0 and 2.7.1.
-    - Added Wx::GridCellAutoWrapStringRenderer,
-      Wx::GridCellAutoWrapStringEditor, Wx::GridCellEnumRenderer,
-      Wx::GridCellEnumEditor, Wx::GridCellDateTimeRenderer
-      (thanks to Mark Dootson).
-    - Added wxRichTextFormattingDialog.
+	- Removed support for wxWidgets 2.7.0 and 2.7.1.
+	- Added Wx::GridCellAutoWrapStringRenderer,
+	  Wx::GridCellAutoWrapStringEditor, Wx::GridCellEnumRenderer,
+	  Wx::GridCellEnumEditor, Wx::GridCellDateTimeRenderer
+	  (thanks to Mark Dootson).
+	- Added wxRichTextFormattingDialog.
 
 0.63  Wed Nov 15 21:40:28 CET 2006
-    - Fix failing tests under Mac.
+	- Fix failing tests under Mac.
 
 0.62  Mon Nov 13 23:16:41 CET 2006
-    - Fix Windows compilation.
-    - Fix Mac OS X build.
+	- Fix Windows compilation.
+	- Fix Mac OS X build.
 
 0.61  Sun Nov 12 18:33:41 CET 2006
-    - Added Advanced User Interface (AUI) (2.7).
-    - Wrapped more wxRichTextCtrl support classes (2.7).
+	- Added Advanced User Interface (AUI) (2.7).
+	- Wrapped more wxRichTextCtrl support classes (2.7).
 
 0.60  Sat Nov 11 16:48:57 CET 2006
-    - Added wxRichTextCtrl and some related classes (2.7).
-    - Removed support for wxWidgets 2.4. Supports 2.5.3 and above.
-    - Added wxSimpleHtmlListBox, wxColourPickerCtrl, wxFontPickerCtrl,
-      wxFilePickerCtrl, wxDirPickerCtrl, wxAboutDialog (2.7).
-    - Resolved memory leak with classes derived from Wx::PlEvent and
-      Wx::PlCommandEvent.
+	- Added wxRichTextCtrl and some related classes (2.7).
+	- Removed support for wxWidgets 2.4. Supports 2.5.3 and above.
+	- Added wxSimpleHtmlListBox, wxColourPickerCtrl, wxFontPickerCtrl,
+	  wxFilePickerCtrl, wxDirPickerCtrl, wxAboutDialog (2.7).
+	- Resolved memory leak with classes derived from Wx::PlEvent and
+	  Wx::PlCommandEvent.
 
 0.59  Fri Oct 20 22:05:45 CEST 2006
-    - Fix packaging error in 0.58.
+	- Fix packaging error in 0.58.
 
 0.58  Thu Oct 19 21:54:04 CEST 2006
-    - Added wxVScrolledWindow, wxVListBox, wxHtmlListBox.
-    - Support wxWidgets RTL API (2.7).
-    - Fix various bugs in wxStreams <=> Perl filehandles
-      interoperability.
+	- Added wxVScrolledWindow, wxVListBox, wxHtmlListBox.
+	- Support wxWidgets RTL API (2.7).
+	- Fix various bugs in wxStreams <=> Perl filehandles
+	  interoperability.
 
 0.57  Sun Aug 27 17:25:18 CEST 2006
-    - Added wxHtmlDCRenderer (thanks to Mark Dootson).
-    - Made the XS++ and overload preprocessors installable,
-      to be used by extensions.
-    - Removed the demo and some samples, replaced by
-      Wx::Demo (a separate CPAN distribution).
+	- Added wxHtmlDCRenderer (thanks to Mark Dootson).
+	- Made the XS++ and overload preprocessors installable,
+	  to be used by extensions.
+	- Removed the demo and some samples, replaced by
+	  Wx::Demo (a separate CPAN distribution).
 
 0.56  Fri Aug 11 22:29:33 CEST 2006
-    - Many thread-safety fixes.
-    - wxMotif compatibility.
-    - Build again under Windows.
+	- Many thread-safety fixes.
+	- wxMotif compatibility.
+	- Build again under Windows.
 
 0.55  Sun Aug  6 19:48:31 CEST 2006
-    - Mac OS X 10.4 with latest Xcode compilation fixes.
-    - Added wxTreebook, wxChoicebook, wxHyperlinkCtrl,
-      wxPowerEvent. (2.7)
-    - Added Wx::SimpleApp.
-    - Make the example in the SYNOPSIS actually show a window.
+	- Mac OS X 10.4 with latest Xcode compilation fixes.
+	- Added wxTreebook, wxChoicebook, wxHyperlinkCtrl,
+	  wxPowerEvent. (2.7)
+	- Added Wx::SimpleApp.
+	- Make the example in the SYNOPSIS actually show a window.
 
 0.54  Sun Jul 16 14:26:52 CEST 2006
-        - Compatibility with GCC 4.0 and 4.1.
-    - Minor compatibility fixes for various wxWidgets releases.
+	    - Compatibility with GCC 4.0 and 4.1.
+	- Minor compatibility fixes for various wxWidgets releases.
 
 0.53  Sun Jul  9 12:42:59 CEST 2006
-        - wxWidgets 2.4 and wxMac compilation fixes.
+	    - wxWidgets 2.4 and wxMac compilation fixes.
 
 0.52  Fri Jul  7 22:29:57 CEST 2006
-    - Compilation fixes when wxMediaCtrl is disabled in wxWidgets.
+	- Compilation fixes when wxMediaCtrl is disabled in wxWidgets.
 
 0.51  Wed Jul  5 20:41:48 CEST 2006
-    - Added Wx::Sound.
-    - Compilation fixes for MSVC8 (thanks to John Ralls).
-    - Bumped Alien::wxWidgets requirement to 0.15.
+	- Added Wx::Sound.
+	- Compilation fixes for MSVC8 (thanks to John Ralls).
+	- Bumped Alien::wxWidgets requirement to 0.15.
 
 0.50  Fri Jun 23 11:51:17 CEST 2006
-    - Fixed pod tests to work with older Test::Pod releases.
+	- Fixed pod tests to work with older Test::Pod releases.
 
 0.49_07  Sun Jun 18 18:06:05 CEST 2006
-    - Compilation fixes for wxWidgets 2.5.3.
-    - More additions for wxWidgets 2.7.x.
+	- Compilation fixes for wxWidgets 2.5.3.
+	- More additions for wxWidgets 2.7.x.
 
 0.49_06  Sun May 21 22:34:21 CEST 2006
-    - Compatibility with wxWidgets CVS HEAD.
-    - Added various missing functions for wxWidgets 2.6.x
-      and 2.7.x.
+	- Compatibility with wxWidgets CVS HEAD.
+	- Added various missing functions for wxWidgets 2.6.x
+	  and 2.7.x.
 
 0.49_05  Mon May  1 18:27:14 CEST 2006
-    - When Alien::wxWidgets is missing try to retrigger
-      rebuilding of the Makefile using a dummy dependency.
+	- When Alien::wxWidgets is missing try to retrigger
+	  rebuilding of the Makefile using a dummy dependency.
 
 0.49_04  Sat Apr 22 23:36:15 CEST 2006
-    - Fixed reference counting/ownership for Wx::PlDataObject.
+	- Fixed reference counting/ownership for Wx::PlDataObject.
 
 0.49_03  Thu Apr 20 22:40:37 CEST 2006
-    - Handle Alien::wxWidgets prerequisite correctly.
+	- Handle Alien::wxWidgets prerequisite correctly.
 
 0.49_02  Sun Apr 16 20:45:39 CEST 2006
-    - Added missing files to MANIFEST.
+	- Added missing files to MANIFEST.
 
 0.49_01  Sun Apr 16 17:01:25 CEST 2006
-    - Added Wx::MediaCtrl.
-    - Refactored build system, now based upon Alien::wxWidgets.
+	- Added Wx::MediaCtrl.
+	- Refactored build system, now based upon Alien::wxWidgets.
 
 0.27  Sun Jan  1 21:13:27 CET 2006
-    - Restored compatibility with wxWidgets 2.5.3.
-    - Build a proper application bundle under Mac OS X.
+	- Restored compatibility with wxWidgets 2.5.3.
+	- Build a proper application bundle under Mac OS X.
 
 0.26  Tue Nov 22 20:16:34 CET 2005
-    - Fixed various Wx::GridBagSizer problems.
-    - Fixed Original Object Return for Wx::PlGridCellEditor and
-      Wx::PlGridCellRenderer.
-    - Removed the requirement of deriving from Wx::App.
-    - Expanded Wx::PlWindow.
-    - Added Wx::Perl::TextValidator (thanks to Johan Vromans).
-    - Changed the interface for Wx::PlDataObjectSimple::GetDataHere.
-    - Added Wx::BufferedDC and Wx::BufferedPaintDC.
-    - Added wxStdButtonSizer.
-    - Build out of the box on FreeBSD.
+	- Fixed various Wx::GridBagSizer problems.
+	- Fixed Original Object Return for Wx::PlGridCellEditor and
+	  Wx::PlGridCellRenderer.
+	- Removed the requirement of deriving from Wx::App.
+	- Expanded Wx::PlWindow.
+	- Added Wx::Perl::TextValidator (thanks to Johan Vromans).
+	- Changed the interface for Wx::PlDataObjectSimple::GetDataHere.
+	- Added Wx::BufferedDC and Wx::BufferedPaintDC.
+	- Added wxStdButtonSizer.
+	- Build out of the box on FreeBSD.
 
 0.25  Sun Jul 10 20:39:30 CEST 2005
-    - Added back Wx::NotebookSizer (removed by accident).
-    - Fixed off-by-one error in Wx::Log::SetTimestamp.
-    - Fixed crash with eval + use in event handler.
-    - Fixed test suite for wxWidgets 2.4.x.
+	- Added back Wx::NotebookSizer (removed by accident).
+	- Fixed off-by-one error in Wx::Log::SetTimestamp.
+	- Fixed crash with eval + use in event handler.
+	- Fixed test suite for wxWidgets 2.4.x.
 
 0.24  Tue Jul  5 21:42:28 CEST 2005
-    - Fix using wxPerl with PAR on Linux.
+	- Fix using wxPerl with PAR on Linux.
 
 0.23  Sun Jun 26 20:33:17 CEST 2005
-    - Added wxArtProvider and Wx::PlArtProvider
-          (thanks to Matthew "Cheetah" Gabeler-Lee).
-    - Compatibility with wxWidgets 2.5.4, 2.6.0 and 2.6.1.
-    - Added Wx::PlPreviewFrame, Wx::PlPreviewControlBar,
-      Wx::PrintFactory.
-    - Added Wx::PopupWindow and Wx::PopupTransientWindow.
-    - Added Wx::DatePickerCtrl. (2.5/2.6)
-    - Added Wx::MimeTypesManager.
+	- Added wxArtProvider and Wx::PlArtProvider
+	      (thanks to Matthew "Cheetah" Gabeler-Lee).
+	- Compatibility with wxWidgets 2.5.4, 2.6.0 and 2.6.1.
+	- Added Wx::PlPreviewFrame, Wx::PlPreviewControlBar,
+	  Wx::PrintFactory.
+	- Added Wx::PopupWindow and Wx::PopupTransientWindow.
+	- Added Wx::DatePickerCtrl. (2.5/2.6)
+	- Added Wx::MimeTypesManager.
 
 0.22  Tue Jan  4 23:07:56 CET 2005
-    - Alpha channel support for Wx::Image (2.5).
-    - Wrapped wxChoicebook (2.5).
-    - Various new APIs for wxWidgets 2.5.x.
+	- Alpha channel support for Wx::Image (2.5).
+	- Wrapped wxChoicebook (2.5).
+	- Various new APIs for wxWidgets 2.5.x.
 
 0.21  Sat Dec 11 18:01:25 CET 2004
-    - Fixed installation of 'wxPerl' command on Mac OS X.
-    - Fixed running in the embedded case (still requires the
-      application to call ExitMainLoop at the right places).
-    - Wrapped wxNavigationKeyEvent.
-    - Using die() in an event handler should not crash anymore
-      (it might leak).
-    - Added Wx::PlWindow, to be used for custom controls.
-    - New (Windows-only) --mslu flag for Makefile.PL.
-    - Wx::NotebookSizer is now no longer needed and
-      deprecated.
+	- Fixed installation of 'wxPerl' command on Mac OS X.
+	- Fixed running in the embedded case (still requires the
+	  application to call ExitMainLoop at the right places).
+	- Wrapped wxNavigationKeyEvent.
+	- Using die() in an event handler should not crash anymore
+	  (it might leak).
+	- Added Wx::PlWindow, to be used for custom controls.
+	- New (Windows-only) --mslu flag for Makefile.PL.
+	- Wx::NotebookSizer is now no longer needed and
+	  deprecated.
 
 0.20  Sun Jun 20 10:52:40 CEST 2004
-    - wxWidgets 2.5.2 compilation fixes.
-    - Fixed wxHtmlWindow behaviour on non-Win32 platforms.
+	- wxWidgets 2.5.2 compilation fixes.
+	- Fixed wxHtmlWindow behaviour on non-Win32 platforms.
 
 0.19  Sat Apr 24 12:32:36 CEST 2004
-    - Started wxHtmlParser/wxHtmlTag/custom tag handlers
-      wrapping.
-    - Mac OS X build now installs the 'wxPerl' binary in perl
-      bin directory.
-    - wxDatagramSocket and wxSockAddress.
-    - wxNumberEntryDialog. (2.5)
-    - wxGridBagSizer. (2.5)
-    - wxListbook. (2.5)
+	- Started wxHtmlParser/wxHtmlTag/custom tag handlers
+	  wrapping.
+	- Mac OS X build now installs the 'wxPerl' binary in perl
+	  bin directory.
+	- wxDatagramSocket and wxSockAddress.
+	- wxNumberEntryDialog. (2.5)
+	- wxGridBagSizer. (2.5)
+	- wxListbook. (2.5)
 
 0.18  Sun Nov 23 14:42:39 CET 2003
-    - Corrected handling of UTF-8 encoded strings in ANSI builds.
-    - Added wxGridTableMessage.
-    - Fixed build problems with GTK 2 and/or Unicode on
-      Unix hosts.
+	- Corrected handling of UTF-8 encoded strings in ANSI builds.
+	- Added wxGridTableMessage.
+	- Fixed build problems with GTK 2 and/or Unicode on
+	  Unix hosts.
 
 0.17  Tue Sep  9 22:45:40 CEST 2003
-    - Bugfix release.
-    - Completed wxWindows 2.5 compatibility.
+	- Bugfix release.
+	- Completed wxWindows 2.5 compatibility.
 
 0.16  Mon Aug 25 00:26:44 CEST 2003
-    - Added Wx::PlGridCellEditor and Wx::PlGridCellRenderer
-      for custom Wx::Grid cell editing/displaying.
-    - Added Wx::PlGridTable for custom Wx::Grid storage.
-    - Fixed Wx::SocketServer::Accept.
-    - Added Wx::PlXmlResourceHandler, for inserting custom
-      controls in XRC resources.
-    - wxWindows 2.5 compatibility.
+	- Added Wx::PlGridCellEditor and Wx::PlGridCellRenderer
+	  for custom Wx::Grid cell editing/displaying.
+	- Added Wx::PlGridTable for custom Wx::Grid storage.
+	- Fixed Wx::SocketServer::Accept.
+	- Added Wx::PlXmlResourceHandler, for inserting custom
+	  controls in XRC resources.
+	- wxWindows 2.5 compatibility.
 
 0.15  Mon May 19 15:39:05 CEST 2003
-    - Removed support for wxWindows 2.2.x and 2.3.x.
-    - Removed support for Perl 5.004.
-    - Started documentation for the extension api
-      (see Wx/Api.pod).
-    - Added wxFrame/wxDialog::SetShape.
+	- Removed support for wxWindows 2.2.x and 2.3.x.
+	- Removed support for Perl 5.004.
+	- Started documentation for the extension api
+	  (see Wx/Api.pod).
+	- Added wxFrame/wxDialog::SetShape.
 
 0.14  Fri Apr 25 23:04:42 CEST 2003
-    - Added Wx::CalendarCtrl.
-    - Added Wx::DateTime (not the full interface).
-    - Restored compatibility with perl 5.005.
-    - Internal changes: objects returned by various constructors
-      will not have an additional _WXTHIS key anymore.
+	- Added Wx::CalendarCtrl.
+	- Added Wx::DateTime (not the full interface).
+	- Restored compatibility with perl 5.005.
+	- Internal changes: objects returned by various constructors
+	  will not have an additional _WXTHIS key anymore.
 
 0.13  Tue Mar 11 19:27:04 CET 2003
-    - New build system, allows building wxPerl extension written using
-      XS outside the wxPerl tree.
-    - Added Wx::Wave
-    - Added Wx::MemoryFSHandler
-    - Added Wx::Perl::Carp (thanks to podmaster).
-    - Mac OS X support (requires wxWindows 2.4.0 or newer).
-    - Added Wx::Socket* (thanks to Graciliano M. P.)
+	- New build system, allows building wxPerl extension written using
+	  XS outside the wxPerl tree.
+	- Added Wx::Wave
+	- Added Wx::MemoryFSHandler
+	- Added Wx::Perl::Carp (thanks to podmaster).
+	- Mac OS X support (requires wxWindows 2.4.0 or newer).
+	- Added Wx::Socket* (thanks to Graciliano M. P.)
 
 0.12  Mon Dec 02 17:50:43 CET 2002
-    - new DEPRECATIONS section in README.txt, please read it
-    - it is now possibile to get the native handle of a Wx::Window
-    - implemented wxWizard and related classes
-    - Document/View framework (thanks to Simon Flack)
-    - Mostly completed wxStyledTextCtrl interface
-          (thanks to Graciliano M. P. and Simon Flack)
-    - implemented wxFontEnumerator and wxFontMapper
-    - implemented wxLogChain and wxLogPassThrough (2.3)
-    - Wx::PlLog, Wx::PlLogPassThrough, for custom logging
+	- new DEPRECATIONS section in README.txt, please read it
+	- it is now possibile to get the native handle of a Wx::Window
+	- implemented wxWizard and related classes
+	- Document/View framework (thanks to Simon Flack)
+	- Mostly completed wxStyledTextCtrl interface
+	      (thanks to Graciliano M. P. and Simon Flack)
+	- implemented wxFontEnumerator and wxFontMapper
+	- implemented wxLogChain and wxLogPassThrough (2.3)
+	- Wx::PlLog, Wx::PlLogPassThrough, for custom logging
 
 0.11  Thu Aug 01 15:59:59 CEST 2002
-    - wxTextAttr (2.3)
-    - wxStyledTextControl, based on Scintilla
-      (thanks to Marcus Friedlaender)
-    - Wx::Perl::SplashFast, for faster splash screens
-      (thanks to Graciliano M. P.)
-    - wxToolBarTool
-    - Wx::PlFileSystemHandler, for custom file system handlers
-    - compatibility with Perl 5.7.3 and later
-    - updated build instructions, using suggestions from
-      Graciliano M. P. and Marcus Friedlaender
-    - allow compilation of a single big Wx.so/dll; this allows building
-      against a static wxWindows library
-    - wxThread::IsMain(), some testing with threads
-      for Perl 5.7.3 (works with some caveats)
-    - wxPlEvent and wxPlCommandEvent
+	- wxTextAttr (2.3)
+	- wxStyledTextControl, based on Scintilla
+	  (thanks to Marcus Friedlaender)
+	- Wx::Perl::SplashFast, for faster splash screens
+	  (thanks to Graciliano M. P.)
+	- wxToolBarTool
+	- Wx::PlFileSystemHandler, for custom file system handlers
+	- compatibility with Perl 5.7.3 and later
+	- updated build instructions, using suggestions from
+	  Graciliano M. P. and Marcus Friedlaender
+	- allow compilation of a single big Wx.so/dll; this allows building
+	  against a static wxWindows library
+	- wxThread::IsMain(), some testing with threads
+	  for Perl 5.7.3 (works with some caveats)
+	- wxPlEvent and wxPlCommandEvent
 
 0.10  Sun Mar 03 19:33:55 2002
-    - Fix a silly typo that broke wxTaskBar
+	- Fix a silly typo that broke wxTaskBar
 
 0.09  Fri Mar 01 20:59:59 2002
-    - wxTaskBarIcon (MS Windows only)
-    - wxGrid, wxGridCellAttr
-    - wxGridCellRenderer, wxGridCellEditor
-    - wxProcess and wxExecute
-    - wxConfig
+	- wxTaskBarIcon (MS Windows only)
+	- wxGrid, wxGridCellAttr
+	- wxGridCellRenderer, wxGridCellEditor
+	- wxProcess and wxExecute
+	- wxConfig
 
 0.08  Sat Dec 01 10:23:44 2001
-    - wxToggleButton (2.3)
-    - wxSingleInstanceChecker (2.3)
-    - wxListView, virtual wxListCtrl (2.3)
-    - build system reorganization, hope this one is the
-      last one...
-    - XRC (Xml ResourCes) wrapper (2.3)
-    - wxClipboard & wxDataObject
-    - Drag-and-Drop support
-    - MDI architecture
-    - wxBestHelpController (2.3)
-    - startup tips (wxShowTip, etc)
-    - wxFindReplaceDialog (2.3)
-    - wxPerl demo (like the wxPython one)
-    - wxSplashScreen
+	- wxToggleButton (2.3)
+	- wxSingleInstanceChecker (2.3)
+	- wxListView, virtual wxListCtrl (2.3)
+	- build system reorganization, hope this one is the
+	  last one...
+	- XRC (Xml ResourCes) wrapper (2.3)
+	- wxClipboard & wxDataObject
+	- Drag-and-Drop support
+	- MDI architecture
+	- wxBestHelpController (2.3)
+	- startup tips (wxShowTip, etc)
+	- wxFindReplaceDialog (2.3)
+	- wxPerl demo (like the wxPython one)
+	- wxSplashScreen
 
 0.07  Thu Jul 19 13:46:58 2001
-    - wxFileSystem & related classes wrappers
-    - wxHtmlEasyPrinting, wxPageSetupDialog
-    - Unicode support for Perl 5.6
-    - Printing Framework
+	- wxFileSystem & related classes wrappers
+	- wxHtmlEasyPrinting, wxPageSetupDialog
+	- Unicode support for Perl 5.6
+	- Printing Framework
 
 0.06  Tue Apr 10 17:28:56 2001
-    - changelog started
-    - new, modular build system
-    - Wx object module now exports functions (using __declspec
-      on Win32, an auxiliary structure containig pointer to functions
-      on other platforms) to related extension modules
-    - infrastructure for other modules exporting
-      constants from Wx
-    - wxStream wrappers
-    - wxHtmlWindow, wxHtmlHelpController wrappers
-    - wx*HelpController* wrappers
-    - added ppmdist target for Win32
+	- changelog started
+	- new, modular build system
+	- Wx object module now exports functions (using __declspec
+	  on Win32, an auxiliary structure containig pointer to functions
+	  on other platforms) to related extension modules
+	- infrastructure for other modules exporting
+	  constants from Wx
+	- wxStream wrappers
+	- wxHtmlWindow, wxHtmlHelpController wrappers
+	- wx*HelpController* wrappers
+	- added ppmdist target for Win32
 
 0.05  Sun Mar 04 15:01:03 2001
-    - Wx::AcceleratorTable/Entry
-    - most common dialogs
-    - Wx::PlSizer (user defined sizer)
-    - Wx::ListCtrl
-    - Wx::TreeCtrl
-    - Wx::Log classes
-    - Wx::Timer
-    - Wx::SystemSettings
-    - some other minor classes (search for PACKAGE= in the sources)
+	- Wx::AcceleratorTable/Entry
+	- most common dialogs
+	- Wx::PlSizer (user defined sizer)
+	- Wx::ListCtrl
+	- Wx::TreeCtrl
+	- Wx::Log classes
+	- Wx::Timer
+	- Wx::SystemSettings
+	- some other minor classes (search for PACKAGE= in the sources)
 
 0.04  Sat Jan 20 15:02:04 2001
-    - Better overloaded method support
-    - Perl 5.004_04 compatibility
-    - MinGW compilation (with ActivePerl and Perl built from sources)
-    - wxMotif support (alpha)
+	- Better overloaded method support
+	- Perl 5.004_04 compatibility
+	- MinGW compilation (with ActivePerl and Perl built from sources)
+	- wxMotif support (alpha)
 
 0.03  Mon Dec 04 15:00:01 2000
-    - First public release
+	- First public release
 
 0.02  Thu Nov 30 xx:xx:xx 2000
 
