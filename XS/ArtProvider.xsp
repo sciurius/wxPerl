@@ -31,7 +31,8 @@
       if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )  \
       {                                                                      \
           wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback,                \
-                        G_SCALAR, "PPo", &id, &client, new wxSize( size ) ) );\
+                        G_SCALAR, "PPo", &id, &client,                       \
+                        new wxSize( size.x, size.y ), "Wx::Size" ) );        \
           return *(wxBitmap*)wxPli_sv_2_object( aTHX_ ret, "Wx::Bitmap" );   \
       } else                                                                 \
           return wxNullBitmap;                                               \
