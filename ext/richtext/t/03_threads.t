@@ -22,12 +22,18 @@ my $rtsd = Wx::RichTextParagraphStyleDefinition->new;
 my $rtsd2 = Wx::RichTextParagraphStyleDefinition->new;
 my $rtss = Wx::RichTextStyleSheet->new;
 my $rtss2 = Wx::RichTextStyleSheet->new;
+my $rtp = Wx::RichTextPrinting->new;
+my $rtp2 = Wx::RichTextPrinting->new;
+my $rthfd = Wx::RichTextHeaderFooterData->new;
+my $rthfd2 = Wx::RichTextHeaderFooterData->new;
 
 undef $rtr2;
 undef $tae2;
 undef $rta2;
 undef $rtsd2;
 undef $rtss2;
+undef $rtp2;
+undef $rthfd2;
 
 my $t = threads->create
   ( sub {

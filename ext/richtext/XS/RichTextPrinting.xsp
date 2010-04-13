@@ -1,0 +1,137 @@
+#############################################################################
+## Name:        ext/richtext/XS/RichTextPrinting.xsp
+## Purpose:     XS++ for Wx::RichTextPrinting
+## Author:      Mark Dootson
+## Modified by:
+## Created:     10/04/2010
+## RCS-ID:      $Id:$
+## Copyright:   (c) 2010 Mark Dootson
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+#include <wx/richtext/richtextprint.h>
+
+%module{Wx};
+
+%name{Wx::RichTextPrinting} class wxRichTextPrinting : public wxObject
+{
+    wxRichTextPrinting(  wxString name = wxT("Printing"), wxWindow *parentWindow = NULL );
+
+    ~wxRichTextPrinting()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::RichTextPrinting", THIS, ST(0) );
+                 delete THIS; %};
+
+%{
+static void
+wxRichTextPrinting::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+    bool PreviewFile(const wxString& richTextFile);
+    bool PreviewBuffer(const wxRichTextBuffer& buffer);
+    bool PrintFile(const wxString& richTextFile);
+    bool PrintBuffer(const wxRichTextBuffer& buffer);
+
+    void PageSetup();
+
+    void SetHeaderFooterData(const wxRichTextHeaderFooterData& data);
+    const wxRichTextHeaderFooterData& GetHeaderFooterData() const;
+
+    void SetHeaderText(const wxString& text, wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_ALL, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE);
+    wxString GetHeaderText(wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_EVEN, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE) const;
+    void SetFooterText(const wxString& text, wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_ALL, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE);
+    wxString GetFooterText(wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_EVEN, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE) const;
+
+    void SetShowOnFirstPage(bool show);
+
+    void SetHeaderFooterFont(const wxFont& font);
+    void SetHeaderFooterTextColour(const wxColour& font);
+
+    wxPrintData *GetPrintData();
+    void SetPrintData(const wxPrintData& printData);
+    
+    wxPageSetupDialogData *GetPageSetupData() const;
+    void SetPageSetupData(const wxPageSetupDialogData& pageSetupData);
+
+    // void SetRichTextBufferPreview(wxRichTextBuffer* buf);
+    // wxRichTextBuffer* GetRichTextBufferPreview() const;
+
+    // void SetRichTextBufferPrinting(wxRichTextBuffer* buf);
+    // wxRichTextBuffer* GetRichTextBufferPrinting() const;
+
+    void SetParentWindow(wxWindow* parent);
+    wxWindow* GetParentWindow() const;
+
+    void SetTitle(const wxString& title);
+    const wxString& GetTitle() const;
+
+    void SetPreviewRect(const wxRect& rect);
+    const wxRect& GetPreviewRect() const;
+    
+};
+
+
+%name{Wx::RichTextHeaderFooterData} class wxRichTextHeaderFooterData : public wxObject
+{
+
+    %name{newDefault} wxRichTextHeaderFooterData();
+    %name{newCopy} wxRichTextHeaderFooterData(const wxRichTextHeaderFooterData& data);
+
+    ~wxRichTextPrinting()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::RichTextHeaderFooterData", THIS, ST(0) );
+                 delete THIS; %};
+
+%{
+static void
+wxRichTextPrinting::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+    // void Init();
+    // void Copy(const wxRichTextHeaderFooterData& data);
+
+    void SetHeaderText(const wxString& text, wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_ALL, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE);
+    wxString GetHeaderText(wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_EVEN, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE) const;
+
+    void SetFooterText(const wxString& text, wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_ALL, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE);
+    wxString GetFooterText(wxRichTextOddEvenPage page = wxRICHTEXT_PAGE_EVEN, wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE) const;
+
+    void SetText(const wxString& text, int headerFooter, wxRichTextOddEvenPage page, wxRichTextPageLocation location);
+    wxString GetText(int headerFooter, wxRichTextOddEvenPage page, wxRichTextPageLocation location) const;
+
+    void SetMargins(int headerMargin, int footerMargin);
+    int GetHeaderMargin();
+    int GetFooterMargin();
+
+    void SetShowOnFirstPage(bool showOnFirstPage);
+    bool GetShowOnFirstPage() const;
+    void Clear();
+    
+    void SetFont(const wxFont& font);
+    const wxFont& GetFont() const;
+
+    void SetTextColour(const wxColour& col);
+    const wxColour& GetTextColour() const;
+    
+};
+
+## DECLARE_OVERLOAD( wrth, Wx::RichTextHeaderFooterData )
+
+%{
+void
+wxRichTextHeaderFooterData::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_REDISP( wxPliOvl_wrth, newCopy )
+    END_OVERLOAD( Wx::RichTextHeaderFooterData::new )
+
+%}
+
+#endif
+

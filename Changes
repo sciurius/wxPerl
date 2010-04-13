@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+    - Wrapped wxRichTextPrinting
+
 0.9701_01  Tue Mar 30 22:46:33 CEST 2010
 	- 64 Bit build fixes.
 	- Wrapped wxMenuBar::MacSetCommonMenuBar, MacInstallMenuBar

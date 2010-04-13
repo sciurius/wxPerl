@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2007 Mattia Barbon
+## Copyright:   (c) 2006-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -13,6 +13,7 @@
 package Wx::RichText;
 
 use strict;
+use Wx::Print;
 
 our $VERSION = '0.01';
 
@@ -49,6 +50,8 @@ package Wx::RichTextCompositeObject; @ISA = qw(Wx::RichTextObject);
 package Wx::RichTextBox;     @ISA = qw(Wx::RichTextCompositeObject);
 package Wx::RichTextParagraphLayoutBox; @ISA = qw(Wx::RichTextBox);
 package Wx::RichTextBuffer;  @ISA = qw(Wx::RichTextParagraphLayoutBox);
+package Wx::RichTextPrinting;  @ISA = qw(Wx::Object);
+package Wx::RichTextHeaderFooterData;  @ISA = qw(Wx::Object);
 package Wx::SymbolPickerDialog; @ISA = qw(Wx::Dialog);
 package Wx::RichTextStyleOrganiserDialog; @ISA = qw(Wx::Dialog);
 
