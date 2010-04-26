@@ -22,8 +22,10 @@
 %typemap{const wxTextAttr&}{reference};
 %typemap{const wxTextAttrEx&}{reference};
 %typemap{wxRichTextAttr*}{simple};
-%typemap{wxRichTextAttrDisown*}{parsed}{%wxRichTextAttr*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%};
+%typemap{wxRichTextAttrDisown*}{parsed}{
+    %cpp_type{%wxRichTextAttr*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{wxRichTextBuffer*}{simple};
 %typemap{wxRichTextCtrl*}{simple};
 %typemap{wxRichTextStyleListBox*}{simple};
@@ -32,8 +34,10 @@
 %typemap{wxRichTextEvent*}{simple};
 %typemap{wxRichTextRange*}{simple};
 %typemap{wxRichTextStyleSheet*}{simple};
-%typemap{wxRichTextStyleSheetDisown*}{parsed}{%wxRichTextStyleSheet*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%};
+%typemap{wxRichTextStyleSheetDisown*}{parsed}{
+    %cpp_type{%wxRichTextStyleSheet*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{const wxRichTextStyleSheet&}{reference};
 %typemap{wxTextAttrAlignment}{simple};
 %typemap{wxTextAttrEx*}{simple};
@@ -41,27 +45,31 @@
 %typemap{const wxImage&}{reference};
 %typemap{wxRichTextStyleDefinition*}{simple};
 %typemap{wxRichTextStyleDefinition*}{simple};
-%typemap{wxRichTextStyleDefinitionDisown*}{parsed}
-             {%wxRichTextStyleDefinition*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
-             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
+%typemap{wxRichTextStyleDefinitionDisown*}{parsed}{
+    %cpp_type{%wxRichTextStyleDefinition*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{const wxRichTextStyleDefinition&}{reference};
 %typemap{wxRichTextCharacterStyleDefinition*}{simple};
-%typemap{wxRichTextCharacterStyleDefinitionDisown*}{parsed}
-             {%wxRichTextCharacterStyleDefinition*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
-             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
+%typemap{wxRichTextCharacterStyleDefinitionDisown*}{parsed}{
+    %cpp_type{%wxRichTextCharacterStyleDefinition*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{wxRichTextParagraphStyleDefinition*}{simple};
-%typemap{wxRichTextParagraphStyleDefinitionDisown*}{parsed}
-             {%wxRichTextParagraphStyleDefinition*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
-             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
+%typemap{wxRichTextParagraphStyleDefinitionDisown*}{parsed}{
+    %cpp_type{%wxRichTextParagraphStyleDefinition*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{const wxRichTextParagraphStyleDefinition&}{reference};
 %typemap{wxRichTextListStyleDefinition*}{simple};
-%typemap{wxRichTextListStyleDefinitionDisown*}{parsed}
-             {%wxRichTextListStyleDefinition*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
-             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
+%typemap{wxRichTextListStyleDefinitionDisown*}{parsed}{
+    %cpp_type{%wxRichTextListStyleDefinition*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{const wxRichTextListStyleDefinition&}{reference};
 %typemap{wxRichTextFormattingDialog*}{simple};
 %typemap{wxRichTextFileHandler*}{simple};

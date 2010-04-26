@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     01/03/2003
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2003-2009 Mattia Barbon
+## Copyright:   (c) 2003-2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -34,8 +34,12 @@
 
 %typemap{wxArrayString}{simple};
 %typemap{wxArrayInt}{simple};
-%typemap{const wxArrayString&}{parsed}{%wxArrayString%};
-%typemap{const wxArrayInt&}{parsed}{%wxArrayInt%};
+%typemap{const wxArrayString&}{parsed}{
+    %cpp_type{%wxArrayString%};
+};
+%typemap{const wxArrayInt&}{parsed}{
+    %cpp_type{%wxArrayInt%};
+};
 
 %typemap{wxWindowID}{simple};
 %typemap{wxCoord}{simple};
@@ -47,20 +51,40 @@
 %typemap{wxPliUserDataCD**}{simple};
 
 %typemap{wxString}{simple};
-%typemap{wxString&}{parsed}{%wxString%};
-%typemap{const wxString&}{parsed}{%wxString%};
+%typemap{wxString&}{parsed}{
+    %cpp_type{%wxString%};
+};
+%typemap{const wxString&}{parsed}{
+    %cpp_type{%wxString%};
+};
 %typemap{const wxRect&}{reference};
-%typemap{const wxSize&}{parsed}{%wxSize%};
-%typemap{const wxPoint&}{parsed}{%wxPoint%};
-%typemap{const wxPosition&}{parsed}{%wxPosition%};
-%typemap{wxSize}{parsed}{%wxSize%};
-%typemap{wxPoint}{parsed}{%wxPoint%};
+%typemap{const wxSize&}{parsed}{
+    %cpp_type{%wxSize%};
+};
+%typemap{const wxPoint&}{parsed}{
+    %cpp_type{%wxPoint%};
+};
+%typemap{const wxPosition&}{parsed}{
+    %cpp_type{%wxPosition%};
+};
+%typemap{wxSize}{parsed}{
+    %cpp_type{%wxSize%};
+};
+%typemap{wxPoint}{parsed}{
+    %cpp_type{%wxPoint%};
+};
 %typemap{wxPoint*}{simple};
-%typemap{wxPosition}{parsed}{%wxPosition%};
+%typemap{wxPosition}{parsed}{
+    %cpp_type{%wxPosition%};
+};
 %typemap{wxPosition*}{simple};
 
-%typemap{const wxArtID&}{parsed}{%wxString%};
-%typemap{const wxArtClient&}{parsed}{%wxString%};
+%typemap{const wxArtID&}{parsed}{
+    %cpp_type{%wxString%};
+};
+%typemap{const wxArtClient&}{parsed}{
+    %cpp_type{%wxString%};
+};
 %typemap{wxArtProvider*}{simple};
 %typemap{wxArtProvider&}{reference};
 %typemap{wxBitmap}{reference};

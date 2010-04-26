@@ -19,7 +19,9 @@
 %typemap{const wxTextAttr&}{reference};
 %typemap{wxTextAttrAlignment}{simple};
 %typemap{const wxKeyEvent&}{reference};
-%typemap{wxTextPos}{parsed}{%wxTextPos%};
+%typemap{wxTextPos}{parsed}{
+    %cpp_type{%wxTextPos%};
+};
 
 %name{Wx::TextUrlEvent} class wxTextUrlEvent
 {

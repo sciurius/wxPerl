@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007-2008 Mattia Barbon
+## Copyright:   (c) 2007-2008, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -13,22 +13,28 @@
 %typemap{wxDataViewCellMode}{simple};
 %typemap{wxDataViewCtrl*}{simple};
 %typemap{wxDataViewModel*}{simple};
-%typemap{wxDataViewModelDisown*}{parsed}{%wxDataViewModel*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
-             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
+%typemap{wxDataViewModelDisown*}{parsed}{
+    %cpp_type{%wxDataViewModel*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{wxDataViewColumn*}{simple};
 %typemap{const wxDataViewColumn*}{simple};
-%typemap{wxDataViewColumnDisown*}{parsed}{%wxDataViewColumn*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
-             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
+%typemap{wxDataViewColumnDisown*}{parsed}{
+    %cpp_type{%wxDataViewColumn*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{const wxDataViewItem &}{reference};
 %typemap{wxDataViewIndexListModel*}{simple};
 %typemap{wxDataViewItem&}{reference};
 %typemap{wxPlDataViewIndexListModel*}{simple};
 %typemap{wxDataViewRenderer*}{simple};
-%typemap{wxDataViewRendererDisown*}{parsed}{%wxDataViewRenderer*%}
-             {%%}{%%}{%wxPli_object_set_deleteable( aTHX_ ST(0), false )%}
-             {%wxPli_object_set_deleteable( aTHX_ $1, false )%};
+%typemap{wxDataViewRendererDisown*}{parsed}{
+    %cpp_type{%wxDataViewRenderer*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 %typemap{wxAlignment}{simple};
 %typemap{wxDataViewEvent*}{simple};
 %typemap{wxDataViewItemAttr*}{simple};
