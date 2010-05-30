@@ -8,7 +8,7 @@ NewClass - adding a new class to wxPerl
 
 =item * Are there constants or events that need to be wrapped?
 
-see L</"COSTANTS"> and L</"EVENTS">.
+see L</"CONSTANTS"> and L</"EVENTS">.
 
 =item * Is the class is derived from wxObject, from wxEvtHandler or from
 another class?
@@ -34,7 +34,7 @@ see L</"VIRTUAL METHODS">.
 =head1 SKELETON
 
 Add a new file F<XS/NewClass.xsp> and update the F<MANIFEST>.  Choose
-a relevant F<.xs> file in the top level directory (es. F<Controls.xs>)
+a relevant F<.xs> file in the top level directory (eg. F<Controls.xs>)
 and add this line:
 
     INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/NewClass.xsp
@@ -60,6 +60,11 @@ A skeleton for F<NewClass.xsp>:
 
 Add the typemap definition to F<typemap.tmpl>.  See L</"CHOOSING A
 TYPEMAP">.
+
+If adding a class related to one of the wxPerl submodules
+(C<Wx::RichText>, C<Wx::Html>, ...) add the F<.xsp> file to the
+relevant subdirectory and modify the F<.xs> and F<typemap> files in
+that subdirectory.
 
 =head1 CHOOSING A TYPEMAP
 
