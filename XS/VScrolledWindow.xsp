@@ -131,7 +131,7 @@
 
 #endif
 
-%file{cpp/vscrl.h};
+%file{xspp/vscrl.h};
 %{
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
@@ -255,7 +255,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlHVScrolledWindow, wxHVScrolledWindow );
 %file{-};
 
 #include "cpp/overload.h"
-#include "cpp/vscrl.h"
+#include "xspp/vscrl.h"
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 

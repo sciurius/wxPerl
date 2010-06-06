@@ -14,6 +14,7 @@
 
 #include "cpp/streams.h"
 #include "cpp/streams.cpp"
+#include "cpp/array_helpers.h"
 
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     #include <wx/arrstr.h>
@@ -771,63 +772,10 @@ AV* wxPli_uchararray_2_av( pTHX_ const unsigned char* array, int count )
     return av;
 }
 
-template<class A> class array_thingy
-{
-public:
-    typedef A** lvalue;
-    typedef A* rvalue;
-
-    rvalue create( size_t n ) const { return new A[n]; }
-    void assign( lvalue lv, rvalue rv ) const { *lv = rv; }
-    void free( rvalue rv ) const { delete[] rv; }
-};
-
-template<class F, class C>
-int wxPli_av_2_thingarray( pTHX_ SV* avref, typename C::lvalue array,
-                           const F& convertf, const C& thingy )
-{
-    AV* av;
-
-    if( !SvROK( avref ) || 
-        ( SvTYPE( (SV*) ( av = (AV*) SvRV( avref ) ) ) != SVt_PVAV ) )
-    {
-        croak( "the value is not an array reference" );
-        return 0;
-    }
-    
-    int n = av_len( av ) + 1;
-    typename C::rvalue arr = thingy.create( n );
-
-    for( int i = 0; i < n; ++i )
-    {
-        SV* t = *av_fetch( av, i, 0 );
-        if( !convertf( aTHX_ arr[i], t ) )
-        {
-            thingy.free( arr );
-            croak( "invalid conversion for array element" );
-            return 0;
-        }
-    }
-
-    thingy.assign( array, arr );
-
-    return n;
-}
-
-class convert_sv
-{
-public:
-    bool operator()( pTHX_ SV*& dest, SV* src ) const
-    {
-        dest = src;
-        return true;
-    }
-};
-
 int wxPli_av_2_svarray( pTHX_ SV* avref, SV*** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_sv(),
-                                  array_thingy<SV*>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, wxPli_convert_sv(),
+                                wxPli_array_allocator<SV*>() );
 }
 
 class convert_udatacd
@@ -842,40 +790,20 @@ public:
 
 int wxPli_av_2_userdatacdarray( pTHX_ SV* avref, wxPliUserDataCD*** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_udatacd(),
-                                  array_thingy<wxPliUserDataCD*>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, convert_udatacd(),
+                                wxPli_array_allocator<wxPliUserDataCD*>() );
 }
-
-class convert_uchar
-{
-public:
-    bool operator()( pTHX_ unsigned char& dest, SV* src ) const
-    {
-        dest = (unsigned char) SvUV( src );
-        return true;
-    }
-};
 
 int wxPli_av_2_uchararray( pTHX_ SV* avref, unsigned char** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_uchar(),
-                                  array_thingy<unsigned char>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, wxPli_convert_uchar(),
+                                wxPli_array_allocator<unsigned char>() );
 }
-
-class convert_int
-{
-public:
-    bool operator()( pTHX_ int& dest, SV* src ) const
-    {
-        dest = (int) SvIV( src );
-        return true;
-    }
-};
 
 int wxPli_av_2_intarray( pTHX_ SV* avref, int** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_int(),
-                                  array_thingy<int>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, wxPli_convert_int(),
+                                wxPli_array_allocator<int>() );
 }
 
 #include <wx/menu.h>
@@ -910,55 +838,22 @@ wxWindowID wxPli_get_wxwindowid( pTHX_ SV* var )
     return SvIV( var );
 }
 
-class convert_wxstring
-{
-public:
-    bool operator()( pTHX_ wxString& dest, SV* src ) const
-    {
-        WXSTRING_INPUT( dest, const char*, src );
-        return true;
-    }
-};
-
 int wxPli_av_2_stringarray( pTHX_ SV* avref, wxString** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxstring(),
-                                  array_thingy<wxString>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, wxPli_convert_wxstring(),
+                                wxPli_array_allocator<wxString>() );
 }
-
-template<class A, class B, B init>
-class wxarray_thingy
-{
-public:
-    typedef A* lvalue;
-    typedef A& rvalue;
-
-    wxarray_thingy( lvalue lv ) : m_value( lv ) { }
-    rvalue create( size_t n ) const
-    {
-        m_value->Alloc( n );
-        for( size_t i = 0; i < n; ++i )
-            m_value->Add( init );
-        return *m_value;
-    }
-    void assign( lvalue, rvalue ) const { }
-    void free( rvalue ) const {}
-private:
-    A* m_value;
-};
-
-extern const wxChar wxPliEmptyString[];
 
 int wxPli_av_2_arraystring( pTHX_ SV* avref, wxArrayString* array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxstring(),
-                                  wxarray_thingy<wxArrayString, const wxChar*, wxPliEmptyString>( array ) );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, wxPli_convert_wxstring(),
+                                wxPli_wxarray_allocator<wxArrayString, const wxChar*>( array ) );
 }
 
 int wxPli_av_2_arrayint( pTHX_ SV* avref, wxArrayInt* array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_int(),
-                                  wxarray_thingy<wxArrayInt, int, 0>( array ) );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, wxPli_convert_int(),
+                                wxPli_wxarray_allocator<wxArrayInt, int>( array ) );
 }
 
 const wxChar wxPliEmptyString[] = wxT("");
@@ -999,8 +894,8 @@ public:
 
 int wxPli_av_2_charparray( pTHX_ SV* avref, char*** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_charp(),
-                                  array_thingy<char*>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, convert_charp(),
+                                wxPli_array_allocator<char*>() );
 }
 
 class convert_wxcharp
@@ -1017,8 +912,8 @@ public:
 
 int wxPli_av_2_wxcharparray( pTHX_ SV* avref, wxChar*** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxcharp(),
-                                  array_thingy<wxChar*>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, convert_wxcharp(),
+                                wxPli_array_allocator<wxChar*>() );
 }
 
 #if wxUSE_UNICODE
@@ -1198,14 +1093,14 @@ R wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, const F& convertf,
 
 wxPoint wxPli_sv_2_wxpoint_test( pTHX_ SV* scalar, bool* ispoint )
 {
-    return wxPli_sv_2_wxpoint_test<wxPoint, int, convert_int>
-               ( aTHX_ scalar, convert_int(), "Wx::Point", ispoint );
+    return wxPli_sv_2_wxpoint_test<wxPoint, int, wxPli_convert_int>
+               ( aTHX_ scalar, wxPli_convert_int(), "Wx::Point", ispoint );
 }
 
 wxPoint wxPli_sv_2_wxpoint( pTHX_ SV* scalar )
 {
-    return wxPli_sv_2_wxpoint_test<wxPoint, int, convert_int>
-               ( aTHX_ scalar, convert_int(), "Wx::Point", 0 );
+    return wxPli_sv_2_wxpoint_test<wxPoint, int, wxPli_convert_int>
+               ( aTHX_ scalar, wxPli_convert_int(), "Wx::Point", 0 );
 }
 
 template<class T>
@@ -1305,16 +1200,16 @@ public:
     bool operator()( pTHX_ wxPoint& dest, SV* src ) const
     {
         bool ispoint;
-        dest = wxPli_sv_2_wxpoint_test<wxPoint, int, convert_int>
-                   ( aTHX_ src, convert_int(), "Wx::Point", &ispoint );
+        dest = wxPli_sv_2_wxpoint_test<wxPoint, int, wxPli_convert_int>
+                   ( aTHX_ src, wxPli_convert_int(), "Wx::Point", &ispoint );
         return ispoint;
     }
 };
 
 int wxPli_av_2_pointarray( pTHX_ SV* avref, wxPoint** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array, convert_wxpoint(),
-                                  array_thingy<wxPoint>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array, convert_wxpoint(),
+                                wxPli_array_allocator<wxPoint>() );
 }
 
 class convert_double
@@ -1343,9 +1238,9 @@ public:
 
 int wxPli_av_2_point2ddoublearray( pTHX_ SV* avref, wxPoint2DDouble** array )
 {
-    return wxPli_av_2_thingarray( aTHX_ avref, array,
-                                  convert_wxpoint2ddouble(),
-                                  array_thingy<wxPoint2DDouble>() );
+    return wxPli_av_2_arrayany( aTHX_ avref, array,
+                                convert_wxpoint2ddouble(),
+                                wxPli_array_allocator<wxPoint2DDouble>() );
 }
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )

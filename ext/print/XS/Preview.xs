@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     02/06/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2002, 2004-2006 Mattia Barbon
+## Copyright:   (c) 2001-2002, 2004-2006, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -22,7 +22,7 @@
 
 #include <wx/print.h>
 
-%file{cpp/previewcontrolbar.h};
+%file{xspp/previewcontrolbar.h};
 %{
 #include "cpp/v_cback.h"
 
@@ -102,7 +102,7 @@ DEF_V_CBACK_INT__VOID( wxPlPreviewControlBar, wxPreviewControlBar, GetZoomContro
 %}
 %file{-};
 
-%file{cpp/previewframe.h};
+%file{xspp/previewframe.h};
 %{
 #include "cpp/v_cback.h"
 
@@ -168,8 +168,8 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
 %}
 %file{-};
 
-#include "cpp/previewframe.h"
-#include "cpp/previewcontrolbar.h"
+#include "xspp/previewframe.h"
+#include "xspp/previewcontrolbar.h"
 
 %name{Wx::PreviewControlBar} class wxPreviewControlBar
 {

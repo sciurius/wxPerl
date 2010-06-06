@@ -105,8 +105,9 @@ sub scan_xs($$$) {
 
     m/^\#\s*include\s+"([^"]*)"\s*$/ and $file = $1 and $arr = \@cinclude;
     m/^\s*INCLUDE:\s+(.*)$/ and $file = $1 and $arr = \@xsinclude;
-    m/^\s*INCLUDE_COMMAND:\s+.*\s(\S+\.xsp?)\s*/ and $file = $1 and
+    m/^\s*INCLUDE_COMMAND:\s+.*\s(\S+\.(?:xsp?|h))\s*/ and $file = $1 and
       $arr = \@xsinclude;
+    m/^\s*\%include{([^}]+)}\s*;\s*$/ and $file = $1 and $arr = \@xsinclude;
 
     if( defined $file ) {
       $file = catfile( split '/', $file );
@@ -249,6 +250,11 @@ sub files_with_constants {
       open IN, "< $_" || warn "unable to open '$_'";
       while( defined( $line = <IN> ) ) {
         $line =~ m/^\W+\!\w+:/ && do {
+          push @files, $name;
+          return;
+        };
+        # for XS++ files containing enums, see comment in Any_OS.pm
+        $line =~ m/^\s*enum\b/ && do {
           push @files, $name;
           return;
         };

@@ -29,7 +29,7 @@ INCLUDE_COMMAND: $^X -pe "s/ItemContainerImmutable/OwnerDrawnComboBox/g" XS/Item
 
 INCLUDE_COMMAND: $^X -pe "s/ItemContainer/OwnerDrawnComboBox/g" XS/ItemContainer.xs
 
-%file{cpp/odcombo.h};
+%file{xspp/odcombo.h};
 %{
 
 #include "cpp/v_cback.h"
@@ -87,7 +87,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlOwnerDrawnComboBox, wxOwnerDrawnComboBox );
 %}
 %file{-};
 
-#include "cpp/odcombo.h"
+#include "xspp/odcombo.h"
 
 %name{Wx::PlOwnerDrawnComboBox} class wxPlOwnerDrawnComboBox
 {

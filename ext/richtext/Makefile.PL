@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006 Mattia Barbon
+## Copyright:   (c) 2006, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -18,7 +18,6 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME         => 'Wx::RichText',
                  VERSION_FROM => 'lib/Wx/RichText.pm',
-                 clean        => { FILES => 'cpp' },
                  REQUIRE_WX   => 2.007000,
                  WX_CORE_LIB  => 'richtext html adv core base',
-               );
+                 );

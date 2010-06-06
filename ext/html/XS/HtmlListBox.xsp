@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     19/09/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2007 Mattia Barbon
+## Copyright:   (c) 2006-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -19,15 +19,13 @@
 
 #if WXPERL_W_VERSION_GE( 2, 5, 0 )
 
-%{
 #include <wx/clntdata.h>
 #include "cpp/helpers.h"
 #include <wx/htmllbox.h>
 #include "cpp/overload.h"
-#include "cpp/htmllbox.h"
-%}
+#include "xspp/htmllbox.h"
 
-%file{cpp/htmllbox.h};
+%file{xspp/htmllbox.h};
 %{
 
 #include "cpp/v_cback.h"

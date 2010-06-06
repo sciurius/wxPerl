@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     25/07/2003
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2003-2004, 2007 Mattia Barbon
+## Copyright:   (c) 2003-2004, 2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,7 +15,7 @@
 %typemap{wxXmlNode*}{simple};
 %typemap{wxXmlResource*}{simple};
 
-%file{cpp/reshnd.h};
+%file{xspp/reshnd.h};
 %{
 
 #include "cpp/v_cback.h"
@@ -161,7 +161,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlXmlResourceHandler, wxObject );
 
 %{
 #include "wx/window.h"
-#include "cpp/reshnd.h"
+#include "xspp/reshnd.h"
 
 MODULE=Wx PACKAGE=Wx::PlXmlResourceHandler
 

@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007-2009 Mattia Barbon
+## Copyright:   (c) 2007-2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,9 +15,9 @@
 %module{Wx};
 
 #include <wx/dataview.h>
-#include "cpp/dataviewindexmodel.h"
+#include "xspp/dataviewindexmodel.h"
 
-%file{cpp/dataviewindexmodel.h};
+%file{xspp/dataviewindexmodel.h};
 %{
 #include "cpp/v_cback.h"
 

@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     18/09/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2007 Mattia Barbon
+## Copyright:   (c) 2006-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -69,7 +69,7 @@ wxVListBox::GetNextSelected( unsigned long cookie )
 
 %}
 
-%file{cpp/vlbox.h};
+%file{xspp/vlbox.h};
 %{
 
 #include "cpp/v_cback.h"
@@ -121,7 +121,7 @@ WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlVListBox, wxVListBox );
 %file{-};
 
 #include "cpp/overload.h"
-#include "cpp/vlbox.h"
+#include "xspp/vlbox.h"
 
 %name{Wx::PlVListBox} class wxPlVListBox
 {

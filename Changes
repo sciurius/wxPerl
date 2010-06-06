@@ -1,5 +1,11 @@
 Revision history for Perl extension Wx.
 
+	- Added wxSpinCtrlDouble (2.9).
+	- Added wxDataViewListCtrl (2.9).
+	- Added wxDataViewVirtualListModel (2.9).
+	- Added wxInfoBar (2.9).
+	- Added wxHeaderCtrlSimple (2.9).
+
 0.9702  Thu May  6 01:53:50 CEST 2010
 	- Released 0.9701_02 as 0.9702.
 

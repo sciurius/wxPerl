@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     03/09/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007 Mattia Barbon
+## Copyright:   (c) 2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -15,7 +15,7 @@
 
 %module{Wx};
 
-%file{cpp/filehandler.h};
+%file{xspp/filehandler.h};
 %{
 
 #include "cpp/v_cback.h"
@@ -97,7 +97,7 @@ DEF_V_CBACK_BOOL__WXRICHTEXTBUFFER_WXOUTPUTSTREAM( wxPlRichTextFileHandler,
 %}
 %file{-};
 
-#include "cpp/filehandler.h"
+#include "xspp/filehandler.h"
 
 %name{Wx::RichTextFileHandler} class wxRichTextFileHandler
 {

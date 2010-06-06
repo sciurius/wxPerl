@@ -76,7 +76,7 @@ bool wxPli_match_arguments_offset( pTHX_ const wxPliPrototype& prototype,
     size_t max = wxMin( prototype.count, size_t(argc) ) + offset;
     for( size_t i = offset; i < max; ++i )
     {
-        unsigned char p = prototype.args[i - offset];
+        const char* p = prototype.args[i - offset];
         // everything is a string or a boolean
         if( p == wxPliOvlstr ||
             p == wxPliOvlbool )
@@ -92,7 +92,7 @@ bool wxPli_match_arguments_offset( pTHX_ const wxPliPrototype& prototype,
         }
         // want an object/package name, accept undef, too
         const char* cstr =
-          p > wxPliOvlzzz   ? prototype.tnames[p - wxPliOvlzzz] :
+          p > wxPliOvlzzz   ? p :
           p == wxPliOvlwpos ? "Wx::Position" :
           p == wxPliOvlwpoi ? "Wx::Point" :
           p == wxPliOvlwsiz ? "Wx::Size"  :

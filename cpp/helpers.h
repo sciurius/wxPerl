@@ -416,16 +416,14 @@ SV* FUNCPTR( wxPliVirtualCallback_CallCallback )
     ( pTHX_ const wxPliVirtualCallback* cb, I32 flags,
       const char* argtypes, ... );
 
-// defined in overload.cpp
+// used in overload.cpp
 struct wxPliPrototype
 {
-    wxPliPrototype( const char** const t,
-                    const unsigned char* const a,
-                    const size_t c )
-      : tnames( t ), args( a ), count( c ) { }
+    wxPliPrototype( const char** const proto,
+                    const size_t proto_size )
+      : args( proto ), count( proto_size ) { }
 
-    const char** const tnames;
-    const unsigned char* const args;
+    const char** const args;
     const size_t count;
 };
 

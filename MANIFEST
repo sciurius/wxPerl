@@ -9,6 +9,10 @@ Changes
 
 build/Wx/Overload/Driver.pm
 build/Wx/Overload/Handle.pm
+build/Wx/XSP/Enum.pm
+build/Wx/XSP/Event.pm
+build/Wx/XSP/Overload.pm
+build/Wx/XSP/Virtual.pm
 build/Wx/build/MakeMaker/Any_OS.pm
 build/Wx/build/MakeMaker/Any_wx_config.pm
 build/Wx/build/MakeMaker/MacOSX_GCC.pm
@@ -226,6 +230,7 @@ XS/Wizard.xs
 XS/Window.xsp
 
 cpp/app.h
+cpp/array_helpers.h
 cpp/chkconfig.h
 cpp/compat.h
 cpp/constants.h
@@ -534,3 +539,11 @@ ext/docview/t/01_load.t
 ext/docview/t/02_inheritance.t
 ext/docview/t/03_threads.t
 ext/docview/t/04_cmdproc.t
+
+interface/wx/dataview/dataviewlistctrl.h
+interface/wx/dataview/dataviewliststore.h
+interface/wx/dataview/dataviewvirtuallistmodel.h
+interface/wx/generic/spinctrg.h
+interface/wx/headercol.h
+interface/wx/headerctrl.h
+interface/wx/infobar.h

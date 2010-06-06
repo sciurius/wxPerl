@@ -55,12 +55,10 @@ sub configure_core {
 
   $config{clean} =
     { FILES => "$config{WX}{wx_overload}{source}" .
-               " $config{WX}{wx_overload}{header} exists overload Opt" .
-               " copy_files files.lst cpp/combopopup.h cpp/odcombo.h" .
-               " cpp/setup.h cpp/plwindow.h cpp/artprov.h cpp/popupwin.h" .
-               " fix_alien cpp/vlbox.h cpp/vscroll.h cpp/v_cback_def.h" .
+               " $config{WX}{wx_overload}{header} Opt" .
+               " files.lst cpp/setup.h cpp/v_cback_def.h" .
                " " . join( " ", @generated_xs ) .
-               " cpp/vscrl.h overload.lst" };
+               " overload.lst xspp wxt_*" };
 
   return %config;
 }
@@ -74,8 +72,9 @@ sub configure_ext {
   if( $ovlc && $ovlh ) {
     $config{clean} =
       { FILES => "$config{WX}{wx_overload}{source}" .
-                 " $config{WX}{wx_overload}{header} overload" };
+                 " $config{WX}{wx_overload}{header} wxt_overload" };
   }
+  $config{clean}{FILES} .= " xspp";
 
   return %config;
 }
@@ -111,7 +110,7 @@ sub _depend_common {
                             Wx::build::Utils::src_dir( $top_file ) ),
            # overload
            ( $ovlc && $ovlh ?
-             ( $ovlc             => 'overload',
+             ( $ovlc             => 'wxt_overload',
                $ovlh             => $ovlc,
                ) :
              ( ) ),
@@ -123,14 +122,12 @@ sub depend_core {
 
   my %files = $this->files_to_install();
   my %depend = ( _depend_common( $this ),
-                 $exp              => join( ' ', $this->files_with_constants ),
-                 '$(INST_STATIC)'  => "fix_alien $exp",
-                 '$(INST_DYNAMIC)' => "fix_alien $exp",
-                 'fix_alien'       => 'pm_to_blib',
-                 'pm_to_blib'      => 'copy_files',
-                 'blibdirs'        => 'copy_files',
-                 'blibdirs.ts'     => 'copy_files',
-                 'copy_files'      => join( ' ', keys %files ),
+                 $exp              => join( ' ', $this->files_with_constants, ),
+                 'wxt_fix_alien'   => 'pm_to_blib',
+                 'pm_to_blib'      => 'wxt_copy_files',
+                 'blibdirs'        => 'wxt_copy_files',
+                 'blibdirs.ts'     => 'wxt_copy_files',
+                 'wxt_copy_files'  => join( ' ', keys %files ),
                  'distmeta'        => 'check_my_metafile',
                );
   my %this_depend = @_;
@@ -160,7 +157,7 @@ sub subdirs_core {
   my $text = $this->SUPER::subdirs_core( @_ );
 
   return <<EOT . $text;
-subdirs :: overload
+subdirs :: wxt_overload
 
 EOT
 }
@@ -170,7 +167,7 @@ sub subdirs_ext {
   my $text = $this->SUPER::subdirs_core( @_ );
 
   return ( $this->{WX}{wx_overload} ? <<EOT : '' ) . $text;
-subdirs :: overload
+subdirs :: wxt_overload
 
 EOT
 }
@@ -189,9 +186,9 @@ sub postamble_overload {
   my( $ovlc, $ovlh ) = $this->{WX}{wx_overload} ?
     @{$this->{WX}{wx_overload}}{qw(source header)} : ();
   return ( $this->{WX}{wx_overload} ? <<EOT : '' );
-overload :
+wxt_overload :
 \t\$(PERL) $ovl_script $ovlc $ovlh overload.lst
-\t\$(TOUCH) overload
+\t\$(TOUCH) wxt_overload
 
 EOT
 }
@@ -200,23 +197,34 @@ sub postamble_core {
   my $this = shift;
   my %files = $this->files_to_install();
 
+  # not all the dependencies added in Utils.pm for Wx_Exp.pm are
+  # strictly necessary, but it's better to keep them in case the
+  # dependencies here are changed
   require Data::Dumper;
   Wx::build::Utils::write_string( 'files.lst',
                                   Data::Dumper->Dump( [ \%files ] ) );
-  # $exp and fix_alien depend on copy_files to ensure that blib/lib/Wx
+  # $exp and fix_alien depend on wxt_copy_files to ensure that blib/lib/Wx
   # has been created
   my $text = <<EOT . $this->postamble_overload;
 
-$exp : copy_files
-\t\$(PERL) script/make_exp_list.pl $exp @{[$this->files_with_constants]}
+$exp : wxt_copy_files wxt_binary_\$(LINKTYPE)
+\t\$(PERL) script/make_exp_list.pl $exp @{[$this->files_with_constants]} xspp/*.h ext/*/xspp/*.h
 
-copy_files :
+\$(LINKTYPE) :: wxt_fix_alien $exp
+
+wxt_binary_static : \$(INST_STATIC)
+	\$(NOECHO) \$(TOUCH) wxt_binary_static
+
+wxt_binary_dynamic : \$(INST_DYNAMIC)
+	\$(NOECHO) \$(TOUCH) wxt_binary_dynamic
+
+wxt_copy_files :
 \t\$(PERL) script/copy_files.pl files.lst
-\t\$(TOUCH) copy_files
+\t\$(TOUCH) wxt_copy_files
 
-fix_alien : copy_files lib/Wx/Mini.pm
+wxt_fix_alien : wxt_copy_files lib/Wx/Mini.pm
 \t\$(PERL) script/fix_alien_path.pl lib/Wx/Mini.pm blib/lib/Wx/Mini.pm
-\t\$(TOUCH) fix_alien
+\t\$(TOUCH) wxt_fix_alien
 
 parser :
 	yapp -v -s -m Wx::XSP::Grammar -o build/Wx/XSP/Grammar.pm build/Wx/XSP/XSP.yp
@@ -242,7 +250,7 @@ EOT
   }
 
   $text .= sprintf <<EOT, join( ' ', @generated_xs );
-generated : cpp/v_cback_def.h typemap %s overload
+generated : cpp/v_cback_def.h typemap %s wxt_overload
 
 EOT
 

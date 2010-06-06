@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     27/07/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2005 Mattia Barbon
+## Copyright:   (c) 2001-2005, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -16,9 +16,8 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME            => 'Wx::XRC',
                  VERSION_FROM    => 'lib/Wx/XRC.pm',
-                 clean           => { FILES => 'cpp/factory.h cpp/reshnd.h' },
                  WX_CORE_LIB     => 'xrc xml html adv core base',
-               );
+                 );
 
 # local variables:
 # mode: cperl

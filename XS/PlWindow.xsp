@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     23/05/2004
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2004-2007 Mattia Barbon
+## Copyright:   (c) 2004-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -38,7 +38,7 @@
 
 %typemap{wxPlWindow*}{simple};
 
-%file{cpp/plwindow.h};
+%file{xspp/plwindow.h};
 %{
 
 #include "cpp/v_cback.h"
@@ -150,7 +150,7 @@ wxPlWindow::~wxPlWindow()
 %}
 %file{-};
 
-#include "cpp/plwindow.h"
+#include "xspp/plwindow.h"
 
 %{
 #define GetMaxSize wxWindow::GetMaxSize

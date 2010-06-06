@@ -58,6 +58,7 @@ wxAnimationType         T_ENUM
 wxUpdateUIMode          T_ENUM
 wxWindowVariant         T_ENUM
 wxImageResizeQuality    T_ENUM
+wxAlignment             T_ENUM
 
 wxFindReplaceDialogStyles T_ENUM
 wxFindReplaceFlags      T_ENUM
@@ -75,6 +76,7 @@ wxPenStyle              T_ENUM
 wxPenCap                T_ENUM
 wxPenJoin               T_ENUM
 wxBrushStyle            T_ENUM
+wxShowEffect            T_ENUM
 
 wxDialogLayoutAdaptationMode T_ENUM
 
@@ -180,6 +182,7 @@ wxListView *            O_WXEVTHANDLER
 wxStaticBitmap *        O_WXEVTHANDLER
 wxSpinButton *          O_WXEVTHANDLER
 wxSpinCtrl *            O_WXEVTHANDLER
+wxSpinCtrlDouble *      O_WXEVTHANDLER
 wxSlider *              O_WXEVTHANDLER
 wxScrolledWindow *      O_WXOBJECT
 wxVScrolledWindow *     O_WXEVTHANDLER
@@ -209,6 +212,15 @@ wxDirPickerCtrl *       O_WXEVTHANDLER
 wxFontPickerCtrl *      O_WXEVTHANDLER
 wxCollapsiblePane *     O_WXEVTHANDLER
 wxBitmapComboBox *      O_WXEVTHANDLER
+wxInfoBar *             O_WXEVTHANDLER
+wxHeaderCtrl *          O_WXEVTHANDLER
+wxPlHeaderCtrl *        O_WXEVTHANDLER
+wxHeaderCtrlSimple *    O_WXEVTHANDLER
+wxHeaderColumn *        O_NON_WXOBJECT_THR
+wxSettableHeaderColumn * O_NON_WXOBJECT_THR
+wxHeaderColumnSimple *  O_NON_WXOBJECT_THR
+wxPlHeaderColumn *      O_NON_WXOBJECT_SELF
+wxPlSettableHeaderColumn * O_NON_WXOBJECT_SELF
 
 wxWizard *              O_WXOBJECT
 wxWizardPage *          O_WXOBJECT
@@ -450,6 +462,7 @@ wxFontPickerEvent *     O_WXOBJECT_THR
 wxWindowCreateEvent *   O_WXOBJECT_THR
 wxWindowDestroyEvent *  O_WXOBJECT_THR
 wxCollapsiblePaneEvent * O_WXOBJECT_THR
+wxHeaderCtrlEvent *     O_WXOBJECT_THR
 
 wxPlEvent *             O_WXOBJECT_THR
 wxPlCommandEvent *      O_WXOBJECT_THR
@@ -595,6 +608,19 @@ O_USERDATACD
 
 O_USERDATAO
     $arg = ( $var == 0 ) ? &PL_sv_undef : $var->GetData();
+    SvREFCNT_inc( $arg ); // xsubpp mortalizes it...
+
+#
+# Objects with a self reference
+#
+
+INPUT
+O_NON_WXOBJECT_SELF
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+
+OUTPUT
+O_NON_WXOBJECT_SELF
+    $arg = ( $var == 0 ) ? &PL_sv_undef : $var->GetSelf();
     SvREFCNT_inc( $arg ); // xsubpp mortalizes it...
 
 #

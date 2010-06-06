@@ -13,6 +13,17 @@
 
 #include "cpp/ovl_const.h"
 
+#define wxPliOvlarr   ((const char*)1)
+#define wxPliOvlbool  ((const char*)2)
+#define wxPliOvlnum   ((const char*)3)
+#define wxPliOvlstr   ((const char*)4)
+#define wxPliOvlwist  ((const char*)5)
+#define wxPliOvlwost  ((const char*)6)
+#define wxPliOvlwpoi  ((const char*)7)
+#define wxPliOvlwpos  ((const char*)8)
+#define wxPliOvlwsiz  ((const char*)9)
+#define wxPliOvlzzz   ((const char*)10)
+
 #define BEGIN_OVERLOAD() \
     PUSHMARK(MARK); \
     int count; \

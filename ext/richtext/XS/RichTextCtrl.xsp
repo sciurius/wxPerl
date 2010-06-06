@@ -21,7 +21,7 @@
 #include <wx/richtext/richtextformatdlg.h>
 #include <wx/richtext/richtextstyledlg.h>
 #include <wx/richtext/richtextprint.h>
-#include "cpp/richtextctrl.h"
+#include "xspp/richtextctrl.h"
 
 %module{Wx};
 
@@ -30,7 +30,7 @@
 ## DECLARE_OVERLOAD( wtae, Wx::TextAttrEx )
 ## DECLARE_OVERLOAD( wtat, Wx::TextAttr )
 
-%file{cpp/richtextctrl.h};
+%file{xspp/richtextctrl.h};
 %{
 
 #define wxTEXT_ATTR_DEFAULT_NUMBERED_BULLET wxTEXT_ATTR_BULLET_STYLE_ARABIC|wxTEXT_ATTR_BULLET_STYLE_PERIOD

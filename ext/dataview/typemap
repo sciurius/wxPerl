@@ -16,6 +16,7 @@ wxAlignment             T_ENUM
 
 wxDataViewCtrl *        O_WXOBJECT
 wxDataViewTreeCtrl *    O_WXOBJECT
+wxDataViewListCtrl *    O_WXOBJECT
 wxDataViewColumn *      O_NON_WXOBJECT_THR
 const wxDataViewColumn * O_NON_WXOBJECT
 wxDataViewModel *       O_NON_WXOBJECT
@@ -25,6 +26,8 @@ wxDataViewItem *        O_NON_WXOBJECT
 wxDataViewItemAttr *    O_NON_WXOBJECT
 wxDataViewIndexListModel* O_NON_WXOBJECT
 wxPlDataViewIndexListModel* O_NON_WXOBJECT
+wxDataViewVirtualListModel* O_NON_WXOBJECT
+wxPlDataViewVirtualListModel * O_NON_WXOBJECT
 wxDataViewRenderer *    O_WXOBJECT_THR
 wxDataViewEvent *       O_WXOBJECT_THR
 wxDataViewModelNotifier * O_NON_WXOBJECT
@@ -37,3 +40,11 @@ wxDataViewBitmapRenderer * O_WXOBJECT_THR
 wxDataViewDateRenderer * O_WXOBJECT_THR
 wxDataViewSpinRenderer * O_WXOBJECT_THR
 wxDataViewIconText*      O_NON_WXOBJECT
+wxDataViewListStore *    O_NON_WXOBJECT
+const wxDataViewListStore * O_NON_WXOBJECT
+wxVectorVariant          T_VECTORVARIANT
+
+INPUT
+T_VECTORVARIANT
+    wxPli_av_2_arrayany( aTHX_ $arg, & $var, wxPli_convert_variant(),
+                         wxPli_vector_allocator<wxVector<wxVariant>, wxVariant>( & $var ) );
