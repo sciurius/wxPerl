@@ -150,4 +150,39 @@ modify the destructor like this:
 
 =back
 
+=head1 VIRTUAL METHODS
+
+The wrapping of virtual functions whose arguments are simple C++ types
+(integrals, bool, floating point) and common wxWidgets types
+(wxString) should be automatic: at the top of the file, load the
+plugin that handles virtual methods
+
+    %loadplugin{build::Wx::XSP::Virtual};
+
+and decorate virtual/pure virtual methods using the C<%Virtual> directive
+
+    // pure virtual
+    virtual wxString GetTitle() const = 0 %Virtual{pure};
+
+    // virtual, not pure
+    virtual int GetBestFittingWidth(unsigned int idx) const %Virtual;
+
+If the class contains pure virtual methods, it will be marked as
+abstract, and it will have no constructors.
+
+For abstract classes, XS++ will create an additional Perl-level class,
+called C<< Wx::Pl<classname> >>; in order to override the virtual
+methods, you must derive from this class, and not from
+C<< Wx::<classname> >>.
+
+TODO allow changing the default behaviour for abstract/concrete classes
+
+TODO allow overriding the class name
+
+TODO allow specifying custom code
+
+TODO handle multiple return values
+
+TODO customized type mapping
+
 =cut
