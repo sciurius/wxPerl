@@ -18,6 +18,7 @@
 // re-include for client data
 #include <wx/clntdata.h>
 #include "cpp/helpers.h"
+#include "cpp/array_helpers.h"
 
 #define wxDefaultValidatorPtr (wxValidator*)&wxDefaultValidator
 
