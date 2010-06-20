@@ -3,12 +3,25 @@ package build::Wx::XSP::Overload;
 use strict;
 use warnings;
 
-sub new { return bless {}, $_[0] }
+sub new {
+    return bless { overload_methods => {},
+                   }, $_[0]
+}
 
 sub register_plugin {
     my( $class, $parser ) = @_;
+    my $instance = $class->new;
 
-    $parser->add_post_process_plugin( plugin => $class->new );
+    $parser->add_post_process_plugin( plugin => $instance );
+    $parser->add_method_tag_plugin( plugin => $instance, tag => 'Overload' );
+}
+
+sub handle_method_tag {
+    my( $self, $method, $tag, %args ) = @_;
+
+    $self->{overload_methods}{$method} = 1;
+
+    1;
 }
 
 sub post_process {
@@ -20,12 +33,17 @@ sub post_process {
 
         foreach my $method ( @{$node->methods} ) {
             next unless $method->isa( 'ExtUtils::XSpp::Node::Method' );
-            next if $method->cpp_name ne $method->perl_name;
+            next if    $method->cpp_name ne $method->perl_name
+                    && !$self->{overload_methods}{$method};
             push @{$all_methods{$method->cpp_name} ||= []}, $method;
         }
 
         my @ovl_methods = grep { @{$all_methods{$_}} > 1 }
                                keys %all_methods;
+
+        if( @ovl_methods ) {
+            $node->add_methods( ExtUtils::XSpp::Node::Raw->new( rows => [ '#include "cpp/overload.h"' ] ) );
+        }
 
         foreach my $method_name ( @ovl_methods ) {
             _add_overload( $self, $node, $all_methods{$method_name} );
@@ -54,6 +72,7 @@ sub is_bool {
 
 sub is_string {
     my( $type ) = @_;
+    # TODO wxPerl-specific types
     return 1 if $type->base_type eq 'char' && $type->is_pointer == 1;
     return 1 if $type->base_type eq 'wxChar' && $type->is_pointer == 1;
     return 0 if $type->is_pointer;
@@ -65,11 +84,12 @@ sub is_number {
     my( $type ) = @_;
     return 0 if $type->is_pointer;
 
+    # TODO wxPerl-specific types
     return grep $type->base_type eq $_,
                 ( 'int', 'unsigned', 'short', 'long',
                   'unsigned int', 'unsigned short',
                   'unsigned long', 'float', 'double',
-                  'wxAlignment' );
+                  'wxAlignment', 'wxBrushStyle' );
 }
 
 sub is_value {
@@ -90,13 +110,31 @@ sub _compare_function {
     for( my $i = 0; $i < 10000; ++$i ) {
         return -1 if $#{$a->arguments} <  $i && $#{$b->arguments} >= $i;
         return  1 if $#{$a->arguments} >= $i && $#{$b->arguments}  < $i;
-        return  0 if $#{$a->arguments} <  $i && $#{$b->arguments}  < $i;
+        # since optional arguments might not be specified, we can't rely on them
+        # to disambiguate two calls
+        return  0 if $ca <  $i && $cb < $i;
 
         my $ta = $a->arguments->[$i]->type;
         my $tb = $b->arguments->[$i]->type;
 
-        return -1 if  is_number( $ta ) && !is_number( $tb );
-        return  1 if !is_number( $ta ) &&  is_number( $tb );
+        my( $as, $bs ) = ( is_string( $ta ), is_string( $tb ) );
+        my( $ai, $bi ) = ( is_number( $ta ), is_number( $tb ) );
+        my( $ab, $bb ) = ( is_bool( $ta ), is_bool( $tb ) );
+        my $asimple = $as || $ai || $ab;
+        my $bsimple = $bs || $bi || $bb;
+
+        # first complex types, then integer, then boolean/string
+
+        next      if !$asimple && !$bsimple;
+        return -1 if !$asimple &&  $bsimple;
+        return  1 if  $asimple && !$bsimple;
+
+        next      if  $ai &&  $bi;
+        return -1 if  $ai && !$bi;
+        return  1 if !$ai &&  $bi;
+
+        # string/bool are ambiguous
+        next;
     }
 
     return 0;
@@ -140,6 +178,7 @@ sub _make_dispatch {
             push @indices, 'wxPliOvlnum';
             next;
         }
+        # TODO 3 wxPerl-specific types
         if( is_value( $arg->type, 'wxPoint' ) ) {
             push @indices, 'wxPliOvlwpoi';
             next;
@@ -152,6 +191,7 @@ sub _make_dispatch {
             push @indices, 'wxPliOvlwsiz';
             next;
         }
+        # TODO name mapping is wxPerl-specific
         die 'Unable to dispatch ', $arg->type->base_type
           unless $arg->type->base_type =~ /^wx/;
         push @indices, '"Wx::' . ( substr $arg->type->base_type, 2 ) . '"';
@@ -170,14 +210,21 @@ EOT
                          $method->perl_name, $method->perl_name, $min ];
     } else {
         return [ $init,
-                 sprintf '        MATCH_REDISP( %s_proto, %s )',
-                         $method->perl_name, $method->perl_name ];
+                 sprintf '        MATCH_REDISP_COUNT( %s_proto, %s, %d )',
+                         $method->perl_name, $method->perl_name, $max ];
     }
 }
 
 sub _add_overload {
     my( $self, $class, $methods ) = @_;
     my @methods = sort _compare_function @$methods;
+
+    for( my $i = 0; $i < $#methods; ++$i ) {
+        ( $a, $b ) = ( $methods[$i], $methods[$i + 1] );
+        next if _compare_function() != 0;
+        die "Ambiguous overload for ", $a->perl_name, " and ", $b->perl_name;
+    }
+
     my @dispatch = map _make_dispatch( $self, $methods, $_ ), @methods;
     my $method_name = $class->cpp_name eq $methods[0]->cpp_name ?
                           'new' : $methods[0]->cpp_name;
