@@ -1,0 +1,66 @@
+#############################################################################
+## Name:        XS/Brush.xsp
+## Purpose:     XS for Wx::Brush
+## Author:      Mattia Barbon
+## Modified by:
+## Created:     08/11/2000
+## RCS-ID:      $Id$
+## Copyright:   (c) 2000-2004, 2006-2008, 2010 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/colour.h>
+#include <wx/bitmap.h>
+#include <wx/brush.h>
+
+%module{Wx};
+
+%loadplugin{build::Wx::XSP::Overload};
+
+%typemap{wxBrushStyle}{simple};
+
+%name{Wx::Brush} class wxBrush : public %name{Wx::GDIObject} wxGDIObject
+{
+        %name{newColour} wxBrush( const wxColour& colour,
+                                  wxBrushStyle style ) %Overload;
+        %name{newBitmap} wxBrush( const wxBitmap& stipple ) %Overload;
+        %name{newName} wxBrush( const wxString& colour,
+                                wxBrushStyle style ) %Overload;
+
+%{
+
+static void
+wxBrush::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
+void
+wxBrush::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::Brush", THIS, ST(0) );
+    delete THIS;
+
+%}
+
+    wxColour GetColour() const;
+    const wxBitmap& GetStipple() const
+        %code{% RETVAL = new wxBitmap( *THIS->GetStipple() ); %};
+    wxBrushStyle GetStyle() const;
+
+    bool Ok() const;
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    bool IsOk() const;
+#endif
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+    bool IsHatch() const;
+#endif
+
+    %name{SetColourColour} void SetColour( const wxColour& colour ) %Overload;
+    %name{SetColourName} void SetColour( const wxString& name ) %Overload;
+    %name{SetColourRGB} void SetColour( int r, int g, int b ) %Overload;
+
+    void SetStipple( const wxBitmap& stipple );
+    void SetStyle( wxBrushStyle style );
+};

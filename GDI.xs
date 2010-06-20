@@ -47,7 +47,7 @@ INCLUDE: XS/Cursor.xs
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/DC.xs
 INCLUDE: XS/Overlay.xs
 INCLUDE: XS/Pen.xs
-INCLUDE: XS/Brush.xs
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Brush.xsp
 INCLUDE: XS/Image.xs
 INCLUDE: XS/Palette.xs
 

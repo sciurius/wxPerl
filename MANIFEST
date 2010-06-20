@@ -108,7 +108,7 @@ XS/Bitmap.xs
 XS/BitmapButton.xs
 XS/BitmapComboBox.xsp
 XS/BookCtrl.xsp
-XS/Brush.xs
+XS/Brush.xsp
 XS/Button.xs
 XS/Caret.xs
 XS/CheckBox.xs

@@ -454,7 +454,6 @@ static wxPlINH inherit[] =
     I( Font,            GDIObject )
     I( Region,          GDIObject )
     I( Bitmap,          GDIObject )
-    I( Brush,           GDIObject )
     I( Pen,             GDIObject )
     I( Palette,         GDIObject )
 
