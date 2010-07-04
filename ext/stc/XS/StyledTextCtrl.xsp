@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        ext/stc/XS/StyledTextCtrl.xs
+## Name:        ext/stc/XS/StyledTextCtrl.xsp
 ## Purpose:     XS for Wx::StyledTextCtrl
 ## Author:      Marcus Friedlaender and Mattia Barbon
 ## Created:     23/05/2002

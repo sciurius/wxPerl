@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/Dialog.xs
+## Name:        XS/Dialog.xsp
 ## Purpose:     XS for Wx::Dialog
 ## Author:      Mattia Barbon
 ## Modified by:

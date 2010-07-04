@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/ImageList.xs
+## Name:        XS/ImageList.xsp
 ## Purpose:     XS for Wx::ImageList
 ## Author:      Mattia Barbon
 ## Modified by:

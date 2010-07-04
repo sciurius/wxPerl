@@ -5,12 +5,14 @@
 ## Modified by:
 ## Created:     23/05/2004
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2002, 2004-2007, 2009 Mattia Barbon
+## Copyright:   (c) 2000-2002, 2004-2007, 2009-2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
 %module{Wx};
+
+%loadplugin{build::Wx::XSP::Overload};
 
 %typemap{wxWindowVariant}{simple};
 %typemap{wxMenu&}{reference};
@@ -27,21 +29,11 @@
     bool IsBeingDeleted();
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
-%{
-void
-wxWindow::GetPopupMenuSelectionFromUser( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wmen_wpoi, GetPopupMenuSelectionFromUserPoint )
-        MATCH_REDISP( wxPliOvl_wmen_n_n, GetPopupMenuSelectionFromUserXY )
-    END_OVERLOAD( Wx::Window::GetPopupMenuSelectionFromUser )
-%}
-
     %name{GetPopupMenuSelectionFromUserPoint}
-    int GetPopupMenuSelectionFromUser( wxMenu& menu, wxPoint point );
+    int GetPopupMenuSelectionFromUser( wxMenu& menu, wxPoint point ) %Overload;
 
     %name{GetPopupMenuSelectionFromUserXY}
-    int GetPopupMenuSelectionFromUser( wxMenu& menu, int x, int y );
+    int GetPopupMenuSelectionFromUser( wxMenu& menu, int x, int y ) %Overload;
 #endif
 
 #if WXPERL_W_VERSION_LT( 2, 7, 0 )

@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        ext/print/XS/Preview.xs
+## Name:        ext/print/XS/Preview.xsp
 ## Purpose:     XS for Wx::PreviewCanvas, Frame & ControlBar
 ## Author:      Mattia Barbon
 ## Modified by:

@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        ext/html/XS/HtmlWindow.xs
+## Name:        ext/html/XS/HtmlWindow.xsp
 ## Purpose:     XS for Wx::HtmlWindow
 ## Author:      Mattia Barbon
 ## Modified by:

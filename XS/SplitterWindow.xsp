@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/SplitterWindow.xs
+## Name:        XS/SplitterWindow.xsp
 ## Purpose:     XS for Wx::SplitterWindow
 ## Author:      Mattia Barbon
 ## Modified by:

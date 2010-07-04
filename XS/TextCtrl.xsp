@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/TextCtrl.xs
+## Name:        XS/TextCtrl.xsp
 ## Purpose:     XS for Wx::TextCtrl
 ## Author:      Mattia Barbon
 ## Modified by:

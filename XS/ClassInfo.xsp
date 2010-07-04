@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/ClassInfo.xs
+## Name:        XS/ClassInfo.xsp
 ## Purpose:     XS for Wx::ClassInfo the CLASSINFO macro
 ## Author:      Mattia Barbon
 ## Modified by:

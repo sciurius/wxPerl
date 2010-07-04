@@ -1,5 +1,5 @@
 #############################################################################
-## Name:        XS/DC.xs
+## Name:        XS/DC.xsp
 ## Purpose:     XS for Wx::DC and derived classes
 ## Author:      Mattia Barbon
 ## Modified by:
