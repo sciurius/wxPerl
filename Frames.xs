@@ -24,7 +24,7 @@ MODULE=Wx_Wnd
 
 INCLUDE: XS/Panel.xs
 
-INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Dialog.xs
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Dialog.xsp
 
 INCLUDE: XS/Frame.xs
 INCLUDE: XS/StatusBar.xs

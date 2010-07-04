@@ -40,11 +40,11 @@ INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Animatio
 INCLUDE: XS/Colour.xs
 INCLUDE: XS/ColourDatabase.xs
 INCLUDE: XS/Font.xs
-INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/ImageList.xs
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/ImageList.xsp
 INCLUDE: XS/Bitmap.xs
 INCLUDE: XS/Icon.xs
 INCLUDE: XS/Cursor.xs
-INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/DC.xs
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/DC.xsp
 INCLUDE: XS/Overlay.xs
 INCLUDE: XS/Pen.xs
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Brush.xsp

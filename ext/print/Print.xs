@@ -32,7 +32,7 @@ INCLUDE: XS/PrintPreview.xs
 INCLUDE: XS/Printout.xs
 INCLUDE: XS/PrintDialog.xs
 
-INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/Preview.xs
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/Preview.xsp
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/PrintFactory.xsp
 

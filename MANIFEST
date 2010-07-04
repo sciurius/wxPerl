@@ -115,7 +115,7 @@ XS/CheckBox.xs
 XS/CheckListBox.xs
 XS/Choice.xs
 XS/Choicebook.xsp
-XS/ClassInfo.xs
+XS/ClassInfo.xsp
 XS/CollapsiblePane.xsp
 XS/Colour.xs
 XS/ColourDatabase.xs
@@ -128,8 +128,8 @@ XS/Config.xs
 XS/Constraint.xs
 XS/ControlWithItems.xsp
 XS/Cursor.xs
-XS/DC.xs
-XS/Dialog.xs
+XS/DC.xsp
+XS/Dialog.xsp
 XS/DirCtrl.xsp
 XS/DirDialog.xs
 XS/Display.xsp
@@ -157,7 +157,7 @@ XS/HyperlinkCtrl.xsp
 XS/Icon.xs
 XS/IconBundle.xsp
 XS/Image.xs
-XS/ImageList.xs
+XS/ImageList.xsp
 XS/ItemContainer.xsp
 XS/ItemContainerImmutable.xsp
 XS/ListBox.xs
@@ -190,12 +190,12 @@ XS/ScrollBar.xs
 XS/ScrolledWindow.xs
 XS/SearchCtrl.xsp
 XS/SingleChoiceDialog.xs
-XS/Sizer.xs
+XS/Sizer.xsp
 XS/Slider.xs
 XS/Sound.xsp
 XS/SpinButton.xs
 XS/SpinCtrl.xs
-XS/SplitterWindow.xs
+XS/SplitterWindow.xsp
 XS/StandardPaths.xsp
 XS/StaticBitmap.xs
 XS/StaticBox.xs
@@ -206,7 +206,7 @@ XS/Stream.xs
 XS/SVGFileDC.xsp
 XS/TaskBarIcon.xs
 XS/TextAttr.xsp
-XS/TextCtrl.xs
+XS/TextCtrl.xsp
 XS/TextEntryDialog.xs
 XS/Timer.xs
 XS/ToggleButton.xs
@@ -395,7 +395,7 @@ ext/html/XS/HtmlParser.xsp
 ext/html/XS/HtmlListBox.xsp
 ext/html/XS/HtmlTag.xsp
 ext/html/XS/HtmlTagHandler.xsp
-ext/html/XS/HtmlWindow.xs
+ext/html/XS/HtmlWindow.xsp
 ext/html/cpp/ht_constants.cpp
 ext/html/cpp/htmlwindow.h
 ext/html/lib/Wx/Html.pm
@@ -431,7 +431,7 @@ ext/print/Print.xs
 ext/print/XS/PageSetupDialog.xs
 ext/print/XS/PageSetupDialogData.xs
 ext/print/XS/PrintData.xs
-ext/print/XS/Preview.xs
+ext/print/XS/Preview.xsp
 ext/print/XS/PrintDialog.xs
 ext/print/XS/PrintDialogData.xs
 ext/print/XS/PrintFactory.xsp
@@ -464,7 +464,7 @@ ext/socket/typemap
 
 ext/stc/Makefile.PL
 ext/stc/STC.xs
-ext/stc/XS/StyledTextCtrl.xs
+ext/stc/XS/StyledTextCtrl.xsp
 ext/stc/XS/StyledTextEvent.xsp
 ext/stc/cpp/st_constants.cpp
 ext/stc/lib/Wx/STC.pm

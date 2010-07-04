@@ -110,6 +110,7 @@ sub _compare_function {
     for( my $i = 0; $i < 10000; ++$i ) {
         return -1 if $#{$a->arguments} <  $i && $#{$b->arguments} >= $i;
         return  1 if $#{$a->arguments} >= $i && $#{$b->arguments}  < $i;
+        return  0 if $#{$a->arguments} <  $i && $#{$b->arguments}  < $i;
         # since optional arguments might not be specified, we can't rely on them
         # to disambiguate two calls
         return  0 if $ca <  $i && $cb < $i;

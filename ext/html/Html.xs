@@ -42,7 +42,7 @@ MODULE=Wx__Html
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/HtmlWindow.xs
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/HtmlWindow.xsp
 
 INCLUDE: XS/HtmlHelpController.xs
 
