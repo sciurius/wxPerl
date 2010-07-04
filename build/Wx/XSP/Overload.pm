@@ -152,12 +152,15 @@ sub _make_dispatch {
         }
     }
     if( @{$method->arguments} == 0 ) {
-        return [ undef,
+        my $init = <<EOT;
+    static wxPliPrototype void_proto( NULL, 0 );
+EOT
+        return [ $init, 'void_proto',
                  sprintf '        MATCH_VOIDM_REDISP( %s )',
                          $method->perl_name ];
     }
     if( @$methods == 2 && @{$methods->[0]->arguments} == 0 ) {
-        return [ undef,
+        return [ undef, 'NULL',
                  sprintf '        MATCH_ANY_REDISP( %s )',
                          $method->perl_name ];
     }
@@ -197,6 +200,7 @@ sub _make_dispatch {
         push @indices, '"Wx::' . ( substr $arg->type->base_type, 2 ) . '"';
     }
 
+    my $proto_name = sprintf '%s_proto', $method->perl_name;
     my $init = sprintf <<EOT,
     static const char *%s_types[] = { %s };
     static wxPliPrototype %s_proto( %s_types, sizeof( %s_types ) / sizeof( %s_types[0] ) );
@@ -205,11 +209,11 @@ EOT
         $method->perl_name, $method->perl_name, $method->perl_name, $method->perl_name;
 
     if( $min != $max ) {
-        return [ $init,
+        return [ $init, $proto_name,
                  sprintf '        MATCH_REDISP_COUNT_ALLOWMORE( %s_proto, %s, %d )',
                          $method->perl_name, $method->perl_name, $min ];
     } else {
-        return [ $init,
+        return [ $init, $proto_name,
                  sprintf '        MATCH_REDISP_COUNT( %s_proto, %s, %d )',
                          $method->perl_name, $method->perl_name, $max ];
     }
@@ -236,21 +240,25 @@ EOT
 
       $class->cpp_name, $method_name;
 
+    my @prototypes;
     foreach my $dispatch ( @dispatch ) {
         next unless $dispatch->[0];
         $code .= $dispatch->[0];
-    }
-
-    $code .= <<EOT;
-    BEGIN_OVERLOAD()
-EOT
-
-    foreach my $dispatch ( @dispatch ) {
-        $code .= $dispatch->[1] . "\n";
+        push @prototypes, '&' . $dispatch->[1];
     }
 
     $code .= sprintf <<EOT,
-    END_OVERLOAD( %s::%s )
+    static wxPliPrototype *wxPliOvl_all_prototypes[] = { %s, NULL };
+    BEGIN_OVERLOAD()
+EOT
+      join( ', ', @prototypes );
+
+    foreach my $dispatch ( @dispatch ) {
+        $code .= $dispatch->[2] . "\n";
+    }
+
+    $code .= sprintf <<EOT,
+    END_OVERLOAD_MESSAGE( %s::%s, wxPliOvl_all_prototypes )
 EOT
       $class->perl_name, $method_name;
 

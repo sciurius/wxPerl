@@ -36,8 +36,11 @@
         require_pv( "Carp" ); \
         const char* argv[3]; argv[0] = msg; argv[1] = #FUNCTION; argv[2] = 0; \
         call_argv( "Carp::croak", G_VOID|G_DISCARD, (char**) argv ); \
-    } \
-    /* POPMARK; */
+    }
+
+#define END_OVERLOAD_MESSAGE( FUNCTION, PROTOTYPES )       \
+    else \
+        wxPli_overload_error( aTHX_ #FUNCTION, PROTOTYPES );
 
 #define REDISPATCH( NEW_METHOD_NAME ) \
     count = call_method( #NEW_METHOD_NAME, GIMME_V ); SPAGAIN

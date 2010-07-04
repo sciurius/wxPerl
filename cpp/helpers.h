@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2009 Mattia Barbon
+// Copyright:   (c) 2000-2010 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -433,6 +433,8 @@ bool wxPli_match_arguments( pTHX_ const wxPliPrototype& prototype,
 bool FUNCPTR( wxPli_match_arguments_skipfirst )( pTHX_ const wxPliPrototype& p,
                                                  int required,
                                                  bool allow_more );
+void FUNCPTR( wxPli_overload_error )( pTHX_ const char* function,
+                                      wxPliPrototype* prototypes[] );
 
 #define WXPLI_BOOT_ONCE_( name, xs ) \
 bool name##_booted = false; \
@@ -523,6 +525,8 @@ struct wxPliHelpers
     void (* m_wxPli_objlist_push )( pTHX_ const wxList& objs );
     wxPliOutputStream* ( * m_wxPliOutputStream_ctor )( SV* );
     void (* m_wxPli_stringarray_push )( pTHX_ const wxArrayString& );
+    void (* m_wxPli_overload_error )( pTHX_ const char* function,
+                                      wxPliPrototype* prototypes[] );
 };
 
 #if wxPERL_USE_THREADS
@@ -565,7 +569,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  wxDEFINE_PLI_HELPER_THREADS() \
  wxDEFINE_PLI_HELPER_UNICODE() \
  &wxPli_av_2_arrayint, &wxPli_set_events, &wxPli_av_2_arraystring, \
- &wxPli_objlist_push, &wxPliOutputStream_ctor, &wxPli_stringarray_push \
+ &wxPli_objlist_push, &wxPliOutputStream_ctor, &wxPli_stringarray_push, \
+ &wxPli_overload_error \
  }
 
 #if NEEDS_PLI_HELPERS_STRUCT()
@@ -610,6 +615,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_objlist_push = name->m_wxPli_objlist_push; \
   wxPliOutputStream_ctor = name->m_wxPliOutputStream_ctor; \
   wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray; \
+  wxPli_overload_error = name->m_wxPli_overload_error; \
   WXPLI_INIT_CLASSINFO();
 
 #else
