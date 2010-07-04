@@ -90,7 +90,7 @@ public:
         Returns the store.
     */
     wxDataViewListStore *GetStore();
-    const wxDataViewListStore *GetStore() const;
+    //const wxDataViewListStore *GetStore() const;
     //@}
 
     /**
