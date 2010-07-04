@@ -33,6 +33,7 @@ sub post_process {
 
         foreach my $method ( @{$node->methods} ) {
             next unless $method->isa( 'ExtUtils::XSpp::Node::Method' );
+            next if $method->isa( 'ExtUtils::XSpp::Node::Destructor' );
             next if    $method->cpp_name ne $method->perl_name
                     && !$self->{overload_methods}{$method};
             push @{$all_methods{$method->cpp_name} ||= []}, $method;
