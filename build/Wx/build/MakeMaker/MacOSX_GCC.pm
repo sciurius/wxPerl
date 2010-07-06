@@ -14,6 +14,7 @@ sub configure_core {
   $config{depend}{'$(INST_STATIC)'} .= ' wxPerl';
   $config{depend}{'$(INST_DYNAMIC)'} .= ' wxPerl';
   $config{clean}{FILES} .= " wxPerl cpp/wxPerl.osx/build cpp/wxPerl.osx/wxPerl.c cpp/wxPerl.osx/wxPerl.r";
+  $config{dynamic_lib}{OTHERLDFLAGS} .= ' -framework ApplicationServices ';
 
   return %config;
 }

@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+	- Can now run using the standard perl interpreter on Mac OS X
+	  (suggested by Kyle McKay).
 	- Added wxSpinCtrlDouble (2.9).
 	- Added wxDataViewListCtrl (2.9).
 	- Added wxDataViewVirtualListModel (2.9).

@@ -39,6 +39,10 @@
 #include <wx/msw/private.h>
 #endif
 
+#if defined(__WXMAC__)
+#include <ApplicationServices/ApplicationServices.h>
+#endif
+
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
     #include <wx/init.h>
 #else
@@ -245,6 +249,11 @@ BOOT:
 bool 
 Load()
   CODE:
+#if defined(__WXMAC__)
+    ProcessSerialNumber kCurrentPSN = { 0, kCurrentProcess };
+    TransformProcessType( &kCurrentPSN, kProcessTransformToForegroundApplication );
+    SetFrontProcess( &kCurrentPSN );
+#endif
     wxPerlAppCreated = wxTheApp != NULL;
     if( wxPerlInitialized ) { XSRETURN( true ); }
     wxPerlInitialized = true;

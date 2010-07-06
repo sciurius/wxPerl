@@ -165,11 +165,6 @@ eval( "sub wxGTK() { $_platform == $_gtk }" );
 eval( "sub wxMAC() { $_platform == $_mac }" );
 eval( "sub wxX11() { $_platform == $_x11 }" );
 
-# Mac OS X warning
-if( wxMAC() && $^X !~ m{/wxPerl\.app/} && !$ENV{HARNESS_ACTIVE} ) {
-    warn "On Mac OS X please run scripts with the 'wxPerl' interpreter\n";
-}
-
 require Wx::App;
 require Wx::Event;
 require Wx::Locale;
