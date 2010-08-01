@@ -23,6 +23,12 @@
 #endif
 
 #include <wx/defs.h>
+#include <stdio.h>
+
+// used to restore PerlIO-inflicted damage
+inline FILE* _wxPli_stdin() { return stdin; }
+inline FILE* _wxPli_stdout() { return stdout; }
+inline FILE* _wxPli_stderr() { return stderr; }
 
 #include "cpp/compat.h"
 
@@ -127,6 +133,12 @@ inline CV* wxPli_newXS(pTHX_ const char* name, XSUBADDR_t addr,
 #undef vform
 #undef vfprintf
 #undef write
+#undef stdin
+#undef stdout
+#undef stderr
+#define stdin (_wxPli_stdin())
+#define stdout (_wxPli_stdout())
+#define stderr (_wxPli_stderr())
 #endif
 
 #if __VISUALC__
