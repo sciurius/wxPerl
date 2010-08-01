@@ -4,7 +4,7 @@
 // Author:      Marcus Friedlaender and Mattia Barbon
 // Created:     23/05/2002
 // RCS-ID:      $Id$
-// Copyright:   (c) 2002-2006, 2008 Marcus Friedlaender and Mattia Barbon
+// Copyright:   (c) 2002-2006, 2008, 2010 Marcus Friedlaender and Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -567,7 +567,9 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_ERLANG_NUMBER );
         r( wxSTC_ERLANG_OPERATOR );
         r( wxSTC_ERLANG_RECORD );
+#if WXPERL_W_VERSION_LT( 2, 9, 1 )
         r( wxSTC_ERLANG_SEPARATOR );
+#endif
         r( wxSTC_ERLANG_STRING );
         r( wxSTC_ERLANG_UNKNOWN );
         r( wxSTC_ERLANG_VARIABLE );
@@ -635,16 +637,20 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_F_LABEL );
         r( wxSTC_F_CONTINUATION );
         r( wxSTC_FIND_POSIX );
+#if WXPERL_W_VERSION_LT( 2, 9, 1 )
         r( wxSTC_FOLDFLAG_BOX );
+#endif
         r( wxSTC_FOLDFLAG_LEVELNUMBERS );
         r( wxSTC_FOLDFLAG_LINEAFTER_CONTRACTED );
         r( wxSTC_FOLDFLAG_LINEAFTER_EXPANDED );
         r( wxSTC_FOLDFLAG_LINEBEFORE_CONTRACTED );
         r( wxSTC_FOLDFLAG_LINEBEFORE_EXPANDED );
+#if WXPERL_W_VERSION_LT( 2, 9, 1 )
         r( wxSTC_FOLDLEVELBOXFOOTERFLAG );
         r( wxSTC_FOLDLEVELBOXHEADERFLAG );
         r( wxSTC_FOLDLEVELCONTRACTED );
         r( wxSTC_FOLDLEVELUNINDENT );
+#endif
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxSTC_FS_ASM );
         r( wxSTC_FS_BINNUMBER );
@@ -859,7 +865,9 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_INNO_KEYWORD_USER );
         r( wxSTC_INNO_PARAMETER );
         r( wxSTC_INNO_PREPROC );
+#if WXPERL_W_VERSION_LT( 2, 9, 1 )
         r( wxSTC_INNO_PREPROC_INLINE );
+#endif
         r( wxSTC_INNO_SECTION );
         r( wxSTC_INNO_STRING_DOUBLE );
         r( wxSTC_INNO_STRING_SINGLE );
