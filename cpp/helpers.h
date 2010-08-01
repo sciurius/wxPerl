@@ -333,8 +333,8 @@ wxGBSpan wxPli_sv_2_wxgbspan( pTHX_ SV* scalar );
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 class wxPosition;
 wxPosition wxPli_sv_2_wxposition( pTHX_ SV* scalar );
-wxVariant wxPli_sv_2_wxvariant( pTHX_ SV* scalar );
 #endif
+wxVariant FUNCPTR( wxPli_sv_2_wxvariant )( pTHX_ SV* scalar );
 
 wxKeyCode wxPli_sv_2_keycode( pTHX_ SV* scalar );
 
@@ -527,6 +527,7 @@ struct wxPliHelpers
     void (* m_wxPli_stringarray_push )( pTHX_ const wxArrayString& );
     void (* m_wxPli_overload_error )( pTHX_ const char* function,
                                       wxPliPrototype* prototypes[] );
+    wxVariant (* m_wxPli_sv_2_wxvariant )( pTHX_ SV* scalar );
 };
 
 #if wxPERL_USE_THREADS
@@ -570,7 +571,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  wxDEFINE_PLI_HELPER_UNICODE() \
  &wxPli_av_2_arrayint, &wxPli_set_events, &wxPli_av_2_arraystring, \
  &wxPli_objlist_push, &wxPliOutputStream_ctor, &wxPli_stringarray_push, \
- &wxPli_overload_error \
+ &wxPli_overload_error, &wxPli_sv_2_wxvariant \
  }
 
 #if NEEDS_PLI_HELPERS_STRUCT()
@@ -616,6 +617,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPliOutputStream_ctor = name->m_wxPliOutputStream_ctor; \
   wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray; \
   wxPli_overload_error = name->m_wxPli_overload_error; \
+  wxPli_sv_2_wxvariant = name->m_wxPli_sv_2_wxvariant; \
   WXPLI_INIT_CLASSINFO();
 
 #else
