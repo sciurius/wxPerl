@@ -142,7 +142,7 @@ use strict 'refs';
 
 *Wx::Window::GetClientSizeWH = \&Wx::Window::GetClientSizeXY;
 
-if( Load() ) {
+if( Load( 1 ) ) {
     SetConstants();
     SetConstantsOnce();
     SetOvlConstants();

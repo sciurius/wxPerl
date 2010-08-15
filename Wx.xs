@@ -247,7 +247,7 @@ BOOT:
 #endif
 
 bool 
-Load()
+Load( bool croak_on_error = false )
   CODE:
 #if defined(__WXMAC__)
     ProcessSerialNumber kCurrentPSN = { 0, kCurrentProcess };
@@ -255,7 +255,8 @@ Load()
     SetFrontProcess( &kCurrentPSN );
 #endif
     wxPerlAppCreated = wxTheApp != NULL;
-    if( wxPerlInitialized ) { XSRETURN( true ); }
+    if( wxPerlInitialized )
+        XSRETURN( true );
     wxPerlInitialized = true;
 
     NV ver = wxMAJOR_VERSION + wxMINOR_VERSION / 1000.0 + 
@@ -286,7 +287,7 @@ Load()
     sv_setiv( tmp, platform );
 
     if( wxPerlAppCreated || wxTopLevelWindows.GetCount() > 0 )
-        return;
+        XSRETURN( true );
 #if defined(DEBUGGING) && !defined(PERL_USE_SAFE_PUTENV)
     // avoid crash on exit in Fedora (and other DEBUGGING Perls)
     PL_use_safe_putenv = 1;
@@ -311,6 +312,13 @@ Load()
 #endif
 #endif
     RETVAL = wxPerlInitialized;
+
+    if( !RETVAL && croak_on_error )
+    {
+        require_pv( "Carp.pm" );
+        const char* argv[2] = { "Failed to initialize wxWidgets", NULL };
+        call_argv( "Carp::croak", G_VOID|G_DISCARD, (char**) argv );
+    }
   OUTPUT: RETVAL
 
 void

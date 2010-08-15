@@ -69,14 +69,13 @@ sub _init_binary_loader {
 }
 
 sub _start {
-
     &_init_binary_loader;
     $wx_path = $wx_binary_loader->set_binary_path;
     wx_boot( 'Wx', $XS_VERSION ) if!$wx_binary_loader->boot_overload;
     _boot_Constant( 'Wx', $XS_VERSION );
     _boot_GDI( 'Wx', $XS_VERSION );
 
-    Load();
+    Load( 1 );
 }
 
 # legacy load functions
