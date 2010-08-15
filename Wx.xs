@@ -25,6 +25,7 @@
 
 #include <wx/window.h>
 #include <wx/module.h>
+#include <wx/log.h>
 // FIXME hack
 #if WXPERL_W_VERSION_GE( 2, 5, 2 ) \
     && defined(__DARWIN__)
@@ -181,6 +182,7 @@ int wxEntryInitGui()
 
 void wxEntryCleanup()
 {
+#if wxUSE_LOG
     // flush the logged messages if any
     wxLog *pLog = wxLog::GetActiveTarget();
     if ( pLog != NULL && pLog->HasPendingMessages() )
@@ -188,6 +190,7 @@ void wxEntryCleanup()
 
     delete wxLog::SetActiveTarget(new wxLogStderr); // So dialog boxes aren't used
     // for further messages
+#endif
 
     wxApp::CleanUp();
 
@@ -315,6 +318,9 @@ Load( bool croak_on_error = false )
 
     if( !RETVAL && croak_on_error )
     {
+#if wxUSE_LOG
+        wxLog::FlushActive();
+#endif
         require_pv( "Carp.pm" );
         const char* argv[2] = { "Failed to initialize wxWidgets", NULL };
         call_argv( "Carp::croak", G_VOID|G_DISCARD, (char**) argv );
