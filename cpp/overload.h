@@ -33,7 +33,7 @@
     else \
     { \
         static const char msg[] = "unable to resolve overloaded method for "; \
-        require_pv( "Carp" ); \
+        require_pv( "Carp.pm" ); \
         const char* argv[3]; argv[0] = msg; argv[1] = #FUNCTION; argv[2] = 0; \
         call_argv( "Carp::croak", G_VOID|G_DISCARD, (char**) argv ); \
     }

@@ -207,7 +207,7 @@ void wxPli_overload_error( pTHX_ const char* function,
 
     PUSHMARK(MARK); // probably not necessary
 
-    require_pv( "Carp" );
+    require_pv( "Carp.pm" );
     const char* argv[2]; argv[0] = SvPV_nolen( message ); argv[1] = NULL;
     call_argv( "Carp::croak", G_VOID|G_DISCARD, (char**) argv ); \
 }
