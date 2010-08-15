@@ -19,11 +19,11 @@ sub post_process {
     foreach my $node ( @$nodes ) {
         next unless $node->isa( 'ExtUtils::XSpp::Node::Enum' );
 
-        $conditions{$node->condition} ||= 1 if $node->condition;
+        $conditions{$node->condition_expression} ||= 1 if $node->condition_expression;
         foreach my $val ( @{$node->elements} ) {
             next unless $val->isa( 'ExtUtils::XSpp::Node::EnumValue' );
             $constants{$val->name} ||= [ $val->condition ];
-            $conditions{$val->condition} ||= 1 if $val->condition;
+            $conditions{$val->condition_expression} ||= 1 if $val->condition_expression;
         }
     }
 
@@ -40,9 +40,7 @@ sub post_process {
         }
     }
     my $consts = join "\n", @defines;
-    my $all_conditions = join ' && ', 1,
-                         map "defined( $_ )",
-                             keys %conditions;
+    my $all_conditions = join ' && ', 1, keys %conditions;
     my @lines = sprintf <<'EOT', $all_conditions, $name, $consts, $name, $name;
 #if %s
 

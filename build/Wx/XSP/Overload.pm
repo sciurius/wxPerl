@@ -264,7 +264,10 @@ EOT
 EOT
       $class->perl_name, $method_name;
 
-    $class->add_methods( ExtUtils::XSpp::Node::Raw->new( rows => [ $code ] ) );
+    $class->add_methods( ExtUtils::XSpp::Node::Raw->new
+                             ( rows           => [ $code ],
+                               emit_condition => $class->condition_expression,
+                               ) );
 }
 
 1;

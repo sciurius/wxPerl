@@ -20,31 +20,31 @@ sub handle_toplevel_tag {
     my( $name, $args ) = $evt =~ /^(\w+)\((.*)\)$/ or die $evt;
     my @args = split /\s*,\s*/, $args;
 
-    push @{$self->{events}}, [ $name, 1 + @args, $const ];
+    push @{$self->{events}}, [ $name, 1 + @args, $const, $args{condition} ];
 }
 
 sub post_process {
     my( $self, $nodes ) = @_;
     my $parser = $self->{parser};
-    my @events;
+    my( @events, %conditions );
 
     foreach my $e ( @{$self->{events}} ) {
-        my( $name, $args, $const ) = @$e;
+        my( $name, $args, $const, $cond ) = @$e;
 
         if( !$const ) {
             push @events, "    wxPli_StdEvent( $name, $args )";
         } else {
             push @events, "    wxPli_Event( $name, $args, $const )";
         }
+        $conditions{$cond} ||= 1;
     }
 
     ( my $name = File::Basename::basename( $parser->current_file ) ) =~ tr/./_/;
     my $file = "xspp/evt_$name.h";
     my $evts = join "\n", @events;
-    my $all_conditions = 1;
-#     my $all_conditions = join ' && ', 1,
-#                          map "defined( $_ )",
-#                              keys %conditions;
+    my $all_conditions = join ' && ', 1,
+                         map "defined( $_ )",
+                             keys %conditions;
     my @lines = sprintf <<'EOT', $all_conditions, $name, $evts;
 #if %s
 
@@ -68,7 +68,10 @@ EOT
          ExtUtils::XSpp::Node::File->new( file => $file ),
          ExtUtils::XSpp::Node::Raw->new( rows => \@lines ),
          ExtUtils::XSpp::Node::File->new( file => '-' ),
-         ExtUtils::XSpp::Node::Raw->new( rows => [ 'BOOT:', "    wxPli_set_events( ${name}_events );" ] )
+         ExtUtils::XSpp::Node::Raw->new
+             ( rows => [ 'BOOT:', "    wxPli_set_events( ${name}_events );" ],
+               emit_condition => $all_conditions,
+               )
          ;
 }
 

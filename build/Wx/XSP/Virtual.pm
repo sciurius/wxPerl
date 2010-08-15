@@ -188,8 +188,9 @@ EOC
         unless( @constructors ) {
             push @constructors,
                  ExtUtils::XSpp::Node::Constructor->new
-                     ( cpp_name   => $cpp_class,
-                       arguments  => [],
+                     ( cpp_name        => $cpp_class,
+                       arguments       => [],
+                       emit_condition  => $node->condition_expression,
                        );
         }
 
@@ -218,6 +219,7 @@ EOC
                                  arguments  => $constructor->arguments,
                                  postcall   => $constructor->postcall,
                                  cleanup    => $constructor->cleanup,
+                                 condition  => $constructor->condition,
                                  );
 
             push @new_constructors, $new_ctor;
@@ -320,11 +322,12 @@ EOT
         ExtUtils::XSpp::Typemap::add_class_default_typemaps( $cpp_class );
         if( $abstract_class ) {
             my $new_class = ExtUtils::XSpp::Node::Class->new
-                                ( cpp_name     => $cpp_class,
-                                  perl_name    => $perl_class,
-                                  base_classes => [ $node ],
-                                  condition    => $node->condition,
-                                  methods      => \@new_constructors,
+                                ( cpp_name        => $cpp_class,
+                                  perl_name       => $perl_class,
+                                  base_classes    => [ $node ],
+                                  condition       => $node->condition,
+                                  emit_condition  => $node->condition_expression,
+                                  methods         => \@new_constructors,
                                   );
 
             push @$nodes, $new_class;
