@@ -12,6 +12,8 @@
 
 %module{Wx};
 
+%loadplugin{build::Wx::XSP::Overload};
+
 #if wxUSE_GRAPHICS_CONTEXT
 
 #include <wx/graphics.h>
@@ -19,6 +21,80 @@
 ## DECLARE_OVERLOAD( wmdc, Wx::MemoryDC )
 ## DECLARE_OVERLOAD( wwdc, Wx::WindowDC )
 ## DECLARE_OVERLOAD( wpdc, Wx::PrinterDC )
+
+#if WXPERL_W_VERSION_GE( 2, 9, 1 )
+
+%typemap{wxColour}{parsed}{%wxColour%};
+
+%name{Wx::GraphicsGradientStop} class wxGraphicsGradientStop
+{
+public:
+    wxGraphicsGradientStop( wxColour col = wxTransparentColour,
+                            float pos = 0.);
+
+%{
+static void
+wxGraphicsGradientStop::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
+void
+wxGraphicsGradientStop::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::GraphicsGradientStop", THIS, ST(0) );
+    delete THIS;
+%}
+
+    const wxColour& GetColour() const;
+    void SetColour( const wxColour& col );
+
+    float GetPosition() const;
+    void SetPosition( float pos );
+};
+
+%typemap{const wxGraphicsGradientStop&}{reference};
+
+%name{Wx::GraphicsGradientStops} class wxGraphicsGradientStops
+{
+public:
+    wxGraphicsGradientStops( wxColour startCol = wxTransparentColour,
+                             wxColour endCol = wxTransparentColour );
+
+%{
+static void
+wxGraphicsGradientStops::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
+void
+wxGraphicsGradientStops::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::GraphicsGradientStop", THIS, ST(0) );
+    delete THIS;
+%}
+
+    // Add a stop in correct order.
+    %name{AddStop} void Add( const wxGraphicsGradientStop& stop ) %Overload;
+    %name{AddColour} void Add( wxColour col, float pos ) %Overload;
+
+    // Get the number of stops.
+    unsigned GetCount() const;
+
+    // Return the stop at the given index (which must be valid).
+    const wxGraphicsGradientStop& Item( unsigned n ) const;
+
+    // Get/set start and end colours.
+    void SetStartColour( wxColour col );
+    const wxColour& GetStartColour() const;
+    void SetEndColour( wxColour col );
+    const wxColour& GetEndColour() const;
+};
+
+%typemap{const wxGraphicsGradientStops&}{reference};
+
+#endif
 
 %name{Wx::GraphicsRenderer} class wxGraphicsRenderer
 {
@@ -60,6 +136,8 @@ CreateContext( ... )
                                           wxDouble tx=0.0, wxDouble ty=0.0 );
     const wxGraphicsPen& CreatePen( const wxPen& pen );
     const wxGraphicsBrush& CreateBrush( const wxBrush& brush );
+
+#if WXPERL_W_VERSION_LT( 2, 9, 1 )
     const wxGraphicsBrush& CreateLinearGradientBrush( wxDouble x1, wxDouble y1,
                                                       wxDouble x2, wxDouble y2,
                                                       const wxColour&c1, const wxColour&c2 );
@@ -67,6 +145,16 @@ CreateContext( ... )
                                                       wxDouble xc, wxDouble yc,
                                                       wxDouble radius,
                                                       const wxColour &oColor, const wxColour &cColor );
+#else
+    const wxGraphicsBrush& CreateLinearGradientBrush( wxDouble x1, wxDouble y1,
+                                                      wxDouble x2, wxDouble y2,
+                                                      const wxGraphicsGradientStops& stops );
+    const wxGraphicsBrush& CreateRadialGradientBrush( wxDouble xo, wxDouble yo,
+                                                      wxDouble xc, wxDouble yc,
+                                                      wxDouble radius,
+                                                      const wxGraphicsGradientStops& stops );
+#endif
+
 #define wxBLACKPtr (wxColour*)wxBLACK
     const wxGraphicsFont& CreateFont( const wxFont& font,
                                       const wxColour& col = wxBLACKPtr );

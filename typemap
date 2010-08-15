@@ -405,6 +405,8 @@ wxGraphicsMatrix *      O_WXOBJECT_THR
 wxGraphicsObject *      O_WXOBJECT_THR
 wxGraphicsPath *        O_WXOBJECT_THR
 wxGraphicsPen *         O_WXOBJECT_THR
+wxGraphicsGradientStop * O_NON_WXOBJECT_THR
+wxGraphicsGradientStops * O_NON_WXOBJECT_THR
 
 # events
 wxEvent *               O_WXOBJECT_THR
