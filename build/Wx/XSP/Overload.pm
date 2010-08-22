@@ -90,7 +90,9 @@ sub is_number {
                 ( 'int', 'unsigned', 'short', 'long',
                   'unsigned int', 'unsigned short',
                   'unsigned long', 'float', 'double',
-                  'wxAlignment', 'wxBrushStyle' );
+                  'wxAlignment', 'wxBrushStyle',
+                  'size_t', 'ssize_t',
+                  );
 }
 
 sub is_value {
@@ -100,8 +102,19 @@ sub is_value {
     return $type->base_type eq $class;
 }
 
+sub is_any {
+    my( $type ) = @_;
+
+    # TODO wxPerl-specific type
+    return 1 if $type->base_type eq 'Wx_UserDataO';
+}
+
 sub _compare_function {
     my( $ca, $cb ) = ( 0, 0 );
+
+    # arbitrary order for functions with the same name, assuming they
+    # will be guarded with different #ifdefs
+    return $a <=> $b if $a->perl_name eq $b->perl_name;
 
     $ca += 1 foreach grep !$_->has_default, @{$a->arguments};
     $cb += 1 foreach grep !$_->has_default, @{$b->arguments};
@@ -119,7 +132,8 @@ sub _compare_function {
         my $ta = $a->arguments->[$i]->type;
         my $tb = $b->arguments->[$i]->type;
 
-        my( $as, $bs ) = ( is_string( $ta ), is_string( $tb ) );
+        my( $as, $bs ) = ( is_string( $ta ) || is_any( $ta ),
+                           is_string( $tb ) || is_any( $tb ) );
         my( $ai, $bi ) = ( is_number( $ta ), is_number( $tb ) );
         my( $ab, $bb ) = ( is_bool( $ta ), is_bool( $tb ) );
         my $asimple = $as || $ai || $ab;
@@ -127,7 +141,10 @@ sub _compare_function {
 
         # first complex types, then integer, then boolean/string
 
-        next      if !$asimple && !$bsimple;
+        # this does not handle overloading on a base and a derived type,
+        # it is good enough for wxPerl
+        return -1 if !$asimple && !$bsimple;
+
         return -1 if !$asimple &&  $bsimple;
         return  1 if  $asimple && !$bsimple;
 
@@ -158,15 +175,17 @@ sub _make_dispatch {
     static wxPliPrototype void_proto( NULL, 0 );
 EOT
         return [ $init, 'void_proto',
-                 sprintf '        MATCH_VOIDM_REDISP( %s )',
-                         $method->perl_name ];
+                 sprintf( '        MATCH_VOIDM_REDISP( %s )',
+                          $method->perl_name ),
+                 $method->condition_expression || 1 ];
     }
     if( @$methods == 2 && @{$methods->[0]->arguments} == 0 ) {
         return [ undef, 'NULL',
-                 sprintf '        MATCH_ANY_REDISP( %s )',
-                         $method->perl_name ];
+                 sprintf( '        MATCH_ANY_REDISP( %s )',
+                          $method->perl_name ),
+                 $method->condition_expression || 1 ];
     }
-    my( $min, $max, @indices );
+    my( $min, $max, @indices ) = ( 0, 0 );
     foreach my $arg ( @{$method->arguments} ) {
         ++$max;
         ++$min unless defined $arg->default;
@@ -175,7 +194,7 @@ EOT
             push @indices, 'wxPliOvlbool';
             next;
         }
-        if( is_string( $arg->type ) ) {
+        if( is_string( $arg->type ) || is_any( $arg->type ) ) {
             push @indices, 'wxPliOvlstr';
             next;
         }
@@ -198,7 +217,7 @@ EOT
         }
         # TODO name mapping is wxPerl-specific
         die 'Unable to dispatch ', $arg->type->base_type
-          unless $arg->type->base_type =~ /^wx/;
+          unless $arg->type->base_type =~ /^[Ww]x/;
         push @indices, '"Wx::' . ( substr $arg->type->base_type, 2 ) . '"';
     }
 
@@ -212,12 +231,14 @@ EOT
 
     if( $min != $max ) {
         return [ $init, $proto_name,
-                 sprintf '        MATCH_REDISP_COUNT_ALLOWMORE( %s_proto, %s, %d )',
-                         $method->perl_name, $method->perl_name, $min ];
+                 sprintf( '        MATCH_REDISP_COUNT_ALLOWMORE( %s_proto, %s, %d )',
+                          $method->perl_name, $method->perl_name, $min ),
+                 $method->condition_expression || 1 ];
     } else {
         return [ $init, $proto_name,
-                 sprintf '        MATCH_REDISP_COUNT( %s_proto, %s, %d )',
-                         $method->perl_name, $method->perl_name, $max ];
+                 sprintf( '        MATCH_REDISP_COUNT( %s_proto, %s, %d )',
+                          $method->perl_name, $method->perl_name, $max ),
+                 $method->condition_expression || 1 ];
     }
 }
 
@@ -245,18 +266,32 @@ EOT
     my @prototypes;
     foreach my $dispatch ( @dispatch ) {
         next unless $dispatch->[0];
-        $code .= $dispatch->[0];
-        push @prototypes, '&' . $dispatch->[1];
+        chomp $dispatch->[0];
+        $code .= <<EOT;
+#if $dispatch->[3]
+$dispatch->[0]
+#endif // $dispatch->[3]
+EOT
+        push @prototypes, <<EOT;
+#if $dispatch->[3]
+        &$dispatch->[1],
+#endif // $dispatch->[3]
+EOT
     }
 
     $code .= sprintf <<EOT,
-    static wxPliPrototype *wxPliOvl_all_prototypes[] = { %s, NULL };
+    static wxPliPrototype *wxPliOvl_all_prototypes[] = {
+%s        NULL };
     BEGIN_OVERLOAD()
 EOT
-      join( ', ', @prototypes );
+      join( '', @prototypes );
 
     foreach my $dispatch ( @dispatch ) {
-        $code .= $dispatch->[2] . "\n";
+        $code .= <<EOT;
+#if $dispatch->[3]
+$dispatch->[2]
+#endif // $dispatch->[3]
+EOT
     }
 
     $code .= sprintf <<EOT,
