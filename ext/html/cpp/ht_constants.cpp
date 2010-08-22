@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     21/03/2001
 // RCS-ID:      $Id$
-// Copyright:   (c) 2001, 2003-2008 Mattia Barbon
+// Copyright:   (c) 2001, 2003-2008, 2010 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -109,7 +109,9 @@ double html_constant( const char* name, int arg )
         r( wxHTML_BLOCK );
         r( wxHTML_BUFLEN );
         r( wxHTML_OPEN );
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
         r( wxHTML_PRINT_MAX_PAGES );
+#endif
         r( wxHTML_REDIRECT );
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxHTML_SCRIPT_NORMAL );
