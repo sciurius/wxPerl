@@ -42,6 +42,7 @@ wxPrintData *           O_WXOBJECT
 wxPageSetupDialogData * O_WXOBJECT
 ## no RTTI info for wxRichTextPrinting
 wxRichTextPrinting *    O_NON_WXOBJECT_THR
+wxRichTextPrintout *    O_NON_WXOBJECT_THR
 wxRichTextHeaderFooterData * O_WXOBJECT_THR
 wxRichTextOddEvenPage   T_ENUM
 wxRichTextPageLocation  T_ENUM

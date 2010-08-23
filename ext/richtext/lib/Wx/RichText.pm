@@ -31,6 +31,7 @@ SetEvents();
 
 no strict;
 
+package Wx::Printout;
 package Wx::RichTextCtrl;    @ISA = qw(Wx::TextCtrl);
 package Wx::TextAttrEx;      @ISA = qw(Wx::TextAttr);
 package Wx::RichTextEvent;   @ISA = qw(Wx::NotifyEvent);

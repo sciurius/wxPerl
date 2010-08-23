@@ -83,3 +83,4 @@
 %typemap{wxRichTextHeaderFooterData*}{simple};
 %typemap{const wxRichTextHeaderFooterData&}{reference};
 
+%typemap{wxRect&}{reference};
