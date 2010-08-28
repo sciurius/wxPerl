@@ -311,6 +311,7 @@ ext/dataview/XS/DataViewTreeStore.xsp
 ext/dataview/t/01_load.t
 ext/dataview/t/02_inheritance.t
 ext/dataview/t/03_threads.t
+ext/dataview/t/08_ovl_func.t
 ext/dataview/typemap
 ext/dataview/typemap.xsp
 

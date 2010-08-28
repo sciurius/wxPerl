@@ -118,8 +118,8 @@ void
 AppendBitmapColumn( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendBitmapColumnLabel, 2 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendBitmapColumnBitmap, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendBitmapColumnLabel, 2 )
     END_OVERLOAD( "Wx::DataViewCtrl::AppendBitmapColumn" )
 %}
 
@@ -139,8 +139,8 @@ void
 AppendDateColumn( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendDateColumnLabel, 2 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendDateColumnBitmap, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendDateColumnLabel, 2 )
     END_OVERLOAD( "Wx::DataViewCtrl::AppendDateColumn" )
 %}
 
@@ -161,8 +161,8 @@ void
 AppendProgressColumn( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendProgressColumnLabel, 2 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendProgressColumnBitmap, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendProgressColumnLabel, 2 )
     END_OVERLOAD( "Wx::DataViewCtrl::AppendProgressColumn" )
 %}
 
@@ -183,8 +183,8 @@ void
 AppendIconTextColumn( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendIconTextColumnLabel, 2 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendIconTextColumnBitmap, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendIconTextColumnLabel, 2 )
     END_OVERLOAD( "Wx::DataViewCtrl::AppendIconTextColumn" )
 %}
 
@@ -205,8 +205,8 @@ void
 AppendTextColumn( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendTextColumnLabel, 2 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendTextColumnBitmap, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendTextColumnLabel, 2 )
     END_OVERLOAD( "Wx::DataViewCtrl::AppendTextColumn" )
 %}
 
@@ -227,8 +227,8 @@ void
 AppendToggleColumn( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendToggleColumnLabel, 2 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wbmp_n_n_n, AppendToggleColumnBitmap, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n_n_n, AppendToggleColumnLabel, 2 )
     END_OVERLOAD( "Wx::DataViewCtrl::AppendToggleColumn" )
 %}
 
