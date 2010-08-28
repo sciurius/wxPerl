@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 194;
+use Test::More 'tests' => 198;
 use Tests_Helper qw(test_app);
 use Fatal qw(open);
 
@@ -994,6 +994,23 @@ ok( $lft, "Wx::Image::LoadFileType" );
 
 $img->LoadFile( 'wxpl.xpm', 'image/xpm' );
 ok( $lfm, "Wx::Image::LoadFileMIME" );
+}
+
+##############################################################################
+# Wx::BitmapComboBox
+##############################################################################
+if( Wx::wxVERSION() >= 2.007002 ) {
+my $bcb = Wx::BitmapComboBox->new( $frame, -1, 'a', [-1, -1], [-1, -1], [] );
+
+test_override { $bcb->Append( 'a', $bmpok ) }
+              'Wx::BitmapComboBox::AppendString';
+test_override { $bcb->Append( 'b', $bmpok, \1 ) }
+              'Wx::BitmapComboBox::AppendData';
+
+test_override { $bcb->Insert( 'a', $bmpok, 1 ) }
+              'Wx::BitmapComboBox::InsertString';
+test_override { $bcb->Insert( 'b', $bmpok, 1, \1 ) }
+              'Wx::BitmapComboBox::InsertData';
 }
 
 ##############################################################################
