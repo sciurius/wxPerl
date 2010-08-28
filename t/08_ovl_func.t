@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 200;
+use Test::More 'tests' => 209;
 use Tests_Helper qw(test_app);
 use Fatal qw(open);
 
@@ -1023,6 +1023,35 @@ test_override { $cpc->SetColour( Wx::Colour->new( 'red' ) ) }
               'Wx::ColourPickerCtrl::SetColourColour';
 test_override { $cpc->SetColour( 'red' ) }
               'Wx::ColourPickerCtrl::SetColourString';
+}
+
+##############################################################################
+# Wx::IconBundle
+##############################################################################
+{
+my $ib = Wx::IconBundle->new;
+
+test_override { Wx::IconBundle->new }
+              'Wx::IconBundle::newEmpty';
+test_override { Wx::IconBundle->new( 'wxpl.ico' ) }
+              'Wx::IconBundle::newFile';
+test_override { Wx::IconBundle->new( $icook ) }
+              'Wx::IconBundle::newIcon';
+
+test_override { $ib->AddIcon( 'wxpl.ico' ) }
+              'Wx::IconBundle::AddIconFile';
+test_override { $ib->AddIcon( $icook ) }
+              'Wx::IconBundle::AddIconIcon';
+
+test_override { $ib->GetIcon( 16 ) }
+              'Wx::IconBundle::GetIconCoord';
+test_override { $ib->GetIcon( [ 16, 16 ] ) }
+              'Wx::IconBundle::GetIconSize';
+
+test_override { $ib->GetIconOfExactSize( 16 ) }
+              'Wx::IconBundle::GetIconOfExactSizeCoord';
+test_override { $ib->GetIconOfExactSize( [ 16, 16 ] ) }
+              'Wx::IconBundle::GetIconOfExactSizeSize';
 }
 
 ##############################################################################

@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     25/03/2003
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2003, 2005, 2007-2008 Mattia Barbon
+## Copyright:   (c) 2003, 2005, 2007-2008, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -62,16 +62,16 @@ wxIconBundle::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_VOIDM_REDISP( newEmpty )
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n, newFile, 1 )
         MATCH_REDISP( wxPliOvl_wico, newIcon )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n, newFile, 1 )
     END_OVERLOAD( Wx::IconBundle::new )
 
 void
 wxIconBundle::AddIcon( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n, AddIconFile, 1 )
         MATCH_REDISP( wxPliOvl_wico, AddIconIcon )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_n, AddIconFile, 1 )
     END_OVERLOAD( Wx::IconBundle::AddIcon )
 
 void
