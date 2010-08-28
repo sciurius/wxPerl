@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 192;
+use Test::More 'tests' => 194;
 use Tests_Helper qw(test_app);
 use Fatal qw(open);
 
@@ -538,6 +538,11 @@ ok( $scspoi, "Wx::Window::SetClientSizePoint" );
 
 $frame->SetClientSize( 200, 200 );
 ok( $scswh, "Wx::Window::SetClientSizeWH" );
+
+test_override { $frame->SetVirtualSize( 500, 500 ) }
+              'Wx::Window::SetVirtualSizeXY';
+test_override { $frame->SetVirtualSize( [ 500, 500 ] ) }
+              'Wx::Window::SetVirtualSizeSize';
 }
 
 ##############################################################################
