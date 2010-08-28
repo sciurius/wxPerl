@@ -7,32 +7,11 @@ use strict;
 use Wx;
 use lib './t';
 use Test::More 'tests' => 230;
-use Tests_Helper qw(test_app);
+use Tests_Helper qw(test_app :overload);
 use Fatal qw(open);
 
 my $nolog = Wx::LogNull->new;
 Wx::InitAllImageHandlers;
-
-sub hijack {
-  while( @_ ) {
-    my( $name, $code ) = ( shift, shift );
-    no strict 'refs';
-    die "Unknown method name '$name'" unless defined &{$name};
-    my $old = \&{$name};
-    undef *{$name};
-    *{$name} = sub { &$code; goto &$old };
-  }
-}
-
-sub test_override(&$) {
-  my( $code, $method ) = @_;
-  my $called = 0;
-
-  local $Test::Builder::Level = $Test::Builder::Level + 1;
-  hijack( $method => sub { $called = 1 } );
-  $code->();
-  ok( $called, $method );
-}
 
 test_app( sub {
 my $frame = Wx::Frame->new( undef, -1, 'a' );
