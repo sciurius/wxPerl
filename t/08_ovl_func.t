@@ -990,6 +990,8 @@ test_override { $bcb->Insert( 'a', $bmpok, 1 ) }
               'Wx::BitmapComboBox::InsertString';
 test_override { $bcb->Insert( 'b', $bmpok, 1, \1 ) }
               'Wx::BitmapComboBox::InsertData';
+} else {
+    ok( 1, 'skipped' ) for 1 .. 4;
 }
 
 ##############################################################################
@@ -1002,6 +1004,8 @@ test_override { $cpc->SetColour( Wx::Colour->new( 'red' ) ) }
               'Wx::ColourPickerCtrl::SetColourColour';
 test_override { $cpc->SetColour( 'red' ) }
               'Wx::ColourPickerCtrl::SetColourString';
+} else {
+    ok( 1, 'skipped' ) for 1 .. 2;
 }
 
 ##############################################################################
@@ -1027,10 +1031,15 @@ test_override { $ib->GetIcon( 16 ) }
 test_override { $ib->GetIcon( [ 16, 16 ] ) }
               'Wx::IconBundle::GetIconSize';
 
-test_override { $ib->GetIconOfExactSize( 16 ) }
-              'Wx::IconBundle::GetIconOfExactSizeCoord';
-test_override { $ib->GetIconOfExactSize( [ 16, 16 ] ) }
-              'Wx::IconBundle::GetIconOfExactSizeSize';
+if( Wx::wxVERSION() >= 2.009 ) {
+    test_override { $ib->GetIconOfExactSize( 16 ) }
+                  'Wx::IconBundle::GetIconOfExactSizeCoord';
+    test_override { $ib->GetIconOfExactSize( [ 16, 16 ] ) }
+                  'Wx::IconBundle::GetIconOfExactSizeSize';
+} else {
+    ok( 1, 'skipped' );
+    ok( 1, 'skipped' );
+}
 }
 
 ##############################################################################
@@ -1065,6 +1074,8 @@ test_override { $sw->IsVisible( 1, 1 ) }
               'Wx::HVScrolledWindow::IsVisibleRC';
 test_override { $sw->IsVisible( Wx::Position->new( 2, 2 ) ) }
               'Wx::HVScrolledWindow::IsVisiblePosition';
+} else {
+    ok( 1, 'skipped' ) for 1 .. 10;
 }
 
 $frame->Destroy;
