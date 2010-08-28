@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 209;
+use Test::More 'tests' => 230;
 use Tests_Helper qw(test_app);
 use Fatal qw(open);
 
@@ -1132,6 +1132,72 @@ SKIP: {
 
 undef $dc;
 undef $cdc;
+}
+
+##############################################################################
+# Wx::GridBagSizer
+##############################################################################
+{
+my $gbs = Wx::GridBagSizer->new;
+my $win = Wx::Frame->new( undef, -1, 'Foo' );
+my $sz = Wx::BoxSizer->new( Wx::wxVERTICAL() );
+
+test_override { $gbs->Add( $win, Wx::GBPosition->new( 0, 0 ),
+                           Wx::GBSpan->new( 1, 1 ) ) }
+              'Wx::GridBagSizer::AddWindow';
+test_override { $gbs->Add( $sz, Wx::GBPosition->new( 0, 1 ),
+                           Wx::GBSpan->new( 1, 1 ) ) }
+              'Wx::GridBagSizer::AddSizer';
+test_override { $gbs->Add( 20, 20, Wx::GBPosition->new( 0, 2 ),
+                           Wx::GBSpan->new( 1, 1 ) ) }
+              'Wx::GridBagSizer::AddSpace';
+
+test_override { $gbs->GetItemPosition( $win ) }
+              'Wx::GridBagSizer::GetItemPositionWindow';
+test_override { $gbs->GetItemPosition( $sz ) }
+              'Wx::GridBagSizer::GetItemPositionSizer';
+test_override { $gbs->GetItemPosition( 0 ) }
+              'Wx::GridBagSizer::GetItemPositionIndex';
+
+test_override { $gbs->SetItemPosition( $win, Wx::GBPosition->new( 1, 0 ) ) }
+              'Wx::GridBagSizer::SetItemPositionWindow';
+test_override { $gbs->SetItemPosition( $sz, Wx::GBPosition->new( 1, 1 ) ) }
+              'Wx::GridBagSizer::SetItemPositionSizer';
+test_override { $gbs->SetItemPosition( 2, Wx::GBPosition->new( 1, 2 ) ) }
+              'Wx::GridBagSizer::SetItemPositionIndex';
+
+test_override { $gbs->GetItemSpan( $win ) }
+              'Wx::GridBagSizer::GetItemSpanWindow';
+test_override { $gbs->GetItemSpan( $sz ) }
+              'Wx::GridBagSizer::GetItemSpanSizer';
+test_override { $gbs->GetItemSpan( 0 ) }
+              'Wx::GridBagSizer::GetItemSpanIndex';
+
+test_override { $gbs->FindItem( $win ) }
+              'Wx::GridBagSizer::FindItemWindow';
+test_override { $gbs->FindItem( $sz ) }
+              'Wx::GridBagSizer::FindItemSizer';
+
+test_override { $gbs->SetItemSpan( $win, Wx::GBSpan->new( 2, 1 ) ) }
+              'Wx::GridBagSizer::SetItemSpanWindow';
+test_override { $gbs->SetItemSpan( $sz, Wx::GBSpan->new( 2, 1 ) ) }
+              'Wx::GridBagSizer::SetItemSpanSizer';
+test_override { $gbs->SetItemSpan( 2, Wx::GBSpan->new( 2, 1 ) ) }
+              'Wx::GridBagSizer::SetItemSpanIndex';
+
+my $gbi = $gbs->GetItem( 0 );
+
+test_override { $gbi->Intersects( $gbi ) }
+              'Wx::GBSizerItem::IntersectsItem';
+test_override { $gbi->Intersects( Wx::GBPosition->new( 0, 0 ),
+                                  Wx::GBSpan->new( 1, 1 ) ) }
+              'Wx::GBSizerItem::IntersectsPosition';
+
+test_override { $gbs->CheckForIntersection( $gbi ) }
+              'Wx::GridBagSizer::CheckForIntersectionItem';
+test_override { $gbs->CheckForIntersection( Wx::GBPosition->new( 0, 0 ),
+                                            Wx::GBSpan->new( 1, 1 ) ) }
+              'Wx::GridBagSizer::CheckForIntersectionPos';
 }
 
 ##############################################################################

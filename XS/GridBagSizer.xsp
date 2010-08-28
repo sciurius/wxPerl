@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     310/11/2003
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2003, 2005-2007 Mattia Barbon
+## Copyright:   (c) 2003, 2005-2007, 2010 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -93,7 +93,7 @@ wxGBSizerItem::Intersects( ... )
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wgbi, IntersectsItem )
         MATCH_REDISP( wxPliOvl_wgbp_wgbs, IntersectsPosition )
-    END_OVERLOAD( Wx::GridBagSizer::Add )
+    END_OVERLOAD( Wx::GridBagSizer::Intersects )
 %}
 
 %{
@@ -203,9 +203,9 @@ void
 wxGridBagSizer::SetItemSpan( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wwin_wgbp, SetItemSpanWindow )
-        MATCH_REDISP( wxPliOvl_wszr_wgbp, SetItemSpanSizer )
-        MATCH_REDISP( wxPliOvl_n_wgbp, SetItemSpanIndex )
+        MATCH_REDISP( wxPliOvl_wwin_wgbs, SetItemSpanWindow )
+        MATCH_REDISP( wxPliOvl_wszr_wgbs, SetItemSpanSizer )
+        MATCH_REDISP( wxPliOvl_n_wgbs, SetItemSpanIndex )
     END_OVERLOAD( Wx::GridBagSizer::SetItemSpan )
 %}
 
