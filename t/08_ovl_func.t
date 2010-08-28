@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 190;
+use Test::More 'tests' => 192;
 use Tests_Helper qw(test_app);
 use Fatal qw(open);
 
@@ -175,7 +175,8 @@ ok( $setsizewh,   "Wx::Caret::SetSizeWH" );
 my( $cwiappendstr, $cwiappenddata, $cwiappenditems,
     $cbappendstr, $cbappenddata, $cbsetselectionN, $cbsetselectionNN,
     $cwiappenditemsdata, $cwiinsertitemsdata, $cwiinsertitems,
-    $cwiinsertdata, $cwiinsertstr, $cwisetitemsdata, $cwisetitems );
+    $cwiinsertdata, $cwiinsertstr, $cwisetitemsdata, $cwisetitems,
+    $cwifindstringc, $cwifindstringnoc );
 my $good_combo = 'Wx::ComboBox'->isa( 'Wx::Choice' );
 hijack( 'Wx::ControlWithItems::AppendString' => sub { $cwiappendstr = 1 },
         'Wx::ControlWithItems::AppendData'   => sub { $cwiappenddata = 1 },
@@ -196,10 +197,19 @@ hijack( 'Wx::ControlWithItems::AppendString' => sub { $cwiappendstr = 1 },
         ( !Wx::wxMAC() ?
           ( 'Wx::ComboBox::SetSelectionN'    => sub { $cbsetselectionN = 1 } )
           : () ),
+        ( Wx::wxVERSION() >= 2.007002
+          ? ( 'Wx::ControlWithItems::FindStringCase' => sub { $cwifindstringc = 1 } ) : () ),
+        'Wx::ControlWithItems::FindStringNoCase' => sub { $cwifindstringnoc = 1 },
        );
 
 my $cwi = Wx::ListBox->new( $frame, -1 );
 my $cb = Wx::ComboBox->new( $frame, -1, 'bar' );
+
+$cwi->FindString( 'a' );
+ok( $cwifindstringnoc,"Wx::ControlWithItems::FindStringNoCase" );
+
+$cwi->FindString( 'a', 0 );
+ok( $cwifindstringc,  "Wx::ControlWithItems::FindStringCase" );
 
 $cwi->Append( 'a' );
 ok( $cwiappendstr,    "Wx::ControlWithItems::AppendString" );
