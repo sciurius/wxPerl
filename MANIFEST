@@ -406,6 +406,7 @@ ext/html/t/01_load.t
 ext/html/t/02_inheritance.t
 ext/html/t/03_threads.t
 ext/html/t/04_taghandlers.t
+ext/html/t/08_ovl_func.t
 
 ext/mdi/MDI.xs
 ext/mdi/Makefile.PL
