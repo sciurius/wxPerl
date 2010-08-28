@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 198;
+use Test::More 'tests' => 200;
 use Tests_Helper qw(test_app);
 use Fatal qw(open);
 
@@ -1011,6 +1011,18 @@ test_override { $bcb->Insert( 'a', $bmpok, 1 ) }
               'Wx::BitmapComboBox::InsertString';
 test_override { $bcb->Insert( 'b', $bmpok, 1, \1 ) }
               'Wx::BitmapComboBox::InsertData';
+}
+
+##############################################################################
+# Wx::ColourPickerCtrl
+##############################################################################
+if( Wx::wxVERSION() >= 2.007000 ) {
+my $cpc = Wx::ColourPickerCtrl->new( $frame );
+
+test_override { $cpc->SetColour( Wx::Colour->new( 'red' ) ) }
+              'Wx::ColourPickerCtrl::SetColourColour';
+test_override { $cpc->SetColour( 'red' ) }
+              'Wx::ColourPickerCtrl::SetColourString';
 }
 
 ##############################################################################
