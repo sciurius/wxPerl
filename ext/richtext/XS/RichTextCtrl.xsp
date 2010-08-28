@@ -397,13 +397,13 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     bool CanDeleteSelection() const;
     void DeleteSelection();
 
-    %name{HasCARich} bool HasCharacterAttributes
-        ( const wxRichTextRange& range, const wxTextAttrEx& style ) const;
     %name{HasCAEx}   bool HasCharacterAttributes
+        ( const wxRichTextRange& range, const wxTextAttrEx& style ) const;
+    %name{HasCARich} bool HasCharacterAttributes
         ( const wxRichTextRange& range, const wxRichTextAttr& style) const;
-    %name{HasPARich} bool HasParagraphAttributes
-        ( const wxRichTextRange& range, const wxTextAttrEx& style) const;
     %name{HasPAEx}   bool HasParagraphAttributes
+        ( const wxRichTextRange& range, const wxTextAttrEx& style) const;
+    %name{HasPARich} bool HasParagraphAttributes
         ( const wxRichTextRange& range, const wxRichTextAttr& style) const;
 
     bool IsSelectionBold();
@@ -499,14 +499,21 @@ wxRichTextCtrl::SetStyle( ... )
         MATCH_REDISP( wxPliOvl_n_n_wtat, SetStyleFromTo )
     END_OVERLOAD( "Wx::RichTextCtrl::SetStyle" )
 
+#if WXPERL_W_VERSION_GE( 2, 7, 1 )
+
 void
 wxRichTextCtrl::SetStyleEx( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrtr_wrta_n, SetStyleExExRange )
-        MATCH_REDISP( wxPliOvl_wrtr_wtae_n, SetStyleExRange )
-        MATCH_REDISP( wxPliOvl_n_n_wtae, SetStyleExExFromTo )
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_wtae, SetStyleExExFromTo, 2 )
+#else
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wrtr_wrta_n, SetStyleExExRange, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wrtr_wtae_n, SetStyleExRange, 2 )
+#endif
     END_OVERLOAD( "Wx::RichTextCtrl::SetStyleEx" )
+
+#endif
 
 void
 wxRichTextCtrl::HasCharacterAttributes( ... )
@@ -520,7 +527,7 @@ void
 wxRichTextCtrl::HasParagraphAttributes( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrtr_wrtr, HasPARich )
+        MATCH_REDISP( wxPliOvl_wrtr_wrta, HasPARich )
         MATCH_REDISP( wxPliOvl_wrtr_wtae, HasPAEx )
     END_OVERLOAD( "Wx::RichTextCtrl::HasParagraphAttributes" )
 

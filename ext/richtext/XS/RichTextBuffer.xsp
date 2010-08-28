@@ -25,10 +25,10 @@
     void AddHandler( wxRichTextFileHandler* handler );
 
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
-    %name{SetStyleRange} bool SetStyle
+    %name{SetStyleEx} bool SetStyle
         ( const wxRichTextRange& range, const wxTextAttrEx& style,
           int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
-    %name{SetStyleExRange} bool SetStyle
+    %name{SetStyleRich} bool SetStyle
         ( const wxRichTextRange& range, const wxRichTextAttr& style,
           int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
 %{
@@ -36,8 +36,8 @@ void
 wxRichTextBuffer::SetStyle( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wrtr_wrta_n, SetStyleRange )
-        MATCH_REDISP( wxPliOvl_wrtr_wtae_n, SetStyleExRange )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wrtr_wrta_n, SetStyleRich, 2 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wrtr_wtae_n, SetStyleEx, 2 )
     END_OVERLOAD( "Wx::RichTextBuffer::SetStyle" )
 
 %}
