@@ -294,7 +294,7 @@ void
 wxAuiManager::AddPane( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wwin_wapi, AddPaneDefault )
+        MATCH_REDISP_COUNT( wxPliOvl_wwin_wapi, AddPaneDefault, 2 )
         MATCH_REDISP( wxPliOvl_wwin_wapi_wpoi, AddPanePoint )
         MATCH_REDISP( wxPliOvl_wwin_n_s, AddPaneDirection )
     END_OVERLOAD( "Wx::AuiManager::AddPane" )

@@ -124,8 +124,8 @@ void
 wxAuiPaneInfo::FloatingPosition( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wsiz, FloatingSizeSize )
-        MATCH_REDISP( wxPliOvl_n_n, FloatingSizeWH )
+        MATCH_REDISP( wxPliOvl_wsiz, FloatingPositionPoint )
+        MATCH_REDISP( wxPliOvl_n_n, FloatingPositionXY )
     END_OVERLOAD( Wx::AuiPaneInfo::FloatingPosition )
 %}
 
@@ -184,34 +184,3 @@ wxAuiPaneInfo::FloatingSize( ... )
 %typemap{wxAuiPaneInfo&}{reference};
 
 };
-
-%{
-
-## DECLARE_OVERLOAD( wapi, Wx::AuiPaneInfo )
-
-void
-wxAuiManager::GetPane( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wwin, GetPaneWindow )
-        MATCH_REDISP( wxPliOvl_s, GetPaneString )
-    END_OVERLOAD( "Wx::AuiManager::GetPane" )
-
-void
-wxAuiManager::GetAllPanes()
-  PPCODE:
-    const wxAuiPaneInfoArray& panes = THIS->GetAllPanes();
-    PUTBACK;
-    wxPli_non_objarray_push( aTHX_ panes, "Wx::AuiPaneInfo" );
-    SPAGAIN;
-
-void
-wxAuiManager::AddPane( ... )
-  PPCODE:
-    BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wwin_wapi, AddPaneDefault )
-        MATCH_REDISP( wxPliOvl_wwin_wapi_wpoi, AddPanePoint )
-        MATCH_REDISP( wxPliOvl_wwin_n_s, AddPaneDirection )
-    END_OVERLOAD( "Wx::AuiManager::AddPane" )
-
-%}
