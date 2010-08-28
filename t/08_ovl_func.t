@@ -6,7 +6,7 @@
 use strict;
 use Wx;
 use lib './t';
-use Test::More 'tests' => 180;
+use Test::More 'tests' => 190;
 use Tests_Helper qw(test_app);
 use Fatal qw(open);
 
@@ -17,11 +17,21 @@ sub hijack {
   while( @_ ) {
     my( $name, $code ) = ( shift, shift );
     no strict 'refs';
-    die $name unless defined &{$name};
+    die "Unknown method name '$name'" unless defined &{$name};
     my $old = \&{$name};
     undef *{$name};
     *{$name} = sub { &$code; goto &$old };
   }
+}
+
+sub test_override(&$) {
+  my( $code, $method ) = @_;
+  my $called = 0;
+
+  local $Test::Builder::Level = $Test::Builder::Level + 1;
+  hijack( $method => sub { $called = 1 } );
+  $code->();
+  ok( $called, $method );
 }
 
 test_app( sub {
@@ -969,6 +979,40 @@ ok( $lft, "Wx::Image::LoadFileType" );
 
 $img->LoadFile( 'wxpl.xpm', 'image/xpm' );
 ok( $lfm, "Wx::Image::LoadFileMIME" );
+}
+
+##############################################################################
+# Wx::HVScrollHelper
+##############################################################################
+if( Wx::wxVERSION() >= 2.009 ) {
+my $sw = Wx::PlHVScrolledWindow->new( $frame, -1 );
+$sw->SetRowColumnCount( 10, 10 );
+
+test_override { $sw->ScrollToRowColumn( 1, 1 ) }
+              'Wx::HVScrolledWindow::ScrollToRowColumnRC';
+test_override { $sw->ScrollToRowColumn( Wx::Position->new( 2, 2 ) ) }
+              'Wx::HVScrolledWindow::ScrollToRowColumnPosition';
+
+test_override { $sw->RefreshRowColumn( 1, 1 ) }
+              'Wx::HVScrolledWindow::RefreshRowColumnRC';
+test_override { $sw->RefreshRowColumn( Wx::Position->new( 2, 2 ) ) }
+              'Wx::HVScrolledWindow::RefreshRowColumnPosition';
+
+test_override { $sw->RefreshRowsColumns( 1, 1, 3, 3 ) }
+              'Wx::HVScrolledWindow::RefreshRowsColumnsRC';
+test_override { $sw->RefreshRowsColumns( Wx::Position->new( 2, 2 ),
+                                         Wx::Position->new( 4, 4 ) ) }
+              'Wx::HVScrolledWindow::RefreshRowsColumnsPosition';
+
+test_override { $sw->VirtualHitTest( 10, 10 ) }
+              'Wx::HVScrolledWindow::VirtualHitTestXY';
+test_override { $sw->VirtualHitTest( [ 10, 10 ] ) }
+              'Wx::HVScrolledWindow::VirtualHitTestPoint';
+
+test_override { $sw->IsVisible( 1, 1 ) }
+              'Wx::HVScrolledWindow::IsVisibleRC';
+test_override { $sw->IsVisible( Wx::Position->new( 2, 2 ) ) }
+              'Wx::HVScrolledWindow::IsVisiblePosition';
 }
 
 $frame->Destroy;
