@@ -47,6 +47,12 @@
     %cpp_type{%wxDateTime::TimeZone%};
 };
 
+%typemap{wxDateTime&}{parsed}{
+    %cpp_type{%SV*%};
+    %call_function_code{%$Call%};
+    %output_code{%$CVar = $PerlVar; SvREFCNT_inc( $PerlVar )%};
+};
+
 %name{Wx::DateTime} class wxDateTime
 {
     wxDateTime();
@@ -87,23 +93,17 @@ wxDateTime::CLONE()
     wxDateTime_t GetWeekOfYear( WeekFlags flags = Monday_First, const wxDateTime::TimeZone& tz = wxDateTime::Local );
     wxDateTime_t GetWeekOfMonth( WeekFlags flags = Monday_First, const wxDateTime::TimeZone& tz = wxDateTime::Local );
 
-    %name{SetTimeT} wxDateTime& Set( time_t time )
-        %code{%    RETVAL = &(THIS->Set( time )); %};
-    %name{SetJDN} wxDateTime& Set( double jdn )
-        %code{%    RETVAL = &(THIS->Set( jdn )); %};
+    %name{SetTimeT} wxDateTime& Set( time_t time );
+    %name{SetJDN} wxDateTime& Set( double jdn );
     %name{SetHMS} wxDateTime& Set( wxDateTime_t hour, wxDateTime_t minute = 0,
                                    wxDateTime_t second = 0,
-                                   wxDateTime_t msec = 0 )
-        %code{%    RETVAL = &(THIS->Set( hour, minute, second, msec )); %};
+                                   wxDateTime_t msec = 0 );
     %name{Set} wxDateTime& Set( wxDateTime_t day,
                                 Month month = Inv_Month,
                                 int year = Inv_Year,
                                 wxDateTime_t hour, wxDateTime_t minute = 0,
                                 wxDateTime_t second = 0,
-                                wxDateTime_t msec = 0 )
-        %code{%    RETVAL = &(THIS->Set( day, month, year,
-                                         hour, minute, second, msec ));
-              %};
+                                wxDateTime_t msec = 0 );
     
     wxDateTime& SetYear( int year );
     wxDateTime& SetMonth( Month month );
@@ -130,13 +130,13 @@ wxDateTime::CLONE()
     wxDateTime& SetToCurrent( );
     wxDateTime& ResetTime( );
 
-	bool IsEqualTo( wxDateTime& dt );
-	bool IsEarlierThan( wxDateTime& dt );
-	bool IsLaterThan( wxDateTime& dt );
-	bool IsBetween( wxDateTime& dt1, wxDateTime& dt2 );
-	bool IsStrictlyBetween( wxDateTime& dt1, wxDateTime& dt2 );
-	bool IsSameDate( wxDateTime& dt );
-	bool IsSameTime( wxDateTime& dt );
+	bool IsEqualTo( const wxDateTime& dt );
+	bool IsEarlierThan( const wxDateTime& dt );
+	bool IsLaterThan( const wxDateTime& dt );
+	bool IsBetween( const wxDateTime& dt1, const wxDateTime& dt2 );
+	bool IsStrictlyBetween( const wxDateTime& dt1, const wxDateTime& dt2 );
+	bool IsSameDate( const wxDateTime& dt );
+	bool IsSameTime( const wxDateTime& dt );
 
 	# all Add & Subtract methods for Time and Date parts
 	%name{AddDate} wxDateTime& Add( wxDateSpan& ds );
