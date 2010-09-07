@@ -757,11 +757,11 @@ bool
 wxWindow::NavigateIn( flags = wxNavigationKeyEvent::IsForward )
     int flags
 
+#endif
+
 bool
 wxWindow::Navigate( flags = wxNavigationKeyEvent::IsForward )
     int flags
-
-#endif
 
 wxEvtHandler*
 wxWindow::PopEventHandler( deleteHandler )
