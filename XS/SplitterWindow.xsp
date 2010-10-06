@@ -82,6 +82,7 @@
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
     void SetSashGravity( double gravity );
     double GetSashGravity();
+    void UpdateSize();
 #endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     int GetSashSize();
