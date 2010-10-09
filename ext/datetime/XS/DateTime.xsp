@@ -137,6 +137,7 @@ wxDateTime::CLONE()
 	bool IsStrictlyBetween( const wxDateTime& dt1, const wxDateTime& dt2 );
 	bool IsSameDate( const wxDateTime& dt );
 	bool IsSameTime( const wxDateTime& dt );
+	bool IsValid( );
 
 	# all Add & Subtract methods for Time and Date parts
 	%name{AddDate} wxDateTime& Add( wxDateSpan& ds );
