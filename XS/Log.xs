@@ -64,6 +64,29 @@ void
 DontCreateOnDemand()
   CODE:
     wxLog::DontCreateOnDemand();
+    
+void
+Suspend()
+  CODE:
+    wxLog::Suspend();
+    
+void
+Resume()
+  CODE:
+    wxLog::Resume();
+    
+wxLogLevel
+GetLogLevel()
+  CODE:
+    RETVAL = wxLog::GetLogLevel();
+  OUTPUT:
+    RETVAL
+
+void   
+SetLogLevel( loglevel )
+    wxLogLevel loglevel
+  CODE:
+    wxLog::SetLogLevel( loglevel );
 
 void
 wxLog::Flush()
