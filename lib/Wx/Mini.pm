@@ -16,6 +16,23 @@ $VERSION = '0.98'; # bootstrap will catch wrong versions
 $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 
+
+#
+# Set Front Process on Mac
+#
+# Mac will be set to front process unless we are in test harness or
+# and enivronment var is set
+# e.g. In a syntax checking editor, set environment variable
+# WXPERL_OPTIONS to include the string NO_MAC_SETFRONTPROCESS
+
+sub MacSetFrontProcess {
+    return if(  ( !defined( &Wx::_MacSetFrontProcess ) )
+              ||( exists($ENV{HARNESS_ACTIVE}) && $ENV{HARNESS_ACTIVE} )
+              ||( exists($ENV{WXPERL_OPTIONS}) && $ENV{WXPERL_OPTIONS} =~ /NO_MAC_SETFRONTPROCESS/)
+              );
+    Wx::_MacSetFrontProcess();
+}
+
 #
 # XSLoader/DynaLoader wrapper
 #
@@ -76,6 +93,7 @@ sub _start {
     _boot_GDI( 'Wx', $XS_VERSION );
 
     Load( 1 );
+    Wx::MacSetFrontProcess();
 }
 
 # legacy load functions

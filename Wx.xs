@@ -252,11 +252,6 @@ BOOT:
 bool 
 Load( bool croak_on_error = false )
   CODE:
-#if defined(__WXMAC__)
-    ProcessSerialNumber kCurrentPSN = { 0, kCurrentProcess };
-    TransformProcessType( &kCurrentPSN, kProcessTransformToForegroundApplication );
-    SetFrontProcess( &kCurrentPSN );
-#endif
     wxPerlAppCreated = wxTheApp != NULL;
     if( wxPerlInitialized )
         XSRETURN( true );
@@ -326,6 +321,17 @@ Load( bool croak_on_error = false )
         call_argv( "Carp::croak", G_VOID|G_DISCARD, (char**) argv );
     }
   OUTPUT: RETVAL
+
+#if defined(__WXMAC__)
+
+void
+_MacSetFrontProcess()
+  CODE:
+    ProcessSerialNumber kCurrentPSN = { 0, kCurrentProcess };
+    TransformProcessType( &kCurrentPSN, kProcessTransformToForegroundApplication );
+    SetFrontProcess( &kCurrentPSN );
+
+#endif
 
 void
 SetConstants()
