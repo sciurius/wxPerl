@@ -348,6 +348,41 @@ must be placed in the same directory as the executable file.
       </dependency>
   </assembly>
 
+=head1 Running on Mac OSX
+
+From version 0.98 wxPerl no longer needs to use the special startup
+executable 'wxperl' to run scripts on the Mac. The ordinary perl
+interpreter now works without problems. This is because wxPerl now
+contains code that brings the running application to the front and
+gives it the focus.
+
+In a few circumstances this may cause issues. During the Wx tests
+it would be undesirable to keep setting focus to loaded windows so
+the SetFrontProcess code is not called if HARNESS_ACTIVE is set to
+a true value in the environment.
+
+In a syntax checking editor you may also prevent Wx code from being
+given focus as the front process by setting an environment variable
+
+export WXPERL_OPTIONS=NO_MAC_SETFRONTPROCESS
+
+or 
+
+$ENV{WXPERL_OPTIONS} = 'NO_MAC_SETFRONTPROCESS';
+
+The code that makes the SetFrontProcess call is in Wx::Mini as
+
+Wx::MacSetFrontProcess();
+
+so it is also straightforward to override this method if you wish.
+
+Finally, any code can force the running application to become the
+front process regardless of environment settings by calling the xs
+method directly. (Note the underscore in the method name).
+
+Wx::_MacSetFrontProcess();
+
+
 =head1 AUTHOR
 
 Mattia Barbon <mbarbon@cpan.org>
