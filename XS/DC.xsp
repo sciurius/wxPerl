@@ -39,7 +39,8 @@ wxDC::DESTROY()
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;
 
-#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if ( WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6 ) && \
+    !WXPERL_W_VERSION_GE( 2, 9, 1 )
 
 void
 wxDC::BeginDrawing()
@@ -271,7 +272,8 @@ wxDC::DrawText( text, x, y )
 void
 wxDC::EndDoc()
 
-#if WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6
+#if ( WXPERL_W_VERSION_LT( 2, 7, 0 ) || WXWIN_COMPATIBILITY_2_6 ) && \
+    !WXPERL_W_VERSION_GE( 2, 9, 1 )
 
 void
 wxDC::EndDrawing()
