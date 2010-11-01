@@ -623,6 +623,10 @@ wxRichTextCtrl::GetRichTextAttrUncombinedStyle( position )
                                            "Wx::RichTextAttr" ) :
                     &PL_sv_undef );
 
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 7, 1 ) && WXPERL_W_VERSION_LT( 2, 9, 2 )
+
 void
 wxRichTextCtrl::GetTextAttrExUncombinedStyle( position )
     long position
@@ -651,7 +655,7 @@ wxRichTextCtrl::GetTextAttrUncombinedStyle( position )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) && WXPERL_W_VERSION_LT( 2, 9, 2 )
 
 void
 wxRichTextCtrl::GetUncombinedStyle( position )
