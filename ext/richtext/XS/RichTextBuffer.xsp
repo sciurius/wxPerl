@@ -145,7 +145,7 @@ wxRichTextBuffer::SetBasicStyle( ... )
 
 %{
 void
-wxRichTextCtrl::GetRichTextAttrStyle( position )
+wxRichTextBuffer::GetRichTextAttrStyle( position )
     long position
   PPCODE:
     wxRichTextAttr attr;
@@ -157,8 +157,10 @@ wxRichTextCtrl::GetRichTextAttrStyle( position )
                                            "Wx::RichTextAttr" ) :
                     &PL_sv_undef );
 
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
+
 void
-wxRichTextCtrl::GetTextAttrExStyle( position )
+wxRichTextBuffer::GetTextAttrExStyle( position )
     long position
   PPCODE:
     wxTextAttrEx attr;
@@ -170,10 +172,12 @@ wxRichTextCtrl::GetTextAttrExStyle( position )
                                            "Wx::TextAttrEx" ) :
                     &PL_sv_undef );
 
+#endif
+
 #if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 void
-wxRichTextCtrl::GetRichTextAttrUncombinedStyle( position )
+wxRichTextBuffer::GetRichTextAttrUncombinedStyle( position )
     long position
   PPCODE:
     wxRichTextAttr attr;
@@ -185,8 +189,10 @@ wxRichTextCtrl::GetRichTextAttrUncombinedStyle( position )
                                            "Wx::RichTextAttr" ) :
                     &PL_sv_undef );
 
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
+
 void
-wxRichTextCtrl::GetTextAttrExUncombinedStyle( position )
+wxRichTextBuffer::GetTextAttrExUncombinedStyle( position )
     long position
   PPCODE:
     wxTextAttrEx attr;
@@ -200,10 +206,12 @@ wxRichTextCtrl::GetTextAttrExUncombinedStyle( position )
 
 #endif
 
+#endif
+
 #if WXPERL_W_VERSION_GE( 2, 8, 0 )
 
 void
-wxRichTextCtrl::GetRichTextAttrStyleForRange( range )
+wxRichTextBuffer::GetRichTextAttrStyleForRange( range )
     wxRichTextRange* range
   PPCODE:
     wxRichTextAttr attr;
@@ -215,8 +223,10 @@ wxRichTextCtrl::GetRichTextAttrStyleForRange( range )
                                            "Wx::RichTextAttr" ) :
                     &PL_sv_undef );
 
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
+
 void
-wxRichTextCtrl::GetTextAttrExStyleForRange( range )
+wxRichTextBuffer::GetTextAttrExStyleForRange( range )
     wxRichTextRange* range
   PPCODE:
     wxTextAttrEx attr;
@@ -227,6 +237,8 @@ wxRichTextCtrl::GetTextAttrExStyleForRange( range )
                                            new wxTextAttrEx( attr ),
                                            "Wx::TextAttrEx" ) :
                     &PL_sv_undef );
+
+#endif
 
 #endif
 
