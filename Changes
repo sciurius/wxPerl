@@ -1,5 +1,6 @@
 Revision history for Perl extension Wx.
 
+    - Added wxProgressDialog::Pulse (wxWidgets 2.8)
     - Mac SetFrontProcess now switched off in tests and
       can be switched off for editors using env variable.
       Still switched on by default. Added detail to Wx pod

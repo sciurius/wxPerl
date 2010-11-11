@@ -26,10 +26,27 @@ wxProgressDialog::new( title, message, maximum = 100, parent = 0, style = wxPD_A
   OUTPUT:
     RETVAL
 
+
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+bool 
+wxProgressDialog::Pulse( newmsg = wxEmptyString )
+	wxString newmsg
+
+
+bool
+wxProgressDialog::Show( show = true )
+	bool show
+
+#endif
+
 bool
 wxProgressDialog::Update( value = -1, newmsg = wxEmptyString )
     int value
     wxString newmsg
 
+
 void
 wxProgressDialog::Resume()
+
+
