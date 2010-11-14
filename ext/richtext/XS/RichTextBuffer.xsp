@@ -208,22 +208,7 @@ wxRichTextBuffer::GetTextAttrExUncombinedStyle( position )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
-
-void
-wxRichTextBuffer::GetRichTextAttrStyleForRange( range )
-    wxRichTextRange* range
-  PPCODE:
-    wxRichTextAttr attr;
-    bool retval = THIS->GetStyleForRange( *range, attr );
-    EXTEND( SP, 2 );
-    PUSHs( newSViv( retval ) );
-    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
-                                           new wxRichTextAttr( attr ),
-                                           "Wx::RichTextAttr" ) :
-                    &PL_sv_undef );
-
-#if WXPERL_W_VERSION_LT( 2, 9, 2 )
+#if WXPERL_W_VERSION_GE( 2, 8, 0 ) && WXPERL_W_VERSION_LT( 2, 9, 2 )
 
 void
 wxRichTextBuffer::GetTextAttrExStyleForRange( range )
@@ -239,6 +224,21 @@ wxRichTextBuffer::GetTextAttrExStyleForRange( range )
                     &PL_sv_undef );
 
 #endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
+
+void
+wxRichTextBuffer::GetRichTextAttrStyleForRange( range )
+    wxRichTextRange* range
+  PPCODE:
+    wxRichTextAttr attr;
+    bool retval = THIS->GetStyleForRange( *range, attr );
+    EXTEND( SP, 2 );
+    PUSHs( newSViv( retval ) );
+    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                           new wxRichTextAttr( attr ),
+                                           "Wx::RichTextAttr" ) :
+                    &PL_sv_undef );
 
 #endif
 
