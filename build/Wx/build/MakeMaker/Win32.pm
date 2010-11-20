@@ -67,7 +67,7 @@ sub postamble_core {
   $command =~ s/%dest/$res_file/;
   my $strip = $this->_strip_command;
 
-  $text .= sprintf <<'EOT', $res_file, $command, $strip;
+  $text .= sprintf <<'EOT', $res_file, $command, $strip, $^X;
 
 %s : Wx.rc
 	%s
@@ -77,7 +77,7 @@ ppmdist : ppm
 
 ppm : pure_all
 %s
-	$^X script/make_ppm.pl
+	%s script/make_ppm.pl
 
 EOT
 }
