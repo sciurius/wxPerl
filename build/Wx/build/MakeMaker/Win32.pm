@@ -77,7 +77,7 @@ ppmdist : ppm
 
 ppm : pure_all
 %s
-	perl script/make_ppm.pl
+	$^X script/make_ppm.pl
 
 EOT
 }
