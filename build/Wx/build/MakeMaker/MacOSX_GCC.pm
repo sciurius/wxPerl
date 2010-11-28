@@ -4,6 +4,8 @@ use strict;
 use base 'Wx::build::MakeMaker::Any_wx_config';
 use Wx::build::Utils qw(write_string);
 
+use Config;
+
 die "Please set MACOSX_DEPLOYMENT_TARGET to 10.3 or above"
     if $ENV{MACOSX_DEPLOYMENT_TARGET} && $ENV{MACOSX_DEPLOYMENT_TARGET} < 10.3;
 
@@ -15,6 +17,19 @@ sub configure_core {
   $config{depend}{'$(INST_DYNAMIC)'} .= ' wxPerl';
   $config{clean}{FILES} .= " wxPerl cpp/wxPerl.osx/build cpp/wxPerl.osx/wxPerl.c cpp/wxPerl.osx/wxPerl.r";
   $config{dynamic_lib}{OTHERLDFLAGS} .= ' -framework ApplicationServices ';
+
+  if(    $Config{ptrsize} == 8
+      && Alien::wxWidgets->version < 2.009 ) {
+    print <<EOT;
+=======================================================================
+The 2.8.x wxWidgets for OS X does not support 64-bit. In order to build
+wxPerl you will need to either recompile Perl as a 32-bit binary or (if
+using the Apple-provided Perl) force it to run in 32-bit mode (see "man
+perl").  Alpha 64-bit wx for OS X is in 2.9.x, but untested in wxPerl.
+=======================================================================
+EOT
+    exit 1;
+  }
 
   return %config;
 }
