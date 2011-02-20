@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     02/06/2001
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2001-2002, 2004-2006, 2010 Mattia Barbon
+## Copyright:   (c) 2001-2002, 2004-2006, 2010-2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -73,22 +73,26 @@ public:
     DEC_V_CBACK_INT__VOID( GetZoomControl );
 
     wxButton* GetCloseButton()        { return m_closeButton; }
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
     wxButton* GetNextPageButton()     { return m_nextPageButton; }
     wxButton* GetPreviousPageButton() { return m_previousPageButton; }
     wxButton* GetPrintButton()        { return m_printButton; }
     wxButton* GetFirstPageButton()    { return m_firstPageButton; }
     wxButton* GetLastPageButton()     { return m_lastPageButton; }
     wxButton* GetGotoPageButton()     { return m_gotoPageButton; }
+#endif
     wxChoice* GetZoomChoice()         { return m_zoomControl; }
     long      GetButtonFlags()        { return m_buttonFlags; }
 
     void SetCloseButton( wxButton* b )        { m_closeButton = b; }
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
     void SetNextPageButton( wxButton* b )     { m_nextPageButton = b; }
     void SetPreviousPageButton( wxButton* b ) { m_previousPageButton = b; }
     void SetPrintButton( wxButton* b )        { m_printButton = b; }
     void SetFirstPageButton( wxButton* b )    { m_firstPageButton = b; }
     void SetLastPageButton( wxButton* b )     { m_lastPageButton = b; }
     void SetGotoPageButton( wxButton* b )     { m_gotoPageButton = b; }
+#endif
     void SetZoomChoice( wxChoice * c )        { m_zoomControl = c; }
     void SetButtonFlags( long f )             { m_buttonFlags = f; }
 };
@@ -188,7 +192,11 @@ DEF_V_CBACK_VOID__VOID( wxPlPreviewFrame, wxPreviewFrame, CreateControlBar );
     void OnPrevious();
     void OnFirst();
     void OnLast();
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
     void OnGoto();
+#else
+    void OnGotoPage();
+#endif
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     void OnPrint();
 #endif
