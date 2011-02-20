@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     13/08/2007
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2007, 2010 Mattia Barbon
+## Copyright:   (c) 2007, 2010-2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -25,7 +25,9 @@
     int GetWidestItem();
 };
 
-INCLUDE_COMMAND: $^X -pe "s/ItemContainerImmutable/OwnerDrawnComboBox/g" XS/ItemContainerImmutable.xs
+# the second regex is an horrible hack to solve ambiguity; maybe should
+# use real base classes instead of this hack?
+INCLUDE_COMMAND: $^X -pe "s/ItemContainerImmutable/OwnerDrawnComboBox/g;s/->(?=IsEmpty|GetStringSelection)/->wxItemContainerImmutable::/" XS/ItemContainerImmutable.xs
 
 INCLUDE_COMMAND: $^X -pe "s/ItemContainer/OwnerDrawnComboBox/g" XS/ItemContainer.xs
 

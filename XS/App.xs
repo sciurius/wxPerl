@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2007, 2010 Mattia Barbon
+## Copyright:   (c) 2000-2007, 2010-2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -240,11 +240,15 @@ wxApp::Exit()
 bool
 wxApp::ProcessIdle()
 
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
+
 bool
 wxApp::SendIdleEvents( window, event )
     wxWindow* window
     wxIdleEvent* event
   C_ARGS: window, *event
+
+#endif
 
 bool
 wxApp::IsActive()
