@@ -5,7 +5,7 @@
 // Modified by:
 // Created:     29/10/2000
 // RCS-ID:      $Id$
-// Copyright:   (c) 2000-2010 Mattia Barbon
+// Copyright:   (c) 2000-2011 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -626,7 +626,11 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+int wxCALLBACK ListCtrlCompareFn( long item1, long item2, wxIntPtr comparefn );
+#else
 int wxCALLBACK ListCtrlCompareFn( long item1, long item2, long comparefn );
+#endif
 
 class wxPliUserDataO : public wxObject
 {
