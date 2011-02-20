@@ -20,6 +20,7 @@
 
 #if defined( __WXMSW__ )
 #define STRICT
+#undef NO_STRICT
 #endif
 
 #include <wx/defs.h>
