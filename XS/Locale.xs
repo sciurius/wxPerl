@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2007, 2010 Mattia Barbon
+## RCS-ID:      $Id: Locale.xs 2848 2010-03-17 20:10:43Z mbarbon $
+## Copyright:   (c) 2000-2007, 2010-2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -114,8 +114,14 @@ newLong( name, shorts = NULL, locale = NULL, loaddefault = true, convertencoding
   OUTPUT:
     RETVAL
 
+#if WXPERL_W_VERSION_GE( 2, 9, 1 )
+#define wxPL_LOCALE_CTOR_FLAGS wxLOCALE_LOAD_DEFAULT
+#else
+#define wxPL_LOCALE_CTOR_FLAGS wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING
+#endif
+
 wxLocale*
-newShort( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
+newShort( language, flags = wxPL_LOCALE_CTOR_FLAGS )
     int language
     int flags
   CODE:

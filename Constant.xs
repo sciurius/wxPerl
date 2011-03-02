@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id$
-// Copyright:   (c) 2000-2010 Mattia Barbon
+// RCS-ID:      $Id: Constant.xs 2933 2010-06-20 14:48:07Z mbarbon $
+// Copyright:   (c) 2000-2011 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -2494,7 +2494,9 @@ static double constant( const char* name, int arg )
     r( wxST_ELLIPSIZE_START );          // statictext
     r( wxST_ELLIPSIZE_MIDDLE );         // statictext
     r( wxST_ELLIPSIZE_END );            // statictext
+#if WXPERL_W_VERSION_LE( 2, 9, 1 )
     r( wxST_MARKUP );                   // statictext
+#endif
 #endif
     r( wxST_SIZEGRIP );                 // statusbar
     r( wxSUNKEN_BORDER );               // window

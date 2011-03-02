@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     18/03/2005
-## RCS-ID:      $Id$
-## Copyright:   (c) 2005-2008, 2010 Mattia Barbon
+## RCS-ID:      $Id: DatePickerCtrl.xsp 2927 2010-06-06 08:06:10Z mbarbon $
+## Copyright:   (c) 2005-2008, 2010-2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -93,13 +93,6 @@ wxPlConstants datepicker_module( &datepicker_constant );
     wxDateTime GetValue() const;
 
     void SetRange(const wxDateTime& dt1, const wxDateTime& dt2);
-
-#if !defined(wxHAS_NATIVE_DATEPICKCTRL)
-##  bool SetFormat(const wxChar* format); // documented but not defined...
-    #if !defined(wxHAS_NATIVE_CALENDARCTRL)
-    wxCalendarCtrl* GetCalendar();
-    #endif
-#endif
 };
 
 %{
