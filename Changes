@@ -6,6 +6,7 @@ Revision history for Perl extension Wx.
       Still switched on by default. Added detail to Wx pod
     - Added wxLog Suspend, Resume, SetLoglevel, GetLogLevel
     - Added wxDateTime::IsValid wxSplitterWindow::UpdateSize
+    - fix for Wx::Locale::FindLanguageInfo / GetLanguageInfo
 
 0.98  Wed Aug 18 20:31:30 CEST 2010
     - wxWidgets 2.9.1 compatibility.

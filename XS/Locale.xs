@@ -4,7 +4,7 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     30/11/2000
-## RCS-ID:      $Id: Locale.xs 2848 2010-03-17 20:10:43Z mbarbon $
+## RCS-ID:      $Id$
 ## Copyright:   (c) 2000-2007, 2010-2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
@@ -239,7 +239,8 @@ FindLanguageInfo( name )
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+    if( ST(0) != NULL )
+    	wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 bool
 wxLocale::Init( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
@@ -254,7 +255,8 @@ GetLanguageInfo( language )
   OUTPUT:
     RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+    if( ST(0) != NULL )
+    	wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 MODULE=Wx PACKAGE=Wx PREFIX=wx
 
