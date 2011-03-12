@@ -250,6 +250,7 @@ EOC
                 push @arg_types, $typemap->{type_char};
             }
 
+            my @base_parms = map $_->name, @{$method->arguments};
             my( $cpp_parms, $arg_types );
             if( @cpp_parms ) {
                 $cpp_parms = join ', ', @cpp_parms;
@@ -261,7 +262,7 @@ EOC
 
             push @cpp_code, '    ' . $method->print_declaration;
             my $call_base = $node->cpp_name . '::' . $method->cpp_name .
-              '(' . $cpp_parms . ')';
+              '(' . join( ', ', @base_parms ) . ')';
             if( $method->ret_type->is_void ) {
                 my $default = $pure ? 'return' : $call_base;
                 push @cpp_code, sprintf <<EOT,
