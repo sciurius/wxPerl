@@ -15,6 +15,7 @@ sub register_plugin {
     my $instance = $class->new;
 
     $parser->add_class_tag_plugin( plugin => $instance, tag => 'NoVirtualBase' );
+    $parser->add_class_tag_plugin( plugin => $instance, tag => 'VirtualImplementation' );
     $parser->add_method_tag_plugin( plugin => $instance, tag => 'Virtual' );
     $parser->add_post_process_plugin( plugin => $instance );
 }
@@ -22,7 +23,17 @@ sub register_plugin {
 sub handle_class_tag {
     my( $self, $class, $tag, %args ) = @_;
 
-    $self->{skip_virtual_base}{$class->cpp_name} = 1;
+    if( $tag eq 'NoVirtualBase' ) {
+        $self->{skip_virtual_base}{$class->cpp_name} = 1;
+    } elsif( $tag eq 'VirtualImplementation' ) {
+        my %map = @{$args{any_named_arguments}};
+
+        $self->{virtual_implementation}{$class->cpp_name} =
+            { name           => $map{Name}[0][0] || '',
+              declaration    => join( "\n", @{$map{Declaration}[0] || []} ),
+              implementation => join( "\n", @{$map{Implementation}[0] || []} ),
+              };
+    }
 
     1;
 }
@@ -158,7 +169,12 @@ sub post_process {
         next unless @virtual;
 
         # TODO wxPerl-specific
-        ( my $cpp_class = $node->cpp_name ) =~ s/^wx/wxPl/;
+        my $cpp_class;
+        if( $self->{virtual_implementation}{$node->cpp_name}{name} ) {
+            $cpp_class = $self->{virtual_implementation}{$node->cpp_name}{name};
+        } else {
+            ( $cpp_class = $node->cpp_name ) =~ s/^wx/wxPl/;
+        }
         my $perl_class;
         if( $abstract_class ) {
             ( $perl_class = $cpp_class ) =~ s/^wx/Wx::/;
@@ -186,6 +202,7 @@ sub post_process {
 
 class %s : public %s
 {
+    %s
     // TODO wxPerl-specific
     WXPLI_DECLARE_V_CBACK();
 public:
@@ -195,7 +212,8 @@ public:
     }
 
 EOC
-          $cpp_class, $node->cpp_name;
+          $cpp_class, $node->cpp_name,
+          $self->{virtual_implementation}{$node->cpp_name}{declaration} || '';
 
         # add the (implicit) default constructor
         unless( @constructors ) {
@@ -328,7 +346,12 @@ EOT
             }
         }
 
-        push @cpp_code, '};', '';
+        push @cpp_code, sprintf <<'EOT',
+};
+%s
+
+EOT
+          $self->{virtual_implementation}{$node->cpp_name}{implementation} || '';
 
         mkdir 'xspp' unless -d 'xspp';
         open my $h_file, '>', $file or die "open '$file': $!";
