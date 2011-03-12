@@ -225,9 +225,10 @@ EOC
 
             my $code = [ "RETVAL = new $cpp_class( CLASS $comma $cpp_parms );" ];
 
+            my $ctor_name = $constructor->perl_name eq $node->cpp_name ? $cpp_class : $constructor->perl_name;
             my $new_ctor = ExtUtils::XSpp::Node::Constructor->new
                                ( cpp_name   => $cpp_class,
-                                 perl_name  => $constructor->perl_name,
+                                 perl_name  => $ctor_name,
                                  code       => $code,
                                  arguments  => $constructor->arguments,
                                  postcall   => $constructor->postcall,
