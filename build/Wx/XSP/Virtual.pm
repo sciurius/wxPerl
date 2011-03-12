@@ -397,10 +397,14 @@ EOT
                 # make calls to base_* methods available; needs to be a
                 # new class object because the generated methods are only
                 # available in the generated C++ class
+                #
+                # does not specify base classes because the base class
+                # list is emitted for the class in $node; at some
+                # point XS++ should be fixed to detect and remove the
+                # duplicate base class list
                 my $new_class = ExtUtils::XSpp::Node::Class->new
                                     ( cpp_name        => $cpp_class,
                                       perl_name       => $perl_class,
-                                      base_classes    => [ $node ],
                                       condition       => $node->condition,
                                       emit_condition  => $node->condition_expression,
                                       methods         => [ @call_base ],
