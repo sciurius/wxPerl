@@ -73,6 +73,12 @@ my %type_map =
                             default_value  => '(wxAlignment)0',
                             type_char      => 'i',
                             },
+    # TODOD merge
+    'wxGridCellAttr::wxAttrKind' =>
+                       => { convert_return => '(wxGridCellAttr::wxAttrKind)SvIV( ret )',
+                            default_value  => '(wxGridCellAttr::wxAttrKind)0',
+                            type_char      => 'i',
+                            },
     'unsigned int'     => { convert_return => 'SvUV( ret )',
                             default_value  => '0',
                             type_char      => 'I',
@@ -117,6 +123,14 @@ my %type_map =
                            },
     'const wxHeaderColumn&' =>
                          { convert_return => '*(wxHeaderColumn*)wxPli_sv_2_object( aTHX_ ret, "Wx::HeaderColumn" )',
+                           type_char      => 'O',
+                           arguments      => '&%s',
+                           },
+    'wxGrid*' =>         { convert_return => '(wxGrid*)wxPli_sv_2_object( aTHX_ ret, "Wx::Grid" )',
+                           type_char      => 'O',
+                           arguments      => '&%s',
+                           },
+    'wxGridCellAttr*' => { convert_return => 'convert_GridCellAttrOut( aTHX_ ret )',
                            type_char      => 'O',
                            arguments      => '&%s',
                            },

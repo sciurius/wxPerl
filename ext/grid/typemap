@@ -4,8 +4,8 @@
 ## Author:      Mattia Barbon
 ## Modified by:
 ## Created:     04/12/2001
-## RCS-ID:      $Id$
-## Copyright:   (c) 2001, 2003-2009 Mattia Barbon
+## RCS-ID:      $Id: typemap 2571 2009-05-17 16:46:20Z mbarbon $
+## Copyright:   (c) 2001, 2003-2009, 2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -50,3 +50,5 @@ wxPlGridTable*                  O_WXOBJECT
 wxGridTableBase*                O_WXOBJECT
 
 wxGridTableMessage*             O_NON_WXOBJECT_THR
+
+wxGridCellAttrProvider *        O_NON_WXOBJECT_THR

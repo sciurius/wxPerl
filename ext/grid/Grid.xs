@@ -4,8 +4,8 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/12/2001
-// RCS-ID:      $Id$
-// Copyright:   (c) 2001-2004, 2006-2010 Mattia Barbon
+// RCS-ID:      $Id: Grid.xs 3002 2011-02-13 12:55:08Z mbarbon $
+// Copyright:   (c) 2001-2004, 2006-2011 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
@@ -19,6 +19,17 @@
 #include <wx/control.h>
 #include <wx/grid.h>
 #include <wx/generic/gridctrl.h>
+
+#define wxGridCellAttr__wxAttrKind wxGridCellAttr::wxAttrKind
+
+inline wxGridCellAttr* convert_GridCellAttrOut(pTHX_ SV* value)
+{
+     wxGridCellAttr* attr = (wxGridCellAttr*)wxPli_sv_2_object( aTHX_ value, "Wx::GridCellAttr" );
+
+     attr->IncRef();
+
+     return attr;
+}
 
 typedef wxGrid::wxGridSelectionModes wxGridSelectionModes;
 typedef wxGridCellAttr::wxAttrKind wxAttrKind;
@@ -95,7 +106,7 @@ INCLUDE: XS/GridEvent.xs
 INCLUDE: XS/GridCellRenderer.xs
 INCLUDE: XS/GridCellEditor.xs
 
-INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/GridTable.xsp
+INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp ../../interface/wx/grid/gridtablebase.h
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/GridTableMessage.xsp
 

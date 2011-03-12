@@ -364,7 +364,6 @@ ext/grid/XS/GridCellAttr.xs
 ext/grid/XS/GridCellEditor.xs
 ext/grid/XS/GridCellRenderer.xs
 ext/grid/XS/GridEvent.xs
-ext/grid/XS/GridTable.xsp
 ext/grid/XS/GridTableMessage.xsp
 ext/grid/cpp/editor.h
 ext/grid/cpp/gr_constants.cpp
@@ -549,6 +548,7 @@ interface/wx/dataview/dataviewlistctrl.h
 interface/wx/dataview/dataviewliststore.h
 interface/wx/dataview/dataviewvirtuallistmodel.h
 interface/wx/generic/spinctrg.h
+interface/wx/grid/gridtablebase.h
 interface/wx/headercol.h
 interface/wx/headerctrl.h
 interface/wx/infobar.h
