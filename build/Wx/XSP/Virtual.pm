@@ -239,7 +239,7 @@ EOC
                        );
         }
 
-        my @new_constructors;
+        my( @new_constructors, @call_base );
         foreach my $constructor ( @constructors ) {
             my $cpp_parms = join ', ', map $_->name, @{$constructor->arguments};
             my $cpp_args = join ', ', map $_->print, @{$constructor->arguments};
@@ -355,8 +355,13 @@ EOT
 
                 push @cpp_code, '    }';
 
-#                 $method->set_access( 'public' );
-#                 $method->set_cpp_name( 'base_' . $method->cpp_name );
+                my $call_base = ExtUtils::XSpp::Node::Method->new
+                               ( cpp_name   => 'base_' . $method->cpp_name,
+                                 perl_name  => $method->perl_name,
+                                 arguments  => $method->arguments,
+                                 );
+
+                push @call_base, $call_base;
             }
         }
 
@@ -380,12 +385,29 @@ EOT
                                   base_classes    => [ $node ],
                                   condition       => $node->condition,
                                   emit_condition  => $node->condition_expression,
-                                  methods         => \@new_constructors,
+                                  methods         => [ @new_constructors,
+                                                       @call_base ],
                                   );
 
             push @$nodes, $new_class;
         } else {
             $node->add_methods( @new_constructors );
+
+            if( @call_base ) {
+                # make calls to base_* methods available; needs to be a
+                # new class object because the generated methods are only
+                # available in the generated C++ class
+                my $new_class = ExtUtils::XSpp::Node::Class->new
+                                    ( cpp_name        => $cpp_class,
+                                      perl_name       => $perl_class,
+                                      base_classes    => [ $node ],
+                                      condition       => $node->condition,
+                                      emit_condition  => $node->condition_expression,
+                                      methods         => [ @call_base ],
+                                      );
+
+                push @$nodes, $new_class;
+            }
         }
     }
 }
