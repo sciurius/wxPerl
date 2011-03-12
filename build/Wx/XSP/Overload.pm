@@ -91,7 +91,7 @@ sub is_number {
                   'unsigned int', 'unsigned short',
                   'unsigned long', 'float', 'double',
                   'wxAlignment', 'wxBrushStyle',
-                  'size_t', 'ssize_t',
+                  'size_t', 'ssize_t', 'wxCoord',
                   );
 }
 
