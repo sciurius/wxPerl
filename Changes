@@ -8,6 +8,7 @@ Revision history for Perl extension Wx.
     - Added wxDateTime::IsValid wxSplitterWindow::UpdateSize
     - fix for Wx::Locale::FindLanguageInfo / GetLanguageInfo
     - wxPli_create_evthandler added for VListBox and VScrolledWindow
+    - Added OnDrawSeparator and OnDrawBackground for VListBox
 
 0.98  Wed Aug 18 20:31:30 CEST 2010
     - wxWidgets 2.9.1 compatibility.

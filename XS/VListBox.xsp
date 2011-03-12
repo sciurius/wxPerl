@@ -49,6 +49,8 @@
 #!sub wxVListBox
 #!sub OnDrawItem
 #!sub OnMeasureItem
+#!sub OnDrawBackground
+#!sub OnDrawSeparator
 
 void
 wxVListBox::GetFirstSelected()
@@ -93,6 +95,26 @@ wxVListBox::GetNextSelected( unsigned long cookie )
         } else                                                               \
             return;                                                          \
     }
+    
+// void METH(wxDC&, wxRect&, size_t)
+#define DEC_V_CBACK_VOID__WXDC_WXRECTREF_SIZET_const( METHOD ) \
+    void METHOD( wxDC& p1, wxRect& p2, size_t p3 ) const
+
+#define DEF_V_CBACK_VOID__WXDC_WXRECTREF_SIZET_const_pure( CLASS, BASE, METHOD )\
+    void CLASS::METHOD( wxDC& p1, wxRect& p2, size_t p3 ) const        \
+    {                                                                        \
+        dTHX;                                                                \
+        if( wxPliFCback( aTHX_ &m_callback, #METHOD ) )                      \
+        {                                                                    \
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback,              \
+                                             G_SCALAR|G_DISCARD,             \
+                                             "QqL", &p1,                     \
+                                             &p2, "Wx::Rect",                \
+                                             p3 ) );                         \
+            return;                                                          \
+        } else                                                               \
+            return;                                                          \
+    }
 
 class wxPlVListBox : public wxVListBox {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPlVListBox );
@@ -106,6 +128,10 @@ public:
     DEC_V_CBACK_WXCOORD__VOID_const( EstimateTotalHeight );
     DEC_V_CBACK_WXCOORD__SIZET_const( OnMeasureItem );
     DEC_V_CBACK_VOID__WXDC_WXRECT_SIZET_const( OnDrawItem );
+    DEC_V_CBACK_VOID__WXDC_WXRECTREF_SIZET_const( OnDrawSeparator );
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+	DEC_V_CBACK_VOID__WXDC_WXRECT_SIZET_const( OnDrawBackground );
+#endif
 };
 
 DEF_V_CBACK_WXCOORD__VOID_const( wxPlVListBox, wxVListBox,
@@ -114,8 +140,14 @@ DEF_V_CBACK_WXCOORD__SIZET_const_pure( wxPlVListBox, wxVListBox,
                                        OnMeasureItem ); 
 DEF_V_CBACK_VOID__WXDC_WXRECT_SIZET_const_pure( wxPlVListBox, wxVListBox,
                                                 OnDrawItem );
-
+DEF_V_CBACK_VOID__WXDC_WXRECTREF_SIZET_const_pure( wxPlVListBox, wxVListBox,
+                                                OnDrawSeparator );                                                 
+#if WXPERL_W_VERSION_GE( 2, 5, 1 )
+DEF_V_CBACK_VOID__WXDC_WXRECT_SIZET_const_pure( wxPlVListBox, wxVListBox,
+                                                OnDrawBackground );
+#endif
 WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlVListBox, wxVListBox );
+
 
 %}
 %file{-};
