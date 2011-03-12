@@ -330,7 +330,8 @@ EOT
 
         push @cpp_code, '};', '';
 
-        open my $h_file, '>', $file;
+        mkdir 'xspp' unless -d 'xspp';
+        open my $h_file, '>', $file or die "open '$file': $!";
         print $h_file join "\n", @cpp_code;
         close $h_file;
 
