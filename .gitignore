@@ -3,6 +3,9 @@
 *.lst
 *.o
 *.obj
+*.pdb
+*.def
+*.res
 Makefile
 Makefile.old
 Opt
