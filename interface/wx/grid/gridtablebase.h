@@ -77,6 +77,7 @@ public:
      */
     virtual int GetNumberCols() = 0 %Virtual{pure};
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     /**
         Return the number of rows in the table.
 
@@ -95,6 +96,7 @@ public:
      */
     int GetColsCount() const;
 
+#endif
 
     /**
         @name Table Cell Accessors
@@ -117,7 +119,10 @@ public:
         Notice that this method is not virtual, only IsEmptyCell() should be
         overridden.
      */
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     bool IsEmpty(const wxGridCellCoords& coords);
+#endif
 
     /**
         Must be overridden to implement accessing the table values as text.
