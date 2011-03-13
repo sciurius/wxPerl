@@ -320,6 +320,7 @@ ext/datetime/DateTime.pm
 ext/datetime/DateTime.xs
 ext/datetime/Makefile.PL
 ext/datetime/t/01_load.t
+ext/datetime/t/02_api.t
 ext/datetime/t/03_threads.t
 ext/datetime/typemap
 ext/datetime/XS/DateSpan.xsp
