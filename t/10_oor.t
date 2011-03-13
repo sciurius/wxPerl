@@ -96,15 +96,12 @@ is( $lb2->{MYDATA}, $lb->{MYDATA}, "sanity check" );
 
 $lb->Destroy;
 
-Wx::Event::EVT_IDLE( $this,
-                     sub { $this->Destroy } );
-$this->Destroy if ( Wx::wxMSW || Wx::wxGTK || Wx::wxMOTIF )
-               && Wx::wxVERSION() < 2.005;
+return $this;
 };
 
 package main;
 
-test_frame( 'MyFrame' );
+test_frame( 'MyFrame', 1 );
 Wx::wxTheApp()->MainLoop();
 
 # local variables:

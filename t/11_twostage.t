@@ -20,15 +20,13 @@ my $panel1 = Wx::Panel->new;
 like( "$panel1", qr/^Wx::Panel=HASH/ );
 
 $panel1->Create( $this, -1 );
-Wx::Event::EVT_IDLE( $this,
-                     sub { $this->Destroy } );
-$this->Destroy if ( Wx::wxMSW || Wx::wxGTK || Wx::wxMOTIF )
-               && Wx::wxVERSION() < 2.005;
+
+return $this;
 };
 
 package main;
 
-test_frame( 'MyFrame' );
+test_frame( 'MyFrame', 1 );
 Wx::wxTheApp()->MainLoop();
 
 # local variables:

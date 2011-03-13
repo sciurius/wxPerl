@@ -70,11 +70,18 @@ sub test_app {
 }
 
 sub test_frame {
-  my $class = shift;
+  my( $class, $delete_after ) = @_;
   my @params = @_;
 
   my $function = sub {
     my $frame = $class->new( @params );
+
+    if( $delete_after ) {
+        Wx::Event::EVT_IDLE( $frame,
+                             sub { $frame->Destroy } );
+        # force idle event delivery
+        Wx::Timer->new->Start( 100 );
+    }
   };
 
   my $app = Tests_Helper_App->new( $function );
