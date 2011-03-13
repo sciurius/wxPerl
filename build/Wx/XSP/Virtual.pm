@@ -145,6 +145,18 @@ sub _virtual_typemap {
     return $tm;
 }
 
+sub _emit_method_conditions {
+    my( $class ) = @_;
+    my @res;
+
+    foreach my $method ( @{$class->methods} ) {
+        next unless $method->isa( 'ExtUtils::XSpp::Node::Preprocessor' );
+        push @res, $method;
+    }
+
+    return @res;
+}
+
 sub post_process {
     my( $self, $nodes ) = @_;
 
@@ -202,6 +214,16 @@ sub post_process {
         for( my $i = 0; $i <= $#$nodes; ++$i ) {
             next unless $nodes->[$i] == $node;
             splice @$nodes, $i, 0, $include;
+            # TODO a very crude hack that should somehow be
+            # encapsulated by XS++: the class definition in the
+            # generated .h need to use the preprocessor conditions
+            # applied to the various methods, but the conditions are
+            # only emitted together with the method definition, which
+            # require the header
+            #
+            # this forces the preprocessor #defines to be emitted just before
+            # including the header
+            splice @$nodes, $i, 0, _emit_method_conditions( $node );
             last;
         }
 
@@ -292,6 +314,7 @@ EOC
                 $arg_types = 'NULL';
             }
 
+            push @cpp_code, '#if ' . ( $method->condition_expression || 1 );
             push @cpp_code, '    ' . $method->print_declaration;
             my $call_base = $node->cpp_name . '::' . $method->cpp_name .
               '(' . join( ', ', @base_parms ) . ')';
@@ -338,6 +361,7 @@ EOT
 EOT
                   $method->cpp_name, $arg_types, $cpp_parms, $convert, $default;
             }
+            push @cpp_code, '#endif';
 
             my $callbase_decl = $method->ret_type->print . ' ' .
                                 'base_' . $method->cpp_name . '( ' .
@@ -345,6 +369,7 @@ EOT
                                 ( $method->const ? ' const' : '' );
 
             if( !$pure ) {
+                push @cpp_code, '#if ' . ( $method->condition_expression || 1 );
                 push @cpp_code, '    ' . $callbase_decl, '    {';
 
                 if( $method->ret_type->is_void ) {
@@ -354,11 +379,14 @@ EOT
                 }
 
                 push @cpp_code, '    }';
+                push @cpp_code, '#endif';
 
                 my $call_base = ExtUtils::XSpp::Node::Method->new
-                               ( cpp_name   => 'base_' . $method->cpp_name,
-                                 perl_name  => $method->perl_name,
-                                 arguments  => $method->arguments,
+                               ( cpp_name       => 'base_' . $method->cpp_name,
+                                 perl_name      => $method->perl_name,
+                                 arguments      => $method->arguments,
+                                 condition      => $method->condition,
+                                 emit_condition => $method->condition_expression,
                                  );
 
                 push @call_base, $call_base;

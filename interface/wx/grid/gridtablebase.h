@@ -111,7 +111,11 @@ public:
         only returns true if the value of the given cell, as returned by
         GetValue(), is empty.
      */
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     virtual bool IsEmptyCell(int row, int col) %Virtual;
+#else
+    virtual bool IsEmptyCell(int row, int col) = 0 %Virtual{pure};
+#endif
 
     /**
         Same as IsEmptyCell() but taking wxGridCellCoords.
