@@ -102,6 +102,10 @@ test_override { Wx::RichTextAttr->new( $tae ) }
               'Wx::RichTextAttr::newAttrEx';
 test_override { Wx::RichTextAttr->new( $ta ) }
               'Wx::RichTextAttr::newAttr';
-test_override { Wx::RichTextAttr->new( Wx::wxRED(), Wx::wxRED() ) }
-              'Wx::RichTextAttr::newFull';
+if( Wx::wxVERSION() <= 2.009001 ) {
+    test_override { Wx::RichTextAttr->new( Wx::wxRED(), Wx::wxRED() ) }
+                    'Wx::RichTextAttr::newFull';
+} else {
+    ok( 1, "skipped" );
+}
 } );

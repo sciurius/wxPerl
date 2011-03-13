@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2010 Mattia Barbon
+## Copyright:   (c) 2006-2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -331,7 +331,9 @@ wxRichTextAttr::new( ... )
         MATCH_REDISP( wxPliOvl_wrta, newCopy )
         MATCH_REDISP( wxPliOvl_wtae, newAttrEx )
         MATCH_REDISP( wxPliOvl_wtat, newAttr )
+#if WXPERL_W_VERSION_LT( 2, 9, 2 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wcol_wcol_n, newFull, 2 )
+#endif
     END_OVERLOAD( Wx::RichTextAttr::new )
 
 void

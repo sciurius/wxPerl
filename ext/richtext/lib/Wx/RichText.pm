@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     05/11/2006
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2006-2007, 2010 Mattia Barbon
+## Copyright:   (c) 2006-2007, 2010-2011 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -48,8 +48,8 @@ package Wx::RichTextXMLHandler; @ISA = qw(Wx::RichTextFileHandler);
 package Wx::RichTextHTMLHandler; @ISA = qw(Wx::RichTextFileHandler);
 package Wx::RichTextObject;
 package Wx::RichTextCompositeObject; @ISA = qw(Wx::RichTextObject);
-package Wx::RichTextBox;     @ISA = qw(Wx::RichTextCompositeObject);
-package Wx::RichTextParagraphLayoutBox; @ISA = qw(Wx::RichTextBox);
+package Wx::RichTextBox;     @ISA = ( Wx::wxVERSION() <= 2.009001 ? qw(Wx::RichTextCompositeObject) : qw(Wx::RichTextParagraphLayoutBox) );
+package Wx::RichTextParagraphLayoutBox; @ISA = ( Wx::wxVERSION() <= 2.009001 ? qw(Wx::RichTextBox) : qw(Wx::RichTextCompositeObject) );
 package Wx::RichTextBuffer;  @ISA = qw(Wx::RichTextParagraphLayoutBox);
 package Wx::RichTextPrinting;  @ISA = qw(Wx::Object);
 package Wx::RichTextHeaderFooterData;  @ISA = qw(Wx::Object);
