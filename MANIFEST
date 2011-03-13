@@ -106,11 +106,9 @@ XS/AnimationCtrl.xsp
 XS/App.xs
 XS/ArtProvider.xsp
 XS/Bitmap.xs
-XS/BitmapButton.xs
 XS/BitmapComboBox.xsp
 XS/BookCtrl.xsp
 XS/Brush.xsp
-XS/Button.xs
 XS/Caret.xs
 XS/CheckBox.xs
 XS/CheckListBox.xs
@@ -545,6 +543,8 @@ ext/docview/t/02_inheritance.t
 ext/docview/t/03_threads.t
 ext/docview/t/04_cmdproc.t
 
+interface/wx/bmpbuttn.h
+interface/wx/button.h
 interface/wx/dataview/dataviewlistctrl.h
 interface/wx/dataview/dataviewliststore.h
 interface/wx/dataview/dataviewvirtuallistmodel.h

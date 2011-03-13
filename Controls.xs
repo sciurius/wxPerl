@@ -60,7 +60,7 @@ wxControl::GetLabelText()
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/ControlWithItems.xsp
 
-INCLUDE: XS/BitmapButton.xs
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/wx/bmpbuttn.h
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/AnimationCtrl.xsp
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/EditableListBox.xsp
@@ -103,7 +103,7 @@ INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/w
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/wx/headercol.h
 
-INCLUDE: XS/Button.xs
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/wx/button.h
 INCLUDE: XS/CheckBox.xs
 INCLUDE: XS/CheckListBox.xs
 INCLUDE: XS/Choice.xs
