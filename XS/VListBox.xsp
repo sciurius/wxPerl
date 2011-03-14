@@ -185,7 +185,7 @@ new( ... )
 
     %name{newDefault} wxPlVListBox()
         %code{% RETVAL = new wxPlVListBox( CLASS ); 
-              wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+              // wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
     %name{newFull} wxPlVListBox( wxWindow *parent,
                                  wxWindowID id = wxID_ANY,
@@ -195,7 +195,7 @@ new( ... )
                                  const wxString& name = wxVListBoxNameStr )
         %code{% RETVAL = new wxPlVListBox( CLASS, parent, id, pos, size,
                                            style, name );
-                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                // wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
 };
 
