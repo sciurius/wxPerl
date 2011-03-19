@@ -23,6 +23,7 @@
 
 class wxPliUserDataCD;
 class wxPliTreeItemData;
+class wxPliSelfRef;
 struct wxPliEventDescription;
 
 #ifndef WXDLLIMPEXP_FWD_CORE
@@ -435,6 +436,9 @@ bool FUNCPTR( wxPli_match_arguments_skipfirst )( pTHX_ const wxPliPrototype& p,
                                                  bool allow_more );
 void FUNCPTR( wxPli_overload_error )( pTHX_ const char* function,
                                       wxPliPrototype* prototypes[] );
+SV* FUNCPTR( wxPli_create_virtual_evthandler )( pTHX_ wxEvtHandler* object,
+                                        const char* classn, bool forcevirtual );
+wxPliSelfRef* FUNCPTR( wxPli_get_selfref )( pTHX_ wxObject* object, bool forcevirtual );
 
 #define WXPLI_BOOT_ONCE_( name, xs ) \
 bool name##_booted = false; \
@@ -528,6 +532,9 @@ struct wxPliHelpers
     void (* m_wxPli_overload_error )( pTHX_ const char* function,
                                       wxPliPrototype* prototypes[] );
     wxVariant (* m_wxPli_sv_2_wxvariant )( pTHX_ SV* scalar );
+    SV* ( * m_wxPli_create_virtual_evthandler )( pTHX_ wxEvtHandler* object,
+                                        const char* cln, bool forcevirtual );
+    wxPliSelfRef* ( * m_wxPli_get_selfref )( pTHX_ wxObject*, bool);
 };
 
 #if wxPERL_USE_THREADS
@@ -571,7 +578,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  wxDEFINE_PLI_HELPER_UNICODE() \
  &wxPli_av_2_arrayint, &wxPli_set_events, &wxPli_av_2_arraystring, \
  &wxPli_objlist_push, &wxPliOutputStream_ctor, &wxPli_stringarray_push, \
- &wxPli_overload_error, &wxPli_sv_2_wxvariant \
+ &wxPli_overload_error, &wxPli_sv_2_wxvariant, \
+ &wxPli_create_virtual_evthandler, &wxPli_get_selfref \
  }
 
 #if NEEDS_PLI_HELPERS_STRUCT()
@@ -618,6 +626,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_av_2_stringarray = name->m_wxPli_av_2_stringarray; \
   wxPli_overload_error = name->m_wxPli_overload_error; \
   wxPli_sv_2_wxvariant = name->m_wxPli_sv_2_wxvariant; \
+  wxPli_create_virtual_evthandler = name->m_wxPli_create_virtual_evthandler; \
+  wxPli_get_selfref = name->m_wxPli_get_selfref; \
   WXPLI_INIT_CLASSINFO();
 
 #else

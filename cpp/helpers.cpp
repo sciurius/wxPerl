@@ -486,28 +486,22 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, const wxObject* object )
         return var;
     }
 
-    wxClassInfo *ci = object->GetClassInfo();
-    const wxChar* classname = ci->GetClassName();
     wxEvtHandler* evtHandler = wxDynamicCast( object, wxEvtHandler );
 
     if( evtHandler && evtHandler->GetClientObject() )
         return wxPli_evthandler_2_sv( aTHX_ var, evtHandler );
 
-#if wxUSE_UNICODE
-    if( wcsncmp( classname, wxT("wxPl"), 4 ) == 0 ) 
-#else
-    if( strnEQ( classname, "wxPl", 4 ) ) 
-#endif
-    {
-        wxPliClassInfo* cci = (wxPliClassInfo*)ci;
-        wxPliSelfRef* sr = cci->m_func( const_cast<wxObject*>(object) );
+    wxPliSelfRef* sr = wxPli_get_selfref( aTHX_ const_cast<wxObject*>(object), false );
 
-        if( sr && sr->m_self )
-        {
-            SvSetSV_nosteal( var, sr->m_self );
-            return var;
-        }
+    if( sr && sr->m_self )
+    {
+        SvSetSV_nosteal( var, sr->m_self );
+        return var;
     }
+    
+    /* duplicated :-( */
+    wxClassInfo *ci = object->GetClassInfo();
+    const wxChar* classname = ci->GetClassName();
 
     char buffer[WXPL_BUF_SIZE];
     const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
@@ -519,6 +513,34 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, const wxObject* object )
     sv_setref_pv( var, CHAR_P CLASS, const_cast<wxObject*>(object) );
 
     return var;
+}
+
+wxPliSelfRef* wxPli_get_selfref( pTHX_ wxObject* object, bool forcevirtual )
+{
+    wxPliSelfRef* sr = NULL;
+
+    wxClassInfo *ci = object->GetClassInfo();
+
+    if( forcevirtual )
+    {
+        wxPliClassInfo* cci = (wxPliClassInfo*)ci;
+        sr = cci->m_func( object );
+        return sr;
+    }
+
+    const wxChar* classname = ci->GetClassName();
+
+#if wxUSE_UNICODE
+    if( wcsncmp( classname, wxT("wxPl"), 4 ) == 0 )
+#else
+    if( strnEQ( classname, "wxPl", 4 ) )
+#endif
+    {
+        wxPliClassInfo* cci = (wxPliClassInfo*)ci;
+        sr = cci->m_func( object );
+    }
+
+    return sr;
 }
 
 void wxPli_attach_object( pTHX_ SV* object, void* ptr )
@@ -606,11 +628,33 @@ SV* wxPli_create_clientdatacontainer( pTHX_ wxClientDataContainer* object,
 SV* wxPli_create_evthandler( pTHX_ wxEvtHandler* object,
                              const char* classname )
 {
-    SV* sv = wxPli_make_object( object, classname );
-    wxPliUserDataCD* clientData = new wxPliUserDataCD( sv );
+    return wxPli_create_virtual_evthandler( aTHX_ object, classname, false );
+}
+
+SV* wxPli_create_virtual_evthandler( pTHX_ wxEvtHandler* object,
+                             const char* classname, bool forcevirtual )
+{
+    SV* sv = NULL;
+    wxPliUserDataCD* clientData = NULL;
+
+    wxPliSelfRef* sr = wxPli_get_selfref( aTHX_ (wxObject*)object, forcevirtual );
+
+    if( sr && sr->m_self )
+    {
+        sv = sv_2mortal( newRV_inc( SvRV( sr->m_self ) ) );
+        SvREFCNT_dec( sr->m_self );
+        clientData = new wxPliUserDataCD( sv );
+        sr->SetSelf(clientData->GetData(), true);
+    }
+
+    if( sv == NULL )
+    {
+        sv = wxPli_make_object( object, classname );
+        clientData = new wxPliUserDataCD( sv );
+    }
 
     object->SetClientObject( clientData );
-
+    
     return sv;
 }
 
