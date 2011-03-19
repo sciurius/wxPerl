@@ -272,7 +272,9 @@ new( ... )
 %}
 
     %name{newDefault} wxPlHScrolledWindow()
-        %code{% RETVAL = new wxPlHScrolledWindow( CLASS ); %};
+        %code{% RETVAL = new wxPlHScrolledWindow( CLASS ); 
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+             %};
     %name{newFull} wxPlHScrolledWindow( wxWindow *parent,
                                         wxWindowID id = wxID_ANY,
                                         const wxPoint& pos = wxDefaultPosition,
@@ -281,6 +283,7 @@ new( ... )
                                         const wxString& name = wxPanelNameStr )
         %code{% RETVAL = new wxPlHScrolledWindow( CLASS, parent, id, pos, size,
                                                   style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
                 %};
 };
 
@@ -299,7 +302,9 @@ new( ... )
 %}
 
     %name{newDefault} wxPlVScrolledWindow()
-        %code{% RETVAL = new wxPlVScrolledWindow( CLASS ); %};
+        %code{% RETVAL = new wxPlVScrolledWindow( CLASS ); 
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+              %};
     %name{newFull} wxPlVScrolledWindow( wxWindow *parent,
                                         wxWindowID id = wxID_ANY,
                                         const wxPoint& pos = wxDefaultPosition,
@@ -308,6 +313,7 @@ new( ... )
                                         const wxString& name = wxPanelNameStr )
         %code{% RETVAL = new wxPlVScrolledWindow( CLASS, parent, id, pos, size,
                                                   style, name );
+                 wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
                 %};
 };
 
@@ -326,7 +332,9 @@ new( ... )
 %}
 
     %name{newDefault} wxPlHVScrolledWindow()
-        %code{% RETVAL = new wxPlHVScrolledWindow( CLASS ); %};
+        %code{% RETVAL = new wxPlHVScrolledWindow( CLASS ); 
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+              %};
     %name{newFull} wxPlHVScrolledWindow( wxWindow *parent,
                                          wxWindowID id = wxID_ANY,
                                          const wxPoint& pos = wxDefaultPosition,
@@ -335,6 +343,7 @@ new( ... )
                                          const wxString& name = wxPanelNameStr )
         %code{% RETVAL = new wxPlHVScrolledWindow( CLASS, parent, id, pos,
                                                    size, style, name );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
                 %};
 };
 

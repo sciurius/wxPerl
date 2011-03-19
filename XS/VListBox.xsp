@@ -146,7 +146,7 @@ public:
     DEC_V_CBACK_VOID__WXDC_WXRECT_SIZET_const( OnDrawItem );
     DEC_V_CBACK_VOID__WXDC_WXRECTREF_SIZET_const( OnDrawSeparator );
 #if WXPERL_W_VERSION_GE( 2, 5, 1 )
-	DEC_V_CBACK_VOID__WXDC_WXRECT_SIZET_const( OnDrawBackground );
+    DEC_V_CBACK_VOID__WXDC_WXRECT_SIZET_const( OnDrawBackground );
 #endif
 };
 
@@ -185,7 +185,7 @@ new( ... )
 
     %name{newDefault} wxPlVListBox()
         %code{% RETVAL = new wxPlVListBox( CLASS ); 
-              // wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
     %name{newFull} wxPlVListBox( wxWindow *parent,
                                  wxWindowID id = wxID_ANY,
@@ -195,7 +195,7 @@ new( ... )
                                  const wxString& name = wxVListBoxNameStr )
         %code{% RETVAL = new wxPlVListBox( CLASS, parent, id, pos, size,
                                            style, name );
-                // wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
+                wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
              %};
 };
 
