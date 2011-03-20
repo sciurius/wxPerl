@@ -27,6 +27,8 @@
                  long style = 0,
                  const wxString& name = wxVListBoxNameStr );
 
+    size_t GetItemCount() const;
+    bool HasMultipleSelection() const;
     bool IsCurrent(size_t item) const;
     bool IsSelected(size_t item) const;
     size_t GetSelectedCount() const;
@@ -55,7 +57,7 @@
 
 void
 wxVListBox::GetFirstSelected()
-  CODE:
+  PPCODE:
     unsigned long cookie;
     int ret = THIS->GetFirstSelected( cookie );
     EXTEND( SP, 2 );
@@ -64,8 +66,8 @@ wxVListBox::GetFirstSelected()
 
 void
 wxVListBox::GetNextSelected( unsigned long cookie )
-  CODE:
-    int ret = THIS->GetFirstSelected( cookie );
+  PPCODE:
+    int ret = THIS->GetNextSelected( cookie );
     EXTEND( SP, 2 );
     PUSHs( sv_2mortal( newSViv( ret ) ) );
     PUSHs( sv_2mortal( newSViv( cookie ) ) );
