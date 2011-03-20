@@ -34,6 +34,7 @@
     const wxColour& GetSelectionBackground() const;
     void SetItemCount( size_t count );
     void Clear();
+    int  GetSelection() const;
     void SetSelection( int selection );
     bool Select( size_t item, bool select = true );
     bool SelectRange( size_t from, size_t to );
