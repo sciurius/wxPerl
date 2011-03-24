@@ -683,6 +683,70 @@ wxDC::SetLayoutDirection( wxLayoutDirection dir )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+
+void
+wxDC::GradientFillConcentric( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wrec_wcol_wcol_wpoi, GradientFillConcentricPoint )
+        MATCH_REDISP( wxPliOvl_wrec_wcol_wcol, GradientFillConcentricNoPoint )
+    END_OVERLOAD( Wx::DC::GradientFillConcentric )
+
+
+void 
+wxDC::GradientFillConcentricPoint(rect, initialColour, destColour, circleCentre)
+    wxRect* rect
+    wxColour initialColour
+    wxColour destColour
+    wxPoint circleCentre
+  CODE:
+    THIS->GradientFillConcentric( *rect, initialColour, destColour, circleCentre );
+    
+    
+void 
+wxDC::GradientFillConcentricNoPoint(rect, initialColour, destColour)
+    wxRect* rect
+    wxColour initialColour
+    wxColour destColour
+  CODE:
+    THIS->GradientFillConcentric( *rect, initialColour, destColour );
+    
+void
+wxDC::DrawLabel( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_wbmp_wrec_n_n_wrec, DrawLabelBitmap, 3 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s_wrec_n_n, DrawLabelNoBitmap, 2 )
+    END_OVERLOAD( Wx::DC::DrawLabel )
+
+
+wxRect* 
+wxDC::DrawLabelBitmap(text, image, rect, alignment = wxALIGN_LEFT | wxALIGN_TOP, indexAccel = -1 );
+    wxString text
+    wxBitmap* image
+    wxRect* rect
+    int alignment
+    int indexAccel
+  CODE:
+    wxRect* newrect = new wxRect(1,1,1,1);
+    THIS->DrawLabel( text, *image, *rect, alignment, indexAccel, newrect );
+    RETVAL = newrect;
+  OUTPUT: RETVAL
+    
+
+void 
+wxDC::DrawLabelNoBitmap(text, rect, alignment = wxALIGN_LEFT | wxALIGN_TOP, indexAccel = -1)
+    wxString text
+    wxRect* rect
+    int alignment
+    int indexAccel
+  CODE:
+    THIS->DrawLabel( text, *rect, alignment, indexAccel );
+
+#endif
+
+
 #if wxUSE_GRAPHICS_CONTEXT && WXPERL_W_VERSION_GE( 2, 8, 8 ) && WXPERL_W_VERSION_LT( 2, 9, 0 ) && defined( __WXMAC__ )
 
 wxGraphicsContext*
@@ -929,8 +993,6 @@ wxDC* wxAutoBufferedPaintDCFactory( wxWindow* window );
     wxMirrorDCC( wxDC& dc, bool mirror );
 };
 
-# DECLARE_OVERLOAD( wrgn, Wx::Region )
-
 %name{Wx::DCClipper} class wxDCClipper
 {
 %{
@@ -938,7 +1000,7 @@ void
 new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-        MATCH_REDISP( wxPliOvl_wdc_wrgn, newRegion )
+        MATCH_REDISP( wxPliOvl_wdc_wreg, newRegion )
         MATCH_REDISP( wxPliOvl_wdc_wrec, newRect )
         MATCH_REDISP( wxPliOvl_wdc_n_n_n_n, newXYWH )
     END_OVERLOAD( Wx::DCClipper::new )
