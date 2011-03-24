@@ -164,14 +164,12 @@ wxGraphicsContext::CreatePath ()
       RETVAL = new wxGraphicsPath( THIS->CreatePath() );
   OUTPUT: RETVAL
 
-# DECLARE_OVERLOAD( wrgn, Wx::Region )
-
 void
 Clip ( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP(wxPliOvl_n_n_n_n, ClipXYWH)
-        MATCH_REDISP(wxPliOvl_wrgn, ClipRegion)
+        MATCH_REDISP(wxPliOvl_wreg, ClipRegion)
     END_OVERLOAD( "Wx::GraphicsContext::Clip" )
 
 void
