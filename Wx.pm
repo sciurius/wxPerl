@@ -356,12 +356,7 @@ interpreter now works without problems. This is because wxPerl now
 contains code that brings the running application to the front and
 gives it the focus.
 
-In a few circumstances this may cause issues. During the Wx tests
-it would be undesirable to keep setting focus to loaded windows so
-the SetFrontProcess code is not called if HARNESS_ACTIVE is set to
-a true value in the environment.
-
-In a syntax checking editor you may also prevent Wx code from being
+In a syntax checking editor you may prevent Wx code from being
 given focus as the front process by setting an environment variable
 
 export WXPERL_OPTIONS=NO_MAC_SETFRONTPROCESS

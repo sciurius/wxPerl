@@ -27,7 +27,7 @@ $VERSION = eval $VERSION;
 
 sub MacSetFrontProcess {
     return if(  ( !defined( &Wx::_MacSetFrontProcess ) )
-              ||( exists($ENV{HARNESS_ACTIVE}) && $ENV{HARNESS_ACTIVE} )
+              #||( exists($ENV{HARNESS_ACTIVE}) && $ENV{HARNESS_ACTIVE} )
               ||( exists($ENV{WXPERL_OPTIONS}) && $ENV{WXPERL_OPTIONS} =~ /NO_MAC_SETFRONTPROCESS/)
               );
     Wx::_MacSetFrontProcess();
