@@ -19,6 +19,21 @@ void
 wxLog::Destroy()
   CODE:
     delete THIS;
+    
+bool 
+IsEnabled()  
+  CODE:
+    RETVAL = wxLog::IsEnabled();
+  OUTPUT:
+    RETVAL
+
+bool 
+EnableLogging( enable = true )
+    bool enable
+  CODE:
+    RETVAL = wxLog::EnableLogging( enable );
+  OUTPUT:
+    RETVAL
 
 void
 AddTraceMask( mask )
@@ -91,11 +106,20 @@ SetLogLevel( loglevel )
 void
 wxLog::Flush()
 
+## // Allow static function call and existing
+## // method call for FlushActive
 void
-wxLog::FlushActive()
+FlushActive( myLog = NULL )
+    wxLog* myLog
+  CODE:
+    wxLog::FlushActive();
+
 
 bool
 wxLog::HasPendingMessages()
+
+## // TODO: Fix the verbose calls to be
+## // correct static functions
 
 void
 wxLog::SetVerbose( verbose = true )
@@ -365,3 +389,4 @@ MODULE=Wx PACKAGE=Wx::LogStderr
 wxLogStderr*
 wxLogStderr::new( fp = NULL )
     FILE* fp;
+

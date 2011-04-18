@@ -21,10 +21,12 @@ public:
 
     DEC_V_CBACK_VOID__CWXCHARP_TIMET( DoLogString );
     DEC_V_CBACK_VOID__WXLOGLEVEL_CWXCHARP_TIMET( DoLog );
+    DEC_V_CBACK_VOID__VOID( Flush );
 };
 
 DEF_V_CBACK_VOID__CWXCHARP_TIMET( wxPlLog, wxLog, DoLogString );
 DEF_V_CBACK_VOID__WXLOGLEVEL_CWXCHARP_TIMET( wxPlLog, wxLog, DoLog );
+DEF_V_CBACK_VOID__VOID( wxPlLog, wxLog, Flush );
 
 class wxPlLogPassThrough : public wxLogPassThrough
 {
