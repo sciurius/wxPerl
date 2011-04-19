@@ -34,6 +34,28 @@ EnableLogging( enable = true )
     RETVAL = wxLog::EnableLogging( enable );
   OUTPUT:
     RETVAL
+    
+#if WXPERL_W_VERSION_GE( 2, 8, 5 )
+    
+void 
+SetRepetitionCounting( RepetCounting = true )
+    bool RepetCounting
+  CODE:
+    wxLog::SetRepetitionCounting( RepetCounting );
+    
+bool 
+GetRepetitionCounting()
+  CODE:
+    RETVAL = wxLog::GetRepetitionCounting();
+  OUTPUT:
+    RETVAL  
+
+void
+DoCreateOnDemand()
+  CODE:
+    wxLog::DoCreateOnDemand();
+
+#endif
 
 void
 AddTraceMask( mask )
@@ -106,8 +128,9 @@ SetLogLevel( loglevel )
 void
 wxLog::Flush()
 
-## // Allow static function call and existing
-## // method call for FlushActive
+## // Allow static function call and previously
+## // wrapped method call for FlushActive
+
 void
 FlushActive( myLog = NULL )
     wxLog* myLog
@@ -118,15 +141,55 @@ FlushActive( myLog = NULL )
 bool
 wxLog::HasPendingMessages()
 
-## // TODO: Fix the verbose calls to be
-## // correct static functions
+## // Allow correct static function call and previously
+## // wrapped method call for Get / SetVerbose
+## // It all maps to a static call anyway.
+## // Old code should still work
+
+# DECLARE_OVERLOAD( wlog, Wx::Log )
 
 void
-wxLog::SetVerbose( verbose = true )
-    bool verbose
+SetVerbose( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP_FUNCTION( Wx::Log::SetVerboseFunctionDefault )
+        MATCH_REDISP_COUNT_FUNCTION(wxPliOvl_wlog, Wx::Log::SetVerboseMethodDefault, 1 )
+        MATCH_REDISP_COUNT_FUNCTION(wxPliOvl_n, Wx::Log::SetVerboseFunctionParam, 1)
+        MATCH_REDISP_COUNT_FUNCTION(wxPliOvl_wlog_n, Wx::Log::SetVerboseMethodParam, 2)
+    END_OVERLOAD( "Wx::Log::SetVerbose" )
+
+void
+SetVerboseFunctionDefault()
+  CODE:
+    wxLog::SetVerbose( true );
+
+void
+SetVerboseMethodDefault( myLog )
+    wxLog* myLog
+  CODE:
+    wxLog::SetVerbose( true );
+    
+void
+SetVerboseFunctionParam( enable )
+    bool enable
+  CODE:
+    wxLog::SetVerbose( enable );
+
+void
+SetVerboseMethodParam( myLog, enable )
+    wxLog* myLog
+    bool enable
+  CODE:
+    wxLog::SetVerbose( enable );
 
 bool
-wxLog::GetVerbose()
+GetVerbose( myLog = NULL )
+    wxLog* myLog
+  CODE:
+    RETVAL = wxLog::GetVerbose();
+  OUTPUT:
+    RETVAL
+
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 
