@@ -1,10 +1,11 @@
 Revision history for Perl extension Wx.
 
+0.98_01 Thu Apr 21 20:31:30 CEST 2010
     - Added wxProgressDialog::Pulse (wxWidgets 2.8)
-    - Mac SetFrontProcess now switched off in tests and
-      can be switched off for editors using env variable.
-      Still switched on by default. Added detail to Wx pod
-    - Added wxLog Suspend, Resume, SetLoglevel, GetLogLevel
+    - Mac SetFrontProcess can be switched off for editors 
+      and tests using env variable. Still switched on by default. 
+      Added detail to Wx pod
+    - Added several wxLog functions & methods + Wx::PLlog::Flush
     - Added wxDateTime::IsValid wxSplitterWindow::UpdateSize
     - fix for Wx::Locale::FindLanguageInfo / GetLanguageInfo
     - wxPli_create_evthandler added for VListBox and VScrolledWindow
