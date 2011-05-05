@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.99  Thu May 05 08:00:00 BST 2011
+    - Release 0.98_01 as 0.99
+
 0.98_01 Thu Apr 21 20:31:30 CEST 2010
     - Added wxProgressDialog::Pulse (wxWidgets 2.8)
     - Mac SetFrontProcess can be switched off for editors 
