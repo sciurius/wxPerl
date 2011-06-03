@@ -84,8 +84,16 @@ wxLanguageInfo::GetDescription()
 
 MODULE=Wx PACKAGE=Wx::Locale
 
+#if WXPERL_W_VERSION_GE( 2, 9, 1 )
+#define wxPL_LOCALE_CTOR_FLAGS wxLOCALE_LOAD_DEFAULT
+#define wxPL_LOCALE_CONVERT_ENCODING true
+#else
+#define wxPL_LOCALE_CTOR_FLAGS wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING
+#define wxPL_LOCALE_CONVERT_ENCODING false
+#endif
+
 wxLocale*
-newLong( name, shorts = NULL, locale = NULL, loaddefault = true, convertencoding = false )
+newLong( name, shorts = NULL, locale = NULL, loaddefault = true, convertencoding = wxPL_LOCALE_CONVERT_ENCODING )
     const wxChar* name
     const wxChar* shorts = NO_INIT
     const wxChar* locale = NO_INIT
@@ -113,12 +121,6 @@ newLong( name, shorts = NULL, locale = NULL, loaddefault = true, convertencoding
         loaddefault, convertencoding );
   OUTPUT:
     RETVAL
-
-#if WXPERL_W_VERSION_GE( 2, 9, 1 )
-#define wxPL_LOCALE_CTOR_FLAGS wxLOCALE_LOAD_DEFAULT
-#else
-#define wxPL_LOCALE_CTOR_FLAGS wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING
-#endif
 
 wxLocale*
 newShort( language, flags = wxPL_LOCALE_CTOR_FLAGS )
