@@ -59,6 +59,7 @@ t/18_unicode.t
 t/19_overlay.t
 t/20_ctx_threads.t
 t/21_locale.t
+t/22_interface.t
 t/Tests_Helper.pm
 t/zz_distrib.t
 
