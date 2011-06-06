@@ -123,6 +123,9 @@ wxFrame::OnCreateStatusBar( number, style, id, name )
   OUTPUT: RETVAL
 
 void
+wxFrame::SendSizeEvent()
+
+void
 wxFrame::SetIcon( icon )
     wxIcon* icon
   CODE:
