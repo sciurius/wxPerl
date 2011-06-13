@@ -25,6 +25,22 @@ wxCursor::new( ... )
         
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
+wxCursor*
+newFile( CLASS, name, type, hsx = -1, hsy = -1 )
+    SV* CLASS
+    wxString name
+    long type
+    int hsx
+    int hsy
+  CODE:
+    RETVAL = new wxCursor( name, type, hsx, hsy );
+  OUTPUT:
+    RETVAL
+    
+#else
+
 wxCursor*
 newFile( CLASS, name, type, hsx = -1, hsy = -1 )
     SV* CLASS
@@ -36,6 +52,8 @@ newFile( CLASS, name, type, hsx = -1, hsy = -1 )
     RETVAL = new wxCursor( name, type, hsx, hsy );
   OUTPUT:
     RETVAL
+    
+#endif
 
 #endif
 
