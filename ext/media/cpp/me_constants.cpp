@@ -33,6 +33,11 @@ double media_constant( const char* name, int arg )
         r( wxEVT_MEDIA_FINISHED );
         r( wxEVT_MEDIA_STOP );
         r( wxEVT_MEDIA_LOADED );
+#if WXPERL_W_VERSION_GE( 2, 6, 3 )
+        r( wxEVT_MEDIA_STATECHANGED );
+        r( wxEVT_MEDIA_PLAY );
+        r( wxEVT_MEDIA_PAUSE );
+#endif        
     case 'M':
         r( wxMEDIASTATE_STOPPED );
         r( wxMEDIASTATE_PAUSED );
