@@ -37,7 +37,7 @@
                                 const wxSize& size = wxDefaultSize,
                                 long style = 0,
                                 const wxString& szBackend = wxEmptyString,
-                              const wxValidator& validator = wxDefaultValidatorPtr,
+                                const wxValidator& validator = wxDefaultValidatorPtr,
                                 const wxString& name = wxPanelNameStr );
 
     bool Create( wxWindow* parent,
@@ -64,6 +64,9 @@
 
     double GetPlaybackRate();
     bool SetPlaybackRate( double volume );
+    
+    off_t GetDownloadProgress();
+    off_t GetDownloadTotal();
 
     bool ShowPlayerControls( wxMediaCtrlPlayerControls flags =
                                  wxMEDIACTRLPLAYERCONTROLS_DEFAULT );
