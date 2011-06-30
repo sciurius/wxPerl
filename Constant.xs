@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     29/10/2000
-// RCS-ID:      $Id: Constant.xs 2933 2010-06-20 14:48:07Z mbarbon $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2000-2011 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -405,8 +405,13 @@ static wxPlINH inherit[] =
     I( ListCtrl,        Control )
     I( ListView,        ListCtrl )
     I( SashWindow,      Window )
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
+    I( ToggleButton,    Control )
+    I( BitmapToggleButton, ToggleButton )
+#else
     I( ToggleButton,    Control )
     I( BitmapToggleButton, Control )
+#endif
     I( Wizard,          Dialog )
     I( WizardPage,      Panel )
     I( WizardPageSimple, WizardPage )
