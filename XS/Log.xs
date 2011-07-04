@@ -81,6 +81,14 @@ IsAllowedTraceMask( mask )
     RETVAL = wxLog::IsAllowedTraceMask( mask );
   OUTPUT:
     RETVAL
+    
+void
+GetTraceMasks()
+  PPCODE:
+    const wxArrayString& masksallowed = wxLog::GetTraceMasks();
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_  masksallowed );
+    SPAGAIN;
 
 wxLog*
 GetActiveTarget()
@@ -421,6 +429,9 @@ wxLogChain::new( logger )
 
 wxLog*
 wxLogChain::GetOldLog()
+
+void
+wxLogChain::DetachOldLog()
 
 bool
 wxLogChain::IsPassingMessages()
