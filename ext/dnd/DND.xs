@@ -47,6 +47,12 @@ wxDF_TEXT()
   CODE:
     RETVAL = new wxDataFormat( wxDF_TEXT );
   OUTPUT: RETVAL
+  
+wxDataFormat*
+wxDF_UNICODETEXT()
+  CODE:
+    RETVAL = new wxDataFormat( wxDF_UNICODETEXT );
+  OUTPUT: RETVAL  
 
 wxDataFormat*
 wxDF_BITMAP()

@@ -60,6 +60,7 @@ use vars qw($_df_invalid $_df_bitmap $_df_text $_df_metafile $_df_filename);
 
 # sub wxDF_INVALID
 # sub wxDF_TEXT
+# sub wxDF_UNICODETEXT
 # sub wxDF_BITMAP
 # sub wxDF_METAFILE
 # sub wxDF_FILENAME
