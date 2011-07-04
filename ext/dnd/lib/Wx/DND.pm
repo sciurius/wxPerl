@@ -52,7 +52,7 @@ use strict;
 
 package Wx;
 
-use vars qw($_df_invalid $_df_bitmap $_df_text $_df_metafile $_df_filename);
+use vars qw($_df_invalid $_df_bitmap $_df_text $_df_unicodetext $_df_metafile $_df_filename);
 
 # !parser: sub { $_[0] =~ m/^\s*\#\s*sub\s+(wx\w+)/ }
 # !package: Wx
