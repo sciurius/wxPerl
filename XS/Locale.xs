@@ -11,7 +11,6 @@
 #############################################################################
 
 #include <wx/intl.h>
-#include "cpp/overload.h"
 
 MODULE=Wx PACKAGE=Wx::LanguageInfo
 
