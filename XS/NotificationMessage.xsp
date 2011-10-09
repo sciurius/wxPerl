@@ -70,6 +70,11 @@ wxNotificationMessage::CLONE()
 
 #ifdef __WXMSW__
 
+# The necessary support for Taskbar Balloons is not in MSCV6
+# Even if VC6 is used with Platform SDK, wxWidgets will not
+# build in balloon support so exclude on same criteria
+
+#if ( ( defined(__VISUALC__) && (__VISUALC__ >= 1300) ) || defined(__MINGW32__) )
 %{
 wxTaskBarIcon*
 UseTaskBarIcon( icon )
@@ -84,6 +89,7 @@ AlwaysUseGeneric( alwaysUseGeneric )
   CODE:
     wxNotificationMessage::AlwaysUseGeneric( alwaysUseGeneric );
 %}
+#endif
 
 #endif
 
