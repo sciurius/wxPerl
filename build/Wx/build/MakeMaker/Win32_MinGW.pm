@@ -27,7 +27,7 @@ sub dynamic_lib {
   my $strip = $this->_debug ? '' : ' -s ';
 
   $text =~ s{(?:^\s+(?:dlltool|\$\(LD\)).*\n)+}
-    {\tg++ -shared -static-libstdc++ $strip -o \$@ \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(BASEEXT).def\n}m;
+    {\tg++ -shared --static-libstdc++ $strip -o \$@ \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(BASEEXT).def\n}m;
   # \$(LDDLFLAGS) : in MinGW passes -mdll, and we use -shared...
 
   return $text;
