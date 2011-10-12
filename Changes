@@ -1,8 +1,11 @@
 Revision history for Perl extension Wx.
 
 0.9902 TBR
-    - wrapped wxLogChain::DetahOldLog
+    - 2.9.2 will now build with selected mingw compilers 
+    - Fixed MSVC6 build (broken in 0.9702)
+    - wrapped wxLogChain::DetachOldLog
     - added wxDF_UNICODETEXT
+    - added wxMediaCtrl constants for all events
 
 0.9901 Mon June 06 12:00:00 BST 2011
     - Bumped ExtUtils::XSpp dependency to 0.1602
