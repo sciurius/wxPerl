@@ -25,9 +25,12 @@ sub dynamic_lib {
   return $text unless $Wx::build::MakeMaker::Core::has_alien;
 
   my $strip = $this->_debug ? '' : ' -s ';
+  
+  my $gppcmdout = qx(g++ -static-libstdc++ 2>&1);
+  my $ldflags = ($gppcmdout =~ /unrecognized option/) ? '-shared' : '-shared -static-libstdc++';
 
   $text =~ s{(?:^\s+(?:dlltool|\$\(LD\)).*\n)+}
-    {\tg++ -shared --static-libstdc++ $strip -o \$@ \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(BASEEXT).def\n}m;
+    {\tg++ $ldflags $strip -o \$@ \$(LDFROM) \$(MYEXTLIB) \$(PERL_ARCHIVE) \$(LDLOADLIBS) \$(BASEEXT).def\n}m;
   # \$(LDDLFLAGS) : in MinGW passes -mdll, and we use -shared...
 
   return $text;
