@@ -88,9 +88,40 @@ wxSplashScreen::GetTimeout()
 
 MODULE=Wx PACKAGE=Wx::WindowDisabler
 
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newBool )
+        MATCH_REDISP( wxPliOvl_wwin, newWindow )
+        MATCH_REDISP( wxPliOvl_n, newBool )
+    END_OVERLOAD( "Wx::WindowDisabler::new" )
+
+wxWindowDisabler*
+newWindow( CLASS, skip )
+    SV* CLASS
+    wxWindow* skip
+  CODE:
+    RETVAL = new wxWindowDisabler( skip );
+  OUTPUT: RETVAL
+
+wxWindowDisabler*
+newBool( CLASS, disable = true )
+    SV* CLASS
+    bool disable
+  CODE:
+    RETVAL = new wxWindowDisabler( bool );
+  OUTPUT: RETVAL
+
+#else
+
 wxWindowDisabler*
 wxWindowDisabler::new( skip = 0 )
     wxWindow* skip
+
+#endif
 
 static void
 wxWindowDisabler::CLONE()
