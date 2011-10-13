@@ -93,7 +93,13 @@ check_init { Wx::Locale->new( wxLANGUAGE_DEFAULT ) };
 my $imagelist = Wx::ImageList->new( 16, 16 );
 my $imagelist2 = Wx::ImageList->new( 32, 32 );
 check_init { Wx::CaretSuspend->new( Wx::Frame->new( undef, -1, 'Moo' ) ) };
-check_init { Wx::WindowDisabler->new };
+if( Wx::wxVERSION > 2.009001 ) {
+    # OSX fails to handle null window or 1
+	check_init { Wx::WindowDisabler->new(0) };
+} else {
+    check_init { Wx::WindowDisabler->new };
+}
+
 check_init { Wx::BusyCursor->new };
 my $bi = Wx::BusyInfo->new( 'x' );
 my $bi2 = Wx::BusyInfo->new( 'y' );
