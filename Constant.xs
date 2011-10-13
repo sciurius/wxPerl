@@ -707,7 +707,7 @@ static wxPlINH inherit[] =
     I( ScrollEvent,     CommandEvent )
     I( SizeEvent,       Event )
     I( ScrollWinEvent,  Event )
-#if defined(__WXMAC__)
+#if defined(__WXMAC__) && WXPERL_W_VERSION_LE( 2, 9, 1 )
     I( SpinEvent,       ScrollEvent )
 #else
     I( SpinEvent,       NotifyEvent )
