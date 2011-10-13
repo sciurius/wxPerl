@@ -1,7 +1,7 @@
 Revision history for Perl extension Wx.
 
-0.9902 TBR
-    - 2.9.2 will now build with selected mingw compilers 
+0.9902 Thu Oct 13 08:00:00 BST 2011
+    - 2.9.2 will now build with recent mingw compilers (>= gcc 4.5.2)
     - Fixed MSVC6 build (broken in 0.9702)
     - wrapped wxLogChain::DetachOldLog
     - added wxDF_UNICODETEXT
