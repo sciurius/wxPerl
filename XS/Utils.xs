@@ -112,7 +112,7 @@ newBool( CLASS, disable = true )
     SV* CLASS
     bool disable
   CODE:
-    RETVAL = new wxWindowDisabler( bool );
+    RETVAL = new wxWindowDisabler( disable );
   OUTPUT: RETVAL
 
 #else
