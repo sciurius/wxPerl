@@ -37,8 +37,7 @@ sub dynamic_lib {
 
   my $strip = $this->_debug ? '' : ' -s ';
   
-  my $gppcmdout = qx(g++ -static-libstdc++ 2>&1);
-  my $ldflags = ($gppcmdout =~ /unrecognized option/) ? '-shared' : '-shared -static-libstdc++';
+  my $ldflags = '-shared';
   $ldflags .= ( $Config{ptrsize} == 8 ) ? ' -m64' : ' -m32';  
 
   $text =~ s{(?:^\s+(?:dlltool|\$\(LD\)).*\n)+}
