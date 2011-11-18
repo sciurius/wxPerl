@@ -473,6 +473,9 @@ static wxPlINH inherit[] =
     I( SVGFileDC,       DC )
     I( MirrorDC,        DC )
     I( GCDC,            DC )
+#ifdef __WXMSW__   
+    I( EnhMetaFileDC,   DC )
+#endif
     
     I( BMPHandler,      ImageHandler )
     I( PNGHandler,      ImageHandler )
