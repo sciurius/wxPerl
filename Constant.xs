@@ -354,9 +354,6 @@ static wxPlINH inherit[] =
     I( BitmapButton,    Button )
     I( TextCtrlBase,    Control )
     I( TextCtrl,        TextCtrlBase )
-#if WXPERL_W_VERSION_GE( 2, 9, 2 )
-    I( TextCtrlIface,   Control )
-#endif    
     I( StaticText,      Control )
     I( CheckBox,        Control )
     I( CheckListBox,    ListBox )
