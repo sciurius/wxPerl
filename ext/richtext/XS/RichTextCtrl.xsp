@@ -481,8 +481,6 @@ wxRichTextCtrl::SetBasicStyle( ... )
 
 #if WXPERL_W_VERSION_GE( 2, 9, 2 )
 
-    /* wxTextCtrlIface implementation */
-    
     wxString GetValue() const;
     void SetValue( const wxString& value );
     void ChangeValue( const wxString& value );
@@ -501,7 +499,7 @@ wxRichTextCtrl::SetBasicStyle( ... )
     void SetModified( bool modified );
     bool IsEmpty();    
     
-    bool SetStyle( long start, long end, const wxTextAttr& style );
+##  bool SetStyle( long start, long end, const wxTextAttr& style );
     bool SetDefaultStyle( const wxTextAttr& style );
     const wxTextAttr& GetDefaultStyle() const;
     
@@ -534,7 +532,7 @@ wxRichTextCtrl::SetBasicStyle( ... )
 
     void SetSelection( long from, long to );
     void SelectAll();
-    bool HasSelection() const;    
+##  bool HasSelection() const;    
     wxString GetStringSelection() const;
 
     bool AutoComplete( const wxArrayString& choices );
@@ -552,7 +550,7 @@ wxRichTextCtrl::SetBasicStyle( ... )
     wxPoint GetMargins() const;    
 
 #endif
-/* end of wxTextCtrlIface implementation */
+
 };
 
 %{
@@ -777,6 +775,8 @@ wxRichTextCtrl::GetTextAttrExStyleForRange( range )
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
 void
 wxRichTextCtrl::GetStyleForRange( range )
     wxRichTextRange* range
@@ -802,7 +802,7 @@ WriteImage( ... )
     END_OVERLOAD( "Wx::RichTextCtrl::WriteImage" )
 
 #if WXPERL_W_VERSION_GE( 2, 9, 2 )
-/* wxTextCtrlIface implementation */
+
 void
 wxRichTextCtrl::GetSelection()
   PREINIT:
@@ -838,6 +838,6 @@ wxRichTextCtrl::HitTest( pt )
     PUSHs( sv_2mortal( newSViv( col ) ) );
     PUSHs( sv_2mortal( newSViv( row ) ) );
 
-#endif 
+#endif
 
 %}
