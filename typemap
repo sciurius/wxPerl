@@ -151,6 +151,7 @@ wxStaticText *          O_WXEVTHANDLER
 wxStaticLine *          O_WXEVTHANDLER
 wxTextCtrl *            O_WXOBJECT
 wxTextCtrlBase *        O_WXOBJECT
+wxTextCtrlIface *       O_WXOBJECT
 wxPropertySheetDialog * O_WXEVTHANDLER
 wxPlValidator *         O_WXOBJECT
 wxValidator *           O_WXOBJECT

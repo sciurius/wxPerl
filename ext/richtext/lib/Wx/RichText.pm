@@ -32,7 +32,7 @@ SetEvents();
 no strict;
 
 package Wx::Printout;
-package Wx::RichTextCtrl;    @ISA = qw(Wx::TextCtrl);
+package Wx::RichTextCtrl;    @ISA = ( Wx::wxVERSION() <= 2.009001 ? qw(Wx::TextCtrl) : qw(Wx::TextCtrlIface) );
 package Wx::TextAttrEx;      @ISA = qw(Wx::TextAttr);
 package Wx::RichTextEvent;   @ISA = qw(Wx::NotifyEvent);
 package Wx::RichTextStyleDefinition;
