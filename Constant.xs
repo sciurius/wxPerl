@@ -386,7 +386,11 @@ static wxPlINH inherit[] =
     I( FileCtrl,        Control )
 #endif
     I( SpinButton,      Control )
+#if WXPERL_W_VERSION_GE( 2, 9, 2 ) && !defined(__WXMAC__)
+    I( SearchCtrl,      Control )
+#else
     I( SearchCtrl,      TextCtrl )
+#endif
     I( RadioBox,        Control )
     I( RadioButton,     Control )
     I( StaticLine,      Control )
