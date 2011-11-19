@@ -352,8 +352,9 @@ public:
         @param sort
             Sort (default) or don't sort the control contents by this column.
      */
+#if WXPERL_W_VERSION_LE( 2, 9, 2 )
     virtual void SetAsSortKey(bool sort = true) = 0 %Virtual{pure};
-
+#endif
     /**
         Don't use this column for sorting.
 
@@ -442,7 +443,9 @@ public:
     virtual wxAlignment GetAlignment() const;
     virtual void SetFlags(int flags);
     virtual int GetFlags() const;
+#if WXPERL_W_VERSION_LE( 2, 9, 2 )
     virtual void SetAsSortKey(bool sort = true);
+#endif
     virtual bool IsSortKey() const;
     virtual void SetSortOrder(bool ascending);
     virtual bool IsSortOrderAscending() const;
