@@ -21,6 +21,14 @@ const char sub_read[] = "sub { read $_[0], $_[1], $_[2] }";
 const char sub_seek[] = "sub { seek $_[0], $_[1], $_[2]; tell $_[0] }";
 const char sub_tell[] = "sub { tell $_[0] }";
 const char sub_write[] = "sub { print { $_[0] } $_[1] }";
+
+// for an open filehandle to a real file, fileno returns a filenumber
+// and we use stat to get the file length.
+// If fileno returns undef, $fh may be a scalar tied via IO::Scalar
+// or IO::String. We test for that and return length of tied scalar.
+// If fileno returns -1, then $fh maybe a handle provided by PerlIO
+// scalar layer so we see if we can get the length with seek & tell
+
 const char sub_length[] = "sub {  \
     local $@; \
     my $rval = -1; \
@@ -36,9 +44,10 @@ const char sub_length[] = "sub {  \
         $rval = (stat $_[0])[7]; \
     } else { \
         eval { \
-            if( seek($_[0],0,2) ) { \
+            my $curpos = tell($_[0]); \
+            if( ( $curpos != -1) && seek($_[0],0,2) ) { \
                 $rval = tell($_[0]); \
-                seek($_[0],0,0); \
+                seek($_[0],$curpos,0); \
             } \
         }; \
     } \

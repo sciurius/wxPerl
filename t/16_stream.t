@@ -3,7 +3,7 @@
 use strict;
 use Wx qw(wxBITMAP_TYPE_ICO);
 use lib './t';
-use Test::More 'tests' => 6;
+use Test::More 'tests' => 8;
 use Fatal qw(open);
 
 my $app = Wx::SimpleApp->new;
@@ -32,9 +32,10 @@ SKIP: {
     my $img = Wx::Image->new( $fh, wxBITMAP_TYPE_ICO );
     ok( $img->Ok );
     is( $img->GetWidth, 32 );
+    
 }
 
-# Tied filehandle
+# Tied filehandles
 SKIP: {
     eval { require IO::String };
     skip 'IO::String required', 2 if $@;
@@ -45,3 +46,15 @@ SKIP: {
     ok( $img->Ok );
     is( $img->GetWidth, 32 );
 }
+
+SKIP: {
+    eval { require IO::Scalar };
+    skip 'IO::Scalar required', 2 if $@;
+
+    my $data = _slurp( 'wxpl.ico' );
+    my $fh = IO::Scalar->new( \$data );
+    my $img = Wx::Image->new( $fh, wxBITMAP_TYPE_ICO );
+    ok( $img->Ok );
+    is( $img->GetWidth, 32 );
+}
+
