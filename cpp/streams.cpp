@@ -21,7 +21,29 @@ const char sub_read[] = "sub { read $_[0], $_[1], $_[2] }";
 const char sub_seek[] = "sub { seek $_[0], $_[1], $_[2]; tell $_[0] }";
 const char sub_tell[] = "sub { tell $_[0] }";
 const char sub_write[] = "sub { print { $_[0] } $_[1] }";
-const char sub_length[] = "sub { eval { fileno( $_[0] ) && fileno( $_[0] ) >= 0 } ? ( stat $_[0] )[7] : -1 }";
+const char sub_length[] = "sub {  \
+    local $@; \
+    my $rval = -1; \
+    my $fn = eval { fileno( $_[0] ) }; \
+    if( !defined($fn) ) { \
+        eval { \
+            if( $_[0]->can('sref') ) { \
+                use bytes; \
+                $rval = length( ${ $_[0]->sref } ); \
+            } \
+        }; \
+    } elsif( $fn != -1 ) { \
+        $rval = (stat $_[0])[7]; \
+    } else { \
+        eval { \
+            if( seek($_[0],0,2) ) { \
+                $rval = tell($_[0]); \
+                seek($_[0],0,0); \
+            } \
+        }; \
+    } \
+    return $rval; \
+    }";
 
 SV* sg_read;
 SV* sg_seek;
@@ -171,7 +193,12 @@ wxFileOffset wxPliInputStream::GetLength() const
 
 size_t wxPliInputStream::GetSize() const
 {
-    return stream_length( this, m_fh );
+    wxFileOffset length = stream_length( this, m_fh );
+    if ( length == (wxFileOffset)wxInvalidOffset )
+        return 0;
+    
+    const size_t len = wx_truncate_cast(size_t, length);
+    return len;
 }
 
 // output stream
@@ -271,7 +298,12 @@ wxFileOffset wxPliOutputStream::GetLength() const
 
 size_t wxPliOutputStream::GetSize() const
 {
-    return stream_length( this, m_fh );
+    wxFileOffset length = stream_length( this, m_fh );
+    if ( length == (wxFileOffset)wxInvalidOffset )
+        return 0;
+    
+    const size_t len = wx_truncate_cast(size_t, length);
+    return len;
 }
 
 // helpers
