@@ -31,6 +31,6 @@ no strict;
 package Wx::AuiManager;    @ISA = qw(Wx::EvtHandler);
 package Wx::AuiNotebook;   @ISA = qw(Wx::Control);
 package Wx::AuiManagerEvent; @ISA = qw(Wx::Event);
-package Wx::AuiNotebookEvent; @ISA = qw(Wx::NotifyEvent);
+package Wx::AuiNotebookEvent; @ISA = ( Wx::wxVERSION() <= 2.009002 ? qw(Wx::NotifyEvent) : qw(Wx::BookCtrlEvent) );
 
 1;
