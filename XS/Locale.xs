@@ -74,6 +74,7 @@ wxLanguageInfo::GetWinSublang()
 #else
     RETVAL = 0;
 #endif
+  OUTPUT: RETVAL
 
 wxString
 wxLanguageInfo::GetDescription()

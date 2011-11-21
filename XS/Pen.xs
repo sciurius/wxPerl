@@ -55,6 +55,7 @@ newBitmap( CLASS, stipple, width )
     int width
   CODE:
     RETVAL = new wxPen( *stipple, width );
+  OUTPUT: RETVAL
 
 #endif
 
