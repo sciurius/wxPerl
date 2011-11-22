@@ -207,6 +207,7 @@ XS/SVGFileDC.xsp
 XS/TaskBarIcon.xs
 XS/TextAttr.xsp
 XS/TextCtrl.xsp
+XS/TextCtrlIface.xsp
 XS/TextEntryDialog.xs
 XS/Timer.xs
 XS/ToggleButton.xs
@@ -554,3 +555,4 @@ interface/wx/grid/gridtablebase.h
 interface/wx/headercol.h
 interface/wx/headerctrl.h
 interface/wx/infobar.h
+

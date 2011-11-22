@@ -68,158 +68,18 @@ new( ... )
 
     void SetDescriptiveText( const wxString& text );
     wxString GetDescriptiveText() const;
-
-#if WXPERL_W_VERSION_GE( 2, 9, 2 ) && !defined(__WXMAC__)
-    
-##    // wxTextCtrlIface 
-##    // implement wxTextEntryBase 
- 
-	wxString GetValue() const;
-	void SetValue( const wxString& value );
-	void ChangeValue( const wxString& value );
-	wxString GetRange( long from, long to ) const;
-	
-	void WriteText( const wxString& text );
-	void AppendText( const wxString& text ); 	
-	
-    bool IsEmpty();
-    
-    void Clear();
-	void Replace( long from, long to, const wxString& value );
-	void Remove( long from, long to );
-	void RemoveSelection();
-
-	void Copy();
-	void Cut();
-	void Paste();
-	bool CanCopy() const;
-	bool CanCut() const;
-	bool CanPaste() const;
-	void Undo();
-	void Redo();
-	bool CanUndo() const;
-	bool CanRedo() const;
-
-	void SetInsertionPoint( long pos );
-	void SetInsertionPointEnd();
-	long GetInsertionPoint() const;
-	long GetLastPosition() const;
-    
-    void SetSelection( long from, long to );
-	void SelectAll();
-	bool HasSelection() const;    
-	wxString GetStringSelection() const;
-	
-##  void GetSelection(long *from, long *to);
-        
-	bool AutoComplete( const wxArrayString& choices );
-	bool AutoCompleteFileNames();
-##	bool AutoComplete(wxTextCompleter *completer);
-    
-	bool IsEditable() const;	
-	void SetEditable( bool editable ); 
-    
-	void SetMaxLength( unsigned long len );
-
-	bool SetHint(const wxString& hint);
-	wxString GetHint() const;
-
-	bool SetMargins(const wxPoint& pt);
-    wxPoint GetMargins() const;
-    
-    /* implement wxTextAreaBase */
-    
-	int GetLineLength( long lineNo ) const;
-	wxString GetLineText( long lineNo ) const;
-	int GetNumberOfLines() const;
-
-#### // not implemented in search control
-#### bool LoadFile( const wxString& file, int fileType = wxTEXT_TYPE_ANY );
-#### bool SaveFile( const wxString& file = wxEmptyString, int fileType = wxTEXT_TYPE_ANY );
-
-	bool IsModified() const;
-	void MarkDirty();
-	void DiscardEdits();
-	void SetModified( bool modified );
-    
-    bool SetStyle( long start, long end, const wxTextAttr& style );
-##  bool GetStyle(long position, wxTextAttr& style) = 0;
-	bool SetDefaultStyle( const wxTextAttr& style );
-	const wxTextAttr& GetDefaultStyle() const;
-
-	long XYToPosition( long x, long y ) const;
-##  bool PositionToXY(long pos, long *x, long *y) const;
-	void ShowPosition(long pos);
-	
-##  wxTextCtrlHitTestResult HitTest(const wxPoint& pt, long *pos) const;
-##  wxTextCtrlHitTestResult HitTest(const wxPoint& pt, wxTextCoord *col, wxTextCoord *row) const;
-
-
-##  wxString GetValue() const = 0;
-##  void SetValue(const wxString& value) = 0;
-
-#endif
-
 };
 
 #if WXPERL_W_VERSION_GE( 2, 9, 2 ) && !defined(__WXMAC__)
 
-## // wxTextCtrlIface 
-## // implement wxTextEntryBase 
+#define WXPERL_IN_SEARCHCTRL
 
-%{
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/TextCtrlIface.xsp
+INCLUDE_COMMAND: $^X -pe "s/TextCtrlIface/SearchCtrl/g" xspp/TextCtrlIface.h
 
-void
-wxSearchCtrl::GetSelection()
-  PREINIT:
-    long from;
-    long to;
-  PPCODE:
-    THIS->GetSelection( &from, &to );
-    EXTEND( SP, 2 );
-    PUSHs( sv_2mortal( newSViv( from ) ) );
-    PUSHs( sv_2mortal( newSViv( to ) ) );
-
-## // implement wxTextAreaBase
-
-void
-wxSearchCtrl::GetStyle( position )
-    long position
-  PPCODE:
-    wxTextAttr attr;
-    bool retval = THIS->GetStyle( position, attr );
-    EXTEND( SP, 2 );
-    PUSHs( newSViv( retval ) );
-    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
-                                           new wxTextAttr( attr ),
-                                           "Wx::TextAttr" ) :
-                    &PL_sv_undef );
-
-void
-wxSearchCtrl::PositionToXY( pos )
-    long pos
-  PREINIT:
-    long x;
-    long y;
-  PPCODE:
-    THIS->PositionToXY( pos, &x, &y );
-    EXTEND( SP, 2 );
-    PUSHs( sv_2mortal( newSViv( x ) ) );
-    PUSHs( sv_2mortal( newSViv( y ) ) );
-
-void
-wxSearchCtrl::HitTest( pt )
-    wxPoint pt
-  PPCODE:
-    long col, row;
-    wxTextCtrlHitTestResult res = THIS->HitTest( pt, &col, &row );
-
-    EXTEND( SP, 3 );
-    PUSHs( sv_2mortal( newSViv( res ) ) );
-    PUSHs( sv_2mortal( newSViv( col ) ) );
-    PUSHs( sv_2mortal( newSViv( row ) ) );
-
-%}
+#undef WXPERL_IN_SEARCHCTRL
 
 #endif
+
+
 #endif
