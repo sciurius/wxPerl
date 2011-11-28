@@ -29,6 +29,8 @@ please downgrade to 6.17 or install the latest version from CPAN.
 EOT
 }
 
+my $moduleauthor = ( $mmv >= 6.5702 ) ? [ 'Mattia Barbon <mbarbon@cpan.org>' ] : 'Mattia Barbon <mbarbon@cpan.org>';
+
 # $ExtUtils::MakeMaker::Verbose = 2;
 # $wxConfig::Verbose = 10;
 
@@ -50,6 +52,7 @@ eval {
 
     my_metafile
       ( { license        => 'perl',
+          author         => $moduleauthor,
           dynamic_config => 1,
           requires       => {},
           build_requires => $build_requires,
@@ -69,7 +72,7 @@ eval {
 
 wxWriteMakefile( NAME          => 'Wx',
                  ABSTRACT_FROM => 'Wx.pm',
-                 AUTHOR        => 'Mattia Barbon <mbarbon@cpan.org>',
+                 AUTHOR        => $moduleauthor,
                  VERSION_FROM  => 'Wx.pm',
                  PREREQ_PM     => { %$build_requires },
                  PMLIBDIRS     => [ 'lib', 'build' ],
