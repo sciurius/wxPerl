@@ -1483,7 +1483,10 @@ wxStyledTextCtrl::AppendTextRaw( text )
 
     void LineUpExtend();
     void LineUpRectExtend();
-
+    
+    void LineUp();
+    void LineDown();
+    
     void LinesJoin();
     void LinesSplit( int pixelWidth );
 
