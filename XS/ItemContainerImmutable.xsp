@@ -16,7 +16,9 @@
 
 %name{Wx::ItemContainerImmutable} class wxItemContainerImmutable {
     unsigned int GetCount() const;
+#if !defined(WXPERL_IN_COMBOBOX) || WXPERL_W_VERSION_LE( 2, 9, 2 )
     bool IsEmpty() const;
+#endif
     wxString GetString( unsigned int n );
 
 %{

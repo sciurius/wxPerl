@@ -95,6 +95,16 @@ INCLUDE_COMMAND: $^X -pe "s/ItemContainer/ComboBox/g;s/->(?=[SG]etClientObject)/
 
 #undef WXPERL_IN_COMBOBOX
 
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+
+bool 
+wxComboBox::IsListEmpty();
+
+bool 
+wxComboBox::IsTextEmpty();
+
+#endif
+
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 int
