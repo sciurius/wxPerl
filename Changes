@@ -6,6 +6,7 @@ Revision history for Perl extension Wx.
     - several 2.9.2 compatibility changes
     - Some additional RichText events wrapped - ( thanks to Steve Cookson )
     - wrapped STC specific LineUp and LineDown
+    - wrapped some specific Set/GetLayoutDirection
 
 0.9903 Wed Nov 09 08:00:00 BST 2011
     - Remove force of static binding for mingw libgcc & libstdc++

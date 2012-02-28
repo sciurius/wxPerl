@@ -420,6 +420,17 @@ void
 wxMenu::UpdateUI( source = 0 )
     wxEvtHandler* source
 
+#if defined(__WXGTK__) && WXPERL_W_VERSION_GE( 2, 7, 1 )
+
+wxLayoutDirection
+wxMenu::GetLayoutDirection()
+
+void
+wxMenu::SetLayoutDirection( direction )
+    wxLayoutDirection direction
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::MenuBar
 
 wxMenuBar*
@@ -571,6 +582,18 @@ wxMenuBar::SetMenuLabel( pos, label )
 bool
 wxMenuBar::IsEnabledTop( id )
     int id
+    
+#if defined(__WXGTK__) && WXPERL_W_VERSION_GE( 2, 7, 1 )
+
+wxLayoutDirection
+wxMenuBar::GetLayoutDirection()
+
+void
+wxMenuBar::SetLayoutDirection( direction )
+    wxLayoutDirection direction
+
+#endif
+
 
 #if defined( __WXMAC__ )
 

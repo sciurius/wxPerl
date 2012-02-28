@@ -55,7 +55,9 @@
 #ifdef __WXUNIVERSAL__
     bool IsUsingNativeDecorations() const;
 #endif
-
+#if defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 7, 1 )
+    void SetLayoutDirection( wxLayoutDirection direction );
+#endif
     void SetShape( const wxRegion& region );
 
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
