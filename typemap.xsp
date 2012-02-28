@@ -62,6 +62,7 @@
 %typemap{wxCoord}{simple};
 %typemap{wxEventType}{simple};
 %typemap{wxDirection}{simple};
+%typemap{wxLayoutDirection}{simple};
 
 %typemap{const wxChar*}{simple};
 %typemap{PlClassName}{simple};
