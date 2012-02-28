@@ -33,5 +33,5 @@ $(BUILD)/wxPerl.app/Contents/MacOS/wxPerl: $(BUILD)/wxPerl.app/Contents/MacOS
 	gcc -o $@ $(ARCH_FLAGS) main.c
 
 $(BUILD)/wxPerl.app/Contents/Resources/wxPerl.rsrc: $(BUILD)/wxPerl.app/Contents/Resources
-	 /Developer/Tools/Rez -d __DARWIN__ -useDF -o $(BUILD)/wxPerl.rsrc $(ARCH_FLAGS) wxPerl.r
-	/Developer/Tools/ResMerger -dstIs DF $(BUILD)/wxPerl.rsrc -o $@
+	$(RESTOOLDIR)/Rez -d __DARWIN__ -useDF -o $(BUILD)/wxPerl.rsrc $(ARCH_FLAGS) wxPerl.r
+	$(RESTOOLDIR)/ResMerger -dstIs DF $(BUILD)/wxPerl.rsrc -o $@

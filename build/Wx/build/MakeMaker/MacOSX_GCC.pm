@@ -9,6 +9,9 @@ use Config;
 die "Please set MACOSX_DEPLOYMENT_TARGET to 10.3 or above"
     if $ENV{MACOSX_DEPLOYMENT_TARGET} && $ENV{MACOSX_DEPLOYMENT_TARGET} < 10.3;
 
+my $tools43 = '/Applications/Xcode.app/Developer/Tools';
+my $restoolpath = ( -d $tools43 ) ? $tools43 : '/Developer/Tools'
+
 sub configure_core {
   my $this = shift;
   my %config = $this->SUPER::configure_core( @_ );
@@ -93,11 +96,10 @@ EOT
   my $arch_flags = join ' ',
                         ( Alien::wxWidgets->c_flags =~ /(^|\s)(-arch\s+\w+)/g );
 
-  $text .= sprintf <<'EOT', $rfile, $arch_flags, $arch_flags;
+  $text .= sprintf <<'EOT', $rfile, $restoolpath, $arch_flags, $arch_flags;
 
 wxPerl : Makefile
-%s	# cd cpp/wxPerl.osx && xcodebuild -project wxPerl.xcode
-	cd cpp/wxPerl.osx && make ARCH_FLAGS='%s'
+%s	cd cpp/wxPerl.osx && make RESTOOLDIR='%s' ARCH_FLAGS='%s'
 	cp -p $(PERL) `find cpp -name wxPerl.app`/Contents/MacOS/wxPerl
 	mkdir -p $(INST_ARCHLIB)/auto/Wx
 	cp -rp `find cpp -name wxPerl.app` $(INST_ARCHLIB)/auto/Wx
