@@ -9,8 +9,8 @@ use Config;
 die "Please set MACOSX_DEPLOYMENT_TARGET to 10.3 or above"
     if $ENV{MACOSX_DEPLOYMENT_TARGET} && $ENV{MACOSX_DEPLOYMENT_TARGET} < 10.3;
 
-my $tools43 = '/Applications/Xcode.app/Developer/Tools';
-my $restoolpath = ( -d $tools43 ) ? $tools43 : '/Developer/Tools'
+my $tools43 = '/Applications/Xcode.app/Contents/Developer/Tools';
+my $restoolpath = ( -d $tools43 ) ? $tools43 : '/Developer/Tools';
 
 sub configure_core {
   my $this = shift;
