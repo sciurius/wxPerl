@@ -1,12 +1,13 @@
 Revision history for Perl extension Wx.
 
-0,9904 TBR
+0.9904 Tue Feb 28 2012
     - Implemented TextCtrlIface for RichTextCtrl in >= 2.9.2
     - Implemented TextCtrlIface for SearchCtrl in >= 2.9.2
-    - several 2.9.2 compatibility changes
+    - several 2.9.2 / 2.9.3 compatibility changes
     - Some additional RichText events wrapped - ( thanks to Steve Cookson )
     - wrapped STC specific LineUp and LineDown
     - wrapped some specific Set/GetLayoutDirection
+    - Fixes for OSX Xcode 4.3 builds
 
 0.9903 Wed Nov 09 08:00:00 BST 2011
     - Remove force of static binding for mingw libgcc & libstdc++
