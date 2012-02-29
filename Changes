@@ -1,7 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.9905 TBR
-	
+	- wrapped native wxTreeListCtrl
 
 0.9904 Tue Feb 28 2012
     - Implemented TextCtrlIface for RichTextCtrl in >= 2.9.2

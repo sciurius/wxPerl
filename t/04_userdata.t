@@ -22,7 +22,7 @@ sub DESTROY { &{$_[0][0]} }
 
 package main;
 
-use Test::More 'tests' => 53;
+use Test::More 'tests' => 61;
 
 use strict;
 #use base 'Wx::Frame';
@@ -80,6 +80,63 @@ sub tests {
   # and hope the tree is deleted NOW
   $tree->Destroy;
   ok( $ctrldelete, 'Wx::TreeCtrl: deleting the tree deletes the data' );
+  
+  ############################################################################
+  # wxTreeListCtrl
+  ############################################################################
+  
+  SKIP: {
+    skip 'No Native Wx::TreeListCtrl', 8 unless defined(&Wx::TreeListCtrl::new);
+
+    my $treelist = Wx::TreeListCtrl->new( $this, -1,  );
+    $treelist->AppendColumn("Component",
+                       &Wx::wxCOL_WIDTH_AUTOSIZE,
+                       &Wx::wxALIGN_LEFT,
+                       &Wx::wxCOL_RESIZABLE | &Wx::wxCOL_SORTABLE);
+    $treelist->AppendColumn("# Files",
+                       $treelist->WidthFor("1,000,000"),
+                       &Wx::wxALIGN_RIGHT,
+                       &Wx::wxCOL_RESIZABLE | &Wx::wxCOL_SORTABLE);
+    $treelist->AppendColumn("Size",
+                       $treelist->WidthFor("1,000,000 KiB"),
+                       &Wx::wxALIGN_RIGHT,
+                       &Wx::wxCOL_RESIZABLE | &Wx::wxCOL_SORTABLE);    
+    
+    my $tlroot = $treelist->GetRootItem();
+    ok( $tlroot->IsOk, 'Wx::TreeListCtrl Root item OK');
+    my $tldata = \'Hubris';
+    $treelist->SetItemData($tlroot, $tldata);
+    
+    my $outdata = $treelist->GetItemData($tlroot);
+    is( $$outdata, 'Hubris', "Wx::TreeListCtrl::GetItemData" );
+    $outdata = $treelist->GetItemData($tlroot);
+    is( $$outdata, 'Hubris', "Wx::TreeListCtrl::GetItemData again" );    
+    
+    $treelist->SetItemData($tlroot, Wx::TreeItemData->new( 'Aghast' ) );
+    $outdata = $treelist->GetItemData($tlroot)->GetData;
+    is( $outdata, 'Aghast', "Wx::TreeListCtrl::GetItemData From Wx::TreeItemData" );    
+    
+    ## test deleting and setting again
+    my( $tldeleting, $tlsetting, $tlctrldelete ) = ( 0, 0, 0 );
+        
+    my $tlitem1 = $treelist->AppendItem( $tlroot, 'An item', -1, -1,
+                                   cdata sub { $tldeleting = 1 } );
+    my $tlitem2 = $treelist->AppendItem( $tlroot, 'An item', -1, -1,
+                                   cdata sub { $tlsetting = 1 } );
+    my $tlitem3 = $treelist->AppendItem( $tlroot, 'An item', -1, -1,
+                                   cdata sub { $tlctrldelete = 1 } );
+    
+    is( ref($treelist->GetItemData($tlitem1)), 'MyClass', 'Wx::TreeListCtrl Item Data is class');
+    
+    $treelist->DeleteItem( $tlitem1 );
+    
+    ok( $tldeleting, 'Wx::TreeListCtrl: deleting an item deletes the data' );
+    $treelist->SetItemData( $tlitem2, Wx::TreeItemData->new( 'foo' ) );
+    ok( $tlsetting, 'Wx::TreeListCtrl: setting again item data deletes old data' );
+    ## and hope the tree is deleted NOW
+    $treelist->Destroy;
+    ok( $tlctrldelete, 'Wx::TreeListCtrl: deleting the tree deletes the data' );
+  };
 
   ############################################################################
   # wxListBox & co.

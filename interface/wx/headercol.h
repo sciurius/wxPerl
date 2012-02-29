@@ -23,7 +23,20 @@
 /**
     Special value used for column width meaning unspecified or default.
  */
-enum { wxCOL_WIDTH_DEFAULT = -1 };
+enum
+{
+    /** Special value used for column width meaning unspecified or default. */
+    wxCOL_WIDTH_DEFAULT = -1,
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+    /**
+        Size the column automatically to fit all values.
+
+        @note On OS X, this style is only implemented in the Cocoa build on
+              OS X >= 10.5; it behaves identically to wxCOL_WIDTH_DEFAULT otherwise.
+     */
+    wxCOL_WIDTH_AUTOSIZE = -2
+#endif   
+};
 
 /**
     Bit flags used as wxHeaderColumn flags.

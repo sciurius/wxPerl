@@ -739,7 +739,6 @@ static wxPlINH inherit[] =
     I( FontPickerEvent, CommandEvent )
     I( SetCursorEvent,  Event )
     I( CollapsiblePaneEvent, CommandEvent )
-
     { 0, 0 }
 };
 

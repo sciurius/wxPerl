@@ -23,12 +23,15 @@ sub check_undef {
     $_->[1] = undef foreach @tocheck;
 }
 
+my $testtreelist = defined(&Wx::TreeListCtrl::new);
+
 my $app = Wx::App->new( sub { 1 } );
 # ancillary
 my $frame = Wx::Frame->new( undef, -1, 'Test frame' );
 $frame->Show; # otherwise overlay tests fail
 my $treectrl = Wx::TreeCtrl->new( $frame, -1 );
 my $textctrl = Wx::TextCtrl->new( $frame, -1, 'Some text' );
+my $treelist = Wx::TreeListCtrl->new( $frame, -1) if $testtreelist;
 my $point = Wx::Point->new( 100, 100 );
 my $size = Wx::Size->new( 100, 100 );
 my $rect = Wx::Rect->new( $point, $size );
@@ -106,6 +109,14 @@ my $bi2 = Wx::BusyInfo->new( 'y' );
 check_init { Wx::StopWatch->new };
 my $tid = $treectrl->AddRoot( 'Test root' );
 my $tid2 = $treectrl->AppendItem( $tid, 'Test child' );
+my ($tlid, $tlid1, $tlid2);
+if($testtreelist) {
+	$tlid = $treelist->GetRootItem;
+	$tlid1 = $treelist->AppendItem( $tlid, 'Test Child' );
+	$tlid2 = $treelist->AppendItem( $tlid, 'Test Child' );
+	check_init { Wx::PlTreeListItemComparator->new };
+}
+
 check_init { Wx::TextAttr->new };
 check_init { Wx::LanguageInfo->new( 12345, 'Dummy', 2, 3, 'Dummy' ) };
 check_init { Wx::SingleInstanceChecker->new };
@@ -119,6 +130,7 @@ check_init { Wx::FontEnumerator->new };
 check_init { Wx::AcceleratorEntry->new( 0, 1, 1 ) };
 check_init { Wx::AcceleratorTable->new };
 check_init { Wx::PlValidator->new };
+
 
 # Wx::Overlay / Wx::DCOverlay thread tests
 # creation / destruction order is important
@@ -141,6 +153,7 @@ undef $pen2;
 undef $imagelist2;
 undef $bi2;
 undef $tid2;
+undef $tlid2 if $testtreelist;
 check_undef;
 my $t = threads->create
   ( sub {
