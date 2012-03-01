@@ -887,7 +887,7 @@ wxTreeListCtrl::GetSortColumn()
         PUSHs( sv_newmortal() );
         PUSHs( sv_newmortal() );
     }
-    
+
 %}
     
     /**
