@@ -31,3 +31,5 @@ wxPageSetupDialog::GetPageSetupData()
   OUTPUT:
     RETVAL
 
+int
+wxPageSetupDialog::ShowModal()

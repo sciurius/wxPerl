@@ -29,3 +29,6 @@ wxPrintDialog::GetPrintDialogData()
 
 wxDC*
 wxPrintDialog::GetPrintDC()
+
+int
+wxPrintDialog::ShowModal()
