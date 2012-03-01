@@ -876,11 +876,11 @@ wxTreeListCtrl::GetSortColumn()
     bool ascendingOrder;
     bool issorted;
   PPCODE:
-    issorted = THIS->wxTreeListCtrl::GetSortColumn( &col, &ascendingOrder );
+    issorted = THIS->GetSortColumn( &col, &ascendingOrder );
     EXTEND( SP, 2 );
     if( issorted )
     {
-        PUSHs( sv_2mortal( newSViv( col ) ) );
+        PUSHs( sv_2mortal( newSVuv( col ) ) );
         PUSHs( sv_2mortal( newSViv( ascendingOrder ) ) );
     }
     else {
