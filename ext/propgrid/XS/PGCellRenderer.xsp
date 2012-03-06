@@ -1,0 +1,74 @@
+#############################################################################
+## Name:        ext/propgrid/XS/PGCellRenderer.xsp
+## Purpose:     XS++ for Wx::PGCellRenderer
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+
+#include <wx/object.h>
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Virtual};
+
+%name{Wx::PGCellRenderer} class wxPGCellRenderer : public wxObjectRefData
+
+{
+    %NoVirtualBase;
+
+public:
+
+    wxPGCellRenderer();
+    
+    ## // thread OK
+    ~wxPGCellRenderer()
+        %code%{ THIS->wxObjectRefData::DecRef(); %};
+
+    virtual bool Render( wxDC& dc,
+                         const wxRect& rect,
+                         const wxPropertyGrid* propertyGrid,
+                         wxPGProperty* property,
+                         int column,
+                         int item,
+                         int flags ) const = 0 %Virtual{pure};
+
+    virtual wxSize GetImageSize( const wxPGProperty* property,
+                                 int column,
+                                 int item ) const %Virtual;
+
+    virtual void DrawCaptionSelectionRect( wxDC& dc,
+                                           int x, int y,
+                                           int w, int h ) const %Virtual;
+
+    void DrawText( wxDC& dc,
+                   const wxRect& rect,
+                   int imageWidth,
+                   const wxString& text ) const;
+
+    void DrawEditorValue( wxDC& dc, const wxRect& rect,
+                          int xOffset, const wxString& text,
+                          wxPGProperty* property,
+                          const wxPGEditor* editor ) const;
+
+    int PreDrawCell( wxDC& dc,
+                     const wxRect& rect,
+                     const wxPGCell& cell,
+                     int flags ) const;
+
+    void PostDrawCell( wxDC& dc,
+                       const wxPropertyGrid* propGrid,
+                       const wxPGCell& cell,
+                       int flags ) const;
+};
+
+#endif
+
+

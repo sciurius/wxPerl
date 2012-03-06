@@ -1,0 +1,94 @@
+#############################################################################
+## Name:        ext/propgrid/XS/PropertyGridEvent.xsp
+## Purpose:     XS++ for Wx::PropertyGridEvent
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Event};
+
+%Event{%EVT_PG_SELECTED(id, func)%}
+      {wxEVT_PG_SELECTED};
+%Event{%EVT_PG_CHANGED(id, func)%}
+      {wxEVT_PG_CHANGED};
+%Event{%EVT_PG_CHANGING(id, func)%}
+      {wxEVT_PG_CHANGING};
+%Event{%EVT_PG_HIGHLIGHTED(id, func)%}
+      {wxEVT_PG_HIGHLIGHTED};
+%Event{%EVT_PG_RIGHT_CLICK(id, func)%}
+      {wxEVT_PG_RIGHT_CLICK};
+%Event{%EVT_PG_DOUBLE_CLICK(id, func)%}
+      {wxEVT_PG_DOUBLE_CLICK};
+%Event{%EVT_PG_ITEM_COLLAPSED(id, func)%}
+      {wxEVT_PG_ITEM_COLLAPSED};
+%Event{%EVT_PG_ITEM_EXPANDED(id, func)%}
+      {wxEVT_PG_ITEM_EXPANDED};
+%Event{%EVT_PG_LABEL_EDIT_BEGIN(id, func)%}
+      {wxEVT_PG_LABEL_EDIT_BEGIN};
+%Event{%EVT_PG_LABEL_EDIT_ENDING(id, func)%}
+      {wxEVT_PG_LABEL_EDIT_ENDING};
+%Event{%EVT_PG_COL_BEGIN_DRAG(id, func)%}
+      {wxEVT_PG_COL_BEGIN_DRAG};
+%Event{%EVT_PG_COL_DRAGGING(id, func)%}
+      {wxEVT_PG_COL_DRAGGING};
+%Event{%EVT_PG_COL_END_DRAG(id, func)%}
+      {wxEVT_PG_COL_END_DRAG};
+
+
+%name{Wx::PropertyGridEvent} class wxPropertyGridEvent : public %name{Wx::CommandEvent} wxCommandEvent
+{
+
+public:
+
+    /** Constructor. */
+    %name{newFull} wxPropertyGridEvent(wxEventType commandType=0, int id=0) %Overload;
+
+    /** Copy constructor. */
+    %name{newCopy} wxPropertyGridEvent(const wxPropertyGridEvent& event) %Overload;
+
+    /** Destructor. */
+    %name{Destroy} ~wxPropertyGridEvent();
+
+    bool CanVeto() const;
+
+    unsigned int GetColumn() const;
+
+    wxPGProperty* GetMainParent() const;
+
+    wxPGProperty* GetProperty() const;
+
+    wxByte GetValidationFailureBehavior() const;
+
+    wxString GetPropertyName() const;
+
+    wxVariant GetPropertyValue() const;
+
+    wxVariant GetValue() const;
+
+    void SetCanVeto( bool canVeto );
+
+    void SetProperty( wxPGProperty* p );
+
+    void SetValidationFailureBehavior( wxByte flags );
+
+    void SetValidationFailureMessage( const wxString& message );
+
+    void Veto( bool veto = true );
+
+    bool WasVetoed() const;
+};
+
+
+#endif
+
+

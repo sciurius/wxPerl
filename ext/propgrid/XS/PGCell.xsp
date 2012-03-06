@@ -1,0 +1,246 @@
+#############################################################################
+## Name:        ext/propgrid/XS/PGCell.xsp
+## Purpose:     XS++ for Wx::PGCell
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+
+#include <wx/propgrid/property.h>
+
+%loadplugin{build::Wx::XSP::Overload};
+
+%name{Wx::PGCell} class wxPGCell : public %name{Wx::Object} wxObject
+{
+   
+%{
+static void
+wxPGCell::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+   
+public:
+    %name{newDefault} wxPGCell() %Overload;
+    %name{newCopy} wxPGCell(const wxPGCell& other) %Overload;
+    %name{newFull}wxPGCell( const wxString& text,
+              const wxBitmap& bitmap = wxNullBitmapPtr,
+              const wxColour& fgCol = wxNullColourPtr,
+              const wxColour& bgCol = wxNullColourPtr ) %Overload;
+
+    ~wxPGCell()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGCell", THIS, ST(0) );
+                 delete THIS;
+               %};
+    
+    /* NOT WRAP */
+    /* const wxPGCellData* GetData() const; */
+
+    bool HasText() const;
+
+    void MergeFrom( const wxPGCell& srcCell );
+
+    void SetText( const wxString& text );
+    void SetBitmap( const wxBitmap& bitmap );
+    void SetFgCol( const wxColour& col );
+
+    void SetFont( const wxFont& font );
+
+    void SetBgCol( const wxColour& col );
+
+    const wxString& GetText() const;
+    const wxBitmap& GetBitmap() const;
+    const wxColour& GetFgCol() const;
+    
+    const wxFont& GetFont() const;
+
+    const wxColour& GetBgCol() const;
+};
+
+
+
+%name{Wx::PGChoices} class wxPGChoices
+{
+
+%{
+static void
+wxPGChoices::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%} 
+
+public:
+
+    %name{newDefault} wxPGChoices() %Overload;
+
+    %name{newCopy} wxPGChoices( const wxPGChoices& a ) %Overload;
+
+    %name{newArrayString} wxPGChoices( const wxArrayString& labels, const wxArrayInt& values = wxArrayInt() ) %Overload;
+
+    %name{newChoicesData} wxPGChoices( wxPGChoicesData* data ) %Overload;
+
+    ~wxPGChoices()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGChoices", THIS, ST(0) );
+                 delete THIS;
+               %};
+
+    
+    %name{AddArrayString} void Add( const wxArrayString& arr, const wxArrayInt& arrint ) %Overload;
+
+    /** Adds single item. */
+    %name{AddSingleItem} wxPGChoiceEntry& Add( const wxString& label, int value = wxPG_INVALID_VALUE ) %Overload;
+
+    /** Adds a single item, with bitmap. */
+    %name{AddSingleBitmapItem} wxPGChoiceEntry& Add( const wxString& label, const wxBitmap& bitmap,
+                          int value = wxPG_INVALID_VALUE ) %Overload;
+
+    /** Adds a single item with full entry information. */
+    %name{AddCoiceEntry} wxPGChoiceEntry& Add( const wxPGChoiceEntry& entry ) %Overload;
+
+    /** Adds single item, sorted. */
+    wxPGChoiceEntry& AddAsSorted( const wxString& label, int value = wxPG_INVALID_VALUE );
+
+    void Assign( const wxPGChoices& a );
+
+    void AssignData( wxPGChoicesData* data );
+
+    void Clear();
+
+    wxPGChoices Copy() const;
+
+    const wxString& GetLabel( unsigned int ind ) const;
+
+    unsigned int GetCount() const;
+
+    int GetValue( unsigned int ind ) const;
+
+    wxArrayInt GetValuesForStrings( const wxArrayString& strings ) const;
+    /** TODO FIXME
+    wxArrayInt GetIndicesForStrings( const wxArrayString& strings,
+                                     wxArrayString* unmatched ) const;
+    **/
+    
+    /* wxPGProperty* GetItemAtY( unsigned int y ) const; */
+
+    /* bool HasValue( unsigned int i ) const; */
+
+    %name{IndexFromString} int Index( const wxString& label ) const %Overload;
+
+    %name{IndexFromInt} int Index( int val ) const %Overload;
+    
+    %name{InsertStringLabel} wxPGChoiceEntry& Insert( const wxString& label, int index, int value = wxPG_INVALID_VALUE ) %Overload;
+
+    %name{InsertChoiceEntry} wxPGChoiceEntry& Insert( const wxPGChoiceEntry& entry, int index ) %Overload;
+
+    bool IsOk() const;
+
+    wxPGChoiceEntry& Item( unsigned int i );
+
+    void RemoveAt(size_t nIndex, size_t count = 1);
+
+    /* void Set( const wxChar** labels, const long* values = NULL ); */
+
+    void Set( const wxArrayString& labels, const wxArrayInt& values = wxArrayInt() );
+
+    void AllocExclusive();
+
+    wxArrayString GetLabels() const;
+
+    /*void operator= (const wxPGChoices& a); */
+
+    /* wxPGChoiceEntry& operator[](unsigned int i); */
+    /* const wxPGChoiceEntry& operator[](unsigned int i) const; */
+};
+
+%name{Wx::PGChoicesData} class wxPGChoicesData : public wxObjectRefData
+{
+    
+public:
+    
+    wxPGChoicesData();
+
+    void CopyDataFrom( wxPGChoicesData* data );
+
+    wxPGChoiceEntry& Insert( int index, const wxPGChoiceEntry& item );
+
+    void Clear();
+
+    unsigned int GetCount() const;
+    
+    /* const wxPGChoiceEntry& Item( unsigned int i ) const; */
+
+    wxPGChoiceEntry& Item( unsigned int i );
+
+private:
+    
+    ~wxPGChoicesData()
+        %code%{ THIS->wxObjectRefData->DecRef();
+               %};    
+    
+};
+
+%name{Wx::PGChoiceEntry} class wxPGChoiceEntry : public %name{Wx::PGCell} wxPGCell
+{
+    
+%{
+static void
+wxPGChoiceEntry::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+    %name{newDefault} wxPGChoiceEntry() %Overload;
+
+    %name{newCopy} wxPGChoiceEntry(const wxPGChoiceEntry& other) %Overload;
+
+    %name{newValues} wxPGChoiceEntry( const wxString& label,
+                     int value = wxPG_INVALID_VALUE ) %Overload;
+
+    ~wxPGChoiceEntry()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGChoiceEntry", THIS, ST(0) );
+                 delete THIS;
+               %};    
+
+    void SetValue( int value );
+    int GetValue() const;
+};
+
+%name{Wx::PGValidationInfo} class wxPGValidationInfo
+{
+    
+%{
+static void
+wxPGValidationInfo::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+    wxPGValidationInfo();
+    
+    ~wxPGValidationInfo()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGValidationInfo", THIS, ST(0) );
+                 delete THIS;
+               %};    
+    
+    wxByte GetFailureBehavior();
+    const wxString& GetFailureMessage() const;
+    wxVariant& GetValue();
+    void SetFailureBehavior(wxByte failureBehavior);
+    void SetFailureMessage(const wxString& message);
+
+};
+
+#endif
+
+

@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.9905 TBR
+    - first wrap of wxPropertyGrid
 	- wrapped native wxTreeListCtrl
 	- ShowModal implementation for wxPrintDialog and wxPageSetupDialog
 	  ( thanks to Tomohiro Hosaka )

@@ -1,0 +1,179 @@
+#############################################################################
+## Name:        ext/propgrid/XS/PropertyGridManager.xsp
+## Purpose:     XS++ for Wx::PropertyGridManager
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Virtual};
+
+%name{Wx::PropertyGridManager} class wxPropertyGridManager : public %name{Wx::Panel} wxPanel
+{
+    %NoVirtualBase;
+    %VirtualImplementation{
+        %Name{wxPlPropertyGridManager};
+        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGridManager ); %};
+        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGridManager, wxPropertyGridManager ); %};
+        %ForceAbstract;
+    };
+
+public:
+    
+    %name{newDefault} wxPropertyGridManager() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+    
+    %name{newFull} wxPropertyGridManager( wxWindow *parent, wxWindowID id = wxID_ANY,
+                           const wxPoint& pos = wxDefaultPosition,
+                           const wxSize& size = wxDefaultSize,
+                           long style = wxPGMAN_DEFAULT_STYLE,
+                           const wxString& name = wxPropertyGridManagerNameStr ) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{Destroy} virtual ~wxPropertyGridManager();  
+    
+    /* Virtual wxPropertyGridInterface */
+    
+    virtual void Clear() %Virtual;
+    
+    virtual wxPGVIterator GetVIterator( int flags ) const %Virtual;
+    
+    virtual bool IsPropertySelected( wxPGPropArgCls& id ) const %Virtual; 
+    
+    /* Virtual wxPropertyGridInterface  End*/    
+    
+    wxPropertyGridPage* AddPage( const wxString& label = wxEmptyString,
+                                 const wxBitmap& bmp = wxNullBitmapPtr,
+                                 wxPropertyGridPage* pageObj = NULL );
+
+    void ClearPage( int page );
+
+    bool CommitChangesFromEditor( wxUint32 flags = 0 );
+
+    bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
+                 const wxPoint& pos = wxDefaultPosition,
+                 const wxSize& size = wxDefaultSize,
+                 long style = wxPGMAN_DEFAULT_STYLE,
+                 const wxString& name = wxPropertyGridManagerNameStr );
+
+    bool EnableCategories( bool enable );
+
+    bool EnsureVisible( wxPGPropArgCls& id );
+
+    int GetColumnCount( int page = -1 ) const;
+
+    /**
+        Returns height of the description text box.
+    */
+    int GetDescBoxHeight() const;
+
+    wxPropertyGrid* GetGrid();
+
+    wxPropertyGridPage* GetCurrentPage() const;
+
+    wxPropertyGridPage* GetPage( unsigned int ind ) const;
+
+    wxPropertyGridPage* GetPage( const wxString& name ) const;
+
+    int GetPageByName( const wxString& name ) const;
+
+    size_t GetPageCount() const;
+
+    const wxString& GetPageName( int index ) const;
+
+    wxPGProperty* GetPageRoot( int index ) const;
+
+    /** Returns index to currently selected page. */
+    int GetSelectedPage() const;
+
+    /** Shortcut for GetGrid()->GetSelection(). */
+    wxPGProperty* GetSelectedProperty() const;
+
+    /** Synonyme for GetSelectedPage. */
+    wxPGProperty* GetSelection() const;
+
+    wxToolBar* GetToolBar() const;
+
+    virtual wxPropertyGridPage* InsertPage( int index, const wxString& label,
+                                            const wxBitmap& bmp = wxNullBitmapPtr,
+                                            wxPropertyGridPage* pageObj = NULL ); 
+
+    bool IsAnyModified() const;
+
+    bool IsFrozen() const;
+
+    bool IsPageModified( size_t index ) const;
+
+    virtual bool RemovePage( int page ) %Virtual;
+
+    %name{SelectPageOLInt} void SelectPage( int index ) %Overload;
+
+    %name{SelectPageOLString} void SelectPage( const wxString& label ) %Overload;
+
+    %name{SelectPageOLGridPage} void SelectPage( wxPropertyGridPage* page ) %Overload;
+
+    bool SelectProperty( wxPGPropArgCls& id, bool focus = false );
+
+    void SetColumnCount( int colCount, int page = -1 );
+
+    void SetColumnTitle( int idx, const wxString& title );
+
+    void SetDescription( const wxString& label, const wxString& content );
+
+    /** Sets y coordinate of the description box splitter. */
+    void SetDescBoxHeight( int ht, bool refresh = true );
+
+    void SetSplitterLeft( bool subProps = false, bool allPages = true );
+
+    void SetPageSplitterPosition( int page, int pos, int column = 0 );
+
+    void SetSplitterPosition( int pos, int column = 0 );
+
+    /** Synonyme for SelectPage(name). */
+    /* void SetStringSelection( const wxChar* name ); */
+
+    void ShowHeader(bool show = true);
+
+    //
+    // Subclassing helpers
+    //
+
+    /**
+        Creates property grid for the manager. Reimplement in derived class to
+        use subclassed wxPropertyGrid. However, if you do this then you
+        must also use the two-step construction (ie. default constructor and
+        Create() instead of constructor with arguments) when creating the
+        manager.
+    */
+    
+protected:
+    
+    virtual wxPropertyGrid* CreatePropertyGrid() const %Virtual;
+};
+
+/**************************************************************************/
+/*                                                                        */
+/* wxPropertyGridInterface                                                */
+/*                                                                        */
+/**************************************************************************/
+
+#define WXPERL_IN_PROPERTYGRIDMANAGER
+
+INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PropertyGridInterface.xsp
+INCLUDE_COMMAND: $^X -pe "s/PGPGridInterfaceBase/PropertyGridManager/g" xspp/PropertyGridInterface.h
+
+#unded WXPERL_IN_PROPERTYGRIDMANAGER
+
+#endif
+
+

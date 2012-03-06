@@ -1,0 +1,297 @@
+#############################################################################
+## Name:        ext/propgrid/XS/PropertyGrid.xsp
+## Purpose:     XS++ for Wx::PropertyGrid
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Virtual};
+
+
+%name{Wx::PropertyGridHitTestResult} class wxPropertyGridHitTestResult 
+{
+%{
+static void
+wxPropertyGridHitTestResult::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+public:
+    wxPropertyGridHitTestResult();
+
+    ~wxPropertyGridHitTestResult()
+    %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PropertyGridHitTestResult", THIS, ST(0) );
+             delete THIS;
+           %};
+    
+    int GetColumn() const;
+
+    wxPGProperty* GetProperty();
+   
+    int GetSplitter() const;
+
+    int GetSplitterHitOffset() const;
+    
+};
+
+%name{Wx::PropertyGrid} class wxPropertyGrid : public %name{Wx::Control} wxControl
+
+{
+    %NoVirtualBase;
+    %VirtualImplementation{
+        %Name{wxPlPropertyGrid};
+        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGrid ); %};
+        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGrid, wxPropertyGrid ); %};
+        %ForceAbstract;
+    };
+
+public:
+    
+    %name{newDefault} wxPropertyGrid() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull} wxPropertyGrid( wxWindow *parent, wxWindowID id = wxID_ANY,
+                    const wxPoint& pos = wxDefaultPosition,
+                    const wxSize& size = wxDefaultSize,
+                    long style = wxPG_DEFAULT_STYLE,
+                    const wxString& name = wxPropertyGridNameStr ) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    void AddActionTrigger( int action, int keycode, int modifiers = 0 );
+
+    bool AddToSelection( wxPGPropArgCls& id );
+
+    static void AutoGetTranslation( bool enable );
+
+    void BeginLabelEdit( unsigned int colIndex = 0 );
+
+    bool ChangePropertyValue( wxPGPropArgCls& id, wxVariant newValue );
+
+    void CenterSplitter( bool enableAutoResizing = false );
+
+    virtual void Clear() %Virtual;
+    
+    virtual wxPGVIterator GetVIterator( int flags ) const %Virtual;
+    
+    virtual bool IsPropertySelected( wxPGPropArgCls& id ) const %Virtual;
+
+    void ClearActionTriggers( int action );
+
+    virtual bool CommitChangesFromEditor( wxUint32 flags = 0 ) %Virtual;
+
+    bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = wxPG_DEFAULT_STYLE,
+                const wxString& name = wxPropertyGridNameStr );
+
+    void DedicateKey( int keycode );
+
+    bool EnableCategories( bool enable );
+
+    void EndLabelEdit( bool commit = true );
+
+    bool EnsureVisible( wxPGPropArgCls& id );
+
+    wxSize FitColumns();
+
+    wxTextCtrl* GetLabelEditor() const;
+
+    wxWindow* GetPanel();
+
+    wxColour GetCaptionBackgroundColour() const;
+
+    wxFont& GetCaptionFont();
+
+    wxColour GetCaptionForegroundColour() const;
+
+    wxColour GetCellBackgroundColour() const;
+
+    wxColour GetCellDisabledTextColour() const;
+
+    wxColour GetCellTextColour() const;
+
+    unsigned int GetColumnCount() const;
+
+    wxColour GetEmptySpaceColour() const;
+
+    int GetFontHeight() const;
+
+    wxPropertyGrid* GetGrid();
+
+    wxRect GetImageRect( wxPGProperty* property, int item ) const;
+
+    wxSize GetImageSize( wxPGProperty* property = NULL, int item = -1 ) const;
+
+    wxPGProperty* GetLastItem( int flags = wxPG_ITERATE_DEFAULT );
+
+    wxColour GetLineColour() const;
+
+    wxColour GetMarginColour() const;
+
+    wxPGProperty* GetRoot() const;
+
+    int GetRowHeight() const;
+
+    wxPGProperty* GetSelectedProperty() const;
+
+    wxPGProperty* GetSelection() const;
+
+    wxColour GetSelectionBackgroundColour() const;
+
+    wxColour GetSelectionForegroundColour() const;
+
+    /* wxPGSortCallback GetSortFunction() const; */
+
+    int GetSplitterPosition( unsigned int splitterIndex = 0 ) const;
+
+    wxTextCtrl* GetEditorTextCtrl() const;
+
+    const wxPGCell& GetUnspecifiedValueAppearance() const;
+
+    wxString GetUnspecifiedValueText( int argFlags = 0 ) const;
+
+    int GetVerticalSpacing() const;
+
+    wxPropertyGridHitTestResult HitTest( const wxPoint& pt ) const;
+    
+    bool IsAnyModified() const;
+
+    bool IsEditorFocused() const;
+
+    bool IsFrozen() const;
+
+    void MakeColumnEditable( unsigned int column, bool editable = true );
+
+    void OnTLPChanging( wxWindow* newTLP );
+
+    void RefreshEditor();
+
+    virtual void RefreshProperty( wxPGProperty* p ) %Virtual;
+
+    static wxPGEditor* RegisterEditorClass( wxPGEditor* editor, bool noDefCheck = false );
+    
+    static wxPGEditor* DoRegisterEditorClass( wxPGEditor* editor, const wxString& name,  bool noDefCheck = false );
+    
+    void ResetColours();
+
+    void ResetColumnSizes( bool enableAutoResizing = false );
+
+    bool RemoveFromSelection( wxPGPropArgCls& id );
+
+    bool SelectProperty( wxPGPropArgCls& id, bool focus = false );
+
+    void SetCaptionBackgroundColour(const wxColour& col);
+
+    void SetCaptionTextColour(const wxColour& col);
+
+    void SetCellBackgroundColour(const wxColour& col);
+
+    void SetCellDisabledTextColour(const wxColour& col);
+
+    void SetCellTextColour(const wxColour& col);
+
+    void SetColumnCount( int colCount );
+
+    void SetCurrentCategory( wxPGPropArgCls& id );
+
+    void SetEmptySpaceColour(const wxColour& col);
+
+    void SetLineColour(const wxColour& col);
+
+    void SetMarginColour(const wxColour& col);
+
+    /*void SetSelection( const wxArrayPGProperty& newSelection ); */
+    /* Accept ref to array of Wx::PGProperty Objects. */
+
+%{
+
+void
+wxPropertyGrid::SetSelection( selectarr = 0 )
+    SV* selectarr
+  PREINIT:
+    wxArrayPGProperty newSelections;
+  CODE:
+    AV* av;
+    if( !SvROK( selectarr ) ||
+        ( SvTYPE( (SV*) ( av = (AV*) SvRV( selectarr ) ) ) != SVt_PVAV ) )
+    {
+        croak( "the value is not an array reference" );
+        return;
+    }
+    
+    int n = av_len( av ) + 1;
+    
+    for( int i = 0; i < n; ++i )
+    {
+        SV* t = *av_fetch( av, i, 0 );
+        newSelections.push_back( (wxPGProperty*)wxPli_sv_2_object( aTHX_ t, "Wx::PGProperty" ) );
+    }
+    THIS->SetSelection( newSelections );
+
+%}
+
+    void SetSelectionBackgroundColour(const wxColour& col);
+
+    void SetSelectionTextColour(const wxColour& col);
+
+    /* void SetSortFunction( wxPGSortCallback sortFunction ); */
+
+    void SetSplitterPosition( int newxpos, int col = 0 );
+
+    void SetSplitterLeft( bool privateChildrenToo = false );
+
+    void SetUnspecifiedValueAppearance( const wxPGCell& cell );
+
+    void SetVerticalSpacing( int vspacing );
+
+    virtual void DoShowPropertyError( wxPGProperty* property,
+                                      const wxString& msg ) %Virtual;
+
+    virtual void DoHidePropertyError( wxPGProperty* property ) %Virtual;
+#if wxUSE_STATUSBAR
+
+    virtual wxStatusBar* GetStatusBar() %Virtual;
+#endif
+
+    void EditorsValueWasModified();
+
+    void EditorsValueWasNotModified();
+
+    wxVariant GetUncommittedPropertyValue();
+
+    bool IsEditorsValueModified() const;
+
+    void ShowPropertyError( wxPGPropArgCls& id, const wxString& msg );
+
+    bool WasValueChangedInEvent() const;
+
+};
+
+/**************************************************************************/
+/*                                                                        */
+/* wxPropertyGridInterface                                                */
+/*                                                                        */
+/**************************************************************************/
+    
+#define WXPERL_IN_PROPERTYGRID
+
+INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PropertyGridInterface.xsp
+INCLUDE_COMMAND: $^X -pe "s/PGPGridInterfaceBase/PropertyGrid/g" xspp/PropertyGridInterface.h
+
+#undef WXPERL_IN_PROPERTYGRID
+
+
+#endif
+
+

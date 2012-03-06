@@ -1,0 +1,58 @@
+#############################################################################
+## Name:        ext/propgrid/XS/PropertyGridPageState.xsp
+## Purpose:     XS++ for Wx::PropertyGridPageState
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+
+%loadplugin{build::Wx::XSP::Overload};
+
+%name{Wx::PropertyGridIterator} class wxPropertyGridIterator : public %name{Wx::PropertyGridIteratorBase} wxPropertyGridIteratorBase
+{
+public:
+
+    void Assign( const wxPropertyGridIteratorBase& it );
+    bool AtEnd() const;
+    wxPGProperty* GetProperty() const;
+    void Next( bool iterateChildren = true );
+    void Prev();
+    void SetBaseParent( wxPGProperty* baseParent );
+};
+
+
+%name{Wx::PGVIterator} class wxPGVIterator
+{
+public:
+    %name{newDefault} wxPGVIterator() %Overload;
+    
+    /* %name{newObject}  wxPGVIterator( wxPGVIteratorBase* obj ) %Overload; */
+    
+    %name{newCopy}    wxPGVIterator( const wxPGVIterator& it ) %Overload;
+    
+    %name{Destroy} ~wxPGVIterator();
+    
+    void UnRef();
+    
+    /* const wxPGVIterator& operator=( const wxPGVIterator& it ); */
+    
+    void Next();
+
+    bool AtEnd();
+
+    wxPGProperty* GetProperty();
+
+};
+
+
+#endif
+
+

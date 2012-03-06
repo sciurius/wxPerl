@@ -45,9 +45,12 @@ wxItemKind              T_ENUM
 wxLayoutDirection       T_ENUM
 PlClassName             T_CLASSNAME
 wxUint32                T_IV
+wxLongLong_t            T_IV
+wxULongLong_t           T_UV
 wxByte                  T_U_CHAR
 wxTextCtrlHitTestResult T_ENUM
 wxArrayString           T_ARRAYSTRING
+wxArrayString *         T_ARRAYSTRING
 wxPliUserDataCD **      T_ARRAYUSERDATA
 wxArrayInt              T_ARRAYINT
 wxTextPos               T_IV

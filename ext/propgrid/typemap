@@ -1,0 +1,75 @@
+#############################################################################
+## Name:        ext/propgrid/typemap
+## Purpose:     typemap
+## Author:      Mark Dootson
+## Modified by:
+## Created:     01/03/2012
+## SVN-ID:      $Id:$
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+
+wxPropertyGridPage *       O_WXEVTHANDLER
+wxPlPropertyGridPage *     O_WXEVTHANDLER
+wxPropertyGridManager *    O_WXEVTHANDLER
+wxPlPropertyGridManager *  O_WXEVTHANDLER
+wxPropertyGrid *           O_WXEVTHANDLER
+const wxPropertyGrid *     O_WXEVTHANDLER
+wxPlPropertyGrid *         O_WXEVTHANDLER
+wxPropertyGridInterface *  O_WXEVTHANDLER
+wxPGMultiButton *          O_WXEVTHANDLER
+
+## Missing RTTI Info for Wx::Object
+wxPGCell *                 O_NON_WXOBJECT_THR
+wxPGChoiceEntry *          O_NON_WXOBJECT_THR
+##
+
+wxPGChoices *              O_NON_WXOBJECT_THR
+wxPGValidationInfo *       O_NON_WXOBJECT_THR
+wxPGChoicesData *          O_NON_WXOBJECT
+wxPGCellData *             O_NON_WXOBJECT
+wxPGCellRenderer *         O_NON_WXOBJECT
+wxPGDefaultRenderer *      O_NON_WXOBJECT
+wxPlPGCellRenderer *       O_NON_WXOBJECT
+
+wxPGWindowList *           O_NON_WXOBJECT_THR
+
+wxPGEditor *               O_WXOBJECT_THR
+const wxPGEditor *         O_WXOBJECT_THR
+wxPlPGEditor *             O_WXOBJECT_THR
+wxPGEditorDialogAdapter *  O_WXOBJECT_THR
+wxPlPGEditorDialogAdapter *  O_WXOBJECT_THR
+wxPlPGTextCtrlEditor *     O_WXOBJECT_THR
+wxPlPGChoiceEditor *       O_WXOBJECT_THR
+wxPlPGComboBoxEditor *     O_WXOBJECT_THR
+wxPlPGChoiceAndButtonEditor *  O_WXOBJECT_THR
+wxPlPGTextCtrlAndButtonEditor *  O_WXOBJECT_THR
+wxPlPGCheckBoxEditor *     O_WXOBJECT_THR
+wxPGTextCtrlEditor *     O_WXOBJECT_THR
+wxPGChoiceEditor *       O_WXOBJECT_THR
+wxPGComboBoxEditor *     O_WXOBJECT_THR
+wxPGChoiceAndButtonEditor *  O_WXOBJECT_THR
+wxPGTextCtrlAndButtonEditor *  O_WXOBJECT_THR
+wxPGCheckBoxEditor *     O_WXOBJECT_THR
+
+wxPGPropArgCls *        O_NON_WXOBJECT
+wxPGPropArg *           O_NON_WXOBJECT
+
+wxPropertyCategory *       O_WXOBJECT_THR
+wxPGProperty *             O_WXOBJECT_THR
+const wxPGProperty *       O_WXOBJECT_THR
+wxPlPGProperty *           O_WXOBJECT_THR
+
+wxPropertyGridEvent *      O_WXOBJECT
+
+wxPGVIterator *               O_NON_WXOBJECT
+wxPropertyGridIterator *      O_NON_WXOBJECT
+wxPropertyGridIteratorBase *  O_NON_WXOBJECT
+wxPropertyGridHitTestResult * O_NON_WXOBJECT
+
+wxPGPropertyFlags          T_UV
+    
+

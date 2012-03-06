@@ -1,0 +1,89 @@
+#############################################################################
+## Name:        ext/propgrid/XS/PropertyGridPage.xsp
+## Purpose:     XS++ for Wx::PropertyGridPage
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Virtual};
+
+%name{Wx::PropertyGridPage} class wxPropertyGridPage : public %name{Wx::EvtHandler} wxEvtHandler
+
+{
+    %NoVirtualBase;
+    %VirtualImplementation{
+        %Name{wxPlPropertyGridPage};
+        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGridPage ); %};
+        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGridPage, wxPropertyGridPage ); %};
+        %ForceAbstract;
+    };
+
+public:
+    wxPropertyGridPage()
+       %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+    
+    %name{Destroy} virtual ~wxPropertyGridPage();
+
+    /* Virtual wxPropertyGridInterface */
+    
+    virtual void Clear() %Virtual;
+    
+    virtual wxPGVIterator GetVIterator( int flags ) const %Virtual;
+    
+    virtual bool IsPropertySelected( wxPGPropArgCls& id ) const %Virtual;
+    
+    /* Virtual wxPropertyGridInterface  End*/
+
+    wxSize FitColumns();
+
+    int GetIndex() const;
+
+    wxPGProperty* GetRoot() const;
+
+    int GetSplitterPosition( int col = 0 ) const;
+
+    int GetToolId() const;
+
+    virtual void Init() %Virtual;
+
+    virtual bool IsHandlingAllEvents() const %Virtual;
+
+    virtual void OnShow() %Virtual;
+
+    virtual void RefreshProperty( wxPGProperty* p ) %Virtual;
+
+    void SetSplitterPosition( int splitterPos, int col = 0 );
+    
+    wxPropertyCategory* GetPropertyCategory( wxPGPropArgCls& id ) const
+        %code{% RETVAL = (wxPropertyCategory*)THIS->wxPropertyGridPageState::GetPropertyCategory( (wxPGProperty*) id ); %};
+    
+    wxPGProperty* GetPropertyByLabel( const wxString& label ) const
+        %code{% RETVAL = (wxPropertyCategory*)THIS->wxPropertyGridPageState::GetPropertyByLabel( label ); %};
+};
+
+/**************************************************************************/
+/*                                                                        */
+/* wxPropertyGridInterface                                                */
+/*                                                                        */
+/**************************************************************************/
+
+#define WXPERL_IN_PROPERTYGRIDPAGE
+
+INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PropertyGridInterface.xsp
+INCLUDE_COMMAND: $^X -pe "s/PGPGridInterfaceBase/PropertyGridPage/g" xspp/PropertyGridInterface.h
+
+#unded WXPERL_IN_PROPERTYGRIDPAGE
+
+#endif
+
+

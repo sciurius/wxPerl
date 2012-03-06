@@ -1,0 +1,76 @@
+#############################################################################
+## Name:        ext/propgrid/typemap.xsp
+## Purpose:     typemap file for xsubppp.pl
+## Author:      Mark Dootson
+## Modified by:
+## Created:     01/03/2012
+## SVN-ID:      $Id: typemap.xsp 2962 2010-08-23 19:33:35Z mbarbon $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%typemap{wxPGVIterator}{reference};
+%typemap{const wxPGVIterator&}{reference};
+
+%typemap{wxPGPropArgCls*}{simple};
+%typemap{wxPGPropArgCls&}{reference};
+%typemap{const wxPGPropArgCls&}{reference};
+%typemap{wxPGCell&}{reference};
+%typemap{wxPGChoices&}{reference};
+%typemap{wxPGChoices}{reference};
+%typemap{const wxPGChoices&}{reference};
+%typemap{const wxPGCell&}{reference};
+%typemap{wxPGValidationInfo&}{reference};
+
+%typemap{wxPGCellRenderer*}{simple};
+%typemap{wxPGEditorDialogAdapter*}{simple};
+%typemap{wxPGPropertyFlags}{simple};
+
+%typemap{wxPGPaintData&}{reference};
+/* %typemap{const wxPGCellData*}{simple}; */
+%typemap{wxPGChoicesData*}{simple};
+%typemap{wxPGChoiceEntry&}{reference};
+%typemap{const wxPGChoiceEntry&}{reference};
+
+%typemap{wxPGWindowList}{reference};
+%typemap{wxPGProperty*}{simple};
+%typemap{const wxPGProperty*}{simple};
+%typemap{wxPropertyGrid*}{simple};
+%typemap{const wxPropertyGrid*}{simple};
+%typemap{wxPropertyGridHitTestResult}{reference};
+
+%typemap{wxPropertyGridIterator}{reference};
+%typemap{wxPropertyCategory*}{simple};
+%typemap{wxPGEditor*}{simple};
+%typemap{const wxPGEditor*}{simple};
+%typemap{const wxPropertyGridEvent&}{reference};
+%typemap{const wxPropertyGridIteratorBase&}{reference};
+
+%typemap{wxPropertyGridInterface*}{simple};
+%typemap{wxPropertyGridInterface}{reference};
+%typemap{wxPropertyGridInterface&}{reference};
+%typemap{wxPropertyGridPageState*}{simple};
+
+%typemap{wxPropertyGridPage*}{simple};
+
+%typemap{wxArrayPGProperty*}{simple};
+%typemap{const wxArrayPGProperty&}{reference};
+
+%typemap{wxBitmap*}{simple};
+%typemap{wxBitmap&}{reference};
+%typemap{wxDateTime}{reference};
+
+%typemap{wxValidator*}{simple};
+%typemap{wxVariant}{reference};
+%typemap{wxVariant&}{reference};
+%typemap{wxVariant*}{simple};
+%typemap{wxEvent&}{reference};
+%typemap{wxFont&}{reference};
+%typemap{wxRect}{reference};
+%typemap{wxStatusBar*}{simple};
+
+%typemap{wxArrayString*}{simple};
+%typemap{wxLongLong_t}{simple};
+%typemap{wxULongLong_t}{simple};
+

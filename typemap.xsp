@@ -32,7 +32,24 @@
 %typemap{wxUint32}{simple};
 %typemap{wxByte}{simple};
 
-%typemap{wxArrayString}{simple};
+%typemap{wxArrayString}{parsed}{
+  %cpp_type{%wxArrayString%};
+  %output_list{%
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ RETVAL );
+    SPAGAIN;
+  %};
+};
+
+%typemap{wxArrayString*}{parsed}{
+  %cpp_type{%wxArrayString%};
+  %output_list{%
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ RETVAL );
+    SPAGAIN;
+  %};
+};
+
 %typemap{wxArrayInt}{parsed}{
   %output_list{%
     PUTBACK;
