@@ -1,0 +1,111 @@
+#############################################################################
+## Name:        ext/ribbon/XS/RibbonToolBar.xsp
+## Purpose:     XS++ for Wx::RibbonToolBar
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+
+#include <wx/ribbon/toolbar.h>
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Event};
+
+%Event{%EVT_RIBBONTOOLBAR_CLICKED(id, func)%}
+      {wxEVT_COMMAND_RIBBONTOOL_CLICKED};
+%Event{%EVT_RIBBONTOOLBAR_DROPDOWN_CLICKED(id, func)%}
+      {wxEVT_COMMAND_RIBBONTOOL_DROPDOWN_CLICKED};      
+
+%name{Wx::RibbonToolBar} class wxRibbonToolBar : public %name{Wx::RibbonControl} wxRibbonControl
+{
+public:
+   
+    %name{newDefault} wxRibbonToolBar() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull} wxRibbonToolBar(wxWindow* parent,
+                  wxWindowID id = wxID_ANY,
+                  const wxPoint& pos = wxDefaultPosition,
+                  const wxSize& size = wxDefaultSize,
+                  long style = 0) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{Destroy} virtual ~wxRibbonToolBar();
+
+    bool Create(wxWindow* parent,
+                wxWindowID id = wxID_ANY,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = 0);
+
+    /* for add methods assign a toolid and return it so that it may be used for event functions etc. */
+    %name{AddToolSimple} int AddTool(
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxString& help_string,
+                wxRibbonButtonKind kind = wxRIBBON_BUTTON_NORMAL) %Overload
+            %code{%
+                RETVAL = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+                THIS->AddTool(RETVAL, *bitmap, help_string, kind );
+                %};
+    
+    /* no point in adding client data as we cannot access it anyway */
+    %name{AddToolClientData} int AddTool(
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxBitmap& bitmap_disabled = wxNullBitmapPtr,
+                const wxString& help_string = wxEmptyString,
+                wxRibbonButtonKind kind = wxRIBBON_BUTTON_NORMAL) %Overload
+            %code{%
+                RETVAL = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+                THIS->AddTool(RETVAL, *bitmap, *bitmap_disabled, help_string, kind, (wxObject*)NULL );
+                %};
+        
+    int AddDropdownTool(
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{%
+                RETVAL = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+                THIS->AddDropdownTool(RETVAL, *bitmap, help_string );
+                %};
+
+    int AddHybridTool(
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{%
+                RETVAL = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+                THIS->AddHybridTool(RETVAL, *bitmap, help_string);
+                %};
+
+    virtual void AddSeparator();
+
+    virtual void SetRows(int nMin, int nMax = -1);
+};
+
+%name{Wx::RibbonToolBarEvent} class  wxRibbonToolBarEvent : public %name{Wx::CommandEvent} wxCommandEvent
+{
+public:
+    wxRibbonToolBarEvent(wxEventType command_type = wxEVT_NULL,
+                       int win_id = 0,
+                       wxRibbonToolBar* bar = NULL);
+    
+    wxEvent *Clone() const;
+
+    wxRibbonToolBar* GetBar();
+    void SetBar(wxRibbonToolBar* bar);
+    bool PopupMenu(wxMenu* menu);
+};
+
+
+
+#endif

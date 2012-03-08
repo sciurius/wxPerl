@@ -1,0 +1,136 @@
+#############################################################################
+## Name:        ext/ribbon/XS/RibbonButtonBar.xsp
+## Purpose:     XS++ for Wx::RibbonButtonBar
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+
+#include <wx/ribbon/buttonbar.h>
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Event};
+
+%Event{%EVT_RIBBONBUTTONBAR_CLICKED(id, func)%}
+      {wxEVT_COMMAND_RIBBONBUTTON_CLICKED};
+%Event{%EVT_RIBBONBUTTONBAR_DROPDOWN_CLICKED(id, func)%}
+      {wxEVT_COMMAND_RIBBONBUTTON_DROPDOWN_CLICKED};
+
+%name{Wx::RibbonButtonBar} class wxRibbonButtonBar : public %name{Wx::RibbonControl} wxRibbonControl
+{
+public:
+    
+    %name{newDefault} wxRibbonButtonBar() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull} wxRibbonButtonBar(wxWindow* parent,
+                  wxWindowID id = wxID_ANY,
+                  const wxPoint& pos = wxDefaultPosition,
+                  const wxSize& size = wxDefaultSize,
+                  long style = 0) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+    
+
+    %name{Destroy} virtual ~wxRibbonButtonBar();
+
+    bool Create(wxWindow* parent,
+                wxWindowID id = wxID_ANY,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = 0);
+    
+    /* for add methods assign a buttonid and return it so that it may be used for event functions etc. */
+    
+    int AddDropdownButton(
+                int button_id,
+                const wxString& label,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{%
+                RETVAL = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
+                THIS->AddDropdownButton(RETVAL, label, *bitmap, help_string);
+                %};                
+
+    int AddHybridButton(
+                int button_id,
+                const wxString& label,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{%
+                RETVAL = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
+                THIS->AddHybridButton(RETVAL, label, *bitmap, help_string);
+                %};                
+    
+    int AddToggleButton(
+                int button_id,
+                const wxString& label,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{%
+                RETVAL = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
+                THIS->AddToggleButton(RETVAL, label, *bitmap, help_string);
+                %};              
+
+    %name{AddButtonShortParams} virtual int AddButton(
+                int button_id,
+                const wxString& label,
+                const wxBitmap& bitmap,
+                const wxString& help_string,
+                unsigned int kind = wxRIBBON_BUTTON_NORMAL) %Overload
+            %code{%
+                RETVAL = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
+                THIS->AddButton(RETVAL, label, *bitmap, help_string, (wxRibbonButtonKind)kind);
+                %};              
+    
+    /* no point in adding client data as we cannot access it */
+    %name{AddButtonLongParams}virtual int AddButton(
+                int button_id,
+                const wxString& label,
+                const wxBitmap& bitmap,
+                const wxBitmap& bitmap_small = wxNullBitmapPtr,
+                const wxBitmap& bitmap_disabled = wxNullBitmapPtr,
+                const wxBitmap& bitmap_small_disabled = wxNullBitmapPtr,
+                unsigned int kind = wxRIBBON_BUTTON_NORMAL,
+                const wxString& help_string = wxEmptyString) %Overload
+            %code{%
+                RETVAL = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
+                THIS->AddButton(RETVAL, label, *bitmap, *bitmap_small, *bitmap_disabled, *bitmap_small_disabled, (wxRibbonButtonKind)kind, help_string, (wxObject*)NULL);
+                %};              
+
+    virtual bool Realize();
+    
+    virtual void ClearButtons();
+    
+    virtual bool DeleteButton(int button_id);
+    
+    virtual void EnableButton(int button_id, bool enable = true);
+    
+    virtual void ToggleButton(int button_id, bool checked);
+};
+
+
+%name{Wx::RibbonButtonBarEvent} class wxRibbonButtonBarEvent : public %name{Wx::CommandEvent} wxCommandEvent
+{
+public:
+    
+    wxRibbonButtonBarEvent(wxEventType command_type = wxEVT_NULL,
+                       int win_id = 0,
+                       wxRibbonButtonBar* bar = NULL);
+
+    wxRibbonButtonBar* GetBar();
+        
+    void SetBar(wxRibbonButtonBar* bar);
+   
+    bool PopupMenu(wxMenu* menu);
+};
+
+#endif
+

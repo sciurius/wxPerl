@@ -1,0 +1,72 @@
+#############################################################################
+## Name:        ext/ribbon/XS/RibbonPanel.xsp
+## Purpose:     XS++ for Wx::RibbonPanel
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+
+#include <wx/ribbon/panel.h>
+
+%loadplugin{build::Wx::XSP::Overload};
+
+%name{Wx::RibbonPanel} class wxRibbonPanel : public %name{Wx::RibbonControl} wxRibbonControl
+{
+public:
+    
+    %name{newDefault} wxRibbonPanel() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull} wxRibbonPanel(wxWindow* parent,
+                  wxWindowID id = wxID_ANY,
+                  const wxString& label = wxEmptyString,
+                  const wxBitmap& minimised_icon = wxNullBitmapPtr,
+                  const wxPoint& pos = wxDefaultPosition,
+                  const wxSize& size = wxDefaultSize,
+                  long style = wxRIBBON_PANEL_DEFAULT_STYLE) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+    
+    bool Create(wxWindow* parent,
+                wxWindowID id = wxID_ANY,
+                const wxString& label = wxEmptyString,
+                const wxBitmap& icon = wxNullBitmapPtr,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = wxRIBBON_PANEL_DEFAULT_STYLE);
+
+    %name{Destroy} virtual ~wxRibbonPanel();
+
+    wxBitmap& GetMinimisedIcon();
+    /* const wxBitmap& GetMinimisedIcon() const; */
+    
+    bool IsMinimised() const;
+   
+    bool IsMinimised(wxSize at_size) const;
+    
+    bool IsHovered() const;
+  
+    bool CanAutoMinimise() const;
+    
+    bool ShowExpanded();
+    
+    bool HideExpanded();
+    
+    void SetArtProvider(wxRibbonArtProvider* art);
+
+    bool Realize();
+
+    wxRibbonPanel* GetExpandedDummy();
+   
+    wxRibbonPanel* GetExpandedPanel();
+};
+
+#endif
+

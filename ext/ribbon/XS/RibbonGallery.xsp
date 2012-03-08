@@ -1,0 +1,175 @@
+#############################################################################
+## Name:        ext/ribbon/XS/RibbonGallery.xsp
+## Purpose:     XS++ for Wx::RibbonGallery
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+
+#include <wx/ribbon/gallery.h>
+#include <cpp/ribbongalleryitem.h>
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Enum};
+%loadplugin{build::Wx::XSP::Event};
+
+enum wxRibbonGalleryButtonState
+{
+    wxRIBBON_GALLERY_BUTTON_NORMAL,
+    wxRIBBON_GALLERY_BUTTON_HOVERED,
+    wxRIBBON_GALLERY_BUTTON_ACTIVE,
+    wxRIBBON_GALLERY_BUTTON_DISABLED,
+};
+
+%Event{%EVT_RIBBONGALLERY_HOVER_CHANGED(id, func)%}
+      {wxEVT_COMMAND_RIBBONGALLERY_HOVER_CHANGED};
+%Event{%EVT_RIBBONGALLERY_SELECTED(id, func)%}
+      {wxEVT_COMMAND_RIBBONGALLERY_SELECTED};
+%Event{%EVT_RIBBONGALLERY_CLICKED(id, func)%}
+      {wxEVT_COMMAND_RIBBONGALLERY_CLICKED};
+
+
+%name{Wx::RibbonGallery} class wxRibbonGallery : public %name{Wx::RibbonControl} wxRibbonControl
+{
+public:
+   
+    %name{newDefault} wxRibbonGallery() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull} wxRibbonGallery(wxWindow* parent,
+                  wxWindowID id = wxID_ANY,
+                  const wxPoint& pos = wxDefaultPosition,
+                  const wxSize& size = wxDefaultSize,
+                  long style = 0) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{Destroy} virtual ~wxRibbonGallery();
+
+    bool Create(wxWindow* parent,
+                wxWindowID id = wxID_ANY,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = 0);
+
+    void Clear();
+
+    bool IsEmpty() const;
+
+    unsigned int GetCount() const;
+
+    wxRibbonGalleryItem* GetItem(unsigned int n);
+
+    wxRibbonGalleryItem* Append(const wxBitmap& bitmap, int id);
+
+    /* wxRibbonGalleryItem* Append(const wxBitmap& bitmap, int id, void* clientData); */
+
+    %name{AppendClientData} wxRibbonGalleryItem* Append(const wxBitmap& bitmap, int id, wxPliUserDataCD *clientData);
+
+    /*
+    void SetItemClientObject(wxRibbonGalleryItem* item, wxClientData* data);
+
+    wxClientData* GetItemClientObject(const wxRibbonGalleryItem* item) const;
+    */
+
+    /* void SetItemClientData(wxRibbonGalleryItem* item, void* data); */
+    
+    %name{SetItemClientData} void SetItemClientObject( wxRibbonGalleryItem* item, wxPliUserDataCD* data );
+    
+    /* void SetItemClientData(wxRibbonGalleryItem* item, wxPliUserDataCD* data)
+      %code{% THIS->SetItemClientData( item, (void *)data ); %}; */
+    
+    /* void* GetItemClientData(const wxRibbonGalleryItem* item) const; */
+    
+    wxPliUserDataCD* GetItemClientData( const wxRibbonGalleryItem* item ) const
+      %code{% RETVAL = (wxPliUserDataCD*)THIS->GetItemClientObject( item ); %};   
+
+    void SetSelection(wxRibbonGalleryItem* item);
+
+    wxRibbonGalleryItem* GetSelection() const;
+
+    wxRibbonGalleryItem* GetHoveredItem() const;
+    
+    wxRibbonGalleryItem* GetActiveItem() const;
+
+    wxRibbonGalleryButtonState GetUpButtonState() const;
+
+    wxRibbonGalleryButtonState GetDownButtonState() const;
+
+    wxRibbonGalleryButtonState GetExtensionButtonState() const;
+
+    bool IsHovered() const;
+
+    virtual bool ScrollLines(int lines);
+    
+    bool ScrollPixels(int pixels);
+
+    void EnsureVisible(const wxRibbonGalleryItem* item);
+};
+
+%name{Wx::RibbonGalleryEvent} class wxRibbonGalleryEvent : public %name{Wx::CommandEvent} wxCommandEvent
+{
+public:
+    
+    wxRibbonGalleryEvent(wxEventType command_type = wxEVT_NULL,
+                         int win_id = 0,
+                         wxRibbonGallery* gallery = NULL,
+                         wxRibbonGalleryItem* item = NULL);
+
+    wxRibbonGallery* GetGallery();
+
+    wxRibbonGalleryItem* GetGalleryItem();
+
+    void SetGallery(wxRibbonGallery* gallery);
+    
+    void SetGalleryItem(wxRibbonGalleryItem* item);
+};
+
+%name{Wx::RibbonGalleryItem} class wxRibbonGalleryItem
+{
+    
+%{
+static void
+wxRibbonGalleryItem::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+    
+    wxRibbonGalleryItem();
+    
+    ~wxRibbonGalleryItem()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::RibbonGalleryItem", THIS, ST(0) );
+                 /* delete THIS; */ /* deleted by owning control */
+               %};
+
+    void SetId(int id);
+    void SetBitmap(const wxBitmap& bitmap);
+    const wxBitmap& GetBitmap() const;
+    void SetIsVisible(bool visible);
+    void SetPosition(int x, int y, const wxSize& size);
+    bool IsVisible() const;
+    const wxRect& GetPosition() const;
+    /*
+    void SetClientObject(wxClientData *data);
+    wxClientData *GetClientObject() const;
+    */
+    /*void SetClientData(void *data);*/
+    %name{SetClientData} void SetClientObject( wxPliUserDataCD* data );
+      
+    /*void *GetClientData() const;*/
+    wxPliUserDataCD* GetClientData() const
+      %code{% RETVAL = (wxPliUserDataCD*)THIS->GetClientObject(); %};
+    
+};
+
+#endif
+

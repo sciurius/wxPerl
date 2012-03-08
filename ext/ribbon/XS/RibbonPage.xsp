@@ -1,0 +1,65 @@
+#############################################################################
+## Name:        ext/ribbon/XS/RibbonPage.xsp
+## Purpose:     XS++ for Wx::RibbonPage
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+
+#include <wx/ribbon/page.h>
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Enum};
+%loadplugin{build::Wx::XSP::Event};
+
+
+%name{Wx::RibbonPage} class wxRibbonPage : public %name{Wx::RibbonControl} wxRibbonControl
+{
+public:
+    
+    %name{newDefault} wxRibbonPage() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull} wxRibbonPage(wxRibbonBar* parent,
+                wxWindowID id = wxID_ANY,
+                const wxString& label = wxEmptyString,
+                const wxBitmap& icon = wxNullBitmapPtr,
+                long style = 0) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{Destroy} virtual ~wxRibbonPage();
+
+    bool Create(wxRibbonBar* parent,
+                wxWindowID id = wxID_ANY,
+                const wxString& label = wxEmptyString,
+                const wxBitmap& icon = wxNullBitmapPtr,
+                long style = 0);
+
+    void SetArtProvider(wxRibbonArtProvider* art);
+
+    wxBitmap& GetIcon();
+  
+    void SetSizeWithScrollButtonAdjustment(int x, int y, int width, int height);
+    
+    void AdjustRectToIncludeScrollButtons(wxRect* rect) const;
+    
+    bool DismissExpandedPanel();
+    
+    virtual bool Realize();
+
+    virtual bool ScrollLines(int lines);
+  
+    bool ScrollPixels(int pixels);
+
+    wxOrientation GetMajorAxis() const;
+};
+
+#endif

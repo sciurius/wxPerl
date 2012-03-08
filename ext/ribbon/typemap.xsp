@@ -1,0 +1,36 @@
+#############################################################################
+## Name:        ext/ribbon/typemap.xsp
+## Purpose:     typemap file for xsubppp.pl
+## Author:      Mark Dootson
+## Modified by:
+## Created:     01/03/2012
+## SVN-ID:      $Id: typemap.xsp 2962 2010-08-23 19:33:35Z mbarbon $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%typemap{wxRibbonArtProvider*}{simple};
+%typemap{wxRibbonPage*}{simple};
+%typemap{const wxRibbonPage*}{simple};
+%typemap{wxRibbonBarEvent*}{simple};
+%typemap{wxRibbonToolBarEvent*}{simple};
+%typemap{wxRibbonBar*}{simple};
+%typemap{wxRibbonPanel*}{simple};
+%typemap{const wxRibbonPanel*}{simple};
+%typemap{wxRibbonGallery*}{simple};
+%typemap{const wxRibbonGallery*}{simple};
+%typemap{wxRibbonGalleryItem*}{simple};
+%typemap{const wxRibbonGalleryItem*}{simple};
+%typemap{wxRibbonButtonBarButtonKind}{simple};
+%typemap{wxRibbonButtonKind}{simple};
+%typemap{wxRibbonButtonBarButtonBase*}{simple};
+%typemap{wxRibbonGalleryButtonState}{simple};
+
+%typemap{wxClientData*}{parsed}{%wxPliUserDataCD*%};
+%typemap{wxBitmap&}{reference};
+%typemap{wxRect}{reference};
+%typemap{wxRect*}{simple};
+%typemap{wxEvent*}{simple};
+%typemap{wxOrientation}{simple};
+

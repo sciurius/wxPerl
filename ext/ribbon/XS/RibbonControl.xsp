@@ -1,0 +1,55 @@
+#############################################################################
+## Name:        ext/ribbon/XS/RibbonControl.xsp
+## Purpose:     XS++ for Wx::RibbonControl
+## Author:      Mark Dootson
+## Modified by:
+## Created:     04/03/2012
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+
+#include <wx/ribbon/control.h>
+
+%loadplugin{build::Wx::XSP::Overload};
+
+%name{Wx::RibbonControl} class wxRibbonControl : public %name{Wx::Control} wxControl
+{
+public:
+   
+    %name{newDefault} wxRibbonControl() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull} wxRibbonControl(wxWindow *parent, wxWindowID id,
+                    const wxPoint& pos = wxDefaultPosition,
+                    const wxSize& size = wxDefaultSize, long style = 0,
+                    const wxValidator& validator = wxDefaultValidatorPtr,
+                    const wxString& name = wxControlNameStr) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    virtual void SetArtProvider(wxRibbonArtProvider* art);
+    
+    wxRibbonArtProvider* GetArtProvider() const;
+
+    virtual bool IsSizingContinuous() const;
+    
+    wxSize GetNextSmallerSize(wxOrientation direction) const;
+
+    wxSize GetNextSmallerSize(wxOrientation direction, wxSize relative_to) const;
+ 
+    wxSize GetNextLargerSize(wxOrientation direction) const;
+
+    wxSize GetNextLargerSize(wxOrientation direction, wxSize relative_to) const;
+ 
+    virtual bool Realize();
+
+    bool Realise();
+    
+};
+
+#endif
