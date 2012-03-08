@@ -452,7 +452,7 @@ public:
                               const wxString& text,
                               int imageClosed = -1,
                               int imageOpened = -1,
-                              wxClientData* data = NULL);
+                              wxPliUserDataCD *data = NULL);
 
     /**
         Insert a new item into the tree.
@@ -479,14 +479,14 @@ public:
                               const wxString& text,
                               int imageClosed = -1,
                               int imageOpened = -1,
-                              wxClientData* data = NULL);
+                              wxPliUserDataCD *data = NULL);
 
     /// Same as InsertItem() with wxTLI_FIRST.
     wxTreeListItem PrependItem(wxTreeListItem parent,
                                const wxString& text,
                                int imageClosed = -1,
                                int imageOpened = -1,
-                               wxClientData* data = NULL);
+                               wxPliUserDataCD *data = NULL);
 
     /// Delete the specified item.
     void DeleteItem(wxTreeListItem item);
