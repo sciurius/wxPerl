@@ -38,15 +38,17 @@ if( $has_alien ) {
   # installed versions of Alien may not contain
   # propgrid, ribbon webview in config so we
   # cannot build non-monolithic
-  
-  my @alienkeys = grep { /^(propgrid|ribbon|webview)/ } ( Alien::wxWidgets->library_keys );
-  for my $d ( qw( propgrid ribbon webview ) ) {
-    if(exists($subdirs{$d})) {
-      # check if alien has keys
-      if( grep { /^$d/ } @alienkeys ) {
-        $subdirs{$d} = 1;
-      } else {
-        $subdirs{$d} = 0;
+  my $alienconfig = Alien::wxWidgets->config;
+  if( exists($alienconfig->{build}) && $alienconfig->{build} eq 'multi' ) {
+    my @alienkeys = grep { /^(propgrid|ribbon|webview)/ } ( Alien::wxWidgets->library_keys );
+    for my $d ( qw( propgrid ribbon webview ) ) {
+      if(exists($subdirs{$d})) {
+        # check if alien has keys
+        if( grep { /^$d/ } @alienkeys ) {
+          $subdirs{$d} = 1;
+        } else {
+          $subdirs{$d} = 0;
+        }
       }
     }
   }
