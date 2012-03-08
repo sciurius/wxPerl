@@ -10,7 +10,7 @@
 #############################################################################
 BEGIN {
     package Wx::PropertyGrid;
-    our $__wx_pgrid_present = defined(&Wx::wxPG_ATTR_AUTOCOMPLETE);
+    our $__wx_pgrid_present = Wx::_wx_optmod_propgrid();
 }
 
 package Wx::PropertyGrid;
