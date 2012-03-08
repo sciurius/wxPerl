@@ -361,11 +361,13 @@ wxBoxSizer::GetOrientation()
 void
 wxBoxSizer::SetOrientation( orientation )
     int orientation
+
 #endif
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 bool
 wxBoxSizer::IsVertical()
+
 #endif
 
 MODULE=Wx PACKAGE=Wx::StaticBoxSizer
