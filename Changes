@@ -2,9 +2,10 @@ Revision history for Perl extension Wx.
 
 0.9905 TBR
     - first wrap of wxPropertyGrid
-	- wrapped native wxTreeListCtrl
-	- ShowModal implementation for wxPrintDialog and wxPageSetupDialog
-	  ( thanks to Tomohiro Hosaka )
+    - wrapped native wxTreeListCtrl
+    - ShowModal implementation for wxPrintDialog and wxPageSetupDialog
+      ( thanks to Tomohiro Hosaka )
+    - first wrap of wxRibbonControl
 
 0.9904 Tue Feb 28 2012
     - Implemented TextCtrlIface for RichTextCtrl in >= 2.9.2

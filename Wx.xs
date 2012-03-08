@@ -264,7 +264,7 @@ Load( bool croak_on_error = false )
     sv_setnv( tmp, ver );
     tmp = get_sv( "Wx::wxVERSION", 1 );
     sv_setnv( tmp, ver );
-
+        
     int platform;
     // change App.pm whenever these change
 #if defined(__WXMSW__)
@@ -422,6 +422,39 @@ _xsmatch( avref, proto, required = -1, allowmore = false )
     SPAGAIN;
     POPMARK; // wxPli_match_* does a PUSHMARK
   OUTPUT: RETVAL
+
+## // Optional Modules Included
+
+bool
+_wx_optmod_ribbon()
+  CODE:
+#if wxPERL_USE_RIBBON && wxUSE_RIBBON && WXPERL_W_VERSION_GE( 2, 9, 3 )
+    RETVAL = TRUE;
+#else
+    RETVAL = FALSE;
+#endif
+  OUTPUT: RETVAL
+
+bool
+_wx_optmod_propgrid()
+  CODE:
+#if wxPERL_USE_PROPGRID && wxUSE_PROPGRID && WXPERL_W_VERSION_GE( 2, 9, 3 )
+    RETVAL = TRUE;
+#else
+    RETVAL = FALSE;
+#endif
+  OUTPUT: RETVAL
+  
+bool
+_wx_optmod_media()
+  CODE:
+#if wxPERL_USE_MEDIA && wxUSE_MEDIACTRL
+    RETVAL = TRUE;
+#else
+    RETVAL = FALSE;
+#endif
+  OUTPUT: RETVAL
+
 
 I32
 looks_like_number( sval )

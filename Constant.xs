@@ -3457,6 +3457,9 @@ _get_packages()
 #if wxPERL_USE_PROPGRID && wxUSE_PROPGRID && WXPERL_W_VERSION_GE( 2, 9, 3 )
     "use Wx::PropertyGrid;"
 #endif
+#if wxPERL_USE_RIBBON && wxUSE_RIBBON && WXPERL_W_VERSION_GE( 2, 9, 3 )
+    "use Wx::Ribbon;"
+#endif
 #if wxPERL_USE_RICHTEXT && WXPERL_W_VERSION_GE( 2, 7, 0 )
     "use Wx::RichText;"
 #endif
