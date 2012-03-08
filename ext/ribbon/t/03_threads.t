@@ -35,6 +35,8 @@ my $rtbar = Wx::RibbonToolBar->new($frame, -1);
 
 my $artprov1 = $rbar->GetArtProvider->Clone;
 my $artprov2 = $rbar->GetArtProvider->Clone;
+my $artprov3 = Wx::RibbonDefaultArtProvider->new();
+my $artprov4 = Wx::RibbonDefaultArtProvider->new();
 
 my $rgitem1 = Wx::RibbonGalleryItem->new();
 my $rgitem2 = Wx::RibbonGalleryItem->new();
@@ -51,6 +53,7 @@ isa_ok($cdata2, 'MyDataContainer');
 is( $cdata2->{somedata}, 'Stashed Data 1' );
 
 undef $artprov2;
+undef $artprov4;
 undef $rgitem2;
 undef $rgitem4;
 

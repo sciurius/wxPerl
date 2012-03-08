@@ -121,22 +121,15 @@ enum wxRibbonArtSetting
 %name{Wx::RibbonArtProvider} class wxRibbonArtProvider
 {
 
-public:
-    /*
-    wxRibbonArtProvider();
-    
-    virtual ~wxRibbonArtProvider();
-    */
-
 %{
-
-void
-wxRibbonArtProvider::Destroy()
+static void
+wxRibbonArtProvider::CLONE()
   CODE:
-    delete THIS;
-
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
 %}
-  
+
+public:
+
     virtual wxRibbonArtProvider* Clone() const; /*  = 0 %Virtual{pure}; */
     
     virtual void SetFlags(long flags); /*  = 0 %Virtual{pure}; */
@@ -351,10 +344,18 @@ wxRibbonArtProvider::GetColourScheme()
 %name{Wx::RibbonMSWArtProvider} class wxRibbonMSWArtProvider : public %name{Wx::RibbonArtProvider} wxRibbonArtProvider
 {
 
+%{
+static void
+wxRibbonMSWArtProvider::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
 public:
     wxRibbonMSWArtProvider(bool set_colour_scheme = true);
     
-    virtual ~wxRibbonMSWArtProvider();
+    %name{Destroy} virtual ~wxRibbonMSWArtProvider()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) ); %};
 
     wxRibbonArtProvider* Clone() const;
     void SetFlags(long flags);
@@ -402,9 +403,18 @@ wxRibbonMSWArtProvider::GetColourScheme()
 %name{Wx::RibbonAUIArtProvider} class wxRibbonAUIArtProvider : public %name{Wx::RibbonMSWArtProvider} wxRibbonMSWArtProvider
 {
 
+%{
+static void
+wxRibbonAUIArtProvider::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
 public:
     wxRibbonAUIArtProvider();
-    virtual ~wxRibbonAUIArtProvider();
+        
+    %name{Destroy} virtual ~wxRibbonAUIArtProvider()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) ); %};
 
     wxRibbonArtProvider* Clone() const;
 

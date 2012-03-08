@@ -11,9 +11,9 @@
 #############################################################################
 
 TYPEMAP
-wxRibbonArtProvider *      O_NON_WXOBJECT
-wxRibbonMSWArtProvider *   O_NON_WXOBJECT
-wxRibbonAUIArtProvider *   O_NON_WXOBJECT
+wxRibbonArtProvider *      O_NON_WXOBJECT_THR
+wxRibbonMSWArtProvider *   O_NON_WXOBJECT_THR
+wxRibbonAUIArtProvider *   O_NON_WXOBJECT_THR
 wxRibbonBarEvent *         O_WXOBJECT
 wxRibbonButtonBarEvent *   O_WXOBJECT
 wxRibbonGalleryEvent *     O_WXOBJECT
