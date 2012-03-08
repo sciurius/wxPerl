@@ -19,7 +19,7 @@ use vars qw(@EXPORT @subdirs);
 my @top_level_xs = qw(Wx.xs Constant.xs Controls.xs Event.xs
                       Frames.xs GDI.xs Window.xs);
 @subdirs = qw(socket dnd filesys grid help html mdi print xrc stc docview
-              calendar datetime media richtext aui dataview propgrid ribbon);
+            calendar datetime media richtext aui dataview propgrid ribbon  );
 my %subdirs;
 
 Wx::build::MakeMaker::_set_is_wxPerl_tree( 1 );
@@ -34,11 +34,28 @@ if( $has_alien ) {
   @subdirs{keys %opt} = values %opt;
 
   @subdirs = grep { $subdirs{$_} } keys %subdirs;
+  
+  # installed versions of Alien may not contain
+  # propgrid, ribbon webview in config so we
+  # cannot build non-monolithic
+  
+  my @alienkeys = grep { /^(propgrid|ribbon|webview)/ } ( Alien::wxWidgets->library_keys );
+  for my $d ( qw( propgrid ribbon webview ) ) {
+    if(exists($subdirs{$d})) {
+      # check if alien has keys
+      if( grep { /^$d/ } @alienkeys ) {
+        $subdirs{$d} = 1;
+      } else {
+        $subdirs{$d} = 0;
+      }
+    }
+  }
 }
 
 #
 # make symlinks to the source tree
 #
+
 if( $options{mksymlinks} ) {
   require FindBin;
   require ExtUtils::Manifest;
