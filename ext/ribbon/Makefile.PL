@@ -20,4 +20,6 @@ wxWriteMakefile( NAME         => 'Wx::Ribbon',
                  VERSION_FROM => 'lib/Wx/Ribbon.pm',
                  REQUIRE_WX   => 2.009003,
                  WX_CORE_LIB  => 'ribbon adv core base',
+                 REQUIRE_WX_LIB  => 'ribbon',
+                 NO_WX_PLATFORMS => [ ],
                  );
