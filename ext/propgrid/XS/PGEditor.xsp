@@ -47,7 +47,7 @@ public:
     wxPGMultiButton( wxPropertyGrid* pg, const wxSize& sz )
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
-    %name{Destroy} virtual ~wxPGMultiButton();
+    /* %name{Destroy} virtual ~wxPGMultiButton(); */
 
     %name{AddString} void Add( const wxString& label, int id = -2 ) %Overload;
 
@@ -177,7 +177,7 @@ public:
         %Name{wxPlPGTextCtrlEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGTextCtrlEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGTextCtrlEditor, wxPGTextCtrlEditor ); %};
-        %ForceAbstract;
+        %ForceConcrete;
     };
 
 %{
@@ -243,7 +243,7 @@ public:
         %Name{wxPlPGChoiceEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGChoiceEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGChoiceEditor, wxPGChoiceEditor ); %};
-        %ForceAbstract;
+        %ForceConcrete;
     };
 
 %{
@@ -316,7 +316,7 @@ public:
         %Name{wxPlPGComboBoxEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGComboBoxEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGComboBoxEditor, wxPGComboBoxEditor ); %};
-        %ForceAbstract;
+        %ForceConcrete;
     };
 
 %{
@@ -362,7 +362,7 @@ public:
         %Name{wxPlPGChoiceAndButtonEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGChoiceAndButtonEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGChoiceAndButtonEditor, wxPGChoiceAndButtonEditor ); %};
-        %ForceAbstract;
+        %ForceConcrete;
     };
 
 %{
@@ -397,7 +397,7 @@ public:
         %Name{wxPlPGTextCtrlAndButtonEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGTextCtrlAndButtonEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGTextCtrlAndButtonEditor, wxPGTextCtrlAndButtonEditor ); %};
-        %ForceAbstract;
+        %ForceConcrete;
     };
 
 %{
@@ -440,7 +440,7 @@ public:
         %Name{wxPlPGCheckBoxEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGCheckBoxEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGCheckBoxEditor, wxPGCheckBoxEditor ); %};
-        %ForceAbstract;
+        %ForceConcrete;
     };
 
 %{

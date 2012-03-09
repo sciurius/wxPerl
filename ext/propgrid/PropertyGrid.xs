@@ -24,6 +24,7 @@
 #include <wx/propgrid/advprops.h>
 #include <wx/propgrid/manager.h>
 #include <wx/propgrid/editors.h>
+#include <wx/propgrid/props.h>
 #include <wx/statusbr.h>
 
 #define wxNullColourPtr (wxColour*)&wxNullColour
@@ -70,37 +71,37 @@ MODULE=Wx__PropertyGrid PACKAGE=Wx::PropertyGrid
 ## Cached strings
 
 wxString
-wxPropertyGrid::_get_wxPG_ATTR_UNITS()
+_get_wxPG_ATTR_UNITS()
   CODE:
     RETVAL = wxPG_ATTR_UNITS;
   OUTPUT: RETVAL
   
 wxString
-wxPropertyGrid::_get_wxPG_ATTR_HINT()
+_get_wxPG_ATTR_HINT()
   CODE:
     RETVAL = wxPG_ATTR_HINT;
   OUTPUT: RETVAL
   
 wxString
-wxPropertyGrid::_get_wxPG_ATTR_INLINE_HELP()
+_get_wxPG_ATTR_INLINE_HELP()
   CODE:
     RETVAL = wxPG_ATTR_INLINE_HELP;
   OUTPUT: RETVAL
 
 wxString
-wxPropertyGrid::_get_wxPG_ATTR_DEFAULT_VALUE()
+_get_wxPG_ATTR_DEFAULT_VALUE()
   CODE:
     RETVAL = wxPG_ATTR_DEFAULT_VALUE;
   OUTPUT: RETVAL
   
 wxString
-wxPropertyGrid::_get_wxPG_ATTR_MIN()
+_get_wxPG_ATTR_MIN()
   CODE:
     RETVAL = wxPG_ATTR_MIN;
   OUTPUT: RETVAL
   
 wxString
-wxPropertyGrid::_get_wxPG_ATTR_MAX()
+_get_wxPG_ATTR_MAX()
   CODE:
     RETVAL = wxPG_ATTR_MAX;
   OUTPUT: RETVAL

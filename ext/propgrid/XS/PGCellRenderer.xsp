@@ -28,9 +28,10 @@ public:
 
     wxPGCellRenderer();
     
-    ## // thread OK
+    /*
     ~wxPGCellRenderer()
         %code%{ THIS->wxObjectRefData::DecRef(); %};
+    */
 
     virtual bool Render( wxDC& dc,
                          const wxRect& rect,

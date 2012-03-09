@@ -25,14 +25,14 @@
         %Name{wxPlPropertyGridPage};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGridPage ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGridPage, wxPropertyGridPage ); %};
-        %ForceAbstract;
+        %ForceConcrete;
     };
 
 public:
     wxPropertyGridPage()
        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
     
-    %name{Destroy} virtual ~wxPropertyGridPage();
+    /* %name{Destroy} virtual ~wxPropertyGridPage(); */
 
     /* Virtual wxPropertyGridInterface */
     
@@ -40,7 +40,7 @@ public:
     
     virtual wxPGVIterator GetVIterator( int flags ) const %Virtual;
     
-    virtual bool IsPropertySelected( wxPGPropArgCls& id ) const %Virtual;
+    virtual bool IsPropertySelected( wxString& id ) const %Virtual;
     
     /* Virtual wxPropertyGridInterface  End*/
 
@@ -64,8 +64,8 @@ public:
 
     void SetSplitterPosition( int splitterPos, int col = 0 );
     
-    wxPropertyCategory* GetPropertyCategory( wxPGPropArgCls& id ) const
-        %code{% RETVAL = (wxPropertyCategory*)THIS->wxPropertyGridPageState::GetPropertyCategory( (wxPGProperty*) id ); %};
+    wxPropertyCategory* GetPropertyCategory( wxPGProperty& id ) const
+        %code{% RETVAL = (wxPropertyCategory*)THIS->wxPropertyGridPageState::GetPropertyCategory( id ); %};
     
     wxPGProperty* GetPropertyByLabel( const wxString& label ) const
         %code{% RETVAL = (wxPropertyCategory*)THIS->wxPropertyGridPageState::GetPropertyByLabel( label ); %};

@@ -13,9 +13,6 @@
 %typemap{wxPGVIterator}{reference};
 %typemap{const wxPGVIterator&}{reference};
 
-%typemap{wxPGPropArgCls*}{simple};
-%typemap{wxPGPropArgCls&}{reference};
-%typemap{const wxPGPropArgCls&}{reference};
 %typemap{wxPGCell&}{reference};
 %typemap{wxPGChoices&}{reference};
 %typemap{wxPGChoices}{reference};
@@ -62,9 +59,18 @@
 %typemap{wxDateTime}{reference};
 
 %typemap{wxValidator*}{simple};
-%typemap{wxVariant}{reference};
-%typemap{wxVariant&}{reference};
 %typemap{wxVariant*}{simple};
+%typemap{wxVariant&}{reference};
+%typemap{wxVariant}{reference};
+
+
+%typemap{wxVariantArg}{parsed}{
+    %cpp_type{%wxVariant%};
+    %precall_code{% $CVar = wxPli_sv_2_wxvariant( aTHX_ $PerlVar ); %};
+};
+
+%typemap{wxVariantArg}{parsed}{%wxVariant%};
+
 %typemap{wxEvent&}{reference};
 %typemap{wxFont&}{reference};
 %typemap{wxRect}{reference};
@@ -73,4 +79,72 @@
 %typemap{wxArrayString*}{simple};
 %typemap{wxLongLong_t}{simple};
 %typemap{wxULongLong_t}{simple};
+
+%typemap{wxPGInDialogValidator*}{simple};
+
+%typemap{wxNumericPropertyValidator*}{simple};
+
+%typemap{wxStringProperty*}{simple};
+%typemap{wxIntProperty*}{simple};
+%typemap{wxUIntProperty*}{simple};
+%typemap{wxFloatProperty*}{simple};
+%typemap{wxBoolProperty*}{simple};
+%typemap{wxEnumProperty*}{simple};
+%typemap{wxEditEnumProperty*}{simple};
+%typemap{wxFlagsProperty*}{simple};
+%typemap{wxFileProperty*}{simple};
+%typemap{wxLongStringProperty*}{simple};
+%typemap{wxDirProperty*}{simple};
+%typemap{wxArrayStringProperty*}{simple};
+
+%typemap{wxPGFileDialogAdapter*}{simple};
+%typemap{wxPGLongStringDialogAdapter*}{simple};
+
+%typemap{wxPGArrayEditorDialog*}{simple};
+%typemap{wxPlPGArrayEditorDialog*}{simple};
+%typemap{wxPGArrayStringEditorDialog*}{simple};
+
+%typemap{const wxLongLong&}{reference};
+%typemap{const wxULongLong&}{reference};
+%typemap{const long*}{simple};
+%typemap{wxPGChoices*}{simple};
+
+%typemap{wxString*}{simple};
+%typemap{const wxUniChar&}{reference};
+%typemap{wxUniChar}{reference};
+%typemap{wxCommandEvent&}{reference};
+%typemap{wxListEvent&}{reference};
+%typemap{wxIdleEvent&}{reference};
+%typemap{const wxWindow*}{simple};
+
+
+%typemap{wxColourPropertyValue}{reference};
+%typemap{const wxColourPropertyValue&}{reference};
+
+%typemap{wxFontProperty*}{simple};
+%typemap{wxPlFontProperty*}{simple};
+%typemap{wxSystemColourProperty*}{simple};
+%typemap{wxColourProperty*}{simple};
+%typemap{wxCursorProperty*}{simple};
+%typemap{wxImageFileProperty*}{simple};
+
+%typemap{wxMultiChoiceProperty*}{simple};
+%typemap{wxDateProperty*}{simple};
+%typemap{wxPGSpinCtrlEditor*}{simple};
+
+%typemap{const wxVariant*}{simple};
+
+%typemap{wxColour&}{reference};
+%typemap{wxPGProperty&}{reference};
+
+
+
+
+
+
+
+
+
+
+
 

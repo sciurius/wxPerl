@@ -25,7 +25,7 @@
         %Name{wxPlPropertyGridManager};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGridManager ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGridManager, wxPropertyGridManager ); %};
-        %ForceAbstract;
+        %ForceConcrete;
     };
 
 public:
@@ -40,7 +40,7 @@ public:
                            const wxString& name = wxPropertyGridManagerNameStr ) %Overload
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
-    %name{Destroy} virtual ~wxPropertyGridManager();  
+    /* %name{Destroy} virtual ~wxPropertyGridManager();  */
     
     /* Virtual wxPropertyGridInterface */
     
@@ -48,7 +48,7 @@ public:
     
     virtual wxPGVIterator GetVIterator( int flags ) const %Virtual;
     
-    virtual bool IsPropertySelected( wxPGPropArgCls& id ) const %Virtual; 
+    virtual bool IsPropertySelected( wxString& id ) const %Virtual; 
     
     /* Virtual wxPropertyGridInterface  End*/    
     
@@ -68,7 +68,7 @@ public:
 
     bool EnableCategories( bool enable );
 
-    bool EnsureVisible( wxPGPropArgCls& id );
+    bool EnsureVisible( wxString& id );
 
     int GetColumnCount( int page = -1 ) const;
 
@@ -122,7 +122,7 @@ public:
 
     %name{SelectPageOLGridPage} void SelectPage( wxPropertyGridPage* page ) %Overload;
 
-    bool SelectProperty( wxPGPropArgCls& id, bool focus = false );
+    bool SelectProperty( wxString& id, bool focus = false );
 
     void SetColumnCount( int colCount, int page = -1 );
 

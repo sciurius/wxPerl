@@ -86,10 +86,6 @@ my $pgdlga2  = MyPGAdapt->new;
 my $plpgp1 = Wx::PlPGProperty->new;
 my $plpgp2 = Wx::PlPGProperty->new;
 
-my $proparg1 = Wx::PGPropArgCls->new('Hello');
-my $proparg2 = Wx::PGPropArgCls->new('World');
-my $proparg3 = Wx::PGPropArgCls->new( $proparg2 );
-
 my $hittest1 = Wx::PropertyGridHitTestResult->new();
 my $hittest2 = Wx::PropertyGridHitTestResult->new();
 
@@ -113,7 +109,7 @@ undef $pgedit2;
 undef $pgdlga2;
 undef $pgmbut2;
 undef $pgwlist2;
-undef $proparg2;
+
 undef $hittest2;
 undef $manager2;
 undef $pgpage2;

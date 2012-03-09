@@ -32,8 +32,15 @@ sub handle_class_tag {
             { name           => $map{Name}[0][0] || '',
               declaration    => join( "\n", @{$map{Declaration}[0] || []} ),
               implementation => join( "\n", @{$map{Implementation}[0] || []} ),
-              forceabstract  => exists($map{ForceAbstract}) ? 1 : 0,
+              forceconcrete  => exists($map{ForceConcrete}) ? 1 : 0,
             };
+        
+        # ForceConcrete creates a virtual handling class for a class definition
+        # with NO pure virtual methods. It also creates a concrete
+        # concrete class with standard constructors.
+        # If ForceConcrete is specified and a pure virtual method is encountered
+        # the parser throws error as we can't have a concrete class with pure
+        # virtuals.
     }
 
     1;
@@ -94,6 +101,16 @@ my %type_map =
                             type_char      => 'I',
                             },
     'wxString'         => { convert_return => 'wxPli_sv_2_wxString( aTHX_ ret )',
+                            default_value  => 'wxEmptyString',
+                            type_char      => 'P',
+                            arguments      => '&%s',
+                            },
+    'wxString&'         => { convert_return => 'wxPli_sv_2_wxString( aTHX_ ret )',
+                            default_value  => 'wxEmptyString',
+                            type_char      => 'P',
+                            arguments      => '&%s',
+                            },    
+    'wxString*'         => { convert_return => '(wxString*)wxPli_sv_2_wxString( aTHX_ ret )',
                             default_value  => 'wxEmptyString',
                             type_char      => 'P',
                             arguments      => '&%s',
@@ -205,6 +222,10 @@ my %type_map =
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
+    'wxPGProperty&' => { convert_return => '*(wxPGProperty*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGProperty" )',
+                           type_char      => 'o',
+                           arguments      => '&%s, "Wx::PGProperty"',
+                           },    
     'const wxPGCell&' => { convert_return => '*(wxPGCell*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGCell" )',
                            type_char      => 'O',
                            arguments      => '&%s',
@@ -216,10 +237,6 @@ my %type_map =
     'wxPGVIterator'   => { convert_return => '*(wxPGVIterator*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGVIterator" )',
                            type_char      => 'o',
                            arguments      => '&%s, "Wx::PGVIterator"',
-                           },
-    'wxPGPropArgCls&' => { convert_return => '*(wxPGPropArgCls*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGPropArgCls" )',
-                           type_char      => 'o',
-                           arguments      => '&%s, "Wx::PGPropArgCls"',
                            },
     'wxPropertyGridPage*'   => { convert_return => '(wxPropertyGridPage*)wxPli_sv_2_object( aTHX_ ret, "Wx::PropertyGridPage" )',
                            type_char      => 'O',
@@ -280,9 +297,9 @@ sub post_process {
     foreach my $node ( @copy ) {
         next unless $node->isa( 'ExtUtils::XSpp::Node::Class' );
         next if $self->{virtual_classes}{$node};
-        my( @virtual, $abstract_class, @classes, %redefined );
+        my( @virtual, $abstract_class, @classes, %redefined, $concrete_class);
 
-        $abstract_class = $self->{virtual_implementation}{$node->cpp_name}{forceabstract};
+        $concrete_class = $self->{virtual_implementation}{$node->cpp_name}{forceconcrete};
         
         @classes = $node;
         # find virtual method in this class and in all base classes
@@ -304,6 +321,9 @@ sub post_process {
 
                 push @virtual, $self->{virtual_methods}{$method};
                 $abstract_class ||= $virtual[-1][1];
+                if( $abstract_class && $concrete_class ) {
+                    die qq( ForceConcrete specified with pure virtual method ) . $method->cpp_name;
+                }
             }
 
             push @classes, @{$class->base_classes};
@@ -319,7 +339,7 @@ sub post_process {
             ( $cpp_class = $node->cpp_name ) =~ s/^wx/wxPl/;
         }
         my $perl_class;
-        if( $abstract_class ) {
+        if( $abstract_class || $concrete_class  ) {
             ( $perl_class = $cpp_class ) =~ s/^wx/Wx::/;
         } else {
             ( $perl_class = $cpp_class ) =~ s/^wxPl/Wx::/;
@@ -523,7 +543,7 @@ EOT
         close $h_file;
 
         ExtUtils::XSpp::Typemap::add_class_default_typemaps( $cpp_class );
-        if( $abstract_class ) {
+        if( $abstract_class || $concrete_class ) {
             my $new_class = ExtUtils::XSpp::Node::Class->new
                                 ( cpp_name        => $cpp_class,
                                   perl_name       => $perl_class,
@@ -535,6 +555,7 @@ EOT
                                   );
 
             push @$nodes, $new_class;
+            $node->add_methods( @new_constructors ) if $concrete_class;
         } else {
             $node->add_methods( @new_constructors );
 

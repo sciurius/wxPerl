@@ -30,7 +30,7 @@ double propertygrid_constant( const char* name, int arg )
 {
     // !package: Wx
     // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
-    // !tag: grid
+    // !tag: propgrid
 #define r( n ) \
     if( strEQ( name, #n ) ) \
         return n;
@@ -131,6 +131,50 @@ double propertygrid_constant( const char* name, int arg )
         r( wxPGRender_DontUseCellFgCol );
         r( wxPGRender_DontUseCellBgCol );
         r( wxPGRender_DontUseCellColours );
+        
+        r( wxPG_PROPERTY_VALIDATION_ERROR_MESSAGE );
+        r( wxPG_PROPERTY_VALIDATION_SATURATE );
+        r( wxPG_PROPERTY_VALIDATION_WRAP );
+        
+        // r( wxPG_LABEL );
+        // r( wxPG_LABEL_STRING );
+        // r( wxPG_NULL_BITMAP );
+        // r( wxPG_COLOUR_BLACK );
+        // r( wxPG_COLOUR );
+        // r( wxPG_DEFAULT_IMAGE_SIZE );
+        
+        r( wxPG_INVALID_VALUE );
+        
+        r( wxPG_KEEP_STRUCTURE );
+        r( wxPG_RECURSE );
+        r( wxPG_INC_ATTRIBUTES );
+        r( wxPG_RECURSE_STARTS );
+        r( wxPG_FORCE );
+        r( wxPG_SORT_TOP_LEVEL_ONLY );
+        r( wxPG_DONT_RECURSE );
+          
+        r( wxPG_FULL_VALUE );
+        r( wxPG_REPORT_ERROR );
+        r( wxPG_PROPERTY_SPECIFIC );
+        r( wxPG_EDITABLE_VALUE );
+        r( wxPG_COMPOSITE_FRAGMENT );
+        r( wxPG_UNEDITABLE_COMPOSITE_FRAGMENT );
+        r( wxPG_VALUE_IS_CURRENT );
+        r( wxPG_PROGRAMMATIC_VALUE );
+        r( wxPG_SETVAL_REFRESH_EDITOR );
+        r( wxPG_SETVAL_AGGREGATED );
+        r( wxPG_SETVAL_FROM_PARENT );
+        r( wxPG_SETVAL_BY_USER );
+          
+        r( wxPG_BASE_OCT );
+        r( wxPG_BASE_DEC );
+        r( wxPG_BASE_HEX );
+        r( wxPG_BASE_HEXL );
+          
+        r( wxPG_PREFIX_NONE );
+        r( wxPG_PREFIX_0x );
+        r( wxPG_PREFIX_DOLLAR_SIGN );
+        
         break;
     default:
         break;
