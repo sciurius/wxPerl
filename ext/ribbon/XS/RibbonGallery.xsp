@@ -18,16 +18,8 @@
 #include <cpp/ribbongalleryitem.h>
 
 %loadplugin{build::Wx::XSP::Overload};
-%loadplugin{build::Wx::XSP::Enum};
 %loadplugin{build::Wx::XSP::Event};
 
-enum wxRibbonGalleryButtonState
-{
-    wxRIBBON_GALLERY_BUTTON_NORMAL,
-    wxRIBBON_GALLERY_BUTTON_HOVERED,
-    wxRIBBON_GALLERY_BUTTON_ACTIVE,
-    wxRIBBON_GALLERY_BUTTON_DISABLED,
-};
 
 %Event{%EVT_RIBBONGALLERY_HOVER_CHANGED(id, func)%}
       {wxEVT_COMMAND_RIBBONGALLERY_HOVER_CHANGED};

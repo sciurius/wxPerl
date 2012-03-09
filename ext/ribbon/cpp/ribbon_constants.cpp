@@ -94,6 +94,12 @@ double ribbon_constant( const char* name, int arg )
         r( wxRIBBON_BUTTONBAR_BUTTON_DISABLED  );
         r( wxRIBBON_BUTTONBAR_BUTTON_TOGGLED  );
         r( wxRIBBON_BUTTONBAR_BUTTON_STATE_MASK );
+        
+        r( wxRIBBON_GALLERY_BUTTON_NORMAL );
+        r( wxRIBBON_GALLERY_BUTTON_HOVERED );
+        r( wxRIBBON_GALLERY_BUTTON_ACTIVE );
+        r( wxRIBBON_GALLERY_BUTTON_DISABLED );
+          
         break;
     case 'E':
         
