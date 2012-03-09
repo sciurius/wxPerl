@@ -51,7 +51,7 @@ public:
                   long style = 0) %Overload
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
-    %name{Destroy} virtual ~wxRibbonGallery();
+    /* %name{Destroy} virtual ~wxRibbonGallery(); */
 
     bool Create(wxWindow* parent,
                 wxWindowID id = wxID_ANY,

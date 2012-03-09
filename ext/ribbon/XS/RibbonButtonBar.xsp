@@ -39,7 +39,7 @@ public:
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
     
 
-    %name{Destroy} virtual ~wxRibbonButtonBar();
+    /* %name{Destroy} virtual ~wxRibbonButtonBar(); */
 
     bool Create(wxWindow* parent,
                 wxWindowID id = wxID_ANY,
