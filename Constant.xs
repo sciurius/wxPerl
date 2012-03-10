@@ -712,6 +712,7 @@ static wxPlINH inherit[] =
     I( NotifyEvent,     CommandEvent )
     I( FileCtrlEvent,   CommandEvent )
     I( PaintEvent,      Event )
+    I( NcPaintEvent,    Event )
     I( ProcessEvent,    Event )
     I( QueryLayoutInfoEvent, Event )
     I( SashEvent,       CommandEvent )

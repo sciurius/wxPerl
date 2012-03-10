@@ -27,6 +27,9 @@
 #include <wx/propgrid/props.h>
 #include <wx/statusbr.h>
 
+#include "cpp/helpers.h"
+#include "cpp/array_helpers.h"
+
 #define wxNullColourPtr (wxColour*)&wxNullColour
 #define wxNullPropertyPtr (wxPGProperty*)&wxNullProperty
 #define wxNullBitmapPtr (wxBitmap*)&wxNullBitmap

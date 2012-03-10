@@ -15,11 +15,11 @@
 #if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
 
 %loadplugin{build::Wx::XSP::Overload};
-%loadplugin{build::Wx::XSP::Virtual};
 
 %name{Wx::PGWindowList} class wxPGWindowList
 {
-    
+
+
 %{
 static void
 wxPGWindowList::CLONE()
@@ -39,6 +39,7 @@ public:
 
     void SetSecondary( wxWindow* secondary );
 };
+
 
 %name{Wx::PGMultiButton} class wxPGMultiButton : public %name{Wx::Window} wxWindow
 {
@@ -66,12 +67,14 @@ public:
 
 %name{Wx::PGEditor} class wxPGEditor : public %name{Wx::Object} wxObject
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPGEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGEditor, wxPGEditor ); %};
     };
+    */
 
 %{
 static void
@@ -81,68 +84,72 @@ wxPGEditor::CLONE()
 %}   
 
 public:
-
-    wxPGEditor();
     
+    /* only for class methods
+    wxPGEditor();
+    */
+  
     ~wxPGEditor()
         %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGEditor", THIS, ST(0) );
                  delete THIS;
                %};
 
-    virtual wxString GetName() const %Virtual;
+    virtual wxString GetName() const; /* %Virtual; */
 
     virtual wxPGWindowList CreateControls( wxPropertyGrid* propgrid,
                                            wxPGProperty* property,
                                            const wxPoint& pos,
-                                           const wxSize& size ) const = 0 %Virtual{pure};
+                                           const wxSize& size ) const; /* = 0;  %Virtual{pure}; */
 
     /** Loads value from property to the control. */
-    virtual void UpdateControl( wxPGProperty* property, wxWindow* ctrl ) const = 0 %Virtual{pure};
+    virtual void UpdateControl( wxPGProperty* property, wxWindow* ctrl ) const; /*  = 0 %Virtual{pure}; */
     
     virtual void DrawValue( wxDC& dc, const wxRect& rect,
-                            wxPGProperty* property, const wxString& text ) const %Virtual;
+                            wxPGProperty* property, const wxString& text ) const; /* %Virtual; */
 
-    virtual bool OnEvent( wxPropertyGrid* propgrid, wxPGProperty* property, wxWindow* wnd_primary, wxEvent& event ) const = 0 %Virtual{pure};
+    virtual bool OnEvent( wxPropertyGrid* propgrid, wxPGProperty* property, wxWindow* wnd_primary, wxEvent& event ) const; /*  = 0 %Virtual{pure}; */
 
     virtual bool GetValueFromControl( wxVariant& variant, wxPGProperty* property,
-                                      wxWindow* ctrl ) const %Virtual;
+                                      wxWindow* ctrl ) const; /* %Virtual; */
 
     virtual void SetValueToUnspecified( wxPGProperty* property,
-                                        wxWindow* ctrl ) const = 0 %Virtual{pure};
+                                        wxWindow* ctrl ) const; /*  = 0 %Virtual{pure}; */
 
     virtual void SetControlAppearance( wxPropertyGrid* pg,
                                        wxPGProperty* property,
                                        wxWindow* ctrl,
                                        const wxPGCell& appearance,
                                        const wxPGCell& oldAppearance,
-                                       bool unspecified ) const %Virtual;
+                                       bool unspecified ) const; /* %Virtual; */
 
     /** Sets control's value specifically from string. */
     virtual void SetControlStringValue( wxPGProperty* property,
-                                        wxWindow* ctrl, const wxString& txt ) const %Virtual;
+                                        wxWindow* ctrl, const wxString& txt ) const; /* %Virtual; */
 
     /** Sets control's value specifically from int (applies to choice etc.). */
     virtual void SetControlIntValue( wxPGProperty* property,
-                                     wxWindow* ctrl, int value ) const %Virtual;
+                                     wxWindow* ctrl, int value ) const; /* %Virtual; */
 
-    virtual int InsertItem( wxWindow* ctrl, const wxString& label, int index ) const %Virtual;
+    virtual int InsertItem( wxWindow* ctrl, const wxString& label, int index ) const; /* %Virtual; */
 
-    virtual void DeleteItem( wxWindow* ctrl, int index ) const %Virtual;
+    virtual void DeleteItem( wxWindow* ctrl, int index ) const; /* %Virtual; */
 
-    virtual void OnFocus( wxPGProperty* property, wxWindow* wnd ) const %Virtual;
+    virtual void OnFocus( wxPGProperty* property, wxWindow* wnd ) const; /* %Virtual; */
 
-    virtual bool CanContainCustomImage() const %Virtual;
+    virtual bool CanContainCustomImage() const; /* %Virtual; */
 };
 
 %name{Wx::PGEditorDialogAdapter} class wxPGEditorDialogAdapter : public %name{Wx::Object} wxObject
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPGEditorDialogAdapter};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGEditorDialogAdapter ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGEditorDialogAdapter, wxPGEditorDialogAdapter ); %};
     };
+    */
 
 %{
 static void
@@ -152,7 +159,7 @@ wxPGEditorDialogAdapter::CLONE()
 %}      
 
 public:
-    wxPGEditorDialogAdapter();
+    /* wxPGEditorDialogAdapter(); */
 
     ~wxPGEditorDialogAdapter()
         %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGEditorDialogAdapter", THIS, ST(0) );
@@ -161,7 +168,7 @@ public:
 
     bool ShowDialog( wxPropertyGrid* propGrid, wxPGProperty* property );
 
-    virtual bool DoShowDialog( wxPropertyGrid* propGrid, wxPGProperty* property ) = 0 %Virtual{pure};
+    virtual bool DoShowDialog( wxPropertyGrid* propGrid, wxPGProperty* property ); /*  = 0 %Virtual{pure}; */
 
     void SetValue( wxVariant value );
 
@@ -172,13 +179,14 @@ public:
 %name{Wx::PGTextCtrlEditor} class wxPGTextCtrlEditor : public %name{Wx::PGEditor} wxPGEditor
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPGTextCtrlEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGTextCtrlEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGTextCtrlEditor, wxPGTextCtrlEditor ); %};
-        %ForceConcrete;
     };
+    */
 
 %{
 static void
@@ -187,9 +195,11 @@ wxPGTextCtrlEditor::CLONE()
     wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
 %}
 
+
 public:
     wxPGTextCtrlEditor();
-    
+
+
     ~wxPGTextCtrlEditor()
         %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGTextCtrlEditor", THIS, ST(0) );
                  delete THIS;
@@ -198,28 +208,28 @@ public:
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
                                           const wxPoint& pos,
-                                          const wxSize& size) const %Virtual;
+                                          const wxSize& size) const; /* %Virtual; */
     
     virtual void UpdateControl( wxPGProperty* property,
-                                wxWindow* ctrl ) %Virtual;
+                                wxWindow* ctrl ); /* %Virtual; */
     
     virtual bool OnEvent( wxPropertyGrid* propgrid,
                           wxPGProperty* property,
                           wxWindow* primaryCtrl,
-                          wxEvent& event ) const %Virtual;
+                          wxEvent& event ) const; /* %Virtual; */
     
     virtual bool GetValueFromControl( wxVariant& variant,
                                       wxPGProperty* property,
-                                      wxWindow* ctrl ) %Virtual;
+                                      wxWindow* ctrl ); /* %Virtual; */
 
-    virtual wxString GetName() %Virtual;
+    virtual wxString GetName(); /* %Virtual; */
 
     //virtual wxPGCellRenderer* GetCellRenderer() const;
     virtual void SetControlStringValue( wxPGProperty* property,
                                         wxWindow* ctrl,
-                                        const wxString& txt ) %Virtual;
+                                        const wxString& txt ); /* %Virtual; */
     
-    virtual void OnFocus( wxPGProperty* property, wxWindow* wnd ) %Virtual;
+    virtual void OnFocus( wxPGProperty* property, wxWindow* wnd ); /* %Virtual; */
 
     // Provided so that, for example, ComboBox editor can use the same code
     // (multiple inheritance would get way too messy).
@@ -238,13 +248,14 @@ public:
 %name{Wx::PGChoiceEditor} class wxPGChoiceEditor : public %name{Wx::PGEditor} wxPGEditor
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPGChoiceEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGChoiceEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGChoiceEditor, wxPGChoiceEditor ); %};
-        %ForceConcrete;
     };
+    */
 
 %{
 static void
@@ -264,40 +275,40 @@ public:
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
                                           const wxPoint& pos,
-                                          const wxSize& size) const %Virtual;
+                                          const wxSize& size) const; /* %Virtual; */
     
     virtual void UpdateControl( wxPGProperty* property,
-                                wxWindow* ctrl ) const %Virtual;
+                                wxWindow* ctrl ) const; /* %Virtual; */
     
     virtual bool OnEvent( wxPropertyGrid* propgrid,
                           wxPGProperty* property,
                           wxWindow* primaryCtrl,
-                          wxEvent& event ) const %Virtual;
+                          wxEvent& event ) const; /* %Virtual; */
     
     virtual bool GetValueFromControl( wxVariant& variant,
                                       wxPGProperty* property,
-                                      wxWindow* ctrl ) const %Virtual;
+                                      wxWindow* ctrl ) const; /* %Virtual; */
     
     virtual void SetValueToUnspecified( wxPGProperty* property,
-                                        wxWindow* ctrl ) const %Virtual;
+                                        wxWindow* ctrl ) const; /* %Virtual; */
     
-    virtual wxString GetName() const %Virtual;
+    virtual wxString GetName() const; /* %Virtual; */
 
     virtual void SetControlIntValue( wxPGProperty* property,
                                      wxWindow* ctrl,
-                                     int value ) const %Virtual;
+                                     int value ) const; /* %Virtual; */
     
     virtual void SetControlStringValue( wxPGProperty* property,
                                         wxWindow* ctrl,
-                                        const wxString& txt ) const %Virtual;
+                                        const wxString& txt ) const; /* %Virtual; */
 
     virtual int InsertItem( wxWindow* ctrl,
                             const wxString& label,
-                            int index ) const %Virtual;
+                            int index ) const; /* %Virtual; */
     
-    virtual void DeleteItem( wxWindow* ctrl, int index ) const %Virtual;
+    virtual void DeleteItem( wxWindow* ctrl, int index ) const; /* %Virtual; */
     
-    virtual bool CanContainCustomImage() const %Virtual;
+    virtual bool CanContainCustomImage() const; /* %Virtual; */
 
     // CreateControls calls this with CB_READONLY in extraStyle
     wxWindow* CreateControlsBase( wxPropertyGrid* propgrid,
@@ -311,13 +322,14 @@ public:
 %name{Wx::PGComboBoxEditor} class wxPGComboBoxEditor : public %name{Wx::PGChoiceEditor} wxPGChoiceEditor
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPGComboBoxEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGComboBoxEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGComboBoxEditor, wxPGComboBoxEditor ); %};
-        %ForceConcrete;
     };
+    */
 
 %{
 static void
@@ -337,33 +349,34 @@ public:
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
                                           const wxPoint& pos,
-                                          const wxSize& size) const %Virtual;
+                                          const wxSize& size) const; /* %Virtual; */
 
-    virtual wxString GetName() const %Virtual;
+    virtual wxString GetName() const; /* %Virtual; */
 
-    virtual void UpdateControl( wxPGProperty* property, wxWindow* ctrl ) const %Virtual;
+    virtual void UpdateControl( wxPGProperty* property, wxWindow* ctrl ) const; /* %Virtual; */
 
     virtual bool OnEvent( wxPropertyGrid* propgrid, wxPGProperty* property,
-        wxWindow* ctrl, wxEvent& event ) const %Virtual;
+        wxWindow* ctrl, wxEvent& event ) const; /* %Virtual; */
 
     virtual bool GetValueFromControl( wxVariant& variant,
                                       wxPGProperty* property,
-                                      wxWindow* ctrl ) const %Virtual;
+                                      wxWindow* ctrl ) const; /* %Virtual; */
 
-    virtual void OnFocus( wxPGProperty* property, wxWindow* wnd ) const %Virtual;
+    virtual void OnFocus( wxPGProperty* property, wxWindow* wnd ) const; /* %Virtual; */
 
 };
 
 %name{Wx::PGChoiceAndButtonEditor} class wxPGChoiceAndButtonEditor : public %name{Wx::PGChoiceEditor} wxPGChoiceEditor
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPGChoiceAndButtonEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGChoiceAndButtonEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGChoiceAndButtonEditor, wxPGChoiceAndButtonEditor ); %};
-        %ForceConcrete;
     };
+    */
 
 %{
 static void
@@ -380,25 +393,26 @@ public:
                  delete THIS;
                %};    
     
-    virtual wxString GetName() const %Virtual;
+    virtual wxString GetName() const; /* %Virtual; */
 
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
                                           const wxPoint& pos,
-                                          const wxSize& size) const %Virtual;
+                                          const wxSize& size) const; /* %Virtual; */
 
 };
 
 %name{Wx::PGTextCtrlAndButtonEditor} class wxPGTextCtrlAndButtonEditor : public %name{Wx::PGTextCtrlEditor} wxPGTextCtrlEditor
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPGTextCtrlAndButtonEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGTextCtrlAndButtonEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGTextCtrlAndButtonEditor, wxPGTextCtrlAndButtonEditor ); %};
-        %ForceConcrete;
     };
+    */
 
 %{
 static void
@@ -415,12 +429,12 @@ public:
                  delete THIS;
                %};
     
-    virtual wxString GetName() const %Virtual;
+    virtual wxString GetName() const; /* %Virtual; */
 
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
                                           const wxPoint& pos,
-                                          const wxSize& size) const %Virtual;
+                                          const wxSize& size) const; /* %Virtual; */
 
 };
 
@@ -435,13 +449,14 @@ public:
 %name{Wx::PGCheckBoxEditor} class wxPGCheckBoxEditor : public %name{Wx::PGEditor} wxPGEditor
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPGCheckBoxEditor};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGCheckBoxEditor ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGCheckBoxEditor, wxPGCheckBoxEditor ); %};
-        %ForceConcrete;
     };
+    */
 
 %{
 static void
@@ -458,38 +473,38 @@ public:
                  delete THIS;
                %};
 
-    virtual wxString GetName() const %Virtual;
+    virtual wxString GetName() const; /* %Virtual; */
     
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
                                           const wxPoint& pos,
-                                          const wxSize& size) const %Virtual;
+                                          const wxSize& size) const; /* %Virtual; */
     
     virtual void UpdateControl( wxPGProperty* property,
-                                wxWindow* ctrl ) const %Virtual;
+                                wxWindow* ctrl ) const; /* %Virtual; */
     
     virtual bool OnEvent( wxPropertyGrid* propgrid,
                           wxPGProperty* property,
                           wxWindow* primaryCtrl,
-                          wxEvent& event ) const %Virtual;
+                          wxEvent& event ) const; /* %Virtual; */
     
     virtual bool GetValueFromControl( wxVariant& variant,
                                       wxPGProperty* property,
-                                      wxWindow* ctrl ) const %Virtual;
+                                      wxWindow* ctrl ) const; /* %Virtual; */
     
     virtual void SetValueToUnspecified( wxPGProperty* property,
-                                        wxWindow* ctrl ) const %Virtual;
+                                        wxWindow* ctrl ) const; /* %Virtual; */
 
     virtual void DrawValue( wxDC& dc,
                             const wxRect& rect,
                             wxPGProperty* property,
-                            const wxString& text ) const %Virtual;
+                            const wxString& text ) const; /* %Virtual; */
     
     //virtual wxPGCellRenderer* GetCellRenderer() const;
 
     virtual void SetControlIntValue( wxPGProperty* property,
                                      wxWindow* ctrl,
-                                     int value ) const %Virtual;
+                                     int value ) const; /* %Virtual; */
 };
 
 #endif

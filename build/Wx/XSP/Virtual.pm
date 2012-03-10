@@ -32,15 +32,7 @@ sub handle_class_tag {
             { name           => $map{Name}[0][0] || '',
               declaration    => join( "\n", @{$map{Declaration}[0] || []} ),
               implementation => join( "\n", @{$map{Implementation}[0] || []} ),
-              forceconcrete  => exists($map{ForceConcrete}) ? 1 : 0,
             };
-        
-        # ForceConcrete creates a virtual handling class for a class definition
-        # with NO pure virtual methods. It also creates a concrete
-        # concrete class with standard constructors.
-        # If ForceConcrete is specified and a pure virtual method is encountered
-        # the parser throws error as we can't have a concrete class with pure
-        # virtuals.
     }
 
     1;
@@ -76,12 +68,10 @@ my %type_map =
                             default_value  => '0.0',
                             type_char      => 'd',
                             },
-    # TODO merge
     'wxAlignment'      => { convert_return => '(wxAlignment)SvIV( ret )',
                             default_value  => '(wxAlignment)0',
                             type_char      => 'i',
                             },
-    # TODOD merge
     'wxGridCellAttr::wxAttrKind' =>
                        => { convert_return => '(wxGridCellAttr::wxAttrKind)SvIV( ret )',
                             default_value  => '(wxGridCellAttr::wxAttrKind)0',
@@ -142,32 +132,12 @@ my %type_map =
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
-    'wxValidator*'   => { convert_return => '(wxValidator*)wxPli_sv_2_object( aTHX_ ret, "Wx::Validator" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
     # TODO merge
     'const wxBitmap&' => { convert_return => '*(wxBitmap*)wxPli_sv_2_object( aTHX_ ret, "Wx::Bitmap" )',
                            default_value  => 'wxBitmap()',
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
-    'wxWindow*'       => { convert_return => '(wxWindow*)wxPli_sv_2_object( aTHX_ ret, "Wx::Window" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'wxStatusBar*'       => { convert_return => '(wxStatusBar*)wxPli_sv_2_object( aTHX_ ret, "Wx::StatusBar" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },    
-    'wxDC&'           => { convert_return => '*(wxDC*)wxPli_sv_2_object( aTHX_ ret, "Wx::DC" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },        
-    'wxEvent&'           => { convert_return => '*(wxEvent*)wxPli_sv_2_object( aTHX_ ret, "Wx::Event" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },            
     'const wxPoint&'  => { convert_return => 'wxPli_sv_2_wxpoint( aTHX_ ret )',
                            default_value  => 'wxPoint()',
                            type_char      => 'o',
@@ -200,7 +170,7 @@ my %type_map =
                            },
     'wxTreeListCtrl*' => { convert_return => '(wxTreeListCtrl*)wxPli_sv_2_object( aTHX_ ret, "Wx::TreeListCtrl" )',
                            type_char      => 'O',
-                           arguments      => '&%s',
+                           arguments      => '%s',
                            },
     'wxTreeListItem'  => { convert_return => '*(wxTreeListItem*)wxPli_sv_2_object( aTHX_ ret, "Wx::TreeListItem" )',
                            type_char      => 'o',
@@ -210,62 +180,6 @@ my %type_map =
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
-    'wxPropertyGrid*' => { convert_return => '(wxPropertyGrid*)wxPli_sv_2_object( aTHX_ ret, "Wx::PropertyGrid" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'const wxPropertyGrid*' => { convert_return => '(wxPropertyGrid*)wxPli_sv_2_object( aTHX_ ret, "Wx::PropertyGrid" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'wxPGProperty*'   => { convert_return => '(wxPGProperty*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGProperty" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'wxPGProperty&' => { convert_return => '*(wxPGProperty*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGProperty" )',
-                           type_char      => 'o',
-                           arguments      => '&%s, "Wx::PGProperty"',
-                           },    
-    'const wxPGCell&' => { convert_return => '*(wxPGCell*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGCell" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'wxPGWindowList'   => { convert_return => '*(wxPGWindowList*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGWindowList" )',
-                           type_char      => 'o',
-                           arguments      => '&%s, "Wx::PGWindowList"',
-                           },
-    'wxPGVIterator'   => { convert_return => '*(wxPGVIterator*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGVIterator" )',
-                           type_char      => 'o',
-                           arguments      => '&%s, "Wx::PGVIterator"',
-                           },
-    'wxPropertyGridPage*'   => { convert_return => '(wxPropertyGridPage*)wxPli_sv_2_object( aTHX_ ret, "Wx::PropertyGridPage" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'wxPGValidationInfo&' => { convert_return => '*(wxPGValidationInfo*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGValidationInfo" )',
-                           type_char      => 'o',
-                           arguments      => '&%s, "Wx::PGValidationInfo"',
-                           },
-    'const wxPGEditor*'   => { convert_return => '(wxPGEditor*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGEditor" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'wxPGCellRenderer*'  => { convert_return => '(wxPGCellRenderer*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGCellRenderer" )',
-                           type_char      => 'q',
-                           arguments      => '&%s, "Wx::PGCellRenderer"',
-                           },
-    'wxPGEditorDialogAdapter*'   => { convert_return => '(wxPGEditorDialogAdapter*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGEditorDialogAdapter" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'wxPGProperty*'   => { convert_return => '(wxPGProperty*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGProperty" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'const wxPGProperty*'   => { convert_return => '(wxPGProperty*)wxPli_sv_2_object( aTHX_ ret, "Wx::PGProperty" )',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },        
     );
 
 sub _virtual_typemap {
@@ -297,9 +211,7 @@ sub post_process {
     foreach my $node ( @copy ) {
         next unless $node->isa( 'ExtUtils::XSpp::Node::Class' );
         next if $self->{virtual_classes}{$node};
-        my( @virtual, $abstract_class, @classes, %redefined, $concrete_class);
-
-        $concrete_class = $self->{virtual_implementation}{$node->cpp_name}{forceconcrete};
+        my( @virtual, $abstract_class, @classes, %redefined );
         
         @classes = $node;
         # find virtual method in this class and in all base classes
@@ -321,9 +233,6 @@ sub post_process {
 
                 push @virtual, $self->{virtual_methods}{$method};
                 $abstract_class ||= $virtual[-1][1];
-                if( $abstract_class && $concrete_class ) {
-                    die qq( ForceConcrete specified with pure virtual method ) . $method->cpp_name;
-                }
             }
 
             push @classes, @{$class->base_classes};
@@ -339,7 +248,7 @@ sub post_process {
             ( $cpp_class = $node->cpp_name ) =~ s/^wx/wxPl/;
         }
         my $perl_class;
-        if( $abstract_class || $concrete_class  ) {
+        if( $abstract_class ) {
             ( $perl_class = $cpp_class ) =~ s/^wx/Wx::/;
         } else {
             ( $perl_class = $cpp_class ) =~ s/^wxPl/Wx::/;
@@ -543,7 +452,7 @@ EOT
         close $h_file;
 
         ExtUtils::XSpp::Typemap::add_class_default_typemaps( $cpp_class );
-        if( $abstract_class || $concrete_class ) {
+        if( $abstract_class ) {
             my $new_class = ExtUtils::XSpp::Node::Class->new
                                 ( cpp_name        => $cpp_class,
                                   perl_name       => $perl_class,
@@ -555,7 +464,6 @@ EOT
                                   );
 
             push @$nodes, $new_class;
-            $node->add_methods( @new_constructors ) if $concrete_class;
         } else {
             $node->add_methods( @new_constructors );
 

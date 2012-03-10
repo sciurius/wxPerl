@@ -16,17 +16,17 @@
 
 
 %loadplugin{build::Wx::XSP::Overload};
-%loadplugin{build::Wx::XSP::Virtual};
 
 %name{Wx::PropertyGridManager} class wxPropertyGridManager : public %name{Wx::Panel} wxPanel
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPropertyGridManager};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGridManager ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGridManager, wxPropertyGridManager ); %};
-        %ForceConcrete;
     };
+    */
 
 public:
     
@@ -44,11 +44,11 @@ public:
     
     /* Virtual wxPropertyGridInterface */
     
-    virtual void Clear() %Virtual;
+    virtual void Clear(); /* %Virtual; */
     
-    virtual wxPGVIterator GetVIterator( int flags ) const %Virtual;
+    virtual wxPGVIterator GetVIterator( int flags ) const; /* %Virtual; */
     
-    virtual bool IsPropertySelected( wxString& id ) const %Virtual; 
+    virtual bool IsPropertySelected( wxString& id ) const; /* %Virtual; */
     
     /* Virtual wxPropertyGridInterface  End*/    
     
@@ -114,7 +114,7 @@ public:
 
     bool IsPageModified( size_t index ) const;
 
-    virtual bool RemovePage( int page ) %Virtual;
+    virtual bool RemovePage( int page ); /*  %Virtual; */
 
     %name{SelectPageOLInt} void SelectPage( int index ) %Overload;
 
@@ -158,7 +158,7 @@ public:
     
 protected:
     
-    virtual wxPropertyGrid* CreatePropertyGrid() const %Virtual;
+    virtual wxPropertyGrid* CreatePropertyGrid() const; /* %Virtual; */
 };
 
 /**************************************************************************/

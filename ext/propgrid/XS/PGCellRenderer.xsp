@@ -17,16 +17,14 @@
 #include <wx/object.h>
 
 %loadplugin{build::Wx::XSP::Overload};
-%loadplugin{build::Wx::XSP::Virtual};
 
 %name{Wx::PGCellRenderer} class wxPGCellRenderer : public wxObjectRefData
 
 {
-    %NoVirtualBase;
 
 public:
 
-    wxPGCellRenderer();
+    /* wxPGCellRenderer(); */
     
     /*
     ~wxPGCellRenderer()
@@ -39,15 +37,15 @@ public:
                          wxPGProperty* property,
                          int column,
                          int item,
-                         int flags ) const = 0 %Virtual{pure};
+                         int flags ) const; /* = 0 %Virtual{pure}; */
 
     virtual wxSize GetImageSize( const wxPGProperty* property,
                                  int column,
-                                 int item ) const %Virtual;
+                                 int item ) const; /* %Virtual; */
 
     virtual void DrawCaptionSelectionRect( wxDC& dc,
                                            int x, int y,
-                                           int w, int h ) const %Virtual;
+                                           int w, int h ) const; /* %Virtual; */
 
     void DrawText( wxDC& dc,
                    const wxRect& rect,

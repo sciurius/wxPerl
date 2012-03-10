@@ -121,13 +121,16 @@ wxPGPGridInterfaceBase::GetPropertiesWithFlag(wxByte flags, bool inverse = false
 #endif
 
     /** Returns client data (void*) of a property. */
-    /*TODO FIXME
+    /*
     void* GetPropertyClientData( wxString& id ) const;
     */
+    
+    /* wxPliUserDataCD* GetPropertyClientData( wxString& id ) const
+      %code{% RETVAL = (wxPliUserDataCD*)THIS->GetPropertyClientObject( id ); %}; */
 
-    %name{GetPropertyByNameOLName} wxPGProperty* GetPropertyByName( const wxString& name ) const %Overload;
+    %name{GetPropertyByNameName} wxPGProperty* GetPropertyByName( const wxString& name ) const %Overload;
 
-    %name{GetPropertyByNameOLSubName} wxPGProperty* GetPropertyByName( const wxString& name,
+    %name{GetPropertyByNameSubName} wxPGProperty* GetPropertyByName( const wxString& name,
                                      const wxString& subname ) const %Overload;
 
     const wxPGEditor* GetPropertyEditor( wxString& id ) const;
@@ -254,10 +257,12 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
                           const wxColour& fgCol = wxNullColourPtr,
                           const wxColour& bgCol = wxNullColourPtr );
 
-    /* TODO FIXME
+    /* 
     void SetPropertyClientData( wxString& id, void* clientData );
     */
-
+	
+	/* %name{SetPropertyClientData} void SetPropertyClientObject( wxString& id, wxPliUserDataCD* data ); */
+    
     void SetPropertyColoursToDefault( wxString& id );
 
     void SetPropertyEditor( wxString& id, const wxPGEditor* editor );

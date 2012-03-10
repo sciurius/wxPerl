@@ -20,27 +20,27 @@
 %name{Wx::PropertyGridPage} class wxPropertyGridPage : public %name{Wx::EvtHandler} wxEvtHandler
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPropertyGridPage};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGridPage ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGridPage, wxPropertyGridPage ); %};
-        %ForceConcrete;
     };
+    */
 
 public:
     wxPropertyGridPage()
        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
     
-    /* %name{Destroy} virtual ~wxPropertyGridPage(); */
 
     /* Virtual wxPropertyGridInterface */
     
-    virtual void Clear() %Virtual;
+    virtual void Clear(); /* %Virtual; */
     
-    virtual wxPGVIterator GetVIterator( int flags ) const %Virtual;
+    virtual wxPGVIterator GetVIterator( int flags ) const; /* %Virtual; */
     
-    virtual bool IsPropertySelected( wxString& id ) const %Virtual;
+    virtual bool IsPropertySelected( wxString& id ) const; /* %Virtual; */
     
     /* Virtual wxPropertyGridInterface  End*/
 
@@ -54,13 +54,13 @@ public:
 
     int GetToolId() const;
 
-    virtual void Init() %Virtual;
+    virtual void Init(); /* %Virtual; */
 
-    virtual bool IsHandlingAllEvents() const %Virtual;
+    virtual bool IsHandlingAllEvents() const; /* %Virtual; */
 
-    virtual void OnShow() %Virtual;
+    virtual void OnShow(); /* %Virtual; */
 
-    virtual void RefreshProperty( wxPGProperty* p ) %Virtual;
+    virtual void RefreshProperty( wxPGProperty* p ); /* %Virtual; */
 
     void SetSplitterPosition( int splitterPos, int col = 0 );
     

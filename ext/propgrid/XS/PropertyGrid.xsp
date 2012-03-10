@@ -15,17 +15,17 @@
 #if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
 
 %loadplugin{build::Wx::XSP::Overload};
-%loadplugin{build::Wx::XSP::Virtual};
-
 
 %name{Wx::PropertyGridHitTestResult} class wxPropertyGridHitTestResult 
 {
+    
 %{
 static void
 wxPropertyGridHitTestResult::CLONE()
   CODE:
     wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
 %}
+
 public:
     wxPropertyGridHitTestResult();
 
@@ -47,13 +47,14 @@ public:
 %name{Wx::PropertyGrid} class wxPropertyGrid : public %name{Wx::Control} wxControl
 
 {
+    /*
     %NoVirtualBase;
     %VirtualImplementation{
         %Name{wxPlPropertyGrid};
         %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGrid ); %};
         %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGrid, wxPropertyGrid ); %};
-        %ForceConcrete;
     };
+    */
 
 public:
     
@@ -79,15 +80,15 @@ public:
    
     void CenterSplitter( bool enableAutoResizing = false );
 
-    virtual void Clear() %Virtual;
+    virtual void Clear(); /* %Virtual; */
     
-    virtual wxPGVIterator GetVIterator( int flags ) const %Virtual;
+    virtual wxPGVIterator GetVIterator( int flags ) const; /* %Virtual; */
     
-    virtual bool IsPropertySelected( wxString& id ) const %Virtual;
+    virtual bool IsPropertySelected( wxString& id ) const; /* %Virtual; */
     
     void ClearActionTriggers( int action );
 
-    virtual bool CommitChangesFromEditor( wxUint32 flags = 0 ) %Virtual;
+    virtual bool CommitChangesFromEditor( wxUint32 flags = 0 ); /* %Virtual; */
 
     bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
                 const wxPoint& pos = wxDefaultPosition,
@@ -177,7 +178,7 @@ public:
 
     void RefreshEditor();
 
-    virtual void RefreshProperty( wxPGProperty* p ) %Virtual;
+    virtual void RefreshProperty( wxPGProperty* p ); /* %Virtual; */
 
     static wxPGEditor* RegisterEditorClass( wxPGEditor* editor, bool noDefCheck = false );
     
@@ -212,7 +213,8 @@ public:
     void SetMarginColour(const wxColour& col);
 
     /*void SetSelection( const wxArrayPGProperty& newSelection ); */
-    /* Accept ref to array of Wx::PGProperty Objects. */
+    /* Accept ref to array of Wx::PGProperty Objects. */   
+    
 
 %{
 
@@ -256,12 +258,12 @@ wxPropertyGrid::SetSelection( selectarr = 0 )
     void SetVerticalSpacing( int vspacing );
 
     virtual void DoShowPropertyError( wxPGProperty* property,
-                                      const wxString& msg ) %Virtual;
+                                      const wxString& msg ); /* %Virtual; */
 
-    virtual void DoHidePropertyError( wxPGProperty* property ) %Virtual;
+    virtual void DoHidePropertyError( wxPGProperty* property );/* %Virtual; */
 #if wxUSE_STATUSBAR
 
-    virtual wxStatusBar* GetStatusBar() %Virtual;
+    virtual wxStatusBar* GetStatusBar(); /* %Virtual; */
 #endif
 
     void EditorsValueWasModified();
@@ -275,6 +277,12 @@ wxPropertyGrid::SetSelection( selectarr = 0 )
     void ShowPropertyError( wxString& id, const wxString& msg );
     
     bool WasValueChangedInEvent() const;
+    
+    wxWindow* GetEditorControl() const;
+
+    wxWindow* GetPrimaryEditor() const;
+
+    wxWindow* GetEditorControlSecondary() const;
 
 };
 

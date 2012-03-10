@@ -43,16 +43,13 @@ use Wx::PropertyGrid;
 #   wxPropertyGridPage
 
 package MyPGGrid;
-use base qw( Wx::PlPropertyGrid );
+use base qw( Wx::PropertyGrid );
 sub new { shift->SUPER::new(@_) }
 
 package MyPGEdit;
-use base qw( Wx::PlPGEditor );
+use base qw( Wx::PGTextCtrlEditor );
 sub new { shift->SUPER::new(@_) }
 
-package MyPGAdapt;
-use base qw( Wx::PlPGEditorDialogAdapter );
-sub new { shift->SUPER::new(@_) }
 
 package main;
 
@@ -71,8 +68,8 @@ my $choiced1 = Wx::PGChoicesData->new;
 my $choiced2 = Wx::PGChoicesData->new;
 my $choicee1 = Wx::PGChoiceEntry->new;
 my $choicee2 = Wx::PGChoiceEntry->new;
-my $pgrend1 = Wx::PlPGCellRenderer->new;
-my $pgrend2 = Wx::PlPGCellRenderer->new;
+#my $pgrend1 = Wx::PGCellRenderer->new;
+#my $pgrend2 = Wx::PGCellRenderer->new;
 my $pgwlist1  = Wx::PGWindowList->new;
 my $pgwlist2  = Wx::PGWindowList->new;
 my $pgmbut1  = Wx::PGMultiButton->new( $propgrid, Wx::Size->new(10,10) );
@@ -80,20 +77,20 @@ my $pgmbut2  = Wx::PGMultiButton->new($propgrid, Wx::Size->new(10,10));
 
 my $pgedit1 = MyPGEdit->new;
 my $pgedit2 = MyPGEdit->new;
-my $pgdlga1  = MyPGAdapt->new;
-my $pgdlga2  = MyPGAdapt->new;
+#my $pgdlga1  = MyPGAdapt->new;
+#my $pgdlga2  = MyPGAdapt->new;
 
-my $plpgp1 = Wx::PlPGProperty->new;
-my $plpgp2 = Wx::PlPGProperty->new;
+my $plpgp1 = Wx::StringProperty->new;
+my $plpgp2 = Wx::StringProperty->new;
 
 my $hittest1 = Wx::PropertyGridHitTestResult->new();
 my $hittest2 = Wx::PropertyGridHitTestResult->new();
 
-my $manager1 = Wx::PlPropertyGridManager->new;
-my $manager2 = Wx::PlPropertyGridManager->new;
+my $manager1 = Wx::PropertyGridManager->new;
+my $manager2 = Wx::PropertyGridManager->new;
 
-my $pgpage1 = Wx::PlPropertyGridPage->new;
-my $pgpage2 = Wx::PlPropertyGridPage->new;
+my $pgpage1 = Wx::PropertyGridPage->new;
+my $pgpage2 = Wx::PropertyGridPage->new;
 
 my $pgviter1 = Wx::PGVIterator->new;
 my $pgviter2 = Wx::PGVIterator->new;
@@ -104,9 +101,9 @@ undef $choice2;
 undef $choiced2;
 undef $choicee2;
 undef $pgvi2;
-undef $pgrend2;
+#undef $pgrend2;
 undef $pgedit2;
-undef $pgdlga2;
+#undef $pgdlga2;
 undef $pgmbut2;
 undef $pgwlist2;
 

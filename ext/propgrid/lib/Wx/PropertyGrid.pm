@@ -81,13 +81,9 @@ no strict;
 package Wx::PropertyGridIteratorBase;
 package Wx::PropertyGridIterator; @ISA = qw( Wx::PropertyGridIteratorBase );
 package Wx::PropertyGridManager; @ISA = qw( Wx::Panel );
-package Wx::PlPropertyGridManager; @ISA = qw( Wx::PropertyGridManager );
 package Wx::PropertyGridPage; @ISA = qw( Wx::EvtHandler );
 package Wx::PropertyGrid; @ISA = qw( Wx::Control);
-package Wx::PlPropertyGrid; @ISA = qw( Wx::PropertyGrid );
 
-package Wx::PGPropArgCls;
-package Wx::PGPropArg; @ISA = qw( Wx::PGPropArgCls );
 package Wx::PGProperty; @ISA = qw( Wx::Object );
 package Wx::PropertyCategory; @ISA = qw( Wx::PGProperty );
 package Wx::PGCell; @ISA = qw( Wx::Object );
@@ -98,24 +94,17 @@ package Wx::PGCellRenderer; @ISA = qw( Wx::ObjectRefData );
 package Wx::PGDefaultRenderer; @ISA = qw( Wx::PGCellRenderer );
 package Wx::PGChoicesData; @ISA = qw( Wx::ObjectRefData );
 package Wx::PGMultiButton; @ISA = qw( Wx::Window );
+
 package Wx::PGEditor; @ISA = qw( Wx::Object );
-package Wx::PlPGEditor; @ISA = qw( Wx::PGEditor );
+
 package Wx::PGTextCtrlEditor;  @ISA = qw( Wx::PGEditor );
-package Wx::PlPGTextCtrlEditor;  @ISA = qw( Wx::PGTextCtrlEditor );
+
 package Wx::PGChoiceEditor;  @ISA = qw( Wx::PGEditor );
-package Wx::PlPGChoiceEditor;  @ISA = qw( Wx::PGChoiceEditor );
 package Wx::PGComboBoxEditor;  @ISA = qw( Wx::PGChoiceEditor );
-package Wx::PlPGComboBoxEditor;  @ISA = qw( Wx::PGComboBoxEditor );
 package Wx::PGChoiceAndButtonEditor;  @ISA = qw( Wx::PGChoiceEditor );
-package Wx::PlPGChoiceAndButtonEditor;  @ISA = qw( Wx::PGChoiceAndButtonEditor );
 package Wx::PGTextCtrlAndButtonEditor;  @ISA = qw( Wx::PGTextCtrlEditor );
-package Wx::PlPGTextCtrlAndButtonEditor;  @ISA = qw( Wx::PGTextCtrlAndButtonEditor );
 package Wx::PGCheckBoxEditor;  @ISA = qw( Wx::PGEditor );
-package Wx::PlPGCheckBoxEditor;  @ISA = qw( Wx::PGCheckBoxEditor );
-
 package Wx::PGInDialogValidator;
-
-#package Wx::NumericPropertyValidator; @ISA = qw( Wx::TextValidator );
 
 package Wx::StringProperty; @ISA = qw( Wx::PGProperty );
 package Wx::IntProperty; @ISA = qw( Wx::PGProperty );
@@ -134,7 +123,6 @@ package Wx::PGFileDialogAdapter; @ISA = qw( Wx::PGEditorDialogAdapter );
 package Wx::PGLongStringDialogAdapter; @ISA = qw( Wx::PGEditorDialogAdapter ); 
 
 package Wx::PGArrayEditorDialog; @ISA = qw( Wx::Dialog );    
-package Wx::PlPGArrayEditorDialog; @ISA = qw( Wx::PGArrayEditorDialog ); 
 package Wx::PGArrayStringEditorDialog; @ISA = qw( Wx::PGArrayEditorDialog );
 
 package Wx::ColourPropertyValue; @ISA = qw( Wx::Object );
