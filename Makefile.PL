@@ -6,7 +6,7 @@
 ## Modified by:
 ## Created:     01/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2011 Mattia Barbon
+## Copyright:   (c) 2000-2012 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -34,16 +34,18 @@ my $moduleauthor = ( $mmv >= 6.5702 ) ? [ 'Mattia Barbon <mbarbon@cpan.org>' ] :
 # $ExtUtils::MakeMaker::Verbose = 2;
 # $wxConfig::Verbose = 10;
 
-my $build_requires =
-  { 'File::Spec::Functions'  => 0.82,
+my $build_requires =  {
+    'ExtUtils::MakeMaker'    => 6.17,
+    };
+  
+my $requires =  {
+    'Alien::wxWidgets'       => 0.25,
+    'ExtUtils::XSpp'         => 0.1602,
+    'ExtUtils::ParseXS'      => 3.15,
+    'File::Spec::Functions'  => 0.82,
     'Test::More'             => 0.45,
     'Test::Harness'          => 2.26,
-    'Data::Dumper'           => 0,
-    'ExtUtils::MakeMaker'    => 6.17,
-    'Alien::wxWidgets'       => 0.25,
     'if'                     => 0.03,
-    'ExtUtils::XSpp'         => 0.1602,
-    'ExtUtils::ParseXS'      => 2.2203,
     };
 
 eval {
@@ -54,7 +56,7 @@ eval {
       ( { license        => 'perl',
           author         => $moduleauthor,
           dynamic_config => 1,
-          requires       => {},
+          requires       => $requires,
           build_requires => $build_requires,
           no_index       => { directory => [ qw(samples script) ],
                               package   => [ qw(MY Parse::Yapp::Driver) ],
@@ -74,7 +76,7 @@ wxWriteMakefile( NAME          => 'Wx',
                  ABSTRACT_FROM => 'Wx.pm',
                  AUTHOR        => $moduleauthor,
                  VERSION_FROM  => 'Wx.pm',
-                 PREREQ_PM     => { %$build_requires },
+                 PREREQ_PM     => { %$requires, %$build_requires },
                  PMLIBDIRS     => [ 'lib', 'build' ],
                  EXE_FILES     => [ qw(script/wxperl_overload) ],
                  WX_CORE_LIB_MAYBE => $^O eq 'darwin' ? 'media html' : '',
