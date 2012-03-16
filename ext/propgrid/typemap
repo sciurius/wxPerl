@@ -13,12 +13,9 @@
 TYPEMAP
 
 wxPropertyGridPage *       O_WXEVTHANDLER
-wxPlPropertyGridPage *     O_WXEVTHANDLER
 wxPropertyGridManager *    O_WXEVTHANDLER
-wxPlPropertyGridManager *  O_WXEVTHANDLER
 wxPropertyGrid *           O_WXEVTHANDLER
 const wxPropertyGrid *     O_WXEVTHANDLER
-wxPlPropertyGrid *         O_WXEVTHANDLER
 wxPropertyGridInterface *  O_WXEVTHANDLER
 wxPGMultiButton *          O_WXEVTHANDLER
 
@@ -33,32 +30,24 @@ wxPGChoicesData *          O_NON_WXOBJECT
 wxPGCellData *             O_NON_WXOBJECT
 wxPGCellRenderer *         O_NON_WXOBJECT
 wxPGDefaultRenderer *      O_NON_WXOBJECT
-wxPlPGCellRenderer *       O_NON_WXOBJECT
 
 wxPGWindowList *           O_NON_WXOBJECT_THR
 
 wxPGEditor *               O_WXOBJECT_THR
 const wxPGEditor *         O_WXOBJECT_THR
-wxPlPGEditor *             O_WXOBJECT_THR
 wxPGEditorDialogAdapter *  O_WXOBJECT_THR
-wxPlPGEditorDialogAdapter *  O_WXOBJECT_THR
-wxPlPGTextCtrlEditor *     O_WXOBJECT_THR
-wxPlPGChoiceEditor *       O_WXOBJECT_THR
-wxPlPGComboBoxEditor *     O_WXOBJECT_THR
-wxPlPGChoiceAndButtonEditor *  O_WXOBJECT_THR
-wxPlPGTextCtrlAndButtonEditor *  O_WXOBJECT_THR
-wxPlPGCheckBoxEditor *     O_WXOBJECT_THR
-wxPGTextCtrlEditor *     O_WXOBJECT_THR
-wxPGChoiceEditor *       O_WXOBJECT_THR
-wxPGComboBoxEditor *     O_WXOBJECT_THR
+wxPGTextCtrlEditor *       O_WXOBJECT_THR
+wxPGChoiceEditor *         O_WXOBJECT_THR
+wxPGComboBoxEditor *       O_WXOBJECT_THR
 wxPGChoiceAndButtonEditor *  O_WXOBJECT_THR
 wxPGTextCtrlAndButtonEditor *  O_WXOBJECT_THR
-wxPGCheckBoxEditor *     O_WXOBJECT_THR
+wxPGCheckBoxEditor *       O_WXOBJECT_THR
+wxPGDatePickerCtrlEditor * O_WXOBJECT_THR
+wxPGSpinCtrlEditor *       O_WXOBJECT_THR
 
 wxPropertyCategory *       O_WXOBJECT_THR
 wxPGProperty *             O_WXOBJECT_THR
 const wxPGProperty *       O_WXOBJECT_THR
-wxPlPGProperty *           O_WXOBJECT_THR
 
 wxPropertyGridEvent *      O_WXOBJECT
 
@@ -90,7 +79,6 @@ wxPGFileDialogAdapter *  O_NON_WXOBJECT_THR
 wxPGLongStringDialogAdapter * O_NON_WXOBJECT_THR
 
 wxPGArrayEditorDialog *  O_WXEVTHANDLER
-wxPlPGArrayEditorDialog *  O_WXEVTHANDLER
 wxPGArrayStringEditorDialog *  O_WXEVTHANDLER
 
 const wxWindow *           O_WXOBJECT
@@ -98,14 +86,11 @@ const wxWindow *           O_WXOBJECT
 wxColourPropertyValue *   O_WXOBJECT_THR
 
 wxFontProperty *   O_WXOBJECT_THR
-wxPlFontProperty * O_WXOBJECT_THR
 wxSystemColourProperty *   O_WXOBJECT_THR
 wxColourProperty *   O_WXOBJECT_THR
 wxCursorProperty *   O_WXOBJECT_THR
 wxImageFileProperty *   O_WXOBJECT_THR
-
 wxMultiChoiceProperty *   O_WXOBJECT_THR
 wxDateProperty *   O_WXOBJECT_THR
-wxPGSpinCtrlEditor *   O_WXOBJECT_THR
 
 const wxVariant *     O_NON_WXOBJECT_THR

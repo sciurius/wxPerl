@@ -27,6 +27,7 @@
 #include <wx/propgrid/props.h>
 #include <wx/propgrid/propgriddefs.h>
 #include <wx/statusbr.h>
+#include <cpp/propgrid_declares.h>
 
 #include "cpp/helpers.h"
 #include "cpp/array_helpers.h"

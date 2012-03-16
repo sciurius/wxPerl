@@ -560,11 +560,11 @@ ext/propgrid/XS/PropertyGridManager.xsp
 ext/propgrid/XS/PropertyGridPage.xsp
 ext/propgrid/XS/PropertyGridPageState.xsp
 ext/propgrid/cpp/propgrid_constants.cpp
+ext/propgrid/cpp/propgrid_declares.h
 ext/propgrid/lib/Wx/PropertyGrid.pm
 ext/propgrid/t/01_load.t
 ext/propgrid/t/02_inheritance.t
 ext/propgrid/t/03_threads.t
-ext/propgrid/t/04_userdata.t
 
 ext/ribbon/Makefile.PL
 ext/ribbon/Ribbon.xs

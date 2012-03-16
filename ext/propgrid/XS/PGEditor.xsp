@@ -392,6 +392,30 @@ public:
 
 #endif // wxUSE_SPINBTN
 
+#if wxUSE_DATEPICKCTRL
+
+%name{Wx::PGDatePickerCtrlEditor} class wxPGDatePickerCtrlEditor : public %name{Wx::PGEditor} wxPGEditor
+{
+
+public:
+    
+    wxString GetName() const;
+    virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
+                                          wxPGProperty* property,
+                                          const wxPoint& pos,
+                                          const wxSize& size) const;
+    
+    virtual void UpdateControl( wxPGProperty* property, wxWindow* wnd ) const;
+    virtual bool OnEvent( wxPropertyGrid* propgrid, wxPGProperty* property,
+        wxWindow* wnd, wxEvent& event ) const;
+    
+    virtual bool GetValueFromControl( wxVariant& variant, wxPGProperty* property, wxWindow* wnd ) const;
+    
+    virtual void SetValueToUnspecified( wxPGProperty* property, wxWindow* wnd ) const;
+};
+
+#endif // wxUSE_DATEPICKCTRL
+
 #endif
 
 
