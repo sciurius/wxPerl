@@ -37,9 +37,6 @@ public:
                   const wxSize& size = wxDefaultSize,
                   long style = 0) %Overload
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
-    
-
-    /* %name{Destroy} virtual ~wxRibbonButtonBar(); */
 
     bool Create(wxWindow* parent,
                 wxWindowID id = wxID_ANY,

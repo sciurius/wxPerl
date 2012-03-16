@@ -354,7 +354,7 @@ wxRibbonMSWArtProvider::CLONE()
 public:
     wxRibbonMSWArtProvider(bool set_colour_scheme = true);
     
-    %name{Destroy} virtual ~wxRibbonMSWArtProvider()
+    virtual ~wxRibbonMSWArtProvider()
         %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) ); %};
 
     wxRibbonArtProvider* Clone() const;
@@ -413,7 +413,7 @@ wxRibbonAUIArtProvider::CLONE()
 public:
     wxRibbonAUIArtProvider();
         
-    %name{Destroy} virtual ~wxRibbonAUIArtProvider()
+    virtual ~wxRibbonAUIArtProvider()
         %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) ); %};
 
     wxRibbonArtProvider* Clone() const;

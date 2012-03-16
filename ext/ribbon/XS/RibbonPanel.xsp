@@ -42,10 +42,7 @@ public:
                 const wxSize& size = wxDefaultSize,
                 long style = wxRIBBON_PANEL_DEFAULT_STYLE);
 
-    /* %name{Destroy} virtual ~wxRibbonPanel(); */
-
     wxBitmap& GetMinimisedIcon();
-    /* const wxBitmap& GetMinimisedIcon() const; */
     
     bool IsMinimised() const;
    

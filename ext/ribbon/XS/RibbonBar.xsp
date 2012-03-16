@@ -69,8 +69,6 @@ public:
                 const wxSize& size = wxDefaultSize,
                 long style = wxRIBBON_BAR_DEFAULT_STYLE);
 
-    /* %name{Destroy} virtual ~wxRibbonBar(); */
-
     void SetTabCtrlMargins(int left, int right);
 
     void SetArtProvider(wxRibbonArtProvider* art);

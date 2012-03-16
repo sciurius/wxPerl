@@ -43,8 +43,6 @@ public:
                   long style = 0) %Overload
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
-    /* %name{Destroy} virtual ~wxRibbonGallery(); */
-
     bool Create(wxWindow* parent,
                 wxWindowID id = wxID_ANY,
                 const wxPoint& pos = wxDefaultPosition,
@@ -136,12 +134,8 @@ wxRibbonGalleryItem::CLONE()
 
 public:
     
-    wxRibbonGalleryItem();
-    
     ~wxRibbonGalleryItem()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::RibbonGalleryItem", THIS, ST(0) );
-                 /* delete THIS; */ /* deleted by owning control */
-               %};
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::RibbonGalleryItem", THIS, ST(0) );  %};
 
     void SetId(int id);
     void SetBitmap(const wxBitmap& bitmap);

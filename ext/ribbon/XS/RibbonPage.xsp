@@ -35,8 +35,6 @@ public:
                 long style = 0) %Overload
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
-    /* %name{Destroy} virtual ~wxRibbonPage(); */
-
     bool Create(wxRibbonBar* parent,
                 wxWindowID id = wxID_ANY,
                 const wxString& label = wxEmptyString,
