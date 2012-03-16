@@ -79,48 +79,63 @@ if( $__wx_pgrid_present ) {
 no strict;
 
 package Wx::PropertyGridIteratorBase;
-package Wx::PropertyGridIterator; @ISA = qw( Wx::PropertyGridIteratorBase );
-package Wx::PropertyGridManager; @ISA = qw( Wx::Panel );
-package Wx::PropertyGridPage; @ISA = qw( Wx::EvtHandler );
-package Wx::PropertyGrid; @ISA = qw( Wx::Control);
+package Wx::PropertyGridIterator;       @ISA = qw( Wx::PropertyGridIteratorBase );
+package Wx::PropertyGridManager;        @ISA = qw( Wx::Panel );
+package Wx::PropertyGridPage;           @ISA = qw( Wx::EvtHandler );
+package Wx::PropertyGrid;               @ISA = qw( Wx::Control);
 
-package Wx::PGProperty; @ISA = qw( Wx::Object );
-package Wx::PropertyCategory; @ISA = qw( Wx::PGProperty );
-package Wx::PGCell; @ISA = qw( Wx::Object );
+package Wx::PGProperty;                 @ISA = qw( Wx::Object );
+package Wx::PropertyCategory;           @ISA = qw( Wx::PGProperty );
+package Wx::PGCell;                     @ISA = qw( Wx::Object );
 
 package Wx::ObjectRefData;
 
-package Wx::PGCellRenderer; @ISA = qw( Wx::ObjectRefData );
-package Wx::PGDefaultRenderer; @ISA = qw( Wx::PGCellRenderer );
-package Wx::PGChoicesData; @ISA = qw( Wx::ObjectRefData );
-package Wx::PGMultiButton; @ISA = qw( Wx::Window );
+package Wx::PGCellRenderer;             @ISA = qw( Wx::ObjectRefData );
+package Wx::PGDefaultRenderer;          @ISA = qw( Wx::PGCellRenderer );
+package Wx::PGChoicesData;              @ISA = qw( Wx::ObjectRefData );
+package Wx::PGMultiButton;              @ISA = qw( Wx::Window );
 
-package Wx::PGEditor; @ISA = qw( Wx::Object );
+package Wx::PGEditor;                   @ISA = qw( Wx::Object );
 
-package Wx::PGTextCtrlEditor;  @ISA = qw( Wx::PGEditor );
-
-package Wx::PGChoiceEditor;  @ISA = qw( Wx::PGEditor );
-package Wx::PGComboBoxEditor;  @ISA = qw( Wx::PGChoiceEditor );
-package Wx::PGChoiceAndButtonEditor;  @ISA = qw( Wx::PGChoiceEditor );
+package Wx::PGTextCtrlEditor;           @ISA = qw( Wx::PGEditor );
+package Wx::PGChoiceEditor;             @ISA = qw( Wx::PGEditor );
+package Wx::PGComboBoxEditor;           @ISA = qw( Wx::PGChoiceEditor );
+package Wx::PGChoiceAndButtonEditor;    @ISA = qw( Wx::PGChoiceEditor );
 package Wx::PGTextCtrlAndButtonEditor;  @ISA = qw( Wx::PGTextCtrlEditor );
-package Wx::PGCheckBoxEditor;  @ISA = qw( Wx::PGEditor );
+package Wx::PGCheckBoxEditor;           @ISA = qw( Wx::PGEditor );
+package Wx::PGDatePickerCtrlEditor;     @ISA = qw( Wx::PGEditor );
+package Wx::PGSpinCtrlEditor;           @ISA = qw( Wx::PGTextCtrlEditor );
+
 package Wx::PGInDialogValidator;
 
-package Wx::StringProperty; @ISA = qw( Wx::PGProperty );
-package Wx::IntProperty; @ISA = qw( Wx::PGProperty );
-package Wx::UIntProperty; @ISA = qw( Wx::PGProperty );
-package Wx::FloatProperty; @ISA = qw( Wx::PGProperty );
-package Wx::BoolProperty; @ISA = qw( Wx::PGProperty );
-package Wx::EnumProperty; @ISA = qw( Wx::PGProperty );
-package Wx::EditEnumProperty; @ISA = qw( Wx::EnumProperty );
-package Wx::FlagsProperty; @ISA = qw( Wx::PGProperty );
-package Wx::FileProperty; @ISA = qw( Wx::PGProperty );
-package Wx::LongStringProperty; @ISA = qw( Wx::PGProperty );
-package Wx::DirProperty ; @ISA = qw( Wx::LongStringProperty );
+package Wx::StringProperty;             @ISA = qw( Wx::PGProperty );
+package Wx::IntProperty;                @ISA = qw( Wx::PGProperty );
+package Wx::UIntProperty;               @ISA = qw( Wx::PGProperty );
+package Wx::FloatProperty;              @ISA = qw( Wx::PGProperty );
+package Wx::BoolProperty;               @ISA = qw( Wx::PGProperty );
+package Wx::EnumProperty;               @ISA = qw( Wx::PGProperty );
+package Wx::EditEnumProperty;           @ISA = qw( Wx::EnumProperty );
+package Wx::FlagsProperty;              @ISA = qw( Wx::PGProperty );
+package Wx::FileProperty;               @ISA = qw( Wx::PGProperty );
+package Wx::LongStringProperty;         @ISA = qw( Wx::PGProperty );
+package Wx::DirProperty ;               @ISA = qw( Wx::LongStringProperty );
+package Wx::ArrayStringProperty;        @ISA = qw( Wx::PGProperty );
+package Wx::MultiChoiceProperty;        @ISA = qw( Wx::PGProperty );
+package Wx::FontProperty;               @ISA = qw( Wx::PGProperty );
+package Wx::SystemColourProperty;       @ISA = qw( Wx::EnumProperty );
+package Wx::ColourProperty;             @ISA = qw( Wx::SystemColourProperty );
+package Wx::CursorProperty;             @ISA = qw( Wx::EnumProperty );
+package Wx::ImageFileProperty;          @ISA = qw( Wx::FileProperty );
+package Wx::DateProperty;               @ISA = qw( Wx::PGProperty );
+
+package Wx::PGFileDialogAdapter;        @ISA = qw( Wx::PGEditorDialogAdapter );  
+package Wx::PGLongStringDialogAdapter;  @ISA = qw( Wx::PGEditorDialogAdapter ); 
+package Wx::PGArrayEditorDialog;        @ISA = qw( Wx::Dialog );    
+package Wx::PGArrayStringEditorDialog;  @ISA = qw( Wx::PGArrayEditorDialog );
+
+package Wx::ColourPropertyValue;        @ISA = qw( Wx::Object );
 
 package Wx::ArrayStringProperty;
-@ISA = qw( Wx::PGProperty );
-
 #FIXME - until we fix XS method
 sub GetPlValue {
     my @return = ();
@@ -130,8 +145,6 @@ sub GetPlValue {
 }
 
 package Wx::MultiChoiceProperty;
-@ISA = qw( Wx::PGProperty );
-
 #FIXME - until we fix XS method
 sub GetPlValue {
     my @return = ();
@@ -139,24 +152,5 @@ sub GetPlValue {
     @return = $variant->GetArrayString if !$variant->IsNull;
     return @return;
 }
-
-package Wx::PGFileDialogAdapter; @ISA = qw( Wx::PGEditorDialogAdapter );  
-package Wx::PGLongStringDialogAdapter; @ISA = qw( Wx::PGEditorDialogAdapter ); 
-
-package Wx::PGArrayEditorDialog; @ISA = qw( Wx::Dialog );    
-package Wx::PGArrayStringEditorDialog; @ISA = qw( Wx::PGArrayEditorDialog );
-
-package Wx::ColourPropertyValue; @ISA = qw( Wx::Object );
-
-package Wx::FontProperty; @ISA = qw( Wx::PGProperty );
-package Wx::SystemColourProperty; @ISA = qw( Wx::EnumProperty );
-package Wx::ColourProperty; @ISA = qw( Wx::SystemColourProperty );
-package Wx::CursorProperty; @ISA = qw( Wx::EnumProperty );
-package Wx::ImageFileProperty; @ISA = qw( Wx::FileProperty );
-
-
-package Wx::DateProperty; @ISA = qw( Wx::PGProperty );
-package Wx::PGSpinCtrlEditor; @ISA = qw( Wx::PGTextCtrlEditor );
-
 
 1;
