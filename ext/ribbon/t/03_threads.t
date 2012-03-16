@@ -38,14 +38,11 @@ my $artprov2 = $rbar->GetArtProvider->Clone;
 my $artprov3 = Wx::RibbonDefaultArtProvider->new();
 my $artprov4 = Wx::RibbonDefaultArtProvider->new();
 
-my $rgitem1 = Wx::RibbonGalleryItem->new();
-my $rgitem2 = Wx::RibbonGalleryItem->new();
+my $rgitem1 = $rgallery->AppendClientData( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataContainer->new('Stashed Data 0'));
+my $rgitem2 = $rgallery->AppendClientData( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataContainer->new('Stashed Data 1'));
 
-my $rgitem3 = $rgallery->AppendClientData( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataContainer->new('Stashed Data 0'));
-my $rgitem4 = $rgallery->AppendClientData( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataContainer->new('Stashed Data 1'));
-
-my $cdata1 = $rgallery->GetItemClientData( $rgitem3 );
-my $cdata2 = $rgitem4->GetClientData();
+my $cdata1 = $rgallery->GetItemClientData( $rgitem1 );
+my $cdata2 = $rgitem2->GetClientData();
 
 isa_ok($cdata1, 'MyDataContainer');
 is( $cdata1->{somedata}, 'Stashed Data 0' );
@@ -55,7 +52,6 @@ is( $cdata2->{somedata}, 'Stashed Data 1' );
 undef $artprov2;
 undef $artprov4;
 undef $rgitem2;
-undef $rgitem4;
 
 my $t = threads->create
   ( sub {
