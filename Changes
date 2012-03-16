@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.9905 TBR
+0.9905 Fri Mar 16 2012
     - wrapped wxPropertyGrid ( wxWidgets ge 2.9.3 )
     - wrapped native wxTreeListCtrl ( wxWidgets ge 2.9.3 )
     - wrapped wxRibbonControl ( wxWidgets ge 2.9.3 )
