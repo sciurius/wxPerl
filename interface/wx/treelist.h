@@ -43,8 +43,18 @@
 %name{Wx::TreeListItem} class wxTreeListItem
 {
 public:
-   
-    wxTreeListItem();
+
+%{
+static void
+wxTreeListItem::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+    /* wxTreeListItem(); no constructor = no objects are deleteable */
+    
+    ~wxTreeListItem()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::TreeListItem", THIS, ST(0) ); %};
 
     bool IsOk() const;
 };
@@ -53,12 +63,11 @@ public:
 {
 
 public:
-   
+  
     wxTreeListItemComparator();
     
     virtual int Compare(wxTreeListCtrl* treelist, unsigned column, wxTreeListItem first, wxTreeListItem second) = 0 %Virtual{pure};
 
-    %name{Destroy} virtual ~wxTreeListItemComparator();
 };
 
 enum
@@ -110,7 +119,24 @@ public:
                 long style = wxTL_DEFAULT_STYLE,
                 const wxString& name = wxTreeListCtrlNameStr);
 
-    void AssignImageList(wxImageList* imageList);
+%{
+
+void
+wxTreeListCtrl::AssignImageList( imagelist )
+    wxImageList* imagelist
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    THIS->AssignImageList( imagelist );
+
+    
+wxImageList*
+wxTreeListCtrl::GetImageList()
+  OUTPUT:
+    RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+
+%}
 
     void SetImageList(wxImageList* imageList);
 

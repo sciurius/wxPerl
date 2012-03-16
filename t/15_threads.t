@@ -109,12 +109,16 @@ my $bi2 = Wx::BusyInfo->new( 'y' );
 check_init { Wx::StopWatch->new };
 my $tid = $treectrl->AddRoot( 'Test root' );
 my $tid2 = $treectrl->AppendItem( $tid, 'Test child' );
-my ($tlid, $tlid1, $tlid2);
+my ($tlid, $tlid1, $tlid2, $tlid3, $tlid4, $tlccomp, $tlccompkeep);
+
 if($testtreelist) {
 	$tlid = $treelist->GetRootItem;
 	$tlid1 = $treelist->AppendItem( $tlid, 'Test Child' );
 	$tlid2 = $treelist->AppendItem( $tlid, 'Test Child' );
 	check_init { Wx::PlTreeListItemComparator->new };
+	$tlccomp = Wx::PlTreeListItemComparator->new;
+	$tlccompkeep = Wx::PlTreeListItemComparator->new;
+	$treelist->SetItemComparator( Wx::PlTreeListItemComparator->new );
 }
 
 check_init { Wx::TextAttr->new };
@@ -154,6 +158,7 @@ undef $imagelist2;
 undef $bi2;
 undef $tid2;
 undef $tlid2 if $testtreelist;
+undef $tlccomp if $testtreelist;
 check_undef;
 my $t = threads->create
   ( sub {
