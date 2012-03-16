@@ -1227,8 +1227,18 @@ wxVariant wxPli_sv_2_wxvariant( pTHX_ SV* sv )
     if( !SvOK( sv ) ) {
         return wxVariant();
     } else if( SvROK( sv ) ) {
-        // TODO
-        return wxVariant();
+        if( SvTYPE( SvRV( sv ) ) == SVt_PVAV ) {
+            // array type.
+            // assume a string array as it is the only one we
+            // can usefully handle.
+            // TODO - something better
+            wxArrayString	items;
+            wxPli_av_2_arraystring( aTHX_ sv, &items );
+            return wxVariant( items );
+        } else {
+            // TODO
+            return wxVariant();
+        }
     } else if( SvNOK( sv ) ) {
         return wxVariant( (double)SvNV( sv ) );
     } else if( SvIOK( sv ) ) {
