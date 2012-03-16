@@ -43,7 +43,8 @@
       {wxEVT_PG_COL_DRAGGING};
 %Event{%EVT_PG_COL_END_DRAG(id, func)%}
       {wxEVT_PG_COL_END_DRAG};
-
+%Event{%EVT_PG_PAGE_CHANGED(id, func)%}
+      {wxEVT_PG_PAGE_CHANGED};
 
 %name{Wx::PropertyGridEvent} class wxPropertyGridEvent : public %name{Wx::CommandEvent} wxCommandEvent
 {
@@ -63,9 +64,9 @@ public:
 
     unsigned int GetColumn() const;
 
-    wxPGProperty* GetMainParent() const;
+    wxPGProperty__parsed_nodelete* GetMainParent() const;
 
-    wxPGProperty* GetProperty() const;
+    wxPGProperty__parsed_nodelete* GetProperty() const;
 
     wxByte GetValidationFailureBehavior() const;
 
@@ -77,7 +78,7 @@ public:
 
     void SetCanVeto( bool canVeto );
 
-    void SetProperty( wxPGProperty* p );
+    void SetProperty( wxPGProperty__parsed_nodelete* p );
 
     void SetValidationFailureBehavior( wxByte flags );
 

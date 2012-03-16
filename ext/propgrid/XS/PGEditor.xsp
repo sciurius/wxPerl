@@ -48,8 +48,6 @@ public:
     wxPGMultiButton( wxPropertyGrid* pg, const wxSize& sz )
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
-    /* %name{Destroy} virtual ~wxPGMultiButton(); */
-
     %name{AddString} void Add( const wxString& label, int id = -2 ) %Overload;
 
     %name{AddBitmap} void Add( const wxBitmap& bitmap, int id = -2 ) %Overload;
@@ -67,14 +65,6 @@ public:
 
 %name{Wx::PGEditor} class wxPGEditor : public %name{Wx::Object} wxObject
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPGEditor};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGEditor ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGEditor, wxPGEditor ); %};
-    };
-    */
 
 %{
 static void
@@ -84,14 +74,11 @@ wxPGEditor::CLONE()
 %}   
 
 public:
-    
-    /* only for class methods
-    wxPGEditor();
-    */
-  
+
     ~wxPGEditor()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGEditor", THIS, ST(0) );
-                 delete THIS;
+        %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+                 if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+                    delete THIS;
                %};
 
     virtual wxString GetName() const; /* %Virtual; */
@@ -142,14 +129,6 @@ public:
 %name{Wx::PGEditorDialogAdapter} class wxPGEditorDialogAdapter : public %name{Wx::Object} wxObject
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPGEditorDialogAdapter};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGEditorDialogAdapter ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGEditorDialogAdapter, wxPGEditorDialogAdapter ); %};
-    };
-    */
 
 %{
 static void
@@ -159,8 +138,7 @@ wxPGEditorDialogAdapter::CLONE()
 %}      
 
 public:
-    /* wxPGEditorDialogAdapter(); */
-
+    
     ~wxPGEditorDialogAdapter()
         %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGEditorDialogAdapter", THIS, ST(0) );
                  delete THIS;
@@ -179,31 +157,9 @@ public:
 %name{Wx::PGTextCtrlEditor} class wxPGTextCtrlEditor : public %name{Wx::PGEditor} wxPGEditor
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPGTextCtrlEditor};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGTextCtrlEditor ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGTextCtrlEditor, wxPGTextCtrlEditor ); %};
-    };
-    */
-
-%{
-static void
-wxPGTextCtrlEditor::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-%}
-
 
 public:
     wxPGTextCtrlEditor();
-
-
-    ~wxPGTextCtrlEditor()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGTextCtrlEditor", THIS, ST(0) );
-                 delete THIS;
-               %};
 
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
@@ -248,29 +204,9 @@ public:
 %name{Wx::PGChoiceEditor} class wxPGChoiceEditor : public %name{Wx::PGEditor} wxPGEditor
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPGChoiceEditor};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGChoiceEditor ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGChoiceEditor, wxPGChoiceEditor ); %};
-    };
-    */
-
-%{
-static void
-wxPGChoiceEditor::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-%}
 
 public:
     wxPGChoiceEditor();
-    
-    ~wxPGChoiceEditor()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGChoiceEditor", THIS, ST(0) );
-                 delete THIS;
-               %};
 
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
@@ -322,29 +258,9 @@ public:
 %name{Wx::PGComboBoxEditor} class wxPGComboBoxEditor : public %name{Wx::PGChoiceEditor} wxPGChoiceEditor
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPGComboBoxEditor};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGComboBoxEditor ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGComboBoxEditor, wxPGComboBoxEditor ); %};
-    };
-    */
-
-%{
-static void
-wxPGComboBoxEditor::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-%}
 
 public:
     wxPGComboBoxEditor();
-    
-    ~wxPGComboBoxEditor()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGComboBoxEditor", THIS, ST(0) );
-                 delete THIS;
-               %};    
 
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
                                           wxPGProperty* property,
@@ -369,30 +285,10 @@ public:
 %name{Wx::PGChoiceAndButtonEditor} class wxPGChoiceAndButtonEditor : public %name{Wx::PGChoiceEditor} wxPGChoiceEditor
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPGChoiceAndButtonEditor};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGChoiceAndButtonEditor ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGChoiceAndButtonEditor, wxPGChoiceAndButtonEditor ); %};
-    };
-    */
-
-%{
-static void
-wxPGChoiceAndButtonEditor::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-%}
 
 public:
     wxPGChoiceAndButtonEditor();
-    
-    ~wxPGChoiceAndButtonEditor()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGChoiceAndButtonEditor", THIS, ST(0) );
-                 delete THIS;
-               %};    
-    
+        
     virtual wxString GetName() const; /* %Virtual; */
 
     virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
@@ -405,29 +301,9 @@ public:
 %name{Wx::PGTextCtrlAndButtonEditor} class wxPGTextCtrlAndButtonEditor : public %name{Wx::PGTextCtrlEditor} wxPGTextCtrlEditor
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPGTextCtrlAndButtonEditor};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGTextCtrlAndButtonEditor ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGTextCtrlAndButtonEditor, wxPGTextCtrlAndButtonEditor ); %};
-    };
-    */
-
-%{
-static void
-wxPGTextCtrlAndButtonEditor::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-%}
 
 public:
     wxPGTextCtrlAndButtonEditor();
-    
-    ~wxPGTextCtrlAndButtonEditor()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGTextCtrlAndButtonEditor", THIS, ST(0) );
-                 delete THIS;
-               %};
     
     virtual wxString GetName() const; /* %Virtual; */
 
@@ -449,29 +325,9 @@ public:
 %name{Wx::PGCheckBoxEditor} class wxPGCheckBoxEditor : public %name{Wx::PGEditor} wxPGEditor
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPGCheckBoxEditor};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPGCheckBoxEditor ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPGCheckBoxEditor, wxPGCheckBoxEditor ); %};
-    };
-    */
-
-%{
-static void
-wxPGCheckBoxEditor::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-%}
 
 public:
     wxPGCheckBoxEditor();
-    
-    ~wxPGCheckBoxEditor()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGCheckBoxEditor", THIS, ST(0) );
-                 delete THIS;
-               %};
 
     virtual wxString GetName() const; /* %Virtual; */
     
@@ -508,6 +364,34 @@ public:
 };
 
 #endif
+
+#if wxUSE_SPINBTN
+
+#include "wx/spinbutt.h"
+#include "wx/propgrid/editors.h"
+
+
+%name{Wx::PGSpinCtrlEditor} class wxPGSpinCtrlEditor : public %name{Wx::PGTextCtrlEditor} wxPGTextCtrlEditor
+{
+
+public:
+    
+    wxPGSpinCtrlEditor();
+    
+    wxString GetName() const;
+    
+    virtual wxPGWindowList CreateControls(wxPropertyGrid* propgrid,
+                                          wxPGProperty* property,
+                                          const wxPoint& pos,
+                                          const wxSize& size) const;
+    
+    virtual bool OnEvent( wxPropertyGrid* propgrid, wxPGProperty* property,
+        wxWindow* wnd, wxEvent& event ) const;
+
+};
+
+#endif // wxUSE_SPINBTN
+
 #endif
 
 

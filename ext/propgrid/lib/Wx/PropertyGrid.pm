@@ -117,7 +117,28 @@ package Wx::FlagsProperty; @ISA = qw( Wx::PGProperty );
 package Wx::FileProperty; @ISA = qw( Wx::PGProperty );
 package Wx::LongStringProperty; @ISA = qw( Wx::PGProperty );
 package Wx::DirProperty ; @ISA = qw( Wx::LongStringProperty );
-package Wx::ArrayStringProperty; @ISA = qw( Wx::PGProperty );
+
+package Wx::ArrayStringProperty;
+@ISA = qw( Wx::PGProperty );
+
+#FIXME - until we fix XS method
+sub GetPlValue {
+    my @return = ();
+    my $variant = $_[0]->GetValue;
+    @return = $variant->GetArrayString if !$variant->IsNull;
+    return @return;
+}
+
+package Wx::MultiChoiceProperty;
+@ISA = qw( Wx::PGProperty );
+
+#FIXME - until we fix XS method
+sub GetPlValue {
+    my @return = ();
+    my $variant = $_[0]->GetValue;
+    @return = $variant->GetArrayString if !$variant->IsNull;
+    return @return;
+}
 
 package Wx::PGFileDialogAdapter; @ISA = qw( Wx::PGEditorDialogAdapter );  
 package Wx::PGLongStringDialogAdapter; @ISA = qw( Wx::PGEditorDialogAdapter ); 
@@ -133,7 +154,7 @@ package Wx::ColourProperty; @ISA = qw( Wx::SystemColourProperty );
 package Wx::CursorProperty; @ISA = qw( Wx::EnumProperty );
 package Wx::ImageFileProperty; @ISA = qw( Wx::FileProperty );
 
-package Wx::MultiChoiceProperty; @ISA = qw( Wx::PGProperty );
+
 package Wx::DateProperty; @ISA = qw( Wx::PGProperty );
 package Wx::PGSpinCtrlEditor; @ISA = qw( Wx::PGTextCtrlEditor );
 

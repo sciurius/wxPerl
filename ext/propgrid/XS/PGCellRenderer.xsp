@@ -39,7 +39,7 @@ public:
                          int item,
                          int flags ) const; /* = 0 %Virtual{pure}; */
 
-    virtual wxSize GetImageSize( const wxPGProperty* property,
+    virtual wxSize GetImageSize( wxPGProperty* property,
                                  int column,
                                  int item ) const; /* %Virtual; */
 

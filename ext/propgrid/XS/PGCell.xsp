@@ -36,11 +36,12 @@ public:
               const wxBitmap& bitmap = wxNullBitmapPtr,
               const wxColour& fgCol = wxNullColourPtr,
               const wxColour& bgCol = wxNullColourPtr ) %Overload;
-
+    
     ~wxPGCell()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGCell", THIS, ST(0) );
+        %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                  delete THIS;
                %};
+
     
     /* NOT WRAP */
     /* const wxPGCellData* GetData() const; */
@@ -89,11 +90,10 @@ public:
     %name{newChoicesData} wxPGChoices( wxPGChoicesData* data ) %Overload;
 
     ~wxPGChoices()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGChoices", THIS, ST(0) );
+        %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                  delete THIS;
                %};
 
-    
     %name{AddArrayString} void Add( const wxArrayString& arr, const wxArrayInt& arrint ) %Overload;
 
     /** Adds single item. */
@@ -124,11 +124,11 @@ public:
     int GetValue( unsigned int ind ) const;
 
     wxArrayInt GetValuesForStrings( const wxArrayString& strings ) const;
-    /** TODO FIXME
-    wxArrayInt GetIndicesForStrings( const wxArrayString& strings,
-                                     wxArrayString* unmatched ) const;
-    **/
     
+    /* TODO FIXME
+    wxArrayInt GetIndicesForStrings( const wxArrayString& strings, wxArrayString* unmatched ) const;
+    */
+        
     /* wxPGProperty* GetItemAtY( unsigned int y ) const; */
 
     /* bool HasValue( unsigned int i ) const; */
@@ -146,8 +146,6 @@ public:
     wxPGChoiceEntry& Item( unsigned int i );
 
     void RemoveAt(size_t nIndex, size_t count = 1);
-
-    /* void Set( const wxChar** labels, const long* values = NULL ); */
 
     void Set( const wxArrayString& labels, const wxArrayInt& values = wxArrayInt() );
 
@@ -175,8 +173,6 @@ public:
     void Clear();
 
     unsigned int GetCount() const;
-    
-    /* const wxPGChoiceEntry& Item( unsigned int i ) const; */
 
     wxPGChoiceEntry& Item( unsigned int i );
 
@@ -207,7 +203,7 @@ public:
                      int value = wxPG_INVALID_VALUE ) %Overload;
 
     ~wxPGChoiceEntry()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGChoiceEntry", THIS, ST(0) );
+        %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                  delete THIS;
                %};    
 
@@ -229,7 +225,7 @@ public:
     wxPGValidationInfo();
     
     ~wxPGValidationInfo()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGValidationInfo", THIS, ST(0) );
+        %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                  delete THIS;
                %};    
     

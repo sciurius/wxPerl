@@ -31,8 +31,6 @@
 %typemap{const wxPGChoiceEntry&}{reference};
 
 %typemap{wxPGWindowList}{reference};
-%typemap{wxPGProperty*}{simple};
-%typemap{const wxPGProperty*}{simple};
 %typemap{wxPropertyGrid*}{simple};
 %typemap{const wxPropertyGrid*}{simple};
 %typemap{wxPropertyGridHitTestResult}{reference};
@@ -69,8 +67,6 @@
     %precall_code{% $CVar = wxPli_sv_2_wxvariant( aTHX_ $PerlVar ); %};
 };
 
-%typemap{wxVariantArg}{parsed}{%wxVariant%};
-
 %typemap{wxEvent&}{reference};
 %typemap{wxFont&}{reference};
 %typemap{wxRect}{reference};
@@ -84,7 +80,6 @@
 
 %typemap{wxNumericPropertyValidator*}{simple};
 
-%typemap{wxStringProperty*}{simple};
 %typemap{wxIntProperty*}{simple};
 %typemap{wxUIntProperty*}{simple};
 %typemap{wxFloatProperty*}{simple};
@@ -135,16 +130,48 @@
 %typemap{const wxVariant*}{simple};
 
 %typemap{wxColour&}{reference};
+%typemap{wxColour*}{simple};
+%typemap{WXVARIANT}{simple};
+
+%typemap{wxStringProperty*}{simple};
+
 %typemap{wxPGProperty&}{reference};
+%typemap{const wxPGProperty*}{simple};
+%typemap{wxPGProperty*}{simple};
 
+%typemap{wxPGProperty__parsed_nodelete*}{parsed}{
+    %cpp_type{%wxPGProperty*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 
+%typemap{const wxPGProperty__parsed_nodelete*}{parsed}{
+    %cpp_type{%const wxPGProperty*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 
+%typemap{wxPGProperty__parsed_allowdelete*}{parsed}{
+    %cpp_type{%wxPGProperty*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, true )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, true )%};
+};
 
+%typemap{wxPropertyCategory__parsed_nodelete*}{parsed}{
+    %cpp_type{%wxPropertyCategory*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 
+%typemap{wxPGEditor__parsed_nodelete*}{parsed}{
+    %cpp_type{%wxPGEditor*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 
-
-
-
-
-
+%typemap{const wxPGEditor__parsed_nodelete*}{parsed}{
+    %cpp_type{%const wxPGEditor*%};
+    %cleanup_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+    %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
+};
 

@@ -20,14 +20,6 @@
 %name{Wx::PropertyGridPage} class wxPropertyGridPage : public %name{Wx::EvtHandler} wxEvtHandler
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPropertyGridPage};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGridPage ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGridPage, wxPropertyGridPage ); %};
-    };
-    */
 
 public:
     wxPropertyGridPage()
@@ -48,7 +40,7 @@ public:
 
     int GetIndex() const;
 
-    wxPGProperty* GetRoot() const;
+    wxPGProperty__parsed_nodelete* GetRoot() const;
 
     int GetSplitterPosition( int col = 0 ) const;
 
@@ -64,11 +56,11 @@ public:
 
     void SetSplitterPosition( int splitterPos, int col = 0 );
     
-    wxPropertyCategory* GetPropertyCategory( wxPGProperty& id ) const
+    wxPropertyCategory__parsed_nodelete* GetPropertyCategory( wxPGProperty& id ) const
         %code{% RETVAL = (wxPropertyCategory*)THIS->wxPropertyGridPageState::GetPropertyCategory( id ); %};
     
-    wxPGProperty* GetPropertyByLabel( const wxString& label ) const
-        %code{% RETVAL = (wxPropertyCategory*)THIS->wxPropertyGridPageState::GetPropertyByLabel( label ); %};
+    wxPGProperty__parsed_nodelete* GetPropertyByLabel( const wxString& label ) const
+        %code{% RETVAL = (wxPGProperty*)THIS->wxPropertyGridPageState::GetPropertyByLabel( label ); %};
 };
 
 /**************************************************************************/

@@ -36,7 +36,7 @@ public:
     
     int GetColumn() const;
 
-    wxPGProperty* GetProperty();
+    wxPGProperty__parsed_nodelete* GetProperty();
    
     int GetSplitter() const;
 
@@ -47,14 +47,6 @@ public:
 %name{Wx::PropertyGrid} class wxPropertyGrid : public %name{Wx::Control} wxControl
 
 {
-    /*
-    %NoVirtualBase;
-    %VirtualImplementation{
-        %Name{wxPlPropertyGrid};
-        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPropertyGrid ); %};
-        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPropertyGrid, wxPropertyGrid ); %};
-    };
-    */
 
 public:
     
@@ -70,13 +62,15 @@ public:
 
     void AddActionTrigger( int action, int keycode, int modifiers = 0 );
 
-    bool AddToSelection( wxString& id );
+    %name{AddToSelectionString} bool AddToSelection( wxString& id ) %Overload;
+    %name{AddToSelectionProperty} bool AddToSelection( wxPGProperty* id ) %Overload;
     
     static void AutoGetTranslation( bool enable );
 
     void BeginLabelEdit( unsigned int colIndex = 0 );
 
-    bool ChangePropertyValue( wxString& id, wxVariant newValue );
+    %name{ChangePropertyValueString} bool ChangePropertyValue( wxString& id, wxVariantArg newValue ) %Overload;
+    %name{ChangePropertyValueProperty} bool ChangePropertyValue( wxPGProperty* id, wxVariantArg newValue ) %Overload;
    
     void CenterSplitter( bool enableAutoResizing = false );
 
@@ -84,7 +78,8 @@ public:
     
     virtual wxPGVIterator GetVIterator( int flags ) const; /* %Virtual; */
     
-    virtual bool IsPropertySelected( wxString& id ) const; /* %Virtual; */
+    %name{IsPropertySelectedString} virtual bool IsPropertySelected( wxString& id ) const %Overload; /* %Virtual; */
+    %name{IsPropertySelectedProperty} virtual bool IsPropertySelected( wxPGProperty* id ) const %Overload; /* %Virtual; */
     
     void ClearActionTriggers( int action );
 
@@ -102,7 +97,8 @@ public:
 
     void EndLabelEdit( bool commit = true );
 
-    bool EnsureVisible( wxString& id );
+    %name{EnsureVisibleString} bool EnsureVisible( wxString& id ) %Overload;
+    %name{EnsureVisibleProperty} bool EnsureVisible( wxPGProperty* id  ) %Overload;
    
     wxSize FitColumns();
 
@@ -134,19 +130,22 @@ public:
 
     wxSize GetImageSize( wxPGProperty* property = NULL, int item = -1 ) const;
 
-    wxPGProperty* GetLastItem( int flags = wxPG_ITERATE_DEFAULT );
+    wxPGProperty__parsed_nodelete* GetLastItem( int flags = wxPG_ITERATE_DEFAULT );
 
     wxColour GetLineColour() const;
 
     wxColour GetMarginColour() const;
+    
+    %name{GetPropertyCategoryString} wxPropertyCategory__parsed_nodelete* GetPropertyCategory( wxString& id ) const %Overload;
+	%name{GetPropertyCategoryProperty} wxPropertyCategory__parsed_nodelete* GetPropertyCategory( wxPGProperty* id ) const %Overload;
 
-    wxPGProperty* GetRoot() const;
+    wxPGProperty__parsed_nodelete* GetRoot() const;
 
     int GetRowHeight() const;
 
-    wxPGProperty* GetSelectedProperty() const;
+    wxPGProperty__parsed_nodelete* GetSelectedProperty() const;
 
-    wxPGProperty* GetSelection() const;
+    wxPGProperty__parsed_nodelete* GetSelection() const;
 
     wxColour GetSelectionBackgroundColour() const;
 
@@ -180,17 +179,19 @@ public:
 
     virtual void RefreshProperty( wxPGProperty* p ); /* %Virtual; */
 
-    static wxPGEditor* RegisterEditorClass( wxPGEditor* editor, bool noDefCheck = false );
+    static wxPGEditor__parsed_nodelete* RegisterEditorClass( wxPGEditor__parsed_nodelete* editor, bool noDefCheck = false );
     
-    static wxPGEditor* DoRegisterEditorClass( wxPGEditor* editor, const wxString& name,  bool noDefCheck = false );
+    static wxPGEditor__parsed_nodelete* DoRegisterEditorClass( wxPGEditor__parsed_nodelete* editor, const wxString& name,  bool noDefCheck = false );
     
     void ResetColours();
 
     void ResetColumnSizes( bool enableAutoResizing = false );
-
-    bool RemoveFromSelection( wxString& id );
     
-    bool SelectProperty( wxString& id, bool focus = false );
+    %name{RemoveFromSelectionString} bool RemoveFromSelection( wxString& id ) %Overload;
+    %name{RemoveFromSelectionProperty} bool RemoveFromSelection( wxPGProperty* id ) %Overload;
+    
+    %name{SelectPropertyString} bool SelectProperty( wxString& id, bool focus = false ) %Overload;
+    %name{SelectPropertyProperty} bool SelectProperty( wxPGProperty* id, bool focus = false ) %Overload;
    
     void SetCaptionBackgroundColour(const wxColour& col);
 
@@ -204,17 +205,14 @@ public:
 
     void SetColumnCount( int colCount );
 
-    void SetCurrentCategory( wxString& id );
+    %name{SetCurrentCategoryString} void SetCurrentCategory( wxString& id ) %Overload;
+    %name{SetCurrentCategoryProperty} void SetCurrentCategory( wxPGProperty* id ) %Overload;
     
     void SetEmptySpaceColour(const wxColour& col);
 
     void SetLineColour(const wxColour& col);
 
-    void SetMarginColour(const wxColour& col);
-
-    /*void SetSelection( const wxArrayPGProperty& newSelection ); */
-    /* Accept ref to array of Wx::PGProperty Objects. */   
-    
+    void SetMarginColour(const wxColour& col);  
 
 %{
 

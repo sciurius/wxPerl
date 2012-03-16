@@ -22,10 +22,10 @@ public:
 
     void Assign( const wxPropertyGridIteratorBase& it );
     bool AtEnd() const;
-    wxPGProperty* GetProperty() const;
+    wxPGProperty__parsed_nodelete* GetProperty() const;
     void Next( bool iterateChildren = true );
     void Prev();
-    void SetBaseParent( wxPGProperty* baseParent );
+    void SetBaseParent( wxPGProperty__parsed_nodelete* baseParent );
 };
 
 
@@ -48,7 +48,7 @@ public:
 
     bool AtEnd();
 
-    wxPGProperty* GetProperty();
+    wxPGProperty__parsed_nodelete* GetProperty();
 
 };
 

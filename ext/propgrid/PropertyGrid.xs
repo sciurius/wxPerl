@@ -25,6 +25,7 @@
 #include <wx/propgrid/manager.h>
 #include <wx/propgrid/editors.h>
 #include <wx/propgrid/props.h>
+#include <wx/propgrid/propgriddefs.h>
 #include <wx/statusbr.h>
 
 #include "cpp/helpers.h"
@@ -49,6 +50,8 @@ BOOT:
 ## 
 ##
 
+INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PropertyGrid.xsp
+
 INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PGCell.xsp
 
 INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PGCellRenderer.xsp
@@ -56,8 +59,6 @@ INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t 
 INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PGEditor.xsp
 
 INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PGProperty.xsp
-
-INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PropertyGrid.xsp
 
 INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/PropertyGridEvent.xsp
 

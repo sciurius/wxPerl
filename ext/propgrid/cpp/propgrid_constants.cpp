@@ -164,13 +164,11 @@ double propertygrid_constant( const char* name, int arg )
         r( wxPG_SETVAL_REFRESH_EDITOR );
         r( wxPG_SETVAL_AGGREGATED );
         r( wxPG_SETVAL_FROM_PARENT );
-        r( wxPG_SETVAL_BY_USER );
-          
+        r( wxPG_SETVAL_BY_USER ); 
         r( wxPG_BASE_OCT );
         r( wxPG_BASE_DEC );
         r( wxPG_BASE_HEX );
         r( wxPG_BASE_HEXL );
-          
         r( wxPG_PREFIX_NONE );
         r( wxPG_PREFIX_0x );
         r( wxPG_PREFIX_DOLLAR_SIGN );

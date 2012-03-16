@@ -16,6 +16,12 @@
 
 #if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
 
+## DECLARE_OVERLOAD( wpge, Wx::PGEditor )
+## DECLARE_OVERLOAD( wpgp, Wx::PGProperty )
+## DECLARE_OVERLOAD( wdtm, Wx::DateTime )
+## DECLARE_OVERLOAD( wobj, Wx::Object )
+## DECLARE_OVERLOAD( wvar, Wx::Variant )
+
 %loadplugin{build::Wx::XSP::Overload};
 
 %name{Wx::PGPGridInterfaceBase} class wxPGPGridInterfaceBase
@@ -31,43 +37,46 @@ public:
 	void ShowPropertyError( wxString& id, const wxString& msg );
 	*/
 	
-    wxPGProperty* Append( wxPGProperty* property );
-
-    wxPGProperty* AppendIn( wxString& id, wxPGProperty* newProperty );
+    wxPGProperty__parsed_nodelete* Append( wxPGProperty__parsed_nodelete* property );
 	
-    void BeginAddChildren( wxString& id );
+    %name{AppendInString} wxPGProperty__parsed_nodelete* AppendIn( wxString& id, wxPGProperty__parsed_nodelete* newProperty ) %Overload;
+	%name{AppendInProperty} wxPGProperty__parsed_nodelete* AppendIn( wxPGProperty* id, wxPGProperty__parsed_nodelete* newProperty ) %Overload;
+	
+    %name{BeginAddChildrenString} void BeginAddChildren( wxString& id ) %Overload;
+	%name{BeginAddChildrenProperty} void BeginAddChildren( wxPGProperty* id ) %Overload;
 
     bool ClearSelection( bool validation = false);
 
     void ClearModifiedStatus();
 
-    bool Collapse( wxString& id );
+    %name{CollapseString} bool Collapse( wxString& id ) %Overload;
+	%name{CollapseProperty} bool Collapse( wxPGProperty* id  ) %Overload;
 
     bool CollapseAll();
 
-#ifndef WXPERL_IN_PROPERTYGRID
-
-    bool ChangePropertyValue( wxString& id, wxVariantArg newValue );
-	
-#endif
-
-    void DeleteProperty( wxString& id );
-
-    bool DisableProperty( wxString& id );
-
+	%name{DeletePropertyString} void DeleteProperty( wxString& id ) %Overload;
+	%name{DeletePropertyProperty} void DeleteProperty( wxPGProperty* id ) %Overload;
+    
+	%name{DisablePropertyString} bool DisableProperty( wxString& id ) %Overload;
+	%name{DisablePropertyProperty} bool DisableProperty( wxPGProperty* id ) %Overload;
+    
     bool EditorValidate();
 
-    bool EnableProperty( wxString& id, bool enable = true );
+	%name{EnablePropertyString} bool EnableProperty( wxString& id, bool enable = true ) %Overload;
+	%name{EnablePropertyProperty} bool EnableProperty( wxPGProperty* id, bool enable = true ) %Overload;
+    
+	%name{EndAddChildrenString} void EndAddChildren( wxString& id ) %Overload;
+	%name{EndAddChildrenProperty} void EndAddChildren( wxPGProperty* id ) %Overload;
 
-    void EndAddChildren( wxString& id );
-
-    bool Expand( wxString& id );
+	%name{ExpandString} bool Expand( wxString& id ) %Overload;
+	%name{ExpandProperty} bool Expand( wxPGProperty* id ) %Overload;
 
     bool ExpandAll( bool expand = true );
 
     int GetColumnProportion( unsigned int column ) const;
 
-    wxPGProperty* GetFirstChild( wxString& id );
+	%name{GetFirstChildString} wxPGProperty__parsed_nodelete* GetFirstChild( wxString& id ) %Overload;
+	%name{GetFirstChildProperty} wxPGProperty__parsed_nodelete* GetFirstChild( wxPGProperty* id ) %Overload;
 
     %name{GetIteratorPropertyOverload} wxPropertyGridIterator GetIterator( int flags = wxPG_ITERATE_DEFAULT,
                                         wxPGProperty* firstProp = NULL ) %Overload;
@@ -81,10 +90,10 @@ public:
     wxPropertyGridConstIterator GetIterator( int flags, int startPos ) const;
     */
     
-    wxPGProperty* GetFirst( int flags = wxPG_ITERATE_ALL )
+    wxPGProperty__parsed_nodelete* GetFirst( int flags = wxPG_ITERATE_ALL )
         %code{% RETVAL = THIS->wxPropertyGridInterface::GetFirst( flags ); %};
 
-    wxPGProperty* GetProperty( const wxString& name ) const;
+    wxPGProperty__parsed_nodelete* GetProperty( const wxString& name ) const;
 /*
     void GetPropertiesWithFlag( wxArrayPGProperty* targetArr,
                                 wxByte flags,
@@ -103,20 +112,23 @@ wxPGPGridInterfaceBase::GetPropertiesWithFlag(wxByte flags, bool inverse = false
     size_t num = targetArr->GetCount();
     EXTEND( SP, (IV)num );
     for( size_t i = 0; i < num; ++i )
-    {
-        PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), targetArr->Item( i ) ) );
+    {   
+        SV* rvar = wxPli_object_2_sv( aTHX_ sv_newmortal(), targetArr->Item( i ) );
+        wxPli_object_set_deleteable( aTHX_ rvar, false );
+        PUSHs( rvar ); 
     }    
    
 %}
 
-    wxVariant GetPropertyAttribute( wxString& id, const wxString& attrName ) const;
-
-    wxColour GetPropertyBackgroundColour( wxString& id ) const;
+	%name{GetPropertyAttributeString} wxVariant GetPropertyAttribute( wxString& id, const wxString& attrName  ) const %Overload;
+	%name{GetPropertyAttributeProperty} wxVariant GetPropertyAttribute( wxPGProperty* id, const wxString& attrName  ) const %Overload;
+   
+    %name{GetPropertyBackgroundColourString} wxColour GetPropertyBackgroundColour( wxString& id ) const %Overload;
+	%name{GetPropertyBackgroundColourProperty} wxColour GetPropertyBackgroundColour( wxPGProperty* id ) const %Overload;
 
 #if !defined(WXPERL_IN_PROPERTYGRIDPAGE)
-
-    wxPropertyCategory* GetPropertyCategory( wxString& id ) const;
-	wxPGProperty* GetPropertyByLabel( const wxString& label ) const;
+	
+	wxPGProperty__parsed_nodelete* GetPropertyByLabel( const wxString& label ) const;
 
 #endif
 
@@ -128,60 +140,71 @@ wxPGPGridInterfaceBase::GetPropertiesWithFlag(wxByte flags, bool inverse = false
     /* wxPliUserDataCD* GetPropertyClientData( wxString& id ) const
       %code{% RETVAL = (wxPliUserDataCD*)THIS->GetPropertyClientObject( id ); %}; */
 
-    %name{GetPropertyByNameName} wxPGProperty* GetPropertyByName( const wxString& name ) const %Overload;
+    %name{GetPropertyByNameName} wxPGProperty__parsed_nodelete* GetPropertyByName( const wxString& name ) const %Overload;
 
-    %name{GetPropertyByNameSubName} wxPGProperty* GetPropertyByName( const wxString& name,
+    %name{GetPropertyByNameSubName} wxPGProperty__parsed_nodelete* GetPropertyByName( const wxString& name,
                                      const wxString& subname ) const %Overload;
 
-    const wxPGEditor* GetPropertyEditor( wxString& id ) const;
+	%name{GetPropertyEditorString} const wxPGEditor__parsed_nodelete* GetPropertyEditor( wxString& id ) const %Overload;
+	%name{GetPropertyEditorProperty} const wxPGEditor__parsed_nodelete* GetPropertyEditor( wxPGProperty* id ) const %Overload;
 
-    wxString GetPropertyHelpString( wxString& id ) const;
-
-    wxBitmap* GetPropertyImage( wxString& id ) const;
-
-    const wxString& GetPropertyLabel( wxString& id );
-
+	%name{GetPropertyHelpStringString} wxString GetPropertyHelpString( wxString& id ) const %Overload;
+	%name{GetPropertyHelpStringProperty} wxString GetPropertyHelpString( wxPGProperty* id ) const %Overload;
+    
+	%name{GetPropertyImageString} wxBitmap* GetPropertyImage( wxString& id ) const %Overload;
+	%name{GetPropertyImageProperty} wxBitmap* GetPropertyImage( wxPGProperty* id ) const %Overload;
+    
+	%name{GetPropertyLabelString} const wxString& GetPropertyLabel( wxString& id ) %Overload;
+	%name{GetPropertyLabelProperty} const wxString& GetPropertyLabel( wxPGProperty* id ) %Overload;
+    
     wxString GetPropertyName( wxPGProperty* property );
 
-    wxColour GetPropertyTextColour( wxString& id ) const;
+	
+    %name{GetPropertyTextColourString} wxColour GetPropertyTextColour( wxString& id ) const %Overload;
+	%name{GetPropertyTextColourProperty} wxColour GetPropertyTextColour( wxPGProperty* id ) const %Overload;
 
-    wxValidator* GetPropertyValidator( wxString& id );
+    %name{GetPropertyValidatorString} wxValidator* GetPropertyValidator( wxString& id ) %Overload;
+	%name{GetPropertyValidatorProperty} wxValidator* GetPropertyValidator( wxPGProperty* id ) %Overload;
 
-    wxVariant GetPropertyValue( wxString& id );
+    %name{GetPropertyValueString} wxVariant GetPropertyValue( wxString& id ) %Overload;
+	%name{GetPropertyValueProperty} wxVariant GetPropertyValue( wxPGProperty* id ) %Overload;
 
-    wxArrayInt GetPropertyValueAsArrayInt( wxString& id ) const;
+    %name{GetPropertyValueAsArrayIntString} wxArrayInt GetPropertyValueAsArrayInt( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsArrayIntProperty} wxArrayInt GetPropertyValueAsArrayInt( wxPGProperty* id ) const %Overload;
 
-    wxArrayString GetPropertyValueAsArrayString( wxString& id ) const;
+    %name{GetPropertyValueAsArrayStringString} wxArrayString GetPropertyValueAsArrayString( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsArrayStringProperty} wxArrayString GetPropertyValueAsArrayString( wxPGProperty* id) const %Overload;
 
-    bool GetPropertyValueAsBool( wxString& id ) const;
+    %name{GetPropertyValueAsBoolString} bool GetPropertyValueAsBool( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsBoolProperty} bool GetPropertyValueAsBool( wxPGProperty* id ) const %Overload;
 
-    wxDateTime GetPropertyValueAsDateTime( wxString& id ) const;
+    %name{GetPropertyValueAsDateTimeString} wxDateTime GetPropertyValueAsDateTime( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsDateTimeProperty} wxDateTime GetPropertyValueAsDateTime(wxPGProperty* id ) const %Overload;
 
-    double GetPropertyValueAsDouble( wxString& id ) const;
+    %name{GetPropertyValueAsDoubleString} double GetPropertyValueAsDouble( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsDoubleProperty} double GetPropertyValueAsDouble( wxPGProperty* id  ) const %Overload;
 
-    int GetPropertyValueAsInt( wxString& id ) const;
+    %name{GetPropertyValueAsIntString} int GetPropertyValueAsInt( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsIntProperty} int GetPropertyValueAsInt( wxPGProperty* id ) const %Overload;
 
-    long GetPropertyValueAsLong( wxString& id ) const;
+    %name{GetPropertyValueAsLongString} long GetPropertyValueAsLong( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsLongProperty} long GetPropertyValueAsLong( wxPGProperty* id ) const %Overload;
+	
+    %name{GetPropertyValueAsLongLongString} wxLongLong_t GetPropertyValueAsLongLong( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsLongLongProperty} wxLongLong_t GetPropertyValueAsLongLong( wxPGProperty* id ) const %Overload;
 
-    wxLongLong_t GetPropertyValueAsLongLong( wxString& id ) const;
+    %name{GetPropertyValueAsStringString} wxString GetPropertyValueAsString( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsStringProperty} wxString GetPropertyValueAsString( wxPGProperty* id ) const %Overload;
 
-    wxString GetPropertyValueAsString( wxString& id ) const;
+    %name{GetPropertyValueAsULongString} unsigned long GetPropertyValueAsULong( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsULongProperty} unsigned long GetPropertyValueAsULong( wxPGProperty* id ) const %Overload;
 
-    unsigned long GetPropertyValueAsULong( wxString& id ) const;
-
-    wxULongLong_t GetPropertyValueAsULongLong( wxString& id ) const;
+    %name{GetPropertyValueAsULongLongString} wxULongLong_t GetPropertyValueAsULongLong( wxString& id ) const %Overload;
+	%name{GetPropertyValueAsULongLongProperty} wxULongLong_t GetPropertyValueAsULongLong( wxPGProperty* id ) const %Overload;
 
     wxVariant GetPropertyValues( const wxString& listname = wxEmptyString,
                                  wxPGProperty* baseparent = NULL, long flags = 0 ) const;
 
-    /**
-        Returns list of currently selected properties.
-
-        @remarks wxArrayPGProperty should be compatible with std::vector API.
-    */
-    /* TODO FIXME
-    const wxArrayPGProperty& GetSelectedProperties() const;
-    */
 %{
 
 void
@@ -192,44 +215,57 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
     EXTEND( SP, (IV)num );
     for( size_t i = 0; i < num; ++i )
     {
-        PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), targetArr.Item( i ) ) );
+        SV* rvar = wxPli_object_2_sv( aTHX_ sv_newmortal(), targetArr.Item( i ) );
+        wxPli_object_set_deleteable( aTHX_ rvar, false );
+        PUSHs( rvar );
     }    
 
 %}
 
 #if !defined(WXPERL_IN_PROPERTYGRID) && !defined(WXPERL_IN_PROPERTYGRIDMANAGER)
 
-    wxPGProperty* GetSelection() const;
+    wxPGProperty__parsed_nodelete* GetSelection() const;
 
 #endif
 
-    bool HideProperty( wxString& id, bool hide = true, int flags = wxPG_RECURSE );
+    %name{HidePropertyString} bool HideProperty( wxString& id, bool hide = true, int flags = wxPG_RECURSE ) %Overload;
+	%name{HidePropertyProperty} bool HideProperty( wxPGProperty* id, bool hide = true, int flags = wxPG_RECURSE ) %Overload;
 
     static void InitAllTypeHandlers();
 
-    %name{InsertOLProps} wxPGProperty* Insert( wxString& priorThis, wxPGProperty* newProperty ) %Overload;
+    %name{InsertString} wxPGProperty__parsed_nodelete* Insert( wxString& priorThis, wxPGProperty__parsed_nodelete* newProperty ) %Overload;
+	%name{InsertProperty} wxPGProperty__parsed_nodelete* Insert( wxPGProperty* priorThis, wxPGProperty__parsed_nodelete* newProperty ) %Overload;
+    %name{InsertIndexString} wxPGProperty__parsed_nodelete* Insert( wxString& parent, int index, wxPGProperty__parsed_nodelete* newProperty ) %Overload;
+	%name{InsertIndexProperty} wxPGProperty__parsed_nodelete* Insert( wxPGProperty* parent, int index, wxPGProperty__parsed_nodelete* newProperty ) %Overload;
 
-    %name{InsertOLIndex} wxPGProperty* Insert( wxString& parent, int index, wxPGProperty* newProperty ) %Overload;
+    %name{IsPropertyCategoryString} bool IsPropertyCategory( wxString& id ) const %Overload;
+	%name{IsPropertyCategoryProperty} bool IsPropertyCategory( wxPGProperty* id ) const %Overload;
 
-    bool IsPropertyCategory( wxString& id ) const;
+    %name{IsPropertyEnabledString} bool IsPropertyEnabled( wxString& id ) const %Overload;
+	%name{IsPropertyEnabledProperty} bool IsPropertyEnabled( wxPGProperty* id ) const %Overload;
 
-    bool IsPropertyEnabled( wxString& id ) const;
+    %name{IsPropertyExpandedString} bool IsPropertyExpanded( wxString& id ) const %Overload;
+	%name{IsPropertyExpandedProperty} bool IsPropertyExpanded( wxPGProperty* id ) const %Overload;
 
-    bool IsPropertyExpanded( wxString& id ) const;
+    %name{IsPropertyModifiedString} bool IsPropertyModified( wxString& id ) const %Overload;
+	%name{IsPropertyModifiedProperty} bool IsPropertyModified( wxPGProperty* id ) const %Overload;
 
-    bool IsPropertyModified( wxString& id ) const;
+    %name{IsPropertyShownString} bool IsPropertyShown( wxString& id ) const %Overload;
+	%name{IsPropertyShownProperty} bool IsPropertyShown( wxPGProperty* id ) const %Overload;
 
-    bool IsPropertyShown( wxString& id ) const;
+    %name{IsPropertyValueUnspecifiedString} bool IsPropertyValueUnspecified( wxString& id ) const %Overload;
+	%name{IsPropertyValueUnspecifiedProperty} bool IsPropertyValueUnspecified( wxPGProperty* id ) const %Overload;
 
-    bool IsPropertyValueUnspecified( wxString& id ) const;
-
-    void LimitPropertyEditing( wxString& id, bool limit = true );
+    %name{LimitPropertyEditingString} void LimitPropertyEditing( wxString& id, bool limit = true ) %Overload;
+	%name{LimitPropertyEditingProperty} void LimitPropertyEditing( wxPGProperty* id, bool limit = true ) %Overload;
 
     static void RegisterAdditionalEditors();
 
-    wxPGProperty* RemoveProperty( wxString& id );
+    %name{RemovePropertyString} wxPGProperty__parsed_allowdelete* RemoveProperty( wxString& id ) %Overload;
+	%name{RemovePropertyProperty} wxPGProperty__parsed_allowdelete* RemoveProperty( wxPGProperty__parsed_allowdelete* id ) %Overload;
 
-    wxPGProperty* ReplaceProperty( wxString& id, wxPGProperty* property );
+    %name{ReplacePropertyString} wxPGProperty__parsed_nodelete* ReplaceProperty( wxString& id, wxPGProperty__parsed_nodelete* property ) %Overload;
+	%name{ReplacePropertyProperty} wxPGProperty__parsed_nodelete* ReplaceProperty( wxPGProperty__parsed_allowdelete* id, wxPGProperty__parsed_nodelete* property ) %Overload;
 
     bool RestoreEditableState( const wxString& src,
                                int restoreStates = 0x3F );
@@ -240,22 +276,33 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
                                 const wxString& falseChoice );
 
     bool SetColumnProportion( unsigned int column, int proportion );
-
-    void SetPropertyAttribute( wxString& id, const wxString& attrName,
-                               wxVariantArg value, long argFlags = 0 );
+	
+	%name{SetPropertyAttributeString} void SetPropertyAttribute( wxString& id, const wxString& attrName,
+                               wxVariantArg value, long argFlags = 0 ) %Overload;
+	%name{SetPropertyAttributeProperty} void SetPropertyAttribute( wxPGProperty* id, const wxString& attrName,
+                               wxVariantArg value, long argFlags = 0 ) %Overload;
 
     void SetPropertyAttributeAll( const wxString& attrName, wxVariantArg value );
 
-    void SetPropertyBackgroundColour( wxString& id,
+    %name{SetPropertyBackgroundColourString} void SetPropertyBackgroundColour( wxString& id,
                                       const wxColour& colour,
-                                      int flags = wxPG_RECURSE );
+                                      int flags = wxPG_RECURSE ) %Overload;
+	%name{SetPropertyBackgroundColourProperty} void SetPropertyBackgroundColour( wxPGProperty* id,
+                                      const wxColour& colour,
+                                      int flags = wxPG_RECURSE ) %Overload;
 
 
-    void SetPropertyCell( wxString& id, int column,
+    %name{SetPropertyCellString} void SetPropertyCell( wxString& id, int column,
                           const wxString& text = wxEmptyString,
                           const wxBitmap& bitmap = wxNullBitmapPtr,
                           const wxColour& fgCol = wxNullColourPtr,
-                          const wxColour& bgCol = wxNullColourPtr );
+                          const wxColour& bgCol = wxNullColourPtr ) %Overload;
+	
+	%name{SetPropertyCellProperty} void SetPropertyCell( wxPGProperty* id, int column,
+                          const wxString& text = wxEmptyString,
+                          const wxBitmap& bitmap = wxNullBitmapPtr,
+                          const wxColour& fgCol = wxNullColourPtr,
+                          const wxColour& bgCol = wxNullColourPtr ) %Overload;
 
     /* 
     void SetPropertyClientData( wxString& id, void* clientData );
@@ -263,98 +310,233 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
 	
 	/* %name{SetPropertyClientData} void SetPropertyClientObject( wxString& id, wxPliUserDataCD* data ); */
     
-    void SetPropertyColoursToDefault( wxString& id );
+    %name{SetPropertyColoursToDefaultString} void SetPropertyColoursToDefault( wxString& id ) %Overload;
+	%name{SetPropertyColoursToDefaultProperty} void SetPropertyColoursToDefault( wxPGProperty* id ) %Overload;
+    
+    %name{SetPropertyEditorString} void SetPropertyEditor( wxString& id, const wxPGEditor__parsed_nodelete* editor ) %Overload;
+	%name{SetPropertyEditorProperty} void SetPropertyEditor( wxPGProperty* id, const wxPGEditor__parsed_nodelete* editor ) %Overload;
+	%name{SetPropertyEditorNameString} void SetPropertyEditor( wxString& id, const wxString& editorName ) %Overload;
+	%name{SetPropertyEditorNameProperty} void SetPropertyEditor( wxPGProperty* id, const wxString& editorName ) %Overload;
 
-    void SetPropertyEditor( wxString& id, const wxPGEditor* editor );
+    %name{SetPropertyLabelString} void SetPropertyLabel( wxString& id, const wxString& newproplabel ) %Overload;
+	%name{SetPropertyLabelProperty} void SetPropertyLabel( wxPGProperty* id, const wxString& newproplabel ) %Overload;
 
-    void SetPropertyEditor( wxString& id, const wxString& editorName );
+    %name{SetPropertyNameString} void SetPropertyName( wxString& id, const wxString& newName ) %Overload;
+	%name{SetPropertyNameProperty} void SetPropertyName( wxPGProperty* id, const wxString& newName ) %Overload;
 
-    void SetPropertyLabel( wxString& id, const wxString& newproplabel );
+    %name{SetPropertyReadOnlyString} void SetPropertyReadOnly( wxString& id, bool set = true,
+                              int flags = wxPG_RECURSE ) %Overload;
+	%name{SetPropertyReadOnlyProperty} void SetPropertyReadOnly( wxPGProperty* id, bool set = true,
+                              int flags = wxPG_RECURSE ) %Overload;
 
-    void SetPropertyName( wxString& id, const wxString& newName );
-
-    void SetPropertyReadOnly( wxString& id, bool set = true,
-                              int flags = wxPG_RECURSE );
-
-    void SetPropertyValueUnspecified( wxString& id );
+    %name{SetPropertyValueUnspecifiedString} void SetPropertyValueUnspecified( wxString& id ) %Overload;
+	%name{SetPropertyValueUnspecifiedProperty} void SetPropertyValueUnspecified( wxPGProperty* id ) %Overload;
     
     /*
     void SetPropertyValues( const wxVariantList& list,
                             wxPGProperty& defaultCategory = wxNullPropertyPtr );
     */
     
-    void SetPropertyValues( const wxVariant& list, wxString& defaultCategory  );
-    /*
-    void SetPropertyHelpString(  const wxString& str, const wxString& helpString )
-	 %code{% wxPGPropArgCls id = wxPGPropArgCls( str );
-	         THIS->SetPropertyHelpString( id, helpString ); %};
-	*/
-	
-	void SetPropertyHelpString( wxString& id , const wxString& helpString );
-	
-    void SetPropertyImage( wxString& id, wxBitmap& bmp );
+    %name{SetPropertyValuesString} void SetPropertyValues( const wxVariant& list, wxString& defaultCategory = wxEmptyString ) %Overload;
+    %name{SetPropertyValuesProperty} void SetPropertyValues( const wxVariant& list, wxPGProperty* defaultCategory = wxNullProperty ) %Overload;
 
-    bool SetPropertyMaxLength( wxString& id, int maxLen );
+   	
+	%name{SetPropertyHelpStringString} void SetPropertyHelpString( wxString& id , const wxString& helpString ) %Overload;
+    %name{SetPropertyHelpStringProperty} void SetPropertyHelpString( wxPGProperty* id , const wxString& helpString ) %Overload;
+	
+    %name{SetPropertyImageString} void SetPropertyImage( wxString& id, wxBitmap& bmp ) %Overload;
+    %name{SetPropertyImageProperty} void SetPropertyImage( wxPGProperty* id, wxBitmap& bmp ) %Overload;
 
-    void SetPropertyTextColour( wxString& id,
+    %name{SetPropertyMaxLengthString} bool SetPropertyMaxLength( wxString& id, int maxLen ) %Overload;
+    %name{SetPropertyMaxLengthProperty} bool SetPropertyMaxLength( wxPGProperty* id, int maxLen ) %Overload;
+
+    %name{SetPropertyTextColourString} void SetPropertyTextColour( wxString& id,
                                 const wxColour& colour,
-                                int flags = wxPG_RECURSE );
+                                int flags = wxPG_RECURSE ) %Overload;
+    %name{SetPropertyTextColourProperty} void SetPropertyTextColour( wxPGProperty* id,
+                                const wxColour& colour,
+                                int flags = wxPG_RECURSE ) %Overload;
 
-    void SetPropertyValidator( wxString& id, const wxValidator& validator );
+    %name{SetPropertyValidatorString} void SetPropertyValidator( wxString& id, const wxValidator& validator ) %Overload;
+    %name{SetPropertyValidatorProperty} void SetPropertyValidator( wxPGProperty* id, const wxValidator& validator ) %Overload;
 
+%{
+
+void
+wxPGPGridInterfaceBase::SetPropertyValue( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_s, SetPropertyValueAsString_string )
+        MATCH_REDISP( wxPliOvl_wpgp_s, SetPropertyValueAsString_property )
+        MATCH_REDISP( wxPliOvl_s_n, SetPropertyValueAsDouble_string )
+        MATCH_REDISP( wxPliOvl_wpgp_n, SetPropertyValueAsDouble_property )
+        MATCH_REDISP( wxPliOvl_s_arr, SetPropertyValueAsArrayString_string )
+        MATCH_REDISP( wxPliOvl_wpgp_arr, SetPropertyValueAsArrayString_property )
+        MATCH_REDISP( wxPliOvl_s_wdtm, SetPropertyValueAsDateTime_string )
+        MATCH_REDISP( wxPliOvl_wpgp_wdtm, SetPropertyValueAsDateTime_property )
+        MATCH_REDISP( wxPliOvl_s_wobj, SetPropertyValueAsObject_string )
+        MATCH_REDISP( wxPliOvl_wpgp_wobj, SetPropertyValueAsObject_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValue )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsLong( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_n, SetPropertyValueAsLong_string )
+        MATCH_REDISP( wxPliOvl_wpgp_n, SetPropertyValueAsLong_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsLong )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsInt( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_n, SetPropertyValueAsInt_string )
+        MATCH_REDISP( wxPliOvl_wpgp_n, SetPropertyValueAsInt_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsInt )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsDouble( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_n, SetPropertyValueAsDouble_string )
+        MATCH_REDISP( wxPliOvl_wpgp_n, SetPropertyValueAsDouble_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsDouble )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsBool( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_n, SetPropertyValueAsBool_string )
+        MATCH_REDISP( wxPliOvl_wpgp_n, SetPropertyValueAsBool_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsBool )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsString( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_s, SetPropertyValueAsString_string )
+        MATCH_REDISP( wxPliOvl_wpgp_s, SetPropertyValueAsString_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsString )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsArrayString( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_arr, SetPropertyValueAsArrayString_string )
+        MATCH_REDISP( wxPliOvl_wpgp_arr, SetPropertyValueAsArrayString_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsArrayString )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsArrayInt( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_arr, SetPropertyValueAsArrayInt_string )
+        MATCH_REDISP( wxPliOvl_wpgp_arr, SetPropertyValueAsArrayInt_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsArrayInt )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsDateTime( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_wdtm, SetPropertyValueAsDateTime_string )
+        MATCH_REDISP( wxPliOvl_wpgp_wdtm, SetPropertyValueAsDateTime_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsDateTime )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsObject( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_wobj, SetPropertyValueAsObject_string )
+        MATCH_REDISP( wxPliOvl_wpgp_wobj, SetPropertyValueAsObject_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsObject )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsLongLong( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_n, SetPropertyValueAsLongLong_string )
+        MATCH_REDISP( wxPliOvl_wpgp_n, SetPropertyValueAsLongLong_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsLongLong )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsULongLong( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_n, SetPropertyValueAsULongLong_string )
+        MATCH_REDISP( wxPliOvl_wpgp_n, SetPropertyValueAsULongLong_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsULongLong )
+
+void
+wxPGPGridInterfaceBase::SetPropertyValueAsVariant( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_wvar, SetPropertyValueAsVariant_string )
+        MATCH_REDISP( wxPliOvl_wpgp_wvar, SetPropertyValueAsVariant_property )
+    END_OVERLOAD( Wx::PGPGridInterfaceBase::SetPropertyValueAsVariant )
+
+%}
     /** Sets value (integer) of a property. */
-    %name{SetPropertyValueAsLong} void SetPropertyValue( wxString& id, long value );
-
+    
+    %name{SetPropertyValueAsLong_string} void SetPropertyValue( wxString& id, long value );
+    %name{SetPropertyValueAsLong_property} void SetPropertyValue( wxPGProperty* id, long value );
+        
     /** Sets value (integer) of a property. */
-    %name{SetPropertyValueAsInt} void SetPropertyValue( wxString& id, int value );
+    %name{SetPropertyValueAsInt_string} void SetPropertyValue( wxString& id, int value );
+    %name{SetPropertyValueAsInt_property} void SetPropertyValue( wxPGProperty* id, int value );
 
     /** Sets value (floating point) of a property. */
-    %name{SetPropertyValueAsDouble} void SetPropertyValue( wxString& id, double value );
+    %name{SetPropertyValueAsDouble_string} void SetPropertyValue( wxString& id, double value );
+    %name{SetPropertyValueAsDouble_property} void SetPropertyValue( wxPGProperty* id, double value );
 
     /** Sets value (bool) of a property. */
-    %name{SetPropertyValueAsBool} void SetPropertyValue( wxString& id, bool value );
+    %name{SetPropertyValueAsBool_string} void SetPropertyValue( wxString& id, bool value );
+    %name{SetPropertyValueAsBool_property} void SetPropertyValue( wxPGProperty* id, bool value );
 
     /** Sets value (string) of a property. */
-    %name{SetPropertyValueAsString} void SetPropertyValue( wxString& id, const wxString& value );
+    %name{SetPropertyValueAsString_string} void SetPropertyValue( wxString& id, const wxString& value );
+    %name{SetPropertyValueAsString_property} void SetPropertyValue( wxPGProperty* id, const wxString& value );
 
     /** Sets value (wxArrayString) of a property. */
-    %name{SetPropertyValueAsArrayString} void SetPropertyValue( wxString& id, const wxArrayString& value );
+    %name{SetPropertyValueAsArrayString_string} void SetPropertyValue( wxString& id, const wxArrayString& value );
+    %name{SetPropertyValueAsArrayString_property} void SetPropertyValue( wxPGProperty* id, const wxArrayString& value );
 
     /** Sets value (wxDateTime) of a property. */
-    %name{SetPropertyValueAsDateTime} void SetPropertyValue( wxString& id, const wxDateTime& value );
+    %name{SetPropertyValueAsDateTime_string} void SetPropertyValue( wxString& id, const wxDateTime& value );
+    %name{SetPropertyValueAsDateTime_property} void SetPropertyValue( wxPGProperty* id, const wxDateTime& value );
 
     /** Sets value (wxObject*) of a property. */
-    %name{SetPropertyValueAsObject} void SetPropertyValue( wxString& id, wxObject* value );
+    %name{SetPropertyValueAsObject_string} void SetPropertyValue( wxString& id, wxObject* value );
+    %name{SetPropertyValueAsObject_property} void SetPropertyValue(wxPGProperty* id, wxObject* value );
 
     /** Sets value (wxObject&) of a property. */
     /** void SetPropertyValue( wxString& id, wxObject& value ); */
 
     /** Sets value (native 64-bit int) of a property. */
-    %name{SetPropertyValueAsLongLong} void SetPropertyValue( wxString& id, wxLongLong_t value );
+    %name{SetPropertyValueAsLongLong_string} void SetPropertyValue( wxString& id, wxLongLong_t value );
+    %name{SetPropertyValueAsLongLong_property} void SetPropertyValue( wxPGProperty* id, wxLongLong_t value );
 
     /** Sets value (native 64-bit unsigned int) of a property. */
-    %name{SetPropertyValueAsUnsignedLongLong} void SetPropertyValue( wxString& id, wxULongLong_t value );
+    %name{SetPropertyValueAsULongLong_string} void SetPropertyValue( wxString& id, wxULongLong_t value );
+    %name{SetPropertyValueAsULongLong_property} void SetPropertyValue( wxPGProperty* id, wxULongLong_t value );
 
     /** Sets value (wxArrayInt&) of a property. */
-    %name{SetPropertyValueAsArrayInt} void SetPropertyValue( wxString& id, const wxArrayInt& value );
+    %name{SetPropertyValueAsArrayInt_string} void SetPropertyValue( wxString& id, const wxArrayInt& value );
+    %name{SetPropertyValueAsArrayInt_property} void SetPropertyValue( wxPGProperty* id, const wxArrayInt& value );
 
-    void SetPropertyValueString( wxString& id, const wxString& value );
-
-    /**
-        Sets value (wxVariant&) of a property.
-
-        @remarks Use wxPropertyGrid::ChangePropertyValue() instead if you need to
-                run through validation process and send property change event.
-    */
-    %name{SetPropertyValueVariant} void SetPropertyValue( wxString& id, wxVariant value );
+    %name{SetPropertyValueString_string}  void SetPropertyValueString( wxString& id, const wxString& value );
+    %name{SetPropertyValueString_property}  void SetPropertyValueString( wxPGProperty* id, const wxString& value );
+    
+    %name{SetPropertyValueAsVariant_string} void SetPropertyValue( wxString& id, wxVariant value );
+    %name{SetPropertyValueAsVariant_property} void SetPropertyValue( wxPGProperty* id, wxVariant value );
 
     void SetValidationFailureBehavior( int vfbFlags );
 
     void Sort( int flags = 0 );
 
-    void SortChildren( wxString& id, int flags = 0 );
+    %name{SortChildrenString} void SortChildren( wxString& id, int flags = 0 ) %Overload;
+    %name{SortChildrenProperty} void SortChildren( wxPGProperty* id, int flags = 0 ) %Overload;
 
-    static wxPGEditor* GetEditorByName( const wxString& editorName );
+    static wxPGEditor__parsed_nodelete* GetEditorByName( const wxString& editorName );
 };
 
 #endif
