@@ -3,7 +3,7 @@
 use strict;
 use Wx;
 use lib "../../t";
-use if !defined(&Wx::wxPG_ATTR_AUTOCOMPLETE), 'Test::More' => skip_all => 'No PropertyGrid Support';
+use if !Wx::_wx_optmod_propgrid(), 'Test::More' => skip_all => 'No PropertyGrid Support';
 use Test::More 'no_plan';
 use Tests_Helper qw(:inheritance);
 
