@@ -3,6 +3,8 @@ package build::Wx::XSP::Virtual;
 use strict;
 use warnings;
 
+my %type_map;
+
 sub new {
     return bless { virtual_methods => {},
                    virtual_classes => {},
@@ -13,11 +15,34 @@ sub new {
 sub register_plugin {
     my( $class, $parser ) = @_;
     my $instance = $class->new;
-
+    
+    $parser->add_toplevel_tag_plugin ( plugin => $instance, tag => 'VirtualTypeMap' );
     $parser->add_class_tag_plugin( plugin => $instance, tag => 'NoVirtualBase' );
     $parser->add_class_tag_plugin( plugin => $instance, tag => 'VirtualImplementation' );
     $parser->add_method_tag_plugin( plugin => $instance, tag => 'Virtual' );
     $parser->add_post_process_plugin( plugin => $instance );
+}
+
+sub handle_toplevel_tag {
+    my( $self, $empty, $tag, %args ) = @_;
+    
+    if( $tag eq 'VirtualTypeMap' ) {
+        my %map = @{$args{any_named_arguments}};
+        my $typename = $map{Name}[0][0] || undef;
+        die 'No Name in VirtualTypeMap' if !$typename;
+        my $vtmap = {
+            'convert_return'  => $map{ConvertReturn}[0][0] || undef,
+            'default_value'   => $map{DefaultValue}[0][0] || undef,
+            'type_char'       => $map{TypeChar}[0][0] || undef,
+            'arguments'       => $map{Arguments}[0][0] || undef,
+        };
+        foreach my $key (sort keys( %$vtmap ) ) {
+            delete($vtmap->{$key}) unless defined($vtmap->{$key});
+        }
+        $type_map{$typename} = $vtmap;
+    }
+    
+    1;
 }
 
 sub handle_class_tag {
@@ -51,7 +76,7 @@ sub handle_method_tag {
     1;
 }
 
-my %type_map =
+%type_map =
   ( 'bool'             => { convert_return => 'SvTRUE( ret )',
                             default_value  => 'false',
                             type_char      => 'b',
@@ -168,14 +193,6 @@ my %type_map =
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
-    'wxTreeListCtrl*' => { convert_return => '(wxTreeListCtrl*)wxPli_sv_2_object( aTHX_ ret, "Wx::TreeListCtrl" )',
-                           type_char      => 'O',
-                           arguments      => '%s',
-                           },
-    'wxTreeListItem'  => { convert_return => '*(wxTreeListItem*)wxPli_sv_2_object( aTHX_ ret, "Wx::TreeListItem" )',
-                           type_char      => 'o',
-                           arguments      => '&%s, "Wx::TreeListItem"',
-                           },    
     'wxGridCellAttr*' => { convert_return => 'convert_GridCellAttrOut( aTHX_ ret )',
                            type_char      => 'O',
                            arguments      => '&%s',
