@@ -1,0 +1,253 @@
+%module{Wx};
+
+##/////////////////////////////////////////////////////////////////////////////
+##// Name:        webview.h
+##// Purpose:     interface of wxWebView
+##// Author:      wxWidgets team
+##// RCS-ID:      $Id$
+##// Licence:     wxWindows licence
+##/////////////////////////////////////////////////////////////////////////////
+
+#if wxUSE_WEBVIEW
+
+%loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Enum};
+%loadplugin{build::Wx::XSP::Event};
+
+%Event{%EVT_WEB_VIEW_NAVIGATING(id, func)%}
+      {wxEVT_COMMAND_WEB_VIEW_NAVIGATING};
+%Event{%EVT_WEB_VIEW_NAVIGATED(id, func)%}
+      {wxEVT_COMMAND_WEB_VIEW_NAVIGATED};
+%Event{%EVT_WEB_VIEW_LOADED(id, func)%}
+      {wxEVT_COMMAND_WEB_VIEW_LOADED};
+%Event{%EVT_WEB_VIEW_ERROR(id, func)%}
+      {wxEVT_COMMAND_WEB_VIEW_ERROR};
+%Event{%EVT_WEB_VIEW_NEWWINDOW(id, func)%}
+      {wxEVT_COMMAND_WEB_VIEW_NEWWINDOW};
+%Event{%EVT_WEB_VIEW_TITLE_CHANGED(id, func)%}
+      {wxEVT_COMMAND_WEB_VIEW_TITLE_CHANGED};      
+
+%name{Wx::WebViewHistoryItem} class wxWebViewHistoryItem
+{
+    
+%{
+static void
+wxWebViewHistoryItem::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+
+    wxWebViewHistoryItem(const wxString& url, const wxString& title);
+    
+    ~wxWebViewHistoryItem()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::WebViewHistoryItem", THIS, ST(0) );
+                 delete THIS;
+               %};    
+    
+    wxString GetUrl();
+    
+    wxString GetTitle();
+};
+
+%name{Wx::WebViewHandler} class wxWebViewHandler
+{
+public:
+
+    virtual wxFSFile* GetFile(const wxString &uri);
+
+    virtual wxString GetName() const;
+};
+
+%name{Wx::WebView} class wxWebView : public %name{Wx::Control} wxControl
+{
+public:
+
+    static wxWebView* NewDefault(wxWebViewBackend backend = wxWEB_VIEW_BACKEND_DEFAULT)
+        %code{% RETVAL = wxWebView::New( backend ); %}
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
+
+    static wxWebView* New(wxWindow* parent,
+           wxWindowID id,
+           const wxString& url = wxWebViewDefaultURLStr,
+           const wxPoint& pos = wxDefaultPosition,
+           const wxSize& size = wxDefaultSize,
+           wxWebViewBackend backend = wxWEB_VIEW_BACKEND_DEFAULT,
+           long style = 0,
+           const wxString& name = wxWebViewNameStr)
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
+
+    virtual bool Create(wxWindow* parent,
+                        wxWindowID id,
+                        const wxString& url = wxWebViewDefaultURLStr,
+                        const wxPoint& pos = wxDefaultPosition,
+                        const wxSize& size = wxDefaultSize,
+                        long style = 0,
+                        const wxString& name = wxWebViewNameStr);
+
+    virtual wxString GetCurrentTitle() const;
+    
+    virtual wxString GetCurrentURL() const;
+    
+    virtual wxString GetPageSource() const;
+  
+    virtual wxString GetPageText() const;
+    
+    virtual bool IsBusy() const;
+
+    virtual bool IsEditable() const;
+
+    virtual void LoadURL(const wxString& url);
+
+    virtual void Print();
+ 
+    /* TODO : IMP  virtual void RegisterHandler(wxSharedPtr<wxWebViewHandler> handler) = 0; */
+    
+    virtual void Reload(wxWebViewReloadFlags flags = wxWEB_VIEW_RELOAD_DEFAULT);
+    
+    virtual void RunScript(const wxString& javascript);
+    
+    virtual void SetEditable(bool enable = true);
+
+    virtual void SetPage(const wxString& html, const wxString& baseUrl);
+
+    %name{SetPageFH} virtual void SetPage(SV* fh, wxString baseUrl)
+        %code{% wxInputStream* stream = wxPliInputStream_ctor( fh );
+                THIS->SetPage( *stream, baseUrl );
+                delete stream;
+                %};
+
+    virtual void Stop();
+
+    virtual bool CanCopy() const;
+
+    virtual bool CanCut() const;
+
+    virtual bool CanPaste() const;
+
+    virtual void Copy();
+
+    virtual void Cut();
+
+    virtual void Paste();
+
+    virtual bool CanGoBack();
+
+    virtual bool CanGoForward() const;
+
+    virtual void ClearHistory();
+    
+    virtual void EnableHistory(bool enable = true);
+    
+%{
+
+void
+wxWebView::GetBackwardHistory()
+  PPCODE:
+    wxVector<wxSharedPtr<wxWebViewHistoryItem> > back = THIS->GetBackwardHistory();
+    size_t num = back.size();
+    EXTEND( SP, (IV)num );
+    for( size_t i = 0; i < num; ++i )
+    {
+        PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                      new wxWebViewHistoryItem(
+                                          back[i]->GetUrl(), back[i]->GetTitle()
+                                          ),
+                                      "Wx::WebViewHistoryItem" ) );
+    }
+
+
+void
+wxWebView::GetForwardHistory()
+  PPCODE:
+    wxVector<wxSharedPtr<wxWebViewHistoryItem> > forward = THIS->GetForwardHistory();
+    size_t num = forward.size();
+    EXTEND( SP, (IV)num );
+    for( size_t i = 0; i < num; ++i )
+    {
+        PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                      new wxWebViewHistoryItem(
+                                          forward[i]->GetUrl(), forward[i]->GetTitle()
+                                          ),
+                                      "Wx::WebViewHistoryItem" ) );
+    }
+
+%}    
+
+    virtual void GoBack();
+
+    virtual void GoForward();
+
+    /* not quite the standard implementation but it makes
+      wxWebViewHistoryItem simpler */
+      
+    virtual void LoadHistoryItem( wxWebViewHistoryItem* item )
+        %code{% THIS->LoadURL( item->GetUrl() ); %};
+    
+    virtual void ClearSelection();
+   
+    virtual void DeleteSelection();
+ 
+    virtual wxString GetSelectedSource() const;
+  
+    virtual wxString GetSelectedText() const;
+
+    virtual bool HasSelection() const;
+
+    virtual void SelectAll();
+
+    virtual bool CanRedo() const;
+
+    virtual bool CanUndo() const;
+
+    virtual void Redo();
+
+    virtual void Undo();
+
+    virtual bool CanSetZoomType(wxWebViewZoomType type) const;
+
+    virtual wxWebViewZoom GetZoom() const;
+
+    virtual wxWebViewZoomType GetZoomType() const;
+
+    virtual void SetZoom(wxWebViewZoom zoom);
+
+    virtual void SetZoomType(wxWebViewZoomType zoomType);
+};
+
+
+%name{Wx::WebViewEvent} class wxWebViewEvent : public %name{Wx::NotifyEvent} wxNotifyEvent
+{
+public:
+    
+    %name{newDefault} wxWebViewEvent() %Overload;
+    
+    %name{newFull} wxWebViewEvent(wxEventType type, int id, const wxString& href,
+                   const wxString& target) %Overload;
+
+    const wxString& GetTarget() const;
+    
+    const wxString& GetURL() const;
+};
+
+/*
+wxEventType wxEVT_COMMAND_WEB_VIEW_NAVIGATING;
+wxEventType wxEVT_COMMAND_WEB_VIEW_NAVIGATED;
+wxEventType wxEVT_COMMAND_WEB_VIEW_LOADED;
+wxEventType wxEVT_COMMAND_WEB_VIEW_ERROR;
+wxEventType wxEVT_COMMAND_WEB_VIEW_NEWWINDOW;
+wxEventType wxEVT_COMMAND_WEB_VIEW_TITLE_CHANGED;
+*/
+
+%name{Wx::WebViewArchiveHandler} class wxWebViewArchiveHandler : public %name{Wx::WebViewHandler} wxWebViewHandler
+{
+public:
+    
+    wxWebViewArchiveHandler(const wxString& scheme);
+    
+    virtual wxFSFile* GetFile(const wxString &uri);
+};
+
+#endif
+

@@ -455,6 +455,16 @@ _wx_optmod_media()
 #endif
   OUTPUT: RETVAL
 
+bool
+_wx_optmod_webview()
+  CODE:
+#if wxPERL_USE_WEBVIEW && wxUSE_WEBVIEW && WXPERL_W_VERSION_GE( 2, 9, 3 )
+    RETVAL = TRUE;
+#else
+    RETVAL = FALSE;
+#endif
+  OUTPUT: RETVAL
+
 
 I32
 looks_like_number( sval )
