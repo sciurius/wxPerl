@@ -38,6 +38,11 @@
     void SetMessage( const wxString& message );
     void SetExtendedMessage( const wxString& extendedMessage );
 #endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+    bool SetHelpLabel(const wxString& help);
+#endif
+
 };
 
 %name{Wx::MessageBox}
