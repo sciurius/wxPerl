@@ -1,0 +1,80 @@
+#############################################################################
+## Name:        ext/calendar/XS/TimePickerCtrl.xsp
+## Purpose:     XS++ for Wx::TimePickerCtrl
+## Author:      Mark Dootson
+## Modified by:
+## Created:     18/03/2012
+## RCS-ID:      $Id:$
+## Copyright:   (c) 2012, 2010-2011 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_TIMEPICKCTRL
+
+#include <wx/timectrl.h>
+#include "xspp/timectrl.h"
+
+%typemap{wxTimePickerCtrl*}{simple};
+%typemap{wxDateTime}{reference};
+
+%module{Wx};
+%file{xspp/timectrl.h};
+%{
+
+double timepicker_constant( const char* name, int arg )
+{
+    // !package: Wx
+    // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
+    // !tag: timepicker
+#define r( n ) \
+    if( strEQ( name, #n ) ) \
+        return n;
+
+    WX_PL_CONSTANT_INIT();
+
+    switch( fl )
+    {
+    case 'T':
+        r( wxTP_DEFAULT );
+        break;
+    }
+#undef r
+
+    WX_PL_CONSTANT_CLEANUP();
+}
+
+wxPlConstants timepicker_module( &timepicker_constant );
+
+%}
+%file{-};
+
+
+%name{Wx::TimePickerCtrl} class wxTimePickerCtrl : public wxControl
+{
+public:
+    
+    wxTimePickerCtrl(wxWindow* parent, wxWindowID id,
+                     const wxDateTime& dt = wxDefaultDateTimePtr,
+                     const wxPoint& pos = wxDefaultPosition,
+                     const wxSize& size = wxDefaultSize,
+                     long style = wxTP_DEFAULT,
+                     const wxValidator& validator = wxDefaultValidatorPtr,
+                     const wxString& name = "timectrl")
+    %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    bool Create(wxWindow* parent, wxWindowID id,
+                const wxDateTime& dt = wxDefaultDateTimePtr,
+                const wxPoint& pos = wxDefaultPosition,
+                const wxSize& size = wxDefaultSize,
+                long style = wxTP_DEFAULT,
+                const wxValidator& validator = wxDefaultValidatorPtr,
+                const wxString& name = "timectrl");
+
+    virtual wxDateTime GetValue() const;
+
+    virtual void SetValue(const wxDateTime& dt);
+};
+
+
+#endif

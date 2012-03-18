@@ -18,5 +18,6 @@ wxDateEvent *           O_WXOBJECT
 wxCalendarEvent *	O_WXOBJECT
 wxCalendarCtrl *        O_WXOBJECT
 wxDatePickerCtrl *      O_WXOBJECT
+wxTimePickerCtrl *      O_WXOBJECT
 wxDateTime *            O_NON_WXOBJECT_THR
 wxCalendarDateAttr *    O_NON_WXOBJECT_THR

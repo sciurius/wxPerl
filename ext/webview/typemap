@@ -12,7 +12,7 @@
 
 TYPEMAP
 wxWebViewHandler *         O_NON_WXOBJECT
-wxWebViewHistoryItem *     O_NON_WXOBJECT
+wxWebViewHistoryItem *     O_NON_WXOBJECT_THR
 wxWebViewArchiveHandler *  O_NON_WXOBJECT
 wxWebViewEvent *           O_WXOBJECT
 

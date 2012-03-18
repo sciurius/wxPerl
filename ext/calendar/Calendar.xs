@@ -33,6 +33,8 @@ INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/Ca
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/CalendarDateAttr.xsp
 
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/TimePickerCtrl.xsp
+
 #  //FIXME//tricky
 #if defined(__WXMSW__)
 #undef XS

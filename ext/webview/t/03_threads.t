@@ -21,9 +21,13 @@ my $wcontrol2 = Wx::WebView::New($frame, -1);
 my $march1 = Wx::WebViewArchiveHandler->new('zip');
 my $march2 = Wx::WebViewArchiveHandler->new('zip');
 
+my $item1  = Wx::WebViewHistoryItem->new('someurl', 'sometitle');
+my $item2  = Wx::WebViewHistoryItem->new('someurl', 'sometitle');
+
 $wcontrol2->Destroy;
 undef $wcontrol2;
 undef $march2;
+undef $item2;
 
 my $t = threads->create
   ( sub {

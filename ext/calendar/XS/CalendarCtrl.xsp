@@ -65,6 +65,9 @@ double calendar_constant( const char* name, int arg )
 #if WXPERL_W_VERSION_GE( 2, 5, 4 )
         r( wxEVT_DATE_CHANGED );
 #endif
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+        r( wxEVT_TIME_CHANGED );
+#endif
         break;
     }
 #undef r

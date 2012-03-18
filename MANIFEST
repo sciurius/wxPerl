@@ -295,6 +295,7 @@ ext/calendar/typemap
 ext/calendar/XS/CalendarCtrl.xsp
 ext/calendar/XS/CalendarDateAttr.xsp
 ext/calendar/XS/DatePickerCtrl.xsp
+ext/calendar/XS/TimePickerCtrl.xsp
 
 ext/dataview/DataView.pm
 ext/dataview/DataView.xs
@@ -608,4 +609,3 @@ interface/wx/headercol.h
 interface/wx/headerctrl.h
 interface/wx/infobar.h
 interface/wx/treelist.h
-interface/wx/webview.h
