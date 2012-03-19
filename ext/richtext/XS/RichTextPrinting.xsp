@@ -70,8 +70,14 @@ wxRichTextPrinting::CLONE()
 
     bool PreviewFile(const wxString& richTextFile);
     bool PreviewBuffer(const wxRichTextBuffer& buffer);
+
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    bool PrintFile(const wxString& richTextFile, bool showPrintDialog = true ); 
+    bool PrintBuffer(const wxRichTextBuffer& buffer, bool showPrintDialog = true ); 
+#else
     bool PrintFile(const wxString& richTextFile);
     bool PrintBuffer(const wxRichTextBuffer& buffer);
+#endif
 
     void PageSetup();
 

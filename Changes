@@ -5,6 +5,8 @@ Revision history for Perl extension Wx.
     - wrapped wxTimePickerCtrl ( wxWidgets ge 2.9.3 )    
     - wrapped wxRichToolTip ( wxWidgets ge 2.9.3 )
     - wrapped wxBannerWindow ( wxWidgets ge 2.9.3 )
+    - Allow RichTextPrinting without dialog ( wxWidgets ge 2.9.4 )
+      (thanks to Steve Cookson )
 
 0.9905 Fri Mar 16 2012
     - wrapped wxPropertyGrid ( wxWidgets ge 2.9.3 )
