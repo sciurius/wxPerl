@@ -609,3 +609,6 @@ interface/wx/headercol.h
 interface/wx/headerctrl.h
 interface/wx/infobar.h
 interface/wx/treelist.h
+interface/wx/bannerwindow.h
+interface/wx/richtooltip.h
+

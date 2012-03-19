@@ -135,6 +135,9 @@ check_init { Wx::AcceleratorEntry->new( 0, 1, 1 ) };
 check_init { Wx::AcceleratorTable->new };
 check_init { Wx::PlValidator->new };
 
+if( Wx::wxVERSION > 2.009002 ) {
+	check_init { Wx::RichToolTip->new('Hello', 'Goodbye') } ;
+}
 
 # Wx::Overlay / Wx::DCOverlay thread tests
 # creation / destruction order is important

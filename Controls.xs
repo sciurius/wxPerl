@@ -31,6 +31,7 @@
 #define wxNORMAL_FONTPtr (wxFont*)wxNORMAL_FONT
 #define wxNullBitmapPtr (wxBitmap*) &wxNullBitmap
 #define wxNullAnimationPtr (wxAnimation*) &wxNullAnimation
+#define wxNullColourPtr (wxColour*)&wxNullColour
 
 #undef THIS
 
@@ -106,6 +107,11 @@ INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/w
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/wx/button.h
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/wx/treelist.h
+
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/wx/richtooltip.h
+
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/wx/bannerwindow.h
+
 INCLUDE: XS/CheckBox.xs
 INCLUDE: XS/CheckListBox.xs
 INCLUDE: XS/Choice.xs

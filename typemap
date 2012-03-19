@@ -80,6 +80,7 @@ wxPenCap                T_ENUM
 wxPenJoin               T_ENUM
 wxBrushStyle            T_ENUM
 wxShowEffect            T_ENUM
+wxTipKind               T_ENUM
 
 wxDialogLayoutAdaptationMode T_ENUM
 
@@ -132,6 +133,7 @@ wxDisplay *             O_NON_WXOBJECT_THR
 wxVideoMode *           O_NON_WXOBJECT_THR
 wxEventBlocker *        O_NON_WXOBJECT_THR
 wxWindowUpdateLocker *  O_NON_WXOBJECT_THR
+wxRichToolTip *         O_NON_WXOBJECT_THR
 
 wxMenuBar *             O_WXOBJECT
 wxMenu *                O_WXOBJECT
@@ -225,6 +227,7 @@ wxSettableHeaderColumn * O_NON_WXOBJECT_THR
 wxHeaderColumnSimple *  O_NON_WXOBJECT_THR
 wxPlHeaderColumn *      O_NON_WXOBJECT_SELF
 wxPlSettableHeaderColumn * O_NON_WXOBJECT_SELF
+wxBannerWindow *        O_WXEVTHANDLER
 
 wxWizard *              O_WXOBJECT
 wxWizardPage *          O_WXOBJECT
