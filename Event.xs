@@ -414,6 +414,16 @@ wxKeyEvent::HasModifiers()
 bool
 wxKeyEvent::ShiftDown()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+
+void
+wxKeyEvent::DoAllowNextEvent()
+
+bool
+wxKeyEvent::IsNextEventAllowed()
+
+#endif
+
 MODULE=Wx_Evt PACKAGE=Wx::HelpEvent
 
 wxHelpEvent*
