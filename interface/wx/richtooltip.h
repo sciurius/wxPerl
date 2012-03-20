@@ -189,9 +189,9 @@ public:
         for the current platform. Calling this method prevents the native MSW
         implementation from being used as it doesn't support changing the font.
      */
-#if !defined(__WXMSW__)
-    void SetTitleFont(const wxFont& font);
-#endif
+
+    /* void SetTitleFont(const wxFont& font); ## not present */
+
     /**
         Show the tooltip for the given window.
 

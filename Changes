@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-0.9906 TBR
+0.9906
     - wrapped wxWebView ( wxWidgets ge 2.9.3 )
     - wrapped wxTimePickerCtrl ( wxWidgets ge 2.9.3 )    
     - wrapped wxRichToolTip ( wxWidgets ge 2.9.3 )
