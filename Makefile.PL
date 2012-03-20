@@ -29,18 +29,6 @@ please downgrade to 6.17 or install the latest version from CPAN.
 EOT
 }
 
-if( $^O eq 'darwin' ) {
-    # we can't tolerate -nostdinc in flags
-    require Config;
-    my $ccflags = $Config::Config{ccflags};
-    my $cppflags = $Config::Config{cppflags};
-    $ccflags =~ s/-nostdinc //g;
-    $cppflags =~ s/-nostdinc //g;
-    my $obj = tied %Config::Config;
-    $obj->{ccflags} = $ccflags;
-    $obj->{cppflags} = $cppflags;
-}
-
 my $moduleauthor = ( $mmv >= 6.5702 ) ? [ 'Mattia Barbon <mbarbon@cpan.org>' ] : 'Mattia Barbon <mbarbon@cpan.org>';
 
 # $ExtUtils::MakeMaker::Verbose = 2;
