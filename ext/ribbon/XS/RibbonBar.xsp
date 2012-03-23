@@ -17,7 +17,6 @@
 #include <wx/ribbon/bar.h>
 
 %loadplugin{build::Wx::XSP::Overload};
-%loadplugin{build::Wx::XSP::Enum};
 %loadplugin{build::Wx::XSP::Event};
 
 %name{Wx::RibbonBarEvent} class wxRibbonBarEvent : public %name{Wx::NotifyEvent} wxNotifyEvent

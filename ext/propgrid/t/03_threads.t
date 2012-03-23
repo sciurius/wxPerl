@@ -162,7 +162,7 @@ for my $ename ( qw( TextCtrl Choice ComboBox TextCtrlAndButton
       # editors from grid
       push @keeps, $page->GetPropertyEditor($kpa);
       push @undef, $page->GetPropertyEditor($kpa);
-      #editors created
+      # editors created
       # can't create a DatePickerCtrl
       next if $ename eq 'DatePickerCtrl';
       push @keeps,$classname->new();

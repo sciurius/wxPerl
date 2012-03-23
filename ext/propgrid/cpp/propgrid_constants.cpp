@@ -11,6 +11,10 @@
 
 #include <cpp/constants.h>
 
+// TODO:
+// this is grim, but I'm not sure how
+// to handle class level enumerations.
+
 #define wxPGState_SelectionState   0x01
 #define wxPGState_ExpandedState   0x02
 #define wxPGState_ScrollPosState   0x04

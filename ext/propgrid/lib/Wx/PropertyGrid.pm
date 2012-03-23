@@ -38,6 +38,8 @@ sub wxPG_ATTR_MIN { return ( $Wx::PropertyGrid::__wx_pgrid_present ) ? Wx::Prope
 sub wxPG_ATTR_MAX { return ( $Wx::PropertyGrid::__wx_pgrid_present ) ? Wx::PropertyGrid::_get_wxPG_ATTR_MAX() : undef ; }
 package Wx::PropertyGrid;
 
+# these are all string 'constants', those above
+# and those added in Constant.xs
 our @_wxpg_extra_exported_constants = qw(
     wxPG_ATTR_UNITS 
     wxPG_ATTR_HINT 

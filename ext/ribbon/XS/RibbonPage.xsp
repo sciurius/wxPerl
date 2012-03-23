@@ -17,9 +17,6 @@
 #include <wx/ribbon/page.h>
 
 %loadplugin{build::Wx::XSP::Overload};
-%loadplugin{build::Wx::XSP::Enum};
-%loadplugin{build::Wx::XSP::Event};
-
 
 %name{Wx::RibbonPage} class wxRibbonPage : public %name{Wx::RibbonControl} wxRibbonControl
 {
