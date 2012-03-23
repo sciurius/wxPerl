@@ -3,17 +3,28 @@ package build::Wx::XSP::Enum;
 use strict;
 use warnings;
 
-sub new { return bless { parser => $_[1] }, $_[0] }
+sub new { return bless { parser => $_[1], exporttag => '' }, $_[0] }
 
 sub register_plugin {
     my( $class, $parser ) = @_;
+    my $instance = $class->new( $parser );
+    $parser->add_post_process_plugin( plugin => $instance );
+    $parser->add_toplevel_tag_plugin( plugin => $instance, tag => 'EnumExportTag' );
+}
 
-    $parser->add_post_process_plugin( plugin => $class->new( $parser ) );
+sub handle_toplevel_tag {
+    my( $self, $empty, $tag, %args ) = @_;
+    my $checktag = $args{any_positional_arguments}[0];
+    die qq(Invalid Export Tag $checktag) if $checktag !~ /^[a-z]+$/;
+    $self->{exporttag} = $checktag;
+    1; # we handled the tag
 }
 
 sub post_process {
     my( $self, $nodes ) = @_;
     my $parser = $self->{parser};
+    my $exporttag = $self->{exporttag};
+    
     my( %constants, %conditions );
 
     foreach my $node ( @$nodes ) {
@@ -41,7 +52,7 @@ sub post_process {
     }
     my $consts = join "\n", @defines;
     my $all_conditions = join ' && ', 1, keys %conditions;
-    my @lines = sprintf <<'EOT', $all_conditions, $name, $consts, $name, $name;
+    my @lines = sprintf <<'EOT', $all_conditions, $name, $exporttag, $consts, $name, $name;
 #if %s
 
 #include "cpp/constants.h"
@@ -55,7 +66,7 @@ static double %s_constant( const char* name, int arg )
     WX_PL_CONSTANT_INIT();
 
     // !package: Wx
-    // !tag:
+    // !tag: %s
     // !parser: sub { $_[0] =~ m<^\s*r\w*\(\s*(\w+)\s*\);\s*(?://(.*))?$> }
 
 //    switch( fl )
