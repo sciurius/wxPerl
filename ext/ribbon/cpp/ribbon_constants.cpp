@@ -100,6 +100,23 @@ double ribbon_constant( const char* name, int arg )
         r( wxRIBBON_GALLERY_BUTTON_ACTIVE );
         r( wxRIBBON_GALLERY_BUTTON_DISABLED );
         break;
+    case 'E':        
+        r( wxEVT_COMMAND_RIBBONBAR_PAGE_CHANGED );
+        r( wxEVT_COMMAND_RIBBONBAR_PAGE_CHANGING );
+        r( wxEVT_COMMAND_RIBBONBAR_TAB_MIDDLE_DOWN );
+        r( wxEVT_COMMAND_RIBBONBAR_TAB_MIDDLE_UP );
+        r( wxEVT_COMMAND_RIBBONBAR_TAB_RIGHT_DOWN );
+        r( wxEVT_COMMAND_RIBBONBAR_TAB_RIGHT_UP );
+        r( wxEVT_COMMAND_RIBBONBAR_TAB_LEFT_DCLICK );
+        r( wxEVT_COMMAND_RIBBONBUTTON_CLICKED );
+        r( wxEVT_COMMAND_RIBBONBUTTON_DROPDOWN_CLICKED );
+        r( wxEVT_COMMAND_RIBBONGALLERY_HOVER_CHANGED );
+        r( wxEVT_COMMAND_RIBBONGALLERY_SELECTED );
+        r( wxEVT_COMMAND_RIBBONGALLERY_CLICKED );
+        r( wxEVT_COMMAND_RIBBONTOOL_CLICKED );
+        r( wxEVT_COMMAND_RIBBONTOOL_DROPDOWN_CLICKED );
+        
+        break;
     default:
         break;
     }
