@@ -103,4 +103,55 @@ wxPrintData::SetPrinterName( name )
 void
 wxPrintData::SetQuality( quality )
     wxPrintQuality quality
+    
 
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+bool
+wxPrintData::IsOrientationReversed()
+    
+wxPrintMode
+wxPrintData::GetPrintMode()
+
+int
+wxPrintData::GetMedia();
+
+void
+wxPrintData::SetOrientationReversed( reversed )
+    bool reversed
+
+void
+wxPrintData::SetMedia( media )
+    int media
+    
+void
+wxPrintData::SetPrintMode( printMode )
+    wxPrintMode printMode
+
+wxString
+wxPrintData::GetFilename()
+
+void
+wxPrintData::SetFilename( filename )
+    wxString filename
+
+char*
+wxPrintData::GetPrivData()
+    
+int
+wxPrintData::GetPrivDataLen()
+    
+void
+wxPrintData::SetPrivData( privData, len )
+    char* privData
+    int len
+
+void
+wxPrintData::ConvertToNative()
+    
+void
+wxPrintData::ConvertFromNative()
+    
+## wxPrintNativeDataBase*
+## wxPrintData::GetNativeData()
+
+#endif

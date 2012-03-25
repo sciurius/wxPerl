@@ -37,3 +37,4 @@ wxPaperSize             T_ENUM
 wxPrintQuality          T_ENUM
 wxPrinterError          T_ENUM
 wxPrintBin              T_ENUM
+wxPrintMode             T_ENUM
