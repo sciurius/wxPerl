@@ -128,7 +128,11 @@ wxExecuteCommand( command, sync = wxEXEC_ASYNC, callback = 0 )
     int sync
     wxProcess* callback
   CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
+    RETVAL = wxExecute( command, sync, callback, NULL );
+#else
     RETVAL = wxExecute( command, sync, callback );
+#endif
   OUTPUT:
     RETVAL
 
@@ -148,7 +152,11 @@ wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
     argv = new wxChar*[n+1];
     memcpy( argv, t, n*sizeof(char*) );
     argv[n] = 0;
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
+    RETVAL = wxExecute( argv, sync, callback, NULL );
+#else
     RETVAL = wxExecute( argv, sync, callback );
+#endif    
     for( i = 0; i < n; ++i )
         delete argv[i];
     delete[] argv;
@@ -172,7 +180,11 @@ wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
     argv = new char*[n+1];
     memcpy( argv, t, n*sizeof(char*) );
     argv[n] = 0;
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
+    RETVAL = wxExecute( argv, sync, callback, NULL );
+#else
     RETVAL = wxExecute( argv, sync, callback );
+#endif
     for( i = 0; i < n; ++i )
         delete argv[i];
     delete[] argv;
