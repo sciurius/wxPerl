@@ -100,11 +100,11 @@ wxRichTextPrinting::CLONE()
     wxPageSetupDialogData *GetPageSetupData() const;
     void SetPageSetupData(const wxPageSetupDialogData& pageSetupData);
 
-    // void SetRichTextBufferPreview(wxRichTextBuffer* buf);
-    // wxRichTextBuffer* GetRichTextBufferPreview() const;
+    void SetRichTextBufferPreview(wxRichTextBuffer* buf);
+    wxRichTextBuffer* GetRichTextBufferPreview() const;
 
-    // void SetRichTextBufferPrinting(wxRichTextBuffer* buf);
-    // wxRichTextBuffer* GetRichTextBufferPrinting() const;
+    void SetRichTextBufferPrinting(wxRichTextBuffer* buf);
+    wxRichTextBuffer* GetRichTextBufferPrinting() const;
 
     void SetParentWindow(wxWindow* parent);
     wxWindow* GetParentWindow() const;
