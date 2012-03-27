@@ -22,71 +22,76 @@ use Wx::build::MakeMaker::Core;
 
 ( my $mmv = ExtUtils::MakeMaker->VERSION ) =~ s/_//g;
 
-if( $mmv == 6.21 ) {
-    die <<EOT
-ExtUtils::MakeMaker 6.21 is known not to work with wxPerl;
-please downgrade to 6.17 or install the latest version from CPAN.
-EOT
-}
-
 my $moduleauthor = ( $mmv >= 6.5702 ) ? [ 'Mattia Barbon <mbarbon@cpan.org>' ] : 'Mattia Barbon <mbarbon@cpan.org>';
 
 # $ExtUtils::MakeMaker::Verbose = 2;
 # $wxConfig::Verbose = 10;
 
-my $build_requires =  {
-    'ExtUtils::MakeMaker'    => 6.17,
-    };
-  
-my $requires =  {
-    'Alien::wxWidgets'       => 0.25,
-    'ExtUtils::XSpp'         => 0.1602,
-    'ExtUtils::ParseXS'      => 3.15,
-    'File::Spec::Functions'  => 0.82,
-    'Test::More'             => 0.45,
-    'Test::Harness'          => 2.26,
-    'if'                     => 0.03,
-    };
+# Make setting optional MakeMaker parameters more readable
+# lifted from DBD::SQLite distribution
+sub OPTIONAL {
+	return () unless $ExtUtils::MakeMaker::VERSION ge shift;
+	return @_;
+}
 
-eval {
-    require ExtUtils::MY_Metafile;
-    ExtUtils::MY_Metafile->import;
-
-    my_metafile
-      ( { license        => 'perl',
-          author         => $moduleauthor,
-          dynamic_config => 1,
-          requires       => $requires,
-          build_requires => $build_requires,
-          no_index       => { directory => [ qw(samples script) ],
-                              package   => [ qw(MY Parse::Yapp::Driver) ],
-                              },
-          configure_requires => { 'Alien::wxWidgets' => 0.25,
-                                  },
-          resources       => { 'license'       => 'http://dev.perl.org/licenses/',
-                               'homepage'      => 'http://wxperl.eu/',
-                               'bugtracker'    => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Wx',
-                               'repository'    => 'https://wxperl.svn.sourceforge.net/svnroot/wxperl/wxPerl',
-                               'MailingList'   => 'http://lists.perl.org/list/wxperl-users.html',
-                               },
-          } );
-};
-
-wxWriteMakefile( NAME          => 'Wx',
-                 ABSTRACT_FROM => 'Wx.pm',
-                 AUTHOR        => $moduleauthor,
-                 VERSION_FROM  => 'Wx.pm',
-                 PREREQ_PM     => { %$requires, %$build_requires },
-                 PMLIBDIRS     => [ 'lib', 'build' ],
-                 EXE_FILES     => [ qw(script/wxperl_overload) ],
-                 WX_CORE_LIB_MAYBE => $^O eq 'darwin' ? 'media html' : '',
-                 WX_CORE_LIB   => 'adv core base',
-                 WX_OVERLOAD   => { header  => 'cpp/ovl_const.h',
-                                    source  => 'cpp/ovl_const.cpp',
-                                    },
-                 WX_TOP        => 'Wx.pm',
-                 LICENSE       => 'perl',
-                 );
+wxWriteMakefile(                 
+    NAME             => 'Wx',
+	ABSTRACT_FROM    => 'Wx.pm',
+	VERSION_FROM     => 'Wx.pm',
+	AUTHOR           => $moduleauthor,
+	PREREQ_PM        => {
+        'Alien::wxWidgets'       => 0.25,
+        'ExtUtils::XSpp'         => 0.1602,
+        'ExtUtils::MakeMaker'    => 6.46,
+        'ExtUtils::ParseXS'      => 3.15,
+        'File::Spec::Functions'  => 0.82,
+        'Test::More'             => 0.45,
+        'Test::Harness'          => 2.26,
+        'if'                     => 0.03,
+	},
+    LICENSE => 'perl',	
+	OPTIONAL( '6.48',
+		MIN_PERL_VERSION => '5.006001',
+	),
+	META_ADD => {
+        dynamic_config => 1,
+        configure_requires => {
+            'Alien::wxWidgets'    => 0.25,
+        },
+        build_requires => {
+            'Alien::wxWidgets'    => 0.25,
+            'ExtUtils::MakeMaker' => 6.48,
+            'ExtUtils::XSpp'      => 0.1602,
+            'Test::More'          => 0.42,
+            'ExtUtils::ParseXS'   => 3.15,
+            'File::Spec::Functions'  => 0.82,
+            'Test::More'          => 0.45,
+            'Test::Harness'       => 2.26,
+            'if'                  => 0.03,
+        },
+        requires => {
+            'Alien::wxWidgets'    => 0.25,
+        },
+        resources => {
+            'license'       => 'http://dev.perl.org/licenses/',
+            'homepage'      => 'http://wxperl.eu/',
+            'bugtracker'    => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Wx',
+            'repository'    => 'https://wxperl.svn.sourceforge.net/svnroot/wxperl/wxPerl',
+            'MailingList'   => 'http://lists.perl.org/list/wxperl-users.html',
+        },
+        no_index => { directory => [ qw(samples script) ],
+                      package   => [ qw(MY Parse::Yapp::Driver) ],
+        },
+    },
+    PMLIBDIRS         => [ 'lib', 'build' ],
+    EXE_FILES         => [ qw(script/wxperl_overload) ],
+    WX_CORE_LIB_MAYBE => $^O eq 'darwin' ? 'media html' : '',
+    WX_CORE_LIB       => 'adv core base',
+    WX_OVERLOAD       => { header  => 'cpp/ovl_const.h',
+                           source  => 'cpp/ovl_const.cpp',
+                         },
+    WX_TOP            => 'Wx.pm',
+);
 
 END {
     print <<EOT;

@@ -128,7 +128,6 @@ sub depend_core {
                  'blibdirs'        => 'wxt_copy_files',
                  'blibdirs.ts'     => 'wxt_copy_files',
                  'wxt_copy_files'  => join( ' ', keys %files ),
-                 'distmeta'        => 'check_my_metafile',
                );
   my %this_depend = @_;
 
@@ -234,9 +233,6 @@ typemap : typemap.tmpl script/make_typemap.pl
 
 cpp/v_cback_def.h : script/make_v_cback.pl
 	\$(PERL) script/make_v_cback.pl > cpp/v_cback_def.h
-
-check_my_metafile :
-	\$(PERL) -e "eval 'require ExtUtils::MY_Metafile; 1' || die 'Install ExtUtils::MY_Metafile'"
 
 EOT
 
