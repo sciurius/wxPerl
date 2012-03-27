@@ -132,31 +132,31 @@ wxExecuteCommand( command, sync = wxEXEC_ASYNC, callback = 0 )
   OUTPUT:
     RETVAL
 
-## #if wxUSE_UNICODE
+#if wxUSE_UNICODE
 
-#long
-#wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
-#    SV* args
-#    int sync
-#    wxProcess* callback
-#  PREINIT:
-#    wxChar** argv;
-#    wxChar** t;
-#    int n, i;
-#  CODE:
-#    n = wxPli_av_2_wxcharparray( aTHX_ args, &t );
-#    argv = new wxChar*[n+1];
-#    memcpy( argv, t, n*sizeof(wxChar*) );
-#    argv[n] = 0;
-#    RETVAL = wxExecute( argv, sync, callback );
-#    for( i = 0; i < n; ++i )
-#        delete argv[i];
-#    delete[] argv;
-#    delete[] t;
-#  OUTPUT:
-#    RETVAL
+long
+wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
+    SV* args
+    int sync
+    wxProcess* callback
+  PREINIT:
+    wxChar** argv;
+    wxChar** t;
+    int n, i;
+  CODE:
+    n = wxPli_av_2_wxcharparray( aTHX_ args, &t );
+    argv = new wxChar*[n+1];
+    memcpy( argv, t, n*sizeof(char*) );
+    argv[n] = 0;
+    RETVAL = wxExecute( argv, sync, callback );
+    for( i = 0; i < n; ++i )
+        delete argv[i];
+    delete[] argv;
+    delete[] t;
+  OUTPUT:
+    RETVAL
 
-## #else
+#else
 
 long
 wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
@@ -180,7 +180,7 @@ wxExecuteArgs( args, sync = wxEXEC_ASYNC, callback = 0 )
   OUTPUT:
     RETVAL
 
-## #endif
+#endif
 
 void
 wxExecuteStdout( command, flags = 0 )
