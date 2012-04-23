@@ -57,6 +57,13 @@ wxPrintout::GetDC()
     wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 void
+wxPrintout::SetDC( dc )
+    wxDC* dc
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(1), false );
+    THIS->SetDC( dc );
+
+void
 wxPrintout::GetPageInfo()
   PREINIT:
     int minPage, maxPage, pageFrom, pageTo;
@@ -227,5 +234,30 @@ void
 wxPrintout::OffsetLogicalOrigin( xoff, yoff )
     wxCoord xoff
     wxCoord yoff
+    
+    
+void 
+SetPageSizePixels( w, h )
+    int w
+    int h
+    
+void 
+SetPageSizeMM( w, h )
+    int w
+    int h
+    
+void 
+SetPPIScreen( x, y )
+    int x
+    int y
+    
+void 
+SetPPIPrinter( x, y )
+    int x
+    int y
+    
+void
+SetPaperRectPixels( paperRectPixels )
+    wxRect& paperlRectPixels
 
 #endif
