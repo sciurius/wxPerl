@@ -234,30 +234,29 @@ void
 wxPrintout::OffsetLogicalOrigin( xoff, yoff )
     wxCoord xoff
     wxCoord yoff
-    
-    
+
 void 
-SetPageSizePixels( w, h )
+wxPrintout::SetPageSizePixels( w, h )
     int w
     int h
-    
+
 void 
-SetPageSizeMM( w, h )
+wxPrintout::SetPageSizeMM( w, h )
     int w
     int h
-    
+
 void 
-SetPPIScreen( x, y )
+wxPrintout::SetPPIScreen( x, y )
     int x
     int y
-    
+
 void 
-SetPPIPrinter( x, y )
+wxPrintout::SetPPIPrinter( x, y )
     int x
     int y
-    
+
 void
-SetPaperRectPixels( paperRectPixels )
+wxPrintout::SetPaperRectPixels( paperRectPixels )
     wxRect& paperlRectPixels
 
 #endif
