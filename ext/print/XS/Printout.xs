@@ -258,5 +258,7 @@ wxPrintout::SetPPIPrinter( x, y )
 void
 wxPrintout::SetPaperRectPixels( paperRectPixels )
     wxRect* paperRectPixels
+  CODE:
+    THIS->SetPaperRectPixels( *paperRectPixels );
 
 #endif
