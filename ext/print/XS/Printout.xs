@@ -139,6 +139,13 @@ wxPrintout::HasPage( pageNum )
 bool
 wxPrintout::IsPreview()
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+void
+wxPrintout::SetIsPreview( p )
+    bool p
+    
+#endif
+
 bool
 wxPrintout::OnBeginDocument( startPage, endPage )
     int startPage

@@ -53,6 +53,22 @@ wxRichTextPrintout::CLONE()
     virtual void OnPreparePrinting();
 };
 
+%{
+
+void
+wxRichTextPrintout::GetPageInfo()
+  PREINIT:
+    int minPage, maxPage, pageFrom, pageTo;
+  PPCODE:
+    THIS->wxRichTextPrintout::GetPageInfo( &minPage, &maxPage, &pageFrom, &pageTo );
+    EXTEND( SP, 4 );
+    PUSHs( sv_2mortal( newSViv( minPage ) ) );
+    PUSHs( sv_2mortal( newSViv( maxPage ) ) );
+    PUSHs( sv_2mortal( newSViv( pageFrom ) ) );
+    PUSHs( sv_2mortal( newSViv( pageTo ) ) );
+
+%}
+
 %name{Wx::RichTextPrinting} class wxRichTextPrinting : public wxObject
 {
     wxRichTextPrinting(  wxString name = wxT("Printing"), wxWindow *parentWindow = NULL );
