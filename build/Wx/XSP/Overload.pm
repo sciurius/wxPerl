@@ -92,7 +92,7 @@ sub is_number {
                   'unsigned long', 'float', 'double',
                   'wxAlignment', 'wxBrushStyle',
                   'size_t', 'ssize_t', 'wxCoord',
-                  'wxUint32', 'wxDirection',
+                  'wxUint32', 'wxDirection', 'wxBitmapType',
                   );
 }
 
