@@ -178,7 +178,7 @@ sub handle_method_tag {
                            type_char      => 'o',
                            arguments      => '&%s, "Wx::Size"',
                            },    
-    'const wxRect&'   => { convert_return => '*(wxRect*)wxPli_sv_2_object( aTHX_ ret, "Wx::Bitmap" )',
+    'const wxRect&'   => { convert_return => '*(wxRect*)wxPli_sv_2_object( aTHX_ ret, "Wx::Rect" )',
                            default_value  => 'wxRect()',
                            type_char      => 'O',
                            arguments      => '&%s',

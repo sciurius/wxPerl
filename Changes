@@ -1,5 +1,12 @@
 Revision history for Perl extension Wx.
 
+0.9907 TBR
+    - wrapped wxHtmlPrintout
+    - added missing wxPrintout methods
+    - fixed GetPageInfo for wxRichTextPrintout
+    - fixed broken Makefile.PL with recent EUMM on Mac
+    - some minor additions to RichTextCtrl/RichTextBuffer
+
 0.9906 Tue Mar 27 2012
     - wrapped wxWebView ( wxWidgets ge 2.9.3 )
     - wrapped wxTimePickerCtrl ( wxWidgets ge 2.9.3 )    

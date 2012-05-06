@@ -144,6 +144,14 @@ void
 wxPrintout::SetIsPreview( p )
     bool p
     
+#else
+void
+wxPrintout::SetPreview( preview )
+    wxPrintPreview* preview
+
+wxPrintPreview*
+wxPrintout::GetPreview()
+
 #endif
 
 bool

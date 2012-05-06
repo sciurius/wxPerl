@@ -22,6 +22,7 @@ wxBestHelpController *  O_WXOBJECT
 
 wxHtmlEasyPrinting *    O_NON_WXOBJECT_THR
 wxHtmlDCRenderer *      O_NON_WXOBJECT_THR
+wxHtmlPrintout *        O_NON_WXOBJECT_THR
 
 wxPrintData *           O_WXOBJECT
 wxPageSetupDialogData * O_WXOBJECT

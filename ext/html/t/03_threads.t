@@ -9,15 +9,19 @@ use Wx qw(:everything);
 use if !Wx::wxTHREADS, 'Test::More' => skip_all => 'No thread support';
 use Test::More tests => 4;
 use Wx::Html;
+use Wx::Print;
 
 my $app = Wx::App->new( sub { 1 } );
 my $easyprint = Wx::HtmlEasyPrinting->new;
 my $easyprint2 = Wx::HtmlEasyPrinting->new;
 my $htmldcrenderer = Wx::HtmlDCRenderer->new;
 my $htmldcrenderer2 = Wx::HtmlDCRenderer->new;
+my $htmlprintout = Wx::HtmlPrintout->new;
+my $htmlprintout2 = Wx::HtmlPrintout->new;
 
 undef $easyprint2;
 undef $htmldcrenderer2;
+undef $htmlprintout2;
 
 my $t = threads->create
   ( sub {

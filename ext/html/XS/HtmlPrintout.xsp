@@ -1,0 +1,96 @@
+#############################################################################
+## Name:        ext/html/XS/HtmlPrintout.xsp
+## Purpose:     XS++ for Wx::HtmlPrintout
+## Author:      Mark Dootson
+## Modified by:
+## Created:     3 May 2012
+## RCS-ID:      $Id: HtmlParser.xsp 2079 2007-07-08 21:18:04Z mbarbon $
+## Copyright:   (c) 1012 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#include <wx/html/htmprint.h>
+
+%name{Wx::HtmlPrintout} class wxHtmlPrintout : public %name{Wx::Printout} wxPrintout
+{
+    
+%{
+static void
+wxHtmlPrintout::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+        
+    wxHtmlPrintout(const wxString& title = wxT("Printout"));
+ 
+    ~wxHtmlPrintout()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::HtmlPrintout", THIS, ST(0) );
+                 delete THIS; %};
+    
+
+    void SetHtmlText(const wxString& html, const wxString &basepath = wxEmptyString, bool isdir = true);
+    void SetHtmlFile(const wxString &htmlfile);
+    void SetHeader(const wxString& header, int pg = wxPAGE_ALL);
+    void SetFooter(const wxString& footer, int pg = wxPAGE_ALL);
+    //void SetFonts(const wxString& normal_face, const wxString& fixed_face, int *sizes = NULL);
+
+    void SetStandardFonts(int size = -1,
+                          const wxString& normal_face = wxEmptyString,
+                          const wxString& fixed_face = wxEmptyString);
+
+    void SetMargins(float top = 25.2, float bottom = 25.2, float left = 25.2, float right = 25.2,
+                    float spaces = 5);
+
+    // wxPrintout stuff:
+    bool OnPrintPage(int page);
+    bool HasPage(int page);
+    // void GetPageInfo(int *minPage, int *maxPage, int *selPageFrom, int *selPageTo);
+    bool OnBeginDocument(int startPage, int endPage);
+    void OnPreparePrinting();
+
+    // Adds input filter
+    // NOT Implemented - just use Wx::PlFileSystemHandler instead
+    // static void AddFilter(wxHtmlFilter *filter);
+
+    // Cleanup
+    static void CleanUpStatics();
+
+%{
+
+void
+wxHtmlPrintout::GetPageInfo()
+  PREINIT:
+    int minPage, maxPage, pageFrom, pageTo;
+  PPCODE:
+    THIS->wxHtmlPrintout::GetPageInfo( &minPage, &maxPage, &pageFrom, &pageTo );
+    EXTEND( SP, 4 );
+    PUSHs( sv_2mortal( newSViv( minPage ) ) );
+    PUSHs( sv_2mortal( newSViv( maxPage ) ) );
+    PUSHs( sv_2mortal( newSViv( pageFrom ) ) );
+    PUSHs( sv_2mortal( newSViv( pageTo ) ) );
+
+
+void
+wxHtmlPrintout::SetFonts( normal_face, fixed_face, sizes )
+    wxString normal_face
+    wxString fixed_face
+    SV* sizes
+  PREINIT:
+    int* array;
+    int n = wxPli_av_2_intarray( aTHX_ sizes, &array );
+  CODE:
+    if( n != 7 )
+    {
+       delete[] array;
+       croak( "Specified %d sizes, 7 wanted", n );
+    }
+    THIS->wxHtmlPrintout::SetFonts( normal_face, fixed_face, array );
+    delete[] array;
+%}
+
+};

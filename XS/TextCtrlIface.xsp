@@ -98,7 +98,10 @@
 
 #endif
 
+#if !defined(WXPERL_IN_RICHTEXTCTRL)
 	bool SetDefaultStyle( const wxTextAttr& style );
+#endif
+	
 	const wxTextAttr& GetDefaultStyle() const;
 
 

@@ -28,6 +28,10 @@ my $rtpo = Wx::RichTextPrintout->new;
 my $rtpo2 = Wx::RichTextPrintout->new;
 my $rthfd = Wx::RichTextHeaderFooterData->new;
 my $rthfd2 = Wx::RichTextHeaderFooterData->new;
+my $rtb = Wx::RichTextBuffer->new;
+my $rtb2 = Wx::RichTextBuffer->new;
+my $rtb3 = Wx::RichTextBuffer->new($rtb2);
+my $rtb4 = Wx::RichTextBuffer->new($rtb);
 
 undef $rtr2;
 undef $tae2;
@@ -37,6 +41,8 @@ undef $rtss2;
 undef $rtp2;
 undef $rtpo2;
 undef $rthfd2;
+undef $rtb2;
+undef $rtb4;
 
 my $t = threads->create
   ( sub {
