@@ -51,6 +51,8 @@ cpp/window.h
 cpp/wizard.h
 cpp/wxapi.h
 cpp/wxPerl.osx/Info.plist
+cpp/wxPerl.osx/main.c
+cpp/wxPerl.osx/Makefile
 cpp/wxsizer.h
 docs/INSTALL.pod
 docs/todo.txt
