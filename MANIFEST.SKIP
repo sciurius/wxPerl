@@ -1,5 +1,5 @@
 (?:^|/)[Mm]akefile$
-(?:^|/)[Mm]akefile.old$
+(?:^|/)[Mm]akefile\.old$
 (?:^|/)pm_to_blib$
 [Cc][Vv][Ss]/
 \.svn/
@@ -14,10 +14,10 @@
 ^Wx-\d+\.\d+\.(zip|tar\.gz|tgz)$
 ^bak
 ^blib
-^cpp/setup.h$
-^files.lst$
+^cpp/setup\.h$
+^files\.lst$
 ~$
-^overload\.lst$
+(?:^|/)overload\.lst$
 ^MANIFEST\.bak$
-MYMETA\.yml$
-MYMETA\.json$
+(?:^|/)MYMETA\.yml$
+(?:^|/)MYMETA\.json$

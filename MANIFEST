@@ -261,7 +261,6 @@ ext/propgrid/cpp/propgrid_constants.cpp
 ext/propgrid/cpp/propgrid_declares.h
 ext/propgrid/lib/Wx/PropertyGrid.pm
 ext/propgrid/Makefile.PL
-ext/propgrid/overload.lst
 ext/propgrid/PropertyGrid.xs
 ext/propgrid/t/01_load.t
 ext/propgrid/t/02_inheritance.t
@@ -343,7 +342,6 @@ ext/stc/XS/StyledTextEvent.xsp
 ext/webview/cpp/webview_constants.cpp
 ext/webview/lib/Wx/WebView.pm
 ext/webview/Makefile.PL
-ext/webview/overload.lst
 ext/webview/t/01_load.t
 ext/webview/t/02_inheritance.t
 ext/webview/t/03_threads.t
