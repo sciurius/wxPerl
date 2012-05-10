@@ -58,8 +58,6 @@ Event.xs
 ext/aui/AUI.xs
 ext/aui/lib/Wx/AUI.pm
 ext/aui/Makefile.PL
-ext/aui/MYMETA.json
-ext/aui/MYMETA.yml
 ext/aui/t/01_load.t
 ext/aui/t/02_inheritance.t
 ext/aui/t/03_threads.t
@@ -72,8 +70,6 @@ ext/aui/XS/AuiPaneInfo.xsp
 ext/calendar/Calendar.pm
 ext/calendar/Calendar.xs
 ext/calendar/Makefile.PL
-ext/calendar/MYMETA.json
-ext/calendar/MYMETA.yml
 ext/calendar/t/01_load.t
 ext/calendar/t/02_inheritance.t
 ext/calendar/t/03_threads.t
@@ -104,8 +100,6 @@ ext/dataview/XS/DataViewTreeStore.xsp
 ext/datetime/DateTime.pm
 ext/datetime/DateTime.xs
 ext/datetime/Makefile.PL
-ext/datetime/MYMETA.json
-ext/datetime/MYMETA.yml
 ext/datetime/t/01_load.t
 ext/datetime/t/02_api.t
 ext/datetime/t/03_threads.t
@@ -121,8 +115,6 @@ ext/dnd/DND.xs
 ext/dnd/lib/Wx/DND.pm
 ext/dnd/lib/Wx/DropSource.pm
 ext/dnd/Makefile.PL
-ext/dnd/MYMETA.json
-ext/dnd/MYMETA.yml
 ext/dnd/t/01_load.t
 ext/dnd/t/02_inheritance.t
 ext/dnd/t/03_pldatabject.t
@@ -138,8 +130,6 @@ ext/docview/cpp/dv_constants.cpp
 ext/docview/DocView.xs
 ext/docview/lib/Wx/DocView.pm
 ext/docview/Makefile.PL
-ext/docview/MYMETA.json
-ext/docview/MYMETA.yml
 ext/docview/t/01_load.t
 ext/docview/t/02_inheritance.t
 ext/docview/t/03_threads.t
@@ -159,8 +149,6 @@ ext/filesys/cpp/fshandler.h
 ext/filesys/FS.xs
 ext/filesys/lib/Wx/FS.pm
 ext/filesys/Makefile.PL
-ext/filesys/MYMETA.json
-ext/filesys/MYMETA.yml
 ext/filesys/t/01_load.t
 ext/filesys/t/02_inheritance.t
 ext/filesys/t/03_threads.t
@@ -174,8 +162,6 @@ ext/grid/cpp/renderer.h
 ext/grid/Grid.xs
 ext/grid/lib/Wx/Grid.pm
 ext/grid/Makefile.PL
-ext/grid/MYMETA.json
-ext/grid/MYMETA.yml
 ext/grid/t/01_load.t
 ext/grid/t/02_inheritance.t
 ext/grid/t/03_attr.t
@@ -191,8 +177,6 @@ ext/grid/XS/GridTableMessage.xsp
 ext/help/Help.xs
 ext/help/lib/Wx/Help.pm
 ext/help/Makefile.PL
-ext/help/MYMETA.json
-ext/help/MYMETA.yml
 ext/help/t/01_load.t
 ext/help/t/02_inheritance.t
 ext/help/t/03_threads.t
@@ -205,8 +189,6 @@ ext/html/cpp/htmlwindow.h
 ext/html/Html.xs
 ext/html/lib/Wx/Html.pm
 ext/html/Makefile.PL
-ext/html/MYMETA.json
-ext/html/MYMETA.yml
 ext/html/t/01_load.t
 ext/html/t/02_inheritance.t
 ext/html/t/03_threads.t
@@ -229,8 +211,6 @@ ext/mdi/cpp/mdi.h
 ext/mdi/lib/Wx/MDI.pm
 ext/mdi/Makefile.PL
 ext/mdi/MDI.xs
-ext/mdi/MYMETA.json
-ext/mdi/MYMETA.yml
 ext/mdi/t/01_load.t
 ext/mdi/t/02_inheritance.t
 ext/mdi/typemap
@@ -240,42 +220,28 @@ ext/media/cpp/me_constants.cpp
 ext/media/lib/Wx/Media.pm
 ext/media/Makefile.PL
 ext/media/Media.xs
-ext/media/MYMETA.json
-ext/media/MYMETA.yml
 ext/media/t/01_load.t
 ext/media/t/02_inheritance.t
 ext/media/typemap
 ext/media/XS/MediaCtrl.xsp
 ext/media/XS/MediaEvent.xsp
-ext/MYMETA.json
-ext/MYMETA.yml
 ext/pperl/carp/Carp.pm
 ext/pperl/carp/Makefile.PL
-ext/pperl/carp/MYMETA.json
-ext/pperl/carp/MYMETA.yml
 ext/pperl/carp/t/01_load.t
 ext/pperl/Makefile.PL
-ext/pperl/MYMETA.json
-ext/pperl/MYMETA.yml
 ext/pperl/splashfast/Makefile.PL
-ext/pperl/splashfast/MYMETA.json
-ext/pperl/splashfast/MYMETA.yml
 ext/pperl/splashfast/SplashFast.pm
 ext/pperl/splashfast/t/01_load.t
 ext/pperl/splashfast/t/02_use.t
 ext/pperl/splashfast/t/03_new.t
 ext/pperl/splashfast/t/04_app.t
 ext/pperl/textval/Makefile.PL
-ext/pperl/textval/MYMETA.json
-ext/pperl/textval/MYMETA.yml
 ext/pperl/textval/t/01_load.t
 ext/pperl/textval/TextValidator.pm
 ext/print/cpp/pr_constants.cpp
 ext/print/cpp/printout.h
 ext/print/lib/Wx/Print.pm
 ext/print/Makefile.PL
-ext/print/MYMETA.json
-ext/print/MYMETA.yml
 ext/print/Print.xs
 ext/print/t/01_load.t
 ext/print/t/02_inheritance.t
@@ -333,8 +299,6 @@ ext/ribbon/XS/RibbonPanel.xsp
 ext/ribbon/XS/RibbonToolBar.xsp
 ext/richtext/lib/Wx/RichText.pm
 ext/richtext/Makefile.PL
-ext/richtext/MYMETA.json
-ext/richtext/MYMETA.yml
 ext/richtext/RichText.xs
 ext/richtext/t/01_load.t
 ext/richtext/t/02_inheritance.t
@@ -356,8 +320,6 @@ ext/socket/cpp/sk_constants.cpp
 ext/socket/cpp/socket.h
 ext/socket/lib/Wx/Socket.pm
 ext/socket/Makefile.PL
-ext/socket/MYMETA.json
-ext/socket/MYMETA.yml
 ext/socket/Socket.xs
 ext/socket/t/01_load.t
 ext/socket/t/02_inheritance.t
@@ -372,8 +334,6 @@ ext/socket/XS/SocketServer.xs
 ext/stc/cpp/st_constants.cpp
 ext/stc/lib/Wx/STC.pm
 ext/stc/Makefile.PL
-ext/stc/MYMETA.json
-ext/stc/MYMETA.yml
 ext/stc/STC.xs
 ext/stc/t/01_load.t
 ext/stc/t/02_inheritance.t
@@ -394,8 +354,6 @@ ext/webview/XS/WebView.xsp
 ext/xrc/cpp/xr_constants.cpp
 ext/xrc/lib/Wx/XRC.pm
 ext/xrc/Makefile.PL
-ext/xrc/MYMETA.json
-ext/xrc/MYMETA.yml
 ext/xrc/t/01_load.t
 ext/xrc/t/03_threads.t
 ext/xrc/typemap
@@ -435,8 +393,6 @@ lib/Wx/Timer.pm
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
-MYMETA.json
-MYMETA.yml
 README.txt
 samples/dialog/dialog.pl
 samples/hello/hello.pl

@@ -19,3 +19,5 @@
 ~$
 ^overload\.lst$
 ^MANIFEST\.bak$
+MYMETA\.yml$
+MYMETA\.json$
