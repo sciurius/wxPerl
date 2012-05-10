@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.9908 TBR
+
 0.9907 Thur May 10 2012
     - wrapped wxHtmlPrintout
     - added missing wxPrintout methods
