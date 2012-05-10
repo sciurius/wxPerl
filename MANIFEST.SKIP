@@ -17,3 +17,5 @@
 ^cpp/setup.h$
 ^files.lst$
 ~$
+^overload\.lst$
+^MANIFEST\.bak$
