@@ -12,6 +12,10 @@ use Test::More tests => 4;
 use Wx::RichText;
 
 my $app = Wx::App->new( sub { 1 } );
+my $frame = Wx::Frame->new( undef, -1, 'a' );
+my $rtc = Wx::RichTextCtrl->new( $frame );
+my $rtb = $rtc->GetBuffer;
+
 my $rtr = Wx::RichTextRange->new;
 my $rtr2 = Wx::RichTextRange->new;
 my $tae = Wx::TextAttrEx->new;
@@ -29,6 +33,25 @@ my $rtpo2 = Wx::RichTextPrintout->new;
 my $rthfd = Wx::RichTextHeaderFooterData->new;
 my $rthfd2 = Wx::RichTextHeaderFooterData->new;
 
+my $rtb1 = Wx::RichTextBuffer->new($rtb);
+my $rtb2 = Wx::RichTextBuffer->new($rtb);
+my $rtb3 = Wx::RichTextBuffer->new($rtb);
+my $rtb4 = Wx::RichTextBuffer->new($rtb);
+my $rtb5 = Wx::RichTextBuffer->new($rtb);
+my $rtb6 = Wx::RichTextBuffer->new($rtb);
+
+my $rtp3 = Wx::RichTextPrinting->new;
+my $rtp4 = Wx::RichTextPrinting->new;
+
+my $rtpo3 = Wx::RichTextPrintout->new;
+my $rtpo4 = Wx::RichTextPrintout->new;
+
+$rtp3->SetRichTextBufferPreview($rtb1);
+$rtp4->SetRichTextBufferPreview($rtb2);
+
+$rtpo3->SetRichTextBuffer($rtb3);
+$rtpo4->SetRichTextBuffer($rtb4);
+
 undef $rtr2;
 undef $tae2;
 undef $rta2;
@@ -37,7 +60,9 @@ undef $rtss2;
 undef $rtp2;
 undef $rtpo2;
 undef $rthfd2;
-
+undef $rtp4;
+undef $rtpo4;
+undef $rtb6;
 
 my $t = threads->create
   ( sub {

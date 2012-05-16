@@ -28,6 +28,7 @@ public:
 
     /// The buffer to print
     void SetRichTextBuffer(wxRichTextBuffer* buffer);
+
     wxRichTextBuffer* GetRichTextBuffer() const ;
 
     /// Set/get header/footer data
@@ -111,11 +112,21 @@ wxRichTextPrinting::CLONE()
     wxPageSetupDialogData *GetPageSetupData() const;
     void SetPageSetupData(const wxPageSetupDialogData& pageSetupData);
 
-    void SetRichTextBufferPreview(wxRichTextBuffer* buf);
-    wxRichTextBuffer* GetRichTextBufferPreview() const;
+    void SetRichTextBufferPreview(wxRichTextBuffer* buffer)
+        %code%{ THIS->SetRichTextBufferPreview(buffer); %}
+        %cleanup%{ wxPli_object_set_deleteable( aTHX_ ST(0), false ); %};
+         
+    wxRichTextBuffer* GetRichTextBufferPreview() const
+        %code%{ RETVAL = THIS->GetRichTextBufferPreview(); %}
+        %cleanup%{ wxPli_object_set_deleteable( aTHX_ ST(0), false ); %};
 
-    void SetRichTextBufferPrinting(wxRichTextBuffer* buf);
-    wxRichTextBuffer* GetRichTextBufferPrinting() const;
+    void SetRichTextBufferPrinting(wxRichTextBuffer* buffer)
+        %code%{ THIS->SetRichTextBufferPrinting(buffer); %}
+        %cleanup%{ wxPli_object_set_deleteable( aTHX_ ST(0), false ); %};    
+    
+    wxRichTextBuffer* GetRichTextBufferPrinting() const
+        %code%{ RETVAL = THIS->GetRichTextBufferPrinting(); %}
+        %cleanup%{ wxPli_object_set_deleteable( aTHX_ ST(0), false ); %};
 
     void SetParentWindow(wxWindow* parent);
     wxWindow* GetParentWindow() const;

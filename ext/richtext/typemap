@@ -30,7 +30,7 @@ wxRichTextCharacterStyleDefinition * O_WXOBJECT_THR
 wxRichTextParagraphStyleDefinition * O_WXOBJECT_THR
 wxRichTextListStyleDefinition * O_WXOBJECT_THR
 wxRichTextFormattingDialog * O_WXOBJECT
-wxRichTextBuffer *      O_WXOBJECT
+wxRichTextBuffer *      O_WXOBJECT_THR
 wxRichTextFileHandler * O_WXOBJECT
 wxPlRichTextFileHandler * O_WXOBJECT
 wxRichTextXMLHandler *  O_WXOBJECT

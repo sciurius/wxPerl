@@ -492,7 +492,8 @@ wxRichTextCtrl::SetDefaultStyle( ... )
 %}
 
     wxRichTextBuffer* GetBuffer()
-        %code{% RETVAL = &THIS->GetBuffer(); %};
+        %code{% RETVAL = &THIS->GetBuffer(); %}
+        %cleanup%{ wxPli_object_set_deleteable( aTHX_ ST(0), false ); %};
 
 };
 

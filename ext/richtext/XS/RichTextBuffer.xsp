@@ -24,6 +24,22 @@
 %name{Wx::RichTextBuffer} class wxRichTextBuffer
 {
     
+%{
+static void
+wxRichTextBuffer::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+    
+    // allow copy of wxRichTextBuffer
+    wxRichTextBuffer(const wxRichTextBuffer& obj);
+
+    %name{Destroy} virtual ~wxRichTextBuffer()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::RichTextBuffer", THIS, ST(0) );
+             if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+                 delete THIS;
+           %};
+
     virtual void ResetAndClearCommands();
     
     bool AddEventHandler( wxEvtHandler* handler );
