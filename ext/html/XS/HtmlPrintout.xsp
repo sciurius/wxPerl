@@ -17,21 +17,12 @@
 %name{Wx::HtmlPrintout} class wxHtmlPrintout : public %name{Wx::Printout} wxPrintout
 {
     
-%{
-static void
-wxHtmlPrintout::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-%}
-
 public:
         
     wxHtmlPrintout(const wxString& title = wxT("Printout"));
  
-    ~wxHtmlPrintout()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::HtmlPrintout", THIS, ST(0) );
-                 delete THIS; %};
-    
+    %name{Destroy} ~wxHtmlPrintout()
+        %code%{ delete THIS; %};
 
     void SetHtmlText(const wxString& html, const wxString &basepath = wxEmptyString, bool isdir = true);
     void SetHtmlFile(const wxString &htmlfile);

@@ -18,18 +18,13 @@
 
 %name{Wx::RichTextPrintout} class wxRichTextPrintout : public %name{Wx::Printout} wxPrintout
 {
-       wxRichTextPrintout(const wxString& title = wxT("Printout"));
- 
-    ~wxRichTextPrintout()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::RichTextPrintout", THIS, ST(0) );
-                 delete THIS; %};
 
-%{
-static void
-wxRichTextPrintout::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-%}
+public:
+
+    wxRichTextPrintout(const wxString& title = wxT("Printout"));
+ 
+    %name{Destroy} ~wxRichTextPrintout()
+        %code%{ delete THIS; %};
 
     /// The buffer to print
     void SetRichTextBuffer(wxRichTextBuffer* buffer);
