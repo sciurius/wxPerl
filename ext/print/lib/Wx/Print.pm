@@ -46,6 +46,7 @@ package Wx::WindowsPrintPreview; @ISA = qw(Wx::PrintPreview);
 package Wx::WindowsPrinter; @ISA = qw(Wx::Printer);
 package Wx::PlPreviewFrame; @ISA = qw(Wx::PreviewFrame);
 package Wx::PlPreviewControlBar; @ISA = qw(Wx::PreviewControlBar);
+package Wx::PrintPaperType; @ISA = qw(Wx::Object);
 
 use strict;
 

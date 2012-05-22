@@ -31,6 +31,7 @@ wxPreviewCanvas *       O_WXOBJECT
 wxPreviewFrame *        O_WXOBJECT
 wxPlPreviewFrame *      O_WXOBJECT
 wxPrintFactory *        O_NON_WXOBJECT
+wxPrintPaperType *      O_WXOBJECT
 
 wxDuplexMode            T_ENUM
 wxPaperSize             T_ENUM

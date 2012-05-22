@@ -1,0 +1,117 @@
+#############################################################################
+## Name:        ext/print/XS/PaperDatabase.xsp
+## Purpose:     XS++ for Wx::PaperDatabase
+## Author:      Mark Dootsson
+## Modified by:
+## Created:     23/05/2004
+## RCS-ID:      $Id: PrintFactory.xsp 2079 2007-07-08 21:18:04Z mbarbon $
+## Copyright:   (c) 2005 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%typemap{wxPaperSize}{simple};
+
+%{
+#include <wx/paper.h>
+%}
+
+%name{Wx::PrintPaperType} class wxPrintPaperType: public %name{Wx::Object} wxObject
+{
+public:
+    wxString GetName() const;
+    wxPaperSize GetId() const;
+    int GetPlatformId() const;
+    int GetWidth() const;
+    int GetHeight() const;
+    wxSize GetSize() const;
+    wxSize GetSizeMM() const;
+    wxSize GetSizeDeviceUnits() const;
+};
+
+%{
+
+MODULE=Wx PACKAGE=Wx::PrintPaperDatabase
+    
+void
+AddPaperType(paperId, platformId, name, w, h)
+    wxPaperSize paperId
+    int platformId
+    wxString name
+    int w
+    int h
+  CODE:
+    wxThePrintPaperDatabase->AddPaperType(paperId, platformId, name, w, h);
+
+wxPrintPaperType*
+FindPaperTypeByName(name)
+    wxString name
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->FindPaperType(name);
+  OUTPUT: RETVAL
+
+wxPrintPaperType*
+FindPaperTypeById(id)
+    wxPaperSize id
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->FindPaperType(id); 
+  OUTPUT: RETVAL
+
+wxPrintPaperType*
+FindPaperTypeBySize( size )
+    wxSize size
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->FindPaperType(size); 
+  OUTPUT: RETVAL
+    
+wxPrintPaperType*
+FindPaperTypeByPlatformId(id)
+    int id
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->FindPaperTypeByPlatformId(id); 
+  OUTPUT: RETVAL
+
+wxPaperSize
+ConvertNameToId(name)
+    wxString name
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->ConvertNameToId(name); 
+  OUTPUT: RETVAL
+
+wxString
+ConvertIdToName(paperId)
+    wxPaperSize paperId
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->ConvertIdToName(paperId); 
+  OUTPUT: RETVAL
+
+wxSize
+GetSizeSize(paperId)
+    wxPaperSize paperId
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->GetSize(paperId); 
+  OUTPUT: RETVAL
+
+wxPaperSize
+GetPaperSize(size)
+    wxSize size
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->GetSize(size); 
+  OUTPUT: RETVAL
+   
+wxPrintPaperType*
+Item(index)
+    size_t index
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->Item(index); 
+  OUTPUT: RETVAL
+
+size_t
+GetCount()
+  CODE:
+    RETVAL = wxThePrintPaperDatabase->GetCount(); 
+  OUTPUT: RETVAL
+
+%}

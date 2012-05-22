@@ -251,6 +251,7 @@ ext/print/t/03_threads.t
 ext/print/typemap
 ext/print/XS/PageSetupDialog.xs
 ext/print/XS/PageSetupDialogData.xs
+ext/print/XS/PaperDatabase.xsp
 ext/print/XS/Preview.xsp
 ext/print/XS/PrintData.xs
 ext/print/XS/PrintDialog.xs
