@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.9909 TBR
+
 0.9908 Tue May 22 2012
     - wxHtmlPrintout & wxRichTextPrintout correct typemap and destruction
     - wxRichTextBuffer - added copy constructor
