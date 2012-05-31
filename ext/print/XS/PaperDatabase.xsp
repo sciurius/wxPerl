@@ -36,82 +36,85 @@ public:
 MODULE=Wx PACKAGE=Wx::PrintPaperDatabase
     
 void
-AddPaperType(paperId, platformId, name, w, h)
+wxPrintPaperDatabase::AddPaperType(paperId, platformId, name, w, h)
     wxPaperSize paperId
     int platformId
     wxString name
     int w
     int h
-  CODE:
-    wxThePrintPaperDatabase->AddPaperType(paperId, platformId, name, w, h);
+
+void
+FindPaperType( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wsiz, FindPaperTypeBySize )
+        MATCH_REDISP( wxPliOvl_n, FindPaperTypeById )
+        MATCH_REDISP( wxPliOvl_s, FindPaperTypeByName )
+    END_OVERLOAD( "Wx::PrintPaperDatabase::FindPaperType" )
 
 wxPrintPaperType*
-FindPaperTypeByName(name)
+wxPrintPaperDatabase::FindPaperTypeByName(name)
     wxString name
   CODE:
-    RETVAL = wxThePrintPaperDatabase->FindPaperType(name);
+    RETVAL = THIS->FindPaperType(name);
   OUTPUT: RETVAL
 
 wxPrintPaperType*
-FindPaperTypeById(id)
+wxPrintPaperDatabase::FindPaperTypeById(id)
     wxPaperSize id
   CODE:
-    RETVAL = wxThePrintPaperDatabase->FindPaperType(id); 
+    RETVAL = THIS->FindPaperType(id); 
   OUTPUT: RETVAL
 
 wxPrintPaperType*
-FindPaperTypeBySize( size )
+wxPrintPaperDatabase::FindPaperTypeBySize( size )
     wxSize size
   CODE:
-    RETVAL = wxThePrintPaperDatabase->FindPaperType(size); 
-  OUTPUT: RETVAL
-    
-wxPrintPaperType*
-FindPaperTypeByPlatformId(id)
-    int id
-  CODE:
-    RETVAL = wxThePrintPaperDatabase->FindPaperTypeByPlatformId(id); 
+    RETVAL = THIS->FindPaperType(size); 
   OUTPUT: RETVAL
 
+
+wxPrintPaperType*
+wxPrintPaperDatabase::FindPaperTypeByPlatformId(id)
+    int id
+
 wxPaperSize
-ConvertNameToId(name)
+wxPrintPaperDatabase::ConvertNameToId(name)
     wxString name
-  CODE:
-    RETVAL = wxThePrintPaperDatabase->ConvertNameToId(name); 
-  OUTPUT: RETVAL
 
 wxString
-ConvertIdToName(paperId)
+wxPrintPaperDatabase::ConvertIdToName(paperId)
     wxPaperSize paperId
-  CODE:
-    RETVAL = wxThePrintPaperDatabase->ConvertIdToName(paperId); 
-  OUTPUT: RETVAL
+
+
+void
+GetSize( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_wsiz, GetPaperSize )
+        MATCH_REDISP( wxPliOvl_n, GetSizeSize )
+    END_OVERLOAD( "Wx::PrintPaperDatabase::GetSize" )
 
 wxSize
-GetSizeSize(paperId)
-    wxPaperSize paperId
+wxPrintPaperDatabase::GetSizeSize(paperId)
+    int paperId
   CODE:
-    RETVAL = wxThePrintPaperDatabase->GetSize(paperId); 
+    RETVAL = THIS->GetSize((wxPaperSize)paperId);
   OUTPUT: RETVAL
 
 wxPaperSize
-GetPaperSize(size)
+wxPrintPaperDatabase::GetPaperSize(size)
     wxSize size
   CODE:
-    RETVAL = wxThePrintPaperDatabase->GetSize(size); 
+    RETVAL = THIS->GetSize(size); 
   OUTPUT: RETVAL
    
 wxPrintPaperType*
-Item(index)
+wxPrintPaperDatabase::Item(index)
     size_t index
-  CODE:
-    RETVAL = wxThePrintPaperDatabase->Item(index); 
-  OUTPUT: RETVAL
 
 size_t
-GetCount()
-  CODE:
-    RETVAL = wxThePrintPaperDatabase->GetCount(); 
-  OUTPUT: RETVAL
+wxPrintPaperDatabase::GetCount()
+
 
 %}

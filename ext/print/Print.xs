@@ -13,6 +13,8 @@
 #define PERL_NO_GET_CONTEXT
 
 #include "cpp/wxapi.h"
+#include "cpp/constants.h"
+#include "cpp/overload.h"
 
 #undef THIS
 
@@ -39,6 +41,7 @@ INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/Pr
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t ../../typemap.xsp XS/PaperDatabase.xsp
 
 #include "cpp/pr_constants.cpp"
+#include "cpp/ovl_const.cpp"
 
 #endif
 
