@@ -2438,13 +2438,13 @@ static double constant( const char* name, int arg )
     r( wxRA_HORIZONTAL );               // radiobox
     r( wxRA_LEFTTORIGHT );              // radiobox
     r( wxRA_TOPTOBOTTOM );              // radiobox
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+#if WXPERL_W_VERSION_LE( 2, 9, 3 )
     r( wxRA_USE_CHECKBOX );             // radiobox
 #endif
     r( wxRA_VERTICAL );                 // radiobox
     r( wxRB_GROUP );                    // radiobutton
     r( wxRB_SINGLE );                   // radiobutton
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+#if WXPERL_W_VERSION_LE( 2, 9, 3 )
     r( wxRB_USE_CHECKBOX );             // radiobutton
 #endif
     r( wxRESIZE_BORDER );               // dialog frame
