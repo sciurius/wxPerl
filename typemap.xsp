@@ -30,6 +30,8 @@
 %typemap{time_t}{simple};
 
 %typemap{wxUint32}{simple};
+%typemap{wxUIntPtr}{simple};
+%typemap{wxIntPtr}{simple};
 %typemap{wxByte}{simple};
 
 %typemap{wxArrayString}{parsed}{

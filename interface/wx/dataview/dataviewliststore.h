@@ -76,6 +76,16 @@ public:
     */
     void AppendColumn( const wxString &varianttype );
 
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    
+    void AppendItem( const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+
+    void PrependItem( const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+
+    void InsertItem(  unsigned int row, const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+
+#else
+    
     /**
         Appends an item (=row) and fills it with @a values.
 
@@ -102,6 +112,8 @@ public:
         automatically.
     */
     void InsertItem(  unsigned int row, const wxVector<wxVariant> &values, wxClientData *data = NULL );
+
+#endif    
 
     /**
         Delete the item (=row) at position @a pos.

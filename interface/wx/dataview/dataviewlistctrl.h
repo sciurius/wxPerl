@@ -187,6 +187,25 @@ public:
     */
     //@{
 
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    
+    /**
+        Appends an item (=row) to the control and store.
+    */
+    void AppendItem( const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+
+    /**
+        Prepends an item (=row) to the control and store.
+    */
+    void PrependItem( const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+
+    /**
+        Inserts an item (=row) to the control and store.
+    */
+    void InsertItem( unsigned int row, const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+
+#else
+
     /**
         Appends an item (=row) to the control and store.
     */
@@ -201,6 +220,8 @@ public:
         Inserts an item (=row) to the control and store.
     */
     void InsertItem( unsigned int row, const wxVector<wxVariant> &values, wxClientData *data = NULL );
+
+#endif
 
     /**
         Delete the row at position @a row.
