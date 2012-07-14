@@ -61,6 +61,16 @@ package Wx::PlGridCellEditor; @ISA = qw(Wx::GridCellEditor);
 package Wx::GridTableBase;
 package Wx::PlGridTable; @ISA = qw(Wx::GridTableBase);
 
+package Wx::Event;
+# allow 2.8 / 2.9 event name changes compatibility
+if(defined(&Wx::Event::EVT_GRID_CELL_CHANGED)) {
+  *Wx::Event::EVT_GRID_CELL_CHANGE = \&Wx::Event::EVT_GRID_CELL_CHANGED;
+  *Wx::Event::EVT_GRID_CMD_CELL_CHANGE = \&Wx::Event::EVT_GRID_CMD_CELL_CHANGED;
+} else {
+  *Wx::Event::EVT_GRID_CELL_CHANGED = \&Wx::Event::EVT_GRID_CELL_CHANGE;
+  *Wx::Event::EVT_GRID_CMD_CELL_CHANGED = \&Wx::Event::EVT_GRID_CMD_CELL_CHANGE;
+}
+
 package Wx::Grid;
 
 use strict;

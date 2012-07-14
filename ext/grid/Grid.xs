@@ -4,7 +4,7 @@
 // Author:      Mattia Barbon
 // Modified by:
 // Created:     04/12/2001
-// RCS-ID:      $Id: Grid.xs 3002 2011-02-13 12:55:08Z mbarbon $
+// RCS-ID:      $Id$
 // Copyright:   (c) 2001-2004, 2006-2011 Mattia Barbon
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
@@ -57,9 +57,7 @@ static wxPliEventDescription evts[] =
     EVT( EVT_GRID_CMD_RANGE_SELECT, 3, wxEVT_GRID_RANGE_SELECT )
 #if WXPERL_W_VERSION_LT( 2, 9, 0 )
     EVT( EVT_GRID_CMD_CELL_CHANGE, 3, wxEVT_GRID_CELL_CHANGE )
-    EVT( EVT_GRID_CMD_CELL_CHANGED, 3, wxEVT_GRID_CELL_CHANGE )
 #else
-    EVT( EVT_GRID_CMD_CELL_CHANGE, 3, wxEVT_GRID_CELL_CHANGED )
     EVT( EVT_GRID_CMD_CELL_CHANGED, 3, wxEVT_GRID_CELL_CHANGED )
     EVT( EVT_GRID_CMD_CELL_CHANGING, 3, wxEVT_GRID_CELL_CHANGING )
 #endif
@@ -81,9 +79,7 @@ static wxPliEventDescription evts[] =
     SEVT( EVT_GRID_RANGE_SELECT, 2 )
 #if WXPERL_W_VERSION_LT( 2, 9, 0 )
     SEVT( EVT_GRID_CELL_CHANGE, 2 )
-    EVT( EVT_GRID_CELL_CHANGED, 2, wxEVT_GRID_CELL_CHANGE )
 #else
-    EVT( EVT_GRID_CELL_CHANGE, 2, wxEVT_GRID_CELL_CHANGED )
     SEVT( EVT_GRID_CELL_CHANGING, 2 )
     SEVT( EVT_GRID_CELL_CHANGED, 2 )
 #endif
