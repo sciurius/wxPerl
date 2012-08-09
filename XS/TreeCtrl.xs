@@ -122,6 +122,13 @@ wxTreeCtrl::GetQuickBestSize()
 int
 wxTreeEvent::GetKeyCode()
 
+wxKeyEvent*
+wxTreeEvent::GetKeyEvent()
+  CODE:
+    RETVAL = new wxKeyEvent ( THIS->GetKeyEvent() );
+  OUTPUT:
+    RETVAL
+
 wxTreeItemId*
 wxTreeEvent::GetOldItem()
   CODE:
