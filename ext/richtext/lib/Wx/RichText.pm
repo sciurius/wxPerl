@@ -56,4 +56,21 @@ package Wx::RichTextHeaderFooterData;  @ISA = qw(Wx::Object);
 package Wx::SymbolPickerDialog; @ISA = qw(Wx::Dialog);
 package Wx::RichTextStyleOrganiserDialog; @ISA = qw(Wx::Dialog);
 
+#
+# constants
+#
+
+package Wx;
+
+# !parser: sub { $_[0] =~ m/^\s*sub\s+(wx\w+)/ }
+# !package: Wx
+# !tag: richtextctrl
+
+sub wxRichTextLineBreakChar() { chr(29) }
+
 1;
+
+# Local variables: #
+# mode: cperl #
+# End: #
+

@@ -3,6 +3,7 @@ Revision history for Perl extension Wx.
 0.9911 TBR
     - wxDataView - updated for 2.9.4
     - wxTreeEvent::GetKeyEvent() added
+    - wxRichTextCtrl::LineBreak() added
 
 0.9910 no release
 

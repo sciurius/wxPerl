@@ -296,6 +296,10 @@ wxPlConstants richtextctrl_module( &richtextctrl_constant );
     const wxTextAttrEx& GetDefaultStyleEx() const;
 
     bool Newline();
+    
+#if WXPERL_W_VERSION_GE( 2, 8, 0 )
+    bool LineBreak();
+#endif
 
     bool BeginStyle( const wxTextAttrEx& style );
     bool EndStyle();
