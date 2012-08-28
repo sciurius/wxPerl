@@ -377,7 +377,7 @@ wxListCtrl::FindItem( start, str, partial = false )
 long
 wxListCtrl::FindItemData( start, data )
     long start
-    long data
+    wxUIntPtr data
   CODE:
     RETVAL = THIS->FindItem( start, data );
   OUTPUT:
@@ -459,10 +459,39 @@ wxListCtrl::GetItem( id, col = -1 )
     }
   OUTPUT:
     RETVAL
+    
+#if WXPERL_W_VERSION_GE( 2, 8, 4 )
+
+wxUIntPtr
+wxListCtrl::GetItemData( item )
+    long item
+
+bool
+wxListCtrl::SetItemPtrData( item, data )
+    long item
+    wxUIntPtr data
+
+bool
+wxListCtrl::SetItemData( item, data )
+    long item
+    wxUIntPtr data
+  CODE:
+    RETVAL = THIS->SetItemPtrData( item, data);
+  OUTPUT:
+    RETVAL
+
+#else
 
 long
 wxListCtrl::GetItemData( item )
     long item
+    
+bool
+wxListCtrl::SetItemData( item, data )
+    long item
+    long data
+
+#endif
 
 wxPoint*
 wxListCtrl::GetItemPosition( item )
@@ -759,11 +788,6 @@ wxListCtrl::SetItemString( index, col, label, image = -1 )
     RETVAL = THIS->SetItem( index, col, label, image );
   OUTPUT:
     RETVAL
-
-bool
-wxListCtrl::SetItemData( item, data )
-    long item
-    long data
 
 bool
 wxListCtrl::SetItemImage( item, image, selImage )

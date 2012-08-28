@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.9912 TBR
+    - wrapped wxListCtrl::SetItemPtrData
 
 0.9911 Fri Aug 24 2012
     - wxDataView - updated for 2.9.4
