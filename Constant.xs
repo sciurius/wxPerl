@@ -294,9 +294,6 @@ static wxPliEventDescription evts[] =
     SEVT( EVT_RIGHT_DOWN, 2 )
     SEVT( EVT_RIGHT_UP, 2 )
     SEVT( EVT_RIGHT_DCLICK, 2 )
-#if WXPERL_W_VERSION_GE( 2, 9, 4 )
-    SEVT( EVT_MOVING, 2 )
-#endif
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
     SEVT( EVT_MOVE_START, 2 )
     SEVT( EVT_MOVE_END, 2 )
