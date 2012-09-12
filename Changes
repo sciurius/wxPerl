@@ -4,6 +4,8 @@ Revision history for Perl extension Wx.
     - wrapped wxListCtrl::SetItemPtrData
     - updated to use sv_magicext / mg_findext so
       external modules do not stomp on our magic
+    - updated wxListView so that LC_VIRTUAL style works
+    - set wxListCtrl full constructor to create evthandler
 
 0.9911 Fri Aug 24 2012
     - wxDataView - updated for 2.9.4

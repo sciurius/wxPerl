@@ -316,6 +316,7 @@ newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefault
   CODE:
     RETVAL = new wxPliListCtrl( CLASS, parent, id, pos, size, style,
         *validator, name );
+    wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
     RETVAL
 
@@ -857,7 +858,7 @@ wxListView*
 newDefault( CLASS )
     PlClassName CLASS
   CODE:
-    RETVAL = new wxListView();
+    RETVAL = new wxPliListView( CLASS );
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT: RETVAL
 
@@ -872,7 +873,7 @@ newFull( CLASS, parent, id = wxID_ANY, pos = wxDefaultPosition, size = wxDefault
     wxValidator* validator
     wxString name
   CODE:
-    RETVAL = new wxListView( parent, id, pos, size, style,
+    RETVAL = new wxPliListView( CLASS, parent, id, pos, size, style,
         *validator, name );
     wxPli_create_evthandler( aTHX_ RETVAL, CLASS );
   OUTPUT:
