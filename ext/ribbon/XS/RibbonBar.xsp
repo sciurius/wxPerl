@@ -30,6 +30,7 @@ public:
     wxRibbonPage* GetPage();
     
     void SetPage(wxRibbonPage* page);
+    wxEvent *Clone();
 };
 
 %Event{%EVT_RIBBONBAR_PAGE_CHANGED(id, func)%}
@@ -89,6 +90,17 @@ public:
     bool ArePanelsShown() const;
     
     virtual bool Realize();
+    
+    void SetWindowStyleFlag(long style);
+    long GetWindowStyleFlag() const;
+    virtual bool HasMultiplePages() const;
+
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    size_t GetPageCount() const;
+    void DeletePage(size_t n);
+    void ClearPages();
+#endif    
+
 };
 
 #endif

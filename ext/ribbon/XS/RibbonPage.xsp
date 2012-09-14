@@ -55,6 +55,12 @@ public:
     bool ScrollPixels(int pixels);
 
     wxOrientation GetMajorAxis() const;
+
+    virtual wxSize GetMinSize() const;
+    virtual bool Show(bool show = true);
+    virtual bool Layout();
+    virtual bool ScrollLines(int lines);
+    virtual void RemoveChild(wxWindowBase *child);
 };
 
 #endif

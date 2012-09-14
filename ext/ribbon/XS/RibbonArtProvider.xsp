@@ -394,7 +394,7 @@ wxRibbonMSWArtProvider::GetColourScheme()
     wxPli_thread_sv_register( aTHX_ "Wx::Colour", &tertiary, tret );
 
 %}    
-    
+
     void SetColourScheme(const wxColour& primary,
                          const wxColour& secondary,
                          const wxColour& tertiary);

@@ -38,11 +38,44 @@ my $artprov2 = $rbar->GetArtProvider->Clone;
 my $artprov3 = Wx::RibbonDefaultArtProvider->new();
 my $artprov4 = Wx::RibbonDefaultArtProvider->new();
 
-my $rgitem1 = $rgallery->AppendClientData( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataContainer->new('Stashed Data 0'));
-my $rgitem2 = $rgallery->AppendClientData( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataContainer->new('Stashed Data 1'));
+my $rgitem1 = $rgallery->Append( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataContainer->new('Stashed Data 0'));
+my $rgitem2 = $rgallery->Append( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataContainer->new('Stashed Data 1'));
 
 my $cdata1 = $rgallery->GetItemClientData( $rgitem1 );
 my $cdata2 = $rgitem2->GetClientData();
+
+my $buttonbar = Wx::RibbonButtonBar->new($rpanel, -1 );
+my $button = $buttonbar->AddButton(-1, "Hello World",
+        Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
+        Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
+        { data => 'Stashed Data' } );
+
+my $buttonbar2 = Wx::RibbonButtonBar->new($rpanel, -1 );
+my $button2 = $buttonbar2->AddButton(-1, "Hello World",
+        Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
+        Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
+        { data => 'Stashed Data' } );
+
+my $buttonbar3 = Wx::RibbonButtonBar->new($rpanel, -1 );
+my $button3 = $buttonbar3->AddButton(-1, "Hello World",
+        Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
+        Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
+        { data => 'Stashed Data' } );
+
+my $toolbar = Wx::RibbonToolBar->new($rpanel, 1 );
+my $tool = $toolbar->AddTool(-1, Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap,
+      "HW Help", Wx::wxRIBBON_BUTTON_NORMAL(), 
+      { data => 'Stashed Data' } );
+
+my $toolbar2 = Wx::RibbonToolBar->new($rpanel, 1 );
+my $tool2 = $toolbar2->AddTool(-1, Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap,
+      "HW Help", Wx::wxRIBBON_BUTTON_NORMAL(), 
+      { data => 'Stashed Data' } );
+
+my $toolbar3 = Wx::RibbonToolBar->new($rpanel, 1 );
+my $tool3 = $toolbar3->AddTool(-1, Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap,
+      "HW Help", Wx::wxRIBBON_BUTTON_NORMAL(), 
+      { data => 'Stashed Data' } );
 
 isa_ok($cdata1, 'MyDataContainer');
 is( $cdata1->{somedata}, 'Stashed Data 0' );
@@ -52,6 +85,16 @@ is( $cdata2->{somedata}, 'Stashed Data 1' );
 undef $artprov2;
 undef $artprov4;
 undef $rgitem2;
+undef $buttonbar2;
+$buttonbar3->Destroy;
+undef $buttonbar3;
+undef $button2;
+undef $button3;
+undef $toolbar2;
+$toolbar3->Destroy;
+undef $toolbar3;
+undef $tool2;
+undef $tool3;
 
 my $t = threads->create
   ( sub {

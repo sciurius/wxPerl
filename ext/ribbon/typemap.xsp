@@ -25,12 +25,23 @@
 %typemap{wxRibbonButtonBarButtonKind}{simple};
 %typemap{wxRibbonButtonKind}{simple};
 %typemap{wxRibbonButtonBarButtonBase*}{simple};
+%typemap{wxRibbonButtonBar*}{simple};
+%typemap{wxRibbonToolBar*}{simple};
+%typemap{wxRibbonToolBarToolBase*}{simple};
+%typemap{const wxRibbonToolBarToolBase*}{simple};
 %typemap{wxRibbonGalleryButtonState}{simple};
+%typemap{wxRibbonButtonBarButtonState}{simple};
 
-%typemap{wxClientData*}{parsed}{%wxPliUserDataCD*%};
+%typemap{wxClientData*}{parsed}{%Wx_UserDataCD*%};
+%typemap{wxWindowBase*}{parsed}{%wxWindow*%};
 %typemap{wxBitmap&}{reference};
 %typemap{wxRect}{reference};
 %typemap{wxRect*}{simple};
 %typemap{wxEvent*}{simple};
 %typemap{wxOrientation}{simple};
-
+%typemap{wxString*}{simple};
+%typemap{wxBitmap*}{simple};
+%typemap{wxSize*}{simple};
+%typemap{wxPoint*}{simple};
+%typemap{Wx_UserDataCD*}{simple};
+%typemap{Wx_UserDataO*}{simple};

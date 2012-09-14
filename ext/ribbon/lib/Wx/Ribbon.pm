@@ -38,3 +38,6 @@ package Wx::RibbonAUIArtProvider; @ISA = qw( Wx::RibbonMSWArtProvider );
 package Wx::RibbonDefaultArtProvider; @ISA = ( Wx::wxMSW() ) ? qw( Wx::RibbonMSWArtProvider ) : qw( Wx::RibbonAUIArtProvider ) ;
 
 1;
+
+
+

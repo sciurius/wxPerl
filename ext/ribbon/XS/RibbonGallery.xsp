@@ -20,14 +20,12 @@
 %loadplugin{build::Wx::XSP::Overload};
 %loadplugin{build::Wx::XSP::Event};
 
-
 %Event{%EVT_RIBBONGALLERY_HOVER_CHANGED(id, func)%}
       {wxEVT_COMMAND_RIBBONGALLERY_HOVER_CHANGED};
 %Event{%EVT_RIBBONGALLERY_SELECTED(id, func)%}
       {wxEVT_COMMAND_RIBBONGALLERY_SELECTED};
 %Event{%EVT_RIBBONGALLERY_CLICKED(id, func)%}
       {wxEVT_COMMAND_RIBBONGALLERY_CLICKED};
-
 
 %name{Wx::RibbonGallery} class wxRibbonGallery : public %name{Wx::RibbonControl} wxRibbonControl
 {
@@ -57,29 +55,18 @@ public:
 
     wxRibbonGalleryItem* GetItem(unsigned int n);
 
-    wxRibbonGalleryItem* Append(const wxBitmap& bitmap, int id);
+    %name{AppendBasic} wxRibbonGalleryItem* Append(const wxBitmap& bitmap, int id) %Overload
+          %code{% int useid = ( id == wxID_ANY ) ? wxWindow::NewControlId() : id;
+                  RETVAL = THIS->Append( *bitmap, useid ); %};
 
-    /* wxRibbonGalleryItem* Append(const wxBitmap& bitmap, int id, void* clientData); */
-
-    %name{AppendClientData} wxRibbonGalleryItem* Append(const wxBitmap& bitmap, int id, wxPliUserDataCD *clientData);
-
-    /*
-    void SetItemClientObject(wxRibbonGalleryItem* item, wxClientData* data);
-
-    wxClientData* GetItemClientObject(const wxRibbonGalleryItem* item) const;
-    */
-
-    /* void SetItemClientData(wxRibbonGalleryItem* item, void* data); */
+    %name{AppendClientData} wxRibbonGalleryItem* Append(const wxBitmap& bitmap, int id, Wx_UserDataCD *clientData) %Overload
+          %code{% int useid = ( id == wxID_ANY ) ? wxWindow::NewControlId() : id;
+                  RETVAL = THIS->Append( *bitmap, useid, clientData ); %};
     
-    %name{SetItemClientData} void SetItemClientObject( wxRibbonGalleryItem* item, wxPliUserDataCD* data );
+    %name{SetItemClientData} void SetItemClientObject( wxRibbonGalleryItem* item, Wx_UserDataCD* data );
     
-    /* void SetItemClientData(wxRibbonGalleryItem* item, wxPliUserDataCD* data)
-      %code{% THIS->SetItemClientData( item, (void *)data ); %}; */
-    
-    /* void* GetItemClientData(const wxRibbonGalleryItem* item) const; */
-    
-    wxPliUserDataCD* GetItemClientData( const wxRibbonGalleryItem* item ) const
-      %code{% RETVAL = (wxPliUserDataCD*)THIS->GetItemClientObject( item ); %};   
+    Wx_UserDataCD* GetItemClientData( const wxRibbonGalleryItem* item ) const
+      %code{% RETVAL = (Wx_UserDataCD*)THIS->GetItemClientObject( item ); %};   
 
     void SetSelection(wxRibbonGalleryItem* item);
 
@@ -102,6 +89,10 @@ public:
     bool ScrollPixels(int pixels);
 
     void EnsureVisible(const wxRibbonGalleryItem* item);
+
+    virtual bool IsSizingContinuous() const;
+    virtual bool Realize();
+    virtual bool Layout();
 };
 
 %name{Wx::RibbonGalleryEvent} class wxRibbonGalleryEvent : public %name{Wx::CommandEvent} wxCommandEvent
@@ -120,6 +111,8 @@ public:
     void SetGallery(wxRibbonGallery* gallery);
     
     void SetGalleryItem(wxRibbonGalleryItem* item);
+    
+    wxEvent *Clone();
 };
 
 %name{Wx::RibbonGalleryItem} class wxRibbonGalleryItem
@@ -144,16 +137,11 @@ public:
     void SetPosition(int x, int y, const wxSize& size);
     bool IsVisible() const;
     const wxRect& GetPosition() const;
-    /*
-    void SetClientObject(wxClientData *data);
-    wxClientData *GetClientObject() const;
-    */
-    /*void SetClientData(void *data);*/
-    %name{SetClientData} void SetClientObject( wxPliUserDataCD* data );
-      
-    /*void *GetClientData() const;*/
-    wxPliUserDataCD* GetClientData() const
-      %code{% RETVAL = (wxPliUserDataCD*)THIS->GetClientObject(); %};
+   
+    %name{SetClientData} void SetClientObject( Wx_UserDataCD* data );
+    
+    Wx_UserDataCD* GetClientData() const
+      %code{% RETVAL = (Wx_UserDataCD*)THIS->GetClientObject(); %};
     
 };
 

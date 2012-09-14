@@ -15,6 +15,8 @@
 #if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
 
 #include <wx/ribbon/toolbar.h>
+#include <cpp/toolbarbases.h>
+#include <cpp/ribbontoolbar.h>
 
 %loadplugin{build::Wx::XSP::Overload};
 %loadplugin{build::Wx::XSP::Event};
@@ -22,13 +24,44 @@
 %Event{%EVT_RIBBONTOOLBAR_CLICKED(id, func)%}
       {wxEVT_COMMAND_RIBBONTOOL_CLICKED};
 %Event{%EVT_RIBBONTOOLBAR_DROPDOWN_CLICKED(id, func)%}
-      {wxEVT_COMMAND_RIBBONTOOL_DROPDOWN_CLICKED};      
+      {wxEVT_COMMAND_RIBBONTOOL_DROPDOWN_CLICKED};
+
+%name{Wx::RibbonToolBarToolBase} class wxRibbonToolBarToolBase
+{
+public:
+    /* standard style method names */
+    wxString  GetHelpString() %code{% RETVAL = THIS->help_string; %};
+    wxBitmap* GetBitmap() %code{% RETVAL = new wxBitmap(THIS->bitmap); %};
+    wxBitmap* GetBitmapDisabled() %code{% RETVAL = new wxBitmap(THIS->bitmap_disabled); %};
+    wxRect*   GetDropDown() %code{% RETVAL = new wxRect(THIS->dropdown); %};
+    wxPoint*  GetPosition() %code{% RETVAL = new wxPoint(THIS->position); %};
+    wxSize*   GetSize() %code{% RETVAL = new wxSize(THIS->size); %};
+    Wx_UserDataO* GetClientData() %code{% RETVAL = (Wx_UserDataO*)(THIS->client_data); %};
+    int GetId() %code{% RETVAL = THIS->id; %};
+    wxRibbonButtonKind GetKind() %code{% RETVAL = THIS->kind; %};
+    long GetState() %code{% RETVAL = THIS->state; %};
+    
+    /* documented ??? names */
+    
+    wxString  help_string() %code{% RETVAL = THIS->help_string; %};
+    wxBitmap* bitmap() %code{% RETVAL = new wxBitmap(THIS->bitmap); %};
+    wxBitmap* bitmap_disabled() %code{% RETVAL = new wxBitmap(THIS->bitmap_disabled); %};
+    wxRect*   dropdown() %code{% RETVAL = new wxRect(THIS->dropdown); %};
+    wxPoint*  position() %code{% RETVAL = new wxPoint(THIS->position); %};
+    wxSize*   size() %code{% RETVAL = new wxSize(THIS->size); %};
+    Wx_UserDataO* client_data() %code{% RETVAL = (Wx_UserDataO*)(THIS->client_data); %};
+    int id() %code{% RETVAL = THIS->id; %};
+    wxRibbonButtonKind kind() %code{% RETVAL = THIS->kind; %};
+    long state() %code{% RETVAL = THIS->state; %};
+    
+};
 
 %name{Wx::RibbonToolBar} class wxRibbonToolBar : public %name{Wx::RibbonControl} wxRibbonControl
 {
 public:
    
     %name{newDefault} wxRibbonToolBar() %Overload
+        %code{% RETVAL = new wxPliRibbonToolBar( CLASS ); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
     %name{newFull} wxRibbonToolBar(wxWindow* parent,
@@ -36,8 +69,9 @@ public:
                   const wxPoint& pos = wxDefaultPosition,
                   const wxSize& size = wxDefaultSize,
                   long style = 0) %Overload
+        %code{% RETVAL = new wxPliRibbonToolBar( CLASS, parent, id, pos, size, style); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
-
+    
     bool Create(wxWindow* parent,
                 wxWindowID id = wxID_ANY,
                 const wxPoint& pos = wxDefaultPosition,
@@ -45,49 +79,135 @@ public:
                 long style = 0);
 
     /* for add methods assign a toolid and return it so that it may be used for event functions etc. */
-    %name{AddToolSimple} int AddTool(
+    %name{AddToolSimple} wxRibbonToolBarToolBase* AddTool(
                 int tool_id,
                 const wxBitmap& bitmap,
                 const wxString& help_string,
-                wxRibbonButtonKind kind = wxRIBBON_BUTTON_NORMAL) %Overload
-            %code{%
-                RETVAL = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
-                THIS->AddTool(RETVAL, *bitmap, help_string, kind );
-                %};
+                unsigned int kind = wxRIBBON_BUTTON_NORMAL) %Overload
+        %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+            RETVAL = THIS->AddTool(useid, *bitmap, help_string, (wxRibbonButtonKind)kind ); %};
     
-    /* no point in adding client data as we cannot access it anyway */
-    %name{AddToolClientData} int AddTool(
+    %name{AddToolClientData} wxRibbonToolBarToolBase* AddTool(
                 int tool_id,
                 const wxBitmap& bitmap,
                 const wxBitmap& bitmap_disabled = wxNullBitmapPtr,
                 const wxString& help_string = wxEmptyString,
-                wxRibbonButtonKind kind = wxRIBBON_BUTTON_NORMAL) %Overload
-            %code{%
-                RETVAL = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
-                THIS->AddTool(RETVAL, *bitmap, *bitmap_disabled, help_string, kind, (wxObject*)NULL );
-                %};
+                unsigned int kind = wxRIBBON_BUTTON_NORMAL,
+                Wx_UserDataO* client_data = NULL) %Overload
+        %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+            RETVAL = THIS->AddTool(useid, *bitmap, *bitmap_disabled, help_string, (wxRibbonButtonKind)kind, client_data); %};
         
-    int AddDropdownTool(
+    wxRibbonToolBarToolBase* AddDropdownTool(
                 int tool_id,
                 const wxBitmap& bitmap,
                 const wxString& help_string = wxEmptyString)
-            %code{%
-                RETVAL = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
-                THIS->AddDropdownTool(RETVAL, *bitmap, help_string );
-                %};
+        %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+              RETVAL = THIS->AddDropdownTool( useid, *bitmap, help_string ); %};
 
-    int AddHybridTool(
+
+    wxRibbonToolBarToolBase* AddHybridTool(
                 int tool_id,
                 const wxBitmap& bitmap,
                 const wxString& help_string = wxEmptyString)
-            %code{%
-                RETVAL = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
-                THIS->AddHybridTool(RETVAL, *bitmap, help_string);
-                %};
+        %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+              RETVAL = THIS->AddHybridTool( useid, *bitmap, help_string ); %};
 
-    virtual void AddSeparator();
+    wxRibbonToolBarToolBase* AddSeparator();
 
     virtual void SetRows(int nMin, int nMax = -1);
+    
+    virtual bool Realize();
+
+    virtual bool IsSizingContinuous() const;
+
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    wxRibbonToolBarToolBase* AddToggleTool(
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+              RETVAL = THIS->AddToggleTool( useid, *bitmap, help_string ); %};
+
+    %name{InsertToolSimple} wxRibbonToolBarToolBase* InsertTool(
+                size_t pos,
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxString& help_string,
+                unsigned int kind = wxRIBBON_BUTTON_NORMAL) %Overload
+            %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+                RETVAL = THIS->InsertTool(pos, useid, *bitmap, help_string,(wxRibbonButtonKind)kind ); %};
+    
+    %name{InsertToolClientData} wxRibbonToolBarToolBase* InsertTool(
+                size_t pos,
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxBitmap& bitmap_disabled = wxNullBitmapPtr,
+                const wxString& help_string = wxEmptyString,
+                unsigned int kind = wxRIBBON_BUTTON_NORMAL,
+                Wx_UserDataO* client_data = NULL) %Overload
+            %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+                RETVAL = THIS->InsertTool(pos, useid, *bitmap, *bitmap_disabled, help_string, (wxRibbonButtonKind)kind, client_data ); %};
+        
+    wxRibbonToolBarToolBase* InsertDropdownTool(
+                size_t pos,
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+              RETVAL = THIS->InsertDropdownTool( pos, useid, *bitmap, help_string ); %};
+    
+    wxRibbonToolBarToolBase* InsertHybridTool(
+                size_t pos,
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+              RETVAL = THIS->InsertHybridTool( pos, useid, *bitmap, help_string ); %};
+                
+    wxRibbonToolBarToolBase* InsertToggleTool(
+                size_t pos,
+                int tool_id,
+                const wxBitmap& bitmap,
+                const wxString& help_string = wxEmptyString)
+            %code{% int useid = ( tool_id == wxID_ANY ) ? wxWindow::NewControlId() : tool_id;
+              RETVAL = THIS->InsertToggleTool( pos, useid, *bitmap, help_string ); %};
+    
+    virtual wxRibbonToolBarToolBase* InsertSeparator(size_t pos);
+    
+    virtual void ClearTools();
+    virtual bool DeleteTool(int tool_id);
+    virtual bool DeleteToolByPos(size_t pos);
+
+    virtual wxRibbonToolBarToolBase* FindById(int tool_id)const;
+    virtual wxRibbonToolBarToolBase* GetToolByPos(size_t pos)const;
+    virtual size_t GetToolCount() const;
+    virtual int GetToolId(const wxRibbonToolBarToolBase* tool)const;
+    
+    virtual Wx_UserDataO* GetToolClientData(int tool_id)const
+      %code{% RETVAL = (Wx_UserDataO*)THIS->GetToolClientData( tool_id ); %}; 
+    
+    virtual bool GetToolEnabled(int tool_id)const;
+    virtual wxString GetToolHelpString(int tool_id)const;
+    virtual wxRibbonButtonKind GetToolKind(int tool_id)const;
+    virtual int GetToolPos(int tool_id)const;
+    virtual bool GetToolState(int tool_id)const;
+
+    virtual void SetToolClientData(int tool_id, Wx_UserDataO* clientdata)
+        %code{% THIS->SetToolClientData( tool_id, clientdata ); %};
+    
+    virtual void SetToolDisabledBitmap(int tool_id, const wxBitmap &bitmap);
+    virtual void SetToolHelpString(int tool_id, const wxString& helpString);
+    virtual void SetToolNormalBitmap(int tool_id, const wxBitmap &bitmap);
+
+    virtual void EnableTool(int tool_id, bool enable = true);
+    virtual void ToggleTool(int tool_id, bool checked);
+
+    // Finds the best width and height given the parent's width and height
+    virtual wxSize GetBestSizeForParentSize(const wxSize& parentSize) const;
+
+    
+#endif
+
 };
 
 %name{Wx::RibbonToolBarEvent} class  wxRibbonToolBarEvent : public %name{Wx::CommandEvent} wxCommandEvent

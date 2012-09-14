@@ -23,21 +23,24 @@ wxRibbonPage *             O_WXEVTHANDLER
 const wxRibbonPage *       O_WXEVTHANDLER
 wxRibbonBar *              O_WXEVTHANDLER
 wxRibbonButtonBar *        O_WXEVTHANDLER
+wxPliRibbonButtonBar *     O_WXEVTHANDLER
 wxRibbonToolBar *          O_WXEVTHANDLER
+wxPliRibbonToolBar *       O_WXEVTHANDLER
 wxRibbonControl *          O_WXEVTHANDLER
 wxRibbonPanel *            O_WXEVTHANDLER
 const wxRibbonPanel*       O_WXEVTHANDLER
 wxRibbonGallery *          O_WXEVTHANDLER
 const wxRibbonGallery *    O_WXEVTHANDLER
 
-wxRibbonGalleryItem *      O_NON_WXOBJECT_THR
+wxRibbonGalleryItem *       O_NON_WXOBJECT_THR
 const wxRibbonGalleryItem * O_NON_WXOBJECT_THR
 
 wxRibbonButtonBarButtonKind  T_ENUM
 wxRibbonButtonKind           T_ENUM
 wxOrientation                T_ENUM
 wxRibbonGalleryButtonState   T_ENUM
+wxRibbonButtonBarButtonState T_ENUM
 
-wxRibbonButtonBarButtonBase * O_NON_WXOBJECT
-
-
+wxRibbonButtonBarButtonBase *   O_NON_WXOBJECT
+wxRibbonToolBarToolBase *       O_NON_WXOBJECT
+const wxRibbonToolBarToolBase * O_NON_WXOBJECT

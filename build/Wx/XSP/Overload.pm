@@ -108,6 +108,7 @@ sub is_any {
 
     # TODO wxPerl-specific type
     return 1 if $type->base_type eq 'Wx_UserDataO';
+    return 1 if $type->base_type eq 'Wx_UserDataCD';
     return 1 if $type->base_type eq 'wxVariantArg';
 }
 

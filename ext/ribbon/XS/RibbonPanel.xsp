@@ -44,9 +44,9 @@ public:
 
     wxBitmap& GetMinimisedIcon();
     
-    bool IsMinimised() const;
+    %name{IsMinimisedDefault} bool IsMinimised() const %Overload;
    
-    bool IsMinimised(wxSize at_size) const;
+    %name{IsMinimisedSize} bool IsMinimised(wxSize at_size) const %Overload;
     
     bool IsHovered() const;
   
@@ -63,6 +63,26 @@ public:
     wxRibbonPanel* GetExpandedDummy();
    
     wxRibbonPanel* GetExpandedPanel();
+    
+    virtual bool Layout();
+    
+    virtual wxSize GetMinSize() const;
+    
+    virtual bool IsSizingContinuous() const;
+
+    virtual void AddChild(wxWindowBase *child);
+    virtual void RemoveChild(wxWindowBase *child);
+    
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    bool IsExtButtonHovered() const;
+
+    virtual bool HasExtButton() const;
+
+    virtual wxSize GetBestSizeForParentSize(const wxSize& parentSize) const;
+
+    long GetFlags();
+#endif
+    
 };
 
 #endif

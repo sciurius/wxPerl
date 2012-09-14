@@ -1,11 +1,14 @@
 Revision history for Perl extension Wx.
 
 0.9912 TBR
-    - wrapped wxListCtrl::SetItemPtrData
+    - wrapped wxListCtrl::SetItemPtrData.
     - updated to use sv_magicext / mg_findext so
-      external modules do not stomp on our magic
-    - updated wxListView so that LC_VIRTUAL style works
-    - set wxListCtrl full constructor to create evthandler
+      external modules do not stomp on our magic.
+    - updated wxListView so that LC_VIRTUAL style works.
+    - set wxListCtrl full constructor to create evthandler.
+    - updated Wx::Ribbon controls for 2.9.4 interface +
+      tool/button 'Add' and 'Insert' methods now return objects
+      as described in the docs instead of int id's.
 
 0.9911 Fri Aug 24 2012
     - wxDataView - updated for 2.9.4

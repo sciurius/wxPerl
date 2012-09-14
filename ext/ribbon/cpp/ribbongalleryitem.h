@@ -7,11 +7,14 @@
 // Licence:     This program is free software; you can redistribute it and/or
 //              modify it under the same terms as Perl itself
 /////////////////////////////////////////////////////////////////////////////
-//
+///
 // declaration for this class is in src/ribbon/gallery.cpp which we
 // cannot include so we need it here
 //
 /////////////////////////////////////////////////////////////////////////////
+
+#ifndef _WXPERL_RIBBON_GALLERY_ITEM_DECL_H_
+#define _WXPERL_RIBBON_GALLERY_ITEM_DECL_H_
 
 class wxRibbonGalleryItem
 {
@@ -45,4 +48,7 @@ protected:
     int m_id;
     bool m_is_visible;
 };
+
+#endif
+
 
