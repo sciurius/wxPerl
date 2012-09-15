@@ -41,7 +41,7 @@ sub get_data { $_[0]->{somedata}; }
 
 package main;
 
-use Test::More 'tests' => 13;
+use Test::More 'tests' => 15;
 
 use strict;
 #use base 'Wx::Frame';
@@ -75,6 +75,9 @@ sub tests {
   # wxRibbonButtonBar
   ############################################################################
   
+  # client data in wxRibbonButtonBar seems not useful
+  # unless we hang on to the button references ?
+  
   my $bitmap = Wx::Bitmap->new('../../wxpl.xpm', Wx::wxBITMAP_TYPE_XPM() );
   my $ribbonpanel = Wx::RibbonPanel->new($this, -1);
   my $buttonbar = Wx::RibbonButtonBar->new($ribbonpanel, 1 );
@@ -85,7 +88,7 @@ sub tests {
         MyDataContainer->new('Stashed Data 4') );
   
   $ctrldelete =  0;
-  $buttonbar->AddButton(-1, "Hello World",
+  my $delbutton = $buttonbar->AddButton(-1, "Hello World",
             $bitmap, wxNullBitmap, wxNullBitmap, wxNullBitmap,
             Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
             cdata(sub { $ctrldelete = 1 } ) );
@@ -93,6 +96,8 @@ sub tests {
   is( $button->GetClientData()->get_data, 'Stashed Data 4', "Wx::RibbonButtonBarButtonBase::GetClientData" );
     
   ok( $ctrldelete == 0, 'Wx::RibbonButtonBar: Data not changed before delete' );
+  
+  $delbutton->SetClientData(undef);
     
   $buttonbar->Destroy;
   
@@ -103,6 +108,19 @@ sub tests {
   ############################################################################
 
   my $toolbar = Wx::RibbonToolBar->new($ribbonpanel, 1 );
+  
+  # no client data
+  my $toolid0 = $toolbar->AddTool(-1, $bitmap,
+      "HW Help", Wx::wxRIBBON_BUTTON_NORMAL())->id;
+      
+  # check that getting && setting some client data where none exists works
+  
+  my $firstdata = $toolbar->GetToolClientData( $toolid0 );
+  
+  ok( !defined($firstdata), "Wx::RibbonToolBar::GetToolClientData undefined"); 
+  $toolbar->SetToolClientData( $toolid0, MyDataContainer->new('Stashed Data X') );
+  $firstdata = $toolbar->GetToolClientData( $toolid0 );
+  is( $firstdata->get_data, 'Stashed Data X', "Wx::RibbonToolBar::GetToolClientData defined"); 
   
   my $toolid1 = $toolbar->AddTool(-1, $bitmap, wxNullBitmap,
       "HW Help", Wx::wxRIBBON_BUTTON_NORMAL(), 
@@ -120,9 +138,9 @@ sub tests {
   
   $ctrldelete =  0;
   
-  $toolbar->AddTool(-1, $bitmap, wxNullBitmap,
+  my $autoid = $toolbar->AddTool(-1, $bitmap, wxNullBitmap,
       "HW Help", Wx::wxRIBBON_BUTTON_NORMAL(), 
-        cdata( sub { $ctrldelete = 1 } ) ) ;
+        cdata( sub { $ctrldelete = 1 } ) )->id; ;
 
   is( $toolbar->GetToolClientData($toolid2)->get_data, 'Stashed Data 6', "Wx::RibbonToolBar::GetToolClientData For Tool 2" );
   is( $toolbar->GetToolClientData($toolid1)->get_data, 'Stashed Data 5', "Wx::RibbonToolBar::GetToolClientData For Tool 1" );
@@ -131,8 +149,14 @@ sub tests {
      'Stashed Persistent Data 1', "Wx::RibbonToolBar::GetToolClientData For Persistent data" );
   
   ok( $ctrldelete == 0, 'Wx::RibbonToolBar: Data not changed before delete' );
+  
+  # in wxRibbonToolBar ClientData is untyped void so we must delete the clientdata before we delete the tool
+  # our XSUB checks SvOK so pass undef
+  
+  $toolbar->SetToolClientData( $autoid, undef );
+  
+  ok( $ctrldelete, 'Wx::RibbonToolBar: setting client data undef deletes the data' );
   $toolbar->Destroy;
-  ok( $ctrldelete, 'Wx::RibbonToolBar: deleting the RibbonToolBar deletes the data' );
   
   # The persistent data should still be in the $datatype
   is( $persistentdata->get_data, 'Stashed Persistent Data 1', "Wx::UserDataO Data Persists" );
@@ -140,8 +164,6 @@ sub tests {
 }
 
 in_frame( \&tests );
-
-
 
 # local variables:
 # mode: cperl

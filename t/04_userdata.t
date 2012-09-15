@@ -22,7 +22,7 @@ sub DESTROY { &{$_[0][0]} }
 
 package main;
 
-use Test::More 'tests' => 61;
+use Test::More 'tests' => 65;
 
 use strict;
 #use base 'Wx::Frame';
@@ -160,7 +160,7 @@ sub tests {
               [ $checklist, 'Wx::CheckListBox' ],
               [ $odncombo, 'Wx::OwnerDrawnComboBox' ],
               ) {
-  SKIP: {
+    SKIP: {
       my( $list, $name ) = @$x;
       ( $deleting, $setting, $ctrldelete ) = ( 0, 0, 0 );
 
@@ -205,13 +205,14 @@ sub tests {
       }
       $list->SetClientData( 2, 'foo' );
       ok( $setting, "$name: setting again item data deletes old data" );
-      SKIP: {
-        # and hope the control is deleted NOW
-        $list->Destroy;
-        # TODO: is it correct to skip as below ? - Fails on osx-cocoa & 2.9.2 all platforms?
-        skip "delete delayed", 1 if ( $list->isa( 'Wx::ListBox' ) || $list->isa( 'Wx::ComboBox' ) || $list->isa( 'Wx::Choice' ) );
+      # and hope the control is deleted NOW
+      $list->Destroy;
+      
+      TODO: {
+        local $TODO = "is it correct to skip as below ? - Fails on osx-cocoa & 2.9.2 all platforms?";
+        # skip "delete delayed", 1 if ( $list->isa( 'Wx::ListBox' ) || $list->isa( 'Wx::ComboBox' ) || $list->isa( 'Wx::Choice' ) );
         ok( $ctrldelete, "$name: deleting the control deletes the data" );
-    }
+      };
     }
   }
 
@@ -238,6 +239,25 @@ sub tests {
   $listctrl->SetItemData( 1, 135 );
 
   is( $listctrl->GetItemData( 1 ), 135, "Wx::ListCtrl, changing item data" );
+  
+  ############################################################################
+  # wxToolBar
+  ############################################################################
+  my $toolbar = Wx::ToolBar->new( $this, -1);
+  my $tool = $toolbar->AddTool(Wx::wxID_ANY(), Wx::Bitmap->new(16,16,1));
+  $tool = $toolbar->AddTool(Wx::wxID_ANY(), Wx::Bitmap->new(16,16,1));
+  my $toolid = $tool->GetId;
+  isnt($toolid, -1, 'Wx::ToolBar got valid tool id');
+  $toolbar->SetToolClientData( $toolid, 'Bar' );
+  is( $toolbar->GetToolClientData( $toolid ), 'Bar', 'Wx::ToolBar client data set');
+  $toolbar->Realize;
+  $ctrldelete = 0;
+  $toolbar->SetToolClientData( $toolid, cdata( sub { $ctrldelete = 1 } ));
+  
+  ok( $ctrldelete == 0, 'Wx::ToolBar controldata not deleted' );
+  $toolbar->SetToolClientData( $toolid, undef );
+  ok( $ctrldelete, 'Wx::ToolBar - setting client data causes previous data deletion' );
+
 }
 
 in_frame( \&tests );

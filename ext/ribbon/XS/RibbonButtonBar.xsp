@@ -16,7 +16,6 @@
 
 #include <wx/ribbon/buttonbar.h>
 #include <cpp/toolbarbases.h>
-#include <cpp/ribbonbuttonbar.h>
 
 %loadplugin{build::Wx::XSP::Overload};
 %loadplugin{build::Wx::XSP::Event};
@@ -66,6 +65,11 @@ wxRibbonButtonBarButtonBase::GetSmallerSize( size, n = 1 )
     wxRibbonButtonKind GetKind() %code{% RETVAL = THIS->kind; %};
     long GetState() %code{% RETVAL = THIS->state; %};
     
+    void SetClientData ( Wx_UserDataO* clientdata )
+       %code{%
+            delete THIS->client_data;
+            THIS->client_data = clientdata;
+        %};
     
     /* documented ?? names */
     wxString  label() %code{% RETVAL = THIS->label; %};
@@ -87,7 +91,6 @@ wxRibbonButtonBarButtonBase::GetSmallerSize( size, n = 1 )
 public:
     
     %name{newDefault} wxRibbonButtonBar() %Overload
-        %code{% RETVAL =  new wxPliRibbonButtonBar( CLASS ); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
     %name{newFull} wxRibbonButtonBar( wxWindow* parent,
@@ -95,7 +98,6 @@ public:
                   const wxPoint& pos = wxDefaultPosition,
                   const wxSize& size = wxDefaultSize,
                   long style = 0) %Overload
-        %code{% RETVAL =  new wxPliRibbonButtonBar( CLASS, parent, id, pos, size, style ); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
     bool Create(wxWindow* parent,
@@ -113,7 +115,6 @@ public:
                 const wxString& help_string = wxEmptyString)
         %code{% int useid = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
               RETVAL = THIS->AddDropdownButton( useid, label, *bitmap, help_string ); %};
-
 
     wxRibbonButtonBarButtonBase* AddHybridButton(
                 int button_id,

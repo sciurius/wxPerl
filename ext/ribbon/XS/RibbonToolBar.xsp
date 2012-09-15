@@ -16,7 +16,6 @@
 
 #include <wx/ribbon/toolbar.h>
 #include <cpp/toolbarbases.h>
-#include <cpp/ribbontoolbar.h>
 
 %loadplugin{build::Wx::XSP::Overload};
 %loadplugin{build::Wx::XSP::Event};
@@ -41,6 +40,14 @@ public:
     wxRibbonButtonKind GetKind() %code{% RETVAL = THIS->kind; %};
     long GetState() %code{% RETVAL = THIS->state; %};
     
+    /* wxperl method */
+    
+    void SetClientData ( Wx_UserDataO* clientdata )
+       %code{%
+            delete THIS->client_data;
+            THIS->client_data = clientdata;
+        %};
+    
     /* documented ??? names */
     
     wxString  help_string() %code{% RETVAL = THIS->help_string; %};
@@ -61,7 +68,6 @@ public:
 public:
    
     %name{newDefault} wxRibbonToolBar() %Overload
-        %code{% RETVAL = new wxPliRibbonToolBar( CLASS ); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
     %name{newFull} wxRibbonToolBar(wxWindow* parent,
@@ -69,7 +75,6 @@ public:
                   const wxPoint& pos = wxDefaultPosition,
                   const wxSize& size = wxDefaultSize,
                   long style = 0) %Overload
-        %code{% RETVAL = new wxPliRibbonToolBar( CLASS, parent, id, pos, size, style); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
     
     bool Create(wxWindow* parent,
@@ -193,7 +198,10 @@ public:
     virtual bool GetToolState(int tool_id)const;
 
     virtual void SetToolClientData(int tool_id, Wx_UserDataO* clientdata)
-        %code{% THIS->SetToolClientData( tool_id, clientdata ); %};
+        %code{%
+            delete THIS->GetToolClientData( tool_id );
+            THIS->SetToolClientData( tool_id, clientdata );
+        %};
     
     virtual void SetToolDisabledBitmap(int tool_id, const wxBitmap &bitmap);
     virtual void SetToolHelpString(int tool_id, const wxString& helpString);

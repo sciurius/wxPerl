@@ -281,9 +281,7 @@ ext/propgrid/XS/PropertyGridManager.xsp
 ext/propgrid/XS/PropertyGridPage.xsp
 ext/propgrid/XS/PropertyGridPageState.xsp
 ext/ribbon/cpp/ribbon_constants.cpp
-ext/ribbon/cpp/ribbonbuttonbar.h
 ext/ribbon/cpp/ribbongalleryitem.h
-ext/ribbon/cpp/ribbontoolbar.h
 ext/ribbon/cpp/toolbarbases.h
 ext/ribbon/lib/Wx/Ribbon.pm
 ext/ribbon/Makefile.PL

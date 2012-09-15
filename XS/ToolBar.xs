@@ -155,6 +155,9 @@ wxToolBarToolBase::SetBitmap2( bmp )
 void
 wxToolBarToolBase::SetClientData( data = 0 )
     Wx_UserDataO* data
+  CODE:
+    delete THIS->GetClientData();
+    THIS->SetClientData( data );
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 
@@ -495,7 +498,6 @@ wxToolBarBase::SetToolClientData( id, data )
     Wx_UserDataO* data
   CODE:
     delete THIS->GetToolClientData( id );
-
     THIS->SetToolClientData( id, data );
 
 void

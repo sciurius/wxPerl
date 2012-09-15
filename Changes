@@ -9,6 +9,8 @@ Revision history for Perl extension Wx.
     - updated Wx::Ribbon controls for 2.9.4 interface +
       tool/button 'Add' and 'Insert' methods now return objects
       as described in the docs instead of int id's.
+    - added SetClientData to PGProperty and PropertyGridInterface
+    - Wx::ToolBar->SetClientData now deletes any prior set Wx::Object
 
 0.9911 Fri Aug 24 2012
     - wxDataView - updated for 2.9.4
