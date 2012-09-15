@@ -132,13 +132,8 @@ wxPGPGridInterfaceBase::GetPropertiesWithFlag(wxByte flags, bool inverse = false
 
 #endif
 
-    /** Returns client data (void*) of a property. */
-    /*
-    void* GetPropertyClientData( wxString& id ) const;
-    */
-    
-    /* wxPliUserDataCD* GetPropertyClientData( wxString& id ) const
-      %code{% RETVAL = (wxPliUserDataCD*)THIS->GetPropertyClientObject( id ); %}; */
+	Wx_UserDataO* GetPropertyClientData( wxString& id ) const
+      %code{% RETVAL = (wxPliUserDataCD*)THIS->GetPropertyClientObject( id ); %};
 
     %name{GetPropertyByNameName} wxPGProperty__parsed_nodelete* GetPropertyByName( const wxString& name ) const %Overload;
 
@@ -304,11 +299,8 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
                           const wxColour& fgCol = wxNullColourPtr,
                           const wxColour& bgCol = wxNullColourPtr ) %Overload;
 
-    /* 
-    void SetPropertyClientData( wxString& id, void* clientData );
-    */
 	
-	/* %name{SetPropertyClientData} void SetPropertyClientObject( wxString& id, wxPliUserDataCD* data ); */
+	%name{SetPropertyClientData} void SetPropertyClientObject( wxString& id, Wx_UserDataO* data );
     
     %name{SetPropertyColoursToDefaultString} void SetPropertyColoursToDefault( wxString& id ) %Overload;
 	%name{SetPropertyColoursToDefaultProperty} void SetPropertyColoursToDefault( wxPGProperty* id ) %Overload;
