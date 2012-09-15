@@ -165,7 +165,7 @@ public:
 
     const wxPGChoices& GetChoices() const;
     
-    wxPliUserDataCD* GetClientData() const
+    Wx_UserDataCD* GetClientData() const
       %code{% RETVAL = (wxPliUserDataCD*)THIS->GetClientObject(); %};
     
     wxVariant GetDefaultValue() const;
@@ -257,7 +257,7 @@ public:
 
     bool SetChoices( wxPGChoices& choices );
     
-    %name{SetClientData} void SetClientObject( wxPliUserDataCD* data );
+    %name{SetClientData} void SetClientObject( Wx_UserDataCD* data );
 
     void SetChoiceSelection( int newValue );
 

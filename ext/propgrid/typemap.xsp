@@ -138,6 +138,7 @@
 %typemap{wxPGProperty&}{reference};
 %typemap{const wxPGProperty*}{simple};
 %typemap{wxPGProperty*}{simple};
+%typemap{Wx_UserDataCD*}{simple};
 
 %typemap{wxPGProperty__parsed_nodelete*}{parsed}{
     %cpp_type{%wxPGProperty*%};
