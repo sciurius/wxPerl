@@ -77,12 +77,16 @@ public:
     void AppendColumn( const wxString &varianttype );
 
 #if WXPERL_W_VERSION_GE( 2, 9, 4 )
+
     
-    void AppendItem( const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+    void AppendItem( const wxVector<wxVariant> &values, Wx_UserDataO *data = NULL )
+       %code{% THIS->AppendItem( values, wxPtrToUInt( data ) ); %};
 
-    void PrependItem( const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+    void PrependItem( const wxVector<wxVariant> &values, Wx_UserDataO *data = NULL )
+       %code{% THIS->AppendItem( values, wxPtrToUInt( data ) ); %};
 
-    void InsertItem(  unsigned int row, const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+    void InsertItem(  unsigned int row, const wxVector<wxVariant> &values, Wx_UserDataO *data = NULL )
+       %code{% THIS->AppendItem( values, wxPtrToUInt( data ) ); %};
 
 #else
     

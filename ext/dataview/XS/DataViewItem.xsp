@@ -43,6 +43,15 @@
 
     bool GetBold() const;
     bool GetItalic() const;
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    void SetBackgroundColour(const wxColour& colour);
+    bool HasFont() const;
+    bool HasBackgroundColour() const;
+    wxColour& GetBackgroundColour() const;
+    bool IsDefault() const;
+    // Return the font based on the given one with this attribute applied to it.
+    wxFont GetEffectiveFont(const wxFont& font) const;
+#endif
 };
 
 #endif

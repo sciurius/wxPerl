@@ -53,3 +53,11 @@
 %typemap{wxDataViewTreeCtrl*}{simple};
 %typemap{wxDataViewListStore*}{simple};
 %typemap{const wxDataViewListStore*}{simple};
+%typemap{Wx_UserDataO*}{simple};
+
+/*
+%typemap{Wx_UserDataOwxUIntPtr*}{parsed}{
+    %cpp_type{%Wx_UserDataO*%};
+    %precall_code{% reinterpret_cast<wxUIntPtr>($CVar); %};
+};
+*/

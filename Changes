@@ -11,6 +11,7 @@ Revision history for Perl extension Wx.
       as described in the docs instead of int id's.
     - added SetClientData to PGProperty and PropertyGridInterface
     - Wx::ToolBar->SetClientData now deletes any prior set Wx::Object
+    - wxDataViewListCtrl and wxDataViewListStore - fix ClientData for >= 2.9.4
 
 0.9911 Fri Aug 24 2012
     - wxDataView - updated for 2.9.4

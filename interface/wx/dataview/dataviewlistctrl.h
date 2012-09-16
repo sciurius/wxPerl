@@ -192,17 +192,20 @@ public:
     /**
         Appends an item (=row) to the control and store.
     */
-    void AppendItem( const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+    void AppendItem( const wxVector<wxVariant> &values, Wx_UserDataO *data = NULL )
+       %code{% THIS->AppendItem( values, wxPtrToUInt( data ) ); %};
 
     /**
         Prepends an item (=row) to the control and store.
     */
-    void PrependItem( const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+    void PrependItem( const wxVector<wxVariant> &values, Wx_UserDataO *data = NULL )
+       %code{% THIS->AppendItem( values, wxPtrToUInt( data ) ); %};
 
     /**
         Inserts an item (=row) to the control and store.
     */
-    void InsertItem( unsigned int row, const wxVector<wxVariant> &values, wxUIntPtr data = NULL );
+    void InsertItem( unsigned int row, const wxVector<wxVariant> &values, Wx_UserDataO *data = NULL )
+       %code{% THIS->AppendItem( values, wxPtrToUInt( data ) ); %};
 
 #else
 
