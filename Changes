@@ -12,6 +12,8 @@ Revision history for Perl extension Wx.
     - added SetClientData to PGProperty and PropertyGridInterface
     - Wx::ToolBar->SetClientData now deletes any prior set Wx::Object
     - wxDataViewListCtrl and wxDataViewListStore - fix ClientData for >= 2.9.4
+    - /usr/local/lib needs removing from LD:DL:FLAGS on all *nix types
+    - nostdinc now removed from any flags on MacOSX
 
 0.9911 Fri Aug 24 2012
     - wxDataView - updated for 2.9.4

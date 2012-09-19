@@ -39,9 +39,7 @@ EOT
 
 sub const_config {
     my $text = shift->SUPER::const_config( @_ );
-
-    $text =~ s{^(LD(?:DL)?FLAGS\s*=.*?)-L/usr/local/lib/?}{$1}mg;
-
+    $text =~ s{^([A-Z_]+FLAGS\s*=.*?)-nostdinc?}{$1}mg;
     return $text;
 }
 

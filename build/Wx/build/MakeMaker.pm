@@ -1,17 +1,5 @@
 package Wx::build::MakeMaker;
 
-
-# -Broken
-#BEGIN {
-#  # strip -nostdinc from config on darwin
-#  # for all dists that use Wx::build::MakeMaker
-#  use Config; 
-#  if( $^O eq 'darwin') {
-#    my $cfgobj = tied %Config::Config;
-#    $cfgobj->{$_} =~ s/-nostdinc/ /g for ( qw( ccflags cppflags ) ); 
-#  }
-#}
-
 use strict;
 use ExtUtils::MakeMaker;
 use base 'Exporter';

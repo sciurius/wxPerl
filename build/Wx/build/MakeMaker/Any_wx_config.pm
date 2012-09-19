@@ -39,6 +39,14 @@ sub get_flags {
   return %config;
 }
 
+sub const_config {
+    my $text = shift->SUPER::const_config( @_ );
+
+    $text =~ s{^(LD(?:DL)?FLAGS\s*=.*?)-L/usr/local/lib/?}{$1}mg;
+
+    return $text;
+}
+
 1;
 
 # local variables:
