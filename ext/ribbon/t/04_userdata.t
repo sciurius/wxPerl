@@ -11,6 +11,11 @@ use Wx::Event qw(EVT_BUTTON);
 use Wx::Ribbon;
 use Wx qw( :bitmap );
 
+# Currently asserts cause wxRibbonButtonBar to fault
+# in some released wxWidgets versions.
+# Switch asserts off for this test
+Wx::DisableAssertHandler();
+
 #-------------------------------------------------------------
 
 package MyClass;

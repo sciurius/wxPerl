@@ -41,6 +41,18 @@ wxClassInfo::GetBaseClassName2()
 const wxChar*
 wxClassInfo::GetClassName()
 
+wxClassInfo*
+wxClassInfo::GetNext()
+  CODE:
+    RETVAL = (wxClassInfo*)THIS->GetNext();
+  OUTPUT: RETVAL
+
+wxClassInfo*
+GetFirst()
+  CODE:
+    RETVAL = (wxClassInfo*)wxClassInfo::GetFirst();
+  OUTPUT: RETVAL
+
 %}
 
 #if wxUSE_EXTENDED_RTTI
