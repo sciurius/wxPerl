@@ -153,16 +153,21 @@ static int call_oninit( pTHX_ SV* This, SV* sub )
 
 int wxEntryStart( int argc, char** argv )
 {
-#if (defined(__WXDEBUG__) && wxUSE_MEMORY_TRACING) || wxUSE_DEBUG_CONTEXT
     // This seems to be necessary since there are 'rogue'
     // objects present at this point (perhaps global objects?)
     // Setting a checkpoint will ignore them as far as the
     // memory checking facility is concerned.
     // Of course you may argue that memory allocated in globals should be
     // checked, but this is a reasonable compromise.
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+#if ( ( wxDEBUG_LEVEL > 1 ) && wxUSE_MEMORY_TRACING ) || wxUSE_DEBUG_CONTEXT
     wxDebugContext::SetCheckpoint();
 #endif
-
+#else
+#if (defined(__WXDEBUG__) && wxUSE_MEMORY_TRACING ) || wxUSE_DEBUG_CONTEXT
+    wxDebugContext::SetCheckpoint();
+#endif
+#endif
     if (!wxApp::Initialize())
         return -1;
 
@@ -248,6 +253,40 @@ BOOT:
 #else
 #define wxPliEntryStart( argc, argv ) ( wxEntryStart( (argc), (argv) ) == 0 )
 #endif
+
+bool
+EnableDefaultAssertHandler()
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+    wxSetDefaultAssertHandler();
+    RETVAL = 1;
+#else
+    RETVAL = 0;
+#endif
+  OUTPUT: RETVAL
+
+bool
+DisableAssertHandler()
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+    wxDisableAsserts();
+    RETVAL = 1;
+#else
+    RETVAL = 0;
+#endif
+  OUTPUT: RETVAL
+
+
+##// bool
+##// EnableCustomAssertHandler( handler )
+##//     SV* handler
+##//   CODE:
+##// #if WXPERL_W_VERSION_GE( 2, 9, 3 )
+##//     RETVAL = 1;
+##// #else
+##//     RETVAL = 0;
+##// #endif
+##//   OUTPUT: RETVAL
 
 bool 
 Load( bool croak_on_error = false )

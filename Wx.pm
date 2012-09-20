@@ -348,6 +348,46 @@ must be placed in the same directory as the executable file.
       </dependency>
   </assembly>
 
+=head1 Runtime Assertions
+
+For wxWidgets 2.9.3 and greater, Wx can switch runtime assertions on
+and off. In wxWidgets 2.9.x and above, there are three levels of
+debuging
+
+0 - No debug assertions
+1 - Low cost debug assertions
+2 - All debug assertions
+
+If you used Alien::wxWidgets 0.61 or greater to build your wxWidgets,
+then the libraries will be built using debug level 1. If you
+specified --wxWidgets-debug for a debug build, then debug level 2
+will have been used.
+
+By default, debug assertions are switched off. However you may
+switch assertions on by using
+
+Wx::EnableDefaultAssertHandler();
+
+you can switch assertions off again by using
+
+Wx::DisableAssertHandler();
+
+You may also set en enviroment variable to cause all invocations
+of Wx to call Wx::EnableDefaultAssertHandler().
+
+export WXPERL_OPTIONS=ENABLE_DEFAULT_ASSERT_HANDLER
+
+This may be useful during tests.
+
+The enviroment setting WXPERL_OPTIONS can contain multiple
+options. Options are checked for using a simple regex match.
+So
+
+export WXPERL_OPTIONS="ENABLE_DEFAULT_ASSERT_HANDLER SOME_OTHER_SETTING"
+
+would evaluate as ENABLE_DEFAULT_ASSERT_HANDLER being set.
+
+
 =head1 Running on Mac OSX
 
 From version 0.98 wxPerl no longer needs to use the special startup
@@ -364,6 +404,14 @@ export WXPERL_OPTIONS=NO_MAC_SETFRONTPROCESS
 or 
 
 $ENV{WXPERL_OPTIONS} = 'NO_MAC_SETFRONTPROCESS';
+
+The enviroment setting WXPERL_OPTIONS can contain multiple
+options. Options are checked for using a simple regex match.
+So
+
+export WXPERL_OPTIONS="NO_MAC_SETFRONTPROCESS SOME_OTHER_SETTING"
+
+would evaluate as NO_MAC_SETFRONTPROCESS being set.
 
 The code that makes the SetFrontProcess call is in Wx::Mini as
 

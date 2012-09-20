@@ -92,7 +92,14 @@ sub _start {
     _boot_Constant( 'Wx', $XS_VERSION );
     _boot_GDI( 'Wx', $XS_VERSION );
 
+    if( ( exists($ENV{WXPERL_OPTIONS}) && $ENV{WXPERL_OPTIONS} =~ /ENABLE_DEFAULT_ASSERT_HANDLER/) ) {
+        Wx::EnableDefaultAssertHandler();
+    } else {
+        Wx::DisableAssertHandler();
+    }
+    
     Load( 1 );
+    
     Wx::MacSetFrontProcess();
 }
 
