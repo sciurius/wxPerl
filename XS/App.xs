@@ -277,6 +277,8 @@ SetInstance( app )
 bool
 wxApp::IsMainLoopRunning()
 
+#if ( WXPERL_W_VERSION_GE( 2, 9, 1 ) && wxDEBUG_LEVEL > 0 ) || ( WXPERL_W_VERSION_LE( 2, 9, 0) && defined(__WXDEBUG__) )
+
 void
 wxApp::OnAssertFailure(file, line, func, cond, msg)
     wxChar* file
@@ -287,3 +289,4 @@ wxApp::OnAssertFailure(file, line, func, cond, msg)
   CODE:
     THIS->wxApp::OnAssertFailure( file, line, func, cond, msg );
 
+#endif
