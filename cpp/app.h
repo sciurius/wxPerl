@@ -41,7 +41,9 @@ public:
     {
         ((wxPliApp*) app)->DeletePendingObjects();
     }
-    
+
+#if ( WXPERL_W_VERSION_GE( 2, 9, 1 ) && wxDEBUG_LEVEL > 0 ) || ( WXPERL_W_VERSION_LE( 2, 9, 0) && defined(__WXDEBUG__) )    
+
     void OnAssertFailure(const wxChar *file, int line, const wxChar *func, const wxChar *cond, const wxChar *msg)
     {
         dTHX;
@@ -54,6 +56,7 @@ public:
         } else
             wxApp::OnAssertFailure( file, line, func, cond, msg );
     }
+#endif
 
     DEC_V_CBACK_INT__VOID( OnExit );
     DEC_V_CBACK_BOOL__BOOL( Yield );
