@@ -56,7 +56,7 @@ struct my_magic
     bool       deleteable;
 };
 
-#if WXPERL_P_VERSION_GE( 5, 10, 1 )
+#if WXPERL_P_VERSION_GE( 5, 12, 0 )
 STATIC MGVTBL my_vtbl = { 0, 0, 0, 0, 0, 0, 0, 0 };
 #endif
 
@@ -73,7 +73,7 @@ my_magic* wxPli_get_magic( pTHX_ SV* rv )
         return NULL;
 
     // search for '~' / PERL_MAGIC_ext magic, and check the value
-#if WXPERL_P_VERSION_GE( 5, 10, 1 )
+#if WXPERL_P_VERSION_GE( 5, 12, 0 )
     MAGIC* magic = mg_findext( ref, PERL_MAGIC_ext, &my_vtbl );
 #else
     MAGIC* magic = mg_find( ref, '~' );
@@ -100,14 +100,14 @@ my_magic* wxPli_get_or_create_magic( pTHX_ SV* rv )
     // search for '~' magic, and check the value
     MAGIC* magic;
 
-#if WXPERL_P_VERSION_GE( 5, 10, 1 )
+#if WXPERL_P_VERSION_GE( 5, 12, 0 )
     while( !( magic = mg_findext( ref, PERL_MAGIC_ext, &my_vtbl ) ) )
 #else
     while( !( magic = mg_find( ref, '~' ) ) ) 
 #endif
     {
         my_magic tmp;
-#if WXPERL_P_VERSION_GE( 5, 10, 1 )
+#if WXPERL_P_VERSION_GE( 5, 12, 0 )
         sv_magicext( ref, NULL, PERL_MAGIC_ext, &my_vtbl, (char*)&tmp, sizeof( tmp ) );
 #else
         sv_magic( ref, NULL, '~', (char*)&tmp, sizeof( tmp ) );
