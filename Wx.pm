@@ -318,36 +318,6 @@ can download it from http://wxperl.sourceforge.net/
 
 Please see F<docs/INSTALL.pod> in source package.
 
-=head1 Windows XP look
-
-For standalone (packed using PAR, Perl2Exe, Perl2App, ...)
-applications to get Windows XP look, a file named C<App.exe.manifest>
-(assuming the program is named C<App.exe>) and containing the text below
-must be placed in the same directory as the executable file.
-
-  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-  <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
-      <assemblyIdentity
-          processorArchitecture="x86"
-          version="5.1.0.0"
-          type="win32"
-          name="Controls"
-      />
-      <description>Super wxPerl Application</description>
-      <dependency>
-          <dependentAssembly>
-              <assemblyIdentity
-                  type="win32"
-                  name="Microsoft.Windows.Common-Controls"
-                  version="6.0.0.0"
-                  publicKeyToken="6595b64144ccf1df"
-                  language="*"
-                  processorArchitecture="x86"
-          />
-      </dependentAssembly>
-      </dependency>
-  </assembly>
-
 =head1 Runtime Assertions
 
 For wxWidgets 2.9.3 and greater, Wx can switch runtime assertions on
@@ -363,19 +333,19 @@ then the libraries will be built using debug level 1. If you
 specified --wxWidgets-debug for a debug build, then debug level 2
 will have been used.
 
-By default, debug assertions are switched off. However you may
+By default in Wx, debug assertions are switched off. However you may
 switch assertions on by using
 
-Wx::EnableDefaultAssertHandler();
+ Wx::EnableDefaultAssertHandler();
 
 you can switch assertions off again by using
 
-Wx::DisableAssertHandler();
+ Wx::DisableAssertHandler();
 
 You may also set en enviroment variable to cause all invocations
 of Wx to call Wx::EnableDefaultAssertHandler().
 
-export WXPERL_OPTIONS=ENABLE_DEFAULT_ASSERT_HANDLER
+ export WXPERL_OPTIONS=ENABLE_DEFAULT_ASSERT_HANDLER
 
 This may be useful during tests.
 
@@ -383,18 +353,21 @@ The enviroment setting WXPERL_OPTIONS can contain multiple
 options. Options are checked for using a simple regex match.
 So
 
-export WXPERL_OPTIONS="ENABLE_DEFAULT_ASSERT_HANDLER SOME_OTHER_SETTING"
+ export WXPERL_OPTIONS="ENABLE_DEFAULT_ASSERT_HANDLER SOME_OTHER_SETTING"
 
 would evaluate as ENABLE_DEFAULT_ASSERT_HANDLER being set.
 
 If you want to handle assert failures yourself you can override
 wxApp::OnAssertFailure in your Wx::App derived class.
 
-sub OnAssertFailure {
-  my ( $self, $file, $line, $function, $condition, $msg ) = @_;
-  ......
-}
+  sub OnAssertFailure {
+    my ( $self, $file, $line, $function, $condition, $msg ) = @_;
+    ......
+  }
 
+For wxWidgets 2.8.x, the assert methods have no effect. You may
+however still usefully override wxApp::OnAssertFailure in a debug
+build.
 
 =head1 Running on Mac OSX
 
@@ -407,23 +380,23 @@ gives it the focus.
 In a syntax checking editor you may prevent Wx code from being
 given focus as the front process by setting an environment variable
 
-export WXPERL_OPTIONS=NO_MAC_SETFRONTPROCESS
+ export WXPERL_OPTIONS=NO_MAC_SETFRONTPROCESS
 
 or 
 
-$ENV{WXPERL_OPTIONS} = 'NO_MAC_SETFRONTPROCESS';
+ $ENV{WXPERL_OPTIONS} = 'NO_MAC_SETFRONTPROCESS';
 
 The enviroment setting WXPERL_OPTIONS can contain multiple
 options. Options are checked for using a simple regex match.
 So
 
-export WXPERL_OPTIONS="NO_MAC_SETFRONTPROCESS SOME_OTHER_SETTING"
+ export WXPERL_OPTIONS="NO_MAC_SETFRONTPROCESS SOME_OTHER_SETTING"
 
 would evaluate as NO_MAC_SETFRONTPROCESS being set.
 
 The code that makes the SetFrontProcess call is in Wx::Mini as
 
-Wx::MacSetFrontProcess();
+ Wx::MacSetFrontProcess();
 
 so it is also straightforward to override this method if you wish.
 
@@ -431,8 +404,39 @@ Finally, any code can force the running application to become the
 front process regardless of environment settings by calling the xs
 method directly. (Note the underscore in the method name).
 
-Wx::_MacSetFrontProcess();
+ Wx::_MacSetFrontProcess();
 
+=head1 Windows XP look
+
+For standalone (packed using PAR, Perl2Exe, Perl2App, ...)
+applications to get Windows XP look, a file named C<App.exe.manifest>
+(assuming the program is named C<App.exe>) and containing the text below
+must either be placed in the same directory as the executable file or
+compiled into the file itself. The module Win32::Exe can place a manifest
+in an executable file
+  
+  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+    <assemblyIdentity version="1.0.0.0" type="win32" name="Super.wxPerl.Application" />
+    <description>Super wxPerl Application</description>
+    <dependency>
+        <dependentAssembly>
+            <assemblyIdentity type="win32" 
+             name="Microsoft.Windows.Common-Controls" 
+             version="6.0.0.0" 
+             publicKeyToken="6595b64144ccf1df" 
+             language="*"
+             processorArchitecture="*" />
+        </dependentAssembly>
+    </dependency>
+    <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
+        <security>
+            <requestedPrivileges>
+                <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+            </requestedPrivileges>
+        </security>
+    </trustInfo>
+  </assembly>
 
 =head1 AUTHOR
 
