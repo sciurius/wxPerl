@@ -15,6 +15,7 @@ Revision history for Perl extension Wx.
     - /usr/local/lib needs removing from LD:DL:FLAGS on all *nix types
     - nostdinc now removed from any flags on MacOSX
     - Fixed handling of asserts and debug level > 0 on wxWidgets >= 2.9.3
+    - Added wxApp::OnAssertFailure
 
 0.9911 Fri Aug 24 2012
     - wxDataView - updated for 2.9.4

@@ -387,6 +387,14 @@ export WXPERL_OPTIONS="ENABLE_DEFAULT_ASSERT_HANDLER SOME_OTHER_SETTING"
 
 would evaluate as ENABLE_DEFAULT_ASSERT_HANDLER being set.
 
+If you want to handle assert failures yourself you can override
+wxApp::OnAssertFailure in your Wx::App derived class.
+
+sub OnAssertFailure {
+  my ( $self, $file, $line, $function, $condition, $msg ) = @_;
+  ......
+}
+
 
 =head1 Running on Mac OSX
 

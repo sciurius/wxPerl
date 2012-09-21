@@ -276,3 +276,14 @@ SetInstance( app )
 
 bool
 wxApp::IsMainLoopRunning()
+
+void
+wxApp::OnAssertFailure(file, line, func, cond, msg)
+    wxChar* file
+    int line
+    wxChar* func
+    wxChar* cond
+    wxChar* msg
+  CODE:
+    THIS->wxApp::OnAssertFailure( file, line, func, cond, msg );
+

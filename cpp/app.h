@@ -41,6 +41,19 @@ public:
     {
         ((wxPliApp*) app)->DeletePendingObjects();
     }
+    
+    void OnAssertFailure(const wxChar *file, int line, const wxChar *func, const wxChar *cond, const wxChar *msg)
+    {
+        dTHX;
+
+        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "OnAssertFailure" ) )
+        {
+            wxPliVirtualCallback_CallCallback( aTHX_ &m_callback,
+                                               G_DISCARD|G_SCALAR,
+                                               "wiwww", file, line, func, cond, msg );
+        } else
+            wxApp::OnAssertFailure( file, line, func, cond, msg );
+    }
 
     DEC_V_CBACK_INT__VOID( OnExit );
     DEC_V_CBACK_BOOL__BOOL( Yield );
