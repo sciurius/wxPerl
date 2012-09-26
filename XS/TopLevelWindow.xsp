@@ -64,6 +64,18 @@
     bool ShouldPreventAppExit();
 #endif
 
+#if defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 9, 3 )
+    wxMenu* MSWGetSystemMenu () const;
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    bool OSXIsModified() const;
+    void OSXSetModified( bool modified);
+    void SetRepresentedFilename(const wxString& filename);
+    void SetMinSize(const wxSize& minSize);
+    void SetMaxSize(const wxSize& maxSize);
+#endif
+
 #ifdef __WXUNIVERSAL__
     void UseNativeDecorations( bool native = true );
 %{
