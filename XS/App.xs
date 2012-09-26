@@ -290,3 +290,67 @@ wxApp::OnAssertFailure(file, line, func, cond, msg)
     THIS->wxApp::OnAssertFailure( file, line, func, cond, msg );
 
 #endif
+
+#if ( WXPERL_W_VERSION_GE( 2, 9, 4 ) )
+
+bool
+wxApp::HasPendingEvents()
+
+bool
+wxApp::IsScheduledForDestruction( obj )
+    wxObject* obj
+
+void
+wxApp::ResumeProcessingOfPendingEvents()
+
+void
+wxApp::SuspendProcessingOfPendingEvents()
+
+void
+wxApp::ScheduleForDestruction( obj )
+    wxObject* obj
+
+bool
+wxApp::SafeYield( win, onlyIfNeeded )
+    wxWindow* win
+    bool onlyIfNeeded
+
+bool
+wxApp::SafeYieldFor( win, eventsToProcess );
+    wxWindow* win
+    long eventsToProcess
+
+bool
+wxApp::SetNativeTheme( theme )
+    wxString theme
+    
+#if defined(__WXCOCOA__)
+
+void
+wxApp::MacOpenFiles( fileNames ) ;
+    wxArrayString fileNames
+
+void
+wxApp::MacOpenFile( fileName )
+    wxString fileName
+
+void
+wxApp::MacOpenURL( url )
+    wxString url
+
+void
+wxApp::MacPrintFile( fileName )
+    wxString fileName
+
+void
+wxApp::MacNewFile()
+
+void
+wxApp::MacReopenApp()
+
+void
+wxApp::MacHideApp()
+
+#endif
+
+#endif

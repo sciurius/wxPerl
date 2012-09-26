@@ -60,6 +60,72 @@ public:
 
     DEC_V_CBACK_INT__VOID( OnExit );
     DEC_V_CBACK_BOOL__BOOL( Yield );
+    
+#if ( WXPERL_W_VERSION_GE( 2, 9, 4 ) && defined(__WXCOCOA__) )
+    
+    virtual void MacOpenFiles(const wxArrayString &fileNames )
+    {
+        dTHX;
+        if( wxPliFCback( aTHX_ &m_callback, "MacOpenFile" ) )
+        {
+            wxAutoSV strgs = (SV*)wxPli_stringarray_2_av( aTHX_ fileNames );
+            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, "S", strgs );
+        } else
+            wxApp::MacOpenFiles( fileNames );
+    }
+    
+    virtual void MacOpenFile(const wxString &fileName)
+    {
+        dTHX;
+        if( wxPliFCback( aTHX_ &m_callback, "MacOpenFile" ) )
+        {
+            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, "P", &filename );
+        } else
+            wxApp::MacOpenFile( fileName );
+    }
+
+    virtual void MacOpenURL(const wxString &url)
+    {
+        dTHX;
+        if( wxPliFCback( aTHX_ &m_callback, "MacOpenURL" ) )
+        {
+            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, "P", &url );
+        } else
+            wxApp::MacOpenURL( url );
+    }
+    
+    virtual void MacPrintFile(const wxString &fileName)
+    {
+        dTHX;
+        if( wxPliFCback( aTHX_ &m_callback, "MacPrintFile" ) )
+        {
+            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, "P", &filename );
+        } else
+            wxApp::MacPrintFile( fileName );
+    }    
+    
+    virtual void MacNewFile()
+    {
+        dTHX;
+        if( wxPliFCback( aTHX_ &m_callback, "MacNewFile" ) )
+        {
+            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, NULL );
+        } else
+            wxApp::MacNewFile();
+    }
+    
+    virtual void MacReopenApp()
+    {
+        dTHX;
+        if( wxPliFCback( aTHX_ &m_callback, "MacReopenApp" ) )
+        {
+            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, NULL );
+        } else
+            wxApp::MacReopenApp();
+    }      
+
+#endif
+    
 };
 
 inline wxPliApp::wxPliApp( const char* package )
