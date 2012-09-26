@@ -63,16 +63,18 @@ public:
     
 #if ( WXPERL_W_VERSION_GE( 2, 9, 4 ) && defined(__WXOSX_COCOA__) )
     
-    //virtual void MacOpenFiles(const wxArrayString &fileNames )
-    //{
-    //    dTHX;
-    //    if( wxPliFCback( aTHX_ &m_callback, "MacOpenFile" ) )
-    //    {
-    //        wxAutoSV strgs( aTHX_ wxPli_stringarray_2_av( aTHX_ fileNames ) );
-    //        wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, "S", strgs );
-    //    } else
-    //        wxApp::MacOpenFiles( fileNames );
-    //}
+    virtual void MacOpenFiles(const wxArrayString &fileNames )
+    {
+        dTHX;
+        if( wxPliFCback( aTHX_ &m_callback, "MacOpenFile" ) )
+        {
+            AV* files;
+            files = wxPli_stringarray_2_av( aTHX_ fileNames );
+            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR,
+                        "S", sv_2mortal( newRV_noinc( (SV*)files ) ) );
+        } else
+            wxApp::MacOpenFiles( fileNames );
+    }
     
     virtual void MacOpenFile(const wxString &fileName)
     {
