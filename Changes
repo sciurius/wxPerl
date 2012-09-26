@@ -3,6 +3,8 @@ Revision history for Perl extension Wx.
 0.9913 TBR
     - wrapped wxEventFilter for 2.9.3 +
     - updated missing Wx::App methods for 2.9.4 +
+    - added wxEvtHandler::ProcessEventLocally for 2.9.1+
+    - added some absent wxWindow methods
 
 0.9912 Fri Sep 21 2012
     - wrapped wxListCtrl::SetItemPtrData.

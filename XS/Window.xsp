@@ -16,6 +16,7 @@
 
 %typemap{wxWindowVariant}{simple};
 %typemap{wxMenu&}{reference};
+%typemap{wxWindowBase*}{parsed}{%wxWindow*%};
 
 %name{Wx::Window} class wxWindow {
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
@@ -107,6 +108,13 @@ wxWindow::GetScreenPositionXY()
 #if WXPERL_W_VERSION_GE( 2, 8, 0 )
     bool ToggleWindowStyle( int flag );
 #endif
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+    bool AcceptsFocusRecursively() const;
+    bool HasFocus() const;
+    void SetFocusFromKbd();
+    bool IsDescendant( wxWindowBase *win) const;
+#endif
+
 };
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )

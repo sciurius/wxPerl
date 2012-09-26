@@ -111,3 +111,12 @@ wxEvtHandler::SetNextHandler( handler )
 void
 wxEvtHandler::SetPreviousHandler( handler )
     wxEvtHandler* handler
+
+#if WXPERL_W_VERSION_GE( 2, 9, 1 )
+
+bool
+wxEvtHandler::ProcessEventLocally( event )
+    wxEvent* event
+  C_ARGS: *event
+  
+#endif
