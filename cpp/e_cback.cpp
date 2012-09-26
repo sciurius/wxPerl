@@ -27,31 +27,6 @@ wxPliEventCallback::~wxPliEventCallback()
     SvREFCNT_dec( m_self );
 }
 
-class wxPliGuard
-{
-public:
-    wxPliGuard()
-    {
-        m_sv = NULL;
-    }
-
-    ~wxPliGuard()
-    {
-        if( m_sv )
-        {
-            dTHX;
-
-            wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ m_sv ),
-                                        (void*)SvIV( m_sv ), m_sv );
-            sv_setiv( m_sv, 0 );
-        }
-    }
-
-    void SetSV( SV* sv ) { m_sv = sv; }
-private:
-    SV* m_sv;
-};
-
 void wxPliEventCallback::Handler( wxEvent& event ) 
 {
     wxPliEventCallback* This = (wxPliEventCallback*) event.m_callbackUserData;

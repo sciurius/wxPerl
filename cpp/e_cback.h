@@ -23,6 +23,31 @@ typedef void (wxObject::* wxPliObjectEventFunction)(wxEvent&);
     ((wxObjectEventFunction) e)
 #endif
 
+class wxPliGuard
+{
+public:
+    wxPliGuard()
+    {
+        m_sv = NULL;
+    }
+
+    ~wxPliGuard()
+    {
+        if( m_sv )
+        {
+            dTHX;
+
+            wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ m_sv ),
+                                        (void*)SvIV( m_sv ), m_sv );
+            sv_setiv( m_sv, 0 );
+        }
+    }
+
+    void SetSV( SV* sv ) { m_sv = sv; }
+private:
+    SV* m_sv;
+};
+
 class wxPliEventCallback : public wxObject
 {
 public:

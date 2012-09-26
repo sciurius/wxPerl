@@ -491,7 +491,8 @@ wxFileConfig *          O_NON_WXOBJECT
 wxArtProvider *         O_WXOBJECT
 wxPlArtProvider *       O_WXOBJECT
 
-
+wxPlEventFilter *       O_NON_WXOBJECT_THR
+wxEventFilter *         O_NON_WXOBJECT_THR
 
 OUTPUT
 O_WXOBJECT
