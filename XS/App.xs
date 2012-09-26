@@ -324,7 +324,7 @@ bool
 wxApp::SetNativeTheme( theme )
     wxString theme
     
-#if defined(__WXCOCOA__)
+#if defined(__WXOSX_COCOA__)
 
 void
 wxApp::MacOpenFiles( fileNames ) ;

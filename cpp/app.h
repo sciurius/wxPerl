@@ -61,7 +61,7 @@ public:
     DEC_V_CBACK_INT__VOID( OnExit );
     DEC_V_CBACK_BOOL__BOOL( Yield );
     
-#if ( WXPERL_W_VERSION_GE( 2, 9, 4 ) && defined(__WXCOCOA__) )
+#if ( WXPERL_W_VERSION_GE( 2, 9, 4 ) && defined(__WXOSX_COCOA__) )
     
     virtual void MacOpenFiles(const wxArrayString &fileNames )
     {
