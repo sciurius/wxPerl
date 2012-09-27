@@ -26,6 +26,10 @@
     #include <wx/position.h>
 #endif
 
+// All code that uses wxPL_USE_MAGIC has been removed
+// but leave definition in case somehow some external
+// module contrives to use this
+
 #define wxPL_USE_MAGIC 1
 
 // ----------------------------------------------------------------------------
@@ -334,49 +338,6 @@ void wxPli_push_args( pTHX_ SV*** psp, const char* argtypes, va_list& args )
     *psp = sp;
 }
 
-#if !wxPL_USE_MAGIC
-
-// this use of static is deprecated, but we need to
-// cope with C++ compilers
-static SV* _key;
-static U32 _hash;
-
-static U32 calc_hash( const char* key, size_t klen )
-{
-    U32 h;
-    PERL_HASH( h, (char*)key, klen );
-    return h;
-}
-
-// precalculate key and hash value for "_WXTHIS"
-class wxHashModule : public wxModule {
-    DECLARE_DYNAMIC_CLASS( wxHashModule );
-public:
-    wxHashModule() {};
-
-    bool OnInit()
-    {
-        const char* kname = "_WXTHIS";
-        const int klen = 7;
-        dTHX;
-
-        _key = newSVpvn( CHAR_P kname, klen );
-        _hash = calc_hash( kname, klen );
-
-        return true;
-    };
-
-    void OnExit()
-    {
-        dTHX;
-        SvREFCNT_dec( _key );
-    };
-};
-
-IMPLEMENT_DYNAMIC_CLASS( wxHashModule, wxModule );
-
-#endif // !wxPL_USE_MAGIC
-
 // gets 'this' pointer from a blessed scalar/hash reference
 void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname ) 
 {
@@ -393,7 +354,6 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
     {
         SV* ref = SvRV( scalar );
 
-#if wxPL_USE_MAGIC
         my_magic* mg = wxPli_get_magic( aTHX_ scalar );
 
         // rationale: if this is an hash-ish object, it always
@@ -404,27 +364,6 @@ void* wxPli_sv_2_object( pTHX_ SV* scalar, const char* classname )
             return INT2PTR( void*, SvOK( ref ) ? SvIV( ref ) : 0 );
 
         return mg->object;
-#else // if !wxPL_USE_MAGIC
-        if( SvTYPE( ref ) == SVt_PVHV ) 
-        {
-            HV* hv = (HV*) ref;
-            HE* value = hv_fetch_ent( hv, _key, 0, _hash );
-
-            if( value ) 
-            {
-                SV* sv = HeVAL( value );
-                return (void*)SvIV( sv );
-            }
-            else 
-            {
-                croak( "the associative array (hash) "
-                       " does not have a '_WXTHIS' key" );
-                return NULL; // dummy, for compiler
-            }
-        }
-        else
-            return (void*)SvIV( (SV*) ref );
-#endif // wxPL_USE_MAGIC / !wxPL_USE_MAGIC
     }
     else 
     {
@@ -562,18 +501,9 @@ void wxPli_attach_object( pTHX_ SV* object, void* ptr )
 
     if( SvTYPE( ref ) >= SVt_PVHV )
     {
-#if wxPL_USE_MAGIC
         my_magic* mg = wxPli_get_or_create_magic( aTHX_ object );
-
+        
         mg->object = ptr;
-#else
-        SV* value = newSViv( (IV)ptr );
-        if( !hv_store_ent( (HV*)ref, _key, value, _hash ) )
-        {
-            SvREFCNT_dec( value );
-            croak( "error storing '_WXTHIS' value" );
-        }
-#endif
     }
     else
     {
@@ -589,7 +519,6 @@ void* wxPli_detach_object( pTHX_ SV* object )
 
     if( SvTYPE( ref ) >= SVt_PVHV )
     {
-#if wxPL_USE_MAGIC
         my_magic* mg = wxPli_get_magic( aTHX_ object );
 
         if( mg )
@@ -601,20 +530,6 @@ void* wxPli_detach_object( pTHX_ SV* object )
         }
 
         return NULL;
-#else
-        HE* value = hv_fetch_ent( (HV*)ref, _key, 0, _hash );
-
-        if( value ) 
-        {
-            SV* sv = HeVAL( value );
-            void* tmp = (void*)SvIV( sv );
-
-            sv_setiv( sv, 0 );
-            return tmp;
-        }
-
-        return NULL;
-#endif
     }
     else
     {
