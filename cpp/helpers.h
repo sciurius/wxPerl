@@ -439,6 +439,7 @@ void FUNCPTR( wxPli_overload_error )( pTHX_ const char* function,
 SV* FUNCPTR( wxPli_create_virtual_evthandler )( pTHX_ wxEvtHandler* object,
                                         const char* classn, bool forcevirtual );
 wxPliSelfRef* FUNCPTR( wxPli_get_selfref )( pTHX_ wxObject* object, bool forcevirtual );
+SV* FUNCPTR( wxPli_object_2_scalarsv )( pTHX_ SV* var, const wxObject* object );
 
 #define WXPLI_BOOT_ONCE_( name, xs ) \
 bool name##_booted = false; \
@@ -535,6 +536,7 @@ struct wxPliHelpers
     SV* ( * m_wxPli_create_virtual_evthandler )( pTHX_ wxEvtHandler* object,
                                         const char* cln, bool forcevirtual );
     wxPliSelfRef* ( * m_wxPli_get_selfref )( pTHX_ wxObject*, bool);
+    SV* ( * m_wxPli_object_2_scalarsv )( pTHX_ SV* var, const wxObject* object );
 };
 
 #if wxPERL_USE_THREADS
@@ -579,7 +581,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_av_2_arrayint, &wxPli_set_events, &wxPli_av_2_arraystring, \
  &wxPli_objlist_push, &wxPliOutputStream_ctor, &wxPli_stringarray_push, \
  &wxPli_overload_error, &wxPli_sv_2_wxvariant, \
- &wxPli_create_virtual_evthandler, &wxPli_get_selfref \
+ &wxPli_create_virtual_evthandler, &wxPli_get_selfref, &wxPli_object_2_scalarsv \
  }
 
 #if NEEDS_PLI_HELPERS_STRUCT()
@@ -628,6 +630,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_sv_2_wxvariant = name->m_wxPli_sv_2_wxvariant; \
   wxPli_create_virtual_evthandler = name->m_wxPli_create_virtual_evthandler; \
   wxPli_get_selfref = name->m_wxPli_get_selfref; \
+  wxPli_object_2_scalarsv = name->m_wxPli_object_2_scalarsv; \
   WXPLI_INIT_CLASSINFO();
 
 #else

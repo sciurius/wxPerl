@@ -466,6 +466,23 @@ SV* wxPli_clientdatacontainer_2_sv( pTHX_ SV* var, wxClientDataContainer* cdc, c
     return wxPli_non_object_2_sv( aTHX_ var, cdc, klass );
 }
 
+SV* wxPli_object_2_scalarsv( pTHX_ SV* var, const wxObject* object )
+{
+    wxClassInfo *ci = object->GetClassInfo();
+    const wxChar* classname = ci->GetClassName();
+
+    char buffer[WXPL_BUF_SIZE];
+    const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
+
+    if( strcmp( CLASS, "Wx::Object" ) == 0 ) {
+        warn( "Missing wxRTTI information, using Wx::Object as class" );
+    }
+
+    sv_setref_pv( var, CHAR_P CLASS, const_cast<wxObject*>(object) );
+
+    return var;    
+}
+
 SV* wxPli_evthandler_2_sv( pTHX_ SV* var, wxEvtHandler* cdc )
 {
     if( cdc == NULL )
@@ -482,16 +499,8 @@ SV* wxPli_evthandler_2_sv( pTHX_ SV* var, wxEvtHandler* cdc )
         return var;
     }
 
-    // blech, duplicated code
-    wxClassInfo *ci = cdc->GetClassInfo();
-    const wxChar* classname = ci->GetClassName();
-
-    char buffer[WXPL_BUF_SIZE];
-    const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
-
-    sv_setref_pv( var, CHAR_P CLASS, cdc );
-
-    return var;
+    // fallback - return a scalarish object
+    return wxPli_object_2_scalarsv( aTHX_ var, (wxObject*)cdc );
 }
 
 SV* wxPli_object_2_sv( pTHX_ SV* var, const wxObject* object ) 
@@ -515,20 +524,8 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, const wxObject* object )
         return var;
     }
     
-    /* duplicated :-( */
-    wxClassInfo *ci = object->GetClassInfo();
-    const wxChar* classname = ci->GetClassName();
-
-    char buffer[WXPL_BUF_SIZE];
-    const char* CLASS = wxPli_cpp_class_2_perl( classname, buffer );
-
-    if( strcmp( CLASS, "Wx::Object" ) == 0 ) {
-        warn( "Missing wxRTTI information, using Wx::Object as class" );
-    }
-
-    sv_setref_pv( var, CHAR_P CLASS, const_cast<wxObject*>(object) );
-
-    return var;
+    // fallback - return a scalarish object
+    return wxPli_object_2_scalarsv( aTHX_ var, object );
 }
 
 wxPliSelfRef* wxPli_get_selfref( pTHX_ wxObject* object, bool forcevirtual )

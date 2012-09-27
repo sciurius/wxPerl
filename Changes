@@ -6,6 +6,7 @@ Revision history for Perl extension Wx.
     - added wxEvtHandler::ProcessEventLocally for 2.9.1+
     - added some absent wxWindow methods
     - updated wxTopLevelWindow
+    - added wxFrame::ProcessCommand 
 
 0.9912 Fri Sep 21 2012
     - wrapped wxListCtrl::SetItemPtrData.
