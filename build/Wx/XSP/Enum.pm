@@ -1,4 +1,8 @@
 package build::Wx::XSP::Enum;
+# Allow use when installed for other Wx based modules
+# but always use this when building Wx
+package Wx::XSP::Enum; @ISA = qw( build::Wx::XSP::Enum );
+package build::Wx::XSP::Enum;
 
 use strict;
 use warnings;
