@@ -1,4 +1,8 @@
 package build::Wx::XSP::Event;
+# Allow use when installed for other Wx based modules
+# but always use this when building Wx
+package Wx::XSP::Event; @ISA = qw( build::Wx::XSP::Event );
+package build::Wx::XSP::Event;
 
 use strict;
 use warnings;
