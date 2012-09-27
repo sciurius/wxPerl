@@ -1,7 +1,24 @@
 package build::Wx::XSP::Overload;
+# Allow use when installed for other Wx based modules
+# but always use this when building Wx
+package Wx::XSP::Overload; @ISA = qw( build::Wx::XSP::Overload );
+package build::Wx::XSP::Overload;
 
 use strict;
 use warnings;
+
+my $overload_number_types = [
+    'int', 'unsigned', 'short', 'long',
+    'unsigned int', 'unsigned short',
+    'unsigned long', 'float', 'double',
+    'wxAlignment', 'wxBrushStyle',
+    'size_t', 'ssize_t', 'wxCoord',
+    'wxUint32', 'wxDirection', 'wxBitmapType',
+];
+
+my $overload_any_types = [
+    'Wx_UserDataO', 'Wx_UserDataCD', 'wxVariantArg'
+];
 
 sub new {
     return bless { overload_methods => {},
@@ -14,7 +31,29 @@ sub register_plugin {
 
     $parser->add_post_process_plugin( plugin => $instance );
     $parser->add_method_tag_plugin( plugin => $instance, tag => 'Overload' );
+    $parser->add_toplevel_tag_plugin ( plugin => $instance, tag => 'OverloadNumberType' );
+    $parser->add_toplevel_tag_plugin ( plugin => $instance, tag => 'OverloadAnyType' );
 }
+
+
+sub handle_toplevel_tag {
+    my( $self, $empty, $tag, %args ) = @_;
+    
+    if( $tag eq 'OverloadNumberType' ) {
+        my $newtype = $args{any_positional_arguments}[0];
+        die qq(Invalid Number Type) if !$newtype;
+        push( @$overload_number_types, $newtype );
+    }
+    
+    if( $tag eq 'OverloadAnyType' ) {
+        my $newtype = $args{any_positional_arguments}[0];
+        die qq(Invalid Number Type) if !$newtype;
+        push( @$overload_any_types, $newtype );
+    }
+    
+    1;
+}
+
 
 sub handle_method_tag {
     my( $self, $method, $tag, %args ) = @_;
@@ -84,32 +123,19 @@ sub is_string {
 sub is_number {
     my( $type ) = @_;
     return 0 if $type->is_pointer;
-
     # TODO wxPerl-specific types
-    return grep $type->base_type eq $_,
-                ( 'int', 'unsigned', 'short', 'long',
-                  'unsigned int', 'unsigned short',
-                  'unsigned long', 'float', 'double',
-                  'wxAlignment', 'wxBrushStyle',
-                  'size_t', 'ssize_t', 'wxCoord',
-                  'wxUint32', 'wxDirection', 'wxBitmapType',
-                  );
+    return grep $type->base_type eq $_, @$overload_number_types;
 }
 
 sub is_value {
     my( $type, $class ) = @_;
     return 0 if $type->is_pointer;
-
     return $type->base_type eq $class;
 }
 
 sub is_any {
     my( $type ) = @_;
-
-    # TODO wxPerl-specific type
-    return 1 if $type->base_type eq 'Wx_UserDataO';
-    return 1 if $type->base_type eq 'Wx_UserDataCD';
-    return 1 if $type->base_type eq 'wxVariantArg';
+    return ( grep $type->base_type eq $_, @$overload_any_types ) ? 1 : 0;
 }
 
 sub _compare_function {
