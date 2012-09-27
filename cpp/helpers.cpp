@@ -52,7 +52,7 @@ struct my_magic
 {
     my_magic() : object( NULL ), deleteable( true ) { }
 
-    wxObject*  object;
+    void*      object;
     bool       deleteable;
 };
 
@@ -565,7 +565,7 @@ void wxPli_attach_object( pTHX_ SV* object, void* ptr )
 #if wxPL_USE_MAGIC
         my_magic* mg = wxPli_get_or_create_magic( aTHX_ object );
 
-        mg->object = (wxObject*)ptr;
+        mg->object = ptr;
 #else
         SV* value = newSViv( (IV)ptr );
         if( !hv_store_ent( (HV*)ref, _key, value, _hash ) )
