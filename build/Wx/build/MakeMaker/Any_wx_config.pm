@@ -42,6 +42,7 @@ sub get_flags {
 sub const_config {
     my $text = shift->SUPER::const_config( @_ );
 
+    $text =~ s{^(LD(?:DL)?FLAGS\s*=.*?)-L/usr/local/lib64/?}{$1}mg;
     $text =~ s{^(LD(?:DL)?FLAGS\s*=.*?)-L/usr/local/lib/?}{$1}mg;
 
     return $text;
