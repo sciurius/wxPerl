@@ -1,0 +1,23 @@
+#############################################################################
+## Name:        ext/test/typemap
+## Purpose:     typemap
+## Author:      Mark Dootson
+## Modified by:
+## Created:     2012-09-28
+## RCS-ID:      $Id:$
+## Copyright:   (c) 2012 Mark Dootson
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+
+wxPerlTestAbstractNonObject *   O_NON_WXOBJECT_THR
+wxPlPerlTestAbstractNonObject * O_NON_WXOBJECT_VXSP_THR
+wxPerlTestNonObject *           O_NON_WXOBJECT_THR
+wxPlPerlTestNonObject *         O_NON_WXOBJECT_VXSP_THR
+
+wxPerlTestAbstractObject *      O_WXOBJECT_THR
+wxPlPerlTestAbstractObject *    O_WXOBJECT_THR
+wxPerlTestObject *              O_WXOBJECT_THR
+wxPlPerlTestObject *            O_WXOBJECT_THR

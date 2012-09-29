@@ -1,0 +1,20 @@
+#############################################################################
+## Name:        ext/test/typemap.xsp
+## Purpose:     XS++ typemap
+## Author:      Mark Dootson
+## Modified by:
+## Created:     2012-09-28
+## RCS-ID:      $Id:$
+## Copyright:   (c) 2012 Mark Dootson
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%typemap{wxPerlTestAbstractNonObject*}{simple};
+%typemap{wxPlPerlTestAbstractNonObject*}{simple};
+%typemap{wxPerlTestNonObject*}{simple};
+%typemap{wxPlPerlTestNonObject*}{simple};
+%typemap{wxPerlTestAbstractObject*}{simple};
+%typemap{wxPlPerlTestAbstractObject*}{simple};
+%typemap{wxPerlTestObject*}{simple};
+%typemap{wxPlPerlTestObject*}{simple};

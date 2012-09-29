@@ -1,0 +1,146 @@
+#############################################################################
+## Name:        ext/test/XS/PerlTest.xsp
+## Purpose:     XS++ for Wx::PerlTest
+## Author:      Mark Dootson
+## Modified by:
+## Created:     2012-09-28
+## RCS-ID:      $Id: $
+## Copyright:   (c) 2012 Mark Dootson
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+%loadplugin{build::Wx::XSP::Virtual};
+
+%name{Wx::PerlTestAbstractNonObject} class wxPerlTestAbstractNonObject
+
+{
+    %NoVirtualBase;
+    %VirtualNonObject;
+
+%{
+static void
+wxPerlTestAbstractNonObject::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+    
+public:
+    wxPerlTestAbstractNonObject( const wxString& moniker = wxT("AbstractNonObject") );
+    
+   
+    virtual ~wxPerlTestAbstractNonObject()
+        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PerlTestAbstractNonObject", THIS, ST(0) );
+                 delete THIS;
+               %};
+    
+    wxString GetMoniker() const;
+    
+    wxString GetMessage() const;
+    
+    virtual wxString DoGetMessage() const %Virtual{pure};
+    
+    virtual wxString EchoClassName() %Virtual;
+    
+    virtual wxString OnlyInBase() %Virtual;
+};
+
+
+%name{Wx::PerlTestNonObject} class wxPerlTestNonObject : public %name{Wx::PerlTestAbstractNonObject} wxPerlTestAbstractNonObject
+
+{
+    %NoVirtualBase;
+    %VirtualNonObject;
+
+%{
+static void
+wxPerlTestNonObject::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+    wxPerlTestNonObject( const wxString& moniker = wxT("NonObject") );
+    
+    virtual ~wxPerlTestNonObject()
+           %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PerlTestNonObject", THIS, ST(0) );
+                delete THIS;
+               %};
+    
+    virtual wxString DoGetMessage() const %Virtual;
+    
+    virtual wxString EchoClassName() %Virtual;
+
+};
+
+
+%name{Wx::PerlTestAbstractObject} class wxPerlTestAbstractObject : public %name{Wx::Object} wxObject
+
+{
+    %NoVirtualBase;
+    %VirtualImplementation{
+        %Name{wxPlPerlTestAbstractObject};
+        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPerlTestAbstractObject ); %};
+        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPerlTestAbstractObject, wxPerlTestAbstractObject ); %};
+    };
+
+%{
+static void
+wxPerlTestAbstractObject::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+    wxPerlTestAbstractObject( const wxString& moniker = wxT("AbstractObject") );
+    
+    virtual ~wxPerlTestAbstractObject()
+           %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PerlTestAbstractObject", THIS, ST(0) );
+                 delete THIS;
+               %};
+
+    wxString GetMoniker() const;
+    
+    wxString GetMessage() const;
+    
+    virtual wxString DoGetMessage() const %Virtual{pure};
+    
+    virtual wxString EchoClassName() %Virtual;
+    
+    virtual wxString OnlyInBase() %Virtual;
+
+};
+
+
+%name{Wx::PerlTestObject} class wxPerlTestObject : public %name{Wx::PerlTestAbstractObject} wxPerlTestAbstractObject
+
+{
+    %NoVirtualBase;
+    %VirtualImplementation{
+        %Name{wxPlPerlTestObject};
+        %Declaration{% WXPLI_DECLARE_DYNAMIC_CLASS( wxPlPerlTestObject ); %};
+        %Implementation{% WXPLI_IMPLEMENT_DYNAMIC_CLASS( wxPlPerlTestObject, wxPerlTestObject ); %};
+    };
+
+%{
+static void
+wxPerlTestObject::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+    wxPerlTestObject( const wxString& moniker = wxT("Object") );
+    
+    virtual ~wxPerlTestObject()
+           %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PerlTestObject", THIS, ST(0) );
+                 delete THIS;
+               %};
+    
+    virtual wxString DoGetMessage() const %Virtual;
+    
+    virtual wxString EchoClassName() %Virtual;
+};
