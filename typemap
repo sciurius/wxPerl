@@ -643,6 +643,36 @@ O_NON_WXOBJECT_SELF
     SvREFCNT_inc( $arg ); // xsubpp mortalizes it...
 
 #
+# Non Objects handled by Wx::XSP::Virtual XS++ plugin 
+#
+
+INPUT
+O_NON_WXOBJECT_VXSP
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+
+O_NON_WXOBJECT_VXSP_THR
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+
+
+OUTPUT
+O_NON_WXOBJECT_VXSP
+    if( $var == 0 )
+    {
+       $arg = &PL_sv_undef;
+    } else {
+       SvSetSV_nosteal( $arg, $var->GetSelf() );
+    }
+
+O_NON_WXOBJECT_VXSP_THR
+    if( $var == 0 )
+    {
+       $arg = &PL_sv_undef;
+    } else {
+       SvSetSV_nosteal( $arg, $var->GetSelf() );
+       wxPli_thread_sv_register( aTHX_ ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx|wxPl)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}, $var, $arg );
+    }
+
+#
 # SV_null
 #
 

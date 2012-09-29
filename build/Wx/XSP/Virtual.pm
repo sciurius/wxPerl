@@ -1,4 +1,8 @@
 package build::Wx::XSP::Virtual;
+# Allow use when installed for other Wx based modules
+# but always use this when building Wx
+package Wx::XSP::Virtual; @ISA = qw( build::Wx::XSP::Virtual );
+package build::Wx::XSP::Virtual;
 
 use strict;
 use warnings;
@@ -9,7 +13,35 @@ sub new {
     return bless { virtual_methods => {},
                    virtual_classes => {},
                    skip_virtual_base => {},
+                   virtual_non_object => {},
                    }, $_[0];
+}
+
+sub _add_type_map_template {
+    my $template = shift;
+    my @validmaptypes = qw( convert_return default_value type_char arguments );
+    my $tmap = {};
+    my $tname = $template->{name};
+    
+    # if we specified a merge, use those values as our base
+    if(exists($template->{merge})) {
+        if(exists($type_map{$template->{merge}})) {
+            my $mergebase = $type_map{$template->{merge}};
+            for my $vtype ( @validmaptypes ) {
+                $tmap->{$vtype} = $mergebase->{$vtype} if(exists($mergebase->{$vtype}));
+            }
+        } else {
+            die qq(virtual template merge attempted for type $tname with unknown base type $template->{merge});
+        }
+    }
+    # add values for this template, overriding anything in merged type and replacing any
+    # existing map for the named type
+    
+    for my $vtype ( @validmaptypes ) {
+        $tmap->{$vtype} = $template->{$vtype} if(exists($template->{$vtype}));
+    }
+    
+    $type_map{$tname} = $tmap;
 }
 
 sub register_plugin {
@@ -18,6 +50,7 @@ sub register_plugin {
     
     $parser->add_toplevel_tag_plugin ( plugin => $instance, tag => 'VirtualTypeMap' );
     $parser->add_class_tag_plugin( plugin => $instance, tag => 'NoVirtualBase' );
+    $parser->add_class_tag_plugin( plugin => $instance, tag => 'VirtualNonObject' );
     $parser->add_class_tag_plugin( plugin => $instance, tag => 'VirtualImplementation' );
     $parser->add_method_tag_plugin( plugin => $instance, tag => 'Virtual' );
     $parser->add_post_process_plugin( plugin => $instance );
@@ -31,15 +64,17 @@ sub handle_toplevel_tag {
         my $typename = $map{Name}[0][0] || undef;
         die 'No Name in VirtualTypeMap' if !$typename;
         my $vtmap = {
+            'name'            => $typename,
             'convert_return'  => $map{ConvertReturn}[0][0] || undef,
             'default_value'   => $map{DefaultValue}[0][0] || undef,
             'type_char'       => $map{TypeChar}[0][0] || undef,
             'arguments'       => $map{Arguments}[0][0] || undef,
+            'merge'           => $map{Merge}[0][0] || undef,
         };
         foreach my $key (sort keys( %$vtmap ) ) {
             delete($vtmap->{$key}) unless defined($vtmap->{$key});
         }
-        $type_map{$typename} = $vtmap;
+        _add_type_map_template($vtmap);
     }
     
     1;
@@ -50,6 +85,8 @@ sub handle_class_tag {
 
     if( $tag eq 'NoVirtualBase' ) {
         $self->{skip_virtual_base}{$class->cpp_name} = 1;
+    } elsif( $tag eq 'VirtualNonObject' ) {
+        $self->{virtual_non_object}{$class->cpp_name} = 1;
     } elsif( $tag eq 'VirtualImplementation' ) {
         my %map = @{$args{any_named_arguments}};
 
@@ -76,128 +113,113 @@ sub handle_method_tag {
     1;
 }
 
-%type_map =
-  ( 'bool'             => { convert_return => 'SvTRUE( ret )',
+# create some base templates for common types
+{
+   my @basetemplates =
+  ( { name => 'bool',       convert_return => 'SvTRUE( ret )',
                             default_value  => 'false',
                             type_char      => 'b',
                             },
-    'int'              => { convert_return => 'SvIV( ret )',
+   
+    { name => 'int',        convert_return => 'SvIV( ret )',
                             default_value  => '0',
                             type_char      => 'i',
                             },
-    'long'             => { convert_return => 'SvIV( ret )',
+    { name => 'long',       convert_return => 'SvIV( ret )',
                             default_value  => '0',
                             type_char      => 'l',
                             },
-    'double'           => { convert_return => 'SvNV( ret )',
+    { name => 'double',     convert_return => 'SvNV( ret )',
                             default_value  => '0.0',
                             type_char      => 'd',
                             },
-    'wxAlignment'      => { convert_return => '(wxAlignment)SvIV( ret )',
+    { name => 'wxAlignment', convert_return => '(wxAlignment)SvIV( ret )',
                             default_value  => '(wxAlignment)0',
                             type_char      => 'i',
                             },
-    'wxGridCellAttr::wxAttrKind' =>
-                       => { convert_return => '(wxGridCellAttr::wxAttrKind)SvIV( ret )',
+    { name => 'wxGridCellAttr::wxAttrKind',
+                            convert_return => '(wxGridCellAttr::wxAttrKind)SvIV( ret )',
                             default_value  => '(wxGridCellAttr::wxAttrKind)0',
                             type_char      => 'i',
                             },
-    'unsigned int'     => { convert_return => 'SvUV( ret )',
+    { name => 'unsigned int', convert_return => 'SvUV( ret )',
                             default_value  => '0',
                             type_char      => 'I',
                             },
-    'wxUint32'         => { convert_return => 'SvIV( ret )',
+    { name => 'wxUint32',   convert_return => 'SvIV( ret )',
                             default_value  => '0',
                             type_char      => 'i',
                             },    
-    # TODO merge
-    'size_t'           => { convert_return => 'SvUV( ret )',
-                            default_value  => '0',
-                            type_char      => 'I',
+    { name => 'size_t',     merge          => 'unsigned int',
                             },
-    'wxString'         => { convert_return => 'wxPli_sv_2_wxString( aTHX_ ret )',
+    { name => 'wxString',   convert_return => 'wxPli_sv_2_wxString( aTHX_ ret )',
                             default_value  => 'wxEmptyString',
                             type_char      => 'P',
                             arguments      => '&%s',
                             },
-    'wxString&'         => { convert_return => 'wxPli_sv_2_wxString( aTHX_ ret )',
-                            default_value  => 'wxEmptyString',
-                            type_char      => 'P',
-                            arguments      => '&%s',
-                            },    
-    'wxString*'         => { convert_return => '(wxString*)wxPli_sv_2_wxString( aTHX_ ret )',
-                            default_value  => 'wxEmptyString',
-                            type_char      => 'P',
-                            arguments      => '&%s',
-                            },
-    # TODO merge
-    'const wxString&'  => { convert_return => 'wxPli_sv_2_wxString( aTHX_ ret )',
+    { name => 'wxString&' ,  merge          => 'wxString', },
+    { name => 'const wxString&', merge      => 'wxString', },
+    { name => 'wxString*',  convert_return => '(wxString*)wxPli_sv_2_wxString( aTHX_ ret )',
                             default_value  => 'wxEmptyString',
                             type_char      => 'P',
                             arguments      => '&%s',
                             },
-    'wxVariant&'       => { convert_return => 'wxPli_sv_2_wxvariant( aTHX_ ret )',
+    { name => 'wxVariant',  convert_return => 'wxPli_sv_2_wxvariant( aTHX_ ret )',
                             default_value  => 'wxVariant()',
                             type_char      => 'q',
                             arguments      => '&%s, "Wx::Variant"',
                             },
-    'wxVariant'        => { convert_return => 'wxPli_sv_2_wxvariant( aTHX_ ret )',
-                            default_value  => 'wxVariant()',
-                            type_char      => 'q',
-                            arguments      => '&%s, "Wx::Variant"',
-                            },    
-    # TODO merge
-    'const wxVariant&' => { convert_return => 'wxPli_sv_2_wxvariant( aTHX_ ret )',
-                            default_value  => 'wxVariant()',
-                            type_char      => 'q',
-                            arguments      => '&%s, "Wx::Variant"',
-                            },
-    'wxBitmap'        => { convert_return => '*(wxBitmap*)wxPli_sv_2_object( aTHX_ ret, "Wx::Bitmap" )',
+    { name => 'wxVariant&', merge          => 'wxVariant',},
+    { name => 'const wxVariant&', merge    => 'wxVariant',},
+
+    { name => 'wxBitmap',  convert_return => '*(wxBitmap*)wxPli_sv_2_object( aTHX_ ret, "Wx::Bitmap" )',
                            default_value  => 'wxBitmap()',
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
-    # TODO merge
-    'const wxBitmap&' => { convert_return => '*(wxBitmap*)wxPli_sv_2_object( aTHX_ ret, "Wx::Bitmap" )',
-                           default_value  => 'wxBitmap()',
-                           type_char      => 'O',
-                           arguments      => '&%s',
-                           },
-    'const wxPoint&'  => { convert_return => 'wxPli_sv_2_wxpoint( aTHX_ ret )',
+    { name => 'wxBitmap&', merge          => 'wxBitmap',},
+    { name => 'const wxBitmap&', merge    => 'wxBitmap',},
+    
+    { name => 'wxPoint',   convert_return => 'wxPli_sv_2_wxpoint( aTHX_ ret )',
                            default_value  => 'wxPoint()',
                            type_char      => 'o',
                            arguments      => '&%s, "Wx::Point"',
                            },
-    'wxSize'          => { convert_return => 'wxPli_sv_2_wxsize( aTHX_ ret )',
+    
+    { name => 'wxPoint&',  merge          => 'wxPoint',},
+    { name => 'const wxPoint&', merge     => 'wxPoint',},
+   
+    { name => 'wxSize',    convert_return => 'wxPli_sv_2_wxsize( aTHX_ ret )',
                            default_value  => 'wxSize()',
                            type_char      => 'o',
                            arguments      => '&%s, "Wx::Size"',
-                           },        
-    'const wxSize&'   => { convert_return => 'wxPli_sv_2_wxsize( aTHX_ ret )',
-                           default_value  => 'wxSize()',
-                           type_char      => 'o',
-                           arguments      => '&%s, "Wx::Size"',
-                           },    
-    'const wxRect&'   => { convert_return => '*(wxRect*)wxPli_sv_2_object( aTHX_ ret, "Wx::Rect" )',
+                           },
+    { name => 'wxSize&',   merge          => 'wxSize',},
+    { name => 'const wxSize&', merge      => 'wxSize',},
+    
+    { name => 'const wxRect&', convert_return => '*(wxRect*)wxPli_sv_2_object( aTHX_ ret, "Wx::Rect" )',
                            default_value  => 'wxRect()',
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
     
-    'const wxHeaderColumn&' =>
-                         { convert_return => '*(wxHeaderColumn*)wxPli_sv_2_object( aTHX_ ret, "Wx::HeaderColumn" )',
+    { name => 'const wxHeaderColumn&',
+                           convert_return => '*(wxHeaderColumn*)wxPli_sv_2_object( aTHX_ ret, "Wx::HeaderColumn" )',
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
-    'wxGrid*' =>         { convert_return => '(wxGrid*)wxPli_sv_2_object( aTHX_ ret, "Wx::Grid" )',
+    { name => 'wxGrid*',   convert_return => '(wxGrid*)wxPli_sv_2_object( aTHX_ ret, "Wx::Grid" )',
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
-    'wxGridCellAttr*' => { convert_return => 'convert_GridCellAttrOut( aTHX_ ret )',
+    { name => 'wxGridCellAttr*', convert_return => 'convert_GridCellAttrOut( aTHX_ ret )',
                            type_char      => 'O',
                            arguments      => '&%s',
                            },
     );
+
+    _add_type_map_template($_) for ( @basetemplates );
+}
 
 sub _virtual_typemap {
     my( $type ) = @_;
@@ -228,7 +250,7 @@ sub post_process {
     foreach my $node ( @copy ) {
         next unless $node->isa( 'ExtUtils::XSpp::Node::Class' );
         next if $self->{virtual_classes}{$node};
-        my( @virtual, $abstract_class, @classes, %redefined );
+        my( @virtual, $abstract_class, @classes, %redefined, $vnon_object, $nonobject_forced );
         
         @classes = $node;
         # find virtual method in this class and in all base classes
@@ -236,7 +258,9 @@ sub post_process {
             my $class = shift @classes;
             next if    $class ne $node
                     && $self->{skip_virtual_base}{$class->cpp_name};
-
+            
+            $vnon_object = ( $self->{virtual_non_object}{$class->cpp_name} ) ? 1 : 0;
+            
             foreach my $method ( @{$class->methods} ) {
                 next unless $method->isa( 'ExtUtils::XSpp::Node::Method' );
                 # do not generate virtual handling code for methods that
@@ -250,6 +274,16 @@ sub post_process {
 
                 push @virtual, $self->{virtual_methods}{$method};
                 $abstract_class ||= $virtual[-1][1];
+            }
+            
+            # force abstract style for O_NON_WXOBJECT types
+            # so that constructors return a self ref and all
+            # methods therefore forward the self ref and not
+            # a scalarish object. (At least for SV* obtained
+            # from constructor or CallBack)
+            if( $vnon_object && !$abstract_class) {
+                $abstract_class   = 1;
+                $nonobject_forced = 1;
             }
 
             push @classes, @{$class->base_classes};
@@ -293,9 +327,18 @@ sub post_process {
         # for abstract class, delete all constructors
         my @constructors = grep $_->isa( 'ExtUtils::XSpp::Node::Constructor' ),
                                 @{$node->methods};
-        my @cpp_code;
+        
         $node->delete_methods( @constructors );
-
+        
+        # for non_object classes, put destructors in the Wx::Pl##Name package
+        my @destructors = ( $vnon_object )
+            ?  grep $_->isa( 'ExtUtils::XSpp::Node::Destructor' ), @{$node->methods}
+            : ();
+            
+        $node->delete_methods( @destructors );
+        
+        
+        my @cpp_code;
         push @cpp_code, sprintf <<EOC,
 #include "cpp/v_cback.h"
 
@@ -477,10 +520,33 @@ EOT
                                   condition       => $node->condition,
                                   emit_condition  => $node->condition_expression,
                                   methods         => [ @new_constructors,
-                                                       @call_base ],
+                                                       @call_base,
+                                                       @destructors ],
                                   );
 
             push @$nodes, $new_class;
+            
+            # THIS HACK DOES NOT WORK
+            ##if( $nonobject_forced ) {
+            ##    
+            ##    # No pure virtual methods so user is expecting
+            ##    # Wx::Something->new to work ( as opposed to Wx::PlSomething->new ).
+            ##    # Hack a set of constructors so that user expectation will
+            ##    # be met in most cases.
+            ##    
+            ##    my $use_perl_class = $perl_class;
+            ##    $use_perl_class =~ s/^Wx::Pl/Wx::/;
+            ##    my $ctors_class = ExtUtils::XSpp::Node::Class->new
+            ##                        ( cpp_name        => $cpp_class,
+            ##                          perl_name       => $use_perl_class,
+            ##                          condition       => $node->condition,
+            ##                          emit_condition  => $node->condition_expression,
+            ##                          methods         => [ @new_constructors ],
+            ##                          );
+            ##
+            ##    push @$nodes, $ctors_class;
+            ##}
+            
         } else {
             $node->add_methods( @new_constructors );
 
@@ -493,6 +559,30 @@ EOT
                 # list is emitted for the class in $node; at some
                 # point XS++ should be fixed to detect and remove the
                 # duplicate base class list
+                
+                # for now hack out any duplicates ourself
+                {
+                    my %callbasenamehash;
+                    for my $callmethod ( @call_base ) {
+                        if( $callmethod->isa('ExtUtils::XSpp::Node::Method') ) {
+                            my $pmname = $callmethod->perl_name;
+                            $callbasenamehash{$pmname} = 1;
+                        }
+                    }
+                    
+                    my @delmethods = ();
+                    
+                    for my $basemethod ( @{$node->methods} ) {
+                        if( $basemethod->isa('ExtUtils::XSpp::Node::Method') ) {
+                            my $pmname = $basemethod->perl_name;
+                            push( @delmethods, $basemethod ) if exists($callbasenamehash{$pmname});
+                        }
+                    }
+                    
+                    $node->delete_methods( @delmethods ) if @delmethods;
+                    
+                } # end of hack
+                
                 my $new_class = ExtUtils::XSpp::Node::Class->new
                                     ( cpp_name        => $cpp_class,
                                       perl_name       => $perl_class,
