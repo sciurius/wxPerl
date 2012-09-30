@@ -141,6 +141,10 @@ wxMenuBar *             O_WXOBJECT
 wxMenu *                O_WXOBJECT
 wxMenuItem *            O_WXOBJECT
 
+wxRearrangeList *       O_WXOBJECT_NAMED
+wxRearrangeCtrl *       O_WXOBJECT_NAMED
+wxRearrangeDialog *     O_WXOBJECT_NAMED
+
 wxDirFilterListCtrl *   O_WXEVTHANDLER
 wxDirCtrl *             O_WXEVTHANDLER
 wxFileCtrl *            O_WXEVTHANDLER
@@ -504,6 +508,13 @@ O_WXOBJECT_THR
 
 O_WXEVTHANDLER
     wxPli_evthandler_2_sv( aTHX_ $arg, $var );
+    
+O_WXOBJECT_NAMED
+    wxPli_namedobject_2_sv( aTHX_ $arg, $var, PERL_CLASS );
+    
+O_WXOBJECT_NAMED_THR
+    wxPli_namedobject_2_sv( aTHX_ $arg, $var, PERL_CLASS );
+    wxPli_thread_sv_register( aTHX_ PERL_CLASS, $var, $arg );
 
 O_WXCLIENTDATACONTAINER
     wxPli_clientdatacontainer_2_sv( aTHX_ $arg, $var, PERL_CLASS );
@@ -552,6 +563,12 @@ O_WXOBJECT_THR
     $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_WXEVTHANDLER
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
+
+O_WXOBJECT_NAMED
+    $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
+    
+O_WXOBJECT_NAMED_THR
     $var = (CPP_CLASS) wxPli_sv_2_object( aTHX_ $arg, PERL_CLASS );
 
 O_WXCLIENTDATACONTAINER

@@ -1,6 +1,9 @@
 Revision history for Perl extension Wx.
 
 0.9914 TBR
+    - wrapped wxRearrangeCtrl
+    - added start of Wx::PerlTest - to aid documentation and examples
+    - Additions for Wx::XSP::* classes
     - wrapped wxEventFilter for 2.9.3 +
     - updated missing Wx::App methods for 2.9.4 +
     - added wxEvtHandler::ProcessEventLocally for 2.9.1+

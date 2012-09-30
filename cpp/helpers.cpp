@@ -444,6 +444,8 @@ SV* wxPli_evthandler_2_sv( pTHX_ SV* var, wxEvtHandler* cdc )
 
 SV* wxPli_object_2_sv( pTHX_ SV* var, const wxObject* object ) 
 {
+    return wxPli_namedobject_2_sv( aTHX_ var, object, NULL);
+    /*
     if( object == NULL )
     {
         sv_setsv( var, &PL_sv_undef );
@@ -464,6 +466,40 @@ SV* wxPli_object_2_sv( pTHX_ SV* var, const wxObject* object )
     }
     
     // fallback - return a scalarish object
+    return wxPli_object_2_scalarsv( aTHX_ var, object );
+    */
+}
+
+SV* wxPli_namedobject_2_sv( pTHX_ SV* var, const wxObject* object, const char* package  ) 
+{
+    if( object == NULL )
+    {
+        sv_setsv( var, &PL_sv_undef );
+        return var;
+    }
+
+    wxEvtHandler* evtHandler = wxDynamicCast( object, wxEvtHandler );
+
+    if( evtHandler && evtHandler->GetClientObject() )
+        return wxPli_evthandler_2_sv( aTHX_ var, evtHandler );
+
+    wxPliSelfRef* sr = wxPli_get_selfref( aTHX_ const_cast<wxObject*>(object), false );
+
+    if( sr && sr->m_self )
+    {
+        SvSetSV_nosteal( var, sr->m_self );
+        return var;
+    }
+    // We may name the package if the wxWidgets implementation fails to
+    // implement classinfo and calling classinfo will therefore give
+    // us a base class name rather than this class name
+    if( package )
+    {
+        sv_setref_pv( var, CHAR_P package, const_cast<wxObject*>(object) );
+        return var;
+    }
+
+    // fallback - return a scalarish object using classinfo
     return wxPli_object_2_scalarsv( aTHX_ var, object );
 }
 
