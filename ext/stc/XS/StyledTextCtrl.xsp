@@ -10,6 +10,9 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
+## // current up to wxWidgets rev 71556
+## // updates 
+
 %module{Wx};
 
 #undef FindText
