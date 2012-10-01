@@ -378,6 +378,7 @@ interface/wx/grid/gridtablebase.h
 interface/wx/headercol.h
 interface/wx/headerctrl.h
 interface/wx/infobar.h
+interface/wx/rearrangectrl.h
 interface/wx/richtooltip.h
 interface/wx/treelist.h
 lib/Wx/Api.pod
