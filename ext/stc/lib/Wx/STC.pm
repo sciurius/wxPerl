@@ -64,6 +64,11 @@ sub EVT_STC_ZOOM($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_ZOOM, $_[2] ) 
 sub EVT_STC_HOTSPOT_CLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_HOTSPOT_CLICK, $_[2] ) };
 sub EVT_STC_HOTSPOT_DCLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_HOTSPOT_DCLICK, $_[2] ) };
 sub EVT_STC_CALLTIP_CLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_CALLTIP_CLICK, $_[2] ) };
+sub EVT_STC_AUTOCOMP_SELECTION($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_AUTOCOMP_SELECTION, $_[2] ) };
+sub EVT_STC_INDICATOR_CLICK($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_INDICATOR_CLICK, $_[2] ) };
+sub EVT_STC_INDICATOR_RELEASE($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_INDICATOR_RELEASE, $_[2] ) };
+sub EVT_STC_AUTOCOMP_CANCELLED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_AUTOCOMP_CANCELLED, $_[2] ) };
+sub EVT_STC_AUTOCOMP_CHAR_DELETED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_AUTOCOMP_CHAR_DELETED, $_[2] ) };
 
 1;
 

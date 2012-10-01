@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.9914 TBR
+    - Wx::StyledTextCtrl additions for 2.9.4
     - wxLog functions for 2.9.x added
     - wrapped wxRearrangeCtrl
     - added start of Wx::PerlTest - to aid documentation and examples

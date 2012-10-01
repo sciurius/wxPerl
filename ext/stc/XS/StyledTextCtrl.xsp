@@ -1326,7 +1326,7 @@ wxStyledTextCtrl::SaveFile(wxString filename)
 bool
 wxStyledTextCtrl::LoadFile(wxString filename)
 
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
+#if WXPERL_W_VERSION_GE( 2, 6, 0 ) && WXPERL_W_VERSION_LT( 2, 9, 4 )
 
 void
 wxStyledTextCtrl::AddTextRaw( text )
@@ -1340,6 +1340,25 @@ wxStyledTextCtrl::InsertTextRaw( pos, text )
 void
 wxStyledTextCtrl::AppendTextRaw( text )
     const char* text = wxUSE_UNICODE ? SvPVutf8( $arg, PL_na ) : SvPV( $arg, PL_na );
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+
+void
+wxStyledTextCtrl::AddTextRaw( text, length = -1 )
+    const char* text = SvPVutf8( $arg, PL_na );
+    int length
+
+void
+wxStyledTextCtrl::InsertTextRaw( pos, text )
+    int pos
+    const char* text = SvPVutf8( $arg, PL_na );
+
+void
+wxStyledTextCtrl::AppendTextRaw( text, length = -1 )
+    const char* text = SvPVutf8( $arg, PL_na );
+    int length
 
 #endif
 %}
@@ -1567,4 +1586,93 @@ wxStyledTextCtrl::AppendTextRaw( text )
 
     void ZoomIn();
     void ZoomOut();
+
+#if WXPERL_W_VERSION_GE( 2, 9, 4 )
+
+    void SetWhitespaceSize(int size); 
+ 	int GetWhitespaceSize() const;
+    void SetWrapIndentMode(int mode); 
+ 	int GetWrapIndentMode() const;
+    void SetFirstVisibleLine(int lineDisplay);
+    void CopyAllowLine(); 
+ 	const char* GetCharacterPointer(); 
+ 	void SetKeysUnicode(bool keysUnicode); 
+ 	bool GetKeysUnicode() const; 
+ 	void IndicatorSetAlpha(int indicator, int alpha); 
+ 	int IndicatorGetAlpha(int indicator) const; 
+ 	void SetExtraAscent(int extraAscent); 
+ 	int GetExtraAscent() const; 
+ 	void SetExtraDescent(int extraDescent); 
+ 	int GetExtraDescent() const; 
+ 	int GetMarkerSymbolDefined(int markerNumber); 
+ 	void MarginSetText(int line, const wxString& text); 
+ 	wxString MarginGetText(int line) const; 
+ 	void MarginSetStyle(int line, int style); 
+ 	int MarginGetStyle(int line) const; 
+ 	void MarginSetStyles(int line, const wxString& styles); 
+ 	wxString MarginGetStyles(int line) const; 
+ 	void MarginTextClearAll(); 
+ 	void MarginSetStyleOffset(int style); 
+    int MarginGetStyleOffset() const; 
+ 	void AnnotationSetText(int line, const wxString& text); 
+ 	wxString AnnotationGetText(int line) const; 
+ 	void AnnotationSetStyle(int line, int style); 
+ 	int AnnotationGetStyle(int line) const; 
+ 	void AnnotationSetStyles(int line, const wxString& styles); 
+ 	wxString AnnotationGetStyles(int line) const; 
+ 	int AnnotationGetLines(int line) const; 
+ 	void AnnotationClearAll(); 
+ 	void AnnotationSetVisible(int visible); 
+ 	int AnnotationGetVisible() const; 
+ 	void AnnotationSetStyleOffset(int style); 
+ 	int AnnotationGetStyleOffset() const; 
+ 	void AddUndoAction(int token, int flags); 
+ 	int CharPositionFromPoint(int x, int y); 
+ 	int CharPositionFromPointClose(int x, int y); 
+ 	void SetMultipleSelection(bool multipleSelection); 
+ 	bool GetMultipleSelection() const; 
+ 	void SetAdditionalSelectionTyping(bool additionalSelectionTyping); 
+ 	bool GetAdditionalSelectionTyping() const; 
+ 	void SetAdditionalCaretsBlink(bool additionalCaretsBlink); 
+ 	bool GetAdditionalCaretsBlink() const; 
+ 	void SetAdditionalCaretsVisible(bool additionalCaretsBlink); 
+    bool GetAdditionalCaretsVisible() const; 
+    int GetSelections() const; 
+    void ClearSelections(); 
+    int AddSelection(int caret, int anchor); 
+ 	void SetMainSelection(int selection); 
+ 	int GetMainSelection() const; 
+ 	void SetSelectionNCaret(int selection, int pos); 
+ 	int GetSelectionNCaret(int selection) const; 
+ 	void SetSelectionNAnchor(int selection, int posAnchor); 
+ 	int GetSelectionNAnchor(int selection) const; 
+ 	void SetSelectionNCaretVirtualSpace(int selection, int space); 
+ 	int GetSelectionNCaretVirtualSpace(int selection) const; 
+ 	void SetSelectionNAnchorVirtualSpace(int selection, int space); 
+ 	int GetSelectionNAnchorVirtualSpace(int selection) const; 
+ 	void SetSelectionNStart(int selection, int pos); 
+ 	int GetSelectionNStart(int selection) const; 
+ 	void SetSelectionNEnd(int selection, int pos); 
+ 	int GetSelectionNEnd(int selection) const; 
+ 	void SetRectangularSelectionCaret(int pos); 
+ 	int GetRectangularSelectionCaret() const; 
+ 	void SetRectangularSelectionAnchor(int posAnchor); 
+ 	int GetRectangularSelectionAnchor() const; 
+ 	void SetRectangularSelectionCaretVirtualSpace(int space); 
+ 	int GetRectangularSelectionCaretVirtualSpace() const; 
+ 	void SetRectangularSelectionAnchorVirtualSpace(int space); 
+ 	int GetRectangularSelectionAnchorVirtualSpace() const; 
+ 	void SetVirtualSpaceOptions(int virtualSpaceOptions); 
+ 	int GetVirtualSpaceOptions() const; 
+ 	void SetRectangularSelectionModifier(int modifier); 
+ 	int GetRectangularSelectionModifier() const; 
+ 	void SetAdditionalSelForeground(const wxColour& fore); 
+ 	void SetAdditionalSelBackground(const wxColour& back); 
+ 	void SetAdditionalSelAlpha(int alpha); 
+ 	int GetAdditionalSelAlpha() const; 
+ 	void SetAdditionalCaretForeground(const wxColour& fore); 
+ 	wxColour GetAdditionalCaretForeground() const; 
+ 	void RotateSelection(); 
+ 	void SwapMainAnchorCaret(); 
+#endif
 };
