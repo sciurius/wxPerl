@@ -13,7 +13,7 @@
 // For compilers that support precompilation, includes "wx.h".
 #include "wx/wxprec.h"
 
-#include "../include/perltest.h"
+#include "cpp/include/perltest.h"
 
 // ----------------------------------------------------------------------------
 

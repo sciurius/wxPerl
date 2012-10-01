@@ -14,7 +14,7 @@
 #define _WXPERL_PERLTEST_CLASSES_H
 
 
-class WXDLLEXPORT wxPerlTestAbstractNonObject
+class wxPerlTestAbstractNonObject
 {
 
 public:
@@ -38,9 +38,7 @@ private:
 };
 
 
-
-
-class WXDLLEXPORT wxPerlTestNonObject: public wxPerlTestAbstractNonObject
+class wxPerlTestNonObject: public wxPerlTestAbstractNonObject
 {
     
 public:
@@ -58,7 +56,7 @@ private:
 
 
 
-class WXDLLEXPORT wxPerlTestAbstractObject: public wxObject
+class wxPerlTestAbstractObject: public wxObject
 {
     
 public:
@@ -82,7 +80,7 @@ private:
     DECLARE_NO_COPY_CLASS(wxPerlTestAbstractObject);
 };
 
-class WXDLLEXPORT wxPerlTestObject: public wxPerlTestAbstractObject
+class wxPerlTestObject: public wxPerlTestAbstractObject
 {
     
 public:
