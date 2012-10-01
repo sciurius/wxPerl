@@ -236,6 +236,35 @@ wxLog::GetTimestamp()
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+SetComponentLevel( component, level )
+    wxString component
+    wxLogLevel level
+  CODE:
+    wxLog::SetComponentLevel( component, level );
+
+
+wxLogLevel
+GetComponentLevel( component )
+    wxString component
+  CODE:
+    RETVAL = wxLog::GetComponentLevel( component );
+  OUTPUT: RETVAL
+
+bool
+IsLevelEnabled( level, component )
+    wxLogLevel level
+    wxString   component
+  CODE:
+    RETVAL = wxLog::IsLevelEnabled( level, component );
+  OUTPUT: RETVAL
+
+#endif
+
+#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
+
 void
 SetTraceMask( mask )
     wxTraceMask mask
@@ -248,6 +277,8 @@ GetTraceMask()
     RETVAL = wxLog::GetTraceMask();
   OUTPUT:
     RETVAL
+    
+#endif
 
 MODULE=Wx PACKAGE=Wx::PlLog
 
@@ -294,6 +325,7 @@ wxLogWindow::new( parent, title, show = true, passtoold = true )
     wxString title
     bool show
     bool passtoold
+  
 
 MODULE=Wx PACKAGE=Wx
 
@@ -463,4 +495,115 @@ MODULE=Wx PACKAGE=Wx::LogStderr
 wxLogStderr*
 wxLogStderr::new( fp = NULL )
     FILE* fp;
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+MODULE=Wx PACKAGE=Wx::PlLogFormatter
+
+wxPlLogFormatter*
+wxPlLogFormatter::new()
+  CODE:
+    RETVAL = new wxPlLogFormatter( CLASS );
+  OUTPUT: RETVAL
+  
+void
+wxPlLogFormatter::Destroy()
+  CODE:
+    delete THIS;
+
+MODULE=Wx PACKAGE=Wx::LogFormatter
+
+void
+wxLogFormatter::Destroy()
+  CODE:
+    delete THIS;
+
+
+MODULE=Wx PACKAGE=Wx::LogRecordInfo
+
+const char*
+wxLogRecordInfo::filename()
+  CODE:
+    RETVAL = THIS->filename;
+  OUTPUT: RETVAL
+
+int
+wxLogRecordInfo::line()
+  CODE:
+    RETVAL = THIS->line;
+  OUTPUT: RETVAL
+
+const char*
+wxLogRecordInfo::func()
+  CODE:
+    RETVAL = THIS->func;
+  OUTPUT: RETVAL
+
+const char*
+wxLogRecordInfo::component()
+  CODE:
+    RETVAL = THIS->filename;
+  OUTPUT: RETVAL
+
+time_t
+wxLogRecordInfo::timestamp()
+  CODE:
+    RETVAL = THIS->timestamp;
+  OUTPUT: RETVAL
+
+
+void
+StoreValue( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT(wxPliOvl_s_n, Wx::LogRecordInfo::StoreNumValue, 2 )
+        MATCH_REDISP_COUNT(wxPliOvl_s_s, Wx::LogRecordInfo::StoreStrValue, 2 )
+    END_OVERLOAD( "Wx::LogRecordInfo::StoreValue" )
+
+
+void
+wxLogRecordInfo::StoreNumValue( key, val )
+    wxString  key
+    wxUIntPtr val
+  CODE:
+    THIS->StoreValue( key, val );
+    
+void
+wxLogRecordInfo::StoreStrValue( key, val )
+    wxString  key
+    wxString val
+  CODE:
+    THIS->StoreValue( key, val );
+
+
+void
+wxLogRecordInfo::GetNumValue( key )
+    wxString key
+  PREINIT:
+    wxUIntPtr val;
+  PPCODE:
+    bool result = THIS->GetNumValue( key, &val);
+    EXTEND( SP, 1 );
+    if(result) {
+        PUSHs( sv_2mortal( newSVuv( val ) ) );
+    } else {
+        PUSHs( &PL_sv_undef );
+    }
+
+void
+wxLogRecordInfo::GetStrValue( key )
+    wxString key
+  PREINIT:
+    wxString val;
+  PPCODE:
+    bool result = THIS->GetStrValue( key, &val);
+    EXTEND( SP, 1 );
+    if(result) {
+        SV* sv = sv_newmortal();
+        wxPli_wxString_2_sv( aTHX_ val, sv );
+    } else {
+        PUSHs( &PL_sv_undef );
+    }
+
+#endif
 

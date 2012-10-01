@@ -206,6 +206,36 @@ inline wxPliVirtualCallback::wxPliVirtualCallback( const char* package )
 #define DEC_V_CBACK_WXFSFILEP__WXFILESYSTEM_WXSTRING( METHOD ) \
   wxFSFile* METHOD( wxFileSystem&, const wxString& )
 
+#define DEC_V_CBACK_VOID__WXLOGLEVEL_WXSTRING_WXLOGRECORDINFO( METHOD ) \
+  void METHOD( wxLogLevel, const wxString&, const wxLogRecordInfo& )
+
+#define DEF_V_CBACK_VOID__WXLOGLEVEL_WXSTRING_WXLOGRECORDINFO( CLASS, BASE, METHOD ) \
+  void CLASS::METHOD( wxLogLevel p1, const wxString& p2, const wxLogRecordInfo& p3 ) \
+  {                                                                           \
+    dTHX;                                                                     \
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
+    {                                                                         \
+        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_VOID,         \
+                                           "iPq", int(p1), &p2, &p3, "Wx::LogRecordInfo" ); \
+    }                                                                         \
+    BASE::METHOD( p1, p2, p3 );                                               \
+  }
+
+#define DEC_V_CBACK_VOID__WXLOGLEVEL_WXSTRING( METHOD ) \
+  void METHOD( wxLogLevel, const wxString& )
+
+#define DEF_V_CBACK_VOID__WXLOGLEVEL_WXSTRING( CLASS, BASE, METHOD ) \
+  void CLASS::METHOD( wxLogLevel p1, const wxString& p2) \
+  {                                                                           \
+    dTHX;                                                                     \
+    if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, #METHOD ) )     \
+    {                                                                         \
+        wxPliVirtualCallback_CallCallback( aTHX_ &m_callback, G_VOID,         \
+                                           "iP", int(p1), &p2); \
+    }                                                                         \
+    BASE::METHOD( p1, p2 );                                               \
+  }
+
 #define DEC_V_CBACK_VOID__WXLOGLEVEL_CWXCHARP_TIMET( METHOD ) \
   void METHOD( wxLogLevel, const wxChar*, time_t )
 

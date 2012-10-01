@@ -311,6 +311,9 @@ wxLogPassThrough *      O_NON_WXOBJECT
 wxLogStderr *           O_NON_WXOBJECT
 wxPlLog *               O_NON_WXOBJECT
 wxPlLogPassThrough *    O_NON_WXOBJECT
+wxLogRecordInfo *       O_NON_WXOBJECT
+wxPlLogFormatter *      O_NON_WXOBJECT
+wxLogFormatter *        O_NON_WXOBJECT
 
 wxLocale *              O_NON_WXOBJECT_THR
 wxLanguageInfo *        O_NON_WXOBJECT_THR
