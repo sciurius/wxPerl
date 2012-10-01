@@ -46,7 +46,14 @@ double webview_constant( const char* name, int arg )
         r( wxWEB_VIEW_BACKEND_DEFAULT );
         r( wxWEB_VIEW_BACKEND_WEBKIT );
         r( wxWEB_VIEW_BACKEND_IE );
-          
+#if WXPERL_W_VERSION_GE( 2, 9, 5 )
+        r( wxWEB_VIEW_FIND_WRAP );
+        r( wxWEB_VIEW_FIND_ENTIRE_WORD );
+        r( wxWEB_VIEW_FIND_MATCH_CASE );
+        r( wxWEB_VIEW_FIND_HIGHLIGHT_RESULT );
+        r( wxWEB_VIEW_FIND_BACKWARDS );
+        r( wxWEB_VIEW_FIND_DEFAULT );
+#endif
         break;
     default:
         break;

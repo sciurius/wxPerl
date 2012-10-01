@@ -139,6 +139,12 @@ public:
     virtual void ClearHistory();
     
     virtual void EnableHistory(bool enable = true);
+
+#if WXPERL_W_VERSION_GE( 2, 9, 5 )
+
+    virtual long Find(const wxString& text, int flags = wxWEB_VIEW_FIND_DEFAULT);
+
+#endif
     
 %{
 
