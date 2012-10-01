@@ -51,6 +51,15 @@
 %name{Wx::BitmapButton} class wxBitmapButton : public %name{Wx::Button} wxButton
 {
 public:
+    
+    /**
+      Static Constructors
+    */
+#if WXPERL_W_VERSION_GE( 2, 9, 5 )
+    
+    static wxBitmapButton* NewCloseButton(wxWindow* parent, wxWindowID winid);
+
+#endif    
     /**
         Default ctor.
     */
