@@ -248,6 +248,7 @@ ext/print/Print.xs
 ext/print/t/01_load.t
 ext/print/t/02_inheritance.t
 ext/print/t/03_threads.t
+ext/print/t/09_paper.t
 ext/print/typemap
 ext/print/XS/PageSetupDialog.xs
 ext/print/XS/PageSetupDialogData.xs
@@ -343,6 +344,18 @@ ext/stc/t/02_inheritance.t
 ext/stc/typemap
 ext/stc/XS/StyledTextCtrl.xsp
 ext/stc/XS/StyledTextEvent.xsp
+ext/test/cpp/include/perltest.h
+ext/test/cpp/src/perltest.cpp
+ext/test/lib/Wx/PerlTest.pm
+ext/test/Makefile.PL
+ext/test/PerlTest.xs
+ext/test/t/01_load.t
+ext/test/t/02_inheritance.t
+ext/test/t/03_threads.t
+ext/test/t/07_callback.t
+ext/test/typemap
+ext/test/typemap.xsp
+ext/test/XS/PerlTest.xsp
 ext/webview/cpp/webview_constants.cpp
 ext/webview/lib/Wx/WebView.pm
 ext/webview/Makefile.PL
