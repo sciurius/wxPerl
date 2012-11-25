@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
 0.9915 TBR
+    - fix bug for wxMac in cpp/app.h
 
 0.9914 Tue Oct 02 2012
     - Wx::StyledTextCtrl additions for 2.9.4

@@ -66,11 +66,11 @@ public:
     virtual void MacOpenFiles(const wxArrayString &fileNames )
     {
         dTHX;
-        if( wxPliFCback( aTHX_ &m_callback, "MacOpenFile" ) )
+        if( wxPliFCback( aTHX_ &m_callback, "MacOpenFiles" ) )
         {
             AV* files;
             files = wxPli_stringarray_2_av( aTHX_ fileNames );
-            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR,
+            wxPliCCback( aTHX_ &m_callback, G_DISCARD|G_SCALAR,
                         "S", sv_2mortal( newRV_noinc( (SV*)files ) ) );
         } else
             wxApp::MacOpenFiles( fileNames );
@@ -81,7 +81,7 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "MacOpenFile" ) )
         {
-            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, "P", &fileName );
+            wxPliCCback( aTHX_ &m_callback, G_DISCARD|G_SCALAR, "P", &fileName );
         } else
             wxApp::MacOpenFile( fileName );
     }
@@ -91,7 +91,7 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "MacOpenURL" ) )
         {
-            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, "P", &url );
+            wxPliCCback( aTHX_ &m_callback, G_DISCARD|G_SCALAR, "P", &url );
         } else
             wxApp::MacOpenURL( url );
     }
@@ -101,7 +101,7 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "MacPrintFile" ) )
         {
-            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, "P", &fileName );
+            wxPliCCback( aTHX_ &m_callback, G_DISCARD|G_SCALAR, "P", &fileName );
         } else
             wxApp::MacPrintFile( fileName );
     }    
@@ -111,7 +111,7 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "MacNewFile" ) )
         {
-            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, NULL );
+            wxPliCCback( aTHX_ &m_callback, G_DISCARD|G_SCALAR, NULL );
         } else
             wxApp::MacNewFile();
     }
@@ -121,7 +121,7 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "MacReopenApp" ) )
         {
-            wxPliCCback( aTHX, &m_callback, G_DISCARD|G_SCALAR, NULL );
+            wxPliCCback( aTHX_ &m_callback, G_DISCARD|G_SCALAR, NULL );
         } else
             wxApp::MacReopenApp();
     }      
