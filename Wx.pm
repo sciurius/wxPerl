@@ -21,7 +21,7 @@ use vars qw(@ISA $VERSION $XS_VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4; $_x11 = 5;
 
 @ISA = qw(Exporter);
-$VERSION = '0.9915';
+$VERSION = '0.9916';
 $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 
