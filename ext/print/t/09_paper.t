@@ -12,11 +12,11 @@ is( $papersize->y, 2970, 'A4 Height' );
 my $size = Wx::Size->new(2159,2794);
 my $papertypeid = wxThePrintPaperDatabase->GetSize($size);
 
-# size selection is broken before wxWidgets 2.8.11
+# size selection differs across versions and installations.
+# wxPAPER_NOTE and wxPAPER_LETTER are the same size so either
+# may be returned.
 
-my $returntype = ( Wx::wxVERSION() < 2.008011 ) ? wxPAPER_NOTE : wxPAPER_LETTER;
-
-is( $papertypeid, $returntype, 'Got Letter Size' );
+ok( $papertypeid == wxPAPER_LETTER || $papertypeid == wxPAPER_NOTE, 'Got Letter Size' );
 
 # Local variables: #
 # mode: cperl #
