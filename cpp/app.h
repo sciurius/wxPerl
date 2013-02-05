@@ -14,6 +14,17 @@
 #undef Yield
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#include <wx/apptrait.h>
+
+class wxPerlAppTraits : public wxGUIAppTraits
+{
+public:
+    virtual void SetLocale() { }  
+};
+
+#endif
+
 class wxPliApp:public wxApp
 {
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliApp );
@@ -21,6 +32,13 @@ class wxPliApp:public wxApp
 public:
     wxPliApp( const char* package = "Wx::App" );
     ~wxPliApp();
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+    wxAppTraits* CreateTraits()
+    {
+        return (wxAppTraits*)new wxPerlAppTraits();
+    }
+#endif
 
     bool OnInit();
     int MainLoop();
