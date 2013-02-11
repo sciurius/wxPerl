@@ -1,7 +1,8 @@
 Revision history for Perl extension Wx.
 
-0.9917 TBR
-    - Stopped wxWidgets >= 2.9.0 from setting locale to current user locale 
+0.9917 Mon Feb 11 2013
+    - Stopped wxWidgets >= 2.9.0 from setting locale to current user locale
+      ( thanks to Tarek Unger )
 
 0.9916 Sat Jan 19 2013
     - put correct version check around wxLogChain::DetachOldLog

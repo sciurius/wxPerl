@@ -406,6 +406,44 @@ method directly. (Note the underscore in the method name).
 
  Wx::_MacSetFrontProcess();
 
+=head1 Locale Behaviour
+
+Beginning with 2.9.0 wxWidgets sets the application locale to the current
+system locale. Formally in wxWidgets 2.8.x, the locale by default was 'C'.
+
+A problem arises because in addition to loading gettext translation
+files, this affects other C calls like printf, sprintf,...
+
+Perl makes calls to these functions when formatting numbers.
+Number formatting always uses underlying C library functions.
+The statements 'use locale', or 'no locale' make no difference here.
+
+So, if your locale is 'de' then when Wx starts, the C library locale gets
+set accordingly.
+
+  use Wx;
+  print 8.3
+
+will output 8,3 to the terminal. Formatting uses ',' as the fractional
+separator.
+
+This, whilst possibly correct, isn't what most users will be expecting.
+
+If you want to set the locale to the system default you can do so explicitly.
+  
+  $app->{locale} = Wx::Locale->new( &Wx::wxLANGUAGE_DEFAULT );
+
+You can then also reset just the locale for number formatting to 'C' if
+that is what you require
+
+  use POSIX qw( setlocale LC_NUMERIC );
+
+  setlocale( LC_NUMERIC, C );
+
+This code applies equally regardless of which wxWidgets version is being
+used.
+
+
 =head1 Windows XP look
 
 For standalone (packed using PAR, Perl2Exe, Perl2App, ...)
