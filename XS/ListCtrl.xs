@@ -578,6 +578,14 @@ wxString
 wxListCtrl::GetItemText( item )
     long item
 
+wxFont*
+wxListCtrl::GetItemFont( item )
+    long item
+  CODE:
+    RETVAL = new wxFont( THIS->GetItemFont( item ) );
+  OUTPUT:
+    RETVAL
+
 wxColour*
 wxListCtrl::GetItemTextColour( item )
     long item
@@ -821,6 +829,13 @@ void
 wxListCtrl::SetItemText( item, text )
     long item
     wxString text
+
+void
+wxListCtrl::SetItemFont( item, font )
+    long item
+    wxFont* font
+  CODE:
+    THIS->SetItemFont( item, *font );
 
 void
 wxListCtrl::SetSingleStyle( style, add = true )
