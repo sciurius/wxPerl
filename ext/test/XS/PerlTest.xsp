@@ -33,7 +33,7 @@ public:
     
    
     virtual ~wxPerlTestAbstractNonObject()
-        %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PerlTestAbstractNonObject", THIS, ST(0) );
+        %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                  delete THIS;
                %};
     
@@ -66,7 +66,7 @@ public:
     wxPerlTestNonObject( const wxString& moniker = wxT("NonObject") );
     
     virtual ~wxPerlTestNonObject()
-           %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PerlTestNonObject", THIS, ST(0) );
+           %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                 delete THIS;
                %};
     
@@ -98,7 +98,7 @@ public:
     wxPerlTestAbstractObject( const wxString& moniker = wxT("AbstractObject") );
     
     virtual ~wxPerlTestAbstractObject()
-           %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PerlTestAbstractObject", THIS, ST(0) );
+           %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                  delete THIS;
                %};
 
@@ -136,7 +136,7 @@ public:
     wxPerlTestObject( const wxString& moniker = wxT("Object") );
     
     virtual ~wxPerlTestObject()
-           %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PerlTestObject", THIS, ST(0) );
+           %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                  delete THIS;
                %};
     
