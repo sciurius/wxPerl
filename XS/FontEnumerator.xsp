@@ -1,0 +1,145 @@
+#############################################################################
+## Name:        XS/FontEnumerator.xsp
+## Purpose:     XS for Wx::FontEnumerator
+## Author:      Mark Dootson
+## Modified by:
+## Created:     29/03/2013
+## RCS-ID:      $Id: FontEnumerator.xs 2274 2007-11-10 22:37:30Z mbarbon $
+## Copyright:   (c) 2002, 2006-2007, 2013 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+#include <wx/fontenum.h>
+
+%typemap{wxFontEncoding}{simple};
+
+%loadplugin{build::Wx::XSP::Virtual};
+
+%name{Wx::FontEnumerator} class wxFontEnumerator
+
+{
+    %NoVirtualBase;
+    %VirtualNonObject;
+
+%{
+static void
+wxFontEnumerator::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+    wxFontEnumerator();
+    
+    virtual ~wxFontEnumerator()
+    %code%{  wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+             delete THIS;
+           %};
+
+    bool EnumerateFacenames(
+                    wxFontEncoding encoding = wxFONTENCODING_SYSTEM,
+                    bool fixedWidthOnly = false
+                 );
+    
+    bool EnumerateEncodings(const wxString& facename = wxEmptyString);
+
+    virtual bool OnFacename(const wxString& facename) %Virtual;
+
+    virtual bool OnFontEncoding(const wxString& facename,
+                                const wxString& encoding) %Virtual; 
+
+    static bool IsValidFacename(const wxString &str);
+
+};
+
+%{
+
+MODULE=Wx PACKAGE=Wx::FontEnumerator
+
+## Support call to Wx::FontEnumerator->new as the
+## wxPlFontEnumerator class contains no pure virtual
+## methods and existing code will expect this to work.
+
+wxPlFontEnumerator*
+new( CLASS )
+    PlClassName CLASS
+  CODE:
+    RETVAL = new wxPlFontEnumerator( CLASS );
+  OUTPUT: RETVAL
+
+## // Static calls to GetEncodings - support previous
+## // implementation as method calls so existing code does not break.
+## // Put correct static functions first - they will not match 
+## // method calls which appear to have wxFontEnumerator as first param
+
+void
+GetEncodings( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE_FUNCTION( wxPliOvl_s, Wx::FontEnumerator::GetEncodingsStatic, 0 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_s, GetEncodingsMethod, 0 )
+    END_OVERLOAD( Wx::FontEnumerator::GetEncodings )
+
+void
+wxFontEnumerator::GetEncodingsMethod( facename = wxEmptyString )
+    wxString facename
+  PREINIT:
+    wxArrayString enc;
+  PPCODE:
+    enc = THIS->GetEncodings( facename );
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ enc );
+    SPAGAIN;
+
+void
+GetEncodingsStatic( facename = wxEmptyString )
+    wxString facename 
+  PREINIT:
+    wxArrayString enc;
+  PPCODE:
+    enc = wxFontEnumerator::GetEncodings( facename );
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ enc );
+    SPAGAIN;
+
+## // Static calls to GetFacenames - support previous
+## // implementation as method calls so existing code does not break.
+## // Put correct static functions first - they will not match 
+## // method calls which appear to have wxFontEnumerator as first param
+
+void
+GetFacenames( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP_COUNT_ALLOWMORE_FUNCTION( wxPliOvl_n_b, Wx::FontEnumerator::GetFacenamesStatic, 0 )
+        MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_b, GetFacenamesMethod, 0 )
+    END_OVERLOAD( Wx::FontEnumerator::GetFaceNames )
+
+void
+wxFontEnumerator::GetFacenamesMethod( encoding = wxFONTENCODING_SYSTEM, fixedWidthOnly = 0 )
+    wxFontEncoding encoding
+    bool fixedWidthOnly 
+  PREINIT:
+    wxArrayString fnames;
+  PPCODE:
+    fnames = THIS->GetFacenames( encoding, fixedWidthOnly );
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ fnames );
+    SPAGAIN;
+
+void
+GetFacenamesStatic( encoding = wxFONTENCODING_SYSTEM, fixedWidthOnly = 0  )
+    wxFontEncoding encoding
+    bool fixedWidthOnly 
+  PREINIT:
+    wxArrayString fnames;
+  PPCODE:
+    fnames = wxFontEnumerator::GetFacenames( encoding, fixedWidthOnly );
+    PUTBACK;
+    wxPli_stringarray_push( aTHX_ fnames );
+    SPAGAIN;
+
+%}
