@@ -481,6 +481,7 @@ static wxPlINH inherit[] =
 #ifdef __WXMSW__   
     I( EnhMetaFileDC,   DC )
 #endif
+    I( PlFontEnumerator, FontEnumerator )
     
     I( BMPHandler,      ImageHandler )
     I( PNGHandler,      ImageHandler )

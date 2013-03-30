@@ -365,6 +365,7 @@ wxTreeItemId *          O_NON_WXOBJECT_THR
 wxAnimation *           O_WXOBJECT_THR
 wxFontMapper *          O_NON_WXOBJECT
 wxFontEnumerator *      O_NON_WXOBJECT_THR
+wxPlFontEnumerator *    O_NON_WXOBJECT_VXSP_THR
 wxNativeFontInfo *      O_NON_WXOBJECT_THR
 wxFont *                O_WXOBJECT_THR
 wxRegion *              O_WXOBJECT_THR

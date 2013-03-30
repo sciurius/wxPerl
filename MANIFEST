@@ -503,7 +503,7 @@ XS/FilePickerCtrl.xsp
 XS/FindReplaceDialog.xs
 XS/Font.xs
 XS/FontDialog.xs
-XS/FontEnumerator.xs
+XS/FontEnumerator.xsp
 XS/FontMapper.xs
 XS/FontPickerCtrl.xsp
 XS/Frame.xs

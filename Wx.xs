@@ -533,8 +533,10 @@ INCLUDE: XS/TaskBarIcon.xs
 INCLUDE: XS/Config.xs
 INCLUDE: XS/Process.xs
 INCLUDE: XS/FontMapper.xs
-INCLUDE: XS/FontEnumerator.xs
 INCLUDE: XS/Wave.xs
+
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/FontEnumerator.xsp
+
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/ArtProvider.xsp
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/MimeTypes.xsp

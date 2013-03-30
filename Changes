@@ -1,5 +1,11 @@
 Revision history for Perl extension Wx.
 
+0.9918 TBR
+    - Added missing GetItemFont / SetItemFont for Wx::ListCtrl
+    - Fixed wxFontEnumerator GetEncodings / GetFacenames
+                               ( thanks to Marton Papp )
+    - Wrapped wxFontEnumerator callbacks
+
 0.9917 Mon Feb 11 2013
     - Stopped wxWidgets >= 2.9.0 from setting locale to current user locale
       ( thanks to Tarek Unger )
