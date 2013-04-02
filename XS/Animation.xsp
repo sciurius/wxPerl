@@ -30,7 +30,7 @@ wxAnimation::CLONE()
 %}
     ## // thread OK
     ~wxAnimation()
-        %code{% wxPli_thread_sv_unregister( aTHX_ "Wx::Bitmap", THIS, ST(0) );
+        %code{% wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
                 delete THIS;
                 %};
 
