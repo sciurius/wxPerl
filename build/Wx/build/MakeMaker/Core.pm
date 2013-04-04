@@ -131,18 +131,22 @@ sub wxWriteMakefile {
 
   my $build = Wx::build::MakeMaker::_process_mm_arguments( \%params, $has_alien );
 
+  my $minwidgets = 2.007001;
+  
   if( $build ) {
     WriteMakefile( %params );
-    unless( Alien::wxWidgets->can( 'load' ) ) {
+    unless( Alien::wxWidgets->can( 'load' )
+      && (Alien::wxWidgets->version >= $minwidgets) ) {
         print <<EOT;
+
 ======================================================================
-Alien::wxWidgets is missing, you will need to re-run Makefile.PL after
-it is installed.
+Alien::wxWidgets minimum supported version $minwidgets is missing.
+You will need to re-run Makefile.PL after it is installed.
 ======================================================================
 EOT
-        sleep 3;
         open my $fh, ">> alien_wxwidgets_missing";
         print $fh "touched";
+        sleep 3;
     }
   } else {
     ExtUtils::MakeMaker::WriteEmptyMakefile( %params );
