@@ -1,5 +1,8 @@
 Revision history for Perl extension Wx.
 
+0.9919 TBR
+    - Makefile checks for supported Wx version
+
 0.9918 Wed Apr 03 2013
     - Added missing GetItemFont / SetItemFont for Wx::ListCtrl
     - Fixed wxFontEnumerator GetEncodings / GetFacenames
