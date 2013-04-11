@@ -74,9 +74,9 @@ wxWriteMakefile(
         },
         resources => {
             'license'       => 'http://dev.perl.org/licenses/',
-            'homepage'      => 'http://wxperl.eu/',
+            'homepage'      => 'http://www.wxperl.it/',
             'bugtracker'    => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Wx',
-            'repository'    => 'https://wxperl.svn.sourceforge.net/svnroot/wxperl/wxPerl',
+            'repository'    => 'http://svn.code.sf.net/p/wxperl/code/wxPerl',
             'MailingList'   => 'http://lists.perl.org/list/wxperl-users.html',
         },
         no_index => { directory => [ qw(samples script) ],
