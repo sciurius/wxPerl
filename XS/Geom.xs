@@ -776,6 +776,106 @@ wxRegion::Xor( ... )
         MATCH_REDISP( wxPliOvl_wreg, XorRegion )
     END_OVERLOAD( Wx::Region::Xor )
 
+
+# DECLARE_OVERLOAD( writ, Wx::RegionIterator )
+
+MODULE=Wx PACKAGE=Wx::RegionIterator
+
+wxRegionIterator*
+newDefault( CLASS )
+    SV* CLASS
+  CODE:
+    RETVAL = new wxRegionIterator();
+  OUTPUT:
+    RETVAL
+
+wxRegionIterator*
+newRegion( CLASS, region )
+    SV* CLASS
+    wxRegion* region
+  CODE:
+    RETVAL = new wxRegionIterator( *region );
+  OUTPUT:
+    RETVAL
+
+wxRegionIterator*
+newCopy( CLASS, ri )
+    SV* CLASS
+    wxRegionIterator* ri
+  CODE:
+    RETVAL = new wxRegionIterator( *ri );
+  OUTPUT:
+    RETVAL
+
+void
+wxRegionIterator::new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_REDISP( wxPliOvl_wreg, newRegion )
+        MATCH_REDISP( wxPliOvl_writ, newCopy )
+    END_OVERLOAD( Wx::RegionIterator::new )
+
+static void
+wxRegionIterator::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+## // thread OK
+void
+wxRegionIterator::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ "Wx::RegionIterator", THIS, ST(0) );
+    delete THIS;
+
+void
+wxRegionIterator::ResetVoid()
+  CODE:
+    THIS->Reset();
+
+void
+wxRegionIterator::ResetRegion( region )
+    wxRegion* region
+  CODE:
+    THIS->Reset( *region );
+
+void
+wxRegionIterator::Reset( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( ResetVoid )
+        MATCH_REDISP( wxPliOvl_wreg, ResetRegion )
+    END_OVERLOAD( Wx::RegionIterator::Reset )
+
+bool
+wxRegionIterator::HaveRects()
+
+wxCoord
+wxRegionIterator::GetX()
+
+wxCoord
+wxRegionIterator::GetY()
+
+wxCoord
+wxRegionIterator::GetW()
+
+wxCoord
+wxRegionIterator::GetWidth()
+
+wxCoord
+wxRegionIterator::GetH()
+
+wxCoord
+wxRegionIterator::GetHeight()
+
+wxRect*
+wxRegionIterator::GetRect()
+  CODE:
+    RETVAL = new wxRect( THIS->GetRect() );
+  OUTPUT:
+    RETVAL
+
+
 MODULE=Wx PACKAGE=Wx::Position
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )

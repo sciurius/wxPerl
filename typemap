@@ -369,6 +369,7 @@ wxPlFontEnumerator *    O_NON_WXOBJECT_VXSP_THR
 wxNativeFontInfo *      O_NON_WXOBJECT_THR
 wxFont *                O_WXOBJECT_THR
 wxRegion *              O_WXOBJECT_THR
+wxRegionIterator *      O_WXOBJECT_THR
 wxIcon *                O_WXOBJECT_THR
 wxIconBundle *          O_NON_WXOBJECT
 wxIconLocation *        O_NON_WXOBJECT
