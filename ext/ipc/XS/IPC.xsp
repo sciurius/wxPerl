@@ -97,15 +97,10 @@ newBuffer( CLASS, buffer )
   OUTPUT: RETVAL
 
 bool
-wxConnection::Execute( data, format = wxIPC_TEXT)
-    SV* data
-    wxIPCFormat format
+wxConnection::Execute( data )
+    wxString data
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-    RETVAL = THIS->Execute((void*)SvPVX(data), (size_t)SvLEN(data), format);
-#else
-    RETVAL = THIS->Execute((wxChar*)SvPVX(data), (int)SvLEN(data), format);
-#endif
+    RETVAL = THIS->Execute( data );
   OUTPUT: RETVAL
 
 
@@ -114,7 +109,11 @@ wxConnection::Request( item, format = wxIPC_TEXT )
     wxString item
     wxIPCFormat format
   PREINIT:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     size_t size;
+#else
+    int size;
+#endif
   PPCODE:
     void *buffer = (void*)THIS->Request(item, &size, format);
     EXTEND( SP, 1 );
@@ -175,6 +174,7 @@ wxConnection::OnStopAdvise( topic, item )
     RETVAL = ((wxPlConnection*)THIS)->base_OnStopAdvise(topic, item);
   OUTPUT: RETVAL
 
+
 bool
 wxConnection::OnDisconnect()
   CODE:
@@ -213,7 +213,11 @@ wxConnection::OnRequest(topic, item, format)
     wxString item
     wxIPCFormat format
   PREINIT:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     size_t size;
+#else
+    int size;
+#endif
   PPCODE:
     void *buffer = (void*)((wxPlConnection*)THIS)->base_OnRequest(topic, item, &size, format);
     EXTEND( SP, 1 );

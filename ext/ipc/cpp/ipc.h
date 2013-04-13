@@ -131,7 +131,7 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "OnExecute" ) )
         {
-            wxString* buff = new wxString((wxChar*)data, buffsize);            
+            wxString* buff = new wxString((wxChar*)data, (size_t)buffsize);
             wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPi", &topic, buff, format ));
             delete( buff );
             return SvTRUE( ret );
@@ -223,9 +223,9 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "OnPoke" ) )
         {
-            wxString* buff = new wxString((char*)data, buffsize);
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPPi", &topic, &item, buff, format ));
-            delete( buff );
+            SV* buff = newSVpvn((char*)data, (size_t)buffsize);
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPsi", &topic, &item, buff, format ));
+            SvREFCNT_dec( buff );
             return SvTRUE( ret );
         }
         else
@@ -254,9 +254,9 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "OnAdvise" ) )
         {
-            wxString* buff = new wxString((char*)data, buffsize);            
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPPi", &topic, &item, buff, format ));
-            delete( buff );
+            SV* buff = newSVpvn((char*)data, (size_t)buffsize);          
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPsi", &topic, &item, buff, format ));
+            SvREFCNT_dec( buff );
             return SvTRUE( ret );
         }
         else
