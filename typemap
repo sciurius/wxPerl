@@ -296,15 +296,6 @@ wxOverlay *             O_NON_WXOBJECT_THR
 wxDCOverlay *           O_NON_WXOBJECT_THR
 wxDCClipper *           O_NON_WXOBJECT_THR
 
-wxConnection *          O_WXOBJECT
-wxPlConnection *        O_WXOBJECT
-wxIPCFormat             T_ENUM
-wxConnectionBase *      O_WXOBJECT
-wxServer *              O_WXOBJECT
-wxClient *              O_WXOBJECT
-wxPlServer *            O_WXOBJECT
-wxPlClient *            O_WXOBJECT
-
 wxTaskBarIcon *         O_WXOBJECT
 wxNotificationMessage * O_NON_WXOBJECT_THR
 

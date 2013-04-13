@@ -577,27 +577,7 @@ static wxPlINH inherit[] =
     { "Wx::Stream", "Tie::Handle" },
     I( InputStream,     Stream )
     I( OutputStream,    Stream )
-#if wxUSE_IPC
-    I( Connection,      Object )
-    I( Server,          Object )
-    I( Client,          Object )
-    I( ConnectionBase,  Connection )
-#ifdef __WXMSW__
-    I( DDEConnection,   Connection )
-    I( DDEServer,       Server )
-    I( DDEClient,       Client )
-    I( PlConnection,    DDEConnection )
-    I( PlServer,        DDEServer )
-    I( PlClient,        DDEClient )
-#else
-    I( TCPConnection,   Connection )
-    I( TCPServer,       Server )
-    I( TCPClient,       Client )
-    I( PlConnection,    TCPConnection )
-    I( PlServer,        TCPServer )
-    I( PlClient,        TCPClient )    
-#endif    
-#endif
+
     ///////////////////////////////////////////
     // Conditional part
     ///////////////////////////////////////////

@@ -504,6 +504,15 @@ _wx_optmod_webview()
 #endif
   OUTPUT: RETVAL
 
+bool
+_wx_optmod_ipc()
+  CODE:
+#if wxPERL_USE_IPC && wxUSE_IPC
+    RETVAL = TRUE;
+#else
+    RETVAL = FALSE;
+#endif
+  OUTPUT: RETVAL
 
 I32
 looks_like_number( sval )
@@ -556,8 +565,6 @@ INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Variant.
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/NotificationMessage.xsp
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/EventFilter.xsp
-
-INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/IPC.xsp
 
 ##  //FIXME// tricky
 ##if defined(__WXMSW__)

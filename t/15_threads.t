@@ -105,12 +105,6 @@ if( Wx::wxVERSION > 2.009001 ) {
     check_init { Wx::WindowDisabler->new };
 }
 
-if( defined(&Wx::Connection::new) ) {
-    check_init { Wx::Connection->new };
-    check_init { Wx::Server->new };
-    check_init { Wx::Client->new };
-}
-
 check_init { Wx::BusyCursor->new };
 my $bi = Wx::BusyInfo->new( 'x' );
 my $bi2 = Wx::BusyInfo->new( 'y' );

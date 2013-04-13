@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-// Name:        cpp/ipc.h
+// Name:        ext/ipc/cpp/ipc.h
 // Purpose:     c++ wrapper for wxIPC
 // Author:      Mark Dootson
 // Modified by:
@@ -132,7 +132,7 @@ public:
         if( wxPliFCback( aTHX_ &m_callback, "OnExecute" ) )
         {
             wxString* buff = new wxString((wxChar*)data, buffsize);            
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPl", &topic, buff, format ));
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPi", &topic, buff, format ));
             delete( buff );
             return SvTRUE( ret );
         }
@@ -187,7 +187,7 @@ public:
         if( wxPliFCback( aTHX_ &m_callback, "OnRequest" ) )
         {
             
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPl", &topic, &item, format ));
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPi", &topic, &item, format ));
             *size = SvLEN(ret);
             wxChar* buf = (wxChar *)SvPV_force(ret, SvLEN(ret));
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )              
@@ -224,7 +224,7 @@ public:
         if( wxPliFCback( aTHX_ &m_callback, "OnPoke" ) )
         {
             wxString* buff = new wxString((char*)data, buffsize);
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPPl", &topic, &item, buff, format ));
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPPi", &topic, &item, buff, format ));
             delete( buff );
             return SvTRUE( ret );
         }
@@ -255,7 +255,7 @@ public:
         if( wxPliFCback( aTHX_ &m_callback, "OnAdvise" ) )
         {
             wxString* buff = new wxString((char*)data, buffsize);            
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPPl", &topic, &item, buff, format ));
+            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPPi", &topic, &item, buff, format ));
             delete( buff );
             return SvTRUE( ret );
         }

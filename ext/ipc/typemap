@@ -1,0 +1,21 @@
+#############################################################################
+## Name:        ext/ipc/typemap
+## Purpose:     typemap
+## Author:      Mark Dootson
+## Modified by:
+## Created:     13 April 2013
+## SVN-ID:      $Id:$
+## Copyright:   (c) 2013 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+TYPEMAP
+wxConnection *          O_WXOBJECT
+wxPlConnection *        O_WXOBJECT
+wxIPCFormat             T_ENUM
+wxConnectionBase *      O_WXOBJECT
+wxServer *              O_WXOBJECT
+wxClient *              O_WXOBJECT
+wxPlServer *            O_WXOBJECT
+wxPlClient *            O_WXOBJECT
