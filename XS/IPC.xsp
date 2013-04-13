@@ -1,0 +1,308 @@
+#############################################################################
+## Name:        XS/IPC.xsp
+## Purpose:     XS for IPC
+## Author:      Mark Dootson
+## Modified by:
+## Created:     11/04/2013
+## RCS-ID:      $Id: FontEnumerator.xs 2274 2007-11-10 22:37:30Z mbarbon $
+## Copyright:   (c)2013 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%module{Wx};
+
+// The C++ part is written longhand in "cpp/ipc.h" because
+// build::Wx::XSP::Virtual cannot currently auto create a
+// Perlish wrapper for methods with *buffer, *buffsize
+// type params.
+
+#if wxUSE_IPC
+
+#define wxUSE_DDE_FOR_IPC 1
+#include <wx/ipc.h>
+#include "cpp/ipc.h"
+
+%typemap{wxIPCFormat}{simple};
+%typemap{wxChar*}{simple};
+
+%loadplugin{build::Wx::XSP::Enum};
+%EnumExportTag{ipc};
+
+// dummy defines for wxWidgets 2.8.x
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+#define  wxIPC_UTF16TEXT 13
+#define  wxIPC_UTF8TEXT  13
+#define  wxIPC_UTF32TEXT 13
+#endif
+
+enum wxIPCFormat
+{
+  wxIPC_INVALID,
+  wxIPC_TEXT,
+  wxIPC_BITMAP,
+  wxIPC_METAFILE,
+  wxIPC_SYLK,
+  wxIPC_DIF,
+  wxIPC_TIFF,
+  wxIPC_OEMTEXT,
+  wxIPC_DIB,
+  wxIPC_PALETTE,
+  wxIPC_PENDATA,
+  wxIPC_RIFF,
+  wxIPC_WAVE,
+  wxIPC_UNICODETEXT,
+  wxIPC_ENHMETAFILE,
+  wxIPC_FILENAME,
+  wxIPC_LOCALE,
+  wxIPC_PRIVATE,
+  wxIPC_UTF16TEXT,
+  wxIPC_UTF8TEXT,
+  wxIPC_UTF32TEXT, 
+};
+
+
+%{
+
+
+MODULE=Wx PACKAGE=Wx::Connection
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newDefault )
+        MATCH_ANY_REDISP( newBuffer )
+    END_OVERLOAD( "Wx::Connection::new" )
+
+
+wxConnection*
+newDefault( CLASS )
+    char* CLASS
+  CODE:
+    RETVAL = new wxPlConnection( CLASS );
+  OUTPUT: RETVAL
+
+
+wxConnection*
+newBuffer( CLASS, buffer )
+    char* CLASS
+    SV* buffer
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = new wxPlConnection( CLASS, (void*)SvPVX(buffer), (size_t)SvCUR(buffer));
+#else
+    RETVAL = new wxPlConnection( CLASS, (wxChar*)SvPVX(buffer), (int)SvCUR(buffer));
+#endif
+  OUTPUT: RETVAL
+
+bool
+wxConnection::Execute( data, format = wxIPC_TEXT)
+    SV* data
+    wxIPCFormat format
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = THIS->Execute((void*)SvPVX(data), (size_t)SvLEN(data), format);
+#else
+    RETVAL = THIS->Execute((wxChar*)SvPVX(data), (int)SvLEN(data), format);
+#endif
+  OUTPUT: RETVAL
+
+
+void
+wxConnection::Request( item, format = wxIPC_TEXT )
+    wxString item
+    wxIPCFormat format
+  PREINIT:
+    size_t size;
+  PPCODE:
+    void *buffer = (void*)THIS->Request(item, &size, format);
+    EXTEND( SP, 1 );
+    PUSHs( sv_2mortal( newSVpvn( (char*)buffer, size) ) );
+
+
+bool
+wxConnection::Poke( item, data, format = wxIPC_TEXT  )
+    wxString item
+    SV* data
+    wxIPCFormat format
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = THIS->Poke(item, (void*)SvPVX(data), (size_t)SvLEN(data), format);
+#else
+    RETVAL = THIS->Poke(item, (wxChar*)SvPVX(data), (int)SvLEN(data), format);
+#endif
+  OUTPUT: RETVAL
+    
+
+bool
+wxConnection::StartAdvise( item )
+    wxString item
+
+bool
+wxConnection::StopAdvise( item )
+    wxString item
+
+bool
+wxConnection::Advise( item, data, format = wxIPC_TEXT )
+    wxString item
+    SV* data
+    wxIPCFormat format
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = THIS->Advise(item, (void*)SvPVX(data), (size_t)SvLEN(data), format);
+#else
+    RETVAL = THIS->Advise(item, (wxChar*)SvPVX(data), (int)SvLEN(data), format);
+#endif
+  OUTPUT: RETVAL
+
+bool
+wxConnection::Disconnect()
+
+bool
+wxConnection::OnStartAdvise( topic, item )
+    wxString topic
+    wxString item
+  CODE:
+    RETVAL = ((wxPlConnection*)THIS)->base_OnStartAdvise(topic, item);
+  OUTPUT: RETVAL
+
+bool
+wxConnection::OnStopAdvise( topic, item )
+    wxString topic
+    wxString item
+  CODE:
+    RETVAL = ((wxPlConnection*)THIS)->base_OnStopAdvise(topic, item);
+  OUTPUT: RETVAL
+
+bool
+wxConnection::OnDisconnect()
+  CODE:
+    RETVAL = ((wxPlConnection*)THIS)->base_OnDisconnect();
+  OUTPUT: RETVAL
+
+
+bool
+wxConnection::OnExecute(topic, data, format)
+    wxString topic
+    SV* data
+    wxIPCFormat format
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = ((wxPlConnection*)THIS)->base_OnExecute(topic, (void*)SvPVX(data), (size_t)SvLEN(data), format);
+#else
+    RETVAL = ((wxPlConnection*)THIS)->base_OnExecute(topic, (wxChar*)SvPVX(data), (int)SvLEN(data), format);
+#endif
+  OUTPUT: RETVAL
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+bool
+wxConnection::OnExec(topic, data)
+    wxString topic
+    wxString data
+  CODE:
+    RETVAL = ((wxPlConnection*)THIS)->base_OnExec(topic, data);
+  OUTPUT: RETVAL
+
+#endif
+
+void
+wxConnection::OnRequest(topic, item, format)
+    wxString topic
+    wxString item
+    wxIPCFormat format
+  PREINIT:
+    size_t size;
+  PPCODE:
+    void *buffer = (void*)((wxPlConnection*)THIS)->base_OnRequest(topic, item, &size, format);
+    EXTEND( SP, 1 );
+    PUSHs( sv_2mortal( newSVpvn( (char*)buffer, size ) ) );
+
+bool
+wxConnection::OnPoke(topic, item, data, format)
+    wxString topic
+    wxString item
+    SV* data
+    wxIPCFormat format
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = ((wxPlConnection*)THIS)->base_OnPoke(topic, item, (void*)SvPVX(data), (size_t)SvLEN(data), format);
+#else
+    RETVAL = ((wxPlConnection*)THIS)->base_OnPoke(topic, item, (wxChar*)SvPVX(data), (int)SvLEN(data), format);
+#endif
+  OUTPUT: RETVAL
+
+
+bool
+wxConnection::OnAdvise(topic, item, data, format)
+    wxString topic
+    wxString item
+    SV* data
+    wxIPCFormat format
+  CODE:
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    RETVAL = ((wxPlConnection*)THIS)->base_OnAdvise(topic, item, (void*)SvPVX(data), (size_t)SvLEN(data), format);
+#else
+    RETVAL = ((wxPlConnection*)THIS)->base_OnAdvise(topic, item, (wxChar*)SvPVX(data), (int)SvLEN(data), format);
+#endif
+  OUTPUT: RETVAL
+
+
+MODULE=Wx PACKAGE=Wx::Server
+
+wxServer*
+new( CLASS )
+    char* CLASS
+  CODE:
+    RETVAL = new wxPlServer( CLASS );
+  OUTPUT: RETVAL
+
+
+bool
+wxServer::Create( servicename )
+    wxString servicename
+
+
+wxConnection*
+wxServer::OnAcceptConnection( topic )
+    wxString topic
+  CODE:
+    RETVAL = (wxConnection*)((wxPlServer*)THIS)->base_OnAcceptConnection(topic);
+  OUTPUT: RETVAL
+
+
+MODULE=Wx PACKAGE=Wx::Client
+
+wxClient*
+new( CLASS )
+    char* CLASS
+  CODE:
+    RETVAL = new wxPlClient( CLASS );
+  OUTPUT: RETVAL
+
+
+bool
+wxClient::ValidHost( host )
+    wxString host
+
+wxConnection*
+wxClient::MakeConnection(host, server, topic )
+    wxString host
+    wxString server
+    wxString topic
+  CODE:
+    RETVAL = (wxConnection*)THIS->MakeConnection(host, server, topic );
+  OUTPUT: RETVAL
+
+
+wxConnection*
+wxClient::OnMakeConnection( )
+  CODE:
+    RETVAL = (wxConnection*)((wxPlClient*)THIS)->base_OnMakeConnection();
+  OUTPUT: RETVAL
+
+
+%}
+
+#endif

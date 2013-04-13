@@ -32,6 +32,7 @@ cpp/event.h
 cpp/frame.h
 cpp/helpers.cpp
 cpp/helpers.h
+cpp/ipc.h
 cpp/log.h
 cpp/overload.cpp
 cpp/overload.h
@@ -520,6 +521,7 @@ XS/Icon.xs
 XS/IconBundle.xsp
 XS/Image.xs
 XS/ImageList.xsp
+XS/IPC.xsp
 XS/ItemContainer.xsp
 XS/ItemContainerImmutable.xsp
 XS/Listbook.xsp

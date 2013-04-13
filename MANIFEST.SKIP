@@ -9,6 +9,7 @@
 \.o$
 \.obj$
 \.pdb$
+\.pdf$
 \.poedit$
 ^Opt$
 ^Wx-\d+\.\d+\.(zip|tar\.gz|tgz)$
@@ -21,3 +22,4 @@
 ^MANIFEST\.bak$
 (?:^|/)MYMETA\.yml$
 (?:^|/)MYMETA\.json$
+xspp/
