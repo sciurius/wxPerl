@@ -187,9 +187,10 @@ public:
         if( wxPliFCback( aTHX_ &m_callback, "OnRequest" ) )
         {
             
-            wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPi", &topic, &item, format ));
+            SV* ret = wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPi", &topic, &item, format );
             *size = SvLEN(ret);
-            wxChar* buf = (wxChar *)SvPV_force(ret, SvLEN(ret));
+            wxChar* buf = (wxChar*)SvPV_force(ret, SvLEN(ret));
+            sv_2mortal( ret );
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )              
             return (void*)buf;
 #else
