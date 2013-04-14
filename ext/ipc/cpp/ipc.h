@@ -121,7 +121,7 @@ public:
  * OnExecute
  *******************************************************/
 
-    
+
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )    
     bool OnExecute( const wxString& topic, const void *data, size_t buffsize, wxIPCFormat format )
 #else
@@ -131,7 +131,11 @@ public:
         dTHX;
         if( wxPliFCback( aTHX_ &m_callback, "OnExecute" ) )
         {
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) && !defined(__WXMSW__)                
+            wxString* buff = new wxString((char*)data, (size_t)buffsize);
+#else
             wxString* buff = new wxString((wxChar*)data, (size_t)buffsize);
+#endif
             wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, "PPi", &topic, buff, format ));
             delete( buff );
             return SvTRUE( ret );

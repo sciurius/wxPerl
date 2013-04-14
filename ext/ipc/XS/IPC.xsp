@@ -19,6 +19,7 @@
 
 #if wxUSE_IPC
 
+
 #define wxUSE_DDE_FOR_IPC 1
 #include <wx/ipc.h>
 #include <cpp/ipc.h>
@@ -96,6 +97,16 @@ newBuffer( CLASS, buffer )
 #endif
   OUTPUT: RETVAL
 
+
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+bool
+wxConnection::Execute( data )
+    SV* data
+  CODE:
+    RETVAL = THIS->Execute((void*)SvPVX(data), (size_t)SvLEN(data), wxIPC_TEXT);
+  OUTPUT: RETVAL
+
+#else
 bool
 wxConnection::Execute( data )
     wxString data
@@ -103,6 +114,7 @@ wxConnection::Execute( data )
     RETVAL = THIS->Execute( data );
   OUTPUT: RETVAL
 
+#endif
 
 void
 wxConnection::Request( item, format = wxIPC_TEXT )
@@ -119,7 +131,6 @@ wxConnection::Request( item, format = wxIPC_TEXT )
     EXTEND( SP, 1 );
     PUSHs( sv_2mortal( newSVpvn( (char*)buffer, size) ) );
 
-
 bool
 wxConnection::Poke( item, data, format = wxIPC_TEXT  )
     wxString item
@@ -127,9 +138,9 @@ wxConnection::Poke( item, data, format = wxIPC_TEXT  )
     wxIPCFormat format
   CODE:
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
-    RETVAL = THIS->Poke(item, (void*)SvPVX(data), (size_t)SvLEN(data), format);
+    RETVAL = THIS->Poke(item, (void*)SvPVX(data), (size_t)SvCUR(data), format);
 #else
-    RETVAL = THIS->Poke(item, (wxChar*)SvPVX(data), (int)SvLEN(data), format);
+    RETVAL = THIS->Poke(item, (wxChar*)SvPVX(data), (int)SvCUR(data), format);
 #endif
   OUTPUT: RETVAL
     
@@ -149,9 +160,9 @@ wxConnection::Advise( item, data, format = wxIPC_TEXT )
     wxIPCFormat format
   CODE:
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
-    RETVAL = THIS->Advise(item, (void*)SvPVX(data), (size_t)SvLEN(data), format);
+    RETVAL = THIS->Advise(item, (void*)SvPVX(data), (size_t)SvCUR(data), format);
 #else
-    RETVAL = THIS->Advise(item, (wxChar*)SvPVX(data), (int)SvLEN(data), format);
+    RETVAL = THIS->Advise(item, (wxChar*)SvPVX(data), (int)SvCUR(data), format);
 #endif
   OUTPUT: RETVAL
 
