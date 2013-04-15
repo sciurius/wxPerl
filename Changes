@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.9922 TBR
+
 0.9921 Sun Apr 14 2013
     - Fix 2.9.4 handling of wxConnection::Execute
 
