@@ -404,6 +404,7 @@ interface/wx/infobar.h
 interface/wx/rearrangectrl.h
 interface/wx/richtooltip.h
 interface/wx/treelist.h
+interface/wx/uiaction.h
 lib/Wx/Api.pod
 lib/Wx/App.pm
 lib/Wx/ArtProvider.pm

@@ -60,9 +60,10 @@
 	
 ##  void GetSelection(long *from, long *to);
         
-	bool AutoComplete( const wxArrayString& choices );
 	bool AutoCompleteFileNames();
-##	bool AutoComplete(wxTextCompleter *completer);
+    
+    bool AutoComplete( const wxArrayString& choices );
+##	bool AutoComplete( wxTextCompleter *completer);
     
 	bool IsEditable() const;	
 	void SetEditable( bool editable ); 

@@ -566,6 +566,8 @@ INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Notifica
 
 INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/EventFilter.xsp
 
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp interface/wx/uiaction.h
+
 ##  //FIXME// tricky
 ##if defined(__WXMSW__)
 ##undef XS
