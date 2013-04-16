@@ -140,8 +140,9 @@ sub wxWriteMakefile {
         print <<EOT;
 
 ======================================================================
-Alien::wxWidgets minimum supported version $minwidgets is missing.
+wxWidgets minimum supported version $minwidgets is missing.
 You will need to re-run Makefile.PL after it is installed.
+You must install wxWidgets using Alien::wxWidgets.
 ======================================================================
 EOT
         open my $fh, ">> alien_wxwidgets_missing";
