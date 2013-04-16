@@ -1,0 +1,89 @@
+#############################################################################
+## Name:        XS/FindReplaceDialog.xsp
+## Purpose:     XS for Wx::FindReplaceDialog
+## Author:      Mark Dootson
+## Modified by:
+## Created:     16 April 2013
+## RCS-ID:      $Id: FindReplaceDialog.xs 2057 2007-06-18 23:03:00Z mbarbon $
+## Copyright:   (c) 2001-2004, 2013 Mattia Barbon
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+#include <wx/fdrepdlg.h>
+
+%module{Wx};
+
+%loadplugin{build::Wx::XSP::Overload};
+
+%name{Wx::FindReplaceData} class wxFindReplaceData
+{
+
+%{
+static void
+wxFindReplaceData::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+%}
+
+public:
+
+    wxFindReplaceData(wxUint32 flags = 0);
+    
+    ~wxAnimation()
+        %code{% wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+                delete THIS;
+                %};
+
+    const wxString& GetFindString();
+
+    int GetFlags() const;
+
+    const wxString& GetReplaceString();
+
+    void SetFindString(const wxString& str);
+
+    void SetFlags(wxUint32 flags);
+
+    void SetReplaceString(const wxString& str);
+
+};
+
+
+%name{Wx::FindReplaceDialog} class wxFindReplaceDialog
+{
+
+public:
+
+    %name{newDefault} wxFindReplaceDialog() %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    %name{newFull} wxFindReplaceDialog(wxWindow* parent,
+                        wxFindReplaceData* data,
+                        const wxString& title,
+                        int style = 0) %Overload
+        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
+
+    bool Create(wxWindow* parent, wxFindReplaceData* data,
+                const wxString& title, int style = 0);
+
+    wxFindReplaceData* GetData()
+        %code%{ RETVAL = (wxFindReplaceData*)THIS->GetData(); %};
+    
+    void SetData(wxFindReplaceData *data);
+};
+
+
+%name{Wx::FindDialogEvent} class wxFindDialogEvent
+{
+public:
+    
+    wxFindReplaceDialog* GetDialog() const;
+
+    wxString GetFindString() const;
+
+    int GetFlags() const;
+
+    const wxString& GetReplaceString() const;
+};
+

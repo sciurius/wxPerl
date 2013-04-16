@@ -5,6 +5,7 @@ Revision history for Perl extension Wx.
     - updates to ID creation methods
     - rt#84633
     - added wxUIActionSimulator
+    - wxFindReplaceDialog new return a hash type object 
 
 0.9921 Sun Apr 14 2013
     - Fix 2.9.4 handling of wxConnection::Execute
