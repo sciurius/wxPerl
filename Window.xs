@@ -67,14 +67,13 @@ wxGetActiveWindow()
 
 MODULE=Wx_Win PACKAGE=Wx::Window
 
+#if WXPERL_W_VERSION_LT( 2, 9, 0 )
+
 int
-NewControlId( winid )
-    int winid
+NewControlId()
   CODE:
     RETVAL = wxWindowBase::NewControlId();
   OUTPUT: RETVAL
-
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
 
 int
 NextControlId( winid )
@@ -89,6 +88,22 @@ PrevControlId( winid )
   CODE:
     RETVAL = wxWindowBase::PrevControlId( winid );
   OUTPUT: RETVAL
+
+#else
+
+wxWindowID
+NewControlId( idcount = 1 )
+    int idcount
+  CODE:
+    RETVAL = wxWindowBase::NewControlId( idcount );
+  OUTPUT: RETVAL
+
+void
+UnreserveControlId( id,  idcount = 1)
+    wxWindowID id
+    int idcount
+  CODE:
+    wxWindowBase::UnreserveControlId( id, idcount );
 
 #endif
 
