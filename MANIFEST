@@ -392,6 +392,7 @@ GDI.xs
 interface/wx/bannerwindow.h
 interface/wx/bmpbuttn.h
 interface/wx/button.h
+interface/wx/commandlinkbutton.h
 interface/wx/dataview/dataviewlistctrl.h
 interface/wx/dataview/dataviewliststore.h
 interface/wx/dataview/dataviewvirtuallistmodel.h
