@@ -59,25 +59,25 @@
     void AddDeveloper( const wxString& developer );
 
     bool HasDevelopers() const;
-##    const wxArrayString& GetDevelopers() const;
+    const wxArrayString& GetDevelopers() const;
 
     void SetDocWriters( const wxArrayString& docwriters );
     void AddDocWriter( const wxString& docwriter );
 
     bool HasDocWriters() const;
-##    const wxArrayString& GetDocWriters() const;
+    const wxArrayString& GetDocWriters() const;
 
     void SetArtists( const wxArrayString& artists );
     void AddArtist( const wxString& artist );
 
     bool HasArtists() const;
-##    const wxArrayString& GetArtists() const;
+    const wxArrayString& GetArtists() const;
 
     void SetTranslators( const wxArrayString& translators );
     void AddTranslator( const wxString& translator );
 
     bool HasTranslators() const;
-##    const wxArrayString& GetTranslators() const;
+    const wxArrayString& GetTranslators() const;
 };
 
 %name{Wx::AboutBox} void wxAboutBox( const wxAboutDialogInfo& info );
