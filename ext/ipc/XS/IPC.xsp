@@ -23,6 +23,7 @@
 #define wxUSE_DDE_FOR_IPC 1
 #include <wx/ipc.h>
 #include <cpp/ipc.h>
+#include <wx/log.h>
 
 %typemap{wxIPCFormat}{simple};
 %typemap{wxChar*}{simple};
@@ -83,6 +84,8 @@ newDefault( CLASS )
   CODE:
     RETVAL = new wxPlConnection( CLASS );
   OUTPUT: RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 
 wxConnection*
@@ -96,6 +99,22 @@ newBuffer( CLASS, buffer )
     RETVAL = new wxPlConnection( CLASS, (wxChar*)SvPVX(buffer), (int)SvCUR(buffer));
 #endif
   OUTPUT: RETVAL
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+  
+static void
+wxConnection::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+
+## // thread OK
+void
+wxConnection::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+    if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
+        delete THIS;        
 
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
@@ -168,6 +187,10 @@ wxConnection::Advise( item, data, format = wxIPC_TEXT )
 
 bool
 wxConnection::Disconnect()
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(0), true );
+    RETVAL = THIS->Disconnect();
+  OUTPUT: RETVAL
 
 bool
 wxConnection::OnStartAdvise( topic, item )
@@ -274,6 +297,20 @@ new( CLASS )
   OUTPUT: RETVAL
 
 
+static void
+wxServer::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+
+## // thread OK
+void
+wxServer::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+    delete THIS;
+
+
 bool
 wxServer::Create( servicename )
     wxString servicename
@@ -296,6 +333,19 @@ new( CLASS )
     RETVAL = new wxPlClient( CLASS );
   OUTPUT: RETVAL
 
+
+static void
+wxClient::CLONE()
+  CODE:
+    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
+
+
+## // thread OK
+void
+wxClient::DESTROY()
+  CODE:
+    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+    delete THIS;
 
 bool
 wxClient::ValidHost( host )

@@ -11,11 +11,11 @@
 #############################################################################
 
 TYPEMAP
-wxConnection *          O_WXOBJECT
-wxPlConnection *        O_WXOBJECT
+wxConnection *          O_WXOBJECT_THR
+wxPlConnection *        O_WXOBJECT_THR
 wxIPCFormat             T_ENUM
-wxConnectionBase *      O_WXOBJECT
-wxServer *              O_WXOBJECT
-wxClient *              O_WXOBJECT
-wxPlServer *            O_WXOBJECT
-wxPlClient *            O_WXOBJECT
+wxConnectionBase *      O_WXOBJECT_THR
+wxServer *              O_WXOBJECT_THR
+wxClient *              O_WXOBJECT_THR
+wxPlServer *            O_WXOBJECT_THR
+wxPlClient *            O_WXOBJECT_THR
