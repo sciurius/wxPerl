@@ -23,7 +23,6 @@
 #define wxUSE_DDE_FOR_IPC 1
 #include <wx/ipc.h>
 #include <cpp/ipc.h>
-#include <wx/log.h>
 
 %typemap{wxIPCFormat}{simple};
 %typemap{wxChar*}{simple};
