@@ -101,6 +101,12 @@ public:
     bool OnDisconnect( )
     {
         dTHX;
+        
+        // we do not delete the object when the other side of the
+        // connection disconnects us
+        
+        wxPli_object_set_deleteable( aTHX_ m_callback.GetSelf() , false );
+        
         if( wxPliFCback( aTHX_ &m_callback, "OnDisconnect" ) )
         {
             wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,

@@ -7,6 +7,7 @@ Revision history for Perl extension Wx.
     - added wxUIActionSimulator
     - wxFindReplaceDialog new return a hash type object
     - wxProgressDialog updates
+    - IPC classes object deletion updates
 
 0.9921 Sun Apr 14 2013
     - Fix 2.9.4 handling of wxConnection::Execute

@@ -19,7 +19,6 @@
 
 #if wxUSE_IPC
 
-
 #define wxUSE_DDE_FOR_IPC 1
 #include <wx/ipc.h>
 #include <cpp/ipc.h>
@@ -84,7 +83,7 @@ newDefault( CLASS )
     RETVAL = new wxPlConnection( CLASS );
   OUTPUT: RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), false );
+    wxPli_object_set_deleteable( aTHX_ ST(0), true );
 
 
 wxConnection*
@@ -99,8 +98,9 @@ newBuffer( CLASS, buffer )
 #endif
   OUTPUT: RETVAL
   CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), false );
-  
+    wxPli_object_set_deleteable( aTHX_ ST(0), true );
+    
+
 static void
 wxConnection::CLONE()
   CODE:
@@ -111,7 +111,14 @@ wxConnection::CLONE()
 void
 wxConnection::DESTROY()
   CODE:
+    if(THIS && THIS->GetConnected() )
+    {
+        THIS->Disconnect();
+        wxPli_object_set_deleteable( aTHX_ ST(0), true );
+    }
+    
     wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
+    
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
         delete THIS;        
 
@@ -190,6 +197,13 @@ wxConnection::Disconnect()
     wxPli_object_set_deleteable( aTHX_ ST(0), true );
     RETVAL = THIS->Disconnect();
   OUTPUT: RETVAL
+
+bool
+wxConnection::GetConnected()
+
+void
+wxConnection::SetConnected( connected )
+    bool connected
 
 bool
 wxConnection::OnStartAdvise( topic, item )
@@ -358,14 +372,14 @@ wxClient::MakeConnection(host, server, topic )
   CODE:
     RETVAL = (wxConnection*)THIS->MakeConnection(host, server, topic );
   OUTPUT: RETVAL
-
+  CLEANUP:
+    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 wxConnection*
 wxClient::OnMakeConnection( )
   CODE:
     RETVAL = (wxConnection*)((wxPlClient*)THIS)->base_OnMakeConnection();
   OUTPUT: RETVAL
-
 
 %}
 
