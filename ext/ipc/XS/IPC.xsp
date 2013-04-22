@@ -64,7 +64,6 @@ enum wxIPCFormat
 
 %{
 
-
 MODULE=Wx PACKAGE=Wx::Connection
 
 void
@@ -84,7 +83,6 @@ newDefault( CLASS )
   OUTPUT: RETVAL
   CLEANUP:
     wxPli_object_set_deleteable( aTHX_ ST(0), true );
-
 
 wxConnection*
 newBuffer( CLASS, buffer )
@@ -107,21 +105,14 @@ wxConnection::CLONE()
     wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
 
 
+
 ## // thread OK
 void
 wxConnection::DESTROY()
   CODE:
-    if(THIS && THIS->GetConnected() )
-    {
-        THIS->Disconnect();
-        wxPli_object_set_deleteable( aTHX_ ST(0), true );
-    }
-    
     wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
-    
     if( wxPli_object_is_deleteable( aTHX_ ST(0) ) )
-        delete THIS;        
-
+        delete THIS;    
 
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
 bool
@@ -191,12 +182,9 @@ wxConnection::Advise( item, data, format = wxIPC_TEXT )
 #endif
   OUTPUT: RETVAL
 
+
 bool
 wxConnection::Disconnect()
-  CODE:
-    wxPli_object_set_deleteable( aTHX_ ST(0), true );
-    RETVAL = THIS->Disconnect();
-  OUTPUT: RETVAL
 
 bool
 wxConnection::GetConnected()
@@ -309,20 +297,10 @@ new( CLASS )
     RETVAL = new wxPlServer( CLASS );
   OUTPUT: RETVAL
 
-
-static void
-wxServer::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-
-
-## // thread OK
 void
-wxServer::DESTROY()
+wxServer::Destroy()
   CODE:
-    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
     delete THIS;
-
 
 bool
 wxServer::Create( servicename )
@@ -346,18 +324,9 @@ new( CLASS )
     RETVAL = new wxPlClient( CLASS );
   OUTPUT: RETVAL
 
-
-static void
-wxClient::CLONE()
-  CODE:
-    wxPli_thread_sv_clone( aTHX_ CLASS, (wxPliCloneSV)wxPli_detach_object );
-
-
-## // thread OK
 void
-wxClient::DESTROY()
+wxClient::Destroy()
   CODE:
-    wxPli_thread_sv_unregister( aTHX_ wxPli_get_class( aTHX_ ST(0) ), THIS, ST(0) );
     delete THIS;
 
 bool
@@ -372,8 +341,6 @@ wxClient::MakeConnection(host, server, topic )
   CODE:
     RETVAL = (wxConnection*)THIS->MakeConnection(host, server, topic );
   OUTPUT: RETVAL
-  CLEANUP:
-    wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 wxConnection*
 wxClient::OnMakeConnection( )
@@ -382,5 +349,6 @@ wxClient::OnMakeConnection( )
   OUTPUT: RETVAL
 
 %}
+
 
 #endif
