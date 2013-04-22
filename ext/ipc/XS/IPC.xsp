@@ -185,6 +185,10 @@ wxConnection::Advise( item, data, format = wxIPC_TEXT )
 
 bool
 wxConnection::Disconnect()
+  CODE:
+    wxPli_object_set_deleteable( aTHX_ ST(0), true );
+    RETVAL = THIS->Disconnect();
+  OUTPUT: RETVAL
 
 bool
 wxConnection::GetConnected()
