@@ -9,6 +9,7 @@ use Wx qw(:everything);
 use Wx::IPC;
 use if !Wx::_wx_optmod_ipc(), 'Test::More' => skip_all => 'No IPC Support';
 use if !Wx::wxTHREADS, 'Test::More' => skip_all => 'No thread support';
+use if !Wx::wxMSW, 'Test::More' => skip_all => 'Hangs on none wxMSW platforms';
 use Test::More tests => 4;
 
 my @keeps;
@@ -30,6 +31,10 @@ my @keeps;
     my $conn2 = $client2->MakeConnection('', $servicename2, 'Default Topic');
     
     push @keeps, ($server1, $client1, $conn1);
+    
+    $conn1->Disconnect;
+    $conn2->Disconnect;
+    
     # $server2, $client2, $conn2 destroyed when current scope ends
 }
 
