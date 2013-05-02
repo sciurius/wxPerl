@@ -69,18 +69,14 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 }
 
 #define WXCHAR_INPUT( var, type, arg ) \
-  const wxWCharBuffer var##_tmp = ( SvUTF8( arg ) ) ? \
-            ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ).wc_str() \
-          : ( wxString( SvPV_nolen( arg ), wxConvLibc ) ).wc_str(); \
+  const wxWCharBuffer var##_tmp = ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ).wc_str(); \
   var = const_cast<type>( var##_tmp.data() );
 
 #define WXCHAR_OUTPUT( var, arg ) \
   wxPli_wxChar_2_sv( aTHX_ var, arg )
 
 #define WXSTRING_INPUT( var, type, arg ) \
-  var =  ( SvUTF8( arg ) ) ? \
-           wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) \
-         : wxString( SvPV_nolen( arg ), wxConvLibc );
+  var = wxString( SvPVutf8_nolen( arg ), wxConvUTF8 );
 
 #define WXSTRING_OUTPUT( var, arg ) \
   wxPli_wxString_2_sv( aTHX_ var, arg )
@@ -104,18 +100,14 @@ inline SV* wxPli_wxString_2_sv( pTHX_ const wxString& str, SV* out )
 }
 
 #define WXCHAR_INPUT( var, type, arg ) \
-  const wxString var##_tmp = ( SvUTF8( arg ) ) ? \
-            ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ) \
-          : ( wxString( SvPV_nolen( arg ), wxConvLibc ) ); \
+  const wxString var##_tmp = ( wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) ); \
   var = const_cast<type>( static_cast<const type>( var##_tmp.wc_str() ) );
 
 #define WXCHAR_OUTPUT( var, arg ) \
   wxPli_wxChar_2_sv( aTHX_ var, arg )
 
 #define WXSTRING_INPUT( var, type, arg ) \
-  var =  ( SvUTF8( arg ) ) ? \
-           wxString( SvPVutf8_nolen( arg ), wxConvUTF8 ) \
-         : wxString( SvPV_nolen( arg ), wxConvLibc );
+  var =  wxString( SvPVutf8_nolen( arg ), wxConvUTF8 );
 
 #define WXSTRING_OUTPUT( var, arg ) \
   wxPli_wxString_2_sv( aTHX_ var, arg )
