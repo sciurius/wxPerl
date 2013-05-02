@@ -20,7 +20,7 @@
 
 class wxPlConnection : public wxConnection
 {
-    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlConnection );
+    WXPLI_DECLARE_DYNAMIC_CLASS( wxPlConnection ); 
     WXPLI_DECLARE_V_CBACK();
 public:
     SV* GetSelf()
@@ -332,8 +332,6 @@ public:
             wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,
                                              "P",  &topic ) );
             
-            wxPli_object_set_deleteable( aTHX_ ret, false );
-            
             return (wxConnectionBase*)wxPli_sv_2_object( aTHX_ ret, "Wx::Connection" );
         }
         else
@@ -382,8 +380,6 @@ public:
         {
             wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR, NULL ) );
             
-            wxPli_object_set_deleteable( aTHX_ ret, false );
-            
             return (wxConnectionBase*)wxPli_sv_2_object( aTHX_ ret, "Wx::Connection" );
         }
         else
@@ -394,6 +390,7 @@ public:
     {
         return wxClient::OnMakeConnection();
     }
+
 
 };
 

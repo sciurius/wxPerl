@@ -10,6 +10,7 @@ use Wx::IPC;
 use if !Wx::_wx_optmod_ipc(), 'Test::More' => skip_all => 'No IPC Support';
 use if !Wx::wxTHREADS, 'Test::More' => skip_all => 'No thread support';
 use if !Wx::wxMSW, 'Test::More' => skip_all => 'Hangs on none wxMSW platforms';
+# the hang is due to deadlock over fifo client / server in same process I think
 use Test::More tests => 4;
 
 my @keeps;
