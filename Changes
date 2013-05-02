@@ -9,6 +9,7 @@ Revision history for Perl extension Wx.
     - wxProgressDialog updates
     - IPC classes object deletion updates
     - wxString conversion UTF-8 only in Unicode builds
+    - typemap template missing some specs since 0.9917
 
 0.9921 Sun Apr 14 2013
     - Fix 2.9.4 handling of wxConnection::Execute
