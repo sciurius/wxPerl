@@ -1229,6 +1229,10 @@ wxWindow::Validate()
 void
 wxWindow::Update()
 
+void
+wxWindow::InitDialog()
+
+
 #if WXPERL_W_VERSION_GE( 2, 6, 0 )
 
 void
