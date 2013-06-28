@@ -49,13 +49,13 @@ wxItemContainerImmutable::FindString( ... )
     %name{FindStringCase} int FindString( const wxString& s, bool bCase = false ) const;
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 6, 0 ) && !defined(WXPERL_IN_COMBOBOX)
+#if !defined(WXPERL_IN_COMBOBOX)
     void SetSelection( int n );
-#endif
     int GetSelection() const;
-#if WXPERL_W_VERSION_GE( 2, 6, 0 ) || defined(WXPERL_IN_COMBOBOX)
-    bool SetStringSelection( const wxString& s );
 #endif
+
+    bool SetStringSelection( const wxString& s );
     wxString GetStringSelection() const;
+
     void Select( int n );
 };

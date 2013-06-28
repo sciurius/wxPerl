@@ -82,8 +82,7 @@ wxComboBox::Create( parent, id = wxID_ANY, value = wxEmptyString, pos = wxDefaul
     delete[] chs;
   OUTPUT: RETVAL
 
-#if defined( __WXGTK__ ) || \
-    ( defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 5, 1 ) )
+#if defined( __WXMAC__ ) || ( defined( __WXGTK__ ) && WXPERL_W_VERSION_LT( 2, 9, 0 ) )
 
 #define WXPERL_IN_COMBOBOX
 
@@ -95,29 +94,22 @@ INCLUDE_COMMAND: $^X -pe "s/ItemContainer/ComboBox/g;s/->(?=[SG]etClientObject)/
 
 #undef WXPERL_IN_COMBOBOX
 
+int
+wxComboBox::GetCurrentSelection()
+
+#endif
+
+void
+wxComboBox::SetEditable( bool editable )
+
+
 #if WXPERL_W_VERSION_GE( 2, 9, 3 )
 
 bool 
-wxComboBox::IsListEmpty();
+wxComboBox::IsListEmpty()
 
 bool 
-wxComboBox::IsTextEmpty();
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
-int
-wxChoice::GetCurrentSelection()
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
-void
-wxComboBox::SetEditable( bool editable );
-
-#endif
+wxComboBox::IsTextEmpty()
 
 #endif
 
@@ -126,8 +118,6 @@ wxComboBox::Copy()
 
 void
 wxComboBox::Cut()
-
-#if WXPERL_W_VERSION_GE( 2, 6, 0 ) && !defined(__WXMOTIF__)
 
 bool
 wxComboBox::CanCopy()
@@ -149,8 +139,6 @@ wxComboBox::CanUndo()
 
 bool
 wxComboBox::CanRedo()
-
-#endif
 
 long
 wxComboBox::GetInsertionPoint()
@@ -181,6 +169,25 @@ wxComboBox::SetInsertionPoint( pos )
 
 void
 wxComboBox::SetInsertionPointEnd()
+
+void
+wxComboBox::GetSelection()
+  PREINIT:
+    long from;
+    long to;
+    int  selindex;
+  PPCODE:
+    if( GIMME_V == G_ARRAY ) {
+        THIS->GetSelection( &from, &to );
+        EXTEND( SP, 2 );
+        PUSHs( sv_2mortal( newSViv( from ) ) );
+        PUSHs( sv_2mortal( newSViv( to ) ) );
+    } else {
+	selindex = THIS->GetSelection();
+	EXTEND( SP, 1 );
+        PUSHs( sv_2mortal( newSViv( selindex ) ) );
+    }
+
 
 void
 wxComboBox::SetSelection( ... )

@@ -2,6 +2,7 @@ Revision history for Perl extension Wx.
 
 0.9923 TBR
     - added wxWindow::InitDialog
+    - updated wxComboBox::GetSelection
 
 0.9922 Wed May 01 2013 
     - added wxCommandLinkButton
