@@ -14,7 +14,7 @@
 #undef Yield
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) && WXPERL_W_VERSION_LT( 3, 0, 0 ) 
 #include <wx/apptrait.h>
 
 class wxPerlAppTraits : public wxGUIAppTraits
@@ -32,7 +32,7 @@ class wxPliApp:public wxApp
 public:
     wxPliApp( const char* package = "Wx::App" );
     ~wxPliApp();
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) && WXPERL_W_VERSION_LT( 3, 0, 0 ) 
 
     wxAppTraits* CreateTraits()
     {

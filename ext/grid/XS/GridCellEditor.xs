@@ -47,12 +47,26 @@ wxGridCellEditor::Show( show, attr )
     bool show
     wxGridCellAttr* attr
 
+#if WXPERL_W_VERSION_LT( 2, 9, 5 )
+
 void
 wxGridCellEditor::PaintBackground( rectCell, attr )
     wxRect* rectCell
     wxGridCellAttr* attr
   CODE:
     THIS->PaintBackground( *rectCell, attr );
+
+#else
+
+void
+wxGridCellEditor::PaintBackground( dc, rectCell, attr )
+    wxDC* dc
+    wxRect* rectCell
+    wxGridCellAttr* attr
+  CODE:
+    THIS->PaintBackground( *dc, *rectCell, *attr );
+
+#endif
 
 void
 wxGridCellEditor::BeginEdit( row, col, grid )
@@ -213,3 +227,26 @@ wxPlGridCellEditor::new()
     RETVAL = r->m_callback.GetSelf();
     SvREFCNT_inc( RETVAL );
   OUTPUT: RETVAL
+
+#if WXPERL_W_VERSION_LT( 2, 9, 5 )
+
+void
+wxPlGridCellEditor::PaintBackground( rectCell, attr )
+    wxRect* rectCell
+    wxGridCellAttr* attr
+  CODE:
+    THIS->wxGridCellEditor::PaintBackground( *rectCell, attr );
+
+#else
+
+void
+wxPlGridCellEditor::PaintBackground( dc, rectCell, attr )
+    wxDC* dc
+    wxRect* rectCell
+    wxGridCellAttr* attr
+  CODE:
+    THIS->wxGridCellEditor::PaintBackground( *dc, *rectCell, *attr );
+
+#endif
+
+  

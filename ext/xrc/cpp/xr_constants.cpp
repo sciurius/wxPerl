@@ -11,8 +11,10 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "cpp/constants.h"
-
 #include "wx/xrc/xmlres.h"
+#if WXPERL_W_VERSION_GE( 2, 9, 5 )
+#include "wx/xml/xml.h"
+#endif
 
 double xrc_constant( const char* name, int arg )
 {

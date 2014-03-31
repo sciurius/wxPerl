@@ -80,33 +80,37 @@ sub tests {
   # wxRibbonButtonBar
   ############################################################################
   
-  # client data in wxRibbonButtonBar seems not useful
-  # unless we hang on to the button references ?
-  
   my $bitmap = Wx::Bitmap->new('../../wxpl.xpm', Wx::wxBITMAP_TYPE_XPM() );
   my $ribbonpanel = Wx::RibbonPanel->new($this, -1);
-  my $buttonbar = Wx::RibbonButtonBar->new($ribbonpanel, 1 );
   
-  my $button = $buttonbar->AddButton(-1, "Hello World",
-        $bitmap, wxNullBitmap, wxNullBitmap, wxNullBitmap,
-        Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
-        MyDataContainer->new('Stashed Data 4') );
+  # client data in wxRibbonButtonBar seems not useful
+  # unless we hang on to the button references ?
+  SKIP: {
+    skip 'No ClientData in wxRibbonButtonBar 3.x.x', 3 if Wx::wxVERSION >= 3.000000;
   
-  $ctrldelete =  0;
-  my $delbutton = $buttonbar->AddButton(-1, "Hello World",
-            $bitmap, wxNullBitmap, wxNullBitmap, wxNullBitmap,
-            Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
-            cdata(sub { $ctrldelete = 1 } ) );
+    my $buttonbar = Wx::RibbonButtonBar->new($ribbonpanel, 1 );
     
-  is( $button->GetClientData()->get_data, 'Stashed Data 4', "Wx::RibbonButtonBarButtonBase::GetClientData" );
+    my $button = $buttonbar->AddButton(-1, "Hello World",
+          $bitmap, wxNullBitmap, wxNullBitmap, wxNullBitmap,
+          Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
+          MyDataContainer->new('Stashed Data 4') );
     
-  ok( $ctrldelete == 0, 'Wx::RibbonButtonBar: Data not changed before delete' );
-  
-  $delbutton->SetClientData(undef);
+    $ctrldelete =  0;
+    my $delbutton = $buttonbar->AddButton(-1, "Hello World",
+              $bitmap, wxNullBitmap, wxNullBitmap, wxNullBitmap,
+              Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
+              cdata(sub { $ctrldelete = 1 } ) );
+      
+    is( $button->GetClientData()->get_data, 'Stashed Data 4', "Wx::RibbonButtonBarButtonBase::GetClientData" );
+      
+    ok( $ctrldelete == 0, 'Wx::RibbonButtonBar: Data not changed before delete' );
     
-  $buttonbar->Destroy;
-  
-  ok( $ctrldelete, 'Wx::RibbonButtonBar: deleting the ribbonbuttonbar deletes the data' );
+    $delbutton->SetClientData(undef);
+      
+    $buttonbar->Destroy;
+    
+    ok( $ctrldelete, 'Wx::RibbonButtonBar: deleting the ribbonbuttonbar deletes the data' );
+  };
   
   ############################################################################
   # wxRibbonToolBar

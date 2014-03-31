@@ -11,6 +11,68 @@
 #if wxUSE_WEBVIEW
 
 %loadplugin{build::Wx::XSP::Overload};
+%loadplugin{build::Wx::XSP::Enum};
+%loadplugin{build::Wx::XSP::Event};
+
+%EventExportTag{webview};
+%EnumExportTag{webview};
+
+%Event{%EVT_WEBVIEW_NAVIGATING(id, func)%}
+      {wxEVT_COMMAND_WEBVIEW_NAVIGATING};
+%Event{%EVT_WEBVIEW_NAVIGATED(id, func)%}
+      {wxEVT_COMMAND_WEBVIEW_NAVIGATED};
+%Event{%EVT_WEBVIEW_LOADED(id, func)%}
+      {wxEVT_COMMAND_WEBVIEW_LOADED};
+%Event{%EVT_WEBVIEW_ERROR(id, func)%}
+      {wxEVT_COMMAND_WEBVIEW_ERROR};
+%Event{%EVT_WEBVIEW_NEWWINDOW(id, func)%}
+      {wxEVT_COMMAND_WEBVIEW_NEWWINDOW};
+%Event{%EVT_WEBVIEW_TITLE_CHANGED(id, func)%}
+      {wxEVT_COMMAND_WEBVIEW_TITLE_CHANGED};      
+
+
+enum wxWebViewZoom
+{
+    wxWEBVIEW_ZOOM_TINY,
+    wxWEBVIEW_ZOOM_SMALL,
+    wxWEBVIEW_ZOOM_MEDIUM,
+    wxWEBVIEW_ZOOM_LARGE,
+    wxWEBVIEW_ZOOM_LARGEST
+};
+
+enum wxWebViewZoomType
+{
+    wxWEBVIEW_ZOOM_TYPE_LAYOUT,
+    wxWEBVIEW_ZOOM_TYPE_TEXT
+};
+
+enum wxWebViewNavigationError
+{
+    wxWEBVIEW_NAV_ERR_CONNECTION,
+    wxWEBVIEW_NAV_ERR_CERTIFICATE,
+    wxWEBVIEW_NAV_ERR_AUTH,
+    wxWEBVIEW_NAV_ERR_SECURITY,
+    wxWEBVIEW_NAV_ERR_NOT_FOUND,
+    wxWEBVIEW_NAV_ERR_REQUEST,
+    wxWEBVIEW_NAV_ERR_USER_CANCELLED,
+    wxWEBVIEW_NAV_ERR_OTHER
+};
+
+enum wxWebViewReloadFlags
+{
+    wxWEBVIEW_RELOAD_DEFAULT,
+    wxWEBVIEW_RELOAD_NO_CACHE
+};
+
+enum wxWebViewFindFlags
+{
+    wxWEBVIEW_FIND_WRAP,
+    wxWEBVIEW_FIND_ENTIRE_WORD,
+    wxWEBVIEW_FIND_MATCH_CASE,
+    wxWEBVIEW_FIND_HIGHLIGHT_RESULT,
+    wxWEBVIEW_FIND_BACKWARDS,
+    wxWEBVIEW_FIND_DEFAULT
+};
 
 %name{Wx::WebViewHistoryItem} class wxWebViewHistoryItem
 {
@@ -49,11 +111,6 @@ public:
 {
 public:
 
-#if WXPERL_W_VERSION_GE( 3, 0, 0 )
-    virtual long Find(const wxString& text, int flags = wxWEBVIEW_FIND_DEFAULT);
-    
-    virtual void Reload(wxWebViewReloadFlags flags = wxWEBVIEW_RELOAD_DEFAULT);
-
     static wxWebView* NewDefault(const wxString& backend = wxWebViewBackendDefault)
         %code{% RETVAL = wxWebView::New( backend ); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
@@ -67,38 +124,7 @@ public:
             long style = 0,
             const wxString& name = wxWebViewNameStr)
             %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
-
-//#else
-//    static wxWebView* NewDefault(wxWebViewBackend backend = wxWEB_VIEW_BACKEND_DEFAULT)
-//        %code{% RETVAL = wxWebView::New( backend ); %}
-//        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
-//
-//    static wxWebView* New(wxWindow* parent,
-//           wxWindowID id,
-//           const wxString& url = wxWebViewDefaultURLStr,
-//           const wxPoint& pos = wxDefaultPosition,
-//           const wxSize& size = wxDefaultSize,
-//           wxWebViewBackend backend = wxWEB_VIEW_BACKEND_DEFAULT,
-//           long style = 0,
-//           const wxString& name = wxWebViewNameStr)
-//        %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
-//
-//    virtual void Reload(wxWebViewReloadFlags flags = wxWEB_VIEW_RELOAD_DEFAULT);
-//    
-//    virtual void EnableContextMenu(bool enable = true);
-//    
-//    virtual bool IsContextMenuEnabled() const;
-//    
-//    // virtual void* GetNativeBackend() const;
-//    
-//#if WXPERL_W_VERSION_GE( 2, 9, 5 )
-//
-//    virtual long Find(const wxString& text, int flags = wxWEB_VIEW_FIND_DEFAULT);
-//
-//#endif
-
-#endif
-    
+   
     virtual bool Create(wxWindow* parent,
                         wxWindowID id,
                         const wxString& url = wxWebViewDefaultURLStr,
@@ -106,6 +132,12 @@ public:
                         const wxSize& size = wxDefaultSize,
                         long style = 0,
                         const wxString& name = wxWebViewNameStr);
+    
+    virtual long Find(const wxString& text, int flags = wxWEBVIEW_FIND_DEFAULT);
+    
+    virtual void Reload(wxWebViewReloadFlags flags = wxWEBVIEW_RELOAD_DEFAULT);
+    
+    virtual void* GetNativeBackend() const;
 
     virtual wxString GetCurrentTitle() const;
     

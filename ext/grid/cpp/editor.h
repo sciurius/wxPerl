@@ -11,6 +11,9 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "cpp/v_cback.h"
+#if WXPERL_W_VERSION_GE( 2, 9, 5 )
+#include <wx/dc.h>
+#endif
 #include <wx/clntdata.h>
 #include "cpp/helpers.h"
 
@@ -169,6 +172,8 @@ public:
             wxGridCellEditor::Show( show, attr );
     }
 
+#if WXPERL_W_VERSION_LT( 2, 9, 5 )
+
     void PaintBackground( const wxRect& rect, wxGridCellAttr* attr )
     {
         dTHX;
@@ -177,7 +182,7 @@ public:
         {
             ENTER;
             SAVETMPS;
-
+            
             SV* attr_sv = wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
                                                  &attr, "Wx::GridCellAttr" );
 
@@ -193,6 +198,39 @@ public:
         } else
             wxGridCellEditor::PaintBackground( rect, attr );
     }
+
+#else
+    
+    virtual void PaintBackground( wxDC& dc, const wxRect& rect, const wxGridCellAttr& attr )
+    {
+        dTHX;
+
+        if( wxPliVirtualCallback_FindCallback( aTHX_ &m_callback, "PaintBackground" ) )
+        {
+            ENTER;
+            SAVETMPS;
+            
+            SV* attr_sv  = wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                                 &attr, "Wx::GridCellAttr" );
+            SV* dc_sv    = wxPli_object_2_sv( aTHX_ sv_newmortal(), &dc );
+            SV* rect_sv  = wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
+                                                 (void*)&rect, "Wx::Rect" );
+
+            wxPliVirtualCallback_CallCallback
+                ( aTHX_ &m_callback, G_DISCARD|G_SCALAR,
+                  "sss", dc_sv, rect_sv, attr_sv );
+
+            wxPli_detach_object( aTHX_ attr_sv );
+            wxPli_detach_object( aTHX_ dc_sv );
+            wxPli_detach_object( aTHX_ rect_sv );
+            
+            FREETMPS;
+            LEAVE;
+        } else
+            wxGridCellEditor::PaintBackground( dc, rect, attr );
+    }
+    
+#endif
 
     virtual wxGridCellEditor* Clone() const
     {

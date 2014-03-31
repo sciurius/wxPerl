@@ -15,7 +15,8 @@ use Wx::WebView;
 my $app = Wx::App->new( sub { 1 } );
 
 my $frame = Wx::Frame->new(undef, -1, 'Test Frame');
-my $wcontrol = Wx::WebView::NewDefault();
+
+my $wcontrol  = Wx::WebView::NewDefault();
 my $wcontrol2 = Wx::WebView::New($frame, -1);
 
 my $march1 = Wx::WebViewArchiveHandler->new('zip');

@@ -152,6 +152,16 @@ wxComboBox::GetValue()
 void
 wxComboBox::Paste()
 
+#if WXPERL_W_VERSION_GE( 2, 9, 1 )
+
+void
+wxComboBox::Popup()
+
+void
+wxComboBox::Dismiss()
+
+#endif
+
 void
 wxComboBox::Replace( from, to, text )
     long from

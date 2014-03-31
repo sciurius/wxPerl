@@ -35,12 +35,19 @@ BOOT:
 
 #if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_WEBVIEW
 
-INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/WebView.xsp
+#if WXPERL_W_VERSION_GE( 3, 0, 0)
+
+INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/WebViewV3.xsp
+
+#else
+
+INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/WebViewV2.xsp
+
+#endif
 
 MODULE=Wx__WebView PACKAGE=Wx::WebView
 
 #include "cpp/ovl_const.cpp"
-#include <cpp/webview_constants.cpp>
 
 #endif
 

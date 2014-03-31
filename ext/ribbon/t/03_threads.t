@@ -44,23 +44,42 @@ my $rgitem2 = $rgallery->Append( Wx::Bitmap->new( 100, 100, -1 ), -1, MyDataCont
 my $cdata1 = $rgallery->GetItemClientData( $rgitem1 );
 my $cdata2 = $rgitem2->GetClientData();
 
-my $buttonbar = Wx::RibbonButtonBar->new($rpanel, -1 );
-my $button = $buttonbar->AddButton(-1, "Hello World",
+my ( $buttonbar, $button,  $buttonbar2, $button2, $buttonbar3, $button3 );
+
+if ( Wx::wxVERSION < 3.000000 ) {
+    $buttonbar = Wx::RibbonButtonBar->new($rpanel, -1 );
+    $button = $buttonbar->AddButton(-1, "Hello World",
         Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
         Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
         { data => 'Stashed Data' } );
 
-my $buttonbar2 = Wx::RibbonButtonBar->new($rpanel, -1 );
-my $button2 = $buttonbar2->AddButton(-1, "Hello World",
+    $buttonbar2 = Wx::RibbonButtonBar->new($rpanel, -1 );
+    $button2 = $buttonbar2->AddButton(-1, "Hello World",
         Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
         Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
         { data => 'Stashed Data' } );
 
-my $buttonbar3 = Wx::RibbonButtonBar->new($rpanel, -1 );
-my $button3 = $buttonbar3->AddButton(-1, "Hello World",
+    $buttonbar3 = Wx::RibbonButtonBar->new($rpanel, -1 );
+    $button3 = $buttonbar3->AddButton(-1, "Hello World",
         Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
         Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help",
         { data => 'Stashed Data' } );
+} else {
+    $buttonbar = Wx::RibbonButtonBar->new($rpanel, -1 );
+    $button = $buttonbar->AddButton(-1, "Hello World",
+        Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
+        Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help");
+
+    $buttonbar2 = Wx::RibbonButtonBar->new($rpanel, -1 );
+    $button2 = $buttonbar2->AddButton(-1, "Hello World",
+        Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
+        Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help");
+
+    $buttonbar3 = Wx::RibbonButtonBar->new($rpanel, -1 );
+    $button3 = $buttonbar3->AddButton(-1, "Hello World",
+        Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap, wxNullBitmap, wxNullBitmap,
+        Wx::wxRIBBON_BUTTON_NORMAL(), "HW Help");
+}
 
 my $toolbar = Wx::RibbonToolBar->new($rpanel, 1 );
 my $tool = $toolbar->AddTool(-1, Wx::Bitmap->new( 100, 100, -1 ), wxNullBitmap,

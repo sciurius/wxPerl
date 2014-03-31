@@ -21,5 +21,4 @@
 %typemap{wxWebViewZoom}{simple};
 %typemap{wxFSFile*}{simple};
 %typemap{wxInputStream&}{reference};
-
-
+%typemap{void*}{simple};

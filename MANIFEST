@@ -365,7 +365,6 @@ ext/test/t/07_callback.t
 ext/test/typemap
 ext/test/typemap.xsp
 ext/test/XS/PerlTest.xsp
-ext/webview/cpp/webview_constants.cpp
 ext/webview/lib/Wx/WebView.pm
 ext/webview/Makefile.PL
 ext/webview/t/01_load.t
@@ -374,7 +373,8 @@ ext/webview/t/03_threads.t
 ext/webview/typemap
 ext/webview/typemap.xsp
 ext/webview/WebView.xs
-ext/webview/XS/WebView.xsp
+ext/webview/XS/WebViewV2.xsp
+ext/webview/XS/WebViewV3.xsp
 ext/xrc/cpp/xr_constants.cpp
 ext/xrc/lib/Wx/XRC.pm
 ext/xrc/Makefile.PL
