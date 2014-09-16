@@ -1,7 +1,9 @@
 Revision history for Perl extension Wx.
 
 0.9924 TBR
-    - added wxTimerRunner
+    - added wxTimerRunner, wxTimer::StartOnce
+    - some missing wxGrid constants added
+    - fixed Wx::AUI events broken since wxWidgets 2.9.5
 
 0.9923 Mon Mar 31 2014
     - added wxWindow::InitDialog

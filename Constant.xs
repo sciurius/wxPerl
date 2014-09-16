@@ -3093,27 +3093,27 @@ void SetConstantsOnce()
     wxPli_make_const_string( wxPG_ATTR_MIN );
     wxPli_make_const_string( wxPG_ATTR_MAX );
 */
-    wxPli_make_const_string( wxPG_ATTR_AUTOCOMPLETE );
-    wxPli_make_const_string( wxPG_BOOL_USE_CHECKBOX );
-    wxPli_make_const_string( wxPG_BOOL_USE_DOUBLE_CLICK_CYCLING );
-    wxPli_make_const_string( wxPG_FLOAT_PRECISION );
-    wxPli_make_const_string( wxPG_STRING_PASSWORD );
-    wxPli_make_const_string( wxPG_UINT_BASE );
-    wxPli_make_const_string( wxPG_UINT_PREFIX );
-    wxPli_make_const_string( wxPG_FILE_WILDCARD );
-    wxPli_make_const_string( wxPG_FILE_SHOW_FULL_PATH );
-    wxPli_make_const_string( wxPG_FILE_SHOW_RELATIVE_PATH );
-    wxPli_make_const_string( wxPG_FILE_INITIAL_PATH );
-    wxPli_make_const_string( wxPG_FILE_DIALOG_TITLE );
-    wxPli_make_const_string( wxPG_DIR_DIALOG_MESSAGE );
-    wxPli_make_const_string( wxPG_ARRAY_DELIMITER );
-    wxPli_make_const_string( wxPG_DATE_FORMAT );
-    wxPli_make_const_string( wxPG_DATE_PICKER_STYLE );
-    wxPli_make_const_string( wxPG_ATTR_SPINCTRL_STEP );
-    wxPli_make_const_string( wxPG_ATTR_SPINCTRL_WRAP );
-    wxPli_make_const_string( wxPG_ATTR_MULTICHOICE_USERSTRINGMODE );
-    wxPli_make_const_string( wxPG_COLOUR_ALLOW_CUSTOM );
-    wxPli_make_const_string( wxPG_COLOUR_HAS_ALPHA );
+    wxPli_make_const_string( wxPG_ATTR_AUTOCOMPLETE );              // propgrid
+    wxPli_make_const_string( wxPG_BOOL_USE_CHECKBOX );              // propgrid
+    wxPli_make_const_string( wxPG_BOOL_USE_DOUBLE_CLICK_CYCLING );  // propgrid
+    wxPli_make_const_string( wxPG_FLOAT_PRECISION );                // propgrid
+    wxPli_make_const_string( wxPG_STRING_PASSWORD );                // propgrid
+    wxPli_make_const_string( wxPG_UINT_BASE );                      // propgrid
+    wxPli_make_const_string( wxPG_UINT_PREFIX );               // propgrid
+    wxPli_make_const_string( wxPG_FILE_WILDCARD );             // propgrid
+    wxPli_make_const_string( wxPG_FILE_SHOW_FULL_PATH );       // propgrid
+    wxPli_make_const_string( wxPG_FILE_SHOW_RELATIVE_PATH );   // propgrid
+    wxPli_make_const_string( wxPG_FILE_INITIAL_PATH );         // propgrid
+    wxPli_make_const_string( wxPG_FILE_DIALOG_TITLE );         // propgrid
+    wxPli_make_const_string( wxPG_DIR_DIALOG_MESSAGE );        // propgrid
+    wxPli_make_const_string( wxPG_ARRAY_DELIMITER );           // propgrid
+    wxPli_make_const_string( wxPG_DATE_FORMAT );               // propgrid
+    wxPli_make_const_string( wxPG_DATE_PICKER_STYLE );         // propgrid
+    wxPli_make_const_string( wxPG_ATTR_SPINCTRL_STEP );        // propgrid
+    wxPli_make_const_string( wxPG_ATTR_SPINCTRL_WRAP );        // propgrid
+    wxPli_make_const_string( wxPG_ATTR_MULTICHOICE_USERSTRINGMODE );  // propgrid
+    wxPli_make_const_string( wxPG_COLOUR_ALLOW_CUSTOM );       // propgrid
+    wxPli_make_const_string( wxPG_COLOUR_HAS_ALPHA );          // propgrid
 #endif
 
     wxPli_make_const( "wxTheClipboard" );       // clipboard
@@ -3196,6 +3196,15 @@ void SetConstantsOnce()
 #endif
 
     wxPli_make_const_string( wxFileSelectorDefaultWildcardStr ); // filedialog
+    
+    // grid
+    wxPli_make_const_string( wxGRID_VALUE_STRING );  // grid
+    wxPli_make_const_string( wxGRID_VALUE_BOOL );    // grid
+    wxPli_make_const_string( wxGRID_VALUE_NUMBER );  // grid
+    wxPli_make_const_string( wxGRID_VALUE_FLOAT );   // grid
+    wxPli_make_const_string( wxGRID_VALUE_CHOICE );  // grid
+    wxPli_make_const_string( wxGRID_VALUE_TEXT );    // grid
+    wxPli_make_const_string( wxGRID_VALUE_LONG );    // grid
 
     // these are correctly cloned
     SV* tmp;

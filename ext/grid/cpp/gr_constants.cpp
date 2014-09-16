@@ -34,7 +34,19 @@ double grid_constant( const char* name, int arg )
         r( wxGRIDTABLE_NOTIFY_COLS_INSERTED );
         r( wxGRIDTABLE_NOTIFY_COLS_APPENDED );
         r( wxGRIDTABLE_NOTIFY_COLS_DELETED );
-
+#if WXPERL_W_VERSION_GE( 2, 8, 8 )        
+        r( wxGRID_AUTOSIZE );
+#endif
+#if WXPERL_W_VERSION_GE( 3, 0, 0 )
+        r( wxGRID_COLUMN );
+        r( wxGRID_ROW );
+        r( wxGRID_DRAW_ROWS_HEADER );
+        r( wxGRID_DRAW_COLS_HEADER );
+        r( wxGRID_DRAW_CELL_LINES );
+        r( wxGRID_DRAW_BOX_RECT );
+        r( wxGRID_DRAW_SELECTION );
+        r( wxGRID_DRAW_DEFAULT );
+#endif
         // !export: wxGridSelectCells wxGridSelectRows wxGridSelectColumns
         if( strEQ( name, "wxGridSelectCells" ) )
             return wxGrid::wxGridSelectCells;
