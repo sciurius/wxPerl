@@ -357,6 +357,13 @@ wxDC::GetOptimization()
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 5 )
+
+double
+wxDC::GetContentScaleFactor()
+
+#endif
+
 wxPen*
 wxDC::GetPen()
   CODE:

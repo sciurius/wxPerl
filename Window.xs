@@ -667,6 +667,13 @@ wxWindow::IsThisEnabled()
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 2, 9, 5 )
+
+double
+wxWindow::GetContentScaleFactor()
+
+#endif
+
 void
 wxWindow::IsExposed( ... )
   PPCODE:
