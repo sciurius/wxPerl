@@ -124,9 +124,8 @@
 #include <wx/propgrid/property.h>
 #include <wx/propgrid/propgriddefs.h>
 #endif
-#if WXPERL_W_VERSION_GE( 3, 0, 0 )
 #include <wx/grid.h>
-#endif
+
 #if WXPERL_W_VERSION_GE( 2, 7, 0 ) && !WXWIN_COMPATIBILITY_2_6
 #define wxCHB_DEFAULT         wxBK_DEFAULT
 #define wxCHB_TOP             wxBK_TOP
