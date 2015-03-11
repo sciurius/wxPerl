@@ -11,7 +11,6 @@ Wx::build::Options - retrieve wxWidgets/wxPerl build options
 =cut
 
 use Getopt::Long;
-Getopt::Long::Configure( 'pass_through' );
 
 my $help         = 0;
 my $mksymlinks   = 0;

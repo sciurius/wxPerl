@@ -16,6 +16,27 @@ if ($ENV{MACOSX_DEPLOYMENT_TARGET}) {
 my $tools43 = '/Applications/Xcode.app/Contents/Developer/Tools';
 my $restoolpath = ( -d $tools43 ) ? $tools43 : '/Developer/Tools';
 
+sub get_flags {
+  my $this = shift;
+  my %config = $this->SUPER::get_flags;
+  
+  if ($config{CC} =~ /clang\+\+/ || $config{LD} =~ /clang\+\+/) {
+	my $sdkrepl = '';
+	for my $sdkversion ( qw( 10.9 10.8 10.7 10.6 ) ) {
+	  my $macossdk = qq(/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${sdkversion}.sdk);
+	  if( -d $macossdk ) {
+		$sdkrepl = 'clang++ -isysroot ' . $macossdk . ' -stdlib=libc++';
+		last;
+	  }
+	}
+	if ( $sdkrepl ) {
+	  $config{CC} =~ s/clang\+\+/$sdkrepl/g;
+	  $config{LD} =~ s/clang\+\+/$sdkrepl/g;
+	}
+  }
+  return %config;
+}
+
 sub configure_core {
   my $this = shift;
   my %config = $this->SUPER::configure_core( @_ );

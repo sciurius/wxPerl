@@ -1,11 +1,14 @@
 Revision history for Perl extension Wx.
 
-0.9924 TBR
+0.9924 Tue Mar 10 2015
     - added wxTimer::StartOnce
     - some missing wxGrid constants added
     - fixed Wx::AUI events broken since wxWidgets 2.9.5
     - rt96136 - added GetContentScaleFactor to Wx::DC && Wx::Window
     - rt99038 - MACOSX_DEPLOYMENT_TARGET comparison fixed in Wx build
+    - wxMenuItem::SetBitmap available on OSX
+    - added some missing TextEntry methods to wxComboBox
+    - rt102269 - fix option handling
 
 0.9923 Mon Mar 31 2014
     - added wxWindow::InitDialog

@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     31/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2004, 2006-2008, 2010-2011 Mattia Barbon
+## Copyright:   (c) 2000-2004, 2006-2008, 2010-2011, 2014-2015 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -223,3 +223,32 @@ wxComboBox::SetMark( from, to )
 void
 wxComboBox::SetValue( string )
     wxString string
+
+void
+wxComboBox::RemoveSelection()
+
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
+
+void
+wxComboBox::ChangeValue( string )
+    wxString string
+
+#endif
+
+#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+
+bool
+wxComboBox::AutoComplete( choices )
+	wxArrayString choices
+	
+#bool
+#wxComboBox::AutoComplete( completer )	
+#    wxTextCompleter completer
+
+bool
+wxComboBox::AutoCompleteFileNames()
+
+bool
+wxComboBox::AutoCompleteDirectories()
+
+#endif

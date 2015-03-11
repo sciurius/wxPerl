@@ -19,5 +19,5 @@ use Wx::build::MakeMaker;
 wxWriteMakefile( NAME         => 'Wx::RichText',
                  VERSION_FROM => 'lib/Wx/RichText.pm',
                  REQUIRE_WX   => 2.007000,
-                 WX_CORE_LIB  => 'richtext html adv core base',
+                 WX_CORE_LIB  => 'richtext html xml adv core base',
                  );

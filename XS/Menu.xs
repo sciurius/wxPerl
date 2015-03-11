@@ -838,8 +838,7 @@ wxMenuItem::SetBitmaps( checked, unchecked = (wxBitmap*)&wxNullBitmap )
 
 #endif
 
-#if ( defined( __WXMSW__ ) && !defined( __WXWINCE__ ) ) || \
-    defined( __WXGTK__ )
+#if !defined( __WXWINCE__ )
 
 void
 wxMenuItem::SetBitmap( bitmap )

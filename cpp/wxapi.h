@@ -55,6 +55,18 @@ inline FILE* _wxPli_stderr() { return stderr; }
 WXPL_EXTERN_C_START
 #include <EXTERN.h>
 #include <perl.h>
+
+#if WXPERL_P_VERSION_GE( 5, 16, 0 ) && WXPERL_P_VERSION_LT( 5, 18, 0 ) && defined(__WXOSX_COCOA__)
+#ifdef dNOOP
+#undef dNOOP
+#endif
+#ifdef __cplusplus 
+#define dNOOP (void)0 
+#else 
+#define dNOOP extern int Perl___notused(void) 
+#endif 
+#endif
+
 #include <XSUB.h>
 WXPL_EXTERN_C_END
 
