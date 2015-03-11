@@ -38,7 +38,7 @@ package Wx::DataObjectComposite;@ISA = qw(Wx::DataObject);
 package Wx::FileDataObject;     @ISA = qw(Wx::DataObjectSimple);
 package Wx::TextDataObject;     @ISA = qw(Wx::DataObjectSimple);
 package Wx::BitmapDataObject;   @ISA = qw(Wx::DataObjectSimple);
-package Wx::Droptarget;
+
 package Wx::PlDropTarget;       @ISA = qw(Wx::DropTarget);
 package Wx::TextDropTarget;     @ISA = qw(Wx::DropTarget);
 package Wx::FileDropTarget;     @ISA = qw(Wx::DropTarget);

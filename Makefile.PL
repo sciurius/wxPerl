@@ -80,7 +80,7 @@ wxWriteMakefile(
             'MailingList'   => 'http://lists.perl.org/list/wxperl-users.html',
         },
         no_index => { directory => [ qw(samples script) ],
-                      package   => [ qw(MY Parse::Yapp::Driver) ],
+                      package   => [ qw(MY Parse::Yapp::Driver Wx::DropTarget Wx::Droptarget) ],
         },
     },
     PMLIBDIRS         => [ 'lib', 'build' ],
