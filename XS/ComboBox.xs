@@ -224,10 +224,10 @@ void
 wxComboBox::SetValue( string )
     wxString string
 
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
+
 void
 wxComboBox::RemoveSelection()
-
-#if WXPERL_W_VERSION_GE( 2, 9, 2 )
 
 void
 wxComboBox::ChangeValue( string )

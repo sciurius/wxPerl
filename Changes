@@ -1,6 +1,7 @@
 Revision history for Perl extension Wx.
 
-0.9927 TBR
+0.9927 Thu Mar 26 2015
+    - Fix broken wxWidgets 2.8 builds
 
 0.9926 Tue Mar 10 2015
     - pause indexing fix
