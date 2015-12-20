@@ -94,3 +94,7 @@ wxTimer::StartOnce( milliseconds = -1)
 void
 wxTimer::Stop()
 
+void
+wxTimer::Notify()
+  CODE:
+    THIS->wxTimer::Notify();
