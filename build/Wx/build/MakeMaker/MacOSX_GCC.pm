@@ -22,7 +22,9 @@ sub get_flags {
   
   if ($config{CC} =~ /clang\+\+/ || $config{LD} =~ /clang\+\+/) {
 	my $sdkrepl = '';
-	for my $sdkversion ( qw( 10.9 10.8 10.7 10.6 ) ) {
+    # Get ahead with the xcode versions. It'll be wrong, but better than not
+    # finding at all.
+	for my $sdkversion ( qw( 10.14 10.13 10.12 10.11 10.10 10.9 10.8 10.7 10.6 ) ) {
 	  my $macossdk = qq(/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${sdkversion}.sdk);
 	  if( -d $macossdk ) {
 		$sdkrepl = 'clang++ -isysroot ' . $macossdk . ' -stdlib=libc++';

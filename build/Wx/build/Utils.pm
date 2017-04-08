@@ -107,7 +107,7 @@ sub scan_xs($$$) {
     m/^\s*INCLUDE:\s+(.*)$/ and $file = $1 and $arr = \@xsinclude;
     m/^\s*INCLUDE_COMMAND:\s+.*\s(\S+\.(?:xsp?|h))\s*/ and $file = $1 and
       $arr = \@xsinclude;
-    m/^\s*\%include{([^}]+)}\s*;\s*$/ and $file = $1 and $arr = \@xsinclude;
+    m/^\s*\%include\{([^}]+)\}\s*;\s*$/ and $file = $1 and $arr = \@xsinclude;
 
     if( defined $file ) {
       $file = catfile( split '/', $file );

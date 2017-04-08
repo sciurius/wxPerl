@@ -122,7 +122,7 @@ sub depend_core {
 
   my %files = $this->files_to_install();
   my %depend = ( _depend_common( $this ),
-                 $exp              => join( ' ', $this->files_with_constants, ),
+                 $exp              => join( ' ', $this->files_with_constants, 'subdirs', ),
                  'wxt_fix_alien'   => 'pm_to_blib',
                  'pm_to_blib'      => 'wxt_copy_files',
                  'blibdirs'        => 'wxt_copy_files',

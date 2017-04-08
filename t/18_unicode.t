@@ -5,17 +5,13 @@ use Wx;
 use lib './t';
 use Tests_Helper qw(in_frame);
 use Test::More 'tests' => 12;
-use encoding qw(iso-8859-1);
+use utf8;
 use Encode qw(is_utf8);
 
 my $ascii   = 'Abcde';
 my $ascii2  = 'XXX';
-my $latin1  = 'Àbcdë';
+my $utf8    = 'Ã€bcdÃ«';
 my $unicode = "\x{1234}";
-
-# needs to be upgraded to characters because wxPerl converts
-# based upon the current locale, which might not be Latin-1
-utf8::upgrade( $latin1 ); # safe beacuse it's latin1
 
 in_frame(
     sub {
@@ -50,10 +46,10 @@ in_frame(
             skip "wrongly asserts under 2.5.x", 6
                 if Wx::wxVERSION < 2.006;
 
-            $label->SetLabel( $latin1 );
-            is( $label->GetLabel, $latin1 );
+            $label->SetLabel( $utf8 );
+            is( $label->GetLabel, $utf8 );
 
-            ok( is_utf8( $latin1 ) );
+            ok( is_utf8( $utf8 ) );
             ok( is_utf8( $label->GetLabel ) );
 
             $label->SetLabel( $unicode );
