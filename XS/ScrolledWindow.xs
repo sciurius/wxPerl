@@ -86,6 +86,15 @@ void
 wxScrolledWindow::EnableScrolling( xScrolling, yScrolling )
     bool xScrolling
     bool yScrolling
+    
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+
+void
+wxScrolledWindow::ShowScrollbars( horz, vert )
+    wxScrollbarVisibility horz
+    wxScrollbarVisibility vert
+
+#endif
 
 void
 wxScrolledWindow::GetScrollPixelsPerUnit()

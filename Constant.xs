@@ -2500,6 +2500,11 @@ static double constant( const char* name, int arg )
     //    r( wxSB_SIZEGRIP );
     r( wxSB_HORIZONTAL );               // scrollbar
     r( wxSB_VERTICAL );                 // scrollbar
+#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+    r( wxSHOW_SB_ALWAYS );              // scrolledwindow
+    r( wxSHOW_SB_NEVER );               // scrolledwindow
+    r( wxSHOW_SB_DEFAULT );             // scrolledwindow
+#endif    
 #if WXPERL_W_VERSION_GE( 2, 5, 3 )
     r( wxSB_NORMAL );                   // statusbar
     r( wxSB_FLAT );                     // statusbar

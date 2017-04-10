@@ -5,6 +5,7 @@ Revision history for Perl extension Wx.
     - RT:115097 remove encoding pragma
     - RT:120657 for Wx_Exp.pm incomplete
     - RT:105467 Unescaped left brace in regex is deprecated
+    - RT:120139 support wxScrolledWindow::ShowScrollbars
 
 0.9928 Sun Dec 20 2015
     - Fix memory leak in Wx::Timer
