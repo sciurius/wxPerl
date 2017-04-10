@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.9930 TBR
+
 0.9929 Sat Apr 8 2017
     - Fix current OSX builds
     - RT:115097 remove encoding pragma
