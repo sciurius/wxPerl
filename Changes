@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+0.9932 TBR
+
 0.9931 Mon Apr 17 2017
     - really skip Strawberry 64 bit build test failure
 
