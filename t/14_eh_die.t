@@ -2,11 +2,12 @@
 
 use strict;
 use Wx;
+use Config;
 use lib './t';
 use Tests_Helper qw(test_app);
-use Test::More Wx::wxMAC() ? ( 'skip_all' => 'Hangs on wxMac' ) :
+use Test::More ( Wx::wxMAC() || Wx::wxMSW() && ( $Config{ptrsize} == 8 && $Config{cf_by} eq 'strawberry-perl') ) ? ( 'skip_all' => 'Hangs on wxMac and on 64 bit Strawberry Perl' ) :
                              ( 'tests'    => 6 );
-
+                             
 use Wx::Event qw(EVT_TIMER);
 
 my $app = test_app(
