@@ -1,12 +1,16 @@
 Revision history for Perl extension Wx.
 
-0.9930 TBR
-
+0.9930 Mon Apr 17 2017
+    - Refactor wxTreeList
+    - RT:119059 some missing keycode constants 
+    - skip Strawberry 64 bit build test failure
+    - Fix none latin paths in @INC on Windows
+    
 0.9929 Sat Apr 8 2017
     - Fix current OSX builds
     - RT:115097 remove encoding pragma
-    - RT:120657 for Wx_Exp.pm incomplete
-    - RT:105467 Unescaped left brace in regex is deprecated
+    - RT:120657 for Wx_Exp.pm exports incomplete
+    - RT:105467 Unescaped left brace in regex
     - RT:120139 support wxScrolledWindow::ShowScrollbars
 
 0.9928 Sun Dec 20 2015

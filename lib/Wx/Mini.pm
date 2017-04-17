@@ -72,6 +72,11 @@ sub _alien_path {
       last;
     }
   }
+  
+  if( $wx_path && $^O =~ /mswin/i ) {
+     require Win32;
+     $wx_path = Win32::GetShortPathName( $wx_path );
+  }
 }
 
 _alien_path();

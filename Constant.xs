@@ -1817,6 +1817,46 @@ static double constant( const char* name, int arg )
   case 'K':
     if( strnEQ( name, "WXK_", 4 ) )
     {
+#if WXPERL_W_VERSION_LT( 3, 0, 2 )
+        r( WXK_NONE );                  // keycode
+        r( WXK_CONTROL_A );             // keycode
+        r( WXK_CONTROL_B );             // keycode
+        r( WXK_CONTROL_C );             // keycode
+        r( WXK_CONTROL_D );             // keycode
+        r( WXK_CONTROL_E );             // keycode
+        r( WXK_CONTROL_F );             // keycode
+        r( WXK_CONTROL_G );             // keycode
+        r( WXK_CONTROL_H );             // keycode
+        r( WXK_CONTROL_I );             // keycode
+        r( WXK_CONTROL_J );             // keycode
+        r( WXK_CONTROL_K );             // keycode
+        r( WXK_CONTROL_L );             // keycode
+        r( WXK_CONTROL_M );             // keycode
+        r( WXK_CONTROL_N );             // keycode
+        r( WXK_CONTROL_O );             // keycode
+        r( WXK_CONTROL_P );             // keycode
+        r( WXK_CONTROL_Q );             // keycode
+        r( WXK_CONTROL_R );             // keycode
+        r( WXK_CONTROL_S );             // keycode
+        r( WXK_CONTROL_U );             // keycode
+        r( WXK_CONTROL_V );             // keycode
+        r( WXK_CONTROL_W );             // keycode
+        r( WXK_CONTROL_X );             // keycode
+        r( WXK_CONTROL_Y );             // keycode
+        r( WXK_CONTROL_Z );             // keycode
+        r( WXK_RAW_CONTROL );           // keycode
+        r( WXK_WINDOWS_LEFT  );         // keycode
+        r( WXK_WINDOWS_RIGHT  );        // keycode
+        r( WXK_WINDOWS_MENU  );         // keycode
+        r( WXK_COMMAND  );              // keycode
+#else
+#if defined(__WXMSW__)        
+        r( WXK_WINDOWS_LEFT  );         // keycode
+        r( WXK_WINDOWS_RIGHT  );        // keycode
+        r( WXK_WINDOWS_MENU  );         // keycode
+        r( WXK_COMMAND  );              // keycode
+#endif
+#endif
         r( WXK_BACK );                  // keycode
         r( WXK_TAB );                   // keycode
         r( WXK_RETURN );                // keycode
@@ -1918,13 +1958,7 @@ static double constant( const char* name, int arg )
         r( WXK_NUMPAD_SEPARATOR  );     // keycode
         r( WXK_NUMPAD_SUBTRACT  );      // keycode
         r( WXK_NUMPAD_DECIMAL  );       // keycode
-        r( WXK_NUMPAD_DIVIDE  );        // keycode
-#if defined(__WXMSW__)        
-        r( WXK_WINDOWS_LEFT  );         // keycode
-        r( WXK_WINDOWS_RIGHT  );        // keycode
-        r( WXK_WINDOWS_MENU  );         // keycode
-        r( WXK_COMMAND  );              // keycode
-#endif      
+        r( WXK_NUMPAD_DIVIDE  );        // keycode     
         r( WXK_SPECIAL1  );             // keycode
         r( WXK_SPECIAL2  );             // keycode
         r( WXK_SPECIAL3  );             // keycode
