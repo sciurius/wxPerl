@@ -337,7 +337,6 @@ static wxPlINH inherit[] =
     I( Choicebook,      BookCtrl )
     I( Treebook,        BookCtrl )
     I( Toolbook,        BookCtrl )
-    I( Notebook,        Control )
     I( NumberEntryDialog, Dialog )
     I( ToolBarBase,     Control )
     I( ToolBarSimple,   Control )
@@ -904,7 +903,7 @@ static double constant( const char* name, int arg )
     r( wxCENTRE_ON_SCREEN );            // window
     r( wxCLIP_CHILDREN );               // window
     r( wxCHOICEDLG_STYLE );
-#if WXPERL_W_VERSION_LT( 2, 9, 0 ) && WXWIN_COMPATIBILITY_2_6
+#if WXWIN_COMPATIBILITY_2_6
     r( wxCHANGE_DIR );                  // filedialog
 #endif
     r( wxCLIP_SIBLINGS );               // window
