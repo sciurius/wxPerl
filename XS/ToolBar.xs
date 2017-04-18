@@ -208,12 +208,21 @@ wxToolBar::AddSeparator()
 wxToolBarToolBase*
 wxToolBarBase::AddStretchableSpace()
 
-wxToolBarToolBase*
+void
 wxToolBarBase::GetToolByPos( pos )
-  int pos
+    int pos
+  PPCODE:
+    const wxToolBarToolBase* ret = THIS->GetToolByPos( pos );
+    EXTEND( SP, 1 );
+    if( ret ) {
+        PUSHs( wxPli_non_object_2_sv( aTHX_ sv_newmortal(), ret, "Wx::ToolBarToolBase") );
+    } else {
+        PUSHs( &PL_sv_undef );
+    }
+    
 
 wxToolBarToolBase*
-wxToolBarBase::InsertStretchableSpace( pos );
+wxToolBarBase::InsertStretchableSpace( pos )
   size_t pos
   
 #endif
