@@ -11,7 +11,7 @@ my $x = wxYES;
 ok( 1, "Exported constant" );
 
 SKIP: {
-  use Wx qw(:frame :allclasses wxNO_3D wxTAB_TRAVERSAL);
+  use Wx qw(:frame :allclasses wxCHANGE_DIR wxTAB_TRAVERSAL);
 
   $x = wxTAB_TRAVERSAL();
   $x = wxCAPTION();
