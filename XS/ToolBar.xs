@@ -5,7 +5,7 @@
 ## Modified by:
 ## Created:     29/10/2000
 ## RCS-ID:      $Id$
-## Copyright:   (c) 2000-2008 Mattia Barbon
+## Copyright:   (c) 2000-2017 Mattia Barbon
 ## Licence:     This program is free software; you can redistribute it and/or
 ##              modify it under the same terms as Perl itself
 #############################################################################
@@ -170,6 +170,25 @@ wxToolBarToolBase::GetDropdownMenu()
 
 #endif
 
+#if WXPERL_W_VERSION_GE( 3, 0, 2 )
+bool
+wxToolBarToolBase::IsStretchable()
+
+bool
+wxToolBarToolBase::IsStretchableSpace()
+
+void
+wxToolBarToolBase::MakeStretchable()
+
+void
+wxToolBarToolBase::Detach()
+
+void
+wxToolBarToolBase::Attach( toolbar )
+  wxToolBarBase* toolbar
+
+#endif
+
 MODULE=Wx PACKAGE=Wx::ToolBarBase
 
 void
@@ -183,6 +202,21 @@ wxToolBarBase::AddControl( control )
 
 void
 wxToolBar::AddSeparator()
+
+#if WXPERL_W_VERSION_GE( 2, 9, 1 )
+
+wxToolBarToolBase*
+wxToolBarBase::AddStretchableSpace()
+
+wxToolBarToolBase*
+wxToolBarBase::GetToolByPos( pos )
+  int pos
+
+wxToolBarToolBase*
+wxToolBarBase::InsertStretchableSpace( pos );
+  size_t pos
+  
+#endif
 
 void
 wxToolBarBase::AddTool( ... )
@@ -301,13 +335,9 @@ wxToolBarBase::EnableTool( toolId, enable )
     int toolId
     bool enable
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 wxToolBarToolBase*
 wxToolBarBase::FindById( toolid )
     int toolid
-
-#endif
 
 wxControl*
 wxToolBarBase::FindControl( toolid )
@@ -419,8 +449,6 @@ wxToolBarBase::InsertToolLong( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNul
 #endif
   OUTPUT: RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 wxToolBarToolBase*
 wxToolBarBase::InsertToolNewLong( pos, toolId, label, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap, kind = wxITEM_NORMAL, shortHelp = wxEmptyString, longHelp = wxEmptyString, clientData = 0 )
     size_t pos
@@ -438,8 +466,6 @@ wxToolBarBase::InsertToolNewLong( pos, toolId, label, bitmap1, bitmap2 = (wxBitm
     if( clientData )
         THIS->SetClientData( clientData );
   OUTPUT: RETVAL
-
-#endif
 
 void
 wxToolBarBase::ClearTools()
