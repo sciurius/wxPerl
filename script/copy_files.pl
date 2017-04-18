@@ -13,6 +13,7 @@
 
 use strict;
 use ExtUtils::Install 'pm_to_blib';
+use lib '.';
 
 my $file = shift;
 

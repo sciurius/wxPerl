@@ -1,6 +1,9 @@
 Revision history for Perl extension Wx.
 
-0.9932 TBR
+0.9932 Tue Apr 18 2017
+    - fix build for Perl 5.25.11 ( . no longer in @INC )
+    - RT:121224 - fixes broken 0.9930 commit for keycode constants
+    - RT:120657 revert changes for this fro 0.9929
 
 0.9931 Mon Apr 17 2017
     - really skip Strawberry 64 bit build test failure

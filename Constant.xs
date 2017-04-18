@@ -1817,7 +1817,7 @@ static double constant( const char* name, int arg )
   case 'K':
     if( strnEQ( name, "WXK_", 4 ) )
     {
-#if WXPERL_W_VERSION_LT( 3, 0, 2 )
+#if WXPERL_W_VERSION_GE( 2, 9, 2 )
         r( WXK_NONE );                  // keycode
         r( WXK_CONTROL_A );             // keycode
         r( WXK_CONTROL_B );             // keycode
