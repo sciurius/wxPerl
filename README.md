@@ -1,4 +1,4 @@
-# [% module.name %]
+# wxPerl - Perl interface to wxWidgets library
 
 ![Version](https://img.shields.io/github/v/release/sciurius/wxPerl)
 ![GitHub issues](https://img.shields.io/github/issues/sciurius/wxPerl)

@@ -1,3 +1,6 @@
+# Original README from wxPerl 0.9932
+
+````
 wxPerl is a wrapper for the wxWidgets (formerly known as wxWindows) GUI toolkit
 
 Copyright (c) 2000-2010 Mattia Barbon.
@@ -86,3 +89,4 @@ The following features have been deprecated and may disappear in the future
 
     toolkit: wxMSW, wxGTK, wxMOTIF, wxX11, wxMAC, wxUNIVERSAL
     misc:    wxUNICODE, wxVERSION
+````
