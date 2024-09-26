@@ -110,6 +110,7 @@ inline CV* wxPli_newXS(pTHX_ const char* name, XSUBADDR_t addr,
 #undef utf8_length
 #if defined( PERL_IMPLICIT_SYS )
 #undef abort
+#undef calloc
 #undef clearerr
 #undef close
 #undef eof
