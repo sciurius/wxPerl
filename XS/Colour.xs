@@ -114,7 +114,7 @@ wxColour::GetAsString( long flags )
 
 #endif
 
-#if !defined(__WXMAC__)
+#if !defined(__WXMAC__) && !defined (__WXGTK3__)
 
 long
 wxColour::GetPixel()
