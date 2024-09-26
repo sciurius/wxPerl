@@ -27,9 +27,9 @@ my $app = Wx::App->new( sub { 1 } );
 my $frame = Wx::Frame->new(undef, -1, 'Test Frame');
 my $rcontrol = Wx::RibbonControl->new($frame, -1);
 my $rgallery = Wx::RibbonGallery->new($frame, -1);
-my $rpanel = Wx::RibbonPanel->new($frame, -1);
 my $rbar = Wx::RibbonBar->new($frame, -1);
 my $rpage = Wx::RibbonPage->new($rbar, -1);
+my $rpanel = Wx::RibbonPanel->new($rpage, -1);
 my $rbbar = Wx::RibbonButtonBar->new($frame, -1);
 my $rtbar = Wx::RibbonToolBar->new($frame, -1);
 

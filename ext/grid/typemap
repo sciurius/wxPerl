@@ -26,7 +26,7 @@ wxGridCellCoords *      O_NON_WXOBJECT_THR
 wxGridCellAttr *        O_NON_WXOBJECT_THR_SV
 wxGridCellAttr::wxAttrKind      T_ENUM
 
-wxGridCellRenderer *            O_WXCLIENTDATACONTAINER_THR_SV
+wxGridCellRenderer *            O_WXSHAREDCLIENTDATACONTAINER_THR_SV
 wxGridCellStringRenderer *      O_NON_WXOBJECT_THR_SV
 wxGridCellNumberRenderer *      O_NON_WXOBJECT_THR_SV
 wxGridCellFloatRenderer *       O_NON_WXOBJECT_THR_SV
@@ -34,9 +34,9 @@ wxGridCellBoolRenderer *        O_NON_WXOBJECT_THR_SV
 wxGridCellAutoWrapStringRenderer * O_NON_WXOBJECT_THR_SV
 wxGridCellEnumRenderer *	O_NON_WXOBJECT_THR_SV
 wxGridCellDateTimeRenderer *	O_NON_WXOBJECT_THR_SV
-wxPlGridCellRenderer *          O_WXCLIENTDATACONTAINER_THR_SV
+wxPlGridCellRenderer *          O_WXSHAREDCLIENTDATACONTAINER_THR_SV
 
-wxGridCellEditor *              O_WXCLIENTDATACONTAINER_THR_SV
+wxGridCellEditor *              O_WXSHAREDCLIENTDATACONTAINER_THR_SV
 wxGridCellTextEditor *          O_NON_WXOBJECT_THR_SV
 wxGridCellNumberEditor *        O_NON_WXOBJECT_THR_SV
 wxGridCellFloatEditor *         O_NON_WXOBJECT_THR_SV
@@ -44,7 +44,7 @@ wxGridCellBoolEditor *          O_NON_WXOBJECT_THR_SV
 wxGridCellChoiceEditor *        O_NON_WXOBJECT_THR_SV
 wxGridCellAutoWrapStringEditor * O_NON_WXOBJECT_THR_SV
 wxGridCellEnumEditor *		O_NON_WXOBJECT_THR_SV
-wxPlGridCellEditor *            O_WXCLIENTDATACONTAINER_THR_SV
+wxPlGridCellEditor *            O_WXSHAREDCLIENTDATACONTAINER_THR_SV
 
 wxPlGridTable*                  O_WXOBJECT
 wxGridTableBase*                O_WXOBJECT

@@ -28,9 +28,7 @@ wxPGWindowList::CLONE()
 %}
 
 public:
-    %name{newDefault} wxPGWindowList() %Overload;
-    %name{newOneWindow} wxPGWindowList( wxWindow* a ) %Overload;
-    %name{newTwoWindows} wxPGWindowList(  wxWindow* a, wxWindow* b ) %Overload;
+    wxPGWindowList(  wxWindow* a, wxWindow* b = NULL);
 
     ~wxPGWindowList()
         %code%{  wxPli_thread_sv_unregister( aTHX_ "Wx::PGWindowList", THIS, ST(0) );

@@ -1599,8 +1599,6 @@ wxStyledTextCtrl::AppendTextRaw( text, length = -1 )
     void SetFirstVisibleLine(int lineDisplay);
     void CopyAllowLine(); 
  	const char* GetCharacterPointer(); 
- 	void SetKeysUnicode(bool keysUnicode); 
- 	bool GetKeysUnicode() const; 
  	void IndicatorSetAlpha(int indicator, int alpha); 
  	int IndicatorGetAlpha(int indicator) const; 
  	void SetExtraAscent(int extraAscent); 

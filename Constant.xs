@@ -1849,7 +1849,6 @@ static double constant( const char* name, int arg )
     r( wxLeftOf );                      // layout constraints
 
     r( wxLOCALE_LOAD_DEFAULT );         // locale
-    r( wxLOCALE_CONV_ENCODING );        // locale
 
     r( wxLayout_Default );
     r( wxLayout_LeftToRight );
@@ -2161,8 +2160,9 @@ static double constant( const char* name, int arg )
     r( wxNB_HITTEST_ONITEM );           // notebook
     r( wxNB_HITTEST_ONPAGE );           // notebook
     r( wxNB_DEFAULT );                  // notebook
-    r( wxNB_FLAT );                     // notebook
+#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     r( wxNB_NOPAGETHEME );              // notebook
+#endif
 
     r( wxNO );                          // dialog
     r( wxNO_BORDER );                   // frame toolbar
@@ -2552,7 +2552,6 @@ static double constant( const char* name, int arg )
     r( wxTB_DOCKABLE );                 // toolbar
     r( wxTB_HORIZONTAL );               // toolbar
     r( wxTB_VERTICAL );                 // toolbar
-    r( wxTB_3DBUTTONS );                // toolbar
     r( wxTB_TEXT );                     // toolbar
     r( wxTB_NOICONS );                  // toolbar
     r( wxTB_HORZ_LAYOUT );              // toolbar
@@ -2636,8 +2635,6 @@ static double constant( const char* name, int arg )
     r( wxTEXT_ATTR_OUTLINE_LEVEL );     // textctrl
 #endif
     
-    r( wxTINY_CAPTION_HORIZ );          // miniframe
-    r( wxTINY_CAPTION_VERT );           // miniframe
     r( wxTIMER_CONTINUOUS );            // timer
     r( wxTIMER_ONE_SHOT );              // timer
     r( wxTOP );                         // sizer layout constraints

@@ -180,6 +180,14 @@ sub handle_method_tag {
     { name => 'wxBitmap&', merge          => 'wxBitmap',},
     { name => 'const wxBitmap&', merge    => 'wxBitmap',},
     
+    { name => 'wxBitmapBundle',  convert_return => '*(wxBitmapBundle*)wxPli_sv_2_object( aTHX_ ret, "Wx::BitmapBundle" )',
+                           default_value  => 'wxBitmapBundle()',
+                           type_char      => 'O',
+                           arguments      => '&%s',
+                           },
+    { name => 'wxBitmapBundle&', merge    => 'wxBitmapBundle',},
+    { name => 'const wxBitmapBundle&', merge    => 'wxBitmapBundle',},
+
     { name => 'wxPoint',   convert_return => 'wxPli_sv_2_wxpoint( aTHX_ ret )',
                            default_value  => 'wxPoint()',
                            type_char      => 'o',

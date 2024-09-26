@@ -644,7 +644,7 @@ class wxPliDocManager : public wxDocManager
     WXPLI_DECLARE_DYNAMIC_CLASS( wxPliDocManager );
     WXPLI_DECLARE_V_CBACK();
 public:
-    wxPliDocManager(  const char* package, long flags = wxDEFAULT_DOCMAN_FLAGS,
+    wxPliDocManager(  const char* package, long flags = 0,
                      bool initialize = true)
        : wxDocManager(flags, initialize),
          m_callback( "Wx::DocManager" )

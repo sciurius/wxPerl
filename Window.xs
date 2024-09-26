@@ -736,10 +736,6 @@ void
 wxWindow::Lower()
 
 void
-wxWindow::MakeModal( flag )
-    bool flag
-
-void
 wxWindow::Move( ... )
   PPCODE:
     BEGIN_OVERLOAD()

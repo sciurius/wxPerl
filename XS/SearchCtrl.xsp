@@ -74,8 +74,8 @@ new( ... )
 
 #define WXPERL_IN_SEARCHCTRL
 
-INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/TextCtrlIface.xsp
-INCLUDE_COMMAND: $^X -pe "s/TextCtrlIface/SearchCtrl/g" xspp/TextCtrlIface.h
+INCLUDE_COMMAND: $^X -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/TextEntry.xsp
+INCLUDE_COMMAND: $^X -pe "s/TextEntry/SearchCtrl/g" xspp/TextEntry.h
 
 #undef WXPERL_IN_SEARCHCTRL
 

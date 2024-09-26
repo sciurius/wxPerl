@@ -123,6 +123,7 @@ wxObject *              O_WXOBJECT
 wxApp *                 O_WXOBJECT
 wxStandardPaths *       O_NON_WXOBJECT
 wxWindow *              O_WXOBJECT
+const wxWindow *        O_WXOBJECT
 wxPlWindow *            O_WXOBJECT
 wxPlControl *           O_WXOBJECT
 wxFrame *               O_WXOBJECT
@@ -377,6 +378,7 @@ wxIcon *                O_WXOBJECT_THR
 wxIconBundle *          O_NON_WXOBJECT
 wxIconLocation *        O_NON_WXOBJECT
 wxBitmap *              O_WXOBJECT_THR
+wxBitmapBundle *        O_NON_WXOBJECT_THR
 wxCursor *              O_WXOBJECT_THR
 const wxCursor *        O_WXOBJECT_THR
 wxToolTip *             O_WXOBJECT
@@ -533,6 +535,13 @@ O_WXCLIENTDATACONTAINER_THR_SV
     wxPli_clientdatacontainer_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
     wxPli_thread_sv_register( aTHX_ ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}, SvRV( $arg ), $arg );
 
+O_WXSHAREDCLIENTDATACONTAINER
+    wxPli_sharedclientdatacontainer_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+
+O_WXSHAREDCLIENTDATACONTAINER_THR_SV
+    wxPli_sharedclientdatacontainer_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+    wxPli_thread_sv_register( aTHX_ ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt}, SvRV( $arg ), $arg );
+
 O_NON_WXOBJECT
     wxPli_non_object_2_sv( aTHX_ $arg, $var, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
 
@@ -585,6 +594,12 @@ O_WXCLIENTDATACONTAINER
     $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
 
 O_WXCLIENTDATACONTAINER_THR_SV
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+
+O_WXSHAREDCLIENTDATACONTAINER
+    $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
+
+O_WXSHAREDCLIENTDATACONTAINER_THR_SV
     $var = (${(my $t=$type)=~s/^Wx_/wx/;\$t}) wxPli_sv_2_object( aTHX_ $arg, ${(my $ntt=$ntype)=~s/^(?:const\s+)?(?:Wx_|wx)(.*?)(?:Ptr)?$/$1/g;$ntt=qq{\"Wx::$ntt\"};\$ntt} );
 
 O_NON_WXOBJECT

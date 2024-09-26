@@ -56,21 +56,6 @@ wxSingleChoiceDialog::new( parent, message, caption, chs, dt = &PL_sv_undef, sty
 int
 wxSingleChoiceDialog::GetSelection()
 
-SV*
-wxSingleChoiceDialog::GetSelectionClientData()
-  PREINIT:
-    char* t;
-  CODE:
-    t = THIS->GetSelectionClientData();
-    RETVAL = &PL_sv_undef;
-    if( t )
-    {
-        RETVAL = (SV*)t;
-    }
-    SvREFCNT_inc( RETVAL );
-  OUTPUT:
-    RETVAL
-
 wxString
 wxSingleChoiceDialog::GetStringSelection()
 

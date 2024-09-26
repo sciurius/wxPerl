@@ -134,7 +134,7 @@ CreateContext( ... )
     const wxGraphicsMatrix& CreateMatrix( wxDouble a=1.0, wxDouble b=0.0,
                                           wxDouble c=0.0, wxDouble d=1.0,
                                           wxDouble tx=0.0, wxDouble ty=0.0 );
-    const wxGraphicsPen& CreatePen( const wxPen& pen );
+##    const wxGraphicsPen& CreatePen( const wxGraphicsPenInfo& info );
     const wxGraphicsBrush& CreateBrush( const wxBrush& brush );
 
 #if WXPERL_W_VERSION_LT( 2, 9, 1 )

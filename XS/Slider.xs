@@ -111,11 +111,6 @@ wxSlider::SetRange( minValue, maxValue )
     int maxValue
 
 void
-wxSlider::SetTickFreq( n, pos )
-    int n
-    int pos
-
-void
 wxSlider::SetLineSize( lineSize )
     int lineSize
 

@@ -170,18 +170,12 @@ wxGrid::BlockToDeviceRect( topLeft, bottomRight )
   OUTPUT:
     RETVAL
 
-bool
-wxGrid::CanDragColSize()
-
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 bool
 wxGrid::CanDragColMove()
 
 #endif
-
-bool
-wxGrid::CanDragRowSize()
 
 bool
 wxGrid::CanDragGridSize()
@@ -670,9 +664,6 @@ wxGrid::GetSelectionForeground()
 
 wxGridSelectionModes
 wxGrid::GetSelectionMode()
-
-int
-wxGrid::GetViewWidth()
 
 void
 wxGrid::HideCellEditControl()

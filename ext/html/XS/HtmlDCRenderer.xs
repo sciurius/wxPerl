@@ -66,13 +66,11 @@ wxHtmlDCRenderer::SetFonts( normal_face, fixed_face, sizes )
 
 #if WXPERL_W_VERSION_GE( 2, 7, 0 )
 
-int 
-wxHtmlDCRenderer::Render(x, y, pagebreaks, from = 0, dont_render = 0, to = INT_MAX)
+void
+wxHtmlDCRenderer::Render(x, y, from = 0, to = INT_MAX)
     int x
     int y
-    wxArrayInt pagebreaks
     int from
-    int dont_render
     int to
     
 #else

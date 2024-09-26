@@ -80,6 +80,8 @@
 
 %typemap{wxNumericPropertyValidator*}{simple};
 
+%typemap{wxEditorDialogProperty*}{simple};
+%typemap{wxNumericProperty*}{simple};
 %typemap{wxIntProperty*}{simple};
 %typemap{wxUIntProperty*}{simple};
 %typemap{wxFloatProperty*}{simple};
@@ -91,9 +93,6 @@
 %typemap{wxLongStringProperty*}{simple};
 %typemap{wxDirProperty*}{simple};
 %typemap{wxArrayStringProperty*}{simple};
-
-%typemap{wxPGFileDialogAdapter*}{simple};
-%typemap{wxPGLongStringDialogAdapter*}{simple};
 
 %typemap{wxPGArrayEditorDialog*}{simple};
 %typemap{wxPlPGArrayEditorDialog*}{simple};

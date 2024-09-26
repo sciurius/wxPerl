@@ -14,7 +14,7 @@
 MODULE=Wx PACKAGE=Wx::DocManager
 
 wxDocManager*
-wxDocManager::new( flags = wxDEFAULT_DOCMAN_FLAGS, initialize = true )
+wxDocManager::new( flags = 0, initialize = true )
     long flags
     bool initialize
   CODE:

@@ -93,12 +93,11 @@ MODULE=Wx PACKAGE=Wx::Locale
 #endif
 
 wxLocale*
-newLong( name, shorts = NULL, locale = NULL, loaddefault = true, convertencoding = wxPL_LOCALE_CONVERT_ENCODING )
+newLong( name, shorts = NULL, locale = NULL, loaddefault = true )
     const wxChar* name
     const wxChar* shorts = NO_INIT
     const wxChar* locale = NO_INIT
     bool loaddefault
-    bool convertencoding
   CODE:
     wxString shorts_tmp, locale_tmp;
     
@@ -118,7 +117,7 @@ newLong( name, shorts = NULL, locale = NULL, loaddefault = true, convertencoding
 
     RETVAL = new wxLocale( name, shorts,
         ( locale && wxStrlen( locale ) ) ? locale : NULL,
-        loaddefault, convertencoding );
+        loaddefault );
   OUTPUT:
     RETVAL
 
@@ -245,7 +244,7 @@ FindLanguageInfo( name )
     	wxPli_object_set_deleteable( aTHX_ ST(0), false );
 
 bool
-wxLocale::Init( language, flags = wxLOCALE_LOAD_DEFAULT|wxLOCALE_CONV_ENCODING )
+wxLocale::Init( language, flags = wxLOCALE_LOAD_DEFAULT )
     int language
     int flags
 

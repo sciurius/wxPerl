@@ -330,7 +330,28 @@ public:
     
 };
 
-%name{Wx::IntProperty} class wxIntProperty : public %name{Wx::PGProperty} wxPGProperty
+%name{Wx::NumericProperty} class wxNumericProperty : public %name{Wx::PGProperty} wxPGProperty
+{
+public:
+    /* virtual ~wxNumericProperty(); */
+
+    virtual bool DoSetAttribute(const wxString& name, wxVariant& value);
+
+    virtual wxVariant AddSpinStepValue(long stepScale) const = 0;
+
+    bool UseSpinMotion() const;
+
+protected:
+    wxNumericProperty(const wxString& label, const wxString& name);
+
+    wxVariant m_minVal;
+    wxVariant m_maxVal;
+    bool      m_spinMotion;
+    wxVariant m_spinStep;
+    bool      m_spinWrap;
+};
+
+%name{Wx::IntProperty} class wxIntProperty : public %name{Wx::NumericProperty} wxNumericProperty
 {
     
 public:
@@ -363,7 +384,7 @@ public:
 };
 
 
-%name{Wx::UIntProperty} class wxUIntProperty : public %name{Wx::PGProperty} wxPGProperty
+%name{Wx::UIntProperty} class wxUIntProperty : public %name{Wx::NumericProperty} wxNumericProperty
 {
 
 public:
@@ -404,7 +425,7 @@ public:
     /************** End wxPerl Methods ***********************************************/    
 };
 
-%name{Wx::FloatProperty} class wxFloatProperty : public %name{Wx::PGProperty} wxPGProperty
+%name{Wx::FloatProperty} class wxFloatProperty : public %name{Wx::NumericProperty} wxNumericProperty
 {
 
 public:
@@ -664,14 +685,24 @@ protected:
 };
 
 
-%name{Wx::PGFileDialogAdapter} class  wxPGFileDialogAdapter : public %name{Wx::PGEditorDialogAdapter} wxPGEditorDialogAdapter
+%name{Wx::EditorDialogProperty} class wxEditorDialogProperty : public %name{Wx::PGProperty} wxPGProperty
 {
 public:
-    virtual bool DoShowDialog( wxPropertyGrid* propGrid,
-                               wxPGProperty* property );
+    /* virtual ~wxEditorDialogProperty(); */
+
+    virtual wxPGEditorDialogAdapter* GetEditorDialog() const;
+    virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
+
+protected:
+    wxEditorDialogProperty(const wxString& label, const wxString& name);
+
+    virtual bool DisplayEditorDialog(wxPropertyGrid* pg, wxVariant& value) = 0;
+
+    wxString  m_dlgTitle;
+    long      m_dlgStyle;
 };
 
-%name{Wx::FileProperty} class wxFileProperty : public %name{Wx::PGProperty} wxPGProperty
+%name{Wx::FileProperty} class wxFileProperty : public %name{Wx::EditorDialogProperty} wxEditorDialogProperty
 {
 
 public:
@@ -711,14 +742,7 @@ public:
 
 };
 
-%name{Wx::PGLongStringDialogAdapter} class wxPGLongStringDialogAdapter : public %name{Wx::PGEditorDialogAdapter} wxPGEditorDialogAdapter
-{
-public:
-    virtual bool DoShowDialog( wxPropertyGrid* propGrid,
-                               wxPGProperty* property );
-};
-
-%name{Wx::LongStringProperty} class wxLongStringProperty : public %name{Wx::PGProperty} wxPGProperty
+%name{Wx::LongStringProperty} class wxLongStringProperty : public %name{Wx::EditorDialogProperty} wxEditorDialogProperty
 {
 
 public:
@@ -734,15 +758,6 @@ public:
     virtual bool OnEvent( wxPropertyGrid* propgrid,
                           wxWindow* primary, wxEvent& event );
 
-    // Shows string editor dialog. Value to be edited should be read from
-    // value, and if dialog is not cancelled, it should be stored back and true
-    // should be returned if that was the case.
-    virtual bool OnButtonClick( wxPropertyGrid* propgrid, wxString& value );
-
-    static bool DisplayEditorDialog( wxPGProperty* prop,
-                                     wxPropertyGrid* propGrid,
-                                     wxString& value );
-   
     /************** Begin wxPerl Methods ***********************************************/
     
     wxString GetPlValue( int flags = wxPG_FULL_VALUE )
@@ -754,7 +769,7 @@ public:
     /************** End wxPerl Methods ***********************************************/    
 };
 
-%name{Wx::DirProperty} class wxDirProperty : public %name{Wx::LongStringProperty} wxLongStringProperty
+%name{Wx::DirProperty} class wxDirProperty : public %name{Wx::EditorDialogProperty} wxEditorDialogProperty
 {
 
 public:
@@ -765,8 +780,6 @@ public:
     virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
     virtual wxValidator* DoGetValidator() const;
 
-    virtual bool OnButtonClick ( wxPropertyGrid* propGrid, wxString& value );
-    
     /************** Begin wxPerl Methods ***********************************************/
     
     wxString GetPlValue( int flags = wxPG_FULL_VALUE )
@@ -779,7 +792,7 @@ public:
 
 };
 
-%name{Wx::ArrayStringProperty} class wxArrayStringProperty : public %name{Wx::PGProperty} wxPGProperty
+%name{Wx::ArrayStringProperty} class wxArrayStringProperty : public %name{Wx::EditorDialogProperty} wxEditorDialogProperty
 {
 
 public:
@@ -1012,7 +1025,7 @@ public:
     #include "wx/image.h"
 #endif
 
-%name{Wx::FontProperty} class wxFontProperty : public %name{Wx::PGProperty} wxPGProperty
+%name{Wx::FontProperty} class wxFontProperty : public %name{Wx::EditorDialogProperty} wxEditorDialogProperty
 {
 
 public:
@@ -1195,7 +1208,7 @@ public:
 
 #if wxUSE_IMAGE
 
-%name{Wx::ImageFileProperty} class wxImageFileProperty : public %name{Wx::FileProperty} wxFileProperty
+%name{Wx::ImageFileProperty} class wxImageFileProperty : public %name{Wx::EditorDialogProperty} wxEditorDialogProperty
 {
     
 public:
@@ -1227,7 +1240,7 @@ public:
 
 #if wxUSE_CHOICEDLG
 
-%name{Wx::MultiChoiceProperty} class wxMultiChoiceProperty : public %name{Wx::PGProperty} wxPGProperty
+%name{Wx::MultiChoiceProperty} class wxMultiChoiceProperty : public %name{Wx::EditorDialogProperty} wxEditorDialogProperty
 {
 
 public:

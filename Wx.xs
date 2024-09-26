@@ -620,6 +620,7 @@ MODULE=Wx PACKAGE=Wx
 #!irrelevant class wxScopedPtr
 #!irrelevant class wxScopedTiedPtr
 #!irrelevant class wxSemaphore
+#!irrelevant class wxSharedDataContainer
 #!irrelevant class wxString
 #!irrelevant class wxStringBuffer
 #!irrelevant class wxStringBufferLength

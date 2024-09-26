@@ -59,6 +59,7 @@ public:
 
     int PreDrawCell( wxDC& dc,
                      const wxRect& rect,
+                     const wxPropertyGrid* propGrid,
                      const wxPGCell& cell,
                      int flags ) const;
 

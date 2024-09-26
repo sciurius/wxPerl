@@ -59,7 +59,7 @@ public:
     void SetBgCol( const wxColour& col );
 
     const wxString& GetText() const;
-    const wxBitmap& GetBitmap() const;
+    const wxBitmapBundle& GetBitmap() const;
     const wxColour& GetFgCol() const;
     
     const wxFont& GetFont() const;

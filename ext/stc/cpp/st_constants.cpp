@@ -29,7 +29,7 @@ double stc_constant( const char* name, int arg )
     switch( fl )
     {
     case '4':
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
+#if WXPERL_W_VERSION_GE( 2, 9, 0 ) && WXPERL_W_VERSION_LE( 3, 1, 0)
         r( wxSTC_4GL_BLOCK );
         r( wxSTC_4GL_BLOCK_ );
         r( wxSTC_4GL_CHARACTER );
@@ -309,7 +309,6 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_COFFEESCRIPT_GLOBALCLASS );
         r( wxSTC_COFFEESCRIPT_STRINGRAW );
         r( wxSTC_COFFEESCRIPT_TRIPLEVERBATIM );
-        r( wxSTC_COFFEESCRIPT_HASHQUOTEDSTRING );
         r( wxSTC_COFFEESCRIPT_COMMENTBLOCK );
         r( wxSTC_COFFEESCRIPT_VERBOSE_REGEX );
         r( wxSTC_COFFEESCRIPT_VERBOSE_REGEX_COMMENT );

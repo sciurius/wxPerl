@@ -19,10 +19,6 @@ wxWindow*
 wxValidator::GetWindow()
 
 void
-wxValidator::SetBellOnError( doit = true )
-    bool doit
-
-void
 wxValidator::SetWindow( window )
     wxWindow* window
 

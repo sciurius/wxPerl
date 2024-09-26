@@ -479,6 +479,7 @@ XS/AnimationCtrl.xsp
 XS/App.xs
 XS/ArtProvider.xsp
 XS/Bitmap.xs
+XS/BitmapBundle.xsp
 XS/BitmapComboBox.xsp
 XS/BookCtrl.xsp
 XS/Brush.xsp
@@ -581,6 +582,7 @@ XS/TaskBarIcon.xs
 XS/TextAttr.xsp
 XS/TextCtrl.xsp
 XS/TextCtrlIface.xsp
+XS/TextEntry.xsp
 XS/TextEntryDialog.xs
 XS/Timer.xs
 XS/ToggleButton.xs

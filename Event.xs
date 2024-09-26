@@ -791,12 +791,6 @@ wxNotifyEvent::Veto()
 void
 wxNotifyEvent::Allow()
 
-MODULE=Wx_Evt PACKAGE=Wx::PaintEvent
-
-wxPaintEvent*
-wxPaintEvent::new( id = 0 )
-    wxWindowID id
-
 MODULE=Wx_Evt PACKAGE=Wx::SizeEvent
 
 wxSizeEvent*

@@ -184,8 +184,8 @@ my $choiced1 = Wx::PGChoicesData->new;
 my $choiced2 = Wx::PGChoicesData->new;
 my $choicee1 = Wx::PGChoiceEntry->new;
 my $choicee2 = Wx::PGChoiceEntry->new;
-my $pgwlist1  = Wx::PGWindowList->new;
-my $pgwlist2  = Wx::PGWindowList->new;
+my $pgwlist1  = Wx::PGWindowList->new( Wx::Window->new( $frame, -1 ) );
+my $pgwlist2  = Wx::PGWindowList->new( Wx::Window->new( $frame, -1 ) );
 my $pgmbut1  = Wx::PGMultiButton->new( $propgrid, Wx::Size->new(10,10) );
 my $pgmbut2  = Wx::PGMultiButton->new($propgrid, Wx::Size->new(10,10));
 

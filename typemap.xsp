@@ -127,6 +127,8 @@
 %typemap{wxArtProvider&}{reference};
 %typemap{wxBitmap}{reference};
 %typemap{const wxBitmap&}{reference};
+%typemap{wxBitmapBundle}{reference};
+%typemap{const wxBitmapBundle&}{reference};
 %typemap{wxCursor}{reference};
 %typemap{const wxCursor&}{reference};
 %typemap{wxIcon}{reference};
@@ -170,6 +172,7 @@
 %typemap{wxSplitterWindow*}{simple};
 %typemap{wxSplitterEvent*}{simple};
 %typemap{wxWindow*}{simple};
+%typemap{const wxWindow*}{simple};
 %typemap{wxListView*}{simple};
 %typemap{wxSizer*}{simple};
 %typemap{wxIconBundle*}{simple};
@@ -195,6 +198,7 @@
 %typemap{wxImageList*}{simple};
 %typemap{wxImage*}{simple};
 %typemap{wxImage&}{reference};
+%typemap{const wxImage&}{reference};
 
 %typemap{wxPliInputStream}{simple};
 %typemap{wxPliOutputStream}{simple};

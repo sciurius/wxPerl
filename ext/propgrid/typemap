@@ -62,6 +62,8 @@ wxPGInDialogValidator *    O_NON_WXOBJECT
 
 wxNumericPropertyValidator *  O_WXOBJECT
 
+wxEditorDialogProperty *       O_WXOBJECT_THR
+wxNumericProperty *       O_WXOBJECT_THR
 wxStringProperty *       O_WXOBJECT_THR
 wxIntProperty *       O_WXOBJECT_THR
 wxUIntProperty *       O_WXOBJECT_THR
@@ -74,9 +76,6 @@ wxFileProperty *       O_WXOBJECT_THR
 wxLongStringProperty *       O_WXOBJECT_THR
 wxDirProperty * O_WXOBJECT_THR
 wxArrayStringProperty *       O_WXOBJECT_THR
-
-wxPGFileDialogAdapter *  O_NON_WXOBJECT_THR
-wxPGLongStringDialogAdapter * O_NON_WXOBJECT_THR
 
 wxPGArrayEditorDialog *  O_WXEVTHANDLER
 wxPGArrayStringEditorDialog *  O_WXEVTHANDLER

@@ -405,6 +405,25 @@ SV* wxPli_clientdatacontainer_2_sv( pTHX_ SV* var, wxClientDataContainer* cdc, c
     return wxPli_non_object_2_sv( aTHX_ var, cdc, klass );
 }
 
+SV* wxPli_sharedclientdatacontainer_2_sv( pTHX_ SV* var, wxSharedClientDataContainer* scdc, const char* klass )
+{
+    if( scdc == NULL )
+    {
+        sv_setsv( var, &PL_sv_undef );
+        return var;
+    }
+
+    wxPliUserDataCD* clientData = (wxPliUserDataCD*) scdc->GetClientObject();
+
+    if( clientData != NULL )
+    {
+        SvSetSV_nosteal( var, clientData->GetData() );
+        return var;
+    }
+
+    return wxPli_non_object_2_sv( aTHX_ var, scdc, klass );
+}
+
 SV* wxPli_object_2_scalarsv( pTHX_ SV* var, const wxObject* object )
 {
     wxClassInfo *ci = object->GetClassInfo();

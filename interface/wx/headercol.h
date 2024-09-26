@@ -218,7 +218,7 @@ public:
         Notice that the bitmaps displayed in different columns of the same
         control must all be of the same size.
      */
-    virtual void SetBitmap(const wxBitmap& bitmap) = 0 %Virtual{pure};
+    virtual void SetBitmap(const wxBitmapBundle& bitmap) = 0 %Virtual{pure};
 
     /**
         Set the column width.

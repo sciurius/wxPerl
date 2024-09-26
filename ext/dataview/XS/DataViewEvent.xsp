@@ -17,8 +17,6 @@
 %module{Wx};
 
 %name{Wx::DataViewEvent} class wxDataViewEvent {
-    wxDataViewEvent( wxEventType type, wxWindowID id );
-
     wxDataViewItem& GetItem() const;
     void SetItem( const wxDataViewItem& item );
 

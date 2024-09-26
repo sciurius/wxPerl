@@ -35,6 +35,7 @@ class WXDLLIMPEXP_FWD_CORE wxInputStream;
 class WXDLLIMPEXP_FWD_CORE wxOutputStream;
 class WXDLLIMPEXP_FWD_CORE wxEvtHandler;
 class WXDLLIMPEXP_FWD_CORE wxClientDataContainer;
+class WXDLLIMPEXP_FWD_CORE wxSharedClientDataContainer;
 class WXDLLIMPEXP_FWD_CORE wxPoint2DDouble;
 typedef wxInputStream Wx_InputStream;
 typedef wxOutputStream Wx_OutputStream;
@@ -236,6 +237,9 @@ SV* FUNCPTR( wxPli_object_2_sv )( pTHX_ SV* var, const wxObject* object );
 SV* FUNCPTR( wxPli_clientdatacontainer_2_sv )( pTHX_ SV* var,
                                                wxClientDataContainer* cdc,
                                                const char* klass );
+SV* FUNCPTR( wxPli_sharedclientdatacontainer_2_sv )( pTHX_ SV* var,
+                                                     wxSharedClientDataContainer* scdc,
+                                                     const char* klass );
 SV* FUNCPTR( wxPli_evthandler_2_sv )( pTHX_ SV* var, wxEvtHandler* evth );
 SV* FUNCPTR( wxPli_non_object_2_sv )( pTHX_ SV* var, const void* data,
                                       const char* package );
@@ -531,6 +535,9 @@ struct wxPliHelpers
     wxPliSelfRef* ( * m_wxPli_get_selfref )( pTHX_ wxObject*, bool);
     SV* ( * m_wxPli_object_2_scalarsv )( pTHX_ SV* var, const wxObject* object );
     SV* ( * m_wxPli_namedobject_2_sv )( pTHX_ SV* var, const wxObject* object, const char* package );
+    SV* (* m_wxPli_sharedclientdatacontainer_2_sv )( pTHX_ SV* var,
+                                                     wxSharedClientDataContainer* scdc,
+                                                     const char* klass );
 };
 
 #if wxPERL_USE_THREADS
@@ -576,7 +583,8 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
  &wxPli_objlist_push, &wxPliOutputStream_ctor, &wxPli_stringarray_push, \
  &wxPli_overload_error, &wxPli_sv_2_wxvariant, \
  &wxPli_create_virtual_evthandler, &wxPli_get_selfref, &wxPli_object_2_scalarsv, \
- &wxPli_namedobject_2_sv \
+ &wxPli_namedobject_2_sv, \
+ &wxPli_sharedclientdatacontainer_2_sv \
  }
 
 #if NEEDS_PLI_HELPERS_STRUCT()
@@ -627,6 +635,7 @@ wxPliHelpers name = { &wxPli_sv_2_object, \
   wxPli_get_selfref = name->m_wxPli_get_selfref; \
   wxPli_object_2_scalarsv = name->m_wxPli_object_2_scalarsv; \
   wxPli_namedobject_2_sv = name->m_wxPli_namedobject_2_sv; \
+  wxPli_sharedclientdatacontainer_2_sv = name->m_wxPli_sharedclientdatacontainer_2_sv; \
   WXPLI_INIT_CLASSINFO();
 
 #else

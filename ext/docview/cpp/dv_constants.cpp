@@ -30,9 +30,6 @@ double docview_constant( const char* name, int arg )
     {
       case 'D':
          r( wxDEFAULT_TEMPLATE_FLAGS );
-         r( wxDEFAULT_DOCMAN_FLAGS );
-         r( wxDOC_SDI );
-         r( wxDOC_MDI );
          r( wxDOC_NEW );
          r( wxDOC_SILENT );
          break;

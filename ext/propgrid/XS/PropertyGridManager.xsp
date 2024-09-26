@@ -100,8 +100,6 @@ public:
     /** Synonyme for GetSelectedPage. */
     wxPGProperty__parsed_nodelete* GetSelection() const;
 
-    wxToolBar* GetToolBar() const;
-
     virtual wxPropertyGridPage* InsertPage( int index, const wxString& label,
                                             const wxBitmap& bmp = wxNullBitmapPtr,
                                             wxPropertyGridPage* pageObj = NULL ); 

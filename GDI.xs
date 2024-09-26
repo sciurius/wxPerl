@@ -42,6 +42,7 @@ INCLUDE: XS/ColourDatabase.xs
 INCLUDE: XS/Font.xs
 INCLUDE_COMMAND: $^X -I./ -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/ImageList.xsp
 INCLUDE: XS/Bitmap.xs
+INCLUDE_COMMAND: $^X -I./ -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/BitmapBundle.xsp
 INCLUDE: XS/Icon.xs
 INCLUDE: XS/Cursor.xs
 INCLUDE_COMMAND: $^X -I./ -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/DC.xsp
