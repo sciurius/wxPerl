@@ -55,6 +55,12 @@ inline FILE* _wxPli_stderr() { return stderr; }
 WXPL_EXTERN_C_START
 #include <EXTERN.h>
 #include <perl.h>
+/* Perl 5.26.0 BOM_UTF8 clashes with WxGTK's BOM_UTF8
+ * CPAN RT#121464,
+ * fixed in newer WxGTK <http://trac.wxwidgets.org/ticket/13599>. */
+#ifdef BOM_UTF8
+#undef BOM_UTF8
+#endif
 
 #if WXPERL_P_VERSION_GE( 5, 16, 0 ) && WXPERL_P_VERSION_LT( 5, 18, 0 ) && defined(__WXOSX_COCOA__)
 #ifdef dNOOP
