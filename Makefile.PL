@@ -86,7 +86,7 @@ wxWriteMakefile(
     PMLIBDIRS         => [ 'lib', 'build' ],
     EXE_FILES         => [ qw(script/wxperl_overload) ],
     WX_CORE_LIB_MAYBE => $^O eq 'darwin' ? 'media html' : '',
-    WX_CORE_LIB       => 'adv core base',
+    WX_CORE_LIB       => 'core base',
     WX_OVERLOAD       => { header  => 'cpp/ovl_const.h',
                            source  => 'cpp/ovl_const.cpp',
                          },

@@ -16,7 +16,7 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME         => 'Wx::Grid',
                  VERSION_FROM => 'lib/Wx/Grid.pm',
-                 WX_CORE_LIB  => 'adv core base',
+                 WX_CORE_LIB  => 'core base',
                  );
 
 # local variables:

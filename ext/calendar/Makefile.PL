@@ -18,7 +18,7 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME         => 'Wx::Calendar',
                  VERSION_FROM => 'Calendar.pm',
-                 WX_CORE_LIB  => 'adv core base',
+                 WX_CORE_LIB  => 'core base',
                  );
 
 # local variables:

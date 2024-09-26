@@ -19,5 +19,5 @@ use Wx::build::MakeMaker;
 wxWriteMakefile( NAME         => 'Wx::AUI',
                  VERSION_FROM => 'lib/Wx/AUI.pm',
                  REQUIRE_WX   => 2.007002,
-                 WX_CORE_LIB  => 'aui adv core base',
+                 WX_CORE_LIB  => 'aui core base',
                  );

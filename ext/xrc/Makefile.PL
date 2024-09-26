@@ -16,7 +16,7 @@ use Wx::build::MakeMaker;
 
 wxWriteMakefile( NAME            => 'Wx::XRC',
                  VERSION_FROM    => 'lib/Wx/XRC.pm',
-                 WX_CORE_LIB     => 'xrc xml html adv core base',
+                 WX_CORE_LIB     => 'xrc xml html core base',
                  );
 
 # local variables:

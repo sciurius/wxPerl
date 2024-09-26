@@ -48,7 +48,7 @@ parameters, plus:
   WX_CORE_LIB => 'xrc core base'
 
 link libraries from wxWidgets' core or contrib directory.
-If not spedified, defaults to 'adv html core net base' for compatibility.
+If not spedified, defaults to 'html core net base' for compatibility.
 
 =item * WX_LIB
 
@@ -362,7 +362,7 @@ sub _process_mm_arguments {
 
   $args{CCFLAGS} .= $options{extra_cflags} ? ' ' . $options{extra_cflags} : '';
   $args{LIBS} .=  $options{extra_libs} ? ' ' . $options{extra_libs} : '';
-  $args{WX_CORE_LIB} ||= 'adv html core net base';
+  $args{WX_CORE_LIB} ||= 'html core net base';
 
   foreach ( keys %args ) {
     my $v = $args{$_};

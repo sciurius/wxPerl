@@ -19,5 +19,5 @@ use Wx::build::MakeMaker;
 wxWriteMakefile( NAME         => 'Wx::DataView',
                  VERSION_FROM => 'DataView.pm',
                  REQUIRE_WX   => 2.009000,
-                 WX_CORE_LIB  => 'adv core base',
+                 WX_CORE_LIB  => 'core base',
                  );

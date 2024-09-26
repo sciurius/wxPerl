@@ -19,7 +19,7 @@ use Wx::build::MakeMaker;
 wxWriteMakefile( NAME         => 'Wx::PropertyGrid',
                  VERSION_FROM => 'lib/Wx/PropertyGrid.pm',
                  REQUIRE_WX   => 2.009003,
-                 WX_CORE_LIB  => 'propgrid adv core base',
+                 WX_CORE_LIB  => 'propgrid core base',
                  REQUIRE_WX_LIB  => 'propgrid',
                  NO_WX_PLATFORMS => [ ],
                );
