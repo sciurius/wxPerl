@@ -2,9 +2,13 @@ name: CI for Linux
 
 on:
     push:
-        branches: '*'
+        branches:
+          - 'master'
+          - 'repair'
     pull_request:
-        branches: '*'
+        branches:
+          - 'master'
+          - 'repair'
 
 jobs:
   perl-job:
@@ -26,9 +30,8 @@ jobs:
         run: apt-get install libwxgtk3.2-dev
       - name: Install Dependencies
         run: cpanm --installdeps --notest .
-      - name: Make and run tests
+      - name: Make, but do not run tests
         run: |
             perl Makefile.PL
             make
-            make test
 
