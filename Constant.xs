@@ -1132,7 +1132,7 @@ static double constant( const char* name, int arg )
     r( wxEXEC_BLOCK );                  // execute
     r( wxEXEC_NOEVENTS );               // execute
     r( wxEXEC_MAKE_GROUP_LEADER );      // execute
-
+    r( wxEXEC_HIDE_CONSOLE );           // execute, MSW
     r( wxEAST );
 
     r( wxEL_ALLOW_NEW );                // editablelistbox
@@ -1393,6 +1393,7 @@ static double constant( const char* name, int arg )
     r( wxID_SAVEAS );                   // id
     r( wxID_REVERT );                   // id
     r( wxID_EXIT );                     // id
+    r( wxID_EXECUTE );                  // id
     r( wxID_UNDO );                     // id
     r( wxID_REDO );                     // id
     r( wxID_PRINT );                    // id
