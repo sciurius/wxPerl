@@ -938,6 +938,7 @@ static double constant( const char* name, int arg )
     r( wxDIRP_CHANGE_DIR );
     r( wxDIRP_USE_TEXTCTRL );
     r( wxDIRP_DEFAULT_STYLE );
+    r( wxDIRP_SMALL );
     r( wxDOWN );
 
     r( wxDIRCTRL_DIR_ONLY );            // dirctrl
@@ -1167,6 +1168,7 @@ static double constant( const char* name, int arg )
     r( wxFLEX_GROWMODE_NONE );          // sizer
     r( wxFLEX_GROWMODE_SPECIFIED );     // sizer
     r( wxFLEX_GROWMODE_ALL );           // sizer
+    r( wxRESERVE_SPACE_EVEN_IF_HIDDEN );// sizer
     r( wxFRAME_FLOAT_ON_PARENT );       // frame
     r( wxFRAME_NO_WINDOW_MENU );        // frame
     r( wxFRAME_NO_TASKBAR );            // frame
@@ -1327,6 +1329,7 @@ static double constant( const char* name, int arg )
     r( wxFLP_CHANGE_DIR );
     r( wxFLP_DEFAULT_STYLE );
     r( wxFLP_USE_TEXTCTRL );
+    r( wxFLP_SMALL );
     r( wxFNTP_USE_TEXTCTRL );
     r( wxFNTP_DEFAULT_STYLE );
     r( wxFNTP_FONTDESC_AS_LABEL );
@@ -2086,6 +2089,7 @@ static double constant( const char* name, int arg )
     r( wxPOWER_SOCKET  );               // power
     r( wxPOWER_BATTERY );               // power
     r( wxPOWER_UNKNOWN );               // power
+    r( wxPB_SMALL );
     r( wxPB_USE_TEXTCTRL );
 
     r( wxPercentOf );                   // layout constraints
