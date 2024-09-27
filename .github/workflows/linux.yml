@@ -22,7 +22,9 @@ jobs:
       - name: perl -V
         run: perl -V
       - name: Install wxWidgets
-        run: apt-get -y --fix-missing install libwxgtk3.0-dev
+        run: |
+            apt-get -y --fix-missing install libwxgtk3.0-dev
+            apt-get -y --fix-missing install libalien-wxwidgets-perl
       - name: Install Dependencies
         run: cpanm --installdeps --notest .
       - name: Make, but do not run tests
