@@ -1676,4 +1676,9 @@ wxStyledTextCtrl::AppendTextRaw( text, length = -1 )
  	void RotateSelection(); 
  	void SwapMainAnchorCaret(); 
 #endif
+
+ 	bool IsModified();
+ 	void MarkDirty();
+ 	void DiscardEdits();
+
 };
