@@ -15,7 +15,7 @@
 
 MODULE=Wx PACKAGE=Wx::DataFormat
 
-#ifdef __WXGTK20__
+#if defined(__WXGTK20__) || defined(__WXMAC__)
 
 wxDataFormat*
 newNative( dummy, format = wxDF_INVALID )

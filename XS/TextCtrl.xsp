@@ -142,6 +142,9 @@ wxTextCtrlBase::HitTest( pt )
 #if defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 8, 0 )
     void MacCheckSpelling( bool check );
 #endif
+#if defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 3, 2, 0 )
+    void OSXDisableAllSmartSubstitutions();
+#endif
 };
 
 %{
