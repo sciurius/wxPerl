@@ -2,9 +2,9 @@ name: CI for Linux
 
 on:
     push:
-        branches: 'Wx30'
+        branches: '*'
     pull_request:
-        branches: 'Wx30'
+        branches: '*'
 
 jobs:
   perl-job:
@@ -22,6 +22,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: perl -V
         run: perl -V
+      - name: Install wxWidgets
+        run: apt-get install libwxgtk3.0-dev
       - name: Install Dependencies
         run: cpanm --installdeps --notest .
       - name: Make and run tests
