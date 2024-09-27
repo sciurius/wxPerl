@@ -4,11 +4,9 @@ on:
     push:
         branches:
           - 'master'
-          - 'repair'
     pull_request:
         branches:
           - 'master'
-          - 'repair'
 
 jobs:
   perl-job:
@@ -26,7 +24,8 @@ jobs:
       - name: perl -V
         run: perl -V
       - name: Install wxWidgets
-        run: apt-get install libwxgtk3.2-dev
+        run: |
+          apt-get install libalien-wxwidgets-perl
       - name: Install Dependencies
         run: cpanm --installdeps --notest .
       - name: Make, but do not run tests
