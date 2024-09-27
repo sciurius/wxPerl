@@ -1,4 +1,4 @@
-name: CI for Linux
+name: CI for macOS
 
 on:
     push:
