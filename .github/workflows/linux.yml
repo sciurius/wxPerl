@@ -2,9 +2,9 @@ name: CI for Linux
 
 on:
     push:
-        branches: '*'
+        branches: 'wx30'
     pull_request:
-        branches: '*'
+        branches: 'wx30'
 
 jobs:
   perl-job:
