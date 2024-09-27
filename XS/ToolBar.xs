@@ -159,16 +159,12 @@ wxToolBarToolBase::SetClientData( data = 0 )
     delete THIS->GetClientData();
     THIS->SetClientData( data );
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 void
 wxToolBarToolBase::SetDropdownMenu( menu )
     wxMenu* menu
 
 wxMenu*
 wxToolBarToolBase::GetDropdownMenu()
-
-#endif
 
 #if WXPERL_W_VERSION_GE( 3, 0, 2 )
 bool
@@ -203,8 +199,6 @@ wxToolBarBase::AddControl( control )
 void
 wxToolBar::AddSeparator()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 1 )
-
 wxToolBarToolBase*
 wxToolBarBase::AddStretchableSpace()
 
@@ -225,8 +219,6 @@ wxToolBarToolBase*
 wxToolBarBase::InsertStretchableSpace( pos )
   size_t pos
   
-#endif
-
 void
 wxToolBarBase::AddTool( ... )
   PPCODE:
@@ -247,12 +239,8 @@ wxToolBarBase::AddToolShort( toolId, bitmap1, shortHelp = wxEmptyString, longHel
     wxString shortHelp
     wxString longHelp
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     RETVAL = THIS->AddTool( toolId, wxEmptyString, *bitmap1, wxNullBitmap,
                             wxITEM_NORMAL, shortHelp, longHelp );
-#else
-    RETVAL = THIS->AddTool( toolId, *bitmap1, shortHelp, longHelp );
-#endif
   OUTPUT:
     RETVAL
 
@@ -266,18 +254,11 @@ wxToolBarBase::AddToolLong( toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNullBitmap,
     wxString shortHelp
     wxString longHelp
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     RETVAL = THIS->AddTool( toolId, wxEmptyString, *bitmap1, *bitmap2,
                             isToggle ? wxITEM_CHECK : wxITEM_NORMAL,
                             shortHelp, longHelp );
     if( clientData )
       RETVAL->SetClientData( clientData );
-#else
-    RETVAL = THIS->AddTool( toolId, *bitmap1, *bitmap2, isToggle,
-        0, shortHelp, longHelp );
-    if( clientData )
-      RETVAL->SetClientData( clientData );
-#endif
   OUTPUT:
     RETVAL
 
@@ -444,18 +425,11 @@ wxToolBarBase::InsertToolLong( pos, toolId, bitmap1, bitmap2 = (wxBitmap*)&wxNul
     wxString shortHelp
     wxString longHelp
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     RETVAL = THIS->InsertTool( pos, toolId, wxEmptyString, *bitmap1, *bitmap2,
                                isToggle ? wxITEM_CHECK : wxITEM_NORMAL,
                                shortHelp, longHelp );
     if( clientData )
         THIS->SetClientData( clientData );
-#else
-    RETVAL = THIS->InsertTool( pos, toolId, *bitmap1, *bitmap2, isToggle,
-        0, shortHelp, longHelp );
-    if( clientData )
-        THIS->SetClientData( clientData );
-#endif
   OUTPUT: RETVAL
 
 wxToolBarToolBase*
@@ -553,8 +527,6 @@ void
 wxToolBarBase::SetToolSeparation( separation )
     int separation
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 void
 wxToolBarBase::SetToolNormalBitmap( id, bitmap )
     int id
@@ -567,21 +539,15 @@ wxToolBarBase::SetToolDisabledBitmap( id, bitmap );
     wxBitmap* bitmap
   C_ARGS: id, *bitmap
 
-#endif
-
 void
 wxToolBarBase::ToggleTool( toolId, toggle )
     int toolId
     bool toggle
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 bool
 wxToolBarBase::SetDropdownMenu( toolid, menu )
     int toolid
     wxMenu* menu
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::ToolBar
 
