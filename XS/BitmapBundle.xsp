@@ -1,0 +1,76 @@
+#############################################################################
+## Name:        XS/BitmapBundle.xsp
+## Purpose:     XS for Wx::BitmapBundle
+## Author:      Scott Talbert
+## Modified by:
+## Created:     12/12/2022
+## Copyright:   (c) 2022 Scott Talbert
+## Licence:     This program is free software; you can redistribute it and/or
+##              modify it under the same terms as Perl itself
+#############################################################################
+
+%{
+#include <wx/bmpbndl.h>
+%}
+
+%module{Wx};
+
+%name{Wx::BitmapBundle} class wxBitmapBundle
+{
+    %name{newNull} wxBitmapBundle();
+    %name{newBitmap} wxBitmapBundle(const wxBitmap& bitmap);
+    %name{newIcon} wxBitmapBundle(const wxIcon& icon);
+    %name{newImage} wxBitmapBundle(const wxImage& image);
+##    wxBitmapBundle(const char* const* xpm);
+##    wxBitmapBundle(const wxBitmapBundle& other);
+##    wxBitmapBundle& operator=(const wxBitmapBundle& other);
+##    static wxBitmapBundle FromBitmaps(const wxVector<wxBitmap>& bitmaps);
+    static wxBitmapBundle FromBitmaps(const wxBitmap& bitmap1,
+                                      const wxBitmap& bitmap2);
+    static wxBitmapBundle FromBitmap(const wxBitmap& bitmap);
+    static wxBitmapBundle FromIconBundle(const wxIconBundle& iconBundle);
+    static wxBitmapBundle FromImage(const wxImage& image);
+##    static wxBitmapBundle FromImpl(wxBitmapBundleImpl* impl);
+    static wxBitmapBundle FromResources(const wxString& name);
+    %name{FromFiles3} wxBitmapBundle FromFiles(const wxString& path, const wxString& filename, const wxString& extension = "png");
+    %name{FromFiles1} wxBitmapBundle FromFiles(const wxString& fullpathname);
+##    static wxBitmapBundle FromSVG(char* data, const wxSize& sizeDef);
+    static wxBitmapBundle FromSVG(const char* data, const wxSize& sizeDef);
+    static wxBitmapBundle FromSVGFile(const wxString& path, const wxSize& sizeDef);
+    static wxBitmapBundle FromSVGResource(const wxString& name, const wxSize& sizeDef);
+    void Clear();
+    bool IsOk() const;
+    wxSize GetDefaultSize() const;
+    wxSize GetPreferredBitmapSizeAtScale(double scale) const;
+    wxSize GetPreferredBitmapSizeFor(const wxWindow* window) const;
+    wxSize GetPreferredLogicalSizeFor(const wxWindow* window) const;
+    wxBitmap GetBitmap(const wxSize& size) const;
+    wxBitmap GetBitmapFor(const wxWindow* window) const;
+    wxIcon GetIcon(const wxSize& size) const;
+    wxIcon GetIconFor(const wxWindow* window) const;
+    bool IsSameAs(const wxBitmapBundle& other) const;
+};
+
+%{
+
+MODULE=Wx PACKAGE=Wx::BitmapBundle
+
+void
+new( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_VOIDM_REDISP( newNull )
+        MATCH_REDISP( wxPliOvl_wbmp, newBitmap )
+	MATCH_REDISP( wxPliOvl_wico, newIcon )
+        MATCH_REDISP( wxPliOvl_wimg, newImage )
+    END_OVERLOAD( "Wx::BitmapBundle::new" )
+
+void
+wxBitmapBundle::FromFiles( ... )
+  PPCODE:
+    BEGIN_OVERLOAD()
+        MATCH_REDISP( wxPliOvl_s_s_s, FromFiles3 )
+        MATCH_REDISP( wxPliOvl_s, FromFiles1 )
+    END_OVERLOAD( Wx::BitmapBundle::FromFiles )
+
+%}
