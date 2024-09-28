@@ -7,7 +7,7 @@
 
 wxPerl from Mattia Barbon and Mark Dootson has stalled since 2017.
 
-This is an independent fork. It is created for my own purposes,
+**This is an independent fork.** It is created for my own purposes,
 because I need a reliable Wx platform on Linux, Microsoft Windows, and
 Apple macOS. I will add features that I need. PRs for other features
 are welcome.
