@@ -1,5 +1,10 @@
 Revision history for Perl extension Wx.
 
+0.9933 2024-09-28
+
+    - Fix build for wxWidgets 3.0, GTK3 and macOS.
+      NOTE: Some test fail but it seems to work ok.
+
 0.9932 Tue Apr 18 2017
     - fix build for Perl 5.25.11 ( . no longer in @INC )
     - RT:121224 - fixes broken 0.9930 commit for keycode constants
