@@ -1,8 +1,12 @@
 Revision history for Perl extension Wx.
 
-0.9933 TBR
-    - update wxToolBar
-    - tidy Constant.xs ( usupported wx versions )
+3.2.000 2024-09-28
+
+    - Miscellaneous fixes for modern Perl, wxWidgets 3.2, macOS.
+    - Added several 3.x constants.
+    - Added some missing methods for STC.
+    - Update wxToolBar
+    - Tidy Constant.xs ( usupported wx versions )
  
 0.9932 Tue Apr 18 2017
     - fix build for Perl 5.25.11 ( . no longer in @INC )
