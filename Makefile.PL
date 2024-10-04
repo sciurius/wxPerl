@@ -27,6 +27,10 @@ my $moduleauthor = ( $mmv >= 6.5702 ) ? [ 'Mattia Barbon <mbarbon@cpan.org>' ] :
 # $ExtUtils::MakeMaker::Verbose = 2;
 # $wxConfig::Verbose = 10;
 
+use Alien::wxWidgets 0.69;
+die("This version of wxPerl requires wxWidgets 3.2 or later\n")
+  unless Alien::wxWidgets->version >= 3.002;
+
 # Make setting optional MakeMaker parameters more readable
 # lifted from DBD::SQLite distribution
 sub OPTIONAL {
@@ -40,7 +44,7 @@ wxWriteMakefile(
 	VERSION_FROM     => 'Wx.pm',
 	AUTHOR           => $moduleauthor,
 	PREREQ_PM        => {
-        'Alien::wxWidgets'       => 0.25,
+        'Alien::wxWidgets'       => 0.69,
         'ExtUtils::XSpp'         => 0.1602,
         'ExtUtils::MakeMaker'    => 6.46,
         'ExtUtils::ParseXS'      => 3.15,
@@ -56,10 +60,10 @@ wxWriteMakefile(
 	META_ADD => {
         dynamic_config => 1,
         configure_requires => {
-            'Alien::wxWidgets'    => 0.25,
+            'Alien::wxWidgets'    => 0.69,
         },
         build_requires => {
-            'Alien::wxWidgets'    => 0.25,
+            'Alien::wxWidgets'    => 0.69,
             'ExtUtils::MakeMaker' => 6.48,
             'ExtUtils::XSpp'      => 0.1602,
             'Test::More'          => 0.42,
@@ -70,13 +74,13 @@ wxWriteMakefile(
             'if'                  => 0.03,
         },
         requires => {
-            'Alien::wxWidgets'    => 0.25,
+            'Alien::wxWidgets'    => 0.69,
         },
         resources => {
             'license'       => 'http://dev.perl.org/licenses/',
             'homepage'      => 'http://www.wxperl.it/',
-            'bugtracker'    => 'http://rt.cpan.org/NoAuth/Bugs.html?Dist=Wx',
-            'repository'    => 'http://svn.code.sf.net/p/wxperl/code/wxPerl',
+            'bugtracker'    => 'https://github.com/sciurius/wxPerl/issues',
+            'repository'    => 'https://github.com/sciurius/wxPerl',
             'MailingList'   => 'http://lists.perl.org/list/wxperl-users.html',
         },
         no_index => { directory => [ qw(samples script) ],
