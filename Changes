@@ -1,6 +1,10 @@
 Revision history for Perl extension Wx.
 
-3.001
+0.000
+
+    - Add STC StyleGetSize, StyleGetSizeFractional, StyleSetSizeFractional.
+
+3.001 2024-10-04
 
     - Require Alien::wxWidgets 0.69 and verify wxWidgets version.
 

@@ -121,6 +121,19 @@ wxStyledTextCtrl::InsertText(pos, text)
     int pos
     wxString text
 
+int
+wxStyledTextCtrl::StyleGetSizeFractional(style)
+    int style
+
+void
+wxStyledTextCtrl::StyleGetSize(style)
+    int style
+
+void
+wxStyledTextCtrl::StyleSetSizeFractional(style, size_points)
+    int style
+    int size_points
+
 void
 wxStyledTextCtrl::StyleSetSize(style, size_points)
     int style
