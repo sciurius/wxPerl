@@ -83,11 +83,6 @@ UseTaskBarIcon( icon )
     RETVAL = wxNotificationMessage::UseTaskBarIcon( icon );
   OUTPUT: RETVAL
 
-void
-AlwaysUseGeneric( alwaysUseGeneric )
-    bool alwaysUseGeneric
-  CODE:
-    wxNotificationMessage::AlwaysUseGeneric( alwaysUseGeneric );
 %}
 #endif
 
