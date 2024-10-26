@@ -120,7 +120,13 @@ public:
 {
 public:
 
-    static wxWebView* NewDefault(const wxString& backend = wxWebViewBackendDefault)
+#if wxUSE_WEBVIEW_EDGE && defined(__WXMSW__)
+  #define wxWebViewBackend wxWebViewBackendEdge
+#else
+  #define wxWebViewBackend wxWebViewBackendDefault
+#endif
+
+    static wxWebView* NewDefault(const wxString& backend = wxWebViewBackend)
         %code{% RETVAL = wxWebView::New( backend ); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
     
@@ -129,7 +135,7 @@ public:
             const wxString& url = wxWebViewDefaultURLStr,
             const wxPoint& pos = wxDefaultPosition,
             const wxSize& size = wxDefaultSize,
-            const wxString& backend = wxWebViewBackendDefault,
+            const wxString& backend = wxWebViewBackend,
             long style = 0,
             const wxString& name = wxWebViewNameStr)
             %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
@@ -200,6 +206,7 @@ public:
     
     virtual void EnableHistory(bool enable = true);
 
+    static bool IsBackendAvailable(const wxString& backend);
     
 %{
 
