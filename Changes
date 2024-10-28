@@ -2,7 +2,10 @@ Revision history for Perl extension Wx.
 
 0.000
 
+3.002 2024-10-28
+
     - Add STC StyleGetSize, StyleGetSizeFractional, StyleSetSizeFractional.
+    - Add WebView::IsBackendAvailable.
 
 3.001 2024-10-04
 

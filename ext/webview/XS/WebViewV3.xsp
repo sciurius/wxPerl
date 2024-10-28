@@ -120,13 +120,7 @@ public:
 {
 public:
 
-#if wxUSE_WEBVIEW_EDGE && defined(__WXMSW__)
-  #define wxWebViewBackend wxWebViewBackendEdge
-#else
-  #define wxWebViewBackend wxWebViewBackendDefault
-#endif
-
-    static wxWebView* NewDefault(const wxString& backend = wxWebViewBackend)
+    static wxWebView* NewDefault(const wxString& backend = wxWebViewBackendDefault)
         %code{% RETVAL = wxWebView::New( backend ); %}
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
     
@@ -135,7 +129,7 @@ public:
             const wxString& url = wxWebViewDefaultURLStr,
             const wxPoint& pos = wxDefaultPosition,
             const wxSize& size = wxDefaultSize,
-            const wxString& backend = wxWebViewBackend,
+            const wxString& backend = wxWebViewBackendDefault,
             long style = 0,
             const wxString& name = wxWebViewNameStr)
             %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, "Wx::WebView" ); %};
