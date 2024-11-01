@@ -754,6 +754,10 @@ void
 wxStyledTextCtrl::SetScrollWidth( pixelWidth )
     int pixelWidth
 
+void
+wxStyledTextCtrl::SetScrollWidthTracking( tracking )
+    bool tracking
+
 int
 wxStyledTextCtrl::GetScrollWidth()
 
