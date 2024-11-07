@@ -500,6 +500,7 @@ XS/ComboCtrl.xsp
 XS/ComboPopup.xsp
 XS/Config.xs
 XS/Constraint.xs
+XS/Control.xsp
 XS/ControlWithItems.xsp
 XS/Cursor.xs
 XS/DC.xsp

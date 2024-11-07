@@ -3,6 +3,7 @@ Revision history for Perl extension Wx.
 0.000
 
     - Add STC SetScrollWidthTracking.
+    - Add Wx::Control::Ellipsize.
 
 3.002 2024-10-28
 

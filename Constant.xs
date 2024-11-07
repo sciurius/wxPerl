@@ -1141,7 +1141,17 @@ static double constant( const char* name, int arg )
     r( wxEL_NO_REORDER );               // editablelistbox
     r( wxEL_DEFAULT_STYLE );            // editablelistbox
     r( wxEXTEND_LAST_ON_EACH_LINE );    // sizer
+
+    r( wxELLIPSIZE_NONE );		// control
+    r( wxELLIPSIZE_START );		// control
+    r( wxELLIPSIZE_MIDDLE );		// control
+    r( wxELLIPSIZE_END );		// control
+    r( wxELLIPSIZE_FLAGS_NONE );	// control
+    r( wxELLIPSIZE_FLAGS_PROCESS_MNEMONICS );		// control
+    r( wxELLIPSIZE_FLAGS_EXPAND_TABS );	// control
+    r( wxELLIPSIZE_FLAGS_DEFAULT );	// control
     break;
+
   case 'F':
     r( wxFromStart );
     r( wxFromCurrent );

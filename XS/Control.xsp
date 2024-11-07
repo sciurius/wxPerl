@@ -1,0 +1,16 @@
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+%module{Wx};
+
+%{
+#include <wx/gdicmn.h>
+%}
+
+%typemap{wxEllipsizeMode}{simple};
+
+%name{Wx::Control} class wxControl
+{
+    static wxString Ellipsize( wxString label, const wxDC& dc,
+    	   	    	       wxEllipsizeMode mode, int maxWidth, int flags );
+};
