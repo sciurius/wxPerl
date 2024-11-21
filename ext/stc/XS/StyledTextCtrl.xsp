@@ -121,6 +121,13 @@ wxStyledTextCtrl::InsertText(pos, text)
     int pos
     wxString text
 
+long
+wxStyledTextCtrl::GetInsertionPoint()
+
+void
+wxStyledTextCtrl::SetInsertionPoint(pos)
+    long pos
+
 int
 wxStyledTextCtrl::StyleGetSizeFractional(style)
     int style
@@ -414,6 +421,10 @@ wxStyledTextCtrl::GetColumn( pos )
 void
 wxStyledTextCtrl::SetUseHorizontalScrollBar( show )
     bool show
+
+void
+wxStyledTextCtrl::ShowPosition( pos )
+    long pos
 
 bool
 wxStyledTextCtrl::GetUseHorizontalScrollBar()
@@ -1695,7 +1706,6 @@ wxStyledTextCtrl::AppendTextRaw( text, length = -1 )
 #endif
 
  	bool IsModified();
- 	void MarkDirty();
  	void DiscardEdits();
 
 };

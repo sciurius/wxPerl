@@ -1002,6 +1002,9 @@ static double constant( const char* name, int arg )
 
     r( wxEVT_TIMER );
 
+    r( wxEVT_COMMAND_DIRPICKER_CHANGED );
+    r( wxEVT_COMMAND_FILEPICKER_CHANGED );
+
 #if defined(__WXMSW__) || defined(wxHAS_TASK_BAR_ICON)
     r( wxEVT_TASKBAR_MOVE );
     r( wxEVT_TASKBAR_LEFT_DOWN );
