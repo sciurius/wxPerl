@@ -3,7 +3,10 @@ Revision history for Perl extension Wx.
 3.xxx
 
     - Add STC::ShowPosition, GetInsertionPoint, SetInsertionPoint.
+    - Add STC::SetMarginBackground.
     - Add wxEVT_COMMAND_DIRPICKER_CHANGED, wxEVT_COMMAND_FILEPICKER_CHANGED.
+    - Add Wx::SystemSettings GetAppearance SelectLightDark.
+    - Add Wx::GetAppearance IsDark IsUsingDarkBackGround.
 
 3.003 2024-11-15
 

@@ -358,6 +358,26 @@ GetScreenType()
     RETVAL = wxSystemSettings::GetScreenType();
   OUTPUT: RETVAL
 
+wxSystemAppearance*
+GetAppearance()
+  CODE:
+    RETVAL = new wxSystemAppearance(wxSystemSettings::GetAppearance());
+  OUTPUT: RETVAL
+
+wxColour*
+SelectLightDark( wxColour colForLight, wxColour colForDark )
+  CODE:
+    RETVAL = new wxColour(wxSystemSettings::GetAppearance().IsDark() ? colForDark : colForLight);
+  OUTPUT: RETVAL
+  
+MODULE=Wx PACKAGE=Wx::SystemAppearance
+
+bool
+wxSystemAppearance::IsDark()
+      
+bool
+wxSystemAppearance::IsUsingDarkBackground()
+      
 MODULE=Wx PACKAGE=Wx::TipProvider
 
 wxTipProvider*

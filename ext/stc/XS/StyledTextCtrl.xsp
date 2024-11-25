@@ -1705,6 +1705,7 @@ wxStyledTextCtrl::AppendTextRaw( text, length = -1 )
  	void SwapMainAnchorCaret(); 
 #endif
 
+	void SetMarginBackground( int margin, const wxColour &back );
  	bool IsModified();
  	void DiscardEdits();
 
