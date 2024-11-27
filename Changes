@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-3.xxx
+3.004 2024-11-27
 
     - Add STC::ShowPosition, GetInsertionPoint, SetInsertionPoint.
     - Add STC::SetMarginBackground.
