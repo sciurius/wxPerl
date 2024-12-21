@@ -10,7 +10,7 @@ on:
 
 jobs:
   perl-job:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-desktop-latest
     strategy:
       fail-fast: false
       matrix:
