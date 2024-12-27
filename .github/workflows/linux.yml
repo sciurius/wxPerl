@@ -10,7 +10,7 @@ on:
 
 jobs:
   perl-job:
-    runs-on: ubuntu-desktop-latest
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -25,6 +25,7 @@ jobs:
         run: perl -V
       - name: Install wxWidgets
         run: |
+          apt search wxwidgets
           apt-get install -y --fix-missing libwxgtk3.2-dev
           apt-get install -y --fix-missing libwxgtk-webview3.2-dev
           apt-get install -y --fix-missing libwxgtk-media3.2-dev
