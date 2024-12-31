@@ -2055,6 +2055,8 @@ double stc_constant( const char* name, int arg )
         r( wxEVT_STC_CHANGE );
         r( wxEVT_STC_STYLENEEDED );
         r( wxEVT_STC_CHARADDED );
+        r( wxEVT_STC_CLIPBOARD_COPY );
+        r( wxEVT_STC_CLIPBOARD_PASTE );
         r( wxEVT_STC_SAVEPOINTREACHED );
         r( wxEVT_STC_SAVEPOINTLEFT );
         r( wxEVT_STC_ROMODIFYATTEMPT );
