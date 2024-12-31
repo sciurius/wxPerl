@@ -207,11 +207,11 @@ sub tests {
       ok( $setting, "$name: setting again item data deletes old data" );
       # and hope the control is deleted NOW
       $list->Destroy;
-      
-      TODO: {
-        local $TODO = "is it correct to skip as below ? - Fails on osx-cocoa & 2.9.2 all platforms?";
-        # skip "delete delayed", 1 if ( $list->isa( 'Wx::ListBox' ) || $list->isa( 'Wx::ComboBox' ) || $list->isa( 'Wx::Choice' ) );
-        ok( $ctrldelete, "$name: deleting the control deletes the data" );
+
+      SKIP: {
+	skip "delete delayed on Mac", 1
+	    if Wx::wxMAC && ( $list->isa( 'Wx::ListBox' ) || $list->isa( 'Wx::ComboBox' ) );
+	ok( $ctrldelete, "$name: deleting the control deletes the data" );
       };
     }
   }
