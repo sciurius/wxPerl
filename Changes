@@ -5,6 +5,7 @@ Revision history for Perl extension Wx.
     - Add wxEVT_STC_CLIPBOARD_COPY, wxEVT_STC_CLIPBOARD_PASTE.
     - Add EVT_STC_CLIPBOARD_COPY, EVT_STC_CLIPBOARD_PASTE.
     - Fix 04_userdata test (enable TODO tests, SKIP mac specific results).
+    - Fix inheritance test.
 
 3.004 2024-11-27
 
