@@ -1,5 +1,11 @@
 Revision history for Perl extension Wx.
 
+3.005 2024-12-31
+
+    - Add wxEVT_STC_CLIPBOARD_COPY, wxEVT_STC_CLIPBOARD_PASTE.
+    - Add EVT_STC_CLIPBOARD_COPY, EVT_STC_CLIPBOARD_PASTE.
+    - Fix 04_userdata test (enable TODO tests, SKIP mac specific results).
+
 3.004 2024-11-27
 
     - Add STC::ShowPosition, GetInsertionPoint, SetInsertionPoint.
