@@ -41,6 +41,8 @@ use strict;
 sub EVT_STC_CHANGE($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_CHANGE, $_[2] ) };
 sub EVT_STC_STYLENEEDED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_STYLENEEDED, $_[2] ) };
 sub EVT_STC_CHARADDED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_CHARADDED, $_[2] ) };
+sub EVT_STC_CLIPBOARD_COPY($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_CLIPBOARD_COPY, $_[2] ) };
+sub EVT_STC_CLIPBOARD_PASTE($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_CLIPBOARD_PASTE, $_[2] ) };
 sub EVT_STC_SAVEPOINTREACHED($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_SAVEPOINTREACHED, $_[2] ) };
 sub EVT_STC_SAVEPOINTLEFT($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_SAVEPOINTLEFT, $_[2] ) };
 sub EVT_STC_ROMODIFYATTEMPT($$$) { $_[0]->Connect( $_[1], -1, &Wx::wxEVT_STC_ROMODIFYATTEMPT, $_[2] ) };
