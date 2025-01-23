@@ -10,10 +10,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Perl
         run: |
+          sudo apt-get remove --purge man-db
           sudo apt-get update
           sudo apt-get install perl
           sudo apt-get install cpanminus
-          run: perl -V
+          perl -V
       - name: Install wxWidgets
         run: |
           sudo apt-get update
