@@ -1,36 +1,27 @@
-name: CI for Linux
+name: Build on Ubuntu
 
-on:
-    push:
-        branches:
-          - 'master'
-    pull_request:
-        branches:
-          - 'master'
+on: push
 
 jobs:
-  perl-job:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        perl-version:
-          - 'latest'
-    container:
-      image: perldocker/perl-tester:${{ matrix.perl-version }}     # https://hub.docker.com/r/perldocker/perl-tester
-    name: Perl ${{ matrix.perl-version }}
     steps:
-      - uses: actions/checkout@v2
-      - name: perl -V
-        run: perl -V
+      - name: Check out repository code
+        uses: actions/checkout@v4
       - name: Install wxWidgets
         run: |
-          apt-get update
+          sudo apt-get update
           apt search wxwidgets
-          apt-get install -y --fix-missing libwxgtk3.2-dev
-          apt-get install -y --fix-missing libwxgtk-webview3.2-dev
-          apt-get install -y --fix-missing libwxgtk-media3.2-dev
-          apt-get install -y --fix-missing libalien-wxwidgets-perl
+          sudo apt-get install -y --fix-missing libwxgtk3.2-dev
+          sudo apt-get install -y --fix-missing libwxgtk-webview3.2-dev
+          sudo apt-get install -y --fix-missing libwxgtk-media3.2-dev
+          sudo apt-get install -y --fix-missing libalien-wxwidgets-perl
+      - name: Install Perl
+        run: |
+          sudo apt-get update
+          sudo spt-get install perl
+          sudo spt-get install cpanminus
+          run: perl -V
       - name: Install Dependencies
         run: cpanm --installdeps --notest .
       - name: Make, but do not run tests
