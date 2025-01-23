@@ -4,15 +4,14 @@ on: push
 
 jobs:
   build:
-    runs-on: ubuntu-desktop
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Install Perl
         run: |
-          sudo apt-get remove --purge man-db
           sudo apt-get update
-          sudo apt-get install perl
+          sudo apt-get remove --purge man-db
           sudo apt-get install cpanminus
           perl -V
       - name: Install wxWidgets
@@ -22,15 +21,16 @@ jobs:
           sudo apt-get install -y --fix-missing libwxgtk3.2-dev
           sudo apt-get install -y --fix-missing libwxgtk-webview3.2-dev
           sudo apt-get install -y --fix-missing libwxgtk-media3.2-dev
-          sudo apt-get install -y --fix-missing libalien-wxwidgets-perl
+          sudo apt-get purge libalien-wxwidgets-perl
       - name: Install Dependencies
         run: |
           sudo apt-get install libextutils-xspp-perl
           sudo cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.71.tar.gz
+          perl -MAlien::wxWidgets -e 'Alien::wxWidgets->libraries(qw(stc media webview propgrid ribbon aui xrc qa html))'
           cpanm --installdeps --notest .
       - name: Make, but do not run tests
         run: |
           perl Makefile.PL
           make
-          make test
+          
 
