@@ -1,5 +1,7 @@
 Revision history for Perl extension Wx.
 
+    - Add Github Actions for Linux (ubuntu) and macOS.
+
 3.005 2024-12-31
 
     - Add wxEVT_STC_CLIPBOARD_COPY, wxEVT_STC_CLIPBOARD_PASTE.
