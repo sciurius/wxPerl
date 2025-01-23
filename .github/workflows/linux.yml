@@ -3,7 +3,7 @@ name: Build on Ubuntu
 on: push
 
 jobs:
-  build:
+  linux:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
