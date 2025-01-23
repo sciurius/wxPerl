@@ -1,20 +1,13 @@
-name: CI for macOS
+name: Build on macOS
 
-on:
-    push:
-        branches:
-          - 'master'
-    pull_request:
-        branches:
-          - 'master'
+on: push
 
 jobs:
   perl-job:
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Perl
-        run: brew install perl
+      - name: Check out repository code
+        uses: actions/checkout@v4
       - name: perl -V
         run: perl -V
       - name: Set up wxWidgets
@@ -23,9 +16,10 @@ jobs:
       - name: Install Dependencies
         run: |
           brew install cpanm
+          cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.71.tar.gz
+          perl -MAlien::wxWidgets -e 'Alien::wxWidgets->libraries(qw(stc media webview propgrid ribbon aui xrc qa html))'
           cpanm --installdeps --notest .
       - name: Build wxPerl
         run: |
           perl Makefile.PL
           make
-
