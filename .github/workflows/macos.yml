@@ -3,7 +3,7 @@ name: Build on macOS
 on: push
 
 jobs:
-  perl-job:
+  macOS:
     runs-on: macOS-latest
     steps:
       - name: Check out repository code
@@ -16,8 +16,7 @@ jobs:
       - name: Install Dependencies
         run: |
           brew install cpanm
-          cpanm Net::SSLeay
-          cat ~/.cpanm/build.log
+          cpanm Net::SSLeay || cat ~/.cpanm/build.log
           cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.71.tar.gz
           perl -MAlien::wxWidgets -e 'Alien::wxWidgets->libraries(qw(stc media webview propgrid ribbon aui xrc qa html))'
           cpanm --installdeps --notest .
