@@ -25,10 +25,11 @@ jobs:
           sudo apt-get install -y --fix-missing libalien-wxwidgets-perl
       - name: Install Dependencies
         run: |
-            sudo apt-get install libextutils-xspp-perl
-            sudo cpanm --installdeps --notest .
+          sudo apt-get install libextutils-xspp-perl
+          sudo cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.71.tar.gz
+          cpanm --installdeps --notest .
       - name: Make, but do not run tests
         run: |
-            perl Makefile.PL
-            make
+          perl Makefile.PL
+          make
 
