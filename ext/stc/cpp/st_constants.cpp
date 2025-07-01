@@ -1468,6 +1468,7 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_MASK_FOLDERS );
         r( wxSTC_MARGIN_SYMBOL );
         r( wxSTC_MARGIN_NUMBER );
+        r( wxSTC_MARGIN_COLOUR );
 #if WXPERL_W_VERSION_GE( 2, 7, 2 )
         r( wxSTC_MARGIN_BACK );
         r( wxSTC_MARGIN_FORE );
