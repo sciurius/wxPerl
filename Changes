@@ -2,6 +2,7 @@ Revision history for Perl extension Wx.
 
     - Add Github Actions for Linux (Ubuntu) and macOS.
     - Add wxSTC_MARGIN_COLOUR.
+    - Eliminate all deprecation warnings from 3.2.
 
 3.005 2024-12-31
 

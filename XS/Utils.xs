@@ -399,9 +399,11 @@ wxTipProvider::GetCurrentTip()
 wxString
 wxTipProvider::GetTip()
 
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
 wxString
 wxTipProvider::PreprocessTip( tip )
     wxString tip
+#endif
 
 void
 wxTipProvider::SetCurrentTip( number )

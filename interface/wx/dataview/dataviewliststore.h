@@ -129,6 +129,7 @@ public:
     */
     void DeleteAllItems();
 
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
     /**
         Overriden from wxDataViewModel
     */
@@ -138,6 +139,7 @@ public:
         Overriden from wxDataViewModel
     */
     virtual wxString GetColumnType( unsigned int col ) const;
+#endif
 
     /**
         Overriden from wxDataViewIndexListModel

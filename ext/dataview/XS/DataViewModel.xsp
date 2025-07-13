@@ -23,8 +23,10 @@
 
     void Resort();
 
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
     unsigned int GetColumnCount() const;
     wxString GetColumnType( unsigned int col );
+#endif
 
     bool SetValue( const wxVariant &variant,
                    const wxDataViewItem &item, unsigned int col );

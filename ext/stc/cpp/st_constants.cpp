@@ -1010,16 +1010,20 @@ double stc_constant( const char* name, int arg )
 #endif
         break;
     case 'I':
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
         r( wxSTC_INDIC_MAX );
+#endif
         r( wxSTC_INDIC_PLAIN );
         r( wxSTC_INDIC_SQUIGGLE );
         r( wxSTC_INDIC_TT );
         r( wxSTC_INDIC_DIAGONAL );
         r( wxSTC_INDIC_STRIKE );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
         r( wxSTC_INDIC0_MASK );
         r( wxSTC_INDIC1_MASK );
         r( wxSTC_INDIC2_MASK );
         r( wxSTC_INDICS_MASK );
+#endif
         r( wxSTC_INDIC_BOX );
 #if WXPERL_W_VERSION_GE( 2, 9, 0 )
         r( wxSTC_INDIC_CONTAINER );
@@ -1890,15 +1894,25 @@ double stc_constant( const char* name, int arg )
         break;
     case 'S':
 #if WXPERL_W_VERSION_GE( 2, 9, 5 )
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
         r( wxSTC_SCMOD_META );
+#else
+        r( wxSTC_KEYMOD_META );
+#endif
 #endif        
 #if WXPERL_W_VERSION_GE( 2, 9, 4 )
         r( wxSTC_STATUS_OK );
         r( wxSTC_STATUS_FAILURE );
         r( wxSTC_STATUS_BADALLOC );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
         r( wxSTC_SCVS_NONE );
         r( wxSTC_SCVS_RECTANGULARSELECTION );
         r( wxSTC_SCVS_USERACCESSIBLE );
+#else
+        r( wxSTC_VS_NONE );
+        r( wxSTC_VS_RECTANGULARSELECTION );
+        r( wxSTC_VS_USERACCESSIBLE );
+#endif
         r( wxSTC_SORCUS_DEFAULT );
         r( wxSTC_SORCUS_COMMAND );
         r( wxSTC_SORCUS_PARAMETER );
@@ -1936,6 +1950,7 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_STYLE_CALLTIP );
 #endif
         r( wxSTC_STYLE_MAX );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
         r( wxSTC_SCMOD_SHIFT );
         r( wxSTC_SCMOD_CTRL );
         r( wxSTC_SCMOD_ALT );
@@ -1944,6 +1959,13 @@ double stc_constant( const char* name, int arg )
 #endif
 #if WXPERL_W_VERSION_GE( 2, 9, 4 )
         r( wxSTC_SCMOD_SUPER );
+#endif
+#else
+        r( wxSTC_KEYMOD_SHIFT );
+        r( wxSTC_KEYMOD_CTRL );
+        r( wxSTC_KEYMOD_ALT );
+        r( wxSTC_KEYMOD_NORM );
+        r( wxSTC_KEYMOD_SUPER );
 #endif
         r( wxSTC_SCRIPTOL_DEFAULT );
         r( wxSTC_SCRIPTOL_COMMENTLINE );
@@ -2061,7 +2083,9 @@ double stc_constant( const char* name, int arg )
         r( wxEVT_STC_SAVEPOINTREACHED );
         r( wxEVT_STC_SAVEPOINTLEFT );
         r( wxEVT_STC_ROMODIFYATTEMPT );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
         r( wxEVT_STC_KEY );
+#endif
         r( wxEVT_STC_DOUBLECLICK );
         r( wxEVT_STC_UPDATEUI );
         r( wxEVT_STC_MODIFIED );
@@ -2073,7 +2097,9 @@ double stc_constant( const char* name, int arg )
 #endif
         r( wxEVT_STC_PAINTED );
         r( wxEVT_STC_USERLISTSELECTION );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
         r( wxEVT_STC_URIDROPPED );
+#endif
         r( wxEVT_STC_DWELLSTART );
         r( wxEVT_STC_DWELLEND );
         r( wxEVT_STC_START_DRAG );

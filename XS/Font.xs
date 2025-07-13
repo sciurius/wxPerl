@@ -92,8 +92,14 @@ newLong( CLASS, pointsize, family, style, weight, underline = false, faceName = 
     wxString faceName
     wxFontEncoding encoding
   CODE:
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
     RETVAL = new wxFont( pointsize, family, style, weight, underline,
-                         faceName, encoding );
+		         faceName, encoding );
+#else
+    RETVAL = new wxFont( pointsize, (wxFontFamily)family, (wxFontStyle)style,
+			 (wxFontWeight)weight, underline,
+			 faceName, (wxFontEncoding)encoding );
+#endif
   OUTPUT: RETVAL
   
 #if defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 5, 3 )     
@@ -109,8 +115,14 @@ newSize( CLASS, size, family, style, weight, underline = false, faceName = wxEmp
     wxString faceName
     wxFontEncoding encoding
   CODE:
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
     RETVAL = new wxFont( size, family, style, weight, underline, faceName, encoding );
-  OUTPUT: RETVAL
+#else
+    RETVAL = new wxFont( size, (wxFontFamily)family, (wxFontStyle)style,
+			 (wxFontWeight)weight, underline,
+			 faceName, encoding );
+#endif
+OUTPUT: RETVAL
   
 #endif
 
@@ -147,8 +159,14 @@ NewPoint( CLASS, pointsize, family, style, weight, underline = false, faceName =
     wxString faceName
     wxFontEncoding encoding
   CODE:
-    RETVAL = wxFont::New( pointsize, family, style, weight, underline,
-                           faceName, encoding );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
+    RETVAL = new wxFont( pointsize, family, style, weight, underline,
+		         faceName, encoding );
+#else
+    RETVAL = new wxFont( pointsize, family, (wxFontStyle)style,
+			 (wxFontWeight)weight, underline,
+			 faceName, encoding );
+#endif
   OUTPUT: RETVAL
   
 wxFont*
@@ -176,7 +194,13 @@ NewSize( CLASS, size, family, style, weight, underline = false, faceName = wxEmp
     wxString faceName
     wxFontEncoding encoding
   CODE:
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
     RETVAL = wxFont::New( size, family, style, weight, underline, faceName, encoding );
+#else
+RETVAL = wxFont::New( size, family, (wxFontStyle)style,
+		      (wxFontWeight)weight, underline, faceName,
+		      encoding );
+#endif
   OUTPUT: RETVAL
   
 wxFont*
@@ -203,8 +227,14 @@ NewPointStatic( pointsize, family, style, weight, underline = false, faceName = 
     wxString faceName
     wxFontEncoding encoding
   CODE:
-    RETVAL = wxFont::New( pointsize, family, style, weight, underline,
-                           faceName, encoding );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
+    RETVAL = new wxFont( pointsize, family, style, weight, underline,
+		         faceName, encoding );
+#else
+    RETVAL = new wxFont( pointsize, family, (wxFontStyle)style,
+			 (wxFontWeight)weight, underline,
+			 faceName, encoding );
+#endif
   OUTPUT: RETVAL
   
 wxFont*
@@ -230,7 +260,13 @@ NewSizeStatic( size, family, style, weight, underline = false, faceName = wxEmpt
     wxString faceName
     wxFontEncoding encoding
   CODE:
-    RETVAL = wxFont::New( size, family, style, weight, underline, faceName, encoding );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
+    RETVAL = new wxFont( size, family, style, weight, underline, faceName, encoding );
+#else
+    RETVAL = new wxFont( size, family, (wxFontStyle)style,
+			 (wxFontWeight)weight, underline,
+			 faceName, encoding );
+#endif
   OUTPUT: RETVAL
   
 wxFont*
@@ -391,9 +427,15 @@ void
 wxFont::SetEncoding( encoding )
     wxFontEncoding encoding
 
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
 void
 wxFont::SetFamily( family )
     int family
+#else
+void
+wxFont::SetFamily( family )
+    wxFontFamily family
+#endif
 
 void
 wxFont::SetNativeFontInfo( info )
@@ -416,14 +458,26 @@ void
 wxFont::SetPointSize( pointsize )
     int pointsize
 
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
 void
 wxFont::SetStyle( style )
     int style
+#else
+void
+wxFont::SetStyle( style )
+    wxFontStyle style
+#endif
 
 void
 wxFont::SetUnderlined( underlined )
     bool underlined
 
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
 void
 wxFont::SetWeight( weight )
     int weight
+#else
+void
+wxFont::SetWeight( weight )
+    wxFontWeight weight
+#endif

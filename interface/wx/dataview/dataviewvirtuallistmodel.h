@@ -42,8 +42,10 @@ public:
     unsigned int GetCount() const;
 
     // pure virtual methods from base class
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
     virtual unsigned int GetColumnCount() const %Virtual{pure};
     virtual wxString GetColumnType(unsigned int column) const %Virtual{pure};
+#endif
     virtual void GetValueByRow(wxVariant& value, unsigned int row, unsigned int col) const %Virtual{pure};
     virtual bool SetValueByRow(const wxVariant& value, unsigned int row, unsigned int col) %Virtual{pure};
 };

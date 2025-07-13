@@ -32,7 +32,9 @@ public:
 };
 
 DEF_V_CBACK_WXSTRING__VOID_pure( wxPliTipProvider, wxTipProvider, GetTip );
+#if WXPERL_W_VERSION_LT( 3, 2, 0 )
 DEF_V_CBACK_WXSTRING__WXSTRING( wxPliTipProvider, wxTipProvider, PreprocessTip );
+#endif
 
 // Local variables: //
 // mode: c++ //
