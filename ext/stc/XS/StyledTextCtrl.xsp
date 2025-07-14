@@ -1684,7 +1684,7 @@ int GetStyleBitsNeeded();
     bool GetAdditionalCaretsVisible() const; 
     int GetSelections() const; 
     void ClearSelections(); 
-    int AddSelection(int caret, int anchor); 
+    void AddSelection(int caret, int anchor); 
  	void SetMainSelection(int selection); 
  	int GetMainSelection() const; 
  	void SetSelectionNCaret(int selection, int pos); 

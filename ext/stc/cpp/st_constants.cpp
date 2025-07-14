@@ -312,7 +312,9 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_COFFEESCRIPT_COMMENTBLOCK );
         r( wxSTC_COFFEESCRIPT_VERBOSE_REGEX );
         r( wxSTC_COFFEESCRIPT_VERBOSE_REGEX_COMMENT );
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
         r( wxSTC_CSS_MEDIA );
+#endif
         r( wxSTC_CSS_VARIABLE );
         r( wxSTC_CURSORARROW );
         r( wxSTC_CURSORREVERSEARROW );
@@ -2242,16 +2244,20 @@ double stc_constant( const char* name, int arg )
         r( wxSTC_VISUALPROLOG_ANONYMOUS );
         r( wxSTC_VISUALPROLOG_NUMBER );
         r( wxSTC_VISUALPROLOG_OPERATOR );
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
         r( wxSTC_VISUALPROLOG_CHARACTER );
         r( wxSTC_VISUALPROLOG_CHARACTER_TOO_MANY );
         r( wxSTC_VISUALPROLOG_CHARACTER_ESCAPE_ERROR );
+#endif
         r( wxSTC_VISUALPROLOG_STRING );
         r( wxSTC_VISUALPROLOG_STRING_ESCAPE );
         r( wxSTC_VISUALPROLOG_STRING_ESCAPE_ERROR );
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
         r( wxSTC_VISUALPROLOG_STRING_EOL_OPEN );
         r( wxSTC_VISUALPROLOG_STRING_VERBATIM );
         r( wxSTC_VISUALPROLOG_STRING_VERBATIM_SPECIAL );
         r( wxSTC_VISUALPROLOG_STRING_VERBATIM_EOL );
+#endif
 #endif            
         r( wxSTC_VISIBLE_SLOP );
         r( wxSTC_VISIBLE_STRICT );

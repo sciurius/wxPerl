@@ -141,6 +141,9 @@
 
 %typemap{wxDC*}{simple};
 %typemap{wxDC&}{reference};
+%typemap{wxReadOnlyDC*}{simple};
+%typemap{wxReadOnlyDC&}{reference};
+%typemap{const wxReadOnlyDC&}{reference};
 %typemap{const wxDC&}{reference};
 %typemap{wxWindowDC*}{simple};
 %typemap{wxWindowDC&}{reference};

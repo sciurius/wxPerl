@@ -286,6 +286,7 @@ wxStdDialogButtonSizer * O_WXOBJECT
 wxWrapSizer *           O_WXOBJECT
 
 wxDC *                  O_WXOBJECT_THR
+wxReadOnlyDC *          O_WXOBJECT_THR
 wxMemoryDC *            O_WXOBJECT_THR
 wxPrinterDC *           O_WXOBJECT_THR
 wxWindowDC *            O_WXOBJECT_THR

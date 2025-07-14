@@ -121,7 +121,9 @@ double propertygrid_constant( const char* name, int arg )
         r( wxPG_ACTION_CANCEL_EDIT );
         r( wxPG_ACTION_EDIT );
         r( wxPG_ACTION_PRESS_BUTTON );
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
         r( wxPG_ACTION_MAX );
+#endif
         r( wxPGState_SelectionState );
         r( wxPGState_ExpandedState );
         r( wxPGState_ScrollPosState );

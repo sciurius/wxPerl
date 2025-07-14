@@ -175,3 +175,4 @@
     %precall_code{%wxPli_object_set_deleteable( aTHX_ $PerlVar, false )%};
 };
 
+%typemap{wxPGVFBFlags}{simple};

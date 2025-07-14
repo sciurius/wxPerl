@@ -229,7 +229,7 @@ public:
                  delete THIS;
                %};    
     
-    wxByte GetFailureBehavior();
+    wxPGVFBFlags GetFailureBehavior();
     const wxString& GetFailureMessage() const;
     wxVariant& GetValue();
     void SetFailureBehavior(wxByte failureBehavior);

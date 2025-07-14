@@ -68,7 +68,7 @@ public:
 
     wxPGProperty__parsed_nodelete* GetProperty() const;
 
-    wxByte GetValidationFailureBehavior() const;
+    wxPGVFBFlags GetValidationFailureBehavior() const;
 
     wxString GetPropertyName() const;
 
