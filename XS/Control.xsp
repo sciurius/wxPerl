@@ -11,6 +11,13 @@
 
 %name{Wx::Control} class wxControl
 {
+
+#if WXPERL_W_VERSION_LE( 3, 3, 0 )
+    static wxString Ellipsize( wxString label, const wxDC& dc,
+    	   	    	       wxEllipsizeMode mode, int maxWidth, int flags );
+#else
     static wxString Ellipsize( wxString label, const wxReadOnlyDC& dc,
     	   	    	       wxEllipsizeMode mode, int maxWidth, int flags );
+#endif
+
 };
