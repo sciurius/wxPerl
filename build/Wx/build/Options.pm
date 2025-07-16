@@ -57,6 +57,8 @@ sub _parse_options {
 
   $parsed = 1;
 
+  my @dirs = map { m;ext/(\w+)/typemap; && $1 } glob("ext/*/typemap");
+
   my $result = GetOptions( 'help'           => \$help,
                            'mksymlinks'     => \$mksymlinks,
                            'extra-libs=s'   => \$extra_libs,
@@ -67,7 +69,9 @@ sub _parse_options {
                            'wx-mslu!'       => \($wx{mslu}),
                            'wx-version=s'   => \&_wx_version,
                            'wx-toolkit=s'   => \($wx{toolkit}),
-                           '<>'             => \&_process_options,
+			   map { ( "enable-$_"  => \&_process_options,
+				   "disable-$_" => \&_process_options ) }
+			       @dirs
                          );
 
   @ARGV = @argv; @argv = ();
@@ -75,8 +79,7 @@ sub _parse_options {
   if( !$result || $help ) {
     print <<HELP;
 Usage: perl Makefile.PL [options]
-  --enable/disable-foo where foo is one of: dnd filesys grid help
-                       html mdi print xrc stc docview calendar datetime 
+  --enable/disable-foo where foo is one of: @{[ sort @dirs]}
   --help               you are reading it
   --mksymlinks         create a symlink tree
   --extra-libs=libs    specify extra linking flags
@@ -104,18 +107,15 @@ HELP
   }
 }
 
+# Handle --enable/--disable subbdir options.
 sub _process_options {
   my $i = shift;
 
-  unless( $i =~ m/^-/ ) {
-    push @argv, $i;
-    return;
+  if ( $i =~ m/(enable|disable)-(\w+)$/ ) {
+      $subdirs{$2} = ( $1 eq 'enable' ? 1 : 0 );
   }
-
-  if( $i =~ m/^--(enable|disable)-(\w+)$/ ) {
-    $subdirs{$2} = ( $1 eq 'enable' ? 1 : 0 );
-  } else {
-    die "invalid option $i";
+  else {
+      die "invalid option $i";
   }
 }
 
