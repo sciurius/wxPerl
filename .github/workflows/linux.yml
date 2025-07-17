@@ -26,7 +26,10 @@ jobs:
           sudo apt-get purge libalien-wxwidgets-perl
       - name: Install Dependencies
         run: |
-          sudo apt-get install libextutils-xspp-perl
+          sudo apt-get install libextutils-xspp-perl \
+            libmodule-pluggable-perl \
+            libwww-perl \
+            liblwp-protocol-https-perl 
           sudo cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.71.tar.gz
           perl -MAlien::wxWidgets -e 'Alien::wxWidgets->libraries(qw(stc media webview propgrid ribbon aui xrc qa html))'
           cpanm --installdeps --notest .
