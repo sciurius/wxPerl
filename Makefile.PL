@@ -65,9 +65,9 @@ wxWriteMakefile(
         build_requires => {
             'Alien::wxWidgets'    => 0.69,
             'ExtUtils::MakeMaker' => 6.48,
-            'ExtUtils::XSpp'      => 0.1602,
+            'ExtUtils::XSpp'      => 0.18,
             'Test::More'          => 0.42,
-            'ExtUtils::ParseXS'   => 3.15,
+            'ExtUtils::ParseXS'   => 3.48,
             'File::Spec::Functions'  => 0.82,
             'Test::More'          => 0.45,
             'Test::Harness'       => 2.26,
