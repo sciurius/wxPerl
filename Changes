@@ -7,6 +7,8 @@ Revision history for Perl extension Wx.
     - Changes to compile with wxWidgets 3.3 (with 3.0 compat mode)
     - Fix subdir enable/disable in Makefile.PL options.
     - Remove wxTextDataObject::GetTextLength (deprecated, useless).
+    - Remove wxStyledTextCtrl::GetTwoPhaseDraw and SetTwoPhaseDraw (deprecated in Scintilla).
+
 
 3.005 2024-12-31
 
