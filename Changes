@@ -6,6 +6,7 @@ Revision history for Perl extension Wx.
     - Eliminate all deprecation warnings from 3.2.
     - Changes to compile with wxWidgets 3.3 (with 3.0 compat mode)
     - Fix subdir enable/disable in Makefile.PL options.
+    - Remove wxTextDataObject::GetTextLength (deprecated, useless).
 
 3.005 2024-12-31
 
