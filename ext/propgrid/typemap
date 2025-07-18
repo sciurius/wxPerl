@@ -94,4 +94,9 @@ wxDateProperty *   O_WXOBJECT_THR
 
 const wxVariant *     O_NON_WXOBJECT_THR
 
-wxPGVFBFlags T_ENUM
+wxPGVFBFlags             T_ENUM
+wxPGPropertyValuesFlags  T_ENUM
+wxPGPropValFormatFlags   T_ENUM
+wxPGKeyboardAction       T_ENUM
+wxPGSelectPropertyFlags  T_ENUM
+wxPGFlags                T_ENUM
