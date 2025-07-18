@@ -1,0 +1,57 @@
+name: Build on Ubuntu against wxWidgets master
+
+on:
+  push:
+    branches: wxdev
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install Perl
+        run: |
+          sudo apt-get update
+          sudo apt-get remove --purge man-db
+          sudo apt-get install -y cpanminus
+          perl -V
+
+      - name: Install wxWidgets
+        run: |
+          sudo apt-get install -y --fix-missing \
+            libgtk-3-dev \
+            libgstreamer-plugins-base1.0-dev \
+            libpng-dev libjpeg-dev libtiff-dev \
+            libcurl4-openssl-dev \
+            libwebkit2gtk-4.1-dev
+          sudo apt-get purge -y libalien-wxwidgets-perl
+          git clone --recurse-submodules https://github.com/wxWidgets/wxWidgets.git
+          cd wxWidgets
+          ./configure --with-gtk=3 --enable-compat30
+          make && sudo make install
+          cd ..
+          rm -fr wxWidgets
+
+      - name: Install Alien::wxWidgets
+        run: |
+          sudo apt-get install -y --fix-missing \
+            libmodule-pluggable-perl \
+            libwww-perl \
+            liblwp-protocol-https-perl 
+          git clone https://github.com/sciurius/perl-Alien-wxWidgets
+          cd perl-Alien-wxWidgets
+          echo n | perl Build.PL
+          ./Build
+          sudo ./Build install
+          cd ..
+          rm -fr perl-Alien-wxWidgets
+
+      - name: Install wxPerl
+        run: |
+          perl Makefile.PL
+          cpanm --sudo --installdeps --notest .
+          make || cat $HOME/.cpanm/build.log
+          
+
