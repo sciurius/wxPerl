@@ -60,7 +60,17 @@ public:
                     const wxString& name = wxPropertyGridNameStr ) %Overload
         %postcall{% wxPli_create_evthandler( aTHX_ RETVAL, CLASS ); %};
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     void AddActionTrigger( int action, int keycode, int modifiers = 0 );
+    void ClearActionTriggers( int action );
+
+#else
+
+    void AddActionTrigger( wxPGKeyboardAction action, int keycode, int modifiers = 0 );
+    void ClearActionTriggers( wxPGKeyboardAction action );
+
+#endif
 
     %name{AddToSelectionString} bool AddToSelection( wxString& id ) %Overload;
     %name{AddToSelectionProperty} bool AddToSelection( wxPGProperty* id ) %Overload;
@@ -80,10 +90,16 @@ public:
     
     %name{IsPropertySelectedString} virtual bool IsPropertySelected( wxString& id ) const %Overload; /* %Virtual; */
     %name{IsPropertySelectedProperty} virtual bool IsPropertySelected( wxPGProperty* id ) const %Overload; /* %Virtual; */
-    
-    void ClearActionTriggers( int action );
+
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
 
     virtual bool CommitChangesFromEditor( wxUint32 flags = 0 ); /* %Virtual; */
+
+#else
+
+    virtual bool CommitChangesFromEditor( wxPGSelectPropertyFlags flags = wxPGSelectPropertyFlags::Null ); /* %Virtual; */
+
+#endif
 
     bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
                 const wxPoint& pos = wxDefaultPosition,
@@ -159,7 +175,15 @@ public:
 
     const wxPGCell& GetUnspecifiedValueAppearance() const;
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     wxString GetUnspecifiedValueText( int argFlags = 0 ) const;
+
+#else
+
+    wxString GetUnspecifiedValueText( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+
+#endif
 
     int GetVerticalSpacing() const;
 

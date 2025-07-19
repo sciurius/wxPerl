@@ -232,7 +232,7 @@ public:
     wxPGVFBFlags GetFailureBehavior();
     const wxString& GetFailureMessage() const;
     wxVariant& GetValue();
-    void SetFailureBehavior(wxByte failureBehavior);
+    void SetFailureBehavior(wxPGVFBFlags failureBehavior);
     void SetFailureMessage(const wxString& message);
 
 };

@@ -176,3 +176,9 @@
 };
 
 %typemap{wxPGVFBFlags}{simple};
+%typemap{wxPGPropertyValuesFlags}{simple};
+%typemap{wxPGKeyboardAction}{simple};
+%typemap{wxPGSelectPropertyFlags}{simple};
+%typemap{wxPGPropValFormatFlags}{simple};
+%typemap{wxPGFlags}{simple};
+%typemap{wxPGSetValueFlags}{simple};

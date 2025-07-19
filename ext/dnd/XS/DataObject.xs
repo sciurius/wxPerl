@@ -271,8 +271,14 @@ wxTextDataObject*
 wxTextDataObject::new( text = wxEmptyString )
     wxString text
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
+## // Don't use or call this function, it simply returns the length
+## // of the text plus one for compatibility purposes.
 size_t
 wxTextDataObject::GetTextLength()
+
+#endif
 
 wxString
 wxTextDataObject::GetText()

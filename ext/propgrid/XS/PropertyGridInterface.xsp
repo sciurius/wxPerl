@@ -103,6 +103,8 @@ public:
 
 %{
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
 void
 wxPGPGridInterfaceBase::GetPropertiesWithFlag(wxByte flags, bool inverse = false, int iterFlags = wxPerl_build_default_propertyflags )
   PREINIT:
@@ -117,7 +119,26 @@ wxPGPGridInterfaceBase::GetPropertiesWithFlag(wxByte flags, bool inverse = false
         wxPli_object_set_deleteable( aTHX_ rvar, false );
         PUSHs( rvar ); 
     }    
-   
+
+#else
+
+void
+wxPGPGridInterfaceBase::GetPropertiesWithFlag(wxPGFlags flags, bool inverse = false, int iterFlags = wxPerl_build_default_propertyflags )
+  PREINIT:
+    wxArrayPGProperty* targetArr;
+  PPCODE:
+    THIS->GetPropertiesWithFlag( targetArr, flags, inverse, iterFlags );
+    size_t num = targetArr->GetCount();
+    EXTEND( SP, (IV)num );
+    for( size_t i = 0; i < num; ++i )
+    {   
+        SV* rvar = wxPli_object_2_sv( aTHX_ sv_newmortal(), targetArr->Item( i ) );
+        wxPli_object_set_deleteable( aTHX_ rvar, false );
+        PUSHs( rvar ); 
+    }    
+
+#endif
+
 %}
 
 	%name{GetPropertyAttributeString} wxVariant GetPropertyAttribute( wxString& id, const wxString& attrName  ) const %Overload;
@@ -204,8 +225,18 @@ wxPGPGridInterfaceBase::GetPropertiesWithFlag(wxByte flags, bool inverse = false
     %name{GetPropertyValueAsULongLongString} wxULongLong_t GetPropertyValueAsULongLong( wxString& id ) const %Overload;
 	%name{GetPropertyValueAsULongLongProperty} wxULongLong_t GetPropertyValueAsULongLong( wxPGProperty* id ) const %Overload;
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     wxVariant GetPropertyValues( const wxString& listname = wxEmptyString,
                                  wxPGProperty* baseparent = NULL, long flags = 0 ) const;
+
+#else
+
+    wxVariant GetPropertyValues( const wxString& listname = wxEmptyString,
+                                 wxPGProperty* baseparent = NULL,
+				 wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::DontRecurse ) const;
+
+#endif
 
 %{
 
@@ -230,8 +261,17 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
 
 #endif
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     %name{HidePropertyString} bool HideProperty( wxString& id, bool hide = true, int flags = wxPG_RECURSE ) %Overload;
-	%name{HidePropertyProperty} bool HideProperty( wxPGProperty* id, bool hide = true, int flags = wxPG_RECURSE ) %Overload;
+    %name{HidePropertyProperty} bool HideProperty( wxPGProperty* id, bool hide = true, int flags = wxPG_RECURSE ) %Overload;
+
+#else
+
+    %name{HidePropertyString} bool HideProperty( wxString& id, bool hide = true, wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse ) %Overload;
+    %name{HidePropertyProperty} bool HideProperty( wxPGProperty* id, bool hide = true, wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse ) %Overload;
+
+#endif
 
     static void InitAllTypeHandlers();
 
@@ -279,20 +319,43 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
 
     bool SetColumnProportion( unsigned int column, int proportion );
 	
-	%name{SetPropertyAttributeString} void SetPropertyAttribute( wxString& id, const wxString& attrName,
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
+    %name{SetPropertyAttributeString} void SetPropertyAttribute( wxString& id, const wxString& attrName,
                                wxVariantArg value, long argFlags = 0 ) %Overload;
-	%name{SetPropertyAttributeProperty} void SetPropertyAttribute( wxPGProperty* id, const wxString& attrName,
+    %name{SetPropertyAttributeProperty} void SetPropertyAttribute( wxPGProperty* id, const wxString& attrName,
                                wxVariantArg value, long argFlags = 0 ) %Overload;
 
+#else
+
+    %name{SetPropertyAttributeString} void SetPropertyAttribute( wxString& id, const wxString& attrName,
+                               wxVariantArg value, wxPGPropertyValuesFlags argFlags = wxPGPropertyValuesFlags::DontRecurse ) %Overload;
+    %name{SetPropertyAttributeProperty} void SetPropertyAttribute( wxPGProperty* id, const wxString& attrName,
+                               wxVariantArg value, wxPGPropertyValuesFlags argFlags = wxPGPropertyValuesFlags::DontRecurse ) %Overload;
+
+#endif
+
     void SetPropertyAttributeAll( const wxString& attrName, wxVariantArg value );
+
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
 
     %name{SetPropertyBackgroundColourString} void SetPropertyBackgroundColour( wxString& id,
                                       const wxColour& colour,
                                       int flags = wxPG_RECURSE ) %Overload;
-	%name{SetPropertyBackgroundColourProperty} void SetPropertyBackgroundColour( wxPGProperty* id,
+    %name{SetPropertyBackgroundColourProperty} void SetPropertyBackgroundColour( wxPGProperty* id,
                                       const wxColour& colour,
                                       int flags = wxPG_RECURSE ) %Overload;
 
+#else
+
+    %name{SetPropertyBackgroundColourString} void SetPropertyBackgroundColour( wxString& id,
+      const wxColour& colour,
+      wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse ) %Overload;
+    %name{SetPropertyBackgroundColourProperty} void SetPropertyBackgroundColour( wxPGProperty* id,
+      const wxColour& colour,
+      wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse ) %Overload;
+
+#endif
 
     %name{SetPropertyCellString} void SetPropertyCell( wxString& id, int column,
                           const wxString& text = wxEmptyString,
@@ -328,10 +391,21 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
     %name{SetPropertyNameString} void SetPropertyName( wxString& id, const wxString& newName ) %Overload;
 	%name{SetPropertyNameProperty} void SetPropertyName( wxPGProperty* id, const wxString& newName ) %Overload;
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     %name{SetPropertyReadOnlyString} void SetPropertyReadOnly( wxString& id, bool set = true,
                               int flags = wxPG_RECURSE ) %Overload;
-	%name{SetPropertyReadOnlyProperty} void SetPropertyReadOnly( wxPGProperty* id, bool set = true,
+    %name{SetPropertyReadOnlyProperty} void SetPropertyReadOnly( wxPGProperty* id, bool set = true,
                               int flags = wxPG_RECURSE ) %Overload;
+
+#else
+
+    %name{SetPropertyReadOnlyString} void SetPropertyReadOnly( wxString& id, bool set = true,
+        wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse ) %Overload;
+    %name{SetPropertyReadOnlyProperty} void SetPropertyReadOnly( wxPGProperty* id, bool set = true,
+        wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse ) %Overload;
+
+#endif
 
     %name{SetPropertyValueUnspecifiedString} void SetPropertyValueUnspecified( wxString& id ) %Overload;
 	%name{SetPropertyValueUnspecifiedProperty} void SetPropertyValueUnspecified( wxPGProperty* id ) %Overload;
@@ -354,12 +428,25 @@ wxPGPGridInterfaceBase::GetSelectedProperties( )
     %name{SetPropertyMaxLengthString} bool SetPropertyMaxLength( wxString& id, int maxLen ) %Overload;
     %name{SetPropertyMaxLengthProperty} bool SetPropertyMaxLength( wxPGProperty* id, int maxLen ) %Overload;
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     %name{SetPropertyTextColourString} void SetPropertyTextColour( wxString& id,
                                 const wxColour& colour,
                                 int flags = wxPG_RECURSE ) %Overload;
     %name{SetPropertyTextColourProperty} void SetPropertyTextColour( wxPGProperty* id,
                                 const wxColour& colour,
                                 int flags = wxPG_RECURSE ) %Overload;
+
+#else
+
+    %name{SetPropertyTextColourString} void SetPropertyTextColour( wxString& id,
+        const wxColour& colour,
+        wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse ) %Overload;
+    %name{SetPropertyTextColourProperty} void SetPropertyTextColour( wxPGProperty* id,
+        const wxColour& colour,
+        wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse ) %Overload;
+
+#endif
 
     %name{SetPropertyValidatorString} void SetPropertyValidator( wxString& id, const wxValidator& validator ) %Overload;
     %name{SetPropertyValidatorProperty} void SetPropertyValidator( wxPGProperty* id, const wxValidator& validator ) %Overload;
@@ -533,6 +620,8 @@ wxPGPGridInterfaceBase::SetPropertyValueAsVariant( ... )
     %name{SetPropertyValueAsVariant_string} void SetPropertyValue( wxString& id, wxVariant value );
     %name{SetPropertyValueAsVariant_property} void SetPropertyValue( wxPGProperty* id, wxVariant value );
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     void SetValidationFailureBehavior( int vfbFlags );
 
     void Sort( int flags = 0 );
@@ -540,7 +629,19 @@ wxPGPGridInterfaceBase::SetPropertyValueAsVariant( ... )
     %name{SortChildrenString} void SortChildren( wxString& id, int flags = 0 ) %Overload;
     %name{SortChildrenProperty} void SortChildren( wxPGProperty* id, int flags = 0 ) %Overload;
 
+#else
+
+    void SetValidationFailureBehavior( wxPGVFBFlags vfbFlags );
+
+    void Sort( wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::DontRecurse );
+
+    %name{SortChildrenString} void SortChildren( wxString& id, wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::DontRecurse ) %Overload;
+    %name{SortChildrenProperty} void SortChildren( wxPGProperty* id, wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::DontRecurse ) %Overload;
+
+#endif
+
     static wxPGEditor__parsed_nodelete* GetEditorByName( const wxString& editorName );
+
 };
 
 #endif
