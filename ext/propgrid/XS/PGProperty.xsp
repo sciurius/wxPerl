@@ -31,9 +31,18 @@ public:
 
     int GetTextExtent( const wxWindow* wnd, const wxFont& font ) const;
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     virtual wxString ValueToString( wxVariant value, int argFlags ) const;
     virtual wxString GetValueAsString( int argFlags = 0 ) const;
-    
+
+#else
+
+    virtual wxString ValueToString( wxVariant value, wxPGPropValFormatFlags argFlags ) const;
+    virtual wxString GetValueAsString( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+
+#endif
+
 };
 
 /***********************************************************************************
@@ -73,17 +82,32 @@ public:
     virtual wxVariant DoGetValue() const; /* %Virtual; */
 
     virtual bool ValidateValue( wxVariant& value, wxPGValidationInfo& validationInfo ) const; /* %Virtual; */
-    
+
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     virtual wxString ValueToString( wxVariant& value, int argFlags = 0 ) const; /* %Virtual; */
     
+    bool SetValueFromString( const wxString& text, int flags = 0 );
+
+    bool SetValueFromInt( long value, int flags = 0 );
+
+#else
+
+    virtual wxString ValueToString( wxVariant& value,
+        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const; /* %Virtual; */
+    
+    bool SetValueFromString( const wxString& text,
+        wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::Null );
+
+    bool SetValueFromInt( long value,
+        wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::Null );
+
+#endif
+
     /* TODO
     virtual bool StringToValue( wxVariant& variant, const wxString& text, int argFlags = 0 ) const;
     virtual bool IntToValue( wxVariant& variant, int number, int argFlags = 0 ) const;
     */
-
-    bool SetValueFromString( const wxString& text, int flags = 0 );
-
-    bool SetValueFromInt( long value, int flags = 0 );
 
     virtual wxSize OnMeasureImage( int item = -1 ) const; /* %Virtual; */
 
@@ -127,7 +151,15 @@ public:
     
     bool AreChildrenComponents() const;
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     void ChangeFlag( wxPGPropertyFlags flag, bool set );
+
+#else
+
+    void ChangeFlag( wxPGFlags flag, bool set );
+
+#endif
 
     void DeleteChildren();
 
@@ -177,9 +209,15 @@ public:
 #if WXPERL_W_VERSION_LT( 3, 2, 0 )
     wxUint32 GetFlags() const;
 #else
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
     bool HasFlag( int flag ) const;
 
     bool HasFlagsExact( int flags ) const;
+#else
+    bool HasFlag( wxPGFlags flag ) const;
+
+    bool HasFlagsExact( wxPGFlags flags ) const;
+#endif
 #endif
 
     wxPropertyGrid* GetGrid() const;
@@ -210,17 +248,33 @@ public:
 
     wxBitmap* GetValueImage() const;
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     virtual wxString GetValueAsString( int argFlags = 0 ) const; /* %Virtual; */
+
+#else
+
+    virtual wxString GetValueAsString( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const; /* %Virtual; */
+
+#endif
 
     wxString GetValueType() const;
 
     int GetY() const;
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     wxUint32 HasFlag( wxPGPropertyFlags flag ) const;
+    bool Hide( bool hide, int flags = wxPG_RECURSE );
+
+#else
+
+    wxUint32 HasFlag( wxPGFlags flag ) const;
+    bool Hide( bool hide, wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse );
+
+#endif
 
     bool HasVisibleChildren() const;
-
-    bool Hide( bool hide, int flags = wxPG_RECURSE );
 
     int Index( wxPGProperty* p ) const;
 
@@ -252,8 +306,13 @@ public:
 
     void SetAutoUnspecified( bool enable = true );
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
     void SetBackgroundColour( const wxColour& colour,
                               int flags = wxPG_RECURSE );
+#else
+    void SetBackgroundColour( const wxColour& colour,
+                              wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse );
+#endif
 
     %name{SetEditorEditor} void SetEditor( const wxPGEditor__parsed_nodelete* editor ) %Overload;
 
@@ -269,7 +328,11 @@ public:
 
     void SetDefaultValue( wxVariant& value );
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
     void SetFlagRecursively( wxPGPropertyFlags flag, bool set );
+#else
+    void SetFlagRecursively( wxPGFlags flag, bool set );
+#endif
 
     void SetHelpString( const wxString& helpString );
 
@@ -281,15 +344,29 @@ public:
 
     void SetName( const wxString& newName );
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
     void SetParentalType( int flag );
 
     void SetTextColour( const wxColour& colour,
                         int flags = wxPG_RECURSE );
 
-    void SetValidator( const wxValidator& validator );
-
     void SetValue( wxVariant value, wxVariant* pList = NULL,
                    int flags = wxPG_SETVAL_REFRESH_EDITOR );
+
+#else
+
+    void SetParentalType( wxPGFlags flag );
+
+    void SetTextColour( const wxColour& colour,
+                        wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse );
+
+    void SetValue( wxVariant value, wxVariant* pList = NULL,
+                   wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor );
+
+#endif
+
+    void SetValidator( const wxValidator& validator );
 
     void SetValueImage( wxBitmap& bmp );
 
@@ -314,11 +391,20 @@ public:
                       const wxString& name = wxPG_LABEL,
                       const wxString& value = wxEmptyString );
         
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
     virtual wxString ValueToString( wxVariant& value, int argFlags = 0 ) const;
     
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
                                 int argFlags = 0 ) const;
+#else
+    virtual wxString ValueToString( wxVariant& value,
+        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    
+    virtual bool StringToValue( wxVariant& variant,
+                                const wxString& text,
+        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+#endif
 
     virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
 
