@@ -346,6 +346,8 @@ wxBitmap::SaveFile( name, type, palette = 0 )
     wxBitmapType type
     wxPalette* palette
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
 void
 wxBitmap::SetDepth( depth )
     int depth
@@ -354,6 +356,12 @@ void
 wxBitmap::SetHeight( height )
     int height
 
+void
+wxBitmap::SetWidth( width )
+    int width
+
+#endif
+  
 void
 wxBitmap::SetMask( mask )
     wxMask* mask
@@ -370,6 +378,3 @@ wxBitmap::SetPalette( palette )
 
 #endif
 
-void
-wxBitmap::SetWidth( width )
-    int width

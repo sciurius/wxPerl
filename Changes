@@ -9,6 +9,10 @@ Revision history for Perl extension Wx.
     - Remove wxTextDataObject::GetTextLength (deprecated, useless).
     - Remove wxStyledTextCtrl::GetTwoPhaseDraw and SetTwoPhaseDraw (deprecated in Scintilla).
     - Miscellaneous enumerations in ext/propgrid.
+    - Remove wxGRIDTABLE_REQUEST_VIEW_GET_VALUES and
+      wxGRIDTABLE_REQUEST_VIEW_SEND_VALUES (ext/grid). They were not
+      functional anyway and removed from 3.3.
+    - Remove SetDepth, SetWidth and SetHeight from Bitmap (3.0 compat).
 
 3.005 2024-12-31
 
