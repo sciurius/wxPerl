@@ -700,7 +700,7 @@ public:
 #if WXPERL_W_VERSION_LT( 3, 3, 0 )
 
     bool GetPlValue( int flags = wxPG_FULL_VALUE )
-      %code{% THIS->GetValue.GetBool(); %};
+      %code{% THIS->GetValue().GetBool(); %};
 
     bool SetPlValue( bool val, int flags = wxPG_SETVAL_REFRESH_EDITOR )
       %code{% THIS->SetValue( val, NULL, flags );
