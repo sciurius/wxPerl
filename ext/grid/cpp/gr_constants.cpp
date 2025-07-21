@@ -26,8 +26,11 @@ double grid_constant( const char* name, int arg )
     switch( fl )
     {
     case 'G':
+
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
         r( wxGRIDTABLE_REQUEST_VIEW_GET_VALUES );
         r( wxGRIDTABLE_REQUEST_VIEW_SEND_VALUES );
+#endif
         r( wxGRIDTABLE_NOTIFY_ROWS_INSERTED );
         r( wxGRIDTABLE_NOTIFY_ROWS_APPENDED );
         r( wxGRIDTABLE_NOTIFY_ROWS_DELETED );
