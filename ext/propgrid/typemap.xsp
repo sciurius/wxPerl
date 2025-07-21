@@ -182,3 +182,4 @@
 %typemap{wxPGPropValFormatFlags}{simple};
 %typemap{wxPGFlags}{simple};
 %typemap{wxPGSetValueFlags}{simple};
+%typemap{wxPGSelectPropertyFlags}{simple};

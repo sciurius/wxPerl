@@ -83,9 +83,14 @@ public:
     wxString Format(wxLogLevel level,
                             const wxString& msg,
                             const wxLogRecordInfo& info) const;
+
 protected:
-    
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
     wxString FormatTime(time_t t) const;
+#else
+    wxString FormatTimeMS(wxLongLong_t t) const;
+#endif
+  
 };
 
 wxString
@@ -107,6 +112,8 @@ wxPlLogFormatter::Format(wxLogLevel level,
 
 }
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
 wxString
 wxPlLogFormatter::FormatTime(time_t t) const
 {
@@ -123,6 +130,28 @@ wxPlLogFormatter::FormatTime(time_t t) const
         return wxLogFormatter::FormatTime( t );
 
 }
+
+#else
+
+wxString
+wxPlLogFormatter::FormatTimeMS(wxLongLong_t t) const
+{
+    dTHX;
+    if( wxPliFCback( aTHX_ &m_callback, "FormatTimeMS" ) ) 
+    {
+      // FIXME: Is "l" the right type?
+        wxAutoSV ret( aTHX_ wxPliCCback( aTHX_ &m_callback, G_SCALAR,
+                              "l", t) );
+        wxString val;
+        WXSTRING_INPUT( val, wxString, ret );
+        return val;
+    }
+    else
+        return wxLogFormatter::FormatTimeMS( t );
+
+}
+
+#endif
 
 #endif
 

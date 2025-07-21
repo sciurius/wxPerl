@@ -549,13 +549,30 @@ wxLogRecordInfo::component()
     RETVAL = THIS->filename;
   OUTPUT: RETVAL
 
+#if WXPERL_W_VERSION_LT( 3, 3, 0 )
+
 time_t
 wxLogRecordInfo::timestamp()
   CODE:
     RETVAL = THIS->timestamp;
   OUTPUT: RETVAL
 
+#else
 
+wxLongLong_t
+wxLogRecordInfo::timestampMS()
+  CODE:
+    RETVAL = THIS->timestampMS;
+  OUTPUT: RETVAL
+
+time_t
+wxLogRecordInfo::timestamp()
+  CODE:
+RETVAL = int( THIS->timestampMS / 1000 );
+  OUTPUT: RETVAL
+
+#endif
+  
 void
 StoreValue( ... )
   PPCODE:
