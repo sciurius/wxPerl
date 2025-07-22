@@ -13,6 +13,7 @@ Revision history for Perl extension Wx.
       wxGRIDTABLE_REQUEST_VIEW_SEND_VALUES (ext/grid). They were not
       functional anyway and removed from 3.3.
     - Remove SetDepth, SetWidth and SetHeight from Bitmap (3.0 compat).
+    - Compat. EVT_GRID_RANGE_SELECT{ED,ING}, EVT_GRID_CMD_RANGE_SELECT{ED,ING}.
 
 3.005 2024-12-31
 
