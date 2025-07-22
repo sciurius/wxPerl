@@ -3,6 +3,7 @@ Revision history for Perl extension Wx.
     - Add Github Actions for Linux (Ubuntu) and macOS.
     - Add wxSTC_MARGIN_COLOUR.
     - Compat. EVT_GRID_RANGE_SELECT{ED,ING}, EVT_GRID_CMD_RANGE_SELECT{ED,ING}.
+    - Remove wxBitmap::Set{width,height,depth}.
 
 3.005 2024-12-31
 
