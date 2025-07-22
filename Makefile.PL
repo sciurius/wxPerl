@@ -28,7 +28,7 @@ my $moduleauthor = ( $mmv >= 6.5702 ) ? [ 'Mattia Barbon <mbarbon@cpan.org>' ] :
 # $wxConfig::Verbose = 10;
 
 use Alien::wxWidgets 0.69;
-die("This version of wxPerl requires wxWidgets 3.2 or later\n")
+die("This version of wxPerl requires wxWidgets 3.2\n")
   unless Alien::wxWidgets->version >= 3.002;
 
 # Make setting optional MakeMaker parameters more readable

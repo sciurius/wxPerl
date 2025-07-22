@@ -85,7 +85,7 @@ Usage: perl Makefile.PL [options]
   --[no-]wx-debug      [Non-] debugging wxWidgets
   --[no-]wx-unicode    [Non-] Unicode wxWidgets
   --[no-]wx-mslu       [Non-] MSLU wxWidgets (Windows only)
-  --wx-version=2.9[.4] 
+  --wx-version=3.2[.8] target wxWidgets version
   --wx-toolkit=msw|gtk|gtk2|motif|mac|wce|...
 HELP
 
