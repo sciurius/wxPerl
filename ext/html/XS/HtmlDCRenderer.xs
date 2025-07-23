@@ -63,38 +63,12 @@ wxHtmlDCRenderer::SetFonts( normal_face, fixed_face, sizes )
     THIS->SetFonts( normal_face, fixed_face, array );
     delete[] array;        
 
-
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 void
 wxHtmlDCRenderer::Render(x, y, from = 0, to = INT_MAX)
     int x
     int y
     int from
     int to
-    
-#else
-
-int 
-wxHtmlDCRenderer::Render(x, y, from = 0, dont_render = 0, maxHeight = INT_MAX, pagebreaks, number_of_pages = 0)
-    int x
-    int y
-    int from
-    int dont_render
-    int maxHeight
-    SV* pagebreaks
-    int number_of_pages
-  PREINIT:
-    int* array;
-    int n = wxPli_av_2_intarray( aTHX_ pagebreaks, &array );
-  CODE:
-    RETVAL = THIS->Render( x, y, from, dont_render, maxHeight,
-                           ( n == 0 ? NULL : array ), number_of_pages);
-    delete[] array;
-  OUTPUT: 
-    RETVAL
-
-#endif                        
 
 int
 wxHtmlDCRenderer::GetTotalHeight()

@@ -20,20 +20,10 @@
 
 MODULE=Wx PACKAGE=Wx::XmlResource
 
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
-
 wxXmlResource*
 wxXmlResource::new( flags = wxXRC_USE_LOCALE, domain = wxEmptyString )
     int flags
     wxString domain
-
-#else
-
-wxXmlResource*
-wxXmlResource::new( flags = wxXRC_USE_LOCALE )
-    int flags
-
-#endif
 
 static void
 wxXmlResource::CLONE()
@@ -51,13 +41,9 @@ bool
 wxXmlResource::Load( filemask )
     wxString filemask
 
-#if WXPERL_W_VERSION_GE( 2, 6, 3 )
-
 bool
 wxXmlResource::Unload( filemask )
     wxString filemask
-
-#endif
 
 void
 wxXmlResource::InitAllHandlers()
@@ -174,8 +160,6 @@ void
 wxXmlResource::SetFlags( flags )
     int flags
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 int
 GetXRCID( str_id, value_if_not_found = wxID_NONE )
     wxChar* str_id
@@ -184,18 +168,6 @@ GetXRCID( str_id, value_if_not_found = wxID_NONE )
     RETVAL = wxXmlResource::GetXRCID( str_id, value_if_not_found );
   OUTPUT:
     RETVAL
-
-#else
-
-int
-GetXRCID( str_id )
-    wxChar* str_id
-  CODE:
-    RETVAL = wxXmlResource::GetXRCID( str_id );
-  OUTPUT:
-    RETVAL
-
-#endif
 
 long
 wxXmlResource::GetVersion()
@@ -229,12 +201,8 @@ AddSubclassFactory( wxXmlSubclassFactory *factory )
     wxPli_detach_object( aTHX_ ST(0) ); // avoid destructor
     wxXmlResource::AddSubclassFactory( factory );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
-
 const wxChar*
 wxXmlResource::GetDomain()
 
 void
 wxXmlResource::SetDomain( const wxChar* domain )
-
-#endif

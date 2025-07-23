@@ -38,9 +38,7 @@ double calendar_constant( const char* name, int arg )
         r( wxCAL_NO_YEAR_CHANGE );
         r( wxCAL_NO_MONTH_CHANGE );
         r( wxCAL_SHOW_SURROUNDING_WEEKS );
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
         r( wxCAL_SHOW_WEEK_NUMBERS );
-#endif
         r( wxCAL_SEQUENTIAL_MONTH_SELECTION );
 
         r( wxCAL_HITTEST_NOWHERE );
@@ -62,12 +60,9 @@ double calendar_constant( const char* name, int arg )
         r( wxEVT_CALENDAR_DOUBLECLICKED );
         r( wxEVT_CALENDAR_WEEKDAY_CLICKED );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 4 )
         r( wxEVT_DATE_CHANGED );
-#endif
-#if WXPERL_W_VERSION_GE( 2, 9, 3 )
+
         r( wxEVT_TIME_CHANGED );
-#endif
         break;
     }
 #undef r
@@ -86,25 +81,14 @@ wxPlConstants calendar_module( &calendar_constant );
 %typemap{wxCalendarDateAttr*}{simple};
 %typemap{wxDateTime__WeekDay}{simple};
 
-#if WXPERL_W_VERSION_GE( 2, 5, 4 )
-
 %name{Wx::DateEvent} class wxDateEvent
 {
     const wxDateTime& GetDate();
     void SetDate(const wxDateTime& date);
 };
 
-#endif
-
 %name{Wx::CalendarEvent} class wxCalendarEvent
 {
-#if WXPERL_W_VERSION_LE( 2, 5, 3 ) && WXPERL_W_VERSION_GE( 2, 5, 2 )
-    void SetDate(const wxDateTime& date);
-    void SetWeekDay(wxDateTime__WeekDay weekDay);
-#endif
-#if WXPERL_W_VERSION_LE( 2, 5, 3 )
-    const wxDateTime& GetDate();
-#endif
     wxDateTime__WeekDay GetWeekDay();
 };
 

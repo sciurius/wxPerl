@@ -21,19 +21,7 @@ MODULE=Wx__WebView
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 )
-
-#if WXPERL_W_VERSION_GE( 3, 0, 0)
-
 INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/WebViewV3.xsp
-
-#else
-
-INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/WebViewV2.xsp
-
-#endif
-
-#endif
 
 #include "cpp/overload.h"
 #include "cpp/ovl_const.cpp"

@@ -72,21 +72,12 @@ wxFileHistory::GetHistoryFile( i )
 int
 wxFileHistory::GetCount()
 
-#if WXPERL_W_VERSION_LT( 2, 5, 1 )
-
-int
-wxFileHistory::GetNoHistoryFiles()
-
-#endif
-
 SV*
 wxFileHistory::GetMenus()
   CODE:
     AV* aMenus = wxPli_objlist_2_av( aTHX_ THIS->GetMenus() );
     RETVAL = newRV_noinc( (SV*)aMenus  );
   OUTPUT: RETVAL
-
-#if WXPERL_W_VERSION_GE( 2, 8, 3 )
 
 void
 wxFileHistory::SetBaseId( baseId )
@@ -95,4 +86,3 @@ wxFileHistory::SetBaseId( baseId )
 wxWindowID
 wxFileHistory::GetBaseId()
 
-#endif

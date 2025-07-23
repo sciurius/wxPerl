@@ -152,8 +152,6 @@ DEF_V_CBACK_BOOL__WXRICHTEXTBUFFER_WXOUTPUTSTREAM( wxPlRichTextFileHandler,
                           int type = wxRICHTEXT_TYPE_XML );
 };
 
-#if WXPERL_W_VERSION_GE( 2, 8, 3 )
-
 #include <wx/richtext/richtexthtml.h>
 
 %typemap{wxRichTextHTMLHandler*}{simple};
@@ -204,4 +202,3 @@ wxRichTextHTMLHandler::GetTemporaryImageLocations()
     void SetTemporaryImageLocations( const wxArrayString& locations );
 };
 
-#endif

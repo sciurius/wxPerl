@@ -115,15 +115,11 @@ wxPrintout::GetPPIScreen()
     PUSHs( sv_2mortal( newSViv( w ) ) );
     PUSHs( sv_2mortal( newSViv( h ) ) );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxRect*
 wxPrintout::GetPaperRectPixels()
   CODE:
     RETVAL = new wxRect( THIS->GetPaperRectPixels() );
   OUTPUT: RETVAL
-
-#endif
 
 wxString
 wxPrintout::GetTitle()
@@ -139,20 +135,12 @@ wxPrintout::HasPage( pageNum )
 bool
 wxPrintout::IsPreview()
 
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-void
-wxPrintout::SetIsPreview( p )
-    bool p
-    
-#else
 void
 wxPrintout::SetPreview( preview )
     wxPrintPreview* preview
 
 wxPrintPreview*
 wxPrintout::GetPreview()
-
-#endif
 
 bool
 wxPrintout::OnBeginDocument( startPage, endPage )
@@ -190,8 +178,6 @@ wxPrintout::OnPreparePrinting()
 #    RETVAL = THIS->wxPrintout::OnPrintPage( pageNum );
 #  OUTPUT:
 #    RETVAL
-
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 void
 wxPrintout::FitThisSizeToPaper( imageSize )
@@ -276,4 +262,3 @@ wxPrintout::SetPaperRectPixels( paperRectPixels )
   CODE:
     THIS->SetPaperRectPixels( *paperRectPixels );
 
-#endif

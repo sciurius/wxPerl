@@ -112,11 +112,7 @@ newFile( CLASS, name, type )
     wxString name
     long type
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
     RETVAL = new wxBitmap( name, wxBitmapType(type) );
-#else
-    RETVAL = new wxBitmap( name, type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -223,7 +219,7 @@ FindHandlerExtType( extension, type )
     wxString extension
     long type
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined(__WXMOTIF__)
+#if defined(__WXMOTIF__)
     RETVAL = wxBitmap::FindHandler( extension, wxBitmapType(type) );
 #else
     RETVAL = wxBitmap::FindHandler( extension, type );
@@ -235,7 +231,7 @@ wxBitmapHandler*
 FindHandlerType( type )
     long type
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined(__WXMOTIF__)
+#if defined(__WXMOTIF__)
     RETVAL = wxBitmap::FindHandler( wxBitmapType(type) );
 #else
     RETVAL = wxBitmap::FindHandler( type );
@@ -303,31 +299,16 @@ InsertHandler( handler )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 3, 1 )
-
 bool
 wxBitmap::LoadFile( name, type )
     wxString name
     wxBitmapType type
 
-#else
-
-bool
-wxBitmap::LoadFile( name, type )
-    wxString name
-    long type
-
-#endif
-
 bool
 wxBitmap::Ok()
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
-
 bool
 wxBitmap::IsOk()
-
-#endif
 
 #if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
@@ -346,22 +327,6 @@ wxBitmap::SaveFile( name, type, palette = 0 )
     wxBitmapType type
     wxPalette* palette
 
-#if WXPERL_W_VERSION_LT( 3, 3, 0 )
-
-void
-wxBitmap::SetDepth( depth )
-    int depth
-
-void
-wxBitmap::SetHeight( height )
-    int height
-
-void
-wxBitmap::SetWidth( width )
-    int width
-
-#endif
-  
 void
 wxBitmap::SetMask( mask )
     wxMask* mask

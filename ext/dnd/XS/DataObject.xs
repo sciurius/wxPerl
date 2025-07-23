@@ -37,8 +37,6 @@ newNative( dummy, format = wxDF_INVALID )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 wxDataFormat*
 newUser( dummy, id )
     SV* dummy
@@ -46,18 +44,6 @@ newUser( dummy, id )
   CODE:
     RETVAL = new wxDataFormat( id );
   OUTPUT: RETVAL
-
-#else
-
-wxDataFormat*
-newUser( dummy, id )
-    SV* dummy
-    wxChar* id
-  CODE:
-    RETVAL = new wxDataFormat( id );
-  OUTPUT: RETVAL
-
-#endif
 
 static void
 wxDataFormat::CLONE()
@@ -255,30 +241,17 @@ wxDataObjectComposite::Add( dataObject, preferred = false )
     SvREFCNT_inc( SvRV( ST(1) ) ); // at this point the scalar must not go away
     THIS->Add( dataObject, preferred );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 wxDataFormat*
 wxDataObjectComposite::GetReceivedFormat()
   CODE:
     RETVAL = new wxDataFormat( THIS->GetReceivedFormat() );
   OUTPUT: RETVAL
 
-#endif
-
 MODULE=Wx PACKAGE=Wx::TextDataObject
 
 wxTextDataObject*
 wxTextDataObject::new( text = wxEmptyString )
     wxString text
-
-#if WXPERL_W_VERSION_LT( 3, 3, 0 )
-
-## // Don't use or call this function, it simply returns the length
-## // of the text plus one for compatibility purposes.
-size_t
-wxTextDataObject::GetTextLength()
-
-#endif
 
 wxString
 wxTextDataObject::GetText()
@@ -288,8 +261,6 @@ wxTextDataObject::SetText( text )
     wxString text
 
 MODULE=Wx PACKAGE=Wx::BitmapDataObject
-
-#if WXPERL_W_VERSION_GE( 2, 5, 1 ) || !defined(__WXMOTIF__)
 
 wxBitmapDataObject*
 wxBitmapDataObject::new( bitmap = (wxBitmap*)&wxNullBitmap )
@@ -309,8 +280,6 @@ wxBitmapDataObject::SetBitmap( bitmap )
     wxBitmap* bitmap
   CODE:
     THIS->SetBitmap( *bitmap );
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::FileDataObject
 

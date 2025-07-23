@@ -14,7 +14,18 @@ my $overload_number_types = [
     'wxAlignment', 'wxBrushStyle',
     'size_t', 'ssize_t', 'wxCoord',
     'wxUint32', 'wxDirection', 'wxBitmapType',
-];
+
+    # Enum classes for PrpertyGrid.
+    'wxPGVFBFlags',
+    'wxPGPropertyValuesFlags',
+    'wxPGPropValFormatFlags',
+    'wxPGKeyboardAction',
+    'wxPGSelectPropertyFlags',
+    'wxPGFlags',
+    'wxPGSetValueFlags',
+    'wxPGSelectPropertyFlags',
+
+   ];
 
 my $overload_any_types = [
     'Wx_UserDataO', 'Wx_UserDataCD', 'wxVariantArg'

@@ -33,13 +33,9 @@
 %name{Wx::TextCtrlBase} class wxTextCtrlBase
 {
     wxString GetValue() const;
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool IsEmpty();
-#endif
     void SetValue( const wxString& value );
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     void ChangeValue( const wxString& value );
-#endif
     wxString GetRange( long from, long to ) const;
     int GetLineLength( long lineNo ) const;
     wxString GetLineText( long lineNo ) const;
@@ -52,19 +48,12 @@
     void Clear();
     void Replace( long from, long to, const wxString& value );
     void Remove( long from, long to );
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     bool LoadFile( const wxString& file, int fileType = wxTEXT_TYPE_ANY );
     bool SaveFile( const wxString& file = wxEmptyString,
                    int fileType = wxTEXT_TYPE_ANY );
-#else
-    bool LoadFile( const wxString& file );
-    bool SaveFile( const wxString& file = wxEmptyString );
-#endif
     void MarkDirty();
     void DiscardEdits();
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
     void SetModified( bool modified );
-#endif
     void SetMaxLength( unsigned long len );
     void WriteText( const wxString& text );
     void AppendText( const wxString& text );
@@ -92,10 +81,8 @@
     void SetSelection( long from, long to );
     void SelectAll();
     void SetEditable( bool editable );
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     bool AutoComplete( const wxArrayString& choices );
     bool AutoCompleteFileNames();
-#endif
 };
 
 %{
@@ -139,10 +126,8 @@ wxTextCtrlBase::HitTest( pt )
 
 %name{Wx::TextCtrl} class wxTextCtrl
 {
-#if defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 2, 8, 0 )
+#if defined( __WXMAC__ )
     void MacCheckSpelling( bool check );
-#endif
-#if defined( __WXMAC__ ) && WXPERL_W_VERSION_GE( 3, 2, 0 )
     void OSXDisableAllSmartSubstitutions();
 #endif
 };

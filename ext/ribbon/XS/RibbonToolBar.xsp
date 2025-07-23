@@ -12,7 +12,7 @@
 
 %module{Wx};
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+#if wxUSE_RIBBON
 
 #include <wx/ribbon/toolbar.h>
 #include <cpp/toolbarbases.h>
@@ -125,7 +125,6 @@ public:
 
     virtual bool IsSizingContinuous() const;
 
-#if WXPERL_W_VERSION_GE( 2, 9, 4 )
     wxRibbonToolBarToolBase* AddToggleTool(
                 int tool_id,
                 const wxBitmap& bitmap,
@@ -214,8 +213,6 @@ public:
     virtual wxSize GetBestSizeForParentSize(const wxSize& parentSize) const;
 
     
-#endif
-
 };
 
 %name{Wx::RibbonToolBarEvent} class  wxRibbonToolBarEvent : public %name{Wx::CommandEvent} wxCommandEvent

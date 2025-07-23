@@ -12,7 +12,7 @@
 
 %module{Wx};
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+#if wxUSE_PROPGRID
 
 %loadplugin{build::Wx::XSP::Overload};
 %loadplugin{build::Wx::XSP::Event};
@@ -80,15 +80,7 @@ public:
 
     void SetProperty( wxPGProperty__parsed_nodelete* p );
 
-#if WXPERL_W_VERSION_LT( 3, 3, 0 )
-
-    void SetValidationFailureBehavior( wxByte flags );
-
-#else
-
     void SetValidationFailureBehavior( wxPGVFBFlags flags );
-
-#endif
 
     void SetValidationFailureMessage( const wxString& message );
 

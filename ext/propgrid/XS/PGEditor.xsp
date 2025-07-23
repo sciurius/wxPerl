@@ -12,7 +12,7 @@
 
 %module{Wx};
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+#if wxUSE_PROPGRID
 
 %loadplugin{build::Wx::XSP::Overload};
 

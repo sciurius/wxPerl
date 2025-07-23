@@ -36,16 +36,12 @@ AddHandler( handler )
   CODE:
     wxFileSystem::AddHandler( handler );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 HasHandlerForPath( location )
     wxString location
   CODE:
     RETVAL = wxFileSystem::HasHandlerForPath( location );
   OUTPUT: RETVAL
-
-#endif
 
 void
 wxFileSystem::ChangePathTo( location, is_dir = false )
@@ -63,8 +59,6 @@ wxFileSystem::FindFirst( wildcard, flags = 0 )
 wxString
 wxFileSystem::FindNext()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxString
 wxFileSystem::FindFileInPath( path, file )
     wxString path
@@ -75,19 +69,8 @@ wxFileSystem::FindFileInPath( path, file )
         XSRETURN_UNDEF;
   OUTPUT: RETVAL
 
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxFSFile*
 wxFileSystem::OpenFile( location, flags = wxFS_READ )
     wxString location
     int flags 
 
-#else
-
-wxFSFile*
-wxFileSystem::OpenFile( location )
-    wxString location
-
-#endif

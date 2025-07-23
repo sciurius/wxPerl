@@ -20,8 +20,6 @@
 #include "cpp/htmlwindow.h"
 %}
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 %name{Wx::HtmlCellEvent} class wxHtmlCellEvent
 {
     wxHtmlCell* GetCell() const;
@@ -36,8 +34,6 @@
 {
     const wxHtmlLinkInfo& GetLinkInfo() const;
 };
-
-#endif
 
 %{
 
@@ -171,8 +167,6 @@ void
 wxHtmlWindow::SetRelatedStatusBar( bar )
     int bar
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 void
 wxHtmlWindow::SelectWord( pos )
     wxPoint pos
@@ -189,8 +183,6 @@ wxHtmlWindow::SelectionToText()
 
 wxString
 wxHtmlWindow::ToText()
-
-#endif
 
 void
 wxHtmlWindow::WriteCustomization( cfg, path = wxEmptyString )

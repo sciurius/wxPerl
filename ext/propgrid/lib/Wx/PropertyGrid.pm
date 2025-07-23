@@ -58,8 +58,7 @@ our @_wxpg_extra_exported_constants = qw(
     wxPG_FILE_SHOW_FULL_PATH 
     wxPG_FILE_SHOW_RELATIVE_PATH 
     wxPG_FILE_INITIAL_PATH 
-    wxPG_FILE_DIALOG_TITLE 
-    wxPG_DIR_DIALOG_MESSAGE 
+    wxPG_DIALOG_TITLE 
     wxPG_ARRAY_DELIMITER 
     wxPG_DATE_FORMAT 
     wxPG_DATE_PICKER_STYLE 

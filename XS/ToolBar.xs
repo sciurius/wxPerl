@@ -166,7 +166,6 @@ wxToolBarToolBase::SetDropdownMenu( menu )
 wxMenu*
 wxToolBarToolBase::GetDropdownMenu()
 
-#if WXPERL_W_VERSION_GE( 3, 0, 2 )
 bool
 wxToolBarToolBase::IsStretchable()
 
@@ -182,8 +181,6 @@ wxToolBarToolBase::Detach()
 void
 wxToolBarToolBase::Attach( toolbar )
   wxToolBarBase* toolbar
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::ToolBarBase
 

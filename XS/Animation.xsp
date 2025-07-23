@@ -12,8 +12,6 @@
 
 %module{Wx};
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 #include <wx/animate.h>
 
 %name{Wx::Animation} class wxAnimation
@@ -46,4 +44,3 @@ wxAnimation::CLONE()
                wxAnimationType type = wxANIMATION_TYPE_ANY );
 };
 
-#endif

@@ -28,8 +28,8 @@ my $moduleauthor = ( $mmv >= 6.5702 ) ? [ 'Mattia Barbon <mbarbon@cpan.org>' ] :
 # $wxConfig::Verbose = 10;
 
 use Alien::wxWidgets 0.69;
-die("This version of wxPerl requires wxWidgets 3.2 or later\n")
-  unless Alien::wxWidgets->version >= 3.002;
+die("This version of wxPerl requires wxWidgets 3.4 or later\n")
+  unless Alien::wxWidgets->version >= 3.003000;
 
 # Make setting optional MakeMaker parameters more readable
 # lifted from DBD::SQLite distribution
@@ -38,7 +38,7 @@ sub OPTIONAL {
 	return @_;
 }
 
-wxWriteMakefile(                 
+wxWriteMakefile(
     NAME             => 'Wx',
 	ABSTRACT_FROM    => 'Wx.pm',
 	VERSION_FROM     => 'Wx.pm',

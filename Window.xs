@@ -67,30 +67,6 @@ wxGetActiveWindow()
 
 MODULE=Wx_Win PACKAGE=Wx::Window
 
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-
-int
-NewControlId()
-  CODE:
-    RETVAL = wxWindowBase::NewControlId();
-  OUTPUT: RETVAL
-
-int
-NextControlId( winid )
-    int winid
-  CODE:
-    RETVAL = wxWindowBase::NextControlId( winid );
-  OUTPUT: RETVAL
-
-int
-PrevControlId( winid )
-    int winid
-  CODE:
-    RETVAL = wxWindowBase::PrevControlId( winid );
-  OUTPUT: RETVAL
-
-#else
-
 wxWindowID
 NewControlId( idcount = 1 )
     int idcount
@@ -104,8 +80,6 @@ UnreserveControlId( id,  idcount = 1)
     int idcount
   CODE:
     wxWindowBase::UnreserveControlId( id, idcount );
-
-#endif
 
 void
 new( ... )
@@ -159,8 +133,6 @@ void
 wxWindow::CentreOnParent( direction = wxBOTH )
     int direction
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 #!sub CenterOnScreen
 
 void
@@ -169,25 +141,8 @@ wxWindow::CentreOnScreen( direction = wxBOTH )
   CODE:
     THIS->Centre( direction | wxCENTER_ON_SCREEN );
 
-#else
-
-void
-wxWindow::CentreOnScreen( direction = wxBOTH )
-    int direction
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 void
 wxWindow::ClearBackground()
-
-#else
-
-void
-wxWindow::Clear()
-
-#endif
 
 void
 wxWindow::ClientToScreen( ... )
@@ -270,8 +225,7 @@ wxWindow::ConvertPixelsSizeToDialog( size )
 bool
 wxWindow::Destroy()
 
-#if    defined( __WXMSW__ ) \
-    || ( WXPERL_W_VERSION_GE( 2, 9, 0 ) && !defined( __WXGTK__ ) )
+#if defined( __WXMSW__ ) || !defined( __WXGTK__ )
 
 void
 wxWindow::DragAcceptFiles( accept )
@@ -346,12 +300,8 @@ wxWindow::FitInside()
 void
 wxWindow::Freeze()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
-
 bool
 wxWindow::IsFrozen()
-
-#endif
 
 wxAcceleratorTable*
 wxWindow::GetAcceleratorTable()
@@ -359,12 +309,8 @@ wxWindow::GetAcceleratorTable()
     RETVAL = new wxAcceleratorTable( *THIS->GetAcceleratorTable() );
   OUTPUT: RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 wxBackgroundStyle
 wxWindow::GetBackgroundStyle()
-
-#endif
 
 wxColour*
 wxWindow::GetBackgroundColour()
@@ -430,13 +376,6 @@ wxWindow::GetDropTarget()
 
 #endif
 
-#if WXPERL_W_VERSION_LT( 2, 7, 0 )
-
-wxWindow*
-wxWindow::GetDefaultItem()
-
-#endif
-
 wxEvtHandler*
 wxWindow::GetEventHandler()
 
@@ -470,28 +409,8 @@ wxWindow::CreateWindowFromHWND( parent, hWnd )
 
 #endif
 
-#if ( WXPERL_W_VERSION_GE( 2, 5, 1 ) && defined( __WXMSW__ ) ) \
-    || WXPERL_W_VERSION_GE( 2, 5, 4 )
-
 void*
 wxWindow::GetHandle()
-
-#else
-
-IV
-wxWindow::GetHandle()
-  CODE:
-#ifdef __WXMSW__
-    WXHWND handle = THIS->GetHandle();
-    RETVAL = handle;
-#else
-    WXWidget handle = THIS->GetHandle();
-    RETVAL = PTR2IV(handle);
-#endif
-  OUTPUT:
-    RETVAL
-
-#endif
 
 wxString
 wxWindow::GetHelpText()
@@ -504,8 +423,6 @@ wxWindow::GetLabel()
 
 wxLayoutConstraints*
 wxWindow::GetConstraints()
-
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 wxSize*
 wxWindow::GetMinSize()
@@ -520,8 +437,6 @@ wxWindow::GetMaxSize()
     RETVAL = new wxSize( THIS->GetMaxSize() );
   OUTPUT:
     RETVAL
-
-#endif
 
 wxString
 wxWindow::GetName()
@@ -605,20 +520,11 @@ wxWindow::GetTextExtent( string, font = 0 )
     PUSHs( sv_2mortal( newSViv( descent ) ) );
     PUSHs( sv_2mortal( newSViv( externalLeading ) ) );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 wxString
 wxWindow::GetTitle()
   CODE:
     RETVAL = THIS->GetLabel();
   OUTPUT: RETVAL
-
-#else
-
-wxString
-wxWindow::GetTitle()
-
-#endif
 
 #if wxPERL_USE_TOOLTIPS
 
@@ -640,14 +546,8 @@ wxWindow::GetValidator()
 long
 wxWindow::GetWindowStyleFlag()
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
-
 wxSize
 wxWindow::GetWindowBorderSize()
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 void
 wxWindow::InvalidateBestSize()
@@ -655,24 +555,14 @@ wxWindow::InvalidateBestSize()
 void
 wxWindow::InheritAttributes()
 
-#endif
-
 bool
 wxWindow::IsEnabled()
-
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
 
 bool
 wxWindow::IsThisEnabled()
 
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 9, 5 )
-
 double
 wxWindow::GetContentScaleFactor()
-
-#endif
 
 void
 wxWindow::IsExposed( ... )
@@ -719,15 +609,11 @@ wxWindow::IsShown()
 bool
 wxWindow::IsTopLevel()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 wxWindow::IsDoubleBuffered()
 
 bool
 wxWindow::IsShownOnScreen()
-
-#endif
 
 void
 wxWindow::Layout()
@@ -756,8 +642,6 @@ wxWindow::MovePoint( point )
   CODE:
     THIS->Move( point );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 void
 wxWindow::MoveBeforeInTabOrder( window )
     wxWindow* window
@@ -766,16 +650,10 @@ void
 wxWindow::MoveAfterInTabOrder( window )
     wxWindow* window
 
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 # wxNavigateBackward, wxNavigateForward, wxNavigateWinChange, wxNavigateFromTab
 bool
 wxWindow::NavigateIn( flags = wxNavigationKeyEvent::IsForward )
     int flags
-
-#endif
 
 bool
 wxWindow::Navigate( flags = wxNavigationKeyEvent::IsForward )
@@ -892,35 +770,19 @@ wxWindow::SetThemeEnabled( themeEnabled )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 bool
 wxWindow::SetBackgroundStyle( style )
     wxBackgroundStyle style
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 void
 wxWindow::SetBestFittingSize( size = wxDefaultSize )
     wxSize size
   CODE:
-#if WXPERL_W_VERSION_LT( 2, 7, 2 )
-    THIS->SetBestFittingSize( size );
-#else
     THIS->SetInitialSize( size );
-#endif
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 void
 wxWindow::SetInitialSize( size = wxDefaultSize )
     wxSize size
-
-#endif
 
 void
 wxWindow::SetCaret( caret )
@@ -955,14 +817,6 @@ void
 wxWindow::SetContainingSizer( sizer )
     wxSizer* sizer
 
-#if WXPERL_W_VERSION_LT( 2, 7, 0 )
-
-wxWindow*
-wxWindow::SetDefaultItem( window )
-    wxWindow* window
-
-#endif
-
 #if wxPERL_USE_DRAG_AND_DROP
 
 void
@@ -990,14 +844,6 @@ void
 wxWindow::SetHelpText( text )
     wxString text
 
-#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
-
-void
-wxWindow::SetHelpTextForId( text )
-    wxString text
-
-#endif
-
 void
 wxWindow::SetId( id )
     int id
@@ -1024,8 +870,6 @@ wxWindow::SetScrollPos( orientation, position, refresh = true )
     int position
     bool refresh
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 void
 wxWindow::SetMinSize( size )
     wxSize size
@@ -1033,8 +877,6 @@ wxWindow::SetMinSize( size )
 void
 wxWindow::SetMaxSize( size )
     wxSize size
-
-#endif
 
 void
 wxWindow::SetSize( ... )
@@ -1084,17 +926,6 @@ wxWindow::SetSizeHints( minW, minH, maxW = -1, maxH = -1, incW = -1, incH = -1 )
     int incW
     int incH
 
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-
-void
-wxWindow::SetVirtualSizeHints( minW, minH, maxW = -1, maxH = -1 )
-    int minW
-    int minH
-    int maxW
-    int maxH
-
-#endif
-
 void
 wxWindow::SetVirtualSize( ... )
   PPCODE:
@@ -1126,21 +957,11 @@ wxWindow::SetSizerAndFit( sizer, deleteOld = true )
     wxSizer* sizer
     bool deleteOld
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 void
 wxWindow::SetTitle( title )
     wxString title
   CODE:
     THIS->SetLabel( title );
-
-#else
-
-void
-wxWindow::SetTitle( title )
-    wxString title
-
-#endif
 
 #if wxPERL_USE_TOOLTIPS
 
@@ -1160,15 +981,11 @@ wxWindow::SetToolTipTip( tooltip )
 
 #endif
 
-#if wxPERL_USE_TOOLTIPS || WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 void
 wxWindow::SetToolTipString( string )
     wxString string
   CODE:
     THIS->SetToolTip( string );
-
-#endif
 
 void
 wxWindow::SetValidator( validator )
@@ -1184,23 +1001,15 @@ void
 wxWindow::SetWindowStyleFlag( style )
     long style
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 bool
 wxWindow::ShouldInheritColours()
-
-#endif
 
 bool
 wxWindow::Show( show = true )
     bool show
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 bool
 wxWindow::HasMultiplePages()
-
-#endif
 
 bool
 wxWindow::Hide()
@@ -1235,14 +1044,9 @@ wxWindow::Update()
 void
 wxWindow::InitDialog()
 
-
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
-
 void
 wxWindow::UpdateWindowUI( flags = wxUPDATE_UI_NONE )
     long flags
-
-#endif
 
 void
 wxWindow::RefreshRect( rect )
@@ -1254,8 +1058,6 @@ void
 wxWindow::WarpPointer( x, y )
     int x
     int y
-
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
 
 wxLayoutDirection
 wxWindow::GetLayoutDirection()
@@ -1270,8 +1072,6 @@ wxWindow::SetTransparent( alpha )
 
 bool
 wxWindow::CanSetTransparent()
-
-#endif
 
 INCLUDE_COMMAND: $^X -I./ -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Window.xsp
 

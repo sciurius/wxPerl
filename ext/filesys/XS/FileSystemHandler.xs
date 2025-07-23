@@ -59,12 +59,8 @@ wxZipFSHandler::new()
 
 MODULE=Wx PACKAGE=Wx::ArchiveFSHandler
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxArchiveFSHandler*
 wxArchiveFSHandler::new()
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::MemoryFSHandler
 
@@ -104,8 +100,6 @@ AddBinaryFile( name, scalar )
   CODE:
     wxMemoryFSHandler::AddFile( name, data, len );
 
-#if WXPERL_W_VERSION_GE( 2, 8, 5 )
-
 void
 AddTextFileWithMimeType( name, string, mimetype )
     wxString name
@@ -124,8 +118,6 @@ AddBinaryFileWithMimeType( name, scalar, mimetype )
     char* data = SvPV( scalar, len );
   CODE:
     wxMemoryFSHandler::AddFileWithMimeType( name, data, len, mimetype );
-
-#endif
 
 void
 RemoveFile( name )

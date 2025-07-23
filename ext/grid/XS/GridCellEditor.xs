@@ -47,17 +47,6 @@ wxGridCellEditor::Show( show, attr )
     bool show
     wxGridCellAttr* attr
 
-#if WXPERL_W_VERSION_LT( 2, 9, 5 )
-
-void
-wxGridCellEditor::PaintBackground( rectCell, attr )
-    wxRect* rectCell
-    wxGridCellAttr* attr
-  CODE:
-    THIS->PaintBackground( *rectCell, attr );
-
-#else
-
 void
 wxGridCellEditor::PaintBackground( dc, rectCell, attr )
     wxDC* dc
@@ -66,15 +55,11 @@ wxGridCellEditor::PaintBackground( dc, rectCell, attr )
   CODE:
     THIS->PaintBackground( *dc, *rectCell, *attr );
 
-#endif
-
 void
 wxGridCellEditor::BeginEdit( row, col, grid )
     int row
     int col
     wxGrid* grid
-
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
 
 bool
 wxGridCellEditor::EndEdit( row, col, grid, oldval, newval )
@@ -90,16 +75,6 @@ wxGridCellEditor::ApplyEdit( row, col, grid )
     int row
     int col
     wxGrid* grid
-
-#else
-
-bool
-wxGridCellEditor::EndEdit( row, col, grid )
-    int row
-    int col
-    wxGrid* grid
-
-#endif
 
 void
 wxGridCellEditor::Reset()
@@ -171,8 +146,6 @@ MODULE=Wx PACKAGE=Wx::GridCellBoolEditor
 wxGridCellBoolEditor*
 wxGridCellBoolEditor::new()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 IsTrueValue( value )
     wxString value
@@ -186,8 +159,6 @@ UseStringValues( trueValue = wxT("1"), falseValue = wxT("") )
     wxString falseValue
   CODE:
     wxGridCellBoolEditor::UseStringValues( trueValue, falseValue );
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::GridCellChoiceEditor
 
@@ -228,17 +199,6 @@ wxPlGridCellEditor::new()
     SvREFCNT_inc( RETVAL );
   OUTPUT: RETVAL
 
-#if WXPERL_W_VERSION_LT( 2, 9, 5 )
-
-void
-wxPlGridCellEditor::PaintBackground( rectCell, attr )
-    wxRect* rectCell
-    wxGridCellAttr* attr
-  CODE:
-    THIS->wxGridCellEditor::PaintBackground( *rectCell, attr );
-
-#else
-
 void
 wxPlGridCellEditor::PaintBackground( dc, rectCell, attr )
     wxDC* dc
@@ -246,7 +206,5 @@ wxPlGridCellEditor::PaintBackground( dc, rectCell, attr )
     wxGridCellAttr* attr
   CODE:
     THIS->wxGridCellEditor::PaintBackground( *dc, *rectCell, *attr );
-
-#endif
 
   

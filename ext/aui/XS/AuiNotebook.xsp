@@ -79,33 +79,24 @@ wxAuiNotebook::new( ... )
     void SetWindowStyleFlag( long style );
 
     bool SetPageText( size_t page, const wxString& text );
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
     wxString GetPageText( size_t page ) const;
     bool SetPageBitmap( size_t page, const wxBitmap& bitmap );
     const wxBitmap& GetPageBitmap( size_t index ) const;
-#endif
     size_t SetSelection( size_t new_page );
     int GetSelection() const;
     size_t GetPageCount() const;
     wxWindow* GetPage( size_t page_idx ) const;
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
     int GetPageIndex( wxWindow* page_wnd ) const;
-#endif
 
 ##    void SetArtProvider( wxAuiTabArt* art );
 ##    wxAuiTabArt* GetArtProvider() const;
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
     void Split( size_t page, int direction );
-#endif
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXPERL_W_VERSION_GE( 2, 8, 1 ) 
     const wxAuiManager* GetAuiManager()
         %code{% RETVAL = &THIS->GetAuiManager(); %};
-#endif
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 ) || WXPERL_W_VERSION_GE( 2, 8, 5 ) 
     void AdvanceSelection( bool advance = true );
     int GetHeightForPageHeight( int pageHeight );
     int GetTabCtrlHeight() const;
@@ -117,7 +108,6 @@ wxAuiNotebook::new( ... )
     void SetTabCtrlHeight( int height );
 
     bool ShowWindowMenu();
-#endif
 
     void SetUniformBitmapSize( const wxSize& size );
 };

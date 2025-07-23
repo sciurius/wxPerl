@@ -20,16 +20,12 @@ wxAcceleratorEntry::new( flags, code, cmd )
     wxKeyCode code
     int cmd
 
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
-
 wxAcceleratorEntry*
 Create( str )
     wxString str;
   CODE:
     RETVAL = wxAcceleratorEntry::Create( str );
   OUTPUT: RETVAL
-
-#endif
 
 static void
 wxAcceleratorEntry::CLONE()
@@ -138,9 +134,5 @@ wxAcceleratorTable::DESTROY()
 bool
 wxAcceleratorTable::Ok()
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
-
 bool
 wxAcceleratorTable::IsOk()
-
-#endif

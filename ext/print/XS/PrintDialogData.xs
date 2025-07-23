@@ -22,12 +22,8 @@ wxPrintDialogData::Destroy()
   CODE:
     delete THIS;
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 wxPrintDialogData::IsOk()
-
-#endif
 
 void
 wxPrintDialogData::EnableHelp( enable )
@@ -112,14 +108,6 @@ wxPrintDialogData::SetPrintToFile( flag )
 void
 wxPrintDialogData::SetSelection( selection )
     bool selection
-
-#if WXPERL_W_VERSION_GE( 2, 5, 3 ) && WXPERL_W_VERSION_LE( 2, 5, 3 )
-
-void
-wxPrintDialogData::SetSetupDialog( flag )
-    bool flag
-
-#endif
 
 void
 wxPrintDialogData::SetToPage( page )

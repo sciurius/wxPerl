@@ -29,23 +29,17 @@ wxRichTextStyleDefinition::CLONE()
                      delete THIS;
                %};
 
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     void Copy( const wxRichTextStyleDefinition& def );
     bool Eq( const wxRichTextStyleDefinition& def ) const;
-#endif
     void SetName( const wxString& name );
     const wxString& GetName() const;
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
     void SetDescription( const wxString& descr );
     const wxString& GetDescription() const;
-#endif
     void SetBaseStyle( const wxString& name );
     const wxString& GetBaseStyle() const;
     void SetStyle( const wxRichTextAttr& style );
     const wxRichTextAttr& GetStyle() const;
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
     const wxTextAttr& GetStyleMergedWithBase( wxRichTextStyleSheet* sheet ) const;
-#endif
 };
 
 %name{Wx::RichTextCharacterStyleDefinition} class wxRichTextCharacterStyleDefinition
@@ -57,15 +51,11 @@ wxRichTextStyleDefinition::CLONE()
 {
     wxRichTextParagraphStyleDefinition( const wxString& name = wxEmptyString );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     void Copy( const wxRichTextParagraphStyleDefinition& def );
-#endif
 
     void SetNextStyle( const wxString& name );
     const wxString& GetNextStyle() const;
 };
-
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 %name{Wx::RichTextListStyleDefinition} class wxRichTextListStyleDefinition
 {
@@ -88,8 +78,6 @@ wxRichTextStyleDefinition::CLONE()
     bool IsNumbered( int i ) const;
 };
 
-#endif
-
 %name{Wx::RichTextStyleSheet} class wxRichTextStyleSheet
 {
     wxRichTextStyleSheet();
@@ -107,55 +95,40 @@ wxRichTextStyleSheet::CLONE()
                      delete THIS;
                %};
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
     bool AddStyle( wxRichTextStyleDefinitionDisown* def );
     wxRichTextStyleDefinitionDisown* FindStyle( const wxString& name ) const;
     bool RemoveStyle( wxRichTextStyleDefinition* def,
                       bool deleteStyle = false );
-#endif
 
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     void Copy( const wxRichTextStyleSheet& sheet );
-#endif
 
     bool AddCharacterStyle( wxRichTextCharacterStyleDefinitionDisown* def );
     bool AddParagraphStyle( wxRichTextParagraphStyleDefinitionDisown* def );
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool AddListStyle( wxRichTextListStyleDefinitionDisown* def );
-#endif
 
     bool RemoveCharacterStyle( wxRichTextStyleDefinition* def,
                                bool deleteStyle = false );
     bool RemoveParagraphStyle( wxRichTextStyleDefinition* def,
                                bool deleteStyle = false );
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool RemoveListStyle( wxRichTextStyleDefinition* def,
                           bool deleteStyle = false );
-#endif
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     wxRichTextCharacterStyleDefinitionDisown* FindCharacterStyle
         ( const wxString& name, bool recurse = true ) const;
     wxRichTextParagraphStyleDefinitionDisown* FindParagraphStyle
         ( const wxString& name, bool recurse = true ) const;
     wxRichTextListStyleDefinitionDisown* FindListStyle( const wxString& name,
                                                   bool recurse = true) const;
-#endif
 
     size_t GetCharacterStyleCount() const;
     size_t GetParagraphStyleCount() const;
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     size_t GetListStyleCount() const;
-#endif
 
     wxRichTextCharacterStyleDefinitionDisown* GetCharacterStyle( size_t n ) const;
     wxRichTextParagraphStyleDefinitionDisown* GetParagraphStyle( size_t n ) const;
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     wxRichTextListStyleDefinitionDisown* GetListStyle( size_t n ) const;
-#endif
 
     void DeleteStyles();
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool InsertSheet( wxRichTextStyleSheet* before );
     bool AppendSheet( wxRichTextStyleSheet* after );
 
@@ -165,11 +138,8 @@ wxRichTextStyleSheet::CLONE()
 
     wxRichTextStyleSheetDisown* GetPreviousSheet() const;
     void SetPreviousSheet( wxRichTextStyleSheet* sheet );
-#endif
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
     void SetName( const wxString& name );
     const wxString& GetName() const;
     void SetDescription( const wxString& descr );
     const wxString& GetDescription() const;
-#endif
 };

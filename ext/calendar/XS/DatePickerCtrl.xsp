@@ -10,8 +10,6 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-#if WXPERL_W_VERSION_GE( 2, 5, 4 )
-
 #include <wx/event.h>
 #include <wx/datectrl.h>
 #include <wx/calctrl.h>
@@ -121,5 +119,3 @@ wxDatePickerCtrl::GetRange()
                                   "Wx::DateTime" ) );
 
 %}
-
-#endif

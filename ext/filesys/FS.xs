@@ -17,7 +17,6 @@
 
 #undef THIS
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
 #include <wx/filesys.h>
 
 double fs_constant( const char* name, int arg )
@@ -44,7 +43,6 @@ double fs_constant( const char* name, int arg )
 }
 
 wxPlConstants fs_module( &fs_constant );
-#endif
 
 MODULE=Wx__FS
 

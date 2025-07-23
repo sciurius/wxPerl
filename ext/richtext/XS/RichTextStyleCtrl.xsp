@@ -17,9 +17,7 @@
 
 %name{Wx::RichTextStyleListBox} class wxRichTextStyleListBox
 {
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     %name{newDefault} wxRichTextStyleListBox();
-#endif
     %name{newFull} wxRichTextStyleListBox
         ( wxWindow* parent, wxWindowID id = wxID_ANY,
           const wxPoint& pos = wxDefaultPosition,
@@ -43,25 +41,17 @@ wxRichTextStyleListBox::new( ... )
     void SetRichTextCtrl( wxRichTextCtrl* ctrl );
     wxRichTextCtrl* GetRichTextCtrl() const;
     wxRichTextStyleDefinitionDisown* GetStyle( size_t i ) const;
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     int GetIndexForStyle( const wxString& name ) const;
     int SetStyleSelection( const wxString& name );
-#endif
     void UpdateStyles();
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     void ApplyStyle( int i );
     void SetApplyOnSelection( bool applyOnSel );
     bool GetApplyOnSelection() const;
-#endif
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void SetStyleType( wxPliRichTextStyleType styleType );
     wxPliRichTextStyleType GetStyleType() const;
-#endif
     int ConvertTenthsMMToPixels( wxDC& dc, int units ) const;
     wxString CreateHTML( wxRichTextStyleDefinition* def ) const;
 };
-
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
 
 %name{Wx::RichTextStyleListCtrl} class wxRichTextStyleListCtrl
 {
@@ -99,10 +89,6 @@ wxRichTextStyleListCtrl::new( ... )
     wxChoice* GetStyleChoice() const;
 };
 
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
-
 %name{Wx::RichTextStyleComboCtrl} class wxRichTextStyleComboCtrl
 {
     %name{newDefault} wxRichTextStyleComboCtrl();
@@ -131,5 +117,3 @@ wxRichTextStyleComboCtrl::new( ... )
     void SetRichTextCtrl( wxRichTextCtrl* ctrl );
     wxRichTextCtrl* GetRichTextCtrl() const;
 };
-
-#endif

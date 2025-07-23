@@ -63,12 +63,8 @@
     int GetCharHeight() const;
     int GetCharWidth() const;
 
-#if WXPERL_W_VERSION_LT( 2, 7, 0 )
-    wxHtmlWindow* GetWindow();
-#else
     wxWindow* GetWindow()
         %code{% RETVAL = THIS->GetWindowInterface()->GetHTMLWindow(); %};
-#endif
 
 ##    void SetFonts(wxString normal_face, wxString fixed_face,
 ##                  const int *sizes = NULL);

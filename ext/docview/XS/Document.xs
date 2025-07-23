@@ -82,18 +82,8 @@ wxDocument::SetDocumentSaved( saved )
 bool
 wxDocument::Revert()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 wxString
 wxDocument::GetUserReadableName()
-
-#else
-
-bool
-wxDocument::GetPrintableName( buf )
-	wxString buf
-
-#endif
 
 wxWindow*
 wxDocument::GetDocumentWindow()
