@@ -50,7 +50,7 @@ jobs:
 
       - name: Install wxPerl
         run: |
-          perl Makefile.PL --disable-propgrid
+          perl Makefile.PL
           cpanm --sudo --installdeps --notest .
           make || cat $HOME/.cpanm/build.log
           
