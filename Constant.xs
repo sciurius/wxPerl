@@ -2750,12 +2750,7 @@ void SetConstantsOnce()
     wxPli_make_const_string( wxPG_FILE_SHOW_FULL_PATH );       // propgrid
     wxPli_make_const_string( wxPG_FILE_SHOW_RELATIVE_PATH );   // propgrid
     wxPli_make_const_string( wxPG_FILE_INITIAL_PATH );         // propgrid
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-    wxPli_make_const_string( wxPG_FILE_DIALOG_TITLE );         // propgrid
-    wxPli_make_const_string( wxPG_DIR_DIALOG_MESSAGE );        // propgrid
-#else
     wxPli_make_const_string( wxPG_DIALOG_TITLE );              // propgrid
-#endif
     wxPli_make_const_string( wxPG_ARRAY_DELIMITER );           // propgrid
     wxPli_make_const_string( wxPG_DATE_FORMAT );               // propgrid
     wxPli_make_const_string( wxPG_DATE_PICKER_STYLE );         // propgrid

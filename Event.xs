@@ -108,14 +108,8 @@ void
 wxEvent::Skip( skip = true )
     bool skip
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 bool
 wxEvent::ShouldPropagate()
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
 
 int
 wxEvent::StopPropagation()
@@ -124,15 +118,6 @@ void
 wxEvent::ResumePropagation( propagationLevel )
     int propagationLevel
 
-#else
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
-void
-wxEvent::SetPropagate( doIt )
-    bool doIt
-
-#endif
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::CommandEvent
 
@@ -339,21 +324,13 @@ MODULE=Wx_Evt PACKAGE=Wx::IconizeEvent
 bool
 wxIconizeEvent::Iconized()
   CODE:
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-    RETVAL = THIS->Iconized();
-#else
     RETVAL = THIS->IsIconized();
-#endif
   OUTPUT: RETVAL
 
 bool
 wxIconizeEvent::IsIconized()
   CODE:
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-    RETVAL = THIS->Iconized();
-#else
     RETVAL = THIS->IsIconized();
-#endif
   OUTPUT: RETVAL
 
 MODULE=Wx_Evt PACKAGE=Wx::KeyEvent
@@ -365,12 +342,8 @@ wxKeyEvent::new( keyEventType )
 bool
 wxKeyEvent::AltDown()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 bool
 wxKeyEvent::CmdDown()
-
-#endif
 
 bool
 wxKeyEvent::ControlDown()
@@ -385,19 +358,15 @@ wxKeyEvent::GetRawKeyCode()
 
 #endif
 
-#if wxUSE_UNICODE && WXPERL_W_VERSION_GE( 2, 5, 3 )
+#if wxUSE_UNICODE
 
 wxChar
 wxKeyEvent::GetUnicodeKey()
 
 #endif 
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 int
 wxKeyEvent::GetModifiers()
-
-#endif
 
 long
 wxKeyEvent::GetX()
@@ -414,15 +383,11 @@ wxKeyEvent::HasModifiers()
 bool
 wxKeyEvent::ShiftDown()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 )
-
 void
 wxKeyEvent::DoAllowNextEvent()
 
 bool
 wxKeyEvent::IsNextEventAllowed()
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::HelpEvent
 
@@ -465,17 +430,6 @@ wxIdleEvent::MoreRequested()
 void
 wxIdleEvent::RequestMore( needMore = true )
     bool needMore
-
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-
-bool
-CanSend( window )
-    wxWindow* window
-  CODE:
-    RETVAL = wxIdleEvent::CanSend( window );
-  OUTPUT: RETVAL
-
-#endif
 
 void
 SetMode( mode )
@@ -557,12 +511,8 @@ wxMenuEvent::GetMenuId()
 bool
 wxMenuEvent::IsPopup()
 
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
-
 wxMenu*
 wxMenuEvent::GetMenu()
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::MaximizeEvent
 
@@ -595,12 +545,8 @@ bool
 wxMouseEvent::ButtonUp( button = -1 )
     int button
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 bool
 wxMouseEvent::CmdDown()
-
-#endif
 
 bool
 wxMouseEvent::ControlDown()
@@ -652,12 +598,8 @@ wxMouseEvent::GetWheelDelta()
 int
 wxMouseEvent::GetLinesPerAction()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 int
 wxMouseEvent::GetWheelAxis()
-
-#endif
 
 bool
 wxMouseEvent::IsButton()
@@ -710,8 +652,6 @@ wxMouseEvent::RightIsDown()
 bool
 wxMouseEvent::RightUp()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 bool
 wxMouseEvent::Aux1DClick()
 
@@ -736,20 +676,14 @@ wxMouseEvent::Aux2IsDown()
 bool
 wxMouseEvent::Aux2Up()
 
-#endif
-
 bool
 wxMouseEvent::ShiftDown()
 
 int
 wxMouseEvent::GetButton()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 int
 wxMouseEvent::GetClickCount()
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::MoveEvent
 
@@ -765,15 +699,11 @@ wxMoveEvent::GetPosition()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 wxRect*
 wxMoveEvent::GetRect()
   CODE:
     RETVAL = new wxRect( THIS->GetRect() );
   OUTPUT: RETVAL
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::NotifyEvent
 
@@ -805,15 +735,11 @@ wxSizeEvent::GetSize()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 wxRect*
 wxSizeEvent::GetRect()
   CODE:
     RETVAL = new wxRect( THIS->GetRect() );
   OUTPUT: RETVAL
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::ScrollEvent
 
@@ -915,13 +841,9 @@ void
 wxUpdateUIEvent::Check( check )
     bool check
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 void
 wxUpdateUIEvent::Show( show )
     bool show
-
-#endif
 
 void
 wxUpdateUIEvent::Enable( enable )
@@ -930,12 +852,8 @@ wxUpdateUIEvent::Enable( enable )
 bool
 wxUpdateUIEvent::GetChecked()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 wxUpdateUIEvent::GetShown()
-
-#endif
 
 bool
 wxUpdateUIEvent::GetSetEnabled()
@@ -943,12 +861,8 @@ wxUpdateUIEvent::GetSetEnabled()
 bool
 wxUpdateUIEvent::GetSetChecked()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 wxUpdateUIEvent::GetSetShown()
-
-#endif
 
 bool
 wxUpdateUIEvent::GetEnabled()
@@ -989,16 +903,12 @@ void
 wxNavigationKeyEvent::SetCurrentFocus(focus)
     wxWindow* focus
 
-#if WXPERL_W_VERSION_GE( 2, 5, 4 )
-
 bool
 wxNavigationKeyEvent::IsFromTab()
 
 void
 wxNavigationKeyEvent::SetFromTab( fromTab )
     bool fromTab
-
-#endif
 
 MODULE=Wx_Evt PACKAGE=Wx::ChildFocusEvent
 
@@ -1008,8 +918,6 @@ wxChildFocusEvent::new( win = NULL )
 
 wxWindow*
 wxChildFocusEvent::GetWindow() 
-
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
 
 MODULE=Wx_Evt PACKAGE=Wx::ClipboardTextEvent
 
@@ -1033,8 +941,6 @@ MODULE=Wx_Evt PACKAGE=Wx::MouseCaptureLostEvent
 wxMouseCaptureLostEvent*
 wxMouseCaptureLostEvent::new( eventType = 0 )
     wxEventType eventType
-
-#endif
 
 MODULE=Wx:Evt PACKAGE=Wx::WindowCreateEvent
 

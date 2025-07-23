@@ -70,6 +70,15 @@ if(defined(&Wx::Event::EVT_GRID_CELL_CHANGED)) {
   *Wx::Event::EVT_GRID_CELL_CHANGED = \&Wx::Event::EVT_GRID_CELL_CHANGE;
   *Wx::Event::EVT_GRID_CMD_CELL_CHANGED = \&Wx::Event::EVT_GRID_CMD_CELL_CHANGE;
 }
+# allow 3.2 event name changes compatibility
+if ( defined &Wx::Event::EVT_GRID_RANGE_SELECTED ) {
+  *Wx::Event::EVT_GRID_RANGE_SELECT = \&Wx::Event::EVT_GRID_RANGE_SELECTED;
+  *Wx::Event::EVT_GRID_CMD_RANGE_SELECT = \&Wx::Event::EVT_GRID_CMD_RANGE_SELECTED;
+}
+else {
+  *Wx::Event::EVT_GRID_CHANGE_SELECTED = \&Wx::Event::EVT_GRID_RANGE_SELECT;
+  *Wx::Event::EVT_GRID_CMD_RANGE_SELECTED = \&Wx::Event::EVT_GRID_CMD_RANGE_SELECT;
+}
 
 package Wx::Grid;
 

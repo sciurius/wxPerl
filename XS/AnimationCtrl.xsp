@@ -12,8 +12,6 @@
 
 %module{Wx};
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 %typemap{wxAnimationCtrl*}{simple};
 
 #include <wx/animate.h>
@@ -59,4 +57,3 @@
     const wxBitmap& GetInactiveBitmap() const;
 };
 
-#endif

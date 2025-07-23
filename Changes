@@ -1,5 +1,9 @@
 Revision history for Perl extension Wx.
 
+    - Eliminate Wx version #if/else/endif from all .xsp and most .xs files.
+      This was necessary since XSpp does not process these, causing
+      methods with version dependent signatures to be compiled as overloads.
+    - Add wxPG* enum classes to build/Wx/XSpp.pm to be treated as numbers.
     - Add Github Actions for Linux (Ubuntu) and macOS.
     - Add Github Action for testing with wxWidgets-git and Alien-wxWidgets-git.
     - Add wxSTC_MARGIN_COLOUR.
@@ -13,6 +17,15 @@ Revision history for Perl extension Wx.
       wxGRIDTABLE_REQUEST_VIEW_SEND_VALUES (ext/grid). They were not
       functional anyway and removed from 3.3.
     - Remove SetDepth, SetWidth and SetHeight from Bitmap (3.0 compat).
+    - Compat. EVT_GRID_RANGE_SELECT{ED,ING}, EVT_GRID_CMD_RANGE_SELECT{ED,ING}.
+
+3.006 2025-07-22
+
+    - Released for wxWidgets 3.2.
+    - Add Github Actions for Linux (Ubuntu) and macOS.
+    - Add wxSTC_MARGIN_COLOUR.
+    - Compat. EVT_GRID_RANGE_SELECT{ED,ING}, EVT_GRID_CMD_RANGE_SELECT{ED,ING}.
+    - Remove wxBitmap::Set{width,height,depth}.
 
 3.005 2024-12-31
 

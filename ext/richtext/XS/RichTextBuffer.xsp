@@ -45,7 +45,6 @@ wxRichTextBuffer::CLONE()
     bool AddEventHandler( wxEvtHandler* handler );
     void AddHandler( wxRichTextFileHandler* handler );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
     %name{SetStyleEx} bool SetStyle
         ( const wxRichTextRange& range, const wxTextAttrEx& style,
           int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
@@ -62,7 +61,6 @@ wxRichTextBuffer::SetStyle( ... )
     END_OVERLOAD( "Wx::RichTextBuffer::SetStyle" )
 
 %}
-#endif
 
     bool InsertTextWithUndo( long pos, const wxString& text,
                              wxRichTextCtrl* ctrl, int flags = 0 );
@@ -101,35 +99,24 @@ wxRichTextBuffer::SetStyle( ... )
                               int leftSubIndent,
                               int bulletStyle = wxTEXT_ATTR_DEFAULT_NUMBERED_BULLET );
     bool EndNumberedBullet();
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool BeginSymbolBullet( const wxString& symbol, int leftIndent,
                             int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_SYMBOL );
-#else
-    bool BeginSymbolBullet( wxChar symbol, int leftIndent,
-                            int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_SYMBOL );
-#endif
     bool EndSymbolBullet();
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool BeginStandardBullet( const wxString& bulletName, int leftIndent,
                               int leftSubIndent, int bulletStyle = wxTEXT_ATTR_BULLET_STYLE_STANDARD );
     bool EndStandardBullet();
-#endif
     bool BeginCharacterStyle( const wxString& characterStyle );
     bool EndCharacterStyle();
     bool BeginParagraphStyle( const wxString& paragraphStyle );
     bool EndParagraphStyle();
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool BeginListStyle( const wxString& listStyle, int level = 1,
                          int number = 1 );
     bool EndListStyle();
     bool BeginURL( const wxString& url,
                    const wxString& characterStyle = wxEmptyString );
     bool EndURL();
-#endif
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool ClearListStyle( const wxRichTextRange& range,
                          int flags = wxRICHTEXT_SETSTYLE_WITH_UNDO );
-#endif
 
     wxRichTextRange AddParagraph( const wxString& text );
     wxRichTextRange AddImage( const wxImage& image );
@@ -144,10 +131,8 @@ wxRichTextBuffer::SetStyle( ... )
     void SetStyleSheet( wxRichTextStyleSheet* styleSheet );
     wxRichTextStyleSheetDisown* GetStyleSheet() const;
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     bool PushStyleSheet( wxRichTextStyleSheetDisown* styleSheet );
     wxRichTextStyleSheetDisown* PopStyleSheet();
-#endif
 
     %name{SetBasicStyleRich} void SetBasicStyle( const wxRichTextAttr& style );
     %name{SetBasicStyleEx} void SetBasicStyle( const wxTextAttrEx& style );
@@ -178,25 +163,6 @@ wxRichTextBuffer::GetRichTextAttrStyle( position )
                                            "Wx::RichTextAttr" ) :
                     &PL_sv_undef );
 
-#if WXPERL_W_VERSION_LT( 2, 9, 2 )
-
-void
-wxRichTextBuffer::GetTextAttrExStyle( position )
-    long position
-  PPCODE:
-    wxTextAttrEx attr;
-    bool retval = THIS->GetStyle( position, attr );
-    EXTEND( SP, 2 );
-    PUSHs( newSViv( retval ) );
-    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
-                                           new wxTextAttrEx( attr ),
-                                           "Wx::TextAttrEx" ) :
-                    &PL_sv_undef );
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 7, 1 )
-
 void
 wxRichTextBuffer::GetRichTextAttrUncombinedStyle( position )
     long position
@@ -210,44 +176,6 @@ wxRichTextBuffer::GetRichTextAttrUncombinedStyle( position )
                                            "Wx::RichTextAttr" ) :
                     &PL_sv_undef );
 
-#if WXPERL_W_VERSION_LT( 2, 9, 2 )
-
-void
-wxRichTextBuffer::GetTextAttrExUncombinedStyle( position )
-    long position
-  PPCODE:
-    wxTextAttrEx attr;
-    bool retval = THIS->GetUncombinedStyle( position, attr );
-    EXTEND( SP, 2 );
-    PUSHs( newSViv( retval ) );
-    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
-                                           new wxTextAttrEx( attr ),
-                                           "Wx::TextAttrEx" ) :
-                    &PL_sv_undef );
-
-#endif
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 8, 0 ) && WXPERL_W_VERSION_LT( 2, 9, 2 )
-
-void
-wxRichTextBuffer::GetTextAttrExStyleForRange( range )
-    wxRichTextRange* range
-  PPCODE:
-    wxTextAttrEx attr;
-    bool retval = THIS->GetStyleForRange( *range, attr );
-    EXTEND( SP, 2 );
-    PUSHs( newSViv( retval ) );
-    PUSHs( retval ? wxPli_non_object_2_sv( aTHX_ sv_newmortal(),
-                                           new wxTextAttrEx( attr ),
-                                           "Wx::TextAttrEx" ) :
-                    &PL_sv_undef );
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 9, 2 )
-
 void
 wxRichTextBuffer::GetRichTextAttrStyleForRange( range )
     wxRichTextRange* range
@@ -260,7 +188,5 @@ wxRichTextBuffer::GetRichTextAttrStyleForRange( range )
                                            new wxRichTextAttr( attr ),
                                            "Wx::RichTextAttr" ) :
                     &PL_sv_undef );
-
-#endif
 
 %}

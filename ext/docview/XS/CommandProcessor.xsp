@@ -155,10 +155,8 @@ wxCommandProcessor::GetCommands()
     int GetMaxCommands() const;
     void ClearCommands();
 
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     bool IsDirty() const;
     void MarkAsSaved();
-#endif
 
     const wxString& GetUndoAccelerator() const;
     const wxString& GetRedoAccelerator() const;

@@ -111,16 +111,6 @@ wxDocManager::OnPrint( event )
   CODE:
     THIS->OnPrint( *event );
 
-#if WXPERL_W_VERSION_LE( 2, 5, 2 )
-
-void
-wxDocManager::OnPrintSetup( event )
-    wxCommandEvent* event
-  CODE:
-    THIS->OnPrintSetup( *event );
-
-#endif
-
 void
 wxDocManager::OnPreview( event )
     wxCommandEvent* event
@@ -145,22 +135,6 @@ wxDocManager::OnUpdateFileOpen( event )
   CODE:
     THIS->OnUpdateFileOpen( *event );
 
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-
-void
-wxDocManager::OnUpdateFileClose( event )
-    wxUpdateUIEvent* event
-  CODE:
-    THIS->OnUpdateFileClose( *event );
-
-void
-wxDocManager::OnUpdateFileRevert( event )
-    wxUpdateUIEvent* event
-  CODE:
-    THIS->OnUpdateFileRevert( *event );
-
-#endif
-
 void
 wxDocManager::OnUpdateFileNew( event )
     wxUpdateUIEvent* event
@@ -173,16 +147,6 @@ wxDocManager::OnUpdateFileSave( event )
   CODE:
     THIS->OnUpdateFileSave( *event );
 
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-
-void
-wxDocManager::OnUpdateFileSaveAs( event )
-    wxUpdateUIEvent* event
-  CODE:
-    THIS->OnUpdateFileSaveAs( *event );
-
-#endif
-
 void
 wxDocManager::OnUpdateUndo( event )
     wxUpdateUIEvent* event
@@ -194,36 +158,6 @@ wxDocManager::OnUpdateRedo( event )
     wxUpdateUIEvent* event
   CODE:
     THIS->OnUpdateRedo( *event );
-
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-
-void
-wxDocManager::OnUpdatePrint( event )
-    wxUpdateUIEvent* event
-  CODE:
-    THIS->OnUpdatePrint( *event );
-
-#endif
-
-#if WXPERL_W_VERSION_LE( 2, 5, 2 )
-
-void
-wxDocManager::OnUpdatePrintSetup( event )
-    wxUpdateUIEvent* event
-  CODE:
-    THIS->OnUpdatePrintSetup( *event );
-
-#endif
-
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-
-void
-wxDocManager::OnUpdatePreview( event )
-    wxUpdateUIEvent* event
-  CODE:
-    THIS->OnUpdatePreview( *event );
-
-#endif
 
 wxView *
 wxDocManager::GetCurrentView()
@@ -251,18 +185,8 @@ wxDocManager::FlushDoc( doc )
 wxDocument *
 wxDocManager::GetCurrentDocument()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 wxString
 wxDocManager::MakeNewDocumentName()
-
-#else
-
-bool
-wxDocManager::MakeDefaultName( name )
-    wxString name
-
-#endif
 
 wxString
 wxDocManager::MakeFrameTitle( doc )
@@ -324,17 +248,8 @@ wxDocManager::FileHistoryAddFilesToMenu( ... )
     CODE:
       croak( "Usage: Wx::FileHistory::AddfilesToMenu(THIS [, menu ] )" );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 size_t
 wxDocManager::GetHistoryFilesCount()
-
-#else
-
-int
-wxDocManager::GetNoHistoryFiles()
-        
-#endif
 
 wxDocTemplate *
 wxDocManager::FindTemplateForPath( path )
@@ -439,19 +354,8 @@ bool
 wxDocManager::CloseDocuments( force = true )
     bool force
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 void
 wxDocManager::ActivateView( view, activate = true )
     wxView* view
     bool activate
 
-#else
-
-void
-wxDocManager::ActivateView( view, activate = true, deleting = false )
-    wxView* view
-    bool activate
-    bool deleting
-
-#endif

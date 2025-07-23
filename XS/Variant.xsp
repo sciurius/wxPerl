@@ -38,9 +38,7 @@ wxVariant::DESTROY()
 %}
 
     void Append( const wxVariant& variant );
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
     void Clear();
-#endif
     void ClearList();
     bool Delete( size_t item );
 
@@ -64,15 +62,7 @@ wxVariant::GetArrayString()
 void
 wxVariant::GetList()
   PPCODE:
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-#if WXPERL_W_VERSION_LT( 3, 3, 0 )
-    const wxVariantList& lst = THIS->GetList();
-#else
     const wxList& lst = (wxList&)THIS->GetList();
-#endif
-#else
-    const wxList& lst = THIS->GetList();
-#endif
     PUTBACK;
     wxPli_objlist_push( aTHX_ lst );
     SPAGAIN;
@@ -94,10 +84,8 @@ wxVariant::GetList()
 ## operator == != []
     void SetBool( bool value )
         %code{% *THIS = value; %};
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
     void SetChar( wxChar value )
         %code{% *THIS = value; %};
-#endif
     void SetDateTime( const wxDateTime& value )
         %code{% *THIS = *value; %};
     void SetString( const wxString& string )
@@ -111,7 +99,5 @@ wxVariant::GetList()
     void SetVariant( const wxVariant& value )
         %code{% *THIS = *value; %};
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     bool Unshare();
-#endif
 };

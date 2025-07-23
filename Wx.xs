@@ -27,8 +27,7 @@
 #include <wx/module.h>
 #include <wx/log.h>
 // FIXME hack
-#if WXPERL_W_VERSION_GE( 2, 5, 2 ) \
-    && defined(__DARWIN__)
+#if defined(__DARWIN__)
 #define HACK
 #include <wx/html/htmlwin.h>
 #if wxUSE_MEDIACTRL
@@ -44,17 +43,7 @@
 #include <ApplicationServices/ApplicationServices.h>
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-    #include <wx/init.h>
-#else
-#if defined(__WXGTK__)
-int  WXDLLEXPORT wxEntryStart( int& argc, char** argv );
-#else
-int  WXDLLEXPORT wxEntryStart( int argc, char** argv );
-#endif
-int  WXDLLEXPORT wxEntryInitGui();
-void WXDLLEXPORT wxEntryCleanup();
-#endif
+#include <wx/init.h>
 
 #include "cpp/v_cback.h"
 
@@ -145,66 +134,6 @@ static int call_oninit( pTHX_ SV* This, SV* sub )
     return retval;
 }
 
-
-#if defined(__WXMOTIF__) && WXPERL_W_VERSION_LT( 2, 5, 1 )
-
-#include <wx/app.h>
-#include <wx/log.h>
-
-int wxEntryStart( int argc, char** argv )
-{
-    // This seems to be necessary since there are 'rogue'
-    // objects present at this point (perhaps global objects?)
-    // Setting a checkpoint will ignore them as far as the
-    // memory checking facility is concerned.
-    // Of course you may argue that memory allocated in globals should be
-    // checked, but this is a reasonable compromise.
-#if WXPERL_W_VERSION_GE( 2, 9, 3 )
-#if ( ( wxDEBUG_LEVEL > 1 ) && wxUSE_MEMORY_TRACING ) || wxUSE_DEBUG_CONTEXT
-    wxDebugContext::SetCheckpoint();
-#endif
-#else
-#if (defined(__WXDEBUG__) && wxUSE_MEMORY_TRACING ) || wxUSE_DEBUG_CONTEXT
-    wxDebugContext::SetCheckpoint();
-#endif
-#endif
-    if (!wxApp::Initialize())
-        return -1;
-
-    return 0;
-}
-
-int wxEntryInitGui()
-{
-    int retValue = 0;
-
-    // GUI-specific initialization, such as creating an app context.
-    if( !wxTheApp->OnInitGui() )
-        retValue = -1;
-
-    return retValue;
-}
-
-void wxEntryCleanup()
-{
-#if wxUSE_LOG
-    // flush the logged messages if any
-    wxLog *pLog = wxLog::GetActiveTarget();
-    if ( pLog != NULL && pLog->HasPendingMessages() )
-        pLog->Flush();
-
-    delete wxLog::SetActiveTarget(new wxLogStderr); // So dialog boxes aren't used
-    // for further messages
-#endif
-
-    wxApp::CleanUp();
-
-    // some code moved to _wxApp destructor
-    // since at this point the app is already destroyed
-}
-
-#endif
-
 DEFINE_PLI_HELPERS( st_wxPliHelpers );
 
 #include <wx/confbase.h>
@@ -215,10 +144,6 @@ WXPLI_BOOT_ONCE_EXP(Wx);
 
 extern bool Wx_booted, Wx_Const_booted, Wx_Ctrl_booted,
     Wx_Evt_booted, Wx_Wnd_booted, Wx_GDI_booted, Wx_Win_booted;
-
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-typedef int wxPolygonFillMode;
-#endif
 
 MODULE=Wx PACKAGE=Wx
 
@@ -248,32 +173,20 @@ BOOT:
   SV* tmp = get_sv( "Wx::_exports", 1 );
   sv_setiv( tmp, (IV)(void*)&st_wxPliHelpers );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
 #define wxPliEntryStart( argc, argv ) wxEntryStart( (argc), (argv) )
-#else
-#define wxPliEntryStart( argc, argv ) ( wxEntryStart( (argc), (argv) ) == 0 )
-#endif
 
 bool
 EnableDefaultAssertHandler()
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 9, 3 )
     wxSetDefaultAssertHandler();
     RETVAL = 1;
-#else
-    RETVAL = 0;
-#endif
   OUTPUT: RETVAL
 
 bool
 DisableAssertHandler()
   CODE:
-#if WXPERL_W_VERSION_GE( 2, 9, 3 )
     wxDisableAsserts();
     RETVAL = 1;
-#else
-    RETVAL = 0;
-#endif
   OUTPUT: RETVAL
 
 
@@ -331,22 +244,16 @@ Load( bool croak_on_error = false )
 #endif
 
     int argc = 0;
-#if wxUSE_UNICODE && WXPERL_W_VERSION_GE( 2, 5, 3 )
+#if wxUSE_UNICODE
     wxChar** argv = 0;
 
     argc = wxPli_get_args_argc_argv( (void***) &argv, 1 );
     wxPerlInitialized = wxPliEntryStart( argc, argv );
-#if WXPERL_W_VERSION_LE( 2, 5, 2 )
-    wxPli_delete_argv( (void***) &argv, 1 );
-#endif
 #else
     char** argv = 0;
 
     argc = wxPli_get_args_argc_argv( (void***) &argv, 0 );
     wxPerlInitialized = wxPliEntryStart( argc, argv );
-#if WXPERL_W_VERSION_LE( 2, 5, 2 )
-    wxPli_delete_argv( (void***) &argv, 0 );
-#endif
 #endif
     RETVAL = wxPerlInitialized;
 
@@ -404,8 +311,6 @@ SetAlwaysUTF8( always_utf8 = true )
     wxPli_always_utf8 = always_utf8;
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 #include <wx/dynload.h>
 
 ## this has the same interface as DynaLoader::dl_load_files, but since
@@ -433,8 +338,6 @@ _unload_plugin( string )
     RETVAL = wxPluginManager::UnloadLibrary( string );
   OUTPUT:
     RETVAL
-
-#endif
 
 bool
 _xsmatch( avref, proto, required = -1, allowmore = false )
@@ -467,7 +370,7 @@ _xsmatch( avref, proto, required = -1, allowmore = false )
 bool
 _wx_optmod_ribbon()
   CODE:
-#if wxPERL_USE_RIBBON && wxUSE_RIBBON && WXPERL_W_VERSION_GE( 2, 9, 3 )
+#if wxPERL_USE_RIBBON && wxUSE_RIBBON
     RETVAL = TRUE;
 #else
     RETVAL = FALSE;
@@ -477,7 +380,7 @@ _wx_optmod_ribbon()
 bool
 _wx_optmod_propgrid()
   CODE:
-#if wxPERL_USE_PROPGRID && wxUSE_PROPGRID && WXPERL_W_VERSION_GE( 2, 9, 3 )
+#if wxPERL_USE_PROPGRID && wxUSE_PROPGRID
     RETVAL = TRUE;
 #else
     RETVAL = FALSE;
@@ -497,7 +400,7 @@ _wx_optmod_media()
 bool
 _wx_optmod_webview()
   CODE:
-#if wxPERL_USE_WEBVIEW && wxUSE_WEBVIEW && WXPERL_W_VERSION_GE( 2, 9, 3 )
+#if wxPERL_USE_WEBVIEW && wxUSE_WEBVIEW
     RETVAL = TRUE;
 #else
     RETVAL = FALSE;

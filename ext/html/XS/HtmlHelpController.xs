@@ -20,19 +20,10 @@
 
 MODULE=Wx PACKAGE=Wx::BestHelpController
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxBestHelpController*
 wxBestHelpController::new( parent = NULL, style = wxHF_DEFAULT_STYLE )
     wxWindow* parent
     int style
-
-#else
-
-wxBestHelpController*
-wxBestHelpController::new()
-
-#endif
 
 #endif
 #endif

@@ -23,7 +23,7 @@
 
 #undef THIS
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+#if wxUSE_RIBBON
 
 #define wxNullBitmapPtr (wxBitmap*)&wxNullBitmap
 #define wxDefaultValidatorPtr (wxValidator*)&wxDefaultValidator
@@ -44,7 +44,7 @@ MODULE=Wx__Ribbon
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+#if wxUSE_RIBBON
 
 INCLUDE_COMMAND: $^X -I../.. -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp -t ../../typemap.xsp XS/RibbonGallery.xsp
 

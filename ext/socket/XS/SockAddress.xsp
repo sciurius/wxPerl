@@ -35,8 +35,6 @@ wxSockAddress::CLONE()
     int Type();
 };
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 %name{Wx::IPaddress} class wxIPaddress
 {
     %name{SetHostname} bool Hostname(const wxString& name);
@@ -50,17 +48,13 @@ wxSockAddress::CLONE()
     %name{GetService} unsigned short Service();
 };
 
-#endif
-
 %name{Wx::IPV4address} class wxIPV4address
 {
     wxIPV4address();
 
     %name{GetOrigHostname} wxString OrigHostname();
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
     %name{SetBroadcastAddress} bool BroadcastAddress();
-#endif
 };
 
 #if wxUSE_IPV6

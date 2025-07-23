@@ -17,8 +17,6 @@
 %typemap{wxSimpleHtmlListBox*}{simple};
 %typemap{wxFileSystem*}{simple};
 
-#if WXPERL_W_VERSION_GE( 2, 5, 0 )
-
 #include <wx/clntdata.h>
 #include "cpp/helpers.h"
 #include <wx/htmllbox.h>
@@ -126,8 +124,6 @@ new( ... )
 
 %}
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 %name{Wx::SimpleHtmlListBox} class wxSimpleHtmlListBox
 {
     %name{newDefault} wxSimpleHtmlListBox()
@@ -198,7 +194,3 @@ Append( ... )
     END_OVERLOAD( Wx::SimpleHtmlListBox::Append )
 
 %}
-
-#endif
-
-#endif

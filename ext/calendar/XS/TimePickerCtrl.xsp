@@ -10,7 +10,7 @@
 ##              modify it under the same terms as Perl itself
 #############################################################################
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_TIMEPICKCTRL
+#if wxUSE_TIMEPICKCTRL
 
 #include <wx/timectrl.h>
 #include "xspp/timectrl.h"
@@ -75,6 +75,5 @@ public:
 
     virtual void SetValue(const wxDateTime& dt);
 };
-
 
 #endif

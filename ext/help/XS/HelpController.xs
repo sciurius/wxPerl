@@ -67,8 +67,6 @@ wxHelpControllerBase::SetViewer( viewer, flags )
 bool
 wxHelpControllerBase::Quit()
 
-#if WXPERL_W_VERSION_GE( 2, 6, 3 )
-
 wxWindow*
 wxHelpControllerBase::GetParentWindow()
 
@@ -76,26 +74,15 @@ void
 wxHelpControllerBase::SetParentWindow( parent )
     wxWindow* parent
 
-#endif
-
 MODULE=Wx PACKAGE=Wx::WinHelpController
 
 #if defined( __WXMSW__ )
 
 #include <wx/msw/helpwin.h>
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxWinHelpController*
 wxWinHelpController::new( parent = NULL )
     wxWindow* parent
-
-#else
-
-wxWinHelpController*
-wxWinHelpController::new()
-
-#endif
 
 #endif
 
@@ -105,17 +92,8 @@ MODULE=Wx PACKAGE=Wx::CHMHelpController
 
 #include <wx/msw/helpchm.h>
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxCHMHelpController*
 wxCHMHelpController::new( parent = NULL )
     wxWindow* parent
-
-#else
-
-wxCHMHelpController*
-wxCHMHelpController::new()
-
-#endif
 
 #endif

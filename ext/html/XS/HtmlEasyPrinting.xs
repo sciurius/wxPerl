@@ -14,20 +14,9 @@
 
 MODULE=Wx PACKAGE=Wx::HtmlEasyPrinting
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 wxHtmlEasyPrinting*
 wxHtmlEasyPrinting::new( wxString name = wxT("Printing"), \
                          wxWindow* parent = 0 )
-
-#else
-
-wxHtmlEasyPrinting*
-wxHtmlEasyPrinting::new( name = wxT("Printing"), parent_frame = 0 )
-    wxString name
-    wxFrame* parent_frame
-
-#endif
 
 static void
 wxHtmlEasyPrinting::CLONE()
@@ -58,13 +47,6 @@ bool
 wxHtmlEasyPrinting::PrintText( htmlText, basepath = wxEmptyString )
     wxString htmlText
     wxString basepath
-
-#if WXPERL_W_VERSION_LE( 2, 5, 2 )
-
-void
-wxHtmlEasyPrinting::PrinterSetup()
-
-#endif
 
 void
 wxHtmlEasyPrinting::PageSetup()
@@ -102,13 +84,9 @@ wxHtmlEasyPrinting::GetPrintData()
 wxPageSetupDialogData*
 wxHtmlEasyPrinting::GetPageSetupData()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 wxWindow*
 wxHtmlEasyPrinting::GetParentWindow()
 
 void
 wxHtmlEasyPrinting::SetParentWindow( window )
     wxWindow* window
-
-#endif

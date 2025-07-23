@@ -69,9 +69,5 @@ void
 wxClipboard::UsePrimarySelection( primary = true )
     bool primary
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 bool
 wxClipboard::IsUsingPrimarySelection()
-
-#endif

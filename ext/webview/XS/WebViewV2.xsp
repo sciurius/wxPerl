@@ -139,11 +139,7 @@ public:
     
     // virtual void* GetNativeBackend() const;
     
-#if WXPERL_W_VERSION_GE( 2, 9, 5 )
-
     virtual long Find(const wxString& text, int flags = wxWEB_VIEW_FIND_DEFAULT);
-
-#endif
 
     virtual bool Create(wxWindow* parent,
                         wxWindowID id,

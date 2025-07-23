@@ -13,8 +13,6 @@
 #include <wx/grid.h>
 #include "cpp/overload.h"
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 MODULE=Wx PACKAGE=Wx::GridUpdateLocker
 
 wxGridUpdateLocker*
@@ -36,8 +34,6 @@ wxGridUpdateLocker::DESTROY()
 void
 wxGridUpdateLocker::Create( grid )
     wxGrid* grid
-
-#endif
 
 MODULE=Wx PACKAGE=Wx::GridCellCoords
 
@@ -170,12 +166,8 @@ wxGrid::BlockToDeviceRect( topLeft, bottomRight )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 wxGrid::CanDragColMove()
-
-#endif
 
 bool
 wxGrid::CanDragGridSize()
@@ -236,24 +228,16 @@ wxGrid::DisableDragRowSize()
 void
 wxGrid::DisableDragColSize()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 void
 wxGrid::DisableDragColMove()
-
-#endif
 
 void
 wxGrid::EnableCellEditControl( enable = true )
     bool enable
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 void
 wxGrid::EnableDragColMove( enable = true )
     bool enable
-
-#endif
 
 void
 wxGrid::EnableDragColSize( enable = true )
@@ -372,25 +356,17 @@ wxString
 wxGrid::GetColLabelValue( col )
     int col
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 int
 wxGrid::GetColPos( colId )
     int colId
-
-#endif
 
 int
 wxGrid::GetColSize( col )
     int col
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 int
 wxGrid::GetColAt( colPos )
     int colPos
-
-#endif
 
 void
 wxGrid::GetDefaultCellAlignment()
@@ -435,14 +411,10 @@ wxGrid::GetDefaultColSize()
 int
 wxGrid::GetColMinimalAcceptableWidth()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 wxGridCellAttr*
 wxGrid::GetOrCreateCellAttr( row, col )
     int row
     int col
-
-#endif
 
 int
 wxGrid::GetRowMinimalAcceptableHeight()
@@ -524,8 +496,6 @@ wxGrid::GetGridLineColour()
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxPen*
 wxGrid::GetDefaultGridLinePen()
   CODE:
@@ -545,8 +515,6 @@ wxGrid::GetRowGridLinePen( row )
   CODE:
     RETVAL = new wxPen( THIS->GetRowGridLinePen( row ) );
   OUTPUT: RETVAL
-
-#endif
 
 wxGridTableBase*
 wxGrid::GetTable()
@@ -592,8 +560,6 @@ int
 wxGrid::GetRowSize( row )
     int row
 
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
-
 int
 wxGrid::GetScrollLineX()
 
@@ -607,8 +573,6 @@ wxGrid::SetScrollLineX( x )
 void
 wxGrid::SetScrollLineY( y )
     int y
-
-#endif
 
 void
 wxGrid::GetSelectedCells()
@@ -668,15 +632,11 @@ wxGrid::GetSelectionMode()
 void
 wxGrid::HideCellEditControl()
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 void
 wxGrid::HideRowLabels()
 
 void
 wxGrid::HideColLabels()
-
-#endif
 
 bool
 wxGrid::InsertCols( pos = 0, numCols = 1, updateLabels = true )
@@ -843,13 +803,9 @@ wxGrid::SelectRow( row, addToSelected = false )
     int row
     bool addToSelected
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 void
 wxGrid::SetUseNativeColLabels( native = true )
     bool native
-
-#endif
 
 void
 wxGrid::SetCellAlignment( row, col, horiz, vert )
@@ -1041,14 +997,10 @@ wxGrid::SetColSize( col, height )
     int col
     int height
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 void
 wxGrid::SetColPos( col, pos )
     int col
     int pos
-
-#endif
 
 void
 wxGrid::SetGridCursor( row, col )

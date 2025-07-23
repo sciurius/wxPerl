@@ -31,11 +31,7 @@ newColour( CLASS, colour, width, style )
     int width
     int style
   CODE:
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-    RETVAL = new wxPen( *colour, width, style );
-#else
     RETVAL = new wxPen( *colour, width, (wxPenStyle)style );
-#endif
   OUTPUT:
     RETVAL
 
@@ -46,11 +42,7 @@ newString( CLASS, name, width, style )
     int width
     int style
   CODE:
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-    RETVAL = new wxPen( name, width, style );
-#else
     RETVAL = new wxPen( name, width, (wxPenStyle)style );
-#endif
   OUTPUT:
     RETVAL
 
@@ -125,12 +117,8 @@ wxPen::GetWidth()
 bool
 wxPen::Ok()
 
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
-
 bool
 wxPen::IsOk()
-
-#endif
 
 void
 wxPen::SetCap( capStyle )

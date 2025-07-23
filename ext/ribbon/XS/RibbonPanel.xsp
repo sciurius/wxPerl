@@ -12,7 +12,7 @@
 
 %module{Wx};
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+#if wxUSE_RIBBON
 
 #include <wx/ribbon/panel.h>
 
@@ -73,7 +73,6 @@ public:
     virtual void AddChild(wxWindowBase *child);
     virtual void RemoveChild(wxWindowBase *child);
     
-#if WXPERL_W_VERSION_GE( 2, 9, 4 )
     bool IsExtButtonHovered() const;
 
     virtual bool HasExtButton() const;
@@ -81,7 +80,6 @@ public:
     virtual wxSize GetBestSizeForParentSize(const wxSize& parentSize) const;
 
     long GetFlags();
-#endif
     
 };
 

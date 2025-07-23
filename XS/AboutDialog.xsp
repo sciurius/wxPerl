@@ -15,8 +15,6 @@
 %typemap{wxAboutDialogInfo*}{simple};
 %typemap{const wxAboutDialogInfo&}{reference};
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 #include <wx/aboutdlg.h>
 
 %name{Wx::AboutDialogInfo} class wxAboutDialogInfo
@@ -81,5 +79,3 @@
 };
 
 %name{Wx::AboutBox} void wxAboutBox( const wxAboutDialogInfo& info );
-
-#endif

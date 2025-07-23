@@ -103,10 +103,6 @@ wxGridCellEnumRenderer::new( choices = wxEmptyString )
     
 MODULE=Wx PACKAGE=Wx::GridCellDateTimeRenderer   
 
-#if WXPERL_W_VERSION_LT( 2, 6, 0 )
-#define wxDefaultDateTimeFormat wxT("%c")
-#endif
-
 wxGridCellDateTimeRenderer*
 wxGridCellDateTimeRenderer::new( outformat = wxDefaultDateTimeFormat, informat = wxDefaultDateTimeFormat )
     wxString outformat

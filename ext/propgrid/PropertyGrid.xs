@@ -18,7 +18,7 @@
 
 #undef THIS
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+#if wxUSE_PROPGRID
 
 #include <wx/propgrid/propgrid.h>
 #include <wx/propgrid/advprops.h>
@@ -45,7 +45,7 @@ MODULE=Wx__PropertyGrid
 BOOT:
   INIT_PLI_HELPERS( wx_pli_helpers );
   
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_PROPGRID
+#if wxUSE_PROPGRID
 
 ##
 ## 

@@ -12,7 +12,7 @@
 
 %module{Wx};
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+#if wxUSE_RIBBON
 
 #include <wx/ribbon/buttonbar.h>
 #include <cpp/toolbarbases.h>
@@ -142,23 +142,6 @@ public:
                 RETVAL = THIS->AddButton(useid, label, *bitmap, help_string, (wxRibbonButtonKind)kind);
                 %};              
 
-#if WXPERL_W_VERSION_LE( 2, 9, 5 )
-
-    %name{AddButtonLongParams} wxRibbonButtonBarButtonBase* AddButton(
-                int button_id,
-                const wxString& label,
-                const wxBitmap& bitmap,
-                const wxBitmap& bitmap_small = wxNullBitmapPtr,
-                const wxBitmap& bitmap_disabled = wxNullBitmapPtr,
-                const wxBitmap& bitmap_small_disabled = wxNullBitmapPtr,
-                unsigned int kind = wxRIBBON_BUTTON_NORMAL,
-                const wxString& help_string = wxEmptyString,
-                Wx_UserDataO* client_data = NULL) %Overload
-            %code{% int useid = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
-                RETVAL = THIS->AddButton(useid, label, *bitmap, *bitmap_small, *bitmap_disabled, *bitmap_small_disabled, (wxRibbonButtonKind)kind, help_string, client_data);
-                %};                
-
-#else
     %name{AddButtonLongParams} wxRibbonButtonBarButtonBase* AddButton(
                 int button_id,
                 const wxString& label,
@@ -171,7 +154,6 @@ public:
             %code{% int useid = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
                 RETVAL = THIS->AddButton(useid, label, *bitmap, *bitmap_small, *bitmap_disabled, *bitmap_small_disabled, (wxRibbonButtonKind)kind, help_string);
                 %};       
-#endif
 
     virtual bool Realize();
     
@@ -186,8 +168,6 @@ public:
     virtual void SetArtProvider(wxRibbonArtProvider* art);
 
     virtual bool IsSizingContinuous() const;
-
-#if WXPERL_W_VERSION_GE( 2, 9, 4 )
 
     wxRibbonButtonBarButtonBase* InsertDropdownButton(
                 size_t pos,
@@ -227,25 +207,6 @@ public:
                     RETVAL = THIS->InsertButton( pos, useid, label, *bitmap, help_string, (wxRibbonButtonKind)kind);
                 %};  
 
-#if WXPERL_W_VERSION_LE( 2, 9, 5 )
-
-    %name{InsertButtonLongParams} wxRibbonButtonBarButtonBase* InsertButton(
-                size_t pos,
-                int button_id,
-                const wxString& label,
-                const wxBitmap& bitmap,
-                const wxBitmap& bitmap_small = wxNullBitmapPtr,
-                const wxBitmap& bitmap_disabled = wxNullBitmapPtr,
-                const wxBitmap& bitmap_small_disabled = wxNullBitmapPtr,
-                unsigned int kind = wxRIBBON_BUTTON_NORMAL,
-                const wxString& help_string = wxEmptyString,
-                Wx_UserDataO* client_data = NULL) %Overload
-                %code{% int useid = ( button_id == wxID_ANY ) ? wxWindow::NewControlId() : button_id;
-                    RETVAL = THIS->InsertButton( pos, useid, label, *bitmap, *bitmap_small, *bitmap_disabled, *bitmap_small_disabled, (wxRibbonButtonKind)kind, help_string, client_data);
-                %};
-
-#else
-
     %name{InsertButtonLongParams} wxRibbonButtonBarButtonBase* InsertButton(
                 size_t pos,
                 int button_id,
@@ -260,11 +221,9 @@ public:
                     RETVAL = THIS->InsertButton( pos, useid, label, *bitmap, *bitmap_small, *bitmap_disabled, *bitmap_small_disabled, (wxRibbonButtonKind)kind, help_string);
                 %};
 
-#endif
 
     virtual size_t GetButtonCount() const;
     virtual wxSize GetMinSize() const;
-#endif
 
 };
 

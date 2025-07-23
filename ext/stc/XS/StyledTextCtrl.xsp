@@ -260,15 +260,6 @@ wxStyledTextCtrl::SetWhitespaceBackground( useSetting, back )
   CODE:
     THIS->SetWhitespaceBackground( useSetting, *back );
 
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-void
-wxStyledTextCtrl::SetStyleBits( bits )
-    int bits
-
-int
-wxStyledTextCtrl::GetStyleBits()
-#endif
-
 void
 wxStyledTextCtrl::SetLineState( line, state )
     int line
@@ -288,16 +279,6 @@ void
 wxStyledTextCtrl::SetCaretLineVisible( show )
     bool show
 
-#if WXPERL_W_VERSION_LT( 2, 7, 0 )
-
-void
-wxStyledTextCtrl::SetCaretLineBack( back )
-    wxColour* back
-  CODE:
-    THIS->SetCaretLineBack( *back );
-
-#else
-
 void
 wxStyledTextCtrl::SetCaretLineBack( back )
     wxColour* back
@@ -309,8 +290,6 @@ wxStyledTextCtrl::SetCaretLineBackground( back )
     wxColour* back
   CODE:
     THIS->SetCaretLineBackground( *back );
-
-#endif
 
 void
 wxStyledTextCtrl::StyleSetChangeable( style, changeable )
@@ -522,16 +501,12 @@ wxStyledTextCtrl::SetSelection( start, end )
     int start
     int end
 
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
-
 void
 wxStyledTextCtrl::SetSelectionMode( mode )
     int mode
 
 int
 wxStyledTextCtrl::GetSelectionMode()
-
-#endif
 
 void
 wxStyledTextCtrl::HideSelection( normal )
@@ -874,15 +849,9 @@ wxStyledTextCtrl::SearchPrev( flags, text )
 int
 wxStyledTextCtrl::LinesOnScreen()
 
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-void
-wxStyledTextCtrl::UsePopUp( allowPopUp )
-    bool allowPopUp
-#else
 void
 wxStyledTextCtrl::UsePopUp( allowPopUp )
     int allowPopUp
-#endif
 
 bool
 wxStyledTextCtrl::SelectionIsRectangle()
@@ -1108,16 +1077,9 @@ void
 wxStyledTextCtrl::SetEOLMode( eolMode )
     int eolMode
 
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-void
-wxStyledTextCtrl::StartStyling( pos, mask )
-    int pos
-    int mask
-#else
 void
 wxStyledTextCtrl::StartStyling( start )
     int start
-#endif
 
 void
 wxStyledTextCtrl::SetStyling( length, style )
@@ -1290,17 +1252,6 @@ wxStyledTextCtrl::IndicatorGetForeground( indic )
   OUTPUT:
     RETVAL
 
-#if WXPERL_W_VERSION_LT( 2, 7, 0 )
-
-wxColour*
-wxStyledTextCtrl::GetCaretLineBack()
-  CODE:
-    RETVAL = new wxColour( THIS->GetCaretLineBack() );
-  OUTPUT:
-    RETVAL
-
-#endif
-
 wxColour*
 wxStyledTextCtrl::GetCaretForeground()
   CODE:
@@ -1371,25 +1322,6 @@ wxStyledTextCtrl::SaveFile(wxString filename)
 bool
 wxStyledTextCtrl::LoadFile(wxString filename)
 
-#if WXPERL_W_VERSION_GE( 2, 6, 0 ) && WXPERL_W_VERSION_LT( 2, 9, 4 )
-
-void
-wxStyledTextCtrl::AddTextRaw( text )
-    const char* text = wxUSE_UNICODE ? SvPVutf8( $arg, PL_na ) : SvPV( $arg, PL_na );
-
-void
-wxStyledTextCtrl::InsertTextRaw( pos, text )
-    int pos
-    const char* text = wxUSE_UNICODE ? SvPVutf8( $arg, PL_na ) : SvPV( $arg, PL_na );
-
-void
-wxStyledTextCtrl::AppendTextRaw( text )
-    const char* text = wxUSE_UNICODE ? SvPVutf8( $arg, PL_na ) : SvPV( $arg, PL_na );
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 9, 4 )
-
 void
 wxStyledTextCtrl::AddTextRaw( text, length = -1 )
     const char* text = SvPVutf8( $arg, PL_na );
@@ -1405,31 +1337,24 @@ wxStyledTextCtrl::AppendTextRaw( text, length = -1 )
     const char* text = SvPVutf8( $arg, PL_na );
     int length
 
-#endif
 %}
 
     void Allocate( int bytes );
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     void AppendText( const wxString& text );
-#endif
     int AutoCompGetCurrent();
     int AutoCompGetTypeSeparator();
     void AutoCompSetTypeSeparator( int separatorCharacter );
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void AutoCompSetMaxWidth( int characterCount );
     int AutoCompGetMaxWidth();
     void AutoCompSetMaxHeight( int rowCount );
     int AutoCompGetMaxHeight();
-#endif
     void AutoCompSetIgnoreCase( bool ignoreCase );
 
     void BackTab();
 
     void CallTipSetForeground( const wxColour& fore );
     void CallTipSetForegroundHighlight( const wxColour& fore );
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void CallTipUseStyle( int tabSize );
-#endif
 
     void Cancel();
 
@@ -1463,12 +1388,9 @@ wxStyledTextCtrl::AppendTextRaw( text, length = -1 )
     void DocumentEndExtend();
 
     void EditToggleOvertype();
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     int FindColumn( int line, int column );
-#endif
     void FormFeed();
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void SetCaretLineBackAlpha( int alpha );
     int GetCaretLineBackAlpha();
     wxColour GetCaretLineBackground();
@@ -1476,41 +1398,25 @@ wxStyledTextCtrl::AppendTextRaw( text, length = -1 )
     bool GetCaretSticky();
     void SetCaretSticky( bool useCaretStickyBehaviour );
     void ToggleCaretSticky();
-#endif
 
     int GetLineSelStartPosition( int line );
     int GetLineSelEndPosition( int line );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void SetPasteConvertEndings( bool convert );
     bool GetPasteConvertEndings();
-#endif
 
     void SetPrintWrapMode( int mode );
     int GetPrintWrapMode();
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     wxString GetProperty( const wxString& key );
     wxString GetPropertyExpanded( const wxString& key );
     int GetPropertyInt( const wxString& key );
-#endif
 
     int GetSTCCursor();
     void SetSTCCursor( int cursorType );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     int GetSelAlpha();
     void SetSelAlpha( int alpha );
-
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-int GetStyleBitsNeeded();
-#endif
-#endif
-
-#if WXPERL_W_VERSION_LT( 3, 3, 0 )
-    bool GetTwoPhaseDraw();
-    void SetTwoPhaseDraw( bool twoPhase );
-#endif
 
     void SetUseAntiAliasing( bool useAA );
     bool GetUseAntiAliasing();
@@ -1561,10 +1467,8 @@ int GetStyleBitsNeeded();
     void LowerCase();
     void UpperCase();
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void MarkerAddSet( int line, int set );
     void MarkerSetAlpha( int markerNumber, int alpha );
-#endif
 
     void NewLine();
 
@@ -1587,9 +1491,7 @@ int GetStyleBitsNeeded();
 
     void ScrollToColumn( int column );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     void SelectionDuplicate();
-#endif
 
     void SetCharsDefault();
     void SetFoldMarginColour( bool useSetting, const wxColour& back );
@@ -1605,9 +1507,7 @@ int GetStyleBitsNeeded();
     void StutteredPageDown();
     void StutteredPageDownExtend();
 
-#if WXPERL_W_VERSION_GE( 2, 6, 0 )
     void StyleSetFontEncoding( int style, wxFontEncoding encoding );
-#endif
     void StyleSetHotSpot( int style, bool hotspot );
 
     void Tab();
@@ -1629,14 +1529,10 @@ int GetStyleBitsNeeded();
     void WordRightEndExtend();
     void WordRightExtend();
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
     int WrapCount( int line );
-#endif
 
     void ZoomIn();
     void ZoomOut();
-
-#if WXPERL_W_VERSION_GE( 2, 9, 4 )
 
     void SetWhitespaceSize(int size); 
  	int GetWhitespaceSize() const;
@@ -1721,7 +1617,6 @@ int GetStyleBitsNeeded();
  	wxColour GetAdditionalCaretForeground() const; 
  	void RotateSelection(); 
  	void SwapMainAnchorCaret(); 
-#endif
 
 	void SetMarginBackground( int margin, const wxColour &back );
  	bool IsModified();

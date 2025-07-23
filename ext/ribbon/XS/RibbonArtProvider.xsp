@@ -12,7 +12,7 @@
 
 %module{Wx};
 
-#if WXPERL_W_VERSION_GE( 2, 9, 3 ) && wxUSE_RIBBON
+#if wxUSE_RIBBON
 
 %loadplugin{build::Wx::XSP::Enum};
 %EnumExportTag{ribbonart};

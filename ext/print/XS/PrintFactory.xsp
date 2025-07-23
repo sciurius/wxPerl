@@ -12,10 +12,6 @@
 
 %module{Wx};
 
-%{
-#if WXPERL_W_VERSION_GE( 2, 5, 4 )
-%}
-
 %typemap{wxPrintFactory*}{simple};
 %typemap{wxPlPrintFactory*}{simple};
 %typemap{wxPrinterBase*}{simple};
@@ -73,8 +69,4 @@ wxPrintFactory::GetFactory()
   CODE:
     RETVAL = wxPrintFactory::GetFactory();
   OUTPUT: RETVAL
-%}
-
-%{
-#endif
 %}

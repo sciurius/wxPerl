@@ -20,20 +20,6 @@
 WXPLI_BOOT_ONCE(Wx_GDI);
 #define boot_Wx_GDI wxPli_boot_Wx_GDI
 
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-typedef int wxBrushStyle;
-typedef int wxPenStyle;
-typedef int wxPenJoin;
-typedef int wxPenCap;
-typedef int wxRasterOperationMode;
-typedef int wxMappingMode;
-typedef int wxPolygonFillMode;
-typedef int wxFloodFillStyle;
-#endif
-#if WXPERL_W_VERSION_LT( 2, 9, 1 )
-typedef int wxImageResizeQuality;
-#endif
-
 MODULE=Wx_GDI
 
 INCLUDE_COMMAND: $^X -I./ -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Animation.xsp

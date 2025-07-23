@@ -26,19 +26,11 @@ wxPrintData::Destroy()
   CODE:
     delete THIS;
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 wxPrintBin
 wxPrintData::GetBin()
 
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 wxPrintData::IsOk()
-
-#endif
 
 bool
 wxPrintData::GetCollate()
@@ -64,13 +56,9 @@ wxPrintData::GetPrinterName()
 wxPrintQuality
 wxPrintData::GetQuality()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 void
 wxPrintData::SetBin( bin )
     wxPrintBin bin
-
-#endif
 
 void
 wxPrintData::SetCollate( collate )
@@ -104,8 +92,6 @@ void
 wxPrintData::SetQuality( quality )
     wxPrintQuality quality
     
-
-#if WXPERL_W_VERSION_GE( 2, 8, 0 )
 bool
 wxPrintData::IsOrientationReversed()
     
@@ -153,5 +139,3 @@ wxPrintData::ConvertFromNative()
     
 ## wxPrintNativeDataBase*
 ## wxPrintData::GetNativeData()
-
-#endif

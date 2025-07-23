@@ -30,21 +30,14 @@
     int GetHeight() const;
     int GetDescent() const;
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     bool IsFormattingCell() const;
-#endif
 
     const wxString& GetId() const;
     void SetId(const wxString& id);
 
     wxHtmlLinkInfo* GetLink(int x = 0, int y = 0) const;
-#if WXPERL_W_VERSION_GE( 2, 5, 1 ) && WXPERL_W_VERSION_LT( 2, 7, 0 )
-    wxCursor GetCursor() const;
-#endif
     wxHtmlCell *GetNext() const;
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     wxHtmlCell* GetFirstChild() const;
-#endif
     void SetPos(int x, int y);
     void SetLink(const wxHtmlLinkInfo& link);
     void SetNext(wxHtmlCell *cell);
@@ -61,12 +54,9 @@
 ##                         int number_of_pages = 0) const;
     void SetCanLiveOnPagebreak(bool can);
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     bool IsLinebreakAllowed() const;
-#endif
     bool IsTerminalCell() const;
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     wxHtmlCell *FindCellByPos(wxCoord x, wxCoord y,
                               unsigned flags = wxHTML_FIND_EXACT) const;
     wxPoint GetAbsPos() const;
@@ -78,18 +68,13 @@
     bool IsBefore(wxHtmlCell *cell) const;
 
     wxString ConvertToText(wxHtmlSelection *sel) const;
-#else
-    wxHtmlCell *FindCellByPos(wxCoord x, wxCoord y) const;
-#endif
 };
 
 %name{Wx::HtmlWordCell} class wxHtmlWordCell
 {
 ##    wxHtmlWordCell(const wxString& word, wxDC& dc);
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     void SetPreviousWord(wxHtmlWordCell *cell);
-#endif
 };
 
 %name{Wx::HtmlContainerCell} class wxHtmlContainerCell
@@ -117,9 +102,7 @@
     wxColour GetBackgroundColour();
     void SetBorder(const wxColour& clr1, const wxColour& clr2);
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
     void RemoveExtraSpacing(bool top, bool bottom);
-#endif
 };
 
 %name{Wx::HtmlColourCell} class wxHtmlColourCell

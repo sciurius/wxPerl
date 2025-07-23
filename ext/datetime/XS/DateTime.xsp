@@ -29,10 +29,6 @@
 #define Inv_Year wxDateTime::Inv_Year
 #define Inv_Month wxDateTime::Inv_Month
 #define wxDefaultDateTimePtr (wxDateTime*)&wxDefaultDateTime
-
-#if WXPERL_W_VERSION_LT( 2, 5, 4 )
-#define wxDefaultDateTimeFormat _T("%c")
-#endif
 %}
 
 %typemap{Month}{simple};
@@ -116,16 +112,6 @@ wxDateTime::CLONE()
     wxString FormatISODate();
     wxString FormatTime();
     wxString FormatISOTime();
-
-#if WXPERL_W_VERSION_LT( 2, 9, 0 )
-    wxString ParseFormat( wxString date,
-		wxString format = wxDefaultDateTimeFormat,
-		const wxDateTime& dateDef = wxDefaultDateTimePtr );
-    wxString ParseDate( wxString date);
-    wxString ParseDateTime( wxString date);
-    wxString ParseTime( wxString date);
-    wxString ParseRfc822Date( wxString date);
-#endif
 
     wxDateTime& SetToCurrent( );
     wxDateTime& ResetTime( );

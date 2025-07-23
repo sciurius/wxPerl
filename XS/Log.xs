@@ -35,8 +35,6 @@ EnableLogging( enable = true )
   OUTPUT:
     RETVAL
     
-#if WXPERL_W_VERSION_GE( 2, 8, 5 )
-    
 void 
 SetRepetitionCounting( RepetCounting = true )
     bool RepetCounting
@@ -54,8 +52,6 @@ void
 DoCreateOnDemand()
   CODE:
     wxLog::DoCreateOnDemand();
-
-#endif
 
 void
 AddTraceMask( mask )
@@ -199,8 +195,6 @@ GetVerbose( myLog = NULL )
     RETVAL
 
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 void
 _SetTimestamp( format, buffer )
     wxString format
@@ -210,33 +204,6 @@ _SetTimestamp( format, buffer )
 
 wxString
 wxLog::GetTimestamp();
-
-#else
-
-void
-_SetTimestamp( format, buffer )
-    SV* format
-    SV* buffer
-  CODE:
-    if( SvOK( ST(0) ) ) {
-        const wxString format_tmp = ( SvUTF8( format ) ) ?
-                  ( wxString( SvPVutf8_nolen( format ), wxConvUTF8 ) )
-                : ( wxString( SvPV_nolen( format ), wxConvLibc ) );
-        const wxChar* fmt = (const wxChar*)format_tmp.c_str();
-        STRLEN size = wxStrlen( fmt ) * sizeof(wxChar) + sizeof(wxChar);
-        SvUPGRADE( buffer, SVt_PV );
-        wxLog::SetTimestamp( wxStrcpy( (wxChar*)SvGROW( buffer, size ),
-                             fmt ) );
-    } else {
-        wxLog::SetTimestamp( NULL );
-    }
-
-const wxChar*
-wxLog::GetTimestamp()
-
-#endif
-
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
 
 void
 SetComponentLevel( component, level )
@@ -260,25 +227,6 @@ IsLevelEnabled( level, component )
   CODE:
     RETVAL = wxLog::IsLevelEnabled( level, component );
   OUTPUT: RETVAL
-
-#endif
-
-#if WXPERL_W_VERSION_LT( 2, 9, 0 ) || WXWIN_COMPATIBILITY_2_8
-
-void
-SetTraceMask( mask )
-    wxTraceMask mask
-  CODE:
-    wxLog::SetTraceMask( mask );
-
-wxTraceMask
-GetTraceMask()
-  CODE:
-    RETVAL = wxLog::GetTraceMask();
-  OUTPUT:
-    RETVAL
-    
-#endif
 
 MODULE=Wx PACKAGE=Wx::PlLog
 
@@ -358,8 +306,6 @@ interface__wxstring( string )
     
 #else
 
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
-
 void
 wxLogError( string )
     wxString string
@@ -384,35 +330,7 @@ void
 wxLogDebug( string )
     wxString string
 
-#else
-
-void
-wxLogError( string )
-    const wxChar* string
-
-void
-wxLogFatalError( string )
-    const wxChar* string
-
-void
-wxLogWarning( string )
-    const wxChar* string
-
-void
-wxLogMessage( string )
-    const wxChar* string
-
-void
-wxLogVerbose( string )
-    const wxChar* string
-
-void
-wxLogDebug( string )
-    const wxChar* string
-
-#endif
-
-#endif
+#endif	/* 0 */
 
 void
 wxLogStatusFrame( frame, string )
@@ -424,14 +342,6 @@ wxLogStatusFrame( frame, string )
 void
 wxLogStatus( string )
     const wxChar* string
-
-#if WXPERL_W_VERSION_LE( 2, 5, 0 )
-
-void
-wxLogTrace( string )
-    const wxChar* string
-
-#endif
 
 void
 wxLogTraceMask( mask, string )
@@ -462,12 +372,8 @@ wxLogChain::new( logger )
 wxLog*
 wxLogChain::GetOldLog()
 
-#if WXPERL_W_VERSION_GE( 2, 8, 5 )
-
 void
 wxLogChain::DetachOldLog()
-
-#endif
 
 bool
 wxLogChain::IsPassingMessages()
@@ -499,8 +405,6 @@ MODULE=Wx PACKAGE=Wx::LogStderr
 wxLogStderr*
 wxLogStderr::new( fp = NULL )
     FILE* fp;
-
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
 
 MODULE=Wx PACKAGE=Wx::PlLogFormatter
 
@@ -549,16 +453,6 @@ wxLogRecordInfo::component()
     RETVAL = THIS->filename;
   OUTPUT: RETVAL
 
-#if WXPERL_W_VERSION_LT( 3, 3, 0 )
-
-time_t
-wxLogRecordInfo::timestamp()
-  CODE:
-    RETVAL = THIS->timestamp;
-  OUTPUT: RETVAL
-
-#else
-
 wxLongLong_t
 wxLogRecordInfo::timestampMS()
   CODE:
@@ -571,8 +465,6 @@ wxLogRecordInfo::timestamp()
 RETVAL = int( THIS->timestampMS / 1000 );
   OUTPUT: RETVAL
 
-#endif
-  
 void
 StoreValue( ... )
   PPCODE:
@@ -625,6 +517,4 @@ wxLogRecordInfo::GetStrValue( key )
     } else {
         PUSHs( &PL_sv_undef );
     }
-
-#endif
 

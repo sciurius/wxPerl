@@ -52,12 +52,8 @@ wxControl::Command( event )
   CODE:
     THIS->Command( *event );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 wxString
 wxControl::GetLabelText()
-
-#endif
 
 INCLUDE_COMMAND: $^X -I./ -MExtUtils::XSpp::Cmd -e xspp -- -t typemap.xsp XS/Control.xsp
 

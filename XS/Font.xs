@@ -52,7 +52,7 @@ wxFont::new( ... )
   PPCODE:
     BEGIN_OVERLOAD()
         MATCH_REDISP( wxPliOvl_wfon, newFont )
-#if defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 5, 3 )     
+#if defined(__WXMSW__)
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wsiz_n_n_n_b_s_n, newSize, 4 )
 #endif
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_n_b_s_n, newLong, 4 )
@@ -92,17 +92,12 @@ newLong( CLASS, pointsize, family, style, weight, underline = false, faceName = 
     wxString faceName
     wxFontEncoding encoding
   CODE:
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-    RETVAL = new wxFont( pointsize, family, style, weight, underline,
-		         faceName, encoding );
-#else
     RETVAL = new wxFont( pointsize, (wxFontFamily)family, (wxFontStyle)style,
 			 (wxFontWeight)weight, underline,
 			 faceName, (wxFontEncoding)encoding );
-#endif
   OUTPUT: RETVAL
   
-#if defined(__WXMSW__) && WXPERL_W_VERSION_GE( 2, 5, 3 )     
+#if defined(__WXMSW__)
 
 wxFont*
 newSize( CLASS, size, family, style, weight, underline = false, faceName = wxEmptyString, encoding = wxFONTENCODING_DEFAULT )
@@ -134,16 +129,12 @@ void
 New( ... )
   PPCODE:
     BEGIN_OVERLOAD()
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )    
         MATCH_REDISP_COUNT_ALLOWMORE_FUNCTION( wxPliOvl_wsiz_n_n_n_b_s_n, Wx::Font::NewSizeStatic, 4 )
         MATCH_REDISP_COUNT_ALLOWMORE_FUNCTION( wxPliOvl_wsiz_n_n_s_n, Wx::Font::NewSizeFlagsStatic, 2 )
-#endif
         MATCH_REDISP_COUNT_ALLOWMORE_FUNCTION( wxPliOvl_n_n_n_n_b_s_n, Wx::Font::NewPointStatic, 4 )
         MATCH_REDISP_COUNT_ALLOWMORE_FUNCTION( wxPliOvl_n_n_n_s_n, Wx::Font::NewPointFlagsStatic, 2 )    
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )    
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wsiz_n_n_n_b_s_n, NewSize, 4 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_wsiz_n_n_s_n, NewSizeFlags, 2 )
-#endif
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_n_b_s_n, NewPoint, 4 )
         MATCH_REDISP_COUNT_ALLOWMORE( wxPliOvl_n_n_n_s_n, NewPointFlags, 2 )
     END_OVERLOAD( Wx::Font::New )
@@ -159,14 +150,9 @@ NewPoint( CLASS, pointsize, family, style, weight, underline = false, faceName =
     wxString faceName
     wxFontEncoding encoding
   CODE:
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-    RETVAL = new wxFont( pointsize, family, style, weight, underline,
-		         faceName, encoding );
-#else
     RETVAL = new wxFont( pointsize, family, (wxFontStyle)style,
 			 (wxFontWeight)weight, underline,
 			 faceName, encoding );
-#endif
   OUTPUT: RETVAL
   
 wxFont*
@@ -181,8 +167,6 @@ NewPointFlags( CLASS, pointsize, family, flags = wxFONTFLAG_DEFAULT, faceName = 
     RETVAL = wxFont::New( pointsize, family, flags, faceName, encoding );
   OUTPUT: RETVAL  
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 wxFont*
 NewSize( CLASS, size, family, style, weight, underline = false, faceName = wxEmptyString, encoding = wxFONTENCODING_DEFAULT )
     SV* CLASS
@@ -194,13 +178,9 @@ NewSize( CLASS, size, family, style, weight, underline = false, faceName = wxEmp
     wxString faceName
     wxFontEncoding encoding
   CODE:
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-    RETVAL = wxFont::New( size, family, style, weight, underline, faceName, encoding );
-#else
-RETVAL = wxFont::New( size, family, (wxFontStyle)style,
-		      (wxFontWeight)weight, underline, faceName,
-		      encoding );
-#endif
+    RETVAL = wxFont::New( size, family, (wxFontStyle)style,
+		          (wxFontWeight)weight, underline, faceName,
+		          encoding );
   OUTPUT: RETVAL
   
 wxFont*
@@ -215,8 +195,6 @@ NewSizeFlags( CLASS, size, family, flags = wxFONTFLAG_DEFAULT, faceName = wxEmpt
     RETVAL = wxFont::New( size, family, flags, faceName, encoding );
   OUTPUT: RETVAL  
 
-#endif
-
 wxFont*
 NewPointStatic( pointsize, family, style, weight, underline = false, faceName = wxEmptyString, encoding = wxFONTENCODING_DEFAULT )
     int pointsize
@@ -227,14 +205,9 @@ NewPointStatic( pointsize, family, style, weight, underline = false, faceName = 
     wxString faceName
     wxFontEncoding encoding
   CODE:
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-    RETVAL = new wxFont( pointsize, family, style, weight, underline,
-		         faceName, encoding );
-#else
     RETVAL = new wxFont( pointsize, family, (wxFontStyle)style,
 			 (wxFontWeight)weight, underline,
 			 faceName, encoding );
-#endif
   OUTPUT: RETVAL
   
 wxFont*
@@ -248,8 +221,6 @@ NewPointFlagsStatic( pointsize, family, flags = wxFONTFLAG_DEFAULT, faceName = w
     RETVAL = wxFont::New( pointsize, family, flags, faceName, encoding );
   OUTPUT: RETVAL  
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 wxFont*
 NewSizeStatic( size, family, style, weight, underline = false, faceName = wxEmptyString, encoding = wxFONTENCODING_DEFAULT )
     wxSize size
@@ -260,13 +231,9 @@ NewSizeStatic( size, family, style, weight, underline = false, faceName = wxEmpt
     wxString faceName
     wxFontEncoding encoding
   CODE:
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-    RETVAL = new wxFont( size, family, style, weight, underline, faceName, encoding );
-#else
     RETVAL = new wxFont( size, family, (wxFontStyle)style,
 			 (wxFontWeight)weight, underline,
 			 faceName, encoding );
-#endif
   OUTPUT: RETVAL
   
 wxFont*
@@ -279,8 +246,6 @@ NewSizeFlagsStatic( size, family, flags = wxFONTFLAG_DEFAULT, faceName = wxEmpty
   CODE:
     RETVAL = wxFont::New( size, family, flags, faceName, encoding );
   OUTPUT: RETVAL  
-
-#endif
 
 static void
 wxFont::CLONE()
@@ -330,20 +295,11 @@ wxFont::GetFaceName()
 int
 wxFont::GetFamily()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 wxNativeFontInfo*
 wxFont::GetNativeFontInfo()
   CODE:
     RETVAL = new wxNativeFontInfo( *(THIS->GetNativeFontInfo()) );
   OUTPUT: RETVAL
-
-#else
-
-wxNativeFontInfo*
-wxFont::GetNativeFontInfo()
-
-#endif
 
 void
 wxFont::SetNativeFontInfoUserDesc( info )
@@ -364,16 +320,12 @@ wxFont::GetNativeFontInfoDesc()
 wxString
 wxFont::GetNativeFontInfoUserDesc()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 wxSize*
 wxFont::GetPixelSize()
   CODE:
     RETVAL = new wxSize( THIS->GetPixelSize() );
   OUTPUT:
     RETVAL
-    
-#endif    
     
 wxFontEncoding
 wxFont::GetEncoding()
@@ -396,12 +348,8 @@ wxFont::IsFixedWidth()
 bool
 wxFont::Ok()
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 wxFont::IsOk()
-
-#endif
 
 void
 SetDefaultEncoding( encoding )
@@ -409,33 +357,17 @@ SetDefaultEncoding( encoding )
   CODE:
     wxFont::SetDefaultEncoding( encoding );
 
-#if WXPERL_W_VERSION_GE( 2, 7, 0 )
-
 bool
 wxFont::SetFaceName( faceName )
     wxString faceName
-
-#else
-
-void
-wxFont::SetFaceName( faceName )
-    wxString faceName
-
-#endif
 
 void
 wxFont::SetEncoding( encoding )
     wxFontEncoding encoding
 
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-void
-wxFont::SetFamily( family )
-    int family
-#else
 void
 wxFont::SetFamily( family )
     wxFontFamily family
-#endif
 
 void
 wxFont::SetNativeFontInfo( info )
@@ -443,41 +375,25 @@ wxFont::SetNativeFontInfo( info )
   CODE:
     THIS->SetNativeFontInfo( info );
 
-#if WXPERL_W_VERSION_GE( 2, 5, 3 )
-
 void
 wxFont::SetPixelSize( pixelsize )
     wxSize pixelsize
     
 bool
 wxFont::IsUsingSizeInPixels()    
-    
-#endif    
 
 void
 wxFont::SetPointSize( pointsize )
     int pointsize
 
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-void
-wxFont::SetStyle( style )
-    int style
-#else
 void
 wxFont::SetStyle( style )
     wxFontStyle style
-#endif
 
 void
 wxFont::SetUnderlined( underlined )
     bool underlined
 
-#if WXPERL_W_VERSION_LT( 3, 2, 0 )
-void
-wxFont::SetWeight( weight )
-    int weight
-#else
 void
 wxFont::SetWeight( weight )
     wxFontWeight weight
-#endif

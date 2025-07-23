@@ -25,12 +25,8 @@ wxPrintPreview::Destroy()
   CODE:
     delete THIS;
 
-#if WXPERL_W_VERSION_GE( 2, 7, 2 )
-
 bool
 wxPrintPreview::IsOk()
-
-#endif
 
 wxWindow*
 wxPrintPreview::GetCanvas()
@@ -56,41 +52,19 @@ wxPrintPreview::GetPrintoutForPrinting()
 bool
 wxPrintPreview::Ok()
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 bool
 wxPrintPreview::PaintPage( canvas, dc )
     wxPreviewCanvas* canvas
     wxDC* dc
   C_ARGS: canvas, *dc
 
-#else
-
-bool
-wxPrintPreview::PaintPage( window, dc )
-    wxWindow* window
-    wxDC* dc
-  C_ARGS: window, *dc
-
-#endif
-
 bool
 wxPrintPreview::Print( prompt )
     bool prompt
 
-#if WXPERL_W_VERSION_GE( 2, 5, 1 )
-
 void
 wxPrintPreview::SetCanvas( canvas )
     wxPreviewCanvas* canvas
-
-#else
-
-void
-wxPrintPreview::SetCanvas( window )
-    wxWindow* window
-
-#endif
 
 void
 wxPrintPreview::SetCurrentPage( pageNum )

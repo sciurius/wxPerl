@@ -80,17 +80,10 @@ wxGenericMDIClientWindow*
 wxMDIParentFrame::GetClientWindow()
 
 #else
-#if WXPERL_W_VERSION_GE( 2, 9, 0 )
 
 wxMDIClientWindowBase*
 wxMDIParentFrame::GetClientWindow()
 
-#else
-
-wxMDIClientWindow*
-wxMDIParentFrame::GetClientWindow()
-
-#endif
 #endif
 
 #if ( !defined(__WXGTK__) && !defined(__WXMAC__) && !defined(__WXMOTIF__) ) \
@@ -105,18 +98,8 @@ wxMDIParentFrame::SetWindowMenu( menu )
 
 #endif
 
-#if WXPERL_W_VERSION_GE( 2, 5, 4 )
-
 void
 wxMDIParentFrame::Tile( orient = wxHORIZONTAL )
     wxOrientation orient
-
-#else
-
-
-void
-wxMDIParentFrame::Tile()
-
-#endif
 
 #endif
