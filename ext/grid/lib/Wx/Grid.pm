@@ -62,22 +62,41 @@ package Wx::GridTableBase;
 package Wx::PlGridTable; @ISA = qw(Wx::GridTableBase);
 
 package Wx::Event;
-# allow 2.8 / 2.9 event name changes compatibility
-if(defined(&Wx::Event::EVT_GRID_CELL_CHANGED)) {
-  *Wx::Event::EVT_GRID_CELL_CHANGE = \&Wx::Event::EVT_GRID_CELL_CHANGED;
-  *Wx::Event::EVT_GRID_CMD_CELL_CHANGE = \&Wx::Event::EVT_GRID_CMD_CELL_CHANGED;
-} else {
-  *Wx::Event::EVT_GRID_CELL_CHANGED = \&Wx::Event::EVT_GRID_CELL_CHANGE;
-  *Wx::Event::EVT_GRID_CMD_CELL_CHANGED = \&Wx::Event::EVT_GRID_CMD_CELL_CHANGE;
+
+# Allow 2.8 / 2.9 event name changes compatibility
+if ( !defined &Wx::Event::EVT_GRID_CELL_CHANGE ) {
+    *Wx::Event::EVT_GRID_CELL_CHANGE = \&Wx::Event::EVT_GRID_CELL_CHANGED;
+    push( @Wx::Event::EXPORT_OK, 'EVT_GRID_CELL_CHANGE' );
 }
-# allow 3.2 event name changes compatibility
-if ( defined &Wx::Event::EVT_GRID_RANGE_SELECTED ) {
-  *Wx::Event::EVT_GRID_RANGE_SELECT = \&Wx::Event::EVT_GRID_RANGE_SELECTED;
-  *Wx::Event::EVT_GRID_CMD_RANGE_SELECT = \&Wx::Event::EVT_GRID_CMD_RANGE_SELECTED;
+elsif ( !defined &Wx::Event::EVT_GRID_CELL_CHANGED ) {
+    *Wx::Event::EVT_GRID_CELL_CHANGED = \&Wx::Event::EVT_GRID_CELL_CHANGE;
+    push( @Wx::Event::EXPORT_OK, 'EVT_GRID_CELL_CHANGED' );
 }
-else {
-  *Wx::Event::EVT_GRID_CHANGE_SELECTED = \&Wx::Event::EVT_GRID_RANGE_SELECT;
-  *Wx::Event::EVT_GRID_CMD_RANGE_SELECTED = \&Wx::Event::EVT_GRID_CMD_RANGE_SELECT;
+if ( !defined &Wx::Event::EVT_GRID_CMD_CELL_CHANGE ) {
+    *Wx::Event::EVT_GRID_CMD_CELL_CHANGE = \&Wx::Event::EVT_GRID_CMD_CELL_CHANGED;
+    push( @Wx::Event::EXPORT_OK, 'EVT_GRID_CMD_CELL_CHANGE' );
+}
+elsif ( !defined &Wx::Event::EVT_GRID_CMD_CELL_CHANGED ) {
+    *Wx::Event::EVT_GRID_CMD_CELL_CHANGED = \&Wx::Event::EVT_GRID_CMD_CELL_CHANGE;
+    push( @Wx::Event::EXPORT_OK, 'EVT_GRID_CMD_CELL_CHANGED' );
+}
+
+# Allow 3.2 event name changes compatibility
+if ( !defined &Wx::Event::EVT_GRID_RANGE_SELECT ) {
+    *Wx::Event::EVT_GRID_RANGE_SELECT = \&Wx::Event::EVT_GRID_RANGE_SELECTED;
+    push( @Wx::Event::EXPORT_OK, 'EVT_GRID_RANGE_SELECT' );
+}
+elsif ( !defined &Wx::Event::EVT_GRID_RANGE_SELECTED ) {
+    *Wx::Event::EVT_GRID_CHANGE_SELECTED = \&Wx::Event::EVT_GRID_RANGE_SELECT;
+    push( @Wx::Event::EXPORT_OK, 'EVT_GRID_RANGE_SELECTED' );
+}
+if ( !defined &Wx::Event::EVT_GRID_CMD_RANGE_SELECT ) {
+    *Wx::Event::EVT_GRID_CMD_RANGE_SELECT = \&Wx::Event::EVT_GRID_CMD_RANGE_SELECTED;
+    push( @Wx::Event::EXPORT_OK, 'EVT_GRID_CMD_RANGE_SELECT' );
+}
+elsif ( !defined &Wx::Event::EVT_GRID_CMD_RANGE_SELECTED ) {
+    *Wx::Event::EVT_GRID_CMD_RANGE_SELECTED = \&Wx::Event::EVT_GRID_CMD_RANGE_SELECT;
+    push( @Wx::Event::EXPORT_OK, 'EVT_GRID_CMD_RANGE_SELECTED' );
 }
 
 package Wx::Grid;

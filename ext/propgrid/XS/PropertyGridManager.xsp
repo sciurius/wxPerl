@@ -53,7 +53,7 @@ public:
 
     void ClearPage( int page );
 
-    bool CommitChangesFromEditor( wxPGSelectPropertyFlags flags = wxPGSelectPropertyFlags::Null );
+    bool CommitChangesFromEditor( wxPGSelectPropertyFlags flags = wxPGSelectPropertyFlags_Null );
 
     bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
                  const wxPoint& pos = wxDefaultPosition,
