@@ -51,7 +51,6 @@ jobs:
       - name: Install wxPerl
         run: |
           perl Makefile.PL
-          cpanm --sudo --installdeps --notest .
-          make || cat $HOME/.cpanm/build.log
-          
+          cpanm --sudo --installdeps --notest . || cat $HOME/.cpanm/build.log
+          make
 

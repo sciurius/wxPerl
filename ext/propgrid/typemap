@@ -101,7 +101,6 @@ wxPGKeyboardAction       T_ENUM_CLASS
 wxPGSelectPropertyFlags  T_ENUM_CLASS
 wxPGFlags                T_ENUM_CLASS
 wxPGSetValueFlags        T_ENUM_CLASS
-wxPGSelectPropertyFlags  T_ENUM_CLASS
 
 INPUT
 T_ENUM_CLASS

@@ -14,6 +14,8 @@
 
 #if wxUSE_PROPGRID
 
+#include "cpp/propgrid_compat.h"
+
 %loadplugin{build::Wx::XSP::Overload};
 
 %name{Wx::PropertyGridHitTestResult} class wxPropertyGridHitTestResult 
@@ -82,7 +84,7 @@ public:
     %name{IsPropertySelectedString} virtual bool IsPropertySelected( wxString& id ) const %Overload; /* %Virtual; */
     %name{IsPropertySelectedProperty} virtual bool IsPropertySelected( wxPGProperty* id ) const %Overload; /* %Virtual; */
 
-    virtual bool CommitChangesFromEditor( wxPGSelectPropertyFlags flags = wxPGSelectPropertyFlags::Null ); /* %Virtual; */
+    virtual bool CommitChangesFromEditor( wxPGSelectPropertyFlags flags = wxPGSelectPropertyFlags_Null ); /* %Virtual; */
 
     bool Create( wxWindow *parent, wxWindowID id = wxID_ANY,
                 const wxPoint& pos = wxDefaultPosition,
@@ -158,7 +160,7 @@ public:
 
     const wxPGCell& GetUnspecifiedValueAppearance() const;
 
-    wxString GetUnspecifiedValueText( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    wxString GetUnspecifiedValueText( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     int GetVerticalSpacing() const;
 

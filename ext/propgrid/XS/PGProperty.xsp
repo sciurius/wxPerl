@@ -14,6 +14,8 @@
 
 #if wxUSE_PROPGRID
 
+#include "cpp/propgrid_compat.h"
+
 ## DECLARE_OVERLOAD( wpgc, Wx::PGChoices )
 
 %loadplugin{build::Wx::XSP::Overload};
@@ -32,7 +34,7 @@ public:
     int GetTextExtent( const wxWindow* wnd, const wxFont& font ) const;
 
     virtual wxString ValueToString( wxVariant value, wxPGPropValFormatFlags argFlags ) const;
-    virtual wxString GetValueAsString( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString GetValueAsString( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
 };
 
@@ -75,13 +77,13 @@ public:
     virtual bool ValidateValue( wxVariant& value, wxPGValidationInfo& validationInfo ) const; /* %Virtual; */
 
     virtual wxString ValueToString( wxVariant& value,
-        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const; /* %Virtual; */
+        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const; /* %Virtual; */
     
     bool SetValueFromString( const wxString& text,
-        wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::Null );
+        wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_Null );
 
     bool SetValueFromInt( long value,
-        wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::Null );
+        wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_Null );
 
     /* TODO
     virtual bool StringToValue( wxVariant& variant, const wxString& text, int argFlags = 0 ) const;
@@ -209,14 +211,14 @@ public:
 
     wxBitmap* GetValueImage() const;
 
-    virtual wxString GetValueAsString( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const; /* %Virtual; */
+    virtual wxString GetValueAsString( wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const; /* %Virtual; */
 
     wxString GetValueType() const;
 
     int GetY() const;
 
     wxUint32 HasFlag( wxPGFlags flag ) const;
-    bool Hide( bool hide, wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse );
+    bool Hide( bool hide, wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags_Recurse );
 
     bool HasVisibleChildren() const;
 
@@ -251,7 +253,7 @@ public:
     void SetAutoUnspecified( bool enable = true );
 
     void SetBackgroundColour( const wxColour& colour,
-                              wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse );
+                              wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags_Recurse );
 
     %name{SetEditorEditor} void SetEditor( const wxPGEditor__parsed_nodelete* editor ) %Overload;
 
@@ -282,10 +284,10 @@ public:
     void SetParentalType( wxPGFlags flag );
 
     void SetTextColour( const wxColour& colour,
-                        wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags::Recurse );
+                        wxPGPropertyValuesFlags flags = wxPGPropertyValuesFlags_Recurse );
 
     void SetValue( wxVariant value, wxVariant* pList = NULL,
-                   wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor );
+                   wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor );
 
     void SetValidator( const wxValidator& validator );
 
@@ -313,11 +315,11 @@ public:
                       const wxString& value = wxEmptyString );
         
     virtual wxString ValueToString( wxVariant& value,
-        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
     
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+        wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
 
@@ -325,11 +327,11 @@ public:
 
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValueAsString( flags ); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
       wxVariant variant(THIS->GetValueRef());
       RETVAL = THIS->StringToValue( variant, text );
@@ -370,14 +372,14 @@ public:
                    const wxString& name = wxPG_LABEL,
                    long value = 0 );
         
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
     virtual bool IntToValue( wxVariant& variant,
                              int number,
-                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool ValidateValue( wxVariant& value,
                                 wxPGValidationInfo& validationInfo ) const;
@@ -386,11 +388,11 @@ public:
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValueAsString( flags ); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
       wxVariant variant(THIS->GetValueRef());
       RETVAL = THIS->StringToValue( variant, text );
@@ -415,14 +417,14 @@ public:
                     const wxString& name,
                     wxULongLong_t value );
     
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
     virtual bool IntToValue( wxVariant& variant,
                              int number,
-                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
     
@@ -433,11 +435,11 @@ public:
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValueAsString( flags ); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
       wxVariant variant(THIS->GetValueRef());
       RETVAL = THIS->StringToValue( variant, text );
@@ -455,11 +457,11 @@ public:
                      const wxString& name = wxPG_LABEL,
                      double value = 0.0 );
     
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
     
@@ -472,11 +474,11 @@ public:
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValueAsString( flags ); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
       wxVariant variant(THIS->GetValueRef());
       RETVAL = THIS->StringToValue( variant, text );
@@ -495,24 +497,24 @@ public:
                     const wxString& name = wxPG_LABEL,
                     bool value = false );
     
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
     virtual bool IntToValue( wxVariant& variant,
                              int number,
-                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    bool GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    bool GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% THIS->GetValue().GetBool(); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( bool val, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( bool val, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{% THIS->SetValue( val, NULL, flags );
               RETVAL = true;
       %};
@@ -557,18 +559,18 @@ wxEnumProperty::new( ... )
     virtual bool ValidateValue( wxVariant& value,
                                 wxPGValidationInfo& validationInfo ) const;
 
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     // If wxPG_FULL_VALUE is not set in flags, then the value is interpreted
     // as index to choices list. Otherwise, it is actual value.
     virtual bool IntToValue( wxVariant& variant,
                              int number,
-                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     // This must be overridden to have non-index based value
     virtual int GetIndexForValue( int value ) const;
@@ -583,10 +585,10 @@ wxEnumProperty::new( ... )
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    long GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    long GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValue().GetLong(); %};
 
-    bool SetPlValue( long val, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( long val, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{% THIS->SetValue( val, NULL, flags );
               RETVAL = true;
       %};
@@ -626,10 +628,10 @@ wxEditEnumProperty::new( ... )
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    long GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    long GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValue().GetLong(); %};
 
-    bool SetPlValue( long val, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( long val, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{% THIS->SetValue( val, NULL, flags );
               RETVAL = true;
       %};
@@ -669,11 +671,11 @@ wxFlagsProperty::new( ... )
 
     virtual void OnSetValue();
     
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual wxVariant ChildChanged( wxVariant& thisValue,
                                     int childIndex,
@@ -694,10 +696,10 @@ wxFlagsProperty::new( ... )
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    long GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    long GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValue().GetLong(); %};
 
-    bool SetPlValue( long val, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( long val, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
         THIS->SetValue( val, NULL, flags );
         RETVAL = true;
@@ -742,11 +744,11 @@ public:
 
     virtual void OnSetValue();
 
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual wxPGEditorDialogAdapter* GetEditorDialog() const;
     virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
@@ -762,11 +764,11 @@ public:
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValueAsString( flags ); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
       wxVariant variant(THIS->GetValueRef());
       RETVAL = THIS->StringToValue( variant, text );
@@ -786,22 +788,22 @@ public:
                           const wxString& name = wxPG_LABEL,
                           const wxString& value = wxEmptyString );
 
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool OnEvent( wxPropertyGrid* propgrid,
                           wxWindow* primary, wxEvent& event );
 
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValueAsString( flags ); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
       wxVariant variant(THIS->GetValueRef());
       RETVAL = THIS->StringToValue( variant, text );
@@ -824,11 +826,11 @@ public:
 
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValueAsString( flags ); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
       wxVariant variant(THIS->GetValueRef());
       RETVAL = THIS->StringToValue( variant, text );
@@ -850,11 +852,11 @@ public:
 
     virtual void OnSetValue();
 
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool OnEvent( wxPropertyGrid* propgrid,
                           wxWindow* primary, wxEvent& event );
@@ -888,7 +890,7 @@ public:
 
 /* TODO - FIXME - novice stack issues
 void
-wxArrayStringProperty::GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+wxArrayStringProperty::GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
   PPCODE:
     PUTBACK;
     wxPli_stringarray_push( aTHX_ THIS->GetValue().GetArrayString() );
@@ -898,7 +900,7 @@ wxArrayStringProperty::GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFor
 %{
 
 bool
-wxArrayStringProperty::SetPlValue( SV* arr, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+wxArrayStringProperty::SetPlValue( SV* arr, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
   CODE:
     wxVariant var = wxPli_sv_2_wxvariant( aTHX_ arr );
     if( var.IsNull() ) {
@@ -1082,7 +1084,7 @@ public:
     
     virtual void OnSetValue();
     
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool OnEvent( wxPropertyGrid* propgrid,
                           wxWindow* primary, wxEvent& event );
@@ -1095,14 +1097,14 @@ public:
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxFont* GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxFont* GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{%
             wxAny value = THIS->GetValue();
             wxFont font = wxANY_AS(value, wxFont);
             RETVAL = new wxFont( font );
       %};
 
-    bool SetPlValue( wxFont* font, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( wxFont* font, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
         if( font->IsOk() ) {
             wxVariant value = wxVariant(*font);
@@ -1128,17 +1130,17 @@ public:
 
     virtual void OnSetValue();
 
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
     virtual bool IntToValue( wxVariant& variant,
                              int number,
-                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual wxString ColourToString( const wxColour& col, int index,
-                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                             wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual int GetCustomColourIndex() const;
 
@@ -1165,14 +1167,14 @@ public:
     
     /************** Begin wxPerl Methods ***********************************************/
 
-    wxColourPropertyValue* GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxColourPropertyValue* GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{%
             wxAny value = THIS->GetValue();
             wxColourPropertyValue col = wxANY_AS(value, wxColourPropertyValue);
             RETVAL = new wxColourPropertyValue( col );
       %};
 
-    bool SetPlValue( wxColourPropertyValue* col, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( wxColourPropertyValue* col, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
             wxVariant value = wxVariant(*col);
             THIS->SetValue(value, NULL, flags );
@@ -1193,20 +1195,20 @@ public:
                       const wxString& name,
                       wxColour& value );
 
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual wxColour GetColour( int index ) const;
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxColour* GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxColour* GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{%
             wxAny value = THIS->GetValue();
             wxColour col = wxANY_AS(value, wxColour);
             RETVAL = new wxColour( col );
       %};
 
-    bool SetPlValue( wxColour* col, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( wxColour* col, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
             if( col->IsOk() ) {
                 wxVariant value = wxVariant(wxAny(*col));
@@ -1243,10 +1245,10 @@ public:
     */
     /************** Begin wxPerl Methods ***********************************************/
     
-    long GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    long GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValue().GetLong(); %};
 
-    bool SetPlValue( long newval, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( long newval, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
         THIS->SetValue( newval, NULL, flags );
         RETVAL = true;
@@ -1276,11 +1278,11 @@ public:
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxString GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{% RETVAL = THIS->GetValueAsString( flags ); %};
 
     /* The legacy code is wrong, SetValueFromString takes wxPGPropValFormatFlags, not wxPGSetValueFlags */
-    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( const wxString& text, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
       wxVariant variant(THIS->GetValueRef());
       RETVAL = THIS->StringToValue( variant, text );
@@ -1329,11 +1331,11 @@ wxMultiChoiceProperty::new( ... )
 
     virtual void OnSetValue();
  
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool OnEvent( wxPropertyGrid* propgrid,
                           wxWindow* primary, wxEvent& event );
@@ -1354,7 +1356,7 @@ wxMultiChoiceProperty::GetPlValue( int flags = wxPG_FULL_VALUE )
 %{
 
 bool
-wxMultiChoiceProperty::SetPlValue( SV* arr, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+wxMultiChoiceProperty::SetPlValue( SV* arr, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
   CODE:
     wxVariant var = wxPli_sv_2_wxvariant( aTHX_ arr );
     if( var.IsNull() ) {
@@ -1387,11 +1389,11 @@ public:
 
     virtual void OnSetValue();
 
-    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+    virtual wxString ValueToString( wxVariant& value, wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool StringToValue( wxVariant& variant,
                                 const wxString& text,
-                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags::Null ) const;
+                                wxPGPropValFormatFlags argFlags = wxPGPropValFormatFlags_Null ) const;
 
     virtual bool DoSetAttribute( const wxString& name, wxVariant& value );
 
@@ -1406,7 +1408,7 @@ public:
     
     /************** Begin wxPerl Methods ***********************************************/
     
-    wxDateTime* GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags::FullValue )
+    wxDateTime* GetPlValue( wxPGPropValFormatFlags flags = wxPGPropValFormatFlags_FullValue )
       %code{%
         wxVariant var = wxVariant( THIS->GetValue() );
         if ( var.IsNull() ) {
@@ -1416,7 +1418,7 @@ public:
         }
       %};
 
-    bool SetPlValue( wxDateTime* value, wxPGSetValueFlags flags = wxPGSetValueFlags::RefreshEditor )
+    bool SetPlValue( wxDateTime* value, wxPGSetValueFlags flags = wxPGSetValueFlags_RefreshEditor )
       %code{%
          THIS->SetValue( value, NULL, flags );
          RETVAL = true;
