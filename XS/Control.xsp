@@ -4,10 +4,8 @@
 %module{Wx};
 
 %{
+#include <wx/dc.h>
 #include <wx/gdicmn.h>
-#if WXPERL_W_VERSION_LT( 3, 3, 0 )
-# define wxReadOnlyDC wxDC
-#endif
 %}
 
 %typemap{wxEllipsizeMode}{simple};
@@ -15,7 +13,11 @@
 %name{Wx::Control} class wxControl
 {
 
-    static wxString Ellipsize( wxString label, const wxReadOnlyDC& dc,
-    	   	    	       wxEllipsizeMode mode, int maxWidth, int flags );
+// Ellipsize takes a const wxReadOnlyDC& as second arg.
+// wxPerl does not know wxReadOnlyDC yet, so use wxDC instead.
+// wxDC is derived from wxReadOnlyDC.
 
+static wxString
+Ellipsize( wxString label, const wxDC& dc,
+	   wxEllipsizeMode mode, int maxWidth, int flags );
 };

@@ -1,5 +1,10 @@
 Revision history for Perl extension Wx.
 
+0.000
+
+    - Fix bug that causes Control::Ellipsize to crash on
+      "variable is not of type Wx::ReadOnlyDC" (wx 3.3.1+).
+
 3.006 2025-07-24
 
     - Eliminate Wx version #if/else/endif from all .xsp and most .xs files.
