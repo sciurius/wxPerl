@@ -20,7 +20,7 @@ jobs:
           brew install cpanm
           cpanm Net::SSLeay --notest
           cpanm ExtUtils::XSpp Module::Pluggable LWP LWP::Protocol::https
-          cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.71.tar.gz
+          cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.71.tar.gz || cat $HOME/.cpanm/build.log
           perl -MAlien::wxWidgets -e 'Alien::wxWidgets->libraries(qw(stc media webview propgrid ribbon aui xrc qa html))'
           cpanm --installdeps --notest .
       - name: Build wxPerl
