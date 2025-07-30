@@ -270,6 +270,7 @@ ext/print/XS/Printer.xs
 ext/print/XS/PrintFactory.xsp
 ext/print/XS/Printout.xs
 ext/print/XS/PrintPreview.xs
+ext/propgrid/cpp/propgrid_compat.h
 ext/propgrid/cpp/propgrid_constants.cpp
 ext/propgrid/cpp/propgrid_declares.h
 ext/propgrid/lib/Wx/PropertyGrid.pm

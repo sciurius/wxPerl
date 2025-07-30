@@ -12,7 +12,7 @@ our $alien_key = 'XXXALIENXXX';
     $Wx::dlls = XXXDLLSXXX;
 }
 
-$VERSION = '3.006'; # bootstrap will catch wrong versions
+$VERSION = '3.007'; # bootstrap will catch wrong versions
 $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 
