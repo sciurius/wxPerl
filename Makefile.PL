@@ -44,7 +44,7 @@ wxWriteMakefile(
 	VERSION_FROM     => 'Wx.pm',
 	AUTHOR           => $moduleauthor,
 	PREREQ_PM        => {
-        'Alien::wxWidgets'       => 0.69,
+#        'Alien::wxWidgets'       => 0.69,
         'ExtUtils::XSpp'         => 0.1602,
         'ExtUtils::MakeMaker'    => 6.46,
         'ExtUtils::ParseXS'      => 3.15,
@@ -60,10 +60,10 @@ wxWriteMakefile(
 	META_ADD => {
         dynamic_config => 1,
         configure_requires => {
-            'Alien::wxWidgets'    => 0.69,
+#            'Alien::wxWidgets'    => 0.69,
         },
         build_requires => {
-            'Alien::wxWidgets'    => 0.69,
+#            'Alien::wxWidgets'    => 0.69,
             'ExtUtils::MakeMaker' => 6.48,
             'ExtUtils::XSpp'      => 0.18,
             'Test::More'          => 0.42,
@@ -74,7 +74,7 @@ wxWriteMakefile(
             'if'                  => 0.03,
         },
         requires => {
-            'Alien::wxWidgets'    => 0.69,
+#            'Alien::wxWidgets'    => 0.69,
         },
         resources => {
             'license'       => 'http://dev.perl.org/licenses/',

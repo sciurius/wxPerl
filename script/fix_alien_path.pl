@@ -28,7 +28,7 @@ $Alien::wxWidgets::dont_remap = 1;
 my( $from, $to ) = @ARGV;
 my $key = Alien::wxWidgets->key;
 my $version = Alien::wxWidgets->version;
-my @libs = Alien::wxWidgets->library_keys;
+my @libs = qw(xrc webview stc richtext ribbon propgrid aui gl html qa adv core xml net base);#Alien::wxWidgets->library_keys;
 my %libs; @libs{@libs} = Alien::wxWidgets->shared_libraries( @libs );
 my $libs = Data::Dumper::Dumper( \%libs );
 

@@ -1,3 +1,4 @@
+build/Wx/build/Alien/wxWidgets.pm
 build/Wx/build/MakeMaker.pm
 build/Wx/build/MakeMaker/Any_OS.pm
 build/Wx/build/MakeMaker/Any_wx_config.pm
