@@ -17,6 +17,8 @@ jobs:
 
       - name: Set up wxWidgets
         run: |
+          brew install wxwidgets@3.2
+          wx-config --list
           wx-config --version --release --version-full
 
       - name: Install Dependencies
