@@ -20,7 +20,6 @@ jobs:
           brew install cpanm
           cpanm Net::SSLeay --notest
           cpanm ExtUtils::XSpp Module::Pluggable LWP LWP::Protocol::https
-          cpanm --installdeps --notest .
       - name: Build wxPerl
         run: |
           perl Makefile.PL

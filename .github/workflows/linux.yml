@@ -32,7 +32,6 @@ jobs:
             liblwp-protocol-https-perl 
           sudo cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.71.tar.gz
           perl -MAlien::wxWidgets -e 'Alien::wxWidgets->libraries(qw(stc media webview propgrid ribbon aui xrc qa html))'
-          cpanm --installdeps --notest .
       - name: Make, but do not run tests
         run: |
           perl Makefile.PL
