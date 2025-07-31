@@ -21,6 +21,8 @@ use vars qw(@ISA $VERSION $XS_VERSION $AUTOLOAD @EXPORT_OK %EXPORT_TAGS
 $_msw = 1; $_gtk = 2; $_motif = 3; $_mac = 4; $_x11 = 5;
 
 @ISA = qw(Exporter);
+
+# VERSION must match Wx::Mini.
 $VERSION = '3.007';
 $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;
