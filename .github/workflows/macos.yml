@@ -4,6 +4,9 @@ on:
   push:
     branches: master
 
+env:
+  WXV: 3.2
+
 jobs:
   macOS:
     runs-on: macOS-latest
@@ -17,19 +20,26 @@ jobs:
 
       - name: Set up wxWidgets
         run: |
-          brew install wxwidgets@3.2
-          wx-config-3.2 --list
-          wx-config-3.2 --version --release --version-full
+          brew install wxwidgets@$WXV
 
       - name: Install Dependencies
         run: |
           brew install cpanm
           cpanm Net::SSLeay --notest
           cpanm ExtUtils::XSpp Module::Pluggable LWP LWP::Protocol::https
-          cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.72.tar.gz || cat $HOME/.cpanm/build.log
+
+      - name: Install Alien::wxWidgets
+        run: |
+          curl -o awx.tgz -L
+        https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.72.tar.gz
+          tar xf awx.tgz
+          cd Alien-wxWidgets-0.72
+          perl Build.PL --wxWidgets-build=0
           perl -MAlien::wxWidgets -e 'Alien::wxWidgets->libraries(qw(stc media webview propgrid ribbon aui xrc qa html))'
 
       - name: Build wxPerl
         run: |
+          wx-config-$WXV --list
+          wx-config-$WXV --version --release --version-full
           perl Makefile.PL
           make
