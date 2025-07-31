@@ -30,8 +30,7 @@ jobs:
 
       - name: Install Alien::wxWidgets
         run: |
-          curl -o awx.tgz -L
-        https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.72.tar.gz
+          curl -o awx.tgz -L https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.72.tar.gz
           tar xf awx.tgz
           cd Alien-wxWidgets-0.72
           perl Build.PL --wxWidgets-build=0
