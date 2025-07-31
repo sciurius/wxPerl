@@ -7,7 +7,7 @@ on:
 env:
   WXV: 3.2
   AWV: 0.71
-  WX_CONFIG: wx-config-$WXV 
+  WX_CONFIG: wx-config-3.2 
 
 jobs:
   macOS:
