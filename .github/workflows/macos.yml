@@ -8,13 +8,17 @@ jobs:
   macOS:
     runs-on: macOS-latest
     steps:
+
       - name: Check out repository code
         uses: actions/checkout@v4
+
       - name: perl -V
         run: perl -V
+
       - name: Set up wxWidgets
         run: |
-          brew install wxwidgets@3.2
+          wx-config --version --release --version-full
+
       - name: Install Dependencies
         run: |
           brew install cpanm
@@ -22,7 +26,7 @@ jobs:
           cpanm ExtUtils::XSpp Module::Pluggable LWP LWP::Protocol::https
           cpanm https://github.com/sciurius/perl-Alien-wxWidgets/releases/download/R0.71/Alien-wxWidgets-0.72.tar.gz || cat $HOME/.cpanm/build.log
           perl -MAlien::wxWidgets -e 'Alien::wxWidgets->libraries(qw(stc media webview propgrid ribbon aui xrc qa html))'
-          cpanm --installdeps --notest .
+
       - name: Build wxPerl
         run: |
           perl Makefile.PL

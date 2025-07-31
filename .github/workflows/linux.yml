@@ -2,7 +2,7 @@ name: Build on Ubuntu
 
 on:
   push:
-    branches: master
+    branches: none
 
 jobs:
   linux:
