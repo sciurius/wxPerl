@@ -5,7 +5,6 @@ on:
     branches: master
 
 env:
-  WXV: 3.2
   AWV: 0.71
   WX_CONFIG: wx-config-3.2 
 
@@ -22,7 +21,7 @@ jobs:
 
       - name: Set up wxWidgets
         run: |
-          brew install wxwidgets@$WXV
+          brew install wxwidgets
 
       - name: Install Dependencies
         run: |
@@ -44,7 +43,7 @@ jobs:
 
       - name: Build wxPerl
         run: |
-          wx-config-$WXV --list
-          wx-config-$WXV --version --release --version-full
+          wx-config --list
+          wx-config --version --release --version-full
           perl Makefile.PL
           make
