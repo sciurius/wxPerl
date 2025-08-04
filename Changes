@@ -1,11 +1,14 @@
 Revision history for Perl extension Wx.
 
+3.008
+
+    - Remove MacCheckSpelling for Wx > 3.3.0.
+
 3.007 2025-07-30
 
     - Fix bug that causes Control::Ellipsize to crash on
       "variable is not of type Wx::ReadOnlyDC" (wx 3.3.1+).
     - Add missing ext/propgrid/propgrid_compat.h.
-    - Remove MacCheckSPelling for Wx > 3.3.0.
 
 3.006 2025-07-24
 
