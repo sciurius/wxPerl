@@ -1,6 +1,6 @@
 Revision history for Perl extension Wx.
 
-3.008
+3.008 2025-08-06
 
     - Remove MacCheckSpelling for Wx > 3.3.0.
 
