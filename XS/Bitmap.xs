@@ -187,9 +187,7 @@ wxBitmap::CopyFromIcon( icon )
   CODE:
     THIS->CopyFromIcon( *icon );
 
-#if defined( __WXMOTIF__ ) || \
-    defined( __WXMSW__ ) || \
-    defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 AddHandler( handler )
@@ -204,7 +202,7 @@ AddHandler( handler )
 
 #endif
 
-#if defined( __WXMOTIF__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXPERL_FORCE__ )
 
 wxBitmapHandler*
 FindHandlerName( name )
@@ -219,11 +217,7 @@ FindHandlerExtType( extension, type )
     wxString extension
     long type
   CODE:
-#if defined(__WXMOTIF__)
-    RETVAL = wxBitmap::FindHandler( extension, wxBitmapType(type) );
-#else
     RETVAL = wxBitmap::FindHandler( extension, type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -231,11 +225,7 @@ wxBitmapHandler*
 FindHandlerType( type )
     long type
   CODE:
-#if defined(__WXMOTIF__)
-    RETVAL = wxBitmap::FindHandler( wxBitmapType(type) );
-#else
     RETVAL = wxBitmap::FindHandler( type );
-#endif
   OUTPUT:
     RETVAL
 
@@ -244,8 +234,7 @@ FindHandlerType( type )
 int
 wxBitmap::GetDepth()
 
-#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) \
-    || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 GetHandlers()
@@ -284,7 +273,7 @@ wxBitmap::GetSubBitmap( rect )
   OUTPUT:
     RETVAL
 
-#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 InitStandardHandlers()
@@ -310,7 +299,7 @@ wxBitmap::Ok()
 bool
 wxBitmap::IsOk()
 
-#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 bool
 RemoveHandler( name )
@@ -333,7 +322,7 @@ wxBitmap::SetMask( mask )
   CODE:
     THIS->SetMask( mask );
 
-#if defined( __WXMOTIF__ ) || defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
+#if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
 void
 wxBitmap::SetPalette( palette )
