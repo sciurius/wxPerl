@@ -175,6 +175,8 @@ wxIcon::GetHeight()
 int
 wxIcon::GetWidth()
 
+#if WXPERL_W_VERSION_LT( 3, 3, 1 )
+
 void
 wxIcon::SetDepth( depth )
     int depth
@@ -186,5 +188,7 @@ wxIcon::SetHeight( height )
 void
 wxIcon::SetWidth( width )
     int width
+
+#endif
 
 #endif
