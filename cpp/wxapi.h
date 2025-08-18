@@ -153,6 +153,7 @@ inline CV* wxPli_newXS(pTHX_ const char* name, XSUBADDR_t addr,
 #undef ungetc
 #undef vform
 #undef vfprintf
+#undef wait
 #undef write
 #undef fgets
 #undef stdin
