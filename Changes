@@ -1,5 +1,12 @@
 Revision history for Perl extension Wx.
 
+3.009 2025-10-18
+
+    - Solve some more stdcall defines, this time the correct way.
+      Thanks to Leon for pointing me to the right approach.
+    - Do not include wxBitmap::GetHandlers with 3.3.1+ on Windows.
+      Can't get it to compile and don't feel like spending time on it.
+
 3.008 2025-08-06
 
     - Remove MacCheckSpelling for Wx > 3.3.0.
