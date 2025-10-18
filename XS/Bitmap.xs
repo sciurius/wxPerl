@@ -236,6 +236,8 @@ wxBitmap::GetDepth()
 
 #if defined( __WXMSW__ ) || defined( __WXPERL_FORCE__ )
 
+#if WXPERL_W_VERSION_LT( 3, 3, 1 )
+  
 void
 GetHandlers()
   PPCODE:
@@ -246,6 +248,8 @@ GetHandlers()
 
     for( node = list.GetFirst(); node; node = node->GetNext() )
       PUSHs( wxPli_object_2_sv( aTHX_ sv_newmortal(), node->GetData() ) );
+
+#endif
 
 #endif
 
