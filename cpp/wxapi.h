@@ -73,6 +73,7 @@ WXPL_EXTERN_C_START
 #endif 
 #endif
 
+#define NO_XSLOCKS
 #include <XSUB.h>
 WXPL_EXTERN_C_END
 
@@ -115,47 +116,6 @@ inline CV* wxPli_newXS(pTHX_ const char* name, XSUBADDR_t addr,
 #undef do_close
 #undef utf8_length
 #if defined( PERL_IMPLICIT_SYS )
-#undef abort
-#undef bind
-#undef calloc
-#undef clearerr
-#undef close
-#undef eof
-#undef exit
-#undef fclose
-#undef feof
-#undef ferror
-#undef fflush
-#undef fgetpos
-#undef fopen
-#undef form
-#undef fputc
-#undef fputs
-#undef fread
-#undef free
-#undef freopen
-#undef fseek
-#undef fsetpos
-#undef ftell
-#undef fwrite
-#undef getc
-#undef getenv
-#undef malloc
-#undef open
-#undef read
-#undef realloc
-#undef rename
-#undef seekdir
-#undef setbuf
-#undef setvbuf
-#undef tmpfile
-#undef tmpnam
-#undef ungetc
-#undef vform
-#undef vfprintf
-#undef wait
-#undef write
-#undef fgets
 #undef stdin
 #undef stdout
 #undef stderr
