@@ -50,7 +50,5 @@ jobs:
 
       - name: Install wxPerl
         run: |
-          perl Makefile.PL
-          cpanm --sudo --installdeps --notest . || cat $HOME/.cpanm/build.log
-          make
+          cpanm https://github.com/sciurius/wxPerl/releases/download/R${{ env.WXP }}/Wx-${{ env.WXP }}.tar.gz --notest
 
