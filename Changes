@@ -1,5 +1,9 @@
 Revision history for Perl extension Wx.
 
+3.010 2026-08-04
+
+    - Solve some compile problems due to stricter compilers and toolchains.
+
 3.009 2025-10-18
 
     - Solve some more stdcall defines, this time the correct way.

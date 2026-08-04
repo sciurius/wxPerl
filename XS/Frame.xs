@@ -13,6 +13,7 @@
 #include <wx/frame.h>
 #include <wx/menu.h>
 #include <wx/icon.h>
+#include <wx/toolbar.h>
 #if wxPERL_USE_MINIFRAME
 #include <wx/minifram.h>
 #endif

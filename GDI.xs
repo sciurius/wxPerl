@@ -14,6 +14,8 @@
 #define PERL_NO_GET_CONTEXT
 
 #include "cpp/wxapi.h"
+#include "cpp/overload.h"
+#include "cpp/streams.h"
 
 #undef THIS
 

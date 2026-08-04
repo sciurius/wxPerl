@@ -138,5 +138,7 @@ inline CV* wxPli_newXS(pTHX_ const char* name, XSUBADDR_t addr,
 // some helper functions/classes/macros
 #include "cpp/helpers.h"
 
+#include <wx/wx.h>
+
 // 0.01 -> 0010; 1.01 -> 1010, etc
 #define WXPL_API_VERSION 0150

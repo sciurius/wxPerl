@@ -45,9 +45,9 @@ wxWriteMakefile(
 	AUTHOR           => $moduleauthor,
 	PREREQ_PM        => {
         'Alien::wxWidgets'       => 0.69,
-        'ExtUtils::XSpp'         => 0.1602,
+        'ExtUtils::XSpp'         => 0.19,
         'ExtUtils::MakeMaker'    => 6.46,
-        'ExtUtils::ParseXS'      => 3.15,
+        'ExtUtils::ParseXS'      => 3.61,
         'File::Spec::Functions'  => 0.82,
         'Test::More'             => 0.45,
         'Test::Harness'          => 2.26,
