@@ -277,7 +277,11 @@ static wxPlINH inherit[] =
     I( Choice,          ControlWithItems )
     I( EditableListBox, Panel )
     I( ListBox,         ControlWithItems )
+#if WXPERL_W_VERSION_GE( 3, 3, 1 )
+    I( VListBox,        VScrolledCanvas )
+#else
     I( VListBox,        VScrolledWindow )
+#endif
     I( PlVListBox,      VListBox )
     I( BookCtrl,        Control )
     I( Notebook,        BookCtrl )
@@ -502,6 +506,9 @@ static wxPlINH inherit[] =
 
     I( ScrolledWindow,  GenericScrolledWindow )
     I( VScrolledWindow, Panel )
+#if WXPERL_W_VERSION_GE( 3, 3, 1 )
+    I( VScrolledCanvas, Window )
+#endif
     I( HScrolledWindow, Panel )
     I( HVScrolledWindow,Panel )
     I( PlVScrolledWindow,  VScrolledWindow )
