@@ -69,9 +69,10 @@ sub _parse_options {
                            'wx-mslu!'       => \($wx{mslu}),
                            'wx-version=s'   => \&_wx_version,
                            'wx-toolkit=s'   => \($wx{toolkit}),
-			   map { ( "enable-$_"  => \&_process_options,
+			   ( map { ( "enable-$_"  => \&_process_options,
 				   "disable-$_" => \&_process_options ) }
-			       @dirs
+			     @dirs ),
+			   '<>' => \&_process_options,
                          );
 
   @ARGV = @argv; @argv = ();
@@ -110,6 +111,11 @@ HELP
 # Handle --enable/--disable subbdir options.
 sub _process_options {
   my $i = shift;
+
+  unless( $i =~ m/^-/ ) {
+    push @argv, $i;
+    return;
+  }
 
   if ( $i =~ m/(enable|disable)-(\w+)$/ ) {
       $subdirs{$2} = ( $1 eq 'enable' ? 1 : 0 );
